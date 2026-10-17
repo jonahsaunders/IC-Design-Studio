@@ -1,0 +1,3113 @@
+{
+  "date": "2026-10-06",
+  "status": "Fresh Linux and Windows runtime installations passed; full public release/tapeout unqualified",
+  "source_commit": "28e3d24c97afddff7c195d9f2770fdd22019118a",
+  "backend_sha256": "ac32262a7d7862d184b884ac253f038117704c128be071406867891101e1dcaa",
+  "backend_source_files": {
+    "__init__.py": "a7096e59a4cf2fc5e46fd1b73c437cfe3b97660cae5e874116642fc25c3da5be",
+    "__main__.py": "6970616749b653499dfac1c2c24756d1103af650f947bef8f19fa2b2c39f92b6",
+    "analog.py": "1af5b662ca84e3d5eacd33cd7a8d25f5f9e51df41f5853e3ac6b0c4ae3b679a8",
+    "analog_adaptive.py": "53ffc6fec63ef51867a0c971dcb704d2cca52096a7733e63517eb8d96eaccb9f",
+    "analog_advanced_ui.py": "52759853571636a81a9020567072fe2296308350d2cfd56af444ed6ebd74f4ed",
+    "analog_automation.py": "5fca854523612c56c4362d91de190abf2e79155b92e1b2250a36f31c796ec5d4",
+    "analog_bank.py": "2ca6cc7d4233af15ab017efb262d7555e15e4bfca2a77bb424c39ab350afa2d7",
+    "analog_bayesian.py": "4b75904438e4b92e3988ad3d643eabf16f4f2fe96a2fb600f3c8168d59e4a649",
+    "analog_characterization.py": "8195595b6c0831f486f29f707bcb9c0672221781e01fdd4252cf8789a3617649",
+    "analog_characterization_ui.py": "d5ee933f2e7d08eaf13893c228bd0000abf2f628765d1681d509429dce158e27",
+    "analog_constraints.py": "75caa810aa71b80bb76f489bb0d180cfc7b59ebf3e8830dbe02a61475a662f99",
+    "analog_debug.py": "0a719a05a04723a09a02779b303d58cc3fb98c893dfe07f6d85b2f9116de33ce",
+    "analog_diagnostics.py": "f7dd5dd9ed0b11eb20f1623b8f5ee9e46fde5493c6ba4584f998e82cd9513646",
+    "analog_fidelity.py": "38d2b7a873eff5848a11ed898d2e5722c9020261c8269ea327d00fdb391e1632",
+    "analog_guided.py": "2ac6ffd25dc41c0532bf25cbceb87a126976a5d2bc24ce0d44b8f160df2b1441",
+    "analog_guided_ui.py": "190a334957e03673810e18911d774c547915634b640ad6f3bf0a411977ebcea9",
+    "analog_layout.py": "c600d1be8a3082f1b3f463d24fefd921e2a25001d84578d34e85ebe63d46ce19",
+    "analog_optimizer.py": "e81ec268c0cc79300d5f82c4f205edd9e9479e91a13563a834e2fc3af4ea4155",
+    "analog_optimizer_ui.py": "0ef5ea9369812cb7619f5343df4bdc67064720a664d5994cd0fe60f687ffe759",
+    "analog_reference.py": "9463f678c5192db9ebccc74acc1557c6c9a66aa17098b7e1c59d39a4e9ad9f7e",
+    "analog_robustness.py": "1e6c26c2be0b14b267eaa54f23ac24fa6fa9fb85ec6d3c6f3aaf73b360f61648",
+    "analog_run_ui.py": "ee729e38ea447c318f72013485271398cdb02e395d2ff375eb880ed65809528c",
+    "analog_sensitivity.py": "047b884eec47a044e0675b94605fe82efc0bf00cff63b9da5b7b57999fa01e60",
+    "analog_surrogate.py": "b1a15ba1c031c87c9dce5313adf6e2be24f42a82dc9904e1e008751c900aba44",
+    "analog_ui.py": "3c851e98632a02845746086fc2b3d3a2eb421a1944bf9edc2e03898be9cb5563",
+    "analog_widgets.py": "8da9acbd6c3ab1b1e80c4134337cd34467009c7abde449a9128ad18c75e54209",
+    "analog_workspace.py": "779fe36062d0743cc13b272bafc7ebeb7c2e2cbac67b7688b0749ea54fd76a3b",
+    "analog_workspace_ui.py": "b8c2229a35af525e045cffc6dbcadd9c33a0ff6115e8726e9c662f4a99d8339c",
+    "analysis_plan.py": "3744866057f202c5712e859c81c7bd86ed1819cef50906a8d6180a18e5746520",
+    "analysis_sources.py": "6cfb59700c5342346bd2654d13b1f2127fbde73ee811f9271335a347cebe6094",
+    "annotation_ui.py": "4507e6b491346417cde3e7501a937995db05cdd031ce779c8229ee45e71b981e",
+    "annotations.py": "b0c86c188fc6056e91be9ee0bee6b3e7aea880847f9b31903920b9269cd7a3c0",
+    "app_workspaces.py": "af1187a62cc9f3cd02b3f58c36378805337da6845d6f81701d7f55c798712ce7",
+    "automation_benchmark.py": "dd3fb5882d624e4c5ce152452edead875faba4965b1d7dbd5452d36e9dd09f45",
+    "automation_cli.py": "faccb09ab11a844bf8516ceea578492bf3a6950b161ce81f10cbfdcaa21edabc",
+    "automation_ui.py": "c493e68233689591da04c999c4f3f07f932eec4c94cf488f19ed1ec802ec614a",
+    "build_identity.py": "da9f4d0c843ab6f96ca2aa05fe61e00ab5dc2333447564d909e981ee61c8fe03",
+    "build_info.py": "4e2ac62f1d34cec2ccc4cee6844908ddf775e5f7f032a2ce5e52385f0160c033",
+    "bundled_pdks.py": "5dbf58014a86a11217767dd94dec3e86b6603f665b33c3eebea61f28aee2a39f",
+    "campaign_statistics.py": "8fc2887841e963e1d5f4636d50d715f004e8d9e316d160e546cadc006744f868",
+    "campaign_statistics_ui.py": "de4d1560c9a5ded129fa16c01091613d0346bddc9297e66ffd800c60e739f0c0",
+    "campaign_ui.py": "71ef936b1b5b1978454ea61b5a212e05fc3e059d0aca20d65913fea978232256",
+    "canvas.py": "7eca313a5132facbbf33fef64371559064132fb696334b261943af0c959cc0ed",
+    "capture_keys.py": "85d1e423ae41f52be1b587058d95232ca5294059faa63a78136938375912004e",
+    "capture_ops.py": "cf3a39ff259b617b3ace68eec6cf46601401de09af4fc4d025b3af38da1f7594",
+    "capture_workspace.py": "02d52e5f3ee6a23b84411af61cd0c11602ca9fd6d75b6ecd7845d491f14f0bd7",
+    "catalog.py": "9ec02006afb2835c3be9ddb3db5ad03540b382f0d6ad53559295229505a0fc81",
+    "catalog_migration.py": "f95a1b5ee94f15b9052604067d37580a15cde7bc3ef8258c4db1e13bf28ccd8a",
+    "characterization.py": "8b740351cdb681cfd55f05adfe827e2c746a3b2b0874412ba43f95a71d9a52c8",
+    "cli.py": "6d0364b93fdc03460d4102a2f59d734e78229c7aa1c5b14d17115eb3f6f7dc65",
+    "collaboration_dashboard.py": "5d3d64262d04fa1c63b7f8657a6f8e5218d6237d2483a3329a683b2f53206879",
+    "collaboration_document.py": "7c3417060041a7d4641b0afcb4faae37bcbe66375c99a61b47268a4dbeb0dced",
+    "collaboration_review_ui.py": "0143ed2cee159a34934ff2b816d344b3b9b6b5a63c7cb871303815bf097c9140",
+    "compatibility.py": "0e9a431d93595593780f577114d38736e4091df2dcf98ab1a1571a69b166d8c6",
+    "component_browser.py": "e1a584e95e569d9bd7b5979c11090fed17051ba9cecf6bb011cb003af25afd34",
+    "component_preferences.py": "0b2962ec92467926c7715fdb60b03d8026a6da8a207831ece4f519ff3d584912",
+    "component_sources.py": "cfa0e213910aea9ecae9381f84c247aca934a02048344fcf278103cd75fb8653",
+    "components.py": "84d1842c6824662d72b4539420d78071d14aa54b4f3a49f676fd9838edeb0314",
+    "consistency_workspace.py": "0e714e5009cf124ab2d487f2d8c75f511f35f870f82a73752e4a00e313019a57",
+    "contact_rules.py": "05d3ea7ce39fee05418f65f0224a7785a6f0a299a2f9ad6ef52a1a89e0846df9",
+    "cross_probe.py": "6fef035ae74c719f63ba5d85ee5338be8250f7cb786f76f8f4e5737c325c1d84",
+    "dc_startup.py": "7ca5f62a6c5724fe5834b27828f4bc1f612edf9aa8ab0e5eed6b6535a6f3da08",
+    "design_automation.py": "bd576b8f9d566332897eb959afb579f3357bbe58154b8d6179b1867bfdf5dc76",
+    "design_ops.py": "80cec5dea5728f0bdbe709051e4d3f0adb6e6b490af622c9ec9d30bdfedc345d",
+    "design_search.py": "906bf21897d3d5f1eaeaf6b2f4644e9f9ae4795d92d4378ec70f52ce66d6b665",
+    "design_workflow.py": "02e9a3c1ba98ac4b082a99dca608cef96f34016fadeda01987d12a483d022ebb",
+    "desktop_acceptance.py": "fa17b4a1a14acc6a49b56e1b90cb550c07b1f22e9126dba230e7272fd60865fe",
+    "digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+    "digital_apb_example.py": "0eab253a16a2292d6ca32a602f0160ab5f5f531eed7981b3cda1b28714e9c288",
+    "digital_backend.py": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6",
+    "digital_cli.py": "8d32654db5cdc002926f9de14b7ae0a4d338ccc3dd728f25ea21fa6455fccd83",
+    "digital_constraints.py": "9771a358129e78f7b7bd3dc2f08fa8fdc952d191b0f14b8873212945fc7005b6",
+    "digital_constraints_ui.py": "a7b3a4f3b428469656d33294960d4d4a390675135b273f3ab9959b9382b42fa1",
+    "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+    "digital_editor.py": "462152c2fe423643ea203bbf5456fed342e6c33d59498636ea8953a17bfe14bd",
+    "digital_examples.py": "9cb9e5cbf0afd01abc329a6dbcbc409680d9ddf6826073ca61297e513de55b25",
+    "digital_flow.py": "049be2b5f1120ce51fe4f2a03036a56846e9e08d9e667b74ae8dfce49ff683fd",
+    "digital_identity.py": "eb729eb73a3bdb67848a5d4cd9629ede72ce729e187e054f5de53769f8145ad9",
+    "digital_implementation.py": "8775ef393f39ee1562a722e0e795ec3e2a99bb3166230e4ebd3e27ec40aead40",
+    "digital_inspection.py": "b515de8a5d8bba4cddad9a6f993b323933697e23f29195e8f98f4d204c90a6bb",
+    "digital_layout.py": "490c6884d012a9f5348e5eef3bdbf25bc5012e9f452cb6926e24fe64d8243265",
+    "digital_logic_ui.py": "70492458c40e98498cbe47ebd4fc0a9dbbde8912992601f39050742dcc83a7d8",
+    "digital_lsp.py": "1555f1bde82376814d27558ecefa578389b9abe05c491c6e933e12a711c4e67f",
+    "digital_macro.py": "c967328ab0ef04bd9c3e503348b2c5010e505201bbd668b90f75c5ea02a412cc",
+    "digital_mapping.py": "7890689f3b697c2ddd87e3cd240e4eb7307b99cce323f81b207fc40dd7b5b34d",
+    "digital_odb.py": "83c80d8d35e2ac6edded3f022181df6d58d5111d02dca9c3b663d6446bb223cb",
+    "digital_physical.py": "c2634671a96dfb80ef17e1ec0a25b46426c3d9fdf239449dc20201de934d3282",
+    "digital_physical_ui.py": "8d918bc11df0f5c34e5995f98b0f37f8e2b873bbd87fb42cbd805caafca6ef9c",
+    "digital_physical_view.py": "97cb2fd302523d198dfcd0da580c6884a8eb6ecf8402c95aa0a14f1d3053b7ba",
+    "digital_planning.py": "73602bd3b1afb0aaab5243b5cbe655bda00de19dd7459713569275303b91a527",
+    "digital_platform.py": "67b3582a2c60b823846d66df2f3d2a4ceb5ce8712d0989c5a8843f8d11f2453b",
+    "digital_qualification.py": "89995283c03fb8deca5da283e016dd506303efdedf6dabe26e947b26432c9b2e",
+    "digital_rc.py": "2890fc4229205a007cf928edede9b18da3d1569c81a35d8f48e53d24d957c877",
+    "digital_regression.py": "65673f44e8fb586403257696c13fbfaccc2b692ee69e1029e9bb71e30b650f2e",
+    "digital_reports.py": "8d915e4e49839afc521a11a2bac0a31bdcff8ded6f629ac6dbb8c6f25d1f5deb",
+    "digital_runtime.py": "8a11b3be62af512ebcb4d4f4ea9f17396678b42058ca2cfe2443f95acfd0bd6c",
+    "digital_setup_probe.py": "3006e3c327d25f87bb984e4173637926ac32a812b589c725cd950132cb1380f0",
+    "digital_setup_ui.py": "cbc4a5e21932d01e5932df27f787518f2ce6c43745a8a5e6fe88a9c1a3884c20",
+    "digital_shell.py": "55bf0796bd46e4ed31eb2200d663cf6e5b846174cfcdd5de5d12dd96d6f22b13",
+    "digital_tools.py": "d53090a2d97f432899086846d2e2c10cc4d47bc60d78d7e3d51b06091a408660",
+    "digital_trace_store.py": "f2b5be9e2c0d131496c707cd08073e9d452cc2ff69570f9dcb933c18b411113f",
+    "digital_ui.py": "687e51dd51cddc0b0bf49d20de34f42d95b754cfe9c9e83caf68713c6c52b259",
+    "digital_vga.py": "770fba42c61d20b05956b407e4d0152451b5aee377e923b554870ec79d1aef4f",
+    "digital_vga_ui.py": "6b0c5f017cba7ecae1b2251fbce588a7477602f83a7d4f8a3117246b3256c649",
+    "digital_wave_tools.py": "f6ac733f253fd287d1f506d76223cd580c26a63c48e80ee0926c40e10006e8c1",
+    "digital_waveform.py": "a1f48745cdb96e75a9bcab14646621df636272254da9fee45f43820716489ec4",
+    "digital_workspace.py": "9eff651934d4ecb602e1fef218d9a543d13b85569f312e9088a1e82311fa9124",
+    "distributed_rc.py": "e741914a7d90fa68940d7e994d58b6d5c8672039c9e912b5295ca79fc50de79e",
+    "document.py": "98ad76b41b5c8fd55da7da998181114ba442a8a4e342063f79935858d556fc41",
+    "drawing_canvas.py": "6944a66957502e61c025939d70bea56b65c02f7d12d2946ff10043d95c5be711",
+    "drawing_options.py": "ed18f4cced88fb0080f7f2e9784640b90eb37303ba41515e47ec31c11ebde629",
+    "editing_assistant.py": "416a6ceb3776a02119c822935d7d85808b291c531eb5a64c8597aa1a69c6098d",
+    "editor_canvas.py": "0db600d46dffb8fd61068530cba6fc958c74ab23c3f2f7edcb29821c163955ba",
+    "editor_ops.py": "836e0ab9dbf5a5da90b23632e436d0294df55aaf50987e5c282209b033db5a0c",
+    "editor_workspace.py": "61dec3f76c26c475e97cfc5bbc7f47caff90e277b6b4a246abac661836504dd9",
+    "electrical_identity.py": "f7e764f0375df57b2eb53e76ba775161372b30a92dafe5c2f1ae82198780c16d",
+    "electrical_rules.py": "e3e78af7726258e9cf21c5517777602ce0cd659f6e6670a7b77bd692be0a113b",
+    "em_profile_ui.py": "74f5e0ba4f92b8e4b9dc85174d56b41def56bc613701e483693b0a5ca6cc71c8",
+    "em_technology.py": "adb57f81dd63c245843bff04c69a4e085a72525244d62c4c810c5a7341402829",
+    "engine_selection.py": "328a8c0ff635a0733c5bd6f8d2b9a6fdd56f8952f801403605ecf90de824f1b6",
+    "engineering_workspace.py": "1f402122394d445e1e524d12113cbf12805a307d681bc34ebfe20c118ebce083",
+    "engines.py": "50565d2f2077a119fe77b25c79ef79729e3d0e4b3ee5dd4b37eae2c92caceafe",
+    "example_schematics.py": "dafc6cf5e706b55b7a04c585c507a9e69edde0fca5285ce583b4bb4991c05d83",
+    "exchange_review.py": "5fa840c94de27c6da0e9238808664a9b729fa952465bb42c54e66bfa424f3f52",
+    "experimental_probe.py": "c6ce90154a00b549b458c6f9430c75d797562a7d05b4e2c1e9ae5a4c38563da6",
+    "external_tools.py": "8e4131b26d09b0f56381ca1439fe854f2585141d3f402a14c0c5f3fd9cb04fff",
+    "feature_cli.py": "883a563ff7de1e06566f683edff01eb2d7863e0a192c35dc215b97d94a925bd2",
+    "feature_ui.py": "3ec28890960fc6948ef43e8b1d8574aa5a4b207497ef5b3d887fc67d424ae881",
+    "fill_capacitance.py": "778c22d2e611b9562ad4d0f26c51994071cd03af57de31db6a6b9c3749143d0c",
+    "floating_panels.py": "401f3604949706288bbdc98e34012bfc1075fdb7f1cd92f5cc538fd67c04540b",
+    "getting_started.py": "7017bc6d601c10d8b75f4318e1cb4cf20f940bad3ac73b40af49e577e4ee35d6",
+    "gf180_layout.py": "744555609e25e0e70aa5f58f950d327eb224682f23ed4c19cc8b3c834876032a",
+    "gf180_rc.py": "9c89b5333c453948f09e2627cb0daedacfbbe9189de1763632a0a4a661af3c04",
+    "grid.py": "1ab9ab1f59dd391e273056e054e9f22fc26dfa7d983668b8d323302b01df97e5",
+    "grid_settings.py": "57fb262f4839535574aaa7d776d5eee1ef90ea617b5dc3b1d9df464c65de8dfd",
+    "gui.py": "6d0cb7f11ee948a17da3554661dade9f47d5ca8ff406ef692ee5294a62c7c997",
+    "help_navigation.py": "b2bd4685cdfa356286ecfc20c76f6a166c3ca98219a05794ab0d6de5781a5add",
+    "hierarchical_flow.py": "dd30dbd93a1ef9fbfc2f3ade72e446fee308cc2fdb8eb1dc6628c4c8aa45ce28",
+    "hierarchy_ui.py": "001f4b7b5c7dfe9e3317072b05936785e70969bd568acc61f9eb6b5525fbdcc7",
+    "history_delta.py": "67423f55117df83b903103856934e70ecc2d90900adead5a012dafa73c257878",
+    "host_annotations_probe.py": "f4077786ca5644f5c9a0adacee0e65de0b0ba8f494ef10f44d447ad9d5a4a53b",
+    "human_workspace.py": "ca16daa9d011fe70533ed809b3532bc97ccf145fa87be8785fab03fb42d7c7ca",
+    "ihp_layout.py": "c9cf94b535a57aac4d677be853b1156c01c58f25e8322132b7cfed56b82cf284",
+    "implementation_views.py": "618a99e750869c7aa60880c8e3db840e52cca43a05be5c497a0aac4b98184911",
+    "implementation_views_ui.py": "5e453173ce74bc3543604cfb8876c857a588b6810b484471b910ae15ff428954",
+    "import_review.py": "5ed22432ad35921c3dbdc25667e2cbed4a8e0aa24da70f296a4b1e71704d0ae4",
+    "inductor.py": "90a8ab2a870a9a86520b2e75fc3127a047a2a8c808df37a1bc3719592283d9c7",
+    "inductor_design_probe.py": "f186d7f610b835137bda0b5cd7f75d015484f5e4df13d3dbda1644eb04219bf2",
+    "inductor_electrical.py": "085bc54da2475a08230ca820f0108e38e58fa6d4e71fbf96d827ca4b23585bde",
+    "inductor_em.py": "5f07f47c809a78f4477bfc5faf6b15b245633f8e773feb7c7003a652a676ec7f",
+    "inductor_em_ui.py": "079ee99594be0091fbbc3dcebc1998621e2c77e6abab0339adfd22dc0070a4f8",
+    "inductor_jobs.py": "40fe311cbd365f1c46436a006851511b53ff3f8e41ade40e442ab2af9a12efe9",
+    "inductor_probe.py": "9da25c7cc63034e5e98f41f5681ac4010ef294fc0583f4b69eb0fe296ffc5fee",
+    "inductor_shapes.py": "5f59d502573d1db73a2eba3094f8aa451c659dd10588102cc87fe0cf3100ef79",
+    "inductor_synthesis.py": "cba28de24986d82a1d9872588a594a1dd7d581014ff7bea45fc591fb2b0d037f",
+    "inductor_ui.py": "590521225c1db56c13d24bbf21d4eb8933e0be2afaf4aed4f8de47a0e3da8825",
+    "interchange.py": "29993ee82c62651d08334f94aebffac2b6c162681f5b6ef429c8c556dde34616",
+    "interface_ui.py": "757a6628dbb273d2eac480f6966954c69e6dc24d52478bb7e9ff119914bdc1af",
+    "interface_update.py": "7a5c8252007659333cd01b59573a0558bd06967ea82fe9f4adabcccb705996f1",
+    "interop_cli.py": "ea188113be46da108f7bee7e614d4ee93708a902379e10441798c9e8cb15690f",
+    "interoperability.py": "0030559c4459eee2da740cb2432f0571604022e51b457d3238b902d619a43f17",
+    "interoperability_ui.py": "c52924c72ad0378d8be1267b0ceb5463f97e810c66d7d65f787e11710bef5602",
+    "job_store.py": "a357ed98e9f7fc7ba11d335c884b43b7f35e490e239c01a85c63dc42e5ad8c37",
+    "klayout_lvs.py": "e4d80f5c9f77fba3fb7c21ad4b9128e5c4899d6110a22008d3c511c10044c9e8",
+    "klayout_verification.py": "5ff4f96863a4066d01be52eee4ebdf75c34b110408508d2d634da1213a1860b7",
+    "label_canvas.py": "3e907c40d6e74a472216f19712cddc821ceb63f4cdf4f5332219269fdce2a4e5",
+    "label_ui.py": "0c2c05568ddc9d370931e3d43d8fecf75ee26902e8e8cae9db769e11bbb30c9d",
+    "layout.py": "eb6fd29a4dc7841622066df382389422d9fbf90e100cefa8f67855751d5ad8b7",
+    "layout_3d.py": "5c0c00e10acb47341031bcd6e3498aea1b7aad62eb018d1dfb50302914e051df",
+    "layout_3d_ui.py": "d0980be63406de5446c6cfb858d0e6200d978fcda0a0f2cf8afd82ce0efee799",
+    "layout_3d_view.py": "655213a18ffffc62e3ee2d412675d7c4629ae6364c790817b744ae253c909cf7",
+    "layout_arrange.py": "2bb81896eaf5a80e3c0bb6d421ff800ced848dc8a550d1918797bde743e68489",
+    "layout_attach.py": "7bff67750ada406998b0a3d078b105b2c8d84a7783c7e99748a672b91338fc8e",
+    "layout_cache.py": "bbb8e586797eac4d19de198f5245b86af7996000df9d69241d1be09a914f6cad",
+    "layout_collaboration.py": "bd22f6af16fa847e08d1bbf4d6b5559c42d022a3ad16d7c7ee6404ef9bbf2a20",
+    "layout_collaboration_ui.py": "79a4e811547f703e3950143ae258de6e4f022ea41660fbd34fe2a6b3808554d0",
+    "layout_comparison.py": "1b873c09169048ca9b4e88032763c049cc8fdeab387fadfc4c6e1a768090ecd9",
+    "layout_development_ui.py": "7debbb6c0270a70e8746056d3606772a654c20d47c8c335a2d489d847bee1fd3",
+    "layout_eco.py": "c185727fb992dec5d1a1d2bec915ce1a89746c06a59c5c8c08f1c19e82e2b40d",
+    "layout_eco_hierarchy.py": "0938773f690c3e46e4601f9bd33d9f7071003e81b3ec9bb66186d316ab03083f",
+    "layout_eco_review.py": "190e5375239585f27194a08a2fd27f03246b34f1cf936ac7400731b988f5d7b1",
+    "layout_eco_ui.py": "1431d0022adbb761428e9977f5ab345718eb62a2d070688037a197ff09f75356",
+    "layout_edit.py": "c94420b4aafcc90fc18dc225f227e4a27fbbd456218a0ba4c82ec24ac0e4d136",
+    "layout_exchange.py": "8e81d57186de6638349979d85f1fcead6dfd52b4c9c42779854f77bad9b50a49",
+    "layout_graph.py": "1e2b82c8e37a049f303dfa76740175826d302258a8e1127ba42f7e6c28b488e4",
+    "layout_import.py": "2ced19046d0462a2d95cba350f527be388a19dc89e71778e489a1e9bf206ea9e",
+    "layout_index.py": "8d6029c68584e0a9e91900386c6aa33a30769d41709b5cf179e7093306d372b3",
+    "layout_inspection.py": "6ef19200b7d820091aed0ddd86f64d91d815952e55085d2e21c65996811a5775",
+    "layout_jobs.py": "c3d42e76384c5dd4f426f90b5785ff6fa685063111a41f4bfb78139394684032",
+    "layout_limits.py": "7c8f1ae93ccff3b5a08de2202b17cb5c60fd894130e30ca495c3b510c2467ff7",
+    "layout_routing.py": "6ea312b7a5b67cc2a49cb3c6d1398b5102b4bcd799fbeb3e148cb4b7488ac49c",
+    "layout_scene.py": "50687f558aec46d916cc0257b1ff922d56eaa038d13c0dd629bff778b5d4d606",
+    "layout_snap.py": "6d8978d7eae134683139171d5515a9f158c5dee16a648f93de13b4b3c33b2d95",
+    "layout_source.py": "2936d3e141fbb6cecda665c4b81158a2c2235311744f32506f84fc2ed6c90a2c",
+    "layout_tools_ui.py": "6aec6580710113677d147397a09b1cb59fca14a1edf640e49bad26b14af758eb",
+    "layout_topology.py": "5fa01fa557a8fe5505f07f51cfc9e06331b13b734a8c58e009b873d3397f0c1b",
+    "layout_transaction.py": "ef7b26392650ec0b2a401fc2b2c9de6e7a56ff2c6767fa13915293ae845b8efb",
+    "layout_ui.py": "4aa4a464aa83e02b10da1f4ff5e73b692a44b481dc3f62afe36c2d7b793210bb",
+    "layout_verification.py": "8754f0a9a0da11033f8d1241bb126a7b9403831e79b5090dc4bd4e4f88c8f717",
+    "layout_vias.py": "33cd3a59330ea0a1d66d69491e039e6fc0e6af8696fd66b2259c0e33876fad18",
+    "lifecycle.py": "425e769b01a654e6d9051680dd56cf55714332d13e1308c3c0e705ba7da52c22",
+    "lifecycle_ui.py": "946f11025bfe0774680ffdb119f2d6cbf9623f3d6e552bc2e81fb959263fdc86",
+    "live_client.py": "5601a0a6d79c5ebe4d0f07da2952490a3948ba0448b0ea5ded499adb0fbddbc0",
+    "live_geometry.py": "ef0b861eb43599af50c6ff0242ef78709bab692ab78c7693066951eafdf98b42",
+    "live_probe.py": "e10ba0caf770bfd9be306fb98f0c3d27a4d666bfdbb2e1b55e874e08f3b8a252",
+    "live_protocol.py": "4a8bade7541b7c316cc734d4a9d8766ba9addb8399991f891eed663a08a10186",
+    "live_review.py": "28cdddd234f6fe8a5b8eba944be0312237753c1625675443aeac113559fff260",
+    "live_review_store.py": "7ad684070c2e84c2dd07a4a8777218c11ed179c1ca02cbae3794097350d374b1",
+    "live_server.py": "d25ed75bd8f6efd79d925c7c89c9f9d9f477e5a4cf46ac908289ee0f79607fed",
+    "live_store.py": "200e57718424c63a2f68347993f28e1888bec7ca14800a7b3653ddbf3cae0cd8",
+    "live_ui.py": "096cb4f40a091dae8adc163a72ba8bebcbf03a14f30d4c9cbb54362d699c5cd1",
+    "local_collaboration.py": "0695ddb93a7f67588a9b78ae438ee171b6ebba454da9f97aca30a02503717f4e",
+    "local_collaboration_probe.py": "d56044da5b93be25812cee82418a55a9bc817f6782143dfd34bc3efc0817fda2",
+    "magic_dependencies.py": "ec33281674eb994a6f8e6aa03c1901a96ff44f9184be929061a6e828ad112ee5",
+    "magic_rc.py": "1c6effcc90b9b83e00a26f8f1378028d02b19d90f007b42269cfe6af6a7763f9",
+    "measurements.py": "cf61db3def473aebf6b0aee3682bf36cdee02050a4353daa673131a9b32228dc",
+    "menu_map.py": "4765514d333af8534057932d74e0665ae92de5e9f886e4ffc83d3faed2412072",
+    "migration_ui.py": "9930cbac2ad179afb138f5b11dd722a4500a8a3169cd63ab0c137209f6917c08",
+    "mixed_signal.py": "af857b8fbaff991471cc64480538da9b16d5539078da4cde38d56bf0a806851d",
+    "mixed_signal_ui.py": "393bbb7171fef16a0192c37ac07a85541fa3f0f9054d01237641464aa33e8da9",
+    "model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+    "mos_array.py": "360ffff317bb86520a187f402fbb03bd68fb2a0cf0dc63754dc373928e3e0ae5",
+    "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+    "native_core.py": "6b97ec807f41ec81875a5fb9400f41d95f67ad617eba6d475f11f35fed789006",
+    "native_exchange.py": "99efea89e7edcb957eb5de44574b522ebb853b5c0a35856388726d5bfb32570f",
+    "native_migration.py": "81efe1d4ca5a5e9dc63b0b51435fb460ae5049ace6eb20858d67e6533e009ad6",
+    "native_physical.py": "602e96ab1b294439aed87f64c5c6cfd6cb0b94d4fc6b18c1dcbf2ea2ff907cfd",
+    "native_spice.py": "5f841b2b1fbc9151770e011929bb54253e48a1fe2277f474f7e35c7962bbebaf",
+    "native_vectors.py": "79154c357a3f06715e959af3f55a0ab20c8c3101f47d0975ee673372dfb2ac01",
+    "native_workspace.py": "7663d08ed0965b87bb922483349ef47e5256fc01969ea2dde2a4c52cdd6c177f",
+    "net_labels.py": "f8d1b7f5462c2698c97df5dccc3ce497e23f81bd452f798bdb679c389fb131c6",
+    "network_collaboration.py": "909601cd32b1a3a91cc0d851d4a8f9acfff63ce65f1494566c6d7d97198e6f14",
+    "network_host_ui.py": "30abb8f7cf4e70afa2508c0f2465f54ab6f322302945c8e9db965437585424d8",
+    "network_tls.py": "a56d0f1d6a4d4a90ea11003656c48a127ef788fc7d1e47a8e70c0af53e693b41",
+    "ngspice_compat.py": "8ea16d8e5ff6a6aa947f0ae635097e9895131738491b4d5674ae7aca0ed5a50b",
+    "onboarding.py": "fe890defaff89aff426a6d8d29165fedadb1f8cfed9de7eb0509555b59725bcf",
+    "openems_backend.py": "2242af22ce30b60952f27b520c969b809109e9c695fb7a1993c6a0ad4fba042c",
+    "openems_runtime.py": "cde41317ac8710d2d189f881b16bdfe53f4fe5f841f4ee7de215582315546a18",
+    "openems_ui.py": "d110fd3a4416fe1b2bf989bfe0f98f67868a09dda5068e7dbf66a6b60193ba05",
+    "operating_data.py": "34036270b71e9a033cc90f2054f6f3eb854be68a49129751cd6437b30689fcb3",
+    "osdi.py": "957f657f2578aa07e0466177eadf8b3e929be8cbef3a1ac8b225392e887c364e",
+    "parametric.py": "0e2c726b9c64fc2e537675f22de9a74f08ea73b891380a0d506f857b8ec2fe35",
+    "pcell_library.py": "22d2f2803afe2e597c526ecb0de5494c2733132ede09096fdf465859cc84fb45",
+    "pdk_import.py": "b6a6723ef2f2c3a30ef013cd1afe58996c1b64a3381320f69bc935e5ce75bad0",
+    "pdks.py": "275334010a5156b7e11f4f763746b35996e564af2a8b59576d71035965590623",
+    "physical.py": "c30fb4ee16a82867952f5c3f0daa2f962e34528be862f75b649539d0a3d8ac1a",
+    "physical_backend.py": "34c0858d13815bddf12f9a93839ea29bdd932d9b9689981c1e851b85f1fcdee9",
+    "physical_cells.py": "169d25942a62f8d60fb48e25e367818b753673fcfd9fb85eacb8ac03f9ee8f2a",
+    "physical_desktop_probe.py": "ca8804a0d823b7ad60938a6dffb7a7e7777e4d9230cb7db129217259222d60f1",
+    "physical_extraction.py": "5d6dcaef523d6202dbc1099c80999c50f3c515dfe00cf45578094e63a71f219c",
+    "physical_hierarchy_ui.py": "ec6bf4c97242ea4d85ca2e36a84971227d3f32188ef4a87a4cb3a8f87e5c43ad",
+    "physical_runtime_probe.py": "c016035067fe045a3afaa54d62406818de047006dc7d0d1756ca739b5ff81c13",
+    "physical_variants.py": "ff37916e3add634bdb36c910f4d87f024844285bb762b6dda2e1dfb514c20587",
+    "physical_workspace.py": "57dc4db65ba7c2bc80e08a26d9fc0cfac92b14efba3a30497694620d03b3bf99",
+    "plot.py": "952187010cd6389e9e04f54d414651273461a746e28ff7bd5cfe7afc9edd63fc",
+    "process_adapters.py": "dbad8dadd6d610dfe1fe1d41ece85f031b8636de390f01f96f2a81955ebe9dee",
+    "process_mos.py": "ead3ad5ef09812c9f7d08ec5bb7c1431a068e69812244d82c976105306278da7",
+    "project_hub.py": "6786a20992be344efa6f656175c0fdbef27877d26d9eae4cc7574068c9fd5028",
+    "project_hub_ui.py": "864d63c5999c1b6b8fdb6960065fe1ca690c658e35c2a11da2c9ce3ad3354e8f",
+    "project_manager.py": "53b263812d010c1b5c948e10c21f3381491c1a36f41f95edab442f720db8c8f9",
+    "project_store.py": "b181a3cf9b445bed24f062b9d954f8ea44f9d25be04e69ae35177b9e9f649dd6",
+    "project_templates.py": "daa0e8c74ae5aa2d76b5374929db8e2526612b76fcaeaf14b3d85ecadabab89c",
+    "project_ui.py": "063eab0b10d459bbcacea1b7a0c647bb5e3193dbf6242f45ab2bb0ec0e29ec43",
+    "qualification.py": "6842227b4a3c1e31ad1073e88efa3a43f67ef146e2ab53cb85dfa89a5d8286d3",
+    "rc_calibration.py": "9c7652759ba38c8a1df012d1ccaf7b4ffa86b3a3eb567be7c24ce6abff3bbdfd",
+    "rc_hierarchy.py": "6a0363b1d1a3af8426f0ea11d4138edb923c3a8acd0073faa71d87e78f4341ce",
+    "rc_islands.py": "bcb1a1b5c419a44d3040e3564321472f0c92af91b30d8cad2e8bcc21647638de",
+    "recovery.py": "64b831739e45388b7ec0ad846df7c58a22bacd28f9e27b1dda3e49f598f0fb81",
+    "recovery_queue.py": "8aaea8a14381b504a6779d6136a1e09d58aacd77a1c4bfd159054d8bd5551c05",
+    "recovery_snapshot.py": "9c586b025ac7f84279250d1dd95a0314d0a641e893edbb03e2f52f446a208bc4",
+    "recovery_ui.py": "5954fc52d222def0692da93b5a87ed64f5229d49c7ba231ee71b46f1eb51dacc",
+    "release_acceptance.py": "8b107f3984e9b8afaaed93f1b752b6226f00805410acef87fe544461bbc187cd",
+    "release_probe.py": "d845982b67eaff430309f0be3737f1328e0a8fa3bdf5e85d5c5c2fb8c6d52e15",
+    "review_anchors.py": "18cacb98c8361c333109e5a8a9adf7abfa1d347d38f5d38436b72da330871001",
+    "review_drafts.py": "ba3f5c2c11bc3db90ff3b3a56c30df447391f2baadeb6db2f9002d0f4104c13d",
+    "review_outbox.py": "3c0b15b88e95812331c7ac5a9cc97804355b1d7fe5166cb44f8e232efa2dc8f1",
+    "ring_oscillator.py": "ed97d7fdb7b577d040eeec7ffd84db9b71c0072e90cf2019b21add7ded220182",
+    "route_constraints.py": "28acd120b85cb6b03536ff23fbd9eb1590ac1eb1f45c50945024535408a2ace6",
+    "route_interaction.py": "4b3e1b27931345242db852b6d11e3e1991bc45e0876c16f98f6551685cf19cf4",
+    "rule_bundle.py": "ff481ba9ffb87fa2aa8b4050eb5143dd52740f1ba90c57d1ce8627599cc30fc1",
+    "run_environment.py": "8bec9704bfae10c44a4c9a9dfcc66e12441b6d43d0f0a69c52582baa191fc112",
+    "run_manager.py": "2a66ed7e675f5526e47e9c7c7a67e409c4c03373120d748a0bfc4aba523df736",
+    "runtime_setup.py": "3c3b3c270e76bacec009adae2fa9b5ad4fd1d02f387a91f9f4d84edf1145bd9b",
+    "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+    "saved_bench_diagnostics.py": "27e3978c448c649fbf60deb31bba24612a857692aab01086019a94f1da525e98",
+    "saved_bench_diagnostics_ui.py": "61e0d71823e79d2f8c2e638e793b4fc1631c5585a4ebcbdd27104eef2619bab0",
+    "saved_bias.py": "296f7b3662bfb17daba2aa0a15f46295ab4f9618e04d7452267c3b7d78c0a223",
+    "schematic_labels.py": "945645b83e4445a4f4365ff3e2ff3fd7cd9c4ed78104a68f25bc2728bc08b609",
+    "schematic_transaction.py": "1906f3467cd45301df826a9beecca4b3317f85c3d39c06f1a003a752a94e2aee",
+    "schematic_ui.py": "3310c2b775f50144913c99a9c6a40ea88b0bcad970a8ec71170ab2faf8b10ba2",
+    "sdk.py": "1a28d3be670a854ea0de9522d3fd6f4fa45f6628289f6893002a41aa2de3564a",
+    "silicon_flow.py": "ad8cd39b7633733ecb3842146e4487149f739dc2ae6274bf37e063974af3cfc2",
+    "silicon_ui.py": "baba7d04f3793b2bc253d50ad58cda2921de2d84878d737386975825e01e62cd",
+    "simulation.py": "145d938166250d00b531cfbbb86173a9231f7f9e748732d7fd7fec3af44b33ac",
+    "simulation_workspace.py": "e813a1ec7f80fcf2f3eb9b60e1fa02e6260a504747436cd643d5a01ef4d40399",
+    "sky130_bipolar_rules.py": "cbeb2f52d9b80641bdbd82b9b0ccc628c14602e7926d65245183f90abc753bd8",
+    "sky130_devices.py": "2206128e0bbc159e33de810ebe0d2467bb6c3132067a294a48b0e14753d72441",
+    "sky130_devices_ui.py": "220fa96ab00d90ceda1740c7ccecb30156ec946ea8a1d894c452320215972858",
+    "sky130_fingers.py": "12ed8cc673ae4c6bf8a1c7f1d535b5347dac2b56ca388b318f255b70932e59ae",
+    "sky130_fixed_devices.py": "af4b461665bff686f43864c67b8cb99d8fa24802e7368e148d89af2c7bb55d3d",
+    "sky130_flow.py": "c06e2755cd3fc7a5a30d0ec1d58346d9a7b4cb2e835db7661176089aa32696cd",
+    "sky130_layout.py": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b",
+    "source_assets.py": "69ae8b92b84f0e5f8b417afb16bbaf5c35b0d6205052ddbb4f22826813c7cadb",
+    "spatial.py": "1f245c8f6e817efc8b43e784cc7d5306044e008391bc35f920baf144857bafc9",
+    "specifications.py": "61eb678cc6d6512b1e5c29a18cb80a41fc87ea8c14087bfee9c368e9f56e9532",
+    "spice_import.py": "0116919ab9589c7dba65265bb4619c04a58c5c833bfc8949ab5c665f4ee4833e",
+    "spice_program.py": "5f078a943141742e78a5bfe44aea3a35cdf91b2e4ac07f7d2854cb7988f16c9a",
+    "stream_contract.py": "3c814edce2649d245765f8b58dc5b6b2126a92a8c5ae518e4dc31546e9f8f726",
+    "student_capstone.py": "de3f5f2634b223542f2526202a7468bae6f0b4efe391eea12f849e3ce2304f0e",
+    "student_design_labs.py": "54f4d6228739d5f3c4ad3df936b17c031d93addf5b61a6503eb85adeae165903",
+    "student_hub.py": "4e37d3453f88f74a389c399b0e6cdb82ea33c3f23c545481baca934d5b2b87c8",
+    "student_hub_ui.py": "2279cdbbce617ec18f75406f32c77e969dba962d13e3b12e9ea28c4472c28d4b",
+    "student_inverter.py": "8daa537173449b4091469434870c319236202707a555d69967bab4f34e304e0b",
+    "student_learning.py": "9d09513ee984babf8a6547ced6cfb7a9644b4e59f3e67d5aeccc44079516809e",
+    "student_projects.py": "b440785f3b4dd224ceed30fa290cfb26f285f0140758852b4b5c84e9c35d2e9f",
+    "studies.py": "52f37c4e1a220f60fe11de1fc3f771b719de7f4cd21869106a83cf837ef0e000",
+    "symbol_editor.py": "67ef92e0363c258087954e3ce9c63de213f0ed308e5c92db1390499a6b61bf3d",
+    "symbol_geometry.py": "010915073e6edf52acfdd3148dc0a0639aede45ee4b6fb8404aea2d6822f1e78",
+    "symbol_io.py": "74efe59765639d3da5e0dbec79564a87ee6b17c5a361dc1d92f9c29083550fe6",
+    "team_review_ui.py": "579302d43ff8c623a15739f6a6358c65c375fe65eb582cc5ecced35506f7375e",
+    "test_plan_ui.py": "e9fc6ea2b9e0676c6cca6f7b6f8441090a32a8b38fc6d485a2950e72c2fa6fe5",
+    "test_plans.py": "ac9216c977f0945f4be1b8d518f7e10852a538ce10fa0f98ef0ed62db9b601b9",
+    "testbench_ui.py": "182b357efd690c7833e0c53d6de55066c57c1150d8515b4cc54a406b01e6af3a",
+    "testbenches.py": "e0111b43b370782b7c7378c420250d5aefeddf1ac6b2a999b9dcd35334375b26",
+    "text_presentation.py": "17a77d51bd54bec0ef433f64ff66d49bd36b5b326a06fcd80f689516d7c85435",
+    "two_stage_opamp.py": "ff931687157a096696ce3af2e9822977b5a80e70903749e7084d9bb1f02049ee",
+    "two_stage_opamp_layout.py": "e18d5289cf305144736d0f97b6fdc5afbd771e25210f25aeb94ef0937bf7c6e3",
+    "ui_style.py": "d0c886901a7a0e794c419aab7e2d4351803a2225a6dd2b304f04c04e5ca414e8",
+    "variation_runs.py": "2a2665219822e4607305c966257c969ce528222ca78ff215663d88b7b4ba0a97",
+    "verification_campaigns.py": "a5836f6d7e50a1f9e1cb4f4571b6271571c88598b28caee34e620c5aaa89267d",
+    "verification_navigation.py": "e711dde5b8cac3bd985495514a1500855c73f58babb4e1e03de0081c732dc400",
+    "verification_workspace.py": "f38002e17582fcb9c3071a68f141455280df781e9d26775ea012b55782419d4b",
+    "vga_probe.py": "1ee50754542ce222f36303534b4eca4077418727a83d6b76f7250b04f616f647",
+    "view_screenshot.py": "5ecec0163daa57841f03f3478cf0af3c5440cc9596efb4f87c2174218545a7fc",
+    "wavecalc.py": "f49d06ef394e57cac293eda9ce380ce73892839dd7fec5952a6dfa7e87af6596",
+    "waveform_tools.py": "d99e5d1343839ffe6fcb8711ac497965c20a983dca057dc7a8cb2139f3a5c0f9",
+    "window_geometry.py": "61fab219aec732e866ba67ec78e57e37f27b7cee9161da3bd7f40eb6c6b04d76",
+    "windows_stdio.py": "70bd03c0b0687a25ec9408c858d872e3cfb2249f7238f94cd64944005813db64",
+    "wire_canvas.py": "df045636099b7c2307eee4ca6fa683ccaf073cf7dc7f378cfcd97b6dbcf780a7",
+    "wiring.py": "2d2ca4e48b0c53b8bab3399cb8844bb716e482e40840fcdef334ea3bddc5e689",
+    "worker.py": "759638108d3d756c1601e60266805c1509fec111157573426d663742aa4be00d",
+    "workflow_jobs.py": "129562a84113fe61500416fa0fe5528e40d6f9ee8bf3d1d530ebc4137c56810f",
+    "workflow_status.py": "16319c801df6e271a16d13c9cf3fd9aad1369be2407dad5a1adec5b78ef2c940",
+    "workspace.py": "e67b603dc6ed9a70e7637ce948f561477d1e860c3d71e2be06e1ae50dd4b5b5e",
+    "xschem_compat.py": "e7f7444a4e19e702bc4204e537a6541e88b3b5733092f2a329b653ace02208a3",
+    "xschem_export_contract.py": "b5bb1f775b5b98e58ee889a6921ca1f7cced4d3c9ceb687d7f4ec48aa3e69f03",
+    "xschem_io.py": "4b5b0724c9598b982932bc441008d67cc8c49631c252b349e06e1d032fd2eca0",
+    "xschem_libraries.py": "f0f0003561aeeb2029e053de2936252f5b9b47dc7fea2de9d1024f315dd4744b",
+    "xschem_paths.py": "13952f20aee746dcab3f9c002c1b7cbb5bd2717d9c27f84a1b0a89bb19a88f4a",
+    "xschem_project.py": "40a0896046a0b71d9a27e67d8587a132505fbeda7f1d79e8c82d725e2c37e83a",
+    "xschem_runtime.py": "026c8720786e8809723023b4f9ddd152cdbce0446fb60a446d7217af58ef58b7",
+    "xschem_semantics.py": "7566c536dd0c0fe186139009c545ef0d34b7c152877230d50cd9c216e81d2f4f",
+    "xschem_source_compat.py": "0cff93085c1c56c82dd29aea9562935753b6fdff2af7db8b9a6e0357ee1383e5",
+    "xschem_vectors.py": "ccd96f20c038c95b873d9abcfec8810b503117623bc8c1dcd850e09c5facee93",
+    "xschem_workflow.py": "d6dde1c77beefe5adf63a70da1b528171955b41872770b2c0ee85524cb53c51c",
+    "xschem_workspace.py": "a1a92cc289bbf2b81fb769bb6db33f646ea61c09a2ee88dbc1c70f731588a42b"
+  },
+  "runtime_manifest": {
+    "schema": 1,
+    "system": "ubuntu-24.04-x86_64",
+    "tools": [
+      "iverilog",
+      "vvp",
+      "verilator",
+      "verilator_coverage",
+      "yosys",
+      "yosys-abc",
+      "eqy",
+      "sby",
+      "bitwuzla",
+      "openroad",
+      "sta",
+      "klayout",
+      "make",
+      "perl",
+      "python3",
+      "gcc",
+      "g++",
+      "cc",
+      "c++",
+      "as",
+      "ld",
+      "ar",
+      "ranlib",
+      "magic",
+      "netgen",
+      "ngspice"
+    ],
+    "oss_cad_suite": "2026-09-13",
+    "openroad": "26Q2-1164-g08f67ee5ec",
+    "orfs": "eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+    "files_sha256": "31cd172cfe2d11f085c069de0ec07c65180904b807575e8283a4362f814c4fb0",
+    "platforms": [
+      "sky130hd",
+      "gf180",
+      "ihp-sg13g2"
+    ],
+    "default_platform": "sky130hd",
+    "platform_corners": {
+      "sky130hd": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": [
+          "minimum",
+          "nominal",
+          "maximum"
+        ]
+      },
+      "gf180": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": []
+      },
+      "ihp-sg13g2": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": []
+      }
+    },
+    "licenses": [
+      "usr/share/doc/*/copyright",
+      "opt/icstudio/oss-cad-suite/license",
+      "opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS",
+      "opt/icstudio/licenses",
+      "opt/icstudio/physical/licenses"
+    ],
+    "physical_source_lock": {
+      "magic": {
+        "repository": "https://github.com/RTimothyEdwards/magic.git",
+        "version": "8.3.684",
+        "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84"
+      },
+      "netgen": {
+        "repository": "https://github.com/RTimothyEdwards/netgen.git",
+        "version": "1.5.300",
+        "commit": "1de6f88f1eebb786efadecc28e9e0dde37e8c433"
+      }
+    },
+    "osdi": {
+      "ihp-sg13g2": {
+        "system": "Linux",
+        "machine": "x86_64",
+        "cpu_target": "generic",
+        "compiler_sha256": "b53d76763c04e4af9f392c5503979cd526deb30c2dbd82fedbd54af54cd99074",
+        "models": [
+          {
+            "source": "psp103/psp103.va",
+            "dependencies": {
+              "psp103/JUNCAP200_parlist.include": "d4350de852c966098f74adbd24f70b3e2ed8fec87c7f7d3569ee18168ece5901",
+              "psp103/PSP103_module.include": "cc9f02e72fda8c907f9e6befe0dcdc2ff1dc13e45fb2f48263935c06317d3197",
+              "psp103/releasenotesPSP103.8.2.txt": "64cd7bc8090e4a2aaa495918f8f9ae44424205934edfd96dde96683135a872be",
+              "psp103/Common103_macrodefs.include": "14fb6781da0b440a7627aa605c3c59fbf9f755c8eca2b641765bb8d6248029e7",
+              "psp103/PSP103_scaling.include": "1a560ceffd722940f3aa67d64bcfc8f7925d4aa55a0c2caf0c933cf7a47dd54b",
+              "psp103/psp103.va": "9bab5086f8e203a820043538ede898d0812d07371b1aa6f081d806aaad95cd50",
+              "psp103/PSP103_parlist.include": "7adbc8e7010fdc6b9c906dace441f2a443c4079693733387dad0d3e3a737ec6f",
+              "psp103/PSP103_macrodefs.include": "fcb3d0830353c28710645cd28c9caf7610ebc0a05ed1ef89e0ef3e0799581d2b",
+              "psp103/PSP103_nqs_macrodefs.include": "d4e44d3c8634ce08502f9b25b4f6a56fbe75ce5b8a7d7be987af535b83f16746",
+              "psp103/JUNCAP200_macrodefs.include": "00d5153fe0a5f1da6523e67354e05c1ae08db2196bf711534fe44b65fb907b65",
+              "psp103/juncap200.va": "4833ba0c95cd9922d2277fe41ba7aa81028866b1850357273c4f62cd635d96e0",
+              "psp103/README.md": "b5301fb60c1f92250c4f1a08c637e25b5ecf6c08ba9647aea3d773cb24c7cf39",
+              "psp103/psp103_nqs.va": "084ca6b4932a7db2717e7143345c9a9ff1bd62a1fb0db9af3100f7428aba91dd",
+              "psp103/Changelog": "a060a06ce5eca1b6c88a62168e5d108181715ab903ebafa1e462d8288ec5c4aa",
+              "psp103/psp103t.va": "856166de39aaa247204763e8e347c912fde8f27312f6a34e4cac975389810fd2",
+              "psp103/JUNCAP200_varlist.include": "ee30317a2f4a03bfb6bdca471d72feacfa02d5f7cce664fe6ede99482fed37e7",
+              "psp103/JUNCAP200_InitModel.include": "335c2b2e8d1ffc9a9c7d820cbe82308e4a91894455f6bbae0e62cdfa9049c690"
+            },
+            "output": "psp103.osdi",
+            "sha256": "24c016572d59fb079fda4f3a1c0aa4c8999d931e8ee335f180066f13ddd70ff4"
+          },
+          {
+            "source": "psp103/psp103_nqs.va",
+            "dependencies": {
+              "psp103/JUNCAP200_parlist.include": "d4350de852c966098f74adbd24f70b3e2ed8fec87c7f7d3569ee18168ece5901",
+              "psp103/PSP103_module.include": "cc9f02e72fda8c907f9e6befe0dcdc2ff1dc13e45fb2f48263935c06317d3197",
+              "psp103/releasenotesPSP103.8.2.txt": "64cd7bc8090e4a2aaa495918f8f9ae44424205934edfd96dde96683135a872be",
+              "psp103/Common103_macrodefs.include": "14fb6781da0b440a7627aa605c3c59fbf9f755c8eca2b641765bb8d6248029e7",
+              "psp103/PSP103_scaling.include": "1a560ceffd722940f3aa67d64bcfc8f7925d4aa55a0c2caf0c933cf7a47dd54b",
+              "psp103/psp103.va": "9bab5086f8e203a820043538ede898d0812d07371b1aa6f081d806aaad95cd50",
+              "psp103/PSP103_parlist.include": "7adbc8e7010fdc6b9c906dace441f2a443c4079693733387dad0d3e3a737ec6f",
+              "psp103/PSP103_macrodefs.include": "fcb3d0830353c28710645cd28c9caf7610ebc0a05ed1ef89e0ef3e0799581d2b",
+              "psp103/PSP103_nqs_macrodefs.include": "d4e44d3c8634ce08502f9b25b4f6a56fbe75ce5b8a7d7be987af535b83f16746",
+              "psp103/JUNCAP200_macrodefs.include": "00d5153fe0a5f1da6523e67354e05c1ae08db2196bf711534fe44b65fb907b65",
+              "psp103/juncap200.va": "4833ba0c95cd9922d2277fe41ba7aa81028866b1850357273c4f62cd635d96e0",
+              "psp103/README.md": "b5301fb60c1f92250c4f1a08c637e25b5ecf6c08ba9647aea3d773cb24c7cf39",
+              "psp103/psp103_nqs.va": "084ca6b4932a7db2717e7143345c9a9ff1bd62a1fb0db9af3100f7428aba91dd",
+              "psp103/Changelog": "a060a06ce5eca1b6c88a62168e5d108181715ab903ebafa1e462d8288ec5c4aa",
+              "psp103/psp103t.va": "856166de39aaa247204763e8e347c912fde8f27312f6a34e4cac975389810fd2",
+              "psp103/JUNCAP200_varlist.include": "ee30317a2f4a03bfb6bdca471d72feacfa02d5f7cce664fe6ede99482fed37e7",
+              "psp103/JUNCAP200_InitModel.include": "335c2b2e8d1ffc9a9c7d820cbe82308e4a91894455f6bbae0e62cdfa9049c690"
+            },
+            "output": "psp103_nqs.osdi",
+            "sha256": "33dc9a8caa13977cdd77eb76b00c76200d8897f873d2497894dabfd327318fd6"
+          },
+          {
+            "source": "r3_cmc/r3_cmc.va",
+            "dependencies": {
+              "r3_cmc/NOTICE.txt": "fa3dc18885dd09baaffbf02fda561438df81787d1dd255f6218bcc2764f34132",
+              "r3_cmc/r3_cmc_macros.include": "66e1bf0b43495a9c17454a1ac203171db5488edc7e19563f4f645389ba7eebb4",
+              "r3_cmc/LICENSE.txt": "60436a82eb1cff9e3e7fb4ba8c913b8adf72ff8578836d5134e376088a2bc698",
+              "r3_cmc/Changelog": "14e460005858ebdbdd21f83d9c7a3176e761825e86bfb82723a9bcd8d0e3bbf3",
+              "r3_cmc/r3_cmc.va": "398746f45048a9e075913e85a982258b929c9042257339bf1fc47d7e25303551"
+            },
+            "output": "r3_cmc.osdi",
+            "sha256": "3ecc382b6804bd50c178ca5a8e4fbe6c0158c4454f2003a544a19326d26a695d"
+          },
+          {
+            "source": "mosvar/mosvar.va",
+            "dependencies": {
+              "mosvar/discipline.h": "c57d71f2da4fe1dcd8212259cdfed8d5ec9846db93b9cc83ab3f5ca64cfda330",
+              "mosvar/macrosAndDefines_cmc.va": "dda168152714f25ec1c92f75166f22627ff568a3aebe73581c95cef3caaf655a",
+              "mosvar/mosvar.va": "146eec0c2a9c3c437c53109f8ec42af68f75bd9d341e79797d2feda0340a19f6",
+              "mosvar/Changelog": "6fad40a4f10a5e41ac761973ab47afa316dd057e37d7f802986132c70547526f",
+              "mosvar/mosvarpspMacros.va": "c981ee834d00424c43fef2638b6e924d412f29115d2c8f40f8854efafe154cf5"
+            },
+            "output": "mosvar.osdi",
+            "sha256": "c3ea91ef33db66959cbd81b370d37aa1c70b9b36fbd6cef83c768c505e9b88a5"
+          },
+          {
+            "source": "cap_cmomi/cap_cmomi.va",
+            "dependencies": {
+              "cap_cmomi/cap_cmomi.va": "f8618465b9aa74d596983ded0e10780a9bccba3103b3a2daf58a44243ab5c210"
+            },
+            "output": "cap_cmomi.osdi",
+            "sha256": "8179caebc4f384cd1d00dd12b9e8893716d5ee9e8f517b5ca72c4cec85172567"
+          },
+          {
+            "source": "cap_cmomf/cap_cmomf.va",
+            "dependencies": {
+              "cap_cmomf/cap_cmomf.va": "f0f8c3c3c31a6b553c365f36ec04e6f1a5870d3ff06b6eba90ddefbc2f48cc6e"
+            },
+            "output": "cap_cmomf.osdi",
+            "sha256": "fdbd14050be21abcfc771757ba55cb3fbc5e23437d5ed2b4e45366a9bb3a05d3"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13",
+      "https://github.com/The-OpenROAD-Project/OpenROAD/tree/08f67ee5ec",
+      "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+      "https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "https://github.com/RTimothyEdwards/magic",
+      "https://github.com/RTimothyEdwards/netgen",
+      "https://archive.ubuntu.com/ubuntu/"
+    ],
+    "archive": "runtime.tar.gz",
+    "sha256": "78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32",
+    "bytes": 1514430568,
+    "image_id": "sha256:8504da7c0b7ed0cfa99575eaaa51b7e47b1cd8d0534b3170c665fb3ddaa74e73"
+  },
+  "build_sources": {
+    "scripts/build_digital_runtime.py": "ca544658ecef6498727c811c1d3f8da8cf33dbbbd294738284d9a7f242ce05ad",
+    "scripts/prepare_sky130_digital.py": "ff97ea66afd4a3bfb5b97ae03b7841f473309398021b99d04090cd2cc56c2a9c",
+    "scripts/fetch_sky130_reference.py": "1127736d9cbf5387e36e96d38e1ee660aaf89d548cfb6d075efdbd97a59948b2",
+    "packaging/digital/assemble.py": "a76738eb183f7fe7bc4f5d919d6425b29bc999428738c2d28dc20b7816421495",
+    "packaging/digital/bundle_platforms.py": "277a18210344dfa351077dde11db66607af319ae41c09e5a81f5d8ae25e718b6",
+    "packaging/digital/Dockerfile": "e14ac950c9acc7b208dd2314253e2f53c31e86902c27144f158df0aa569a7c48",
+    "examples/sky130-reference-assets.json": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c"
+  },
+  "independent_audit_sha256": "6dfdaa5d118c927b72dfd7dd24990c9e49c43a1b488345b1e8587855e937de56",
+  "scope": "Included counter implementation on all three platforms; 9 SKY130, 3 GF180 and 3 IHP extracted timing pairs on each OS. Not broad design, full-chip or foundry signoff.",
+  "local_validation": {
+    "full_suite": {
+      "tests": 1389,
+      "skips": 63,
+      "failures": 0,
+      "seconds": 308.851
+    },
+    "focused_windows": {
+      "tests": 48,
+      "skips": 9,
+      "failures": 0
+    },
+    "focused_linux": {
+      "tests": 45,
+      "skips": 2,
+      "failures": 0
+    },
+    "gui": {
+      "status": "passed",
+      "runtime": {
+        "kind": "wsl",
+        "distro": "ICStudio-Digital-78858bfa0ff14234-4c1a5471",
+        "root": "\\\\wsl.localhost\\ICStudio-Digital-78858bfa0ff14234-4c1a5471",
+        "sha256": "78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32"
+      },
+      "backend": "ac32262a7d7862d184b884ac253f038117704c128be071406867891101e1dcaa",
+      "platform_revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2 + sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0",
+      "checks": [
+        "Actual included platform selection",
+        "All 3 library and 3 interconnect corners selected",
+        "Corner editor from installed platform",
+        "Save/reopen",
+        "Switch to GF180 clears incompatible RC choices",
+        "Undo restores SKY130 choices"
+      ],
+      "scope": "Offscreen workflow against an installed qualified runtime; not consumer desktop acceptance"
+    },
+    "screenshot_sha256": "a98e7b590d582b184cbd017d75f462e1a1004f2281d878840d4b5829ccf1a8b8",
+    "documentation": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 120,
+      "local_links": 1165,
+      "gallery_examples": 13
+    }
+  },
+  "systems": {
+    "Linux": {
+      "status": "passed",
+      "digital_checks": 26,
+      "timing_pairs": 15,
+      "checked": "2026-10-07T01:07:38+00:00",
+      "runtime": {
+        "kind": "linux",
+        "root": "/state/runtimes/78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32",
+        "sha256": "78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32"
+      },
+      "platform_corners": {
+        "sky130hd": {
+          "library_corners": [
+            "typical",
+            "slow",
+            "fast"
+          ],
+          "interconnect_corners": [
+            "minimum",
+            "nominal",
+            "maximum"
+          ]
+        },
+        "gf180": {
+          "library_corners": [
+            "typical",
+            "slow",
+            "fast"
+          ],
+          "interconnect_corners": []
+        },
+        "ihp-sg13g2": {
+          "library_corners": [
+            "typical",
+            "slow",
+            "fast"
+          ],
+          "interconnect_corners": []
+        }
+      },
+      "physical_tool_checks": {
+        "status": "passed",
+        "design_hash": "a63c27d7c747ddc77f0c25d8801c8ac4779018f5c01b61100c06f409579673f7",
+        "qualification": "Runtime tool smoke tests only; no process or design qualification.",
+        "stages": [
+          {
+            "name": "drc-legal",
+            "status": "passed",
+            "count": 0
+          },
+          {
+            "name": "drc-narrow",
+            "status": "passed",
+            "count": 1
+          },
+          {
+            "name": "lvs-equal",
+            "status": "passed"
+          },
+          {
+            "name": "lvs-wrong",
+            "status": "passed"
+          },
+          {
+            "name": "ngspice",
+            "status": "passed"
+          }
+        ],
+        "klayout": "0.30.5",
+        "native_design_hash": "6e48d4bd72f39946e5d276b64e47e3045aab3e66202f1e156b94f6c35463bc8d",
+        "execution": {
+          "runtime": {
+            "kind": "linux",
+            "root": "/state/runtimes/78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32",
+            "sha256": "78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32"
+          },
+          "native_directory": "/tmp/icstudio-physical-1242jgi8",
+          "native_input_sha256": "96ca6173f2459a28c126db50bee681924950e2d1aa63a6648d60be281ea11142",
+          "received_files": {
+            "physical-backend-result.json": "c32b0e19eb301b506322277ce0d5bc63081cbf62b22d5efd2034d2970ba23439",
+            "physical-flow/legal.log": "8197c515b2eb8777f4f39f54ac8aba4bb0c1d68b0b7c8a010de345139257025b",
+            "physical-flow/narrow.tcl": "ce0385ae715968111aa70008c899f368f8b4975042ecf75fcdaa7a5a335928d7",
+            "physical-flow/legal.tcl": "ee090d774cf3ce61fda80fe40ebc3caf9ed620e6e3c5cfc860c4ac40f8b6775c",
+            "physical-flow/setup.tcl": "066b62eb66b2428b270d410a77dae833a0f3d6dde7244cb8d0402701d5e07390",
+            "physical-flow/report.json": "e4150ddfdf0465cfb251434620e4d498f345fcb32dbbf00818bdb69aa70505f8",
+            "physical-flow/narrow.log": "42da79bd6c39b848df5e76004c0cd45cca3913354ba26d524beb5a176fe18283",
+            "physical-flow/equal.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/reference.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/startup.tcl": "20a60f1026cf895be4c9dcd37ea2387ebd91d5d0d0ff52a59d4def44d89f6c1e",
+            "physical-flow/wrong.spice": "6a51082e74a23ad0503569f6632d9df462a10ee14adf37ed2727bd3eab37f6b3",
+            "physical-flow/wrong/lvs.log": "c876f9eb14e79734f988f302447f3a1f7fcf2d4958207c067099c7132c4b9bb8",
+            "physical-flow/wrong/lvs.json": "503ebaccddf32815e37daf760f69b7ec19a1c671783cc0ca6e82f6fc40543e95",
+            "physical-flow/wrong/console.log": "56bbc98135b233cfd129a856ecd0706ed16ac4991b0b35e804883b3c3f8f14fa",
+            "physical-flow/equal/lvs.log": "3bd2772702557fca047a8a35df14610d511240b685b1d2af9dd787cf3ea2f2b9",
+            "physical-flow/equal/lvs.json": "41e6c9c74ec7212b7f4bd03b98dfa7310cb9f0ba26e904e2864bd973b2dcffc8",
+            "physical-flow/equal/console.log": "2e9d24acc7b857e5fa4e9e0cbde427b71b1d41d12f4e2604a8d92b7e0f0467d5"
+          }
+        }
+      },
+      "platforms": [
+        {
+          "name": "sky130hd",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "extracted_timing": {
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 46.733517,
+              "hold_worst_slack_ns": 0.138645,
+              "setup_reported_violations": 0,
+              "hold_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "parasitics": "extracted SPEF",
+            "rc_corners": [
+              "minimum",
+              "nominal",
+              "maximum"
+            ],
+            "electrical_status": "No reported violations",
+            "incomplete_reasons": [],
+            "corners": [
+              {
+                "corner": "typical",
+                "rc_corner": "minimum",
+                "scenario": "typical / minimum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.700237,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.275906,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "typical",
+                "rc_corner": "nominal",
+                "scenario": "typical / nominal",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.699543,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.275579,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "typical",
+                "rc_corner": "maximum",
+                "scenario": "typical / maximum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.697975,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.274857,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": "minimum",
+                "scenario": "slow / minimum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.735825,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.551362,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": "nominal",
+                "scenario": "slow / nominal",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.7351,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.550496,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": "maximum",
+                "scenario": "slow / maximum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.733517,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.549737,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": "minimum",
+                "scenario": "fast / minimum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.101707,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.139687,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": "nominal",
+                "scenario": "fast / nominal",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.101025,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.139363,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": "maximum",
+                "scenario": "fast / maximum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.099472,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.138645,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "extraction": {
+            "schema": 1,
+            "status": "complete",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0",
+            "definition_sha256": "93a8742f532ca92e152b2c8573644938d13cdd70c849ff93203865f1a66266b9",
+            "def": {
+              "path": "snapshot.def",
+              "sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+              "bytes": 448169
+            },
+            "netlist": {
+              "path": "netlist.v",
+              "sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649",
+              "bytes": 2023
+            },
+            "coupling_threshold_ff": 0.1,
+            "corners": {
+              "minimum": {
+                "spef_key": "spef_minimum",
+                "spef": {
+                  "path": "extraction/minimum/parasitics.spef",
+                  "sha256": "10972ad7a426de5d4d62bd5dbf3a30b686057ec3e7b0f6108f47708d4e1e7b77",
+                  "bytes": 78150
+                },
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+                    "sha256": "0c8d667cf41e920e67188e258b3b51ad722ff6aadc9a641fb79cbfdc7558550e",
+                    "bytes": 35820
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__min.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef",
+                    "sha256": "fd44aa653851894bf812d8f898a6878b7f152e6ccd993af256f610369a2297ed",
+                    "bytes": 18127
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "metrics": {
+                  "nets": 22,
+                  "resistors": 74,
+                  "capacitors": 248,
+                  "units": {
+                    "R": "1 OHM",
+                    "C": "1 PF"
+                  },
+                  "sum_resistance_values": 665.8513,
+                  "sum_capacitance_values": 0.05399739900000004,
+                  "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+                }
+              },
+              "nominal": {
+                "spef_key": "spef_nominal",
+                "spef": {
+                  "path": "extraction/nominal/parasitics.spef",
+                  "sha256": "0b1640e1f789e43dbb96ab9759c15d9e3658faeb8ef892a1af7fbe25c44e93df",
+                  "bytes": 78268
+                },
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+                    "sha256": "682de2d5ceba1fffbdd58ee3033b2ab89ac81ced4ad3f51406f77a05ec4bca8b",
+                    "bytes": 37579
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef",
+                    "sha256": "1a18b353fb5457caf0eca5b3cb28b2c0c9bbacdbbdeee7c4fc64a115932066c2",
+                    "bytes": 18131
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "metrics": {
+                  "nets": 22,
+                  "resistors": 74,
+                  "capacitors": 248,
+                  "units": {
+                    "R": "1 OHM",
+                    "C": "1 PF"
+                  },
+                  "sum_resistance_values": 1411.5314839999999,
+                  "sum_capacitance_values": 0.05399739900000004,
+                  "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+                }
+              },
+              "maximum": {
+                "spef_key": "spef_maximum",
+                "spef": {
+                  "path": "extraction/maximum/parasitics.spef",
+                  "sha256": "d82917ebb3532c41d65e001495d44c77ce1adb3d04aa941e695c9ed5fea2ec57",
+                  "bytes": 79034
+                },
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+                    "sha256": "2083537e19365687ef0377e490b9d09ee58ce6fbf2865a9a9ba755840982d66e",
+                    "bytes": 36464
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__max.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef",
+                    "sha256": "317b8fb8ba802a0845870ffb374eb46d14dd29b6400fb5cc3795764bbf2bc83d",
+                    "bytes": 18130
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "metrics": {
+                  "nets": 22,
+                  "resistors": 95,
+                  "capacitors": 275,
+                  "units": {
+                    "R": "1 OHM",
+                    "C": "1 PF"
+                  },
+                  "sum_resistance_values": 3030.329796000001,
+                  "sum_capacitance_values": 0.053997382640000036,
+                  "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+                }
+              }
+            },
+            "scope": "Independent OpenRCX runs on the same final DEF, using each corner technology LEF and extraction deck."
+          },
+          "macro_export": {
+            "sha256": "06b1f3d6ddfb3758af43a9ea207b625c8b1b734ec919e74d98db8cf34782c3aa",
+            "bytes": 357583,
+            "artifacts": {
+              "netlist": {
+                "path": "artifacts/netlist.v",
+                "sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649",
+                "bytes": 2023
+              },
+              "def": {
+                "path": "artifacts/def.def",
+                "sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+                "bytes": 448169
+              },
+              "database": {
+                "path": "artifacts/database.json",
+                "sha256": "9bcf4fbcb63ce653ab8517328ce34a3093620acb9a4420e1c44ddb8d20a33620",
+                "bytes": 1103356
+              },
+              "layout_preview": {
+                "path": "artifacts/layout_preview.json",
+                "sha256": "f5428218aafa433bc7ce3d1b057176882ac575b35be1273494e001bbd9493dfa",
+                "bytes": 2426294
+              },
+              "lef": {
+                "path": "artifacts/lef.lef",
+                "sha256": "6ca127700ff913d7e23a367c348b108fbb82cdf123b78c8b2d5ce70aa014317e",
+                "bytes": 136774
+              },
+              "gds": {
+                "path": "artifacts/gds.gds",
+                "sha256": "8630f950b9439dba8ae0b01bcbc296cfdc9b96994b47230da3910af7a406fb9d",
+                "bytes": 454608
+              },
+              "spef": {
+                "path": "artifacts/spef.spef",
+                "sha256": "ef598b8f7defc83a29f22b1dc67b47ba52cec71ab1480ab6e2fb9c75d305fdd1",
+                "bytes": 77661
+              },
+              "spef_minimum": {
+                "path": "artifacts/spef_minimum.spef",
+                "sha256": "10972ad7a426de5d4d62bd5dbf3a30b686057ec3e7b0f6108f47708d4e1e7b77",
+                "bytes": 78150
+              },
+              "extraction_script_minimum": {
+                "path": "artifacts/extraction_script_minimum.tcl",
+                "sha256": "a504c7efdc838b2a3b7d67741e8cdc412eea1cdb4e0aed884dd005d60ff73274",
+                "bytes": 814
+              },
+              "spef_nominal": {
+                "path": "artifacts/spef_nominal.spef",
+                "sha256": "0b1640e1f789e43dbb96ab9759c15d9e3658faeb8ef892a1af7fbe25c44e93df",
+                "bytes": 78268
+              },
+              "extraction_script_nominal": {
+                "path": "artifacts/extraction_script_nominal.tcl",
+                "sha256": "c76feb23c6b164b1ab4de963839538945280bd64b084a4776a080c353910420c",
+                "bytes": 814
+              },
+              "spef_maximum": {
+                "path": "artifacts/spef_maximum.spef",
+                "sha256": "d82917ebb3532c41d65e001495d44c77ce1adb3d04aa941e695c9ed5fea2ec57",
+                "bytes": 79034
+              },
+              "extraction_script_maximum": {
+                "path": "artifacts/extraction_script_maximum.tcl",
+                "sha256": "9fe29071d82c0d82c999f276bb1bf3455f47d85035c77e2385486b6a0afb7edf",
+                "bytes": 814
+              },
+              "extraction": {
+                "path": "artifacts/extraction.json",
+                "sha256": "3c1a3c36bb4a9febedf95ef2a7c3790b168e442fdeb5803e63565ee74016b990",
+                "bytes": 5486
+              }
+            },
+            "notices": [
+              {
+                "path": "notices/sky130hd/pvt/LICENSE-Apache-2.0.txt",
+                "source_path": "sky130hd/pvt/LICENSE-Apache-2.0.txt",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "bytes": 11358
+              },
+              {
+                "path": "notices/sky130hd/pvt/upstream-lock.json",
+                "source_path": "sky130hd/pvt/upstream-lock.json",
+                "sha256": "c9ea7082a662cff8c170f6d0ecd3ec294e5b8c474bff61e8d9884ce409802a91",
+                "bytes": 4667
+              },
+              {
+                "path": "notices/sky130hd/redistribution/LICENSE-Apache-2.0.txt",
+                "source_path": "sky130hd/redistribution/LICENSE-Apache-2.0.txt",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "bytes": 11358
+              },
+              {
+                "path": "notices/sky130hd/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "source_path": "sky130hd/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "sha256": "fae0db7a4c00c3125f037e5818e8cd0c8aa5c67fff2e8c558312068e9f2d1592",
+                "bytes": 2030
+              },
+              {
+                "path": "notices/sky130hd/redistribution/THIRD_PARTY_NOTICES.md",
+                "source_path": "sky130hd/redistribution/THIRD_PARTY_NOTICES.md",
+                "sha256": "131f067a6ef68e439768da2fa75e56fa0ca62f733389bd072350821257a4d9bd",
+                "bytes": 18285
+              },
+              {
+                "path": "notices/sky130hd/redistribution/upstream-lock.json",
+                "source_path": "sky130hd/redistribution/upstream-lock.json",
+                "sha256": "424c62790c6a0b74e1260968385c237e871b846d0cb7635c77d4a0ce748cfd19",
+                "bytes": 437
+              }
+            ],
+            "interconnect_corners": {
+              "minimum": {
+                "spef_artifact": "spef_minimum",
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+                    "sha256": "0c8d667cf41e920e67188e258b3b51ad722ff6aadc9a641fb79cbfdc7558550e",
+                    "bytes": 35820
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__min.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef",
+                    "sha256": "fd44aa653851894bf812d8f898a6878b7f152e6ccd993af256f610369a2297ed",
+                    "bytes": 18127
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "source_def_sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+                "source_netlist_sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649"
+              },
+              "nominal": {
+                "spef_artifact": "spef_nominal",
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+                    "sha256": "682de2d5ceba1fffbdd58ee3033b2ab89ac81ced4ad3f51406f77a05ec4bca8b",
+                    "bytes": 37579
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef",
+                    "sha256": "1a18b353fb5457caf0eca5b3cb28b2c0c9bbacdbbdeee7c4fc64a115932066c2",
+                    "bytes": 18131
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "source_def_sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+                "source_netlist_sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649"
+              },
+              "maximum": {
+                "spef_artifact": "spef_maximum",
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+                    "sha256": "2083537e19365687ef0377e490b9d09ee58ce6fbf2865a9a9ba755840982d66e",
+                    "bytes": 36464
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__max.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef",
+                    "sha256": "317b8fb8ba802a0845870ffb374eb46d14dd29b6400fb5cc3795764bbf2bc83d",
+                    "bytes": 18130
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "source_def_sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+                "source_netlist_sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649"
+              }
+            }
+          },
+          "stages": [
+            {
+              "name": "mapped",
+              "verdict": null,
+              "summary": "Mapped synthesis complete \u00b7 sky130hd / typical",
+              "result_sha256": "e6887326ee01f690cd309205f3e466ff6087b347af42ff72c038b5a6b4e09209",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+              }
+            },
+            {
+              "name": "equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "839bc00a93728cd89be2690ca92e2ddf042a8a898482a2eedfb25f2cb872d09e",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "fault-detected",
+              "verdict": "FAIL",
+              "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+              "result_sha256": "8c94c6d89403e17a22489fe5287848aab86dc3751a22598ef7b17d77ab458a2c",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "timing",
+              "verdict": "FAIL",
+              "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+              "result_sha256": "652afeb0a567e3127441c13e8c0da4a7582b5bcc46a4d302ed7ea725d8c7fdad",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "floorplan",
+              "verdict": null,
+              "summary": "Physical floorplan complete \u00b7 342 placed cells",
+              "result_sha256": "f623b3f0b640c42f7be06c3d3038eae79b7f8720f1058124572c49bd6f08bdb3",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+              }
+            },
+            {
+              "name": "gds",
+              "verdict": null,
+              "summary": "Physical finish complete \u00b7 3341 placed cells",
+              "result_sha256": "0e740f2520889694cfe6c586944270a46baaab12bf7795869f72c847f533cc69",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+                "klayout": "KLayout 0.28.16"
+              }
+            },
+            {
+              "name": "extracted-timing",
+              "verdict": "PASS",
+              "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 RC minimum, nominal, maximum \u00b7 extracted SPEF",
+              "result_sha256": "355cf86c9b438692605f02a23d6feefb9a79c2f34c219b74136cc0a54e21110e",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "physical-equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "c18018b04955b276c4362164ebdc23c017f9ebc6cb13de7528de0ea00e543c99",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            }
+          ]
+        },
+        {
+          "name": "gf180",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "extracted_timing": {
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 44.443768,
+              "hold_worst_slack_ns": 0.246833,
+              "setup_reported_violations": 0,
+              "hold_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "parasitics": "extracted SPEF",
+            "rc_corners": [],
+            "electrical_status": "No reported violations",
+            "incomplete_reasons": [],
+            "corners": [
+              {
+                "corner": "typical",
+                "rc_corner": null,
+                "scenario": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.488331,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.516922,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": null,
+                "scenario": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 44.443768,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 1.135645,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": null,
+                "scenario": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.397301,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.246833,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "extraction": null,
+          "macro_export": {
+            "sha256": "60b4813523bb6a7d4a2aafb90b408236eff6293d4f0e192e43164d8b9e2d75f8",
+            "bytes": 122139,
+            "artifacts": {
+              "netlist": {
+                "path": "artifacts/netlist.v",
+                "sha256": "7afea770fc5dd54513336f586c0ab46479f315769aeda422af91c0c14ffaebee",
+                "bytes": 2159
+              },
+              "def": {
+                "path": "artifacts/def.def",
+                "sha256": "56a8e8db418ed290bc59384a86876d254a561ca547b0c996d9333aa10d0c798a",
+                "bytes": 708486
+              },
+              "database": {
+                "path": "artifacts/database.json",
+                "sha256": "5fb25e72b8cb51f85ddc68379d6f06f853ffe93ba1ed737d6a039490298a8b05",
+                "bytes": 96633
+              },
+              "layout_preview": {
+                "path": "artifacts/layout_preview.json",
+                "sha256": "6ebbf09c4f330496c0619faf89eda68ff2f7ca4bee310f050235ea50850828cd",
+                "bytes": 240199
+              },
+              "lef": {
+                "path": "artifacts/lef.lef",
+                "sha256": "59418cafbe3715dcb9450f536fec201814ec344a41a37cc767c71ef12abadf46",
+                "bytes": 4501
+              },
+              "gds": {
+                "path": "artifacts/gds.gds",
+                "sha256": "ec482567bb681a5d6555ac77f3b3cd889f38e5e39a346c23c4821d2118c84427",
+                "bytes": 556632
+              },
+              "spef": {
+                "path": "artifacts/spef.spef",
+                "sha256": "07563729bb325a3ad4f2d17eaa8c6dbd5f9092617915641fca3efd2157a38294",
+                "bytes": 19791
+              }
+            },
+            "notices": [
+              {
+                "path": "notices/gf180/redistribution/LICENSE-Apache-2.0.txt",
+                "source_path": "gf180/redistribution/LICENSE-Apache-2.0.txt",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "bytes": 11358
+              },
+              {
+                "path": "notices/gf180/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "source_path": "gf180/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "sha256": "fae0db7a4c00c3125f037e5818e8cd0c8aa5c67fff2e8c558312068e9f2d1592",
+                "bytes": 2030
+              },
+              {
+                "path": "notices/gf180/redistribution/THIRD_PARTY_NOTICES.md",
+                "source_path": "gf180/redistribution/THIRD_PARTY_NOTICES.md",
+                "sha256": "131f067a6ef68e439768da2fa75e56fa0ca62f733389bd072350821257a4d9bd",
+                "bytes": 18285
+              },
+              {
+                "path": "notices/gf180/redistribution/upstream-lock.json",
+                "source_path": "gf180/redistribution/upstream-lock.json",
+                "sha256": "7c79467f5ce2f2a4b4ddd34a9d5f90919db4702f4110386fbf5646d351e7b935",
+                "bytes": 387
+              }
+            ],
+            "interconnect_corners": {}
+          },
+          "stages": [
+            {
+              "name": "mapped",
+              "verdict": null,
+              "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+              "result_sha256": "e2d7ad1abba860ceebaf88c7ff98086f6398cb4f8871029f59394b7ed2583c29",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+              }
+            },
+            {
+              "name": "equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "6baa080a80a89fe0791132238c54b8e6c196ff06a3f3ce34bb4c34a1c6c4fda9",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "fault-detected",
+              "verdict": "FAIL",
+              "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+              "result_sha256": "15ee58e943c6e6072c9b99af80ae28bf592248d439a955d7ea15322929511f5c",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "timing",
+              "verdict": "FAIL",
+              "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+              "result_sha256": "98e86654e594b24de9e9d4dd1c3e5436fb71f80d731f80bdbad1ba196b89d12e",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "floorplan",
+              "verdict": null,
+              "summary": "Physical floorplan complete \u00b7 91 placed cells",
+              "result_sha256": "9adbf60209ef40374d98e92e83f5a3db7a88885470f1e7e3409ef83bbcd8242c",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+              }
+            },
+            {
+              "name": "gds",
+              "verdict": null,
+              "summary": "Physical finish complete \u00b7 375 placed cells",
+              "result_sha256": "6ece1a4838cfd8e97927213764a4cec03aaa21edeb3ffbf5511be51fed44c11a",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+                "klayout": "KLayout 0.28.16"
+              }
+            },
+            {
+              "name": "extracted-timing",
+              "verdict": "PASS",
+              "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+              "result_sha256": "f805582f0cbe90af4cda882921c7eaeef4eb62dcf60808c4317b36611d9b5b12",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "physical-equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "443aa19c9c39fde4bd0f54065b2d488a10b5ad6d2ecbca7131fac792619dc10d",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ihp-sg13g2",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "extracted_timing": {
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 47.852211,
+              "hold_worst_slack_ns": 0.096999,
+              "setup_reported_violations": 0,
+              "hold_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "parasitics": "extracted SPEF",
+            "rc_corners": [],
+            "electrical_status": "No reported violations",
+            "incomplete_reasons": [],
+            "corners": [
+              {
+                "corner": "typical",
+                "rc_corner": null,
+                "scenario": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.260189,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.195837,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1uA\n power 1pW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": null,
+                "scenario": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.852211,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.370399,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1uA\n power 1pW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": null,
+                "scenario": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.477261,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.096999,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1uA\n power 1pW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "extraction": null,
+          "macro_export": {
+            "sha256": "423210a8ade729647e2825767f37c708fab26386e6124d9a4b6299758590671d",
+            "bytes": 160065,
+            "artifacts": {
+              "netlist": {
+                "path": "artifacts/netlist.v",
+                "sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+                "bytes": 2091
+              },
+              "def": {
+                "path": "artifacts/def.def",
+                "sha256": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+                "bytes": 262740
+              },
+              "database": {
+                "path": "artifacts/database.json",
+                "sha256": "c5b984f4320eb89718a352249cb65029d8158ea63117e6206c1581bea3a95720",
+                "bytes": 457493
+              },
+              "layout_preview": {
+                "path": "artifacts/layout_preview.json",
+                "sha256": "745bfead6ad0b7fe421360bfca5d45a407cf1345e9dc857f798f29dfc1440f75",
+                "bytes": 1067549
+              },
+              "lef": {
+                "path": "artifacts/lef.lef",
+                "sha256": "72bc9ed842c6a9aa0552f928db2bb6b4c8a6a3462cb51732bc6be20dac499a39",
+                "bytes": 5430
+              },
+              "gds": {
+                "path": "artifacts/gds.gds",
+                "sha256": "c35f52817c4105b3e767efa84d5496728db3fadfee6112818a61c1a56ea95ef9",
+                "bytes": 294252
+              },
+              "spef": {
+                "path": "artifacts/spef.spef",
+                "sha256": "ee9513a183a876937da74b9731030f09355f2d6ee0f3b4655488c356583039c1",
+                "bytes": 49656
+              }
+            },
+            "notices": [
+              {
+                "path": "notices/ihp-sg13g2/redistribution/LICENSE-Apache-2.0.txt",
+                "source_path": "ihp-sg13g2/redistribution/LICENSE-Apache-2.0.txt",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "bytes": 11358
+              },
+              {
+                "path": "notices/ihp-sg13g2/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "source_path": "ihp-sg13g2/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "sha256": "fae0db7a4c00c3125f037e5818e8cd0c8aa5c67fff2e8c558312068e9f2d1592",
+                "bytes": 2030
+              },
+              {
+                "path": "notices/ihp-sg13g2/redistribution/THIRD_PARTY_NOTICES.md",
+                "source_path": "ihp-sg13g2/redistribution/THIRD_PARTY_NOTICES.md",
+                "sha256": "131f067a6ef68e439768da2fa75e56fa0ca62f733389bd072350821257a4d9bd",
+                "bytes": 18285
+              },
+              {
+                "path": "notices/ihp-sg13g2/redistribution/upstream-lock.json",
+                "source_path": "ihp-sg13g2/redistribution/upstream-lock.json",
+                "sha256": "2708b1467f15d230f662fe6f1949a8da96bc9fda0cd1a12919a798bd99c9cd3d",
+                "bytes": 387
+              }
+            ],
+            "interconnect_corners": {}
+          },
+          "stages": [
+            {
+              "name": "mapped",
+              "verdict": null,
+              "summary": "Mapped synthesis complete \u00b7 ihp-sg13g2 / typical",
+              "result_sha256": "243f742d14069216e25a217b637b5c508ce948575f3a41d5dcd51dcf06e7c24c",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+              }
+            },
+            {
+              "name": "equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "926448eb742903e2c426ec198ec128d85813c46c67155f31498a3a8128e6c0ab",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "fault-detected",
+              "verdict": "FAIL",
+              "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+              "result_sha256": "d36d41ed66850e82bd7faa1ee9832c45a5fb460a3e4ed719ea32e6cdae54e1d5",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "timing",
+              "verdict": "FAIL",
+              "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+              "result_sha256": "61a37427d2267293ffdfcc1b9d1821b668fd34166e13bfc4bcb4aa3993c75e2f",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "floorplan",
+              "verdict": null,
+              "summary": "Physical floorplan complete \u00b7 17 placed cells",
+              "result_sha256": "690171dc167ef7c41846e2724b08cb01cb5a690cc0ab5d77c10832eee0cd901a",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+              }
+            },
+            {
+              "name": "gds",
+              "verdict": null,
+              "summary": "Physical finish complete \u00b7 1976 placed cells",
+              "result_sha256": "1fee9a793fbcd665e344b81e6079b0aac6b3cb38100b862fd05278394902c2db",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+                "klayout": "KLayout 0.28.16"
+              }
+            },
+            {
+              "name": "extracted-timing",
+              "verdict": "PASS",
+              "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+              "result_sha256": "34e832bbcab38360508c8cee1e1c18f492c3400f49112742bcd732fa4f065bd1",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "physical-equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "88beb0be7aab18c35ab9e62a06124cc5720cc44de0e19d6fb06e8beebcc151e7",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "Windows": {
+      "status": "passed",
+      "digital_checks": 26,
+      "timing_pairs": 15,
+      "checked": "2026-10-07T01:17:06+00:00",
+      "runtime": {
+        "kind": "wsl",
+        "distro": "ICStudio-Digital-78858bfa0ff14234-4c1a5471",
+        "root": "\\\\wsl.localhost\\ICStudio-Digital-78858bfa0ff14234-4c1a5471",
+        "sha256": "78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32"
+      },
+      "platform_corners": {
+        "sky130hd": {
+          "library_corners": [
+            "typical",
+            "slow",
+            "fast"
+          ],
+          "interconnect_corners": [
+            "minimum",
+            "nominal",
+            "maximum"
+          ]
+        },
+        "gf180": {
+          "library_corners": [
+            "typical",
+            "slow",
+            "fast"
+          ],
+          "interconnect_corners": []
+        },
+        "ihp-sg13g2": {
+          "library_corners": [
+            "typical",
+            "slow",
+            "fast"
+          ],
+          "interconnect_corners": []
+        }
+      },
+      "physical_tool_checks": {
+        "status": "passed",
+        "design_hash": "855567cf73d5d980d429bffefb4df78adb86f7cfd21c3eb03fa96252a1fd503a",
+        "qualification": "Runtime tool smoke tests only; no process or design qualification.",
+        "stages": [
+          {
+            "name": "drc-legal",
+            "status": "passed",
+            "count": 0
+          },
+          {
+            "name": "drc-narrow",
+            "status": "passed",
+            "count": 1
+          },
+          {
+            "name": "lvs-equal",
+            "status": "passed"
+          },
+          {
+            "name": "lvs-wrong",
+            "status": "passed"
+          },
+          {
+            "name": "ngspice",
+            "status": "passed"
+          }
+        ],
+        "klayout": "0.30.5",
+        "native_design_hash": "b0d2010e725709b0626eaa55f7b5eb0be83b979693f5c18d6f703353a77099d7",
+        "execution": {
+          "runtime": {
+            "kind": "wsl",
+            "distro": "ICStudio-Digital-78858bfa0ff14234-4c1a5471",
+            "root": "\\\\wsl.localhost\\ICStudio-Digital-78858bfa0ff14234-4c1a5471",
+            "sha256": "78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32"
+          },
+          "native_directory": "/var/tmp/icstudio-physical/8d0047c01e62432bb7d2788ffe39a745",
+          "native_input_sha256": "29d2cb27b28b755ba6678c9b0d77b69708629eff2e769b43ec5384ef1f52055c",
+          "received_files": {
+            "physical-backend-result.json": "ad8315f147d0a4c08559a8e19bf070e38718f221cd046b81c1e4ef961f25fa00",
+            "physical-flow/legal.log": "c6c2c95031b51f99b9ba7d2bf56346669a5a4b8a54ca192b04ef74a4a1a23804",
+            "physical-flow/reference.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/wrong.spice": "6a51082e74a23ad0503569f6632d9df462a10ee14adf37ed2727bd3eab37f6b3",
+            "physical-flow/narrow.log": "46a4859dfc40c6d2ac0e9fc4b69e20b85b91a5568cf6d31ca8cd3b6228c3473b",
+            "physical-flow/legal.tcl": "ee090d774cf3ce61fda80fe40ebc3caf9ed620e6e3c5cfc860c4ac40f8b6775c",
+            "physical-flow/startup.tcl": "387521e37da9ab6a54c7a3dfc15ee7f59f337a2e33891b53dc8f4d3253e97809",
+            "physical-flow/setup.tcl": "066b62eb66b2428b270d410a77dae833a0f3d6dde7244cb8d0402701d5e07390",
+            "physical-flow/narrow.tcl": "ce0385ae715968111aa70008c899f368f8b4975042ecf75fcdaa7a5a335928d7",
+            "physical-flow/equal.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/report.json": "1c621d56384234d8124ca8b1a1adbe594c1005bc825b764a7383ec46d402416e",
+            "physical-flow/wrong/console.log": "6813aa2884e854b9ca24fd228321244a396f00afb67c865168e255156ab4008f",
+            "physical-flow/wrong/lvs.log": "c876f9eb14e79734f988f302447f3a1f7fcf2d4958207c067099c7132c4b9bb8",
+            "physical-flow/wrong/lvs.json": "503ebaccddf32815e37daf760f69b7ec19a1c671783cc0ca6e82f6fc40543e95",
+            "physical-flow/equal/console.log": "96c64cf1e8d910c2043aefc275e2237650b620392977efaa98544049540bcc08",
+            "physical-flow/equal/lvs.log": "3bd2772702557fca047a8a35df14610d511240b685b1d2af9dd787cf3ea2f2b9",
+            "physical-flow/equal/lvs.json": "41e6c9c74ec7212b7f4bd03b98dfa7310cb9f0ba26e904e2864bd973b2dcffc8"
+          }
+        }
+      },
+      "platforms": [
+        {
+          "name": "sky130hd",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "extracted_timing": {
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 46.733517,
+              "hold_worst_slack_ns": 0.138645,
+              "setup_reported_violations": 0,
+              "hold_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "parasitics": "extracted SPEF",
+            "rc_corners": [
+              "minimum",
+              "nominal",
+              "maximum"
+            ],
+            "electrical_status": "No reported violations",
+            "incomplete_reasons": [],
+            "corners": [
+              {
+                "corner": "typical",
+                "rc_corner": "minimum",
+                "scenario": "typical / minimum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.700237,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.275906,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "typical",
+                "rc_corner": "nominal",
+                "scenario": "typical / nominal",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.699543,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.275579,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "typical",
+                "rc_corner": "maximum",
+                "scenario": "typical / maximum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.697975,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.274857,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": "minimum",
+                "scenario": "slow / minimum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.735825,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.551362,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": "nominal",
+                "scenario": "slow / nominal",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.7351,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.550496,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": "maximum",
+                "scenario": "slow / maximum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.733517,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.549737,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": "minimum",
+                "scenario": "fast / minimum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.101707,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.139687,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": "nominal",
+                "scenario": "fast / nominal",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.101025,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.139363,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": "maximum",
+                "scenario": "fast / maximum",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.099472,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.138645,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1mA\n power 1nW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "extraction": {
+            "schema": 1,
+            "status": "complete",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0",
+            "definition_sha256": "93a8742f532ca92e152b2c8573644938d13cdd70c849ff93203865f1a66266b9",
+            "def": {
+              "path": "snapshot.def",
+              "sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+              "bytes": 448169
+            },
+            "netlist": {
+              "path": "netlist.v",
+              "sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649",
+              "bytes": 2023
+            },
+            "coupling_threshold_ff": 0.1,
+            "corners": {
+              "minimum": {
+                "spef_key": "spef_minimum",
+                "spef": {
+                  "path": "extraction/minimum/parasitics.spef",
+                  "sha256": "6a0054d36442f12997704dc7bb32f9296188dae673f2f5414d0b9fdfa29b3843",
+                  "bytes": 78148
+                },
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+                    "sha256": "0c8d667cf41e920e67188e258b3b51ad722ff6aadc9a641fb79cbfdc7558550e",
+                    "bytes": 35820
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__min.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef",
+                    "sha256": "fd44aa653851894bf812d8f898a6878b7f152e6ccd993af256f610369a2297ed",
+                    "bytes": 18127
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "metrics": {
+                  "nets": 22,
+                  "resistors": 74,
+                  "capacitors": 248,
+                  "units": {
+                    "R": "1 OHM",
+                    "C": "1 PF"
+                  },
+                  "sum_resistance_values": 665.8513,
+                  "sum_capacitance_values": 0.05399739900000004,
+                  "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+                }
+              },
+              "nominal": {
+                "spef_key": "spef_nominal",
+                "spef": {
+                  "path": "extraction/nominal/parasitics.spef",
+                  "sha256": "fd5c8b173794e923b8d7105a00e2ff7b68ef1ea4b4ca0443f16678151fc97330",
+                  "bytes": 78266
+                },
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+                    "sha256": "682de2d5ceba1fffbdd58ee3033b2ab89ac81ced4ad3f51406f77a05ec4bca8b",
+                    "bytes": 37579
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef",
+                    "sha256": "1a18b353fb5457caf0eca5b3cb28b2c0c9bbacdbbdeee7c4fc64a115932066c2",
+                    "bytes": 18131
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "metrics": {
+                  "nets": 22,
+                  "resistors": 74,
+                  "capacitors": 248,
+                  "units": {
+                    "R": "1 OHM",
+                    "C": "1 PF"
+                  },
+                  "sum_resistance_values": 1411.5314839999999,
+                  "sum_capacitance_values": 0.05399739900000004,
+                  "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+                }
+              },
+              "maximum": {
+                "spef_key": "spef_maximum",
+                "spef": {
+                  "path": "extraction/maximum/parasitics.spef",
+                  "sha256": "6733f41d6ec5203aa6c5c9b8b795b0f5a31eef89497dcbf58a5995d3c4414dbe",
+                  "bytes": 79032
+                },
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+                    "sha256": "2083537e19365687ef0377e490b9d09ee58ce6fbf2865a9a9ba755840982d66e",
+                    "bytes": 36464
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__max.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef",
+                    "sha256": "317b8fb8ba802a0845870ffb374eb46d14dd29b6400fb5cc3795764bbf2bc83d",
+                    "bytes": 18130
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "metrics": {
+                  "nets": 22,
+                  "resistors": 95,
+                  "capacitors": 275,
+                  "units": {
+                    "R": "1 OHM",
+                    "C": "1 PF"
+                  },
+                  "sum_resistance_values": 3030.329796000001,
+                  "sum_capacitance_values": 0.053997382640000036,
+                  "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+                }
+              }
+            },
+            "scope": "Independent OpenRCX runs on the same final DEF, using each corner technology LEF and extraction deck."
+          },
+          "macro_export": {
+            "sha256": "69f727ec5bb9d792e1875a4a42d2fc6afea76fb12495327681198318a856880d",
+            "bytes": 357646,
+            "artifacts": {
+              "netlist": {
+                "path": "artifacts/netlist.v",
+                "sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649",
+                "bytes": 2023
+              },
+              "def": {
+                "path": "artifacts/def.def",
+                "sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+                "bytes": 448169
+              },
+              "database": {
+                "path": "artifacts/database.json",
+                "sha256": "9bcf4fbcb63ce653ab8517328ce34a3093620acb9a4420e1c44ddb8d20a33620",
+                "bytes": 1103356
+              },
+              "layout_preview": {
+                "path": "artifacts/layout_preview.json",
+                "sha256": "f5428218aafa433bc7ce3d1b057176882ac575b35be1273494e001bbd9493dfa",
+                "bytes": 2426294
+              },
+              "lef": {
+                "path": "artifacts/lef.lef",
+                "sha256": "6ca127700ff913d7e23a367c348b108fbb82cdf123b78c8b2d5ce70aa014317e",
+                "bytes": 136774
+              },
+              "gds": {
+                "path": "artifacts/gds.gds",
+                "sha256": "6b804575be3542d85bd10a6450ab89688ec4cf085234e50e715de17fe07fe516",
+                "bytes": 454608
+              },
+              "spef": {
+                "path": "artifacts/spef.spef",
+                "sha256": "35dd989acc0a639da4b5bf467b92246954aae97946c0f294aa8b5201a17bc258",
+                "bytes": 77659
+              },
+              "spef_minimum": {
+                "path": "artifacts/spef_minimum.spef",
+                "sha256": "6a0054d36442f12997704dc7bb32f9296188dae673f2f5414d0b9fdfa29b3843",
+                "bytes": 78148
+              },
+              "extraction_script_minimum": {
+                "path": "artifacts/extraction_script_minimum.tcl",
+                "sha256": "5a3156edee513b9c51cd9490b451842e5e396d4d7cc4b78b42b0037e04107bbf",
+                "bytes": 989
+              },
+              "spef_nominal": {
+                "path": "artifacts/spef_nominal.spef",
+                "sha256": "fd5c8b173794e923b8d7105a00e2ff7b68ef1ea4b4ca0443f16678151fc97330",
+                "bytes": 78266
+              },
+              "extraction_script_nominal": {
+                "path": "artifacts/extraction_script_nominal.tcl",
+                "sha256": "053f9d45f993f5f1abb4d8f02be72f4844b33f1ff87c25e0010d21527af93a89",
+                "bytes": 989
+              },
+              "spef_maximum": {
+                "path": "artifacts/spef_maximum.spef",
+                "sha256": "6733f41d6ec5203aa6c5c9b8b795b0f5a31eef89497dcbf58a5995d3c4414dbe",
+                "bytes": 79032
+              },
+              "extraction_script_maximum": {
+                "path": "artifacts/extraction_script_maximum.tcl",
+                "sha256": "9dae6de4742f6997b1c4fbc84d0b0c8b4c9e71213ac65349289445a28482a84a",
+                "bytes": 989
+              },
+              "extraction": {
+                "path": "artifacts/extraction.json",
+                "sha256": "0b98f507bb6b9dee60997daadd49492580ab37c407572d0e47ae7cdb9e6c1458",
+                "bytes": 5486
+              }
+            },
+            "notices": [
+              {
+                "path": "notices/sky130hd/pvt/LICENSE-Apache-2.0.txt",
+                "source_path": "sky130hd/pvt/LICENSE-Apache-2.0.txt",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "bytes": 11358
+              },
+              {
+                "path": "notices/sky130hd/pvt/upstream-lock.json",
+                "source_path": "sky130hd/pvt/upstream-lock.json",
+                "sha256": "c9ea7082a662cff8c170f6d0ecd3ec294e5b8c474bff61e8d9884ce409802a91",
+                "bytes": 4667
+              },
+              {
+                "path": "notices/sky130hd/redistribution/LICENSE-Apache-2.0.txt",
+                "source_path": "sky130hd/redistribution/LICENSE-Apache-2.0.txt",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "bytes": 11358
+              },
+              {
+                "path": "notices/sky130hd/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "source_path": "sky130hd/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "sha256": "fae0db7a4c00c3125f037e5818e8cd0c8aa5c67fff2e8c558312068e9f2d1592",
+                "bytes": 2030
+              },
+              {
+                "path": "notices/sky130hd/redistribution/THIRD_PARTY_NOTICES.md",
+                "source_path": "sky130hd/redistribution/THIRD_PARTY_NOTICES.md",
+                "sha256": "131f067a6ef68e439768da2fa75e56fa0ca62f733389bd072350821257a4d9bd",
+                "bytes": 18285
+              },
+              {
+                "path": "notices/sky130hd/redistribution/upstream-lock.json",
+                "source_path": "sky130hd/redistribution/upstream-lock.json",
+                "sha256": "424c62790c6a0b74e1260968385c237e871b846d0cb7635c77d4a0ce748cfd19",
+                "bytes": 437
+              }
+            ],
+            "interconnect_corners": {
+              "minimum": {
+                "spef_artifact": "spef_minimum",
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+                    "sha256": "0c8d667cf41e920e67188e258b3b51ad722ff6aadc9a641fb79cbfdc7558550e",
+                    "bytes": 35820
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__min.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef",
+                    "sha256": "fd44aa653851894bf812d8f898a6878b7f152e6ccd993af256f610369a2297ed",
+                    "bytes": 18127
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "source_def_sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+                "source_netlist_sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649"
+              },
+              "nominal": {
+                "spef_artifact": "spef_nominal",
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+                    "sha256": "682de2d5ceba1fffbdd58ee3033b2ab89ac81ced4ad3f51406f77a05ec4bca8b",
+                    "bytes": 37579
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef",
+                    "sha256": "1a18b353fb5457caf0eca5b3cb28b2c0c9bbacdbbdeee7c4fc64a115932066c2",
+                    "bytes": 18131
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "source_def_sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+                "source_netlist_sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649"
+              },
+              "maximum": {
+                "spef_artifact": "spef_maximum",
+                "inputs": {
+                  "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor": {
+                    "path": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+                    "sha256": "2083537e19365687ef0377e490b9d09ee58ce6fbf2865a9a9ba755840982d66e",
+                    "bytes": 36464
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd__max.tlef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef",
+                    "sha256": "317b8fb8ba802a0845870ffb374eb46d14dd29b6400fb5cc3795764bbf2bc83d",
+                    "bytes": 18130
+                  },
+                  "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                    "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                    "bytes": 1888519
+                  },
+                  "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                    "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                    "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                    "bytes": 5890
+                  }
+                },
+                "source_def_sha256": "0fb437a0d84a24e54d36534adcc215da6debd0d3426923fa782c7f3afca2b6b4",
+                "source_netlist_sha256": "86d805dc6790fd59cd88fbba43aa108dc60dad95d7f30978f962d4377b1fd649"
+              }
+            }
+          },
+          "stages": [
+            {
+              "name": "mapped",
+              "verdict": null,
+              "summary": "Mapped synthesis complete \u00b7 sky130hd / typical",
+              "result_sha256": "db4e8cd9b39d81a3946bd080bb7d493dbec2e13764b4cc9838a941e40f371315",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+              }
+            },
+            {
+              "name": "equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "c6982779b5ddf30e58789ce666b901002697df98ba7e2cef84736d68815f232c",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "fault-detected",
+              "verdict": "FAIL",
+              "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+              "result_sha256": "3ea533d59d53c74509d70bedcab94256c98a155aefdbeb4671afa88dc53a077e",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "timing",
+              "verdict": "FAIL",
+              "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+              "result_sha256": "1cb2e8e03275853906368601a6ac8d4e4592b8f11f3c5a250be5707cf306aa77",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "floorplan",
+              "verdict": null,
+              "summary": "Physical floorplan complete \u00b7 342 placed cells",
+              "result_sha256": "b663257b77b7144c6df90cfd98518b8d84024b5e83dc991fdae64d8989eaf187",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+              }
+            },
+            {
+              "name": "gds",
+              "verdict": null,
+              "summary": "Physical finish complete \u00b7 3341 placed cells",
+              "result_sha256": "549740ee64b9c8dd6dbe5756145849bc93bbdd6525e4edf905030fd6c4aef504",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+                "klayout": "KLayout 0.28.16"
+              }
+            },
+            {
+              "name": "extracted-timing",
+              "verdict": "PASS",
+              "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 RC minimum, nominal, maximum \u00b7 extracted SPEF",
+              "result_sha256": "48627b1633cb696ba3cd08231fe7f9f457e86c4a098425a162074e2717b948d2",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "physical-equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "821df4c94d49b70c1e878195bc224924b6b7ff873ef8bd30a275d5e620d7def7",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            }
+          ]
+        },
+        {
+          "name": "gf180",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "extracted_timing": {
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 44.443768,
+              "hold_worst_slack_ns": 0.246833,
+              "setup_reported_violations": 0,
+              "hold_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "parasitics": "extracted SPEF",
+            "rc_corners": [],
+            "electrical_status": "No reported violations",
+            "incomplete_reasons": [],
+            "corners": [
+              {
+                "corner": "typical",
+                "rc_corner": null,
+                "scenario": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.488331,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.516922,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": null,
+                "scenario": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 44.443768,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 1.135645,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": null,
+                "scenario": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.397301,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.246833,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "extraction": null,
+          "macro_export": {
+            "sha256": "6b456d240bdd7d347af573d95aaac9a89077649337ccf654460b86d3235937f6",
+            "bytes": 122144,
+            "artifacts": {
+              "netlist": {
+                "path": "artifacts/netlist.v",
+                "sha256": "7afea770fc5dd54513336f586c0ab46479f315769aeda422af91c0c14ffaebee",
+                "bytes": 2159
+              },
+              "def": {
+                "path": "artifacts/def.def",
+                "sha256": "56a8e8db418ed290bc59384a86876d254a561ca547b0c996d9333aa10d0c798a",
+                "bytes": 708486
+              },
+              "database": {
+                "path": "artifacts/database.json",
+                "sha256": "5fb25e72b8cb51f85ddc68379d6f06f853ffe93ba1ed737d6a039490298a8b05",
+                "bytes": 96633
+              },
+              "layout_preview": {
+                "path": "artifacts/layout_preview.json",
+                "sha256": "6ebbf09c4f330496c0619faf89eda68ff2f7ca4bee310f050235ea50850828cd",
+                "bytes": 240199
+              },
+              "lef": {
+                "path": "artifacts/lef.lef",
+                "sha256": "59418cafbe3715dcb9450f536fec201814ec344a41a37cc767c71ef12abadf46",
+                "bytes": 4501
+              },
+              "gds": {
+                "path": "artifacts/gds.gds",
+                "sha256": "30d8618c3773dbd102169b52d7dc6dde3540b1d0b692a0ac1860a0db0a6b88c1",
+                "bytes": 556632
+              },
+              "spef": {
+                "path": "artifacts/spef.spef",
+                "sha256": "d4b6eaf2c9b392412fce4deab5084d3485430dafe15e6f1b78c9469ab931dd2e",
+                "bytes": 19789
+              }
+            },
+            "notices": [
+              {
+                "path": "notices/gf180/redistribution/LICENSE-Apache-2.0.txt",
+                "source_path": "gf180/redistribution/LICENSE-Apache-2.0.txt",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "bytes": 11358
+              },
+              {
+                "path": "notices/gf180/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "source_path": "gf180/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "sha256": "fae0db7a4c00c3125f037e5818e8cd0c8aa5c67fff2e8c558312068e9f2d1592",
+                "bytes": 2030
+              },
+              {
+                "path": "notices/gf180/redistribution/THIRD_PARTY_NOTICES.md",
+                "source_path": "gf180/redistribution/THIRD_PARTY_NOTICES.md",
+                "sha256": "131f067a6ef68e439768da2fa75e56fa0ca62f733389bd072350821257a4d9bd",
+                "bytes": 18285
+              },
+              {
+                "path": "notices/gf180/redistribution/upstream-lock.json",
+                "source_path": "gf180/redistribution/upstream-lock.json",
+                "sha256": "7c79467f5ce2f2a4b4ddd34a9d5f90919db4702f4110386fbf5646d351e7b935",
+                "bytes": 387
+              }
+            ],
+            "interconnect_corners": {}
+          },
+          "stages": [
+            {
+              "name": "mapped",
+              "verdict": null,
+              "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+              "result_sha256": "72558665cea974f53a16e50846d10bef49413297b3a27be67f596968350dad61",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+              }
+            },
+            {
+              "name": "equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "115da4203fc7dd9509161231172e448ff3bbe21323c40988d0ad2dec4e52b719",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "fault-detected",
+              "verdict": "FAIL",
+              "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+              "result_sha256": "7824c802074ed6b5a8d3b5051259bac131ac697c7419a81e16a81ca3e593901b",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "timing",
+              "verdict": "FAIL",
+              "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+              "result_sha256": "02efad1ff87ac27e509cf127408b4f8eb5fd833245ecbf3e52b4fea4f7a50d2d",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "floorplan",
+              "verdict": null,
+              "summary": "Physical floorplan complete \u00b7 91 placed cells",
+              "result_sha256": "ad61f89f2db12ecbaf40ef0405994884e6a5ff5f8f9f342a7dac6a28d220d9c4",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+              }
+            },
+            {
+              "name": "gds",
+              "verdict": null,
+              "summary": "Physical finish complete \u00b7 375 placed cells",
+              "result_sha256": "be6fd96b3709d24a2fca63d08555f8d8cc6ff8cd1896970b77935b74ddff8035",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+                "klayout": "KLayout 0.28.16"
+              }
+            },
+            {
+              "name": "extracted-timing",
+              "verdict": "PASS",
+              "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+              "result_sha256": "74350640bcca0a762612ae0ba13e85d9597a4d277fa6fd083af8453b3d58f29a",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "physical-equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "d68ce73d114cab8e23f60752945524c72a7ac273195fe252acba80ff32e486a0",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ihp-sg13g2",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "extracted_timing": {
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 47.852211,
+              "hold_worst_slack_ns": 0.096999,
+              "setup_reported_violations": 0,
+              "hold_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "parasitics": "extracted SPEF",
+            "rc_corners": [],
+            "electrical_status": "No reported violations",
+            "incomplete_reasons": [],
+            "corners": [
+              {
+                "corner": "typical",
+                "rc_corner": null,
+                "scenario": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.260189,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.195837,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1uA\n power 1pW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "rc_corner": null,
+                "scenario": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.852211,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.370399,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1uA\n power 1pW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "rc_corner": null,
+                "scenario": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.477261,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.096999,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "units": " time 1ns\n capacitance 1pF\n resistance 1kohm\n voltage 1v\n current 1uA\n power 1pW\n distance 1um\n",
+                "parasitics": "extracted SPEF",
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "extraction": null,
+          "macro_export": {
+            "sha256": "6348d15e9920932e37fe9a4e977865ad3e0accd818bf561c3b8ee6a20880b90d",
+            "bytes": 160059,
+            "artifacts": {
+              "netlist": {
+                "path": "artifacts/netlist.v",
+                "sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+                "bytes": 2091
+              },
+              "def": {
+                "path": "artifacts/def.def",
+                "sha256": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+                "bytes": 262740
+              },
+              "database": {
+                "path": "artifacts/database.json",
+                "sha256": "c5b984f4320eb89718a352249cb65029d8158ea63117e6206c1581bea3a95720",
+                "bytes": 457493
+              },
+              "layout_preview": {
+                "path": "artifacts/layout_preview.json",
+                "sha256": "745bfead6ad0b7fe421360bfca5d45a407cf1345e9dc857f798f29dfc1440f75",
+                "bytes": 1067549
+              },
+              "lef": {
+                "path": "artifacts/lef.lef",
+                "sha256": "72bc9ed842c6a9aa0552f928db2bb6b4c8a6a3462cb51732bc6be20dac499a39",
+                "bytes": 5430
+              },
+              "gds": {
+                "path": "artifacts/gds.gds",
+                "sha256": "6f9b7bbe13e763e83a2bc19759d70d86d7fd67d4ead281209c3754a3f5ef3ea9",
+                "bytes": 294252
+              },
+              "spef": {
+                "path": "artifacts/spef.spef",
+                "sha256": "a539daf0c6e23b31beab911723e9e9f79857f16332c049eac3236202ca286ff4",
+                "bytes": 49654
+              }
+            },
+            "notices": [
+              {
+                "path": "notices/ihp-sg13g2/redistribution/LICENSE-Apache-2.0.txt",
+                "source_path": "ihp-sg13g2/redistribution/LICENSE-Apache-2.0.txt",
+                "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                "bytes": 11358
+              },
+              {
+                "path": "notices/ihp-sg13g2/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "source_path": "ihp-sg13g2/redistribution/LICENSE-ORFS-build-scripts.txt",
+                "sha256": "fae0db7a4c00c3125f037e5818e8cd0c8aa5c67fff2e8c558312068e9f2d1592",
+                "bytes": 2030
+              },
+              {
+                "path": "notices/ihp-sg13g2/redistribution/THIRD_PARTY_NOTICES.md",
+                "source_path": "ihp-sg13g2/redistribution/THIRD_PARTY_NOTICES.md",
+                "sha256": "131f067a6ef68e439768da2fa75e56fa0ca62f733389bd072350821257a4d9bd",
+                "bytes": 18285
+              },
+              {
+                "path": "notices/ihp-sg13g2/redistribution/upstream-lock.json",
+                "source_path": "ihp-sg13g2/redistribution/upstream-lock.json",
+                "sha256": "2708b1467f15d230f662fe6f1949a8da96bc9fda0cd1a12919a798bd99c9cd3d",
+                "bytes": 387
+              }
+            ],
+            "interconnect_corners": {}
+          },
+          "stages": [
+            {
+              "name": "mapped",
+              "verdict": null,
+              "summary": "Mapped synthesis complete \u00b7 ihp-sg13g2 / typical",
+              "result_sha256": "a3b781226998120c8a9863f062c0dfaf324b7de4992abfcc55bb9d0b511a2ff4",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+              }
+            },
+            {
+              "name": "equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "01c346480e89dc6a62ec83394e92a34caaaaf79aee5110b779a4dab5920fff90",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "fault-detected",
+              "verdict": "FAIL",
+              "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+              "result_sha256": "b0e3540f646ebbcfb9e023697f89d7e9e2384ead77693b94dcbe533f80f87241",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            },
+            {
+              "name": "timing",
+              "verdict": "FAIL",
+              "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+              "result_sha256": "1e176f9371f423df8bf27800a55c5d485214a98416d469c00c0a1d7aea24ef95",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "floorplan",
+              "verdict": null,
+              "summary": "Physical floorplan complete \u00b7 17 placed cells",
+              "result_sha256": "634d7035e3f8051b67275b8eb094c3b8f9dd90ff43927da9b214cd6969e02855",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+              }
+            },
+            {
+              "name": "gds",
+              "verdict": null,
+              "summary": "Physical finish complete \u00b7 1976 placed cells",
+              "result_sha256": "e69a17bc809b0a5ec9061c252cff022bf619c820821c8149abd5c6728c7591e2",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "openroad": "26Q2-1164-g08f67ee5ec",
+                "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+                "klayout": "KLayout 0.28.16"
+              }
+            },
+            {
+              "name": "extracted-timing",
+              "verdict": "PASS",
+              "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+              "result_sha256": "f18fdde14dff06ad8161d85e743ac7109ec4c6b2d600804aa2083230c6e1bb49",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "sta": "3.1.0"
+              }
+            },
+            {
+              "name": "physical-equivalence",
+              "verdict": "PASS",
+              "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+              "result_sha256": "5b2ec0cedb3bc3e9bb3223d3fb201af3ecf88240df03654dd266516b7e9c5c03",
+              "versions": {
+                "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+                "eqy": "EQY v0.69",
+                "sby": "SBY v0.69",
+                "bitwuzla": "0.9.1",
+                "yosys-abc": "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "evidence": {
+    "bundled-corners-Linux-audit.json": {
+      "bytes": 455280,
+      "sha256": "ba9f6ee7d73a8842ee35389192936a56b0bdf450c56cc010a8ebb5e47ea12dde"
+    },
+    "bundled-corners-Linux-evidence.tar.gz": {
+      "bytes": 29543616,
+      "sha256": "e43f20983bd2d711328f3792dac21e1dbaf88626e011463724fb7c653e50e548"
+    },
+    "bundled-corners-Windows-audit.json": {
+      "bytes": 467526,
+      "sha256": "7c912c80a2a37e1867352c1c4979fe25676620372205029d51d40daed56feab5"
+    },
+    "bundled-corners-Windows-evidence.tar.gz": {
+      "bytes": 29551331,
+      "sha256": "5d62076c488e3f782231da81542ed4f06dae65d52d7f2b386a306c6f24faf717"
+    }
+  },
+  "remaining": [
+    "Bind macro export metadata to the original job/source identity; an independent read-only probe demonstrated that altered input metadata is currently accepted",
+    "Exact frozen desktop packages and consumer installation/upgrade/offline/accessibility acceptance",
+    "Independent GF180/IHP RC corners, GF180 variants, more operating modes and larger analog/digital designs",
+    "Full-chip physical signoff and process-owner/shuttle acceptance for submitted designs"
+  ],
+  "known_export_input_integrity_gap": {
+    "scope": "Adversarial read-only input.json substitution against the current macro exporter; original engine evidence unchanged",
+    "backend": "ac32262a7d7862d184b884ac253f038117704c128be071406867891101e1dcaa",
+    "cases": [
+      {
+        "fault": "constraint",
+        "rejected": false,
+        "exported_top": "counter",
+        "exported_notice_count": 6,
+        "retained_source_hash": "600ef64cdbb265d00421d9adcb9a17955f296c47aeaa1ccc8010bfb54d79c445"
+      },
+      {
+        "fault": "top",
+        "rejected": false,
+        "exported_top": "another_top",
+        "exported_notice_count": 6,
+        "retained_source_hash": "600ef64cdbb265d00421d9adcb9a17955f296c47aeaa1ccc8010bfb54d79c445"
+      },
+      {
+        "fault": "notice-lock",
+        "rejected": false,
+        "exported_top": "counter",
+        "exported_notice_count": 0,
+        "retained_source_hash": "600ef64cdbb265d00421d9adcb9a17955f296c47aeaa1ccc8010bfb54d79c445"
+      }
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "status": "four-installed-macros-portable-and-independently-audited",
+  "qualified": false,
+  "observed_at": "2026-10-09T18:29:18.433757+00:00",
+  "backend": "719a8abfbe6b3b6dda4eed20751de3ee230253bbcfb22b139a6316acc87b8cac",
+  "cases": [
+    {
+      "system": "linux",
+      "platform": "gf180",
+      "source_result_sha256": "b7709358499865ca7637870d6a59c7b7a4f5eb9237e2b856ca897b34b761c1a2",
+      "input_sha256": "bf02c86c709c68d93f7cdc9148de52e3445b836421bb2b20f6759370458a2161",
+      "native_macro": {
+        "path": "outputs/gf180-installed-macro-linux-native-v1/gf180.zip",
+        "sha256": "dd451cea5314e958cb1df868c6132a0cf0a2278778c1aa61740fdee4a402894e"
+      },
+      "windows_macro": {
+        "path": "outputs/gf180-installed-macro-linux-windows-v1/gf180.zip",
+        "sha256": "1045b736fcbe659584cbf9b17b2e273f5155b1c65a355c5dba1e5801ffd4b929"
+      },
+      "identical_members": 102,
+      "artifacts": 94,
+      "required_connectivity_artifacts": 80,
+      "notices": 6,
+      "constraints": 1,
+      "placed_cells": 790,
+      "devices": {
+        "m": 254
+      }
+    },
+    {
+      "system": "linux",
+      "platform": "gf180d",
+      "source_result_sha256": "050dd80a687fbe413b9e94a37571126d539215c82928cb854cc4891f71bffc81",
+      "input_sha256": "6e91a4c3b483e56f14d871ed69719e80dfcc3d9e9ac8adfce28a3ddcdb55e024",
+      "native_macro": {
+        "path": "outputs/gf180-installed-macro-linux-native-v1/gf180d.zip",
+        "sha256": "ad8613016bb12d7f2b7da036166cb83e6923e9e0b4c1f5dad9e80038867a1665"
+      },
+      "windows_macro": {
+        "path": "outputs/gf180-installed-macro-linux-windows-v1/gf180d.zip",
+        "sha256": "41d71d1b42c94768a6485c202a3b205e2ff53b79fcb4adae5539352aa2f798c5"
+      },
+      "identical_members": 102,
+      "artifacts": 94,
+      "required_connectivity_artifacts": 80,
+      "notices": 6,
+      "constraints": 1,
+      "placed_cells": 790,
+      "devices": {
+        "m": 254
+      }
+    },
+    {
+      "system": "windows",
+      "platform": "gf180",
+      "source_result_sha256": "3796dead68fd82f406464d70fb7644ef501ded0e4bb7593568bfcde3a2e003fc",
+      "input_sha256": "cb091a34d2beae97cbe6b97089e946b60a5bebabb1e68e17fa0c17833668bbb7",
+      "native_macro": {
+        "path": "outputs/gf180-installed-macro-windows-native-v1/gf180.zip",
+        "sha256": "e6769f207ff33a9acf0fbb7bd6b05f9a1658954a84790d5378e7e2474209117b"
+      },
+      "windows_macro": {
+        "path": "outputs/gf180-installed-macro-windows-windows-v1/gf180.zip",
+        "sha256": "0150e75d01082819d94f1b5eabd5bf5a8bd6e9b0b9e1124d3f7dc301f382447a"
+      },
+      "identical_members": 102,
+      "artifacts": 94,
+      "required_connectivity_artifacts": 80,
+      "notices": 6,
+      "constraints": 1,
+      "placed_cells": 790,
+      "devices": {
+        "m": 254
+      }
+    },
+    {
+      "system": "windows",
+      "platform": "gf180d",
+      "source_result_sha256": "0702d9b3219d27ab7fbd210264690daf98fdf83e1a3cb7a91cc51aa63533244f",
+      "input_sha256": "22736e58e19187f572f9c6e8e91fcfb6108bf22fec17e866274b989c82cd0dcf",
+      "native_macro": {
+        "path": "outputs/gf180-installed-macro-windows-native-v1/gf180d.zip",
+        "sha256": "1b383d5c6ca9ca1509b4428f8e1124f793ba7b4670ce2ca5f9f3abeb111d7762"
+      },
+      "windows_macro": {
+        "path": "outputs/gf180-installed-macro-windows-windows-v1/gf180d.zip",
+        "sha256": "3cd538f07fad3fab6ba8b258523729f360341d86ea8f1f02545ae77b1f317853"
+      },
+      "identical_members": 102,
+      "artifacts": 94,
+      "required_connectivity_artifacts": 80,
+      "notices": 6,
+      "constraints": 1,
+      "placed_cells": 790,
+      "devices": {
+        "m": 254
+      }
+    }
+  ],
+  "input_dependencies": {
+    "linux": {
+      "directory": "gf180-installed-linux-2026-10-09-v1",
+      "archive": {
+        "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/gf180-installed-linux-2026-10-09-v1/evidence.tar.gz",
+        "sha256": "bf8f9d52ef17bceaa8dc01237111dc5813d7ebc35534d223622017008ee84cd1",
+        "bytes": 33970514,
+        "logical_files": 2265,
+        "unique_objects": 945,
+        "verified": true
+      }
+    },
+    "windows": {
+      "directory": "gf180-installed-windows-2026-10-09-v1",
+      "archive": {
+        "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/gf180-installed-windows-2026-10-09-v1/evidence.tar.gz",
+        "sha256": "1173175a2c93872a5310d22b94f8fc1c4832e5d514323b05a514943a14b364c2",
+        "bytes": 33956034,
+        "logical_files": 2265,
+        "unique_objects": 946,
+        "verified": true
+      }
+    }
+  },
+  "scope": "Four fresh installed GF180 C/D counter jobs, two per OS. Actual Windows saved readback and export reproduce every one of the 102 native macro members for each job, including constraints, notices and complete reference/native/metal artifacts. Zip container metadata may differ. These installation counters contain no perimeter dummy fill; full post-fill performance and tapeout remain unqualified.",
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-installed-macros-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "143c85df6cab49901ba105d8799d0576cbbac91a3b92261902660c07040a6a33",
+    "bytes": 4615879,
+    "logical_files": 38,
+    "unique_objects": 30,
+    "verified": true
+  }
+}

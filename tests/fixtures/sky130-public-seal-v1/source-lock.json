@@ -1,0 +1,230 @@
+{
+  "schema": 1,
+  "revision": "0ec4fa67eade28cd0a4352c04df981840809427b",
+  "files": [
+    {
+      "name": ".magicrc",
+      "size": 50,
+      "git_blob": "2a186650cff000cd5dcbaeeb2a1deb0b53e33ca4",
+      "sha256": "4a89e660b1f480f3666d07bd789061170957060646322618c4616d3031338955",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/.magicrc"
+    },
+    {
+      "name": "README",
+      "size": 1756,
+      "git_blob": "fff8902a41ab9c5272239ff0ac5649d98b76acd7",
+      "sha256": "e294fbb3eee6113c7fa9d04590c64705bf407193edc5961661d73330b8704890",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/README"
+    },
+    {
+      "name": "generate_gds.tcl",
+      "size": 222,
+      "git_blob": "eda12e0c4b2fe64e88fc1c42b56310a8e7fe665c",
+      "sha256": "147e139419552eba117a36aea206c537c86ea6f874969771c4001c7204f71846",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/generate_gds.tcl"
+    },
+    {
+      "name": "nikon_sealring_shape.mag",
+      "size": 2554,
+      "git_blob": "ecffd928faa14e25844c7df240ad60709c27c3e7",
+      "sha256": "f0f30fb10c9f7a2fda02525ba7c5b45f0e2355bc76a9b969c287860fab0ee023",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/nikon_sealring_shape.mag"
+    },
+    {
+      "name": "seal_ring_corner.mag",
+      "size": 1704,
+      "git_blob": "25de9fc1ee3bc643c8eaa5ea69ad3afbded6778a",
+      "sha256": "ba26060bee27485768dd98a36b7dc96344bcde0b6f5f7a2fa62f9936ad593077",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/seal_ring_corner.mag"
+    },
+    {
+      "name": "seal_ring_corner_abstract.mag",
+      "size": 412,
+      "git_blob": "5212b485cc739f26ff72d966671a7f9c5f082d76",
+      "sha256": "98ff8ce036b3cfb6cf0b9f9a4996a92e9b59c161e15dcb8d30cdb427f476e35e",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/seal_ring_corner_abstract.mag"
+    },
+    {
+      "name": "seal_ring_slots_array.mag",
+      "size": 335,
+      "git_blob": "0330c8b7c4c7a40d949a27e507fc94fd42d487a3",
+      "sha256": "dfc97d2de5db2a18773965f113204d169480aa95b1da699d0892ebb1ba9e50d4",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/seal_ring_slots_array.mag"
+    },
+    {
+      "name": "sealring_slots.mag",
+      "size": 246,
+      "git_blob": "972bb263d3734c7af46f2c1b8b622404dbfab9d2",
+      "sha256": "c62a175cabe26f0c0312855608b6d5e56958de7c851c0b5eeea2685665efccc4",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sealring_slots.mag"
+    },
+    {
+      "name": "sky130_gen_sealring.py",
+      "size": 15039,
+      "git_blob": "7e270c1ff718013ece75d05c49b6baa12514fd2b",
+      "sha256": "711688fb70b8a844668b8ca3e1c2755d60b3182015ff18d44812c6b75d011cfd",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sky130_gen_sealring.py"
+    },
+    {
+      "name": "sky130seal_ring.tech",
+      "size": 7387,
+      "git_blob": "8b3ad5850489f69ee0e8b54913cafcaeb1cf82eb",
+      "sha256": "c980ded99aa919b9a750c6736fcc19198b03f11c26230c8484e8bbc538303c21",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sky130seal_ring.tech"
+    },
+    {
+      "name": "sr_polygon00001.mag",
+      "size": 395,
+      "git_blob": "c1784bc25ff2113d21670eeddaf6c7371cd677bb",
+      "sha256": "375d7f4e687572b9584907b6d7d67cd4071f8dfeeb3e689ff09a27b51b8030bc",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00001.mag"
+    },
+    {
+      "name": "sr_polygon00002.mag",
+      "size": 395,
+      "git_blob": "f0542e6dfa23cd9410e70266da442404db89550e",
+      "sha256": "1355392b668e5832056dafad5ccd36b1312c1ca9c0cde0de5ba2876a4e7cefb9",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00002.mag"
+    },
+    {
+      "name": "sr_polygon00003.mag",
+      "size": 395,
+      "git_blob": "2043db20aa4a0a73855f0d3849b1e33ee5f3635e",
+      "sha256": "5dfef78f59c20e5ddfdb9f2b782a68808d57b151d82370171f96b93af53702ff",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00003.mag"
+    },
+    {
+      "name": "sr_polygon00004.mag",
+      "size": 395,
+      "git_blob": "80a87502786bb2dc7ca9b259a1faf63775eced5d",
+      "sha256": "9c2b171195d00161d198814ac9874a450ec2ee1f69e4aca0a54d8a358f591111",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00004.mag"
+    },
+    {
+      "name": "sr_polygon00005.mag",
+      "size": 395,
+      "git_blob": "6093018355408882953f25b90b138c607d6da447",
+      "sha256": "e0d7d8da203ecf148b2c8dbc15863c5aaa948e4bd8d633af65e76cda162c89e2",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00005.mag"
+    },
+    {
+      "name": "sr_polygon00006.mag",
+      "size": 395,
+      "git_blob": "c3a13f6336bb5939cf2cc05549c7f1138d699f7e",
+      "sha256": "46006c3004b079dfff8cddacb52fa60f397336a616b3d661366cb70dcba7126a",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00006.mag"
+    },
+    {
+      "name": "sr_polygon00007.mag",
+      "size": 395,
+      "git_blob": "4ede940db65f0c532c7b99087c96f6a56d393b00",
+      "sha256": "2fa7b0b11ac14dbf32f0420d12d6f95e00ef434a03b7ad851862fd517d06ff1a",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00007.mag"
+    },
+    {
+      "name": "sr_polygon00011.mag",
+      "size": 3259,
+      "git_blob": "f26a866fff58802ee971e1a9d3f438ece5621f61",
+      "sha256": "f817e1399018aa579b3061cb8a85668ece2c6a24ee00873c2dfbcf6fc2adb5c6",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00011.mag"
+    },
+    {
+      "name": "sr_polygon00015.mag",
+      "size": 290,
+      "git_blob": "a6afa052ca38fd5fca2893937112575d3e3ee9b1",
+      "sha256": "45b4dd3be89723878105ad53ce395ba57a89d2c456e0cf2cce387e018054c5f2",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00015.mag"
+    },
+    {
+      "name": "sr_polygon00016.mag",
+      "size": 136,
+      "git_blob": "1e405f685400c67c52e2a61c1517eaa610910670",
+      "sha256": "aff3a39e6313c5948add0b11935d5ab2c821469231e15dbd54f0d5462e409a84",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00016.mag"
+    },
+    {
+      "name": "sr_polygon00019.mag",
+      "size": 1336,
+      "git_blob": "9418687c3772925016bf7b798b9338f0620593ee",
+      "sha256": "6c7208154f83a2103ccb3763b767823a4fcf4f547d9cfc053c7eae1d48855131",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00019.mag"
+    },
+    {
+      "name": "sr_polygon00020.mag",
+      "size": 136,
+      "git_blob": "b62281c5151e575d55ea1305e8b99f47f45d236c",
+      "sha256": "2bc3b445dbc36f61d8363d7263f2fce467ad15978359a31b6f4f3afc994103aa",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00020.mag"
+    },
+    {
+      "name": "sr_polygon00023.mag",
+      "size": 1318,
+      "git_blob": "2a4ec4b45153e4400e482ddce1237aafd53c1b7c",
+      "sha256": "2bf9ac47473acdf2629e0e66b41b023c31c6e56f976868ff6380071992209d1d",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00023.mag"
+    },
+    {
+      "name": "sr_polygon00024.mag",
+      "size": 136,
+      "git_blob": "efde77f247010e2a59b5695b2b5ce2537ee93029",
+      "sha256": "780dd3e0a75550d9aa051910df3eb90a08757c1850737d79b9e5599c6b10f7de",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00024.mag"
+    },
+    {
+      "name": "sr_polygon00027.mag",
+      "size": 1302,
+      "git_blob": "122383016b6b28bee9f28ea244d7e0c6c56010e1",
+      "sha256": "003512c4db49b6872cd0163e9c093d65861e707f118af7048fc118df6cfb1285",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00027.mag"
+    },
+    {
+      "name": "sr_polygon00028.mag",
+      "size": 136,
+      "git_blob": "95c27cdefc1c885d770f9fb5d53f3aa3613ea0cc",
+      "sha256": "47a06f84d2703ec62c4c6cf569d20e822078630073d1b5026a0c10cd827d5328",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00028.mag"
+    },
+    {
+      "name": "sr_polygon00031.mag",
+      "size": 1260,
+      "git_blob": "e9b327ecd1dd6bf20a5d73a7e236af1fed1dd36a",
+      "sha256": "c1f5b32aa2ad5ffcdf485e36f96b2ec3e8cc579b3aeaf7694472be37dcb0ae36",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00031.mag"
+    },
+    {
+      "name": "sr_polygon00032.mag",
+      "size": 134,
+      "git_blob": "87b2f9aa0fe743720ffb3e131f289d749c7290aa",
+      "sha256": "6f04cb3b41eca6865c471bd305bf1604a9afaf57b06917d4583423f16359c5a2",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00032.mag"
+    },
+    {
+      "name": "sr_polygon00035.mag",
+      "size": 258,
+      "git_blob": "a113b263a277762e4ccd9b45d2030639be4fa413",
+      "sha256": "170bd576e0cb8b70798c7a5115151af766b0d846e4c59a5fffdb58592de335b8",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00035.mag"
+    },
+    {
+      "name": "sr_polygon00036.mag",
+      "size": 130,
+      "git_blob": "5d64185d8380f9067c6c8a5a77cc48dd57a511a5",
+      "sha256": "a4da8c8b711055a35b66c6c83b3c16d988e1867e9ba7c2eb778e0c1f23daacf5",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00036.mag"
+    },
+    {
+      "name": "sr_polygon00039.mag",
+      "size": 189,
+      "git_blob": "4fb6f2725df4589d276e8d9c8da294f346473c88",
+      "sha256": "26388f8ae96cce4741fbbc4549741f27d1457095438734d83ef0d58e3eb53d7e",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator/sr_polygon00039.mag"
+    },
+    {
+      "name": "LICENSE",
+      "size": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "url": "https://raw.githubusercontent.com/fossi-foundation/open-pdks/0ec4fa67eade28cd0a4352c04df981840809427b/LICENSE",
+      "git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+    }
+  ]
+}

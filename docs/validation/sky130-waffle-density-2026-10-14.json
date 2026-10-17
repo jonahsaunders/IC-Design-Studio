@@ -1,0 +1,2120 @@
+{
+  "schema": 1,
+  "status": "partial-waffle-density-review",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_files": {
+    "scripts/sky130_waffle_density_review.py": "76e309ac6baee46826ecc18f7049083dc203f90e5e621d5de8aab89a70adbafa",
+    "tests/test_sky130_waffle_density.py": "691003e814c7c2157c881229cf68a72884df76233981f171a1fcc99149daba8f"
+  },
+  "inputs": {
+    "docs/validation/sky130-marker-reconciliation-2026-10-14.json": "c88d19aa1893d6a4c7fd1f7031c105e81c2e7a3c0f7c69fac1467b262654d91e",
+    "docs/validation/sky130-nsm-reconciliation-2026-10-14.json": "24217feeb0fe116057334fd41fce3696e88441b76a6935a0d82031da87e63ca0",
+    "docs/validation/sky130-geometry-reconciliation-2026-10-14.json": "6a61be0415cc68efd4e591428c1ac7e2531cac731e6396da953f4485104608d3",
+    "docs/validation/sky130-scope-corrections-2026-10-14.json": "15ce1eb3ca0237adfec577d2bb53de5761ea34dd63c1840256dd4ac9e4576465",
+    "docs/qualification/sky130-error-rule-inventory.json": "9b8ac023b0b0045639bf586e77b9540b51816be448d801f2a8b922c0af9524c9",
+    "docs/qualification/sky130-rule-inventory.json": "470a056e6ef613b60d4082c575f70f097ddb0d5b340a6dda0d6620eb20edb58f",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb"
+  },
+  "bundle": {
+    "path": "tests/fixtures/sky130-filled-references-v1.zip",
+    "sha256": "8db9401bc73e117db9d72dcccb03ac7700016b5a5c61e518c14cb5a0ec3542fa"
+  },
+  "proof": {
+    "files": {
+      "docs/rules/periphery/p038-m1_dotdash.csv": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+      "docs/rules/periphery/p040-m2_dotdash.csv": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+      "docs/rules/periphery/p042-m3_dotdash.csv": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+      "docs/rules/periphery/p044-m4_dotdash.csv": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06"
+    },
+    "bindings": {
+      "r1210": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<70% metal density when 700x700 window 100% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s44": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<70% metal density when 700x700 window 100% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1211": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<65% metal density when 700x700 window 80-100% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s45": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<65% metal density when 700x700 window 80-100% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1212": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<60% metal density when 700x700 window 60-80% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s46": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<60% metal density when 700x700 window 60-80% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1213": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<50% metal density when 700x700 window 50-60% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s47": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<50% metal density when 700x700 window 50-60% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1214": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<40% metal density when 700x700 window 40-50% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s48": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<40% metal density when 700x700 window 40-50% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1215": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<30% metal density when 700x700 window 30-40% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s49": {
+        "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+        "parent_rule": "m1.-",
+        "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675",
+        "rule": "m1.x.1",
+        "description": "<30% metal density when 700x700 window 30-40% covered by mm1.waffledrop",
+        "pair": [
+          62,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1216": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<70% metal density when 700x700 window 100% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s50": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<70% metal density when 700x700 window 100% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1217": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<65% metal density when 700x700 window 80-100% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s51": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<65% metal density when 700x700 window 80-100% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1218": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<60% metal density when 700x700 window 60-80% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s52": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<60% metal density when 700x700 window 60-80% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1219": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<50% metal density when 700x700 window 50-60% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s53": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<50% metal density when 700x700 window 50-60% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1220": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<40% metal density when 700x700 window 40-50% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s54": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<40% metal density when 700x700 window 40-50% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1221": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<30% metal density when 700x700 window 30-40% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s55": {
+        "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+        "parent_rule": "m2.-",
+        "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e",
+        "rule": "m2.x.1",
+        "description": "<30% metal density when 700x700 window 30-40% covered by mm2.waffledrop",
+        "pair": [
+          105,
+          52
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1222": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<70% metal density when 700x700 window 100% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s56": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<70% metal density when 700x700 window 100% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1223": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<65% metal density when 700x700 window 80-100% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s57": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<65% metal density when 700x700 window 80-100% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1224": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<60% metal density when 700x700 window 60-80% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s58": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<60% metal density when 700x700 window 60-80% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1225": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<50% metal density when 700x700 window 50-60% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s59": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<50% metal density when 700x700 window 50-60% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1226": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<40% metal density when 700x700 window 40-50% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s60": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<40% metal density when 700x700 window 40-50% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1227": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<30% metal density when 700x700 window 30-40% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s61": {
+        "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+        "parent_rule": "m3.-",
+        "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55",
+        "rule": "m3.x.1",
+        "description": "<30% metal density when 700x700 window 30-40% covered by mm3.waffledrop",
+        "pair": [
+          107,
+          24
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1228": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<70% metal density when 700x700 window 100% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s62": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<70% metal density when 700x700 window 100% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1229": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<65% metal density when 700x700 window 80-100% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s63": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<65% metal density when 700x700 window 80-100% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1230": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<60% metal density when 700x700 window 60-80% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s64": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<60% metal density when 700x700 window 60-80% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1231": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<50% metal density when 700x700 window 50-60% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s65": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<50% metal density when 700x700 window 50-60% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1232": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<40% metal density when 700x700 window 40-50% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s66": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<40% metal density when 700x700 window 40-50% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "r1233": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<30% metal density when 700x700 window 30-40% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      },
+      "s67": {
+        "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+        "parent_rule": "m4.-",
+        "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06",
+        "rule": "m4.x.1",
+        "description": "<30% metal density when 700x700 window 30-40% covered by mm4.waffledrop",
+        "pair": [
+          112,
+          4
+        ],
+        "proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+      }
+    },
+    "layer_map_sha256": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "exclusions": [
+      "r1141: vpp_over_MOSCAP selector remains unreviewed; C3 contains unfinished cell-name definitions.",
+      "No nonempty waffle-drop window-density execution or chip-boundary acceptance."
+    ]
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "measurement": {
+        "top": "counter",
+        "counts": {
+          "(62, 24)": 0,
+          "(105, 52)": 0,
+          "(107, 24)": 0,
+          "(112, 4)": 0
+        },
+        "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+        "checker_sha256": "76e309ac6baee46826ecc18f7049083dc203f90e5e621d5de8aab89a70adbafa"
+      },
+      "counts": {
+        "unreviewed": 977,
+        "executed-reviewed": 356,
+        "absent-operand": 223
+      },
+      "new_error_decisions": [
+        {
+          "id": "r1210",
+          "record": 1195,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1210",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1211",
+          "record": 1196,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1211",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1212",
+          "record": 1197,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1212",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1213",
+          "record": 1198,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1213",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1214",
+          "record": 1199,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1214",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1215",
+          "record": 1200,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1215",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1216",
+          "record": 1201,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1216",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1217",
+          "record": 1202,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1217",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1218",
+          "record": 1203,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1218",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1219",
+          "record": 1204,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1219",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1220",
+          "record": 1205,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1220",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1221",
+          "record": 1206,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1221",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1222",
+          "record": 1207,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1222",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1223",
+          "record": 1208,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1223",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1224",
+          "record": 1209,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1224",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1225",
+          "record": 1210,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1225",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1226",
+          "record": 1211,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1226",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1227",
+          "record": 1212,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1227",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1228",
+          "record": 1213,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1228",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1229",
+          "record": 1214,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1229",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1230",
+          "record": 1215,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1230",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1231",
+          "record": 1216,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1231",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1232",
+          "record": 1217,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1232",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1233",
+          "record": 1218,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1233",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s44",
+          "record": 1527,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s44",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s45",
+          "record": 1528,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s45",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s46",
+          "record": 1529,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s46",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s47",
+          "record": 1530,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s47",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s48",
+          "record": 1531,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s48",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s49",
+          "record": 1532,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s49",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s50",
+          "record": 1533,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s50",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s51",
+          "record": 1534,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s51",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s52",
+          "record": 1535,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s52",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s53",
+          "record": 1536,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s53",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s54",
+          "record": 1537,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s54",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s55",
+          "record": 1538,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s55",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s56",
+          "record": 1539,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s56",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s57",
+          "record": 1540,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s57",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s58",
+          "record": 1541,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s58",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s59",
+          "record": 1542,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s59",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s60",
+          "record": 1543,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s60",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s61",
+          "record": 1544,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s61",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s62",
+          "record": 1545,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s62",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s63",
+          "record": 1546,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s63",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s64",
+          "record": 1547,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s64",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s65",
+          "record": 1548,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s65",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s66",
+          "record": 1549,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s66",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s67",
+          "record": 1550,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s67",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        }
+      ]
+    },
+    {
+      "case": "uart",
+      "measurement": {
+        "top": "uart_tx",
+        "counts": {
+          "(62, 24)": 0,
+          "(105, 52)": 0,
+          "(107, 24)": 0,
+          "(112, 4)": 0
+        },
+        "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+        "checker_sha256": "76e309ac6baee46826ecc18f7049083dc203f90e5e621d5de8aab89a70adbafa"
+      },
+      "counts": {
+        "unreviewed": 977,
+        "executed-reviewed": 356,
+        "absent-operand": 223
+      },
+      "new_error_decisions": [
+        {
+          "id": "r1210",
+          "record": 1195,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1210",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1211",
+          "record": 1196,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1211",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1212",
+          "record": 1197,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1212",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1213",
+          "record": 1198,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1213",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1214",
+          "record": 1199,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1214",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1215",
+          "record": 1200,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1215",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1216",
+          "record": 1201,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1216",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1217",
+          "record": 1202,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1217",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1218",
+          "record": 1203,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1218",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1219",
+          "record": 1204,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1219",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1220",
+          "record": 1205,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1220",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1221",
+          "record": 1206,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1221",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1222",
+          "record": 1207,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1222",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1223",
+          "record": 1208,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1223",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1224",
+          "record": 1209,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1224",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1225",
+          "record": 1210,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1225",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1226",
+          "record": 1211,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1226",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1227",
+          "record": 1212,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1227",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1228",
+          "record": 1213,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1228",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1229",
+          "record": 1214,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1229",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1230",
+          "record": 1215,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1230",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1231",
+          "record": 1216,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1231",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1232",
+          "record": 1217,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1232",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1233",
+          "record": 1218,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1233",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s44",
+          "record": 1527,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s44",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s45",
+          "record": 1528,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s45",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s46",
+          "record": 1529,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s46",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s47",
+          "record": 1530,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s47",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s48",
+          "record": 1531,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s48",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s49",
+          "record": 1532,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s49",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s50",
+          "record": 1533,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s50",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s51",
+          "record": 1534,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s51",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s52",
+          "record": 1535,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s52",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s53",
+          "record": 1536,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s53",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s54",
+          "record": 1537,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s54",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s55",
+          "record": 1538,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s55",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s56",
+          "record": 1539,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s56",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s57",
+          "record": 1540,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s57",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s58",
+          "record": 1541,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s58",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s59",
+          "record": 1542,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s59",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s60",
+          "record": 1543,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s60",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s61",
+          "record": 1544,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s61",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s62",
+          "record": 1545,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s62",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s63",
+          "record": 1546,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s63",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s64",
+          "record": 1547,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s64",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s65",
+          "record": 1548,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s65",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s66",
+          "record": 1549,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s66",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s67",
+          "record": 1550,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s67",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        }
+      ]
+    },
+    {
+      "case": "apb",
+      "measurement": {
+        "top": "apb_fifo",
+        "counts": {
+          "(62, 24)": 0,
+          "(105, 52)": 0,
+          "(107, 24)": 0,
+          "(112, 4)": 0
+        },
+        "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+        "checker_sha256": "76e309ac6baee46826ecc18f7049083dc203f90e5e621d5de8aab89a70adbafa"
+      },
+      "counts": {
+        "unreviewed": 977,
+        "executed-reviewed": 356,
+        "absent-operand": 223
+      },
+      "new_error_decisions": [
+        {
+          "id": "r1210",
+          "record": 1195,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1210",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1211",
+          "record": 1196,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1211",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1212",
+          "record": 1197,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1212",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1213",
+          "record": 1198,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1213",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1214",
+          "record": 1199,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1214",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1215",
+          "record": 1200,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1215",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1216",
+          "record": 1201,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1216",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1217",
+          "record": 1202,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1217",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1218",
+          "record": 1203,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1218",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1219",
+          "record": 1204,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1219",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1220",
+          "record": 1205,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1220",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1221",
+          "record": 1206,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1221",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1222",
+          "record": 1207,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1222",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1223",
+          "record": 1208,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1223",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1224",
+          "record": 1209,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1224",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1225",
+          "record": 1210,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1225",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1226",
+          "record": 1211,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1226",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1227",
+          "record": 1212,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1227",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1228",
+          "record": 1213,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1228",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1229",
+          "record": 1214,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1229",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1230",
+          "record": 1215,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1230",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1231",
+          "record": 1216,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1231",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1232",
+          "record": 1217,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1232",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "r1233",
+          "record": 1218,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "r1233",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s44",
+          "record": 1527,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s44",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s45",
+          "record": 1528,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s45",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s46",
+          "record": 1529,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s46",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s47",
+          "record": 1530,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s47",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s48",
+          "record": 1531,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s48",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s49",
+          "record": 1532,
+          "rule": "m1.x.1",
+          "disposition": "absent-operand",
+          "binding": "s49",
+          "parent": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm1.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s50",
+          "record": 1533,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s50",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s51",
+          "record": 1534,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s51",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s52",
+          "record": 1535,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s52",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s53",
+          "record": 1536,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s53",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s54",
+          "record": 1537,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s54",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s55",
+          "record": 1538,
+          "rule": "m2.x.1",
+          "disposition": "absent-operand",
+          "binding": "s55",
+          "parent": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm2.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s56",
+          "record": 1539,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s56",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s57",
+          "record": 1540,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s57",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s58",
+          "record": 1541,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s58",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s59",
+          "record": 1542,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s59",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s60",
+          "record": 1543,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s60",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s61",
+          "record": 1544,
+          "rule": "m3.x.1",
+          "disposition": "absent-operand",
+          "binding": "s61",
+          "parent": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm3.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s62",
+          "record": 1545,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s62",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<70% metal density when 700x700 window 100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s63",
+          "record": 1546,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s63",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<65% metal density when 700x700 window 80-100% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s64",
+          "record": 1547,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s64",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<60% metal density when 700x700 window 60-80% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s65",
+          "record": 1548,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s65",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<50% metal density when 700x700 window 50-60% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s66",
+          "record": 1549,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s66",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<40% metal density when 700x700 window 40-50% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        },
+        {
+          "id": "s67",
+          "record": 1550,
+          "rule": "m4.x.1",
+          "disposition": "absent-operand",
+          "binding": "s67",
+          "parent": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "description": "<30% metal density when 700x700 window 30-40% covered by mm4.waffledrop",
+          "absence_proof": "Empty raw waffle-drop layer has zero coverage in every window; each published antecedent requires at least 30%."
+        }
+      ]
+    }
+  ],
+  "scope": "48 exact block/chip catalog records have empty waffle-drop antecedents on these input layouts. No numeric density execution, complete-chip qualification, remaining catalog interpretation or complete chunk 6 acceptance is implied."
+}

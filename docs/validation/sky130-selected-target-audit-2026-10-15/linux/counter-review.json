@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "case": "counter",
+  "driver_sha256": "1fddb65293a3dfe085b193d942900854745e84c73cc6a4dfff8fd92376a27336",
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "cb449a75222886ea343458df0e545a774bec5edeb4da2eeac7ab5ddbf679f010",
+  "counts": {
+    "executed-reviewed": 424,
+    "absent-operand": 609,
+    "unreviewed": 425,
+    "standard-cell-wl-exempt": 90,
+    "advisory": 8
+  },
+  "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+  "elapsed_seconds": 39.866262093
+}

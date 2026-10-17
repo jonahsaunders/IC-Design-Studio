@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "partitions": [
+    {
+      "partition": "counter.count",
+      "status": "PASS",
+      "strategies": [
+        {
+          "strategy": "pdr",
+          "status": "PASS",
+          "cached": true
+        },
+        {
+          "strategy": "smtbmc",
+          "status": "PASS"
+        }
+      ]
+    }
+  ],
+  "counterexamples": [],
+  "scope": "Sequential equivalence under the captured EQY strategy and initialization assumptions."
+}

@@ -1,0 +1,213 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "driver_sha256": "540f7cb2777b5e2608c14d384dc6ed21f9d4f79f071f28282aacf5d30be05db4",
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "7c2d7e30f66bdfcf28d0b3b67c1a83fe34aaa9f17e35e265efda013f1a564346",
+  "cases": {
+    "counter": {
+      "original_counts": {
+        "executed-reviewed": 416,
+        "absent-operand": 586,
+        "unreviewed": 456,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_checks": [
+        {
+          "id": "s11",
+          "rule": "x.22",
+          "layer": "poly",
+          "area_nm2": 6270307125,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s16",
+          "rule": "x.22",
+          "layer": "li1",
+          "area_nm2": 9706170175,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s21",
+          "rule": "x.22",
+          "layer": "m1",
+          "area_nm2": 4567851000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s26",
+          "rule": "x.22",
+          "layer": "m2",
+          "area_nm2": 230337000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s31",
+          "rule": "x.22",
+          "layer": "m3",
+          "area_nm2": 189197400,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s36",
+          "rule": "x.22",
+          "layer": "m4",
+          "area_nm2": 2741504000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s41",
+          "rule": "x.22",
+          "layer": "m5",
+          "area_nm2": 2809312000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        }
+      ]
+    },
+    "uart": {
+      "original_counts": {
+        "executed-reviewed": 416,
+        "absent-operand": 586,
+        "unreviewed": 456,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_checks": [
+        {
+          "id": "s11",
+          "rule": "x.22",
+          "layer": "poly",
+          "area_nm2": 46677604525,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s16",
+          "rule": "x.22",
+          "layer": "li1",
+          "area_nm2": 68047048975,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s21",
+          "rule": "x.22",
+          "layer": "m1",
+          "area_nm2": 23222705700,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s26",
+          "rule": "x.22",
+          "layer": "m2",
+          "area_nm2": 1263777800,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s31",
+          "rule": "x.22",
+          "layer": "m3",
+          "area_nm2": 1193817600,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s36",
+          "rule": "x.22",
+          "layer": "m4",
+          "area_nm2": 14729728000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s41",
+          "rule": "x.22",
+          "layer": "m5",
+          "area_nm2": 14964352000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        }
+      ]
+    },
+    "apb": {
+      "original_counts": {
+        "executed-reviewed": 416,
+        "absent-operand": 586,
+        "unreviewed": 456,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_checks": [
+        {
+          "id": "s11",
+          "rule": "x.22",
+          "layer": "poly",
+          "area_nm2": 48264000425,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s16",
+          "rule": "x.22",
+          "layer": "li1",
+          "area_nm2": 69973079150,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s21",
+          "rule": "x.22",
+          "layer": "m1",
+          "area_nm2": 23286372725,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s26",
+          "rule": "x.22",
+          "layer": "m2",
+          "area_nm2": 1209142350,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s31",
+          "rule": "x.22",
+          "layer": "m3",
+          "area_nm2": 1535065900,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s36",
+          "rule": "x.22",
+          "layer": "m4",
+          "area_nm2": 14756212750,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s41",
+          "rule": "x.22",
+          "layer": "m5",
+          "area_nm2": 15038272000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        }
+      ]
+    }
+  },
+  "elapsed_seconds": 30.839868131000003
+}

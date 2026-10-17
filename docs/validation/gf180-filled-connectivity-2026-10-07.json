@@ -1,0 +1,3104 @@
+{
+  "schema": 1,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk": 4,
+  "scope": "GF180 C counter prototype and extraction-warning rejection. Neither C nor D production fill is qualified.",
+  "implementation_application_source": "1989dbfd7f023bb64bc6183988e43a82981d6175",
+  "implementation_backend": "b000d627695f07f908c22dd74210fbfea91b28e741eb7a27c1d58992e07330c5",
+  "guard_backend": "986be8273a50bb394cda8c29f35e866554291c921568c9ecd76cbcbae797a6d6",
+  "mesh_and_fill": {
+    "status": "native-mesh-and-fill-prototypes-audited; post-fill-electrical-and-complete-fill-qualification-open",
+    "qualified": false,
+    "scope": "C counter geometry/fill prototype; complete fill, post-fill LVS/extraction/timing, D and production integration remain unqualified.",
+    "backend": "b000d627695f07f908c22dd74210fbfea91b28e741eb7a27c1d58992e07330c5",
+    "source_files": {
+      "__init__.py": "a7096e59a4cf2fc5e46fd1b73c437cfe3b97660cae5e874116642fc25c3da5be",
+      "__main__.py": "6970616749b653499dfac1c2c24756d1103af650f947bef8f19fa2b2c39f92b6",
+      "analog.py": "1af5b662ca84e3d5eacd33cd7a8d25f5f9e51df41f5853e3ac6b0c4ae3b679a8",
+      "analog_adaptive.py": "53ffc6fec63ef51867a0c971dcb704d2cca52096a7733e63517eb8d96eaccb9f",
+      "analog_advanced_ui.py": "52759853571636a81a9020567072fe2296308350d2cfd56af444ed6ebd74f4ed",
+      "analog_automation.py": "5fca854523612c56c4362d91de190abf2e79155b92e1b2250a36f31c796ec5d4",
+      "analog_bank.py": "2ca6cc7d4233af15ab017efb262d7555e15e4bfca2a77bb424c39ab350afa2d7",
+      "analog_bayesian.py": "4b75904438e4b92e3988ad3d643eabf16f4f2fe96a2fb600f3c8168d59e4a649",
+      "analog_characterization.py": "8195595b6c0831f486f29f707bcb9c0672221781e01fdd4252cf8789a3617649",
+      "analog_characterization_ui.py": "d5ee933f2e7d08eaf13893c228bd0000abf2f628765d1681d509429dce158e27",
+      "analog_constraints.py": "75caa810aa71b80bb76f489bb0d180cfc7b59ebf3e8830dbe02a61475a662f99",
+      "analog_debug.py": "0a719a05a04723a09a02779b303d58cc3fb98c893dfe07f6d85b2f9116de33ce",
+      "analog_diagnostics.py": "f7dd5dd9ed0b11eb20f1623b8f5ee9e46fde5493c6ba4584f998e82cd9513646",
+      "analog_fidelity.py": "38d2b7a873eff5848a11ed898d2e5722c9020261c8269ea327d00fdb391e1632",
+      "analog_guided.py": "2ac6ffd25dc41c0532bf25cbceb87a126976a5d2bc24ce0d44b8f160df2b1441",
+      "analog_guided_ui.py": "190a334957e03673810e18911d774c547915634b640ad6f3bf0a411977ebcea9",
+      "analog_layout.py": "c600d1be8a3082f1b3f463d24fefd921e2a25001d84578d34e85ebe63d46ce19",
+      "analog_optimizer.py": "e81ec268c0cc79300d5f82c4f205edd9e9479e91a13563a834e2fc3af4ea4155",
+      "analog_optimizer_ui.py": "0ef5ea9369812cb7619f5343df4bdc67064720a664d5994cd0fe60f687ffe759",
+      "analog_reference.py": "9463f678c5192db9ebccc74acc1557c6c9a66aa17098b7e1c59d39a4e9ad9f7e",
+      "analog_robustness.py": "1e6c26c2be0b14b267eaa54f23ac24fa6fa9fb85ec6d3c6f3aaf73b360f61648",
+      "analog_run_ui.py": "ee729e38ea447c318f72013485271398cdb02e395d2ff375eb880ed65809528c",
+      "analog_sensitivity.py": "047b884eec47a044e0675b94605fe82efc0bf00cff63b9da5b7b57999fa01e60",
+      "analog_surrogate.py": "b1a15ba1c031c87c9dce5313adf6e2be24f42a82dc9904e1e008751c900aba44",
+      "analog_ui.py": "3c851e98632a02845746086fc2b3d3a2eb421a1944bf9edc2e03898be9cb5563",
+      "analog_widgets.py": "8da9acbd6c3ab1b1e80c4134337cd34467009c7abde449a9128ad18c75e54209",
+      "analog_workspace.py": "779fe36062d0743cc13b272bafc7ebeb7c2e2cbac67b7688b0749ea54fd76a3b",
+      "analog_workspace_ui.py": "b8c2229a35af525e045cffc6dbcadd9c33a0ff6115e8726e9c662f4a99d8339c",
+      "analysis_plan.py": "3744866057f202c5712e859c81c7bd86ed1819cef50906a8d6180a18e5746520",
+      "analysis_sources.py": "6cfb59700c5342346bd2654d13b1f2127fbde73ee811f9271335a347cebe6094",
+      "annotation_ui.py": "4507e6b491346417cde3e7501a937995db05cdd031ce779c8229ee45e71b981e",
+      "annotations.py": "b0c86c188fc6056e91be9ee0bee6b3e7aea880847f9b31903920b9269cd7a3c0",
+      "app_workspaces.py": "af1187a62cc9f3cd02b3f58c36378805337da6845d6f81701d7f55c798712ce7",
+      "automation_benchmark.py": "dd3fb5882d624e4c5ce152452edead875faba4965b1d7dbd5452d36e9dd09f45",
+      "automation_cli.py": "faccb09ab11a844bf8516ceea578492bf3a6950b161ce81f10cbfdcaa21edabc",
+      "automation_ui.py": "c493e68233689591da04c999c4f3f07f932eec4c94cf488f19ed1ec802ec614a",
+      "build_identity.py": "da9f4d0c843ab6f96ca2aa05fe61e00ab5dc2333447564d909e981ee61c8fe03",
+      "build_info.py": "4e2ac62f1d34cec2ccc4cee6844908ddf775e5f7f032a2ce5e52385f0160c033",
+      "bundled_pdks.py": "5dbf58014a86a11217767dd94dec3e86b6603f665b33c3eebea61f28aee2a39f",
+      "campaign_statistics.py": "8fc2887841e963e1d5f4636d50d715f004e8d9e316d160e546cadc006744f868",
+      "campaign_statistics_ui.py": "de4d1560c9a5ded129fa16c01091613d0346bddc9297e66ffd800c60e739f0c0",
+      "campaign_ui.py": "71ef936b1b5b1978454ea61b5a212e05fc3e059d0aca20d65913fea978232256",
+      "canvas.py": "7eca313a5132facbbf33fef64371559064132fb696334b261943af0c959cc0ed",
+      "capture_keys.py": "85d1e423ae41f52be1b587058d95232ca5294059faa63a78136938375912004e",
+      "capture_ops.py": "cf3a39ff259b617b3ace68eec6cf46601401de09af4fc4d025b3af38da1f7594",
+      "capture_workspace.py": "02d52e5f3ee6a23b84411af61cd0c11602ca9fd6d75b6ecd7845d491f14f0bd7",
+      "catalog.py": "9ec02006afb2835c3be9ddb3db5ad03540b382f0d6ad53559295229505a0fc81",
+      "catalog_migration.py": "f95a1b5ee94f15b9052604067d37580a15cde7bc3ef8258c4db1e13bf28ccd8a",
+      "characterization.py": "8b740351cdb681cfd55f05adfe827e2c746a3b2b0874412ba43f95a71d9a52c8",
+      "cli.py": "6d0364b93fdc03460d4102a2f59d734e78229c7aa1c5b14d17115eb3f6f7dc65",
+      "collaboration_dashboard.py": "5d3d64262d04fa1c63b7f8657a6f8e5218d6237d2483a3329a683b2f53206879",
+      "collaboration_document.py": "7c3417060041a7d4641b0afcb4faae37bcbe66375c99a61b47268a4dbeb0dced",
+      "collaboration_review_ui.py": "0143ed2cee159a34934ff2b816d344b3b9b6b5a63c7cb871303815bf097c9140",
+      "compatibility.py": "0e9a431d93595593780f577114d38736e4091df2dcf98ab1a1571a69b166d8c6",
+      "component_browser.py": "e1a584e95e569d9bd7b5979c11090fed17051ba9cecf6bb011cb003af25afd34",
+      "component_preferences.py": "0b2962ec92467926c7715fdb60b03d8026a6da8a207831ece4f519ff3d584912",
+      "component_sources.py": "cfa0e213910aea9ecae9381f84c247aca934a02048344fcf278103cd75fb8653",
+      "components.py": "84d1842c6824662d72b4539420d78071d14aa54b4f3a49f676fd9838edeb0314",
+      "consistency_workspace.py": "0e714e5009cf124ab2d487f2d8c75f511f35f870f82a73752e4a00e313019a57",
+      "contact_rules.py": "05d3ea7ce39fee05418f65f0224a7785a6f0a299a2f9ad6ef52a1a89e0846df9",
+      "cross_probe.py": "6fef035ae74c719f63ba5d85ee5338be8250f7cb786f76f8f4e5737c325c1d84",
+      "dc_startup.py": "7ca5f62a6c5724fe5834b27828f4bc1f612edf9aa8ab0e5eed6b6535a6f3da08",
+      "design_automation.py": "bd576b8f9d566332897eb959afb579f3357bbe58154b8d6179b1867bfdf5dc76",
+      "design_ops.py": "80cec5dea5728f0bdbe709051e4d3f0adb6e6b490af622c9ec9d30bdfedc345d",
+      "design_search.py": "906bf21897d3d5f1eaeaf6b2f4644e9f9ae4795d92d4378ec70f52ce66d6b665",
+      "design_workflow.py": "02e9a3c1ba98ac4b082a99dca608cef96f34016fadeda01987d12a483d022ebb",
+      "desktop_acceptance.py": "fa17b4a1a14acc6a49b56e1b90cb550c07b1f22e9126dba230e7272fd60865fe",
+      "digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+      "digital_apb_example.py": "0eab253a16a2292d6ca32a602f0160ab5f5f531eed7981b3cda1b28714e9c288",
+      "digital_backend.py": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6",
+      "digital_cli.py": "8d32654db5cdc002926f9de14b7ae0a4d338ccc3dd728f25ea21fa6455fccd83",
+      "digital_constraints.py": "9771a358129e78f7b7bd3dc2f08fa8fdc952d191b0f14b8873212945fc7005b6",
+      "digital_constraints_ui.py": "a7b3a4f3b428469656d33294960d4d4a390675135b273f3ab9959b9382b42fa1",
+      "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+      "digital_editor.py": "462152c2fe423643ea203bbf5456fed342e6c33d59498636ea8953a17bfe14bd",
+      "digital_examples.py": "9cb9e5cbf0afd01abc329a6dbcbc409680d9ddf6826073ca61297e513de55b25",
+      "digital_flow.py": "dcfc1c78076e78abce08a03c8f8ffb6ec17b066a3fe32a1eff8d0bd03f024903",
+      "digital_identity.py": "eb729eb73a3bdb67848a5d4cd9629ede72ce729e187e054f5de53769f8145ad9",
+      "digital_implementation.py": "8775ef393f39ee1562a722e0e795ec3e2a99bb3166230e4ebd3e27ec40aead40",
+      "digital_inspection.py": "b515de8a5d8bba4cddad9a6f993b323933697e23f29195e8f98f4d204c90a6bb",
+      "digital_layout.py": "490c6884d012a9f5348e5eef3bdbf25bc5012e9f452cb6926e24fe64d8243265",
+      "digital_logic_ui.py": "70492458c40e98498cbe47ebd4fc0a9dbbde8912992601f39050742dcc83a7d8",
+      "digital_lsp.py": "1555f1bde82376814d27558ecefa578389b9abe05c491c6e933e12a711c4e67f",
+      "digital_macro.py": "a02c8593228623fdf02ce858b18f202ef9a40f230fa4b554b320939e3aaed5a6",
+      "digital_mapping.py": "7890689f3b697c2ddd87e3cd240e4eb7307b99cce323f81b207fc40dd7b5b34d",
+      "digital_odb.py": "83c80d8d35e2ac6edded3f022181df6d58d5111d02dca9c3b663d6446bb223cb",
+      "digital_physical.py": "017768dd91a5e8961b8755e3068d758061f95ecf2dbe52559922892411939d5f",
+      "digital_physical_checks.py": "b6727b27b061ed86e30666f40f04b0fc3d201577915b5453f7a13cbbf1b829ac",
+      "digital_physical_engine.py": "f71d5d2b8d5c87ddb94761b6e27025b7db7235be3c20a6377cfc16cff87d7489",
+      "digital_physical_ui.py": "8d918bc11df0f5c34e5995f98b0f37f8e2b873bbd87fb42cbd805caafca6ef9c",
+      "digital_physical_view.py": "97cb2fd302523d198dfcd0da580c6884a8eb6ecf8402c95aa0a14f1d3053b7ba",
+      "digital_planning.py": "73602bd3b1afb0aaab5243b5cbe655bda00de19dd7459713569275303b91a527",
+      "digital_platform.py": "0601eb12e4a23c7e1fdaf20970b0804e2eeb20fefea258237175249bc9503d45",
+      "digital_qualification.py": "89995283c03fb8deca5da283e016dd506303efdedf6dabe26e947b26432c9b2e",
+      "digital_rc.py": "2890fc4229205a007cf928edede9b18da3d1569c81a35d8f48e53d24d957c877",
+      "digital_recipes.py": "c602ef05777f79926d087f1a85523a72f735eadb318adef755f317b9911f51e6",
+      "digital_regression.py": "65673f44e8fb586403257696c13fbfaccc2b692ee69e1029e9bb71e30b650f2e",
+      "digital_reports.py": "8d915e4e49839afc521a11a2bac0a31bdcff8ded6f629ac6dbb8c6f25d1f5deb",
+      "digital_runtime.py": "8a11b3be62af512ebcb4d4f4ea9f17396678b42058ca2cfe2443f95acfd0bd6c",
+      "digital_setup_probe.py": "3006e3c327d25f87bb984e4173637926ac32a812b589c725cd950132cb1380f0",
+      "digital_setup_ui.py": "cbc4a5e21932d01e5932df27f787518f2ce6c43745a8a5e6fe88a9c1a3884c20",
+      "digital_shell.py": "55bf0796bd46e4ed31eb2200d663cf6e5b846174cfcdd5de5d12dd96d6f22b13",
+      "digital_tools.py": "d53090a2d97f432899086846d2e2c10cc4d47bc60d78d7e3d51b06091a408660",
+      "digital_trace_store.py": "f2b5be9e2c0d131496c707cd08073e9d452cc2ff69570f9dcb933c18b411113f",
+      "digital_ui.py": "687e51dd51cddc0b0bf49d20de34f42d95b754cfe9c9e83caf68713c6c52b259",
+      "digital_vga.py": "770fba42c61d20b05956b407e4d0152451b5aee377e923b554870ec79d1aef4f",
+      "digital_vga_ui.py": "6b0c5f017cba7ecae1b2251fbce588a7477602f83a7d4f8a3117246b3256c649",
+      "digital_wave_tools.py": "f6ac733f253fd287d1f506d76223cd580c26a63c48e80ee0926c40e10006e8c1",
+      "digital_waveform.py": "a1f48745cdb96e75a9bcab14646621df636272254da9fee45f43820716489ec4",
+      "digital_workspace.py": "9eff651934d4ecb602e1fef218d9a543d13b85569f312e9088a1e82311fa9124",
+      "distributed_rc.py": "e741914a7d90fa68940d7e994d58b6d5c8672039c9e912b5295ca79fc50de79e",
+      "document.py": "98ad76b41b5c8fd55da7da998181114ba442a8a4e342063f79935858d556fc41",
+      "drawing_canvas.py": "6944a66957502e61c025939d70bea56b65c02f7d12d2946ff10043d95c5be711",
+      "drawing_options.py": "ed18f4cced88fb0080f7f2e9784640b90eb37303ba41515e47ec31c11ebde629",
+      "editing_assistant.py": "416a6ceb3776a02119c822935d7d85808b291c531eb5a64c8597aa1a69c6098d",
+      "editor_canvas.py": "0db600d46dffb8fd61068530cba6fc958c74ab23c3f2f7edcb29821c163955ba",
+      "editor_ops.py": "836e0ab9dbf5a5da90b23632e436d0294df55aaf50987e5c282209b033db5a0c",
+      "editor_workspace.py": "61dec3f76c26c475e97cfc5bbc7f47caff90e277b6b4a246abac661836504dd9",
+      "electrical_identity.py": "f7e764f0375df57b2eb53e76ba775161372b30a92dafe5c2f1ae82198780c16d",
+      "electrical_rules.py": "e3e78af7726258e9cf21c5517777602ce0cd659f6e6670a7b77bd692be0a113b",
+      "em_profile_ui.py": "74f5e0ba4f92b8e4b9dc85174d56b41def56bc613701e483693b0a5ca6cc71c8",
+      "em_technology.py": "adb57f81dd63c245843bff04c69a4e085a72525244d62c4c810c5a7341402829",
+      "engine_selection.py": "328a8c0ff635a0733c5bd6f8d2b9a6fdd56f8952f801403605ecf90de824f1b6",
+      "engineering_workspace.py": "1f402122394d445e1e524d12113cbf12805a307d681bc34ebfe20c118ebce083",
+      "engines.py": "50565d2f2077a119fe77b25c79ef79729e3d0e4b3ee5dd4b37eae2c92caceafe",
+      "example_schematics.py": "dafc6cf5e706b55b7a04c585c507a9e69edde0fca5285ce583b4bb4991c05d83",
+      "exchange_review.py": "5fa840c94de27c6da0e9238808664a9b729fa952465bb42c54e66bfa424f3f52",
+      "experimental_probe.py": "c6ce90154a00b549b458c6f9430c75d797562a7d05b4e2c1e9ae5a4c38563da6",
+      "external_tools.py": "8e4131b26d09b0f56381ca1439fe854f2585141d3f402a14c0c5f3fd9cb04fff",
+      "feature_cli.py": "883a563ff7de1e06566f683edff01eb2d7863e0a192c35dc215b97d94a925bd2",
+      "feature_ui.py": "3ec28890960fc6948ef43e8b1d8574aa5a4b207497ef5b3d887fc67d424ae881",
+      "fill_capacitance.py": "778c22d2e611b9562ad4d0f26c51994071cd03af57de31db6a6b9c3749143d0c",
+      "floating_panels.py": "401f3604949706288bbdc98e34012bfc1075fdb7f1cd92f5cc538fd67c04540b",
+      "getting_started.py": "7017bc6d601c10d8b75f4318e1cb4cf20f940bad3ac73b40af49e577e4ee35d6",
+      "gf180_layout.py": "744555609e25e0e70aa5f58f950d327eb224682f23ed4c19cc8b3c834876032a",
+      "gf180_rc.py": "9c89b5333c453948f09e2627cb0daedacfbbe9189de1763632a0a4a661af3c04",
+      "grid.py": "1ab9ab1f59dd391e273056e054e9f22fc26dfa7d983668b8d323302b01df97e5",
+      "grid_settings.py": "57fb262f4839535574aaa7d776d5eee1ef90ea617b5dc3b1d9df464c65de8dfd",
+      "gui.py": "6d0cb7f11ee948a17da3554661dade9f47d5ca8ff406ef692ee5294a62c7c997",
+      "help_navigation.py": "b2bd4685cdfa356286ecfc20c76f6a166c3ca98219a05794ab0d6de5781a5add",
+      "hierarchical_flow.py": "dd30dbd93a1ef9fbfc2f3ade72e446fee308cc2fdb8eb1dc6628c4c8aa45ce28",
+      "hierarchy_ui.py": "001f4b7b5c7dfe9e3317072b05936785e70969bd568acc61f9eb6b5525fbdcc7",
+      "history_delta.py": "67423f55117df83b903103856934e70ecc2d90900adead5a012dafa73c257878",
+      "host_annotations_probe.py": "f4077786ca5644f5c9a0adacee0e65de0b0ba8f494ef10f44d447ad9d5a4a53b",
+      "human_workspace.py": "ca16daa9d011fe70533ed809b3532bc97ccf145fa87be8785fab03fb42d7c7ca",
+      "ihp_layout.py": "c9cf94b535a57aac4d677be853b1156c01c58f25e8322132b7cfed56b82cf284",
+      "implementation_views.py": "618a99e750869c7aa60880c8e3db840e52cca43a05be5c497a0aac4b98184911",
+      "implementation_views_ui.py": "5e453173ce74bc3543604cfb8876c857a588b6810b484471b910ae15ff428954",
+      "import_review.py": "5ed22432ad35921c3dbdc25667e2cbed4a8e0aa24da70f296a4b1e71704d0ae4",
+      "inductor.py": "90a8ab2a870a9a86520b2e75fc3127a047a2a8c808df37a1bc3719592283d9c7",
+      "inductor_design_probe.py": "f186d7f610b835137bda0b5cd7f75d015484f5e4df13d3dbda1644eb04219bf2",
+      "inductor_electrical.py": "085bc54da2475a08230ca820f0108e38e58fa6d4e71fbf96d827ca4b23585bde",
+      "inductor_em.py": "5f07f47c809a78f4477bfc5faf6b15b245633f8e773feb7c7003a652a676ec7f",
+      "inductor_em_ui.py": "079ee99594be0091fbbc3dcebc1998621e2c77e6abab0339adfd22dc0070a4f8",
+      "inductor_jobs.py": "40fe311cbd365f1c46436a006851511b53ff3f8e41ade40e442ab2af9a12efe9",
+      "inductor_probe.py": "9da25c7cc63034e5e98f41f5681ac4010ef294fc0583f4b69eb0fe296ffc5fee",
+      "inductor_shapes.py": "5f59d502573d1db73a2eba3094f8aa451c659dd10588102cc87fe0cf3100ef79",
+      "inductor_synthesis.py": "cba28de24986d82a1d9872588a594a1dd7d581014ff7bea45fc591fb2b0d037f",
+      "inductor_ui.py": "590521225c1db56c13d24bbf21d4eb8933e0be2afaf4aed4f8de47a0e3da8825",
+      "interchange.py": "29993ee82c62651d08334f94aebffac2b6c162681f5b6ef429c8c556dde34616",
+      "interface_ui.py": "757a6628dbb273d2eac480f6966954c69e6dc24d52478bb7e9ff119914bdc1af",
+      "interface_update.py": "7a5c8252007659333cd01b59573a0558bd06967ea82fe9f4adabcccb705996f1",
+      "interop_cli.py": "ea188113be46da108f7bee7e614d4ee93708a902379e10441798c9e8cb15690f",
+      "interoperability.py": "0030559c4459eee2da740cb2432f0571604022e51b457d3238b902d619a43f17",
+      "interoperability_ui.py": "c52924c72ad0378d8be1267b0ceb5463f97e810c66d7d65f787e11710bef5602",
+      "job_store.py": "a357ed98e9f7fc7ba11d335c884b43b7f35e490e239c01a85c63dc42e5ad8c37",
+      "klayout_lvs.py": "e4d80f5c9f77fba3fb7c21ad4b9128e5c4899d6110a22008d3c511c10044c9e8",
+      "klayout_runtime_probe.py": "51d750b45a8787dd07a45a75e40e371fe9961e8f2e651388a47a709cb422d7a2",
+      "klayout_verification.py": "5ff4f96863a4066d01be52eee4ebdf75c34b110408508d2d634da1213a1860b7",
+      "label_canvas.py": "3e907c40d6e74a472216f19712cddc821ceb63f4cdf4f5332219269fdce2a4e5",
+      "label_ui.py": "0c2c05568ddc9d370931e3d43d8fecf75ee26902e8e8cae9db769e11bbb30c9d",
+      "layout.py": "eb6fd29a4dc7841622066df382389422d9fbf90e100cefa8f67855751d5ad8b7",
+      "layout_3d.py": "5c0c00e10acb47341031bcd6e3498aea1b7aad62eb018d1dfb50302914e051df",
+      "layout_3d_ui.py": "d0980be63406de5446c6cfb858d0e6200d978fcda0a0f2cf8afd82ce0efee799",
+      "layout_3d_view.py": "655213a18ffffc62e3ee2d412675d7c4629ae6364c790817b744ae253c909cf7",
+      "layout_arrange.py": "2bb81896eaf5a80e3c0bb6d421ff800ced848dc8a550d1918797bde743e68489",
+      "layout_attach.py": "7bff67750ada406998b0a3d078b105b2c8d84a7783c7e99748a672b91338fc8e",
+      "layout_cache.py": "bbb8e586797eac4d19de198f5245b86af7996000df9d69241d1be09a914f6cad",
+      "layout_collaboration.py": "bd22f6af16fa847e08d1bbf4d6b5559c42d022a3ad16d7c7ee6404ef9bbf2a20",
+      "layout_collaboration_ui.py": "79a4e811547f703e3950143ae258de6e4f022ea41660fbd34fe2a6b3808554d0",
+      "layout_comparison.py": "1b873c09169048ca9b4e88032763c049cc8fdeab387fadfc4c6e1a768090ecd9",
+      "layout_development_ui.py": "7debbb6c0270a70e8746056d3606772a654c20d47c8c335a2d489d847bee1fd3",
+      "layout_eco.py": "c185727fb992dec5d1a1d2bec915ce1a89746c06a59c5c8c08f1c19e82e2b40d",
+      "layout_eco_hierarchy.py": "0938773f690c3e46e4601f9bd33d9f7071003e81b3ec9bb66186d316ab03083f",
+      "layout_eco_review.py": "190e5375239585f27194a08a2fd27f03246b34f1cf936ac7400731b988f5d7b1",
+      "layout_eco_ui.py": "1431d0022adbb761428e9977f5ab345718eb62a2d070688037a197ff09f75356",
+      "layout_edit.py": "c94420b4aafcc90fc18dc225f227e4a27fbbd456218a0ba4c82ec24ac0e4d136",
+      "layout_exchange.py": "8e81d57186de6638349979d85f1fcead6dfd52b4c9c42779854f77bad9b50a49",
+      "layout_graph.py": "1e2b82c8e37a049f303dfa76740175826d302258a8e1127ba42f7e6c28b488e4",
+      "layout_import.py": "2ced19046d0462a2d95cba350f527be388a19dc89e71778e489a1e9bf206ea9e",
+      "layout_index.py": "8d6029c68584e0a9e91900386c6aa33a30769d41709b5cf179e7093306d372b3",
+      "layout_inspection.py": "6ef19200b7d820091aed0ddd86f64d91d815952e55085d2e21c65996811a5775",
+      "layout_jobs.py": "c3d42e76384c5dd4f426f90b5785ff6fa685063111a41f4bfb78139394684032",
+      "layout_limits.py": "7c8f1ae93ccff3b5a08de2202b17cb5c60fd894130e30ca495c3b510c2467ff7",
+      "layout_routing.py": "6ea312b7a5b67cc2a49cb3c6d1398b5102b4bcd799fbeb3e148cb4b7488ac49c",
+      "layout_scene.py": "50687f558aec46d916cc0257b1ff922d56eaa038d13c0dd629bff778b5d4d606",
+      "layout_snap.py": "6d8978d7eae134683139171d5515a9f158c5dee16a648f93de13b4b3c33b2d95",
+      "layout_source.py": "2936d3e141fbb6cecda665c4b81158a2c2235311744f32506f84fc2ed6c90a2c",
+      "layout_tools_ui.py": "6aec6580710113677d147397a09b1cb59fca14a1edf640e49bad26b14af758eb",
+      "layout_topology.py": "5fa01fa557a8fe5505f07f51cfc9e06331b13b734a8c58e009b873d3397f0c1b",
+      "layout_transaction.py": "ef7b26392650ec0b2a401fc2b2c9de6e7a56ff2c6767fa13915293ae845b8efb",
+      "layout_ui.py": "4aa4a464aa83e02b10da1f4ff5e73b692a44b481dc3f62afe36c2d7b793210bb",
+      "layout_verification.py": "8754f0a9a0da11033f8d1241bb126a7b9403831e79b5090dc4bd4e4f88c8f717",
+      "layout_vias.py": "33cd3a59330ea0a1d66d69491e039e6fc0e6af8696fd66b2259c0e33876fad18",
+      "lifecycle.py": "425e769b01a654e6d9051680dd56cf55714332d13e1308c3c0e705ba7da52c22",
+      "lifecycle_ui.py": "946f11025bfe0774680ffdb119f2d6cbf9623f3d6e552bc2e81fb959263fdc86",
+      "live_client.py": "5601a0a6d79c5ebe4d0f07da2952490a3948ba0448b0ea5ded499adb0fbddbc0",
+      "live_geometry.py": "ef0b861eb43599af50c6ff0242ef78709bab692ab78c7693066951eafdf98b42",
+      "live_probe.py": "e10ba0caf770bfd9be306fb98f0c3d27a4d666bfdbb2e1b55e874e08f3b8a252",
+      "live_protocol.py": "4a8bade7541b7c316cc734d4a9d8766ba9addb8399991f891eed663a08a10186",
+      "live_review.py": "28cdddd234f6fe8a5b8eba944be0312237753c1625675443aeac113559fff260",
+      "live_review_store.py": "7ad684070c2e84c2dd07a4a8777218c11ed179c1ca02cbae3794097350d374b1",
+      "live_server.py": "d25ed75bd8f6efd79d925c7c89c9f9d9f477e5a4cf46ac908289ee0f79607fed",
+      "live_store.py": "200e57718424c63a2f68347993f28e1888bec7ca14800a7b3653ddbf3cae0cd8",
+      "live_ui.py": "096cb4f40a091dae8adc163a72ba8bebcbf03a14f30d4c9cbb54362d699c5cd1",
+      "local_collaboration.py": "0695ddb93a7f67588a9b78ae438ee171b6ebba454da9f97aca30a02503717f4e",
+      "local_collaboration_probe.py": "d56044da5b93be25812cee82418a55a9bc817f6782143dfd34bc3efc0817fda2",
+      "magic_dependencies.py": "ec33281674eb994a6f8e6aa03c1901a96ff44f9184be929061a6e828ad112ee5",
+      "magic_rc.py": "1c6effcc90b9b83e00a26f8f1378028d02b19d90f007b42269cfe6af6a7763f9",
+      "measurements.py": "cf61db3def473aebf6b0aee3682bf36cdee02050a4353daa673131a9b32228dc",
+      "menu_map.py": "4765514d333af8534057932d74e0665ae92de5e9f886e4ffc83d3faed2412072",
+      "migration_ui.py": "9930cbac2ad179afb138f5b11dd722a4500a8a3169cd63ab0c137209f6917c08",
+      "mixed_signal.py": "af857b8fbaff991471cc64480538da9b16d5539078da4cde38d56bf0a806851d",
+      "mixed_signal_ui.py": "393bbb7171fef16a0192c37ac07a85541fa3f0f9054d01237641464aa33e8da9",
+      "model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+      "mos_array.py": "360ffff317bb86520a187f402fbb03bd68fb2a0cf0dc63754dc373928e3e0ae5",
+      "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+      "native_core.py": "6b97ec807f41ec81875a5fb9400f41d95f67ad617eba6d475f11f35fed789006",
+      "native_exchange.py": "99efea89e7edcb957eb5de44574b522ebb853b5c0a35856388726d5bfb32570f",
+      "native_migration.py": "81efe1d4ca5a5e9dc63b0b51435fb460ae5049ace6eb20858d67e6533e009ad6",
+      "native_physical.py": "602e96ab1b294439aed87f64c5c6cfd6cb0b94d4fc6b18c1dcbf2ea2ff907cfd",
+      "native_spice.py": "5f841b2b1fbc9151770e011929bb54253e48a1fe2277f474f7e35c7962bbebaf",
+      "native_vectors.py": "79154c357a3f06715e959af3f55a0ab20c8c3101f47d0975ee673372dfb2ac01",
+      "native_workspace.py": "7663d08ed0965b87bb922483349ef47e5256fc01969ea2dde2a4c52cdd6c177f",
+      "net_labels.py": "f8d1b7f5462c2698c97df5dccc3ce497e23f81bd452f798bdb679c389fb131c6",
+      "network_collaboration.py": "909601cd32b1a3a91cc0d851d4a8f9acfff63ce65f1494566c6d7d97198e6f14",
+      "network_host_ui.py": "30abb8f7cf4e70afa2508c0f2465f54ab6f322302945c8e9db965437585424d8",
+      "network_tls.py": "a56d0f1d6a4d4a90ea11003656c48a127ef788fc7d1e47a8e70c0af53e693b41",
+      "ngspice_compat.py": "8ea16d8e5ff6a6aa947f0ae635097e9895131738491b4d5674ae7aca0ed5a50b",
+      "onboarding.py": "fe890defaff89aff426a6d8d29165fedadb1f8cfed9de7eb0509555b59725bcf",
+      "openems_backend.py": "2242af22ce30b60952f27b520c969b809109e9c695fb7a1993c6a0ad4fba042c",
+      "openems_runtime.py": "cde41317ac8710d2d189f881b16bdfe53f4fe5f841f4ee7de215582315546a18",
+      "openems_ui.py": "d110fd3a4416fe1b2bf989bfe0f98f67868a09dda5068e7dbf66a6b60193ba05",
+      "operating_data.py": "34036270b71e9a033cc90f2054f6f3eb854be68a49129751cd6437b30689fcb3",
+      "osdi.py": "957f657f2578aa07e0466177eadf8b3e929be8cbef3a1ac8b225392e887c364e",
+      "parametric.py": "0e2c726b9c64fc2e537675f22de9a74f08ea73b891380a0d506f857b8ec2fe35",
+      "pcell_library.py": "22d2f2803afe2e597c526ecb0de5494c2733132ede09096fdf465859cc84fb45",
+      "pdk_import.py": "b6a6723ef2f2c3a30ef013cd1afe58996c1b64a3381320f69bc935e5ce75bad0",
+      "pdks.py": "275334010a5156b7e11f4f763746b35996e564af2a8b59576d71035965590623",
+      "physical.py": "c30fb4ee16a82867952f5c3f0daa2f962e34528be862f75b649539d0a3d8ac1a",
+      "physical_backend.py": "4013dd9a3af04e1d0bea76427e362b0e5ab948c5b212cbd3fd157ddac9a63cda",
+      "physical_cells.py": "169d25942a62f8d60fb48e25e367818b753673fcfd9fb85eacb8ac03f9ee8f2a",
+      "physical_desktop_probe.py": "ca8804a0d823b7ad60938a6dffb7a7e7777e4d9230cb7db129217259222d60f1",
+      "physical_extraction.py": "5d6dcaef523d6202dbc1099c80999c50f3c515dfe00cf45578094e63a71f219c",
+      "physical_hierarchy_ui.py": "ec6bf4c97242ea4d85ca2e36a84971227d3f32188ef4a87a4cb3a8f87e5c43ad",
+      "physical_runtime_probe.py": "7cc634223f4967efcedc66db193e55c4db9e98462716b12cb16047969fabf13d",
+      "physical_variants.py": "ff37916e3add634bdb36c910f4d87f024844285bb762b6dda2e1dfb514c20587",
+      "physical_workspace.py": "57dc4db65ba7c2bc80e08a26d9fc0cfac92b14efba3a30497694620d03b3bf99",
+      "plot.py": "952187010cd6389e9e04f54d414651273461a746e28ff7bd5cfe7afc9edd63fc",
+      "process_adapters.py": "dbad8dadd6d610dfe1fe1d41ece85f031b8636de390f01f96f2a81955ebe9dee",
+      "process_mos.py": "ead3ad5ef09812c9f7d08ec5bb7c1431a068e69812244d82c976105306278da7",
+      "project_hub.py": "6786a20992be344efa6f656175c0fdbef27877d26d9eae4cc7574068c9fd5028",
+      "project_hub_ui.py": "864d63c5999c1b6b8fdb6960065fe1ca690c658e35c2a11da2c9ce3ad3354e8f",
+      "project_manager.py": "53b263812d010c1b5c948e10c21f3381491c1a36f41f95edab442f720db8c8f9",
+      "project_store.py": "b181a3cf9b445bed24f062b9d954f8ea44f9d25be04e69ae35177b9e9f649dd6",
+      "project_templates.py": "daa0e8c74ae5aa2d76b5374929db8e2526612b76fcaeaf14b3d85ecadabab89c",
+      "project_ui.py": "063eab0b10d459bbcacea1b7a0c647bb5e3193dbf6242f45ab2bb0ec0e29ec43",
+      "qualification.py": "6842227b4a3c1e31ad1073e88efa3a43f67ef146e2ab53cb85dfa89a5d8286d3",
+      "rc_calibration.py": "9c7652759ba38c8a1df012d1ccaf7b4ffa86b3a3eb567be7c24ce6abff3bbdfd",
+      "rc_hierarchy.py": "6a0363b1d1a3af8426f0ea11d4138edb923c3a8acd0073faa71d87e78f4341ce",
+      "rc_islands.py": "bcb1a1b5c419a44d3040e3564321472f0c92af91b30d8cad2e8bcc21647638de",
+      "recovery.py": "64b831739e45388b7ec0ad846df7c58a22bacd28f9e27b1dda3e49f598f0fb81",
+      "recovery_queue.py": "8aaea8a14381b504a6779d6136a1e09d58aacd77a1c4bfd159054d8bd5551c05",
+      "recovery_snapshot.py": "9c586b025ac7f84279250d1dd95a0314d0a641e893edbb03e2f52f446a208bc4",
+      "recovery_ui.py": "5954fc52d222def0692da93b5a87ed64f5229d49c7ba231ee71b46f1eb51dacc",
+      "release_acceptance.py": "8b107f3984e9b8afaaed93f1b752b6226f00805410acef87fe544461bbc187cd",
+      "release_probe.py": "d845982b67eaff430309f0be3737f1328e0a8fa3bdf5e85d5c5c2fb8c6d52e15",
+      "review_anchors.py": "18cacb98c8361c333109e5a8a9adf7abfa1d347d38f5d38436b72da330871001",
+      "review_drafts.py": "ba3f5c2c11bc3db90ff3b3a56c30df447391f2baadeb6db2f9002d0f4104c13d",
+      "review_outbox.py": "3c0b15b88e95812331c7ac5a9cc97804355b1d7fe5166cb44f8e232efa2dc8f1",
+      "ring_oscillator.py": "ed97d7fdb7b577d040eeec7ffd84db9b71c0072e90cf2019b21add7ded220182",
+      "route_constraints.py": "28acd120b85cb6b03536ff23fbd9eb1590ac1eb1f45c50945024535408a2ace6",
+      "route_interaction.py": "4b3e1b27931345242db852b6d11e3e1991bc45e0876c16f98f6551685cf19cf4",
+      "rule_bundle.py": "ff481ba9ffb87fa2aa8b4050eb5143dd52740f1ba90c57d1ce8627599cc30fc1",
+      "run_environment.py": "8bec9704bfae10c44a4c9a9dfcc66e12441b6d43d0f0a69c52582baa191fc112",
+      "run_manager.py": "2a66ed7e675f5526e47e9c7c7a67e409c4c03373120d748a0bfc4aba523df736",
+      "runtime_setup.py": "3c3b3c270e76bacec009adae2fa9b5ad4fd1d02f387a91f9f4d84edf1145bd9b",
+      "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+      "saved_bench_diagnostics.py": "27e3978c448c649fbf60deb31bba24612a857692aab01086019a94f1da525e98",
+      "saved_bench_diagnostics_ui.py": "61e0d71823e79d2f8c2e638e793b4fc1631c5585a4ebcbdd27104eef2619bab0",
+      "saved_bias.py": "296f7b3662bfb17daba2aa0a15f46295ab4f9618e04d7452267c3b7d78c0a223",
+      "schematic_labels.py": "945645b83e4445a4f4365ff3e2ff3fd7cd9c4ed78104a68f25bc2728bc08b609",
+      "schematic_transaction.py": "1906f3467cd45301df826a9beecca4b3317f85c3d39c06f1a003a752a94e2aee",
+      "schematic_ui.py": "3310c2b775f50144913c99a9c6a40ea88b0bcad970a8ec71170ab2faf8b10ba2",
+      "sdk.py": "1a28d3be670a854ea0de9522d3fd6f4fa45f6628289f6893002a41aa2de3564a",
+      "silicon_flow.py": "ad8cd39b7633733ecb3842146e4487149f739dc2ae6274bf37e063974af3cfc2",
+      "silicon_ui.py": "baba7d04f3793b2bc253d50ad58cda2921de2d84878d737386975825e01e62cd",
+      "simulation.py": "145d938166250d00b531cfbbb86173a9231f7f9e748732d7fd7fec3af44b33ac",
+      "simulation_workspace.py": "e813a1ec7f80fcf2f3eb9b60e1fa02e6260a504747436cd643d5a01ef4d40399",
+      "sky130_bipolar_rules.py": "cbeb2f52d9b80641bdbd82b9b0ccc628c14602e7926d65245183f90abc753bd8",
+      "sky130_devices.py": "2206128e0bbc159e33de810ebe0d2467bb6c3132067a294a48b0e14753d72441",
+      "sky130_devices_ui.py": "220fa96ab00d90ceda1740c7ccecb30156ec946ea8a1d894c452320215972858",
+      "sky130_fingers.py": "12ed8cc673ae4c6bf8a1c7f1d535b5347dac2b56ca388b318f255b70932e59ae",
+      "sky130_fixed_devices.py": "af4b461665bff686f43864c67b8cb99d8fa24802e7368e148d89af2c7bb55d3d",
+      "sky130_flow.py": "c06e2755cd3fc7a5a30d0ec1d58346d9a7b4cb2e835db7661176089aa32696cd",
+      "sky130_layout.py": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b",
+      "source_assets.py": "69ae8b92b84f0e5f8b417afb16bbaf5c35b0d6205052ddbb4f22826813c7cadb",
+      "spatial.py": "1f245c8f6e817efc8b43e784cc7d5306044e008391bc35f920baf144857bafc9",
+      "specifications.py": "61eb678cc6d6512b1e5c29a18cb80a41fc87ea8c14087bfee9c368e9f56e9532",
+      "spice_import.py": "0116919ab9589c7dba65265bb4619c04a58c5c833bfc8949ab5c665f4ee4833e",
+      "spice_program.py": "5f078a943141742e78a5bfe44aea3a35cdf91b2e4ac07f7d2854cb7988f16c9a",
+      "stream_contract.py": "3c814edce2649d245765f8b58dc5b6b2126a92a8c5ae518e4dc31546e9f8f726",
+      "student_capstone.py": "de3f5f2634b223542f2526202a7468bae6f0b4efe391eea12f849e3ce2304f0e",
+      "student_design_labs.py": "54f4d6228739d5f3c4ad3df936b17c031d93addf5b61a6503eb85adeae165903",
+      "student_hub.py": "4e37d3453f88f74a389c399b0e6cdb82ea33c3f23c545481baca934d5b2b87c8",
+      "student_hub_ui.py": "2279cdbbce617ec18f75406f32c77e969dba962d13e3b12e9ea28c4472c28d4b",
+      "student_inverter.py": "8daa537173449b4091469434870c319236202707a555d69967bab4f34e304e0b",
+      "student_learning.py": "9d09513ee984babf8a6547ced6cfb7a9644b4e59f3e67d5aeccc44079516809e",
+      "student_projects.py": "b440785f3b4dd224ceed30fa290cfb26f285f0140758852b4b5c84e9c35d2e9f",
+      "studies.py": "52f37c4e1a220f60fe11de1fc3f771b719de7f4cd21869106a83cf837ef0e000",
+      "symbol_editor.py": "67ef92e0363c258087954e3ce9c63de213f0ed308e5c92db1390499a6b61bf3d",
+      "symbol_geometry.py": "010915073e6edf52acfdd3148dc0a0639aede45ee4b6fb8404aea2d6822f1e78",
+      "symbol_io.py": "74efe59765639d3da5e0dbec79564a87ee6b17c5a361dc1d92f9c29083550fe6",
+      "team_review_ui.py": "579302d43ff8c623a15739f6a6358c65c375fe65eb582cc5ecced35506f7375e",
+      "test_plan_ui.py": "e9fc6ea2b9e0676c6cca6f7b6f8441090a32a8b38fc6d485a2950e72c2fa6fe5",
+      "test_plans.py": "ac9216c977f0945f4be1b8d518f7e10852a538ce10fa0f98ef0ed62db9b601b9",
+      "testbench_ui.py": "182b357efd690c7833e0c53d6de55066c57c1150d8515b4cc54a406b01e6af3a",
+      "testbenches.py": "e0111b43b370782b7c7378c420250d5aefeddf1ac6b2a999b9dcd35334375b26",
+      "text_presentation.py": "17a77d51bd54bec0ef433f64ff66d49bd36b5b326a06fcd80f689516d7c85435",
+      "two_stage_opamp.py": "ff931687157a096696ce3af2e9822977b5a80e70903749e7084d9bb1f02049ee",
+      "two_stage_opamp_layout.py": "e18d5289cf305144736d0f97b6fdc5afbd771e25210f25aeb94ef0937bf7c6e3",
+      "ui_style.py": "d0c886901a7a0e794c419aab7e2d4351803a2225a6dd2b304f04c04e5ca414e8",
+      "variation_runs.py": "2a2665219822e4607305c966257c969ce528222ca78ff215663d88b7b4ba0a97",
+      "verification_campaigns.py": "a5836f6d7e50a1f9e1cb4f4571b6271571c88598b28caee34e620c5aaa89267d",
+      "verification_navigation.py": "e711dde5b8cac3bd985495514a1500855c73f58babb4e1e03de0081c732dc400",
+      "verification_workspace.py": "f38002e17582fcb9c3071a68f141455280df781e9d26775ea012b55782419d4b",
+      "vga_probe.py": "1ee50754542ce222f36303534b4eca4077418727a83d6b76f7250b04f616f647",
+      "view_screenshot.py": "5ecec0163daa57841f03f3478cf0af3c5440cc9596efb4f87c2174218545a7fc",
+      "wavecalc.py": "f49d06ef394e57cac293eda9ce380ce73892839dd7fec5952a6dfa7e87af6596",
+      "waveform_tools.py": "d99e5d1343839ffe6fcb8711ac497965c20a983dca057dc7a8cb2139f3a5c0f9",
+      "window_geometry.py": "61fab219aec732e866ba67ec78e57e37f27b7cee9161da3bd7f40eb6c6b04d76",
+      "windows_stdio.py": "70bd03c0b0687a25ec9408c858d872e3cfb2249f7238f94cd64944005813db64",
+      "wire_canvas.py": "df045636099b7c2307eee4ca6fa683ccaf073cf7dc7f378cfcd97b6dbcf780a7",
+      "wiring.py": "2d2ca4e48b0c53b8bab3399cb8844bb716e482e40840fcdef334ea3bddc5e689",
+      "worker.py": "759638108d3d756c1601e60266805c1509fec111157573426d663742aa4be00d",
+      "workflow_jobs.py": "129562a84113fe61500416fa0fe5528e40d6f9ee8bf3d1d530ebc4137c56810f",
+      "workflow_status.py": "16319c801df6e271a16d13c9cf3fd9aad1369be2407dad5a1adec5b78ef2c940",
+      "workspace.py": "e67b603dc6ed9a70e7637ce948f561477d1e860c3d71e2be06e1ae50dd4b5b5e",
+      "xschem_compat.py": "e7f7444a4e19e702bc4204e537a6541e88b3b5733092f2a329b653ace02208a3",
+      "xschem_export_contract.py": "b5bb1f775b5b98e58ee889a6921ca1f7cced4d3c9ceb687d7f4ec48aa3e69f03",
+      "xschem_io.py": "4b5b0724c9598b982932bc441008d67cc8c49631c252b349e06e1d032fd2eca0",
+      "xschem_libraries.py": "f0f0003561aeeb2029e053de2936252f5b9b47dc7fea2de9d1024f315dd4744b",
+      "xschem_paths.py": "13952f20aee746dcab3f9c002c1b7cbb5bd2717d9c27f84a1b0a89bb19a88f4a",
+      "xschem_project.py": "40a0896046a0b71d9a27e67d8587a132505fbeda7f1d79e8c82d725e2c37e83a",
+      "xschem_runtime.py": "026c8720786e8809723023b4f9ddd152cdbce0446fb60a446d7217af58ef58b7",
+      "xschem_semantics.py": "7566c536dd0c0fe186139009c545ef0d34b7c152877230d50cd9c216e81d2f4f",
+      "xschem_source_compat.py": "0cff93085c1c56c82dd29aea9562935753b6fdff2af7db8b9a6e0357ee1383e5",
+      "xschem_vectors.py": "ccd96f20c038c95b873d9abcfec8810b503117623bc8c1dcd850e09c5facee93",
+      "xschem_workflow.py": "d6dde1c77beefe5adf63a70da1b528171955b41872770b2c0ee85524cb53c51c",
+      "xschem_workspace.py": "a1a92cc289bbf2b81fb769bb6db33f646ea61c09a2ee88dbc1c70f731588a42b"
+    },
+    "audit_script_sha256": "530591dbd8614df5d89338c7913667f14658f699373a7f6f397dec963b48ae8e",
+    "mesh_trials": [
+      {
+        "version": 5,
+        "production_report_sha256": "37bec51c68c0ba429139264262736d2e5c9b94a152f40b2b1e82ed64e19a38bd",
+        "changed_platform_files": [
+          "gf180/config.mk"
+        ],
+        "checks": [
+          {
+            "stage": "mapped",
+            "name": "mapped",
+            "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+            "verdict": null,
+            "result_sha256": "f5f732f55635eab659cdbae714370ad9f01643b26c9a87077534be117ab140c5"
+          },
+          {
+            "stage": "equivalence",
+            "name": "equivalent",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "verdict": "PASS",
+            "result_sha256": "24e2d36997fcff80a9ac96932efe0aeccef126443cc0137d931aad26bdaea2fe"
+          },
+          {
+            "stage": "equivalence",
+            "name": "fault-detected",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "verdict": "FAIL",
+            "result_sha256": "083631bd3317995f7a6aee9b2c05ef8fa729e83fdedd91c9e8ae8bd2b581ee81"
+          },
+          {
+            "stage": "finish",
+            "name": "finished",
+            "summary": "Physical finish complete \u00b7 801 placed cells",
+            "verdict": null,
+            "result_sha256": "c58fe0e4b37bb98b20bde11932f247b8bcae4d991edaf6a7b8998f6e11fb0a3d",
+            "router": {
+              "detailed_route_drc_errors": [
+                0
+              ],
+              "scope": "Router rule checks; not foundry DRC/LVS"
+            },
+            "physical_checks": {
+              "schema": 2,
+              "status": "PASS",
+              "issues": [],
+              "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks. Logic inputs require positive gate area; declared CORE ANTENNACELL inputs require positive diffusion area, retained separately in the coverage report.",
+              "checkpoint_sha256": "42f01f0a5d3ac2fbc6381d5ef8ebb80be9823b18466ba5180d1f25c4e2527358",
+              "top": "counter",
+              "checks": {
+                "schema": 2,
+                "checkpoint_sha256": "42f01f0a5d3ac2fbc6381d5ef8ebb80be9823b18466ba5180d1f25c4e2527358",
+                "top": "counter",
+                "signal_inputs": 38,
+                "gate_inputs": 38,
+                "antenna_diode_inputs": [],
+                "missing_gate_models": [],
+                "unrouted_inputs": [],
+                "unconnected_power_pins": [],
+                "routing_layers": [
+                  {
+                    "name": "Metal1",
+                    "has_antenna_rule": true
+                  },
+                  {
+                    "name": "Metal2",
+                    "has_antenna_rule": true
+                  },
+                  {
+                    "name": "Metal3",
+                    "has_antenna_rule": true
+                  },
+                  {
+                    "name": "Metal4",
+                    "has_antenna_rule": true
+                  },
+                  {
+                    "name": "Metal5",
+                    "has_antenna_rule": true
+                  }
+                ],
+                "antenna": {
+                  "error": "",
+                  "violating_nets": 0
+                },
+                "power": [
+                  {
+                    "net": "VDD",
+                    "kind": "POWER",
+                    "terminals": 801,
+                    "special_wires": 1,
+                    "error": ""
+                  },
+                  {
+                    "net": "VSS",
+                    "kind": "GROUND",
+                    "terminals": 801,
+                    "special_wires": 1,
+                    "error": ""
+                  }
+                ]
+              },
+              "platform_fingerprint": "bf338074ba13c344bc72827cd71b24aecff6cde2df71bfb9dadc57dc31020491"
+            }
+          },
+          {
+            "stage": "timing",
+            "name": "extracted-timing",
+            "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+            "verdict": "PASS",
+            "result_sha256": "85b43e897bf72e33c7c85c53b686c7dd914bab4edf9785fc927807c704bcb416",
+            "timing": {
+              "status": "PASS",
+              "summary": {
+                "setup_worst_slack_ns": 44.358788,
+                "hold_worst_slack_ns": 0.292811,
+                "setup_reported_violations": 0,
+                "hold_reported_violations": 0,
+                "setup_total_negative_slack_ns": 0.0,
+                "hold_total_negative_slack_ns": 0.0
+              },
+              "unconstrained": false,
+              "incomplete_reasons": [],
+              "checks": "",
+              "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+              "electrical_checks": "",
+              "electrical_status": "No reported violations",
+              "scope": "Every selected library corner crossed with each captured interconnect extraction. Legacy single-SPEF and pre-layout results retain their narrower scope.",
+              "corner": "typical",
+              "parasitics": "extracted SPEF",
+              "corners": [
+                {
+                  "status": "PASS",
+                  "summary": {
+                    "setup_worst_slack_ns": 46.437298,
+                    "setup_reported_violations": 0,
+                    "setup_total_negative_slack_ns": 0.0,
+                    "hold_worst_slack_ns": 0.589872,
+                    "hold_reported_violations": 0,
+                    "hold_total_negative_slack_ns": 0.0
+                  },
+                  "unconstrained": false,
+                  "incomplete_reasons": [],
+                  "checks": "",
+                  "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                  "electrical_checks": "",
+                  "electrical_status": "No reported violations",
+                  "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+                  "corner": "typical",
+                  "rc_corner": null,
+                  "scenario": "typical",
+                  "parasitics": "extracted SPEF",
+                  "path_count": 16
+                },
+                {
+                  "status": "PASS",
+                  "summary": {
+                    "setup_worst_slack_ns": 44.358788,
+                    "setup_reported_violations": 0,
+                    "setup_total_negative_slack_ns": 0.0,
+                    "hold_worst_slack_ns": 1.262138,
+                    "hold_reported_violations": 0,
+                    "hold_total_negative_slack_ns": 0.0
+                  },
+                  "unconstrained": false,
+                  "incomplete_reasons": [],
+                  "checks": "",
+                  "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                  "electrical_checks": "",
+                  "electrical_status": "No reported violations",
+                  "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+                  "corner": "slow",
+                  "rc_corner": null,
+                  "scenario": "slow",
+                  "parasitics": "extracted SPEF",
+                  "path_count": 16
+                },
+                {
+                  "status": "PASS",
+                  "summary": {
+                    "setup_worst_slack_ns": 47.362743,
+                    "setup_reported_violations": 0,
+                    "setup_total_negative_slack_ns": 0.0,
+                    "hold_worst_slack_ns": 0.292811,
+                    "hold_reported_violations": 0,
+                    "hold_total_negative_slack_ns": 0.0
+                  },
+                  "unconstrained": false,
+                  "incomplete_reasons": [],
+                  "checks": "",
+                  "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                  "electrical_checks": "",
+                  "electrical_status": "No reported violations",
+                  "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+                  "corner": "fast",
+                  "rc_corner": null,
+                  "scenario": "fast",
+                  "parasitics": "extracted SPEF",
+                  "path_count": 16
+                }
+              ],
+              "rc_corners": [],
+              "path_count": 48
+            }
+          },
+          {
+            "stage": "equivalence",
+            "name": "physical-equivalent",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "verdict": "PASS",
+            "result_sha256": "034c1c72585118b9e6b14e723278711fb265ceb1d82abcd742795bea276905f7"
+          }
+        ],
+        "supplement": {
+          "schema": 1,
+          "status": "failed",
+          "qualified": false,
+          "variant": "C",
+          "metal_stack": "5LM_1TM",
+          "scope": "Supplemental global-density, dummy-size/grid/spacing and selected circuit-clearance checks only.",
+          "gds_sha256": "7daa7ac7538501a9d85de74916bd26e625f9b2dfc6307b37d4fc3b6aca97c805",
+          "checker_sha256": "c002205f9bd54b38290c6e3919146209d237071c5fb34e7453a48ec90bac6da5",
+          "manual_lock_sha256": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+          "klayout_python_version": "0.30.5",
+          "top": "counter",
+          "bounds_um": [
+            0,
+            0,
+            200,
+            200
+          ],
+          "area_um2": 40000.0,
+          "geometry_extent_um": [
+            0.0,
+            0.0,
+            188.16,
+            176.85
+          ],
+          "density": {
+            "comp": {
+              "circuit_percent": 30.416157875,
+              "dummy_percent": 0.0,
+              "total_percent": 30.416157875,
+              "limits_percent": [
+                25,
+                70
+              ]
+            },
+            "poly": {
+              "circuit_percent": 22.7887925,
+              "dummy_percent": 0.0,
+              "total_percent": 22.7887925,
+              "limits_percent": [
+                14,
+                100
+              ]
+            },
+            "m1": {
+              "circuit_percent": 21.731134875,
+              "dummy_percent": 0.0,
+              "total_percent": 21.731134875,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m2": {
+              "circuit_percent": 34.9112925,
+              "dummy_percent": 0.0,
+              "total_percent": 34.9112925,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m3": {
+              "circuit_percent": 30.105257,
+              "dummy_percent": 0.0,
+              "total_percent": 30.105257,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m4": {
+              "circuit_percent": 27.980575,
+              "dummy_percent": 0.0,
+              "total_percent": 27.980575,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m5": {
+              "circuit_percent": 30.83472,
+              "dummy_percent": 0.0,
+              "total_percent": 30.83472,
+              "limits_percent": [
+                30,
+                100
+              ]
+            }
+          },
+          "checks": [
+            {
+              "rule": "global-density",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.416157875
+            },
+            {
+              "rule": "DCF.1c/10",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 5.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DCF.2b",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 1.9
+            },
+            {
+              "rule": "global-density",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 22.7887925
+            },
+            {
+              "rule": "DPF.1/10",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 5.6,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DPF.2b",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 1.1
+            },
+            {
+              "rule": "global-density",
+              "layer": "m1",
+              "status": "failed",
+              "violations": 1,
+              "measured_percent": 21.731134875
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 34.9112925
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.105257
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m4",
+              "status": "failed",
+              "violations": 1,
+              "measured_percent": 27.980575
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.83472
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "DPF.1-enclosure",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DCF.4",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "comp",
+              "minimum_um": 3.5
+            },
+            {
+              "rule": "DCF.5",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "poly",
+              "minimum_um": 1.5
+            },
+            {
+              "rule": "DPF.4",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "comp",
+              "minimum_um": 3.2
+            },
+            {
+              "rule": "DPF.5",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "poly",
+              "minimum_um": 5.0
+            },
+            {
+              "rule": "DPF.12",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m1",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DPF.13",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m2",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m1",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m2",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m3",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m4",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m5",
+              "minimum_um": 2.0
+            }
+          ],
+          "failed_checks": 2,
+          "unqualified_requirements": [
+            "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+            "DCF.1a empty-field coverage and local COMP density",
+            "DCF/DPF well-boundary, marking-layer, scribe, pad and exclusion rules",
+            "DCF exclusion-edge tie/fill rows",
+            "DM.4-7 adjacent-layer separation and overlap interpretation",
+            "DM.8 exclusion regions and clearance",
+            "Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)",
+            "200 x 200 um metal windows at 100 um steps and foundry edge treatment",
+            "Independent full native geometry, antenna and final-layout LVS",
+            "Post-fill extraction, timing and foundry acceptance"
+          ]
+        },
+        "gds_sha256": "7daa7ac7538501a9d85de74916bd26e625f9b2dfc6307b37d4fc3b6aca97c805",
+        "pdn_tcl": "####################################\n# global connections\n####################################\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDD$} -power\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDDPE$}\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDDCE$}\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDDP$}\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDDC$}\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VNW$}\nadd_global_connection -net {VSS} -inst_pattern {.*} -pin_pattern {^VSS$} -ground\nadd_global_connection -net {VSS} -inst_pattern {.*} -pin_pattern {^VSSE$}\nadd_global_connection -net {VSS} -inst_pattern {.*} -pin_pattern {^VSSC$}\nadd_global_connection -net {VSS} -inst_pattern {.*} -pin_pattern {^VPW$}\n####################################\n# voltage domains\n####################################\nset_voltage_domain -name {CORE} -power {VDD} -ground {VSS}\n####################################\n# standard cell grid\n####################################\ndefine_pdn_grid -name {block} -voltage_domains {CORE} -pins {Metal5}\nadd_pdn_stripe -grid {block} -layer {Metal1} -width {0.900} -pitch {5.040} -offset {0} -followpins\nadd_pdn_stripe -grid {block} -layer {Metal2} -width {22.400} -pitch {89.600} -offset {22.400}\nadd_pdn_stripe -grid {block} -layer {Metal3} -width {3.360} -pitch {13.440} -offset {6.720}\nadd_pdn_stripe -grid {block} -layer {Metal4} -width {3.360} -pitch {13.440} -offset {6.720}\nadd_pdn_stripe -grid {block} -layer {Metal5} -width {3.360} -pitch {13.440} -offset {6.720}\nadd_pdn_connect -grid {block} -layers {Metal1 Metal2} -max_rows {1}\nadd_pdn_connect -grid {block} -layers {Metal2 Metal3}\nadd_pdn_connect -grid {block} -layers {Metal3 Metal4}\nadd_pdn_connect -grid {block} -layers {Metal4 Metal5}\n",
+        "rules": {
+          "counts": {
+            "antenna": 0,
+            "density": 4069,
+            "main": 0
+          },
+          "reports": [
+            {
+              "path": "drc/6_final_antenna.lyrdb",
+              "sha256": "16bc08638588768ac2878fdc032425eb79b7be2b768a13dc73cf4014505e8551",
+              "group": "antenna",
+              "markers": 0,
+              "categories": {}
+            },
+            {
+              "path": "drc/6_final_density.lyrdb",
+              "sha256": "769cd830b91250b8883709056ea67a0d9e647b29b6b9536e1d66471918080d90",
+              "group": "density",
+              "markers": 4069,
+              "categories": {
+                "'M1.4'": 4069
+              }
+            },
+            {
+              "path": "drc/6_final_main.lyrdb",
+              "sha256": "e81a3a4c9a7c5f1b10b27c6f422c42a1b7dc91ba869bddfebb053796ee666f85",
+              "group": "main",
+              "markers": 0,
+              "categories": {}
+            }
+          ],
+          "record_sha256": "79c471a9bfa0ef5a665685747ff6a7180a2d14bcdff6c3f68e45a7315f42b35c"
+        }
+      },
+      {
+        "version": 6,
+        "production_report_sha256": "88d236f344df90a500ad96b9acaf0d5a79b85c81ad5d241e6f99a1aab43cc2e3",
+        "changed_platform_files": [
+          "gf180/config.mk"
+        ],
+        "checks": [
+          {
+            "stage": "mapped",
+            "name": "mapped",
+            "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+            "verdict": null,
+            "result_sha256": "8e564e9e20b7ef49f0b0738ee54ac0272fa04219191be8aca638978bd79fe70e"
+          },
+          {
+            "stage": "equivalence",
+            "name": "equivalent",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "verdict": "PASS",
+            "result_sha256": "c840a21a3ce16d15581283790ce3bbca2b8dee1c55e90b9953acfc80ec1e8656"
+          },
+          {
+            "stage": "equivalence",
+            "name": "fault-detected",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "verdict": "FAIL",
+            "result_sha256": "9691c0e0702b0950fc2aeaa47f4e901d05c9912a4eeebf0fd044a8836847c434"
+          },
+          {
+            "stage": "finish",
+            "name": "finished",
+            "summary": "Physical finish complete \u00b7 801 placed cells",
+            "verdict": null,
+            "result_sha256": "b6b53b3729f9b3ac598ef1f162f7291140256f7cec2c15bae4442996b62df789",
+            "router": {
+              "detailed_route_drc_errors": [
+                0
+              ],
+              "scope": "Router rule checks; not foundry DRC/LVS"
+            },
+            "physical_checks": {
+              "schema": 2,
+              "status": "PASS",
+              "issues": [],
+              "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks. Logic inputs require positive gate area; declared CORE ANTENNACELL inputs require positive diffusion area, retained separately in the coverage report.",
+              "checkpoint_sha256": "c61fc37f668195897a83384d1df284e76ab0de6e5d413043ac7e7a2591beda67",
+              "top": "counter",
+              "checks": {
+                "schema": 2,
+                "checkpoint_sha256": "c61fc37f668195897a83384d1df284e76ab0de6e5d413043ac7e7a2591beda67",
+                "top": "counter",
+                "signal_inputs": 38,
+                "gate_inputs": 38,
+                "antenna_diode_inputs": [],
+                "missing_gate_models": [],
+                "unrouted_inputs": [],
+                "unconnected_power_pins": [],
+                "routing_layers": [
+                  {
+                    "name": "Metal1",
+                    "has_antenna_rule": true
+                  },
+                  {
+                    "name": "Metal2",
+                    "has_antenna_rule": true
+                  },
+                  {
+                    "name": "Metal3",
+                    "has_antenna_rule": true
+                  },
+                  {
+                    "name": "Metal4",
+                    "has_antenna_rule": true
+                  },
+                  {
+                    "name": "Metal5",
+                    "has_antenna_rule": true
+                  }
+                ],
+                "antenna": {
+                  "error": "",
+                  "violating_nets": 0
+                },
+                "power": [
+                  {
+                    "net": "VDD",
+                    "kind": "POWER",
+                    "terminals": 801,
+                    "special_wires": 1,
+                    "error": ""
+                  },
+                  {
+                    "net": "VSS",
+                    "kind": "GROUND",
+                    "terminals": 801,
+                    "special_wires": 1,
+                    "error": ""
+                  }
+                ]
+              },
+              "platform_fingerprint": "bf338074ba13c344bc72827cd71b24aecff6cde2df71bfb9dadc57dc31020491"
+            }
+          },
+          {
+            "stage": "timing",
+            "name": "extracted-timing",
+            "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+            "verdict": "PASS",
+            "result_sha256": "77536b69109bbf21bca7bd2d725d7667790a841c5c1e69668c1fcdb0f59eca75",
+            "timing": {
+              "status": "PASS",
+              "summary": {
+                "setup_worst_slack_ns": 44.369137,
+                "hold_worst_slack_ns": 0.29323,
+                "setup_reported_violations": 0,
+                "hold_reported_violations": 0,
+                "setup_total_negative_slack_ns": 0.0,
+                "hold_total_negative_slack_ns": 0.0
+              },
+              "unconstrained": false,
+              "incomplete_reasons": [],
+              "checks": "",
+              "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+              "electrical_checks": "",
+              "electrical_status": "No reported violations",
+              "scope": "Every selected library corner crossed with each captured interconnect extraction. Legacy single-SPEF and pre-layout results retain their narrower scope.",
+              "corner": "typical",
+              "parasitics": "extracted SPEF",
+              "corners": [
+                {
+                  "status": "PASS",
+                  "summary": {
+                    "setup_worst_slack_ns": 46.44392,
+                    "setup_reported_violations": 0,
+                    "setup_total_negative_slack_ns": 0.0,
+                    "hold_worst_slack_ns": 0.5906,
+                    "hold_reported_violations": 0,
+                    "hold_total_negative_slack_ns": 0.0
+                  },
+                  "unconstrained": false,
+                  "incomplete_reasons": [],
+                  "checks": "",
+                  "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                  "electrical_checks": "",
+                  "electrical_status": "No reported violations",
+                  "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+                  "corner": "typical",
+                  "rc_corner": null,
+                  "scenario": "typical",
+                  "parasitics": "extracted SPEF",
+                  "path_count": 16
+                },
+                {
+                  "status": "PASS",
+                  "summary": {
+                    "setup_worst_slack_ns": 44.369137,
+                    "setup_reported_violations": 0,
+                    "setup_total_negative_slack_ns": 0.0,
+                    "hold_worst_slack_ns": 1.263514,
+                    "hold_reported_violations": 0,
+                    "hold_total_negative_slack_ns": 0.0
+                  },
+                  "unconstrained": false,
+                  "incomplete_reasons": [],
+                  "checks": "",
+                  "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                  "electrical_checks": "",
+                  "electrical_status": "No reported violations",
+                  "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+                  "corner": "slow",
+                  "rc_corner": null,
+                  "scenario": "slow",
+                  "parasitics": "extracted SPEF",
+                  "path_count": 16
+                },
+                {
+                  "status": "PASS",
+                  "summary": {
+                    "setup_worst_slack_ns": 47.367615,
+                    "setup_reported_violations": 0,
+                    "setup_total_negative_slack_ns": 0.0,
+                    "hold_worst_slack_ns": 0.29323,
+                    "hold_reported_violations": 0,
+                    "hold_total_negative_slack_ns": 0.0
+                  },
+                  "unconstrained": false,
+                  "incomplete_reasons": [],
+                  "checks": "",
+                  "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+                  "electrical_checks": "",
+                  "electrical_status": "No reported violations",
+                  "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+                  "corner": "fast",
+                  "rc_corner": null,
+                  "scenario": "fast",
+                  "parasitics": "extracted SPEF",
+                  "path_count": 16
+                }
+              ],
+              "rc_corners": [],
+              "path_count": 48
+            }
+          },
+          {
+            "stage": "equivalence",
+            "name": "physical-equivalent",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "verdict": "PASS",
+            "result_sha256": "1df9dc94c66c65fe4ba415b10819def4c0bdee4795261fc3959e2458d10c07e8"
+          }
+        ],
+        "supplement": {
+          "schema": 1,
+          "status": "failed",
+          "qualified": false,
+          "variant": "C",
+          "metal_stack": "5LM_1TM",
+          "scope": "Supplemental global-density, dummy-size/grid/spacing and selected circuit-clearance checks only.",
+          "gds_sha256": "983234b4b43b18b40209e4962f588838cab9c8236705aaa1c0bb46a2993503e3",
+          "checker_sha256": "c002205f9bd54b38290c6e3919146209d237071c5fb34e7453a48ec90bac6da5",
+          "manual_lock_sha256": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+          "klayout_python_version": "0.30.5",
+          "top": "counter",
+          "bounds_um": [
+            0,
+            0,
+            200,
+            200
+          ],
+          "area_um2": 40000.0,
+          "geometry_extent_um": [
+            0.0,
+            0.0,
+            188.16,
+            176.85
+          ],
+          "density": {
+            "comp": {
+              "circuit_percent": 30.416157875,
+              "dummy_percent": 0.0,
+              "total_percent": 30.416157875,
+              "limits_percent": [
+                25,
+                70
+              ]
+            },
+            "poly": {
+              "circuit_percent": 22.7887925,
+              "dummy_percent": 0.0,
+              "total_percent": 22.7887925,
+              "limits_percent": [
+                14,
+                100
+              ]
+            },
+            "m1": {
+              "circuit_percent": 21.731044125,
+              "dummy_percent": 0.0,
+              "total_percent": 21.731044125,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m2": {
+              "circuit_percent": 34.912997,
+              "dummy_percent": 0.0,
+              "total_percent": 34.912997,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m3": {
+              "circuit_percent": 30.18799,
+              "dummy_percent": 0.0,
+              "total_percent": 30.18799,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m4": {
+              "circuit_percent": 32.643415,
+              "dummy_percent": 0.0,
+              "total_percent": 32.643415,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m5": {
+              "circuit_percent": 30.83472,
+              "dummy_percent": 0.0,
+              "total_percent": 30.83472,
+              "limits_percent": [
+                30,
+                100
+              ]
+            }
+          },
+          "checks": [
+            {
+              "rule": "global-density",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.416157875
+            },
+            {
+              "rule": "DCF.1c/10",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 5.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DCF.2b",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 1.9
+            },
+            {
+              "rule": "global-density",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 22.7887925
+            },
+            {
+              "rule": "DPF.1/10",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 5.6,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DPF.2b",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 1.1
+            },
+            {
+              "rule": "global-density",
+              "layer": "m1",
+              "status": "failed",
+              "violations": 1,
+              "measured_percent": 21.731044125
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 34.912997
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.18799
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 32.643415
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.83472
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "DPF.1-enclosure",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DCF.4",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "comp",
+              "minimum_um": 3.5
+            },
+            {
+              "rule": "DCF.5",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "poly",
+              "minimum_um": 1.5
+            },
+            {
+              "rule": "DPF.4",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "comp",
+              "minimum_um": 3.2
+            },
+            {
+              "rule": "DPF.5",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "poly",
+              "minimum_um": 5.0
+            },
+            {
+              "rule": "DPF.12",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m1",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DPF.13",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m2",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m1",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m2",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m3",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m4",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m5",
+              "minimum_um": 2.0
+            }
+          ],
+          "failed_checks": 1,
+          "unqualified_requirements": [
+            "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+            "DCF.1a empty-field coverage and local COMP density",
+            "DCF/DPF well-boundary, marking-layer, scribe, pad and exclusion rules",
+            "DCF exclusion-edge tie/fill rows",
+            "DM.4-7 adjacent-layer separation and overlap interpretation",
+            "DM.8 exclusion regions and clearance",
+            "Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)",
+            "200 x 200 um metal windows at 100 um steps and foundry edge treatment",
+            "Independent full native geometry, antenna and final-layout LVS",
+            "Post-fill extraction, timing and foundry acceptance"
+          ]
+        },
+        "gds_sha256": "983234b4b43b18b40209e4962f588838cab9c8236705aaa1c0bb46a2993503e3",
+        "pdn_tcl": "####################################\n# global connections\n####################################\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDD$} -power\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDDPE$}\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDDCE$}\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDDP$}\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VDDC$}\nadd_global_connection -net {VDD} -inst_pattern {.*} -pin_pattern {^VNW$}\nadd_global_connection -net {VSS} -inst_pattern {.*} -pin_pattern {^VSS$} -ground\nadd_global_connection -net {VSS} -inst_pattern {.*} -pin_pattern {^VSSE$}\nadd_global_connection -net {VSS} -inst_pattern {.*} -pin_pattern {^VSSC$}\nadd_global_connection -net {VSS} -inst_pattern {.*} -pin_pattern {^VPW$}\n####################################\n# voltage domains\n####################################\nset_voltage_domain -name {CORE} -power {VDD} -ground {VSS}\n####################################\n# standard cell grid\n####################################\ndefine_pdn_grid -name {block} -voltage_domains {CORE} -pins {Metal5}\nadd_pdn_stripe -grid {block} -layer {Metal1} -width {0.900} -pitch {5.040} -offset {0} -followpins\nadd_pdn_stripe -grid {block} -layer {Metal2} -width {22.400} -pitch {89.600} -offset {22.400}\nadd_pdn_stripe -grid {block} -layer {Metal3} -width {3.360} -pitch {13.440} -offset {6.720}\nadd_pdn_stripe -grid {block} -layer {Metal4} -width {3.920} -pitch {13.440} -offset {6.720}\nadd_pdn_stripe -grid {block} -layer {Metal5} -width {3.360} -pitch {13.440} -offset {6.720}\nadd_pdn_connect -grid {block} -layers {Metal1 Metal2} -max_rows {1}\nadd_pdn_connect -grid {block} -layers {Metal2 Metal3}\nadd_pdn_connect -grid {block} -layers {Metal3 Metal4}\nadd_pdn_connect -grid {block} -layers {Metal4 Metal5}\n",
+        "rules": {
+          "counts": {
+            "antenna": 0,
+            "density": 4069,
+            "main": 0
+          },
+          "reports": [
+            {
+              "path": "drc/6_final_antenna.lyrdb",
+              "sha256": "16bc08638588768ac2878fdc032425eb79b7be2b768a13dc73cf4014505e8551",
+              "group": "antenna",
+              "markers": 0,
+              "categories": {}
+            },
+            {
+              "path": "drc/6_final_density.lyrdb",
+              "sha256": "ec0da24a666d306e0949e5918ef619ae839514151dc578f4f8eef8baea216c7e",
+              "group": "density",
+              "markers": 4069,
+              "categories": {
+                "'M1.4'": 4069
+              }
+            },
+            {
+              "path": "drc/6_final_main.lyrdb",
+              "sha256": "3914de99be2cca0a73127fc420ece99cd3b277c0820126a70b7ebaaea6b80211",
+              "group": "main",
+              "markers": 0,
+              "categories": {}
+            }
+          ],
+          "record_sha256": "7e9a5b45a0417de20f03682bbdb8c82abf501eb48b451d9cb689874f4e839145"
+        }
+      }
+    ],
+    "fill_trials": [
+      {
+        "version": 1,
+        "report_sha256": "dd6d44720c9276b69f73e84e0a8104316516d5f2d8b4dd02f1beacb7fdcfedde",
+        "filled_gds_sha256": "c4da25e442d1b25eb3f003e2774686ed7f350fc4c9094a32732c2ce4145b5591",
+        "counts": {
+          "antenna": 0,
+          "density": 4847,
+          "main": 0
+        },
+        "fill_polygons": 778,
+        "policy": {
+          "size_um": 2,
+          "pitch_um": 3.2,
+          "stagger_um": 0.5,
+          "edge_um": 1.6,
+          "core_clearance_um": 4
+        },
+        "supplement": {
+          "schema": 1,
+          "status": "failed",
+          "qualified": false,
+          "variant": "C",
+          "metal_stack": "5LM_1TM",
+          "scope": "Supplemental global-density, dummy-size/grid/spacing and selected circuit-clearance checks only.",
+          "gds_sha256": "c4da25e442d1b25eb3f003e2774686ed7f350fc4c9094a32732c2ce4145b5591",
+          "checker_sha256": "c002205f9bd54b38290c6e3919146209d237071c5fb34e7453a48ec90bac6da5",
+          "manual_lock_sha256": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+          "klayout_python_version": "0.30.5",
+          "top": "counter",
+          "bounds_um": [
+            0,
+            0,
+            200,
+            200
+          ],
+          "area_um2": 40000.0,
+          "geometry_extent_um": [
+            0.0,
+            0.0,
+            200.0,
+            200.0
+          ],
+          "density": {
+            "comp": {
+              "circuit_percent": 30.416157875,
+              "dummy_percent": 0.0,
+              "total_percent": 30.416157875,
+              "limits_percent": [
+                25,
+                70
+              ]
+            },
+            "poly": {
+              "circuit_percent": 22.7887925,
+              "dummy_percent": 0.0,
+              "total_percent": 22.7887925,
+              "limits_percent": [
+                14,
+                100
+              ]
+            },
+            "m1": {
+              "circuit_percent": 21.731044125,
+              "dummy_percent": 7.78,
+              "total_percent": 29.511044125,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m2": {
+              "circuit_percent": 34.912997,
+              "dummy_percent": 0.0,
+              "total_percent": 34.912997,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m3": {
+              "circuit_percent": 30.18799,
+              "dummy_percent": 0.0,
+              "total_percent": 30.18799,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m4": {
+              "circuit_percent": 32.643415,
+              "dummy_percent": 0.0,
+              "total_percent": 32.643415,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m5": {
+              "circuit_percent": 30.83472,
+              "dummy_percent": 0.0,
+              "total_percent": 30.83472,
+              "limits_percent": [
+                30,
+                100
+              ]
+            }
+          },
+          "checks": [
+            {
+              "rule": "global-density",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.416157875
+            },
+            {
+              "rule": "DCF.1c/10",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 5.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DCF.2b",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 1.9
+            },
+            {
+              "rule": "global-density",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 22.7887925
+            },
+            {
+              "rule": "DPF.1/10",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 5.6,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DPF.2b",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 1.1
+            },
+            {
+              "rule": "global-density",
+              "layer": "m1",
+              "status": "failed",
+              "violations": 1,
+              "measured_percent": 29.511044125
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 778
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 34.912997
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.18799
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 32.643415
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.83472
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "DPF.1-enclosure",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DCF.4",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "comp",
+              "minimum_um": 3.5
+            },
+            {
+              "rule": "DCF.5",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "poly",
+              "minimum_um": 1.5
+            },
+            {
+              "rule": "DPF.4",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "comp",
+              "minimum_um": 3.2
+            },
+            {
+              "rule": "DPF.5",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "poly",
+              "minimum_um": 5.0
+            },
+            {
+              "rule": "DPF.12",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m1",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DPF.13",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m2",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m1",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m2",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m3",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m4",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m5",
+              "minimum_um": 2.0
+            }
+          ],
+          "failed_checks": 1,
+          "unqualified_requirements": [
+            "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+            "DCF.1a empty-field coverage and local COMP density",
+            "DCF/DPF well-boundary, marking-layer, scribe, pad and exclusion rules",
+            "DCF exclusion-edge tie/fill rows",
+            "DM.4-7 adjacent-layer separation and overlap interpretation",
+            "DM.8 exclusion regions and clearance",
+            "Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)",
+            "200 x 200 um metal windows at 100 um steps and foundry edge treatment",
+            "Independent full native geometry, antenna and final-layout LVS",
+            "Post-fill extraction, timing and foundry acceptance"
+          ]
+        },
+        "unchanged_circuit_masks": true,
+        "scope": "GF180 C counter GDS prototype; no post-fill LVS, extraction, timing or foundry acceptance claim."
+      },
+      {
+        "version": 2,
+        "report_sha256": "70d107fd8a01d7a357be7f83e612e7022552842861b4929a23fbe5cb64d4ac63",
+        "filled_gds_sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+        "counts": {
+          "antenna": 0,
+          "density": 0,
+          "main": 0
+        },
+        "fill_polygons": 911,
+        "policy": {
+          "size_um": 2,
+          "pitch_um": 3.2,
+          "stagger_um": 0.5,
+          "edge_um": 1.6,
+          "core_clearance_um": 3
+        },
+        "supplement": {
+          "schema": 1,
+          "status": "checks_passed_coverage_incomplete",
+          "qualified": false,
+          "variant": "C",
+          "metal_stack": "5LM_1TM",
+          "scope": "Supplemental global-density, dummy-size/grid/spacing and selected circuit-clearance checks only.",
+          "gds_sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+          "checker_sha256": "c002205f9bd54b38290c6e3919146209d237071c5fb34e7453a48ec90bac6da5",
+          "manual_lock_sha256": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+          "klayout_python_version": "0.30.5",
+          "top": "counter",
+          "bounds_um": [
+            0,
+            0,
+            200,
+            200
+          ],
+          "area_um2": 40000.0,
+          "geometry_extent_um": [
+            0.0,
+            0.0,
+            200.0,
+            200.0
+          ],
+          "density": {
+            "comp": {
+              "circuit_percent": 30.416157875,
+              "dummy_percent": 0.0,
+              "total_percent": 30.416157875,
+              "limits_percent": [
+                25,
+                70
+              ]
+            },
+            "poly": {
+              "circuit_percent": 22.7887925,
+              "dummy_percent": 0.0,
+              "total_percent": 22.7887925,
+              "limits_percent": [
+                14,
+                100
+              ]
+            },
+            "m1": {
+              "circuit_percent": 21.731044125,
+              "dummy_percent": 9.11,
+              "total_percent": 30.841044125,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m2": {
+              "circuit_percent": 34.912997,
+              "dummy_percent": 0.0,
+              "total_percent": 34.912997,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m3": {
+              "circuit_percent": 30.18799,
+              "dummy_percent": 0.0,
+              "total_percent": 30.18799,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m4": {
+              "circuit_percent": 32.643415,
+              "dummy_percent": 0.0,
+              "total_percent": 32.643415,
+              "limits_percent": [
+                30,
+                100
+              ]
+            },
+            "m5": {
+              "circuit_percent": 30.83472,
+              "dummy_percent": 0.0,
+              "total_percent": 30.83472,
+              "limits_percent": [
+                30,
+                100
+              ]
+            }
+          },
+          "checks": [
+            {
+              "rule": "global-density",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.416157875
+            },
+            {
+              "rule": "DCF.1c/10",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 5.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DCF.2b",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 1.9
+            },
+            {
+              "rule": "global-density",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 22.7887925
+            },
+            {
+              "rule": "DPF.1/10",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 5.6,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DPF.2b",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 1.1
+            },
+            {
+              "rule": "global-density",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.841044125
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 911
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 34.912997
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.18799
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 32.643415
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "global-density",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "measured_percent": 30.83472
+            },
+            {
+              "rule": "DM.1",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "expected_size_um": 2.0,
+              "polygons": 0
+            },
+            {
+              "rule": "5-nm-grid",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DM.2b",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "minimum_um": 0.98
+            },
+            {
+              "rule": "DPF.1-enclosure",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0
+            },
+            {
+              "rule": "DCF.4",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "comp",
+              "minimum_um": 3.5
+            },
+            {
+              "rule": "DCF.5",
+              "layer": "comp",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "poly",
+              "minimum_um": 1.5
+            },
+            {
+              "rule": "DPF.4",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "comp",
+              "minimum_um": 3.2
+            },
+            {
+              "rule": "DPF.5",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "poly",
+              "minimum_um": 5.0
+            },
+            {
+              "rule": "DPF.12",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m1",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DPF.13",
+              "layer": "poly",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m2",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m1",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m1",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m2",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m2",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m3",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m3",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m4",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m4",
+              "minimum_um": 2.0
+            },
+            {
+              "rule": "DM.3",
+              "layer": "m5",
+              "status": "passed",
+              "violations": 0,
+              "circuit_layer": "m5",
+              "minimum_um": 2.0
+            }
+          ],
+          "failed_checks": 0,
+          "unqualified_requirements": [
+            "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+            "DCF.1a empty-field coverage and local COMP density",
+            "DCF/DPF well-boundary, marking-layer, scribe, pad and exclusion rules",
+            "DCF exclusion-edge tie/fill rows",
+            "DM.4-7 adjacent-layer separation and overlap interpretation",
+            "DM.8 exclusion regions and clearance",
+            "Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)",
+            "200 x 200 um metal windows at 100 um steps and foundry edge treatment",
+            "Independent full native geometry, antenna and final-layout LVS",
+            "Post-fill extraction, timing and foundry acceptance"
+          ]
+        },
+        "unchanged_circuit_masks": true,
+        "scope": "GF180 C counter GDS prototype; no post-fill LVS, extraction, timing or foundry acceptance claim."
+      }
+    ],
+    "placement_diagnostic_report_sha256": "5d8969e028e32ac2198fd4d9a8b9ab7cd49b63c54be38441e0c492614a5659cd",
+    "archive": {
+      "name": "evidence.tar.gz",
+      "sha256": "bce2cd53e5a23e8945db53e929b2de3405a77bbb279f19c672376ca90a91273f",
+      "bytes": 17479271
+    }
+  },
+  "connectivity": {
+    "schema": 1,
+    "status": "combined-reference-connectivity-controls-passed; chunk-four-open",
+    "qualified": false,
+    "chunk": 4,
+    "scope": "GF180 C filled counter only. Experimental substrate-aware LVS plus independent metal continuity; post-fill parasitics, complete fill rules and production integration remain open.",
+    "guard_backend": "986be8273a50bb394cda8c29f35e866554291c921568c9ecd76cbcbae797a6d6",
+    "guard_source_sha256": "198980c63249602c0209be554b69a69dbe686f034aa0cda0920038733a1b4e3b",
+    "audit_script_sha256": "064e0913000c753c9b6a7a87cc41ea2372cef50f213ac39e2c149cb35d7c724b",
+    "cell_library_revision": "3781fd2951da6e3dc4600e52d997398a9463caeb",
+    "cell_library_lock_sha256": "1c78f6cf460c26a92eb9aaac516e60fc5081589c070e22dbafcf3e8026e3ee42",
+    "reference": {
+      "status": "strict-native-LVS-completed; inspect-comparison",
+      "qualified": false,
+      "scope": "Full filled C counter; no extraction or tapeout qualification.",
+      "prior_report_sha256": "4d9e0fcd25e4b648c4f671c32ae82bed4668afce2e111ed44f2d655bb243074b",
+      "reference_sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce",
+      "independent_cell_lock_sha256": "1c78f6cf460c26a92eb9aaac516e60fc5081589c070e22dbafcf3e8026e3ee42",
+      "script_sha256": "1aef148b1e381da7f65b2a7154d18e6b01f76ffd77f61a4a80525409bb545726",
+      "cell_counts": {
+        "gf180mcu_fd_sc_mcu9t5v0__clkinv_1": 1,
+        "gf180mcu_fd_sc_mcu9t5v0__oai21_1": 1,
+        "gf180mcu_fd_sc_mcu9t5v0__aoi21_1": 2,
+        "gf180mcu_fd_sc_mcu9t5v0__nor2_1": 2,
+        "gf180mcu_fd_sc_mcu9t5v0__and3_1": 1,
+        "gf180mcu_fd_sc_mcu9t5v0__nor3_1": 1,
+        "gf180mcu_fd_sc_mcu9t5v0__xnor2_1": 1,
+        "gf180mcu_fd_sc_mcu9t5v0__dffq_1": 4,
+        "gf180mcu_fd_sc_mcu9t5v0__endcap": 62,
+        "gf180mcu_fd_sc_mcu9t5v0__filltie": 181,
+        "gf180mcu_fd_sc_mcu9t5v0__dlyb_2": 5,
+        "gf180mcu_fd_sc_mcu9t5v0__clkbuf_3": 3,
+        "gf180mcu_fd_sc_mcu9t5v0__fillcap_16": 183,
+        "gf180mcu_fd_sc_mcu9t5v0__fillcap_4": 73,
+        "gf180mcu_fd_sc_mcu9t5v0__fill_2": 75,
+        "gf180mcu_fd_sc_mcu9t5v0__fill_1": 40,
+        "gf180mcu_fd_sc_mcu9t5v0__fillcap_32": 138,
+        "gf180mcu_fd_sc_mcu9t5v0__fillcap_8": 28
+      },
+      "expected_transistors": 4184,
+      "explicit_bulk_bindings": 1240,
+      "bulk_mapping": {
+        "VNW": "VDD",
+        "VPW": "VSS"
+      },
+      "bulk_binding_sha256": "c77d1f78a5d6826e0fe42d25abd9c3745cbe993af8d7b244c9af6a50e7d1ab49",
+      "odb_instances": 801,
+      "odb_pins": 1661,
+      "odb_pin_table_sha256": "cce3ab626ac664e9d40092404fa081af15b51cd272b99da9fab7707542310a2a",
+      "lvs": {
+        "command": [
+          "/usr/bin/python3",
+          "/audit/gf180-digital-pv/klayout/lvs/run_lvs.py",
+          "--layout=/qualification/gf180-density-m1-fill-v2/filled.gds",
+          "--netlist=/qualification/gf180-filled-lvs-v2/reference.cdl",
+          "--variant=C",
+          "--topcell=counter",
+          "--run_dir=/qualification/gf180-filled-lvs-v2/lvs",
+          "--lvs_sub=VSS",
+          "--run_mode=flat",
+          "--thr=2",
+          "--net_only",
+          "--top_lvl_pins"
+        ],
+        "exit": 0,
+        "log_sha256": "1c232e58c9835fbd6108b27536b62dd579b0ed0d175a860475a60b06a6fd32f7",
+        "matched": false,
+        "circuits": [
+          {
+            "layout": "counter",
+            "schematic": "COUNTER",
+            "status": "NoMatch"
+          }
+        ],
+        "pairs": {
+          "net": 4062,
+          "device": 4184,
+          "pin": 20
+        },
+        "statuses": {
+          "Mismatch": 57,
+          "Match": 6244,
+          "MatchWithWarning": 1965
+        },
+        "comparison_sha256": "07355b86e3f0982c0df4c982b475af2719b8705db8b0fa1c1b2290f578633bc6",
+        "strict_pass": false
+      }
+    },
+    "native_original_warning": [
+      {
+        "severity": "Warning",
+        "category": "must-connect",
+        "cell": "counter",
+        "message": "Must-connect subnets of VSS must be connected further up in the hierarchy - this is an error at chip top level",
+        "boxes_um": [
+          [
+            17.23,
+            19.71,
+            182.69,
+            176.4
+          ]
+        ],
+        "blocks_match": true
+      }
+    ],
+    "positive": {
+      "report_sha256": "cbfa0962568e6ea33892bfdfaee968611df4c828a6a7ff52ba8d9e36179369f6",
+      "matched": true,
+      "transistors": 4184,
+      "top_pins": 8,
+      "ambiguous_internal_fillcap_nets": 1965,
+      "extraction_log": []
+    },
+    "cases": [
+      {
+        "case": "positive",
+        "gds_sha256": "50005eb156d2f871f0f584c8c62aba671bfd2d6b61c746bc626639922eb6b9fe",
+        "native_lvs_passed": true,
+        "metal_continuity_passed": true,
+        "combined_passed": true,
+        "expected_pass": true,
+        "lvs_statuses": {
+          "Match": 6285,
+          "MatchWithWarning": 1965
+        },
+        "metal_failure_counts": {}
+      },
+      {
+        "case": "ground-port-open",
+        "gds_sha256": "86402462a62f9e03d6a7c90c0725d455decccc67fd8a9e5c40158a585a38d24b",
+        "native_lvs_passed": true,
+        "metal_continuity_passed": false,
+        "combined_passed": false,
+        "expected_pass": false,
+        "lvs_statuses": {
+          "Match": 6285,
+          "MatchWithWarning": 1965
+        },
+        "metal_failure_counts": {
+          "power-terminal-disconnected": 801
+        }
+      },
+      {
+        "case": "signal-short",
+        "gds_sha256": "5992397e7c4aa7b288271f3c47b28f049d9f56888ff0a831fe693601463d8e73",
+        "native_lvs_passed": false,
+        "metal_continuity_passed": false,
+        "combined_passed": false,
+        "expected_pass": false,
+        "lvs_statuses": {
+          "Mismatch": 8,
+          "Match": 6277,
+          "MatchWithWarning": 1965
+        },
+        "metal_failure_counts": {
+          "shorted-top-ports": 1
+        }
+      },
+      {
+        "case": "substrate-taps-open",
+        "gds_sha256": "e1994e38949143b7a3e994132d3c81f1a3d82884938e06d71e5c155ee02122d0",
+        "native_lvs_passed": false,
+        "metal_continuity_passed": true,
+        "combined_passed": false,
+        "expected_pass": false,
+        "lvs_statuses": {
+          "Mismatch": 15984,
+          "Match": 203
+        },
+        "metal_failure_counts": {}
+      }
+    ],
+    "power_check": {
+      "windows_sha256": "04e2da6667c2788c439b9751c3ae1fa3906d1a7d231ddaa99cb49d3e000aa34f",
+      "native_sha256": "51a2bffbc63fdeebf0d50685217e9592f70cc44b804baefa4000156d42817c18",
+      "identical_measurements": true,
+      "power_terminals": 1602,
+      "limitation": "Power-pad isolation is missed by the substrate-aware LVS alone; independent physical metal continuity is required."
+    },
+    "prior_banba_warning": {
+      "path": "examples/gf180-banba/layout/physical-evidence/comparison.lvsdb",
+      "sha256": "b440fc8b21964aa30c4407602770aa388a1d991988598f5f665b5fda49926273",
+      "extraction_log": [
+        {
+          "severity": "Warning",
+          "category": "must-connect",
+          "cell": "banba_layout",
+          "message": "Must-connect nets VSS must be connected further up in the hierarchy - this is an error at chip top level",
+          "boxes_um": [],
+          "blocks_match": true
+        }
+      ]
+    },
+    "remaining": [
+      "Post-fill extraction and timing on the actual filled geometry.",
+      "Complete every required local density, exclusion and fill-pattern check.",
+      "Integrate and source-lock the accepted method in the production flow.",
+      "Repeat C/D counter, UART and APB on both operating systems.",
+      "Exact package, full-chip and external foundry acceptance remain separate open gates."
+    ],
+    "archive": {
+      "name": "evidence.tar.gz",
+      "sha256": "0c4acf3ad1dc1988f9cc08fd28caaf6cc3853e8dbf0e42b722aeceeb5ae2bcb9",
+      "bytes": 84830483
+    }
+  },
+  "local_evidence_archives": [
+    {
+      "path": "outputs/gf180-density-mesh-fill-audit-v1/evidence.tar.gz",
+      "name": "evidence.tar.gz",
+      "sha256": "bce2cd53e5a23e8945db53e929b2de3405a77bbb279f19c672376ca90a91273f",
+      "bytes": 17479271
+    },
+    {
+      "path": "outputs/gf180-filled-connectivity-audit-v2/evidence.tar.gz",
+      "name": "evidence.tar.gz",
+      "sha256": "0c4acf3ad1dc1988f9cc08fd28caaf6cc3853e8dbf0e42b722aeceeb5ae2bcb9",
+      "bytes": 84830483
+    },
+    {
+      "path": "outputs/gf180-postfill-extraction-evidence-v1.tar.gz",
+      "sha256": "cd6e4df84330c8b852ec8935ea9ec47a7029508637c9bb4bd3159b8c96441fdc",
+      "bytes": 12385010
+    },
+    {
+      "path": "outputs/gf180-lvs-final-checks.tar.gz",
+      "sha256": "2c5c647311a68ff5f6282f584e290504a47bced03f23699b84a3e1718027cef0",
+      "bytes": 98003
+    }
+  ],
+  "source_hashes": {
+    "icstudio/klayout_lvs.py": "198980c63249602c0209be554b69a69dbe686f034aa0cda0920038733a1b4e3b",
+    "scripts/verify_gf180_banba_physical.py": "c96c7ea0c5265fad9ce94ea63304e83bba2e912afb5a9e1d2015baf7b0827aca",
+    "tests/test_klayout_lvs_exchange.py": "db60caa78c93d671d22201b56663670c63b8b5d8682ab442c4ea75b42ea050a0",
+    "tests/test_gf180_banba_physical.py": "524a117ef350ccb9920a115302de3f3edf5293de1d6e621960a8832c58fff962"
+  },
+  "verification": {
+    "windows_focused_tests": 16,
+    "linux_real_geometry_tests": 3,
+    "windows_log_sha256": "69d8f33490d3228db8a8de0d49984911edf1240c4d4e34fc78bcdc6c0b81e296",
+    "linux_log_sha256": "1d37d0f7734520cd66d5dc03e088a9005feac5f2afa6f88587b134164232ba9f",
+    "full_suite": {
+      "tests": 1454,
+      "skips": 62,
+      "failures": 0,
+      "seconds": 274.282,
+      "log_sha256": "e015ef1be6043e165d7570c719002c5a14dfd2f9111ce5870b44bc4ebd827edc",
+      "process_record_sha256": "8d1d3f49779d9b60c7ab62d2d6508c2f5fcd23cc3dec19d3e832a366fdd80103"
+    },
+    "final_focused_suite": {
+      "tests": 38,
+      "failures": 0,
+      "log_sha256": "b7845f0146255a43d16f58ed3d857e4f0e13ecd6860244256390cfbb189081bf"
+    },
+    "initial_full_suite": {
+      "tests": 1454,
+      "skips": 63,
+      "failures": 2,
+      "log_sha256": "2757d1bf6c1656243e42a155b61937c6bbcb28e29462ba8626f0606c2d039609",
+      "explanation": "Two tests expected the retained Banba graph match to pass. Its unresolved ground warning now correctly fails; the original database is preserved as a negative control."
+    },
+    "local_test_environment": {
+      "temporary_directory": "outputs/gf180-lvs-test-temp",
+      "interrupted_stall_log_sha256": "04859801a68d8b48b44c53bc0ca6007a51514e3ada5d7a9428e29ddc8ba61d70",
+      "explanation": "Windows temporary-file creation retried PermissionError. Workspace TEMP/TMP resolved that loop; restricted sockets and filesystem operations then produced 42 failures/errors. Five reproduced cases and the full unmodified suite pass with the required local-test permissions.",
+      "restricted_full_suite": {
+        "tests": 1454,
+        "skips": 62,
+        "failures": 1,
+        "errors": 41,
+        "log_sha256": "c996ca6252c8c85876868976c16bae662c7050b3710692345f59a972e3f889ed"
+      },
+      "permission_recheck": {
+        "tests": 5,
+        "failures": 0,
+        "log_sha256": "ea8f2a90177f371c2d8bc1457c03db047b9ec3c68cd4f567b4cc8b293f7a060c"
+      }
+    }
+  },
+  "limitations": [
+    "The filled GDS is a prototype outside the production implementation database.",
+    "The substrate-aware LVS deck is an explicit diagnostic correction with native fault controls, not unchanged foundry acceptance.",
+    "Its isolated power-pad false pass requires the independent physical metal-connectivity check.",
+    "All reported implementation timing predates the final Metal1 dummy fill; post-fill extraction/timing remains open.",
+    "Complete local-density, edge, exclusion and pattern checks remain open.",
+    "Repeat accepted production C/D counter, UART and APB on both operating systems.",
+    "The retained Banba comparison has an unresolved must-connect warning; its old graph match is insufficient for strict LVS.",
+    "Exact package, complete-chip and external foundry/shuttle acceptance remain open.",
+    "Native post-fill extraction is diagnostic only: negative supply R-node weight rejects production RC assembly; the 911-node floating network exceeds the current production reducer budget."
+  ],
+  "post_fill_extraction_diagnostic": {
+    "status": "native C-matrix audit passed; production RC assembly rejected; timing unqualified",
+    "qualified": false,
+    "capacitance_audit": {
+      "status": "native-C-matrix-and-floating-network-audited; timing-unqualified",
+      "qualified": false,
+      "script_sha256": "313bdb436edc6f80708e4bf44340761f8fc325d935e16b293b9164a510ecc09c",
+      "native_report_sha256": "025281091fe6b7fc7edb0f7c78dcccd7b8e6e444cffa86f03932eb3a2a608391",
+      "numpy": "2.3.5",
+      "roundoff": {
+        "before": {
+          "changes": [
+            {
+              "original": "cap \"a_10428_13129#\" \"count[2]\" -1.43474e-18",
+              "absolute_aF": 1.43474e-18
+            },
+            {
+              "original": "cap \"a_10988_12265#\" \"a_10428_17161#\" -1.43474e-18",
+              "absolute_aF": 1.43474e-18
+            },
+            {
+              "original": "cap \"a_10340_17205#\" \"a_4716_18223#\" -2.11435e-18",
+              "absolute_aF": 2.11435e-18
+            },
+            {
+              "original": "cap \"a_10428_19177#\" \"a_10988_12265#\" -1.43474e-18",
+              "absolute_aF": 1.43474e-18
+            },
+            {
+              "original": "cap \"a_9780_16701#\" \"a_4604_16153#\" -3.04839e-17",
+              "absolute_aF": 3.04839e-17
+            },
+            {
+              "original": "cap \"a_10228_14685#\" \"a_10876_13735#\" -1.32902e-17",
+              "absolute_aF": 1.32902e-17
+            }
+          ],
+          "total_abs_mutual_aF": 1662431.434579324,
+          "one_ulp_aF": 2.3283064365386963e-10,
+          "source_sha256": "47d83e7c3485b53440c95ecaffef9c84ade857e7c09c423c73a5e68563515c85",
+          "diagnostic_copy_sha256": "48b6c8552c4b787618fe5d605b20e72fd9d6c9ad93798ae6c035ca9bf596bc81"
+        },
+        "filled": {
+          "changes": [
+            {
+              "original": "cap \"a_9780_16701#\" \"a_4604_16153#\" -3.04839e-17",
+              "absolute_aF": 3.04839e-17
+            },
+            {
+              "original": "cap \"a_10428_13129#\" \"count[2]\" -1.43474e-18",
+              "absolute_aF": 1.43474e-18
+            },
+            {
+              "original": "cap \"a_10876_13735#\" \"a_10228_14685#\" -1.32902e-17",
+              "absolute_aF": 1.32902e-17
+            },
+            {
+              "original": "cap \"a_10340_17205#\" \"a_4716_18223#\" -2.11435e-18",
+              "absolute_aF": 2.11435e-18
+            },
+            {
+              "original": "cap \"a_10428_19177#\" \"a_10988_12265#\" -1.43474e-18",
+              "absolute_aF": 1.43474e-18
+            },
+            {
+              "original": "cap \"a_10988_12265#\" \"a_10428_17161#\" -1.43474e-18",
+              "absolute_aF": 1.43474e-18
+            }
+          ],
+          "total_abs_mutual_aF": 1712965.082589994,
+          "one_ulp_aF": 2.3283064365386963e-10,
+          "source_sha256": "797a23f985c47144f8ff11c73222483e428d09e25a1a4f3567cf1c6af56b748c",
+          "diagnostic_copy_sha256": "0c2e20f598632986e1565274be78e2614617be6467a00ef1b2114ee95e394542"
+        }
+      },
+      "device_records_unchanged": 4184,
+      "retained_nodes": 4057,
+      "floating_nodes": 911,
+      "retained_boundary_nodes": 152,
+      "max_normalized_solve_residual": 4.163336342344337e-17,
+      "max_energy_residual": 3.3306690738754696e-16,
+      "floating_matrix_positive_definite": true,
+      "port_loads_other_nodes_held_fixed": {
+        "count[2]": {
+          "before_f": 1.1672138899870001e-14,
+          "filled_f": 1.170651366665722e-14,
+          "delta_f": 3.437476678721934e-17
+        },
+        "count[3]": {
+          "before_f": 3.9152549356e-15,
+          "filled_f": 4.054813050250549e-15,
+          "delta_f": 1.395581146505486e-16
+        },
+        "clk": {
+          "before_f": 9.637831986760001e-15,
+          "filled_f": 9.756143154647572e-15,
+          "delta_f": 1.1831116788757084e-16
+        },
+        "reset": {
+          "before_f": 2.6290698136e-15,
+          "filled_f": 2.774140139399089e-15,
+          "delta_f": 1.4507032579908903e-16
+        },
+        "count[0]": {
+          "before_f": 3.4086518478e-15,
+          "filled_f": 3.520494423159144e-15,
+          "delta_f": 1.118425753591437e-16
+        },
+        "count[1]": {
+          "before_f": 2.95881258078e-15,
+          "filled_f": 3.0395020968702734e-15,
+          "delta_f": 8.068951609027344e-17
+        },
+        "VDD": {
+          "before_f": 4.10649828251229e-12,
+          "filled_f": 4.106813879232936e-12,
+          "delta_f": 3.1559672064612406e-16
+        }
+      },
+      "reduced_sha256": "03e8fa33f3ec0f08839457329a27342f2b50f9573eca7fe5e3edcc474048f066",
+      "limitations": [
+        "Native model and linear equipotential zero-charge fill assumption only.",
+        "Original .ext files contain six identical tiny negative roundoff residues; diagnostic copies retain explicit normalization records. Production parser still rejects these files.",
+        "Production floating reducer rejects the 911-node component at its 256-node budget; no production limit changed.",
+        "Wire resistance, net mapping to digital timing, actual post-fill timing and foundry acceptance remain unqualified."
+      ]
+    },
+    "resistance_report": {
+      "status": "native-resistance-files-written; conservation-and-timing-pending",
+      "qualified": false,
+      "source_report_sha256": "025281091fe6b7fc7edb0f7c78dcccd7b8e6e444cffa86f03932eb3a2a608391",
+      "technology_sha256": "5eb8eafee3b744052f0438ab83ea9f8ced3099963f8f84a9de73f5519d12e861",
+      "script_sha256": "61a5e962ba8f32b453b227a2f73a84503530bedc5070e819d98d2867f256bffd",
+      "cases": {
+        "before": {
+          "status": "completed",
+          "pid": 13,
+          "command": [
+            "/opt/icstudio/bin/magic",
+            "-dnull",
+            "-noconsole",
+            "-rcfile",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-postfill-resistance-v1/before/startup.tcl",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-postfill-resistance-v1/before/extract.tcl"
+          ],
+          "conductor_gds_sha256": "72c11f36f18fedc36940873b6edf3014b003f358c2c5cc9e20bd0ad14d3c763c",
+          "exit_code": 0,
+          "seconds": 3.879166841506958,
+          "engine_log_sha256": "6e1bfe74e2adcc42bb0906b339f9ffa63b5ecbaf7f56863935c686541415273d",
+          "counter.ext_sha256": "75384207dc436008d35d5bebe4988c19c7aae25037db4f6dbeab0df5e57dddb9",
+          "counter.res.ext_sha256": "cd735798ca6c0f64483f38c5c2ba758cfa02035c816ac4f5926b04b16e87c868",
+          "device-reference.spice_sha256": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+          "counts": {
+            "rnode": 22487,
+            "resist": 35706,
+            "device": 4184,
+            "killnode": 68
+          }
+        },
+        "filled": {
+          "status": "completed",
+          "pid": 20,
+          "command": [
+            "/opt/icstudio/bin/magic",
+            "-dnull",
+            "-noconsole",
+            "-rcfile",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-postfill-resistance-v1/filled/startup.tcl",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-postfill-resistance-v1/filled/extract.tcl"
+          ],
+          "conductor_gds_sha256": "ff82126a3afb76d669a8a9ae51efb1b9c4c8c31e276decb933be143fc6f49f4e",
+          "exit_code": 0,
+          "seconds": 4.428313493728638,
+          "engine_log_sha256": "49c383364a1ad4d31f1514b9e12fbd35734991d1f5501b313fcf027459a1cb7c",
+          "counter.ext_sha256": "53dab8a18b35fd22e96a3f17cf39c16212ee3cd61ec2b61e1cbe19e37076ecff",
+          "counter.res.ext_sha256": "2ab07c7b288dd4080df7698785190da494b71baaa436c6b81edf1cffa4bad135",
+          "device-reference.spice_sha256": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+          "counts": {
+            "rnode": 22487,
+            "resist": 35706,
+            "device": 4184,
+            "killnode": 68
+          }
+        }
+      }
+    },
+    "assembly_report": {
+      "status": "completed; timing-unqualified",
+      "qualified": false,
+      "script_sha256": "4e8d8e768cfd2f91e16da30d193cfe1fa7dd402e8c8aaa6465840080f97c3b15",
+      "cases": {
+        "before": {
+          "ext_source_sha256": "75384207dc436008d35d5bebe4988c19c7aae25037db4f6dbeab0df5e57dddb9",
+          "diagnostic_ext_sha256": "48b6c8552c4b787618fe5d605b20e72fd9d6c9ad93798ae6c035ca9bf596bc81",
+          "resistance_sha256": "cd735798ca6c0f64483f38c5c2ba758cfa02035c816ac4f5926b04b16e87c868",
+          "status": "rejected-by-existing-conservation-contract",
+          "error": "Invalid Magic RC rnode capacitance weight: require finite nonnegative value."
+        },
+        "filled": {
+          "ext_source_sha256": "53dab8a18b35fd22e96a3f17cf39c16212ee3cd61ec2b61e1cbe19e37076ecff",
+          "diagnostic_ext_sha256": "0c2e20f598632986e1565274be78e2614617be6467a00ef1b2114ee95e394542",
+          "resistance_sha256": "2ab07c7b288dd4080df7698785190da494b71baaa436c6b81edf1cffa4bad135",
+          "status": "rejected-by-existing-conservation-contract",
+          "error": "Invalid Magic RC rnode capacitance weight: require finite nonnegative value."
+        }
+      },
+      "raw_R_names_and_records_equal": false,
+      "note": "Generated R-node names are not portable across runs; topology comparison needs a physical mapping. Negative native capacitance weights block production assembly."
+    },
+    "extraction_report": {
+      "status": "native-capacitance-extraction-completed; reduction-and-timing-pending",
+      "qualified": false,
+      "source_sha256": "1fb6317cec4835a67c258bac3f9a49d0721174f11fc024b85645dc3344d78cd5",
+      "technology_sha256": "5eb8eafee3b744052f0438ab83ea9f8ced3099963f8f84a9de73f5519d12e861",
+      "script_sha256": "89dc51f294147b93ecddbdcbd18f226b767ccada2be847c6e328039ba528c04a",
+      "magic_version": "8.3.684",
+      "scope": "Matched C-counter full-geometry capacitance diagnostic; no timing or signoff acceptance.",
+      "cases": {
+        "before": {
+          "command": [
+            "/opt/icstudio/bin/magic",
+            "-dnull",
+            "-noconsole",
+            "-rcfile",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-postfill-extraction-v2/before/startup.tcl",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-postfill-extraction-v2/before/extract.tcl"
+          ],
+          "exit_code": 0,
+          "seconds": 3.677917718887329,
+          "conductor_gds_sha256": "72c11f36f18fedc36940873b6edf3014b003f358c2c5cc9e20bd0ad14d3c763c",
+          "engine_log_sha256": "f3eaadd772d7ae0225558c6d54374d2e4b421ff735d917b2129c5fd68044227c",
+          "floating_count": 0,
+          "ext_sha256": "47d83e7c3485b53440c95ecaffef9c84ade857e7c09c423c73a5e68563515c85",
+          "spice_sha256": "7b2bc30620e1818be6cee7bdf587018525f984cd7d88e10b155f04d7cf6e18f0",
+          "counts": {
+            "node": 4057,
+            "substrate": 1,
+            "cap": 20392,
+            "device": 4184,
+            "port": 8
+          }
+        },
+        "filled": {
+          "command": [
+            "/opt/icstudio/bin/magic",
+            "-dnull",
+            "-noconsole",
+            "-rcfile",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-postfill-extraction-v2/filled/startup.tcl",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/gf180-postfill-extraction-v2/filled/extract.tcl"
+          ],
+          "exit_code": 0,
+          "seconds": 3.6275534629821777,
+          "conductor_gds_sha256": "ff82126a3afb76d669a8a9ae51efb1b9c4c8c31e276decb933be143fc6f49f4e",
+          "engine_log_sha256": "872b69ecca9ab650f51abe2dbb9ef0a9c8caf0736525a809ad51f52d7b0004b9",
+          "floating_count": 911,
+          "ext_sha256": "797a23f985c47144f8ff11c73222483e428d09e25a1a4f3567cf1c6af56b748c",
+          "spice_sha256": "3c2420c51cecade3c027a22b384e31d4b3e1bffb994fad08cb64dc09a8fa038d",
+          "counts": {
+            "node": 4968,
+            "substrate": 1,
+            "cap": 23974,
+            "device": 4184,
+            "port": 8
+          }
+        }
+      },
+      "controls": {
+        "absent": {
+          "gap_um": null,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "4fc9d187ae7999700b1a533ae7c441a88c37f1102bdb4850bb9547a73982664b",
+          "materialized_sha256": "4fc9d187ae7999700b1a533ae7c441a88c37f1102bdb4850bb9547a73982664b",
+          "extracted_sha256": "bde5bde8d366b64e3a3632b6432ee788597c02bc6f0f7cd58692ca054a928661",
+          "effective_signal_ground_f": 2.90712e-15,
+          "floating_reduction_sha256": "de92b4a50beb44ea76d772581fecf4a4e4a7e2ac42da77ce5d83589d791b19f1",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "near": {
+          "gap_um": 1.0,
+          "signal_to_fill_f": 4.26442e-16,
+          "purpose4_sha256": "948258f8d16b6caa23907a3890836f4a4e3262d5433849f280ed0170deaf9971",
+          "materialized_sha256": "69e102ea80d123d86a3382189255c019736e29ec04fe1da51a1ef4d0441c342d",
+          "extracted_sha256": "7bfb9e10ace2562c0f5be11ed744ce6df302454d08d5b83c21fd722333a26c41",
+          "effective_signal_ground_f": 2.7463906180467164e-15,
+          "floating_reduction_sha256": "0beca6d62df566e811dbada436f8c33f176f1c4d1162acc3c4ca81cb4382ed49",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        },
+        "far": {
+          "gap_um": 10.0,
+          "signal_to_fill_f": 0,
+          "purpose4_sha256": "19d7098900744577d855bc3195d6fc922d306df79414aa873faf99befb6e0c68",
+          "materialized_sha256": "f8e59c771fa6103a94dcb79af3507b6027663b4a4198c5772adec83f4b484346",
+          "extracted_sha256": "203a4d37009d70dd1f3546dc8c5ab568fbbb018f98b4422f9fd9e64157b2ce11",
+          "effective_signal_ground_f": 2.90712e-15,
+          "floating_reduction_sha256": "fadbd42f2cbaccd8f7549347baec03ede84603dad37f94a01d7cbf7d563ace04",
+          "floating_reduction_algorithm": "floating-fill-zero-charge-schur-v1"
+        }
+      }
+    },
+    "retained_attempts": [
+      "First diagnostic accidentally marked fill labels as ports; corrected to retain eight actual ports.",
+      "First RC assembly comparator treated reversed capacitor endpoints as different; corrected unordered-pair comparison verifies native C matrices agree.",
+      "Production parsers reject six tiny negative C residues and one materially negative R-node capacitance weight; no production gate was weakened."
+    ],
+    "next_step": "Diagnose the negative native R-node weight, establish scalable floating-network handling and a valid conserved post-fill RC/timing flow before production integration."
+  }
+}

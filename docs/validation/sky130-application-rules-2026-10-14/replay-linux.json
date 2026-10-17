@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "cases": [
+    {
+      "case": "counter",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "elapsed_seconds": 16.005193496999993,
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "report_sha256": "a78a37f8f9a2048dd3c93ed60a72a11277f3db510c3fcf08b018c9eac5a53731",
+      "log_sha256": "5844ad8d6491d7728790d410d8beeb0fecb9029a7240cf619b34fc828f30cf58",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "uart",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "elapsed_seconds": 46.36936722500002,
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "report_sha256": "d3b45235ed4086438e0912ff248732862708520798a8285510e8577be67d8fee",
+      "log_sha256": "5844ad8d6491d7728790d410d8beeb0fecb9029a7240cf619b34fc828f30cf58",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "apb",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "elapsed_seconds": 45.46923016599999,
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "report_sha256": "36f19a643b79654c3fdabaa80ce680619f4d81d07dfcc065b676660104800055",
+      "log_sha256": "5844ad8d6491d7728790d410d8beeb0fecb9029a7240cf619b34fc828f30cf58",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "negative",
+      "status": "invalid-mask-rejected-with-all-six-reports",
+      "exit_code": 1,
+      "elapsed_seconds": 7.1831922499999905,
+      "gds_sha256": "c990e919db516452841d0a6afb303e25d0fed446347dfa5cde916a98ab8a963b",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "report_sha256": "c32960c8e8b042ee6717df1bf75c416fbda5cec09d0eef47a921e4bfe0c5f871",
+      "log_sha256": "cfc6c03209d32675059f00a923efba144fd361edc27b7eacb65ddfe75f9fc2d3",
+      "profiles": {
+        "floating_connectivity": "FAIL",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "FAIL",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    }
+  ],
+  "runtime": {
+    "python": "3.12.3",
+    "klayout": "0.30.5",
+    "module_sha256": "5e90cee14038c41a00e7312ac6f1b84c59a570052cd34b5003349a92e495c4ef"
+  },
+  "driver_sha256": "f0a7d8c43b424e0ea4f756dc9ab40106e9c0e8e5a9d7b1e8fb068088347c2b1c",
+  "sources": {
+    "icstudio/digital_sky130_rules.py": "1af2e09826695994d3364690b9daab55ae6f73c1ced89060cfa53ebc35eab00c",
+    "icstudio/digital_sky130_rules_lock.py": "e86c6f37f8b2956f0b63fa05a35d145ac5d27b97b78e5e4293b57556b9b98784",
+    "icstudio/digital_sky130_rule_worker.py": "3a37653aad825ba80918173324fd997d515009e1aa43faab92668d2a26bd6a82"
+  },
+  "scope": "Actual isolated application worker against the three previously accepted filled GDS/OpenDB candidates and a deliberately invalid synthetic metal mask. No new fill generation, full-deck run, extraction, timing, or desktop installer qualification."
+}

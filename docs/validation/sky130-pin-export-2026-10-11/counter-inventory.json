@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "top": "counter",
+  "checkpoint_sha256": "b1ecef2acc34c7810ac61e2775e1a35dc69e38fa46009b3271ab1ee0b3ed3625",
+  "die_nm": [
+    0,
+    0,
+    200000,
+    200000
+  ],
+  "ports": [
+    {
+      "name": "VDD",
+      "net": "VDD",
+      "kind": "POWER",
+      "boxes": [
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            156960,
+            179860,
+            158560
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            129760,
+            179860,
+            131360
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            102560,
+            179860,
+            104160
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            75360,
+            179860,
+            76960
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            48160,
+            179860,
+            49760
+          ]
+        }
+      ]
+    },
+    {
+      "name": "VSS",
+      "net": "VSS",
+      "kind": "GROUND",
+      "boxes": [
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            170560,
+            179860,
+            172160
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            143360,
+            179860,
+            144960
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            116160,
+            179860,
+            117760
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            88960,
+            179860,
+            90560
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            61760,
+            179860,
+            63360
+          ]
+        },
+        {
+          "layer": "met5",
+          "box_nm": [
+            20240,
+            34560,
+            179860,
+            36160
+          ]
+        }
+      ]
+    },
+    {
+      "name": "clk",
+      "net": "clk",
+      "kind": "SIGNAL",
+      "boxes": [
+        {
+          "layer": "met3",
+          "box_nm": [
+            0,
+            100830,
+            800,
+            101130
+          ]
+        }
+      ]
+    },
+    {
+      "name": "count[0]",
+      "net": "count[0]",
+      "kind": "SIGNAL",
+      "boxes": [
+        {
+          "layer": "met3",
+          "box_nm": [
+            0,
+            99470,
+            800,
+            99770
+          ]
+        }
+      ]
+    },
+    {
+      "name": "count[1]",
+      "net": "count[1]",
+      "kind": "SIGNAL",
+      "boxes": [
+        {
+          "layer": "met3",
+          "box_nm": [
+            0,
+            98110,
+            800,
+            98410
+          ]
+        }
+      ]
+    },
+    {
+      "name": "count[2]",
+      "net": "count[2]",
+      "kind": "SIGNAL",
+      "boxes": [
+        {
+          "layer": "met2",
+          "box_nm": [
+            94000,
+            0,
+            94140,
+            485
+          ]
+        }
+      ]
+    },
+    {
+      "name": "count[3]",
+      "net": "count[3]",
+      "kind": "SIGNAL",
+      "boxes": [
+        {
+          "layer": "met2",
+          "box_nm": [
+            92160,
+            0,
+            92300,
+            485
+          ]
+        }
+      ]
+    },
+    {
+      "name": "reset",
+      "net": "reset",
+      "kind": "SIGNAL",
+      "boxes": [
+        {
+          "layer": "met3",
+          "box_nm": [
+            0,
+            96750,
+            800,
+            97050
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "schema": 2,
+  "case": "via4-4-separated",
+  "qualified": false,
+  "status": "native-execution-complete",
+  "source": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-via4-contact-v1/4-separated/input.gds",
+  "gds_sha256": "bccb0c6bb56021b65510000f9e0814f8e3a10dc8db0da5bd2c72edd52f689bc1",
+  "deck_sha256": "92b0378b845c81f2e5ec46918f894988f8648fd0a8f4482441de325aa3cc18fc",
+  "driver_sha256": "2c8e3c01ab551724d4b5265a6bd26ef2fe6f6e59fc83a649599140567395571d",
+  "executable_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+  "command": [
+    "/opt/icstudio/bin/klayout",
+    "-b",
+    "-r",
+    "/var/tmp/icstudio-sky130-all-antenna-v3/via4-4-separated/check.drc",
+    "-rd",
+    "input=/var/tmp/icstudio-sky130-all-antenna-v3/via4-4-separated/input.gds",
+    "-rd",
+    "top_cell=ANTENNA",
+    "-rd",
+    "report=/var/tmp/icstudio-sky130-all-antenna-v3/via4-4-separated/report.lyrdb",
+    "-rd",
+    "metrics=/var/tmp/icstudio-sky130-all-antenna-v3/via4-4-separated/metrics.json"
+  ],
+  "scope": "All 13 stages of captured five-metal HD antenna profile; diagnostic, not full process acceptance",
+  "markers": 1,
+  "stages": [
+    {
+      "stage": "poly",
+      "limit": 50,
+      "thickness_um": 0.18,
+      "diode_area_factor": 0,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "licon",
+      "limit": 3,
+      "thickness_um": 0,
+      "diode_area_factor": 0,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "li",
+      "limit": 75,
+      "thickness_um": 0.1,
+      "diode_area_factor": 450,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "mcon",
+      "limit": 3,
+      "thickness_um": 0,
+      "diode_area_factor": 18,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met1",
+      "limit": 400,
+      "thickness_um": 0.35,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    },
+    {
+      "stage": "via",
+      "limit": 6,
+      "thickness_um": 0,
+      "diode_area_factor": 36,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met2",
+      "limit": 400,
+      "thickness_um": 0.35,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    },
+    {
+      "stage": "via2",
+      "limit": 6,
+      "thickness_um": 0,
+      "diode_area_factor": 36,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met3",
+      "limit": 400,
+      "thickness_um": 0.8,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    },
+    {
+      "stage": "via3",
+      "limit": 6,
+      "thickness_um": 0,
+      "diode_area_factor": 36,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met4",
+      "limit": 400,
+      "thickness_um": 0.8,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    },
+    {
+      "stage": "via4",
+      "limit": 6,
+      "thickness_um": 0,
+      "diode_area_factor": 36,
+      "diode_bonus": 0,
+      "markers": 1
+    },
+    {
+      "stage": "met5",
+      "limit": 400,
+      "thickness_um": 1.2,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    }
+  ],
+  "categories": {
+    "'ar_q.via4.1'": 1
+  },
+  "seconds": 1.4704075539993937,
+  "files": {
+    "input.gds": "bccb0c6bb56021b65510000f9e0814f8e3a10dc8db0da5bd2c72edd52f689bc1",
+    "engine.log": "6a7d0f37f97785f905b3b67e153c2bdc82b186edea33178bf17ecfb9e8145daa",
+    "metrics.json": "2c6c738930789dbcf8ffbb41d2060f8a21122bccb81c8f3ce9a240d2fa768d33",
+    "report.lyrdb": "417d10a56370b18857cd6db2f3ca95a093d50d9d8eb1fbea26b183abbc28b7ab",
+    "check.drc": "92b0378b845c81f2e5ec46918f894988f8648fd0a8f4482441de325aa3cc18fc"
+  }
+}

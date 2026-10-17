@@ -1,0 +1,2882 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "e07e5681e82f063997b68ab3347b121983774289",
+  "scope": "Selected public capacitor interfaces, complex terminal responses, parallel factors and deliberate device faults. No full operating range, physical, RF-band or silicon-model qualification.",
+  "processes": {
+    "sky130A": {
+      "target": "sky130A",
+      "revision": "32afdde0c2e14085",
+      "manifest_sha256": "09cb522968c48205b15f306fd0497de4881464ab2ff00b592cc214dac60ab9c8",
+      "original_manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d"
+    },
+    "gf180mcuC": {
+      "target": "gf180mcuC",
+      "revision": "a6aa4319ebe9cbc9",
+      "manifest_sha256": "92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f"
+    },
+    "gf180mcuD": {
+      "target": "gf180mcuD",
+      "revision": "b2daff2da0a120b4",
+      "manifest_sha256": "b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738"
+    },
+    "ihp-sg13g2": {
+      "target": "ihp-sg13g2",
+      "revision": "d03f47cdf46a85a0",
+      "manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c"
+    }
+  },
+  "totals": {
+    "cases": 180,
+    "entries": 37,
+    "terminal_vectors": 12888,
+    "samples": 335088,
+    "faulted_device_instances": 5328,
+    "fault_simulations": 144,
+    "parallel_device_comparisons": 1332
+  },
+  "probe_contracts": {
+    "sky130A": [
+      {
+        "tag": "c0s0m1",
+        "name": "cap_mim_m3_1",
+        "key": "sky130_fd_pr/cap_mim_m3_1.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 2,
+          "l": 2,
+          "mf": 1
+        },
+        "model": "sky130_fd_pr__cap_mim_m3_1",
+        "manual": "w=2 l=2 mf=1 m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c0s0m3",
+        "name": "cap_mim_m3_1",
+        "key": "sky130_fd_pr/cap_mim_m3_1.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 2,
+          "l": 2,
+          "mf": 3
+        },
+        "model": "sky130_fd_pr__cap_mim_m3_1",
+        "manual": "w=2 l=2 mf=3 m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c0s1m1",
+        "name": "cap_mim_m3_1",
+        "key": "sky130_fd_pr/cap_mim_m3_1.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7,
+          "l": 7,
+          "mf": 1
+        },
+        "model": "sky130_fd_pr__cap_mim_m3_1",
+        "manual": "w=7 l=7 mf=1 m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c0s1m3",
+        "name": "cap_mim_m3_1",
+        "key": "sky130_fd_pr/cap_mim_m3_1.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7,
+          "l": 7,
+          "mf": 3
+        },
+        "model": "sky130_fd_pr__cap_mim_m3_1",
+        "manual": "w=7 l=7 mf=3 m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c1s0m1",
+        "name": "cap_mim_m3_2",
+        "key": "sky130_fd_pr/cap_mim_m3_2.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 2,
+          "l": 2,
+          "mf": 1
+        },
+        "model": "sky130_fd_pr__cap_mim_m3_2",
+        "manual": "w=2 l=2 vm=1 m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c1s0m3",
+        "name": "cap_mim_m3_2",
+        "key": "sky130_fd_pr/cap_mim_m3_2.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 2,
+          "l": 2,
+          "mf": 3
+        },
+        "model": "sky130_fd_pr__cap_mim_m3_2",
+        "manual": "w=2 l=2 vm=3 m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c1s1m1",
+        "name": "cap_mim_m3_2",
+        "key": "sky130_fd_pr/cap_mim_m3_2.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7,
+          "l": 7,
+          "mf": 1
+        },
+        "model": "sky130_fd_pr__cap_mim_m3_2",
+        "manual": "w=7 l=7 vm=1 m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c1s1m3",
+        "name": "cap_mim_m3_2",
+        "key": "sky130_fd_pr/cap_mim_m3_2.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7,
+          "l": 7,
+          "mf": 3
+        },
+        "model": "sky130_fd_pr__cap_mim_m3_2",
+        "manual": "w=7 l=7 vm=3 m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c2s0m1",
+        "name": "cap_var_hvt",
+        "key": "sky130_fd_pr/cap_var_hvt.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "params": {
+          "w": 5,
+          "l": 0.5,
+          "vm": 1
+        },
+        "model": "sky130_fd_pr__cap_var_hvt",
+        "manual": "w=5 l=0.5 vm=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c2s0m3",
+        "name": "cap_var_hvt",
+        "key": "sky130_fd_pr/cap_var_hvt.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "params": {
+          "w": 5,
+          "l": 0.5,
+          "vm": 3
+        },
+        "model": "sky130_fd_pr__cap_var_hvt",
+        "manual": "w=5 l=0.5 vm=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c2s1m1",
+        "name": "cap_var_hvt",
+        "key": "sky130_fd_pr/cap_var_hvt.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "params": {
+          "w": 10,
+          "l": 1,
+          "vm": 1
+        },
+        "model": "sky130_fd_pr__cap_var_hvt",
+        "manual": "w=10 l=1 vm=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c2s1m3",
+        "name": "cap_var_hvt",
+        "key": "sky130_fd_pr/cap_var_hvt.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "params": {
+          "w": 10,
+          "l": 1,
+          "vm": 3
+        },
+        "model": "sky130_fd_pr__cap_var_hvt",
+        "manual": "w=10 l=1 vm=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c3s0m1",
+        "name": "cap_var_lvt",
+        "key": "sky130_fd_pr/cap_var_lvt.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "params": {
+          "w": 5,
+          "l": 0.5,
+          "vm": 1
+        },
+        "model": "sky130_fd_pr__cap_var_lvt",
+        "manual": "w=5 l=0.5 vm=1 m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c3s0m3",
+        "name": "cap_var_lvt",
+        "key": "sky130_fd_pr/cap_var_lvt.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "params": {
+          "w": 5,
+          "l": 0.5,
+          "vm": 3
+        },
+        "model": "sky130_fd_pr__cap_var_lvt",
+        "manual": "w=5 l=0.5 vm=3 m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c3s1m1",
+        "name": "cap_var_lvt",
+        "key": "sky130_fd_pr/cap_var_lvt.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "params": {
+          "w": 10,
+          "l": 1,
+          "vm": 1
+        },
+        "model": "sky130_fd_pr__cap_var_lvt",
+        "manual": "w=10 l=1 vm=1 m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c3s1m3",
+        "name": "cap_var_lvt",
+        "key": "sky130_fd_pr/cap_var_lvt.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "b"
+        ],
+        "params": {
+          "w": 10,
+          "l": 1,
+          "vm": 3
+        },
+        "model": "sky130_fd_pr__cap_var_lvt",
+        "manual": "w=10 l=1 vm=3 m=3",
+        "shape": 1,
+        "copies": 3
+      }
+    ],
+    "gf180mcuC": [
+      {
+        "tag": "c0s0m1",
+        "name": "cap_mim_1f0fF",
+        "key": "symbols/cap_mim_1f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_1f0fF",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c0s0m3",
+        "name": "cap_mim_1f0fF",
+        "key": "symbols/cap_mim_1f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_1f0fF",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c0s1m1",
+        "name": "cap_mim_1f0fF",
+        "key": "symbols/cap_mim_1f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_1f0fF",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c0s1m3",
+        "name": "cap_mim_1f0fF",
+        "key": "symbols/cap_mim_1f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_1f0fF",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c1s0m1",
+        "name": "cap_mim_1f5fF",
+        "key": "symbols/cap_mim_1f5fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_1f5fF",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c1s0m3",
+        "name": "cap_mim_1f5fF",
+        "key": "symbols/cap_mim_1f5fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_1f5fF",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c1s1m1",
+        "name": "cap_mim_1f5fF",
+        "key": "symbols/cap_mim_1f5fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_1f5fF",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c1s1m3",
+        "name": "cap_mim_1f5fF",
+        "key": "symbols/cap_mim_1f5fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_1f5fF",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c2s0m1",
+        "name": "cap_mim_2f0fF",
+        "key": "symbols/cap_mim_2f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c2s0m3",
+        "name": "cap_mim_2f0fF",
+        "key": "symbols/cap_mim_2f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c2s1m1",
+        "name": "cap_mim_2f0fF",
+        "key": "symbols/cap_mim_2f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c2s1m3",
+        "name": "cap_mim_2f0fF",
+        "key": "symbols/cap_mim_2f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c3s0m1",
+        "name": "cap_mim_2p0fF",
+        "key": "symbols/cap_mim_2p0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c3s0m3",
+        "name": "cap_mim_2p0fF",
+        "key": "symbols/cap_mim_2p0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c3s1m1",
+        "name": "cap_mim_2p0fF",
+        "key": "symbols/cap_mim_2p0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c3s1m3",
+        "name": "cap_mim_2p0fF",
+        "key": "symbols/cap_mim_2p0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c4s0m1",
+        "name": "cap_mim_analog",
+        "key": "symbols/cap_mim_analog.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0_m3m4_noshield",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c4s0m3",
+        "name": "cap_mim_analog",
+        "key": "symbols/cap_mim_analog.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0_m3m4_noshield",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c4s1m1",
+        "name": "cap_mim_analog",
+        "key": "symbols/cap_mim_analog.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0_m3m4_noshield",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c4s1m3",
+        "name": "cap_mim_analog",
+        "key": "symbols/cap_mim_analog.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0_m3m4_noshield",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c5s0m1",
+        "name": "cap_nmos_03v3",
+        "key": "symbols/cap_nmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_03v3",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c5s0m3",
+        "name": "cap_nmos_03v3",
+        "key": "symbols/cap_nmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_03v3",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c5s1m1",
+        "name": "cap_nmos_03v3",
+        "key": "symbols/cap_nmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_03v3",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c5s1m3",
+        "name": "cap_nmos_03v3",
+        "key": "symbols/cap_nmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_03v3",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c6s0m1",
+        "name": "cap_nmos_03v3_b",
+        "key": "symbols/cap_nmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_03v3_b",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c6s0m3",
+        "name": "cap_nmos_03v3_b",
+        "key": "symbols/cap_nmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_03v3_b",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c6s1m1",
+        "name": "cap_nmos_03v3_b",
+        "key": "symbols/cap_nmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_03v3_b",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c6s1m3",
+        "name": "cap_nmos_03v3_b",
+        "key": "symbols/cap_nmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_03v3_b",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c7s0m1",
+        "name": "cap_nmos_06v0",
+        "key": "symbols/cap_nmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_06v0",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c7s0m3",
+        "name": "cap_nmos_06v0",
+        "key": "symbols/cap_nmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_06v0",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c7s1m1",
+        "name": "cap_nmos_06v0",
+        "key": "symbols/cap_nmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_06v0",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c7s1m3",
+        "name": "cap_nmos_06v0",
+        "key": "symbols/cap_nmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_06v0",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c8s0m1",
+        "name": "cap_nmos_06v0_b",
+        "key": "symbols/cap_nmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_06v0_b",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c8s0m3",
+        "name": "cap_nmos_06v0_b",
+        "key": "symbols/cap_nmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_06v0_b",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c8s1m1",
+        "name": "cap_nmos_06v0_b",
+        "key": "symbols/cap_nmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_06v0_b",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c8s1m3",
+        "name": "cap_nmos_06v0_b",
+        "key": "symbols/cap_nmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_06v0_b",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c9s0m1",
+        "name": "cap_pmos_03v3",
+        "key": "symbols/cap_pmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_03v3",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c9s0m3",
+        "name": "cap_pmos_03v3",
+        "key": "symbols/cap_pmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_03v3",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c9s1m1",
+        "name": "cap_pmos_03v3",
+        "key": "symbols/cap_pmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_03v3",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c9s1m3",
+        "name": "cap_pmos_03v3",
+        "key": "symbols/cap_pmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_03v3",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c10s0m1",
+        "name": "cap_pmos_03v3_b",
+        "key": "symbols/cap_pmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_03v3_b",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c10s0m3",
+        "name": "cap_pmos_03v3_b",
+        "key": "symbols/cap_pmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_03v3_b",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c10s1m1",
+        "name": "cap_pmos_03v3_b",
+        "key": "symbols/cap_pmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_03v3_b",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c10s1m3",
+        "name": "cap_pmos_03v3_b",
+        "key": "symbols/cap_pmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_03v3_b",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c11s0m1",
+        "name": "cap_pmos_06v0",
+        "key": "symbols/cap_pmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_06v0",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c11s0m3",
+        "name": "cap_pmos_06v0",
+        "key": "symbols/cap_pmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_06v0",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c11s1m1",
+        "name": "cap_pmos_06v0",
+        "key": "symbols/cap_pmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_06v0",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c11s1m3",
+        "name": "cap_pmos_06v0",
+        "key": "symbols/cap_pmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_06v0",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c12s0m1",
+        "name": "cap_pmos_06v0_b",
+        "key": "symbols/cap_pmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_06v0_b",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c12s0m3",
+        "name": "cap_pmos_06v0_b",
+        "key": "symbols/cap_pmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_06v0_b",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c12s1m1",
+        "name": "cap_pmos_06v0_b",
+        "key": "symbols/cap_pmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_06v0_b",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c12s1m3",
+        "name": "cap_pmos_06v0_b",
+        "key": "symbols/cap_pmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_06v0_b",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      }
+    ],
+    "gf180mcuD": [
+      {
+        "tag": "c0s0m1",
+        "name": "cap_mim_1f0fF",
+        "key": "symbols/cap_mim_1f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_1f0fF",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c0s0m3",
+        "name": "cap_mim_1f0fF",
+        "key": "symbols/cap_mim_1f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_1f0fF",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c0s1m1",
+        "name": "cap_mim_1f0fF",
+        "key": "symbols/cap_mim_1f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_1f0fF",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c0s1m3",
+        "name": "cap_mim_1f0fF",
+        "key": "symbols/cap_mim_1f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_1f0fF",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c1s0m1",
+        "name": "cap_mim_1f5fF",
+        "key": "symbols/cap_mim_1f5fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_1f5fF",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c1s0m3",
+        "name": "cap_mim_1f5fF",
+        "key": "symbols/cap_mim_1f5fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_1f5fF",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c1s1m1",
+        "name": "cap_mim_1f5fF",
+        "key": "symbols/cap_mim_1f5fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_1f5fF",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c1s1m3",
+        "name": "cap_mim_1f5fF",
+        "key": "symbols/cap_mim_1f5fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_1f5fF",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c2s0m1",
+        "name": "cap_mim_2f0fF",
+        "key": "symbols/cap_mim_2f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c2s0m3",
+        "name": "cap_mim_2f0fF",
+        "key": "symbols/cap_mim_2f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c2s1m1",
+        "name": "cap_mim_2f0fF",
+        "key": "symbols/cap_mim_2f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c2s1m3",
+        "name": "cap_mim_2f0fF",
+        "key": "symbols/cap_mim_2f0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c3s0m1",
+        "name": "cap_mim_2p0fF",
+        "key": "symbols/cap_mim_2p0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c3s0m3",
+        "name": "cap_mim_2p0fF",
+        "key": "symbols/cap_mim_2p0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c3s1m1",
+        "name": "cap_mim_2p0fF",
+        "key": "symbols/cap_mim_2p0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c3s1m3",
+        "name": "cap_mim_2p0fF",
+        "key": "symbols/cap_mim_2p0fF.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0fF",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c4s0m1",
+        "name": "cap_mim_analog",
+        "key": "symbols/cap_mim_analog.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0_m3m4_noshield",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c4s0m3",
+        "name": "cap_mim_analog",
+        "key": "symbols/cap_mim_analog.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0_m3m4_noshield",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c4s1m1",
+        "name": "cap_mim_analog",
+        "key": "symbols/cap_mim_analog.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_mim_2f0_m3m4_noshield",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c4s1m3",
+        "name": "cap_mim_analog",
+        "key": "symbols/cap_mim_analog.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_mim_2f0_m3m4_noshield",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c5s0m1",
+        "name": "cap_nmos_03v3",
+        "key": "symbols/cap_nmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_03v3",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c5s0m3",
+        "name": "cap_nmos_03v3",
+        "key": "symbols/cap_nmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_03v3",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c5s1m1",
+        "name": "cap_nmos_03v3",
+        "key": "symbols/cap_nmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_03v3",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c5s1m3",
+        "name": "cap_nmos_03v3",
+        "key": "symbols/cap_nmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_03v3",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c6s0m1",
+        "name": "cap_nmos_03v3_b",
+        "key": "symbols/cap_nmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_03v3_b",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c6s0m3",
+        "name": "cap_nmos_03v3_b",
+        "key": "symbols/cap_nmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_03v3_b",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c6s1m1",
+        "name": "cap_nmos_03v3_b",
+        "key": "symbols/cap_nmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_03v3_b",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c6s1m3",
+        "name": "cap_nmos_03v3_b",
+        "key": "symbols/cap_nmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_03v3_b",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c7s0m1",
+        "name": "cap_nmos_06v0",
+        "key": "symbols/cap_nmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_06v0",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c7s0m3",
+        "name": "cap_nmos_06v0",
+        "key": "symbols/cap_nmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_06v0",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c7s1m1",
+        "name": "cap_nmos_06v0",
+        "key": "symbols/cap_nmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_06v0",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c7s1m3",
+        "name": "cap_nmos_06v0",
+        "key": "symbols/cap_nmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_06v0",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c8s0m1",
+        "name": "cap_nmos_06v0_b",
+        "key": "symbols/cap_nmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_06v0_b",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c8s0m3",
+        "name": "cap_nmos_06v0_b",
+        "key": "symbols/cap_nmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_06v0_b",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c8s1m1",
+        "name": "cap_nmos_06v0_b",
+        "key": "symbols/cap_nmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_nmos_06v0_b",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c8s1m3",
+        "name": "cap_nmos_06v0_b",
+        "key": "symbols/cap_nmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_nmos_06v0_b",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c9s0m1",
+        "name": "cap_pmos_03v3",
+        "key": "symbols/cap_pmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_03v3",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c9s0m3",
+        "name": "cap_pmos_03v3",
+        "key": "symbols/cap_pmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_03v3",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c9s1m1",
+        "name": "cap_pmos_03v3",
+        "key": "symbols/cap_pmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_03v3",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c9s1m3",
+        "name": "cap_pmos_03v3",
+        "key": "symbols/cap_pmos_03v3.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_03v3",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c10s0m1",
+        "name": "cap_pmos_03v3_b",
+        "key": "symbols/cap_pmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_03v3_b",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c10s0m3",
+        "name": "cap_pmos_03v3_b",
+        "key": "symbols/cap_pmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_03v3_b",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c10s1m1",
+        "name": "cap_pmos_03v3_b",
+        "key": "symbols/cap_pmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_03v3_b",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c10s1m3",
+        "name": "cap_pmos_03v3_b",
+        "key": "symbols/cap_pmos_03v3_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_03v3_b",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c11s0m1",
+        "name": "cap_pmos_06v0",
+        "key": "symbols/cap_pmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_06v0",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c11s0m3",
+        "name": "cap_pmos_06v0",
+        "key": "symbols/cap_pmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_06v0",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c11s1m1",
+        "name": "cap_pmos_06v0",
+        "key": "symbols/cap_pmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_06v0",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c11s1m3",
+        "name": "cap_pmos_06v0",
+        "key": "symbols/cap_pmos_06v0.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_06v0",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c12s0m1",
+        "name": "cap_pmos_06v0_b",
+        "key": "symbols/cap_pmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_06v0_b",
+        "manual": "c_width=2u c_length=2u m=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c12s0m3",
+        "name": "cap_pmos_06v0_b",
+        "key": "symbols/cap_pmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_06v0_b",
+        "manual": "c_width=2u c_length=2u m=3",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c12s1m1",
+        "name": "cap_pmos_06v0_b",
+        "key": "symbols/cap_pmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_pmos_06v0_b",
+        "manual": "c_width=7u c_length=7u m=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c12s1m3",
+        "name": "cap_pmos_06v0_b",
+        "key": "symbols/cap_pmos_06v0_b.sym",
+        "pins": [
+          "g",
+          "b"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_pmos_06v0_b",
+        "manual": "c_width=7u c_length=7u m=3",
+        "shape": 1,
+        "copies": 3
+      }
+    ],
+    "ihp-sg13g2": [
+      {
+        "tag": "c0s0m1",
+        "name": "cap_cmim",
+        "key": "sg13g2_pr/cap_cmim.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_cmim",
+        "manual": "w=7u l=7u m=1 mm_ok=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c0s0m3",
+        "name": "cap_cmim",
+        "key": "sg13g2_pr/cap_cmim.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_cmim",
+        "manual": "w=7u l=7u m=3 mm_ok=1",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c0s1m1",
+        "name": "cap_cmim",
+        "key": "sg13g2_pr/cap_cmim.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 9.999999999999999e-06,
+          "l": 8e-06,
+          "m": 1
+        },
+        "model": "cap_cmim",
+        "manual": "w=10u l=8u m=1 mm_ok=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c0s1m3",
+        "name": "cap_cmim",
+        "key": "sg13g2_pr/cap_cmim.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 9.999999999999999e-06,
+          "l": 8e-06,
+          "m": 3
+        },
+        "model": "cap_cmim",
+        "manual": "w=10u l=8u m=3 mm_ok=1",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c1s0m1",
+        "name": "cap_cmomf",
+        "key": "sg13g2_pr/cap_cmomf.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_cmomf",
+        "manual": "w=7u l=7u m=1 mm_ok=1 mmin=1 mmax=5 subblock=0",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c1s0m3",
+        "name": "cap_cmomf",
+        "key": "sg13g2_pr/cap_cmomf.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_cmomf",
+        "manual": "w=7u l=7u m=3 mm_ok=1 mmin=1 mmax=5 subblock=0",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c1s1m1",
+        "name": "cap_cmomf",
+        "key": "sg13g2_pr/cap_cmomf.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 9.999999999999999e-06,
+          "l": 8e-06,
+          "m": 1
+        },
+        "model": "cap_cmomf",
+        "manual": "w=10u l=8u m=1 mm_ok=1 mmin=1 mmax=5 subblock=0",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c1s1m3",
+        "name": "cap_cmomf",
+        "key": "sg13g2_pr/cap_cmomf.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 9.999999999999999e-06,
+          "l": 8e-06,
+          "m": 3
+        },
+        "model": "cap_cmomf",
+        "manual": "w=10u l=8u m=3 mm_ok=1 mmin=1 mmax=5 subblock=0",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c2s0m1",
+        "name": "cap_cmomi",
+        "key": "sg13g2_pr/cap_cmomi.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_cmomi",
+        "manual": "w=7u l=7u m=1 mm_ok=1 mmin=1 mmax=5 subblock=0 feed=2",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c2s0m3",
+        "name": "cap_cmomi",
+        "key": "sg13g2_pr/cap_cmomi.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_cmomi",
+        "manual": "w=7u l=7u m=3 mm_ok=1 mmin=1 mmax=5 subblock=0 feed=2",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c2s1m1",
+        "name": "cap_cmomi",
+        "key": "sg13g2_pr/cap_cmomi.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 9.999999999999999e-06,
+          "l": 8e-06,
+          "m": 1
+        },
+        "model": "cap_cmomi",
+        "manual": "w=10u l=8u m=1 mm_ok=1 mmin=1 mmax=5 subblock=0 feed=2",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c2s1m3",
+        "name": "cap_cmomi",
+        "key": "sg13g2_pr/cap_cmomi.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "w": 9.999999999999999e-06,
+          "l": 8e-06,
+          "m": 3
+        },
+        "model": "cap_cmomi",
+        "manual": "w=10u l=8u m=3 mm_ok=1 mmin=1 mmax=5 subblock=0 feed=2",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c3s0m1",
+        "name": "cap_cpara",
+        "key": "sg13g2_pr/cap_cpara.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "c": 1.0000000000000002e-14
+        },
+        "model": "cparasitic",
+        "manual": "c=10f",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c3s0m3",
+        "name": "cap_cpara",
+        "key": "sg13g2_pr/cap_cpara.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "c": 3.0000000000000005e-14
+        },
+        "model": "cparasitic",
+        "manual": "c=30f",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c3s1m1",
+        "name": "cap_cpara",
+        "key": "sg13g2_pr/cap_cpara.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "c": 4.0000000000000006e-14
+        },
+        "model": "cparasitic",
+        "manual": "c=40f",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c3s1m3",
+        "name": "cap_cpara",
+        "key": "sg13g2_pr/cap_cpara.sym",
+        "pins": [
+          "c0",
+          "c1"
+        ],
+        "params": {
+          "c": 1.2000000000000002e-13
+        },
+        "model": "cparasitic",
+        "manual": "c=120f",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c4s0m1",
+        "name": "cap_rfcmim",
+        "key": "sg13g2_pr/cap_rfcmim.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "bn"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 1
+        },
+        "model": "cap_rfcmim",
+        "manual": "w=7u l=7u m=1 mm_ok=1 wfeed=5u",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c4s0m3",
+        "name": "cap_rfcmim",
+        "key": "sg13g2_pr/cap_rfcmim.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "bn"
+        ],
+        "params": {
+          "w": 7e-06,
+          "l": 7e-06,
+          "m": 3
+        },
+        "model": "cap_rfcmim",
+        "manual": "w=7u l=7u m=3 mm_ok=1 wfeed=5u",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c4s1m1",
+        "name": "cap_rfcmim",
+        "key": "sg13g2_pr/cap_rfcmim.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "bn"
+        ],
+        "params": {
+          "w": 9.999999999999999e-06,
+          "l": 8e-06,
+          "m": 1
+        },
+        "model": "cap_rfcmim",
+        "manual": "w=10u l=8u m=1 mm_ok=1 wfeed=5u",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c4s1m3",
+        "name": "cap_rfcmim",
+        "key": "sg13g2_pr/cap_rfcmim.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "bn"
+        ],
+        "params": {
+          "w": 9.999999999999999e-06,
+          "l": 8e-06,
+          "m": 3
+        },
+        "model": "cap_rfcmim",
+        "manual": "w=10u l=8u m=3 mm_ok=1 wfeed=5u",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c5s0m1",
+        "name": "moscap_n",
+        "key": "sg13g2_pr/moscap_n.sym",
+        "pins": [
+          "g",
+          "sub"
+        ],
+        "params": {
+          "w": 1e-06,
+          "l": 1e-06,
+          "m": 1
+        },
+        "model": "sg13_moscap_n",
+        "manual": "w=1u l=1u m=1 mm_ok=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c5s0m3",
+        "name": "moscap_n",
+        "key": "sg13g2_pr/moscap_n.sym",
+        "pins": [
+          "g",
+          "sub"
+        ],
+        "params": {
+          "w": 1e-06,
+          "l": 1e-06,
+          "m": 3
+        },
+        "model": "sg13_moscap_n",
+        "manual": "w=1u l=1u m=3 mm_ok=1",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c5s1m1",
+        "name": "moscap_n",
+        "key": "sg13g2_pr/moscap_n.sym",
+        "pins": [
+          "g",
+          "sub"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "sg13_moscap_n",
+        "manual": "w=2u l=2u m=1 mm_ok=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c5s1m3",
+        "name": "moscap_n",
+        "key": "sg13g2_pr/moscap_n.sym",
+        "pins": [
+          "g",
+          "sub"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "sg13_moscap_n",
+        "manual": "w=2u l=2u m=3 mm_ok=1",
+        "shape": 1,
+        "copies": 3
+      },
+      {
+        "tag": "c6s0m1",
+        "name": "moscap_p",
+        "key": "sg13g2_pr/moscap_p.sym",
+        "pins": [
+          "g",
+          "nw"
+        ],
+        "params": {
+          "w": 1e-06,
+          "l": 1e-06,
+          "m": 1
+        },
+        "model": "sg13_moscap_p",
+        "manual": "w=1u l=1u m=1 mm_ok=1",
+        "shape": 0,
+        "copies": 1
+      },
+      {
+        "tag": "c6s0m3",
+        "name": "moscap_p",
+        "key": "sg13g2_pr/moscap_p.sym",
+        "pins": [
+          "g",
+          "nw"
+        ],
+        "params": {
+          "w": 1e-06,
+          "l": 1e-06,
+          "m": 3
+        },
+        "model": "sg13_moscap_p",
+        "manual": "w=1u l=1u m=3 mm_ok=1",
+        "shape": 0,
+        "copies": 3
+      },
+      {
+        "tag": "c6s1m1",
+        "name": "moscap_p",
+        "key": "sg13g2_pr/moscap_p.sym",
+        "pins": [
+          "g",
+          "nw"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 1
+        },
+        "model": "sg13_moscap_p",
+        "manual": "w=2u l=2u m=1 mm_ok=1",
+        "shape": 1,
+        "copies": 1
+      },
+      {
+        "tag": "c6s1m3",
+        "name": "moscap_p",
+        "key": "sg13g2_pr/moscap_p.sym",
+        "pins": [
+          "g",
+          "nw"
+        ],
+        "params": {
+          "w": 2e-06,
+          "l": 2e-06,
+          "m": 3
+        },
+        "model": "sg13_moscap_p",
+        "manual": "w=2u l=2u m=3 mm_ok=1",
+        "shape": 1,
+        "copies": 3
+      }
+    ]
+  },
+  "frequencies_hz": [
+    100.0,
+    158.48931924611136,
+    251.188643150958,
+    398.1071705534972,
+    630.9573444801933,
+    1000.0,
+    1584.8931924611134,
+    2511.8864315095793,
+    3981.0717055349733,
+    6309.573444801933,
+    10000.0,
+    15848.931924611143,
+    25118.864315095798,
+    39810.717055349734,
+    63095.7344480193,
+    100000.0,
+    158489.3192461114,
+    251188.64315095797,
+    398107.17055349733,
+    630957.344480193,
+    1000000.0,
+    1584893.1924611141,
+    2511886.4315095823,
+    3981071.705534969,
+    6309573.44480193,
+    10000000.0
+  ],
+  "conditions": {
+    "bias_v": [
+      -0.5,
+      0.5
+    ],
+    "third_terminal_bias_v": -0.2,
+    "temperature_c": [
+      0,
+      27,
+      85
+    ],
+    "corners": {
+      "sky130A": [
+        "ff",
+        "nominal",
+        "ss"
+      ],
+      "gf180mcuC": [
+        "ff",
+        "nominal",
+        "ss"
+      ],
+      "gf180mcuD": [
+        "ff",
+        "nominal",
+        "ss"
+      ],
+      "ihp-sg13g2": [
+        "fast",
+        "nominal",
+        "slow"
+      ]
+    }
+  },
+  "report_sha256": "915285bdb61ea0f8dce7f1e612b83c46efe278f46fb8b79407d4e92450f651fc",
+  "source_files_sha256": "05331e7da5870ad951342479bdf7c8e1b4f4b6cb9d45962c71f7750100a1e62a",
+  "raw_audit": {
+    "status": "PASS",
+    "responses": 504,
+    "sha256": "8a74b9f27e8c08d4df94e7fd4aaf328ff36f2dc7c04de24742707b4a2393bcfd"
+  },
+  "build": {
+    "schema": 1,
+    "version": "47",
+    "source_url": "https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/47/ngspice-47.tar.gz",
+    "source_archive_sha256": "894e649651f1838a14095e5a5439e7d3aa63e87ede14d283173fda4fcdef675f",
+    "configure": [
+      "--with-x=no",
+      "--enable-osdi",
+      "--enable-xspice",
+      "--enable-klu",
+      "--enable-predictor",
+      "--disable-debug",
+      "CFLAGS=-O2"
+    ],
+    "status": "built",
+    "source_corrections": [
+      {
+        "path": "src/frontend/inpcom.c",
+        "original_sha256": "5ee51218fb36937ba55ee5e395ef837b34b65133914090db78d4930dae8f5e68",
+        "modified_sha256": "284cfa70cebd32b6cf30c651af8189b314105cf3c25354a8c5c44b2547d8d0cf",
+        "patch_sha256": "81bab8344998ff9039c29c490174517ee73c716a7407999deb44fd21a2b03abc"
+      }
+    ],
+    "executable": "installed/bin/ngspice",
+    "executable_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+    "features": {
+      "OSDI": true,
+      "XSPICE": true,
+      "KLU": true,
+      "PREDICTOR": true
+    },
+    "relocation": {
+      "original_sha256": "3003d93217a5da875aabcaf483b159bdc373281de7a44d93791332b5d8f27868",
+      "initializer_sha256": "e775c2f39b75c507bf68ec610368001e93a99ca03f9d79dfe3927b6165991dd6",
+      "launcher": "installed/bin/icstudio-ngspice",
+      "launcher_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "code_models": {
+        "spice2poly.cm": "5ef2b89244a752acbd38f475f638a787545aea0a9c0449cf7f3ae4dc3be66f8f",
+        "analog.cm": "4db4e04ffb5df5286b473f61c33b219825d31c7f1d220ddb68a9e65f0db9c2e2",
+        "digital.cm": "5953399837aa003c7add5726b826745c26472f12eb0f977bacca45a7dc86ba25",
+        "xtradev.cm": "3c317f48b6c685e43f35a9eef79f4b977c00eddde81da379154eacaeee63ae0c",
+        "xtraevt.cm": "ef21f0a4ec2e93756228d81d894b4d28918b6b199d4c1e38cffe984012477349",
+        "table.cm": "b92e1bf250acb1b2efd6742217087485a7f482f84bf1240f29ed2e4e318ab52e",
+        "tlines.cm": "737577e530314ab615384381b356e85edd8902f0876a3bb282e7a42aa42f0bca"
+      }
+    },
+    "copying_sha256": "6d939001e899ede403277fb37124c2af6f1cf92926465cd8f4bf59859e06f579",
+    "scope": "Build identity only; numerical, model and installed-runtime qualification are separate gates."
+  },
+  "analytical": {
+    "status": "PASS",
+    "bias_cases": 3,
+    "vectors": 21,
+    "samples": 546,
+    "maximum_normalized_error": 0.09673088717194246,
+    "original_engine_failed_cases": 3,
+    "original_engine_binary_sha256": "bc3fdda03abcc0a97b256f889169024140df53d01835574feca4621b84c54b76"
+  },
+  "tolerances": {
+    "relative": 1e-06,
+    "application_reference_absolute_a": 1e-15,
+    "parallel_and_analytical_absolute_a": 1e-14,
+    "note": "Parallel scaling includes an unscaled 1e15-ohm simulator shunt and a retained IHP internal-conductance cancellation residual. No conductance below 1e-14 S is qualified; application/reference and fault criteria remain unchanged."
+  },
+  "focused_tests": {
+    "Windows": {
+      "passed": 9,
+      "skipped": 0
+    },
+    "Linux": {
+      "passed": 9,
+      "skipped": 0
+    }
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/capacitor-families-2026-10-17/evidence.zip",
+    "sha256": "adb0a13b545a21fe18eb8a2ef6bd95c5d96f5a77cb19455609d1a484674d77ad",
+    "bytes": 111695927,
+    "file_paths": 77590,
+    "unique_contents": 5058,
+    "verified_objects": true
+  },
+  "diagnostics": [
+    "Original ngspice 47 concatenates scientific/parameter capacitor multipliers with e9 and fails parsing. The first patch retained nested braces and also failed. Both failures, original source, exact successful patch, licenses and source archive are retained.",
+    "The original SKY130 VM>1 varactor models do not match three parallel VM=1 units. A separate opt-in wrapper package defines positive VM as parallel unit devices, including substrate parasitics. Original assets and default package remain unchanged. The first wrapper had a parameter-name collision; its failure is retained.",
+    "Earlier strict parallel checks failed at numerical conductances of approximately 1e-15 S. The explicit 1e-14-A floor is supported by the retained shunt and precision experiments; the independently emitted application/reference comparison still uses 1e-15 A.",
+    "The first Windows package-exchange test fixture overlapped all symbols and was rejected for conflicting labels. A spaced fixture passes without changing exchange code."
+  ],
+  "remaining": [
+    "Full bias, geometry, temperature, reliability and statistical envelopes; silicon-model accuracy and RF-band behavior.",
+    "Physical layouts and extracted connectivity for remaining capacitor families, and default promotion of the explicit SKY130 parallel-varactor contract.",
+    "Complete release-image and installed Windows/Linux acceptance of this corrected simulator build.",
+    "Other chunk-7 device families, unavailable required devices and complete upstream device/process-option inventory."
+  ]
+}

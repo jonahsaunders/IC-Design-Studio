@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "platform": "linux",
+  "tests": 39,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "elapsed_seconds": 3.3686268690000247,
+  "log_sha256": "2b9064cee323e0b7123f9528b98153c7a74ed71157672a30f0be56f9bdeeda93"
+}

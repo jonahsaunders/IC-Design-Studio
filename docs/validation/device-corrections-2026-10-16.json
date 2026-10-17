@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "98b61e4509aab1ce71301dcdca7a46c7ec2881e7",
+  "scope": "Selected resistor and default primitive diode electrical tests, corrected IHP standard MIM layouts, and catalog regressions. Separate installable corrections, not complete PDK or device-family qualification.",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/device-corrections-2026-10-16/evidence.zip",
+    "sha256": "2cd890ec4657af82db8f260d1e5d658dd0a0491dd7a7b5e2dc334b27a0a60e6a",
+    "bytes": 140766210,
+    "file_paths": 116594,
+    "unique_contents": 11577,
+    "verified_objects": true
+  },
+  "production_metadata_fix": {
+    "old_revision": "24bc6d0bfd6a0224",
+    "revision": "b1f441fabee1ed85",
+    "old_manifest_sha256": "189ec230833fb9cfc6a5c70d1b66c0e06278bcd114462b3c8d4d58637d2ab9c2",
+    "manifest_sha256": "6bbaae721ea855822a993017174bafbf272a22d696c58fe393bee81b2ff19d5c",
+    "changes": [
+      {
+        "symbol": "sky130_fd_pr/res_generic_m1.sym",
+        "field": "prefix",
+        "before": "M",
+        "after": "R"
+      },
+      {
+        "symbol": "sky130_fd_pr/res_generic_m2.sym",
+        "field": "prefix",
+        "before": "M",
+        "after": "R"
+      },
+      {
+        "symbol": "sky130_fd_pr/res_generic_m3.sym",
+        "field": "prefix",
+        "before": "M",
+        "after": "R"
+      },
+      {
+        "symbol": "sky130_fd_pr/res_generic_m4.sym",
+        "field": "prefix",
+        "before": "M",
+        "after": "R"
+      },
+      {
+        "symbol": "sky130_fd_pr/diode.sym",
+        "field": "prefix",
+        "before": "X",
+        "after": "D"
+      },
+      {
+        "symbol": "sky130_fd_pr/diode.sym",
+        "field": "model_source",
+        "before": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+        "after": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5.model.spice"
+      },
+      {
+        "symbol": "sky130_fd_pr/lvsdiode.sym",
+        "field": "prefix",
+        "before": "X",
+        "after": "D"
+      },
+      {
+        "symbol": "sky130_fd_pr/lvsdiode.sym",
+        "field": "model_source",
+        "before": "libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+        "after": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__diode_pw2nd_05v5.model.spice"
+      }
+    ],
+    "upstream_asset_bytes_unchanged": true
+  },
+  "adapters": {
+    "ihp": {
+      "id": "ihp-sg13g2",
+      "revision": "d03f47cdf46a85a0",
+      "manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+      "files": 157
+    },
+    "sky130": {
+      "target": "sky130A",
+      "revision": "b897a1bb4cffa3bc",
+      "manifest_sha256": "13f05bd9c9c9d583237515fddd8d6eff879813dce09ffab35406a923575a675e"
+    },
+    "default_bundle_replaced": false
+  },
+  "counts": {
+    "resistor_entries": 53,
+    "resistor_passing_condition_cases": 72,
+    "resistor_complex_vectors": 3816,
+    "resistor_complex_samples": 99216,
+    "resistor_faulted_devices": 7632,
+    "resistor_fault_runs": 144,
+    "corrected_sky130_original_unit_comparisons": 2880,
+    "diode_entries": 2,
+    "diode_condition_cases": 9,
+    "diode_current_vectors": 36,
+    "diode_samples": 1476,
+    "diode_faulted_devices": 72,
+    "ihp_full_drc_lvs_layouts": 12,
+    "ihp_connectivity_faults": 3,
+    "ihp_mim_spacing_boundary_controls": 3,
+    "catalog_entries_per_host": 255,
+    "placeable_per_host": 234,
+    "expected_unsupported_per_host": 21,
+    "focused_tests_per_host": 78,
+    "sky130_mos_regression_cases": 2,
+    "sky130_mos_independent_comparisons": 8,
+    "previous_passive_scaling_pairs_rechecked": 1728
+  },
+  "reports": {
+    "ihp-mim": {
+      "path": "ihp-mim/results/qualification.json",
+      "sha256": "e9d42eff931194f564522e77e733dd023f6b06c34192a0b9d6108161cb004372",
+      "status": "PASS",
+      "cases": 18,
+      "source_files_sha256": "7dc96e74cf895d11e5fae92a062f1c7985e2f7e7872a370f3d1a68229f61102f"
+    },
+    "resistors-original": {
+      "path": "resistors-original/corners/qualification.json",
+      "sha256": "21c8dcbbbacf85d5c694523dfd53a13ac4f3803925a10cd6c8dba44a886802be",
+      "status": "FAIL",
+      "cases": 72,
+      "source_files_sha256": "67455f5a3d03d1929e6bc73fc6fae569a8e1cde1adb207bacb85eb7bcb69c29e"
+    },
+    "resistors-corrected": {
+      "path": "resistors-corrected/corners/qualification.json",
+      "sha256": "64772ff0852db7e34acbe89d26876ec393ebd514a2a2577150c0a9e79c680ebe",
+      "status": "PASS",
+      "cases": 18,
+      "source_files_sha256": "a02ece590220dc10eccc3b1a01a52d867e63ebc00a67b87e399a874decd31ba8"
+    },
+    "resistors-ngspice47": {
+      "path": "resistors-corrected/ngspice47-pilot/qualification.json",
+      "sha256": "724e9809e7d14f50d06bbe5d4ad3a839abe1f5567f9729b2cf9b49959eedef8f",
+      "status": "PASS",
+      "cases": 1,
+      "source_files_sha256": "a02ece590220dc10eccc3b1a01a52d867e63ebc00a67b87e399a874decd31ba8"
+    },
+    "diodes": {
+      "path": "diodes/results/qualification.json",
+      "sha256": "51a87bbe67cc88bc45fdced217b74c3898dbc749ac3930f459a4686e72cb64ca",
+      "status": "PASS",
+      "cases": 9,
+      "source_files_sha256": "b6341e7b2be5cd02f7a168778e675adc535167c2f90aab63b15463103b6d59d2"
+    },
+    "catalog-Windows": {
+      "path": "catalog-Windows/qualification.json",
+      "sha256": "6ff24e00b7cb0bce12f4ee2601b12c1855eb2527edeedf20db704b68d44eee64",
+      "status": "PASS",
+      "cases": 255,
+      "source_files_sha256": "833f3c0de2ff25c42e2c2c2da78cdd424e12540e34e9221bc4da83a4a1ebef30"
+    },
+    "catalog-Linux": {
+      "path": "regressions/catalog/qualification.json",
+      "sha256": "d2fc9edd7e04e02922949957fd02f69fb32d8be40670d7e9a64e218e096bf5ec",
+      "status": "PASS",
+      "cases": 255,
+      "source_files_sha256": "833f3c0de2ff25c42e2c2c2da78cdd424e12540e34e9221bc4da83a4a1ebef30"
+    },
+    "sky130-mos": {
+      "path": "regressions/sky130-mos-regression/qualification.json",
+      "sha256": "eed0a860e8055fa76ef70d72d26fe3f2b581d406edfec19ca09e53adbf798e26",
+      "status": "PASS",
+      "cases": 2,
+      "source_files_sha256": "70136830c5853916229e34b56664ad5bfebfcde661ff5cb92f4fc514188176c0"
+    }
+  },
+  "unit_audit": {
+    "path": "resistors-corrected/original-unit-audit.json",
+    "sha256": "f1c0b59a010ff09c6b9e330f60f75815f8f150e144b602b37aa73884f2348700",
+    "maximum_normalized_error": 1.915944753171616e-06
+  },
+  "preserved_failures": [
+    "Original SKY130 metal resistor M prefixes failed simulator loading; corrected to R using existing public model definitions. Default primitive diode prefixes corrected to D.",
+    "Original SKY130 polysilicon M propagation failures retained across 18 cases; six-of-seven first correction and behavioral syntax failure retained. Both ngspice 42 and 47 reproduce original failures.",
+    "IHP original MIM.e false findings and all diagnostic variants retained. Fresh temporary CIF planes preserve the original connectivity operands and 600 nm threshold.",
+    "First Linux regression snapshot omitted the previous passive evidence record, causing three fixture errors; complete snapshot passes all 75 tests.",
+    "First corrected resistor batch launch used the wrong technology identity key and stopped before cases; corrected launcher uses verified package_lock.id."
+  ],
+  "remaining": [
+    "Full upstream inventory/interface reconciliation and complete geometry, bias, temperature, reliability and corner envelopes.",
+    "Additional MOS variants, capacitor/varactor families, diode variants, bipolar and RF devices, including required unsupported devices.",
+    "Physical layout generation and extracted connectivity across resistor and other device families; selected standard IHP MIM layouts do not close all physical coverage.",
+    "Resistor noise/statistical behavior, complete time-domain coverage and accuracy against independent measured silicon.",
+    "Fresh installation/default distribution integration of the separate IHP and SKY130 correction packages; existing projects retain previous revisions.",
+    "Reference-design CI at 98b61e4 reports an unresolved GF180 bandgap must-connect VSS warning; strict LVS correctly blocks it. No release-green claim.",
+    "Chunks 8-12 retain their original pending gates."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "gds_sha256": "43204f13ecca0655a86dd1e5dd1e1439a28f7efca5750d075a9bff9eedd37184",
+  "top": "uart_tx",
+  "floorplan_source": {
+    "file": "floorplan.json",
+    "sha256": "cc64dd0a93265ef32675997044dc3c68a661646da2acf870383b00730806ca12"
+  },
+  "regions": [
+    {
+      "name": "reference-prime-die",
+      "kind": "prime_die",
+      "bounds_nm": [
+        0,
+        0,
+        400000,
+        400000
+      ]
+    }
+  ],
+  "scribe_boxes_nm": [
+    [
+      -40000,
+      -40000,
+      440000,
+      0
+    ],
+    [
+      -40000,
+      400000,
+      440000,
+      440000
+    ],
+    [
+      -40000,
+      0,
+      0,
+      400000
+    ],
+    [
+      400000,
+      0,
+      440000,
+      400000
+    ]
+  ],
+  "frame_cells": []
+}

@@ -1,0 +1,412 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "qualified": false,
+  "scope": "Experimental IHP block-fill electrical and supplemental-rule coverage; no process, chip or distributed RC acceptance.",
+  "sources": {
+    "manual": {
+      "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "files": [
+        {
+          "path": "libs.doc/doc/SG13G2_os_layout_rules.pdf",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.doc/doc/SG13G2_os_layout_rules.pdf",
+          "git_blob": "6a882fe002ba9ef8b7bd64d4763e6692db4ba7ab",
+          "sha256": "66125e97386dd88ed058b50f4f8e8814c9633069e4060c2b19459d3e3e6450a2",
+          "bytes": 1438255
+        },
+        {
+          "path": "libs.tech/klayout/tech/drc/docs/main_rules.md",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/main_rules.md",
+          "git_blob": "77dd8ce9436c90ceda7f882d9a6640c00590a4f2",
+          "sha256": "40b975ffa45bc7f86ecdc27909ff359f1aee2be1d390e6f6bc58f935aa77f202",
+          "bytes": 39321
+        },
+        {
+          "path": "libs.tech/klayout/tech/drc/docs/extra_rules.md",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/extra_rules.md",
+          "git_blob": "b78700370a80327fc4e2cbeb2850d7be7aa8a733",
+          "sha256": "7ef1fe66afe918d6e98636495b65331fe9d04aaf194d74298350657e35fd6f02",
+          "bytes": 40066
+        },
+        {
+          "path": "libs.tech/klayout/tech/drc/docs/precheck_rules.md",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/precheck_rules.md",
+          "git_blob": "b50a0fe263967b17a9e445ecc36d8fbb0ac87f54",
+          "sha256": "b8dd7fc763a490e831b837405726e7c38a03f19d48446f59560b01c8a2ef6394",
+          "bytes": 14051
+        }
+      ]
+    },
+    "magic": {
+      "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "files": [
+        {
+          "path": "libs.tech/magic/README.md",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/magic/README.md",
+          "git_blob": "2e104ff88a92c79ab941d5f082e91dae24bc3de0",
+          "sha256": "f493a31c6bdb3c28fbf50c50ab5a05361343a303d3db8861939e1c652758c82a",
+          "bytes": 16123
+        },
+        {
+          "path": "libs.tech/magic/ihp-sg13g2-GDS.tech",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-GDS.tech",
+          "git_blob": "42f94e65257227ff46a5a8d2c4c44d9c5f14e037",
+          "sha256": "a6d27691ebd95cf63216b3f1ae43305602e3b62e49e0b04ffb448f3cca91fc6b",
+          "bytes": 33153
+        },
+        {
+          "path": "libs.tech/magic/ihp-sg13g2-cifin.tech",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-cifin.tech",
+          "git_blob": "ace92a85894fee1381f02b2326121c538cc7d974",
+          "sha256": "d1ac75da97a8ef3c944f1088086f8e47a46f5a04024d3570b93e2e2617587ec1",
+          "bytes": 25353
+        },
+        {
+          "path": "libs.tech/magic/ihp-sg13g2-cifout.tech",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-cifout.tech",
+          "git_blob": "be738160926e21fdce5bfe06e6f6275362211943",
+          "sha256": "e27c499850864e66ef3b8063132bdcf0a002925592bd60d871447fb3759eaa37",
+          "bytes": 46953
+        },
+        {
+          "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-drc.tech",
+          "git_blob": "666c3d37a6159079d872042320263004fcc351d5",
+          "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402",
+          "bytes": 42396
+        },
+        {
+          "path": "libs.tech/magic/ihp-sg13g2-extract.tech",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-extract.tech",
+          "git_blob": "6604fd090af1836f4b5b5b2df013fcd377316b11",
+          "sha256": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "bytes": 43685
+        },
+        {
+          "path": "libs.tech/magic/ihp-sg13g2.tech",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/magic/ihp-sg13g2.tech",
+          "git_blob": "0ce46ebd7153b48e30736e90d58f3b9a8d592eac",
+          "sha256": "0a0e1666da3fa38d7faefe340576102ddc558727a3f6f7f666e92f50a1dc568d",
+          "bytes": 22198
+        }
+      ],
+      "qualified": false
+    },
+    "spice": {
+      "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "files": [
+        {
+          "path": "libs.tech/ngspice/models/cap_cmomf.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cap_cmomf.lib",
+          "git_blob": "1fc9e4cfd6ea15d854a2a6bce6d1457c2de226f8",
+          "sha256": "410001def252a236f221442efcea6353874d1614db593db4142ea3b8a499a207",
+          "bytes": 3382
+        },
+        {
+          "path": "libs.tech/ngspice/models/cap_cmomi.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cap_cmomi.lib",
+          "git_blob": "dac91b5ab756e246a952b27c16326f01600f4079",
+          "sha256": "ae6270ea4abf6ad409065d6d24df2a9aa5b121cba3d6facbc14d6a3ceb7b424f",
+          "bytes": 3361
+        },
+        {
+          "path": "libs.tech/ngspice/models/capacitors_mod.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/capacitors_mod.lib",
+          "git_blob": "3fc43506f5f0587ea2f05bc8841afec8122df525",
+          "sha256": "ff9eb4cc9fdccc0645d9db0bd37e25e9fee2a633765910a7f55ac2084c49695f",
+          "bytes": 5325
+        },
+        {
+          "path": "libs.tech/ngspice/models/capacitors_mod_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/capacitors_mod_mismatch.lib",
+          "git_blob": "bd895864e12b01ad5f012957d17461c5972afd87",
+          "sha256": "6c550362c762362e276f0ed0a4f875616ab6a9de853f1a8f6851b52676ea6f77",
+          "bytes": 6006
+        },
+        {
+          "path": "libs.tech/ngspice/models/capacitors_stat.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/capacitors_stat.lib",
+          "git_blob": "80847bfd55df5da1c99d6eb3840850a9c88522d4",
+          "sha256": "68d2ef41174bcfae5997b355c4fd3dbe4f2b8ec4be30ff79d474052b3be1715a",
+          "bytes": 1048
+        },
+        {
+          "path": "libs.tech/ngspice/models/cornerCAP.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib",
+          "git_blob": "7c50a9abb88b82d59f1806309e11ef9dd2f44eb3",
+          "sha256": "4fc4a0f17ca2aef66ca38c2d2e7cead3307b69508d304ed073129565ec1c3e56",
+          "bytes": 1949
+        },
+        {
+          "path": "libs.tech/ngspice/models/cornerDIO.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cornerDIO.lib",
+          "git_blob": "d2bc3a2658224822eee49583bad075d4f1c18112",
+          "sha256": "28e747e8f7437a3f539c5cc36f50c9d17c57c03ed463a4c9ee8f0a93a823fe0b",
+          "bytes": 2584
+        },
+        {
+          "path": "libs.tech/ngspice/models/cornerHBT.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib",
+          "git_blob": "d4ff836cd489f4b3a4937fa29cb7e01a1ae99cb4",
+          "sha256": "bae3d705445de8d6b8de4aa798a0e3e5e7cab617d6495d9c56473bc5377de462",
+          "bytes": 3975
+        },
+        {
+          "path": "libs.tech/ngspice/models/cornerMOSCAP.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSCAP.lib",
+          "git_blob": "6c32283fdc96dce702345f07e4bbda2070012129",
+          "sha256": "68f3fc5450d6185cc45360662a0ca9d2640a31db3a082bc2af7ec589d2bfd807",
+          "bytes": 6665
+        },
+        {
+          "path": "libs.tech/ngspice/models/cornerMOShv.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cornerMOShv.lib",
+          "git_blob": "ff05ec5b87e9d04879ae9cc216c04a413522b7a5",
+          "sha256": "5a1f862dc304fdfe2fb9758b15d54809a688d83c3ce981dad2e8473b3e93481a",
+          "bytes": 24384
+        },
+        {
+          "path": "libs.tech/ngspice/models/cornerMOSlv.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib",
+          "git_blob": "f86c3efa204a27a4bcadd3cf3fcd67da8793b293",
+          "sha256": "03d505847c880d233b341be115a1e5460edf4d8e9b3e8a7df791a52fa4455d67",
+          "bytes": 21645
+        },
+        {
+          "path": "libs.tech/ngspice/models/cornerRES.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib",
+          "git_blob": "b656724fe7725a5bc8e60186ff686edd98091104",
+          "sha256": "c6d749e72cfa2e06e4a14fac3f5662541bf6197b89265ecbedd632fd3503c425",
+          "bytes": 8899
+        },
+        {
+          "path": "libs.tech/ngspice/models/diodes.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/diodes.lib",
+          "git_blob": "d463c191d241d2fd3a2439290ad2e829dd5c6c7a",
+          "sha256": "66fa37819fa8a5c8af4dbb85f11208c3e38faa49c117de55c35a1538786715e8",
+          "bytes": 7971
+        },
+        {
+          "path": "libs.tech/ngspice/models/resistors_mod.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/resistors_mod.lib",
+          "git_blob": "f10daeda590250dc1a3688c3d85a068f649089f4",
+          "sha256": "7c77da0c0419c8a332550da3f934f530262bd452734090db827b68ff88d09c43",
+          "bytes": 5327
+        },
+        {
+          "path": "libs.tech/ngspice/models/resistors_mod_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/resistors_mod_mismatch.lib",
+          "git_blob": "9d5491f70789278408106c55c53d994fc0f058d4",
+          "sha256": "ce5ea8559df174fbdad8192e45e5d65772ae3af90af61ba295419b2cb5154b29",
+          "bytes": 6656
+        },
+        {
+          "path": "libs.tech/ngspice/models/resistors_stat.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/resistors_stat.lib",
+          "git_blob": "72958293b93b358df97e09537a15cbbc3eaeeefb",
+          "sha256": "9e34411ed09a569323adec8181e4bdd6832af279c9e05b181f00cb2e5d696db6",
+          "bytes": 1198
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_bondpad.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib",
+          "git_blob": "9cf626f18307791aafd63c343e4cb6c177a951a2",
+          "sha256": "19b3edd62d507bfaf03633b3dc3e89b4ab4d43187a309e8fc665cc5af28a0a4f",
+          "bytes": 919
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_dschottky_nbl1_mod.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_dschottky_nbl1_mod.lib",
+          "git_blob": "c3a789beb78527d72e28c9f249e81ad9c98f3d35",
+          "sha256": "c3552c165acd21524043ff9a9b3938c71565722466e9568cf6b109408d5ff6da",
+          "bytes": 2523
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_dschottky_nbl1_stat.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_dschottky_nbl1_stat.lib",
+          "git_blob": "61b974c7b3b37e9aba2e48bc3cb44dff2a17c780",
+          "sha256": "730c857bbaabb0c7876eb21b9b60a6882955db388956d082615763559c61d262",
+          "bytes": 1108
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_esd.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_esd.lib",
+          "git_blob": "220454ead1f02ac1529074e2a8a5d3424116a6e9",
+          "sha256": "4a4fb26a87f64bc6ed807f161cc7b3afaeb8d5ca7230b08ebba728e805caa925",
+          "bytes": 3460
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_hbt_mod.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_mod.lib",
+          "git_blob": "2acce342e0a06a3727479c5d4bd6687fc998808d",
+          "sha256": "ae9288f885dd30fab24b07ed1e7e02e69eac9154022a0a6da576985183b0bd79",
+          "bytes": 20057
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_hbt_mod_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_mod_mismatch.lib",
+          "git_blob": "263d3dbf3a3945398862c259c217735139e77c70",
+          "sha256": "e7b462e4aa4fbcb00d8f618f7780fea87d65918f2faa4e86c1412d6262371357",
+          "bytes": 20486
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_hbt_stat.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_stat.lib",
+          "git_blob": "eb95a4f2725e4de2d8a36e01e460a6493ec17568",
+          "sha256": "80d1893eb06a3417d05400335d8e58c8309b9c80061ca96ceff8f8fd68c9a7db",
+          "bytes": 2463
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moscap_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moscap_mismatch.lib",
+          "git_blob": "a60af8ed99a3f32e41fc4f33511d842ed371c7cd",
+          "sha256": "347786491f820dc1b74720f543dea2ec2d84ee0c3c8bafd8bb334563bd4487da",
+          "bytes": 1103
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moscap_mod.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moscap_mod.lib",
+          "git_blob": "996ef60f516821ca5fa54ad6d39de9be646221c0",
+          "sha256": "4873c91eb09fbd167d3239683535d7cb72c6a66ff7419a08ef2817e80c4d2f8d",
+          "bytes": 2202
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moscap_mod_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moscap_mod_mismatch.lib",
+          "git_blob": "81a21c4483f99544f8d805e857042c7edc1c38f0",
+          "sha256": "a8f5c79bb5327569e6fb7fdc3c4e64995f817fbdbc00931f4e3b19151d0cf112",
+          "bytes": 2740
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moscap_parm.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moscap_parm.lib",
+          "git_blob": "d761b01c16d5d1ee03153f85b0ba5c5cacc4c9ea",
+          "sha256": "52e62c52e7097b3da032ba44127dd478821ee5263b065621f5cf45fc7ffc0490",
+          "bytes": 32352
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moscap_stat.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moscap_stat.lib",
+          "git_blob": "8d0ed990ff1a7aca0787308187cc017bd2c9590f",
+          "sha256": "38bb882ac751c3e33da6deeb55d00a7526f2057ad3baab9b4f91945361dff817",
+          "bytes": 6213
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moshv_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_mismatch.lib",
+          "git_blob": "6406f7d458fd2d67450201b2fc0cbce2550d4de5",
+          "sha256": "2e9612bdb8252c281f422511039dc9b3ea983892aec89f8ef3361592e68fed09",
+          "bytes": 1167
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moshv_mod.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_mod.lib",
+          "git_blob": "194238fbc89aefe3aaa9192251d3710ea6a0da0a",
+          "sha256": "58ce3084c253f2d3753c3b95386e8f4b81dcadfed4f4503dce56862a556c3328",
+          "bytes": 9279
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moshv_mod_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_mod_mismatch.lib",
+          "git_blob": "16f8d6e9ff4008b8ee6d75adb3dce6ccf9c25d41",
+          "sha256": "75c30f6975aad4cfe95af7c80fcea142ab0df6c9d7667c09120c7d0c9b814801",
+          "bytes": 12375
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moshv_parm.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_parm.lib",
+          "git_blob": "5a01f57235006f5fec98360eec794ce42f5b4916",
+          "sha256": "eea5bbed39184cb1e2654ae29425a9ed6ee2f2341d6cb76c472591c75237bd35",
+          "bytes": 64329
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moshv_stat.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moshv_stat.lib",
+          "git_blob": "3975f39bd0ae20e3788b19102741651d2a006e57",
+          "sha256": "cd30f22637e41fdbbaba506ebe0f17746b8438027e4651a7a87b241a39d68903",
+          "bytes": 7399
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moslv_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moslv_mismatch.lib",
+          "git_blob": "3f8667502df493fc930a2de7d57c0225f12818fd",
+          "sha256": "2d3251e2d42eadb0f8af152a4915fdc60a68bceb95a2d17a52f90cfb34b7e63e",
+          "bytes": 1088
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moslv_mod.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moslv_mod.lib",
+          "git_blob": "71ed6d7c7e2117d7d44d00225862a9a598802e39",
+          "sha256": "84ec57080b9dd4666417f05db6f7b34c8dd3f12118929f9b308018613bece16e",
+          "bytes": 10452
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moslv_mod_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moslv_mod_mismatch.lib",
+          "git_blob": "f37af7bddbed1e95704270f6e92f2df21a5a9c8d",
+          "sha256": "fac66b4344da4e31dece9a95c32d7af5aac7b40a60b4e029201e1904fb4e8acd",
+          "bytes": 13455
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moslv_parm.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moslv_parm.lib",
+          "git_blob": "b159fc32a1dd3f21c71d62b14a7e46b6922e97ab",
+          "sha256": "cbf10b8453a18bb70b8ad0d6e40faa0937338e699b5460947a94900db6c92a6e",
+          "bytes": 94408
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_moslv_stat.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_moslv_stat.lib",
+          "git_blob": "d7e00c7546de5e512540abb34f08890e1872a361",
+          "sha256": "8d807e0ae41be381e655bf51f0eecf72269c8eaa022a2da59a1c90b0772e229a",
+          "bytes": 6077
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_svaricaphv_mod.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_svaricaphv_mod.lib",
+          "git_blob": "d0f1ec48ffb069c7f705d88de9f52357cd41258d",
+          "sha256": "b6ae39c7334c75c222ecdee9d6b04c9be48657e91351429aebac47d1192a9abb",
+          "bytes": 5179
+        },
+        {
+          "path": "libs.tech/ngspice/models/sg13g2_svaricaphv_mod_mismatch.lib",
+          "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_svaricaphv_mod_mismatch.lib",
+          "git_blob": "0e7cc062b0aff6e5aa2a230438d4326cc7387838",
+          "sha256": "509495437667afc2ee96ebb9fe5836ffeb7d18df1db24245c90662fbf09283cd",
+          "bytes": 5407
+        }
+      ]
+    }
+  },
+  "active_fill": {
+    "layer": [
+      1,
+      22
+    ],
+    "electrical_view_layer": [
+      1,
+      0
+    ],
+    "geometry": "Uncontacted 3.4 um square N+ active in ordinary PWell, outside all process modifiers.",
+    "junction": {
+      "model": "dantenna",
+      "anode": "VSS (substrate/PWell)",
+      "cathode": "individual floating active-fill node",
+      "width_um": 3.4,
+      "length_um": 3.4
+    },
+    "native_capacitance": "Use native exported SPICE capacitors after redistribution. Raw .ext node capacitances do not define the exported transistor circuit.",
+    "excluded": [
+      "Poly dummy transistors",
+      "Active fill intersecting wells, implants, contacts, silicide/oxide modifiers or circuit material",
+      "Chip seal/scribe qualification"
+    ]
+  },
+  "numerical_reference": {
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "maximum_relative_charge_row_error": 0.0001,
+    "limits": "Eliminates ideal floating-metal capacitor nodes. Retains every active junction node. Requires direct waveform comparison; charge error is not a timing-error bound."
+  }
+}

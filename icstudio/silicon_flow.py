@@ -84,7 +84,8 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
     normalized=finalize(directory,cell)
     from .rc_islands import prune
     prune(directory/'extracted.spice',directory/'electrical.spice',
-          physical_devices=[d['name'] for d in normalized.get('devices',[]) if d.get('name')])
+          physical_devices=[d['name'] for d in normalized.get('devices',[]) if d.get('name')],
+          normalization=normalized)
     return first+'\n'+second
 
 

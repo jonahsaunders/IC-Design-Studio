@@ -1,0 +1,241 @@
+{
+  "schema": 2,
+  "chunk": 4,
+  "status": "reference_gate_complete",
+  "qualified": false,
+  "observed_at": "2026-10-09T23:56:00.093768+00:00",
+  "backend_sha256": "eb22e7c53b3380f0765e2e6629ed8c6ca2ddb19dee5c49b6a0bb187a596736c0",
+  "scope": "GF180 C/D counter, UART and APB density closure on the exact six integrated exports, unchanged RTL/SDC/die/core, with explicit original-footprint reference streets. Native rules, device/supply LVS, formal equivalence, typical-RC extraction, three library-condition timing, manual fill coverage and controls pass.",
+  "native_acceptance": {
+    "path": "docs/validation/gf180-density-2026-10-09.json",
+    "sha256": "03d4af142c0fa83012d0f319ae1a9ae2a4eebe6b23fa877f92f56e35000d184c"
+  },
+  "source_files": {
+    "examples/gf180-boundary-manual-lock.json": "17daeb675e6c87afaf19d2319e85a8f3ff991b218e21d19c36ebd07717dca593",
+    "examples/gf180-fill-coverage-lock.json": "e76113dd556fd192c5b7a21744602ce57e2cf7f6e5623046c33b15dcbaee7bac",
+    "examples/gf180-fill-manual-lock.json": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+    "examples/gf180-fill-pattern-lock.json": "cf88c12b2f7c28abe82db779bafa9e24a239b9e72304923cdda7b81e3f0558e5",
+    "scripts/check_gf180_density_acceptance.py": "6814600dda9b638c4b5454608b044c57ffb644f7b90a2192dfed2b23f184ad1b",
+    "scripts/check_gf180_fill.py": "7951f064542e322826e05302c628e1c162713f9ad6581905833facd080c5e9a6",
+    "scripts/check_gf180_fill_closure.py": "917a334ea3e9863c30a9a9ccff184cdac74ebe0756641566ee7c057ec65c92b1",
+    "scripts/check_pdk_qualification.py": "746e1de81d9feee5d365122f394232b6b273dabb788670fe5bd6b934567e358c",
+    "scripts/gf180_comp_boundary_sites.py": "546b7e51cc29bce4afad49a43635c61bb7b73fd4d24116b6c735e96efb1e26a4",
+    "scripts/gf180_comp_coverage.py": "b18ff82d3db4820ebaa4b17a15cfa8f122cb7cd4d3699c2ea8d28a8358d4cb3c",
+    "scripts/gf180_comp_sites.py": "785cd0c3ef3f7fa762cf1e9788bde8e81aed12199d43c19b25c82971c0d686be",
+    "scripts/gf180_fill_applicability.py": "e88cb329670f402a16eea6df85e2710be4acf03acf4efd5cca94355db1023b7d",
+    "scripts/gf180_fill_boundaries.py": "4c376d6d3648b1774d79d309968c4f85cfbe35ad9823d64573857b85741db8bb",
+    "scripts/gf180_fill_patterns.py": "3ac034d9ccc147bd6abd3068130c654ce382f2f27dcd4dab871667af70b22075"
+  },
+  "references": [
+    {
+      "case": "c-counter",
+      "gds_sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+      "macro_sha256": "e11ff2a4a93b11f164da1c0a10f71f5965af3d94e752533bf667edffb7a358d3",
+      "project_sha256": "e443ac741b33c757d87c4ae6ba0949e6dca9949e0eb87569fcc29c960bcd985a",
+      "files": {
+        "boundary": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-counter/boundary.json",
+          "sha256": "0e8aafc6d311ce21ad96d074c71824f635bced39728ea57a918fe8443becd171"
+        },
+        "floorplan": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-counter/floorplan.json",
+          "sha256": "ca73e608aa6809cf39e9bf34bf267b56dc344893732cdcd0c7d131714f9cda62"
+        },
+        "negative": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-counter/negative.json",
+          "sha256": "7eb7fac65f59043f7a114d74ba036fa510cc863b7d56aa01739c94b68af9aa9a"
+        },
+        "pattern": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-counter/pattern.json",
+          "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14"
+        },
+        "report": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-counter/report.json",
+          "sha256": "5aaa1c7733c23ce3058505bea792284053d1705b1536c7508c0292cb37a0bc25"
+        }
+      }
+    },
+    {
+      "case": "c-uart",
+      "gds_sha256": "43204f13ecca0655a86dd1e5dd1e1439a28f7efca5750d075a9bff9eedd37184",
+      "macro_sha256": "0d10e779964a2fe3620cad679be8a6c2d05fc95d4ec9c6cc3766321caaadfbd5",
+      "project_sha256": "de8bb9d73afcb631701572fece762bdfcc7aa195b05fcb063954173fa2cc3eee",
+      "files": {
+        "boundary": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-uart/boundary.json",
+          "sha256": "d9fd5f4c193909d2e78f955a00b5a7891a34bc81624c056663470d085a05a200"
+        },
+        "floorplan": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-uart/floorplan.json",
+          "sha256": "cc64dd0a93265ef32675997044dc3c68a661646da2acf870383b00730806ca12"
+        },
+        "negative": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-uart/negative.json",
+          "sha256": "3e6aec9de09f6aef8a9acc9d163dafbce2dc405950c44951216e2cc4c1919ac3"
+        },
+        "pattern": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-uart/pattern.json",
+          "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14"
+        },
+        "report": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-uart/report.json",
+          "sha256": "18f0498278162f8276007c2b7316ad249ddee4d203070bcb7da2aa0e46971ba7"
+        }
+      }
+    },
+    {
+      "case": "c-apb",
+      "gds_sha256": "da6c9f30cc321126fe7c05f86be6dd1e39f2e1efd02abb1dbc1142dc1bbfee48",
+      "macro_sha256": "a25d01fd3d88d3128998ff7cf0bd17b7a10d4bf59379bc8827a3ad1b0cb940c0",
+      "project_sha256": "465d29e2147d4d5f6b5e75620b6602d50ea36d7141d12b5c47f928953d62014d",
+      "files": {
+        "boundary": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-apb/boundary.json",
+          "sha256": "d2bdc55f3777e382e58b0c1a58330ee2b9cd3f7b8199e17abec1c0a7337910db"
+        },
+        "floorplan": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-apb/floorplan.json",
+          "sha256": "97a6803bb9b596e2254b7eeabc84a43c24b532bdd5db661168ee6ed495bee0c8"
+        },
+        "negative": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-apb/negative.json",
+          "sha256": "27285051aac3ddc8db93df6b166b6d91d6b9fcc31d2b39a474533ba224b0658d"
+        },
+        "pattern": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-apb/pattern.json",
+          "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14"
+        },
+        "report": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/c-apb/report.json",
+          "sha256": "28ed79ff9b915bc29da5fddcf69285a77fb3a1c9f159dc73a80f1f70aff27921"
+        }
+      }
+    },
+    {
+      "case": "d-counter",
+      "gds_sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+      "macro_sha256": "23d4606b1091761480c85f550cc313a7ca0804b48ab300a22643915e1c3869ae",
+      "project_sha256": "e4b23730a9c9b74ec320a3672ffc46be92dc573dbe73911d980936ef7186112f",
+      "files": {
+        "boundary": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-counter/boundary.json",
+          "sha256": "ab19e29cc0a20a868cfa067e92f4269200eb35dba72a04e9266115728b39913b"
+        },
+        "floorplan": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-counter/floorplan.json",
+          "sha256": "519041f2f28ccecba29905e5ef383f2f1902d53c324860f2ac49a3fd3fbca869"
+        },
+        "negative": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-counter/negative.json",
+          "sha256": "59b13576021916c2e12f02c5b8a2f07ec0ae33b11beb1361a23ef66c5ecf0476"
+        },
+        "pattern": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-counter/pattern.json",
+          "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14"
+        },
+        "report": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-counter/report.json",
+          "sha256": "a65d65930b75ead654fd41be1dc29d2dfc823a4039a7842181920f6ce2024e28"
+        }
+      }
+    },
+    {
+      "case": "d-uart",
+      "gds_sha256": "f6d0168455d6f9664172b9af26818d1027652c68f7af39bff36e8765cf00870f",
+      "macro_sha256": "9776d0fa0dac63fdf83ed381d15c7dc733a59b408e92a19ef3520fb08b3fe323",
+      "project_sha256": "86d3fbf063758ebc0ce6d558b9a61f89d9c146854624b5847f009c9700006caa",
+      "files": {
+        "boundary": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-uart/boundary.json",
+          "sha256": "8744af2247035d80ae591ff06d1964d6603f851123bbc1158709c1a0fb8bd5d9"
+        },
+        "floorplan": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-uart/floorplan.json",
+          "sha256": "4cbe3451dcdef40e551ff2504838591510a0eb0e6d670cfeb110b6dcef5be9c4"
+        },
+        "negative": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-uart/negative.json",
+          "sha256": "68bf618dd1ccf89c25136ed0c516a4cbcf9236b882d29cd4966d5f22e8649966"
+        },
+        "pattern": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-uart/pattern.json",
+          "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14"
+        },
+        "report": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-uart/report.json",
+          "sha256": "bdffa584dbaf6cd4e2e5ceb16d05c9bafeb804e8d2766a0ffa14562b6a2b91f2"
+        }
+      }
+    },
+    {
+      "case": "d-apb",
+      "gds_sha256": "60c61fe5fe70f745c185721aa5ea7698e2bc2f47ccc37812c0f4c84de7cdfcd3",
+      "macro_sha256": "d5c022b52f2f5efe2996ac808ee304d45fd981700851adb82486c0a8bcb5ae29",
+      "project_sha256": "733453e6bc045cf2652aacb19f45feb780b398e833c1c4866c7fe383e699c3d1",
+      "files": {
+        "boundary": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-apb/boundary.json",
+          "sha256": "787c1b3ad7d6e0c49bda43d0530cc869b4169ecf0b15cfd76dc0caf43d9e387e"
+        },
+        "floorplan": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-apb/floorplan.json",
+          "sha256": "a805c0a0c143b9ee4e23713113cb82f6c413246804ca13b71292d0120dab6c9e"
+        },
+        "negative": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-apb/negative.json",
+          "sha256": "3d33f25542d111664032b09ebc9ebbdfbd1c5d18e23d195dfc3396d6afd96dfa"
+        },
+        "pattern": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-apb/pattern.json",
+          "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14"
+        },
+        "report": {
+          "path": "docs/validation/gf180-fill-reference-2026-10-09/d-apb/report.json",
+          "sha256": "ca1a4882c8224edad062d435b7c4151b45b2cc89aa4f711601c044ff42ddd382"
+        }
+      }
+    }
+  ],
+  "local_density_policy": "pinned-drm13.3-measurement-global-threshold-v1",
+  "local_density_review": {
+    "source_revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "source": {
+      "sha256": "aa7ea7714064b547eaf68b13b1ce326b055dba21e0bce41c7fbb4ce997776e3d",
+      "bytes": 1011,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_13_3.rst"
+    },
+    "conclusion": "The pinned generation procedure requires 200 by 200 um measurements at 100 um steps and triggers fill from total die density. All prescribed full windows are retained; clipped windows are additional measurements. No separate numeric local or clipped-window limit is published here. Global native Mn.4 remains strictly greater than 30 percent. No unknown foundry limit is asserted passed."
+  },
+  "electrical_acceptance": "final-device-and-supply-lvs_formal-equivalence_three-corner-extracted-sta",
+  "full_transistor_rc_acceptance": "not_claimed",
+  "electrical_review": "The original digital fill gate uses final extracted transistor/supply connectivity, formal netlist equivalence, unchanged-mask audit and three-corner extracted timing/electrical limits. It does not require a full-chip transistor transient. The separate slow Magic-RC experiments retain their actual unfinished status and are not counted as passing evidence.",
+  "limitations": [
+    "This closes chunk 4 for the six fixed reference designs only; no arbitrary design or PDK-wide acceptance.",
+    "The user authorized selection of a reference floorplan. The 40 um streets around the original die establish fill-boundary test scope, not an I/O, guard-ring, ESD, reticle or complete-chip qualification.",
+    "Additional interconnect corners, extraction field accuracy, signal integrity, power integrity, full-device/analog coverage and foundry-specific acceptance retain their original later gates.",
+    "Unknown foundry-specific local-window acceptance is not claimed; all local measurements remain available. The supplemental checker intentionally continues to reject standalone process qualification."
+  ],
+  "os_audits": {
+    "windows": {
+      "status": "six-final-fill-reference-audits-passed",
+      "sha256": "e0b5e3b2e68431cecd9638d15b90ccf020a91aa8b3f4b240d822cdd3b52e8287",
+      "references_sha256": "ca08725eb309bef3933766c1b46e554c8bb2d2039f91d0fe495d6c06401adc53"
+    },
+    "linux": {
+      "status": "six-final-fill-reference-audits-passed",
+      "sha256": "e0b5e3b2e68431cecd9638d15b90ccf020a91aa8b3f4b240d822cdd3b52e8287",
+      "references_sha256": "ca08725eb309bef3933766c1b46e554c8bb2d2039f91d0fe495d6c06401adc53"
+    }
+  },
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-final-fill-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "30b16b07bfd6d9fc7efbea83bf9f29e17afa11a31687ced9bdd9a3267e1bcc81",
+    "bytes": 882164,
+    "members": 180,
+    "verified": true
+  },
+  "retained_prior_coverage": {
+    "path": "docs/validation/gf180-fill-coverage-2026-10-09.json",
+    "sha256": "1efa72aad27f21e71f422c4ace1d8f31612d540367638bd7d8907448aa5c860e"
+  }
+}

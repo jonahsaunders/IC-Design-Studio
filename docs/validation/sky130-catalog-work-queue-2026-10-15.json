@@ -1,0 +1,5431 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "planning-only",
+  "qualified": false,
+  "chunk_complete": false,
+  "new_coverage_decisions": 0,
+  "scope": "Authenticated retained results, not reexecuted checks. Every queued record remains unreviewed. Batches are scheduling groups, not applicability decisions, completion percentages or later-chunk exemptions. The separate periphery, density and application obligations still apply.",
+  "checkpoint": {
+    "path": "docs/validation/sky130-selected-subjects-2026-10-14.json",
+    "sha256": "9757823897dcc17028442528caf1e32ba6a37292e33fe168e8bcebed88187719"
+  },
+  "inputs": {
+    "docs/qualification/sky130-error-rule-inventory.json": "9b8ac023b0b0045639bf586e77b9540b51816be448d801f2a8b922c0af9524c9",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "docs/qualification/sky130-rule-inventory.json": "470a056e6ef613b60d4082c575f70f097ddb0d5b340a6dda0d6620eb20edb58f",
+    "docs/validation/sky130-device-intent-2026-10-14.json": "c8dc8265a41da92a9a8b66f6fad116b70f52e204f8460606fbb2da19459618b5",
+    "docs/validation/sky130-device-intent-audit-2026-10-14.json": "33b80e82e6b66e9fd1c7302b0eda9f35ad0d2db3007f70a5da3c81e8ac580921",
+    "docs/validation/sky130-esd-fuse-2026-10-14.json": "c1a05882f3f48607a245ae3d0d3812503bc67663d2fc641e06fbbfaae248f880",
+    "docs/validation/sky130-floating-review-2026-10-11.json": "2a07fef720a4938d83a71a0a7bd6d8d6547499b756d5306b0c02804e4e8ef929",
+    "docs/validation/sky130-floating-review-2026-10-11/data.json": "cbad4d8388453d9fbd55330a2fad21e88c6fdc688420557584fd2f91efad671e",
+    "docs/validation/sky130-geometry-reconciliation-2026-10-14.json": "6a61be0415cc68efd4e591428c1ac7e2531cac731e6396da953f4485104608d3",
+    "docs/validation/sky130-marker-reconciliation-2026-10-14.json": "c88d19aa1893d6a4c7fd1f7031c105e81c2e7a3c0f7c69fac1467b262654d91e",
+    "docs/validation/sky130-nsm-reconciliation-2026-10-14.json": "24217feeb0fe116057334fd41fce3696e88441b76a6935a0d82031da87e63ca0",
+    "docs/validation/sky130-scope-corrections-2026-10-14.json": "15ce1eb3ca0237adfec577d2bb53de5761ea34dd63c1840256dd4ac9e4576465",
+    "docs/validation/sky130-selected-subjects-2026-10-14.json": "9757823897dcc17028442528caf1e32ba6a37292e33fe168e8bcebed88187719",
+    "docs/validation/sky130-waffle-density-2026-10-14.json": "5fcb18dc44127b9ab9c53e5afdb1bd5cfb1d379cce63455ec3a18f85e2f40e4a"
+  },
+  "generator_sha256": "a7e67cac3ff2c4957e9a998ac11c40e9ef0444c1bc1224bcd36b049ba40dde23",
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "unreviewed": 880,
+        "executed-reviewed": 356,
+        "absent-operand": 320
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "unreviewed": 880,
+        "executed-reviewed": 356,
+        "absent-operand": 320
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "unreviewed": 880,
+        "executed-reviewed": 356,
+        "absent-operand": 320
+      }
+    }
+  ],
+  "catalog_records": 1556,
+  "queued_records": 880,
+  "batches": [
+    {
+      "id": "local_geometry",
+      "title": "Local geometry and resistor/pad selectors",
+      "next_action": "Bind exact catalog operands to existing geometry or absence evidence; resolve URPM construction separately.",
+      "records": [
+        {
+          "id": "r436",
+          "rule": "difftap.4",
+          "record": 437,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r437",
+          "rule": "difftap.5",
+          "record": 438,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r438",
+          "rule": "difftap.6",
+          "record": 439,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r439",
+          "rule": "difftap.7",
+          "record": 440,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r522",
+          "rule": "poly.3",
+          "record": 523,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r528",
+          "rule": "poly.9",
+          "record": 529,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r529",
+          "rule": "poly.9",
+          "record": 530,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r530",
+          "rule": "poly.9",
+          "record": 531,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r534",
+          "rule": "poly.15",
+          "record": 535,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r774",
+          "rule": "li.7",
+          "record": 766,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r899",
+          "rule": "pad.2",
+          "record": 891,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r900",
+          "rule": "pad.3",
+          "record": 892,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1039",
+          "rule": "urpm.1a",
+          "record": 1030,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1046",
+          "rule": "urpm.2",
+          "record": 1031,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 14
+    },
+    {
+      "id": "voltage",
+      "title": "Marked high-voltage geometry",
+      "next_action": "Bind catalog operands to the reviewed nominal contract, raw HV selectors and label census; preserve electrical tagging obligations.",
+      "records": [
+        {
+          "id": "r496",
+          "rule": "hv.nwell.1",
+          "record": 497,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1164",
+          "rule": "hv.diff.1a",
+          "record": 1149,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1165",
+          "rule": "hv.diff.1b",
+          "record": 1150,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1166",
+          "rule": "hv.diff.1b",
+          "record": 1151,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1167",
+          "rule": "hv.diff.2",
+          "record": 1152,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1168",
+          "rule": "hv.diff.3a",
+          "record": 1153,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1169",
+          "rule": "hv.diff.3b",
+          "record": 1154,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1170",
+          "rule": "hv.diff.3b",
+          "record": 1155,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1171",
+          "rule": "hv.poly.1",
+          "record": 1156,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1172",
+          "rule": "hv.poly.1",
+          "record": 1157,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1173",
+          "rule": "hv.poly.1",
+          "record": 1158,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1174",
+          "rule": "hv.poly.2",
+          "record": 1159,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1175",
+          "rule": "hv.poly.3",
+          "record": 1160,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1176",
+          "rule": "hv.poly.4",
+          "record": 1161,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1177",
+          "rule": "hv.poly.6a",
+          "record": 1162,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1178",
+          "rule": "hv.poly.6b",
+          "record": 1163,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 16
+    },
+    {
+      "id": "grid",
+      "title": "Coordinate grids and layer aliases",
+      "next_action": "Separate drawn vertices, text anchors and generated-mask purposes; resolve unit and metop alias meanings before accepting the existing diagnostics.",
+      "records": [
+        {
+          "id": "r0",
+          "rule": "x.1b",
+          "record": 1,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1",
+          "rule": "x.1b",
+          "record": 2,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r2",
+          "rule": "x.1b",
+          "record": 3,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r3",
+          "rule": "x.1b",
+          "record": 4,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r4",
+          "rule": "x.1b",
+          "record": 5,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r5",
+          "rule": "x.1b",
+          "record": 6,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r6",
+          "rule": "x.1b",
+          "record": 7,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r7",
+          "rule": "x.1b",
+          "record": 8,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r8",
+          "rule": "x.1b",
+          "record": 9,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r9",
+          "rule": "x.1b",
+          "record": 10,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r10",
+          "rule": "x.1b",
+          "record": 11,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r11",
+          "rule": "x.1b",
+          "record": 12,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r12",
+          "rule": "x.1b",
+          "record": 13,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r13",
+          "rule": "x.1b",
+          "record": 14,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r14",
+          "rule": "x.1b",
+          "record": 15,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r15",
+          "rule": "x.1b",
+          "record": 16,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r16",
+          "rule": "x.1b",
+          "record": 17,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r17",
+          "rule": "x.1b",
+          "record": 18,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r18",
+          "rule": "x.1b",
+          "record": 19,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r19",
+          "rule": "x.1b",
+          "record": 20,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r20",
+          "rule": "x.1b",
+          "record": 21,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r21",
+          "rule": "x.1b",
+          "record": 22,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r22",
+          "rule": "x.1b",
+          "record": 23,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r23",
+          "rule": "x.1b",
+          "record": 24,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r24",
+          "rule": "x.1b",
+          "record": 25,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r25",
+          "rule": "x.1b",
+          "record": 26,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r26",
+          "rule": "x.1b",
+          "record": 27,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r27",
+          "rule": "x.1b",
+          "record": 28,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r28",
+          "rule": "x.1b",
+          "record": 29,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r29",
+          "rule": "x.1b",
+          "record": 30,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r30",
+          "rule": "x.1b",
+          "record": 31,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r31",
+          "rule": "x.1b",
+          "record": 32,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r32",
+          "rule": "x.1b",
+          "record": 33,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r33",
+          "rule": "x.1b",
+          "record": 34,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r34",
+          "rule": "x.1b",
+          "record": 35,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r35",
+          "rule": "x.1b",
+          "record": 36,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r36",
+          "rule": "x.1b",
+          "record": 37,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r37",
+          "rule": "x.1b",
+          "record": 38,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r38",
+          "rule": "x.1b",
+          "record": 39,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r39",
+          "rule": "x.1b",
+          "record": 40,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r40",
+          "rule": "x.1b",
+          "record": 41,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r41",
+          "rule": "x.1b",
+          "record": 42,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r42",
+          "rule": "x.1b",
+          "record": 43,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r43",
+          "rule": "x.1b",
+          "record": 44,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r44",
+          "rule": "x.1b",
+          "record": 45,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r45",
+          "rule": "x.1b",
+          "record": 46,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r46",
+          "rule": "x.1b",
+          "record": 47,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r47",
+          "rule": "x.1b",
+          "record": 48,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r48",
+          "rule": "x.1b",
+          "record": 49,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r49",
+          "rule": "x.1b",
+          "record": 50,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r50",
+          "rule": "x.1b",
+          "record": 51,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r51",
+          "rule": "x.1b",
+          "record": 52,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r52",
+          "rule": "x.1b",
+          "record": 53,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r53",
+          "rule": "x.1b",
+          "record": 54,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r54",
+          "rule": "x.1b",
+          "record": 55,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r55",
+          "rule": "x.1b",
+          "record": 56,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r56",
+          "rule": "x.1b",
+          "record": 57,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r57",
+          "rule": "x.1b",
+          "record": 58,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r58",
+          "rule": "x.1b",
+          "record": 59,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r59",
+          "rule": "x.1b",
+          "record": 60,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r60",
+          "rule": "x.1b",
+          "record": 61,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r61",
+          "rule": "x.1b",
+          "record": 62,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r62",
+          "rule": "x.1b",
+          "record": 63,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r63",
+          "rule": "x.1b",
+          "record": 64,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r64",
+          "rule": "x.1b",
+          "record": 65,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r65",
+          "rule": "x.1b",
+          "record": 66,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r66",
+          "rule": "x.1b",
+          "record": 67,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r67",
+          "rule": "x.1b",
+          "record": 68,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r68",
+          "rule": "x.1b",
+          "record": 69,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r69",
+          "rule": "x.1b",
+          "record": 70,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r70",
+          "rule": "x.1b",
+          "record": 71,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r71",
+          "rule": "x.1b",
+          "record": 72,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r72",
+          "rule": "x.1b",
+          "record": 73,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r73",
+          "rule": "x.1b",
+          "record": 74,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r74",
+          "rule": "x.1b",
+          "record": 75,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r75",
+          "rule": "x.1b",
+          "record": 76,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r76",
+          "rule": "x.1b",
+          "record": 77,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r77",
+          "rule": "x.1b",
+          "record": 78,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r78",
+          "rule": "x.1b",
+          "record": 79,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r79",
+          "rule": "x.1b",
+          "record": 80,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r80",
+          "rule": "x.1b",
+          "record": 81,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r81",
+          "rule": "x.1b",
+          "record": 82,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r82",
+          "rule": "x.1b",
+          "record": 83,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r83",
+          "rule": "x.1b",
+          "record": 84,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r84",
+          "rule": "x.1b",
+          "record": 85,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r85",
+          "rule": "x.1b",
+          "record": 86,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r86",
+          "rule": "x.1b",
+          "record": 87,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r87",
+          "rule": "x.1b",
+          "record": 88,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r88",
+          "rule": "x.1b",
+          "record": 89,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r89",
+          "rule": "x.1b",
+          "record": 90,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r90",
+          "rule": "x.1b",
+          "record": 91,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r91",
+          "rule": "x.1b",
+          "record": 92,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r92",
+          "rule": "x.1b",
+          "record": 93,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r93",
+          "rule": "x.1b",
+          "record": 94,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r94",
+          "rule": "x.1b",
+          "record": 95,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r95",
+          "rule": "x.1b",
+          "record": 96,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r96",
+          "rule": "x.1b",
+          "record": 97,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r97",
+          "rule": "x.1b",
+          "record": 98,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r98",
+          "rule": "x.1b",
+          "record": 99,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r99",
+          "rule": "x.1b",
+          "record": 100,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r100",
+          "rule": "x.1b",
+          "record": 101,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r101",
+          "rule": "x.1b",
+          "record": 102,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r102",
+          "rule": "x.1a",
+          "record": 103,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r103",
+          "rule": "x.1a",
+          "record": 104,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r104",
+          "rule": "x.1a",
+          "record": 105,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r105",
+          "rule": "x.1a",
+          "record": 106,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r106",
+          "rule": "x.1a",
+          "record": 107,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r107",
+          "rule": "x.1a",
+          "record": 108,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r108",
+          "rule": "x.1a",
+          "record": 109,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r109",
+          "rule": "x.1a",
+          "record": 110,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r110",
+          "rule": "x.1a",
+          "record": 111,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r111",
+          "rule": "x.1a",
+          "record": 112,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r112",
+          "rule": "x.1a",
+          "record": 113,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r150",
+          "rule": "x.3a",
+          "record": 151,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r151",
+          "rule": "x.3a",
+          "record": 152,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r152",
+          "rule": "x.3a",
+          "record": 153,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r153",
+          "rule": "x.3a",
+          "record": 154,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r154",
+          "rule": "x.3a",
+          "record": 155,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r155",
+          "rule": "x.3a",
+          "record": 156,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r156",
+          "rule": "x.3a",
+          "record": 157,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r157",
+          "rule": "x.3a",
+          "record": 158,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 121
+    },
+    {
+      "id": "device_selection",
+      "title": "Device identification and RF geometry",
+      "next_action": "Resolve each device selector and standard-cell exemption. RF map/Table H5 remain explicit dependencies; cell-name absence alone cannot resolve device recognition.",
+      "records": [
+        {
+          "id": "r391",
+          "rule": "x.25",
+          "record": 392,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r396",
+          "rule": "ulvt.3",
+          "record": 397,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r453",
+          "rule": "tunm.3",
+          "record": 454,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r537",
+          "rule": "dnwell.6",
+          "record": 538,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r538",
+          "rule": "poly.x.1a",
+          "record": 539,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r539",
+          "rule": "poly.x.1a",
+          "record": 540,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r540",
+          "rule": "poly.x.1a",
+          "record": 541,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r541",
+          "rule": "poly.x.1a",
+          "record": 542,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r542",
+          "rule": "poly.x.1a",
+          "record": 543,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r543",
+          "rule": "poly.x.1",
+          "record": 544,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r544",
+          "rule": "poly.x.1",
+          "record": 545,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r545",
+          "rule": "poly.x.1",
+          "record": 546,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r546",
+          "rule": "poly.x.1",
+          "record": 547,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r547",
+          "rule": "poly.x.1",
+          "record": 548,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r548",
+          "rule": "poly.x.1",
+          "record": 549,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r549",
+          "rule": "poly.x.1",
+          "record": 550,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r551",
+          "rule": "poly.x.1",
+          "record": 551,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r552",
+          "rule": "poly.x.1",
+          "record": 552,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r553",
+          "rule": "poly.x.1",
+          "record": 553,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r555",
+          "rule": "poly.x.1",
+          "record": 554,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r556",
+          "rule": "poly.x.1",
+          "record": 555,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r558",
+          "rule": "poly.x.1",
+          "record": 556,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r559",
+          "rule": "poly.x.1",
+          "record": 557,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r560",
+          "rule": "poly.x.1",
+          "record": 558,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r561",
+          "rule": "poly.x.1",
+          "record": 559,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r562",
+          "rule": "poly.x.1",
+          "record": 560,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r563",
+          "rule": "poly.x.1",
+          "record": 561,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r564",
+          "rule": "poly.x.1",
+          "record": 562,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r565",
+          "rule": "poly.x.1",
+          "record": 563,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r566",
+          "rule": "poly.x.1",
+          "record": 564,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r567",
+          "rule": "poly.x.1",
+          "record": 565,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r569",
+          "rule": "poly.x.1",
+          "record": 566,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r570",
+          "rule": "poly.x.1",
+          "record": 567,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r571",
+          "rule": "poly.x.1",
+          "record": 568,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r572",
+          "rule": "poly.x.1",
+          "record": 569,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r573",
+          "rule": "poly.x.1",
+          "record": 570,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r574",
+          "rule": "poly.x.1",
+          "record": 571,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r576",
+          "rule": "poly.x.1",
+          "record": 572,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r577",
+          "rule": "poly.x.1",
+          "record": 573,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r578",
+          "rule": "poly.x.1",
+          "record": 574,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r579",
+          "rule": "poly.x.1",
+          "record": 575,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r580",
+          "rule": "poly.x.1",
+          "record": 576,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r582",
+          "rule": "poly.x.1",
+          "record": 577,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r583",
+          "rule": "poly.x.1",
+          "record": 578,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r584",
+          "rule": "poly.x.1",
+          "record": 579,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r585",
+          "rule": "poly.x.1",
+          "record": 580,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r586",
+          "rule": "poly.x.1",
+          "record": 581,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r587",
+          "rule": "poly.x.1",
+          "record": 582,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r588",
+          "rule": "poly.x.1",
+          "record": 583,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r589",
+          "rule": "poly.x.1",
+          "record": 584,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r590",
+          "rule": "poly.x.1",
+          "record": 585,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r591",
+          "rule": "poly.x.1",
+          "record": 586,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r592",
+          "rule": "poly.x.1",
+          "record": 587,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r593",
+          "rule": "poly.x.1",
+          "record": 588,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r594",
+          "rule": "poly.x.1",
+          "record": 589,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r595",
+          "rule": "poly.x.1",
+          "record": 590,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r596",
+          "rule": "poly.x.1",
+          "record": 591,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r597",
+          "rule": "poly.x.1",
+          "record": 592,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r598",
+          "rule": "poly.x.1",
+          "record": 593,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r599",
+          "rule": "poly.x.1",
+          "record": 594,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r600",
+          "rule": "poly.x.1",
+          "record": 595,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r601",
+          "rule": "poly.x.1",
+          "record": 596,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r602",
+          "rule": "poly.x.1",
+          "record": 597,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r603",
+          "rule": "poly.x.1",
+          "record": 598,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r604",
+          "rule": "poly.x.1",
+          "record": 599,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r606",
+          "rule": "poly.x.1",
+          "record": 600,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r607",
+          "rule": "poly.x.1",
+          "record": 601,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r608",
+          "rule": "poly.x.1",
+          "record": 602,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r609",
+          "rule": "poly.x.1",
+          "record": 603,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r610",
+          "rule": "poly.x.1",
+          "record": 604,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r611",
+          "rule": "poly.x.1",
+          "record": 605,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r612",
+          "rule": "poly.x.1",
+          "record": 606,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r614",
+          "rule": "poly.x.1",
+          "record": 607,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r615",
+          "rule": "poly.x.1",
+          "record": 608,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r616",
+          "rule": "poly.x.1",
+          "record": 609,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r617",
+          "rule": "poly.x.1",
+          "record": 610,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r618",
+          "rule": "poly.x.1",
+          "record": 611,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r619",
+          "rule": "poly.x.1",
+          "record": 612,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r620",
+          "rule": "poly.x.1",
+          "record": 613,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r621",
+          "rule": "poly.x.1",
+          "record": 614,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r622",
+          "rule": "poly.x.1",
+          "record": 615,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r624",
+          "rule": "poly.x.1",
+          "record": 616,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r625",
+          "rule": "poly.x.1",
+          "record": 617,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r626",
+          "rule": "poly.x.1",
+          "record": 618,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r627",
+          "rule": "poly.x.1",
+          "record": 619,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r628",
+          "rule": "poly.x.1",
+          "record": 620,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r629",
+          "rule": "poly.x.1",
+          "record": 621,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r630",
+          "rule": "poly.x.1",
+          "record": 622,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r631",
+          "rule": "poly.x.1",
+          "record": 623,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r632",
+          "rule": "poly.x.1",
+          "record": 624,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r633",
+          "rule": "poly.x.1",
+          "record": 625,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r634",
+          "rule": "poly.x.1",
+          "record": 626,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r635",
+          "rule": "poly.x.1",
+          "record": 627,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r636",
+          "rule": "poly.x.1",
+          "record": 628,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r637",
+          "rule": "poly.x.1",
+          "record": 629,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r638",
+          "rule": "poly.x.1",
+          "record": 630,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r639",
+          "rule": "poly.x.1",
+          "record": 631,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r640",
+          "rule": "poly.x.1",
+          "record": 632,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r641",
+          "rule": "poly.x.1",
+          "record": 633,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r642",
+          "rule": "poly.x.1",
+          "record": 634,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r643",
+          "rule": "poly.x.1",
+          "record": 635,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r644",
+          "rule": "poly.x.1",
+          "record": 636,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r645",
+          "rule": "diff.13",
+          "record": 637,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r646",
+          "rule": "diff.13",
+          "record": 638,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r647",
+          "rule": "diff.13",
+          "record": 639,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r648",
+          "rule": "diff.13",
+          "record": 640,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r649",
+          "rule": "diff.13",
+          "record": 641,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r650",
+          "rule": "diff.13",
+          "record": 642,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r651",
+          "rule": "diff.13",
+          "record": 643,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r652",
+          "rule": "diff.13",
+          "record": 644,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r653",
+          "rule": "diff.13",
+          "record": 645,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r654",
+          "rule": "diff.13",
+          "record": 646,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r655",
+          "rule": "diff.13",
+          "record": 647,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r656",
+          "rule": "diff.13",
+          "record": 648,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r657",
+          "rule": "diff.13",
+          "record": 649,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r658",
+          "rule": "diff.13",
+          "record": 650,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r659",
+          "rule": "diff.13",
+          "record": 651,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r660",
+          "rule": "diff.13",
+          "record": 652,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r661",
+          "rule": "diff.13",
+          "record": 653,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r662",
+          "rule": "diff.13",
+          "record": 654,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r663",
+          "rule": "diff.13",
+          "record": 655,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r664",
+          "rule": "diff.13",
+          "record": 656,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r665",
+          "rule": "diff.13",
+          "record": 657,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r666",
+          "rule": "diff.13",
+          "record": 658,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r667",
+          "rule": "diff.13",
+          "record": 659,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r668",
+          "rule": "diff.13",
+          "record": 660,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r669",
+          "rule": "diff.13",
+          "record": 661,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r670",
+          "rule": "diff.13",
+          "record": 662,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r671",
+          "rule": "diff.13",
+          "record": 663,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r672",
+          "rule": "diff.13",
+          "record": 664,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r673",
+          "rule": "diff.13",
+          "record": 665,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r674",
+          "rule": "diff.13",
+          "record": 666,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r675",
+          "rule": "diff.13",
+          "record": 667,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r676",
+          "rule": "diff.13",
+          "record": 668,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r677",
+          "rule": "diff.13",
+          "record": 669,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r678",
+          "rule": "diff.13",
+          "record": 670,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r679",
+          "rule": "diff.13",
+          "record": 671,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r680",
+          "rule": "diff.13",
+          "record": 672,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r681",
+          "rule": "diff.13",
+          "record": 673,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r682",
+          "rule": "diff.13",
+          "record": 674,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r683",
+          "rule": "diff.13",
+          "record": 675,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r684",
+          "rule": "diff.13",
+          "record": 676,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r685",
+          "rule": "diff.13",
+          "record": 677,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r686",
+          "rule": "diff.13",
+          "record": 678,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r687",
+          "rule": "diff.13",
+          "record": 679,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r688",
+          "rule": "diff.13",
+          "record": 680,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r689",
+          "rule": "diff.13",
+          "record": 681,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r690",
+          "rule": "diff.13",
+          "record": 682,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r691",
+          "rule": "diff.13",
+          "record": 683,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r692",
+          "rule": "diff.13",
+          "record": 684,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r693",
+          "rule": "diff.13",
+          "record": 685,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r694",
+          "rule": "diff.13",
+          "record": 686,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r695",
+          "rule": "diff.13",
+          "record": 687,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r696",
+          "rule": "diff.13",
+          "record": 688,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r697",
+          "rule": "diff.13",
+          "record": 689,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r698",
+          "rule": "diff.13",
+          "record": 690,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r699",
+          "rule": "diff.13",
+          "record": 691,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r700",
+          "rule": "diff.13",
+          "record": 692,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r701",
+          "rule": "diff.13",
+          "record": 693,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r702",
+          "rule": "diff.13",
+          "record": 694,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r703",
+          "rule": "diff.13",
+          "record": 695,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r704",
+          "rule": "diff.13",
+          "record": 696,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r705",
+          "rule": "poly.16",
+          "record": 697,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r908",
+          "rule": "denmos.8",
+          "record": 900,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r922",
+          "rule": "depmos.8",
+          "record": 913,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r923",
+          "rule": "pwde.6",
+          "record": 914,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r924",
+          "rule": "pwbm.5",
+          "record": 915,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r928",
+          "rule": "uhvi.6",
+          "record": 919,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r929",
+          "rule": "uhvi.2",
+          "record": 920,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r930",
+          "rule": "extd.3",
+          "record": 921,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r931",
+          "rule": "uhvi.3",
+          "record": 922,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r932",
+          "rule": "pwres.2",
+          "record": 923,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r933",
+          "rule": "pwres.2",
+          "record": 924,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r934",
+          "rule": "pwres.2",
+          "record": 925,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r935",
+          "rule": "pwres.2",
+          "record": 926,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r936",
+          "rule": "pwres.2",
+          "record": 927,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r937",
+          "rule": "pwres.5",
+          "record": 928,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r938",
+          "rule": "pwres.6",
+          "record": 929,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r939",
+          "rule": "pwres.6",
+          "record": 930,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r940",
+          "rule": "pwres.7a",
+          "record": 931,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r941",
+          "rule": "pwres.7b",
+          "record": 932,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r942",
+          "rule": "pwres.8a",
+          "record": 933,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r943",
+          "rule": "pwres.8b",
+          "record": 934,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r944",
+          "rule": "pwres.9",
+          "record": 935,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r945",
+          "rule": "pwres.11",
+          "record": 936,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r946",
+          "rule": "pwres.10",
+          "record": 937,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1047",
+          "rule": "urpm.3",
+          "record": 1032,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1059",
+          "rule": "rpm.10",
+          "record": 1044,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1060",
+          "rule": "rpm.10",
+          "record": 1045,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1061",
+          "rule": "hvntm.x.1",
+          "record": 1046,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 190
+    },
+    {
+      "id": "core_generated",
+      "title": "Core context and generated implant masks",
+      "next_action": "Establish COREID and generated-mask construction/enclosure. Empty drawn masks are not evidence that their enclosed targets are absent.",
+      "records": [
+        {
+          "id": "r258",
+          "rule": "x.9",
+          "record": 259,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r411",
+          "rule": "hvtp.c1",
+          "record": 412,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r416",
+          "rule": "lvtn.4b",
+          "record": 417,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r429",
+          "rule": "difftap.c1",
+          "record": 430,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r432",
+          "rule": "difftap.c1",
+          "record": 433,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r444",
+          "rule": "difftap.c1",
+          "record": 445,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r445",
+          "rule": "difftap.c5",
+          "record": 446,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r446",
+          "rule": "difftap.c8",
+          "record": 447,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r447",
+          "rule": "difftap.c10",
+          "record": 448,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r448",
+          "rule": "difftap.c12",
+          "record": 449,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r449",
+          "rule": "difftap.c13",
+          "record": 450,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r450",
+          "rule": "difftap.c14",
+          "record": 451,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r461",
+          "rule": "nsd.c1b",
+          "record": 462,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r471",
+          "rule": "nsd.c1a",
+          "record": 472,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r472",
+          "rule": "nsd.c2a",
+          "record": 473,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r473",
+          "rule": "nsd.c2b",
+          "record": 474,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r474",
+          "rule": "nsd.c5a",
+          "record": 475,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r477",
+          "rule": "psd.c1b",
+          "record": 478,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r487",
+          "rule": "psd.c1a",
+          "record": 488,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r488",
+          "rule": "psd.c2a",
+          "record": 489,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r489",
+          "rule": "psd.c2b",
+          "record": 490,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r490",
+          "rule": "psd.c5b",
+          "record": 491,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r513",
+          "rule": "difftap.c11",
+          "record": 514,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r520",
+          "rule": "poly.c3",
+          "record": 521,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r521",
+          "rule": "poly.c2",
+          "record": 522,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r535",
+          "rule": "poly.c1",
+          "record": 536,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r536",
+          "rule": "poly.c1",
+          "record": 537,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r753",
+          "rule": "npcon.c6",
+          "record": 745,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r754",
+          "rule": "npcon.c6",
+          "record": 746,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r760",
+          "rule": "licon.c1",
+          "record": 752,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r761",
+          "rule": "licon.c3",
+          "record": 753,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r762",
+          "rule": "licon.c4",
+          "record": 754,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r765",
+          "rule": "li.c1",
+          "record": 757,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r775",
+          "rule": "li.c1",
+          "record": 767,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r776",
+          "rule": "li.c2",
+          "record": 768,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r785",
+          "rule": "ct.c1",
+          "record": 777,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r786",
+          "rule": "ct.c2",
+          "record": 778,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r799",
+          "rule": "m1.c1",
+          "record": 791,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r827",
+          "rule": "m2.c4",
+          "record": 819,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r828",
+          "rule": "m2.c4",
+          "record": 820,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1024",
+          "rule": "ncm.x.3",
+          "record": 1015,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1029",
+          "rule": "ncm.c8",
+          "record": 1020,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1030",
+          "rule": "ncm.c9",
+          "record": 1021,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1031",
+          "rule": "ncm.c9",
+          "record": 1022,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1032",
+          "rule": "ncm.c10",
+          "record": 1023,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1033",
+          "rule": "ldntm.c1",
+          "record": 1024,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1034",
+          "rule": "ldntm.c2",
+          "record": 1025,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1035",
+          "rule": "ldntm.c3",
+          "record": 1026,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1036",
+          "rule": "ldntm.c4",
+          "record": 1027,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1037",
+          "rule": "ldntm.c5",
+          "record": 1028,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1038",
+          "rule": "ldntm.c6",
+          "record": 1029,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1132",
+          "rule": "areaid.1",
+          "record": 1117,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1473",
+          "rule": "chvtpm.1",
+          "record": 1458,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1474",
+          "rule": "chvtpm.2a",
+          "record": 1459,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1475",
+          "rule": "chvtpm.3",
+          "record": 1460,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1476",
+          "rule": "chvtpm.4",
+          "record": 1461,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1477",
+          "rule": "clvtnm.1",
+          "record": 1462,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1478",
+          "rule": "clvtnm.2",
+          "record": 1463,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1479",
+          "rule": "cntm.2",
+          "record": 1464,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1480",
+          "rule": "cntm.1",
+          "record": 1465,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1481",
+          "rule": "cntm.3",
+          "record": 1466,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1482",
+          "rule": "cntm.3",
+          "record": 1467,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1483",
+          "rule": "cntm.4a",
+          "record": 1468,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1484",
+          "rule": "cntm.4a",
+          "record": 1469,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1485",
+          "rule": "cntm.7",
+          "record": 1470,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1486",
+          "rule": "cntm.7",
+          "record": 1471,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1487",
+          "rule": "chvntm.1",
+          "record": 1472,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1488",
+          "rule": "chvntm.2a",
+          "record": 1473,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1489",
+          "rule": "chvntm.4",
+          "record": 1474,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1490",
+          "rule": "chvntm.4",
+          "record": 1475,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1491",
+          "rule": "chvntm.5",
+          "record": 1476,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1492",
+          "rule": "chvntm.5",
+          "record": 1477,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1493",
+          "rule": "chvntm.3",
+          "record": 1478,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1494",
+          "rule": "chvntm.6a",
+          "record": 1479,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1495",
+          "rule": "chvntm.6a",
+          "record": 1480,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1496",
+          "rule": "chvntm.6b",
+          "record": 1481,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1497",
+          "rule": "chvntm.7",
+          "record": 1482,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 77
+    },
+    {
+      "id": "module",
+      "title": "Module cut and selected boundary rules",
+      "next_action": "Define moduleCutAREA and q0/q1 subjects, then prove applicability or execute spacing/enclosure; an absent enclosing region is not sufficient.",
+      "records": [
+        {
+          "id": "r261",
+          "rule": "x.12a",
+          "record": 262,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r262",
+          "rule": "x.12b",
+          "record": 263,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r263",
+          "rule": "x.12a",
+          "record": 264,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r264",
+          "rule": "x.12b",
+          "record": 265,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r265",
+          "rule": "x.12a",
+          "record": 266,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r266",
+          "rule": "x.12b",
+          "record": 267,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r267",
+          "rule": "x.12a",
+          "record": 268,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r268",
+          "rule": "x.12b",
+          "record": 269,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r269",
+          "rule": "x.12a",
+          "record": 270,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r270",
+          "rule": "x.12b",
+          "record": 271,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r271",
+          "rule": "x.12a",
+          "record": 272,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r272",
+          "rule": "x.12b",
+          "record": 273,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r273",
+          "rule": "x.12a",
+          "record": 274,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r274",
+          "rule": "x.12b",
+          "record": 275,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r275",
+          "rule": "x.12a",
+          "record": 276,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r276",
+          "rule": "x.12b",
+          "record": 277,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r277",
+          "rule": "x.12a",
+          "record": 278,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r278",
+          "rule": "x.12b",
+          "record": 279,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r279",
+          "rule": "x.12a",
+          "record": 280,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r280",
+          "rule": "x.12b",
+          "record": 281,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r281",
+          "rule": "x.12a",
+          "record": 282,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r282",
+          "rule": "x.12b",
+          "record": 283,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r283",
+          "rule": "x.12a",
+          "record": 284,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r284",
+          "rule": "x.12b",
+          "record": 285,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r285",
+          "rule": "x.12a",
+          "record": 286,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r286",
+          "rule": "x.12b",
+          "record": 287,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r287",
+          "rule": "x.12a",
+          "record": 288,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r288",
+          "rule": "x.12b",
+          "record": 289,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r289",
+          "rule": "x.12a",
+          "record": 290,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r290",
+          "rule": "x.12b",
+          "record": 291,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r291",
+          "rule": "x.12a",
+          "record": 292,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r292",
+          "rule": "x.12b",
+          "record": 293,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r293",
+          "rule": "x.12a",
+          "record": 294,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r294",
+          "rule": "x.12b",
+          "record": 295,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r295",
+          "rule": "x.12a",
+          "record": 296,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r296",
+          "rule": "x.12b",
+          "record": 297,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r297",
+          "rule": "x.12a",
+          "record": 298,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r298",
+          "rule": "x.12b",
+          "record": 299,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r299",
+          "rule": "x.12a",
+          "record": 300,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r300",
+          "rule": "x.12b",
+          "record": 301,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r301",
+          "rule": "x.12a",
+          "record": 302,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r302",
+          "rule": "x.12b",
+          "record": 303,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r303",
+          "rule": "x.12a",
+          "record": 304,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r304",
+          "rule": "x.12b",
+          "record": 305,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r305",
+          "rule": "x.12a",
+          "record": 306,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r306",
+          "rule": "x.12b",
+          "record": 307,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r307",
+          "rule": "x.12a",
+          "record": 308,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r308",
+          "rule": "x.12b",
+          "record": 309,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r309",
+          "rule": "x.12a",
+          "record": 310,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r310",
+          "rule": "x.12b",
+          "record": 311,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r311",
+          "rule": "x.12a",
+          "record": 312,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r312",
+          "rule": "x.12b",
+          "record": 313,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r313",
+          "rule": "x.12a",
+          "record": 314,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r314",
+          "rule": "x.12b",
+          "record": 315,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r315",
+          "rule": "x.12a",
+          "record": 316,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r316",
+          "rule": "x.12b",
+          "record": 317,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r317",
+          "rule": "x.12a",
+          "record": 318,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r318",
+          "rule": "x.12b",
+          "record": 319,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r319",
+          "rule": "x.12a",
+          "record": 320,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r320",
+          "rule": "x.12b",
+          "record": 321,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r321",
+          "rule": "x.12a",
+          "record": 322,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r322",
+          "rule": "x.12b",
+          "record": 323,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r323",
+          "rule": "x.12d",
+          "record": 324,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r324",
+          "rule": "x.12e",
+          "record": 325,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r325",
+          "rule": "x.12d",
+          "record": 326,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r326",
+          "rule": "x.18b",
+          "record": 327,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r327",
+          "rule": "x.18a",
+          "record": 328,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r328",
+          "rule": "x.18b",
+          "record": 329,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r329",
+          "rule": "x.12d",
+          "record": 330,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r330",
+          "rule": "x.12e",
+          "record": 331,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r378",
+          "rule": "x.16",
+          "record": 379,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r380",
+          "rule": "x.21",
+          "record": 381,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r927",
+          "rule": "depmos.13",
+          "record": 918,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 73
+    },
+    {
+      "id": "frame_scribe",
+      "title": "Frame, seal, scribe and alignment marks",
+      "next_action": "Establish explicit frame/die-cut, seal and alignment context, including exemptions. Do not substitute a block bounding box for chip boundaries.",
+      "records": [
+        {
+          "id": "r379",
+          "rule": "x.19",
+          "record": 380,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r381",
+          "rule": "x.23b",
+          "record": 382,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r382",
+          "rule": "x.23c",
+          "record": 383,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r383",
+          "rule": "x.23c",
+          "record": 384,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r384",
+          "rule": "x.23c",
+          "record": 385,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r385",
+          "rule": "x.23c",
+          "record": 386,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r386",
+          "rule": "x.23c",
+          "record": 387,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r387",
+          "rule": "x.23c",
+          "record": 388,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r388",
+          "rule": "x.23c",
+          "record": 389,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r389",
+          "rule": "x.23c",
+          "record": 390,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r390",
+          "rule": "x.26",
+          "record": 391,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r392",
+          "rule": "x.28",
+          "record": 393,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r988",
+          "rule": "nsm.3a",
+          "record": 979,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r989",
+          "rule": "nsm.3a",
+          "record": 980,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r990",
+          "rule": "nsm.3a",
+          "record": 981,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r991",
+          "rule": "nsm.3a",
+          "record": 982,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r992",
+          "rule": "nsm.3a",
+          "record": 983,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r993",
+          "rule": "nsm.3a",
+          "record": 984,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r994",
+          "rule": "nsm.3a",
+          "record": 985,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r995",
+          "rule": "nsm.3a",
+          "record": 986,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r996",
+          "rule": "nsm.3a",
+          "record": 987,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r997",
+          "rule": "nsm.3a",
+          "record": 988,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r998",
+          "rule": "nsm.3a",
+          "record": 989,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r999",
+          "rule": "nsm.3a",
+          "record": 990,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1000",
+          "rule": "nsm.3a",
+          "record": 991,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1001",
+          "rule": "nsm.3a",
+          "record": 992,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1002",
+          "rule": "nsm.3a",
+          "record": 993,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1003",
+          "rule": "nsm.3a",
+          "record": 994,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1004",
+          "rule": "nsm.3a",
+          "record": 995,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1005",
+          "rule": "nsm.3a",
+          "record": 996,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1006",
+          "rule": "nsm.3b",
+          "record": 997,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1007",
+          "rule": "nsm.3b",
+          "record": 998,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1008",
+          "rule": "nsm.3b",
+          "record": 999,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1009",
+          "rule": "nsm.3b",
+          "record": 1000,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1010",
+          "rule": "nsm.3b",
+          "record": 1001,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1011",
+          "rule": "nsm.3b",
+          "record": 1002,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1012",
+          "rule": "nsm.3b",
+          "record": 1003,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1013",
+          "rule": "nsm.3b",
+          "record": 1004,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1014",
+          "rule": "nsm.3b",
+          "record": 1005,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1015",
+          "rule": "nsm.3b",
+          "record": 1006,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1016",
+          "rule": "nsm.3b",
+          "record": 1007,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1017",
+          "rule": "nsm.3b",
+          "record": 1008,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1018",
+          "rule": "nsm.3b",
+          "record": 1009,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1019",
+          "rule": "nsm.3b",
+          "record": 1010,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1020",
+          "rule": "nsm.3b",
+          "record": 1011,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1021",
+          "rule": "nsm.3b",
+          "record": 1012,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1022",
+          "rule": "nsm.3b",
+          "record": 1013,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1023",
+          "rule": "nsm.3b",
+          "record": 1014,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1076",
+          "rule": "cfom.nikon",
+          "record": 1061,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1077",
+          "rule": "cfom.nikon",
+          "record": 1062,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1078",
+          "rule": "cdnm.nikon",
+          "record": 1063,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1079",
+          "rule": "cdnm.nikon",
+          "record": 1064,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1080",
+          "rule": "cnwm.nikon",
+          "record": 1065,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1081",
+          "rule": "cnwm.nikon",
+          "record": 1066,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1082",
+          "rule": "chvtpm.nikon",
+          "record": 1067,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1083",
+          "rule": "chvtpm.nikon",
+          "record": 1068,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1084",
+          "rule": "clvtnm.nikon",
+          "record": 1069,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1085",
+          "rule": "clvtnm.nikon",
+          "record": 1070,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1086",
+          "rule": "clvom.nikon",
+          "record": 1071,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1087",
+          "rule": "clvom.nikon",
+          "record": 1072,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1088",
+          "rule": "cp1m.nikon",
+          "record": 1073,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1089",
+          "rule": "cp1m.nikon",
+          "record": 1074,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1090",
+          "rule": "cntm.nikon",
+          "record": 1075,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1091",
+          "rule": "cntm.nikon",
+          "record": 1076,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1092",
+          "rule": "chvntm.nikon",
+          "record": 1077,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1093",
+          "rule": "chvntm.nikon",
+          "record": 1078,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1094",
+          "rule": "cldntm.nikon",
+          "record": 1079,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1095",
+          "rule": "cldntm.nikon",
+          "record": 1080,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1096",
+          "rule": "cnpc.nikon",
+          "record": 1081,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1097",
+          "rule": "cnpc.nikon",
+          "record": 1082,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1098",
+          "rule": "cnsdm.nikon",
+          "record": 1083,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1099",
+          "rule": "cnsdm.nikon",
+          "record": 1084,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1100",
+          "rule": "cpsdm.nikon",
+          "record": 1085,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1101",
+          "rule": "cpsdm.nikon",
+          "record": 1086,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1102",
+          "rule": "clicm1.nikon",
+          "record": 1087,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1103",
+          "rule": "clicm1.nikon",
+          "record": 1088,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1104",
+          "rule": "cli1m.nikon",
+          "record": 1089,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1105",
+          "rule": "cli1m.nikon",
+          "record": 1090,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1106",
+          "rule": "cctm1.nikon",
+          "record": 1091,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1107",
+          "rule": "cctm1.nikon",
+          "record": 1092,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1108",
+          "rule": "cmm1.nikon",
+          "record": 1093,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1109",
+          "rule": "cmm1.nikon",
+          "record": 1094,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1110",
+          "rule": "cviam.nikon",
+          "record": 1095,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1111",
+          "rule": "cviam.nikon",
+          "record": 1096,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1112",
+          "rule": "cmm2.nikon",
+          "record": 1097,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1113",
+          "rule": "cmm2.nikon",
+          "record": 1098,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1114",
+          "rule": "cnsm.nikon",
+          "record": 1099,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1115",
+          "rule": "cnsm.nikon",
+          "record": 1100,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1116",
+          "rule": "cpdm.nikon",
+          "record": 1101,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1117",
+          "rule": "cpdm.nikon",
+          "record": 1102,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1118",
+          "rule": "cviam2.nikon",
+          "record": 1103,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1119",
+          "rule": "cviam2.nikon",
+          "record": 1104,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1120",
+          "rule": "cmm3.nikon",
+          "record": 1105,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1121",
+          "rule": "cmm3.nikon",
+          "record": 1106,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1122",
+          "rule": "cviam3.nikon",
+          "record": 1107,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1123",
+          "rule": "cviam3.nikon",
+          "record": 1108,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1124",
+          "rule": "cmm4.nikon",
+          "record": 1109,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1125",
+          "rule": "cmm4.nikon",
+          "record": 1110,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1126",
+          "rule": "cviam4.nikon",
+          "record": 1111,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1127",
+          "rule": "cviam4.nikon",
+          "record": 1112,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1128",
+          "rule": "cmm5.nikon",
+          "record": 1113,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1129",
+          "rule": "cmm5.nikon",
+          "record": 1114,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1130",
+          "rule": "crpm.nikon",
+          "record": 1115,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1131",
+          "rule": "crpm.nikon",
+          "record": 1116,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1376",
+          "rule": "scribe.5",
+          "record": 1361,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1377",
+          "rule": "scribe.5",
+          "record": 1362,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1378",
+          "rule": "scribe.5",
+          "record": 1363,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1379",
+          "rule": "scribe.5",
+          "record": 1364,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1380",
+          "rule": "scribe.5",
+          "record": 1365,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1381",
+          "rule": "scribe.5",
+          "record": 1366,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1382",
+          "rule": "scribe.5",
+          "record": 1367,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1383",
+          "rule": "scribe.5",
+          "record": 1368,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1384",
+          "rule": "scribe.5",
+          "record": 1369,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1385",
+          "rule": "scribe.5",
+          "record": 1370,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1386",
+          "rule": "scribe.5",
+          "record": 1371,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1387",
+          "rule": "scribe.5",
+          "record": 1372,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1388",
+          "rule": "scribe.5",
+          "record": 1373,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1389",
+          "rule": "scribe.5",
+          "record": 1374,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1390",
+          "rule": "scribe.5",
+          "record": 1375,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1391",
+          "rule": "scribe.5",
+          "record": 1376,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1392",
+          "rule": "scribe.5",
+          "record": 1377,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1393",
+          "rule": "scribe.5",
+          "record": 1378,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1394",
+          "rule": "scribe.5",
+          "record": 1379,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1395",
+          "rule": "scribe.5",
+          "record": 1380,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1396",
+          "rule": "scribe.5",
+          "record": 1381,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1397",
+          "rule": "scribe.5",
+          "record": 1382,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1398",
+          "rule": "scribe.5",
+          "record": 1383,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1399",
+          "rule": "scribe.5",
+          "record": 1384,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1400",
+          "rule": "scribe.5",
+          "record": 1385,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1401",
+          "rule": "scribe.5",
+          "record": 1386,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1402",
+          "rule": "scribe.5",
+          "record": 1387,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1403",
+          "rule": "scribe.5",
+          "record": 1388,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1404",
+          "rule": "scribe.6a",
+          "record": 1389,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1405",
+          "rule": "scribe.6d",
+          "record": 1390,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1406",
+          "rule": "scribe.6e",
+          "record": 1391,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1407",
+          "rule": "scribe.7",
+          "record": 1392,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1408",
+          "rule": "scribe.7",
+          "record": 1393,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1409",
+          "rule": "scribe.7",
+          "record": 1394,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1410",
+          "rule": "scribe.7",
+          "record": 1395,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1411",
+          "rule": "scribe.7",
+          "record": 1396,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1412",
+          "rule": "scribe.7",
+          "record": 1397,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1413",
+          "rule": "scribe.7",
+          "record": 1398,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1414",
+          "rule": "scribe.7",
+          "record": 1399,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1415",
+          "rule": "scribe.7",
+          "record": 1400,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1416",
+          "rule": "scribe.7",
+          "record": 1401,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1417",
+          "rule": "scribe.7",
+          "record": 1402,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1418",
+          "rule": "scribe.7",
+          "record": 1403,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1419",
+          "rule": "scribe.7",
+          "record": 1404,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1420",
+          "rule": "scribe.7",
+          "record": 1405,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1421",
+          "rule": "scribe.7",
+          "record": 1406,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1422",
+          "rule": "scribe.7",
+          "record": 1407,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1423",
+          "rule": "scribe.7",
+          "record": 1408,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1424",
+          "rule": "scribe.7",
+          "record": 1409,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1425",
+          "rule": "scribe.7",
+          "record": 1410,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1426",
+          "rule": "scribe.7",
+          "record": 1411,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1427",
+          "rule": "scribe.7",
+          "record": 1412,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1428",
+          "rule": "scribe.7",
+          "record": 1413,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1429",
+          "rule": "scribe.7",
+          "record": 1414,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1430",
+          "rule": "scribe.7",
+          "record": 1415,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1431",
+          "rule": "scribe.7",
+          "record": 1416,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1432",
+          "rule": "scribe.7",
+          "record": 1417,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1433",
+          "rule": "scribe.7",
+          "record": 1418,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1434",
+          "rule": "scribe.7",
+          "record": 1419,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1435",
+          "rule": "scribe.7",
+          "record": 1420,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1436",
+          "rule": "scribe.7",
+          "record": 1421,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1437",
+          "rule": "scribe.7",
+          "record": 1422,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1438",
+          "rule": "scribe.7",
+          "record": 1423,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1439",
+          "rule": "scribe.7",
+          "record": 1424,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1440",
+          "rule": "scribe.7",
+          "record": 1425,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1441",
+          "rule": "scribe.7",
+          "record": 1426,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1442",
+          "rule": "scribe.7",
+          "record": 1427,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1443",
+          "rule": "scribe.7",
+          "record": 1428,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1444",
+          "rule": "scribe.7",
+          "record": 1429,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1445",
+          "rule": "scribe.7",
+          "record": 1430,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1446",
+          "rule": "scribe.7",
+          "record": 1431,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1447",
+          "rule": "scribe.8",
+          "record": 1432,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1448",
+          "rule": "scribe.9",
+          "record": 1433,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1449",
+          "rule": "scribe.10",
+          "record": 1434,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1450",
+          "rule": "scribe.10",
+          "record": 1435,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1451",
+          "rule": "scribe.11",
+          "record": 1436,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1452",
+          "rule": "scribe.11",
+          "record": 1437,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1453",
+          "rule": "scribe.12",
+          "record": 1438,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1454",
+          "rule": "scribe.13",
+          "record": 1439,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1455",
+          "rule": "scribe.13",
+          "record": 1440,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1456",
+          "rule": "scribe.13",
+          "record": 1441,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1457",
+          "rule": "scribe.13",
+          "record": 1442,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1458",
+          "rule": "scribe.13",
+          "record": 1443,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1459",
+          "rule": "scribe.13",
+          "record": 1444,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1460",
+          "rule": "scribe.13",
+          "record": 1445,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1461",
+          "rule": "scribe.13",
+          "record": 1446,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1462",
+          "rule": "scribe.13",
+          "record": 1447,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1463",
+          "rule": "scribe.13",
+          "record": 1448,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1464",
+          "rule": "scribe.14",
+          "record": 1449,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1465",
+          "rule": "scribe.15",
+          "record": 1450,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1466",
+          "rule": "scribe.16",
+          "record": 1451,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1467",
+          "rule": "scribe.17",
+          "record": 1452,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1468",
+          "rule": "scribe.18",
+          "record": 1453,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1469",
+          "rule": "scribe.18",
+          "record": 1454,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1470",
+          "rule": "scribe.19",
+          "record": 1455,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1471",
+          "rule": "scribe.20",
+          "record": 1456,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1472",
+          "rule": "scribe.21",
+          "record": 1457,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 201
+    },
+    {
+      "id": "pad_via",
+      "title": "Pads, package geometry and ViaTop",
+      "next_action": "Resolve ViaTop and pad construction, then bind each required geometry/connectivity check or prove its selected subject absent.",
+      "records": [
+        {
+          "id": "r836",
+          "rule": "viatop.1",
+          "record": 828,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r837",
+          "rule": "viatop.1",
+          "record": 829,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r838",
+          "rule": "viatop.1",
+          "record": 830,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r839",
+          "rule": "viatop.2",
+          "record": 831,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r840",
+          "rule": "viatop.3",
+          "record": 832,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r841",
+          "rule": "viatop.4",
+          "record": 833,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r842",
+          "rule": "viatop.4",
+          "record": 834,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r843",
+          "rule": "viatop.5",
+          "record": 835,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r844",
+          "rule": "viatop.6",
+          "record": 836,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r845",
+          "rule": "viatop.7",
+          "record": 837,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1208",
+          "rule": "pad.20",
+          "record": 1193,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1209",
+          "rule": "pad.20",
+          "record": 1194,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1312",
+          "rule": "pad.1",
+          "record": 1297,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1313",
+          "rule": "pad.1",
+          "record": 1298,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1314",
+          "rule": "pad.16",
+          "record": 1299,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1315",
+          "rule": "pad.4/4a",
+          "record": 1300,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1316",
+          "rule": "pad.5",
+          "record": 1301,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1317",
+          "rule": "pad.6",
+          "record": 1302,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1318",
+          "rule": "pad.7",
+          "record": 1303,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1319",
+          "rule": "pad.6",
+          "record": 1304,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1320",
+          "rule": "pad.7",
+          "record": 1305,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1321",
+          "rule": "pad.6",
+          "record": 1306,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1322",
+          "rule": "pad.7",
+          "record": 1307,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1323",
+          "rule": "pad.6",
+          "record": 1308,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1324",
+          "rule": "pad.7",
+          "record": 1309,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1325",
+          "rule": "pad.10",
+          "record": 1310,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1326",
+          "rule": "pad.11",
+          "record": 1311,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1327",
+          "rule": "pad.11",
+          "record": 1312,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1328",
+          "rule": "pad.11",
+          "record": 1313,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1329",
+          "rule": "pad.11",
+          "record": 1314,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1330",
+          "rule": "pad.12",
+          "record": 1315,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1331",
+          "rule": "pad.13",
+          "record": 1316,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1332",
+          "rule": "pad.14",
+          "record": 1317,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1333",
+          "rule": "pad.15",
+          "record": 1318,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1334",
+          "rule": "pad.17",
+          "record": 1319,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1335",
+          "rule": "pad.18",
+          "record": 1320,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1336",
+          "rule": "pad.17",
+          "record": 1321,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1337",
+          "rule": "pad.18",
+          "record": 1322,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1338",
+          "rule": "pad.17",
+          "record": 1323,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1339",
+          "rule": "pad.18",
+          "record": 1324,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1340",
+          "rule": "pad.19",
+          "record": 1325,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1341",
+          "rule": "pad.19",
+          "record": 1326,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1342",
+          "rule": "pad.19",
+          "record": 1327,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1343",
+          "rule": "pad.2.1",
+          "record": 1328,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1344",
+          "rule": "pad.3.1",
+          "record": 1329,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1345",
+          "rule": "pad.4.1",
+          "record": 1330,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1346",
+          "rule": "pad.5.1",
+          "record": 1331,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1347",
+          "rule": "pad.6.1",
+          "record": 1332,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1348",
+          "rule": "pad.6.1",
+          "record": 1333,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1349",
+          "rule": "pad.6.1a",
+          "record": 1334,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1350",
+          "rule": "pad.6.1b",
+          "record": 1335,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1351",
+          "rule": "pad.6.1a/b",
+          "record": 1336,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1352",
+          "rule": "pad.7.1",
+          "record": 1337,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1353",
+          "rule": "pad.8.1",
+          "record": 1338,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1354",
+          "rule": "pad.2/3.1",
+          "record": 1339,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1355",
+          "rule": "pad.2/3.1",
+          "record": 1340,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1356",
+          "rule": "pad.2/3.1",
+          "record": 1341,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1357",
+          "rule": "pad.1.2",
+          "record": 1342,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1358",
+          "rule": "pad.2.2",
+          "record": 1343,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1359",
+          "rule": "pad.2.2a",
+          "record": 1344,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1360",
+          "rule": "pad.3.2",
+          "record": 1345,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1361",
+          "rule": "pad.4.2",
+          "record": 1346,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1362",
+          "rule": "pad.9.1",
+          "record": 1347,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1363",
+          "rule": "pad.6.2",
+          "record": 1348,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1364",
+          "rule": "pad.6.2",
+          "record": 1349,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1365",
+          "rule": "pad.5.2.4",
+          "record": 1350,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1366",
+          "rule": "pad.7.2.1",
+          "record": 1351,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1367",
+          "rule": "pad.7.2.2",
+          "record": 1352,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1368",
+          "rule": "pad.7.2.2",
+          "record": 1353,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1369",
+          "rule": "cupad.1",
+          "record": 1354,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1370",
+          "rule": "cupad.2",
+          "record": 1355,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1371",
+          "rule": "cupad.2",
+          "record": 1356,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1372",
+          "rule": "cupad.3",
+          "record": 1357,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1373",
+          "rule": "cupad.3",
+          "record": 1358,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1374",
+          "rule": "cupad.4",
+          "record": 1359,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1375",
+          "rule": "cupad.4",
+          "record": 1360,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 76
+    },
+    {
+      "id": "density_fill",
+      "title": "VPP, dummy diffusion and density",
+      "next_action": "Resolve VPP cell selection, dummy diffusion and density window/operand semantics; retain the separate wider density obligations beyond these catalog records.",
+      "records": [
+        {
+          "id": "r1133",
+          "rule": "vpp.5",
+          "record": 1118,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1134",
+          "rule": "vpp.5",
+          "record": 1119,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1135",
+          "rule": "vpp.5",
+          "record": 1120,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1136",
+          "rule": "vpp.5",
+          "record": 1121,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1137",
+          "rule": "vpp.5a",
+          "record": 1122,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1138",
+          "rule": "vpp.5b",
+          "record": 1123,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1139",
+          "rule": "vpp.5c",
+          "record": 1124,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1140",
+          "rule": "vpp.10",
+          "record": 1125,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1141",
+          "rule": "vpp.11",
+          "record": 1126,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1142",
+          "rule": "vpp.12a",
+          "record": 1127,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1143",
+          "rule": "vpp.12b",
+          "record": 1128,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1144",
+          "rule": "vpp.12c",
+          "record": 1129,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1145",
+          "rule": "vpp.1",
+          "record": 1130,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1146",
+          "rule": "vpp.1b",
+          "record": 1131,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1147",
+          "rule": "vpp.1c",
+          "record": 1132,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1148",
+          "rule": "vpp.1c",
+          "record": 1133,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1149",
+          "rule": "vpp.1c",
+          "record": 1134,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1150",
+          "rule": "vpp.3",
+          "record": 1135,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1151",
+          "rule": "vpp.4",
+          "record": 1136,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1152",
+          "rule": "vpp.4",
+          "record": 1137,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1153",
+          "rule": "vpp.8",
+          "record": 1138,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1154",
+          "rule": "vpp.9",
+          "record": 1139,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1256",
+          "rule": "fomdmy.1",
+          "record": 1241,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1257",
+          "rule": "fomdmy.1a",
+          "record": 1242,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1258",
+          "rule": "fomdmy.2",
+          "record": 1243,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1259",
+          "rule": "fomdmy.4",
+          "record": 1244,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1260",
+          "rule": "fomdmy.4",
+          "record": 1245,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1261",
+          "rule": "fomdmy.6",
+          "record": 1246,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1262",
+          "rule": "fomdmy.6",
+          "record": 1247,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1263",
+          "rule": "fomdmy.7",
+          "record": 1248,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1264",
+          "rule": "fomdmy.7",
+          "record": 1249,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1265",
+          "rule": "fomdmy.7",
+          "record": 1250,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1266",
+          "rule": "fomdmy.7",
+          "record": 1251,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1267",
+          "rule": "fomdmy.8",
+          "record": 1252,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1268",
+          "rule": "fomdmy.9",
+          "record": 1253,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1269",
+          "rule": "fomdmy.10",
+          "record": 1254,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1270",
+          "rule": "fomdmy.11",
+          "record": 1255,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1271",
+          "rule": "fomdmy.12",
+          "record": 1256,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1272",
+          "rule": "fomdmy.13",
+          "record": 1257,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s8",
+          "rule": "m2.3c",
+          "record": 1491,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 40
+    },
+    {
+      "id": "connectivity",
+      "title": "Connectivity, redundancy and chip labels",
+      "next_action": "Review chip-context records separately from block checks; bind physical graphs, labels, redundant contacts and interface regions to their exact scope.",
+      "records": [
+        {
+          "id": "r1207",
+          "rule": "x.24",
+          "record": 1192,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s0",
+          "rule": "x.18",
+          "record": 1483,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s1",
+          "rule": "x.18",
+          "record": 1484,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s2",
+          "rule": "x.18",
+          "record": 1485,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s3",
+          "rule": "x.18",
+          "record": 1486,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s4",
+          "rule": "x.18",
+          "record": 1487,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s5",
+          "rule": "x.23f",
+          "record": 1488,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s6",
+          "rule": "x.27",
+          "record": 1489,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s7",
+          "rule": "x.27",
+          "record": 1490,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s9",
+          "rule": "x.22",
+          "record": 1492,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s10",
+          "rule": "x.22",
+          "record": 1493,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s11",
+          "rule": "x.22",
+          "record": 1494,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s12",
+          "rule": "x.22",
+          "record": 1495,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s13",
+          "rule": "x.22",
+          "record": 1496,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s14",
+          "rule": "x.22",
+          "record": 1497,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s15",
+          "rule": "x.22",
+          "record": 1498,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s16",
+          "rule": "x.22",
+          "record": 1499,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s17",
+          "rule": "x.22",
+          "record": 1500,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s18",
+          "rule": "x.22",
+          "record": 1501,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s19",
+          "rule": "x.22",
+          "record": 1502,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s20",
+          "rule": "x.22",
+          "record": 1503,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s21",
+          "rule": "x.22",
+          "record": 1504,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s22",
+          "rule": "x.22",
+          "record": 1505,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s23",
+          "rule": "x.22",
+          "record": 1506,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s24",
+          "rule": "x.22",
+          "record": 1507,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s25",
+          "rule": "x.22",
+          "record": 1508,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s26",
+          "rule": "x.22",
+          "record": 1509,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s27",
+          "rule": "x.22",
+          "record": 1510,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s28",
+          "rule": "x.22",
+          "record": 1511,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s29",
+          "rule": "x.22",
+          "record": 1512,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s30",
+          "rule": "x.22",
+          "record": 1513,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s31",
+          "rule": "x.22",
+          "record": 1514,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s32",
+          "rule": "x.22",
+          "record": 1515,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s33",
+          "rule": "x.22",
+          "record": 1516,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s34",
+          "rule": "x.22",
+          "record": 1517,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s35",
+          "rule": "x.22",
+          "record": 1518,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s36",
+          "rule": "x.22",
+          "record": 1519,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s37",
+          "rule": "x.22",
+          "record": 1520,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s38",
+          "rule": "x.22",
+          "record": 1521,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s39",
+          "rule": "x.22",
+          "record": 1522,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s40",
+          "rule": "x.22",
+          "record": 1523,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s41",
+          "rule": "x.22",
+          "record": 1524,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s42",
+          "rule": "x.22",
+          "record": 1525,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s43",
+          "rule": "x.22",
+          "record": 1526,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s72",
+          "rule": "chipint.1",
+          "record": 1555,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s73",
+          "rule": "chipint.2",
+          "record": 1556,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 46
+    },
+    {
+      "id": "routing_boundary",
+      "title": "Routing blockages and boundary purposes",
+      "next_action": "Resolve Block/Routing operands and forbidden boundary purposes, including the distinct r/s records; do not inherit coverage from a shared name.",
+      "records": [
+        {
+          "id": "r1234",
+          "rule": "metblk.1",
+          "record": 1219,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1235",
+          "rule": "metblk.1",
+          "record": 1220,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1236",
+          "rule": "metblk.3",
+          "record": 1221,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1237",
+          "rule": "metblk.1",
+          "record": 1222,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1238",
+          "rule": "metblk.1",
+          "record": 1223,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1239",
+          "rule": "metblk.3",
+          "record": 1224,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1240",
+          "rule": "metblk.1",
+          "record": 1225,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1241",
+          "rule": "metblk.1",
+          "record": 1226,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1242",
+          "rule": "metblk.3",
+          "record": 1227,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1243",
+          "rule": "metblk.1",
+          "record": 1228,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1244",
+          "rule": "metblk.1",
+          "record": 1229,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1245",
+          "rule": "metblk.3",
+          "record": 1230,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1246",
+          "rule": "metblk.1",
+          "record": 1231,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1247",
+          "rule": "metblk.1",
+          "record": 1232,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1248",
+          "rule": "metblk.3",
+          "record": 1233,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1249",
+          "rule": "metblk.2",
+          "record": 1234,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1250",
+          "rule": "metblk.2",
+          "record": 1235,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1251",
+          "rule": "metblk.4",
+          "record": 1236,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1252",
+          "rule": "metblk.6",
+          "record": 1237,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1253",
+          "rule": "metblk.7",
+          "record": 1238,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1254",
+          "rule": "metblk.7",
+          "record": 1239,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1255",
+          "rule": "metblk.7",
+          "record": 1240,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s68",
+          "rule": "metblk.6",
+          "record": 1551,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s69",
+          "rule": "metblk.7",
+          "record": 1552,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s70",
+          "rule": "metblk.7",
+          "record": 1553,
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "s71",
+          "rule": "metblk.7",
+          "record": 1554,
+          "disposition": "unreviewed"
+        }
+      ],
+      "count": 26
+    }
+  ]
+}

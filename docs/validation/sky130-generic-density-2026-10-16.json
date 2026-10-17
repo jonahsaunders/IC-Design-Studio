@@ -1,0 +1,1831 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "generic-fill-and-reference-connectivity-verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "75614d031d0cfce89caffb23460c0882e386de40",
+  "scope": "Optional generic SKY130 metal fill in normal Finish; independent five-layer database/GDS geometry checks; fill-bearing macro abstracts and bound export evidence. Four fresh application runs, full public windows on one 840 um reference, strict reference LVS and native custom NMOS/PMOS controls. No Tiny Tapeout interface or tile restriction. Complete profile applicability and foundry signoff remain open.",
+  "source_files": {
+    "icstudio/digital_sky130_fill.py": "c7bd969cab86539c16380d543db586eb4a5017b9e45acba978b92c2fe8979cd3",
+    "icstudio/digital_sky130_fill_inventory.py": "52c52ffcf5884928532f257c6af78faf8dc2b44414b3d57cab411b0e70fdb1db",
+    "icstudio/digital_flow.py": "24d879761f05a151e23ba01b07860bab5a6823d3e0158a542933672507d6d810",
+    "icstudio/digital_macro.py": "0a227e988a3ad35ba85b2fc6a19e45368f6b3d8cb4b50e4504fe17ee8df17a65",
+    "icstudio/digital_physical.py": "7fd67ab821988b8b688bc0894c571e9bea2c28e7dc3c865cddd532d87e9d1def",
+    "icstudio/digital_physical_ui.py": "1ee6ad36d40b170596e5c5f4cbacaa4b7e00cce8f8498a2ad0cc869e8b560e62",
+    "tests/test_sky130_fill.py": "0b195bad175ec3c54a956936b09faa2ccd05af59c9415fc8a46c05a9b7e0550b",
+    "tests/test_sky130_native.py": "3c92b7b17dce8f407a3136f9e20aa9465d3d8ec67612436048fc7465fd5ec24a",
+    "tests/test_digital_macro.py": "fb3adde0b7e0e79e07061c55fb68f8a5abc9a78c444bb0b25885c7906c26d777"
+  },
+  "license": {
+    "application": "GPL-3.0-or-later",
+    "new_code": "Studio implementation; no new copied third-party checker",
+    "native_geometry": "Existing GPL-3.0-only public ChipFoundry deck; original license remains in every macro",
+    "public_pdk_and_density": "Existing Apache-2.0 SKY130 and Tiny Tapeout sources retain their notices",
+    "private_or_cadence_licensed_checker_used": false
+  },
+  "cases": [
+    {
+      "case": "application-filled-v2",
+      "status": "PASS",
+      "audit_sha256": "116a2a292d26c94de6e7ae78ae836f84cd1563ddc72d7a00203ecfd3bc1e92d1",
+      "result_sha256": "874a79e2db41b3b124c2a67bd56bc340c48fe42a0633574b8a5698210529cd81",
+      "input_sha256": "c869283c5ef860813d34059a9450fab950bc407309abdaa74b74bb5fa19dab9d",
+      "macro_sha256": "5ca3965aecf78edcc6dc4cbacafbab18803793d241cda9ed7f713987deea6cd6",
+      "top": "counter",
+      "bounds_um": [
+        0.0,
+        0.0,
+        840.0,
+        840.0
+      ],
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "fill": {
+        "schema": 1,
+        "recipe": "sky130-local-metal-fill-v1",
+        "status": "generated-and-checked",
+        "qualified": false,
+        "scope": "Local metal fill on the five-metal SKY130A HD stack. Every exported fill rectangle is compared with the implementation database; widths, area, spacing, grid and signal clearance are independently checked. Full 700 um windows use the two retained public 80% grown-metal profiles. Smaller blocks require surrounding layout; clipped edge observations are diagnostic. This is not complete density, generated-mask, electrical or foundry signoff. Routed OpenRCX SPEF is retained, but floating-fill coupling has not been qualified.",
+        "top": "counter",
+        "platform_fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92",
+        "inputs": {
+          "gds": "18abf6dfc8d6e7ab87ae7dc3fc008e113bcaae219e4629c3e901525e34ff4a33",
+          "checkpoint": "73a91954c03619e516ad31105292464b63d7ceecc7e2321e8fe83b553a714677",
+          "lef": "3a95b66fb07fd94a3e854f11be8f3b9986992818e596ea583b0f34e0fba7fb7e",
+          "def": "c2c0637997d1c1448b8fd90173761d4bb866b1ab1ffc0b21deabd922cc3bcbed",
+          "netlist": "a654a5266d961ff3b5b9ef243e9ebfaf26b16a11c351b75c65dd6df28e694665"
+        },
+        "geometry": {
+          "met1": {
+            "rectangles": 97521,
+            "area_nm2": 195042000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met2": {
+            "rectangles": 93313,
+            "area_nm2": 373252000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met3": {
+            "rectangles": 89356,
+            "area_nm2": 357424000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met4": {
+            "rectangles": 74754,
+            "area_nm2": 299016000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met5": {
+            "rectangles": 26418,
+            "area_nm2": 105672000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          }
+        },
+        "density_status": "sampled-full-windows-pass",
+        "density_sha256": "c68f898be8d02e7cad0c90ed58f1cb53855076dff03c3904cc585994a0598c04",
+        "full_windows": 9,
+        "evidence": {
+          "sky130_fill_technology": {
+            "path": "sky130-fill/technology.lyt",
+            "sha256": "8809283679d2b7fcdd93189945dd62de611068c623162be08e903199444f5100",
+            "bytes": 15438
+          },
+          "sky130_fill_rules": {
+            "path": "sky130-fill/rules.json",
+            "sha256": "3980a5f3a0b78f5b1cb45c5cd946c07c8103570cf5dab2a7ee948a701a124361",
+            "bytes": 1739
+          },
+          "sky130_fill_source_technology": {
+            "path": "sky130-fill/source.lyt",
+            "sha256": "8f1b3d1679f3d195658bea0359eb01f32694628858eda1a8a5c6bf1b30da836a",
+            "bytes": 15374
+          },
+          "sky130_fill_source_lef": {
+            "path": "macro.lef",
+            "sha256": "7e60876954c87cbbf253ab8a73ec7e0b950bc62ad1e862b55c1a717dd333785f",
+            "bytes": 3476070
+          },
+          "sky130_fill_inventory_py": {
+            "path": "sky130-fill/inventory.py",
+            "sha256": "52c52ffcf5884928532f257c6af78faf8dc2b44414b3d57cab411b0e70fdb1db",
+            "bytes": 1616
+          },
+          "sky130_fill_inventory_json": {
+            "path": "sky130-fill/inventory.json",
+            "sha256": "9c626d88d8d8599bb965bdfd73b9fcfedef06525dd751ffcc797ef4496ec4d68",
+            "bytes": 11287641
+          },
+          "sky130_fill_request_json": {
+            "path": "sky130-fill/request.json",
+            "sha256": "4a8d7156d61c4bce3374dbb48fc87f6cd7d3ecba9b7ff89b4178bd7c9aa19cf5",
+            "bytes": 444
+          },
+          "sky130_fill_check_py": {
+            "path": "sky130-fill/check.py",
+            "sha256": "34fc35b045e2d79b87cc1d888c27afd20368373989329e8e2cc0df2ef967c984",
+            "bytes": 349
+          },
+          "sky130_fill_geometry_json": {
+            "path": "sky130-fill/geometry.json",
+            "sha256": "35d52659afd372c3ccfe9e9139562628e2384d2857b0404daaf0a66c1c67f6e7",
+            "bytes": 1108
+          }
+        }
+      },
+      "density_summaries": {
+        "tinytapeout-margin": {
+          "full_window_findings": 0,
+          "clipped_window_findings": 227,
+          "status": "sampled-full-windows-pass"
+        },
+        "skywater-growth-reported-by-tinytapeout": {
+          "full_window_findings": 0,
+          "clipped_window_findings": 132,
+          "status": "sampled-full-windows-pass"
+        }
+      },
+      "minimum_full_window_percent": {
+        "tinytapeout-margin": {
+          "m1": 90.40149691836734,
+          "m2": 85.01985142346939,
+          "m3": 86.94566425510205,
+          "m4": 85.69514142857143
+        },
+        "skywater-growth-reported-by-tinytapeout": {
+          "m1": 94.26677748469388,
+          "m2": 89.15903659183674,
+          "m3": 93.34529786224489,
+          "m4": 93.57486018367347
+        }
+      },
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "periphery_coverage": {
+        "rows": 601,
+        "counts": {
+          "execution-review-required": 28,
+          "upstream-na": 77,
+          "executed-reviewed": 133,
+          "absent-operand": 273,
+          "advisory": 28,
+          "definition-required": 1,
+          "other-backend": 61
+        },
+        "complete": false
+      },
+      "elapsed_seconds": 699.739175424
+    },
+    {
+      "case": "application-small",
+      "status": "PASS",
+      "audit_sha256": "273907bbdde2f32e3a541cd8fc5a63b0e04e0180bf622d0e4ffa80e079b3c7c7",
+      "result_sha256": "86037262204fb84cee79ebecc4aedb7604131180173fabb44bebbda6b00b6f2c",
+      "input_sha256": "d44d3458f3322aee5e254fb4e26c92e205c4c5b6fe1c3326360284768c0ae850",
+      "macro_sha256": "fd7b3b9c51a78413f6a8ce1401a62507830b6a5e4d5cd3f5901b40da2b62f73c",
+      "top": "counter",
+      "bounds_um": [
+        0.0,
+        0.0,
+        200.0,
+        200.0
+      ],
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "fill": {
+        "schema": 1,
+        "recipe": "sky130-local-metal-fill-v1",
+        "status": "generated-and-checked",
+        "qualified": false,
+        "scope": "Local metal fill on the five-metal SKY130A HD stack. Every exported fill rectangle is compared with the implementation database; widths, area, spacing, grid and signal clearance are independently checked. Full 700 um windows use the two retained public 80% grown-metal profiles. Smaller blocks require surrounding layout; clipped edge observations are diagnostic. This is not complete density, generated-mask, electrical or foundry signoff. Routed OpenRCX SPEF is retained, but floating-fill coupling has not been qualified.",
+        "top": "counter",
+        "platform_fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92",
+        "inputs": {
+          "gds": "d6ce4e65ead7e6c9f974757449a195574707527bf4986474f51aabd508b1b6a5",
+          "checkpoint": "b62e0aa16b9294e1a2639bb88656080b5dd8bf61424f7a7d381a82efaea88e2e",
+          "lef": "10bf1fa6d1354328036f3d53ce4b0ce9d44d3c43cee2a73e89ba5534b0347558",
+          "def": "5a3e3174587feaee5c1e302b1530158d0264f13b7894bb4644ba33f182441fa0",
+          "netlist": "7ed56cc35e87eb566bc5138a083838495042fbb30e72bda6aabd06f01ee2080f"
+        },
+        "geometry": {
+          "met1": {
+            "rectangles": 3763,
+            "area_nm2": 7526000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met2": {
+            "rectangles": 3547,
+            "area_nm2": 14188000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met3": {
+            "rectangles": 3435,
+            "area_nm2": 13740000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met4": {
+            "rectangles": 3130,
+            "area_nm2": 12520000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met5": {
+            "rectangles": 1100,
+            "area_nm2": 4400000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          }
+        },
+        "density_status": "surrounding-layout-required",
+        "density_sha256": "d983498b65c0339043e06038aafe2d6a961d570dd63f667456699397d680b112",
+        "full_windows": 0,
+        "evidence": {
+          "sky130_fill_technology": {
+            "path": "sky130-fill/technology.lyt",
+            "sha256": "8809283679d2b7fcdd93189945dd62de611068c623162be08e903199444f5100",
+            "bytes": 15438
+          },
+          "sky130_fill_rules": {
+            "path": "sky130-fill/rules.json",
+            "sha256": "3980a5f3a0b78f5b1cb45c5cd946c07c8103570cf5dab2a7ee948a701a124361",
+            "bytes": 1739
+          },
+          "sky130_fill_source_technology": {
+            "path": "sky130-fill/source.lyt",
+            "sha256": "8f1b3d1679f3d195658bea0359eb01f32694628858eda1a8a5c6bf1b30da836a",
+            "bytes": 15374
+          },
+          "sky130_fill_source_lef": {
+            "path": "macro.lef",
+            "sha256": "dcd96418069fc4ffe3a229bf6c7ba85251657e8e15a9bec948b9ba3066d50a83",
+            "bytes": 134637
+          },
+          "sky130_fill_inventory_py": {
+            "path": "sky130-fill/inventory.py",
+            "sha256": "52c52ffcf5884928532f257c6af78faf8dc2b44414b3d57cab411b0e70fdb1db",
+            "bytes": 1616
+          },
+          "sky130_fill_inventory_json": {
+            "path": "sky130-fill/inventory.json",
+            "sha256": "d3c63cc863ad44d38e4bc009c1e9f3c0bda92a57e6c3636764f73e6d0b1375f1",
+            "bytes": 419314
+          },
+          "sky130_fill_request_json": {
+            "path": "sky130-fill/request.json",
+            "sha256": "a6a5e1237c13f997e340be8800199aeedce0214d086861ad79f4bc152038aa88",
+            "bytes": 432
+          },
+          "sky130_fill_check_py": {
+            "path": "sky130-fill/check.py",
+            "sha256": "34fc35b045e2d79b87cc1d888c27afd20368373989329e8e2cc0df2ef967c984",
+            "bytes": 349
+          },
+          "sky130_fill_geometry_json": {
+            "path": "sky130-fill/geometry.json",
+            "sha256": "286ddce84f7eada52485dd9cd2c732bc702a3bd7c359d21aab793f268848eaec",
+            "bytes": 1096
+          }
+        }
+      },
+      "density_summaries": {
+        "tinytapeout-margin": {
+          "full_window_findings": 0,
+          "clipped_window_findings": 36,
+          "status": "no-full-windows"
+        },
+        "skywater-growth-reported-by-tinytapeout": {
+          "full_window_findings": 0,
+          "clipped_window_findings": 36,
+          "status": "no-full-windows"
+        }
+      },
+      "minimum_full_window_percent": {
+        "tinytapeout-margin": {
+          "m1": null,
+          "m2": null,
+          "m3": null,
+          "m4": null
+        },
+        "skywater-growth-reported-by-tinytapeout": {
+          "m1": null,
+          "m2": null,
+          "m3": null,
+          "m4": null
+        }
+      },
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "periphery_coverage": {
+        "rows": 601,
+        "counts": {
+          "execution-review-required": 28,
+          "upstream-na": 77,
+          "executed-reviewed": 133,
+          "absent-operand": 273,
+          "advisory": 28,
+          "definition-required": 1,
+          "other-backend": 61
+        },
+        "complete": false
+      },
+      "elapsed_seconds": 117.25019703500016
+    },
+    {
+      "case": "application-uart",
+      "status": "PASS",
+      "audit_sha256": "a5917808da0c4ac329d3bbdb8b91e309cb4863bb283cf91685af8bd3b4b1aafe",
+      "result_sha256": "a30137b48fb746fe4b8d036747399140e755bf0e2d906a3e40dd3456fda33d5c",
+      "input_sha256": "de644ffb510321ed26cd7b509b29533e58c7f088908c6a1af35bd678f4d18159",
+      "macro_sha256": "428333aa4fa4780f608dbf9732e4bf012843e3b5a5ea0b5020e10ccee0db6c7f",
+      "top": "uart_tx",
+      "bounds_um": [
+        0.0,
+        0.0,
+        400.0,
+        400.0
+      ],
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "fill": {
+        "schema": 1,
+        "recipe": "sky130-local-metal-fill-v1",
+        "status": "generated-and-checked",
+        "qualified": false,
+        "scope": "Local metal fill on the five-metal SKY130A HD stack. Every exported fill rectangle is compared with the implementation database; widths, area, spacing, grid and signal clearance are independently checked. Full 700 um windows use the two retained public 80% grown-metal profiles. Smaller blocks require surrounding layout; clipped edge observations are diagnostic. This is not complete density, generated-mask, electrical or foundry signoff. Routed OpenRCX SPEF is retained, but floating-fill coupling has not been qualified.",
+        "top": "uart_tx",
+        "platform_fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92",
+        "inputs": {
+          "gds": "4542d56b9cd3759b9a85bc59e78fc9904eb8483ccd6338d4eeda592f822a407b",
+          "checkpoint": "e4ddda7ec907aacc33abf24829f6629c3183435a868d54b24ffdfd3e8e6c586a",
+          "lef": "4ff9ddee20731901334f73aea90f4612e1d4da3536734ebb8cb7145ed7b09f67",
+          "def": "fca2161138242c4acfb0bf89dfd67d4ad933822bae7cf5a707857dd20ee92e40",
+          "netlist": "d8a6a784995a6143785dfd77583f8d4f156b0eae454d035b4a8b699fe7b0d04d"
+        },
+        "geometry": {
+          "met1": {
+            "rectangles": 19134,
+            "area_nm2": 38268000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met2": {
+            "rectangles": 18277,
+            "area_nm2": 73108000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met3": {
+            "rectangles": 17856,
+            "area_nm2": 71424000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met4": {
+            "rectangles": 15120,
+            "area_nm2": 60480000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met5": {
+            "rectangles": 5300,
+            "area_nm2": 21200000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          }
+        },
+        "density_status": "surrounding-layout-required",
+        "density_sha256": "1c01d42114e3cf438018b6932616f66254f79fe0c683f40fa670c4a70222660a",
+        "full_windows": 0,
+        "evidence": {
+          "sky130_fill_technology": {
+            "path": "sky130-fill/technology.lyt",
+            "sha256": "8809283679d2b7fcdd93189945dd62de611068c623162be08e903199444f5100",
+            "bytes": 15438
+          },
+          "sky130_fill_rules": {
+            "path": "sky130-fill/rules.json",
+            "sha256": "3980a5f3a0b78f5b1cb45c5cd946c07c8103570cf5dab2a7ee948a701a124361",
+            "bytes": 1739
+          },
+          "sky130_fill_source_technology": {
+            "path": "sky130-fill/source.lyt",
+            "sha256": "8f1b3d1679f3d195658bea0359eb01f32694628858eda1a8a5c6bf1b30da836a",
+            "bytes": 15374
+          },
+          "sky130_fill_source_lef": {
+            "path": "macro.lef",
+            "sha256": "2e33be61f7d0d347d59759ea6cb50fbdffacd9de9a0c69bd45b33dd122cbfaa1",
+            "bytes": 708073
+          },
+          "sky130_fill_inventory_py": {
+            "path": "sky130-fill/inventory.py",
+            "sha256": "52c52ffcf5884928532f257c6af78faf8dc2b44414b3d57cab411b0e70fdb1db",
+            "bytes": 1616
+          },
+          "sky130_fill_inventory_json": {
+            "path": "sky130-fill/inventory.json",
+            "sha256": "93a562854b808881ec28096ad96dd6cd6f0bc060f77b328900676f022ce92b11",
+            "bytes": 2204014
+          },
+          "sky130_fill_request_json": {
+            "path": "sky130-fill/request.json",
+            "sha256": "e05c71d4aa07e23cbdd8636677eb2593eb9dd6a6d2680c016b380958f578ab4b",
+            "bytes": 429
+          },
+          "sky130_fill_check_py": {
+            "path": "sky130-fill/check.py",
+            "sha256": "34fc35b045e2d79b87cc1d888c27afd20368373989329e8e2cc0df2ef967c984",
+            "bytes": 349
+          },
+          "sky130_fill_geometry_json": {
+            "path": "sky130-fill/geometry.json",
+            "sha256": "55dc38ea157ce7ddb331602c1ae60f8a43f52b608dbaf82bf223e491362e950a",
+            "bytes": 1102
+          }
+        }
+      },
+      "density_summaries": {
+        "tinytapeout-margin": {
+          "full_window_findings": 0,
+          "clipped_window_findings": 136,
+          "status": "no-full-windows"
+        },
+        "skywater-growth-reported-by-tinytapeout": {
+          "full_window_findings": 0,
+          "clipped_window_findings": 99,
+          "status": "no-full-windows"
+        }
+      },
+      "minimum_full_window_percent": {
+        "tinytapeout-margin": {
+          "m1": null,
+          "m2": null,
+          "m3": null,
+          "m4": null
+        },
+        "skywater-growth-reported-by-tinytapeout": {
+          "m1": null,
+          "m2": null,
+          "m3": null,
+          "m4": null
+        }
+      },
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "periphery_coverage": {
+        "rows": 601,
+        "counts": {
+          "execution-review-required": 28,
+          "upstream-na": 77,
+          "executed-reviewed": 133,
+          "absent-operand": 273,
+          "advisory": 28,
+          "definition-required": 1,
+          "other-backend": 61
+        },
+        "complete": false
+      },
+      "elapsed_seconds": 236.95913716400003
+    },
+    {
+      "case": "application-apb",
+      "status": "PASS",
+      "audit_sha256": "b96420d5d26949d4bc62ebbaaca165d03970031974ac79113e76bf7f0c043bc4",
+      "result_sha256": "8dc71bb3736b5ba8954dab46960cc1ca2ee28d4042c9777a3cf79951c6682c74",
+      "input_sha256": "bbaa3145597e3ffdfec38adb60cee0debb573df10c1b058260bf626d086b6bba",
+      "macro_sha256": "005abd85b178afce97979813dcd1b04723d010f01eee442843569e3fe2506edd",
+      "top": "apb_fifo",
+      "bounds_um": [
+        0.0,
+        0.0,
+        400.0,
+        400.0
+      ],
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "fill": {
+        "schema": 1,
+        "recipe": "sky130-local-metal-fill-v1",
+        "status": "generated-and-checked",
+        "qualified": false,
+        "scope": "Local metal fill on the five-metal SKY130A HD stack. Every exported fill rectangle is compared with the implementation database; widths, area, spacing, grid and signal clearance are independently checked. Full 700 um windows use the two retained public 80% grown-metal profiles. Smaller blocks require surrounding layout; clipped edge observations are diagnostic. This is not complete density, generated-mask, electrical or foundry signoff. Routed OpenRCX SPEF is retained, but floating-fill coupling has not been qualified.",
+        "top": "apb_fifo",
+        "platform_fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92",
+        "inputs": {
+          "gds": "cb743e00b4a1c90ecb3a8e961c1eee6bde859e7ec66d2b1054c36b65263c6953",
+          "checkpoint": "8c85021df20096721d62ec0b58659327f35dee4a2d7188209902e98a28e6c503",
+          "lef": "eafd3e9e5d76f5c2842fc938e6150ec1d550d4e3647d631ea57bf3eed6a59888",
+          "def": "a25a6fb1ad8c7465ff69a6140bf8c3738c1309933954fdfc454793ca82178652",
+          "netlist": "29bb9253ce5c02977e587a90252199e2bfa1cad7b51b24664c67a5f6309dcaa2"
+        },
+        "geometry": {
+          "met1": {
+            "rectangles": 19188,
+            "area_nm2": 38376000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met2": {
+            "rectangles": 18389,
+            "area_nm2": 73556000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met3": {
+            "rectangles": 17457,
+            "area_nm2": 69828000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met4": {
+            "rectangles": 15091,
+            "area_nm2": 60364000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          },
+          "met5": {
+            "rectangles": 5271,
+            "area_nm2": 21084000000,
+            "violations": {
+              "grid": 0,
+              "shape": 0,
+              "outside": 0,
+              "spacing": 0,
+              "signal_overlap": 0,
+              "clearance": 0
+            }
+          }
+        },
+        "density_status": "surrounding-layout-required",
+        "density_sha256": "00e6c46b4f55bfbaf233d4f331324d468a1b950e6abc15e643d0a0b97398390e",
+        "full_windows": 0,
+        "evidence": {
+          "sky130_fill_technology": {
+            "path": "sky130-fill/technology.lyt",
+            "sha256": "8809283679d2b7fcdd93189945dd62de611068c623162be08e903199444f5100",
+            "bytes": 15438
+          },
+          "sky130_fill_rules": {
+            "path": "sky130-fill/rules.json",
+            "sha256": "3980a5f3a0b78f5b1cb45c5cd946c07c8103570cf5dab2a7ee948a701a124361",
+            "bytes": 1739
+          },
+          "sky130_fill_source_technology": {
+            "path": "sky130-fill/source.lyt",
+            "sha256": "8f1b3d1679f3d195658bea0359eb01f32694628858eda1a8a5c6bf1b30da836a",
+            "bytes": 15374
+          },
+          "sky130_fill_source_lef": {
+            "path": "macro.lef",
+            "sha256": "aeaa7fd0e9afa063f2dcdc0232451cc40681f6d944ae6853c878c4ab3059255e",
+            "bytes": 704689
+          },
+          "sky130_fill_inventory_py": {
+            "path": "sky130-fill/inventory.py",
+            "sha256": "52c52ffcf5884928532f257c6af78faf8dc2b44414b3d57cab411b0e70fdb1db",
+            "bytes": 1616
+          },
+          "sky130_fill_inventory_json": {
+            "path": "sky130-fill/inventory.json",
+            "sha256": "2354fea725f6b13e51bdcab34d8f7246cd031dc047404b6e4bbc880d297bc95d",
+            "bytes": 2193494
+          },
+          "sky130_fill_request_json": {
+            "path": "sky130-fill/request.json",
+            "sha256": "c513d85b26131a927b5d321da477f6989d375e297eb79668e9c2607abde1a00b",
+            "bytes": 426
+          },
+          "sky130_fill_check_py": {
+            "path": "sky130-fill/check.py",
+            "sha256": "34fc35b045e2d79b87cc1d888c27afd20368373989329e8e2cc0df2ef967c984",
+            "bytes": 349
+          },
+          "sky130_fill_geometry_json": {
+            "path": "sky130-fill/geometry.json",
+            "sha256": "125b6b04f647dbe84a24b1798bb86ae83920382dc24dae94ff291f9502567854",
+            "bytes": 1102
+          }
+        }
+      },
+      "density_summaries": {
+        "tinytapeout-margin": {
+          "full_window_findings": 0,
+          "clipped_window_findings": 135,
+          "status": "no-full-windows"
+        },
+        "skywater-growth-reported-by-tinytapeout": {
+          "full_window_findings": 0,
+          "clipped_window_findings": 98,
+          "status": "no-full-windows"
+        }
+      },
+      "minimum_full_window_percent": {
+        "tinytapeout-margin": {
+          "m1": null,
+          "m2": null,
+          "m3": null,
+          "m4": null
+        },
+        "skywater-growth-reported-by-tinytapeout": {
+          "m1": null,
+          "m2": null,
+          "m3": null,
+          "m4": null
+        }
+      },
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "periphery_coverage": {
+        "rows": 601,
+        "counts": {
+          "execution-review-required": 28,
+          "upstream-na": 77,
+          "executed-reviewed": 133,
+          "absent-operand": 273,
+          "advisory": 28,
+          "definition-required": 1,
+          "other-backend": 61
+        },
+        "complete": false
+      },
+      "elapsed_seconds": 236.008292395
+    }
+  ],
+  "strict_lvs": {
+    "strict-lvs": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "driver_sha256": "0578a92eca9511af4c6cfb7da6b1988133125eed297331bfca9fbcc9137791b5",
+      "gds_sha256": "18abf6dfc8d6e7ab87ae7dc3fc008e113bcaae219e4629c3e901525e34ff4a33",
+      "checkpoint_sha256": "73a91954c03619e516ad31105292464b63d7ceecc7e2321e8fe83b553a714677",
+      "input_sha256": "c869283c5ef860813d34059a9450fab950bc407309abdaa74b74bb5fa19dab9d",
+      "scope": "Fresh strict final-GDS MOS, diode, body and port connectivity against the independently captured OpenDB/CDL reference, plus a missing diode diffusion fault. Not all device families or complete foundry signoff.",
+      "binding": {
+        "cell": "sky130_fd_sc_hd__diode_2",
+        "model": "sky130_fd_pr__diode_pw2nd_05v5",
+        "area_um2": "0.4347",
+        "perimeter_um": "2.64",
+        "source_spice_sha256": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45",
+        "source_gds_sha256": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+        "installed_gds_sha256": "15240e34c50e42419336c0f3f498aaeac1e1e403c62134c0eee088225b69dc13",
+        "polygon_layers_equal": true,
+        "reference_units_checked_against_source_layout": true
+      },
+      "rows": [
+        {
+          "case": "valid",
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102,
+                "sky130_fd_pr__diode_pw2nd_05v5": 1
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102,
+                "sky130_fd_pr__diode_pw2nd_05v5": 1
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            }
+          },
+          "report_sha256": "e150259e9d88e34ff3686954d34f117d924c3e9c059a49629a50fb9a4f1bec55"
+        },
+        {
+          "case": "missing-diode-diffusion",
+          "matched": false,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102,
+                "sky130_fd_pr__diode_pw2nd_05v5": 1
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            }
+          },
+          "report_sha256": "c0fbf014ed3c9d864396aebb1509bff0f0c09f9656941e32654f4e950a934987"
+        }
+      ],
+      "elapsed_seconds": 61.507640644999924,
+      "files": {
+        "aliases.json": "887c008013626d0114e1a789f19d2d5cb50b7469a309f1a92c055edafe94fa9f",
+        "capture.py": "c8673e3580634c50f981824df4c6ee3ca93ecdc68b45c8ba40b903e152f17c46",
+        "conversion.json": "0aba4bf06d50a01479ad6679f948bdf27091151f7cbd6e973ef0a3a5b0ae81be",
+        "database.json": "7b430b2d088464c972f5de2bab7e76ebdad5a731d906c58560ba3c606ce2190e",
+        "fault.gds": "d53e9d4dc4f8fd469ad5c64cd6e9487624ca82d1a8225db8f748a791ed1f2bbf",
+        "label-audit.json": "bfd15c42685f07c96d07bf999c0277ee16b09c710d2b030a6c5678fe7b861969",
+        "labelled.gds": "73cc27d1331c62ec23f1f789b4cdaaf3a2ccfb384a522abaa08819d929e7cce7",
+        "masters.cdl": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "missing-diode-diffusion.cir": "aa2be2414686de66299480ce501ce1355cefb3156839f1e8add89dcdf7127ab2",
+        "missing-diode-diffusion.json": "640b99a7c08caa77e4f58d99897cf72c5bc2cbc7e2fb427a69e9f100fb596f6a",
+        "missing-diode-diffusion.log": "c598ddad5543efe9e16d0f08b8ac605400d107bc223ef547047edbf166dfdbf2",
+        "missing-diode-diffusion.lvsdb": "c0fbf014ed3c9d864396aebb1509bff0f0c09f9656941e32654f4e950a934987",
+        "raw-reference.cdl": "94aa2d5a7da3777feef2855cf2e1b5301094d6eb2ac5224f3848eaf3ad9a5bdc",
+        "reference.cdl": "3bb412aa6f81de0e93db45319e042ab1ae4a1363144fc689b0358642f607dfee",
+        "reference.log": "06491733c98c0c9ca4ee3e8b42270be7825bbe51fe0b49ac3a05136dd1503b3b",
+        "request.json": "5073fcb02cac24a2185ef8fa48ab545fdaef74aa23c5431e8e377c56edf31c7d",
+        "strict.lvs": "a4e4082d22f3f934ea195fcc4294a61e1c444900666db3cb861a65edd0202802",
+        "upstream.lylvs": "c83cd4b9cb02ac08fc6a554b5a2de464c14459557d891358d531fcc2aff269c2",
+        "valid.cir": "b48d9ce8026af9a4066198653cbc63e9ac52526d8f28b9798b155ba06946f99e",
+        "valid.json": "fc18a38058fd2428b531c0f44d35c5987501537bfba6dbf79f39c95daea7bffe",
+        "valid.log": "5856029db76a048f8b0b89a642f5dcffa758373df1cda5f1c3e7550eccf5cb05",
+        "valid.lvsdb": "e150259e9d88e34ff3686954d34f117d924c3e9c059a49629a50fb9a4f1bec55"
+      }
+    },
+    "strict-lvs-uart-v3": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "driver_sha256": "4bf8aa3d037cba340229107f2561813a6124741b5fa39c583696521f4eaf312e",
+      "gds_sha256": "4542d56b9cd3759b9a85bc59e78fc9904eb8483ccd6338d4eeda592f822a407b",
+      "checkpoint_sha256": "e4ddda7ec907aacc33abf24829f6629c3183435a868d54b24ffdfd3e8e6c586a",
+      "input_sha256": "de644ffb510321ed26cd7b509b29533e58c7f088908c6a1af35bd678f4d18159",
+      "scope": "Fresh strict final-GDS MOS, diode, body and port connectivity against the independently captured OpenDB/CDL reference, plus a missing flip-flop polysilicon fault. Not all device families or complete foundry signoff.",
+      "binding": {
+        "cell": "sky130_fd_sc_hd__diode_2",
+        "model": "sky130_fd_pr__diode_pw2nd_05v5",
+        "area_um2": "0.4347",
+        "perimeter_um": "2.64",
+        "source_spice_sha256": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45",
+        "source_gds_sha256": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+        "installed_gds_sha256": "15240e34c50e42419336c0f3f498aaeac1e1e403c62134c0eee088225b69dc13",
+        "polygon_layers_equal": true,
+        "reference_units_checked_against_source_layout": true
+      },
+      "rows": [
+        {
+          "case": "valid",
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 1287,
+                "nfet_01v8": 1293
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000207",
+                "n0000208",
+                "n0000214",
+                "n0000215",
+                "n0000216",
+                "n0000217",
+                "n0000218",
+                "n0000219",
+                "n0000220",
+                "n0000221",
+                "n0000246",
+                "n0000247",
+                "n0000280"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "nfet_01v8": 1293,
+                "pfet_01v8_hvt": 1287
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000207",
+                "n0000208",
+                "n0000214",
+                "n0000215",
+                "n0000216",
+                "n0000217",
+                "n0000218",
+                "n0000219",
+                "n0000220",
+                "n0000221",
+                "n0000246",
+                "n0000247",
+                "n0000280"
+              ]
+            }
+          },
+          "report_sha256": "67453aee96fc0ff1cadb5b33a1f18d8b9f92d0cceac0d85ff1ddebcb0e2faf2e"
+        },
+        {
+          "case": "missing-flop-poly",
+          "matched": false,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 712,
+                "nfet_01v8": 701
+              },
+              "pins": [
+                "n0000000,n0000001",
+                "n0000207",
+                "n0000208",
+                "n0000214",
+                "n0000215",
+                "n0000216",
+                "n0000217",
+                "n0000218",
+                "n0000219",
+                "n0000220",
+                "n0000221",
+                "n0000246",
+                "n0000247",
+                "n0000280"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "nfet_01v8": 1293,
+                "pfet_01v8_hvt": 1287
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000207",
+                "n0000208",
+                "n0000214",
+                "n0000215",
+                "n0000216",
+                "n0000217",
+                "n0000218",
+                "n0000219",
+                "n0000220",
+                "n0000221",
+                "n0000246",
+                "n0000247",
+                "n0000280"
+              ]
+            }
+          },
+          "report_sha256": "3fe46da525d4e83295c7fca543413d0472ec151a6d06f9818c331ae8e47a7577"
+        }
+      ],
+      "elapsed_seconds": 16.863805986000045,
+      "files": {
+        "aliases.json": "a02f9514ae99033e76660d4e939abda2527806b98e748e103f626bc2c2902e55",
+        "capture.py": "01a29af13c2a36d7fbf0f22d8ceae7c795bf64718231d066e88a354735b51615",
+        "conversion.json": "0aba4bf06d50a01479ad6679f948bdf27091151f7cbd6e973ef0a3a5b0ae81be",
+        "database.json": "9240ec5cf13c4c95e82c035be420941f768e6325c2508378cac3eb77f2e481c4",
+        "fault.gds": "f84e62caf1c9b2cfd98edab1c6374aceaae935600faef7e0a3d7e67ada4a82bc",
+        "label-audit.json": "23977b2b9a2bb6c9554abd2bd8adcfc0f5d3b48fb91e2ab7028893b6601caf52",
+        "labelled.gds": "2ed0dd4117073e7fa70e618ca216faa7c749997e83e56a3fdfb649b3d5b8a70d",
+        "masters.cdl": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "missing-flop-poly.cir": "568408308c4001da1398c650baca88879e55dcc13491fac05d05b903f27bd9ce",
+        "missing-flop-poly.json": "3ba6409c549494199ee65f5cc388c8a06bf411f237a9c0587900b0ec61d5a765",
+        "missing-flop-poly.log": "c0d401ad04d771d831959c55365df3d2a938bd1aebc9cde4041abe7c1766a6b0",
+        "missing-flop-poly.lvsdb": "3fe46da525d4e83295c7fca543413d0472ec151a6d06f9818c331ae8e47a7577",
+        "raw-reference.cdl": "d115ddca5520850727a94102871e14419eae8c2a5b4bc3b9fa6460cb3b46ec58",
+        "reference.cdl": "0c60e806666a262c85dfb6c6f845ac05c1c2c26d20508579dfbc2046edf459da",
+        "reference.log": "06491733c98c0c9ca4ee3e8b42270be7825bbe51fe0b49ac3a05136dd1503b3b",
+        "request.json": "1f68fbb8e92a73b2ab982bff44198edf7c0545f7cc90f10d9612411d6821a5bd",
+        "strict.lvs": "c2e80b394395c2abe69604d1b658850d4aef70d530709ca286e3b05e8c94a64f",
+        "upstream.lylvs": "c83cd4b9cb02ac08fc6a554b5a2de464c14459557d891358d531fcc2aff269c2",
+        "valid.cir": "0d621eac02ebe515a65eaa8ece8585e082dc37922b650f03ebd09a676f455631",
+        "valid.json": "48d9fbedd08ccc01b18784188c44cdc9f903819488ae4d0f7bce733b6fc7a500",
+        "valid.log": "9efea2d8a50770b050c8a47cb73a1131edf3d1cd16703c56a0889786bdf9678e",
+        "valid.lvsdb": "67453aee96fc0ff1cadb5b33a1f18d8b9f92d0cceac0d85ff1ddebcb0e2faf2e"
+      }
+    },
+    "strict-lvs-apb-v2": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "driver_sha256": "bc9cc8679be76ac912b6cf99249476696ba0085a083c0a6ff7aa7a74b6a01316",
+      "gds_sha256": "cb743e00b4a1c90ecb3a8e961c1eee6bde859e7ec66d2b1054c36b65263c6953",
+      "checkpoint_sha256": "8c85021df20096721d62ec0b58659327f35dee4a2d7188209902e98a28e6c503",
+      "input_sha256": "bbaa3145597e3ffdfec38adb60cee0debb573df10c1b058260bf626d086b6bba",
+      "scope": "Fresh strict final-GDS MOS, diode, body and port connectivity against the independently captured OpenDB/CDL reference, plus a missing diode diffusion fault. Not all device families or complete foundry signoff.",
+      "binding": {
+        "cell": "sky130_fd_sc_hd__diode_2",
+        "model": "sky130_fd_pr__diode_pw2nd_05v5",
+        "area_um2": "0.4347",
+        "perimeter_um": "2.64",
+        "source_spice_sha256": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45",
+        "source_gds_sha256": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+        "installed_gds_sha256": "15240e34c50e42419336c0f3f498aaeac1e1e403c62134c0eee088225b69dc13",
+        "polygon_layers_equal": true,
+        "reference_units_checked_against_source_layout": true
+      },
+      "rows": [
+        {
+          "case": "valid",
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 1112,
+                "nfet_01v8": 1112,
+                "sky130_fd_pr__diode_pw2nd_05v5": 3
+              },
+              "pins": [
+                "n0000000,n0000160",
+                "n0000001",
+                "n0000071",
+                "n0000116",
+                "n0000147",
+                "n0000148",
+                "n0000149",
+                "n0000150",
+                "n0000151",
+                "n0000152",
+                "n0000153",
+                "n0000154",
+                "n0000155",
+                "n0000156",
+                "n0000157",
+                "n0000158",
+                "n0000159",
+                "n0000161",
+                "n0000162",
+                "n0000163",
+                "n0000164",
+                "n0000165",
+                "n0000166",
+                "n0000167",
+                "n0000168",
+                "n0000169",
+                "n0000170",
+                "n0000171",
+                "n0000172"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "nfet_01v8": 1112,
+                "pfet_01v8_hvt": 1112,
+                "sky130_fd_pr__diode_pw2nd_05v5": 3
+              },
+              "pins": [
+                "n0000000,n0000160",
+                "n0000001",
+                "n0000071",
+                "n0000116",
+                "n0000147",
+                "n0000148",
+                "n0000149",
+                "n0000150",
+                "n0000151",
+                "n0000152",
+                "n0000153",
+                "n0000154",
+                "n0000155",
+                "n0000156",
+                "n0000157",
+                "n0000158",
+                "n0000159",
+                "n0000161",
+                "n0000162",
+                "n0000163",
+                "n0000164",
+                "n0000165",
+                "n0000166",
+                "n0000167",
+                "n0000168",
+                "n0000169",
+                "n0000170",
+                "n0000171",
+                "n0000172"
+              ]
+            }
+          },
+          "report_sha256": "89a04f69b1fd5362c46e4a55a27e67022862b2d0b73a610254c49baefc04d1d7"
+        },
+        {
+          "case": "missing-diode-diffusion",
+          "matched": false,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 1112,
+                "nfet_01v8": 1112
+              },
+              "pins": [
+                "n0000000,n0000160",
+                "n0000001",
+                "n0000071",
+                "n0000116",
+                "n0000147",
+                "n0000148",
+                "n0000149",
+                "n0000150",
+                "n0000151",
+                "n0000152",
+                "n0000153",
+                "n0000154",
+                "n0000155",
+                "n0000156",
+                "n0000157",
+                "n0000158",
+                "n0000159",
+                "n0000161",
+                "n0000162",
+                "n0000163",
+                "n0000164",
+                "n0000165",
+                "n0000166",
+                "n0000167",
+                "n0000168",
+                "n0000169",
+                "n0000170",
+                "n0000171",
+                "n0000172"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "nfet_01v8": 1112,
+                "pfet_01v8_hvt": 1112,
+                "sky130_fd_pr__diode_pw2nd_05v5": 3
+              },
+              "pins": [
+                "n0000000,n0000160",
+                "n0000001",
+                "n0000071",
+                "n0000116",
+                "n0000147",
+                "n0000148",
+                "n0000149",
+                "n0000150",
+                "n0000151",
+                "n0000152",
+                "n0000153",
+                "n0000154",
+                "n0000155",
+                "n0000156",
+                "n0000157",
+                "n0000158",
+                "n0000159",
+                "n0000161",
+                "n0000162",
+                "n0000163",
+                "n0000164",
+                "n0000165",
+                "n0000166",
+                "n0000167",
+                "n0000168",
+                "n0000169",
+                "n0000170",
+                "n0000171",
+                "n0000172"
+              ]
+            }
+          },
+          "report_sha256": "8be29942797b12cdc1e7c7cd3920623da13d330346eeb385ef75aff47dc84bfb"
+        }
+      ],
+      "elapsed_seconds": 19.972174767000013,
+      "files": {
+        "aliases.json": "2752690adea6c3e95ba520b04395d43f647c72f9bc040115fc33af8208e47ee9",
+        "capture.py": "4220ecad72b9df4a7fce5f4efdfb727ec1d6b0391545a9690a7811d6d9399ac6",
+        "conversion.json": "0aba4bf06d50a01479ad6679f948bdf27091151f7cbd6e973ef0a3a5b0ae81be",
+        "database.json": "cd8bedd8494673d41a13cf15b27935bbcae070dc67bb82eea4ffc27a59154f89",
+        "fault.gds": "7e4f1acae78b5f49b0ee69a5afbd36980dbdc98eaac32d1ff2ee93c33e0784fe",
+        "label-audit.json": "1eb2e210df481b913d84f97d6e75701cf63dcd3c206deb7cee29106fa1f047f9",
+        "labelled.gds": "82965b9d8e99fea9a981db6da126f5813e972392afc7c4b2ad7f3715398835cd",
+        "masters.cdl": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "missing-diode-diffusion.cir": "c57be00ca846dc23124013f796c7f78b3a2ad649cd462b1d4c878ba6d7d1a49d",
+        "missing-diode-diffusion.json": "b9f553db19af44584f2c10232cdf8bb37dad7aa34485c02b78b22429b7ca640f",
+        "missing-diode-diffusion.log": "d5e87d5e5a6503158ecb14c4fe870b0ce339813d60a3d058845abbf5c024870e",
+        "missing-diode-diffusion.lvsdb": "8be29942797b12cdc1e7c7cd3920623da13d330346eeb385ef75aff47dc84bfb",
+        "raw-reference.cdl": "2eed46355ebc4e4b516f75aefaaad61ae24dc27ab03c3f5c3979318987e7d0fe",
+        "reference.cdl": "373a561c21902cb9f7a34b47ff51badb9f8c250aa9bc6e00afdf3527f325628b",
+        "reference.log": "06491733c98c0c9ca4ee3e8b42270be7825bbe51fe0b49ac3a05136dd1503b3b",
+        "request.json": "80d4696dbc5f4af8c0a9f8d9099ad2c73b6f79022ccc9c2b824b92ea3bbed31b",
+        "strict.lvs": "7f32fbaf2d53dcbafe3c97c8f4ae161644e86d0005484963095d720d80fc5e88",
+        "upstream.lylvs": "c83cd4b9cb02ac08fc6a554b5a2de464c14459557d891358d531fcc2aff269c2",
+        "valid.cir": "fc12d3be373c8612ef4f501b79a2e7b5d9480217213a5e1a4885e00cd063cde1",
+        "valid.json": "2a31522d8e0f227febfdb21b2be79e8813c3838c493e7aaee18b3bbd98b8aa0d",
+        "valid.log": "d393bc7d5be65e0743b3c25d01e3c2c6a1c0442801d4d08d00cd4a97d9a50f9b",
+        "valid.lvsdb": "89a04f69b1fd5362c46e4a55a27e67022862b2d0b73a610254c49baefc04d1d7"
+      }
+    }
+  },
+  "transistor_controls": {
+    "schema": 1,
+    "status": "PASS",
+    "qualified": false,
+    "chunk_complete": false,
+    "driver_sha256": "b9948f0637eb80cfd72f3323cd13d624bec1f5e00e1789f1350b070811dc4d57",
+    "tools": {
+      "magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+      "netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+    },
+    "inputs": {
+      "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/klayout-sky130-reference/sky130A/libs.tech/magic/sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/klayout-sky130-reference/sky130A/libs.tech/netgen/sky130A_setup.tcl": "3b2e4eddc57b1d8dc531d95086a2c21b86709907ede11fcac676f37d501787e9",
+      "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/IC-Design-Studio/icstudio/assets/pdks/sky130A/package.json": "189ec230833fb9cfc6a5c70d1b66c0e06278bcd114462b3c8d4d58637d2ab9c2"
+    },
+    "cases": [
+      {
+        "device": "nmos-parallel",
+        "case": "valid",
+        "expected_match": true,
+        "matched": true,
+        "drc_count": 0,
+        "gds_sha256": "0d2e3c8d2011f6971a9bd8253bda45030770a9384fe4653b66b13f68619ba58e",
+        "reference_sha256": "981c52af39c5a158cd2f86938b0a3c259bf2eca9a3256c02fede17c828442c54",
+        "extracted_sha256": "a786ed8020f5ffecd31009a84a94bd1cbf5518ae68f2ecc14375b674c93e0674",
+        "log_sha256": "1bc5dabff75ae55a3679fd2504de720e23b5286084ecb5ab1ff8272e724ed2fa"
+      },
+      {
+        "device": "nmos-parallel",
+        "case": "wrong-width",
+        "expected_match": false,
+        "matched": false,
+        "drc_count": 0,
+        "gds_sha256": "0d2e3c8d2011f6971a9bd8253bda45030770a9384fe4653b66b13f68619ba58e",
+        "reference_sha256": "14d23f7e2b989d0a7acb2b3125dc6c3b09e5f91fac54fea4e0ae8eec5ebf4d16",
+        "extracted_sha256": "a786ed8020f5ffecd31009a84a94bd1cbf5518ae68f2ecc14375b674c93e0674",
+        "log_sha256": "7238633b06db85d8361ab002d57e998b4a3a6a655c40528db2376aac6be9700a"
+      },
+      {
+        "device": "pmos-parallel",
+        "case": "valid",
+        "expected_match": true,
+        "matched": true,
+        "drc_count": 0,
+        "gds_sha256": "34d47b1117c04ba6110b431f33ca2212b8dcf2491c2342ea2367c0c8c18c5da2",
+        "reference_sha256": "f5a9679d3f0c731489ca02cfab115ed4c7e28a7717f6f9bb7fd55cb3233d6273",
+        "extracted_sha256": "6e8676264b8a71b9e45caba89c20c20851d12e69287e7a98e41219ec21983fb2",
+        "log_sha256": "0c2a93c1f796bcfadea9eb8589e7dc2909a7e9999db5cc2a3c171cbbfd5f6a7f"
+      },
+      {
+        "device": "pmos-parallel",
+        "case": "wrong-width",
+        "expected_match": false,
+        "matched": false,
+        "drc_count": 0,
+        "gds_sha256": "34d47b1117c04ba6110b431f33ca2212b8dcf2491c2342ea2367c0c8c18c5da2",
+        "reference_sha256": "ab9a5c36c322522c2b40d5dfc1fe8dcd15c549c8f96ee89bd3744aad891e779f",
+        "extracted_sha256": "6e8676264b8a71b9e45caba89c20c20851d12e69287e7a98e41219ec21983fb2",
+        "log_sha256": "1713fca61296ce99f2e76259a30cab6f86c4ad08337f80db6b701695aeddc073"
+      }
+    ],
+    "scope": "Generated 1.8 V NMOS/PMOS coupons, 2 um width and 0.5 um length. Full native DRC, native extraction/LVS and independent wrong-width reference controls; not arbitrary analog-device qualification.",
+    "elapsed_seconds": 27.681055249999986
+  },
+  "native_lef_readback": {
+    "schema": 1,
+    "status": "PASS",
+    "qualified": false,
+    "chunk_complete": false,
+    "rows": [
+      {
+        "case": "application-filled-v2",
+        "status": "PASS",
+        "top": "counter",
+        "lef_sha256": "3a95b66fb07fd94a3e854f11be8f3b9986992818e596ea583b0f34e0fba7fb7e",
+        "tech_sha256": "8e99b4e8b016db0713029ebcae6b2cc2aedd9c2c49682e2f23521dd0b1a2085e",
+        "fill_rectangles": 381362,
+        "native_obstructions": 465881,
+        "pins": [
+          "VDD",
+          "VSS",
+          "clk",
+          "count[0]",
+          "count[1]",
+          "count[2]",
+          "count[3]",
+          "reset"
+        ]
+      },
+      {
+        "case": "application-small",
+        "status": "PASS",
+        "top": "counter",
+        "lef_sha256": "10bf1fa6d1354328036f3d53ce4b0ce9d44d3c43cee2a73e89ba5534b0347558",
+        "tech_sha256": "8e99b4e8b016db0713029ebcae6b2cc2aedd9c2c49682e2f23521dd0b1a2085e",
+        "fill_rectangles": 14975,
+        "native_obstructions": 18333,
+        "pins": [
+          "VDD",
+          "VSS",
+          "clk",
+          "count[0]",
+          "count[1]",
+          "count[2]",
+          "count[3]",
+          "reset"
+        ]
+      },
+      {
+        "case": "application-uart",
+        "status": "PASS",
+        "top": "uart_tx",
+        "lef_sha256": "4ff9ddee20731901334f73aea90f4612e1d4da3536734ebb8cb7145ed7b09f67",
+        "tech_sha256": "8e99b4e8b016db0713029ebcae6b2cc2aedd9c2c49682e2f23521dd0b1a2085e",
+        "fill_rectangles": 75687,
+        "native_obstructions": 93000,
+        "pins": [
+          "VDD",
+          "VSS",
+          "busy",
+          "clk",
+          "data[0]",
+          "data[1]",
+          "data[2]",
+          "data[3]",
+          "data[4]",
+          "data[5]",
+          "data[6]",
+          "data[7]",
+          "reset",
+          "send",
+          "tx"
+        ]
+      },
+      {
+        "case": "application-apb",
+        "status": "PASS",
+        "top": "apb_fifo",
+        "lef_sha256": "eafd3e9e5d76f5c2842fc938e6150ec1d550d4e3647d631ea57bf3eed6a59888",
+        "tech_sha256": "8e99b4e8b016db0713029ebcae6b2cc2aedd9c2c49682e2f23521dd0b1a2085e",
+        "fill_rectangles": 75396,
+        "native_obstructions": 92575,
+        "pins": [
+          "VDD",
+          "VSS",
+          "clk",
+          "irq",
+          "paddr[0]",
+          "paddr[1]",
+          "paddr[2]",
+          "paddr[3]",
+          "penable",
+          "prdata[0]",
+          "prdata[1]",
+          "prdata[2]",
+          "prdata[3]",
+          "prdata[4]",
+          "prdata[5]",
+          "prdata[6]",
+          "prdata[7]",
+          "pready",
+          "psel",
+          "pslverr",
+          "pwdata[0]",
+          "pwdata[1]",
+          "pwdata[2]",
+          "pwdata[3]",
+          "pwdata[4]",
+          "pwdata[5]",
+          "pwdata[6]",
+          "pwdata[7]",
+          "pwrite",
+          "reset"
+        ]
+      }
+    ],
+    "driver_sha256": "54c90ef4259baaf8801e2fba820c5ac828825a271d9278b1d510a57bb6d287ee",
+    "elapsed_seconds": 2.72608921799997
+  },
+  "windows_exports": {
+    "windows-final": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "platform": "win32",
+      "result_sha256": "874a79e2db41b3b124c2a67bd56bc340c48fe42a0633574b8a5698210529cd81",
+      "driver_sha256": "a545b0eaec756fec7e9e3991b398e4af2eff2554c58b6bacb8a3ee5d6ffda324",
+      "top": "counter",
+      "bounds_um": [
+        0.0,
+        0.0,
+        840.0,
+        840.0
+      ],
+      "macro_sha256": "7211853e756399438b946ddfd71c3cbcaeac328191ea5262215e30f36f18b1f5",
+      "fill": {
+        "status": "generated-and-checked",
+        "scope": "Local metal fill on the five-metal SKY130A HD stack. Every exported fill rectangle is compared with the implementation database; widths, area, spacing, grid and signal clearance are independently checked. Full 700 um windows use the two retained public 80% grown-metal profiles. Smaller blocks require surrounding layout; clipped edge observations are diagnostic. This is not complete density, generated-mask, electrical or foundry signoff. Routed OpenRCX SPEF is retained, but floating-fill coupling has not been qualified.",
+        "artifact": "sky130_fill",
+        "qualified": false,
+        "density_status": "sampled-full-windows-pass",
+        "full_windows": 9
+      },
+      "tampered_inventory_rejected": true,
+      "relocated_artifacts": 267,
+      "all_exported_hashes_verified": true,
+      "elapsed_seconds": 180.75
+    },
+    "windows-uart": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "platform": "win32",
+      "result_sha256": "a30137b48fb746fe4b8d036747399140e755bf0e2d906a3e40dd3456fda33d5c",
+      "driver_sha256": "feb17743fbb780afcccab4173f997abd144086fdafb35018522154390ee46743",
+      "top": "uart_tx",
+      "bounds_um": [
+        0.0,
+        0.0,
+        400.0,
+        400.0
+      ],
+      "macro_sha256": "07a9bdb3dc8b2da027b15045f78048e8cf46f3473eb8cd4b29746a1764ece5c5",
+      "fill": {
+        "status": "generated-and-checked",
+        "scope": "Local metal fill on the five-metal SKY130A HD stack. Every exported fill rectangle is compared with the implementation database; widths, area, spacing, grid and signal clearance are independently checked. Full 700 um windows use the two retained public 80% grown-metal profiles. Smaller blocks require surrounding layout; clipped edge observations are diagnostic. This is not complete density, generated-mask, electrical or foundry signoff. Routed OpenRCX SPEF is retained, but floating-fill coupling has not been qualified.",
+        "artifact": "sky130_fill",
+        "qualified": false,
+        "density_status": "surrounding-layout-required",
+        "full_windows": 0
+      },
+      "tampered_inventory_rejected": true,
+      "relocated_artifacts": 267,
+      "all_exported_hashes_verified": true,
+      "elapsed_seconds": 42.04700000000594
+    },
+    "windows-apb": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "platform": "win32",
+      "result_sha256": "8dc71bb3736b5ba8954dab46960cc1ca2ee28d4042c9777a3cf79951c6682c74",
+      "driver_sha256": "90f3b5594fd368f32a981da6e8ec8ce8ad4887e1fdf2bdbb620ef668623c7d4c",
+      "top": "apb_fifo",
+      "bounds_um": [
+        0.0,
+        0.0,
+        400.0,
+        400.0
+      ],
+      "macro_sha256": "d8df3034a8cfc15c4a7ecb1181e2e18fdbb3585d4507d96d8bf57ca85ed4104b",
+      "fill": {
+        "status": "generated-and-checked",
+        "scope": "Local metal fill on the five-metal SKY130A HD stack. Every exported fill rectangle is compared with the implementation database; widths, area, spacing, grid and signal clearance are independently checked. Full 700 um windows use the two retained public 80% grown-metal profiles. Smaller blocks require surrounding layout; clipped edge observations are diagnostic. This is not complete density, generated-mask, electrical or foundry signoff. Routed OpenRCX SPEF is retained, but floating-fill coupling has not been qualified.",
+        "artifact": "sky130_fill",
+        "qualified": false,
+        "density_status": "surrounding-layout-required",
+        "full_windows": 0
+      },
+      "tampered_inventory_rejected": true,
+      "relocated_artifacts": 267,
+      "all_exported_hashes_verified": true,
+      "elapsed_seconds": 41.54700000000594
+    }
+  },
+  "tests": {
+    "win32": {
+      "status": "PASS",
+      "platform": "win32",
+      "tests": 162,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 8,
+      "skip_reasons": [
+        {
+          "test": "test_builder_normalizes_docker_system_links_before_publication (tests.test_digital_runtime.DigitalRuntimeTests.test_builder_normalizes_docker_system_links_before_publication)",
+          "reason": "Native tar symlink extraction is tested on Linux"
+        },
+        {
+          "test": "test_legacy_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_legacy_cleanup_rejects_symlinked_directory_and_parent)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_native_flow_restores_scripts_after_windows_transfer (tests.test_digital_runtime.DigitalRuntimeTests.test_native_flow_restores_scripts_after_windows_transfer)",
+          "reason": "Unix executable permissions are restored inside Linux"
+        },
+        {
+          "test": "test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_native_supervisor_cancels_descendants_in_separate_sessions (tests.test_digital_runtime.DigitalRuntimeTests.test_native_supervisor_cancels_descendants_in_separate_sessions)",
+          "reason": "Process-tree supervision requires Linux procfs"
+        },
+        {
+          "test": "test_partial_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_cleanup_rejects_symlinked_directory_and_parent)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_retry_reclaims_partial_unpacking_after_worker_is_killed (tests.test_digital_runtime.DigitalRuntimeTests.test_retry_reclaims_partial_unpacking_after_worker_is_killed)",
+          "reason": "Native Linux unpacking lifecycle"
+        },
+        {
+          "test": "test_linked_decks_are_materialized_before_sibling_platforms_are_pruned (tests.test_digital_bundle.DigitalBundleTests.test_linked_decks_are_materialized_before_sibling_platforms_are_pruned)",
+          "reason": "Real symlinks are verified by the native Linux build"
+        }
+      ],
+      "modules": [
+        "tests.test_sky130_fill",
+        "tests.test_sky130_oxide_density",
+        "tests.test_sky130_native",
+        "tests.test_digital_macro",
+        "tests.test_digital_runtime",
+        "tests.test_windows_digital_paths",
+        "tests.test_digital_physical_checks",
+        "tests.test_sky130_digital_builder",
+        "tests.test_digital_bundle",
+        "tests.test_sky130_application_antenna",
+        "tests.test_sky130_application_rules",
+        "tests.test_sky130_boundaries",
+        "tests.test_sky130_pins"
+      ],
+      "driver_sha256": "d594efa9bc2cf55137023d991cc1e3bf431eaf3fb07ae7675f1e05a8273e809e",
+      "log_sha256": "f57bf425baf11e4123ede384dab9f63d4b49b7265cc914516302e3c8ff06a16e",
+      "elapsed_seconds": 112.0619999999908
+    },
+    "linux": {
+      "status": "PASS",
+      "platform": "linux",
+      "tests": 162,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 5,
+      "skip_reasons": [
+        {
+          "test": "test_native_setup_rejects_junction_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_junction_target_and_parent_before_integrity_repair)",
+          "reason": "Directory junctions are Windows-specific"
+        },
+        {
+          "test": "test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions)",
+          "reason": "Directory junctions are Windows-specific"
+        },
+        {
+          "test": "test_capture_reopen_and_tamper_detection_beyond_legacy_limit (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_capture_reopen_and_tamper_detection_beyond_legacy_limit)",
+          "reason": "Windows extended-length filesystem paths"
+        },
+        {
+          "test": "test_path_conversion_preserves_unc_and_existing_extended_paths (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_path_conversion_preserves_unc_and_existing_extended_paths)",
+          "reason": "Windows extended-length filesystem paths"
+        },
+        {
+          "test": "test_upstream_transfer_keeps_all_nested_artifacts (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_upstream_transfer_keeps_all_nested_artifacts)",
+          "reason": "Windows extended-length filesystem paths"
+        }
+      ],
+      "modules": [
+        "tests.test_sky130_fill",
+        "tests.test_sky130_oxide_density",
+        "tests.test_sky130_native",
+        "tests.test_digital_macro",
+        "tests.test_digital_runtime",
+        "tests.test_windows_digital_paths",
+        "tests.test_digital_physical_checks",
+        "tests.test_sky130_digital_builder",
+        "tests.test_digital_bundle",
+        "tests.test_sky130_application_antenna",
+        "tests.test_sky130_application_rules",
+        "tests.test_sky130_boundaries",
+        "tests.test_sky130_pins"
+      ],
+      "driver_sha256": "d594efa9bc2cf55137023d991cc1e3bf431eaf3fb07ae7675f1e05a8273e809e",
+      "log_sha256": "e9e676b33c9d718a16e1bf0abc2a1dece9f62251bb4e34131a4ccf86fafa45b5",
+      "elapsed_seconds": 72.48555265300001
+    }
+  },
+  "wrong_stream_control": {
+    "schema": 1,
+    "status": "PASS",
+    "expected_rejection": "SKY130 fill: streamed met2 fill differs from the implementation database",
+    "qualified": false,
+    "chunk_complete": false,
+    "probe_sha256": "45250e4f5f445cb5655b3eab64abe2e2c82b8f86f39a8246e2b3da347bfc7430",
+    "gds_sha256": "3c8792aede800c51c9c049f37827d2ea234fba0289e62808131ba1ff68dcf000",
+    "checkpoint_sha256": "7862fade1db49cdac77593f641b3ecf54f323c5735e6a81acaf315416c6bb85b",
+    "worker_sha256": "52c52ffcf5884928532f257c6af78faf8dc2b44414b3d57cab411b0e70fdb1db",
+    "driver_sha256": "bf216969a009d8d47262c1874d1be65cb1375340ec0733b3af50fff679b9dad7",
+    "inventory_sha256": "d915a7197cfb60423e281744657c5e7d24962d577aecc18548b44ec47ec044bf"
+  },
+  "wrong_stream_probe": {
+    "status": "PROBE",
+    "qualified": false,
+    "chunk_complete": false,
+    "script_sha256": "5900e30087e04dea82a768ce56cd0c3fb2f7a8ea04d20474871ed8b507f67a59",
+    "source_checkpoint_sha256": "da850c69e5529ef0a8e4f91f9fa8524041995c1aec9cf9b70f01e86d3adb3ceb",
+    "fill_rules_sha256": "7e2def8194ce4d1e4795b55fb8df6c53c205a4935916022c78d98283dc36e49d",
+    "gds_sha256": "3c8792aede800c51c9c049f37827d2ea234fba0289e62808131ba1ff68dcf000",
+    "native": {
+      "markers": 0,
+      "categories": 255,
+      "violations": {}
+    },
+    "density": {
+      "tinytapeout-margin": {
+        "full_window_findings": 36,
+        "clipped_window_findings": 540,
+        "status": "full-window-findings"
+      },
+      "skywater-growth-reported-by-tinytapeout": {
+        "full_window_findings": 36,
+        "clipped_window_findings": 540,
+        "status": "full-window-findings"
+      }
+    }
+  },
+  "remaining": [
+    "Account for every applicable requirement in the approved block/transistor profile. The historical 302 catalog records are not waived or relabeled; applicability needs independent evidence.",
+    "Published x.20 pin-center spacing has no numeric limit. No arbitrary substitute is claimed.",
+    "Full-window acceptance is only for the two named public metal-growth profiles on metals 1-4. Generated masks, complete process-density policy, metal-5 density and all surrounding/boundary contexts remain unqualified.",
+    "Floating-fill coupling has not been qualified. Existing routed OpenRCX extraction is retained without a new fill-aware electrical claim.",
+    "Strict LVS here is reference qualification evidence; it is not automatically run for every generic macro export.",
+    "No new installer, timing/equivalence, complete-chip or foundry-signoff acceptance."
+  ],
+  "retained_failures": [
+    "First fill probe used an incomplete stream technology; density inspection rejected zero-width paths.",
+    "Second probe omitted explicit FILL maps. Native DRC was clean, but the independent database/GDS comparison and both density profiles reject it.",
+    "First application fill inventory worker crashed because OpenROAD Tech lifetime ended too early. Retaining Tech fixes the worker; the fresh application-filled-v2 run passes.",
+    "Sandboxed Windows final tests could not create junction fixtures. The same source passes all applicable tests with native filesystem access; both logs are retained.",
+    "Initial additional-LVS drivers used an incorrect counter checkpoint path. A later UART fault assumed a diode that the actual design does not contain. Corrected runs use the actual paths and a nonempty flip-flop poly fault for UART; originals remain diagnostic.",
+    "The first real wrong-stream control expected the first failure on metal 1; the actual first mismatch was metal 2. The corrected expectation preserves the same observed rejection."
+  ],
+  "unfilled_control": {
+    "result_sha256": "df7ba9cee9aa90b8fb6bfd63271844ba8d72dd066695c49a8218472edaa69dee",
+    "native_markers": 0,
+    "full_windows": 9,
+    "summaries": {
+      "tinytapeout-margin": {
+        "full_window_findings": 36,
+        "clipped_window_findings": 540,
+        "status": "full-window-findings"
+      },
+      "skywater-growth-reported-by-tinytapeout": {
+        "full_window_findings": 36,
+        "clipped_window_findings": 540,
+        "status": "full-window-findings"
+      }
+    },
+    "gds_sha256": "f63e19889d0a6fe09035de3ea49a49f4ebd6cb9643c9e60a7bed27b3c66093d5"
+  },
+  "source_phase_note": "The first large application/export predates the export single-validation optimization. Small/UART/APB Linux runs use that optimization; final Windows exports and the final 162-test suite use ZIP64 streaming too. Fill generation, checking and final physical artifacts are unchanged by the export-only refinements.",
+  "archive": {
+    "relative_to_codex_documents": "IC-Design-Studio-evidence/sky130-generic-density-2026-10-16/evidence.zip",
+    "sha256": "df302de0c8fae69cfb9133bbf0a82fdd28c06381a930457fbc9e9e37703adec5",
+    "bytes": 147985296,
+    "entries": 299,
+    "manifest_sha256": "f80294539d75a7c8a77954426fa3086250d48ee5b987bbd4bda8e8ed6198b8de",
+    "readback": "Every member size and SHA-256 verified after writing"
+  },
+  "release_checks": {
+    "win32": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 135,
+      "local_links": 1537,
+      "gallery_examples": 13,
+      "pdk_coverage": {
+        "status": "matrix_consistent",
+        "process_qualification": "unqualified",
+        "targets": 4,
+        "requirements": 125,
+        "device_entries": 255,
+        "requirement_statuses": {
+          "not_run": 79,
+          "partial": 20,
+          "needs_definition": 12,
+          "passed_reference": 14
+        }
+      }
+    },
+    "linux": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 135,
+      "local_links": 1537,
+      "gallery_examples": 13,
+      "pdk_coverage": {
+        "status": "matrix_consistent",
+        "process_qualification": "unqualified",
+        "targets": 4,
+        "requirements": 125,
+        "device_entries": 255,
+        "requirement_statuses": {
+          "not_run": 79,
+          "partial": 20,
+          "needs_definition": 12,
+          "passed_reference": 14
+        }
+      }
+    }
+  }
+}

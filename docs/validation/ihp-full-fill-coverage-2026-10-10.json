@@ -1,0 +1,546 @@
+{
+  "schema": 1,
+  "chunk": 5,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "observed_at": "2026-10-10T16:02:57.139385+00:00",
+  "source_baseline": "5809b34a0b464864d4fe94535288f319ecc7cbaf",
+  "source_files": {
+    "docs/IHP_FILL_QUALIFICATION.md": "a20298a9798b15f1dfdba49d54f5e09ad32510ffe0575876a85d7b24fa9edc9b",
+    "examples/ihp-active-fill-source-lock.json": "82184ab294fbdcc5c11c510a550ec6e2c5592e66f7ae002c354a3a42a4cacfe7",
+    "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+    "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+    "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+    "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+    "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+    "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+    "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+    "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+    "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+    "scripts/ihp_native_capacitance.py": "487536c31bae98dbfeec5e84d56559a086603bbf889fa3a07660b4dd222ae3cf",
+    "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+    "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+    "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+    "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+    "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+    "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+    "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+    "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+    "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+    "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+    "tests/test_ihp_native_capacitance.py": "ba847483fa088256936609bf537a9bf9bee873c0d463212bbdd4bace4cf12bb7"
+  },
+  "previous_checkpoint": {
+    "path": "docs/validation/ihp-coupling-model-2026-10-10.json",
+    "sha256": "f3884ead0494d51570e5920710d1004868fbab392438f0fc62693399eea8555e"
+  },
+  "scope": "Historical supplemental rules and electrical-view coverage. Its native-SPICE waveform acceptance is rejected; corrected exports are recorded separately. Geometry, strict LVS and separate OpenRCX evidence retain their stated scopes.",
+  "rules_and_views": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "results": [
+      {
+        "case": "counter",
+        "rules_passed": true,
+        "views": [
+          {
+            "state": "original",
+            "identical_native_extraction_input": true,
+            "readback_verified": true,
+            "warning_count": 7638
+          },
+          {
+            "state": "active",
+            "identical_native_extraction_input": true,
+            "readback_verified": true,
+            "warning_count": 7638
+          }
+        ]
+      },
+      {
+        "case": "uart",
+        "rules_passed": true,
+        "views": [
+          {
+            "state": "original",
+            "identical_native_extraction_input": true,
+            "readback_verified": true,
+            "warning_count": 38370
+          },
+          {
+            "state": "active",
+            "identical_native_extraction_input": true,
+            "readback_verified": true,
+            "warning_count": 38370
+          }
+        ]
+      },
+      {
+        "case": "apb",
+        "rules_passed": true,
+        "views": [
+          {
+            "state": "original",
+            "identical_native_extraction_input": true,
+            "readback_verified": true,
+            "warning_count": 38604
+          },
+          {
+            "state": "active",
+            "identical_native_extraction_input": true,
+            "readback_verified": true,
+            "warning_count": 38604
+          }
+        ]
+      }
+    ],
+    "source_files": {
+      "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+      "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+      "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53"
+    },
+    "files": {
+      "apb/active-view.json": "d48c4ac871ba538cd454fd2cca885d924415e2dbf53771d6a336fe9dacd60d52",
+      "apb/active-warning-audit.json": "9d594141861c4ced0c7ba9fb1d01e8f72be5e08302c1f90d60e6481e8b04453e",
+      "apb/active.gds": "2eb9507734254ef05dff602638afcb1d1187435c686db7f63449ec04c275321e",
+      "apb/original-view.json": "24ebaec123e8be656612f5f8308f062f461b89aef948d90a2a58d75b06cd46af",
+      "apb/original-warning-audit.json": "b882f00bbe9a7edf44cef2ed63e8227ed6b0b160d580f68d0cd9027990b9348e",
+      "apb/original.gds": "ffdd3269e490360d6c6163e6892a276faee6bccd00fab093ff846d82d98df5c6",
+      "apb/rules.json": "72349d55dc48fb35b9b69e7b463da001daff5fc826aa969b2921e43edb16ee17",
+      "counter/active-view.json": "24976de6a5a4b9ad812604b23a8ae70f615f04dcb2ca24de6f9a628ed9f6e1d2",
+      "counter/active-warning-audit.json": "9c0fee3d8ddc6d9554d34183d77e6f449944086bc27ad061e1a3e967fa3f10d1",
+      "counter/active.gds": "5d3767d679f7575ecac9355a51a2ffd2b51a4c6224045f37b7b51e933a3a5743",
+      "counter/original-view.json": "70bbf9ec17eec5608cd2bedc356ad2ec670b3677d49ffc9d62350d2943712c23",
+      "counter/original-warning-audit.json": "e284afa3a6e59061b36323ce19b7c5f6c1567e912f89cb14a937a5f0636f2f5a",
+      "counter/original.gds": "03e74a38cc1e125e2b1e8f7c019b1ac236a2b9fbdea458a0549ba60293f02ff8",
+      "counter/rules.json": "4e6aae6922dcca18452be63ca7d8b689241f78148589b984f2965ac5b33ac6f8",
+      "uart/active-view.json": "37b63840112bf8a1fce17aa58faeef034c0621c7603567b53599345e3ea77d96",
+      "uart/active-warning-audit.json": "d83a76181b530fc6059a9b3d83068f47c7a862f4865f6d86dc356375ed2615bf",
+      "uart/active.gds": "f7830417d5296361712e9b8b163eea65215da5393c6c86506b53b3bbc2593913",
+      "uart/original-view.json": "0edec29a5fc0e784fa052756635c9187badf6f2da1269771f242943a65d43664",
+      "uart/original-warning-audit.json": "ad78477bd1b54fdc2e9d888c361b8a14d9efb6886c188f7b90b98e8c003546be",
+      "uart/original.gds": "61b106411a6668c5b9cac19b3afdbbde52fa73cfc4dea2e2682b5cdcee89cc71",
+      "uart/rules.json": "cbb6c2d2f6318f560bc57dfb31f8dd64a6796099b8e611277811c04d3729fef1"
+    }
+  },
+  "generator_guard": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "source_sha256": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+    "generation_script_sha256": "464eda14f55267681bd9e1076aa477c5562dfe04d64ccd39799218f9acf8b487",
+    "results": [
+      {
+        "case": "counter",
+        "current_input_guard_passed": true,
+        "generation_script_unchanged": true,
+        "filled_gds_sha256": "e5158da77da10602b21dd80c85e0db2627a34c80610ecdd79ba84834d1286ed2"
+      },
+      {
+        "case": "uart",
+        "current_input_guard_passed": true,
+        "generation_script_unchanged": true,
+        "filled_gds_sha256": "0d5c6cb2955eaacabf38eb6627a3ef3b3138a26322592643566b0f2a129ce2d5"
+      },
+      {
+        "case": "apb",
+        "current_input_guard_passed": true,
+        "generation_script_unchanged": true,
+        "filled_gds_sha256": "ae45d079d2f2eb49572fb2859c6199f413ec6fc10096a400cc576d8d05b87a59"
+      }
+    ]
+  },
+  "engines": {
+    "schema": 1,
+    "sha256": {
+      "ngspice": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+      "magic": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+      "psp103.osdi": "24c016572d59fb079fda4f3a1c0aa4c8999d931e8ee335f180066f13ddd70ff4",
+      "psp103_nqs.osdi": "33dc9a8caa13977cdd77eb76b00c76200d8897f873d2497894dabfd327318fd6"
+    },
+    "version": "******\n** ngspice-42 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2023, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sun Mar 31 20:15:14 UTC 2024\n******\n"
+  },
+  "os_models": {
+    "windows": {
+      "schema": 1,
+      "status": "pass",
+      "qualified": false,
+      "source_sha256": "487536c31bae98dbfeec5e84d56559a086603bbf889fa3a07660b4dd222ae3cf",
+      "cases": [
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 8951,
+          "observable_metal_nodes": 8951,
+          "active_junction_nodes": 492,
+          "retained_nodes": 642,
+          "residual": 2.7294186582673754e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "159d15da7b93262ed2ba28af977c930524cddca66108bf41047db75860d92e4d",
+          "case": "counter",
+          "output_sha256": "c0cda52efd2b110da5f1454e3ce284c1a72581e1c66701cdb3831b1e60b1eecc",
+          "maximum_capacitor_difference_af": 2.7284841053187847e-12,
+          "independent_prepared_model_match": true
+        },
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 35226,
+          "observable_metal_nodes": 35226,
+          "active_junction_nodes": 1032,
+          "retained_nodes": 2920,
+          "residual": 4.3600773829456375e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "0a21fcce611f2c2b8eb9dbfc6e65d0895cec5b5accc9bfd0394dcae97dececc5",
+          "case": "uart",
+          "output_sha256": "6bae0e1db8a22e486a4c1c3e8d96ceffc915c5980537f10d01e0cb47cb34b44c",
+          "maximum_capacitor_difference_af": 1.3642420526593924e-10,
+          "independent_prepared_model_match": true
+        },
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 35177,
+          "observable_metal_nodes": 35177,
+          "active_junction_nodes": 1032,
+          "retained_nodes": 2708,
+          "residual": 4.311653359068884e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "b0fe251e4eacb56baa41b496bab77cfe1f4d0b43ebc57092968d3c479fff5431",
+          "case": "apb",
+          "output_sha256": "d4c5146554ed24e477411dc4f4184a344ee7661f6e04f57f1a6781ee1fbc88ac",
+          "maximum_capacitor_difference_af": 1.0732037480920553e-10,
+          "independent_prepared_model_match": true
+        }
+      ]
+    },
+    "linux": {
+      "schema": 1,
+      "status": "pass",
+      "qualified": false,
+      "source_sha256": "487536c31bae98dbfeec5e84d56559a086603bbf889fa3a07660b4dd222ae3cf",
+      "cases": [
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 8951,
+          "observable_metal_nodes": 8951,
+          "active_junction_nodes": 492,
+          "retained_nodes": 642,
+          "residual": 2.7294186582673754e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "159d15da7b93262ed2ba28af977c930524cddca66108bf41047db75860d92e4d",
+          "case": "counter",
+          "output_sha256": "027f383081b617c97d0b7a0d0de38970798c54b59382ebc2c6054df6e30ce1f6",
+          "maximum_capacitor_difference_af": 2.7284841053187847e-12,
+          "independent_prepared_model_match": true
+        },
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 35226,
+          "observable_metal_nodes": 35226,
+          "active_junction_nodes": 1032,
+          "retained_nodes": 2920,
+          "residual": 4.3600773829456375e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "0a21fcce611f2c2b8eb9dbfc6e65d0895cec5b5accc9bfd0394dcae97dececc5",
+          "case": "uart",
+          "output_sha256": "4cfbaf61518735c600ecf297a6dfacf0b997299549464550c390203f4d56705a",
+          "maximum_capacitor_difference_af": 1.3642420526593924e-10,
+          "independent_prepared_model_match": true
+        },
+        {
+          "ground": "NET000001",
+          "floating_metal_nodes": 35177,
+          "observable_metal_nodes": 35177,
+          "active_junction_nodes": 1032,
+          "retained_nodes": 2708,
+          "residual": 4.311653359068884e-15,
+          "relative_charge_error": 0.0001,
+          "source_sha256": "b0fe251e4eacb56baa41b496bab77cfe1f4d0b43ebc57092968d3c479fff5431",
+          "case": "apb",
+          "output_sha256": "f0e1077dfca0547aa43677de9af8acfe5ce144a54771196f7c54f425f5323ebe",
+          "maximum_capacitor_difference_af": 1.0732037480920553e-10,
+          "independent_prepared_model_match": true
+        }
+      ]
+    }
+  },
+  "tests": {
+    "windows": {
+      "schema": 1,
+      "status": "pass",
+      "tests": 49,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "1320d6c9f82105f4961bf6a1a322a2b1ca5e7e34c0f7d5fe846ae0dabde7c866",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_native_capacitance.py": "487536c31bae98dbfeec5e84d56559a086603bbf889fa3a07660b4dd222ae3cf",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "ba847483fa088256936609bf537a9bf9bee873c0d463212bbdd4bace4cf12bb7"
+      }
+    },
+    "linux": {
+      "schema": 1,
+      "status": "pass",
+      "tests": 49,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "0271f674cea77e07bf91564504e1fc43731f377393d9ee15d79a0ba0d546769f",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_native_capacitance.py": "487536c31bae98dbfeec5e84d56559a086603bbf889fa3a07660b4dd222ae3cf",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "ba847483fa088256936609bf537a9bf9bee873c0d463212bbdd4bace4cf12bb7"
+      }
+    }
+  },
+  "rejected_raw_ext_model": {
+    "schema": 1,
+    "status": "fail",
+    "qualified": false,
+    "interval_ns": [
+      60,
+      180
+    ],
+    "results": {
+      "charge_1e_6": {
+        "passed": false,
+        "matched_edges": 4,
+        "maximum_threshold_crossing_error_ps": 15.841797843464843,
+        "fixed_tolerance_ps": 1.0
+      },
+      "charge_1e_4": {
+        "passed": false,
+        "matched_edges": 4,
+        "maximum_threshold_crossing_error_ps": 15.826256062674695,
+        "fixed_tolerance_ps": 1.0
+      }
+    },
+    "deliberate_2ns_fault": {
+      "passed": false,
+      "matched_edges": 4,
+      "maximum_threshold_crossing_error_ps": 2015.8262560626795,
+      "fixed_tolerance_ps": 1.0
+    },
+    "files": {
+      "full": {
+        "path": "outputs/ihp-counter-cap-spice-v8/filled/waveform.txt",
+        "sha256": "7ea3cd5abab8168f0e978557c9bfb90237c530dc62295b171ced5bb8d0d67592"
+      },
+      "charge_1e_6": {
+        "path": "outputs/ihp-counter-cap-spice-v7/filled/waveform.txt",
+        "sha256": "4484a71d848a99976efdfe1e4e6e65b21d00edeea30f0c0db197fdc7cd688dc5"
+      },
+      "charge_1e_4": {
+        "path": "outputs/ihp-counter-cap-spice-v9/filled/waveform.txt",
+        "sha256": "3e8828c02fe49ef2de219980428781cf77b82c9e355185e78cb11f4453f88012"
+      }
+    },
+    "scope": "Counter threshold-crossing convergence only; does not validate other circuits or distributed metal resistance."
+  },
+  "native_spice_model_comparison": {
+    "schema": 1,
+    "status": "rejected-export-fault",
+    "qualified": false,
+    "interval_ns": [
+      60,
+      180
+    ],
+    "results": {
+      "native_spice_charge_1e_4": {
+        "passed": true,
+        "matched_edges": 4,
+        "maximum_threshold_crossing_error_ps": 0.0349391991490963,
+        "fixed_tolerance_ps": 1.0
+      }
+    },
+    "deliberate_2ns_fault": {
+      "passed": false,
+      "matched_edges": 4,
+      "maximum_threshold_crossing_error_ps": 2000.0126647343661,
+      "fixed_tolerance_ps": 1.0
+    },
+    "files": {
+      "full": {
+        "path": "outputs/ihp-counter-cap-spice-v8/filled/waveform.txt",
+        "sha256": "7ea3cd5abab8168f0e978557c9bfb90237c530dc62295b171ced5bb8d0d67592"
+      },
+      "native_spice_charge_1e_4": {
+        "path": "outputs/ihp-counter-cap-spice-v10/filled/waveform.txt",
+        "sha256": "8a98d7d83a16c40e1a5cb02af16ffa4ac6be292ab7ea4894270552847591f95a"
+      }
+    },
+    "scope": "Counter threshold-crossing convergence only; does not validate other circuits or distributed metal resistance.",
+    "recorded_waveform_audit_status": "pass"
+  },
+  "counter_performance": {
+    "schema": 1,
+    "status": "rejected-export-fault",
+    "qualified": false,
+    "cases": [
+      {
+        "corner": "typ",
+        "voltage": 1.2,
+        "initial_state": "zero-charge power-up",
+        "results": [
+          {
+            "state": "original",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "4317e83290a7c0aa58ca5deaadf2a19dfe246fbf4104b89ef0d0a799ea5ea6d5"
+          },
+          {
+            "state": "filled",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "8a98d7d83a16c40e1a5cb02af16ffa4ac6be292ab7ea4894270552847591f95a"
+          }
+        ],
+        "matched_output_edges": 31,
+        "maximum_edge_change_ps": 16.695762499639606
+      },
+      {
+        "corner": "slow",
+        "voltage": 1.08,
+        "initial_state": "zero-charge power-up",
+        "results": [
+          {
+            "state": "original",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "044d58297425fef57c13a0420a9cd7d3ec725d3a778e9670d623f4e2a7f458c8"
+          },
+          {
+            "state": "filled",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "beec128f8e777377fa547da8867ffe09697576f3ad8c2ef51a62957c03204c4a"
+          }
+        ],
+        "matched_output_edges": 31,
+        "maximum_edge_change_ps": 26.43607132739682
+      },
+      {
+        "corner": "fast",
+        "voltage": 1.32,
+        "initial_state": "captured reset state",
+        "results": [
+          {
+            "state": "original",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "42fd059be612e0c2589a4a1e0053652f7c9935e1a3ddc833c8437278bf05d887"
+          },
+          {
+            "state": "filled",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "63b0485d21f0dd985523e3f64dfcb74aca4728c3dc097b1c8617cf3e25043056"
+          }
+        ],
+        "matched_output_edges": 31,
+        "maximum_edge_change_ps": 10.593152416476878
+      }
+    ],
+    "scope": "Matched native counter transistor simulations, nominal capacitance model, ideal rails and 50 ns clock. Cold operation starts after reset; cold zero-charge power-up remains unresolved. No distributed RC or foundry acceptance.",
+    "recorded_waveform_audit_status": "pass"
+  },
+  "original_workload_performance": {
+    "uart": {
+      "schema": 1,
+      "status": "rejected-export-fault",
+      "qualified": false,
+      "complete_waveform": true,
+      "tested_bits": 254,
+      "failed_bits": 0,
+      "failures": [],
+      "waveform_sha256": "a3010425ef4a850756bc04bc3d9942bb086090e073839db98d9ed24a29230eba",
+      "expectations_sha256": "001e0d483bbbc459f264cb7ed61f58e8184927e3b3d9566424ddc023d6591e20",
+      "scope": "Captured nominal transistor capacitance benchmark; no distributed RC acceptance.",
+      "recorded_waveform_audit_status": "pass"
+    },
+    "apb": {
+      "schema": 1,
+      "status": "rejected-export-fault",
+      "qualified": false,
+      "complete_waveform": true,
+      "tested_bits": 869,
+      "failed_bits": 0,
+      "failures": [],
+      "waveform_sha256": "6905f63324e68912e3eb3bff193cd4ff3980a46cfd480f931f5fe1a2bd211b58",
+      "expectations_sha256": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+      "scope": "Captured nominal transistor capacitance benchmark; no distributed RC acceptance.",
+      "recorded_waveform_audit_status": "pass"
+    }
+  },
+  "chunk_4_rechecked": {
+    "status": "reference_gate_complete",
+    "chunk": 4,
+    "chunk_complete": true,
+    "references": 6,
+    "process_qualification": "unqualified"
+  },
+  "remaining": [
+    "Complete corrected filled UART/APB transistor comparisons.",
+    "Bind the accepted full-fill capacitance and resistance model to predeclared timing/electrical acceptance; review OpenRCX fill-width scope.",
+    "Resolve or explicitly qualify the cold zero-charge power-up numerical limitation.",
+    "Production-flow integration, final export bindings and affected package/regression qualification."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-full-fill-coverage-2026-10-10-v1\\evidence.tar.gz",
+    "sha256": "918ffa1be6ee5eb648d6e5c4b82faaf3763423d2f04654bc7d02171d5062730b",
+    "bytes": 218814311,
+    "members": 868,
+    "verified": true,
+    "manifest_sha256": "159a7c162e74d732742e90b9cdbddff701d023c9bc7e533c1341be79ab7f7320"
+  },
+  "superseded_original_checkpoint_sha256": "6c767a06d86dc5be04c825996809a2ac1293c0fb74f8ace8ca6a7cfb782eb5d6",
+  "superseded_by": "docs/validation/ihp-native-export-2026-10-10.json",
+  "electrical_acceptance_valid": false,
+  "electrical_invalidation_reasons": [
+    "Fresh-process default grid changed MOS junction area/perimeter.",
+    "Hierarchical export incorrectly redistributed MOS gate capacitance."
+  ]
+}

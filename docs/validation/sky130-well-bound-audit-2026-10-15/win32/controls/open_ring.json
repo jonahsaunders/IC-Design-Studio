@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "recipe": "sky130-drawn-well-bounds-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/periphery/p022-pwdem_dotdash.csv": "463bfebfd5b9cf00cc02776b9e73f29e5507b83621c0c78ef3b302ca4b97ae13",
+      "docs/rules/periphery/p022-pwbm_dotdash.csv": "783146a0a77fd96e198d31c1ff5775f093a264510ae03e609d40934fe0416aa2",
+      "docs/rules/periphery/p055-uhvi_dotdash_dotdash.csv": "415c36c520c98089eb62a548cd04eecbc21338206bd85da2c0d416df9a90332f"
+    }
+  },
+  "scope": "Three drawn-well sufficient bounds use the finite error-catalog requirements; the manual N/A entries are not waivers. All drawn PWDE expanded by a 1000 nm square must fit within both DNWELL and UHVI. Every pair of holes in the fully merged drawn PWBM must be at least 840 nm apart in the square metric. Holes are collected before any UHVI selection, so clipping cannot manufacture new holes. Hole hulls include nested islands conservatively. All drawn PWBM must lie within UHVI, without applying the LOWVTID exception. Equality passes; missing enclosing geometry cannot waive a nonempty target. A failed stronger bound stays unreviewed, not a foundry violation. Empty targets and fewer than two holes are separate absent-operand decisions. These checks do not establish device completeness, full-chip context, generated-mask equivalence or process qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "8373cf4f356e42a0ea93af725c7f145cc4db27a411916baaeabea05ec81ef69c",
+  "measurements": {
+    "layers": {
+      "pwde": {
+        "raw_shapes": 1,
+        "components": 1,
+        "area_nm2": 1000000
+      },
+      "pwbm": {
+        "raw_shapes": 3,
+        "components": 1,
+        "area_nm2": 13000000
+      },
+      "dnwell": {
+        "raw_shapes": 1,
+        "components": 1,
+        "area_nm2": 9000000
+      },
+      "uhvi": {
+        "raw_shapes": 1,
+        "components": 1,
+        "area_nm2": 100000000
+      }
+    },
+    "holes": 0,
+    "bounds": {
+      "r923": 0,
+      "r924": 0,
+      "r931": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "r923",
+      "rule": "pwde.6",
+      "target": "pwde",
+      "operation": "enclosure",
+      "limit_nm": 1000,
+      "target_count": 1,
+      "witness_area_nm2": 0,
+      "disposition": "executed-reviewed",
+      "reason": "sufficient-bound-proven"
+    },
+    {
+      "id": "r924",
+      "rule": "pwbm.5",
+      "target": "pwbm_holes",
+      "operation": "spacing",
+      "limit_nm": 840,
+      "target_count": 0,
+      "witness_area_nm2": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-target"
+    },
+    {
+      "id": "r931",
+      "rule": "uhvi.3",
+      "target": "pwbm",
+      "operation": "enclosure",
+      "limit_nm": 0,
+      "target_count": 1,
+      "witness_area_nm2": 0,
+      "disposition": "executed-reviewed",
+      "reason": "sufficient-bound-proven"
+    }
+  ],
+  "unreviewed": 0,
+  "status": "selected-well-bounds-reviewed"
+}

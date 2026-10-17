@@ -8,7 +8,7 @@ import time
 import uuid
 from .model import atomic_write, clone, design_digest, digest, file_digest
 
-TOOLS=('magic','netgen','ngspice')
+TOOLS=('magic','netgen','ngspice','klayout')
 
 
 def available():

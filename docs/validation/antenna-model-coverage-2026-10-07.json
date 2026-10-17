@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-07",
+  "status": "passed_scoped_regression",
+  "chunk": 2,
+  "source_base": "48e0d7cbf34ecab62f097cde942f0dbd8fde6520",
+  "backend_sha256": "35f429b100c184174d0df82f0f21db888c8306cf20fab9a977bc42b0b167795d",
+  "source_files": {
+    "icstudio/digital_physical_checks.py": "b6727b27b061ed86e30666f40f04b0fc3d201577915b5453f7a13cbbf1b829ac",
+    "icstudio/digital_physical_engine.py": "f71d5d2b8d5c87ddb94761b6e27025b7db7235be3c20a6377cfc16cff87d7489",
+    "tests/test_digital_physical_checks.py": "5db530c51c56d467ba9275e81f6a959dedf7980ce4145f9ef8096da135b6daa5"
+  },
+  "hosted_failure": {
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37631533919/job/112826779293",
+    "scope": "SKY130 HD and GF180-C APB finish rejected valid protection diodes as missing gate models. The hosted toolchain gate is still incomplete.",
+    "log_sha256": "e19cb8932643cf7ce0f95441c147f3b601ba9e824685125e908b424b86c1278d"
+  },
+  "inspection": [
+    {
+      "platform": "sky130hd",
+      "pin": "ANTENNA_1/DIODE",
+      "master": "sky130_fd_sc_hd__diode_2",
+      "class": "CORE_ANTENNACELL",
+      "has_gate_model": false,
+      "diffusion_areas": [
+        [
+          0.4347,
+          null
+        ]
+      ]
+    },
+    {
+      "platform": "sky130hd",
+      "pin": "ANTENNA_2/DIODE",
+      "master": "sky130_fd_sc_hd__diode_2",
+      "class": "CORE_ANTENNACELL",
+      "has_gate_model": false,
+      "diffusion_areas": [
+        [
+          0.4347,
+          null
+        ]
+      ]
+    },
+    {
+      "platform": "sky130hd",
+      "pin": "ANTENNA_3/DIODE",
+      "master": "sky130_fd_sc_hd__diode_2",
+      "class": "CORE_ANTENNACELL",
+      "has_gate_model": false,
+      "diffusion_areas": [
+        [
+          0.4347,
+          null
+        ]
+      ]
+    },
+    {
+      "platform": "gf180",
+      "pin": "ANTENNA_1/I",
+      "master": "gf180mcu_fd_sc_mcu9t5v0__antenna",
+      "class": "CORE_ANTENNACELL",
+      "has_gate_model": false,
+      "diffusion_areas": [
+        [
+          0.4068,
+          null
+        ]
+      ]
+    }
+  ],
+  "native_regression": {
+    "status": "passed",
+    "cases": [
+      {
+        "platform": "sky130hd",
+        "case": "baseline",
+        "status": "PASS",
+        "checkpoint_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+        "source_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+        "missing_gate_models": [],
+        "antenna_diodes": [
+          {
+            "pin": "ANTENNA_1/DIODE",
+            "master": "sky130_fd_sc_hd__diode_2",
+            "class": "CORE_ANTENNACELL",
+            "diffusion_areas": [
+              {
+                "area": 0.4347,
+                "layer": null
+              }
+            ]
+          },
+          {
+            "pin": "ANTENNA_2/DIODE",
+            "master": "sky130_fd_sc_hd__diode_2",
+            "class": "CORE_ANTENNACELL",
+            "diffusion_areas": [
+              {
+                "area": 0.4347,
+                "layer": null
+              }
+            ]
+          },
+          {
+            "pin": "ANTENNA_3/DIODE",
+            "master": "sky130_fd_sc_hd__diode_2",
+            "class": "CORE_ANTENNACELL",
+            "diffusion_areas": [
+              {
+                "area": 0.4347,
+                "layer": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "platform": "sky130hd",
+        "case": "ordinary-diffusion",
+        "status": "FAIL",
+        "checkpoint_sha256": "8352d60edcc77fa08fb142f1c0b242e17ac0ba73a2150d129f6e6a5345b4b56a",
+        "source_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+        "missing_gate_models": [
+          "ANTENNA_1/DIODE",
+          "ANTENNA_2/DIODE",
+          "ANTENNA_3/DIODE"
+        ],
+        "antenna_diodes": []
+      },
+      {
+        "platform": "gf180",
+        "case": "baseline",
+        "status": "PASS",
+        "checkpoint_sha256": "64ba0d55a09047cced656a7489aaaee1d7580b277213787e58fac9ce57ae23c4",
+        "source_sha256": "64ba0d55a09047cced656a7489aaaee1d7580b277213787e58fac9ce57ae23c4",
+        "missing_gate_models": [],
+        "antenna_diodes": [
+          {
+            "pin": "ANTENNA_1/I",
+            "master": "gf180mcu_fd_sc_mcu9t5v0__antenna",
+            "class": "CORE_ANTENNACELL",
+            "diffusion_areas": [
+              {
+                "area": 0.4068,
+                "layer": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "platform": "gf180",
+        "case": "ordinary-diffusion",
+        "status": "FAIL",
+        "checkpoint_sha256": "e963437a70c83915cf2434212ac8058b21743d59aa605213b959cf48af6007e4",
+        "source_sha256": "64ba0d55a09047cced656a7489aaaee1d7580b277213787e58fac9ce57ae23c4",
+        "missing_gate_models": [
+          "ANTENNA_1/I"
+        ],
+        "antenna_diodes": []
+      }
+    ]
+  },
+  "engine": "OpenROAD 26Q2-1164-g08f67ee5ec",
+  "semantics": "Logic inputs require positive gate area. Declared CORE ANTENNACELL inputs require positive diffusion area. Ordinary diffusion-only cells remain rejected. No geometry or rule changes to the original checkpoints.",
+  "limitations": [
+    "Native original-checkpoint regression only; fresh complete hosted implementation remains pending.",
+    "Updated backend requires current-source installed-runtime qualification; earlier acceptance records do not qualify it.",
+    "Final GDS physical closure, complete PDK coverage and tapeout remain unqualified."
+  ],
+  "artifacts": {
+    "name": "antenna-model-coverage-evidence.tar.gz",
+    "sha256": "f0c59257811a3c12a594675c30d0751a94391820b9c1d9ad6b2235c53942c885",
+    "bytes": 3914318
+  }
+}

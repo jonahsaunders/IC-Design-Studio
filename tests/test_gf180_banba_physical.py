@@ -92,6 +92,34 @@ class PhysicalGateTests(unittest.TestCase):
             (directory/f'banba-layout_{deck}.lyrdb').write_text(
                 '<report-database><categories/><items>'+item+'</items></report-database>')
 
+    def test_missing_comparison_never_passes_even_with_clean_metal_or_zero_exit(self):
+        log = self.root/'lvs.log'
+        log.write_text('[soft-connection-check] In cell banba_layout: Net with incomplete wiring '
+                       '(soft-connected partial nets) in LayoutToNetlist::check_extraction_errors\n')
+        for code in (0, 1, 137):
+            result = physical.lvs_results(self.root/'missing.lvsdb', log, code, 103, {'passed': True})
+            self.assertFalse(result['passed'])
+            self.assertFalse(result['comparison_completed'])
+            self.assertFalse(result['native_passed'])
+            self.assertEqual(result['exit_code'], code)
+
+    def test_missing_via_control_requires_both_specific_native_and_physical_findings(self):
+        from scripts.qualify_gf180_exchange import rejected_vias
+        good = dict(passed=False, native_passed=False, comparison_completed=False,
+                    exit_code=1, incomplete_wiring_reported=True,
+                    written_metal={'passed': False, 'failure_counts': {'open': 3}})
+        self.assertEqual(rejected_vias({'lvs':good}), 'extraction-rejected-incomplete-wiring')
+        for changed in ({'exit_code':137}, {'exit_code':0}, {'incomplete_wiring_reported':False},
+                        {'written_metal':{'passed':True}},
+                        {'written_metal':{'passed':False, 'failure_counts':{'short':1}}}):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                rejected_vias({'lvs':dict(good, **changed)})
+
+    def test_unrelated_engine_error_is_not_a_wiring_diagnostic(self):
+        log = self.root/'lvs.log'; log.write_text('Killed\n')
+        result = physical.lvs_results(self.root/'missing.lvsdb', log, 1, 103, {'passed':False})
+        self.assertFalse(result['incomplete_wiring_reported'])
+
     def test_engine_failure_cannot_pass_with_empty_reports(self):
         self.reports(self.root)
         result = drc_results(self.root, 'banba-layout', 1)
@@ -120,10 +148,11 @@ class PhysicalGateTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     drc_results(self.root, 'banba-layout', 0)
 
-    def test_drc_lvs_scope_uses_no_extractor_and_retains_density_failure(self):
-        # Use the real saved 103-device comparison. Only external process
-        # execution is replaced; reference generation and report parsing run.
-        for density, lvs_exit, expected in [(False, 0, 0), (True, 0, 1), (False, 1, 1)]:
+    def test_drc_lvs_scope_rejects_saved_unresolved_ground_connection(self):
+        # The saved 103-device comparison matches its graph but contains an
+        # unresolved must-connect warning. Preserve it as a negative control.
+        # Only process execution is replaced; reference/report parsing run.
+        for density, lvs_exit in [(False, 0), (True, 0), (False, 1)]:
             output = self.root/f'run-{density}-{lvs_exit}'
             phases = []
             def command(args, folder, name, env=None):
@@ -140,17 +169,21 @@ class PhysicalGateTests(unittest.TestCase):
                 return 0
             with self.subTest(density=density, lvs_exit=lvs_exit), \
                     patch.object(physical, 'locked_checkout') as lock, \
+                    patch.object(physical, 'prepare_lvs', return_value={'recipe':'test fixture'}), \
+                    patch.object(physical, 'inspect_metal', return_value={'passed':True}), \
                     patch.object(physical, 'command', side_effect=command), \
                     redirect_stdout(io.StringIO()):
                 code = physical.main(['--drc-lvs-only', '--pv', str(self.root),
                     '--klayout', sys.executable, '--out', str(output)])
-            self.assertEqual(code, expected)
+            self.assertEqual(code, 1)
             self.assertEqual(phases, ['klayout-version', 'drc', 'lvs'])
             self.assertEqual(lock.call_count, 1)
             report = json.loads((output/'physical-verification.json').read_text())
             self.assertFalse(report['signoff'])
             self.assertEqual(report['lvs']['pairs']['device'], 103)
-            self.assertEqual(report['passed'], expected == 0)
+            self.assertFalse(report['passed'])
+            self.assertFalse(report['lvs']['passed'])
+            self.assertEqual(report['lvs']['extraction_log'][0]['category'], 'must-connect')
             self.assertEqual(report['scope'], 'drc-lvs')
 
     def test_full_scope_still_requires_extraction_engines(self):
@@ -181,14 +214,18 @@ class PhysicalGateTests(unittest.TestCase):
                                 output/'lvs/finished.lvsdb')
             return 0
         with patch.object(physical, 'locked_checkout'), patch.object(physical, 'command', side_effect=command), \
+                patch.object(physical, 'prepare_lvs', return_value={'recipe':'test fixture'}), \
+                patch.object(physical, 'inspect_metal', return_value={'passed':True}), \
                 redirect_stdout(io.StringIO()):
             code = physical.main(['--drc-lvs-only', '--include-dummy-poly', '--gds', str(gds),
                 '--pv', str(pv), '--klayout', sys.executable, '--out', str(output)])
-        self.assertEqual(code, 0)
+        self.assertEqual(code, 1)  # Saved LVS still has an unresolved ground join.
         self.assertEqual(density.read_text(), original)
         self.assertEqual((output/'drc-deck/rule_decks/density.drc').read_text(),
                          physical.include_dummy_poly(original))
         report = json.loads((output/'physical-verification.json').read_text())
+        self.assertFalse(report['lvs']['passed'])
+        self.assertEqual(report['lvs']['extraction_log'][0]['category'], 'must-connect')
         self.assertIn('density_deck_correction', report)
         self.assertNotEqual(report['density_deck_correction']['original_sha256'],
                             report['density_deck_correction']['corrected_sha256'])

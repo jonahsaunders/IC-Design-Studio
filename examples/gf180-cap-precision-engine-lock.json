@@ -1,0 +1,9 @@
+{
+  "magic": {
+    "version": "8.3.684",
+    "patch_sha256": "6fd0757033c45dc5b2b114c9d1f26e2317e87eb2b994f8efe565cc9f5d6e9138",
+    "patch": "packaging/physical/magic-gf180-cap-precision.patch",
+    "repository": "https://github.com/RTimothyEdwards/magic.git",
+    "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84"
+  }
+}

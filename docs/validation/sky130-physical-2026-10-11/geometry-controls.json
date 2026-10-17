@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "status": "geometry-controls-complete",
+  "qualified": false,
+  "driver_sha256": "8756b0c95c7e1c6610a986118b867598e292b9849ad52af840b1e2929635b91a",
+  "runs": [
+    {
+      "case": "feol",
+      "engine": "klayout",
+      "expected_rule": "poly.1",
+      "gds_sha256": "843e83ba5180365c64fdc721d87c0bf9f07f0d2ba86970c419a3ded7c9aee07b",
+      "original_gds_sha256": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+      "inserted_shape_nm": [
+        5000,
+        5000,
+        5145,
+        7000
+      ],
+      "gds_layer": [
+        66,
+        20
+      ],
+      "qualified": false,
+      "command": [
+        "/opt/icstudio/bin/klayout",
+        "-b",
+        "-r",
+        "/var/tmp/icstudio-sky130-geometry-faults-v2/feol/klayout/check.drc",
+        "-rd",
+        "input=/var/tmp/icstudio-sky130-geometry-faults-v2/feol/fault.gds",
+        "-rd",
+        "top_cell=counter",
+        "-rd",
+        "report=/var/tmp/icstudio-sky130-geometry-faults-v2/feol/klayout/report.lyrdb",
+        "-rd",
+        "feol=true",
+        "-rd",
+        "beol=true",
+        "-rd",
+        "offgrid=true",
+        "-rd",
+        "seal=true",
+        "-rd",
+        "floating_met=true"
+      ],
+      "deck_sha256": "4e43785548e8db55c8799664d6b3a064fbada55139b6e60f14e8e3f6be23d57d",
+      "status": "expected-fault-detected",
+      "rules": {
+        "'poly.1a'": 1
+      }
+    },
+    {
+      "case": "feol",
+      "engine": "magic",
+      "expected_rule": "poly.1",
+      "gds_sha256": "843e83ba5180365c64fdc721d87c0bf9f07f0d2ba86970c419a3ded7c9aee07b",
+      "original_gds_sha256": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+      "inserted_shape_nm": [
+        5000,
+        5000,
+        5145,
+        7000
+      ],
+      "gds_layer": [
+        66,
+        20
+      ],
+      "qualified": false,
+      "deck_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "status": "expected-fault-detected",
+      "rules": {
+        "poly width < 30 (poly.1a)": 1
+      }
+    },
+    {
+      "case": "beol",
+      "engine": "klayout",
+      "expected_rule": "m1.1",
+      "gds_sha256": "1e4577b8e156aec26d7a0afcc047e66827476312797c9ff817e2f7f29dd3a827",
+      "original_gds_sha256": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+      "inserted_shape_nm": [
+        5000,
+        5000,
+        5135,
+        7000
+      ],
+      "gds_layer": [
+        68,
+        20
+      ],
+      "qualified": false,
+      "command": [
+        "/opt/icstudio/bin/klayout",
+        "-b",
+        "-r",
+        "/var/tmp/icstudio-sky130-geometry-faults-v2/beol/klayout/check.drc",
+        "-rd",
+        "input=/var/tmp/icstudio-sky130-geometry-faults-v2/beol/fault.gds",
+        "-rd",
+        "top_cell=counter",
+        "-rd",
+        "report=/var/tmp/icstudio-sky130-geometry-faults-v2/beol/klayout/report.lyrdb",
+        "-rd",
+        "feol=true",
+        "-rd",
+        "beol=true",
+        "-rd",
+        "offgrid=true",
+        "-rd",
+        "seal=true",
+        "-rd",
+        "floating_met=true"
+      ],
+      "deck_sha256": "4e43785548e8db55c8799664d6b3a064fbada55139b6e60f14e8e3f6be23d57d",
+      "status": "expected-fault-detected",
+      "rules": {
+        "'m1.1'": 1,
+        "'m1.x'": 1
+      }
+    },
+    {
+      "case": "beol",
+      "engine": "magic",
+      "expected_rule": "met1.1",
+      "gds_sha256": "1e4577b8e156aec26d7a0afcc047e66827476312797c9ff817e2f7f29dd3a827",
+      "original_gds_sha256": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+      "inserted_shape_nm": [
+        5000,
+        5000,
+        5135,
+        7000
+      ],
+      "gds_layer": [
+        68,
+        20
+      ],
+      "qualified": false,
+      "deck_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "status": "expected-fault-detected",
+      "rules": {
+        "Metal1 width < 28 (met1.1)": 1
+      }
+    }
+  ],
+  "files": {
+    "beol/fault.gds": "1e4577b8e156aec26d7a0afcc047e66827476312797c9ff817e2f7f29dd3a827",
+    "feol/fault.gds": "843e83ba5180365c64fdc721d87c0bf9f07f0d2ba86970c419a3ded7c9aee07b",
+    "beol/magic/startup.tcl": "edf5fdac841a9904f33866659abad73fcf52982603ad8adc2ad4b8d63fc9752f",
+    "beol/magic/engine.command.json": "744afd3b7f2772231e2fae3a593a5202f02badfcc30b4284cb21cd4aa6521077",
+    "beol/magic/engine.log": "e2deabcba86c17320e4dcc8b6d8d85a0ffd22242bd81106916449e5b21646d85",
+    "beol/magic/feedback.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "beol/magic/run.tcl": "126a0432df62fb64f5026eb094d90d0b22b69d19cb4ddce50228a20e8ed1f703",
+    "beol/magic/physical.json": "324a7aea1f054a9103a648a96d3bac9cef82b00318cb975e67cc89a7338c3f8e",
+    "beol/magic/findings.tsv": "0d1ddc4813528f1381cff3b4dadf20f759e36ed3f2cb1c1e7133cbba2c197800",
+    "beol/klayout/engine.log": "5711442d1e26836c38cc98c2369edc605167fc2f8259438a77a5a3d011a7cbc9",
+    "beol/klayout/report.lyrdb": "10fcfb9a2bf2df72b5b7828ad5eb3f87928ba0e74fb3ae34358ede2dfe010ffa",
+    "beol/klayout/check.drc": "4e43785548e8db55c8799664d6b3a064fbada55139b6e60f14e8e3f6be23d57d",
+    "feol/magic/startup.tcl": "edf5fdac841a9904f33866659abad73fcf52982603ad8adc2ad4b8d63fc9752f",
+    "feol/magic/engine.command.json": "963b5327e910d3e6cf43e0f14d03ed2077ed53f6021e73a21d487b321264382a",
+    "feol/magic/engine.log": "9b5754050e8bd485fe84a8655ad0dbe092a15f87c59086f62c718f66be1ada4d",
+    "feol/magic/feedback.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "feol/magic/run.tcl": "2f5a5430744ae582016824dc7014544ef4fd28cc3284cdd54327a848a33a0d20",
+    "feol/magic/physical.json": "0d637377a94a2d6b9e9c079b803e584cca61212f4dea572c03ce448fc3a6eea5",
+    "feol/magic/findings.tsv": "8463d65c06a0808bb19ce16789d3e28891410541f0a09899d06d3d0a505c6977",
+    "feol/klayout/engine.log": "0c1d64a2f9f1bd92c20716747fead059a399d8e0e5ec2bdb28bc03a8bbc83278",
+    "feol/klayout/report.lyrdb": "83996c484956419c38ea8892c6c2fd0912e5963988c93071dd543769dcef918c",
+    "feol/klayout/check.drc": "4e43785548e8db55c8799664d6b3a064fbada55139b6e60f14e8e3f6be23d57d"
+  }
+}

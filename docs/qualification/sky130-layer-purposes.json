@@ -1,0 +1,7568 @@
+{
+  "schema": 1,
+  "sources": {
+    "published": {
+      "sha256": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "path": "work/sky130-rule-sources-v1/docs/rules/gds_layers.csv"
+    },
+    "installed": {
+      "sha256": "bb620355f67b1ccd98a233adaec30e7abe5227ff7b37197da4af05a031006d79",
+      "path": "work/klayout-sky130-reference/sky130A/libs.tech/klayout/tech/sky130A.lyp"
+    },
+    "native": {
+      "path": "work/klayout-sky130-reference/sky130A/libs.tech/magic/sky130A.tech",
+      "sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e"
+    }
+  },
+  "note": "Published and installed layer-purpose maps plus eight explicitly captured native fill/outline purposes. C3 supplies the implicit well definitions. Unknown polygon purposes are refused.",
+  "layers": [
+    {
+      "pair": [
+        11,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cldntm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 213
+        },
+        {
+          "name": "cldntm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 265
+        }
+      ]
+    },
+    {
+      "pair": [
+        11,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cldntm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 264
+        }
+      ]
+    },
+    {
+      "pair": [
+        11,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "ldntm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 9
+        },
+        {
+          "name": "ldntm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 41
+        }
+      ]
+    },
+    {
+      "pair": [
+        17,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cncm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 195
+        },
+        {
+          "name": "cncm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 187
+        }
+      ]
+    },
+    {
+      "pair": [
+        18,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "hvtr",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 7
+        },
+        {
+          "name": "hvtr",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 44
+        }
+      ]
+    },
+    {
+      "pair": [
+        19,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "pwbm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 5
+        }
+      ]
+    },
+    {
+      "pair": [
+        20,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "ctunm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 220
+        },
+        {
+          "name": "ctunm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 240
+        }
+      ]
+    },
+    {
+      "pair": [
+        21,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cnwm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 224
+        },
+        {
+          "name": "cnwm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 220
+        }
+      ]
+    },
+    {
+      "pair": [
+        22,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cnsm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 198
+        },
+        {
+          "name": "cnsm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 314
+        }
+      ]
+    },
+    {
+      "pair": [
+        22,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cfom",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 228
+        },
+        {
+          "name": "cfom",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 213
+        }
+      ]
+    },
+    {
+      "pair": [
+        22,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cfom",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 251
+        },
+        {
+          "name": "cfom",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 215
+        }
+      ]
+    },
+    {
+      "pair": [
+        22,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cfom",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 261
+        },
+        {
+          "name": "cfom",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 216
+        }
+      ]
+    },
+    {
+      "pair": [
+        22,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "fom",
+          "purpose": "dummy",
+          "source": "published",
+          "record": 81
+        },
+        {
+          "name": "fom",
+          "purpose": "dummy",
+          "source": "installed",
+          "record": 218
+        }
+      ]
+    },
+    {
+      "pair": [
+        22,
+        24
+      ],
+      "aliases": [
+        {
+          "name": "cfom",
+          "purpose": "waffle drop",
+          "source": "published",
+          "record": 268
+        },
+        {
+          "name": "cfom",
+          "purpose": "waffleDrop",
+          "source": "installed",
+          "record": 217
+        }
+      ]
+    },
+    {
+      "pair": [
+        23,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cfom",
+          "purpose": "mask",
+          "source": "published",
+          "record": 226
+        },
+        {
+          "name": "cfom",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 214
+        }
+      ]
+    },
+    {
+      "pair": [
+        23,
+        28
+      ],
+      "aliases": [
+        {
+          "name": "FOMFILL",
+          "purpose": "fill",
+          "source": "native",
+          "record": [
+            3981
+          ]
+        }
+      ]
+    },
+    {
+      "pair": [
+        25,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "clvtnm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 223
+        },
+        {
+          "name": "clvtnm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 228
+        }
+      ]
+    },
+    {
+      "pair": [
+        25,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "clvtnm",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 254
+        },
+        {
+          "name": "clvtnm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 230
+        }
+      ]
+    },
+    {
+      "pair": [
+        25,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "clvtnm",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 244
+        },
+        {
+          "name": "clvtnm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 229
+        }
+      ]
+    },
+    {
+      "pair": [
+        25,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "clvtnm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 229
+        },
+        {
+          "name": "clvtnm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 227
+        }
+      ]
+    },
+    {
+      "pair": [
+        26,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cntm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 233
+        },
+        {
+          "name": "cntm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 255
+        }
+      ]
+    },
+    {
+      "pair": [
+        26,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cntm",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 243
+        },
+        {
+          "name": "cntm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 257
+        }
+      ]
+    },
+    {
+      "pair": [
+        26,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cntm",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 253
+        },
+        {
+          "name": "cntm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 258
+        }
+      ]
+    },
+    {
+      "pair": [
+        27,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cntm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 216
+        },
+        {
+          "name": "cntm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 256
+        }
+      ]
+    },
+    {
+      "pair": [
+        28,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cp1m",
+          "purpose": "mask",
+          "source": "published",
+          "record": 217
+        },
+        {
+          "name": "cp1m",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 271
+        }
+      ]
+    },
+    {
+      "pair": [
+        29,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cnsdm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 236
+        },
+        {
+          "name": "cnsdm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 247
+        }
+      ]
+    },
+    {
+      "pair": [
+        29,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cnsdm",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 249
+        },
+        {
+          "name": "cnsdm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 249
+        }
+      ]
+    },
+    {
+      "pair": [
+        29,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cnsdm",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 259
+        },
+        {
+          "name": "cnsdm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 250
+        }
+      ]
+    },
+    {
+      "pair": [
+        30,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cnsdm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 212
+        },
+        {
+          "name": "cnsdm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 248
+        }
+      ]
+    },
+    {
+      "pair": [
+        31,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cpsdm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 237
+        },
+        {
+          "name": "cpsdm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 251
+        }
+      ]
+    },
+    {
+      "pair": [
+        31,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cpsdm",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 248
+        },
+        {
+          "name": "cpsdm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 253
+        }
+      ]
+    },
+    {
+      "pair": [
+        31,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cpsdm",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 258
+        },
+        {
+          "name": "cpsdm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 254
+        }
+      ]
+    },
+    {
+      "pair": [
+        32,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cpsdm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 211
+        },
+        {
+          "name": "cpsdm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 252
+        }
+      ]
+    },
+    {
+      "pair": [
+        33,
+        24
+      ],
+      "aliases": [
+        {
+          "name": "cp1m",
+          "purpose": "waffle drop",
+          "source": "published",
+          "record": 267
+        },
+        {
+          "name": "cp1m",
+          "purpose": "waffleDrop",
+          "source": "installed",
+          "record": 273
+        }
+      ]
+    },
+    {
+      "pair": [
+        33,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "cp1m",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 260
+        },
+        {
+          "name": "cp1m",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 274
+        }
+      ]
+    },
+    {
+      "pair": [
+        33,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "cp1m",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 250
+        },
+        {
+          "name": "cp1m",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 272
+        }
+      ]
+    },
+    {
+      "pair": [
+        33,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cp1m",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 270
+        }
+      ]
+    },
+    {
+      "pair": [
+        34,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cmm3",
+          "purpose": "mask",
+          "source": "published",
+          "record": 203
+        },
+        {
+          "name": "cmm3",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 302
+        }
+      ]
+    },
+    {
+      "pair": [
+        34,
+        28
+      ],
+      "aliases": [
+        {
+          "name": "MET3FILL",
+          "purpose": "fill",
+          "source": "native",
+          "record": [
+            3942,
+            3986
+          ]
+        }
+      ]
+    },
+    {
+      "pair": [
+        35,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "ctm1",
+          "purpose": "mask",
+          "source": "published",
+          "record": 208
+        },
+        {
+          "name": "cctm1",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 333
+        }
+      ]
+    },
+    {
+      "pair": [
+        36,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cmm1",
+          "purpose": "mask",
+          "source": "published",
+          "record": 207
+        },
+        {
+          "name": "cmm1",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 284
+        }
+      ]
+    },
+    {
+      "pair": [
+        36,
+        28
+      ],
+      "aliases": [
+        {
+          "name": "MET1FILL",
+          "purpose": "fill",
+          "source": "native",
+          "record": [
+            3940,
+            3984
+          ]
+        }
+      ]
+    },
+    {
+      "pair": [
+        37,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cpdm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 197
+        },
+        {
+          "name": "cpdm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 316
+        }
+      ]
+    },
+    {
+      "pair": [
+        38,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "chvntm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 234
+        },
+        {
+          "name": "chvntm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 260
+        }
+      ]
+    },
+    {
+      "pair": [
+        38,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "chvntm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 262
+        }
+      ]
+    },
+    {
+      "pair": [
+        38,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "chvntm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 263
+        }
+      ]
+    },
+    {
+      "pair": [
+        39,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "chvntm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 215
+        },
+        {
+          "name": "chvntm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 261
+        }
+      ]
+    },
+    {
+      "pair": [
+        40,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cviam",
+          "purpose": "mask",
+          "source": "published",
+          "record": 206
+        },
+        {
+          "name": "cviam",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 289
+        }
+      ]
+    },
+    {
+      "pair": [
+        41,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cmm2",
+          "purpose": "mask",
+          "source": "published",
+          "record": 205
+        },
+        {
+          "name": "cmm2",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 293
+        }
+      ]
+    },
+    {
+      "pair": [
+        41,
+        28
+      ],
+      "aliases": [
+        {
+          "name": "MET2FILL",
+          "purpose": "fill",
+          "source": "native",
+          "record": [
+            3941,
+            3985
+          ]
+        }
+      ]
+    },
+    {
+      "pair": [
+        43,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "clicm1",
+          "purpose": "mask",
+          "source": "published",
+          "record": 210
+        },
+        {
+          "name": "clicm1",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 280
+        }
+      ]
+    },
+    {
+      "pair": [
+        44,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cviam2",
+          "purpose": "mask",
+          "source": "published",
+          "record": 204
+        },
+        {
+          "name": "cviam2",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 298
+        }
+      ]
+    },
+    {
+      "pair": [
+        44,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "pwelliso",
+          "purpose": "label",
+          "source": "published",
+          "record": 126
+        },
+        {
+          "name": "pwelliso",
+          "purpose": "label",
+          "source": "installed",
+          "record": 8
+        }
+      ]
+    },
+    {
+      "pair": [
+        44,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "pwelliso",
+          "purpose": "pin",
+          "source": "published",
+          "record": 154
+        },
+        {
+          "name": "pwelliso",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 7
+        }
+      ]
+    },
+    {
+      "pair": [
+        44,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cnpc",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 235
+        },
+        {
+          "name": "cnpc",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 306
+        }
+      ]
+    },
+    {
+      "pair": [
+        44,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "cnpc",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 309
+        }
+      ]
+    },
+    {
+      "pair": [
+        44,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "cnpc",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 308
+        }
+      ]
+    },
+    {
+      "pair": [
+        45,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "clvom",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 232
+        },
+        {
+          "name": "clvom",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 266
+        }
+      ]
+    },
+    {
+      "pair": [
+        45,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "clvom",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 268
+        }
+      ]
+    },
+    {
+      "pair": [
+        45,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "clvom",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 269
+        }
+      ]
+    },
+    {
+      "pair": [
+        46,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "clvom",
+          "purpose": "mask",
+          "source": "published",
+          "record": 218
+        },
+        {
+          "name": "clvom",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 267
+        }
+      ]
+    },
+    {
+      "pair": [
+        48,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cdnm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 225
+        },
+        {
+          "name": "cdnm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 224
+        }
+      ]
+    },
+    {
+      "pair": [
+        49,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cnpc",
+          "purpose": "mask",
+          "source": "published",
+          "record": 214
+        },
+        {
+          "name": "cnpc",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 307
+        }
+      ]
+    },
+    {
+      "pair": [
+        50,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cviam3",
+          "purpose": "mask",
+          "source": "published",
+          "record": 202
+        },
+        {
+          "name": "cviam3",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 311
+        }
+      ]
+    },
+    {
+      "pair": [
+        51,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cmm4",
+          "purpose": "mask",
+          "source": "published",
+          "record": 201
+        },
+        {
+          "name": "cmm4",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 321
+        }
+      ]
+    },
+    {
+      "pair": [
+        51,
+        28
+      ],
+      "aliases": [
+        {
+          "name": "MET4FILL",
+          "purpose": "fill",
+          "source": "native",
+          "record": [
+            3943,
+            3987
+          ]
+        }
+      ]
+    },
+    {
+      "pair": [
+        53,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "crpm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 339
+        }
+      ]
+    },
+    {
+      "pair": [
+        53,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "crpm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 338
+        }
+      ]
+    },
+    {
+      "pair": [
+        53,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "crpm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 336
+        }
+      ]
+    },
+    {
+      "pair": [
+        56,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cli1m",
+          "purpose": "mask",
+          "source": "published",
+          "record": 209
+        },
+        {
+          "name": "cli1m",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 276
+        }
+      ]
+    },
+    {
+      "pair": [
+        56,
+        28
+      ],
+      "aliases": [
+        {
+          "name": "LIFILL",
+          "purpose": "fill",
+          "source": "native",
+          "record": [
+            3939,
+            3983
+          ]
+        }
+      ]
+    },
+    {
+      "pair": [
+        58,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cviam4",
+          "purpose": "mask",
+          "source": "published",
+          "record": 200
+        },
+        {
+          "name": "cviam4",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 326
+        }
+      ]
+    },
+    {
+      "pair": [
+        59,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cmm5",
+          "purpose": "mask",
+          "source": "published",
+          "record": 199
+        },
+        {
+          "name": "cmm5",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 329
+        }
+      ]
+    },
+    {
+      "pair": [
+        59,
+        28
+      ],
+      "aliases": [
+        {
+          "name": "MET5FILL",
+          "purpose": "fill",
+          "source": "native",
+          "record": [
+            3944,
+            3988
+          ]
+        }
+      ]
+    },
+    {
+      "pair": [
+        61,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "nsm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 33
+        },
+        {
+          "name": "nsm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 174
+        }
+      ]
+    },
+    {
+      "pair": [
+        62,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cmm1",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 283
+        }
+      ]
+    },
+    {
+      "pair": [
+        62,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cmm1",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 285
+        }
+      ]
+    },
+    {
+      "pair": [
+        62,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cmm1",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 286
+        }
+      ]
+    },
+    {
+      "pair": [
+        62,
+        24
+      ],
+      "aliases": [
+        {
+          "name": "cmm1",
+          "purpose": "waffle drop",
+          "source": "published",
+          "record": 266
+        },
+        {
+          "name": "cmm1",
+          "purpose": "waffleDrop",
+          "source": "installed",
+          "record": 287
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "nwell",
+          "purpose": "pin",
+          "source": "published",
+          "record": 156
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "nwell",
+          "purpose": "label",
+          "source": "published",
+          "record": 129
+        },
+        {
+          "name": "nwell",
+          "purpose": "label",
+          "source": "installed",
+          "record": 12
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "pwell",
+          "purpose": "resistor",
+          "source": "published",
+          "record": 89
+        },
+        {
+          "name": "pwell",
+          "purpose": "res",
+          "source": "installed",
+          "record": 5
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "pwell",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 6
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "nwell",
+          "purpose": "pin",
+          "source": "published",
+          "record": 151
+        },
+        {
+          "name": "nwell",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 11
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        18
+      ],
+      "aliases": [
+        {
+          "name": "dnwell",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 4
+        },
+        {
+          "name": "dnwell",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 13
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "nwell",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 3
+        },
+        {
+          "name": "nwell",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 9
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "pwell",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 2
+        }
+      ]
+    },
+    {
+      "pair": [
+        64,
+        59
+      ],
+      "aliases": [
+        {
+          "name": "pwell",
+          "purpose": "label",
+          "source": "published",
+          "record": 125
+        },
+        {
+          "name": "pwell",
+          "purpose": "label",
+          "source": "installed",
+          "record": 4
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "diff",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 108
+        },
+        {
+          "name": "diff",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 21
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "tap",
+          "purpose": "label",
+          "source": "published",
+          "record": 128
+        },
+        {
+          "name": "tap",
+          "purpose": "label",
+          "source": "installed",
+          "record": 27
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        6
+      ],
+      "aliases": [
+        {
+          "name": "diff",
+          "purpose": "label",
+          "source": "published",
+          "record": 124
+        },
+        {
+          "name": "diff",
+          "purpose": "label",
+          "source": "installed",
+          "record": 19
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        8
+      ],
+      "aliases": [
+        {
+          "name": "diff",
+          "purpose": "high voltage",
+          "source": "published",
+          "record": 92
+        },
+        {
+          "name": "diff",
+          "purpose": "hv",
+          "source": "installed",
+          "record": 22
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "diff",
+          "purpose": "resistor",
+          "source": "published",
+          "record": 88
+        },
+        {
+          "name": "diff",
+          "purpose": "res",
+          "source": "installed",
+          "record": 16
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "diff",
+          "purpose": "cut",
+          "source": "published",
+          "record": 167
+        },
+        {
+          "name": "diff",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 17
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "diff",
+          "purpose": "pin",
+          "source": "published",
+          "record": 150
+        },
+        {
+          "name": "diff",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 18
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "diff",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 1
+        },
+        {
+          "name": "diff",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 15
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "diff",
+          "purpose": "net",
+          "source": "published",
+          "record": 141
+        },
+        {
+          "name": "diff",
+          "purpose": "net",
+          "source": "installed",
+          "record": 20
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        41
+      ],
+      "aliases": [
+        {
+          "name": "tap",
+          "purpose": "net",
+          "source": "installed",
+          "record": 25
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "tap",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 2
+        },
+        {
+          "name": "tap",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 23
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        48
+      ],
+      "aliases": [
+        {
+          "name": "tap",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 24
+        }
+      ]
+    },
+    {
+      "pair": [
+        65,
+        60
+      ],
+      "aliases": [
+        {
+          "name": "tap",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 109
+        },
+        {
+          "name": "tap",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 26
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "pin",
+          "source": "published",
+          "record": 157
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 111
+        },
+        {
+          "name": "poly",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 36
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "label",
+          "source": "published",
+          "record": 123
+        },
+        {
+          "name": "poly",
+          "purpose": "label",
+          "source": "installed",
+          "record": 35
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        9
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "gate",
+          "source": "published",
+          "record": 83
+        },
+        {
+          "name": "poly",
+          "purpose": "gate",
+          "source": "installed",
+          "record": 34
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "resistor",
+          "source": "published",
+          "record": 87
+        },
+        {
+          "name": "poly",
+          "purpose": "res",
+          "source": "installed",
+          "record": 32
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "cut",
+          "source": "published",
+          "record": 168
+        },
+        {
+          "name": "poly",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 33
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "short",
+          "source": "published",
+          "record": 185
+        },
+        {
+          "name": "poly",
+          "purpose": "short",
+          "source": "installed",
+          "record": 38
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "pin",
+          "source": "published",
+          "record": 149
+        },
+        {
+          "name": "poly",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 31
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 13
+        },
+        {
+          "name": "poly",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 30
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "net",
+          "source": "published",
+          "record": 140
+        },
+        {
+          "name": "poly",
+          "purpose": "net",
+          "source": "installed",
+          "record": 39
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        25
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "probe",
+          "source": "published",
+          "record": 183
+        },
+        {
+          "name": "poly",
+          "purpose": "probe",
+          "source": "installed",
+          "record": 37
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        41
+      ],
+      "aliases": [
+        {
+          "name": "licon1",
+          "purpose": "net",
+          "source": "installed",
+          "record": 49
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "licon1",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 20
+        },
+        {
+          "name": "licon1",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 46
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        58
+      ],
+      "aliases": [
+        {
+          "name": "licon1",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 48
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        60
+      ],
+      "aliases": [
+        {
+          "name": "licon1",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 47
+        }
+      ]
+    },
+    {
+      "pair": [
+        66,
+        83
+      ],
+      "aliases": [
+        {
+          "name": "poly",
+          "purpose": "model",
+          "source": "published",
+          "record": 85
+        },
+        {
+          "name": "poly",
+          "purpose": "model",
+          "source": "installed",
+          "record": 40
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "pin",
+          "source": "published",
+          "record": 158
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 57
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "label",
+          "source": "published",
+          "record": 117
+        },
+        {
+          "name": "li1",
+          "purpose": "label",
+          "source": "installed",
+          "record": 55
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        10
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "block",
+          "source": "published",
+          "record": 100
+        },
+        {
+          "name": "li1",
+          "purpose": "blockage",
+          "source": "installed",
+          "record": 58
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "resistor",
+          "source": "published",
+          "record": 90
+        },
+        {
+          "name": "li1",
+          "purpose": "res",
+          "source": "installed",
+          "record": 53
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "cut",
+          "source": "published",
+          "record": 169
+        },
+        {
+          "name": "li1",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 54
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "short",
+          "source": "published",
+          "record": 186
+        },
+        {
+          "name": "li1",
+          "purpose": "short",
+          "source": "installed",
+          "record": 59
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "pin",
+          "source": "published",
+          "record": 143
+        },
+        {
+          "name": "li1",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 52
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 21
+        },
+        {
+          "name": "li1",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 51
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "net",
+          "source": "published",
+          "record": 134
+        },
+        {
+          "name": "li1",
+          "purpose": "net",
+          "source": "installed",
+          "record": 56
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        25
+      ],
+      "aliases": [
+        {
+          "name": "li1",
+          "purpose": "probe",
+          "source": "published",
+          "record": 182
+        },
+        {
+          "name": "li1",
+          "purpose": "probe",
+          "source": "installed",
+          "record": 60
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        41
+      ],
+      "aliases": [
+        {
+          "name": "mcon",
+          "purpose": "net",
+          "source": "installed",
+          "record": 64
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "mcon",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 22
+        },
+        {
+          "name": "mcon",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 61
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        48
+      ],
+      "aliases": [
+        {
+          "name": "mcon",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 63
+        }
+      ]
+    },
+    {
+      "pair": [
+        67,
+        60
+      ],
+      "aliases": [
+        {
+          "name": "mcon",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 110
+        },
+        {
+          "name": "mcon",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 62
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "pin",
+          "source": "published",
+          "record": 159
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 71
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "label",
+          "source": "published",
+          "record": 118
+        },
+        {
+          "name": "met1",
+          "purpose": "label",
+          "source": "installed",
+          "record": 69
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        10
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "block",
+          "source": "published",
+          "record": 101
+        },
+        {
+          "name": "met1",
+          "purpose": "blockage",
+          "source": "installed",
+          "record": 72
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "res",
+          "source": "installed",
+          "record": 66
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "cut",
+          "source": "published",
+          "record": 170
+        },
+        {
+          "name": "met1",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 67
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "short",
+          "source": "published",
+          "record": 187
+        },
+        {
+          "name": "met1",
+          "purpose": "short",
+          "source": "installed",
+          "record": 73
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "pin",
+          "source": "published",
+          "record": 144
+        },
+        {
+          "name": "met1",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 68
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 23
+        },
+        {
+          "name": "met1",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 65
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "net",
+          "source": "published",
+          "record": 135
+        },
+        {
+          "name": "met1",
+          "purpose": "net",
+          "source": "installed",
+          "record": 70
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        25
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "probe",
+          "source": "published",
+          "record": 181
+        },
+        {
+          "name": "met1",
+          "purpose": "probe",
+          "source": "installed",
+          "record": 74
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        32
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "option1",
+          "source": "installed",
+          "record": 75
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        33
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "option2",
+          "source": "installed",
+          "record": 76
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        34
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "option3",
+          "source": "installed",
+          "record": 77
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        35
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "option4",
+          "source": "installed",
+          "record": 78
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        36
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "option5",
+          "source": "installed",
+          "record": 79
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        37
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "option6",
+          "source": "installed",
+          "record": 80
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        38
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "option7",
+          "source": "installed",
+          "record": 81
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        39
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "option8",
+          "source": "installed",
+          "record": 82
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        41
+      ],
+      "aliases": [
+        {
+          "name": "via",
+          "purpose": "net",
+          "source": "installed",
+          "record": 85
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "via",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 24
+        },
+        {
+          "name": "via",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 83
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        58
+      ],
+      "aliases": [
+        {
+          "name": "via",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 86
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        60
+      ],
+      "aliases": [
+        {
+          "name": "via",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 112
+        },
+        {
+          "name": "via",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 84
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        88
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "psa1",
+          "source": "installed",
+          "record": 377
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        89
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "psa2",
+          "source": "installed",
+          "record": 382
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        90
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "psa3",
+          "source": "installed",
+          "record": 387
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        91
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "psa4",
+          "source": "installed",
+          "record": 392
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        92
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "psa5",
+          "source": "installed",
+          "record": 397
+        }
+      ]
+    },
+    {
+      "pair": [
+        68,
+        93
+      ],
+      "aliases": [
+        {
+          "name": "met1",
+          "purpose": "psa6",
+          "source": "installed",
+          "record": 402
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "pin",
+          "source": "published",
+          "record": 160
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 93
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "label",
+          "source": "published",
+          "record": 119
+        },
+        {
+          "name": "met2",
+          "purpose": "label",
+          "source": "installed",
+          "record": 91
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        10
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "block",
+          "source": "published",
+          "record": 102
+        },
+        {
+          "name": "met2",
+          "purpose": "blockage",
+          "source": "installed",
+          "record": 94
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "res",
+          "source": "installed",
+          "record": 88
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "cut",
+          "source": "published",
+          "record": 171
+        },
+        {
+          "name": "met2",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 89
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "short",
+          "source": "published",
+          "record": 188
+        },
+        {
+          "name": "met2",
+          "purpose": "short",
+          "source": "installed",
+          "record": 95
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "pin",
+          "source": "published",
+          "record": 145
+        },
+        {
+          "name": "met2",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 90
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 25
+        },
+        {
+          "name": "met2",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 87
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "net",
+          "source": "published",
+          "record": 136
+        },
+        {
+          "name": "met2",
+          "purpose": "net",
+          "source": "installed",
+          "record": 92
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        25
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "probe",
+          "source": "published",
+          "record": 180
+        },
+        {
+          "name": "met2",
+          "purpose": "probe",
+          "source": "installed",
+          "record": 96
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        32
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "option1",
+          "source": "installed",
+          "record": 97
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        33
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "option2",
+          "source": "installed",
+          "record": 98
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        34
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "option3",
+          "source": "installed",
+          "record": 99
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        35
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "option4",
+          "source": "installed",
+          "record": 100
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        36
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "option5",
+          "source": "installed",
+          "record": 101
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        37
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "option6",
+          "source": "installed",
+          "record": 102
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        38
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "option7",
+          "source": "installed",
+          "record": 103
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        39
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "option8",
+          "source": "installed",
+          "record": 104
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        41
+      ],
+      "aliases": [
+        {
+          "name": "via2",
+          "purpose": "net",
+          "source": "installed",
+          "record": 108
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "via2",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 26
+        },
+        {
+          "name": "via2",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 105
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        58
+      ],
+      "aliases": [
+        {
+          "name": "via2",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 107
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        60
+      ],
+      "aliases": [
+        {
+          "name": "via2",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 113
+        },
+        {
+          "name": "via2",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 106
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        88
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "psa1",
+          "source": "installed",
+          "record": 378
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        89
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "psa2",
+          "source": "installed",
+          "record": 383
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        90
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "psa3",
+          "source": "installed",
+          "record": 388
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        91
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "psa4",
+          "source": "installed",
+          "record": 393
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        92
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "psa5",
+          "source": "installed",
+          "record": 398
+        }
+      ]
+    },
+    {
+      "pair": [
+        69,
+        93
+      ],
+      "aliases": [
+        {
+          "name": "met2",
+          "purpose": "psa6",
+          "source": "installed",
+          "record": 403
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "pin",
+          "source": "published",
+          "record": 161
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 115
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "label",
+          "source": "published",
+          "record": 120
+        },
+        {
+          "name": "met3",
+          "purpose": "label",
+          "source": "installed",
+          "record": 113
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        10
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "block",
+          "source": "published",
+          "record": 103
+        },
+        {
+          "name": "met3",
+          "purpose": "blockage",
+          "source": "installed",
+          "record": 116
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "res",
+          "source": "installed",
+          "record": 110
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "cut",
+          "source": "published",
+          "record": 172
+        },
+        {
+          "name": "met3",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 111
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "short",
+          "source": "published",
+          "record": 189
+        },
+        {
+          "name": "met3",
+          "purpose": "short",
+          "source": "installed",
+          "record": 117
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "pin",
+          "source": "published",
+          "record": 146
+        },
+        {
+          "name": "met3",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 112
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        17
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "fuse",
+          "source": "installed",
+          "record": 118
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 27
+        },
+        {
+          "name": "met3",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 109
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "net",
+          "source": "published",
+          "record": 137
+        },
+        {
+          "name": "met3",
+          "purpose": "net",
+          "source": "installed",
+          "record": 114
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        25
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "probe",
+          "source": "published",
+          "record": 179
+        },
+        {
+          "name": "met3",
+          "purpose": "probe",
+          "source": "installed",
+          "record": 119
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        32
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "option1",
+          "source": "installed",
+          "record": 120
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        33
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "option2",
+          "source": "installed",
+          "record": 121
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        34
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "option3",
+          "source": "installed",
+          "record": 122
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        35
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "option4",
+          "source": "installed",
+          "record": 123
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        36
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "option5",
+          "source": "installed",
+          "record": 124
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        37
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "option6",
+          "source": "installed",
+          "record": 125
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        38
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "option7",
+          "source": "installed",
+          "record": 126
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        39
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "option8",
+          "source": "installed",
+          "record": 127
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        41
+      ],
+      "aliases": [
+        {
+          "name": "via3",
+          "purpose": "net",
+          "source": "installed",
+          "record": 131
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "via3",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 28
+        },
+        {
+          "name": "via3",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 128
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        48
+      ],
+      "aliases": [
+        {
+          "name": "via3",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 130
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        60
+      ],
+      "aliases": [
+        {
+          "name": "via3",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 114
+        },
+        {
+          "name": "via3",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 129
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        88
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "psa1",
+          "source": "installed",
+          "record": 379
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        89
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "psa2",
+          "source": "installed",
+          "record": 384
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        90
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "psa3",
+          "source": "installed",
+          "record": 389
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        91
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "psa4",
+          "source": "installed",
+          "record": 394
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        92
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "psa5",
+          "source": "installed",
+          "record": 399
+        }
+      ]
+    },
+    {
+      "pair": [
+        70,
+        93
+      ],
+      "aliases": [
+        {
+          "name": "met3",
+          "purpose": "psa6",
+          "source": "installed",
+          "record": 404
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "pin",
+          "source": "published",
+          "record": 162
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 138
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "label",
+          "source": "published",
+          "record": 121
+        },
+        {
+          "name": "met4",
+          "purpose": "label",
+          "source": "installed",
+          "record": 136
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        10
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "block",
+          "source": "published",
+          "record": 104
+        },
+        {
+          "name": "met4",
+          "purpose": "blockage",
+          "source": "installed",
+          "record": 139
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "res",
+          "source": "installed",
+          "record": 133
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "cut",
+          "source": "published",
+          "record": 173
+        },
+        {
+          "name": "met4",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 134
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "short",
+          "source": "published",
+          "record": 190
+        },
+        {
+          "name": "met4",
+          "purpose": "short",
+          "source": "installed",
+          "record": 140
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "pin",
+          "source": "published",
+          "record": 147
+        },
+        {
+          "name": "met4",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 135
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        17
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "fuse",
+          "source": "published",
+          "record": 94
+        },
+        {
+          "name": "met4",
+          "purpose": "fuse",
+          "source": "installed",
+          "record": 141
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 29
+        },
+        {
+          "name": "met4",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 132
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "net",
+          "source": "published",
+          "record": 138
+        },
+        {
+          "name": "met4",
+          "purpose": "net",
+          "source": "installed",
+          "record": 137
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        25
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "probe",
+          "source": "published",
+          "record": 178
+        },
+        {
+          "name": "met4",
+          "purpose": "probe",
+          "source": "installed",
+          "record": 142
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        32
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "option1",
+          "source": "installed",
+          "record": 143
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        33
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "option2",
+          "source": "installed",
+          "record": 144
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        34
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "option3",
+          "source": "installed",
+          "record": 145
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        35
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "option4",
+          "source": "installed",
+          "record": 146
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        36
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "option5",
+          "source": "installed",
+          "record": 147
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        37
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "option6",
+          "source": "installed",
+          "record": 148
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        38
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "option7",
+          "source": "installed",
+          "record": 149
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        39
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "option8",
+          "source": "installed",
+          "record": 150
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        41
+      ],
+      "aliases": [
+        {
+          "name": "via4",
+          "purpose": "net",
+          "source": "installed",
+          "record": 154
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "via4",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 30
+        },
+        {
+          "name": "via4",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 151
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        48
+      ],
+      "aliases": [
+        {
+          "name": "via4",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 153
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        60
+      ],
+      "aliases": [
+        {
+          "name": "via4",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 115
+        },
+        {
+          "name": "via4",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 152
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        88
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "psa1",
+          "source": "installed",
+          "record": 380
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        89
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "psa2",
+          "source": "installed",
+          "record": 385
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        90
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "psa3",
+          "source": "installed",
+          "record": 390
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        91
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "psa4",
+          "source": "installed",
+          "record": 395
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        92
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "psa5",
+          "source": "installed",
+          "record": 400
+        }
+      ]
+    },
+    {
+      "pair": [
+        71,
+        93
+      ],
+      "aliases": [
+        {
+          "name": "met4",
+          "purpose": "psa6",
+          "source": "installed",
+          "record": 405
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "pin",
+          "source": "published",
+          "record": 163
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 161
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "label",
+          "source": "published",
+          "record": 122
+        },
+        {
+          "name": "met5",
+          "purpose": "label",
+          "source": "installed",
+          "record": 159
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        10
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "block",
+          "source": "published",
+          "record": 105
+        },
+        {
+          "name": "met5",
+          "purpose": "blockage",
+          "source": "installed",
+          "record": 162
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "res",
+          "source": "installed",
+          "record": 156
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "cut",
+          "source": "published",
+          "record": 174
+        },
+        {
+          "name": "met5",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 157
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "short",
+          "source": "published",
+          "record": 191
+        },
+        {
+          "name": "met5",
+          "purpose": "short",
+          "source": "installed",
+          "record": 163
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "pin",
+          "source": "published",
+          "record": 148
+        },
+        {
+          "name": "met5",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 158
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        17
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "fuse",
+          "source": "installed",
+          "record": 164
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 31
+        },
+        {
+          "name": "met5",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 155
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "net",
+          "source": "published",
+          "record": 139
+        },
+        {
+          "name": "met5",
+          "purpose": "net",
+          "source": "installed",
+          "record": 160
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        25
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "probe",
+          "source": "published",
+          "record": 177
+        },
+        {
+          "name": "met5",
+          "purpose": "probe",
+          "source": "installed",
+          "record": 165
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        32
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "option1",
+          "source": "installed",
+          "record": 166
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        33
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "option2",
+          "source": "installed",
+          "record": 167
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        34
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "option3",
+          "source": "installed",
+          "record": 168
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        35
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "option4",
+          "source": "installed",
+          "record": 169
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        36
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "option5",
+          "source": "installed",
+          "record": 170
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        37
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "option6",
+          "source": "installed",
+          "record": 171
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        38
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "option7",
+          "source": "installed",
+          "record": 172
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        39
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "option8",
+          "source": "installed",
+          "record": 173
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        88
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "psa1",
+          "source": "installed",
+          "record": 381
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        89
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "psa2",
+          "source": "installed",
+          "record": 386
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        90
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "psa3",
+          "source": "installed",
+          "record": 391
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        91
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "psa4",
+          "source": "installed",
+          "record": 396
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        92
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "psa5",
+          "source": "installed",
+          "record": 401
+        }
+      ]
+    },
+    {
+      "pair": [
+        72,
+        93
+      ],
+      "aliases": [
+        {
+          "name": "met5",
+          "purpose": "psa6",
+          "source": "installed",
+          "record": 406
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "label",
+          "source": "installed",
+          "record": 192
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "res",
+          "source": "installed",
+          "record": 193
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "cut",
+          "source": "installed",
+          "record": 194
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "short",
+          "source": "installed",
+          "record": 195
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 191
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 190
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "vhvi",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 36
+        },
+        {
+          "name": "vhvi",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 14
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "uhvi",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 37
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        88
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "psa1",
+          "source": "installed",
+          "record": 407
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        89
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "psa2",
+          "source": "installed",
+          "record": 408
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        90
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "psa3",
+          "source": "installed",
+          "record": 409
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        91
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "psa4",
+          "source": "installed",
+          "record": 410
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        92
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "psa5",
+          "source": "installed",
+          "record": 411
+        }
+      ]
+    },
+    {
+      "pair": [
+        74,
+        93
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "psa6",
+          "source": "installed",
+          "record": 412
+        }
+      ]
+    },
+    {
+      "pair": [
+        75,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "hvi",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 10
+        },
+        {
+          "name": "hvi",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 183
+        }
+      ]
+    },
+    {
+      "pair": [
+        76,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "pad",
+          "purpose": "pin",
+          "source": "published",
+          "record": 164
+        }
+      ]
+    },
+    {
+      "pair": [
+        76,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "pad",
+          "purpose": "label",
+          "source": "published",
+          "record": 127
+        },
+        {
+          "name": "pad",
+          "purpose": "label",
+          "source": "installed",
+          "record": 176
+        }
+      ]
+    },
+    {
+      "pair": [
+        76,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "pad",
+          "purpose": "pin",
+          "source": "published",
+          "record": 152
+        },
+        {
+          "name": "pad",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 177
+        }
+      ]
+    },
+    {
+      "pair": [
+        76,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "pad",
+          "purpose": "drawing, text",
+          "source": "published",
+          "record": 32
+        },
+        {
+          "name": "pad",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 175
+        }
+      ]
+    },
+    {
+      "pair": [
+        76,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "target",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 45
+        },
+        {
+          "name": "target",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 331
+        }
+      ]
+    },
+    {
+      "pair": [
+        77,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "pmm2",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 189
+        }
+      ]
+    },
+    {
+      "pair": [
+        78,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "hvtp",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 8
+        },
+        {
+          "name": "hvtp",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 43
+        }
+      ]
+    },
+    {
+      "pair": [
+        79,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "urpm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 18
+        }
+      ]
+    },
+    {
+      "pair": [
+        80,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "tunm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 11
+        },
+        {
+          "name": "tunm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 45
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        1
+      ],
+      "aliases": [
+        {
+          "name": "areaid.sl",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 47
+        },
+        {
+          "name": "areaid",
+          "purpose": "seal",
+          "source": "installed",
+          "record": 350
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        2
+      ],
+      "aliases": [
+        {
+          "name": "areaid.ce",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 48
+        },
+        {
+          "name": "areaid",
+          "purpose": "core",
+          "source": "installed",
+          "record": 351
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        3
+      ],
+      "aliases": [
+        {
+          "name": "areaid.fe",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 49
+        },
+        {
+          "name": "areaid",
+          "purpose": "frame",
+          "source": "installed",
+          "record": 352
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "areaid.sc",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 50
+        },
+        {
+          "name": "areaid",
+          "purpose": "standardc",
+          "source": "installed",
+          "record": 359
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        6
+      ],
+      "aliases": [
+        {
+          "name": "areaid.sf",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 51
+        },
+        {
+          "name": "areaid",
+          "purpose": "sigPadDiff",
+          "source": "installed",
+          "record": 371
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        7
+      ],
+      "aliases": [
+        {
+          "name": "areaid.sl",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 52
+        },
+        {
+          "name": "areaid",
+          "purpose": "sigPadWell",
+          "source": "installed",
+          "record": 372
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        8
+      ],
+      "aliases": [
+        {
+          "name": "areaid.sr",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 53
+        },
+        {
+          "name": "areaid",
+          "purpose": "sigPadMetNtr",
+          "source": "installed",
+          "record": 373
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        10
+      ],
+      "aliases": [
+        {
+          "name": "areaid.mt",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 54
+        },
+        {
+          "name": "areaid",
+          "purpose": "moduleCut",
+          "source": "installed",
+          "record": 355
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        11
+      ],
+      "aliases": [
+        {
+          "name": "areaid.dt",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 55
+        },
+        {
+          "name": "areaid",
+          "purpose": "dieCut",
+          "source": "installed",
+          "record": 354
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        12
+      ],
+      "aliases": [
+        {
+          "name": "areaid.ft",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 56
+        },
+        {
+          "name": "areaid",
+          "purpose": "frameRect",
+          "source": "installed",
+          "record": 356
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        13
+      ],
+      "aliases": [
+        {
+          "name": "areaid.ww",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 57
+        },
+        {
+          "name": "areaid",
+          "purpose": "waffleWindow",
+          "source": "installed",
+          "record": 364
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        14
+      ],
+      "aliases": [
+        {
+          "name": "areaid.ld",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 58
+        },
+        {
+          "name": "areaid",
+          "purpose": "lowTapDensity",
+          "source": "installed",
+          "record": 346
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        15
+      ],
+      "aliases": [
+        {
+          "name": "areaid.ns",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 59
+        },
+        {
+          "name": "areaid",
+          "purpose": "notCritSide",
+          "source": "installed",
+          "record": 347
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        17
+      ],
+      "aliases": [
+        {
+          "name": "areaid.ij",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 60
+        },
+        {
+          "name": "areaid",
+          "purpose": "injection",
+          "source": "installed",
+          "record": 348
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        18
+      ],
+      "aliases": [
+        {
+          "name": "areaid.zr",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 61
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        19
+      ],
+      "aliases": [
+        {
+          "name": "areaid.ed",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 62
+        },
+        {
+          "name": "areaid",
+          "purpose": "esd",
+          "source": "installed",
+          "record": 353
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "padCenter",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 44
+        },
+        {
+          "name": "padCenter",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 376
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "areaid.de",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 63
+        },
+        {
+          "name": "areaid",
+          "purpose": "diode",
+          "source": "installed",
+          "record": 358
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        24
+      ],
+      "aliases": [
+        {
+          "name": "areaid.rd",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 64
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        27
+      ],
+      "aliases": [
+        {
+          "name": "areaid",
+          "purpose": "rdlprobepad",
+          "source": "installed",
+          "record": 370
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        50
+      ],
+      "aliases": [
+        {
+          "name": "areaid.dn",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 65
+        },
+        {
+          "name": "areaid",
+          "purpose": "deadZon",
+          "source": "installed",
+          "record": 360
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        51
+      ],
+      "aliases": [
+        {
+          "name": "areaid.cr",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 66
+        },
+        {
+          "name": "areaid",
+          "purpose": "critCorner",
+          "source": "installed",
+          "record": 361
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        52
+      ],
+      "aliases": [
+        {
+          "name": "areaid.cd",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 67
+        },
+        {
+          "name": "areaid",
+          "purpose": "critSid",
+          "source": "installed",
+          "record": 362
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        53
+      ],
+      "aliases": [
+        {
+          "name": "areaid.st",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 68
+        },
+        {
+          "name": "areaid",
+          "purpose": "substrateCut",
+          "source": "installed",
+          "record": 357
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        54
+      ],
+      "aliases": [
+        {
+          "name": "areaid.op",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 69
+        },
+        {
+          "name": "areaid",
+          "purpose": "opcDrop",
+          "source": "installed",
+          "record": 363
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        57
+      ],
+      "aliases": [
+        {
+          "name": "areaid.en",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 70
+        },
+        {
+          "name": "areaid",
+          "purpose": "extendedDrain",
+          "source": "installed",
+          "record": 365
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        58
+      ],
+      "aliases": [
+        {
+          "name": "areaid.en20",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 71
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        60
+      ],
+      "aliases": [
+        {
+          "name": "areaid.le",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 72
+        },
+        {
+          "name": "areaid",
+          "purpose": "lvNative",
+          "source": "installed",
+          "record": 366
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        63
+      ],
+      "aliases": [
+        {
+          "name": "areaid.hl",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 73
+        },
+        {
+          "name": "areaid",
+          "purpose": "hvnwell",
+          "source": "installed",
+          "record": 369
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        70
+      ],
+      "aliases": [
+        {
+          "name": "areaid.sd",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 74
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        79
+      ],
+      "aliases": [
+        {
+          "name": "areaid",
+          "purpose": "analog",
+          "source": "installed",
+          "record": 374
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        81
+      ],
+      "aliases": [
+        {
+          "name": "areaid.po",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 75
+        },
+        {
+          "name": "areaid",
+          "purpose": "photo",
+          "source": "installed",
+          "record": 367
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        84
+      ],
+      "aliases": [
+        {
+          "name": "areaid.it",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 76
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        101
+      ],
+      "aliases": [
+        {
+          "name": "areaid.et",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 77
+        },
+        {
+          "name": "areaid",
+          "purpose": "etest",
+          "source": "installed",
+          "record": 368
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        108
+      ],
+      "aliases": [
+        {
+          "name": "areaid.lvt",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 78
+        }
+      ]
+    },
+    {
+      "pair": [
+        81,
+        125
+      ],
+      "aliases": [
+        {
+          "name": "areaid.re",
+          "purpose": "identifier",
+          "source": "published",
+          "record": 79
+        },
+        {
+          "name": "areaid",
+          "purpose": "rfdiode",
+          "source": "installed",
+          "record": 349
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        5
+      ],
+      "aliases": [
+        {
+          "name": "npn",
+          "purpose": "label",
+          "source": "installed",
+          "record": 181
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "npn",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 38
+        },
+        {
+          "name": "npn",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 180
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        24
+      ],
+      "aliases": [
+        {
+          "name": "inductor",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 39
+        },
+        {
+          "name": "inductor",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 206
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        25
+      ],
+      "aliases": [
+        {
+          "name": "inductor",
+          "purpose": "label",
+          "source": "published",
+          "record": 130
+        },
+        {
+          "name": "inductor",
+          "purpose": "label",
+          "source": "installed",
+          "record": 207
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        26
+      ],
+      "aliases": [
+        {
+          "name": "inductor",
+          "purpose": "terminal1",
+          "source": "published",
+          "record": 96
+        },
+        {
+          "name": "inductor",
+          "purpose": "term1",
+          "source": "installed",
+          "record": 208
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        27
+      ],
+      "aliases": [
+        {
+          "name": "inductor",
+          "purpose": "terminal2",
+          "source": "published",
+          "record": 97
+        },
+        {
+          "name": "inductor",
+          "purpose": "term2",
+          "source": "installed",
+          "record": 209
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        28
+      ],
+      "aliases": [
+        {
+          "name": "inductor",
+          "purpose": "terminal3",
+          "source": "published",
+          "record": 98
+        },
+        {
+          "name": "inductor",
+          "purpose": "term3",
+          "source": "installed",
+          "record": 210
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "pnp",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 41
+        },
+        {
+          "name": "pnp",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 178
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        59
+      ],
+      "aliases": [
+        {
+          "name": "pnp",
+          "purpose": "label",
+          "source": "installed",
+          "record": 179
+        }
+      ]
+    },
+    {
+      "pair": [
+        82,
+        64
+      ],
+      "aliases": [
+        {
+          "name": "capacitor",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 40
+        },
+        {
+          "name": "capacitor",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 184
+        }
+      ]
+    },
+    {
+      "pair": [
+        83,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "text",
+          "purpose": "label",
+          "source": "published",
+          "record": 132
+        }
+      ]
+    },
+    {
+      "pair": [
+        84,
+        23
+      ],
+      "aliases": [
+        {
+          "name": "nwell",
+          "purpose": "net",
+          "source": "installed",
+          "record": 10
+        }
+      ]
+    },
+    {
+      "pair": [
+        84,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "LVS prune",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 42
+        },
+        {
+          "name": "prune",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 375
+        }
+      ]
+    },
+    {
+      "pair": [
+        85,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "pmm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 188
+        }
+      ]
+    },
+    {
+      "pair": [
+        86,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "rpm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 17
+        },
+        {
+          "name": "rpm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 182
+        }
+      ]
+    },
+    {
+      "pair": [
+        87,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "conom",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 246
+        }
+      ]
+    },
+    {
+      "pair": [
+        87,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "conom",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 245
+        }
+      ]
+    },
+    {
+      "pair": [
+        87,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "conom",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 231
+        },
+        {
+          "name": "conom",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 243
+        }
+      ]
+    },
+    {
+      "pair": [
+        88,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "conom",
+          "purpose": "mask",
+          "source": "published",
+          "record": 219
+        },
+        {
+          "name": "conom",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 244
+        }
+      ]
+    },
+    {
+      "pair": [
+        88,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "chvtpm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 230
+        },
+        {
+          "name": "chvtpm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 231
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        32
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "option1",
+          "source": "installed",
+          "record": 196
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        33
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "option2",
+          "source": "installed",
+          "record": 197
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        34
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "option3",
+          "source": "installed",
+          "record": 198
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        35
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "option4",
+          "source": "installed",
+          "record": 199
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        36
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "option5",
+          "source": "installed",
+          "record": 200
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        37
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "option6",
+          "source": "installed",
+          "record": 201
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        38
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "option7",
+          "source": "installed",
+          "record": 202
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        39
+      ],
+      "aliases": [
+        {
+          "name": "rdl",
+          "purpose": "option8",
+          "source": "installed",
+          "record": 203
+        }
+      ]
+    },
+    {
+      "pair": [
+        89,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "capm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 34
+        },
+        {
+          "name": "capm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 211
+        }
+      ]
+    },
+    {
+      "pair": [
+        90,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "overlap",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 345
+        }
+      ]
+    },
+    {
+      "pair": [
+        90,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "overlap",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 344
+        }
+      ]
+    },
+    {
+      "pair": [
+        91,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cpmm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 319
+        }
+      ]
+    },
+    {
+      "pair": [
+        92,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "ncm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 43
+        },
+        {
+          "name": "ncm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 185
+        }
+      ]
+    },
+    {
+      "pair": [
+        93,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "ccu1m",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 340
+        }
+      ]
+    },
+    {
+      "pair": [
+        93,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "nsdm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 15
+        },
+        {
+          "name": "nsdm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 29
+        }
+      ]
+    },
+    {
+      "pair": [
+        94,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cpmm2",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 341
+        }
+      ]
+    },
+    {
+      "pair": [
+        94,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "psdm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 16
+        },
+        {
+          "name": "psdm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 28
+        }
+      ]
+    },
+    {
+      "pair": [
+        95,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "npc",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 19
+        },
+        {
+          "name": "npc",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 50
+        }
+      ]
+    },
+    {
+      "pair": [
+        96,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "crpm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 196
+        },
+        {
+          "name": "crpm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 337
+        }
+      ]
+    },
+    {
+      "pair": [
+        96,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "ctunm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 239
+        }
+      ]
+    },
+    {
+      "pair": [
+        96,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "ctunm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 241
+        }
+      ]
+    },
+    {
+      "pair": [
+        96,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "ctunm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 242
+        }
+      ]
+    },
+    {
+      "pair": [
+        96,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cncm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 241
+        },
+        {
+          "name": "cncm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 186
+        }
+      ]
+    },
+    {
+      "pair": [
+        97,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "chvtpm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 222
+        },
+        {
+          "name": "chvtpm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 232
+        }
+      ]
+    },
+    {
+      "pair": [
+        97,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "chvtpm",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 255
+        },
+        {
+          "name": "chvtpm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 234
+        }
+      ]
+    },
+    {
+      "pair": [
+        97,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "chvtpm",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 245
+        },
+        {
+          "name": "chvtpm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 233
+        }
+      ]
+    },
+    {
+      "pair": [
+        97,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cap2m",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 35
+        },
+        {
+          "name": "capm2",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 212
+        }
+      ]
+    },
+    {
+      "pair": [
+        98,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "chvtrm",
+          "purpose": "mask",
+          "source": "published",
+          "record": 221
+        },
+        {
+          "name": "chvtrm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 236
+        }
+      ]
+    },
+    {
+      "pair": [
+        98,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "chvtrm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 238
+        }
+      ]
+    },
+    {
+      "pair": [
+        98,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "chvtrm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 237
+        }
+      ]
+    },
+    {
+      "pair": [
+        98,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "chvtrm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 235
+        }
+      ]
+    },
+    {
+      "pair": [
+        99,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cpbo",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 320
+        }
+      ]
+    },
+    {
+      "pair": [
+        100,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cubm",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 342
+        }
+      ]
+    },
+    {
+      "pair": [
+        101,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "cbump",
+          "purpose": "mask",
+          "source": "installed",
+          "record": 343
+        }
+      ]
+    },
+    {
+      "pair": [
+        101,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "cctm1",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 335
+        }
+      ]
+    },
+    {
+      "pair": [
+        101,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "cctm1",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 334
+        }
+      ]
+    },
+    {
+      "pair": [
+        101,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cctm1",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 332
+        }
+      ]
+    },
+    {
+      "pair": [
+        104,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "cpdm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 318
+        }
+      ]
+    },
+    {
+      "pair": [
+        104,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "cpdm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 317
+        }
+      ]
+    },
+    {
+      "pair": [
+        104,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cpdm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 315
+        }
+      ]
+    },
+    {
+      "pair": [
+        105,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cviam",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 288
+        }
+      ]
+    },
+    {
+      "pair": [
+        105,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cviam",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 290
+        }
+      ]
+    },
+    {
+      "pair": [
+        105,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cviam",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 291
+        }
+      ]
+    },
+    {
+      "pair": [
+        105,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "cmm2",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 295
+        }
+      ]
+    },
+    {
+      "pair": [
+        105,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "cmm2",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 294
+        }
+      ]
+    },
+    {
+      "pair": [
+        105,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cmm2",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 292
+        }
+      ]
+    },
+    {
+      "pair": [
+        105,
+        52
+      ],
+      "aliases": [
+        {
+          "name": "cmm2",
+          "purpose": "waffle drop",
+          "source": "published",
+          "record": 265
+        },
+        {
+          "name": "cmm2",
+          "purpose": "waffleDrop",
+          "source": "installed",
+          "record": 296
+        }
+      ]
+    },
+    {
+      "pair": [
+        106,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "clicm1",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 257
+        },
+        {
+          "name": "clicm1",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 282
+        }
+      ]
+    },
+    {
+      "pair": [
+        106,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "clicm1",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 247
+        },
+        {
+          "name": "clicm1",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 281
+        }
+      ]
+    },
+    {
+      "pair": [
+        106,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "clicm1",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 279
+        }
+      ]
+    },
+    {
+      "pair": [
+        107,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cmm3",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 301
+        }
+      ]
+    },
+    {
+      "pair": [
+        107,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cmm3",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 303
+        }
+      ]
+    },
+    {
+      "pair": [
+        107,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cmm3",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 304
+        }
+      ]
+    },
+    {
+      "pair": [
+        107,
+        24
+      ],
+      "aliases": [
+        {
+          "name": "cmm3",
+          "purpose": "waffle drop",
+          "source": "published",
+          "record": 264
+        },
+        {
+          "name": "cmm3",
+          "purpose": "waffleDrop",
+          "source": "installed",
+          "record": 305
+        }
+      ]
+    },
+    {
+      "pair": [
+        108,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cviam2",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 297
+        }
+      ]
+    },
+    {
+      "pair": [
+        108,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cviam2",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 299
+        }
+      ]
+    },
+    {
+      "pair": [
+        108,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cviam2",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 300
+        }
+      ]
+    },
+    {
+      "pair": [
+        109,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "cnwm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 222
+        }
+      ]
+    },
+    {
+      "pair": [
+        109,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "cnwm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 221
+        }
+      ]
+    },
+    {
+      "pair": [
+        109,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cnwm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 219
+        }
+      ]
+    },
+    {
+      "pair": [
+        110,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cdnm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 223
+        }
+      ]
+    },
+    {
+      "pair": [
+        110,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cdnm",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 225
+        }
+      ]
+    },
+    {
+      "pair": [
+        110,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cdnm",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 226
+        }
+      ]
+    },
+    {
+      "pair": [
+        112,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "cmm4",
+          "purpose": "waffle drop",
+          "source": "published",
+          "record": 263
+        },
+        {
+          "name": "cmm4",
+          "purpose": "waffleDrop",
+          "source": "installed",
+          "record": 324
+        }
+      ]
+    },
+    {
+      "pair": [
+        112,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cviam3",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 239
+        },
+        {
+          "name": "cviam3",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 310
+        }
+      ]
+    },
+    {
+      "pair": [
+        112,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cviam3",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 312
+        }
+      ]
+    },
+    {
+      "pair": [
+        112,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cviam3",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 313
+        }
+      ]
+    },
+    {
+      "pair": [
+        112,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "cmm4",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 323
+        }
+      ]
+    },
+    {
+      "pair": [
+        112,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "cmm4",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 322
+        }
+      ]
+    },
+    {
+      "pair": [
+        115,
+        42
+      ],
+      "aliases": [
+        {
+          "name": "cli1m",
+          "purpose": "mask drop",
+          "source": "published",
+          "record": 256
+        },
+        {
+          "name": "cli1m",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 278
+        }
+      ]
+    },
+    {
+      "pair": [
+        115,
+        43
+      ],
+      "aliases": [
+        {
+          "name": "cli1m",
+          "purpose": "mask add",
+          "source": "published",
+          "record": 246
+        },
+        {
+          "name": "cli1m",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 277
+        }
+      ]
+    },
+    {
+      "pair": [
+        115,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "cli1m",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 238
+        },
+        {
+          "name": "cli1m",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 275
+        }
+      ]
+    },
+    {
+      "pair": [
+        117,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "cmm5",
+          "purpose": "waffle drop",
+          "source": "published",
+          "record": 269
+        },
+        {
+          "name": "cmm5",
+          "purpose": "waffleDrop",
+          "source": "installed",
+          "record": 330
+        }
+      ]
+    },
+    {
+      "pair": [
+        117,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "cviam4",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 240
+        },
+        {
+          "name": "cviam4",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 325
+        }
+      ]
+    },
+    {
+      "pair": [
+        117,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "cviam4",
+          "purpose": "maskAdd",
+          "source": "installed",
+          "record": 327
+        }
+      ]
+    },
+    {
+      "pair": [
+        117,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "cviam4",
+          "purpose": "maskDrop",
+          "source": "installed",
+          "record": 328
+        }
+      ]
+    },
+    {
+      "pair": [
+        122,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "pwell",
+          "purpose": "pin",
+          "source": "published",
+          "record": 165
+        }
+      ]
+    },
+    {
+      "pair": [
+        122,
+        16
+      ],
+      "aliases": [
+        {
+          "name": "pwell",
+          "purpose": "pin",
+          "source": "published",
+          "record": 153
+        },
+        {
+          "name": "pwell",
+          "purpose": "pin",
+          "source": "installed",
+          "record": 3
+        }
+      ]
+    },
+    {
+      "pair": [
+        124,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "pwde",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 6
+        }
+      ]
+    },
+    {
+      "pair": [
+        124,
+        40
+      ],
+      "aliases": [
+        {
+          "name": "blanking",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 413
+        }
+      ]
+    },
+    {
+      "pair": [
+        125,
+        20
+      ],
+      "aliases": [
+        {
+          "name": "hvntm",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 14
+        },
+        {
+          "name": "hvntm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 259
+        }
+      ]
+    },
+    {
+      "pair": [
+        125,
+        44
+      ],
+      "aliases": [
+        {
+          "name": "lvtn",
+          "purpose": "drawing",
+          "source": "published",
+          "record": 12
+        },
+        {
+          "name": "lvtn",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 42
+        }
+      ]
+    },
+    {
+      "pair": [
+        127,
+        21
+      ],
+      "aliases": [
+        {
+          "name": "ubm",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 204
+        }
+      ]
+    },
+    {
+      "pair": [
+        127,
+        22
+      ],
+      "aliases": [
+        {
+          "name": "bump",
+          "purpose": "drawing",
+          "source": "installed",
+          "record": 205
+        }
+      ]
+    },
+    {
+      "pair": [
+        235,
+        4
+      ],
+      "aliases": [
+        {
+          "name": "prBndry",
+          "purpose": "boundary",
+          "source": "published",
+          "record": 107
+        },
+        {
+          "name": "prBoundary",
+          "purpose": "boundary",
+          "source": "installed",
+          "record": 1
+        }
+      ]
+    },
+    {
+      "pair": [
+        236,
+        0
+      ],
+      "aliases": [
+        {
+          "name": "OUTLINE",
+          "purpose": "boundary",
+          "source": "native",
+          "record": [
+            3891
+          ]
+        }
+      ]
+    }
+  ],
+  "derived_wells": {
+    "path": "work/sky130-rule-sources-v1/docs/rules/layers/table-c3-device-lvs-other.csv",
+    "sha256": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+    "pwell": "NOT nwell (default substrate area)",
+    "iso_pwell": "(NOT nwell) AND dnwell"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "repository": "https://github.com/google/gf180mcu-pdk",
+  "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+  "files": {
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    "docs/physical_verification/design_manual/drm_12.rst": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_12.rst",
+      "sha256": "6e606d7d3a39aca08ecc262446f4915c95fd735499996878b70af23e205749ec",
+      "bytes": 181
+    },
+    "docs/physical_verification/design_manual/drm_12_1.rst": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_12_1.rst",
+      "sha256": "df9368cfa997bef331e8b125c59fc871abe2319ca2efe6ab15aa6cb279637a59",
+      "bytes": 456
+    },
+    "docs/physical_verification/design_manual/drm_12_2.rst": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_12_2.rst",
+      "sha256": "891ccad580d992940492935a0fc9fae3c488adb43e8d5c91a70cd9bb86ea3e3f",
+      "bytes": 1411
+    },
+    "docs/physical_verification/design_manual/drm_12_3.rst": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_12_3.rst",
+      "sha256": "f55bf58abaaa47ad05dc55f86fc058960b2c22f9e1fb0e8f65d64ec754070c0c",
+      "bytes": 1077
+    },
+    "docs/physical_verification/design_manual/drm_12_4.rst": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_12_4.rst",
+      "sha256": "29c6abb5ce4b15ac5a818e01f3742d330f0e05babfa46b927b069e12f91f5015",
+      "bytes": 548
+    },
+    "docs/physical_verification/design_manual/drm_16.rst": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_16.rst",
+      "sha256": "9c132160f36cb19ced50704c0c34234d7b542a4b1a49a3c0ad0bf58a65454933",
+      "bytes": 210
+    },
+    "docs/physical_verification/design_manual/images/SCRIBE_LINE1.png": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/images/SCRIBE_LINE1.png",
+      "sha256": "bd74da9c38fe7a3302b9d845840325963124fc5fbe5d50fd6d841ddcf4034e5e",
+      "bytes": 151471
+    },
+    "docs/physical_verification/design_manual/tables_clear/49_scribeline_guardring1_131.csv": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/tables_clear/49_scribeline_guardring1_131.csv",
+      "sha256": "438cbba985080ff6e71693c2297871dd5db8bb74c9606f5527784ddbeb2a3a01",
+      "bytes": 876
+    },
+    "docs/physical_verification/design_manual/images/SCRIBE_LINE2.png": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/images/SCRIBE_LINE2.png",
+      "sha256": "140b65ba449b8ba302a314fb121946540adf24149f33213efe7548b805ddd78a",
+      "bytes": 127557
+    },
+    "docs/physical_verification/design_manual/tables_clear/49_scribeline_guardring2_133.csv": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/tables_clear/49_scribeline_guardring2_133.csv",
+      "sha256": "5db17890b54cfdc3f5fdc69afe8d5e993e751b9a961d3d321320afac44602237",
+      "bytes": 973
+    },
+    "docs/physical_verification/design_manual/tables_clear/50_GUARD_RING_MK_134.csv": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/tables_clear/50_GUARD_RING_MK_134.csv",
+      "sha256": "3dc0271bbdab61477eeab492aaa37e59d3b9ba0adb83d30dd807c7da09f85e77",
+      "bytes": 788
+    },
+    "docs/physical_verification/design_manual/tables_clear/70_not_coded_rules_187.csv": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/tables_clear/70_not_coded_rules_187.csv",
+      "sha256": "11ade9eda921014d44af273a12e4e226138ad04d9a1cd51332b62c8c9a34ed89",
+      "bytes": 4080
+    }
+  }
+}

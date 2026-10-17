@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "checked_at_utc": "2026-10-16T00:50:45Z",
+  "chunk": 6,
+  "status": "license-compatible-alternatives-reviewed",
+  "application_commit": "78dc74f74968ae3ce2e0d6d472b91d04a280a8a2",
+  "qualified": false,
+  "chunk_complete": false,
+  "new_coverage_decisions": 0,
+  "unresolved_catalog_records": 302,
+  "scope": "Licensing and alternative-workflow source review. No external precheck was executed; no full-rule equivalence or foundry acceptance is claimed. No new third-party implementation was incorporated.",
+  "licensing_basis": [
+    {
+      "topic": "Apache-2.0 in GPLv3",
+      "source": "https://www.apache.org/licenses/GPL-compatibility",
+      "finding": "The Apache Software Foundation states that Apache-2.0 software can be included in GPLv3 projects. Required upstream license text and notices still apply."
+    },
+    {
+      "topic": "Independent programs",
+      "source": "https://www.gnu.org/licenses/gpl-faq.en.html#MereAggregation",
+      "finding": "The FSF distinguishes aggregates of independent programs from combined programs. Communication semantics matter; a separate folder or process is not an automatic compatibility exemption."
+    },
+    {
+      "topic": "Technical facts and expression",
+      "source": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "finding": "The U.S. Copyright Office distinguishes facts, systems and methods from protected expression. This is not permission to copy restricted code, manuals or layouts, or a determination about other rights or contractual restrictions."
+    },
+    {
+      "topic": "Cadence package",
+      "source": "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/terms-and-conditions/Cadence-Public-License-Version-1.0.pdf",
+      "finding": "Its public license grants use and redistribution rights subject to its terms. The earlier exclusion records unresolved GPL compatibility, not a finding that the license prohibits all public redistribution. No compatibility conclusion or incorporation is made here."
+    }
+  ],
+  "candidate": {
+    "repository": "https://github.com/chipfoundry/cf-precheck",
+    "revision": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+    "root_license": "Apache-2.0",
+    "files": [
+      {
+        "path": "LICENSE",
+        "git_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+        "bytes": 11357
+      },
+      {
+        "path": "README.md",
+        "git_blob": "8ad12ed893ebbda16c4134debd96dbdc7a6bd191",
+        "bytes": 4424
+      },
+      {
+        "path": "src/cf_precheck/drc_scripts/sky130A_mr.drc",
+        "git_blob": "3f9420347b04ab1c1e9929af2167d03c7ebcf76c",
+        "bytes": 62208
+      },
+      {
+        "path": "src/cf_precheck/drc_scripts/met_min_ca_density.lydrc",
+        "git_blob": "994e70f12b2d81650e6696c0ff98f79c1591d147",
+        "bytes": 3968
+      },
+      {
+        "path": "src/cf_precheck/checks/klayout_drc.py",
+        "git_blob": "b07cf2da73722c65570c0b7319b062e274e5262f",
+        "bytes": 6987
+      },
+      {
+        "path": "src/cf_precheck/check_manager.py",
+        "git_blob": "31049034140f9f43d86d3f76c828e32608828f45",
+        "bytes": 3357
+      }
+    ],
+    "file_specific_license": {
+      "path": "src/cf_precheck/drc_scripts/sky130A_mr.drc",
+      "header_license": "GNU GPLv3",
+      "interpretation": "Preserve this file-specific GPLv3 grant; do not relabel it Apache-2.0 based on the repository root or claim an unprovided later-version grant."
+    },
+    "technical_findings": [
+      "The README describes a user-project precheck before shuttle submission, not certification of every historical SKY130 catalog entry.",
+      "The wrapper explicitly invokes separate FEOL, BEOL and off-grid profiles. Magic DRC is optional by default; all selected check switches and omissions would need to be recorded for qualification.",
+      "The inspected density deck computes whole-boundary clear-area fractions. It does not implement the missing 700 um waffle-conditioned density acceptance semantics.",
+      "No x.20 pin center-spacing limit or definitions for the named CLNTM, metop1-8, fomDummyDRC and RF model-map blockers were found in the inspected main SKY130 deck.",
+      "A passing precheck on a selected Caravel/OpenFrame harness would not by itself close the 302 unresolved catalog records."
+    ],
+    "potential_use": "A separately named, pinned public-shuttle acceptance milestone and an independent comparison flow. Full Chunk 6 completion still requires a rule-by-rule applicability and execution reconciliation or authoritative acceptance evidence covering the missing requirements.",
+    "constraints": "Do not silently replace the original complete-rule gate with this precheck. Do not claim it is integrated, executed, foundry approved for this application, or complete."
+  },
+  "secondary_candidate": {
+    "repository": "https://github.com/TinyTapeout/tt-support-tools",
+    "revision": "01d5d2814fa9dd61e9d211e0b235a4a592a9316a",
+    "root_license_git_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "inspected_path": "precheck/precheck.py",
+    "git_blob": "104ce8742500819bd057e8856e90ce1db28ef490",
+    "decision": "A candidate template-specific public acceptance flow, not a replacement for complete catalog reconciliation. No new source files are incorporated."
+  },
+  "repository_review": {
+    "tracked_files": 5596,
+    "known_excluded_path_matches": [],
+    "scanned_text_extensions": [
+      ".py",
+      ".md",
+      ".txt",
+      ".json",
+      ".csv",
+      ".tcl",
+      ".tech",
+      ".drc",
+      ".lydrc",
+      ".spice",
+      ".rst",
+      ".v",
+      ".lib",
+      ".cir"
+    ],
+    "max_scanned_text_file_bytes": 15000000,
+    "notice_searches": [
+      "Company Confidential",
+      "SkyWater Proprietary",
+      "Not for Public Release",
+      "Cadence Public License"
+    ],
+    "text_matches": [
+      {
+        "file": "docs/SKY130_PHYSICAL_QUALIFICATION.md",
+        "notice": "Cadence Public License",
+        "context": "exclusion explanation"
+      },
+      {
+        "file": "docs/validation/sky130-definition-review-2026-10-15.json",
+        "notice": "Cadence Public License",
+        "context": "exclusion explanation"
+      }
+    ],
+    "locally_available_history_filename_patterns": [
+      "*002-21992*",
+      "*002-22691*",
+      "*sky130_rev_0.0_2.12*",
+      "*Cadence-Public-License*"
+    ],
+    "history_filename_matches": [],
+    "limitation": "Bounded current-content and filename-history review, not a whole-repository legal audit. Binary contents, other wording, unavailable refs, ownership and patent rights are not determined by this scan.",
+    "attribution_improvement": "The source package already retains the Apache-2.0 seal-generator license and original files. Add an explicit central notice identifying the alignment checker adaptation and derived GDS controls so the attribution travels with desktop distributions."
+  },
+  "path_forward": [
+    "Keep application contributions GPL-3.0-or-later and preserve each compatible upstream component license and notice.",
+    "Use original implementations of sufficiently documented public requirements, together with compatible public engines and decks; retain exact sources and deliberately failing controls.",
+    "Evaluate the pinned public operator precheck as an additional milestone, with every skipped/optional check visible. Do not count it as the original gate without sufficient applicability and acceptance evidence.",
+    "Seek public version-applicable clarification or validated output/reference evidence for the remaining definitions. No private package, proprietary mirror or unverified relicensing is required or proposed.",
+    "Only promote full Chunk 6 when all required rules have documented coverage and passing evidence. Licensing compatibility and physical qualification must both be established."
+  ],
+  "no_messages_sent": true,
+  "no_external_execution_or_submission": true,
+  "validation": {
+    "documentation_check": "passed",
+    "documents": 134,
+    "local_links": 1519,
+    "requirements": 125,
+    "process_qualification": "unqualified",
+    "new_runtime_tests": 0,
+    "code_changes": false
+  }
+}

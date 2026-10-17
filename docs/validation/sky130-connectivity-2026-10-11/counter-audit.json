@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "status": "native-device-and-port-match",
+  "matched": true,
+  "qualified": false,
+  "report_sha256": "5a733e47eab94c8031bd3522841fc04c66f75008c476bd8041b0cbfbe265693c",
+  "top": "counter",
+  "circuits": [
+    {
+      "layout": "counter",
+      "reference": "COUNTER",
+      "status": "Match"
+    }
+  ],
+  "extraction_log": [],
+  "port_pairs": [
+    {
+      "layout": "N0000000",
+      "reference": "N0000000",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000001",
+      "reference": "N0000001",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000010",
+      "reference": "N0000010",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000014",
+      "reference": "N0000014",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000015",
+      "reference": "N0000015",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000016",
+      "reference": "N0000016",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000017",
+      "reference": "N0000017",
+      "status": "Match"
+    },
+    {
+      "layout": "N0000023",
+      "reference": "N0000023",
+      "status": "Match"
+    }
+  ],
+  "port_labels_match": true,
+  "expected_ports": [
+    "N0000000",
+    "N0000001",
+    "N0000010",
+    "N0000014",
+    "N0000015",
+    "N0000016",
+    "N0000017",
+    "N0000023"
+  ],
+  "port_case_policy": "Unique N plus seven-digit aliases; case-insensitive native graph-paired port groups must agree exactly and cover every declared port once.",
+  "inventory": {
+    "layout": {
+      "devices": {
+        "pfet_01v8_hvt": 102,
+        "nfet_01v8": 102
+      },
+      "pins": [
+        "n0000000",
+        "n0000001",
+        "n0000010",
+        "n0000014",
+        "n0000015",
+        "n0000016",
+        "n0000017",
+        "n0000023"
+      ]
+    },
+    "reference": {
+      "devices": {
+        "pfet_01v8_hvt": 102,
+        "nfet_01v8": 102
+      },
+      "pins": [
+        "n0000000",
+        "n0000001",
+        "n0000010",
+        "n0000014",
+        "n0000015",
+        "n0000016",
+        "n0000017",
+        "n0000023"
+      ]
+    }
+  }
+}

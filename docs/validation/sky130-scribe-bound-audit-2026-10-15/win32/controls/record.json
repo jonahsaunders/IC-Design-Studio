@@ -1,0 +1,605 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "5547b3e1f811a5c4b79e3675bbffbd721562001c17eb0f43de6e94cde7c4efcb",
+  "checker_sha256": "fd9d44a57d433bd61d3ff20d4c21308f42cc8c9e4793275e10d548083d7b4e31",
+  "cases": [
+    {
+      "case": "empty",
+      "gds_sha256": "f409e778d8194f598d56c7f49be7ddd50812d6cc038a55b4d7709d0f5dcf1837",
+      "report_sha256": "e207cea8e1258a8dfa85aa92229ca90e99fcccdd2e2921d84ba3f47377ccf477",
+      "unreviewed": [],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "all_below",
+      "gds_sha256": "2631c4a9e2c2ce702a890da9fe05e70eba6272c7369d0b380d33e434ef31603d",
+      "report_sha256": "a5f6bda9ceebbdf7a4f53dd651b4ce8e07ac5df50f6365a7113e7b67e34e71fc",
+      "unreviewed": [],
+      "absent": []
+    },
+    {
+      "case": "all_exact",
+      "gds_sha256": "80c15d4107480efc1101ae61608b547a3fc17ff161f146f546872832724c8ef2",
+      "report_sha256": "dd17274fe80d12b06b928488efa98bd9419225026b5225782db0f08c7fa1354b",
+      "unreviewed": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ],
+      "absent": []
+    },
+    {
+      "case": "all_above",
+      "gds_sha256": "bbc58145d58c75b0b2e4b09470b0b7bf4517e07580615baf851edc9dfe44576e",
+      "report_sha256": "89cb44be793c2f0830bf1423e2164ebe223b63028ed962571d579b18c0971ca9",
+      "unreviewed": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ],
+      "absent": []
+    },
+    {
+      "case": "single_exact_diff",
+      "gds_sha256": "edf66a46a11fcfe4cc86a2081b01ae49aa8c891e11ea036b89150efbefdf9716",
+      "report_sha256": "a1369d78ca5035d54b83362e7c2fb52e3e6c473207a685c5c27da3c0d4c3b24b",
+      "unreviewed": [
+        "r1376"
+      ],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_poly",
+      "gds_sha256": "67774d552082b9d5eee5b349453f893c0f91326a55524597c7458153bd646474",
+      "report_sha256": "a8364fad5c0f45d8a529377b4850b86b9c368737bc9ed6f2a4cf9392f4b9a0c7",
+      "unreviewed": [
+        "r1377"
+      ],
+      "absent": [
+        "r1376",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_li1",
+      "gds_sha256": "e71bfc6fbb5def77fe9d9f10345dec06c8753724e69328ead1933d44e41edbd4",
+      "report_sha256": "562eccd5eaadf1b97f8bc002ad20fbfe3211fcf3639d8782005a2c9116e597c2",
+      "unreviewed": [
+        "r1378"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_met1",
+      "gds_sha256": "c2e6d0f78fbe7fbf957b6bf562bcdad4e1b9666c2ec6c136338838596c4a7167",
+      "report_sha256": "81d5c5b98d7847872745d6b7ef03c4af39202de2c20e417ddb6c01b08da38772",
+      "unreviewed": [
+        "r1379"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_met2",
+      "gds_sha256": "d87de2c0adac3f0f3be553a1bdf14ccb468d4a84ffb73437f16d34619e938dc6",
+      "report_sha256": "8c0798c1edde5e16beb9c958f082bfbe462a8f0523737b60a3c0dc019ae7be6c",
+      "unreviewed": [
+        "r1380"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_met3",
+      "gds_sha256": "b52d11993db8369a8268a8885fa24fbff3317ea2c667ebc641fb865f655897f8",
+      "report_sha256": "37ce343f4d88c8fbe1dbf8e06abf2edfc0d445661822e16313810835b45a587b",
+      "unreviewed": [
+        "r1381"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_mcon",
+      "gds_sha256": "7681c3776ded5d901b29756910858e7d820eeb89b39443c99efc4b33660eb7bc",
+      "report_sha256": "b955817b64520059f13f5b837d3e2051b9167f6a0080fd375f6d46b158617912",
+      "unreviewed": [
+        "r1382"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_licon1",
+      "gds_sha256": "2edd41aab29db6d598ba2ea943530a7d29876a0fb79342ae920f1e02a6e7dd2d",
+      "report_sha256": "e26dad9ec0ab430e025e870614fd0c80faad850f0e78b8a25375bc590657b44c",
+      "unreviewed": [
+        "r1383"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_via",
+      "gds_sha256": "80f68c23477c86ebea884c52f98b71abc26dc90e172e652dd1a566d837e66417",
+      "report_sha256": "8ae843a22fe860aa74ec389b89bd1d5291fc77fb7ac06e2ef7a36159f0dd8d81",
+      "unreviewed": [
+        "r1384"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_via2",
+      "gds_sha256": "8940cec050af9eff70ddd7b53d5480f16685c0cdde085a359082b4f846acbf1f",
+      "report_sha256": "dfa839dc7c4c233f1d27dc417d3422ef91911af1e1d8d1e6a1b898b130877b91",
+      "unreviewed": [
+        "r1385"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_met4",
+      "gds_sha256": "50a028c56ae4c12841ff4e0b988944679350ff885a2de9710989eb69fe26aa25",
+      "report_sha256": "629d705298b65e746e601b83af2666abd9b2fcb895f02ee69b18f0ddd9bf7717",
+      "unreviewed": [
+        "r1386"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_met5",
+      "gds_sha256": "42e3a661c9dec4f1f05ad7ebc50f0a62fa95547eab6977b43cb9a5329d2577d7",
+      "report_sha256": "1358d139991d2aa482658204a360b8bcdfef088b71abd7ddc9459b9e28fabf52",
+      "unreviewed": [
+        "r1387"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_via3",
+      "gds_sha256": "dee2ee32eb71d4821b2c12426b5d91999fca4828b26a9482e47cca1226c4927f",
+      "report_sha256": "f626e7bff366eac4bee240049f3e19d96abf27e37233347cebb49fc112b8f69e",
+      "unreviewed": [
+        "r1388"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1389"
+      ]
+    },
+    {
+      "case": "single_exact_via4",
+      "gds_sha256": "b9fc300ef5a9ceee7fcbf5da63488ed092036e948123bb17c206ce6b9d90d81a",
+      "report_sha256": "f8f5f7ceb5a8ca014c5e9ee75866be81ca1c2db027c948f7d8fc2efef2368380",
+      "unreviewed": [
+        "r1389"
+      ],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388"
+      ]
+    },
+    {
+      "case": "thin_long",
+      "gds_sha256": "6f38bb4497348098784d09576c18c0fc812dd613529e0698ed14ae6ce7b8ae3a",
+      "report_sha256": "d96d50e4cee4caf05b1bc7e17428caa5bf4bf7772141730ae8a253e00ea276ec",
+      "unreviewed": [],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "large_l",
+      "gds_sha256": "580bfbd1eeaac031aecc31050de55e473f3e25d2020a050b3dfb944e55924dfa",
+      "report_sha256": "12684ed1c0e8aab5869b68f4c59e098bbd380d6795aefdd77905b7b2b78351cf",
+      "unreviewed": [
+        "r1376"
+      ],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "ring",
+      "gds_sha256": "bb5c26d749949572af147bce45eb13c4c5adea717b30da0ea0df505100be7f5a",
+      "report_sha256": "1e235d1e8ba256dd4e056436a0d34d939c19b4956cb3cc4aa667fa9b1bfa6539",
+      "unreviewed": [
+        "r1376"
+      ],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "merged_fragments",
+      "gds_sha256": "b7bce88fc6cf0c5b3cf0d8fb112b91a002dc394d4b1d0c8a3194bf2de1420a50",
+      "report_sha256": "bc78e3f569f6035faafc45f3f6406876d90c266edf120fe6d62055616917b1b5",
+      "unreviewed": [
+        "r1376"
+      ],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "disconnected",
+      "gds_sha256": "c713d125e8342df9ed1fbfd7eabb9edb44bac45fed8aa3736af8c38f1775905e",
+      "report_sha256": "a48f9551a42a9bcd84e547a6e75c0c4ca8a627000847ca5ecc0b9539e8b15de4",
+      "unreviewed": [],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "point_touch",
+      "gds_sha256": "71433bff6e968a7b90b60a2bf972fb726772fd218bfd6ed3baf609a6c638cd1c",
+      "report_sha256": "09b7a123eae9230163634e5c3ef072203aea997038ae7b3b8d21459efaa3887d",
+      "unreviewed": [
+        "r1376"
+      ],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "reflected_array",
+      "gds_sha256": "b7e63904bd4a0247ec2017694963008b4c1b01ac3ab3d7ad03bc88adc60685a2",
+      "report_sha256": "9983dccd9644caf76cccad035e57e6fcca221db31f1faee7e0b5408064b855f3",
+      "unreviewed": [],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "exact_path",
+      "gds_sha256": "82460f9f67b8799c1f54f48ea77611241dbc3b98c6bc5f585fa8ed97c30caaa8",
+      "report_sha256": "dd5129ccd1d2f64ca99f3d425868fbf151ef6f099333e3a37c89540ad34442f7",
+      "unreviewed": [],
+      "absent": [
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    },
+    {
+      "case": "texts",
+      "gds_sha256": "801663ea784ebe7f24b32b834084a306b97fefbe2e232549f5141dcf46e55345",
+      "report_sha256": "5b444b173dc2a9535b3c550d44ccc7c19f527336959da86e95cc3e5c5259751f",
+      "unreviewed": [],
+      "absent": [
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389"
+      ]
+    }
+  ],
+  "elapsed_seconds": 0.3280000000013388
+}

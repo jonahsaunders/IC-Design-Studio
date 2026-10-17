@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "case": "apb",
+  "qualified": false,
+  "status": "native-execution-complete",
+  "expected": "unestablished",
+  "gds_sha256": "65eea8f89ca27e2f141b71e5898e67395a516108aae428efa960e77e5b1ba9d8",
+  "deck_sha256": "02201f89237fca05d54a1295b168ca2ee806dd341d0343c93c113728ae0acfbc",
+  "driver_sha256": "dabc1fd1eaabc0d4c50ad735b6a121996409d96d4f43a7996431b05e3bc6633c",
+  "executable_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+  "command": [
+    "/opt/icstudio/bin/klayout",
+    "-b",
+    "-r",
+    "/var/tmp/icstudio-sky130-via3-antenna-v1/apb/check.drc",
+    "-rd",
+    "input=/var/tmp/icstudio-sky130-via3-antenna-v1/apb/input.gds",
+    "-rd",
+    "top_cell=apb_fifo",
+    "-rd",
+    "report=/var/tmp/icstudio-sky130-via3-antenna-v1/apb/report.lyrdb"
+  ],
+  "rule": "ar_q.via3.1",
+  "maximum_ratio": 6.0,
+  "diode_area_factor": 36.0,
+  "markers": 0,
+  "categories": {},
+  "expected_outcome_observed": null,
+  "seconds": 2.423430743001518,
+  "files": {
+    "input.gds": "65eea8f89ca27e2f141b71e5898e67395a516108aae428efa960e77e5b1ba9d8",
+    "engine.log": "ded65e5130fe843f996024acc1f28fd2a6af25f22c038a75385f7cf1e7dce85f",
+    "report.lyrdb": "257dd08b6e91bec220bd536bfe1887bbac68537f42991fe202a3b767e042bd82",
+    "check.drc": "02201f89237fca05d54a1295b168ca2ee806dd341d0343c93c113728ae0acfbc"
+  }
+}

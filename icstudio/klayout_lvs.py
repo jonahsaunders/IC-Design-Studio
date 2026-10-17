@@ -33,8 +33,23 @@ def read_database(path, limit=100000):
                             box=region.bbox();unit=database.internal_layout().dbu
                             row['boxes_um'].append([v*unit for v in (box.left,box.bottom,box.right,box.top)])
                 rows.append(row)
+    extraction_log=[]
+    for entry in database.each_log_entry():
+        if len(rows)>=limit:raise ValueError('The LVS database exceeds the finding budget. Select a smaller hierarchy.')
+        boxes=[];geometry=entry.geometry
+        if geometry is not None and not geometry.is_empty():
+            box=geometry.bbox();boxes=[[box.left,box.bottom,box.right,box.top]]
+        item={'severity':str(entry.severity),'category':entry.category_name,'cell':entry.cell_name,
+              'message':entry.message,'boxes_um':boxes,'blocks_match':entry.severity!=kdb.LogEntryData.Info}
+        extraction_log.append(item)
+        rows.append({'cell':entry.cell_name,'schematic_cell':'','kind':'extraction','layout':entry.message,
+                     'schematic':'','status':str(entry.severity),'boxes_um':boxes})
+    # A matching graph can contain virtual "must-connect" joins or extraction
+    # errors. Those diagnostics live outside the circuit cross-reference.
+    circuits_matched=bool(circuits) and all(c['status']=='Match' for c in circuits)
     return {'version':1,'source':str(path.resolve()),'sha256':file_digest(path),'circuits':circuits,'rows':rows,
-            'matched':bool(circuits) and all(c['status']=='Match' for c in circuits)}
+            'circuits_matched':circuits_matched,'extraction_log':extraction_log,
+            'matched':circuits_matched and not any(e['blocks_match'] for e in extraction_log)}
 
 
 def locations(project, row):
@@ -98,7 +113,7 @@ def run(project,cid,settings,directory,progress=lambda *_:None):
             'design_hash':design_digest(project),'pdk_hash':digest(project['pdk']),'rule_hash':settings['bundle_hash'],
             'engine':'KLayout LVS','engine_hash':settings['executable_sha256'],'cell_id':cid,'settings':settings,
             'klayout_lvs':data,'x':[],'x_label':'','y_label':'','traces':{},'phase':{},'operating_point':{},
-            'log':log,'warnings':[] if data['matched'] else ['LVS contains unmatched or unverified circuits.'],
+            'log':log,'warnings':[] if data['matched'] else ['LVS contains unmatched circuits or unresolved extraction findings.'],
             'inputs':{'layout':file_digest(layout),'schematic':file_digest(reference)}}
     atomic_write(root/'lvs-evidence.json',json.dumps(result,indent=2));return result
 

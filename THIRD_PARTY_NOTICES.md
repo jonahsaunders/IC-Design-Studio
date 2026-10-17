@@ -38,6 +38,112 @@ and component notices when redistributing it.
 
 The separately supplied SKY130 reference bundle contains a subset of the SkyWater open PDK and generated derivatives of its inverter. Copyright 2020 The SkyWater PDK Authors and other notices retained in the original files. These assets are distributed under Apache-2.0; see licenses/Apache-2.0.txt and their file headers. The app's reference fetch script points to the pinned upstream Volare distribution. Verification can use configured external Magic/Netgen or the managed runtime described under Included digital tools below; that runtime does not supply this separate analog reference PDK.
 
+The optional `scripts/prepare_sky130_digital.py` preparer selects standard-cell
+timing, LEF/GDS/CDL and OpenRCX collateral from the same checksum-pinned
+`sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392` Volare release. It retains original
+file headers, copies the Apache-2.0 text, and records archive/source-file hashes in
+`pvt/upstream-lock.json`. The original ORFS configuration is retained alongside
+the generated physical-view adapter; ORFS notices and license requirements here
+continue to apply. Full PDK trees and generated platforms are not committed to the
+application source package.
+
+The test fixture `tests/fixtures/sky130-filled-references-v1.zip` contains three
+generated counter/UART/APB layouts incorporating the SKY130 HD standard cells,
+independent pin/die inventories and the pinned public SKY130 rule sources.
+SkyWater content retains its Apache-2.0 license in `sources/LICENSE`, original
+source notices and source-lock identities. It is reference verification data,
+not a complete PDK or native runtime. The application/design sources and their
+existing notices remain in this repository. The fixture is not distributed as
+foundry-qualified signoff data.
+
+The digital runtime build also copies the fixture's pinned public rule sources
+and `sources/LICENSE` into the SKY130 HD verification resources. The reference
+layouts are not copied into those resources. The retained Apache-2.0 terms and
+original file notices apply to these manual sources as well.
+
+The verbatim F2a device and F2b mask tables in
+`docs/qualification/sky130-device-tables` come from SkyWater open PDK revision
+`7198cf647113f56041e02abf3eb623692820c5e1`. Their Apache-2.0 license is retained
+alongside the tables. The device-intent audit records the original source URLs,
+Git blob identities and SHA-256 hashes.
+
+## Public device-qualification sources
+
+The unmodified NPN corner sources and model in
+`icstudio/assets/qualification/sky130-npn` come from
+`google/skywater-pdk-libs-sky130_fd_pr` revision
+`f62031a1be9aefe902d6d54cddd6f59b57627436`, under Apache-2.0.
+Copyright 2020 The SkyWater PDK Authors. Their full license, original headers
+and source hashes accompany the files. The bipolar qualification preparer
+retains these sources and notices in its output and identifies its adaptation:
+copying corner parameters into named sections while omitting redundant model
+include lines. Existing bundled NPN model bytes are unchanged.
+
+The separate SKY130 resistor and IHP MIM qualification preparers modify the
+already bundled Apache-2.0 sources. Their output files identify the local
+modifications, retain original notices and license files, and record original
+and resulting identities. These generated packages are separately versioned;
+they do not replace the source provenance or relicense upstream content.
+
+## Public SKY130 metal-density reference
+
+The public SKY130 oxide-density measurements are adapted from Tiny Tapeout 10's
+`sky130_tapeout_drc/met_density_tiled.drc` at revision
+`46f0a2f45c3b1fcc27aac7acb7faa054631d9955`, under Apache-2.0. The original source
+includes DLindley's July and September 2024 attribution. Source:
+https://github.com/TinyTapeout/tinytapeout-10/blob/46f0a2f45c3b1fcc27aac7acb7faa054631d9955/sky130_tapeout_drc/met_density_tiled.drc.
+The exact upstream source, license and hashes are retained in
+`tests/fixtures/sky130-tt-density-v1` and, for the mandatory application gate,
+`icstudio/assets/verification/sky130/density`. Each new density result and macro
+export retains the original source, license and source lock. The distribution's Apache-2.0 text is
+`licenses/Apache-2.0.txt`. Studio's 2026-10-15 adaptation uses integer areas,
+explicit physical units and declared bounds, includes endpoint windows, and
+separates clipped diagnostics. These changes do not claim foundry equivalence.
+
+## Public SKY130 deck comparison sources
+
+`tests/fixtures/sky130-public-decks-v1` retains unmodified `sky130A_mr.drc`
+sources from Tiny Tapeout `tt-support-tools` revision
+`01d5d2814fa9dd61e9d211e0b235a4a592a9316a` and ChipFoundry `cf-precheck`
+revision `6c401ed5134a6466c7eed3e5524ebaacad4cea2a`.
+Their explicit GNU GPLv3 file headers apply; their repositories' Apache-2.0
+root licenses do not relicense these decks. No later-version grant is
+inferred. Original headers, exact source locations and hashes, provenance
+links, and the full GPLv3 license accompany the files in the fixture directory.
+The same unmodified ChipFoundry deck and its GPLv3 text are also retained in
+`icstudio/assets/verification/sky130` for the generic local Finish check and
+included in exported evidence. Its upstream filters and selected options are
+recorded explicitly; this check does not establish full foundry signoff.
+Studio's added runners, rule-name inventory and regression tests remain
+GPL-3.0-or-later. The GPLv3-only deck retains that license rather than acquiring
+the application's later-version grant.
+
+The associated validation archive retains the same GPLv3 sources and license,
+new control layouts and driver source, and the counter/UART/APB layouts with
+their SKY130 HD standard-cell Apache-2.0 provenance and license. Refer to the
+archive's notices and the fixture's [source record](tests/fixtures/sky130-public-decks-v1/README.md).
+
+## Public SKY130 seal and alignment reference
+
+The public seal/Nikon template used by `icstudio/digital_sky130_alignment.py`
+comes from Open PDKs revision `0ec4fa67eade28cd0a4352c04df981840809427b`,
+`sky130/custom/scripts/seal_ring_generator`, under Apache-2.0. Upstream:
+https://github.com/fossi-foundation/open-pdks/tree/0ec4fa67eade28cd0a4352c04df981840809427b/sky130/custom/scripts/seal_ring_generator.
+The upstream documentation credits SkyWater with the example seal geometry
+subsequently imported and edited for the public Magic generator.
+
+The unmodified source files, original notices, license and source identities
+are retained in `tests/fixtures/sky130-public-seal-v1`. The distribution's
+Apache-2.0 text is [licenses/Apache-2.0.txt](licenses/Apache-2.0.txt).
+Studio's 2026-10-15 adaptation transcribes the public geometry into integrity
+checks and requires the complete seal boundary before selecting alignment
+windows. The independent Magic exports in
+`tests/fixtures/sky130-public-seal-oracles-v1` and the derived layouts in
+`docs/validation/sky130-alignment-audit-2026-10-15/controls.zip` retain this
+upstream attribution and Apache-2.0 provenance. Studio's added checker and
+test code are GPL-3.0-or-later. These template checks do not establish
+foundry mask-generation equivalence or complete physical qualification.
+
 ## Included Xschem and GF180 simulation assets
 
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.
@@ -112,6 +218,26 @@ notices and equivalent source access when redistributing dependencies.
 
 ## Included digital tools
 
+The strict SKY130 HD connectivity adapter retains the BSD-2-Clause extraction
+source by laurentc2 at revision `8f94c07178fbeef8630353add86f717746b1e3ab`:
+https://github.com/laurentc2/SKY130_for_KLayout/tree/8f94c07178fbeef8630353add86f717746b1e3ab.
+Its original source, copyright, license and pinned provenance are in
+`icstudio/assets/verification/sky130/lvs`. The captured ORFS extraction file
+differs only in runtime argument names, its usage comment and default schematic
+filename; the adapter verifies that relationship before applying Studio's
+strict device/body/port comparison changes. Every new LVS result and macro
+export retains the original license and source alongside the generated checker.
+This does not apply ORFS's build-script license to third-party platform files.
+
+The independent `sky130_fd_sc_hd__diode_2` GDS/SPICE references are Apache-2.0,
+Copyright 2020 The SkyWater PDK Authors, from
+https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_sc_hd/tree/9cb2d7cb8ed4619094263614039a61b6b2d22a88.
+Their original headers, license and source lock accompany the adapter and the
+`tests/fixtures/sky130-diode-reference` controls. The application LVS regression
+fixture incorporates these cells and retains both the Apache and BSD terms.
+Studio's adapters, test drivers and generated reference design remain under
+this project's GPL-3.0-or-later license; third-party files keep their own terms.
+
 Desktop release packaging includes a private Linux runtime (also used by the
 Windows app's private WSL distribution). The original OSS CAD Suite licenses are
 under `opt/icstudio/oss-cad-suite/license`; Ubuntu package copyright files are
@@ -148,6 +274,39 @@ Digital platform inputs retain their own licenses. CI downloads separately licen
 engine distributions and records their versions; these binaries and full PDK trees
 are not included in the application source distribution.
 
+The runtime build recipe retains SKY130 HD, GF180 MCU and IHP SG13G2 digital
+platform files from ORFS commit `eaba6576441bf7c1743ea56ecdb1904210ec02c2`.
+Original copyright and license headers remain in the captured files; the common
+Apache-2.0 text and these notices are copied to `opt/icstudio/licenses`.
+ORFS's BSD-3-Clause build/run-script license is retained at
+`opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS`. Exact platform inventories,
+including materialized linked extraction rules, are locked in
+`opt/icstudio/platforms.json`; each package's `files.json` also locks these
+manifests and notice files. Source is available at the pinned
+[ORFS revision](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2/flow/platforms).
+
+Current source runtime builds replace the SKY130 HD library and physical views
+with matched typical/slow/fast libraries, cell/technology LEFs, GDS, CDL and
+minimum/nominal/maximum extraction decks from the checksum-pinned
+`common.tar.zst` and `sky130_fd_sc_hd.tar.zst` assets of
+[Volare sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392](https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392).
+Copyright 2020 The SkyWater PDK Authors and other notices retained in the source
+headers; Apache-2.0. The generated platform retains its archive/file hashes,
+original ORFS configuration and physical-view overrides under `sky130hd/pvt`.
+Each bundled platform also captures the common license, these source notices,
+ORFS build-script license and a source lock under `redistribution`. Macro exports
+copy the captured license and source-notice files with their hashes. Build-time
+archive reading uses backports.zstd 1.7.0 in a temporary environment removed from
+the runtime; corresponding source is [backports.zstd](https://github.com/rogdham/backports.zstd).
+
+The application's optional timing-oriented mapping recipe is adapted from
+`flow/scripts/abc_speed.script` at the same ORFS revision. Copyright (c) 2018-2023,
+The Regents of the University of California. Its BSD-3-Clause terms and disclaimer
+are retained in [the source-distribution license](licenses/OpenROAD-flow-scripts-BSD-3-Clause.txt).
+Studio adds explicit delay targets to mapping and sizing commands and retains
+the generated script in each mapped job. This does not change the separate
+licenses of ABC, Yosys or the selected cell libraries.
+
 The managed runtime also includes Magic and Netgen at the commits in
 `examples/physical-engine-lock.json`, plus the Ubuntu ngspice package. Magic's
 `LICENSE`, Netgen's `Copying`, their complete source trees and the source lock
@@ -157,3 +316,19 @@ batch initializer and Netgen Tcl initializer are changed by
 `packaging/digital/assemble.py`, with their resulting source and file hashes
 included in the runtime. The separate experimental GF180 extractor patch is
 in `packaging/physical/magic-gf180-rc.patch`; it is not the default desktop engine.
+
+The default SKY130 device package retains the above public NPN inputs and adds
+their t/s/f selections only inside the existing tt/ss/ff library sections. The
+modified library identifies this change. Original source deltas and license
+copies under `icstudio/assets/qualification/sky130-base-v1` reproduce the prior
+package; the IHP MIM fixture likewise retains its Apache notice and license.
+
+The Linux/WSL simulation runtime builds the unmodified ngspice 47 release with
+OSDI, XSPICE, KLU and predictor support. Its SHA-256-pinned original source
+archive, COPYING terms, build logs and binary identity are retained under
+`opt/icstudio/simulation`. The Windows console runtime retains its separately
+pinned ngspice 42 distribution. Numerical qualification identifies each engine.
+The generated Linux initializer is modified to resolve code models relative to
+the installed launcher and to default to one simulation thread. Its original
+bytes and an explicit modification notice are retained; users may select another
+thread count in their control program. Simulator/model source is unchanged.

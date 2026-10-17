@@ -1,0 +1,33 @@
+met_tiled_density.drc:: sourcing design file=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-controls-v1/linux/upstream-770000.gds topcell=density_control ...
+done.
+flattening chip boundary...
+done.
+step size = 70
+llx=10.0 lly=-20.0 urx=780.0 ury=750.0
+x_cnt = 10
+y_cnt = 10
+dbu = 0.001
+bbox_area = 592900.0
+calculating subtile areas (= 100)...
+tiles per step = 10
+calculating window step densities (= 1)...
+m1 met_tiled density greater than 0.80 : 0/1 is 0.5720 for tile ((0,0;700,700)), area = 490000
+m1 minimum met_tiled density  = 0.5720
+m1 maximum met_tiled density  = 0.5720
+m1 met_tiled.pd violations = {"m1"=>1, "m2"=>0, "m3"=>0, "m4"=>0}
+m2 met_tiled density greater than 0.80 : 1/1 is 0.5720 for tile ((0,0;700,700)), area = 490000
+m2 minimum met_tiled density  = 0.5720
+m2 maximum met_tiled density  = 0.5720
+m2 met_tiled.pd violations = {"m1"=>1, "m2"=>1, "m3"=>0, "m4"=>0}
+m3 met_tiled density greater than 0.80 : 2/1 is 0.5723 for tile ((0,0;700,700)), area = 490000
+m3 minimum met_tiled density  = 0.5723
+m3 maximum met_tiled density  = 0.5723
+m3 met_tiled.pd violations = {"m1"=>1, "m2"=>1, "m3"=>1, "m4"=>0}
+m4 met_tiled density greater than 0.80 : 3/1 is 0.5722 for tile ((0,0;700,700)), area = 490000
+m4 minimum met_tiled density  = 0.5722
+m4 maximum met_tiled density  = 0.5722
+m4 met_tiled.pd violations = {"m1"=>1, "m2"=>1, "m3"=>1, "m4"=>1}
+finish received: success = true
+finish received: success = true
+finish received: success = true
+finish received: success = true

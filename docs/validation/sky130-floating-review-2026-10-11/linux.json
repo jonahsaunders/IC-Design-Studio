@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "status": "partial-rule-execution-audited",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "tests": 123,
+  "skipped": 0,
+  "data_sha256": "cbad4d8388453d9fbd55330a2fad21e88c6fdc688420557584fd2f91efad671e",
+  "log_sha256": "fcfbc98eae30803e4737c5401e7c8a40bc34af9089ab212826f654227397092c",
+  "driver_sha256": "483ae689dde2c52b6f15f86e4f8df8ea83ea2193409577f01850ce5435d11c24",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+    "scripts/sky130_low_voltage_geometry.py": "7751ceb802aafcfbb2e18b1068c2c641d422992c78ce6fc522c0915c62de3690",
+    "scripts/sky130_interconnect_geometry.py": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+    "scripts/sky130_wide_metal.py": "e804ee01d9516e58575f9a97be2bb012fae3b09331ee5385d5d0481389a3749a",
+    "scripts/sky130_global_geometry.py": "e02e3ad28b50009f99682bf57641bf7d3100f45e43e9b84adecef9f785032343",
+    "scripts/sky130_floating_connectivity.py": "58c4b7ceeb809959d9ff8532838f774e4e4c5dcc404cea8d3e70942302d68896",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "scripts/sky130_rule_execution.py": "c923d365f8eb5ad77e802230a1c29187829496f4e74e6969e06d9b17baa27d26",
+    "scripts/sky130_block_applicability.py": "fcafea17b84219eb19d26bc325911b931d35030067408f23377db8c988abf009",
+    "tests/test_sky130_raw_feol.py": "df2f3a922135004ffa3523fa59c9570a4d060a19a33ef853443df6f3f5ad917e",
+    "tests/test_sky130_block_applicability.py": "04781e5303d00773384a04301ed49c9eb8eceb284c8738f72707905128e998a4",
+    "tests/test_sky130_low_voltage_geometry.py": "ea46325424cb3c1f774ee0f688a74756231fbedae290fc4529214617c6b9ac58",
+    "tests/test_sky130_interconnect_geometry.py": "f20e78eb16afec8e79b8b760de4c8b65368337b74467881eef735a9df3934e6c",
+    "tests/test_sky130_wide_metal.py": "979093a310b9090a7cd7ef26236539832b9e18b84c4ff47202d8fcc16547bff9",
+    "tests/test_sky130_global_geometry.py": "a7b8b67a5a4ecc4b1502d189e4696ce6c245515af10cc622e1393aa3011e8a15",
+    "tests/test_sky130_floating_connectivity.py": "816ef3eb73c4f3fe43051b44e28e63a4375bb6e0352728e0e555292454ff90ea",
+    "tests/test_sky130_rule_execution.py": "673e59f0f557bab32fd4889ff2ca5815cf9b1c4a7d13a7bdfcc4aa64dd4a7480"
+  }
+}

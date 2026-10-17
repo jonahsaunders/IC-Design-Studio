@@ -21,8 +21,9 @@
 * 		vary sky130_fd_pr__res_high_po__var       dist=gauss std=0.025
 *         }
 * }
-.subckt  sky130_fd_pr__res_xhigh_po_0p69 r0 r1 b
+* IC Design Studio modification: explicitly propagate the parallel M factor.
+.subckt  sky130_fd_pr__res_xhigh_po_0p69 r0 r1 b m=1
 + 
 .param  w = 0.69 l = 5 mult = 1.0
-Xsky130_fd_pr__res_xhigh_po_0p69 r0 r1 b sky130_fd_pr__res_xhigh_po__base w = {w} l = {l} mult = {mult}
+Xsky130_fd_pr__res_xhigh_po_0p69 r0 r1 b sky130_fd_pr__res_xhigh_po__base w = {w} l = {l} mult = {mult} m={m}
 .ends sky130_fd_pr__res_xhigh_po_0p69

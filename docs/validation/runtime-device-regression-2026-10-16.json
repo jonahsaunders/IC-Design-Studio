@@ -1,0 +1,187 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "fc80a50",
+  "scope": "Public ngspice 47 source build, relocated model loading, selected cross-PDK numerical regressions and 25 additional GF180/IHP diode interfaces. Complete process/device qualification and installed release-image acceptance remain open.",
+  "reports": {
+    "mos47": {
+      "status": "PASS",
+      "cases": 432,
+      "report_sha256": "88359a90b8bddb1923457324a345e39047f35f8de33036c619762498278d8f5a",
+      "source_files_sha256": "c0cad4006593a179dd90cb0d31a736c0ddf29205e58591713c048ee9d6700ec4",
+      "engine_sha256": "73645a3af17051a1e6cd06419c7b14c2729e1920c8cb5686368f7639c739f850"
+    },
+    "passives47": {
+      "status": "PASS",
+      "cases": 72,
+      "report_sha256": "ef4960265d1e2d6be94d1d33abad0616c7711d941439aa9c6f9c48bed977bf5d",
+      "source_files_sha256": "b58f9caf21f6381cf00c8eafea732f3084d59e0aac0940ad2fe9613f47b86574",
+      "engine_sha256": "73645a3af17051a1e6cd06419c7b14c2729e1920c8cb5686368f7639c739f850"
+    },
+    "diodes42": {
+      "status": "PASS",
+      "cases": 9,
+      "report_sha256": "edf41ba38615f28d330cd8c94ab0b9865b9739f7474a7a97a4cbeb11a599b314",
+      "source_files_sha256": "9d19c58deb718cb8234d9dbcad88a026d42d23ee16e2e9d0dca9c16071e5e042",
+      "engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+    },
+    "diodes47": {
+      "status": "PASS",
+      "cases": 9,
+      "report_sha256": "1feabe405af40f20c862d492bd15158c9406d98600866785c145fdcd33c65885",
+      "source_files_sha256": "9d19c58deb718cb8234d9dbcad88a026d42d23ee16e2e9d0dca9c16071e5e042",
+      "engine_sha256": "73645a3af17051a1e6cd06419c7b14c2729e1920c8cb5686368f7639c739f850"
+    },
+    "release-mos": {
+      "status": "PASS",
+      "cases": 8,
+      "report_sha256": "b11ffbfc11eb04518d60129d5f5e030202b402daec980f97b68abfc45df3be42",
+      "source_files_sha256": "03be72763b5616a5ade403035ae9970085901cb06fe736842b42a4ce33165900",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9"
+    },
+    "release-diodes": {
+      "status": "PASS",
+      "cases": 9,
+      "report_sha256": "3bdb4ab8be31c92e26bac5e652f529a471679d5d981eef7f35d5c60fe7f5ec8a",
+      "source_files_sha256": "9d19c58deb718cb8234d9dbcad88a026d42d23ee16e2e9d0dca9c16071e5e042",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9"
+    },
+    "release-bipolars": {
+      "status": "PASS",
+      "cases": 36,
+      "report_sha256": "f5bf15580a7f31623c562d9cdc9591ff150c1a41a92ffa211b014f01931c0fb5",
+      "source_files_sha256": "c54960ecc9870469e2e1f428aa97eb098f0398b7d36bfb1bcb0075581149b21e",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9"
+    },
+    "diode-families": {
+      "status": "PASS",
+      "cases": 36,
+      "report_sha256": "56f0542dddf85c16f702fdae9ce642ea0461611e41a05ab9182f5863d63420b9",
+      "source_files_sha256": "f70f496435bfda7d51abedca3fc73e98d49ba61590f2a86089af4a8063cea57c",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9"
+    },
+    "diode-pilot": {
+      "status": "PASS",
+      "cases": 4,
+      "report_sha256": "6919f1c0f8b52b79881c3e4ce9c54c1241f97bc6ab25170b6a52ffbbf2769d62",
+      "source_files_sha256": "f70f496435bfda7d51abedca3fc73e98d49ba61590f2a86089af4a8063cea57c",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9"
+    }
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/runtime-device-regression-2026-10-16-v2/evidence.zip",
+    "sha256": "43c8ef40b04230eb59dd535458d88d3e9fa35ccccdbdba5b4be2b0885302a97f",
+    "bytes": 446020919,
+    "file_paths": 859870,
+    "unique_contents": 35998,
+    "verified_objects": true
+  },
+  "build": {
+    "schema": 1,
+    "version": "47",
+    "source_url": "https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/47/ngspice-47.tar.gz",
+    "source_archive_sha256": "894e649651f1838a14095e5a5439e7d3aa63e87ede14d283173fda4fcdef675f",
+    "configure": [
+      "--with-x=no",
+      "--enable-osdi",
+      "--enable-xspice",
+      "--enable-klu",
+      "--enable-predictor",
+      "--disable-debug",
+      "CFLAGS=-O2"
+    ],
+    "status": "built",
+    "executable": "installed/bin/ngspice",
+    "executable_sha256": "bc3fdda03abcc0a97b256f889169024140df53d01835574feca4621b84c54b76",
+    "features": {
+      "OSDI": true,
+      "XSPICE": true,
+      "KLU": true,
+      "PREDICTOR": true
+    },
+    "copying_sha256": "6d939001e899ede403277fb37124c2af6f1cf92926465cd8f4bf59859e06f579",
+    "scope": "Build identity only; numerical, model and installed-runtime qualification are separate gates.",
+    "relocation": {
+      "original_sha256": "68e499e00629e0d36a168639c9e3d0d8c4121115111899da7449719839365d72",
+      "initializer_sha256": "e775c2f39b75c507bf68ec610368001e93a99ca03f9d79dfe3927b6165991dd6",
+      "launcher": "installed/bin/icstudio-ngspice",
+      "launcher_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "code_models": {
+        "spice2poly.cm": "5ef2b89244a752acbd38f475f638a787545aea0a9c0449cf7f3ae4dc3be66f8f",
+        "analog.cm": "4db4e04ffb5df5286b473f61c33b219825d31c7f1d220ddb68a9e65f0db9c2e2",
+        "digital.cm": "32c07ace474e3f388996ef4bd51ad73de8d5fe21edd4dc59ff9689d6ee869e88",
+        "xtradev.cm": "3c317f48b6c685e43f35a9eef79f4b977c00eddde81da379154eacaeee63ae0c",
+        "xtraevt.cm": "ef21f0a4ec2e93756228d81d894b4d28918b6b199d4c1e38cffe984012477349",
+        "table.cm": "824bcd26a1530003aec0becb7dc1981506eb7d0507f1571c4d5c8610194a7786",
+        "tlines.cm": "737577e530314ab615384381b356e85edd8902f0876a3bb282e7a42aa42f0bca"
+      }
+    },
+    "qualification_assembly": {
+      "compilation_record": "/var/tmp/icstudio-ngspice-release-build-20261016-v1/source-lock.json",
+      "postprocess_sha256": "281a38ec805e19a0c070c8eb7e88f4140e13b5336513aea7691d6b58f1c38d61"
+    }
+  },
+  "focused_tests": {
+    "Windows": {
+      "unique_passed": 32,
+      "initial_suite_skipped": 1,
+      "skipped_case_executed_separately": true
+    },
+    "Linux": {
+      "passed": 32,
+      "skipped": 0
+    }
+  },
+  "diode_raw_audit": {
+    "status": "PASS",
+    "responses": 268,
+    "sha256": "5918116eee5816864b11944d8003597c180a6d9c644326f4a25c8707c9f1bce2"
+  },
+  "diode_families": {
+    "entries": 25,
+    "cases": 36,
+    "terminal_vectors": 990,
+    "current_samples": 44046,
+    "faulted_device_instances": 900,
+    "scope": "Two selected size/multiplicity inputs; three declared model corners; 0/27/85 C; independent DC terminal currents, KCL, pin reversal and geometry faults. IHP isolbox excluded as unavailable."
+  },
+  "primitive_cross_engine": {
+    "cases": 9,
+    "maximum_normalized_error": 0,
+    "scope": "Two selected primitive diode bindings; no general engine-interchangeability claim."
+  },
+  "performance": {
+    "command": [
+      "/var/tmp/icstudio-ihp-ngspice47-probe-v1/installed/bin/ngspice",
+      "-n",
+      "-D",
+      "filetype=ascii",
+      "-D",
+      "ngbehavior=hsa",
+      "-b",
+      "-r",
+      "/var/tmp/icstudio-ngspice-threads-20261016-v1/one-thread.raw",
+      "/var/tmp/icstudio-default-runtime-20261016-v4/mos47/gf180mcuC-n-interior-nominal-27/tran/independent/independent.cir"
+    ],
+    "elapsed_seconds": 0.17369016800000736,
+    "exit": 0,
+    "environment": {
+      "OMP_THREAD_LIMIT": "1"
+    },
+    "maximum_absolute_difference": 0.0,
+    "rows": 1304
+  },
+  "diagnostics": [
+    "The first relocated startup used literal quotes which ngspice treated as filename characters; its failure is retained. Environment-string expansion through the launcher passes with spaces.",
+    "Two earlier MOS attempts and partial release-engine checks were interrupted. Three truncated case records were rejected; their original files are retained. The final 432-case sweep completed independently with unchanged source and one OpenMP thread per simulator.",
+    "The first evidence archive failed with an allocation error and is retained separately; the replacement uses streaming reads/writes and was rehashed. A local Docker Desktop startup failed on its inference socket. Full image construction and installed-image acceptance are not claimed."
+  ],
+  "remaining": [
+    "Full release-image build and Linux/Windows installed acceptance.",
+    "Full device operating envelopes, additional MOS/capacitor/RF families, unavailable required devices, independent upstream inventory reconciliation and physical coverage.",
+    "Earlier ngspice 42 IHP hot-bipolar failures and strict cross-version differences remain retained in the bipolar evidence."
+  ]
+}

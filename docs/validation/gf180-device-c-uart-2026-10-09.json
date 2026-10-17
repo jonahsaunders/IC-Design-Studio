@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "status": "c-uart-nominal-device-audit-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T16:24:21.476403+00:00",
+  "audit": {
+    "path": "outputs/gf180-device-audit-c-uart-v1/record.json",
+    "sha256": "96a3f96b8c7fc39fd462702d2be61f3ca535376d4af4c3b0616d42eb2d200cf5"
+  },
+  "result": {
+    "status": "nominal-device-waveform-independently-audited",
+    "qualified": false,
+    "case": "c-uart",
+    "script": {
+      "path": "work/audit_gf180_completed_device_v1.py",
+      "sha256": "640ed84d290a7f79671734312d09d63476b31bdd5a27ed55850f6b29f6309cb7"
+    },
+    "observed_at": "2026-10-09T16:03:43.193175+00:00",
+    "fixture": {
+      "path": "outputs/gf180-larger-function-fixtures-v1/record.json",
+      "sha256": "9cce45db651977973308c668ead800b5f4640e9abcdb889639a41409d4f06edb"
+    },
+    "fixture_audit": {
+      "path": "outputs/gf180-function-fixture-audit-v1/record.json",
+      "sha256": "88b78f625f0f81be6c51d4c3f869b030c1629105e6820f0879c1712af3ef01f8"
+    },
+    "completed_case": {
+      "path": "outputs/gf180-device-audit-c-uart-v1/completed-case-snapshot.json",
+      "sha256": "1dfd7e1166488a16046924776de7205a1bf07ff3056ba0937b22918abe9c0d64"
+    },
+    "binary_sha256": "48c1dca1ee855e18dc29a9e5199cffc1e59e964d7571d53eaf1f85694117a8bf",
+    "input_hashes": {
+      "test.spice": "886ff45fa0c7e2fd74c3110b67ed676093bee35b5d34e57b98dd41a9b48745fa",
+      "dut.spice": "0ef6ce6c356e46f0cb8153013e3f14ac785be904d19fa2ef488c5afa5abd12f8",
+      "engine.log": "fdccf9506edc07adb6411e50576ad439bbb2301407b14e43d40e451d8c482ee6",
+      "waveform.txt": "0f2d41834cae43ff75caa8b37f5557ddcb2efa80eea29d4a2c35841c2e0a58ed",
+      "pdk-models/31987f30dc28716123774c5e.spice": "c991d7d3e8c66cb691915a73395a62041b10c8ff7943575e7c510b44e1567c7d",
+      "pdk-models/a9baecac6ed1e4a471fd73e8.spice": "7e222f050318388f37543a64fbd0be55cc15e4b93f57501a09f7c159c4c9e561",
+      "pdk-models/f3820c6e6aaf2b76c63830e2.spice": "4e22cf76e2a75dc7908c1ca567a4b379586170e82d538fddd68a1b28245e5984",
+      "pdk-models/f3c9dd0c02366fbd9ca7def0.spice": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f"
+    },
+    "limits": {
+      "low_max_v": 1,
+      "high_min_v": 4,
+      "input_source_abs_v": 1e-06,
+      "runner_interpolation_abs_v": 1e-12,
+      "max_step_ns": 0.1001
+    },
+    "scope": "Full frozen nominal device-only program, 5 V / 25 C. No wire RC, post-fill function, all-path timing, PVT or tapeout acceptance.",
+    "points": 86284,
+    "assertions": 41,
+    "bit_checks": 41,
+    "output_faults_rejected": 41,
+    "input_sample_checks": 1035408,
+    "max_input_error_v": 5.29395592033898e-12,
+    "max_runner_interpolation_difference_v": 8.881784197001252e-16,
+    "stop_seconds": 1.3320000000000001e-06,
+    "wall_seconds": 6626.022129774094,
+    "independent_samples": {
+      "path": "outputs/gf180-device-audit-c-uart-v1/independent-samples.json",
+      "sha256": "d1578fdce0f890c3828920d5b606e2cde1d9b81c73c4cc9b45ecc58f7f4a5992"
+    }
+  },
+  "scope": "Full frozen nominal device-only program, 5 V / 25 C. No wire RC, post-fill function, all-path timing, PVT or tapeout acceptance.",
+  "fault_scope": "41 changed sampled output voltage comparisons; no physically altered transistor simulation is implied.",
+  "remaining": [
+    "D nominal programs.",
+    "Complete before/filled RC programs.",
+    "All required timing conditions and PVT checks."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-device-c-uart-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "275768507f6b379eafbad678c8201d092170d11e93207dbf3c2ccc1d839a85ee",
+    "bytes": 19781636,
+    "logical_files": 21,
+    "unique_objects": 21,
+    "verified": true
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "schema": 1,
+  "status": "six-automatic-references-and-source-retained",
+  "qualified": false,
+  "source_base_commit": "13856e26ce615e027b09b9c1a82041a44f8c89dc",
+  "backend": "c876c00e40455ab10de4c5f4ac09ac58ebe1e19dcb0a7943eedcc2eef83ac343",
+  "observed_at": "2026-10-09T15:44:18.500009+00:00",
+  "native": {
+    "path": "outputs/gf180-reference-generation-native-v4/record.json",
+    "sha256": "9144fba0e28e674f2c6f8910eddaf03a4bf755333ebb4a3da94dee390d1cd225"
+  },
+  "windows_readback": {
+    "path": "outputs/gf180-reference-readback-windows-v1/record.json",
+    "sha256": "236ec2f7a3604d638b15a5c30775647bfe901fbfe892e0b2bc897178c320c40d"
+  },
+  "cases": [
+    {
+      "case": "c-counter",
+      "status": "fresh-reference-identical",
+      "reference": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-counter/lvs-reference/reference.cdl",
+        "sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce"
+      },
+      "report": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-counter/lvs-reference-report.json",
+        "sha256": "2ea067b9120e6c138d21f9dc844c234e9c921afea0dd928f2ff09611701ce801"
+      },
+      "engine_report": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-counter/lvs-reference/engine-reference.json",
+        "sha256": "fe4e8754b59accbcdbc21d72f6cc8bab3a872d71360fb789885cd4c6167d0cd5"
+      },
+      "database": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-counter/database.json",
+        "sha256": "0764c724fde2f7b64c9118b0102739a96d35e08d2462b468d19e083ec1586272"
+      },
+      "prior_reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/reference.cdl",
+        "sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce"
+      },
+      "global_rules": 10,
+      "explicit_bulk_bindings": 1240,
+      "unused_outputs": 0,
+      "instances": 801,
+      "devices": {
+        "m": 4184
+      },
+      "top_ports": 8,
+      "seconds": 0.9481251239776611
+    },
+    {
+      "case": "c-uart",
+      "status": "fresh-reference-identical",
+      "reference": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-uart/lvs-reference/reference.cdl",
+        "sha256": "bb6537a6a3a46cdad19c114b995728f99fed53caa686bafa7baa6aa0891f3ca2"
+      },
+      "report": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-uart/lvs-reference-report.json",
+        "sha256": "5cea971fe3105d3863e41498f9f2ae6b9b34afd74422a552c1385e29ed817313"
+      },
+      "engine_report": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-uart/lvs-reference/engine-reference.json",
+        "sha256": "2c20f8aab99bd551835841bb3f1b1f21d1badddead05e90f76ec5f7126d687fd"
+      },
+      "database": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-uart/database.json",
+        "sha256": "fadfbf6e46aac3d6e88a304323be96e9063123e14dd68655a8f376a708f10533"
+      },
+      "prior_reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/reference.cdl",
+        "sha256": "bb6537a6a3a46cdad19c114b995728f99fed53caa686bafa7baa6aa0891f3ca2"
+      },
+      "global_rules": 10,
+      "explicit_bulk_bindings": 5850,
+      "unused_outputs": 3,
+      "instances": 3839,
+      "devices": {
+        "m": 22588
+      },
+      "top_ports": 15,
+      "seconds": 1.6657824516296387
+    },
+    {
+      "case": "c-apb",
+      "status": "fresh-reference-identical",
+      "reference": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-apb/lvs-reference/reference.cdl",
+        "sha256": "24b6e16e5099387ce8c4f12a3aab56bec2db6a7b8d619a1d4e35f5a296b02c85"
+      },
+      "report": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-apb/lvs-reference-report.json",
+        "sha256": "427ab1bdefc10b256a89caa44fd47871a3083b7eee1de720e7de369b6529cb90"
+      },
+      "engine_report": {
+        "path": "outputs/gf180-reference-generation-native-v4/c-apb/lvs-reference/engine-reference.json",
+        "sha256": "4e969451442284b96a5ba782291f92c28674add8a862e3d449467e675377cab1"
+      },
+      "database": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-apb/database.json",
+        "sha256": "3e4a0946f445703ab3e5dade696cf522d8f035899f64800f781d830095ffa5fc"
+      },
+      "prior_reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/reference.cdl",
+        "sha256": "24b6e16e5099387ce8c4f12a3aab56bec2db6a7b8d619a1d4e35f5a296b02c85"
+      },
+      "global_rules": 10,
+      "explicit_bulk_bindings": 5484,
+      "unused_outputs": 3,
+      "instances": 3656,
+      "devices": {
+        "m": 22486,
+        "d": 4
+      },
+      "top_ports": 30,
+      "seconds": 1.582296371459961
+    },
+    {
+      "case": "d-counter",
+      "status": "fresh-reference-identical",
+      "reference": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-counter/lvs-reference/reference.cdl",
+        "sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce"
+      },
+      "report": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-counter/lvs-reference-report.json",
+        "sha256": "9902d160488c3f64c109375143de13ba402b8a4d0674e4df90929b14d7443fcc"
+      },
+      "engine_report": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-counter/lvs-reference/engine-reference.json",
+        "sha256": "e6b1e6ab3a646f95fd0959ba14e6869775e77a0dd99ca2a85e143a9e14ded8ce"
+      },
+      "database": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-counter/database.json",
+        "sha256": "0764c724fde2f7b64c9118b0102739a96d35e08d2462b468d19e083ec1586272"
+      },
+      "prior_reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/reference.cdl",
+        "sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce"
+      },
+      "global_rules": 10,
+      "explicit_bulk_bindings": 1240,
+      "unused_outputs": 0,
+      "instances": 801,
+      "devices": {
+        "m": 4184
+      },
+      "top_ports": 8,
+      "seconds": 0.9085667133331299
+    },
+    {
+      "case": "d-uart",
+      "status": "fresh-reference-identical",
+      "reference": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-uart/lvs-reference/reference.cdl",
+        "sha256": "bb6537a6a3a46cdad19c114b995728f99fed53caa686bafa7baa6aa0891f3ca2"
+      },
+      "report": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-uart/lvs-reference-report.json",
+        "sha256": "26bb210bc683e6e53cd550bf7c3db0a957088752a1c8fce45b2fd962d7d28a35"
+      },
+      "engine_report": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-uart/lvs-reference/engine-reference.json",
+        "sha256": "928884fd688bbe10ef1d45940a2109e4773b02816e188c09734876a9e2fb7099"
+      },
+      "database": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-uart/database.json",
+        "sha256": "fadfbf6e46aac3d6e88a304323be96e9063123e14dd68655a8f376a708f10533"
+      },
+      "prior_reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/reference.cdl",
+        "sha256": "bb6537a6a3a46cdad19c114b995728f99fed53caa686bafa7baa6aa0891f3ca2"
+      },
+      "global_rules": 10,
+      "explicit_bulk_bindings": 5850,
+      "unused_outputs": 3,
+      "instances": 3839,
+      "devices": {
+        "m": 22588
+      },
+      "top_ports": 15,
+      "seconds": 1.8281078338623047
+    },
+    {
+      "case": "d-apb",
+      "status": "fresh-reference-identical",
+      "reference": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-apb/lvs-reference/reference.cdl",
+        "sha256": "24b6e16e5099387ce8c4f12a3aab56bec2db6a7b8d619a1d4e35f5a296b02c85"
+      },
+      "report": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-apb/lvs-reference-report.json",
+        "sha256": "c659e6f90ca64771256fc6f099046295c1ab6cc6f9db7ef134b6da16e5100103"
+      },
+      "engine_report": {
+        "path": "outputs/gf180-reference-generation-native-v4/d-apb/lvs-reference/engine-reference.json",
+        "sha256": "9018ae93f5b8eeb5763ea3a62f09b6e8b4e645bf13a837f54f5ea22f15d6ec6f"
+      },
+      "database": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-apb/database.json",
+        "sha256": "3e4a0946f445703ab3e5dade696cf522d8f035899f64800f781d830095ffa5fc"
+      },
+      "prior_reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/reference.cdl",
+        "sha256": "24b6e16e5099387ce8c4f12a3aab56bec2db6a7b8d619a1d4e35f5a296b02c85"
+      },
+      "global_rules": 10,
+      "explicit_bulk_bindings": 5484,
+      "unused_outputs": 3,
+      "instances": 3656,
+      "devices": {
+        "m": 22486,
+        "d": 4
+      },
+      "top_ports": 30,
+      "seconds": 1.5839757919311523
+    }
+  ],
+  "instances": 16592,
+  "devices": 98524,
+  "tests": {
+    "full-windows-v1": {
+      "tests": 1600,
+      "skipped": 62,
+      "record": {
+        "path": "outputs/gf180-reference-full-windows-v1.log",
+        "sha256": "bfdc92260b2e5765943ddbf6c730027dad0e3b83418da6a61eaf3e7b5d6d295a"
+      }
+    },
+    "focused-windows-v3": {
+      "tests": 74,
+      "skipped": 0,
+      "record": {
+        "path": "outputs/gf180-reference-focused-windows-v3.log",
+        "sha256": "73a34934dea4cef8236c4a0fff0172f1388d4e3e0bd7ca2ce03dbcb809119a4a"
+      }
+    },
+    "focused-linux-v1": {
+      "tests": 74,
+      "skipped": 0,
+      "record": {
+        "path": "outputs/gf180-reference-focused-linux-v1.log",
+        "sha256": "30bc9a80143b4afaf11f1723d059841f990c23bf4adee00126839f6ae454327b"
+      }
+    }
+  },
+  "engine_sha256": "cc6e1144bbe55764009bc9297b980aef511826101c1d019935b737f738e86501",
+  "implementations": {
+    "digital_lvs_reference.py": "63d731488539cf4995f12f2c797f0919e1bea190ec00430a4b84f798307014b7",
+    "digital_lvs_engine.py": "306b50b2b70c0b0e4800273418f30f349f6d6ac7cacff00b5e8f2164c3198332",
+    "gf180_cdl.py": "3faa3cfeb85d17e10f314def457c79f93371caf7612399a6fef517a715b0e924"
+  },
+  "scope": "Configured GF180 finish adapter generates complete independent CDL; six actual Linux exports and Windows saved reconstruction. Native LVS and written-metal acceptance are separate.",
+  "retained_failures": [
+    "The first native APB export rejected the recorded pready-to-net port alias. The corrected canonical port mapping now passes, with the original failed evidence retained."
+  ],
+  "remaining": [
+    "Bundle independent CDL and enable the recipe in included runtime profiles.",
+    "Combine strict native LVS and written-metal acceptance in the actual finish job.",
+    "Fresh complete route/finish and installed-runtime acceptance.",
+    "Full before/filled RC program and timing checks; complete fill coverage."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-reference-generation-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "d51aa578810c0a79fc7bf9c1f53737832ffe5ca7f60e3170b2dade64cada4c70",
+    "bytes": 7091544,
+    "logical_files": 1015,
+    "unique_objects": 566,
+    "verified": true
+  }
+}

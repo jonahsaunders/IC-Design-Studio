@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "driver_sha256": "52a358658f1f43c2bb834509e1e06b6772b2de03f1e544cf730ad8c90a66646e",
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "8ddd139857f6d23f5d9f02294d6af28bbb058023bc5905d1f87e0f937b2f0645",
+  "elapsed_seconds": 4.812999999994645
+}

@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "source_revision": "b1f441fabee1ed85",
+  "source_manifest_sha256": "6bbaae721ea855822a993017174bafbf272a22d696c58fe393bee81b2ff19d5c",
+  "tested_bipolar_package": {
+    "id": "sky130A",
+    "revision": "23527d231481aae4",
+    "manifest_sha256": "6d6274a4707c9b37fc403df5fa7a6d6da23ba8ac882146852439627eb642e4ca",
+    "files": 405
+  },
+  "original_library_sha256": "5efa041a988893c1a3580d0ecd57870ea3146b27741c7d42b56baaa336b9549e",
+  "corrected_library_sha256": "fa39ed2a7845082fe57970d32c155cb9ac082c62b3c35fa75ffafd7f40f418d2",
+  "change": "Keep all original corner selections. Load the same reviewed public NPN t/s/f inputs inside tt/ss/ff, instead of restricting the entire package to these sections. Explicit resistor parallel factors are retained.",
+  "scope": "Deterministic NPN nominal/tt, ss and ff only. Other existing corner contents are unchanged; mixed/mismatch/Monte Carlo NPN behavior remains unqualified. No full device or process qualification.",
+  "license": "Original Apache-2.0 notices and locked source copies retained; changed library identifies the modification."
+}

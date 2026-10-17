@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "recipe": "alternating-stagger-v1",
+  "layers": {
+    "m1": {
+      "origin_nm": [
+        1600,
+        1600
+      ],
+      "stagger_sign": [
+        1,
+        1
+      ]
+    }
+  }
+}

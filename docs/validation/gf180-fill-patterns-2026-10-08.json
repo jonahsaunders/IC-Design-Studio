@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "status": "declared-pattern-controls-passed; chunk-4-incomplete",
+  "qualified": false,
+  "observed_at": "2026-10-08T15:39:19.386869+00:00",
+  "application_backend": "cd6a3cd4e4b280c812456e0113ddb0b46dde728e76f8a80a9e25400856f030ef",
+  "sources": {
+    "scripts/check_gf180_fill.py": "fa655d4863cc5e28a9d2a4ee45eb4129d17cad3146c99f14fbf05cf15e37dbad",
+    "scripts/gf180_fill_patterns.py": "2169684c257b583279fa507d55c1a5ef138223f1207be8f3b3a376e1c99c1c4a",
+    "tests/test_gf180_fill_checks.py": "14df548b3dd51ea1171fafb25e1a4eb0ab346102a749f5bcd05a7f4fcbfe3493",
+    "tests/test_gf180_fill_patterns.py": "ad0678198f40fd7700c243a5b85e74ac8b2d758d5a2236c1514a5c6819030bbd",
+    "examples/gf180-counter-fill-pattern.json": "244a6947ad702019dd098fa8679e368a205a00814b4c70a2b60c44cd53bd7c5d",
+    "examples/gf180-fill-pattern-lock.json": "cf88c12b2f7c28abe82db779bafa9e24a239b9e72304923cdda7b81e3f0558e5",
+    "examples/gf180-fill-manual-lock.json": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+    "examples/gf180-fill-coverage-lock.json": "e76113dd556fd192c5b7a21744602ce57e2cf7f6e5623046c33b15dcbaee7bac",
+    "docs/PDK_QUALIFICATION_PLAN.md": "f27128fb471c886c300a977904119cecd5604e0d768517073087464f364d256a"
+  },
+  "both_os": {
+    "windows": {
+      "process": {
+        "path": "outputs/gf180-pattern-windows-v2/process.json",
+        "sha256": "9414fecd7ce10b8fed18283d28da824c34cb49854664a9ad6ff3598bea5513e5"
+      },
+      "tests": 36,
+      "failures": 0,
+      "skips": 0,
+      "cases": {
+        "reference-C": {
+          "report": {
+            "path": "outputs/gf180-pattern-windows-v2/reference-C.json",
+            "sha256": "92b5346598b5f7b06cba1949732fea905e0479ee6399049bc3dd8b013bf23004"
+          },
+          "checks": 104,
+          "failed": 0,
+          "exit_code": 2
+        },
+        "reference-D": {
+          "report": {
+            "path": "outputs/gf180-pattern-windows-v2/reference-D.json",
+            "sha256": "ea705bafc603eb7b8f05a84f0025b59f87f7b7f82265955a27bb9957a626d095"
+          },
+          "checks": 104,
+          "failed": 0,
+          "exit_code": 2
+        },
+        "shifted5nm-C": {
+          "report": {
+            "path": "outputs/gf180-pattern-windows-v2/shifted5nm-C.json",
+            "sha256": "bef33e1813f6c5bccd7a94a5c1954846cac50175291f489e8d332637a2aa74a6"
+          },
+          "checks": 104,
+          "failed": 1,
+          "exit_code": 1
+        },
+        "shifted5nm-D": {
+          "report": {
+            "path": "outputs/gf180-pattern-windows-v2/shifted5nm-D.json",
+            "sha256": "f8d7d20c69d55c9929b3e3d622ca568682418066e660d22bcaaed6b1afe84a4f"
+          },
+          "checks": 104,
+          "failed": 1,
+          "exit_code": 1
+        }
+      }
+    },
+    "linux": {
+      "process": {
+        "path": "outputs/gf180-pattern-linux-v2/process.json",
+        "sha256": "7f8b6e9c8cde617bc27606e2f4d48545b8be38da47de79bd9a7be324072710eb"
+      },
+      "tests": 36,
+      "failures": 0,
+      "skips": 0,
+      "cases": {
+        "reference-C": {
+          "report": {
+            "path": "outputs/gf180-pattern-linux-v2/reference-C.json",
+            "sha256": "92b5346598b5f7b06cba1949732fea905e0479ee6399049bc3dd8b013bf23004"
+          },
+          "checks": 104,
+          "failed": 0,
+          "exit_code": 2
+        },
+        "reference-D": {
+          "report": {
+            "path": "outputs/gf180-pattern-linux-v2/reference-D.json",
+            "sha256": "ea705bafc603eb7b8f05a84f0025b59f87f7b7f82265955a27bb9957a626d095"
+          },
+          "checks": 104,
+          "failed": 0,
+          "exit_code": 2
+        },
+        "shifted5nm-C": {
+          "report": {
+            "path": "outputs/gf180-pattern-linux-v2/shifted5nm-C.json",
+            "sha256": "bef33e1813f6c5bccd7a94a5c1954846cac50175291f489e8d332637a2aa74a6"
+          },
+          "checks": 104,
+          "failed": 1,
+          "exit_code": 1
+        },
+        "shifted5nm-D": {
+          "report": {
+            "path": "outputs/gf180-pattern-linux-v2/shifted5nm-D.json",
+            "sha256": "f8d7d20c69d55c9929b3e3d622ca568682418066e660d22bcaaed6b1afe84a4f"
+          },
+          "checks": 104,
+          "failed": 1,
+          "exit_code": 1
+        }
+      }
+    }
+  },
+  "source_revision": "de3240d7529a6970437ac3344820aaae7839f215",
+  "scope": "The declared alternating staggered recipe is checked on written GDS, with original DRC spacing retained. No complete fill, production D, circuit timing, simulator or process acceptance.",
+  "recipe": "alternating-stagger-v1",
+  "covered": [
+    "DCF.2a/3 declared COMP array membership",
+    "DPF.2a/3 declared poly array membership",
+    "DM.2a/10 declared metal array membership",
+    "DM.9 rejection of replicated declared adjacent arrays, even with different occupied sites"
+  ],
+  "reference_geometry": {
+    "path": "outputs/gf180-density-m1-fill-v2.gds",
+    "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465"
+  },
+  "remaining": [
+    "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+    "DCF.1a empty-field coverage and local COMP density",
+    "DCF/DPF scribe/frame scope and COMP-to-pad RF guideline",
+    "DCF exclusion-edge tie/fill rows",
+    "Embedded-memory fill coverage beyond supported MTPMARK; vendor implant layers are unsupported",
+    "Foundry acceptance limits for local metal density and clipped die-edge windows",
+    "Independent full native geometry, antenna and final-layout LVS",
+    "Post-fill extraction, timing and foundry acceptance",
+    "DM.9 positive adjacent-layer offset acceptance when both layers contain dummy metal",
+    "Actual production GF180 C/D counter, UART and APB acceptance on both operating systems"
+  ],
+  "both_os_reports_and_fault_geometry_byte_identical": true,
+  "fault": {
+    "gds_sha256": "8d3abec015c40336fb1c92a754af50540db23a8d934a8e3fc0d861ef8f8c1709",
+    "old_box_nm": [
+      1600,
+      1600,
+      3600,
+      3600
+    ],
+    "new_box_nm": [
+      1605,
+      1600,
+      3605,
+      3600
+    ],
+    "other_layers_unchanged": true
+  },
+  "full_windows_suite": {
+    "tests": 1493,
+    "skips": 62,
+    "failures": 0,
+    "seconds": 323.528,
+    "process": {
+      "path": "outputs/gf180-pattern-suite-v2/process.json",
+      "sha256": "658d2aefc49dc9669cc76850d954f624d8027da58940c829b3e68fd38bae09e6"
+    },
+    "log": {
+      "path": "outputs/gf180-pattern-suite-v2/tests.log",
+      "sha256": "c9a7fba7ae663373b719e2880f615d09aea6ea280f284ddfa4b25167707a4f69"
+    }
+  },
+  "review_correction": {
+    "prior_checkpoint": {
+      "path": "outputs/gf180-pattern-checkpoint-v1/record.json",
+      "sha256": "3ac170dfcc5655f37e8d7cefc53ce305060acbfa6008019b04c55e3dfcdbb658"
+    },
+    "explanation": "Review found that an adjacent-array comparison could be labeled passed when a recipe was missing or disagreed with actual geometry. The final checker leaves that comparison unqualified, and the repeated both-OS controls and full suite cover the correction."
+  },
+  "next_empty_field_diagnostic": {
+    "record": {
+      "path": "outputs/gf180-empty-comp-fields-v2/report.json",
+      "sha256": "03b44f1636212cb68f02315bad87b9f1c3d8ded05ef1dd0eb7dffdbcaa4d3dbd"
+    },
+    "candidate_sites": 150,
+    "inside_core_sites": 0,
+    "axis_aligned_bounded_gap_witnesses": 0,
+    "scope": "Sparse trial sites only. This neither establishes DCF.1a completeness nor resolves prime-die/scribe/frame scope. The frozen GDS and electrical runs are unchanged."
+  },
+  "full_transient_snapshots": {
+    "gf180-colamd-full-transient-v1": {
+      "record": {
+        "path": "outputs/gf180-pattern-checkpoint-v2/gf180-colamd-full-transient-v1-snapshot.json",
+        "sha256": "3ccab2887d31728953bb2c9d682c0df576bfdf71da4da8ad02da719dadf4ed7c"
+      },
+      "exec_session": 76921,
+      "status": "running",
+      "cases": {
+        "before": {
+          "status": "running",
+          "progress": {
+            "wall_seconds": 4716.556245565414,
+            "cpu_seconds": 2954.65,
+            "last_reported_simulation_seconds": 1.72484e-07,
+            "observed_unix_seconds": 1791473956.393233
+          }
+        },
+        "filled": {
+          "status": "running",
+          "progress": {
+            "wall_seconds": 4716.2512238025665,
+            "cpu_seconds": 2940.8,
+            "last_reported_simulation_seconds": 1.20572e-07,
+            "observed_unix_seconds": 1791473956.4026928
+          }
+        }
+      },
+      "scope": "Observation only; preserve exact live handles and inspect terminal outcomes before claiming acceptance."
+    },
+    "gf180-counter-current-sum-transient-v3": {
+      "record": {
+        "path": "outputs/gf180-pattern-checkpoint-v2/gf180-counter-current-sum-transient-v3-snapshot.json",
+        "sha256": "310c8c63d04997909143bd0bf9f2b4d06d8e21d692d5eef8947c0eac6ebaf214"
+      },
+      "exec_session": 64881,
+      "status": "running",
+      "cases": {
+        "before": {
+          "status": "running",
+          "progress": {
+            "wall_seconds": 11621.475481748581,
+            "cpu_seconds": 10095.12,
+            "last_reported_simulation_seconds": 8.95258e-07,
+            "observed_unix_seconds": 1791473954.8029015
+          }
+        },
+        "filled": {
+          "status": "failed",
+          "progress": {
+            "wall_seconds": 3601.7472274303436,
+            "cpu_seconds": 3603.33,
+            "last_reported_simulation_seconds": 2e-12,
+            "observed_unix_seconds": 1791465935.4794097
+          },
+          "reason": "engine-exit-or-numerical-error"
+        }
+      },
+      "scope": "Observation only; preserve exact live handles and inspect terminal outcomes before claiming acceptance."
+    }
+  },
+  "archive": {
+    "path": "outputs/gf180-pattern-checkpoint-v2/evidence.tar.gz",
+    "sha256": "b81c43c54e8a176c241952b7920e62b7232d85ee4942412f374576395d869ff8",
+    "bytes": 916311,
+    "verified_members": 72
+  },
+  "manifest": {
+    "path": "outputs/gf180-pattern-checkpoint-v2/manifest.json",
+    "sha256": "32f1dff721628b416df10135054a2a5e1ea150e1718bf73a8065cff70cd777ce"
+  }
+}

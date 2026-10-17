@@ -1,0 +1,64 @@
+"""Reconstruct exact pre-promotion device packages without rewriting projects.
+
+The promoted packages add files and metadata; every earlier asset remains intact.
+Only the four old manifests are duplicated. Existing qualification recipes keep
+their original input identities and do not silently relabel historical evidence.
+"""
+from contextlib import contextmanager
+from functools import wraps
+import json, shutil, tempfile
+from pathlib import Path
+from icstudio.model import file_digest
+ROOT=Path(__file__).resolve().parents[1]
+RETAINED=ROOT/'icstudio/assets/qualification/device-base-v2'
+PREVIOUS={
+    'sky130A':'177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d',
+    'gf180mcuC':'92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f',
+    'gf180mcuD':'b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738',
+    'ihp-sg13g2':'63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c',
+}
+PROMOTED={
+    'sky130A':'ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b',
+    'gf180mcuC':'408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0',
+    'gf180mcuD':'ec95eefadaade5459b0bae8ac6d3d01d23927507ec10b86801fa4f2cf9f14bc2',
+    'ihp-sg13g2':'ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab',
+}
+INTERMEDIATE={'sky130A':'7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5'}
+REVISIONS={'sky130A':'293106f92f3e1dc5','gf180mcuC':'5f3017f16df69dbe',
+           'gf180mcuD':'836ecc491786bd41','ihp-sg13g2':'1e24ec25b491028b'}
+
+
+@contextmanager
+def previous_devices(source):
+    source=Path(source).resolve();h=file_digest(source/'package.json')
+    target=next((t for t,expected in [*PROMOTED.items(),*INTERMEDIATE.items()] if h==expected),None)
+    if target is None:
+        # The original recipe still applies its own strict input/hash checks.
+        yield source
+        return
+    current=json.loads((source/'package.json').read_bytes())
+    for rel,expected in current['files'].items():
+        p=(source/rel).resolve()
+        if not p.is_relative_to(source) or not p.is_file() or file_digest(p)!=expected:
+            raise ValueError('Changed current device asset: '+rel)
+    manifest=RETAINED/target/'package.json'
+    if file_digest(manifest)!=PREVIOUS[target]:raise ValueError('Changed retained device manifest: '+target)
+    old=json.loads(manifest.read_bytes())
+    with tempfile.TemporaryDirectory(prefix='icstudio-previous-devices-') as tmp:
+        dest=Path(tmp)
+        for rel,expected in {'package.json':PREVIOUS[target],**old['files']}.items():
+            src=manifest if rel=='package.json' else (source/rel).resolve()
+            if rel!='package.json' and not src.is_relative_to(source):raise ValueError('Unsafe retained asset path.')
+            if file_digest(src)!=expected:raise ValueError('Previous device asset is unavailable: '+rel)
+            out=dest/rel;out.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,out)
+            if file_digest(out)!=expected:raise ValueError('Previous device asset changed during copy: '+rel)
+        yield dest
+
+
+def historical_input(prepare):
+    @wraps(prepare)
+    def wrapped(source,output):
+        # Fail before reconstruction when the caller would overwrite an output.
+        if Path(output).exists():raise ValueError('Choose a new package directory; the output already exists.')
+        with previous_devices(source) as original:return prepare(original,output)
+    return wrapped

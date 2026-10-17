@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "9e07f54e575040c06d0f1fc9ba10be5e81fa85d8",
+  "scope": "Selected bipolar DC terminal currents, turn-on, KCL and pin faults; all 29 bundled bipolar symbols are exercised with the explicitly listed package/runtime combinations. No full envelope, AC/noise, RF, thermal or physical qualification.",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/bipolar-2026-10-16/evidence.zip",
+    "sha256": "3a9e2591c2515196d7fd1fd2340e7d0c47979f5c6bc85fa50a74630662c711e6",
+    "bytes": 68041453,
+    "file_paths": 108288,
+    "unique_contents": 5770,
+    "verified_objects": true
+  },
+  "counts": {
+    "catalog_entries": 29,
+    "passing_condition_cases": 144,
+    "terminal_current_vectors": 3744,
+    "samples_per_vector": 31,
+    "current_samples_compared": 116064,
+    "device_condition_points": 1026,
+    "faulted_device_instances": 2052,
+    "fault_runs": 288,
+    "focused_tests_per_host": 5
+  },
+  "conditions": {
+    "temperatures_c": [
+      0,
+      27,
+      85
+    ],
+    "collector_emitter_magnitude_v": [
+      0.6,
+      1.2
+    ],
+    "base_emitter_magnitude_v": {
+      "start": 0.45,
+      "stop": 0.75,
+      "step": 0.01
+    },
+    "scope": "Selected integration points; off-region points are not assertions of model-characterization validity. NX changes emitter geometry; no independent-parallel scaling claim. Five-terminal HBT thermal ports are clamped to zero temperature rise."
+  },
+  "reports": {
+    "original": {
+      "path": "original/corners/qualification.json",
+      "sha256": "52a986d113186b95f19c0cf5fe0301b9226b699f7e0110f041169c133705a614",
+      "status": "FAIL",
+      "cases": 144,
+      "source_files_sha256": "4c576b231102fb505c6fa30305f46728db4da7d39c22e1afd5be669e7027d6da",
+      "engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+    },
+    "sky130": {
+      "path": "corrected/sky130-corners/qualification.json",
+      "sha256": "942a795dffb647cf825a9809f239d71997d5e0534d765573d1013fc09bd424ab",
+      "status": "PASS",
+      "cases": 36,
+      "source_files_sha256": "81cedf7cbb59d5a35ffbe43ff5107f30f492954f9c5849a404520d41f5566323",
+      "engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+    },
+    "ihp": {
+      "path": "corrected/ihp-ngspice47-corners/qualification.json",
+      "sha256": "a27b05f1c392dcff147a399791c15ce1ce54012c66bbd144688a2cf9d870d6b1",
+      "status": "PASS",
+      "cases": 36,
+      "source_files_sha256": "81cedf7cbb59d5a35ffbe43ff5107f30f492954f9c5849a404520d41f5566323",
+      "engine_sha256": "73645a3af17051a1e6cd06419c7b14c2729e1920c8cb5686368f7639c739f850"
+    }
+  },
+  "processes": {
+    "gf180mcuC": {
+      "target": "gf180mcuC",
+      "revision": "a6aa4319ebe9cbc9",
+      "manifest_sha256": "92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f"
+    },
+    "gf180mcuD": {
+      "target": "gf180mcuD",
+      "revision": "b2daff2da0a120b4",
+      "manifest_sha256": "b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738"
+    },
+    "sky130A": {
+      "target": "sky130A",
+      "revision": "23527d231481aae4",
+      "manifest_sha256": "6d6274a4707c9b37fc403df5fa7a6d6da23ba8ac882146852439627eb642e4ca"
+    },
+    "ihp_sg13g2": {
+      "target": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "manifest_sha256": "7540b8ac3241f339361bc83d5d154025dd0db6b374ebb1092dbe4db137b59de3"
+    }
+  },
+  "sky130_correction": {
+    "source_repository": "google/skywater-pdk-libs-sky130_fd_pr",
+    "source_commit": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+    "license": "Apache-2.0",
+    "change": "Add exact public NPN t/s/f corner parameters to the separate resistor-corrected package. Existing NPN model coefficients and model bytes remain unchanged; notices and original source files are retained.",
+    "supported_corners": [
+      "nominal",
+      "tt",
+      "ss",
+      "ff"
+    ],
+    "other_corners": "Explicitly rejected; no mixed/mismatch/Monte Carlo mapping is guessed."
+  },
+  "ihp_runtime": {
+    "version": "47",
+    "executable_sha256": "73645a3af17051a1e6cd06419c7b14c2729e1920c8cb5686368f7639c739f850",
+    "build_record_sha256": "cf5dc21874418dcb883bc4a2edf8112bb38c6f90a9895643a676d860b0cd9047",
+    "source_archive_sha256": "894e649651f1838a14095e5a5439e7d3aa63e87ede14d283173fda4fcdef675f",
+    "default_runtime_replaced": false,
+    "scope": "Exact separately built public ngspice 47 diagnostic binary. Three hot NPN cases fail with default ngspice 42 and pass here; default release integration is still required."
+  },
+  "cross_runtime_diagnostic": {
+    "status": "FAIL",
+    "path": "corrected/engine-comparison.json",
+    "sha256": "96ef5d1f3774574d6dee668ee203b06acb519588540f08ccd458cdc13241ef7d",
+    "completed_original_cases": 33,
+    "mismatches": 12,
+    "maximum_normalized_error": 22.59863908015685,
+    "relative_tolerance": 1e-06,
+    "absolute_tolerance_a": 1e-12,
+    "scope": "A separate strict cross-version audit; 12 cases exceed this tolerance. The new engine is not claimed numerically interchangeable with the old engine. Each engine-specific independent-call comparison retains its own result."
+  },
+  "diagnostics": [
+    "Initial IHP NPN pilot used an incorrect fixture length override for npn13G2l_5t, caught by independent reference comparison; explicit length assignment fixed the fixture.",
+    "The original 144-case batch has 21 failures: 18 SKY130 NPN missing-corner failures and three IHP NPN thermal/convergence failures at 85 C and 0.6 V.",
+    "The first Linux test preparation assumed a tests/__init__.py file; it stopped before tests. Copying the existing test module then produced five passing tests."
+  ],
+  "remaining": [
+    "Full source-defined geometry/bias/reliability/temperature envelopes and parameter boundary enforcement.",
+    "AC, transient, noise, mismatch, RF and self-heating/thermal-port behavior; physical layout and extracted terminal connectivity across bipolar families.",
+    "Default package and simulator integration, complete runtime regression and installed-app acceptance; old NPN/runtime failures remain visible.",
+    "Cross-version numerical differences require explicit runtime qualification; no tolerance was relaxed to turn them into passes.",
+    "Other MOS/passive/diode/RF families, unsupported required devices, upstream completeness and chunks 8-12."
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "fc80a50",
+  "scope": "Bounded GF180 B four-metal/MIM-B bandgap reference: physical stream exchange, full public DRC/antenna/density and strict device plus written-metal connectivity. This does not qualify C/D analog stacks, complete device families or extracted parasitic accuracy.",
+  "qualification_sha256": "4b3ad9bb9c06b6c64994b90b6aa02b417e543ff0eb5ef86f324265aada97b465",
+  "cases": [
+    {
+      "name": "gf180-prerequisites",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-layout-exchange",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-core-original",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-core-reimported-gds",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-core-reimported-oas",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-core-restored-edit",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-regenerated-fill",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-filled-clean",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-unmodified-deck-findings",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-reject-missing-poly-fill",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-reject-missing-m2-fill",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-reject-missing-vias",
+      "required": true,
+      "status": "passed"
+    },
+    {
+      "name": "bandgap-distributed-rc-and-fill-coupling",
+      "required": false,
+      "status": "blocked",
+      "reason": "The archived Magic RC flow is unqualified and its technology does not extract dummy-fill coupling. DRC/LVS do not establish parasitic accuracy."
+    },
+    {
+      "name": "virtuoso-bandgap",
+      "required": false,
+      "status": "blocked",
+      "reason": "Requires a licensed Virtuoso installation with the matching physical PDK."
+    }
+  ],
+  "native_device_count": 103,
+  "written_metal": {
+    "terminals": 293,
+    "ports": 3,
+    "body_contacts": 64,
+    "scope": "No connectivity through text labels or common substrate; actual written metal and contact anchors."
+  },
+  "tests": {
+    "Windows": 20,
+    "Linux": 18
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/gf180-bandgap-connectivity-2026-10-16/evidence.zip",
+    "sha256": "1b6ea162d080022174966b41e375aec01f922ceccada96bfeb1b6e6eeaf2f19e",
+    "bytes": 160840812,
+    "file_paths": 5349,
+    "unique_contents": 2883,
+    "verified_objects": true
+  },
+  "diagnostics": [
+    "Original saved comparison matched its graph but contained unresolved VSS must-connect warnings; retained as a negative test.",
+    "Existing source-locked soft substrate correction is paired with an independent written-metal graph. Native extraction alone missed three targeted opens/contact removals; combined checks reject all five physical faults.",
+    "Removing every via causes native incomplete-wiring extraction rejection before the database is written. This remains failed LVS; the negative-control gate requires the specific diagnostic and independently detected opens. Generic crashes cannot satisfy it."
+  ],
+  "remaining": [
+    "Distributed RC and fill coupling remain unqualified.",
+    "Complete operating envelopes, physical device coverage and chunk 7 remain open.",
+    "Optional licensed Virtuoso comparison was not run; no Cadence equivalence is claimed."
+  ]
+}

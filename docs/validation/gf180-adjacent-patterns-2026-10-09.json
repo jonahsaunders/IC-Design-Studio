@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "status": "adjacent-offset-recipe-and-six-design-replay-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T18:18:37.409823+00:00",
+  "recipe": "whole-array-axial-500nm-v1",
+  "sources": {
+    "scripts/check_gf180_fill.py": "d2d15e9690245ab16f9577ecbad886513245b285fce3780f92129449c410008d",
+    "scripts/gf180_fill_patterns.py": "3ac034d9ccc147bd6abd3068130c654ce382f2f27dcd4dab871667af70b22075",
+    "tests/test_gf180_fill_patterns.py": "2fe7b8b4e9becba71afadeeb24b3105fe87e47935538d91e483735054f083f23",
+    "examples/gf180-fill-pattern-lock.json": "cf88c12b2f7c28abe82db779bafa9e24a239b9e72304923cdda7b81e3f0558e5"
+  },
+  "tests": {
+    "gf180-adjacent-pattern-focused-windows-v2.log": {
+      "tests": 61,
+      "skipped": 0,
+      "log": {
+        "path": "outputs/gf180-adjacent-pattern-focused-windows-v2.log",
+        "sha256": "1864e2bdfdf2950d294fdc2301747af2fa1bd778b8a3243b6894b30d9c7ee4b3"
+      }
+    },
+    "gf180-adjacent-pattern-focused-linux-v1.log": {
+      "tests": 61,
+      "skipped": 0,
+      "log": {
+        "path": "outputs/gf180-adjacent-pattern-focused-linux-v1.log",
+        "sha256": "f5659c1566aa475740a6f1b301841c4ec55e0f5588d564d2fad8038a9f798e2f"
+      }
+    },
+    "gf180-adjacent-pattern-full-windows-v1.log": {
+      "tests": 1644,
+      "skipped": 62,
+      "log": {
+        "path": "outputs/gf180-adjacent-pattern-full-windows-v1.log",
+        "sha256": "6578b76535456f4650209c8a3ea5e5fefc5791ed92494e6cff9281ae777c2477"
+      }
+    }
+  },
+  "identical_cross_os_reports": [
+    {
+      "case": "axial500",
+      "variant": "C",
+      "report_sha256": "64783e6a60d066803ab1599f29518b351078bb52d169996f64488598bf0bb9b1"
+    },
+    {
+      "case": "axial500",
+      "variant": "D",
+      "report_sha256": "5717c6842e515a05a773131fdcab94aab3b8178eb0f9869d5dd0cc40b37e9347"
+    },
+    {
+      "case": "replicated",
+      "variant": "C",
+      "report_sha256": "fbd878a3edf337f494ad0a8df8f1c888324c0f35b731a15cff5ceebe392aee38"
+    },
+    {
+      "case": "replicated",
+      "variant": "D",
+      "report_sha256": "8055ca77fbe60c1765dc5e84808a12b84617cb8e8979bb9e413660d843af9507"
+    },
+    {
+      "case": "shift505",
+      "variant": "C",
+      "report_sha256": "46c8181547d94b7dd06e469d554191bb096638b5863350ebd27b8750264e1ab4"
+    },
+    {
+      "case": "shift505",
+      "variant": "D",
+      "report_sha256": "67db4a0ea7528f96e332668a8cace29e32f5cea703c29344d7bc86605b26eaa1"
+    },
+    {
+      "case": "c-counter",
+      "variant": null,
+      "report_sha256": "c807a1bbc83630fa59c317548bcb9b214f0f1e1ea327cda27f3f316a54ae3921"
+    },
+    {
+      "case": "c-uart",
+      "variant": null,
+      "report_sha256": "e89c8c93abc57648652084f5344fe3da73939bb65d03207da3e1b11252ee7deb"
+    },
+    {
+      "case": "c-apb",
+      "variant": null,
+      "report_sha256": "e9aab235be7f93f6f6f791cd4c034293f6a8c7f6b750b9ec64fcb0ac0c28bfdd"
+    },
+    {
+      "case": "d-counter",
+      "variant": null,
+      "report_sha256": "6d2f61de54b79293b2871d4e790c2287f96333c4c35112a1c66c9bcf5dec8da0"
+    },
+    {
+      "case": "d-uart",
+      "variant": null,
+      "report_sha256": "81a134cda5a4426bdbb5596ac9e00fcd45f4503996f75a58b31683a8eb94c745"
+    },
+    {
+      "case": "d-apb",
+      "variant": null,
+      "report_sha256": "484c03e9143e2a983bdb71cac49eecab34f6bfb48a213a9a01f28f341d03b078"
+    }
+  ],
+  "controls": {
+    "adjacent_pairs": 4,
+    "variants": [
+      "C",
+      "D"
+    ],
+    "accepted_axial_offset_nm": 500,
+    "replicated_patterns": "rejected",
+    "offset_505_nm": "unqualified",
+    "regression_coverage": [
+      "four axial directions",
+      "cropped arrays",
+      "all adjacent layers",
+      "negative indices",
+      "period-equivalent origins",
+      "rotations/reflections",
+      "different stagger signs",
+      "495/505 nm offsets",
+      "diagonal offsets",
+      "written phase error"
+    ]
+  },
+  "retained_initial_failure": "First replay launcher omitted the original declared core bounds. Its baseline comparison failed on both hosts. Corrected replay preserves the original bounds and all report fields except changed implementation hashes.",
+  "scope": "One declared DM.9 axial translation recipe; alternative arrangements remain unqualified. The six filled references contain only Metal1 dummy fill and retain 104 passing implemented checks with incomplete coverage. No full fill, post-fill performance or tapeout qualification.",
+  "remaining": [
+    "Empty-field COMP and exclusion-edge coverage",
+    "Required local/edge and boundary/scribe acceptance",
+    "Full before/filled electrical programs and all-path timing",
+    "Production fill integration and exact delivery acceptance"
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-adjacent-patterns-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "7e2269916be0ac7aaa02e51328fbe3e242b657c461bb48d3cd63aa33d9195948",
+    "bytes": 1564478,
+    "logical_files": 120,
+    "unique_objects": 65,
+    "verified": true
+  }
+}

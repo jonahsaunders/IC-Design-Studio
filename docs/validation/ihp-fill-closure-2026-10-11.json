@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "chunk": 5,
+  "status": "reference_gate_complete",
+  "qualified": false,
+  "recipe": "ihp-signal-clearance-block-fill-v1",
+  "references": [
+    {
+      "path": "docs/validation/ihp-fill-reference-2026-10-11/counter.json",
+      "sha256": "57ded6bed19edeaf612c2ecd9afb51d7c8848beccd1c1add739941771c5ac731"
+    },
+    {
+      "path": "docs/validation/ihp-fill-reference-2026-10-11/uart.json",
+      "sha256": "24942ec09c01362acfeacdaa5eb6cc769e46a2f658ca1f9fe2da422b410831d1"
+    },
+    {
+      "path": "docs/validation/ihp-fill-reference-2026-10-11/apb.json",
+      "sha256": "9a9a75783fefaf818373aac8d0c1d31e8a285453c6a43eaa1519209c0ed0ce39"
+    }
+  ],
+  "audits": {
+    "win32": {
+      "path": "docs/validation/ihp-fill-reference-2026-10-11/audit-win32.json",
+      "sha256": "bdd44f0473fc36821fcc81417f0ca2959d236d5c185100e6ecc2da8477f9418b"
+    },
+    "linux": {
+      "path": "docs/validation/ihp-fill-reference-2026-10-11/audit-linux.json",
+      "sha256": "a9281d6d03cca7a4ae0fc49fa268d357d48f67fb869c62838421667752bf46ed"
+    }
+  },
+  "source_files": {
+    "icstudio/digital_ihp_fill.py": "fe90f6d0347b1183b456d4e6f06cf7f241664e21eb970880b4be64bcaf0d1352",
+    "icstudio/digital_ihp_geometry.py": "424adf96b98ef2c0da0044f07ac6013e20d848fc9063180072dfe8a0417b2b96",
+    "icstudio/digital_ihp_fill_worker.py": "1d8f99775a2ea2b4d31c789c96d218b775a39a15d29fd6d76b3dde9bcf4b783a",
+    "icstudio/digital_ihp_inventory.py": "691cd113eee5b342c7351a5ed3d9a9738a89c8b5f96ef972a33facc3373a0b7d",
+    "icstudio/digital_physical.py": "e1c220a88450f43cefd9638e7f8eb92e131715b28dd12a84e111983ddf723223",
+    "icstudio/digital_flow.py": "79b59b5e4fb8bfb94b9e08d2bb3eb88c045b00b2294967f69c5b1f67469e8105",
+    "icstudio/digital_identity.py": "844db56e8ba0d70a95d88e713997b40519896b1b3087ccac56be3f7abe599298",
+    "icstudio/digital_platform.py": "d161bd774635aea8ab5b33bcc21e90bc4e4d93c30dd71d06e1f0b5a290717e92",
+    "icstudio/digital_rc.py": "40cb3cf355e14fe5badcfa45cd761c6c3dbfa69d18d4672e2f7f7fef49387ed4",
+    "icstudio/digital_macro.py": "42c5491a73a31687ab654b1ebb3327bf5eddbd5168c839707d7418038ced7f7e",
+    "icstudio/digital_runtime.py": "62609899c20959ff59d7673b2a801fbff50c6a63247c46798c9669076a5a2c3c",
+    "icstudio/digital_implementation.py": "98b2fe7441c770f7cf7fa9e062eed31ae4fcab37332d5f90f3128ba2e6f2de8e",
+    "icstudio/digital_reports.py": "8aed459a5b08b2277884cab51bbe31b9cb3ed35215a58107787e17915102fa14",
+    "icstudio/digital_physical_ui.py": "7392653dd6d2face138df3fa949a65aa4754fadb85e6f0fa56df568b9f71797c",
+    "scripts/audit_ihp_fill_release.py": "b8be750f77b581d5c885faf9704381cc239a3600e0fde03d4305dbbcf1e785dd",
+    "scripts/check_ihp_fill_closure.py": "bd56ca837b1378575bfd8ba1dc7029e54b342a9343d3721e1e33d849415c10ce",
+    "scripts/prepare_ihp_fill.py": "d6d4b33a54e330e3abe1a6db7e4493eb11a28500e3705d19d84c92cba1031a05",
+    "scripts/prepare_ihp_block_fill.py": "cd5741455416b168172848011f820109657bbc2bf90a948b2be6f5405f83d127",
+    "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+    "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+    "scripts/ihp_cell_capacitance.py": "bf610eaf8affdb7a9a62e8adebc062259ad072d88a2abf7b4aa2dfae90f578f6",
+    "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+    "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+    "scripts/build_digital_runtime.py": "ded2d3e9c6ab325976e4f8bc38ee5931c78f59a2d1b445661539e7b258ba4012",
+    "packaging/digital/Dockerfile": "a8b09c781001d607c017c060e6d655589ccef0af7cd9f6ea2596ae120333d50e",
+    "packaging/digital/bundle_platforms.py": "3aeaad8fd169a33b27cb0107a76ceb8673e2cd512e7e83f5c11186ab86812376",
+    "examples/ihp-fill-source-lock.json": "9da512e3f3d37cd2bfd0f1ddc0de49972adde1a1df79d40f9ae75376c98ad96b",
+    "examples/ihp-active-fill-source-lock.json": "d004cafcc879532f44be7dbbd83f9c3a5eb14785613c0a7d64c8c745a654a365"
+  },
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-fill-closure-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "fa9b2982503404a4ff51f6737e4d8e251d586a49cd8cbebd7d1ec467499cc16b",
+    "bytes": 759169659,
+    "logical_files": 3529,
+    "unique_blobs": 1367,
+    "manifest_sha256": "1d8bd6f1caff247bbcc203f794ce13c9ea7b9b38ae497b230f537f1c7ff57fef",
+    "verified": true
+  },
+  "archive_dependencies": [
+    {
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-ground-correction-2026-10-11-v1/evidence.tar.gz",
+      "sha256": "745476c4dbfebcd7ef6af04a8e83e305745cef0effa1d6b95991352ce3a57696",
+      "bytes": 1074306344,
+      "logical_files": 4966,
+      "unique_blobs": 1871,
+      "manifest_sha256": "904337f411ebee7d77dda53a7a11fb77d7d3138644dda3ba09c508677d8eeefb",
+      "verified": true
+    }
+  ],
+  "full_transistor_rc_acceptance": "not_claimed",
+  "scope": "Three original-footprint IHP SG13G2 standard-cell blocks: complete required block rules, strict device/port LVS, unchanged nominal circuit capacitance and local fields, final-netlist formal proof, three-library-condition extracted timing, actual fill/timing/export application execution and native LEF readback.",
+  "limitations": [
+    "This closes chunk 5 for the retained counter, UART and APB references. It does not qualify a complete PDK or tapeout.",
+    "The 9 um clearance recipe preserves the nominal circuit model in the pinned 8 um-halo extractor. Independent field calibration and other interconnect/PVT conditions remain chunk 8.",
+    "Native local-field projection agrees to roundoff on the same original resistor mesh. Fresh UART/APB native resistor re-extractions exhibit allocation/reduction differences and are not accepted as identical meshes.",
+    "Old filled full-RC waveforms use superseded geometry. Neither unfinished transients nor changes to the fixed 1 ps convergence threshold are used as acceptance.",
+    "Power rails are ideal in this nominal timing model. Fill effects on supply impedance, IR drop and electromigration require later chip-level qualification.",
+    "Original block footprints are 200 or 400 um. Complete-chip edges and 800 um density windows remain chip qualification.",
+    "Application finish/timing/export runs reuse captured routed checkpoints. A fresh consumer installer and full-chip submission remain chunk 12.",
+    "The prior GF180 gate retains its exact historical tested source; the new shared backend is not relabeled as a fresh GF180 production qualification."
+  ],
+  "regression_tests": {
+    "path": "docs/validation/ihp-fill-tests-2026-10-11.json",
+    "sha256": "fc615e1780e317bb1aa433a5a3a135b42a78c248a0e23d4bf3fb1f1efa84cace"
+  }
+}

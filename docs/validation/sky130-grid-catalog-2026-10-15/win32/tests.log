@@ -1,0 +1,27 @@
+test_changed_source_or_operand_mapping_fails (tests.test_sky130_grid_catalog.GridCatalogTests.test_changed_source_or_operand_mapping_fails) ... ok
+test_each_drawn_operand_passes_five_nm_and_fails_one_nm_shift (tests.test_sky130_grid_catalog.GridCatalogTests.test_each_drawn_operand_passes_five_nm_and_fails_one_nm_shift) ... ok
+test_each_non_drawn_subject_requires_complete_absence (tests.test_sky130_grid_catalog.GridCatalogTests.test_each_non_drawn_subject_requires_complete_absence) ... ok
+test_exact_set_leaves_metop_aliases_and_parent_units_unresolved (tests.test_sky130_grid_catalog.GridCatalogTests.test_exact_set_leaves_metop_aliases_and_parent_units_unresolved) ... ok
+test_latest_checkpoint_preserves_explicit_wl_exemptions (tests.test_sky130_grid_catalog.GridCatalogTests.test_latest_checkpoint_preserves_explicit_wl_exemptions) ... ok
+test_missing_layer_or_check_and_duplicate_counts_fail (tests.test_sky130_grid_catalog.GridCatalogTests.test_missing_layer_or_check_and_duplicate_counts_fail) ... ok
+test_nested_array_offset_cannot_hide_off_grid_vertices (tests.test_sky130_grid_catalog.GridCatalogTests.test_nested_array_offset_cannot_hide_off_grid_vertices) ... ok
+test_text_anchor_failure_stays_separate_from_literal_vertex_check (tests.test_sky130_grid_catalog.GridCatalogTests.test_text_anchor_failure_stays_separate_from_literal_vertex_check) ... ok
+test_text_only_data_is_not_accepted_as_empty_geometry (tests.test_sky130_grid_catalog.GridCatalogTests.test_text_only_data_is_not_accepted_as_empty_geometry) ... ok
+test_unsupported_transform_or_path_cannot_be_reconciled (tests.test_sky130_grid_catalog.GridCatalogTests.test_unsupported_transform_or_path_cannot_be_reconciled) ... ok
+test_capture_cannot_change_or_omit_source_bytes (tests.test_sky130_grid_density.GridTests.test_capture_cannot_change_or_omit_source_bytes) ... ok
+test_complex_transforms_are_rejected_before_fractional_rounding (tests.test_sky130_grid_density.GridTests.test_complex_transforms_are_rejected_before_fractional_rounding) ... ok
+test_every_ordinary_boundary_accepts_five_nm_and_rejects_one_nm_shift (tests.test_sky130_grid_density.GridTests.test_every_ordinary_boundary_accepts_five_nm_and_rejects_one_nm_shift) ... ok
+test_fractional_diagonal_and_round_paths_fail_closed (tests.test_sky130_grid_density.GridTests.test_fractional_diagonal_and_round_paths_fail_closed) ... ok
+test_gds_readback_binds_exact_bytes (tests.test_sky130_grid_density.GridTests.test_gds_readback_binds_exact_bytes) ... ok
+test_internal_overlap_and_holes_cannot_hide_grid_errors (tests.test_sky130_grid_density.GridTests.test_internal_overlap_and_holes_cannot_hide_grid_errors) ... ok
+test_nested_mirror_rotation_and_array_origins (tests.test_sky130_grid_density.GridTests.test_nested_mirror_rotation_and_array_origins) ... ok
+test_only_explicit_fine_grid_purposes_accept_one_nm (tests.test_sky130_grid_density.GridTests.test_only_explicit_fine_grid_purposes_accept_one_nm) ... ok
+test_path_edges_not_just_centerlines_are_checked (tests.test_sky130_grid_density.GridTests.test_path_edges_not_just_centerlines_are_checked) ... ok
+test_path_end_extensions_are_checked (tests.test_sky130_grid_density.GridTests.test_path_end_extensions_are_checked) ... ok
+test_text_anchors_are_reported_separately (tests.test_sky130_grid_density.GridTests.test_text_anchors_are_reported_separately) ... ok
+test_unknown_purpose_empty_layout_and_bad_units_fail (tests.test_sky130_grid_density.GridTests.test_unknown_purpose_empty_layout_and_bad_units_fail) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 4.452s
+
+OK

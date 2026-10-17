@@ -102,7 +102,8 @@ class LayoutReleaseTests(unittest.TestCase):
         for variant in ('gf180mcuC','gf180mcuD'):
             t=bundled_technology(variant);c=capabilities(t)
             self.assertEqual(c['native_layout'],['mos','inverter'])
-            self.assertIn('four size boundaries passed',c['physical_evidence'])
+            # New simulation metadata revisions do not inherit old physical acceptance.
+            self.assertEqual(c['physical_evidence'],'No release physical qualification for this revision.')
         t=technology();t['package_lock']['id']='gf180mcuC'
         self.assertEqual(capabilities(t)['native_layout'],[])
         self.assertIn('No release',capabilities(t)['physical_evidence'])

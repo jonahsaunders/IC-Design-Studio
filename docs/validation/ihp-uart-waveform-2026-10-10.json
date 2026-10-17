@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "status": "completed-capacitance-workload-preserved",
+  "qualified": false,
+  "chunk_complete": false,
+  "comparison": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "results": [
+      {
+        "state": "original",
+        "schema": 1,
+        "status": "pass",
+        "qualified": false,
+        "complete_waveform": true,
+        "tested_bits": 254,
+        "failed_bits": 0,
+        "failures": [],
+        "duration_ns": 1290.0,
+        "waveform_sha256": "be1f6955d7bef6ba6916dc551897982ab502078bf7848d5ea97b71670e3e6154",
+        "expectations_sha256": "001e0d483bbbc459f264cb7ed61f58e8184927e3b3d9566424ddc023d6591e20",
+        "engine_log_sha256": "40aacc398cf88ab68fa23bd93a8bdbe3556ddb8522b5844ef50adee0ed691528",
+        "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+      },
+      {
+        "state": "filled",
+        "schema": 1,
+        "status": "pass",
+        "qualified": false,
+        "complete_waveform": true,
+        "tested_bits": 254,
+        "failed_bits": 0,
+        "failures": [],
+        "duration_ns": 1290.0,
+        "waveform_sha256": "0532566afbff68beb345925ab3458d89b47de019b61a49fa4369fa17c13f388d",
+        "expectations_sha256": "001e0d483bbbc459f264cb7ed61f58e8184927e3b3d9566424ddc023d6591e20",
+        "engine_log_sha256": "e2089f9cd5d1e91042084213c1a64f4a76de1b208e99508be60685522aca4cbc",
+        "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+      }
+    ],
+    "edges": [
+      {
+        "channel": {
+          "port": "tx",
+          "bit": 0,
+          "node": "NET000352"
+        },
+        "original_edges": 13,
+        "filled_edges": 13,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 9.912934129066873
+      },
+      {
+        "channel": {
+          "port": "busy",
+          "bit": 0,
+          "node": "NET000212"
+        },
+        "original_edges": 6,
+        "filled_edges": 6,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 22.401996098620074
+      }
+    ],
+    "matched_edges": 19,
+    "maximum_edge_change_ps": 22.401996098620074,
+    "scope": "Complete output-function checks and descriptive matched 50%-supply transition comparison after 10 ns. Clock timing and numerical convergence are separate acceptance checks."
+  },
+  "previous_false_failure": "The filled run finished, but its first timestamp was exactly one binary64 ULP above 1 ps. The old strict boundary check rejected it. The corrected checker allows that adjacent float only and retains tests rejecting the next ULP and later physical starts. The old failure record remains in the archive.",
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-uart-cap-completed-2026-10-10-v3\\evidence.tar.gz",
+    "sha256": "90c8f6afdf1803f184f82bb8124c75a3738517eb59d6502c075c08eee4dd7deb",
+    "bytes": 12495082,
+    "logical_files": 49,
+    "unique_blobs": 46,
+    "verified": true,
+    "manifest_sha256": "5d9b3902dafd5a6b73ff37efccb8982fc953f6114f80a2cb34d33ab0f136265e"
+  },
+  "remaining": "Full resistance waveform/convergence, accepted post-fill timing, and production integration remain open.",
+  "tests": [
+    {
+      "platform": "win32",
+      "status": "pass",
+      "tests": 117,
+      "skips": 0,
+      "log_sha256": "85a044c652434469730dc1884dbe7859486d9350ec7665d471617371f5931fdc"
+    },
+    {
+      "platform": "linux",
+      "status": "pass",
+      "tests": 117,
+      "skips": 0,
+      "log_sha256": "4a2ae2e6ecc0bc680f6d76def1e8371cdc5dcb9742153887599c7eb525aa9957"
+    }
+  ]
+}

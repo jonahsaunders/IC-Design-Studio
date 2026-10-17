@@ -46,14 +46,17 @@ def netlist_index(data, files):
 def eqy_report(directory):
     root=Path(directory);partitions={}
     for file in sorted((root/'strategies').glob('*/*/status')):
-        text=file.read_text().split();status=text[0] if text else 'ERROR'
+        text=file.read_text().strip();match=re.fullmatch(r'(PASS|FAIL|UNKNOWN|ERROR|TIMEOUT)( \(cached\))?',text)
+        status=match[1] if match else 'ERROR';cached=bool(match and match[2])
         if status=='TIMEOUT':status='UNKNOWN'
-        if status not in ('PASS','FAIL','UNKNOWN','ERROR'):status='ERROR'
-        partitions.setdefault(file.parent.parent.name,[]).append({'strategy':file.parent.name,'status':status})
+        entry={'strategy':file.parent.name,'status':status}
+        if cached:entry['cached']=True
+        partitions.setdefault(file.parent.parent.name,[]).append(entry)
     rows=[]
     for name,strategies in partitions.items():
         states={s['status'] for s in strategies}
-        status='FAIL' if 'FAIL' in states else 'PASS' if 'PASS' in states else 'UNKNOWN' if 'UNKNOWN' in states else 'ERROR'
+        actual={s['status'] for s in strategies if not s.get('cached')}
+        status='FAIL' if 'FAIL' in states else 'PASS' if 'PASS' in actual else 'UNKNOWN' if 'UNKNOWN' in actual else 'ERROR'
         rows.append({'partition':name,'status':status,'strategies':strategies})
     if rows and (root/'PASS').is_file() and all(p['status']=='PASS' for p in rows):status='PASS'
     elif any(p['status']=='FAIL' for p in rows):status='FAIL'
@@ -64,31 +67,87 @@ def eqy_report(directory):
             'scope':'Sequential equivalence under the captured EQY strategy and initialization assumptions.'}
 
 
-def timing_report(directory):
-    root=Path(directory); rows=[]
-    for line in (root/'timing_paths.tsv').read_text().splitlines():
+def timing_report(directory, *, require_parasitics=False):
+    root=Path(directory); rows=[]; incomplete=[]
+
+    def read(name):
+        path=root/name
+        if not path.is_file():
+            incomplete.append('Missing timing evidence: '+name)
+            return ''
+        text=path.read_text()
+        if re.search(r'^\s*(?:Error|Fatal)(?:\s|:)',text,re.I|re.M):
+            incomplete.append('Engine error in '+name+'; inspect the retained report.')
+        return text
+
+    annotation=None
+    if require_parasitics:
+        diagnostics=read('timing_load.txt')
+        if re.search(r'^\s*(?:Warning|Error|Fatal)(?:\s|:)',diagnostics,re.I|re.M):
+            incomplete.append('Unresolved netlist, library, constraint or parasitic load diagnostics; inspect timing_load.txt.')
+        text=read('parasitic_annotation.txt')
+        disconnected=read('disconnected_outputs.txt').splitlines()
+        match=re.fullmatch(r'Found (\d+) unannotated drivers\.\n(.*?)Found (\d+) partially unannotated drivers\.\n(.*)',text,re.S)
+        # Open outputs of clock-load cells have no interconnect to annotate.
+        # The engine must prove disconnection; a cell name is never an exemption.
+        if match:
+            unannotated=[s.strip() for s in match[2].splitlines() if s.strip()]
+            partial=[s.strip() for s in match[4].splitlines() if s.strip()]
+            valid=(len(unannotated)==int(match[1]) and len(partial)==int(match[3])
+                   and len(set(unannotated))==len(unannotated) and len(set(partial))==len(partial)
+                   and len(set(disconnected))==len(disconnected) and all(disconnected))
+            missing=sorted(set(unannotated)-set(disconnected))
+            annotation=dict(unannotated_drivers=unannotated,partially_unannotated_drivers=partial,
+                            disconnected_outputs=disconnected,connected_unannotated_drivers=missing)
+            if not valid:incomplete.append('Invalid parasitic annotation evidence; inspect parasitic_annotation.txt.')
+            elif missing or partial:incomplete.append('Missing extracted parasitics on connected drivers; inspect parasitic_annotation.txt.')
+        else:incomplete.append('Missing or invalid parasitic annotation evidence; inspect parasitic_annotation.txt.')
+    for line in read('timing_paths.tsv').splitlines():
         fields=line.split('\t')
         if len(fields)!=5:raise ValueError('OpenSTA returned an invalid timing path record.')
         kind,start,end,slack,pins=fields;value=float(slack)
+        if kind not in ('setup','hold') or not start.strip() or not end.strip():
+            raise ValueError('OpenSTA returned an invalid timing path identity.')
         if not math.isfinite(value):raise ValueError('Non-finite timing slack.')
         rows.append({'check':kind,'startpoint':start,'endpoint':end,'slack_ns':value,'pins':pins.split('|') if pins else []})
-    checks=(root/'timing_checks.txt').read_text();units=(root/'timing_units.txt').read_text()
-    # A design with no paths or missing clocks is never a successful timing qualification.
+    checks=read('timing_checks.txt');units=read('timing_units.txt')
+    # The generated script requests ns. Do not label values from an edited SDC
+    # or incompatible engine as nanoseconds without confirming its final units.
+    time_units=re.findall(r'^\s*time\s+(\S+)\s*$',units,re.I|re.M)
+    if time_units!=['1ns']:incomplete.append('Timing units must report time 1ns.')
     unconstrained=bool(re.search(r'no clock|unconstrained|no input delay|no output delay|missing.*(?:input_delay|output_delay|clock)',checks,re.I))
+    if unconstrained:incomplete.append('Missing clock or I/O constraints; inspect timing_checks.txt.')
+    elif checks.strip():
+        # check_setup is silent when clean. Loops, multiple/generated clocks and
+        # unfamiliar diagnostics also need review before a qualification passes.
+        incomplete.append('Unresolved timing setup diagnostics; inspect timing_checks.txt.')
     summary={}
     for kind in ('setup','hold'):
         paths=[p for p in rows if p['check']==kind]
+        if not paths:incomplete.append('No '+kind+' paths were reported.')
         summary[kind+'_worst_slack_ns']=min((p['slack_ns'] for p in paths),default=None)
         summary[kind+'_reported_violations']=sum(p['slack_ns'] < 0 for p in paths)
-    status='INCOMPLETE' if unconstrained or not rows else 'FAIL' if any(p['slack_ns']<0 for p in rows) else 'PASS'
-    totals=(root/'timing_totals.txt').read_text() if (root/'timing_totals.txt').is_file() else ''
-    match=re.search(r'tns(?:\s+(?:max|min))?\s+(-?[0-9.eE+]+)',totals,re.I)
-    if match and math.isfinite(float(match[1])):summary['setup_total_negative_slack_ns']=float(match[1])
-    electrical=(root/'electrical_checks.txt').read_text() if (root/'electrical_checks.txt').is_file() else ''
-    if re.search(r'VIOLATED',electrical,re.I) and status=='PASS':status='FAIL'
+        name='timing_totals.txt' if kind=='setup' else 'timing_hold_totals.txt'
+        label='max' if kind=='setup' else 'min'
+        totals=read(name)
+        match=re.fullmatch(r'\s*tns(?:\s+'+label+r')?\s+([-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?)\s*',totals,re.I)
+        value=float(match[1]) if match else float('nan')
+        if math.isfinite(value) and value<=0:summary[kind+'_total_negative_slack_ns']=value
+        else:incomplete.append('Missing or invalid '+kind+' total negative slack: '+name)
+    electrical=read('electrical_checks.txt')
+    electrical_failed=bool(re.search(r'\bVIOLATED\b',electrical,re.I))
+    electrical_incomplete=any('electrical_checks.txt' in reason for reason in incomplete)
+    if re.search(r'^\s*Warning(?:\s|:)',electrical,re.I|re.M):
+        incomplete.append('Unresolved electrical diagnostics; inspect electrical_checks.txt.')
+        electrical_incomplete=True
+    failed=(any(p['slack_ns']<0 for p in rows) or electrical_failed or
+            any(summary.get(kind+'_total_negative_slack_ns',0)<0 for kind in ('setup','hold')))
+    status='FAIL' if failed else 'INCOMPLETE' if incomplete else 'PASS'
     return {'status':status,'paths':rows,'summary':summary,'unconstrained':unconstrained,
+            **({'parasitic_annotation':annotation} if require_parasitics else {}),
+            'incomplete_reasons':incomplete,
             'checks':checks,'units':units,'electrical_checks':electrical,
-            'electrical_status':'FAIL' if re.search(r'VIOLATED',electrical,re.I) else 'No reported violations' if (root/'electrical_checks.txt').is_file() else 'Unavailable',
+            'electrical_status':'FAIL' if electrical_failed else 'Unavailable' if electrical_incomplete else 'No reported violations',
             'scope':'Reported paths for the selected library corner; inspect constraints and path coverage.'}
 
 
