@@ -59,6 +59,16 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [resistor-layout record](validation/resistor-layouts-2026-10-17.json)
+adds 190 selected native full-DRC/strict-LVS layouts: three IHP resistor families
+and eight families on each GF180 C/D variant, at five W/L pairs and two rotations.
+All 475 physical/reference fault controls are detected. Independent readback
+checks every mask, exact extracted model/body/terminals/dimensions and all fault
+changes. The [layout guide](RESISTOR_LAYOUT_QUALIFICATION.md) documents the public
+generator settings, retained original failures and exact scope. Broader device
+families, operating envelopes, statistical/RF behavior and installed acceptance
+remain open; these samples do not complete chunk 7.
+
 The [alternate-model record](validation/alternate-models-2026-10-17.json)
 accounts for all 52 choices declared by bundled source symbols: five existing
 defaults, 44 added usable views and three explicit missing-model entries. The

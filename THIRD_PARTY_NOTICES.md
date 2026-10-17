@@ -346,3 +346,13 @@ them. Local filenames are shortened; their contents and third-party licensing
 are unchanged. The IHP boundary checks use the already bundled Apache-2.0 model
 header identified in the qualification record. The new test runner is separate
 project code under this project's GPL-3.0 license.
+
+The selected GF180 resistor-layout qualification retains six unmodified
+open-pdks source/license files at commit
+`aa3fc215a80d32437b8cca1cb3fdee819d18c4c9` under
+`icstudio/assets/physical/gf180_resistors`. Original headers, the Apache-2.0
+license and exact path/checksum lock accompany them. The local invocation in
+`scripts/qualify_gf180_resistor_layouts.py` explicitly changes contact enclosures,
+guard clearance and contact coverage; it does not modify the retained source or
+the process verification decks. IHP resistor checks use the already bundled
+Apache-2.0 generators with their optional via stacks disabled.
