@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred. All 255 primitive symbol sources now reconcile with the complete pinned source views on both hosts; model-only and other tool inventories remain separate. Thirty-seven capacitor entries pass 180 selected cases with an authenticated simulator-parser correction and separate SKY130 parallel-unit contract; full operating ranges and physical/runtime gates remain open."
+      "scope": "Selected MOS, resistor, capacitor, diode and bipolar execution is recorded. The source-built ngspice 47 runtime passes relocation and selected regressions; all 432 standard-MOS cases pass its diagnostic build. Twenty-five additional diode interfaces pass 36 conditions and 900 device faults. A separate IHP isolbox package and fresh imports pass terminal/geometry-domain checks and nine DC cases; the bundled historical entry remains unavailable. Full release-image acceptance, upstream inventory, operating envelopes, additional families and physical coverage remain open. The twelve required GF180 B bandgap exchange/physical controls pass; C/D analog qualification and distributed RC/fill coupling are not inferred. All 255 primitive symbol sources now reconcile with the complete pinned source views on both hosts; model-only and other tool inventories remain separate. Thirty-seven capacitor entries pass 180 selected cases with an authenticated simulator-parser correction and separate SKY130 parallel-unit contract; full operating ranges and physical/runtime gates remain open. The default fixed VPP and IHP SVaricap add 144 cases with corrected terminal order. All 39 placeable capacitor catalog entries have selected electrical checks; full envelope and physical qualification remain open."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18604,10 +18604,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Corrected semantic terminal order passes all four terminal drives at two biases, requested corners and 0/27/85 C over 100 Hz-10 MHz, with multiplicity and driven-terminal faults. Uses explicit package 8c3913de70b7e4b1. Complete operating/reliability/statistical/RF and physical extraction, other model variants and default promotion remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "four-terminal-capacitors-2026-10-17"
         ]
       }
     },
@@ -21015,10 +21016,11 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Catalog save/reopen and Studio Xschem round-trip checks pass on both hosts; this does not independently establish the upstream model interface, valid operating envelope, complete electrical/physical behavior or all parameter boundaries.",
+        "remaining": "Corrected semantic terminal order passes all four terminal drives at two biases, requested corners and 0/27/85 C over 100 Hz-10 MHz, with multiplicity and driven-terminal faults. Uses explicit package 8e17db1147e872f2. Complete operating/reliability/statistical/RF and physical extraction, other model variants and default promotion remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
-          "device-corrections-2026-10-16"
+          "device-corrections-2026-10-16",
+          "four-terminal-capacitors-2026-10-17"
         ]
       },
       "sg13g2_pr/sub.sym": {
@@ -21602,6 +21604,16 @@
       "path": "docs/validation/capacitor-families-2026-10-17.json",
       "sha256": "2edf2da917d3bd37d799d9530b1b885d5d1ac9bbe6c8f9745ce6b57a78f39e48",
       "scope_limit": "37 capacitor catalog entries at 180 selected cases, 12888 independently re-read complex vectors, 1332 parallel comparisons and 5328 detected device faults. Corrected public ngspice parser and explicit opt-in SKY130 parallel-unit varactors; full ranges, physical/RF/silicon accuracy and installed-runtime acceptance remain open."
+    },
+    "four-terminal-capacitors-2026-10-17": {
+      "path": "docs/validation/four-terminal-capacitors-2026-10-17.json",
+      "sha256": "9c35bff8983046b8fb54b52878057580ffdea7751f08cf3434044e20f73d6f36",
+      "scope_limit": "Default SKY130 fixed VPP and IHP SVaricap model-terminal corrections in explicit packages. 144 selected cases, 1728 complex vectors and 864 detected faults; original swapped-terminal failures retained. Full ranges, other fixed models, physical/RF/statistical accuracy and default promotion remain open."
+    },
+    "chunk7-release-regressions-2026-10-17": {
+      "path": "docs/validation/chunk7-release-regressions-2026-10-17.json",
+      "sha256": "84d5f6b28399f0bf3d156e14647221ac264dc60f895d2fc0dac1c9d3476e667a",
+      "scope_limit": "Passing 2954-test Windows/Linux suites with 36/31 explicit skips, plus 8 patched-runtime MOS cases with 32 analyses and 8 detected width faults. Source regression only; complete image, installed-runtime and optional-engine acceptance remain separate."
     }
   },
   "execution_acceptance": {

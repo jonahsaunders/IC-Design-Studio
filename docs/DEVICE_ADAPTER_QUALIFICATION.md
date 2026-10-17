@@ -250,3 +250,44 @@ noise, statistical independence, physical extraction, RF-band and silicon
 accuracy, default varactor promotion and installed-runtime acceptance remain
 separate requirements. The complete passing and failed experiments are in a
 verified 112 MB archive outside dated working folders.
+
+## Four-terminal capacitor corrections
+
+The [four-terminal record](validation/four-terminal-capacitors-2026-10-17.json)
+adds the two remaining placeable capacitor entries: the default SKY130 fixed
+VPP model and IHP SVaricap. The original SKY130 symbol assigns the substrate
+connection to the M5 shield and vice versa. The original IHP symbol swaps the
+model's two gate terminals; its asymmetric coupling network makes that swap
+observable. All four original VPP terminal drives and both original SVaricap
+gate drives fail the independently ordered reference. Those failures are retained.
+
+Explicit corrected packages preserve every upstream asset and leave the bundled
+default and saved revisions unchanged. The SKY130 package maps model order
+`c0 c1 b m5` to `c0 c1 sub top`, retains the parallel-unit varactor adapters,
+and removes W/L controls that the fixed-layout model does not implement. Its
+positive `mult` parameter retains the public model's statistical and subcircuit
+multiplier semantics. The IHP package maps `G1 W G2 bn` to `g1 nw g2 body`,
+retains the earlier isolation-box interface, and enforces source-declared
+W/L/Nx boundaries. These bounds do not establish a complete operating envelope.
+
+```sh
+python scripts/qualify_four_terminal_capacitors.py --output /path/to/new-four-terminal-results --ngspice /path/to/new-runtime/installed/bin/icstudio-ngspice --osdi /path/to/ihp-osdi --correct-vpp --correct-svaricap --workers 4
+```
+
+The command produces `vpp-package` and `svaricap-package` inside the output
+directory; select the intended revision using **Install package…**. The packages
+can also be prepared separately with `prepare_sky130_vpp_binding.py` and
+`prepare_ihp_svaricap_binding.py`, each taking `--output` with a new directory.
+
+All 144 selected cases pass four independent terminal drives at two biases,
+three requested corners and 0/27/85 C, over 100 Hz–10 MHz. Raw-file readback
+reproduces 1,728 complex vectors and 864 detected multiplicity or driven-terminal
+faults. Eight focused tests pass on each OS, including preserved package assets,
+save/reopen, Xschem terminal identity and rejected geometry inputs. The comparison
+limits remain 1e-6 relative and 1e-15 A absolute.
+
+Together with the preceding batch, all 39 currently placeable capacitor catalog
+entries have selected electrical integration evidence. Other fixed VPP variants,
+complete operating ranges, statistical/RF accuracy, physical extraction and
+default-package promotion remain open. In particular, SVaricap `Nx` changes
+model geometry and is not assumed to equal parallel independent devices.

@@ -190,6 +190,22 @@ Original models, default packages and failed experiments remain preserved.
 These results do not qualify full operating envelopes, RF or silicon accuracy,
 remaining physical layouts, or the complete installed runtime.
 
+The [four-terminal capacitor record](validation/four-terminal-capacitors-2026-10-17.json)
+adds 144 cases for the default SKY130 VPP and IHP SVaricap. It detects and
+corrects swapped substrate/shield and gate connections in separate explicit
+packages, then independently re-reads 1,728 complex vectors and 864 detected
+device faults. All 39 currently placeable capacitor catalog entries now have
+selected electrical integration checks. Full ranges, other model variants,
+physical/extracted behavior and default promotion remain open.
+
+The [release regression record](validation/chunk7-release-regressions-2026-10-17.json)
+retains passing full application suites on Windows and Linux: 2,954 discovered
+tests on each host, with 36 and 31 explicit skips respectively. The corrected
+simulator also passes eight standard-MOS cases, 32 independent analyses and
+eight deliberate width faults. Earlier environment failures and GitHub desktop
+diagnostics are retained. These source tests do not replace complete image,
+installer or optional-engine acceptance.
+
 The [adapter instructions](DEVICE_ADAPTER_QUALIFICATION.md) reproduce current and
 earlier packages. Full simulator release integration, upstream completeness,
 operating envelopes, remaining device families and physical coverage remain

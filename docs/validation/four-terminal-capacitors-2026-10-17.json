@@ -1,0 +1,289 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "a59c3405a5c7f1d74408b3e596dfad54703befab",
+  "scope": "Selected complex terminal integration for one fixed-layout SKY130 VPP model and IHP SVaricap. No full geometry/bias/reliability/statistical/RF-band or physical qualification.",
+  "processes": {
+    "sky130A": {
+      "target": "sky130A",
+      "revision": "8c3913de70b7e4b1",
+      "manifest_sha256": "7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5",
+      "original_manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d",
+      "model_sha256": "7710a12e99c750841df77b352eb240e818a995e20474ebad70021e4a739adab2"
+    },
+    "ihp-sg13g2": {
+      "target": "ihp-sg13g2",
+      "revision": "8e17db1147e872f2",
+      "manifest_sha256": "5556879dfa009986bad2949d4dd53e4ab08e27d200788a15130bbd8e9fa1cc2a",
+      "original_manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+      "model_sha256": "b6ae39c7334c75c222ecdee9d6b04c9be48657e91351429aebac47d1192a9abb"
+    }
+  },
+  "probes": {
+    "sky130A": [
+      {
+        "tag": "c0s0m1",
+        "key": "sky130_fd_pr/vpp_cap.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "top",
+          "sub"
+        ],
+        "params": {
+          "mult": 1
+        },
+        "reference_order": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5",
+        "manual": "mult=1 m=1",
+        "fault_parameter": "mult"
+      },
+      {
+        "tag": "c0s0m3",
+        "key": "sky130_fd_pr/vpp_cap.sym",
+        "pins": [
+          "c0",
+          "c1",
+          "top",
+          "sub"
+        ],
+        "params": {
+          "mult": 3
+        },
+        "reference_order": [
+          0,
+          1,
+          3,
+          2
+        ],
+        "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5",
+        "manual": "mult=3 m=3",
+        "fault_parameter": "mult"
+      }
+    ],
+    "ihp-sg13g2": [
+      {
+        "tag": "c0s0m1",
+        "key": "sg13g2_pr/sg13_svaricap.sym",
+        "pins": [
+          "g2",
+          "nw",
+          "g1",
+          "body"
+        ],
+        "params": {
+          "w": 3.74e-06,
+          "l": 3e-07,
+          "nx": 1,
+          "mm_ok": 1
+        },
+        "reference_order": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "model": "sg13_hv_svaricap",
+        "manual": "w=3.74u l=0.3u nx=1 mm_ok=1",
+        "fault_parameter": "nx"
+      },
+      {
+        "tag": "c0s0m3",
+        "key": "sg13g2_pr/sg13_svaricap.sym",
+        "pins": [
+          "g2",
+          "nw",
+          "g1",
+          "body"
+        ],
+        "params": {
+          "w": 3.74e-06,
+          "l": 3e-07,
+          "nx": 3,
+          "mm_ok": 1
+        },
+        "reference_order": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "model": "sg13_hv_svaricap",
+        "manual": "w=3.74u l=0.3u nx=3 mm_ok=1",
+        "fault_parameter": "nx"
+      },
+      {
+        "tag": "c0s1m1",
+        "key": "sg13g2_pr/sg13_svaricap.sym",
+        "pins": [
+          "g2",
+          "nw",
+          "g1",
+          "body"
+        ],
+        "params": {
+          "w": 9.74e-06,
+          "l": 8e-07,
+          "nx": 1,
+          "mm_ok": 1
+        },
+        "reference_order": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "model": "sg13_hv_svaricap",
+        "manual": "w=9.74u l=0.8u nx=1 mm_ok=1",
+        "fault_parameter": "nx"
+      },
+      {
+        "tag": "c0s1m3",
+        "key": "sg13g2_pr/sg13_svaricap.sym",
+        "pins": [
+          "g2",
+          "nw",
+          "g1",
+          "body"
+        ],
+        "params": {
+          "w": 9.74e-06,
+          "l": 8e-07,
+          "nx": 3,
+          "mm_ok": 1
+        },
+        "reference_order": [
+          2,
+          1,
+          0,
+          3
+        ],
+        "model": "sg13_hv_svaricap",
+        "manual": "w=9.74u l=0.8u nx=3 mm_ok=1",
+        "fault_parameter": "nx"
+      }
+    ]
+  },
+  "totals": {
+    "cases": 144,
+    "entries": 2,
+    "terminal_vectors": 1728,
+    "samples": 44928,
+    "faulted_device_instances": 864,
+    "fault_simulations": 288
+  },
+  "conditions": {
+    "bias_v": [
+      -0.5,
+      0.5
+    ],
+    "third_terminal_bias_v": 0.25,
+    "body_bias_v": -0.2,
+    "temperature_c": [
+      0,
+      27,
+      85
+    ],
+    "frequency_hz": [
+      100,
+      10000000.0
+    ],
+    "frequency_samples": 26,
+    "corners": {
+      "sky130A": [
+        "ff",
+        "nominal",
+        "ss"
+      ],
+      "ihp-sg13g2": [
+        "fast",
+        "nominal",
+        "slow"
+      ]
+    }
+  },
+  "report_sha256": "e52e8d7203c0ffa85d1d894ca9ec23af80752efa215313c94dec9ea453a02ec4",
+  "source_files_sha256": "7e14d4004f8e569b7a922e0b713075c3e82fb44d33788ee36e123275a1f975ee",
+  "raw_audit": {
+    "status": "PASS",
+    "responses": 576,
+    "sha256": "b2377ffbeca2f392108eb24ac6e0655426de508896dc9f65363e884ccfd83fa3"
+  },
+  "runtime": {
+    "binary_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+    "retained_build": "docs/validation/capacitor-families-2026-10-17.json"
+  },
+  "original_failures": [
+    {
+      "name": "ihp-sg13g2-port0-0.5-nominal-27",
+      "error": "ValueError('Independent four-terminal response differs.')",
+      "maximum_normalized_error": 3.008533783550416
+    },
+    {
+      "name": "ihp-sg13g2-port2-0.5-nominal-27",
+      "error": "ValueError('Independent four-terminal response differs.')",
+      "maximum_normalized_error": 4.2402445285010835
+    },
+    {
+      "name": "sky130A-port0-0.5-nominal-27",
+      "error": "ValueError('Independent four-terminal response differs.')",
+      "maximum_normalized_error": 68961.11922532695
+    },
+    {
+      "name": "sky130A-port1-0.5-nominal-27",
+      "error": "ValueError('Independent four-terminal response differs.')",
+      "maximum_normalized_error": 660894.8051997562
+    },
+    {
+      "name": "sky130A-port2-0.5-nominal-27",
+      "error": "ValueError('Independent four-terminal response differs.')",
+      "maximum_normalized_error": 397914.9089579412
+    },
+    {
+      "name": "sky130A-port3-0.5-nominal-27",
+      "error": "ValueError('Independent four-terminal response differs.')",
+      "maximum_normalized_error": 660894.8051997556
+    }
+  ],
+  "corrections": [
+    "SKY130 fixed-layout VPP model order c0 c1 b m5 maps to c0 c1 sub top. The original symbol maps top to substrate and sub to M5. W/L are not defined geometry inputs in this model and the explicit package rejects them.",
+    "IHP SVaricap model order G1 W G2 bn maps to g1 nw g2 body. The original symbol swaps G1 and G2; independent gate drive detects the asymmetric coupling network. Source-declared W/L/Nx checks are enforced; Ny remains 1.",
+    "New explicit SKY130 package also retains the tested parallel-unit varactor contract; new IHP package retains the earlier isolation-box interface. Upstream source bytes and default/saved revisions are unchanged."
+  ],
+  "focused_tests": {
+    "Windows": {
+      "passed": 8,
+      "skipped": 0
+    },
+    "Linux": {
+      "passed": 8,
+      "skipped": 0
+    }
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/four-terminal-capacitors-2026-10-17/evidence.zip",
+    "sha256": "62461ee97dc1fc132811139ff8be1c03491c4b238942f691f52d521bdab28ced",
+    "bytes": 74629774,
+    "file_paths": 125352,
+    "unique_contents": 5264,
+    "verified_objects": true
+  },
+  "remaining": [
+    "Full operating, geometry, bias, reliability, statistical and RF-band validity; physical extraction and default-package promotion.",
+    "Other SKY130 fixed-layout VPP model variants listed by the public symbol are not covered by this default-model check.",
+    "Nx is a geometry parameter, not independently qualified parallel-unit scaling. Source-declared bounds are not a complete operating or foundry-signoff envelope.",
+    "Complete corrected installed-runtime acceptance and the other chunk-7 device-family gates."
+  ],
+  "diagnostics": [
+    "All four original SKY130 terminal drives and two original IHP gate drives fail independent comparison. Their raw traces remain retained.",
+    "The first focused Linux test command named a nonexistent isolation test module; the corrected eight-test command passes. No test assertion or production behavior was relaxed."
+  ]
+}
