@@ -89,17 +89,27 @@ count unchanged. A separately recorded private Netgen setup retains emitter
 count (`Nx`); the public setup otherwise discards it. Original files, copyright
 notices and licenses remain preserved, with local modifications clearly marked.
 
-## Explicit NPN rule package
+## Default NPN rule entry point
 
-The default IHP package remains unchanged. Prepare and install the separately
-versioned local NPN package `ae6da8cb9fd2140d` for the reference layouts:
+New IHP projects select package `cfb96b74cf33877e`, whose explicit Magic
+entry point is `libs.tech/magic/icstudio-ihp-sg13g2.tech`. It selects the
+previously reviewed NPN correction in a separately named CIF output file.
+The 160 earlier assets, simulation bindings and their original licenses are
+unchanged. The new package adds only that entry point, the corrected rule file
+and provenance. Existing saved projects retain their registered revision.
 
 ```sh
-python scripts/prepare_ihp_npn_qualification.py --output /new/ihp-npn-package
-python scripts/qualify_ihp_npn_layouts.py --output /new/npn-results --magic /path/to/magic --netgen /path/to/netgen --klayout /path/to/klayout --workers 2
+python scripts/prepare_ihp_npn_default.py --output /new/ihp-default-package
+python scripts/qualify_ihp_npn_layouts.py --package /new/ihp-default-package --output /new/npn-results --magic /path/to/magic --netgen /path/to/netgen --klayout /path/to/klayout --workers 2
 ```
 
-The runner creates its own locked package. The NPN correction addresses Magic's
+The first command reproduces the bundled package byte for byte. The second
+verifies that exact package, checks all locked assets and requires its identity
+to remain unchanged throughout the run. Omitting `--package` still reproduces
+the historical, separate qualification package through the retained recipe;
+historical evidence is not relabeled as current-default evidence.
+
+The NPN correction addresses Magic's
 first-intersecting-tile behavior: a broad seed can miss a separate collector.
 Intersecting that seed with the original active set first gives each component
 its own search. All original rule operands, distances and the final illegal-mask
@@ -109,6 +119,22 @@ audits check the result; unrelated diffusion and well islands must still fail.
 The unmodified reference GDS/CDL and Apache-2.0 license are retained under
 `icstudio/assets/physical/ihp_bipolars`. Local fixtures add metal and contacts
 inside the existing substrate guard. Every original device mask is preserved.
+
+The [default integration record](validation/ihp-npn-default-2026-10-18.json)
+covers nine public NPN geometries in all four rotations: 36 passing layouts
+and 99 detected physical/reference faults. Independent readback checks 135
+native netlists, 90 converted comparison netlists, 2,160 layer comparisons and
+the exact rule entry point in all 135 runs. User exports preserve all original
+text anchors. Only the private checker input removes noninterface labels;
+all 345 removals across this batch agree with the recorded transformation.
+
+The same default passes ten PNP layouts and 35 fault controls, twenty tap
+layouts plus two public-format checks and 48 fault controls, and ten
+representative MOS, resistor, MIM and bipolar regressions. Both source editor
+actions pass. Nine Windows staged backend cases accept all three valid NPN
+families and reject one open collector and one wrong-width reference per
+family, returning 714 hash-verified files. These checks close the default
+NPN rule-selection gap; they do not establish installed-executable acceptance.
 
 ## Validation and remaining work
 

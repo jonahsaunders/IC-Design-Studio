@@ -13,6 +13,7 @@ from scripts.prepare_alternate_models import BASE as ALTERNATE_BASE
 from scripts.alternate_model_source import PROMOTED as ALTERNATE_DEFAULTS
 from scripts.sky130_li_source import PROMOTED as LI_DEFAULT,REVISION as LI_REVISION
 from scripts.ihp_tap_source import PROMOTED as TAP_DEFAULT,REVISION as TAP_REVISION,BASE as TAP_BASE
+from scripts.ihp_npn_source import PROMOTED as NPN_DEFAULT,REVISION as NPN_REVISION
 from scripts.gf180_hv_source import PROMOTED as HV_DEFAULTS,REVISIONS as HV_REVISIONS
 ROOT=Path(__file__).resolve().parents[1]
 RETAINED=ROOT/'icstudio/assets/qualification/device-base-v2'
@@ -26,16 +27,16 @@ PROMOTED={
     **ALTERNATE_DEFAULTS,
     **HV_DEFAULTS,
     'sky130A':LI_DEFAULT,
-    'ihp-sg13g2':TAP_DEFAULT,
+    'ihp-sg13g2':NPN_DEFAULT,
 }
 INTERMEDIATE={'sky130A':'7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5','ihp-sg13g2':TAP_BASE}
-REVISIONS={'sky130A':LI_REVISION,**HV_REVISIONS,'ihp-sg13g2':TAP_REVISION}
+REVISIONS={'sky130A':LI_REVISION,**HV_REVISIONS,'ihp-sg13g2':NPN_REVISION}
 
 
 @contextmanager
 def previous_devices(source):
     source=Path(source).resolve();h=file_digest(source/'package.json')
-    target=next((t for t,expected in [*PROMOTED.items(),*ALTERNATE_DEFAULTS.items(),*INTERMEDIATE.items(),*ALTERNATE_BASE.items()] if h==expected),None)
+    target=next((t for t,expected in [*PROMOTED.items(),*ALTERNATE_DEFAULTS.items(),*INTERMEDIATE.items(),*ALTERNATE_BASE.items(),('ihp-sg13g2',TAP_DEFAULT)] if h==expected),None)
     if target is None:
         # The original recipe still applies its own strict input/hash checks.
         yield source

@@ -3,6 +3,7 @@
   "files": {
     "ICSTUDIO-MIM-CORRECTION.json": "e5497d6ed3731f38b3daecec4ab9ff14f88b0e3a4a181372a9e12484f6a29e40",
     "ICSTUDIO-MOS-BINDINGS.json": "c26b435f5654f0f50b5056d637ebdc668e06fb01001aed84ae722a295a957a66",
+    "ICSTUDIO-NPN-DEFAULT.json": "9e4991877ff53f870af693a36b64ffbc7df0d24207de5aaf39e189046f70e932",
     "ICSTUDIO-SVARICAP-BINDING.json": "9e12429d3286dc8fccba248f51fcc8287e1ed59c2ee9bf42a99f83fe8fe22751",
     "ICSTUDIO-TAP-BINDINGS.json": "75d6c222672fbd379ba7139b4cd79b3d4f8b4c3fbae67c39dac590c710b66fed",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
@@ -17,6 +18,8 @@
     "libs.tech/magic/diodevss_4kv.tcl": "6f628ff9cbe52c1ac5a14e1d25dd26735e20ceaadb4fba65b7867c8e2d3ea1e9",
     "libs.tech/magic/generate_fill.py": "ac2a9a36d391476f780bc0ec1b32da06a7319b4e6c751a5e0dd2a86e6dd1138a",
     "libs.tech/magic/generate_seal.py": "14ff446eab0879ad47fde911ce8cb6582d808df7a5a216f1798f045fe0a74854",
+    "libs.tech/magic/icstudio-ihp-sg13g2-cifout.tech": "74b6df465b9d547c72deb2e423dbeccf63b68d271e304ffadb65a9b81daa74f2",
+    "libs.tech/magic/icstudio-ihp-sg13g2.tech": "394b38e5d05bf999c1cdcd15df2672463902f51762edaa90052f455866bc5e3e",
     "libs.tech/magic/ihp-sg13g2-GDS.tech": "a6d27691ebd95cf63216b3f1ae43305602e3b62e49e0b04ffb448f3cca91fc6b",
     "libs.tech/magic/ihp-sg13g2-bjt.tcl": "3ebe506213c444ace02dce394eb3c85e79f8003c30125a8eeb37420d44713ae6",
     "libs.tech/magic/ihp-sg13g2-cap.tcl": "c81143a75d036ea48b4b9054347e12d9f16ebb3739c39a36df2cc5f4d1d6f94b",
@@ -163,13 +166,20 @@
     "libs.tech/xschem/sg13g2_pr/sub.sym": "775c05bb3d205f41661312d5ebf83d3d03c006c1cfbce6b98dc0a12abcc4bf02"
   },
   "id": "ihp-sg13g2",
-  "revision": "c0a32344f73be40d",
+  "revision": "cfb96b74cf33877e",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
     "documentation": "https://ihp-open-pdk-docs.readthedocs.io/en/latest/",
     "family": "ihp-sg13g2",
     "grid": 5,
+    "interoperability": {
+      "tools": {
+        "magic": {
+          "technology": "libs.tech/magic/icstudio-ihp-sg13g2.tech"
+        }
+      }
+    },
     "layers": [
       {
         "color": "#ffffff",
@@ -3202,7 +3212,7 @@
       "native_generators": [],
       "netgen_setup": "libs.tech/netgen/ihp-sg13g2_setup.tcl"
     },
-    "revision": "c0a32344f73be40d",
+    "revision": "cfb96b74cf33877e",
     "simulation": {
       "catalog": {
         "sg13g2_pr/annotate_bip_params.sym": {

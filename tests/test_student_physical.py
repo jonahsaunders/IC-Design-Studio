@@ -31,7 +31,12 @@ class StudentPhysicalTests(unittest.TestCase):
                 self.assertEqual(cell['inverter_layout']['process'],variant)
                 self.assertIn('M1 to M2',via_options(p))
                 assets=adapter(p['pdk']).engine_assets(p['pdk'])
-                self.assertEqual(assets['technology'].name,variant+'.tech')
+                expected='icstudio-ihp-sg13g2.tech' if variant=='ihp-sg13g2' else variant+'.tech'
+                self.assertEqual(assets['technology'].name,expected)
+                relative=assets['technology'].relative_to(Path(p['pdk']['package_root'])).as_posix()
+                self.assertEqual(file_digest(assets['technology']),p['pdk']['package_lock']['files'][relative])
+                self.assertEqual(p['pdk']['native_layer_contract']['source'],relative)
+                self.assertEqual(p['pdk']['native_layer_contract']['sha256'],file_digest(assets['technology']))
                 hashes.append(file_digest(assets['technology']))
                 cell['devices'][0]['params']['w']='1.3u'
                 self.assertEqual(audit(p,cell['id'])[0]['code'],'PDK.STALE')

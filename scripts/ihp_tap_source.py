@@ -13,6 +13,11 @@ REVISION='c0a32344f73be40d'
 @contextmanager
 def previous_taps(source):
     source=Path(source).resolve()
+    from scripts.ihp_npn_source import PROMOTED as NPN_DEFAULT,previous_npn
+    if file_digest(source/'package.json')==NPN_DEFAULT:
+        with previous_npn(source) as old:
+            with previous_taps(old) as original:yield original
+        return
     if file_digest(source/'package.json')!=PROMOTED:
         yield source
         return

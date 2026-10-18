@@ -3,6 +3,7 @@
 Native GDS drawing datatype 0 and port datatype 2 are process-specific.
 W=.15..10 um, L=.13..10 um, 5 nm grid, nf=m=mult=1. All four terminals are contacted.
 """
+from pathlib import Path
 from .model import clone, uid, scalar, validate, digest, file_digest
 from .catalog import binding_for, parameter_values, create_device, link_technology
 from .layout import rect
@@ -34,7 +35,8 @@ def prepare(tech):
                            'poly':(130,180),'diff':(150,210),'nwell':(620,620)}.get(key,(0,0))
             tech['layers'].append({'name':names[key],'gds':gds,'datatype':datatype,'color':color,'width':width,'space':space})
     tech['native_layer_contract'] = {'adapter': process.id, 'api': API,
-        'source': process.technology_file, 'sha256': file_digest(assets['technology'])}
+        'source': assets['technology'].relative_to(Path(tech['package_root']).resolve()).as_posix(),
+        'sha256': file_digest(assets['technology'])}
     tech['connectivity'] = {'conductors':[names['m1'],names['m2']], 'vias':[[names['m1'],names['via'],names['m2']]]}
 
 

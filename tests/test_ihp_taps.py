@@ -87,13 +87,14 @@ class IHPTapTests(unittest.TestCase):
         self.assertEqual(text,'K {template="a=1\nb=2"}\n')
         self.assertEqual(notes,[])
 
-    def test_new_default_preserves_saved_revision_and_every_original_asset(self):
+    def test_tap_package_preserves_saved_revision_and_every_original_asset(self):
         from icstudio.model import file_digest,save_project,load_project
         from icstudio.pdks import PDKRegistry
         from icstudio.project_hub import build_project,inventory
         from scripts.ihp_tap_source import previous_taps,BASE,PROMOTED,REVISION
+        from scripts.ihp_npn_source import previous_npn,REVISION as DEFAULT_REVISION
         from scripts.prepare_ihp_taps import prepare
-        with tempfile.TemporaryDirectory() as tmp,previous_taps(SOURCE) as original:
+        with tempfile.TemporaryDirectory() as tmp,previous_npn(SOURCE) as tap_source,previous_taps(tap_source) as original:
             root=Path(tmp);registry=PDKRegistry(root/'registry')
             self.assertEqual(file_digest(original/'package.json'),BASE)
             old=json.loads((original/'package.json').read_bytes());key=registry.install(original/'package.json')
@@ -102,8 +103,9 @@ class IHPTapTests(unittest.TestCase):
             project=build_project(registry,row,'Saved original','empty')['project']
             save_project(project,root/'saved.icproj')
             current=next(r for r in rows if r['id']=='ihp-sg13g2' and r['status']=='Available offline')
-            self.assertEqual(current['revision'],REVISION)
-            new=json.loads((SOURCE/'package.json').read_bytes())
+            self.assertEqual(current['revision'],DEFAULT_REVISION)
+            new=json.loads((tap_source/'package.json').read_bytes())
+            self.assertEqual(new['revision'],REVISION)
             self.assertEqual({k:new['files'][k] for k in old['files']},old['files'])
             a=clone(old['technology']);b=clone(new['technology']);a.pop('revision');b.pop('revision')
             for model in SYMBOLS:
@@ -115,7 +117,7 @@ class IHPTapTests(unittest.TestCase):
             self.assertEqual(registry.verify(key)['revision'],old['revision'])
             out=root/'rebuilt';result=prepare(SOURCE,out)
             self.assertEqual(result['manifest_sha256'],PROMOTED)
-            self.assertEqual((out/'package.json').read_bytes(),(SOURCE/'package.json').read_bytes())
+            self.assertEqual((out/'package.json').read_bytes(),(tap_source/'package.json').read_bytes())
             for rel,h in old['files'].items():self.assertEqual(file_digest(out/rel),h)
             asset=out/'libs.tech/ngspice/models/resistors_mod.lib';asset.write_bytes(asset.read_bytes()+b'\n')
             with self.assertRaisesRegex(ValueError,'Changed current IHP tap asset'):

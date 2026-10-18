@@ -7,7 +7,7 @@ import argparse,json,math,re,sys,traceback
 from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor,as_completed
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
-from icstudio.model import clone,file_digest,load_project,save_project,scalar
+from icstudio.model import clone,digest,file_digest,load_project,save_project,scalar
 from icstudio.catalog import link_technology
 from icstudio.layout import kdb,polygon,rect
 from icstudio.layout_import import read_layout
@@ -22,6 +22,19 @@ from scripts.prepare_ihp_npn_qualification import prepare
 SOURCE=ROOT/'icstudio/assets/physical/ihp_bipolars'
 CASES=(('npn13G2L',.07,1,1),('npn13G2L$1',.07,2.5,1),('npn13G2L$2',.07,2,3),('npn13G2V$1',.12,1,2),('npn13G2V$2',.12,5,4),('npn13G2$2',.07,.9,2),('npn13G2',.07,.9,5),('npn13G2$3',.07,.9,8),('npn13G2$4',.07,.9,10))
 FAULTS=('C-open','B-open','E-open','S-open','C-B-short','unrelated-diffusion','unrelated-well','reference-reversed','reference-width','reference-length','reference-count')
+
+
+def load_package(folder):
+    folder=Path(folder).resolve();package=json.loads((folder/'package.json').read_bytes())
+    tech=clone(package['technology']);tech['revision']=''
+    if package['id']!='ihp-sg13g2' or package['technology'].get('revision')!=package['revision'] or digest({'files':package['files'],'technology':tech})[:16]!=package['revision']:
+        raise ValueError('Use an intact, versioned IHP package.')
+    for name,expected in package['files'].items():
+        path=(folder/name).resolve()
+        if not path.is_relative_to(folder) or not path.is_file() or file_digest(path)!=expected:
+            raise ValueError('Changed IHP NPN qualification asset: '+name)
+    tech=clone(package['technology']);tech.update(package_root=str(folder),package_lock={k:package[k] for k in ('id','revision','files')})
+    return tech,dict(id=package['id'],revision=package['revision'],manifest_sha256=file_digest(folder/'package.json'),assets=len(package['files']))
 
 
 def model_name(item):
@@ -146,16 +159,21 @@ def case(tech,item,out,tools):
 
 
 def main():
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True);ap.add_argument('--klayout',required=True);ap.add_argument('--workers',type=int,choices=range(1,5),default=2);ap.add_argument('--family',choices=('all','npn13G2','npn13G2l','npn13G2v'),default='all');a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True);ap.add_argument('--klayout',required=True);ap.add_argument('--workers',type=int,choices=range(1,5),default=2);ap.add_argument('--family',choices=('all','npn13G2','npn13G2l','npn13G2v'),default='all');ap.add_argument('--package',type=Path,help='Check this exact installed/default package; omit to reproduce the historical separate correction.');a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     sources=[Path(__file__),ROOT/'scripts/prepare_ihp_npn_qualification.py',ROOT/'scripts/qualify_diode_layouts.py',ROOT/'scripts/qualify_ihp_resistor_layouts.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};write(out/'source-files.json',before)
     (out/'executed-runner.py').write_bytes(Path(__file__).read_bytes())
-    identity=prepare(ROOT/'icstudio/assets/pdks/ihp-sg13g2',out/'package');package=json.loads((out/'package/package.json').read_bytes());tech=clone(package['technology']);tech.update(package_root=str(out/'package'),package_lock={k:package[k] for k in ('id','revision','files')})
+    package_folder=a.package or out/'package'
+    if a.package is None:prepare(ROOT/'icstudio/assets/pdks/ihp-sg13g2',package_folder)
+    tech,identity=load_package(package_folder)
     tools={k:str(Path(getattr(a,k)).resolve(strict=True)) for k in ('magic','netgen','klayout')};report=dict(schema=1,chunk=7,chunk_complete=False,qualified=False,status='RUNNING',scope=__doc__,package=identity,cases=[])
     with ProcessPoolExecutor(max_workers=a.workers) as pool:
         jobs=[pool.submit(case,tech,item,out,tools) for item in CASES if a.family=='all' or model_name(item)==a.family]
         for job in as_completed(jobs):
             row=job.result();report['cases'].append(row);write(out/'qualification.json',report);print(row['name'],row['status'],row.get('error',''),flush=True)
-    report['implementation_unchanged']=before=={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};report['status']='PASS' if report['implementation_unchanged'] and len(report['cases'])==len(jobs) and all(r['status']=='PASS' for r in report['cases']) else 'FAIL';write(out/'qualification.json',report);return 0 if report['status']=='PASS' else 1
+    report['implementation_unchanged']=before=={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources}
+    try:report['package_unchanged']=load_package(package_folder)[1]==identity
+    except (ValueError,OSError):report['package_unchanged']=False
+    report['status']='PASS' if report['implementation_unchanged'] and report['package_unchanged'] and len(report['cases'])==len(jobs) and all(r['status']=='PASS' for r in report['cases']) else 'FAIL';write(out/'qualification.json',report);return 0 if report['status']=='PASS' else 1
 
 
 if __name__=='__main__':raise SystemExit(main())

@@ -2,7 +2,7 @@
 
 New projects use bundled SKY130 revision `1901822ae8f81ae1`, GF180 C revision
 `b661a751abfc662a`, GF180 D revision `2f92b1f05da58bd7` and IHP revision
-`c0a32344f73be40d`. These include the tested resistor/NPN and MIM corrections,
+`cfb96b74cf33877e`. These include the tested resistor/NPN and MIM corrections,
 parallel-unit SKY130 varactors, capacitor terminal mappings, GF180 native-model
 selection, IHP isolation/clamp and [tap bindings](IHP_TAP_QUALIFICATION.md), and fixed SKY130 20 V geometry. Saved projects retain their
 registered revisions; migration remains explicit. Original
@@ -14,6 +14,15 @@ the exact public source file already identified by the upstream lock. Both
 asymmetric 10 V models are available in each C/D package, with source-backed
 geometry and single-finger constraints. Earlier package versions remain
 reconstructible and saved projects retain their original bindings.
+
+The [IHP NPN default integration](IHP_BIPOLAR_LAYOUT_QUALIFICATION.md#default-npn-rule-entry-point)
+selects the reviewed local Magic correction through a separate entry point.
+All 160 previous package assets remain byte-identical; three identified files
+are added. Thirty-six rotated NPN layouts and 99 deliberate faults pass with
+this exact default, alongside PNP, tap and representative-device regressions.
+The source Windows backend also selects the new entry point and verifies its
+returned evidence. Earlier projects and qualification recipes keep their
+original package identities.
 
 The [alternate-model guide](ALTERNATE_MODEL_QUALIFICATION.md) adds 44 usable
 source-listed views and three explicitly unavailable choices, accounting for

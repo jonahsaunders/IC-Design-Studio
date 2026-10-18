@@ -7,11 +7,12 @@ from scripts.device_qualification_source import PROMOTED,PREVIOUS,INTERMEDIATE,p
 from scripts.prepare_alternate_models import BASE as ALTERNATE_BASE,prepare as alternate_package
 from scripts.sky130_li_source import BASE as LI_BASE
 from scripts.gf180_hv_source import BASE as HV_BASE
+from scripts.ihp_npn_source import BASE as NPN_BASE
 
 
 def prepare(source,output,target):
     if target not in PROMOTED:raise ValueError('Unknown device package target.')
-    if file_digest(Path(source)/'package.json') not in (PROMOTED[target],PREVIOUS[target],INTERMEDIATE.get(target),ALTERNATE_BASE.get(target),HV_BASE.get(target),LI_BASE if target=='sky130A' else None):
+    if file_digest(Path(source)/'package.json') not in (PROMOTED[target],PREVIOUS[target],INTERMEDIATE.get(target),ALTERNATE_BASE.get(target),HV_BASE.get(target),LI_BASE if target=='sky130A' else None,NPN_BASE if target=='ihp-sg13g2' else None):
         raise ValueError('Input is not an exact reviewed package for '+target+'.')
     if target=='sky130A':
         from scripts.prepare_sky130_fixed_geometry import prepare as build
@@ -31,9 +32,11 @@ def prepare(source,output,target):
                     record=hv_package(alternate,output)
         elif target=='ihp-sg13g2':
             from scripts.prepare_ihp_taps import prepare as tap_package
+            from scripts.prepare_ihp_npn_default import prepare as npn_package
             with tempfile.TemporaryDirectory(prefix='icstudio-default-taps-') as tmp:
                 base=Path(tmp)/'package';build(original,base)
-                record=tap_package(base,output)
+                taps=Path(tmp)/'taps';tap_package(base,taps)
+                record=npn_package(taps,output)
         else:record=build(original,output)
     if file_digest(Path(output)/'package.json')!=PROMOTED[target]:
         raise ValueError('Rebuilt default device package differs from the tested revision.')

@@ -30,12 +30,12 @@
     },
     {
       "variant": "ihp-sg13g2",
-      "revision": "c0a32344f73be40d",
+      "revision": "cfb96b74cf33877e",
       "family": "ihp-sg13g2",
-      "assets": 160,
+      "assets": 163,
       "indexed_symbols": 45,
       "placeable_symbols": 38,
-      "manifest_sha256": "f1bd520184204ce71add7b7b9bf640b7daae9987bd52230473d91141bc53859b"
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
     }
   ]
 }
