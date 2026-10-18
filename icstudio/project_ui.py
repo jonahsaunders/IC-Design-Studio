@@ -175,11 +175,15 @@ class ProjectMixin:
                 if field is not None and 'fixed' in rule:
                     field.setReadOnly(True)
                     field.setToolTip('Fixed model geometry. This public model does not support scaling '+key+'.')
+                elif field is not None and rule.get('computed'):
+                    field.setReadOnly(True)
+                    field.setToolTip('Calculated from the other PDK parameters. Edit those dimensions to change this value.')
             def preview_parameters():
                 from .catalog import parameter_details
                 candidate=clone(d)
                 try:
                     for key,edit in fields.items():
+                        if key.startswith('modelparam:') and binding['parameters'][key[11:]].get('computed'):continue
                         raw=edit.text().strip()
                         if key.startswith('param:'):candidate['params'][key[6:]]=raw
                         elif raw:candidate.setdefault('model_params',{})[key[11:]]=raw

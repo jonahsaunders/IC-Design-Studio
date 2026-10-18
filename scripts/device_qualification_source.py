@@ -12,6 +12,7 @@ from icstudio.model import file_digest
 from scripts.prepare_alternate_models import BASE as ALTERNATE_BASE
 from scripts.alternate_model_source import PROMOTED as ALTERNATE_DEFAULTS
 from scripts.sky130_li_source import PROMOTED as LI_DEFAULT,REVISION as LI_REVISION
+from scripts.ihp_tap_source import PROMOTED as TAP_DEFAULT,REVISION as TAP_REVISION,BASE as TAP_BASE
 ROOT=Path(__file__).resolve().parents[1]
 RETAINED=ROOT/'icstudio/assets/qualification/device-base-v2'
 PREVIOUS={
@@ -23,11 +24,11 @@ PREVIOUS={
 PROMOTED={
     **ALTERNATE_DEFAULTS,
     'sky130A':LI_DEFAULT,
-    'ihp-sg13g2':'ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab',
+    'ihp-sg13g2':TAP_DEFAULT,
 }
-INTERMEDIATE={'sky130A':'7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5'}
+INTERMEDIATE={'sky130A':'7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5','ihp-sg13g2':TAP_BASE}
 REVISIONS={'sky130A':LI_REVISION,'gf180mcuC':'bcc631ec5c59d6b6',
-           'gf180mcuD':'ab8d6cd6e79d2f4b','ihp-sg13g2':'1e24ec25b491028b'}
+           'gf180mcuD':'ab8d6cd6e79d2f4b','ihp-sg13g2':TAP_REVISION}
 
 
 @contextmanager

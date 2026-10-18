@@ -1,10 +1,10 @@
 # Bundled device corrections and reproducible qualification
 
-New projects use bundled SKY130 revision `3e3cdb6aecf49063`, GF180 C revision
+New projects use bundled SKY130 revision `1901822ae8f81ae1`, GF180 C revision
 `bcc631ec5c59d6b6`, GF180 D revision `ab8d6cd6e79d2f4b` and IHP revision
-`1e24ec25b491028b`. These include the tested resistor/NPN and MIM corrections,
+`c0a32344f73be40d`. These include the tested resistor/NPN and MIM corrections,
 parallel-unit SKY130 varactors, capacitor terminal mappings, GF180 native-model
-selection, IHP isolation/clamp bindings and fixed SKY130 20 V geometry. Saved projects retain their
+selection, IHP isolation/clamp and [tap bindings](IHP_TAP_QUALIFICATION.md), and fixed SKY130 20 V geometry. Saved projects retain their
 registered revisions; migration remains explicit. Original
 licenses, modification notices and source hashes are retained. These changes
 and their selected tests do not complete device-family qualification.

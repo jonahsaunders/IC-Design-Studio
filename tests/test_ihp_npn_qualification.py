@@ -5,6 +5,7 @@ from icstudio.model import file_digest,load_project,save_project
 from icstudio.pdks import PDKRegistry
 from scripts.qualify_standard_mos import load_technology
 from scripts.prepare_ihp_npn_qualification import prepare
+from scripts.ihp_tap_source import previous_taps
 from scripts.qualify_ihp_npn_layouts import CASES,generate,altered,audit_extracted,selected_reference
 from scripts.qualify_ihp_resistor_layouts import regions,same_masks,rotated
 ROOT=Path(__file__).resolve().parents[1]
@@ -18,7 +19,8 @@ class IHPNpnQualificationTests(unittest.TestCase):
             with self.assertRaises(ValueError):rules.corrected(content)
 
     def test_package_preserves_models_and_installs_as_separate_revision(self):
-        source=ROOT/'icstudio/assets/pdks/ihp-sg13g2';before=json.loads((source/'package.json').read_bytes())
+        current=ROOT/'icstudio/assets/pdks/ihp-sg13g2'
+        source=self.enterContext(previous_taps(current));before=json.loads((source/'package.json').read_bytes())
         with tempfile.TemporaryDirectory() as tmp:
             out=Path(tmp)/'package';result=prepare(source,out);package=json.loads((out/'package.json').read_bytes())
             self.assertNotEqual(result['revision'],before['revision'])
@@ -27,6 +29,8 @@ class IHPNpnQualificationTests(unittest.TestCase):
             registry=PDKRegistry(Path(tmp)/'registry');key=registry.install(out/'package.json');self.assertEqual(registry.verify(key)['revision'],result['revision'])
             self.assertEqual(before,json.loads((source/'package.json').read_bytes()))
             with self.assertRaises(ValueError):prepare(source,out)
+            rebuilt=Path(tmp)/'from-current';prepare(current,rebuilt)
+            self.assertEqual((out/'package.json').read_bytes(),(rebuilt/'package.json').read_bytes())
 
     def test_public_geometry_survives_guard_connection_and_roundtrip(self):
         tech,_=load_technology('ihp-sg13g2')

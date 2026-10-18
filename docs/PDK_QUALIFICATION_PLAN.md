@@ -63,9 +63,20 @@ The [CI repair record](validation/ci-repair-2026-10-18.json) reproduces and fixe
 the historical SKY130 package mismatch that stopped all nine hosted physical
 stages and Linux packaged acceptance. The unchanged locked packages rebuild
 exactly on both hosts; 68 fast CI tests per host and real inverter, boundary and
-bipolar checks pass locally. The full hosted rerun is pending. The Windows
-runner disconnected during frozen acceptance; that separate failure remains
-unresolved. Neither result completes chunk 7.
+bipolar checks pass locally. All nine hosted physical stages and the dependent
+detector desktop check now pass at commit `957055a`; the full release workflow
+is still running in the timestamped record. The earlier Windows runner
+disconnection is not attributed to the package mismatch. Neither result
+completes chunk 7.
+
+The [IHP tap record](validation/ihp-taps-2026-10-18.json) enables both public
+tap symbols while preserving their source bytes and saved package revisions.
+The editor keeps resistance calculated from width and length. Fifty independent
+electrical comparisons pass; all 200 faulty device instances are detected and
+120 raw outputs independently audited. Both source editors and the Windows
+backend route pass. The tap layout probe passes full DRC but fails strict LVS,
+so physical acceptance remains open. The [tap guide](IHP_TAP_QUALIFICATION.md)
+records the tested points and the remaining limits.
 
 The [IHP thermal record](validation/ihp-thermal-2026-10-17.json) adds nine
 selected conditions for all three five-terminal NPN families, with separate

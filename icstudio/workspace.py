@@ -483,6 +483,9 @@ class WorkspaceMixin:
                     elif key.startswith('param:'):obj['params'][key[6:]]=val
                     elif key.startswith('instanceparam:'):obj.setdefault('parameters',{})[key[14:]]=val
                     elif key.startswith('modelparam:'):
+                        from .catalog import binding_for
+                        binding=binding_for(candidate['pdk'],obj)
+                        if binding and binding['parameters'][key[11:]].get('computed'):continue
                         if val:obj.setdefault('model_params',{})[key[11:]]=val
                         else:obj.setdefault('model_params',{}).pop(key[11:],None)
                     elif key.startswith('source:'):obj['source'][key[7:]]=val

@@ -458,6 +458,12 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_fixed_geometry.py
+      - name: Verify IHP tap parameters and saved revision in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_ihp_taps.py --out build/ihp-tap-editor-evidence
       - name: Reconcile the complete bundled SPICE definition inventory
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -675,6 +681,9 @@ jobs:
             build/x11-evidence
             build/native-migration-evidence
             build/native-workflow-evidence
+            build/ihp-tap-editor-evidence/report.json
+            build/ihp-tap-editor-evidence/taps.png
+            build/ihp-tap-editor-evidence/taps.icproj
             build/native-vectors-ui-evidence
             build/physical-variants-ui-evidence
             build/sky130-devices-ui-evidence

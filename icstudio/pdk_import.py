@@ -217,6 +217,8 @@ def scan_local(path, progress=lambda message: None):
             if remaining.strip():raise ValueError('Netlist format contains unsupported literal or computed terms.')
             kind=meta.get('type','').lower();kind='NMOS' if kind=='nmos' and set(symbol['pins'])==set('dgsb') else 'PMOS' if kind=='pmos' and set(symbol['pins'])==set('dgsb') else 'PDK'
             category=kind if kind!='PDK' else ('Resistors' if 'resistor' in meta.get('type','') else 'Capacitors' if 'cap' in meta.get('type','') else 'Bipolar' if 'npn' in meta.get('type','') or 'pnp' in meta.get('type','') else 'Diodes' if 'diode' in meta.get('type','') else 'Other')
+            if family=='ihp-sg13g2' and model in ('ntap1','ptap1'):
+                category='Resistors'
             params={}
             defaults.update(computed)
             needed=set(emitted.values())
@@ -235,6 +237,9 @@ def scan_local(path, progress=lambda message: None):
             if family=='ihp-sg13g2' and model=='isolbox':
                 from .ihp_isolation import constrain
                 constrain(params,(root/definition['file']).read_bytes())
+            if family=='ihp-sg13g2' and model in ('ntap1','ptap1'):
+                from .ihp_taps import constrain
+                constrain(model,params,(root/definition['file']).read_bytes())
             if family=='sky130':
                 from .sky130_fixed_geometry import CONTRACTS,NOTE,constrain
                 if model in CONTRACTS:

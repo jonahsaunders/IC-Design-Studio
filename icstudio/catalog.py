@@ -88,6 +88,9 @@ def parameter_values(binding, instance):
     overrides = instance.get('model_params', {})
     if set(overrides) - set(definitions):
         raise ValueError('Unknown PDK parameter: ' + ', '.join(sorted(set(overrides) - set(definitions))))
+    for key in overrides:
+        if definitions[key].get('computed'):
+            raise ValueError(key + ' is computed from its PDK parameters and cannot be overridden.')
     pending = {k: overrides.get(k, v['default']) for k, v in definitions.items()}
     resolved = {}
     if instance['kind'] in ('NMOS', 'PMOS'):
@@ -169,6 +172,8 @@ def validate_catalog(tech):
         for k in entry.get('parameters', {}):
             if not IDENT.fullmatch(k): raise ValueError('Invalid model parameter.')
             rule=entry['parameters'][k]
+            if 'computed' in rule and (type(rule['computed']) is not bool or rule['computed'] and not rule.get('derived')):
+                raise ValueError('Computed PDK parameters must use a derived expression: '+k)
             for bound in ('minimum','maximum','exclusive_minimum','fixed'):
                 if bound in rule:scalar(rule[bound])
             if 'fixed' in rule:

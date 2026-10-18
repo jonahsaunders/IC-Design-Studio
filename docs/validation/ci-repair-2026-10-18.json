@@ -3,7 +3,7 @@
   "date": "2026-10-18",
   "chunk": 7,
   "chunk_complete": false,
-  "status": "local_repair_verified_hosted_rerun_pending",
+  "status": "local_repair_verified_hosted_rerun_in_progress",
   "source_baseline": "bcdf4701368fb8632bb9c3bc7bb298e18e142a40",
   "problem": "The pinned physical adapter recipe rescanned its inputs with a newer importer. New fixed-geometry and LI bindings changed the historical manifest, stopping all nine physical stages and Linux packaged acceptance.",
   "repair": "Retain the original manifest, verify it against the unchanged qualification lock, and verify all source files before copying and again during copy. Current imported/default packages keep their newer mappings. Run the regression in the fast CI gate and rebuild the physical input before expensive release stages.",
@@ -369,9 +369,297 @@
     ".github/workflows/build-desktop.yml": "61b0eddb39e5ed1ea8409c3954dcab5d66c4e245d3233810735a0ac96ce8ae0e"
   },
   "limits": [
-    "The full hosted workflow rerun is pending.",
+    "Hosted status is the timestamped snapshot; pending checks are not treated as passes.",
     "This repair does not complete device-family qualification or chunk 7.",
     "The real physical checks cover the listed locked fixtures, not complete-chip signoff."
   ],
-  "windows_reproduction": "Both manifests match Linux byte-for-byte, including all original asset hashes."
+  "windows_reproduction": "Both manifests match Linux byte-for-byte, including all original asset hashes.",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-taps-and-ci-repair-2026-10-18/evidence.zip",
+    "sha256": "e05b8d2d1c30181b0884a9fb87f05c2ef6fac4c1b749cc919e88781b93bc17d7",
+    "bytes": 154651358,
+    "files": 40506,
+    "unique_contents": 9562,
+    "all_objects_verified": true
+  },
+  "hosted_snapshot": {
+    "head": "957055a02ae1c3c4066c17522dd57f3ef879f5f4",
+    "as_of": "2026-10-18T15:19:34.431320+00:00",
+    "runs": [
+      {
+        "conclusion": "success",
+        "databaseId": 39135982157,
+        "event": "pull_request",
+        "name": "External tool interoperability",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982157"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135982151,
+        "event": "pull_request",
+        "name": "Verify VGA Playground",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982151"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135982149,
+        "event": "pull_request",
+        "name": "Statistical campaign qualification",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982149"
+      },
+      {
+        "conclusion": "",
+        "databaseId": 39135982198,
+        "event": "pull_request",
+        "name": "Build and verify desktop release",
+        "status": "in_progress",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982198"
+      },
+      {
+        "conclusion": "",
+        "databaseId": 39135982163,
+        "event": "pull_request",
+        "name": "Pinned SKY130 physical qualification",
+        "status": "in_progress",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982163"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135982184,
+        "event": "pull_request",
+        "name": "Digital flow",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982184"
+      },
+      {
+        "conclusion": "",
+        "databaseId": 39135982216,
+        "event": "pull_request",
+        "name": "Reference design compatibility",
+        "status": "in_progress",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982216"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978229,
+        "event": "push",
+        "name": "External tool interoperability",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978229"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978191,
+        "event": "push",
+        "name": "Verify VGA Playground",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978191"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978218,
+        "event": "push",
+        "name": "Statistical campaign qualification",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978218"
+      },
+      {
+        "conclusion": "",
+        "databaseId": 39135978160,
+        "event": "push",
+        "name": "Build and verify desktop release",
+        "status": "in_progress",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160",
+        "jobs": [
+          {
+            "name": "release-tools (windows-2022)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:26:36Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455694",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "release-tools (ubuntu-24.04)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:26:27Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455898",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "digital-runtime / runtime",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:39:30Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455914",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "package (windows-2022)",
+            "status": "in_progress",
+            "conclusion": "",
+            "startedAt": "2026-10-18T14:42:32Z",
+            "completedAt": "0001-01-01T00:00:00Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117703367797",
+            "active_or_failed_steps": [
+              "Verify installed digital runtime on this operating system"
+            ]
+          },
+          {
+            "name": "package (ubuntu-24.04)",
+            "status": "in_progress",
+            "conclusion": "",
+            "startedAt": "2026-10-18T14:39:42Z",
+            "completedAt": "0001-01-01T00:00:00Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117703367826",
+            "active_or_failed_steps": [
+              "Test live desktop collaboration with three editors"
+            ]
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978193,
+        "event": "push",
+        "name": "Reference design compatibility",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978193"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978164,
+        "event": "push",
+        "name": "Digital flow",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978164"
+      },
+      {
+        "conclusion": "",
+        "databaseId": 39135978158,
+        "event": "push",
+        "name": "Pinned SKY130 physical qualification",
+        "status": "in_progress",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158",
+        "jobs": [
+          {
+            "name": "qualify (bipolar)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:27:32Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455629",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "qualify (detector)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:37:37Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455758",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "qualify (inverter)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:28:56Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455763",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "qualify (hierarchy-rc)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:27:32Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455782",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "qualify (two-stage-opamp)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T15:09:30Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455809",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "qualify (analog-rc)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:37:07Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455813",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "qualify (public-layouts)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:31:17Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455835",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "qualify (devices)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:31:24Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455858",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "qualify (analog)",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "completedAt": "2026-10-18T14:37:43Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455892",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "detector-desktop",
+            "status": "completed",
+            "conclusion": "success",
+            "startedAt": "2026-10-18T15:09:45Z",
+            "completedAt": "2026-10-18T15:12:22Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117709929743",
+            "active_or_failed_steps": []
+          },
+          {
+            "name": "sky130",
+            "status": "in_progress",
+            "conclusion": "",
+            "startedAt": "2026-10-18T15:12:24Z",
+            "completedAt": "0001-01-01T00:00:00Z",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117710576129",
+            "active_or_failed_steps": [
+              "Run actions/upload-artifact@v4"
+            ]
+          }
+        ]
+      },
+      {
+        "conclusion": "",
+        "databaseId": 39135978232,
+        "event": "push",
+        "name": "Prepare desktop release",
+        "status": "in_progress",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978232"
+      }
+    ]
+  }
 }

@@ -4,8 +4,10 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import digest,file_digest
 from icstudio.ihp_npn_rules import RELATIVE_PATH,BASE_SHA256,corrected
+from scripts.ihp_tap_source import base_input
 
 
+@base_input
 def prepare(source,output):
     source=Path(source).resolve();output=Path(output).resolve()
     if output.exists():raise ValueError('Choose a new IHP NPN package directory.')

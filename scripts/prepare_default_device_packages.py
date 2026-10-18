@@ -25,6 +25,11 @@ def prepare(source,output,target):
                     alternate=Path(tmp)/'alternate';alternate_package(base,alternate)
                     record=li_package(alternate,output)
                 else:record=alternate_package(base,output)
+        elif target=='ihp-sg13g2':
+            from scripts.prepare_ihp_taps import prepare as tap_package
+            with tempfile.TemporaryDirectory(prefix='icstudio-default-taps-') as tmp:
+                base=Path(tmp)/'package';build(original,base)
+                record=tap_package(base,output)
         else:record=build(original,output)
     if file_digest(Path(output)/'package.json')!=PROMOTED[target]:
         raise ValueError('Rebuilt default device package differs from the tested revision.')

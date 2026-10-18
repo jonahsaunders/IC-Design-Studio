@@ -76,7 +76,8 @@ class IHPMimQualificationTests(unittest.TestCase):
             registry=PDKRegistry(Path(tmp)/'registry')
             rows,notes=inventory(registry);self.assertEqual(notes,[])
             row=next(r for r in rows if r['id']=='ihp-sg13g2')
-            self.assertEqual(row['revision'],'1e24ec25b491028b')
+            from scripts.ihp_tap_source import REVISION
+            self.assertEqual(row['revision'],REVISION)
             p=build_project(registry,row,'Fresh IHP','empty')['project']
             save_project(p,Path(tmp)/'project.icproj');loaded=load_project(Path(tmp)/'project.icproj')
             self.assertEqual(loaded['pdk']['revision'],row['revision'])

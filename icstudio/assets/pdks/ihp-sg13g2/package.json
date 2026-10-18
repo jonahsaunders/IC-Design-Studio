@@ -4,6 +4,7 @@
     "ICSTUDIO-MIM-CORRECTION.json": "e5497d6ed3731f38b3daecec4ab9ff14f88b0e3a4a181372a9e12484f6a29e40",
     "ICSTUDIO-MOS-BINDINGS.json": "c26b435f5654f0f50b5056d637ebdc668e06fb01001aed84ae722a295a957a66",
     "ICSTUDIO-SVARICAP-BINDING.json": "9e12429d3286dc8fccba248f51fcc8287e1ed59c2ee9bf42a99f83fe8fe22751",
+    "ICSTUDIO-TAP-BINDINGS.json": "75d6c222672fbd379ba7139b4cd79b3d4f8b4c3fbae67c39dac590c710b66fed",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
     "UPSTREAM-LOCK.json": "a4fb9307f96eb812864be404f4c4ca72b64a592847ac6835ad30e712450bd220",
     "libs.tech/klayout/tech/sg13g2.lyp": "c9fd698498f3f798c2d3dc40f1aa0e0fcf646bd0a6e9e7522a008200487d5222",
@@ -162,7 +163,7 @@
     "libs.tech/xschem/sg13g2_pr/sub.sym": "775c05bb3d205f41661312d5ebf83d3d03c006c1cfbce6b98dc0a12abcc4bf02"
   },
   "id": "ihp-sg13g2",
-  "revision": "1e24ec25b491028b",
+  "revision": "c0a32344f73be40d",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3201,7 +3202,7 @@
       "native_generators": [],
       "netgen_setup": "libs.tech/netgen/ihp-sg13g2_setup.tcl"
     },
-    "revision": "1e24ec25b491028b",
+    "revision": "c0a32344f73be40d",
     "simulation": {
       "catalog": {
         "sg13g2_pr/annotate_bip_params.sym": {
@@ -8403,12 +8404,361 @@
           "unavailable": ""
         },
         "sg13g2_pr/ntap1.sym": {
-          "category": "Other",
+          "category": "Resistors",
+          "emit_parameters": {
+            "l": "l",
+            "r": "emit_r",
+            "w": "w"
+          },
           "kind": "PDK",
           "label": "ntap1",
           "model": "ntap1",
+          "model_source": "libs.tech/ngspice/models/resistors_mod.lib",
+          "notes": [
+            "Reviewed IHP tap formula evaluated as bounded arithmetic; original Tcl is not executed. W/L are metres and determine resistance.",
+            "Executable text retained as metadata only."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "emit_r": {
+              "computed": true,
+              "default": "1.0/(1.0/(9.8e-10/(w*l))+1.0/(9.8e-4/(2.0*(w+l))))",
+              "derived": true,
+              "integer": false,
+              "positive": false,
+              "unit": "ohm"
+            },
+            "l": {
+              "default": "0.78e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true,
+              "unit": "m"
+            },
+            "w": {
+              "default": "0.78e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true,
+              "unit": "m"
+            }
+          },
+          "pin_order": [
+            "p",
+            "m"
+          ],
+          "prefix": "X",
           "source": "libs.tech/xschem/sg13g2_pr/ntap1.sym",
-          "unavailable": "Invalid declarative symbol attributes."
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model r='1.0/(1.0/(9.8e-10/(@w*@l))+1.0/(9.8e-4/(2.0*(@w+@l))))' w=@w l=@l",
+              "lvs_format": "tcleval(R@name @pinlist @model A=[ev7 { @w * @l } ] P=[ev7 { 2 * ( @w + @l ) } ] )",
+              "template": "name=R1\nmodel=ntap1\nspiceprefix=X\nw=0.78e-6\nl=0.78e-6\n",
+              "type": "res"
+            },
+            "pin_meta": {
+              "m": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "p": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "p",
+              "m"
+            ],
+            "pins": {
+              "m": [
+                0.0,
+                30.0
+              ],
+              "p": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    20.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    20.0
+                  ],
+                  [
+                    7.5,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    12.5
+                  ],
+                  [
+                    7.5,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    12.5
+                  ],
+                  [
+                    7.5,
+                    7.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    2.5
+                  ],
+                  [
+                    7.5,
+                    7.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    2.5
+                  ],
+                  [
+                    7.5,
+                    -2.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -7.5
+                  ],
+                  [
+                    7.5,
+                    -2.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -7.5
+                  ],
+                  [
+                    7.5,
+                    -12.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -17.5
+                  ],
+                  [
+                    7.5,
+                    -12.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -17.5
+                  ],
+                  [
+                    0.0,
+                    -20.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -20.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    20.0
+                  ],
+                  [
+                    10.0,
+                    20.0
+                  ]
+                ]
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    -16.25
+                  ],
+                  [
+                    35.0,
+                    -6.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    -3.75
+                  ],
+                  [
+                    35.0,
+                    6.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "w=@w",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    -28.75
+                  ],
+                  [
+                    35.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    20.0
+                  ],
+                  [
+                    35.0,
+                    30.0
+                  ]
+                ],
+                "rotation": 0,
+                "text": "",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    6.25
+                  ],
+                  [
+                    35.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "l=@l",
+                "text_anchor": "corner",
+                "vcenter": false
+              }
+            ]
+          },
+          "unavailable": ""
         },
         "sg13g2_pr/pnpMPA.sym": {
           "category": "Bipolar",
@@ -8703,12 +9053,361 @@
           "unavailable": ""
         },
         "sg13g2_pr/ptap1.sym": {
-          "category": "Other",
+          "category": "Resistors",
+          "emit_parameters": {
+            "l": "l",
+            "r": "emit_r",
+            "w": "w"
+          },
           "kind": "PDK",
           "label": "ptap1",
           "model": "ptap1",
+          "model_source": "libs.tech/ngspice/models/resistors_mod.lib",
+          "notes": [
+            "Reviewed IHP tap formula evaluated as bounded arithmetic; original Tcl is not executed. W/L are metres and determine resistance.",
+            "Executable text retained as metadata only."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "emit_r": {
+              "computed": true,
+              "default": "1.0/(1.0/(9.8e-10/(w*l))+1.0/(9.8e-4/(2.0*(w+l))))",
+              "derived": true,
+              "integer": false,
+              "positive": false,
+              "unit": "ohm"
+            },
+            "l": {
+              "default": "0.78e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true,
+              "unit": "m"
+            },
+            "w": {
+              "default": "0.78e-6",
+              "derived": false,
+              "integer": false,
+              "positive": true,
+              "unit": "m"
+            }
+          },
+          "pin_order": [
+            "p",
+            "m"
+          ],
+          "prefix": "X",
           "source": "libs.tech/xschem/sg13g2_pr/ptap1.sym",
-          "unavailable": "Invalid declarative symbol attributes."
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model r='1.0/(1.0/(9.8e-10/(@w*@l))+1.0/(9.8e-4/(2.0*(@w+@l))))' w=@w l=@l",
+              "lvs_format": "tcleval(R@name @pinlist @model A=[ev7 { @w * @l } ] P=[ev7 { 2 * ( @w + @l ) } ] )",
+              "template": "name=R1\nmodel=ptap1\nspiceprefix=X\nw=0.78e-6\nl=0.78e-6\n",
+              "type": "res"
+            },
+            "pin_meta": {
+              "m": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "p": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "p",
+              "m"
+            ],
+            "pins": {
+              "m": [
+                0.0,
+                30.0
+              ],
+              "p": [
+                0.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    20.0
+                  ],
+                  [
+                    0.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    20.0
+                  ],
+                  [
+                    7.5,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    12.5
+                  ],
+                  [
+                    7.5,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    12.5
+                  ],
+                  [
+                    7.5,
+                    7.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    2.5
+                  ],
+                  [
+                    7.5,
+                    7.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    2.5
+                  ],
+                  [
+                    7.5,
+                    -2.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -7.5
+                  ],
+                  [
+                    7.5,
+                    -2.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -7.5
+                  ],
+                  [
+                    7.5,
+                    -12.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -17.5
+                  ],
+                  [
+                    7.5,
+                    -12.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -7.5,
+                    -17.5
+                  ],
+                  [
+                    0.0,
+                    -20.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    0.0,
+                    -30.0
+                  ],
+                  [
+                    0.0,
+                    -20.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -10.0,
+                    20.0
+                  ],
+                  [
+                    10.0,
+                    20.0
+                  ]
+                ]
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    -16.25
+                  ],
+                  [
+                    35.0,
+                    -6.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@model",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    -3.75
+                  ],
+                  [
+                    35.0,
+                    6.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "w=@w",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    -28.75
+                  ],
+                  [
+                    35.0,
+                    -18.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    20.0
+                  ],
+                  [
+                    35.0,
+                    30.0
+                  ]
+                ],
+                "rotation": 0,
+                "text": "",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    15.0,
+                    6.25
+                  ],
+                  [
+                    35.0,
+                    16.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "l=@l",
+                "text_anchor": "corner",
+                "vcenter": false
+              }
+            ]
+          },
+          "unavailable": ""
         },
         "sg13g2_pr/rhigh.sym": {
           "category": "Other",
