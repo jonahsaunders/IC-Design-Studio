@@ -43,7 +43,7 @@ def main():
         (qt/name).unlink(missing_ok=True)
     from icstudio.runtime_setup import verify_runtime_files
     from check_simulation_assets import check
-    verify_runtime_files(args.ngspice)
+    engine_record=verify_runtime_files(args.ngspice)
     engine=app/'icstudio/assets/runtime/ngspice'
     shutil.copytree(args.ngspice,engine)
     check(app)
@@ -81,7 +81,7 @@ except Exception:
     notices=target/'app/licenses/distlib';notices.mkdir(exist_ok=True)
     for path in lib.glob('LICENSE*'):shutil.copy2(path,notices/path.name)
     (notices/'SOURCE.txt').write_text('Distlib '+distlib.__version__+'\nhttps://github.com/pypa/distlib/tree/'+distlib.__version__+'\nNative launcher source: PC/launcher.c\n',encoding='utf-8')
-    provenance={'application':__version__,'python_archive':{'name':args.python.name,'sha256':hashlib.sha256(args.python.read_bytes()).hexdigest()},'wheels':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in wheels},'launcher':'distlib '+distlib.__version__,'engine':'ngspice 42 console x64','files':{p.relative_to(target).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(target.rglob('*')) if p.is_file()}}
+    provenance={'application':__version__,'python_archive':{'name':args.python.name,'sha256':hashlib.sha256(args.python.read_bytes()).hexdigest()},'wheels':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in wheels},'launcher':'distlib '+distlib.__version__,'engine':'ngspice '+engine_record['version']+' console x64','files':{p.relative_to(target).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(target.rglob('*')) if p.is_file()}}
     (target/'runtime-manifest.json').write_text(json.dumps(provenance,indent=2),encoding='utf-8');print(target)
 
 

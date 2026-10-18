@@ -150,7 +150,7 @@ Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyri
 
 GF180MCU primitive symbols and ngspice model files: Apache-2.0, upstream commit 4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c. Source: https://github.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr/tree/4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c. Original files and license accompany the application; assets/exchange/index.json records individual hashes and source paths. These are schematic and simulation assets, not physical signoff decks.
 
-ngspice 42: BSD-style and component-specific licenses retained in the runtime COPYING/copyright files. Windows console distribution: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/ngspice-42_64.7z/download. Linux distribution: Ubuntu 42+ds-3build1; corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/. Upstream source: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/.
+ngspice: BSD-style and component-specific licenses retained in the runtime COPYING/copyright files. The Windows console runtime is the unmodified official version 46 distribution: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/46/ngspice-46_64.7z/download; corresponding source: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/46/. Its COPYING document retains its CC-BY-SA 4.0 notice, and the executable retains its upstream component terms. Historical Windows evidence used version 42 and keeps that identity. The Linux host-tools reference is Ubuntu 42+ds-3build1; corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/. The managed Linux/WSL runtime is separately described below.
 
 The current Windows installer and portable archive use the same PyInstaller
 directory build from `scripts/package.py` and `scripts/build_windows.ps1`.
@@ -327,7 +327,7 @@ The Linux/WSL simulation runtime builds from the ngspice 47 release with
 OSDI, XSPICE, KLU and predictor support. Its SHA-256-pinned original source
 archive, COPYING terms, build logs and binary identity are retained under
 `opt/icstudio/simulation`. The Windows console runtime retains its separately
-pinned ngspice 42 distribution. Numerical qualification identifies each engine.
+pinned, unmodified ngspice 46 distribution. Numerical qualification identifies each engine.
 The generated Linux initializer is modified to resolve code models relative to
 the installed launcher and to default to one simulation thread. Its original
 bytes and an explicit modification notice are retained; users may select another

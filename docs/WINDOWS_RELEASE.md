@@ -33,7 +33,7 @@ Windows 10/11 checks separately; newer source needs fresh qualification.
 7. Run `build-windows.bat` or, from the prepared environment,
    `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build_windows.ps1`.
 
-The build stages and tests native ngspice 42, runs unit tests, packages the app,
+The build stages and tests native ngspice 46, runs unit tests, packages the app,
 and builds the installer. `scripts/package.py` stages the independent openEMS
 runtime and rejects missing VGA assets, an unqualified managed payload or
 unknown/dirty source identity. Download/build steps need network access and

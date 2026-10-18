@@ -59,6 +59,16 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [Windows runtime and RF candidate record](validation/windows-simulation-and-rf-2026-10-18.json)
+replaces the reproduced repeated-diode-analysis defect with the verified official
+Windows ngspice 46 runtime. All executed checks in the 3,107-test Windows suite
+pass; subsequent focused tests cover the real long-path PDK installation fix.
+Both source desktops pass the GF180 menu repair. Separate public RF derivatives
+pass independent branch calculations and selected application checks on both
+hosts, but remain outside the default catalog pending runtime enforcement and
+physical/envelope qualification. The [guide](WINDOWS_SIMULATION_QUALIFICATION.md)
+records the exact boundaries. Chunk 7 remains in progress.
+
 The latest [physical integration record](validation/gf180-high-voltage-layouts-2026-10-18.json)
 also records the repaired IHP tap editor check. Hosted Linux failed because it
 asserted the pre-NPN default revision; the same failure is reproduced locally.

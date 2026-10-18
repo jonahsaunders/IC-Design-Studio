@@ -127,9 +127,13 @@
     "sky130_flow.py": {
       "path": "docs/validation/retained-engine-source-2026-10-18/sky130_flow.py.txt",
       "sha256": "c06e2755cd3fc7a5a30d0ec1d58346d9a7b4cb2e835db7661176089aa32696cd"
+    },
+    "pdks.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-paths/pdks.py.txt",
+      "sha256": "275334010a5156b7e11f4f763746b35996e564af2a8b59576d71035965590623"
     }
   },
-  "explanation": "Preserve the exact historical GF180 production acceptance before the additional IHP contact-finding navigation. No transfer of old complete-flow acceptance to the changed current source.",
+  "explanation": "Retain the exact historical GF180 production source before the Windows PDK path repair. Current focused path checks and circuit replay do not retroactively replace the historical production run.",
   "checker_files": {
     "scripts/check_gf180_fill_closure.py": {
       "path": "docs/validation/gf180-tested-source-2026-10-09/check_gf180_fill_closure.py.txt",
@@ -141,7 +145,7 @@
     }
   },
   "previous_snapshot": {
-    "path": "docs/validation/gf180-tested-source-2026-10-18-hv/manifest.json",
-    "sha256": "9b9fa6f6d29801e5fa2ab152f278424c5c690d3895d2cf5d8ca61a5e92245588"
+    "path": "docs/validation/gf180-tested-source-2026-10-18-paths/prior-manifest.json",
+    "sha256": "8aaa940dfab63b37aeef5c4ad4de7dc829cfec63572c428a713558f1b2ab6dcc"
   }
 }

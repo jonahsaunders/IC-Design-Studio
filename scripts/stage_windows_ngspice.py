@@ -16,9 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio.runtime_setup import check_ngspice, verify_runtime_files
 
-URL = 'https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/42/ngspice-42_64.7z/download'
-SHA256 = 'aa98b3c74743260a38835bd2698f58221b7237939798d1fdf2297f44ecf1d6ec'
-DOWNLOAD_URLS = (URL, 'https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/old-releases/42/ngspice-42_64.7z')
+VERSION = '46'
+URL = f'https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/{VERSION}/ngspice-{VERSION}_64.7z/download'
+SHA256 = '7ed713cd8d401db724ffe99087c3122bf05a9cfa99de02c6eeed44ee44785a33'
+DOWNLOAD_URLS = (URL, f'https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/old-releases/{VERSION}/ngspice-{VERSION}_64.7z')
 
 
 def download(archive):
@@ -49,11 +50,11 @@ def stage(archive=None, target=None):
     cache = ROOT / 'build/ngspice-windows'
     cache.mkdir(parents=True, exist_ok=True)
     supplied = archive is not None
-    archive = Path(archive or cache / 'ngspice-42_64.7z')
+    archive = Path(archive or cache / f'ngspice-{VERSION}_64.7z')
     if not archive.is_file() or hashlib.sha256(archive.read_bytes()).hexdigest() != SHA256:
         if supplied:
             raise ValueError('The supplied Windows NGSpice archive does not match the pinned checksum.')
-        print('Downloading NGSpice 42 console runtime…', flush=True)
+        print(f'Downloading NGSpice {VERSION} console runtime…', flush=True)
         download(archive)
     import py7zr
     with tempfile.TemporaryDirectory(dir=cache) as temporary:
@@ -67,7 +68,7 @@ def stage(archive=None, target=None):
                                ('docs/COPYING', 'COPYING.txt')]:
             shutil.copy2(source / relative, staged / name)
         shutil.copy2(ROOT / 'icstudio/assets/ngspice/spinit', staged / 'spinit')
-        record = {'version': '42', 'archive_url': URL, 'archive_sha256': SHA256,
+        record = {'version': VERSION, 'archive_url': URL, 'archive_sha256': SHA256,
                   'scope': 'Console SPICE runtime; optional XSPICE/OSDI plugins are separate.',
                   'files': {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(staged.iterdir())}}
         # Keep this tracked manifest byte-identical on Windows and Linux.

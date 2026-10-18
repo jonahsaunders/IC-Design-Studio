@@ -183,8 +183,8 @@ jobs:
         id: ngspice-cache
         uses: actions/cache/restore@v4
         with:
-          path: build/ngspice-windows/ngspice-42_64.7z
-          key: ngspice-windows-42-aa98b3c74743260a38835bd2698f58221b7237939798d1fdf2297f44ecf1d6ec
+          path: build/ngspice-windows/ngspice-46_64.7z
+          key: ngspice-windows-46-7ed713cd8d401db724ffe99087c3122bf05a9cfa99de02c6eeed44ee44785a33
       - name: Stage verified Windows simulation engine
         if: runner.os == 'Windows'
         shell: pwsh
@@ -198,8 +198,16 @@ jobs:
         if: runner.os == 'Windows' && steps.ngspice-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: build/ngspice-windows/ngspice-42_64.7z
+          path: build/ngspice-windows/ngspice-46_64.7z
           key: ${{ steps.ngspice-cache.outputs.cache-primary-key }}
+      - name: Verify Windows diode analysis history and capacitor multipliers
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python scripts/verify_ngspice_diode_sequences.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-diode-sequences
+          if ($LASTEXITCODE -ne 0) { throw 'Diode sequence acceptance failed.' }
+          python scripts/verify_ngspice_capacitors.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-capacitor-multipliers
+          if ($LASTEXITCODE -ne 0) { throw 'Capacitor multiplier acceptance failed.' }
       # Exercise Windows' legacy text encoding before larger release dependencies.
       - name: Verify Windows saved bias with UTF-8 mode disabled
         if: runner.os == 'Windows'
@@ -669,6 +677,8 @@ jobs:
             build/analog-advanced-evidence
             build/digital-frozen-evidence
             build/bundled-corner-ui
+            build/windows-diode-sequences
+            build/windows-capacitor-multipliers
             build/macro-integrity-installed
             build/distribution-evidence/vga
             build/windows-evidence/vga
