@@ -2,6 +2,7 @@
   "family": "gf180mcu",
   "files": {
     "ICSTUDIO-ALTERNATE-MODELS.json": "8b1ee560ea7fbca88cdaf2633192635126e3a3901b46541664697516652dd930",
+    "ICSTUDIO-HIGH-VOLTAGE.json": "8d0d4e6d6351c1cd32fa912f2ca510295231ee765ee4029a286e43e69a3aba72",
     "ICSTUDIO-MOS-BINDINGS.json": "bb4c6587a7561a5d4e79fc57e6e045232c751914084b327d9a4ff7c486f88e78",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "OPEN_PDKS_LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
@@ -14,6 +15,7 @@
     "libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9",
     "libs.tech/ngspice/sm141064.spice": "69a7ab877344a6d477fdd11440457f64e7ad88a624504a737a161da463de8bc8",
     "libs.tech/ngspice/sm141064_mim.spice": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+    "libs.tech/ngspice/smbb000149.spice": "8a8d44d5f13d4a097e86fab598e97e82bb726af1cc01eb6d500739766dfd9363",
     "libs.tech/xschem/symbols/annotate_fet_params.sym": "abcebfdd0ffda54f9e1ef4d8b1f50a4523975cb6da64bf48b37a046c73f930aa",
     "libs.tech/xschem/symbols/annotate_op.sym": "1bdbdfdc725bb41fd37fd9e89d4aa94737d1fb8b71a6fbdb16dc707b36f850a3",
     "libs.tech/xschem/symbols/cap_mim_1f0fF.sym": "91b2ac5f48f2263faa4d1e84062bc1786c90986f3528128d663f465ebac508dc",
@@ -84,7 +86,7 @@
     "libs.tech/xschem/symbols/sc_diode.sym": "1b03a2fd966c24ff302d22ca646005ec1e325f89fd8b9541b30e9615490f9b66"
   },
   "id": "gf180mcuD",
-  "revision": "ab8d6cd6e79d2f4b",
+  "revision": "2f92b1f05da58bd7",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -139,7 +141,7 @@
       "native_generators": [],
       "netgen_setup": "libs.tech/netgen/gf180mcuD_setup.tcl"
     },
-    "revision": "ab8d6cd6e79d2f4b",
+    "revision": "2f92b1f05da58bd7",
     "simulation": {
       "catalog": {
         "symbols/annotate_fet_params.sym": {
@@ -10004,12 +10006,432 @@
           "unavailable": ""
         },
         "symbols/nfet_10v0_asym.sym": {
-          "category": "Other",
-          "kind": "PDK",
+          "category": "NMOS",
+          "emit_parameters": {
+            "ad": "ad",
+            "as": "as",
+            "l": "l",
+            "m": "m",
+            "nf": "nf",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "pd": "pd",
+            "ps": "ps",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "w": "w"
+          },
+          "kind": "NMOS",
           "label": "nfet_10v0_asym",
           "model": "nfet_10v0_asym",
+          "model_source": "libs.tech/ngspice/smbb000149.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Executable text retained as metadata only.",
+            "Public asymmetric 10 V model: independent drain/source terminals, single finger only. W/L bounds are the published recommended model ranges; physical geometry and reliability require separate checks."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "ad": {
+              "default": "w * 1.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "as": {
+              "default": "w * 0.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "l": {
+              "default": "0.60u",
+              "derived": false,
+              "integer": false,
+              "maximum": "20u",
+              "minimum": ".6u",
+              "positive": true,
+              "unit": "m"
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "maximum": 100,
+              "minimum": 1,
+              "positive": true
+            },
+            "nf": {
+              "default": "1",
+              "derived": false,
+              "fixed": 1,
+              "integer": true,
+              "positive": true
+            },
+            "nrd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "nrs": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "pd": {
+              "default": "2 * (w + 1.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "ps": {
+              "default": "2 * (w + 0.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sa": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sb": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "w": {
+              "default": "25u",
+              "derived": false,
+              "integer": false,
+              "maximum": "50u",
+              "minimum": "4u",
+              "positive": true,
+              "unit": "m"
+            }
+          },
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "prefix": "X",
           "source": "libs.tech/xschem/symbols/nfet_10v0_asym.sym",
-          "unavailable": "Model is absent from the selected ngspice library closure."
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd\n+ m=@m",
+              "lvs_format": "@name @pinlist @model L=@L W=@W nf=@nf m=@m",
+              "template": "name=M1\nL=0.60u\nW=25u\nnf=1\nm=1\nad=\\W * 1.48u\\\npd=\\2 * (W + 1.48u)\\\nas=\\W * 0.48u\\\nps=\\2 * (W + 0.48u)\\\nnrd=0 nrs=0\nsa=0 sb=0 sd=0\nmodel=nfet_10v0_asym\nspiceprefix=X\n",
+              "type": "nmos"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "s": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d",
+              "g",
+              "s",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                20.0,
+                0.0
+              ],
+              "d": [
+                20.0,
+                -30.0
+              ],
+              "g": [
+                -20.0,
+                0.0
+              ],
+              "s": [
+                20.0,
+                30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    -22.5
+                  ],
+                  [
+                    7.5,
+                    22.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    20.0,
+                    -30.0
+                  ],
+                  [
+                    20.0,
+                    -17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    20.0,
+                    17.5
+                  ],
+                  [
+                    20.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    -17.5
+                  ],
+                  [
+                    20.0,
+                    -17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    17.5
+                  ],
+                  [
+                    15.0,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -20.0,
+                    0.0
+                  ],
+                  [
+                    -7.5,
+                    -0.0
+                  ]
+                ]
+              },
+              {
+                "kind": "rect",
+                "points": [
+                  [
+                    -7.5,
+                    -15.0
+                  ],
+                  [
+                    -2.5,
+                    15.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    15.0,
+                    15.0
+                  ],
+                  [
+                    20.0,
+                    17.5
+                  ],
+                  [
+                    15.0,
+                    20.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    20.0,
+                    -2.5
+                  ],
+                  [
+                    15.0,
+                    0.0
+                  ],
+                  [
+                    20.0,
+                    2.5
+                  ]
+                ]
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    30.0,
+                    -8.75
+                  ],
+                  [
+                    50.0,
+                    1.25
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    31.25,
+                    13.75
+                  ],
+                  [
+                    51.25,
+                    23.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m x @W / @L",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    31.25,
+                    1.25
+                  ],
+                  [
+                    51.25,
+                    11.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "nf=@nf",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    5.0,
+                    -30.0
+                  ],
+                  [
+                    25.0,
+                    -20.0
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    -16.25,
+                    19.375
+                  ],
+                  [
+                    3.75,
+                    29.375
+                  ]
+                ],
+                "rotation": 0,
+                "text": "10V",
+                "text_anchor": "corner",
+                "vcenter": false
+              }
+            ]
+          },
+          "unavailable": ""
         },
         "symbols/nplus_u.sym": {
           "category": "Other",
@@ -15578,12 +16000,447 @@
           "unavailable": ""
         },
         "symbols/pfet_10v0_asym.sym": {
-          "category": "Other",
-          "kind": "PDK",
+          "category": "PMOS",
+          "emit_parameters": {
+            "ad": "ad",
+            "as": "as",
+            "l": "l",
+            "m": "m",
+            "nf": "nf",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "pd": "pd",
+            "ps": "ps",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "w": "w"
+          },
+          "kind": "PMOS",
           "label": "pfet_10v0_asym",
           "model": "pfet_10v0_asym",
+          "model_source": "libs.tech/ngspice/smbb000149.spice",
+          "notes": [
+            "Executable text retained as metadata only.",
+            "Executable text retained as metadata only.",
+            "Public asymmetric 10 V model: independent drain/source terminals, single finger only. W/L bounds are the published recommended model ranges; physical geometry and reliability require separate checks."
+          ],
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "parameters": {
+            "ad": {
+              "default": "w * 1.78u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "as": {
+              "default": "w * 0.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "l": {
+              "default": "0.6u",
+              "derived": false,
+              "integer": false,
+              "maximum": "20u",
+              "minimum": ".6u",
+              "positive": true,
+              "unit": "m"
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "maximum": 100,
+              "minimum": 1,
+              "positive": true
+            },
+            "nf": {
+              "default": "1",
+              "derived": false,
+              "fixed": 1,
+              "integer": true,
+              "positive": true
+            },
+            "nrd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "nrs": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "pd": {
+              "default": "2 * (w + 1.78u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "ps": {
+              "default": "2 * (w + 0.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sa": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sb": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "w": {
+              "default": "25u",
+              "derived": false,
+              "integer": false,
+              "maximum": "50u",
+              "minimum": "4u",
+              "positive": true,
+              "unit": "m"
+            }
+          },
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "prefix": "X",
           "source": "libs.tech/xschem/symbols/pfet_10v0_asym.sym",
-          "unavailable": "Model is absent from the selected ngspice library closure."
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist @model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd\n+ m=@m",
+              "lvs_format": "@name @pinlist @model L=@L W=@W nf=@nf m=@m",
+              "template": "name=M1\nL=0.6u\nW=25u\nnf=1\nm=1\nad=\\W * 1.78u\\\npd=\\2 * (W + 1.78u)\\\nas=\\W * 0.48u\\\nps=\\2 * (W + 0.48u)\\\nnrd=0 nrs=0\nsa=0 sb=0 sd=0\nmodel=pfet_10v0_asym\nspiceprefix=X\n",
+              "type": "pmos"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "s": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d",
+              "g",
+              "s",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                20.0,
+                0.0
+              ],
+              "d": [
+                20.0,
+                30.0
+              ],
+              "g": [
+                -20.0,
+                0.0
+              ],
+              "s": [
+                20.0,
+                -30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    -22.5
+                  ],
+                  [
+                    7.5,
+                    22.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    20.0,
+                    -30.0
+                  ],
+                  [
+                    20.0,
+                    -17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    20.0,
+                    17.5
+                  ],
+                  [
+                    20.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    17.5
+                  ],
+                  [
+                    20.0,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    12.5,
+                    -17.5
+                  ],
+                  [
+                    20.0,
+                    -17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -20.0,
+                    -0.0
+                  ],
+                  [
+                    -17.5,
+                    0.0
+                  ]
+                ]
+              },
+              {
+                "kind": "rect",
+                "points": [
+                  [
+                    -7.5,
+                    -15.0
+                  ],
+                  [
+                    -2.5,
+                    15.0
+                  ]
+                ]
+              },
+              {
+                "kind": "arc",
+                "points": [
+                  [
+                    -17.5,
+                    -5.0
+                  ],
+                  [
+                    -7.5,
+                    5.0
+                  ]
+                ],
+                "start": -180.0,
+                "sweep": -360.0
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    12.5,
+                    -20.0
+                  ],
+                  [
+                    7.5,
+                    -17.5
+                  ],
+                  [
+                    12.5,
+                    -15.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    15.0,
+                    -2.5
+                  ],
+                  [
+                    20.0,
+                    0.0
+                  ],
+                  [
+                    15.0,
+                    2.5
+                  ]
+                ]
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    30.0,
+                    -8.75
+                  ],
+                  [
+                    50.0,
+                    1.25
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    31.25,
+                    13.75
+                  ],
+                  [
+                    51.25,
+                    23.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@m x @W / @L",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    31.25,
+                    1.25
+                  ],
+                  [
+                    51.25,
+                    11.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "nf=@nf",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    5.0,
+                    -30.0
+                  ],
+                  [
+                    25.0,
+                    -20.0
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@spiceprefix@name",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    -18.75,
+                    16.875
+                  ],
+                  [
+                    1.25,
+                    26.875
+                  ]
+                ],
+                "rotation": 0,
+                "text": "10V",
+                "text_anchor": "corner",
+                "vcenter": false
+              }
+            ]
+          },
+          "unavailable": ""
         },
         "symbols/pnp_05p00x00p42.sym": {
           "category": "Bipolar",
@@ -19857,6 +20714,17 @@
         {
           "path": "libs.tech/ngspice/sm141064.ngspice",
           "section": "cap_mim"
+        },
+        {
+          "path": "libs.tech/ngspice/smbb000149.spice",
+          "sections": {
+            "ff": "ff",
+            "fs": "fs",
+            "nominal": "typical",
+            "sf": "sf",
+            "ss": "ss",
+            "typical": "typical"
+          }
         }
       ],
       "ngspice_compatibility": "hsa"

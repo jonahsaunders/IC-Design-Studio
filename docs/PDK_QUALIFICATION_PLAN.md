@@ -59,6 +59,17 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [GF180 high-voltage record](validation/gf180-high-voltage-2026-10-18.json)
+restores a public library already identified by the original source lock.
+Both asymmetric 10 V devices now have explicit four-terminal bindings in C/D,
+documented geometry limits and single-finger enforcement. The full Linux batch
+passes 160 DC/AC comparisons and 2,240 device faults; native Windows nominal
+checks add eight comparisons and 112 faults. Independent raw readback verifies
+all 504 files. The [guide](GF180_HIGH_VOLTAGE_QUALIFICATION.md) explains the
+public model's M behavior and remaining physical, transient/noise, range and
+installed-release requirements. The current catalog has 286 usable entries;
+availability does not establish complete device qualification.
+
 The [CI repair record](validation/ci-repair-2026-10-18.json) reproduces and fixes
 the historical SKY130 package mismatch that stopped all nine hosted physical
 stages and Linux packaged acceptance. The unchanged locked packages rebuild

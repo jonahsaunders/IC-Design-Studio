@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "base_manifest_sha256": "a0a6fea3d56d49b318c415b12928297900f66c34acbd1aa9d8d0746f6f4fc444",
+  "base_revision": "ab8d6cd6e79d2f4b",
+  "upstream_repository": "https://github.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr",
+  "upstream_revision": "4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+  "upstream_path": "models/ngspice/smbb000149.spice",
+  "source_sha256": "8a8d44d5f13d4a097e86fab598e97e82bb726af1cc01eb6d500739766dfd9363",
+  "documentation": "https://gf180mcu-pdk.readthedocs.io/en/latest/analog/model_parameters/HV/",
+  "change": "Public asymmetric 10 V model: independent drain/source terminals, single finger only. W/L bounds are the published recommended model ranges; physical geometry and reliability require separate checks.",
+  "qualified": false,
+  "scope": "Add the exact public high-voltage library omitted by the earlier closure.\n\nAll existing assets and unrelated catalog entries remain unchanged. This\nreconstructible package does not claim physical or full operating qualification.\n"
+}

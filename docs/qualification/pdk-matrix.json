@@ -34,7 +34,7 @@
     "7": {
       "name": "Qualify device families",
       "status": "in_progress",
-      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open. Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred. Six GF180 C/D and IHP standard single-finger MOS views pass 72 sampled native full-DRC/strict-LVS layouts and 504 physical fault controls. Extracted model, ports and W/L independently re-read. Narrow contact landings and 10 um lengths supported; body-tap identity survives regeneration/save/reopen. Seventy-two focused tests pass on each host. No complete geometry-domain, other-family, antenna/density or installed-release qualification is inferred. All 52 source-listed declarations accounted for: five defaults, 44 added usable views, three explicitly absent models. 170 selected local cases compare 5064 instances, 12560 terminal vectors and 341680 samples; 10128 faulted instances detected and 680 raw files audited. 48 focused tests pass on each host. Defaults reproduce exactly and preserve saved revisions. Full upstream inventory, operating envelopes, physical/extracted and metal-option coverage, statistical/RF accuracy and installed-executable acceptance remain open. 190 sampled straight resistor layouts pass native full DRC/strict LVS, exact model/body/terminal/W/L readback and independent GDS/OASIS exchange. All 285 physical faults and 190 reference faults are detected. Three IHP and eight GF180 families on each C/D variant; five W/L pairs and two rotations. No continuous geometry, all-family, operating-envelope, statistical/RF, installed-release, chip or foundry qualification. 100 sampled junction diode layouts pass native full DRC/strict LVS, exact extracted polarity/model/geometry and independent exchange. All 300 physical/reference fault controls are detected. Magic writer correction preserves GF180 perimeter units; 14 representative layouts and 29 focused tests per host pass. No continuous geometry/bias, all-family, ESD/statistical/RF, installed or foundry qualification. Ten sampled IHP pnpMPA layouts pass full Magic DRC, unfiltered public KLayout extraction and strict Netgen LVS; all 35 physical/reference faults detected. Independent readback checks 45 native and 45 comparison netlists and every mask. Source desktop action passes on both hosts, actual staged backend receipt passes, 40 focused tests per host and 14 default-route layouts pass. NPN/HBT, continuous geometry/bias, other families, statistical/RF and installed-release qualification remain open. 36 sampled four-terminal IHP NPN layouts across npn13G2/l/v pass full DRC and strict unfiltered LVS; all 99 faults detected. Independent emitter/count and 54 rule-geometry audits, 31 focused tests per host, PNP regressions and staged source backend pass. Thermal models, continuous envelopes, other families and installed release remain open. Source-checked SKY130 LI spelling correction promoted to a new default, with saved revisions and source bytes retained. Both hosts pass 18 condition cases / 72 independent analysis comparisons, 666 output vectors and 864 faulted instances; 216 raw files independently audited with analytical RC/noise controls. Five metal/LI resistor families pass 60 sampled layouts and 150 physical/reference faults, with 210 native netlists audited. Source desktops, 31 focused and 29 package/matrix checks per host pass. Continuous ranges, other devices, statistical/RF/thermal and installed-release acceptance remain open. Three IHP five-terminal NPN families pass nine selected thermal conditions plus final-source and managed-engine nominal regressions: 66 independent comparisons, 2970 vectors, 656370 values, 220 detected faulted instances and 121 raw files audited. Windows source staging passes DC/AC/transient with 153 received files verified. Both source desktops and 16 focused tests per host pass; bipolar terminal labels and mixed-case parameter artwork corrected. Sharp-edge and cross-engine equivalence failures retained; continuous ranges, calibrated thermal networks, other devices and installed-release acceptance remain open. Source-locked IHP tap bindings and computed resistance retain source bytes and saved revisions. Fifty independent electrical comparisons, 320 vectors and 66020 values pass; all 200 faulty instances detected and all 120 raw files audited. Windows source backend verifies 255 files; both source editors pass. Final full suites discover 3064 tests each and pass with explicit platform skips; original single-error runs and the corrected historical NPN reconstruction remain recorded. Tap layout probe passes DRC but fails strict LVS. Full operating envelopes, remaining devices, physical/extracted and installed-release acceptance remain open."
+      "scope": "All 255 primitive symbol sources reconcile with pinned public views. The bundled include closure now inventories 6,402 SPICE definitions and 52 source-symbol alternate declarations; nine IHP Verilog-A declarations cover all six referenced external model types. All 235 usable defaults pass catalog interfaces on Windows and Linux. Seven SKY130 20 V symbol views now enforce fixed internal model geometry, passing 54 selected cases and 252 deliberate device faults on each host; original assets and saved revisions are preserved. Earlier device sweeps and physical fixtures retain their exact source/PDK scope. Complete device operating envelopes, alternate-model adapters/execution, broader physical/extracted connectivity, full upstream process/tool-view completeness and final installed-runtime acceptance remain open. Eight standard MOS views pass 378 Windows/Linux condition cases, 67,392 four-terminal current vectors and 33,696 per-device fault controls. Published boundary/characterization points and selected axes are distinguished. No continuous operating envelope, reliability, statistical/RF, physical or installed-release qualification is inferred. Six GF180 C/D and IHP standard single-finger MOS views pass 72 sampled native full-DRC/strict-LVS layouts and 504 physical fault controls. Extracted model, ports and W/L independently re-read. Narrow contact landings and 10 um lengths supported; body-tap identity survives regeneration/save/reopen. Seventy-two focused tests pass on each host. No complete geometry-domain, other-family, antenna/density or installed-release qualification is inferred. All 52 source-listed declarations accounted for: five defaults, 44 added usable views, three explicitly absent models. 170 selected local cases compare 5064 instances, 12560 terminal vectors and 341680 samples; 10128 faulted instances detected and 680 raw files audited. 48 focused tests pass on each host. Defaults reproduce exactly and preserve saved revisions. Full upstream inventory, operating envelopes, physical/extracted and metal-option coverage, statistical/RF accuracy and installed-executable acceptance remain open. 190 sampled straight resistor layouts pass native full DRC/strict LVS, exact model/body/terminal/W/L readback and independent GDS/OASIS exchange. All 285 physical faults and 190 reference faults are detected. Three IHP and eight GF180 families on each C/D variant; five W/L pairs and two rotations. No continuous geometry, all-family, operating-envelope, statistical/RF, installed-release, chip or foundry qualification. 100 sampled junction diode layouts pass native full DRC/strict LVS, exact extracted polarity/model/geometry and independent exchange. All 300 physical/reference fault controls are detected. Magic writer correction preserves GF180 perimeter units; 14 representative layouts and 29 focused tests per host pass. No continuous geometry/bias, all-family, ESD/statistical/RF, installed or foundry qualification. Ten sampled IHP pnpMPA layouts pass full Magic DRC, unfiltered public KLayout extraction and strict Netgen LVS; all 35 physical/reference faults detected. Independent readback checks 45 native and 45 comparison netlists and every mask. Source desktop action passes on both hosts, actual staged backend receipt passes, 40 focused tests per host and 14 default-route layouts pass. NPN/HBT, continuous geometry/bias, other families, statistical/RF and installed-release qualification remain open. 36 sampled four-terminal IHP NPN layouts across npn13G2/l/v pass full DRC and strict unfiltered LVS; all 99 faults detected. Independent emitter/count and 54 rule-geometry audits, 31 focused tests per host, PNP regressions and staged source backend pass. Thermal models, continuous envelopes, other families and installed release remain open. Source-checked SKY130 LI spelling correction promoted to a new default, with saved revisions and source bytes retained. Both hosts pass 18 condition cases / 72 independent analysis comparisons, 666 output vectors and 864 faulted instances; 216 raw files independently audited with analytical RC/noise controls. Five metal/LI resistor families pass 60 sampled layouts and 150 physical/reference faults, with 210 native netlists audited. Source desktops, 31 focused and 29 package/matrix checks per host pass. Continuous ranges, other devices, statistical/RF/thermal and installed-release acceptance remain open. Three IHP five-terminal NPN families pass nine selected thermal conditions plus final-source and managed-engine nominal regressions: 66 independent comparisons, 2970 vectors, 656370 values, 220 detected faulted instances and 121 raw files audited. Windows source staging passes DC/AC/transient with 153 received files verified. Both source desktops and 16 focused tests per host pass; bipolar terminal labels and mixed-case parameter artwork corrected. Sharp-edge and cross-engine equivalence failures retained; continuous ranges, calibrated thermal networks, other devices and installed-release acceptance remain open. Source-locked IHP tap bindings and computed resistance retain source bytes and saved revisions. Fifty independent electrical comparisons, 320 vectors and 66020 values pass; all 200 faulty instances detected and all 120 raw files audited. Windows source backend verifies 255 files; both source editors pass. Final full suites discover 3064 tests each and pass with explicit platform skips; original single-error runs and the corrected historical NPN reconstruction remain recorded. Tap layout probe passes DRC but fails strict LVS. Full operating envelopes, remaining devices, physical/extracted and installed-release acceptance remain open. Source-locked GF180 C/D asymmetric high-voltage bindings pass 84 Windows/Linux cases, 168 four-terminal DC/AC comparisons, 362208 values and 2352 faulted instances; all 504 raw files independently audited. All four source-editor runs pass after the display correction. Final full suites each discover 3071 tests and pass with explicit platform skips; earlier failures are retained. Public M behavior, sampled electrical scope and unqualified physical/transient/noise/range/installed coverage remain explicit."
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -6417,11 +6417,11 @@
       }
     },
     "gf180mcuC": {
-      "revision": "bcc631ec5c59d6b6",
-      "manifest_sha256": "6a3261b805a335644279b0e4e38e84166eb0840a0771dff8aff2f162c7f65f9f",
-      "asset_count": 81,
+      "revision": "b661a751abfc662a",
+      "manifest_sha256": "abfbf8702d759247ad77075c72c7b042a6f9b89d2629f5c194a925a0d4f6194c",
+      "asset_count": 83,
       "indexed_count": 79,
-      "placeable_count": 75,
+      "placeable_count": 77,
       "source_locks": {
         "UPSTREAM-LOCK.json": {
           "sha256": "8c7897615c91ac6e0720ba4a213f59a08497eab187953b3365405827282bf160",
@@ -6521,6 +6521,17 @@
         {
           "path": "libs.tech/ngspice/sm141064.ngspice",
           "section": "cap_mim"
+        },
+        {
+          "path": "libs.tech/ngspice/smbb000149.spice",
+          "sections": {
+            "ff": "ff",
+            "fs": "fs",
+            "nominal": "typical",
+            "sf": "sf",
+            "ss": "ss",
+            "typical": "typical"
+          }
         }
       ],
       "requires_osdi": false,
@@ -9051,15 +9062,125 @@
           "rf_batch": false
         },
         "symbols/nfet_10v0_asym.sym": {
-          "category": "Other",
+          "category": "NMOS",
           "model": "nfet_10v0_asym",
-          "model_source": null,
+          "model_source": "libs.tech/ngspice/smbb000149.spice",
           "source": "libs.tech/xschem/symbols/nfet_10v0_asym.sym",
-          "pin_order": null,
-          "parameters": null,
-          "emit_parameters": null,
-          "parameter_scale": null,
-          "unavailable": "Model is absent from the selected ngspice library closure.",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameters": {
+            "ad": {
+              "default": "w * 1.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "as": {
+              "default": "w * 0.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "l": {
+              "default": "0.60u",
+              "derived": false,
+              "integer": false,
+              "maximum": "20u",
+              "minimum": ".6u",
+              "positive": true,
+              "unit": "m"
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "maximum": 100,
+              "minimum": 1,
+              "positive": true
+            },
+            "nf": {
+              "default": "1",
+              "derived": false,
+              "fixed": 1,
+              "integer": true,
+              "positive": true
+            },
+            "nrd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "nrs": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "pd": {
+              "default": "2 * (w + 1.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "ps": {
+              "default": "2 * (w + 0.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sa": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sb": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "w": {
+              "default": "25u",
+              "derived": false,
+              "integer": false,
+              "maximum": "50u",
+              "minimum": "4u",
+              "positive": true,
+              "unit": "m"
+            }
+          },
+          "emit_parameters": {
+            "ad": "ad",
+            "as": "as",
+            "l": "l",
+            "m": "m",
+            "nf": "nf",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "pd": "pd",
+            "ps": "ps",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "w": "w"
+          },
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "unavailable": "",
           "family": "mos",
           "rf_batch": false
         },
@@ -10356,15 +10477,125 @@
           "rf_batch": false
         },
         "symbols/pfet_10v0_asym.sym": {
-          "category": "Other",
+          "category": "PMOS",
           "model": "pfet_10v0_asym",
-          "model_source": null,
+          "model_source": "libs.tech/ngspice/smbb000149.spice",
           "source": "libs.tech/xschem/symbols/pfet_10v0_asym.sym",
-          "pin_order": null,
-          "parameters": null,
-          "emit_parameters": null,
-          "parameter_scale": null,
-          "unavailable": "Model is absent from the selected ngspice library closure.",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameters": {
+            "ad": {
+              "default": "w * 1.78u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "as": {
+              "default": "w * 0.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "l": {
+              "default": "0.6u",
+              "derived": false,
+              "integer": false,
+              "maximum": "20u",
+              "minimum": ".6u",
+              "positive": true,
+              "unit": "m"
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "maximum": 100,
+              "minimum": 1,
+              "positive": true
+            },
+            "nf": {
+              "default": "1",
+              "derived": false,
+              "fixed": 1,
+              "integer": true,
+              "positive": true
+            },
+            "nrd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "nrs": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "pd": {
+              "default": "2 * (w + 1.78u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "ps": {
+              "default": "2 * (w + 0.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sa": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sb": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "w": {
+              "default": "25u",
+              "derived": false,
+              "integer": false,
+              "maximum": "50u",
+              "minimum": "4u",
+              "positive": true,
+              "unit": "m"
+            }
+          },
+          "emit_parameters": {
+            "ad": "ad",
+            "as": "as",
+            "l": "l",
+            "m": "m",
+            "nf": "nf",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "pd": "pd",
+            "ps": "ps",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "w": "w"
+          },
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "unavailable": "",
           "family": "mos",
           "rf_batch": false
         },
@@ -11011,11 +11242,11 @@
       }
     },
     "gf180mcuD": {
-      "revision": "ab8d6cd6e79d2f4b",
-      "manifest_sha256": "a0a6fea3d56d49b318c415b12928297900f66c34acbd1aa9d8d0746f6f4fc444",
-      "asset_count": 81,
+      "revision": "2f92b1f05da58bd7",
+      "manifest_sha256": "d46a592f236f5a42356db52e861b17f1412ec826cd19a73452f1aa3a50a1e6ae",
+      "asset_count": 83,
       "indexed_count": 79,
-      "placeable_count": 75,
+      "placeable_count": 77,
       "source_locks": {
         "UPSTREAM-LOCK.json": {
           "sha256": "8c7897615c91ac6e0720ba4a213f59a08497eab187953b3365405827282bf160",
@@ -11115,6 +11346,17 @@
         {
           "path": "libs.tech/ngspice/sm141064.ngspice",
           "section": "cap_mim"
+        },
+        {
+          "path": "libs.tech/ngspice/smbb000149.spice",
+          "sections": {
+            "ff": "ff",
+            "fs": "fs",
+            "nominal": "typical",
+            "sf": "sf",
+            "ss": "ss",
+            "typical": "typical"
+          }
         }
       ],
       "requires_osdi": false,
@@ -13645,15 +13887,125 @@
           "rf_batch": false
         },
         "symbols/nfet_10v0_asym.sym": {
-          "category": "Other",
+          "category": "NMOS",
           "model": "nfet_10v0_asym",
-          "model_source": null,
+          "model_source": "libs.tech/ngspice/smbb000149.spice",
           "source": "libs.tech/xschem/symbols/nfet_10v0_asym.sym",
-          "pin_order": null,
-          "parameters": null,
-          "emit_parameters": null,
-          "parameter_scale": null,
-          "unavailable": "Model is absent from the selected ngspice library closure.",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameters": {
+            "ad": {
+              "default": "w * 1.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "as": {
+              "default": "w * 0.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "l": {
+              "default": "0.60u",
+              "derived": false,
+              "integer": false,
+              "maximum": "20u",
+              "minimum": ".6u",
+              "positive": true,
+              "unit": "m"
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "maximum": 100,
+              "minimum": 1,
+              "positive": true
+            },
+            "nf": {
+              "default": "1",
+              "derived": false,
+              "fixed": 1,
+              "integer": true,
+              "positive": true
+            },
+            "nrd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "nrs": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "pd": {
+              "default": "2 * (w + 1.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "ps": {
+              "default": "2 * (w + 0.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sa": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sb": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "w": {
+              "default": "25u",
+              "derived": false,
+              "integer": false,
+              "maximum": "50u",
+              "minimum": "4u",
+              "positive": true,
+              "unit": "m"
+            }
+          },
+          "emit_parameters": {
+            "ad": "ad",
+            "as": "as",
+            "l": "l",
+            "m": "m",
+            "nf": "nf",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "pd": "pd",
+            "ps": "ps",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "w": "w"
+          },
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "unavailable": "",
           "family": "mos",
           "rf_batch": false
         },
@@ -14950,15 +15302,125 @@
           "rf_batch": false
         },
         "symbols/pfet_10v0_asym.sym": {
-          "category": "Other",
+          "category": "PMOS",
           "model": "pfet_10v0_asym",
-          "model_source": null,
+          "model_source": "libs.tech/ngspice/smbb000149.spice",
           "source": "libs.tech/xschem/symbols/pfet_10v0_asym.sym",
-          "pin_order": null,
-          "parameters": null,
-          "emit_parameters": null,
-          "parameter_scale": null,
-          "unavailable": "Model is absent from the selected ngspice library closure.",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameters": {
+            "ad": {
+              "default": "w * 1.78u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "as": {
+              "default": "w * 0.48u",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "l": {
+              "default": "0.6u",
+              "derived": false,
+              "integer": false,
+              "maximum": "20u",
+              "minimum": ".6u",
+              "positive": true,
+              "unit": "m"
+            },
+            "m": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "maximum": 100,
+              "minimum": 1,
+              "positive": true
+            },
+            "nf": {
+              "default": "1",
+              "derived": false,
+              "fixed": 1,
+              "integer": true,
+              "positive": true
+            },
+            "nrd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "nrs": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "pd": {
+              "default": "2 * (w + 1.78u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "ps": {
+              "default": "2 * (w + 0.48u)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sa": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sb": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "w": {
+              "default": "25u",
+              "derived": false,
+              "integer": false,
+              "maximum": "50u",
+              "minimum": "4u",
+              "positive": true,
+              "unit": "m"
+            }
+          },
+          "emit_parameters": {
+            "ad": "ad",
+            "as": "as",
+            "l": "l",
+            "m": "m",
+            "nf": "nf",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "pd": "pd",
+            "ps": "ps",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "w": "w"
+          },
+          "parameter_scale": {
+            "l": 1,
+            "w": 1
+          },
+          "unavailable": "",
           "family": "mos",
           "rf_batch": false
         },
@@ -21338,8 +21800,8 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "unsupported",
-        "remaining": "Model is absent from the selected ngspice library closure."
+        "status": "partial",
+        "remaining": "Source-locked public high-voltage model binding and selected independent DC/AC checks pass. Physical extraction, transient/noise, full operating limits, statistical/RF and installed-release acceptance remain open."
       },
       "symbols/nplus_u.sym": {
         "tests": [
@@ -21609,8 +22071,8 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "unsupported",
-        "remaining": "Model is absent from the selected ngspice library closure."
+        "status": "partial",
+        "remaining": "Source-locked public high-voltage model binding and selected independent DC/AC checks pass. Physical extraction, transient/noise, full operating limits, statistical/RF and installed-release acceptance remain open."
       },
       "symbols/pnp_05p00x00p42.sym": {
         "tests": [
@@ -22453,8 +22915,8 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "unsupported",
-        "remaining": "Model is absent from the selected ngspice library closure."
+        "status": "partial",
+        "remaining": "Source-locked public high-voltage model binding and selected independent DC/AC checks pass. Physical extraction, transient/noise, full operating limits, statistical/RF and installed-release acceptance remain open."
       },
       "symbols/nplus_u.sym": {
         "tests": [
@@ -22724,8 +23186,8 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "unsupported",
-        "remaining": "Model is absent from the selected ngspice library closure."
+        "status": "partial",
+        "remaining": "Source-locked public high-voltage model binding and selected independent DC/AC checks pass. Physical extraction, transient/noise, full operating limits, statistical/RF and installed-release acceptance remain open."
       },
       "symbols/pnp_05p00x00p42.sym": {
         "tests": [
@@ -24359,6 +24821,11 @@
       "path": "docs/validation/ihp-taps-2026-10-18.json",
       "sha256": "9199a077dd898a44d7499ca126e3c203a626625ebb8d17864774013d1c83b202",
       "scope_limit": "Source-locked IHP tap bindings and computed resistance retain source bytes and saved revisions. Fifty independent electrical comparisons, 320 vectors and 66020 values pass; all 200 faulty instances detected and all 120 raw files audited. Windows source backend verifies 255 files; both source editors pass. Final full suites discover 3064 tests each and pass with explicit platform skips; original single-error runs and the corrected historical NPN reconstruction remain recorded. Tap layout probe passes DRC but fails strict LVS. Full operating envelopes, remaining devices, physical/extracted and installed-release acceptance remain open."
+    },
+    "gf180-high-voltage-2026-10-18": {
+      "path": "docs/validation/gf180-high-voltage-2026-10-18.json",
+      "sha256": "3ce97fcf2633e166b00792df018a0b49afbacd4f5c40af14799200602e1e4599",
+      "scope_limit": "Exact public high-voltage source added to C/D model closure. Selected four-terminal DC/AC agreement and fault detection; source editor checks. No complete physical, operating-envelope, transient/noise, statistical/RF or installed-release qualification."
     }
   },
   "execution_acceptance": {
@@ -24374,8 +24841,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-18-taps/manifest.json",
-        "sha256": "ccedfe8fc78cdc4f0968ba8d885f00f1d057c53c86888567b43d1fd3dff2bb9f"
+        "path": "docs/validation/gf180-tested-source-2026-10-18-hv/manifest.json",
+        "sha256": "9b9fa6f6d29801e5fa2ab152f278424c5c690d3895d2cf5d8ca61a5e92245588"
       }
     },
     "5": {

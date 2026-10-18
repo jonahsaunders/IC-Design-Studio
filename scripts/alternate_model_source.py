@@ -15,8 +15,10 @@ PROMOTED={
 @contextmanager
 def base_models(source):
     from scripts.sky130_li_source import previous_li
-    with previous_li(source) as old:
-        with _base_models(old) as base:yield base
+    from scripts.gf180_hv_source import previous_hv
+    with previous_hv(source) as before_hv:
+        with previous_li(before_hv) as old:
+            with _base_models(old) as base:yield base
 
 
 @contextmanager

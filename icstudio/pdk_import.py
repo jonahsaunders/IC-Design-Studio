@@ -78,7 +78,9 @@ def scan_local(path, progress=lambda message: None):
     root,family=detect_root(path);progress('Reading technology and model libraries…')
     ng=root/'libs.tech/ngspice';includes=[]
     if family=='sky130': masters=[ng/'sky130.lib.spice'];nominal='tt'
-    elif family=='gf180mcu': masters=[ng/'sm141064.ngspice'];nominal='typical'
+    elif family=='gf180mcu':
+        masters=[ng/'sm141064.ngspice'];nominal='typical'
+        if (ng/'smbb000149.spice').is_file():masters.append(ng/'smbb000149.spice')
     else:
         masters=sorted((ng/'models').glob('corner*.lib'));nominal='typ'
         if not masters:raise ValueError('No IHP corner model libraries found.')
@@ -97,6 +99,11 @@ def scan_local(path, progress=lambda message: None):
         available=set(master['sections'].values())
         corners={'nominal':'typical','typical':'typical','ff':'ff','ss':'ss','fs':'fs','sf':'sf'}
         master['sections']={k:v for k,v in corners.items() if v in available}
+        for item in includes:
+            if item['path'].endswith('/smbb000149.spice'):
+                if not set(corners.values())<=set(item.get('sections',{}).values()):
+                    raise ValueError('Missing GF180 high-voltage corner section.')
+                item['sections']=dict(corners)
         # The MOS sections do not include the other device families. Load a
         # consistent combination; mixed MOS corners use nominal passives/BJTs.
         for group in ('bjt','diode','res','mimcap','moscap'):
@@ -109,6 +116,9 @@ def scan_local(path, progress=lambda message: None):
         # Keep both sets; the corner section above supplies their parameters.
         if 'cap_mim' in available:
             includes.append({'path':master['path'],'section':'cap_mim'})
+        # Match the versioned package: keep its original complete include
+        # order, then append the optional independent high-voltage library.
+        includes.sort(key=lambda item:item['path'].endswith('/smbb000149.spice'))
     if family=='ihp-sg13g2':
         for item in includes:
             sections=item.get('sections',{})
@@ -237,6 +247,10 @@ def scan_local(path, progress=lambda message: None):
             if family=='ihp-sg13g2' and model=='isolbox':
                 from .ihp_isolation import constrain
                 constrain(params,(root/definition['file']).read_bytes())
+            if family=='gf180mcu' and model in ('nfet_10v0_asym','pfet_10v0_asym'):
+                from .gf180_hv import constrain,NOTE
+                constrain(model,params,(root/definition['file']).read_bytes())
+                notes.append(NOTE)
             if family=='ihp-sg13g2' and model in ('ntap1','ptap1'):
                 from .ihp_taps import constrain
                 constrain(model,params,(root/definition['file']).read_bytes())

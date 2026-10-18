@@ -464,6 +464,14 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_ihp_taps.py --out build/ihp-tap-editor-evidence
+      - name: Verify GF180 high-voltage devices in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          python tests/gui_gf180_hv.py --target gf180mcuC --out build/gf180-hv-editor-C
+          python tests/gui_gf180_hv.py --target gf180mcuD --out build/gf180-hv-editor-D
       - name: Reconcile the complete bundled SPICE definition inventory
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -684,6 +692,12 @@ jobs:
             build/ihp-tap-editor-evidence/report.json
             build/ihp-tap-editor-evidence/taps.png
             build/ihp-tap-editor-evidence/taps.icproj
+            build/gf180-hv-editor-C/report.json
+            build/gf180-hv-editor-C/high-voltage.png
+            build/gf180-hv-editor-C/high-voltage.icproj
+            build/gf180-hv-editor-D/report.json
+            build/gf180-hv-editor-D/high-voltage.png
+            build/gf180-hv-editor-D/high-voltage.icproj
             build/native-vectors-ui-evidence
             build/physical-variants-ui-evidence
             build/sky130-devices-ui-evidence

@@ -1,13 +1,19 @@
 # Bundled device corrections and reproducible qualification
 
 New projects use bundled SKY130 revision `1901822ae8f81ae1`, GF180 C revision
-`bcc631ec5c59d6b6`, GF180 D revision `ab8d6cd6e79d2f4b` and IHP revision
+`b661a751abfc662a`, GF180 D revision `2f92b1f05da58bd7` and IHP revision
 `c0a32344f73be40d`. These include the tested resistor/NPN and MIM corrections,
 parallel-unit SKY130 varactors, capacitor terminal mappings, GF180 native-model
 selection, IHP isolation/clamp and [tap bindings](IHP_TAP_QUALIFICATION.md), and fixed SKY130 20 V geometry. Saved projects retain their
 registered revisions; migration remains explicit. Original
 licenses, modification notices and source hashes are retained. These changes
 and their selected tests do not complete device-family qualification.
+
+The [GF180 high-voltage addition](GF180_HIGH_VOLTAGE_QUALIFICATION.md) restores
+the exact public source file already identified by the upstream lock. Both
+asymmetric 10 V models are available in each C/D package, with source-backed
+geometry and single-finger constraints. Earlier package versions remain
+reconstructible and saved projects retain their original bindings.
 
 The [alternate-model guide](ALTERNATE_MODEL_QUALIFICATION.md) adds 44 usable
 source-listed views and three explicitly unavailable choices, accounting for
