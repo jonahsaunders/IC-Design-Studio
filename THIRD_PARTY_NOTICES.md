@@ -377,3 +377,15 @@ package can correct the NPN connected-region DRC search. Original upstream
 headers and licenses remain in all copies; the correction recipes and test
 runners are project code under GPL-3.0. These are local modifications, not
 upstream or foundry-approved signoff decks.
+
+The GF180 asymmetric high-voltage verification route retains unmodified public
+DRC and LVS sources from `google/globalfoundries-pdk-libs-gf180mcu_fd_pr` commit
+`9f992d5a9186d1f7820c58f039c484ad35b2edea` under
+`icstudio/assets/physical/gf180_hv`. The original Apache-2.0 license, author list,
+copyright headers and exact path/checksum inventory accompany these files.
+They retain their separate license. The project's GPL-3.0 adapter creates private,
+explicitly identified run copies correcting MDN.10d orientation, selecting the
+asymmetric extractor from public drain masks, removing reference-driven filtering
+and implicit joins, and connecting substrate only after independent physical-metal
+checks. The original mask-coupon generator and audit code are project code under
+GPL-3.0. These local changes are not upstream or foundry-approved signoff rules.

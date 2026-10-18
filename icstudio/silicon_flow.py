@@ -51,6 +51,8 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
         try:log=execute([executable,'-dnull','-noconsole','-rcfile',str(rc)],directory,timeout=240,input_text=wrapped)
         except Exception as e:atomic_write(directory/log_name,str(e));raise
         atomic_write(directory/log_name,log)
+        from .magic_diagnostics import require_readable_stream
+        require_readable_stream(log,directory/log_name)
         if 'STUDIO_MAGIC_COMPLETE' not in log or re.search(r'STUDIO_MAGIC_ERROR|contained errors|Malformed line|Illegal keyword|Error:.*required by this techfile|invalid command name|exttospice:\s*(?:integer|numeric) value.*expected',log,re.I):
             raise ValueError('Magic could not complete the commands. See '+str(directory/log_name))
         return log

@@ -17,7 +17,8 @@ def main():
     from icstudio.pdks import PDKRegistry
     from icstudio.project_hub import inventory,build_project
     from icstudio.interchange import spice
-    from scripts.ihp_tap_source import REVISION,PROMOTED
+    from scripts.device_qualification_source import REVISIONS,PROMOTED as DEFAULT_MANIFESTS
+    REVISION=REVISIONS['ihp-sg13g2'];PROMOTED=DEFAULT_MANIFESTS['ihp-sg13g2']
     from scripts.qualify_ihp_taps import resistance
     QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'settings'));QStandardPaths.writableLocation=staticmethod(lambda k:str(out/'profile'/str(k.value)))
     errors=[]

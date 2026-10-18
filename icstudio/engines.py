@@ -173,8 +173,11 @@ def magic_convert(executable,gds,technology,output,top):
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=True)
     script=f'gds read {tcl_word(Path(gds).resolve())}\nload {tcl_word(top)}\nwriteall force\nquit -noprompt\n'
     log=execute([executable,'-dnull','-noconsole','-T',str(Path(technology).resolve())],output,input_text=script)
+    atomic_write(output/'conversion.log',log)
+    from .magic_diagnostics import require_readable_stream
+    require_readable_stream(log,output/'conversion.log')
     if not list(output.glob('*.mag')):raise RuntimeError('Magic returned no native cells. Check technology and top-cell name.\n'+log)
-    atomic_write(output/'conversion.log',log);return log
+    return log
 
 def netgen_lvs(executable,schematic,schematic_cell,extracted,layout_cell,setup,output):
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=True);log=output/'lvs.log'

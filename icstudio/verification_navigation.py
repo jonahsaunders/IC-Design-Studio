@@ -45,6 +45,17 @@ def collect(p, cid, directory):
             for s in by[key]['shapes']:
                 if not kdb().Region(polygon(s)).interacting(region).is_empty():objects.append(s['id'])
             add('MAGIC.DRC',reason,str(path.relative_to(out)),cell_id=key,bbox=box,objects=objects,object=objects[0] if objects else '')
+    path=out/'drc/findings.lyrdb'
+    if path.is_file():
+        from .klayout_verification import read_report
+        data=read_report(path)
+        for finding in data['findings'][:4000]:
+            key=byname.get(finding['cell'])
+            if key is None:continue
+            for coords in finding['boxes_um']:
+                box=[round(v*1000) for v in coords];region=kdb().Region(kdb().Box(*box))
+                objects=[s['id'] for s in by[key]['shapes'] if not kdb().Region(polygon(s)).interacting(region).is_empty()]
+                add('KLAYOUT.DRC',finding['rule']+': '+finding['details'],str(path.relative_to(out)),cell_id=key,bbox=box,objects=objects,object=objects[0] if objects else '')
     path=out/'drc/ihp-contact-width.json'
     if path.is_file():
         data=json.loads(path.read_text())

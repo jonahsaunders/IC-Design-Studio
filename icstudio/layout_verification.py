@@ -90,10 +90,12 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
     def stage(name,fn):return record_stage(report,name,fn,publish,progress)
     def preflight():
         if blocked_reason:raise ValueError(blocked_reason)
-        if lvs_extractor not in ('magic','ihp-klayout'):
+        if lvs_extractor not in ('magic','ihp-klayout','gf180-hv-klayout'):
             raise ValueError('Unknown layout LVS extractor.')
         if lvs_extractor=='ihp-klayout' and p['pdk'].get('package_lock',{}).get('id')!='ihp-sg13g2':
             raise ValueError('The IHP KLayout extractor requires an IHP SG13G2 package.')
+        if lvs_extractor=='gf180-hv-klayout' and p['pdk'].get('package_lock',{}).get('id') not in ('gf180mcuC','gf180mcuD'):
+            raise ValueError('The GF180 HV verifier requires a GF180 C or D package.')
         report['lvs_extractor']=lvs_extractor
         validate(p);ref.update(reference(selected['text'],selected['top']))
         if ref!=selected:raise ValueError('The captured schematic reference changed before verification.')
@@ -117,14 +119,19 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
         if lvs_extractor=='ihp-klayout':
             from .ihp_klayout_lvs import assets as extraction_assets
             assets.update({'ihp-klayout/'+name:path for name,path in extraction_assets().items()})
-        for name in (('magic','netgen','klayout') if lvs_extractor=='ihp-klayout' else ('magic','netgen')):
+        if lvs_extractor=='gf180-hv-klayout':
+            from .gf180_hv_verification import assets as extraction_assets
+            assets.update({'gf180-hv-klayout/'+name:path for name,path in extraction_assets().items()})
+            report.pop('magic_drc_style',None)
+        engines={'magic':('magic','netgen'),'ihp-klayout':('magic','netgen','klayout'),'gf180-hv-klayout':('netgen','klayout')}
+        for name in engines[lvs_extractor]:
             path=Path(shutil.which(tools.get(name,'') or name) or tools.get(name,'') or name)
             if not path.is_file():raise ValueError('Configure the '+name+' physical engine.')
             path=path.resolve();resolved[name]=dict(path=str(path),sha256=file_digest(path))
             flag={'netgen':'-batch','magic':'--version','klayout':'-v'}[name]
             atomic_write(out/(name+'-version.log'),execute([str(path),flag],out,timeout=20))
-        required=re.search(r'(?m)^\s*requires\s+magic-([0-9]+\.[0-9]+\.[0-9]+)',assets['technology'].read_text(encoding='utf-8'))
-        actual=re.search(r'\b([0-9]+\.[0-9]+\.[0-9]+)\b',(out/'magic-version.log').read_text())
+        required=re.search(r'(?m)^\s*requires\s+magic-([0-9]+\.[0-9]+\.[0-9]+)',assets['technology'].read_text(encoding='utf-8')) if 'magic' in resolved else None
+        actual=re.search(r'\b([0-9]+\.[0-9]+\.[0-9]+)\b',(out/'magic-version.log').read_text()) if 'magic' in resolved else None
         if required and (not actual or tuple(map(int,actual[1].split('.')))<tuple(map(int,required[1].split('.')))):
             raise ValueError('This PDK requires Magic '+required[1]+' or newer. Set up the current included physical tools.')
         save_project(p,out/'input.icproj');atomic_write(out/'schematic.spice',ref['text'])
@@ -160,6 +167,14 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
                 files[path.relative_to(out).as_posix()]=file_digest(path)
             return log
         def drc():
+            if lvs_extractor=='gf180-hv-klayout':
+                from .gf180_hv_verification import drc as hv_drc
+                result=hv_drc(resolved['klayout']['path'],out/'layout.gds',c['name'],p['pdk'],out/'drc')
+                report['drc_count']=result['violations'];report['klayout_drc']=result
+                for path in (out/'drc').iterdir():
+                    if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                if result['violations']:raise ValueError(str(result['violations'])+' DRC violations; see retained native findings.')
+                return result
             commands='snap internal\nselect top cell\nbox values {*}[select bbox]\nbox grow c 10um\ndrc style '+tcl_word(report['magic_drc_style'])+'\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\nputs "STUDIO_MAGIC_SCALE [cif scale out]"\n'
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\n'
             log=magic('drc',commands);counts=re.findall(r'^STUDIO_DRC_COUNT (\d+)$',log,re.M)
@@ -178,6 +193,12 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
         try:stage('drc',drc)
         except (ValueError,OSError) as exc:failures.append(str(exc))
         def extract():
+            if lvs_extractor=='gf180-hv-klayout':
+                from .gf180_hv_verification import extract as hv_extract
+                result=hv_extract(resolved['klayout']['path'],out/'layout.gds',c['name'],ref['ports'],p['pdk'],out/'lvs-extraction')
+                for path in (out/'lvs-extraction').rglob('*'):
+                    if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                return result
             if lvs_extractor=='ihp-klayout':
                 from .ihp_klayout_lvs import extract as ihp_extract
                 result=ihp_extract(resolved['klayout']['path'],out/'layout.gds',c['name'],ref['ports'],p['pdk'],out/'lvs-extraction')

@@ -20,6 +20,7 @@ class SiliconMixin:
                       ('Generate contacted SKY130 guard…',self.process_guard_dialog),('Add tied SKY130 MOS dummy…',self.process_dummy_dialog)],
             'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Run layout DRC / LVS only…',self.run_layout_verification),
                         ('Verify IHP layout with KLayout extraction…',lambda:self.run_layout_verification(lvs_extractor='ihp-klayout')),
+                        ('Verify GF180 high-voltage layout…',lambda:self.run_layout_verification(lvs_extractor='gf180-hv-klayout')),
                         ('Check linked layout and show connections',self.check_linked_layout)],
             'View':[('Physical workflow',self.open_silicon)]}.items():
             for title,fn in entries:self.action(menus[menu],title,fn)
@@ -43,6 +44,8 @@ class SiliconMixin:
     def run_layout_verification(self,*,lvs_extractor='magic'):
         if lvs_extractor=='ihp-klayout' and self.project['pdk'].get('package_lock',{}).get('id')!='ihp-sg13g2':
             raise ValueError('Link an IHP SG13G2 physical PDK before selecting its KLayout extraction.')
+        if lvs_extractor=='gf180-hv-klayout' and self.project['pdk'].get('package_lock',{}).get('id') not in ('gf180mcuC','gf180mcuD'):
+            raise ValueError('Link a GF180 C or D PDK before verifying its asymmetric 10 V layout.')
         values=self.simple_form('Layout DRC / LVS',{'Schematic SPICE file':'','Schematic cell':self.cell['name']},
             'Check the active layout against a self-contained schematic netlist using the linked physical PDK. The reference is captured with the run. Legacy layout labels use the named schematic terminals; no simulation testbench is required.')
         if not values:return

@@ -59,6 +59,27 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The latest [physical integration record](validation/gf180-high-voltage-layouts-2026-10-18.json)
+also records the repaired IHP tap editor check. Hosted Linux failed because it
+asserted the pre-NPN default revision; the same failure is reproduced locally.
+The corrected check verifies the current source-locked default and passes on
+Windows and Linux without relaxing any placement, resistance or saved-project
+assertions. Hosted acceptance of this correction remains pending.
+
+The [GF180 high-voltage physical record](validation/gf180-high-voltage-layouts-2026-10-18.json)
+adds a local verification route that preserves asymmetric drain/source identity
+and rejects broken body wiring. Forty layouts and all 182 fault controls pass;
+independent raw-mask/netlist audits, sixteen prior-device regressions, both source
+editors and eight actual Windows backend cases pass. Both full suites pass all
+executed tests out of 3,100 discovered, with explicit platform skips. A verified
+archive restore repeats native success and failure cases. The
+[guide](GF180_HIGH_VOLTAGE_QUALIFICATION.md) identifies every local public-rule
+correction and its limits. The earlier default IHP NPN integration gap is also
+closed by its [record](validation/ihp-npn-default-2026-10-18.json). Seven real model
+entries remain unavailable; broader family/envelope and installed-release gates
+still prevent completion of chunk 7.
+
+
 The [IHP tap-layout record](validation/ihp-tap-layouts-2026-10-18.json) closes
 the earlier sampled tap LVS gap with source-checked public area/perimeter
 conversion and strict terminal roles. Twenty layouts and two public-format

@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/google/globalfoundries-pdk-libs-gf180mcu_fd_pr",
+  "commit": "9f992d5a9186d1f7820c58f039c484ad35b2edea",
+  "license": "Apache-2.0",
+  "modified_upstream_files": false,
+  "files": {
+    "LICENSE": {
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+    },
+    "AUTHORS": {
+      "path": "AUTHORS",
+      "sha256": "c61dc34be0b6186601f8809e9d2f76ade4e15c94948bf3cc1aa33470965cb6b6",
+      "git_blob": "0dc06d5be7e6bab33a0143fe092bf7631a9a244a"
+    },
+    "gf180mcu.drc": {
+      "path": "rules/klayout/drc/gf180mcu.drc",
+      "sha256": "1da08a5cefb3bb42caecf72397a23be67d7b03318501453ebc322297811fe14f",
+      "git_blob": "1e5a87a561e474f014e626fbb33c1e7e9db71f3b"
+    },
+    "gf180mcu.lvs": {
+      "path": "rules/klayout/lvs/gf180mcu.lvs",
+      "sha256": "e63cf0e288c5d0c10c7528f12d28871eb29c8334f63e1581de2b0719caae5ded",
+      "git_blob": "9a7c6068f4ff129290d96d52c122bc33df4df107"
+    }
+  }
+}

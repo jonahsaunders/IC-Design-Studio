@@ -85,8 +85,51 @@ python tests/gui_gf180_hv.py --target gf180mcuD --out /path/to/new-editor-check
 ```
 
 These tests establish selected schematic integration with the pinned public
-model. Physical extraction, transient/noise coverage, complete operating limits,
+model. The selected physical extension below addresses extraction. Transient/noise coverage, complete operating limits,
 statistical/RF accuracy and installed-release acceptance remain open. The public
 [model limitations](https://gf180mcu-pdk.readthedocs.io/en/latest/analog/model_parameters/HV/HV_2_2.html)
 also distinguish statistical targets from silicon verification. Chunk 7 remains
 in progress.
+
+## Selected physical verification
+
+The [physical execution record](validation/gf180-high-voltage-layouts-2026-10-18.json)
+adds a dedicated **Analysis → Verify GF180 high-voltage layout…** action for
+linked C/D packages. It accepts a self-contained schematic reference and uses
+KLayout DRC/extraction followed by strict Netgen comparison. Ordinary Magic
+verification now rejects unreadable masks, even when Magic exits successfully.
+The pinned Magic input path loses the high-voltage recognition masks and cannot
+validate these devices faithfully.
+
+Forty paired N/P layouts pass: the five W/L pairs above at M=1, in four rotations
+on both variants. All 110 physical faults, 40 schematic faults and 32 field-gap
+controls are detected. Independent audits compare 1,320 mask-layer pairs and
+80 native/converted netlists, including terminal roles, W/L and junction
+area/perimeter. Saving/reopening and GDS/OASIS exchange preserve the masks and
+label anchors. This tests the measured geometry; it does not calibrate parasitic
+electrical accuracy against silicon.
+
+The original Apache-2.0 [public DRC/LVS sources](https://github.com/google/globalfoundries-pdk-libs-gf180mcu_fd_pr/tree/9f992d5a9186d1f7820c58f039c484ad35b2edea/rules/klayout)
+remain unchanged under `icstudio/assets/physical/gf180_hv`. Private run copies
+make explicit local corrections: the MDN.10d field operand grows in both axes;
+MVSD/MVPSD distinguish asymmetric drains from sources; reference-driven circuit
+filtering and implicit label connections are removed. A separate physical-metal
+audit must pass before body terminals connect to their substrate/deep-well
+domains. All original rule limits and measured junction parameters are retained.
+The local corrections are not foundry-approved decks.
+
+Both source desktop actions and eight Windows-to-local-backend cases pass.
+Sixteen other-device native regressions pass across all targets. Both full suites
+discover 3,100 tests and pass, with platform skips recorded in the evidence.
+The evidence archive is checksum-verified, and restoring it reproduces a rotated
+native pass, three native faults and ten focused checks.
+
+```sh
+python scripts/qualify_gf180_hv_layouts.py --output /path/to/new-results --klayout /path/to/klayout --netgen /path/to/netgen --workers 4
+python tests/gui_gf180_hv_verification.py --out /path/to/new-editor-check
+```
+
+This route currently accepts the reviewed asymmetric HV stack and rejects other
+well, resistor or MIM layers. Additional device combinations, layout topologies,
+operating ranges and final installed-release acceptance remain open. Chunk 7 is
+still in progress.

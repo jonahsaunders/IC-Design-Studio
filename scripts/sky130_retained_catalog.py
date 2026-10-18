@@ -22,6 +22,9 @@ SNAPSHOTS.update({name:'docs/validation/sky130-retained-integration-source-2026-
     for name in ('icstudio/digital_flow.py','icstudio/digital_macro.py','icstudio/interchange.py')})
 
 
+# Preserve the exact tested converter; current mask-read safety is tested separately.
+SNAPSHOTS['icstudio/engines.py']='docs/validation/retained-engine-source-2026-10-18/engines.py.txt'
+
 def require(condition,message):
     if not condition:raise ValueError(message)
 

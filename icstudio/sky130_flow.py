@@ -128,6 +128,8 @@ def run(pdk_root,output,ngspice='ngspice',magic='magic',netgen='netgen',progress
             try:log=execute([resolved['magic'],'-dnull','-noconsole','-rcfile',str(rc)],directory,timeout=240,input_text=script)
             except Exception as exc:atomic_write(directory/'console.log',str(exc));raise
             atomic_write(directory/'console.log',log)
+            from .magic_diagnostics import require_readable_stream
+            require_readable_stream(log,directory/'console.log')
             if re.search(r'contained errors|Malformed line|Illegal keyword|Error:.*required by this techfile|invalid command name',log,re.I):raise ValueError('Magic reported a technology or command error; inspect '+str(directory/'console.log'))
             return log
         def drc():

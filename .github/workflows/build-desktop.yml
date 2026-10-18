@@ -478,6 +478,12 @@ jobs:
         run: |
           python tests/gui_gf180_hv.py --target gf180mcuC --out build/gf180-hv-editor-C
           python tests/gui_gf180_hv.py --target gf180mcuD --out build/gf180-hv-editor-D
+      - name: Verify GF180 high-voltage physical action in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_gf180_hv_verification.py --out build/gf180-hv-physical-editor
       - name: Reconcile the complete bundled SPICE definition inventory
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
