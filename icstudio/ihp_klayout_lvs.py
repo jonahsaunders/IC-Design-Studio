@@ -80,7 +80,7 @@ def extraction_assets(destination):
 
 
 def comparison_setup(source, destination):
-    """Retain extracted emitter count in the private IHP comparison setup."""
+    """Retain emitter count and distinct tap terminal roles in the private setup."""
     source=Path(source);destination=Path(destination)
     expected='9981101e0bbe9d8f6af656f03475d0d00fb7507559645e85e4d9d5f704b3878e'
     if file_digest(source)!=expected:raise ValueError('Unexpected public IHP Netgen setup.')
@@ -89,9 +89,10 @@ def comparison_setup(source, destination):
         before=f'property "-circuit{side} $dev" delete Nx Ny'.encode()
         if content.count(before)!=1:raise ValueError('Unexpected IHP emitter-count comparison recipe.')
         content=content.replace(before,b'# IC Design Studio: retain Nx/Ny; public KLayout extracts emitter count.')
-    destination.write_bytes(content)
+    from .ihp_tap_lvs import strict_setup
+    destination.write_bytes(strict_setup(content))
     return destination,dict(source_sha256=expected,sha256=file_digest(destination),
-        change='Retain Nx/Ny device properties. All other public comparison settings unchanged.')
+        change='Retain Nx/Ny device properties. Remove taps from generic resistor terminal permutation and W/L reduction; compare their original A/P and TIE/WELL roles.')
 
 
 def label_stream(source, target, top):
@@ -209,6 +210,8 @@ def extract(executable, source, top, ports, technology, folder):
         raise ValueError('Public IHP extraction did not complete without comparison filtering.')
     native = folder/'native.cir'
     converted, changes = bipolar_subcircuits(native.read_text(encoding='utf-8'))
+    from .ihp_tap_lvs import extracted_geometry
+    converted, taps = extracted_geometry(converted); changes.extend(taps)
     converted, port_order = order_top_ports(converted, top, ports)
     output = folder/'extracted.spice'; atomic_write(output, converted)
     check_extracted_interface(output, top, ports, technology)

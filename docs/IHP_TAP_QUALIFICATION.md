@@ -1,4 +1,4 @@
-# IHP tap schematic models
+# IHP tap models and sampled layouts
 
 The bundled IHP revision `c0a32344f73be40d` enables the public `ntap1` and
 `ptap1` two-terminal symbols. The previously bundled symbols used a Tcl
@@ -68,9 +68,52 @@ python scripts/qualify_ihp_taps.py --package icstudio/assets/pdks/ihp-sg13g2 --o
 python tests/gui_ihp_taps.py --out /path/to/new-editor-evidence
 ```
 
-These points establish schematic integration with the pinned public model.
-They do not establish fabrication limits, a complete operating envelope,
-tap-layout extraction, latchup/ESD behavior or installed-release acceptance.
-In particular the public Magic `ngspice(lvs)` style has distinct tap-recognition
-semantics; the default layout route has not been qualified for these devices.
+These electrical points establish schematic integration with the pinned public
+model. They do not establish fabrication limits, a complete operating envelope,
+latchup/ESD behavior or installed-release acceptance.
+
+## Sampled physical acceptance
+
+The separate [physical execution record](validation/ihp-tap-layouts-2026-10-18.json)
+covers both tap models at the five rectangles listed above, rotated by 0 and
+90 degrees: twenty layouts in total. Select the public IHP KLayout extraction
+option for these checks. Full Magic DRC remains enabled; the default Magic LVS
+extraction route is not qualified for taps by this result.
+
+The comparison converts schematic width and length to the public extractor's
+area and perimeter. It accepts the exact reviewed live resistance formula or
+a literal resistance matching that formula. It rejects other expressions,
+unresolved geometry, conflicting parameters and changed source models. Native
+area, perimeter and terminal roles are preserved. Taps are excluded from generic
+resistor terminal permutation and series/parallel reduction in the private
+comparison setup. Original public source files are unchanged.
+
+The initial physical probe correctly failed LVS because those representations
+differed. Subsequent deliberately undersized contacts exposed a separate gap:
+Magic accepted 80 nm cuts. The application now also checks written contact
+layer 6/0 directly against the locked public `Cnt.a` minimum of 160 nm, retaining
+the original native result and navigable error locations. This supplemental
+check covers that minimum only; it does not establish complete process-rule
+coverage. It does not alter the design masks.
+
+All twenty layouts and two additional public A/P reference netlists pass.
+All forty removed-contact/undersized-contact layouts and eight incorrect
+terminal/model/area/perimeter references are rejected. An independent audit
+checks 70 native netlists, 50 converted netlists and 540 exported layer
+comparisons, including reopened GDS and OASIS. The fault audit verifies that
+only the intended contact masks changed.
+
+Both source desktop actions pass. Six Windows backend cases verify all 476
+received files. Seven prior MOS/resistor/MIM/PNP cases pass on the default
+package; three NPN cases pass on their separately qualified corrected package.
+An initial NPN attempt using the default package failed native DRC and remains
+retained. NPN acceptance is not transferred to that default package.
+
+```sh
+python scripts/qualify_ihp_tap_layouts.py --help
+```
+
+These are sampled source-application results. Continuous geometry and operating
+ranges, latchup/ESD, default Magic tap extraction, default-package NPN integration,
+remaining device families and installed-release acceptance remain open.
 Chunk 7 remains incomplete.

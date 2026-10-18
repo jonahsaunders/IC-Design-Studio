@@ -59,6 +59,18 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [IHP tap-layout record](validation/ihp-tap-layouts-2026-10-18.json) closes
+the earlier sampled tap LVS gap with source-checked public area/perimeter
+conversion and strict terminal roles. Twenty layouts and two public-format
+references pass, and all forty physical and eight reference faults are detected.
+The controls exposed native false passes for undersized contacts; the application
+now checks their written masks against the locked 160 nm public minimum as well
+as retaining full native DRC. Independent netlist and mask audits, both source
+desktop actions and six actual Windows backend cases pass. Seven other device
+layouts and three NPN layouts also pass with their separately recorded package
+identities. Complete ranges, default-package NPN integration, remaining families
+and installed-release acceptance remain open.
+
 The [GF180 high-voltage record](validation/gf180-high-voltage-2026-10-18.json)
 restores a public library already identified by the original source lock.
 Both asymmetric 10 V devices now have explicit four-terminal bindings in C/D,
@@ -75,19 +87,25 @@ the historical SKY130 package mismatch that stopped all nine hosted physical
 stages and Linux packaged acceptance. The unchanged locked packages rebuild
 exactly on both hosts; 68 fast CI tests per host and real inverter, boundary and
 bipolar checks pass locally. All nine hosted physical stages and the dependent
-detector desktop check now pass at commit `957055a`; the full release workflow
-is still running in the timestamped record. The earlier Windows runner
-disconnection is not attributed to the package mismatch. Neither result
-completes chunk 7.
+detector desktop check and Linux release job now pass at commit `957055a`.
+The Windows release job exposed one encoding-sensitive test fixture: its
+default CP1252 write was incompatible with the application's UTF-8 netlist
+reader. That failure is reproduced locally; explicit UTF-8 fixture writes
+pass all four real saved-bias checks with Windows UTF-8 mode disabled. An early
+hosted regression now exercises that configuration. Completed hosted acceptance
+of the repaired Windows release remains pending. The earlier Windows runner
+disconnection is not attributed to either repair. These results do not complete
+chunk 7.
 
 The [IHP tap record](validation/ihp-taps-2026-10-18.json) enables both public
 tap symbols while preserving their source bytes and saved package revisions.
 The editor keeps resistance calculated from width and length. Fifty independent
 electrical comparisons pass; all 200 faulty device instances are detected and
 120 raw outputs independently audited. Both source editors and the Windows
-backend route pass. The tap layout probe passes full DRC but fails strict LVS,
-so physical acceptance remains open. The [tap guide](IHP_TAP_QUALIFICATION.md)
-records the tested points and the remaining limits.
+backend route pass. The original tap layout probe passed full DRC but failed
+strict LVS; that failure is retained alongside the subsequent physical record
+above. The [tap guide](IHP_TAP_QUALIFICATION.md) records both sets of tested points
+and the remaining limits.
 
 The [IHP thermal record](validation/ihp-thermal-2026-10-17.json) adds nine
 selected conditions for all three five-terminal NPN families, with separate

@@ -200,6 +200,12 @@ jobs:
         with:
           path: build/ngspice-windows/ngspice-42_64.7z
           key: ${{ steps.ngspice-cache.outputs.cache-primary-key }}
+      # Exercise Windows' legacy text encoding before larger release dependencies.
+      - name: Verify Windows saved bias with UTF-8 mode disabled
+        if: runner.os == 'Windows'
+        env:
+          ICSTUDIO_TEST_SKY130_PDK: ${{ github.workspace }}/build/physical-adapter/sky130A
+        run: python -X utf8=0 -m unittest tests.test_saved_bias -v
       - name: Cache included openEMS runtime
         uses: actions/cache@v4
         with:

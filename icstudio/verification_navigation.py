@@ -45,6 +45,12 @@ def collect(p, cid, directory):
             for s in by[key]['shapes']:
                 if not kdb().Region(polygon(s)).interacting(region).is_empty():objects.append(s['id'])
             add('MAGIC.DRC',reason,str(path.relative_to(out)),cell_id=key,bbox=box,objects=objects,object=objects[0] if objects else '')
+    path=out/'drc/ihp-contact-width.json'
+    if path.is_file():
+        data=json.loads(path.read_text())
+        for box in data.get('boxes_nm',[]):
+            region=kdb().Region(kdb().Box(*box));objects=[s['id'] for s in by[cid]['shapes'] if not kdb().Region(polygon(s)).interacting(region).is_empty()]
+            add('IHP.Cnt.a','Contact width is below the public 160 nm minimum.',str(path.relative_to(out)),bbox=box,objects=objects,object=objects[0] if objects else '')
     mapping=device_map(p,cid);path=out/'lvs/lvs.json'
     if path.is_file():
         try:data=json.loads(path.read_text())

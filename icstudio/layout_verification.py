@@ -129,7 +129,11 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             raise ValueError('This PDK requires Magic '+required[1]+' or newer. Set up the current included physical tools.')
         save_project(p,out/'input.icproj');atomic_write(out/'schematic.spice',ref['text'])
         from .native_spice import lvs_defaults
-        comparison,defaults=lvs_defaults(ref['text'],p['pdk']);atomic_write(out/'schematic-lvs.spice',comparison)
+        comparison,defaults=lvs_defaults(ref['text'],p['pdk'])
+        if lvs_extractor=='ihp-klayout':
+            from .ihp_tap_lvs import reference_geometry
+            comparison,taps=reference_geometry(comparison,p['pdk']);defaults.extend(taps)
+        atomic_write(out/'schematic-lvs.spice',comparison)
         report['reference_defaults']=defaults
         files.update({n:file_digest(out/n) for n in ('input.icproj','schematic.spice','schematic-lvs.spice')})
         return dict(assets={str(v):file_digest(v) for v in assets.values()},tools=resolved,reference=report['reference'],model_defaults=defaults)
@@ -160,9 +164,15 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\n'
             log=magic('drc',commands);counts=re.findall(r'^STUDIO_DRC_COUNT (\d+)$',log,re.M)
             if len(counts)!=1 or re.findall(r'^STUDIO_DRC_STYLE (.+)$',log,re.M)!=[report['magic_drc_style']]:raise ValueError('Magic did not finish the selected full DRC check.')
-            report['drc_count']=int(counts[0])
-            if report['drc_count']:raise ValueError(str(report['drc_count'])+' Magic DRC violations; see findings.tsv.')
-            return dict(violations=0,style=report['magic_drc_style'])
+            report['drc_count']=int(counts[0]);report['magic_drc_count']=int(counts[0])
+            if p['pdk'].get('package_lock',{}).get('id')=='ihp-sg13g2':
+                from .ihp_contact_rules import check as contact_width
+                extra=contact_width(out/'layout.gds',c['name'],p['pdk'])
+                atomic_write(out/'drc/ihp-contact-width.json',json.dumps(extra,indent=2))
+                files['drc/ihp-contact-width.json']=file_digest(out/'drc/ihp-contact-width.json')
+                report['ihp_contact_width']=extra;report['drc_count']+=extra['violations']
+            if report['drc_count']:raise ValueError(str(report['drc_count'])+' DRC violations; see retained native and supplemental findings.')
+            return dict(violations=0,style=report['magic_drc_style'],native_violations=report['magic_drc_count'],supplemental_contact_width=report.get('ihp_contact_width'))
         # Keep LVS evidence even when the original design fails a layout rule.
         failures=[]
         try:stage('drc',drc)
