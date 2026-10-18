@@ -59,6 +59,14 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [CI repair record](validation/ci-repair-2026-10-18.json) reproduces and fixes
+the historical SKY130 package mismatch that stopped all nine hosted physical
+stages and Linux packaged acceptance. The unchanged locked packages rebuild
+exactly on both hosts; 68 fast CI tests per host and real inverter, boundary and
+bipolar checks pass locally. The full hosted rerun is pending. The Windows
+runner disconnected during frozen acceptance; that separate failure remains
+unresolved. Neither result completes chunk 7.
+
 The [IHP thermal record](validation/ihp-thermal-2026-10-17.json) adds nine
 selected conditions for all three five-terminal NPN families, with separate
 final-source and managed-engine nominal regressions. All 66 independent

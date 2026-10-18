@@ -1,0 +1,377 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "chunk": 7,
+  "chunk_complete": false,
+  "status": "local_repair_verified_hosted_rerun_pending",
+  "source_baseline": "bcdf4701368fb8632bb9c3bc7bb298e18e142a40",
+  "problem": "The pinned physical adapter recipe rescanned its inputs with a newer importer. New fixed-geometry and LI bindings changed the historical manifest, stopping all nine physical stages and Linux packaged acceptance.",
+  "repair": "Retain the original manifest, verify it against the unchanged qualification lock, and verify all source files before copying and again during copy. Current imported/default packages keep their newer mappings. Run the regression in the fast CI gate and rebuild the physical input before expensive release stages.",
+  "hosted_failures": {
+    "physical_run": 39074371001,
+    "desktop_run": 39074371033,
+    "physical_stages": 9,
+    "linux_desktop": "Same manifest mismatch after core tests passed.",
+    "windows_desktop": "Core tests passed. GitHub reports hosted runner lost communication during frozen digital acceptance. Cause remains undetermined; not claimed fixed by this repair."
+  },
+  "reproduction": {
+    "reproduced_before": "The generated adapter differs from the committed qualification lock.",
+    "base": {
+      "id": "sky130A",
+      "revision": "9a491f0ebd51a0aa",
+      "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+      "files": 441,
+      "all_files_verified": 441
+    },
+    "bipolar": {
+      "id": "sky130A",
+      "revision": "c74642ffb94da796",
+      "manifest_sha256": "84e80df44532a2311a84b438fac62b15afc652c1b774b94ec73229207a21981e",
+      "files": 442,
+      "all_files_verified": 442
+    },
+    "inverter": {
+      "exit": 0
+    },
+    "boundaries": {
+      "exit": 0
+    },
+    "bipolar-checks": {
+      "exit": 0
+    }
+  },
+  "tests": {
+    "Windows": {
+      "count": 68,
+      "status": "PASS",
+      "log_sha256": "f973e47966009971b789d778aec35da46f11a073209075c00b96270478e6a52d"
+    },
+    "Linux": {
+      "count": 68,
+      "status": "PASS",
+      "log_sha256": "85b1fe77f29a653d4b307748ee1680f942625a8064973e81ad1d44ccc9383a6d"
+    }
+  },
+  "physical_checks": {
+    "inverter": {
+      "status": "passed",
+      "report_sha256": "ef7dd6d0ec022f07661f714b74e32477b66eae9907546f231de3573f77b7e52f",
+      "cases": [
+        {
+          "name": "nominal",
+          "expected_failure_stage": null,
+          "design_hash": "ee053d490130a66ef309101782a1558afc8c16ffe9e27c4ca99dd122f60163dd",
+          "status": "passed",
+          "native_terminal_findings": [],
+          "engine_report": "nominal/report.json"
+        },
+        {
+          "name": "narrow-metal",
+          "expected_failure_stage": "drc",
+          "design_hash": "0d079dfe8498a15385a765ff7fcc75fde15171af4c97f1c33771f15f95ed63ad",
+          "status": "passed",
+          "native_terminal_findings": [],
+          "engine_report": "narrow-metal/report.json"
+        },
+        {
+          "name": "route-open",
+          "expected_failure_stage": "lvs",
+          "design_hash": "e4392eda596c52dc36aa2a47e8c950400846336cabb070542e8f7888ebbc1952",
+          "status": "passed",
+          "native_terminal_findings": [
+            "LVS.OPEN"
+          ],
+          "engine_report": "route-open/report.json"
+        },
+        {
+          "name": "wrong-channel-length",
+          "expected_failure_stage": "lvs",
+          "design_hash": "cebe0653a87dcf5a44e35f4c8b5cc82c6208229cdf614d712ff1a6b098570d10",
+          "status": "passed",
+          "native_terminal_findings": [],
+          "engine_report": "wrong-channel-length/report.json"
+        }
+      ]
+    },
+    "boundaries": {
+      "status": "passed",
+      "report_sha256": "90defc76c4e44d087faf75373e78de3cc9e9c21ed2f2a6ca435d807c00920778",
+      "cases": [
+        {
+          "name": "prerequisites",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "width_nm": 140,
+            "spacing_nm": 140
+          },
+          "elapsed_seconds": 0.014
+        },
+        {
+          "name": "width-135nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "failed",
+            "input_sha256": "a29c89c299f4ac34c148b7a2fef042625be845eae0e509bf7675fb9062991661",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "failed",
+              "count": 1,
+              "rules": {
+                "Metal1 width < 28 (met1.1)": 1
+              },
+              "findings": [
+                {
+                  "rule": "Metal1 width < 28 (met1.1)",
+                  "box": [
+                    27.0,
+                    0.0,
+                    28.0,
+                    400.0
+                  ]
+                }
+              ],
+              "coordinate_unit_um": 0.004999999888241291
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated"
+            ]
+          },
+          "elapsed_seconds": 0.344
+        },
+        {
+          "name": "width-140nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "passed",
+            "input_sha256": "cb07dcd89079ce309a2883876934a7a3d8263e71d2d54501a333cde8d69349a4",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "passed",
+              "count": 0,
+              "rules": {},
+              "findings": [],
+              "coordinate_unit_um": 0.009999999776482582
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated",
+              "No errors found."
+            ]
+          },
+          "elapsed_seconds": 0.291
+        },
+        {
+          "name": "width-145nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "passed",
+            "input_sha256": "411b18bdb8dd20f8671ad17f970c61e3fd148d8b176afc68eeb89edbeb42d68f",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "passed",
+              "count": 0,
+              "rules": {},
+              "findings": [],
+              "coordinate_unit_um": 0.004999999888241291
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated",
+              "No errors found."
+            ]
+          },
+          "elapsed_seconds": 0.297
+        },
+        {
+          "name": "spacing-135nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "failed",
+            "input_sha256": "4f2be6415f60a850062e16f4ec26e0573c2bf91c22fd8609a819ea02ef8a06ae",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "failed",
+              "count": 2,
+              "rules": {
+                "Metal1 spacing < 28 (met1.2)": 2
+              },
+              "findings": [
+                {
+                  "rule": "Metal1 spacing < 28 (met1.2)",
+                  "box": [
+                    127.0,
+                    0.0,
+                    128.0,
+                    400.0
+                  ]
+                },
+                {
+                  "rule": "Metal1 spacing < 28 (met1.2)",
+                  "box": [
+                    99.0,
+                    0.0,
+                    100.0,
+                    400.0
+                  ]
+                }
+              ],
+              "coordinate_unit_um": 0.004999999888241291
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated"
+            ]
+          },
+          "elapsed_seconds": 0.296
+        },
+        {
+          "name": "spacing-140nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "passed",
+            "input_sha256": "90542d938c4f8037270b5e1c46d32c10a8d85c1469b3c1ee2514207babc8b886",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "passed",
+              "count": 0,
+              "rules": {},
+              "findings": [],
+              "coordinate_unit_um": 0.009999999776482582
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated",
+              "No errors found."
+            ]
+          },
+          "elapsed_seconds": 0.283
+        },
+        {
+          "name": "spacing-145nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "passed",
+            "input_sha256": "c3c300899279641d7ae632404f68a9646cff116f0356f7ef4be2a19768c4006d",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "passed",
+              "count": 0,
+              "rules": {},
+              "findings": [],
+              "coordinate_unit_um": 0.004999999888241291
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated",
+              "No errors found."
+            ]
+          },
+          "elapsed_seconds": 0.302
+        }
+      ]
+    },
+    "bipolar-checks": {
+      "status": "passed",
+      "report_sha256": "6a6010e482fe68edf64d3b936ff6323e6df99a0d34ba4a9f6507a87ebab80f67",
+      "cases": [
+        {
+          "name": "m1",
+          "status": "passed",
+          "drc_count": 0,
+          "lvs_matched": true,
+          "expected_failure": null,
+          "extracted_sha256": "2328ccbb2d307d97ed6a91d74c180f0858702b04ad91bfee927b9e1f16ed826e",
+          "lvs_log_sha256": "5fae9c3f1bbce0eb43eba203592468127739a862683751b09c9ab034f76bd9b2"
+        },
+        {
+          "name": "m2",
+          "status": "passed",
+          "drc_count": 0,
+          "lvs_matched": true,
+          "expected_failure": null,
+          "extracted_sha256": "bee7ae90bec30b710ae20af50eeeb1ca60bf47626be1c343ff56d4081177f89d",
+          "lvs_log_sha256": "c73a1647e0d19aac71bb6e3e574f20ec862197a36a8762bf9fc2714c90f1c97e"
+        },
+        {
+          "name": "m16",
+          "status": "passed",
+          "drc_count": 0,
+          "lvs_matched": true,
+          "expected_failure": null,
+          "extracted_sha256": "97f3a088bcc62118929ff3aec596190fd4fbf3c4d7cc7d05e3b49cc8799548ae",
+          "lvs_log_sha256": "4cbe7086ec10b373b40a82ba519960f5e7162eb3ebd6bcf518a2c317740172a4"
+        },
+        {
+          "name": "wrong-emitter",
+          "status": "passed",
+          "drc_count": 1,
+          "lvs_matched": false,
+          "expected_failure": "lvs",
+          "extracted_sha256": "de8037b9d164669949f28ffab100cb60764ac4b5360ccb20afd493089a30d74e",
+          "lvs_log_sha256": "32495e47c24f76102c8f0d192f2738c93726528cef51446c2380a1e6cd45a6a0"
+        }
+      ]
+    }
+  },
+  "source_files": {
+    "scripts/prepare_sky130_qualification.py": "0ccfd8f6e2e9b3add864b5a0de44039e82e6af7f9b6baeb7af7d6243cb3cb83b",
+    "tests/test_sky130_qualification_package.py": "98a1fe597684bb6191961254a592783f9ba4ed3e48ba5753db22be15b849b23a",
+    "icstudio/assets/qualification/sky130-physical-v1/package.json": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+    ".github/workflows/build-desktop.yml": "61b0eddb39e5ed1ea8409c3954dcab5d66c4e245d3233810735a0ac96ce8ae0e"
+  },
+  "limits": [
+    "The full hosted workflow rerun is pending.",
+    "This repair does not complete device-family qualification or chunk 7.",
+    "The real physical checks cover the listed locked fixtures, not complete-chip signoff."
+  ],
+  "windows_reproduction": "Both manifests match Linux byte-for-byte, including all original asset hashes."
+}
