@@ -64,11 +64,14 @@ def parse_raw(path):
     with a large numerical matrix.
     """
     import re
-    with Path(path).open(encoding='utf-8',errors='strict') as stream:
+    with Path(path).open('rb') as stream:
         lines=[];size=0
-        for line in stream:
-            if line.strip()=='Values:':break
-            size+=len(line)
+        for raw_line in stream:
+            if raw_line.strip()==b'Values:':break
+            # ngspice echoes an external deck's title bytes unchanged. The title
+            # is descriptive only; vector names and numeric data remain strict.
+            line=raw_line.decode('utf-8',errors='replace' if raw_line.lower().startswith(b'title:') else 'strict')
+            size+=len(raw_line)
             if size>16*1024*1024:raise ValueError('Unsupported raw-file header size.')
             lines.append(line)
         else:raise ValueError('The raw file contains no ASCII values.')
@@ -80,7 +83,7 @@ def parse_raw(path):
         except (TypeError,IndexError,ValueError) as exc:raise ValueError('Malformed raw-file header.') from exc
         if len(variables)!=count or not 0<count<=50000 or not 0<points<=1000000 or count*points>10000000:
             raise ValueError('Unsupported raw-file dimensions (maximum 50,000 vectors and 10 million values).')
-        rows=[];values=(line.split()[-1] for line in stream if line.strip())
+        rows=[];values=(line.decode('ascii').split()[-1] for line in stream if line.strip())
         try:
             for i in range(points):
                 row=[]
@@ -239,6 +242,9 @@ def run_deck(p,cid,settings,executable,directory,progress=lambda *_:None):
     import math,cmath
     deck=Path(settings['deck']).resolve();directory=Path(directory).resolve()
     if not deck.is_file():raise ValueError('The SPICE deck does not exist.')
+    from .rf_runtime import enforce
+    # Inspection only: preserve legacy-encoded external deck bytes for ngspice.
+    enforce(deck.read_text(encoding='utf-8',errors='replace'),executable,directory)
     raw=directory/'deck.raw';atomic_write(directory/'deck-snapshot.cir',deck.read_bytes());progress(.05,'Running external SPICE testbench')
     from .spice_program import runtime_environment
     try:log=execute(ngspice_command(p,executable,raw,deck),deck.parent,timeout=int(settings.get('timeout',180)),env=runtime_environment(executable))

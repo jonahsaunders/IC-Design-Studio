@@ -1,0 +1,425 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "public_rf_candidate_runtime_and_sampled_electrical_checks_passed",
+  "default_promoted": false,
+  "scope": "Two explicit public RF diode candidates with automatic measured runtime rejection, sampled thermal/corner/geometry branch equations and application/control-program checks. Physical and full operating-envelope qualification remain open.",
+  "source_lock": {
+    "path": "icstudio/assets/qualification/sky130-rf/source-lock.json",
+    "sha256": "9bbc32cb158ae7f842aee085abaa834df9576eb2a5fad0c00f81eeb07607b570"
+  },
+  "candidate": {
+    "revision": "083cc2eb2d9fb618",
+    "manifest_sha256": "a96fb4b9c517bdd36d54db7a9cd36fb99f18264269be9d1bf3273b10e9db0904",
+    "default_promoted": false,
+    "originals_retained": true,
+    "licenses": "Apache-2.0 originals and marked derivatives; GPL-3.0 application/qualification code"
+  },
+  "source_files": {
+    "icstudio/diode_runtime.py": "eb59b0d205925262d3c36cf03ea6d7f38920c2029b8b9ad99921343fce351100",
+    "icstudio/rf_runtime.py": "4c82bb68ddcdfbdb8cf90158200f191f4038d9492e3be0d42dc5775fc05223de",
+    "icstudio/ngspice_compat.py": "df92acb064402a29c19b0a40062ba04c783a0596b8013d8632cc11521f5aa0c7",
+    "icstudio/engines.py": "5ef20d982fc60d4188507d9b1aadd402e88914c3dda6d9572abffb3d7a4ea667",
+    "scripts/verify_ngspice_diode_sequences.py": "c3b482914c0837253a7a0fa860d63d95c8cd5e430391d43832d89a9936f067dd",
+    "scripts/prepare_sky130_rf_qualification.py": "d72834debdcc6e04e9dbb9bba342a6c11b8028646d4b6f7f6b54da0be197817b",
+    "scripts/qualify_sky130_rf_branches.py": "c5f96e3afc2c0e96b8e7f4021f4a12a62778cd988047173302997f200e1653af",
+    "scripts/qualify_sky130_rf_application.py": "10d43513adeafa9a5691d68b06651eb06277e90b32f73a7f0b52c6373cfb4074",
+    "scripts/qualify_sky130_rf_programs.py": "f2e043b5a64d12f7a65b537e71e0b701f65be6c9be2863d089a01c86aa60939e",
+    "tests/test_engine_parser.py": "680153ee4efff5aae66e028cd9fe57a4545eed572a748e26a5f2d37102621a81",
+    "tests/test_rf_runtime.py": "0c3a30eb6dfe16b930b3a754ab1e9d8cd969ab0d1f26358569db392f3a5b0846",
+    "tests/test_sky130_rf_candidate.py": "3ab55915cea57d414d468c8972e61e0831fd41be0dcf83cf99791102875829aa"
+  },
+  "hosts": {
+    "Windows": {
+      "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "thermal_report_sha256": "46c8917083477f6cb05ba3ed66b2183dd86111c346b82f33c6891e05c158c49c",
+      "application_report_sha256": "a58542eb709304b22a1ba91f405790659c109aa16af82c5e6639a6b45b87286e",
+      "program_report_sha256": "e3e24436b38ebd240b3cc75a74f133d9a836c2420e1319fe876236b776bfd4f0",
+      "thermal": {
+        "status": "PASS",
+        "valid_cases": 90,
+        "rejected_fault_cases": 270,
+        "models": [
+          "ps2nw",
+          "pw2dn"
+        ],
+        "corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "temperatures_c": [
+          -40,
+          27,
+          125
+        ],
+        "area_perimeter_pairs": [
+          [
+            4,
+            8
+          ],
+          [
+            8,
+            12
+          ],
+          [
+            100,
+            40
+          ],
+          [
+            4,
+            10
+          ],
+          [
+            16,
+            20
+          ]
+        ],
+        "frequencies_hz": [
+          1000,
+          10000000000.0
+        ],
+        "points_per_decade": 10,
+        "samples_per_ac": 71,
+        "relative_tolerance": 1e-06,
+        "absolute_tolerance_a": 1e-18,
+        "maximum_valid_normalized_error": 0.019667583162224715,
+        "minimum_fault_normalized_error": 50677.922505435454
+      },
+      "application": {
+        "interfaces": 2,
+        "devices": 6,
+        "dc_samples": 25,
+        "ac_samples": 31,
+        "polarity_and_width_fault_instances": 12,
+        "automatic_runtime_proofs": 6
+      },
+      "program": {
+        "analysis_order": [
+          "op",
+          "ac",
+          "dc",
+          "ac"
+        ],
+        "comparisons": [
+          {
+            "case": 2,
+            "analysis": "ac",
+            "maximum_normalized_error": 6.246312485735826e-10
+          },
+          {
+            "case": 3,
+            "analysis": "dc",
+            "maximum_normalized_error": 3.968613345561595e-10
+          },
+          {
+            "case": 4,
+            "analysis": "ac",
+            "maximum_normalized_error": 6.246312485735826e-10
+          }
+        ],
+        "project_unchanged": true,
+        "incompatible_engine_routes": [
+          {
+            "route": "graphical",
+            "status": "REJECTED",
+            "acceptance_sha256": "c68250a4093154a660430e2376d9249339cc63b19a858ac914e7b85a3b92b4c9"
+          },
+          {
+            "route": "program",
+            "status": "REJECTED",
+            "acceptance_sha256": "7c496d6ff4b9571c620528a2b873f66054578c9bad7564a5749ee5957e2eaa91"
+          },
+          {
+            "route": "external",
+            "status": "REJECTED",
+            "acceptance_sha256": "3f7aa812193749c2b43d4c187d3af857b366c555798bc1aff4d5abccf7141a30"
+          }
+        ]
+      }
+    },
+    "Linux": {
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "thermal_report_sha256": "51c7e97517dd5c6229b24832ba79d26f4f8179619258c9e6a4146c48d4643e9b",
+      "application_report_sha256": "2d989f8d8024859ecd08d353cd4973c59352bcb82a4c9298c01575893f026503",
+      "program_report_sha256": "e14e0bcb4764e0739c969b69e363eab44f0cb6c6d6fcd61f7544f6d8c6e06903",
+      "thermal": {
+        "status": "PASS",
+        "valid_cases": 90,
+        "rejected_fault_cases": 270,
+        "models": [
+          "ps2nw",
+          "pw2dn"
+        ],
+        "corners": [
+          "tt",
+          "ss",
+          "ff"
+        ],
+        "temperatures_c": [
+          -40,
+          27,
+          125
+        ],
+        "area_perimeter_pairs": [
+          [
+            4,
+            8
+          ],
+          [
+            8,
+            12
+          ],
+          [
+            100,
+            40
+          ],
+          [
+            4,
+            10
+          ],
+          [
+            16,
+            20
+          ]
+        ],
+        "frequencies_hz": [
+          1000,
+          10000000000.0
+        ],
+        "points_per_decade": 10,
+        "samples_per_ac": 71,
+        "relative_tolerance": 1e-06,
+        "absolute_tolerance_a": 1e-18,
+        "maximum_valid_normalized_error": 0.019667583162224715,
+        "minimum_fault_normalized_error": 50677.922505435454
+      },
+      "application": {
+        "interfaces": 2,
+        "devices": 6,
+        "dc_samples": 25,
+        "ac_samples": 31,
+        "polarity_and_width_fault_instances": 12,
+        "automatic_runtime_proofs": 6
+      },
+      "program": {
+        "analysis_order": [
+          "op",
+          "ac",
+          "dc",
+          "ac"
+        ],
+        "comparisons": [
+          {
+            "case": 2,
+            "analysis": "ac",
+            "maximum_normalized_error": 4.6071047988128477e-10
+          },
+          {
+            "case": 3,
+            "analysis": "dc",
+            "maximum_normalized_error": 3.968613345561595e-10
+          },
+          {
+            "case": 4,
+            "analysis": "ac",
+            "maximum_normalized_error": 4.6071047988128477e-10
+          }
+        ],
+        "project_unchanged": true,
+        "incompatible_engine_routes": [
+          {
+            "route": "graphical",
+            "status": "REJECTED",
+            "acceptance_sha256": "0ed91277a893a59300a0bd21edfc1536c28aaa89d28ee2c2bd8e6ce15b895d3b"
+          },
+          {
+            "route": "program",
+            "status": "REJECTED",
+            "acceptance_sha256": "d3bcc8cb122cb07899d1b9b2de2cec51b7a97ecfc441fc4fcfc4c7a172fbf1cc"
+          },
+          {
+            "route": "external",
+            "status": "REJECTED",
+            "acceptance_sha256": "dbe8a1349ca90a1b951e536022e9957f51424f292b1e505246804c51062822dd"
+          }
+        ]
+      }
+    }
+  },
+  "independent_audit": {
+    "status": "PASS",
+    "thermal_current_samples_compared": 51120,
+    "thermal_raw_files_verified": 1440,
+    "maximum_cross_host_normalized_error": 0,
+    "portable_candidate_sha256": "a96fb4b9c517bdd36d54db7a9cd36fb99f18264269be9d1bf3273b10e9db0904"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/sky130-rf-runtime-2026-10-18/evidence.zip",
+    "sha256": "f5e5ae0122d5c92f77f8cc408b4cac60f8ff20a22e0657e7fed9cbe6122624d2",
+    "bytes": 20621439,
+    "files": 22209,
+    "unique_contents": 5455,
+    "all_objects_verified": true
+  },
+  "restore": {
+    "status": "PASS",
+    "archive_sha256": "f5e5ae0122d5c92f77f8cc408b4cac60f8ff20a22e0657e7fed9cbe6122624d2",
+    "restores": [
+      {
+        "prefix": "Windows46-runtime",
+        "output": "Restored and verified 5 files into C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\rf2-restore-runtime\r\n"
+      },
+      {
+        "prefix": "current-source",
+        "output": "Restored and verified 1220 files into C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\rf2-restore-source\r\n"
+      }
+    ],
+    "thermal_cases_replayed": 360,
+    "tests_replayed": 17,
+    "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+    "thermal_report_sha256": "c742360a7e60e73d0178c00a54c84df933a100c45ba61c78fac99f1ff66c8349",
+    "scope": "Restored final application/source, four public original RF models, pinned corner inputs and native Windows runtime repeat all RF branch/fault cases and parser/numerical/guard tests."
+  },
+  "runtime_guard": {
+    "routes": [
+      "graphical known RF calls",
+      "captured native known RF calls",
+      "saved programs with known RF calls",
+      "explicit testbench known RF calls"
+    ],
+    "behavior_required": "unscaled-explicit-area",
+    "analyses": [
+      "OP",
+      "DC",
+      "AC repeated after DC",
+      "alter AREA",
+      "alter PJ",
+      "alter M"
+    ],
+    "circuit_rewritten": false,
+    "limitations": "Recognition is for explicit known RF subcircuit calls, not arbitrary renamed third-party subcircuits hidden in external libraries. No complete runtime or process certification."
+  },
+  "source_regression": {
+    "Windows": {
+      "record": {
+        "status": "PASS",
+        "host": "Windows",
+        "exit": 0,
+        "implementation_unchanged": true,
+        "seconds": 10.828000000008615,
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+          "-X",
+          "utf8=0",
+          "-m",
+          "unittest",
+          "tests.test_rf_runtime",
+          "tests.test_sky130_rf_candidate",
+          "tests.test_ngspice_diode_sequences",
+          "tests.test_ngspice_compat",
+          "tests.test_ngspice_paths",
+          "tests.test_engine_parser",
+          "tests.test_external_exchange_engines",
+          "tests.test_hierarchical_simulation_deck",
+          "tests.test_osdi_program_audit",
+          "tests.test_pdk_qualification_matrix",
+          "tests.test_saved_bias",
+          "tests.test_bundled_simulation",
+          "-v"
+        ],
+        "log_sha256": "d494c24d4449e2e51e320c49d28cece002cf14d385ca96deffc60c5e08853bd5"
+      },
+      "discovered": 64,
+      "scope": "This exact source precedes only the subsequent raw-title parser repair. The pre-fix engine file and source hash inventory are archived."
+    },
+    "Linux": {
+      "record": {
+        "status": "FAIL",
+        "host": "Linux",
+        "exit": 1,
+        "implementation_unchanged": true,
+        "seconds": 270.355036547,
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-X",
+          "utf8=0",
+          "-m",
+          "unittest",
+          "tests.test_rf_runtime",
+          "tests.test_sky130_rf_candidate",
+          "tests.test_ngspice_diode_sequences",
+          "tests.test_ngspice_compat",
+          "tests.test_ngspice_paths",
+          "tests.test_engine_parser",
+          "tests.test_external_exchange_engines",
+          "tests.test_hierarchical_simulation_deck",
+          "tests.test_osdi_program_audit",
+          "tests.test_pdk_qualification_matrix",
+          "tests.test_saved_bias",
+          "tests.test_bundled_simulation",
+          "-v"
+        ],
+        "log_sha256": "8367b131ca9871074efbf0cb129b8d56566f1cf2cd82aac7a949c09aa36e7ce4"
+      },
+      "discovered": 64,
+      "scope": "This exact source precedes only the subsequent raw-title parser repair. The pre-fix engine file and source hash inventory are archived.",
+      "corrected_fixture_rerun": {
+        "status": "PASS",
+        "exit": 0,
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-m",
+          "unittest",
+          "tests.test_ngspice_paths",
+          "-v"
+        ],
+        "engine_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+        "reason": "The actual relocation test copies the engine file and its dependencies. The first harness supplied a directory-relative shell wrapper instead of the standalone simulator binary. Use the actual binary; no application or test source changes.",
+        "source_unchanged": true,
+        "log_sha256": "cfeb4f92d73ed6cd84866736ae68aedfcd2d8f342d6383bad85f0260d8b0dcde"
+      }
+    },
+    "post_title_repair": {
+      "windows": 17,
+      "linux": 17,
+      "failed": 0,
+      "scope": "Parser, independent numerical oracle and RF guard tests. Restored-source replay also verifies the final source independently."
+    }
+  },
+  "raw_title_repair": {
+    "baseline_error": "UnicodeDecodeError('utf-8', b'Title: * caf\\xe9 external legacy deck\\r\\nDate: Sun Oct 18 19:41:05  2026\\r\\nCommand: ngspice-46, Build Mar 29 2026   15:02:07\\r\\nPlotname: Operating Point\\r\\nFlags: real\\r\\nNo. Variables: 2\\r\\nNo. Points: 1       \\r\\nVariables:\\r\\n\\t0\\tv(out)\\tvoltage\\r\\n\\t1\\ti(v1)\\tcurrent\\r\\nValues:\\r\\n0\\t\\t1.000000000000000e+00\\r\\n\\t-1.000000000000000e-03\\r\\n', 12, 13, 'invalid continuation byte')",
+    "before_sha256": "bb8063f8f20d8392fbe9ffd60affe909b978735d215ee641739768f58369cfc9",
+    "after_sha256": "5ef20d982fc60d4188507d9b1aadd402e88914c3dda6d9572abffb3d7a4ea667",
+    "scope": "Only descriptive Title bytes use replacement decoding. UTF-8 vector headers and ASCII numeric data still reject corruption.",
+    "actual_windows_external_deck": {
+      "status": "PASS",
+      "bytes_unchanged": true,
+      "record_sha256": "bf7445cbd0d1f2e3d4836a424562d35301a352fab1aa111e057c077160ca6928"
+    }
+  },
+  "hosted_interoperability": {
+    "commit": "0e0db322a4aac25f65b2368f5b812f3c78b52537",
+    "passed_runs": [
+      39176524674,
+      39176530026
+    ],
+    "scope": "Previous pushed runtime/path/menu checkpoint. New RF commit hosted results remain pending."
+  },
+  "remaining": [
+    "RF physical marker recognition, well topology, contact geometry and strict extracted connectivity.",
+    "RF bias-dependent capacitance, transient/noise, statistical behavior and documented geometry/operating boundaries.",
+    "Seven real default-catalog models remain unavailable; no model availability is promoted by this record.",
+    "Other required device-family physical/envelope coverage and installed-release acceptance."
+  ],
+  "final_formatting_only": {
+    "path": "icstudio/diode_runtime.py",
+    "tested_sha256": "eddaa6762cc4f53a84802d2755bf19dc0e42b8463cea09a6ce29e7f74c5664e3",
+    "final_sha256": "eb59b0d205925262d3c36cf03ea6d7f38920c2029b8b9ad99921343fce351100",
+    "ast_identical": true,
+    "change": "Remove trailing empty lines; the archived executed source retains the original bytes."
+  }
+}

@@ -208,6 +208,16 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Diode sequence acceptance failed.' }
           python scripts/verify_ngspice_capacitors.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-capacitor-multipliers
           if ($LASTEXITCODE -ne 0) { throw 'Capacitor multiplier acceptance failed.' }
+      - name: Verify public SKY130 RF candidate and automatic runtime checks
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python scripts/prepare_sky130_rf_qualification.py --output build/sky130-rf-candidate
+          if ($LASTEXITCODE -ne 0) { throw 'RF candidate preparation failed.' }
+          python scripts/qualify_sky130_rf_branches.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-rf-branches
+          if ($LASTEXITCODE -ne 0) { throw 'RF branch qualification failed.' }
+          python scripts/qualify_sky130_rf_application.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --package build/sky130-rf-candidate --output build/windows-rf-application
+          if ($LASTEXITCODE -ne 0) { throw 'RF application qualification failed.' }
       # Exercise Windows' legacy text encoding before larger release dependencies.
       - name: Verify Windows saved bias with UTF-8 mode disabled
         if: runner.os == 'Windows'
@@ -679,6 +689,8 @@ jobs:
             build/bundled-corner-ui
             build/windows-diode-sequences
             build/windows-capacitor-multipliers
+            build/windows-rf-branches
+            build/windows-rf-application
             build/macro-integrity-installed
             build/distribution-evidence/vga
             build/windows-evidence/vga

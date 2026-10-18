@@ -389,3 +389,13 @@ asymmetric extractor from public drain masks, removing reference-driven filterin
 and implicit joins, and connecting substrate only after independent physical-metal
 checks. The original mask-coupon generator and audit code are project code under
 GPL-3.0. These local changes are not upstream or foundry-approved signoff rules.
+
+The RF diode qualification inputs under `icstudio/assets/qualification/sky130-rf`
+retain four unmodified files from the public `google/skywater-pdk-libs-sky130_fd_pr`
+tree `f62031a1be9aefe902d6d54cddd6f59b57627436`, their individual Git blob identities,
+checksums, original headers and Apache-2.0 license. These originals keep that
+license. The separate candidate builder marks its two derivative wrappers and
+adds the explicit perimeter to their `dp` branches. It retains all originals
+alongside the derivatives. The independent equations, runtime guard and
+qualification runners are project code under GPL-3.0. The candidate remains
+outside the default package pending physical and operating-envelope qualification.

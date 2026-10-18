@@ -59,6 +59,15 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [public RF runtime record](validation/sky130-rf-runtime-2026-10-18.json) adds
+automatic simulator rejection and reproducible public candidates for two SKY130
+RF diodes. Each host passes 90 valid and 270 deliberately faulty thermal/corner/
+geometry cases. Independent readback verifies 1,440 raw files and identical
+51,120 current samples across hosts. Portable application and preserved-program
+checks pass, including actual incompatible-engine rejection on all three routes.
+The [RF guide](SKY130_RF_DIODE_QUALIFICATION.md) keeps physical extraction, wider
+operating envelopes and default promotion explicitly open. Chunk 7 is incomplete.
+
 The [Windows runtime and RF candidate record](validation/windows-simulation-and-rf-2026-10-18.json)
 replaces the reproduced repeated-diode-analysis defect with the verified official
 Windows ngspice 46 runtime. All executed checks in the 3,107-test Windows suite

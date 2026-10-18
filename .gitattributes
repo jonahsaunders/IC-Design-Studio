@@ -38,6 +38,7 @@ icstudio/digital_sky130_lvs_core.py whitespace=cr-at-eol
 
 # Locked public NPN sources retain upstream bytes.
 icstudio/assets/qualification/sky130-npn/** -whitespace
+icstudio/assets/qualification/sky130-rf/*.spice -whitespace
 tests/fixtures/ihp-mim-original-v1/** -whitespace
 icstudio/assets/qualification/sky130-base-v1/** -whitespace
 icstudio/assets/pdks/sky130A/qualification-sources/bipolar/** -whitespace

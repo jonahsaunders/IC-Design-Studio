@@ -118,6 +118,8 @@ def convert(text,mode):
 
 
 def prepare(text,executable,directory):
+    from .rf_runtime import enforce
+    enforce(text,executable,directory)
     if MARKER not in text:return text
     record=behavior(executable,directory)
     result,count=convert(text,record['mode'])
