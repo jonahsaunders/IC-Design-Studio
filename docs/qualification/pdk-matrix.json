@@ -43,7 +43,7 @@
       "latest_ci_repair_evidence": "docs/validation/ihp-varactor-and-detector-2026-10-19.json",
       "latest_rf_transient_evidence": "docs/validation/sky130-rf-transient-2026-10-19.json",
       "latest_ihp_inductor_physical_evidence": "docs/validation/ihp-inductor-physical-2026-10-19.json",
-      "latest_ihp_varactor_evidence": "docs/validation/ihp-varactor-and-detector-2026-10-19.json"
+      "latest_ihp_varactor_evidence": "docs/validation/ihp-varactor-contacts-2026-10-19.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24196,13 +24196,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical checks and 40 rotated physical LVS cases pass; 16 also pass full DRC and 12 faults are detected. Twenty-four smaller-layout rotations and the larger geometry retain unresolved native DRC findings. Full physical/operating-envelope and installed-release qualification remain open.",
+        "remaining": "Forty explicitly contacted small layouts pass full local DRC/LVS and all twenty-eight faults are detected. The original Nx4 contact-fragment defect is corrected without changing its masks; original Nx10 tie and large Nx1 well findings remain failed. Full geometry/operating-envelope and installed-release qualification remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "four-terminal-capacitors-2026-10-17",
           "default-device-packages-2026-10-17",
-          "ihp-varactor-and-detector-2026-10-19"
+          "ihp-varactor-and-detector-2026-10-19",
+          "ihp-varactor-contacts-2026-10-19"
         ]
       },
       "sg13g2_pr/sub.sym": {
@@ -24916,6 +24917,11 @@
       "path": "docs/validation/ihp-varactor-and-detector-2026-10-19.json",
       "sha256": "860c0885e334b9a8a1b826f2540f7bce94c838dffed8f34cb7b15b6cf2afdcb9",
       "scope_limit": "IHP four-terminal varactor interface, bounded physical layouts, explicit failed wider geometry, and unchanged detector simulations in concurrent processes. No complete family, operating-envelope, foundry or installed-release qualification."
+    },
+    "ihp-varactor-contacts-2026-10-19": {
+      "path": "docs/validation/ihp-varactor-contacts-2026-10-19.json",
+      "sha256": "334a13890a3501f71ad8af86639f6a052d1108b5e516f81bd0887db08e59752b",
+      "scope_limit": "Full local DRC/LVS for forty explicitly contacted small IHP varactor coupons and twenty-eight faults. Original larger/tie-deficient layouts remain failed; no complete family, operating-envelope, foundry or installed-release qualification."
     }
   },
   "execution_acceptance": {

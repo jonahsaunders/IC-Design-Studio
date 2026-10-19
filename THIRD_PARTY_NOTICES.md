@@ -418,5 +418,9 @@ qualification script adds the exact oxide rectangle specified by that generator
 but absent from the separate LVS fixture, plus explicit conductor labels and a
 contacted substrate. The original GDS is unchanged. The GPL-3.0 adapter preserves
 four terminals in comparison and removes annotation-to-net joins only in the
-private extraction copy. Wider public layouts still have unresolved full-DRC
+private extraction copy. A separately recorded private Magic copy measures the
+union of poly/varactor contact fragments using the unchanged 160 nm Cnt.a limit.
+Its upstream Apache-2.0 headers and original sources remain intact. The opt-in
+contacted coupon adds explicit well/substrate ties while retaining the original
+gate and pin geometry. Larger public layouts still have unresolved full-DRC
 findings; see `docs/IHP_VARACTOR_QUALIFICATION.md`.

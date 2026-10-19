@@ -59,11 +59,31 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [contacted-varactor record](validation/ihp-varactor-contacts-2026-10-19.json)
+adds forty full-DRC/strict-LVS passes and twenty-eight detected faults for the
+explicitly contacted small IHP geometries. A source-checked private correction
+measures complete poly/varactor contacts using the unchanged 160 nm limit.
+The coupon adds actual well/substrate ties while retaining every original drawn area,
+gate and pin. Independent readback covers eighty netlists and four hundred
+export layer pairs; six Windows backend cases verify 720 received files.
+Eight earlier bipolar/tap/coil cases pass. The original Nx10 tie findings and
+large-geometry well findings remain failed. Larger geometries, full operating
+envelopes, other outstanding devices and installed-release acceptance remain
+open; chunk 7 is not complete.
+
+The full Windows suite passes 3,167 discovered tests with 63 platform skips;
+the final verifier/backend checks pass another 37 tests. Linux discovers 3,168
+tests with 55 skips: the source-copy run has one missing-Git-context error, and
+that identical test passes from the real checkout. The compact evidence archive
+restores and replays six native success/failure controls. The earlier detector
+repair, coil/selected-varactor CI and release-tool checks pass at `e81d12d`;
+hosted acceptance of the new contact/tie changes remains pending.
+
 The [varactor and detector record](validation/ihp-varactor-and-detector-2026-10-19.json)
 adds four-terminal IHP varactor comparison and prevents recognition annotations
-from shorting separate devices. Forty rotated cases pass strict LVS, sixteen
-also pass full DRC, and twelve deliberate faults are detected. Twenty-four
-smaller-layout rotations and the larger geometry retain unresolved DRC findings;
+from shorting separate devices. In that original run forty rotated cases passed
+strict LVS, sixteen also passed full DRC, and twelve deliberate faults were
+detected. Twenty-four smaller-layout rotations and the larger geometry had DRC findings;
 see the [physical scope](IHP_VARACTOR_QUALIFICATION.md). The detector now runs
 independent selector-code comparisons in two processes: all 32 waveforms match
 the previous sequential run exactly, and the saved desktop bench passes. Hosted

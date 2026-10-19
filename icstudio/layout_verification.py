@@ -124,6 +124,11 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
         if lvs_extractor=='ihp-klayout':
             from .ihp_klayout_lvs import assets as extraction_assets
             assets.update({'ihp-klayout/'+name:path for name,path in extraction_assets().items()})
+            from .ihp_varactor_rules import prepare as prepare_contact_rules
+            original_technology=assets['technology']
+            technology,private,proof=prepare_contact_rules(assets,out/'ihp-magic-rules',p['pdk']['package_lock']['files'])
+            assets.update(private);assets['original-technology']=original_technology;assets['technology']=technology
+            report['ihp_contact_operand_correction']=proof
         if lvs_extractor=='gf180-hv-klayout':
             from .gf180_hv_verification import assets as extraction_assets
             assets.update({'gf180-hv-klayout/'+name:path for name,path in extraction_assets().items()})

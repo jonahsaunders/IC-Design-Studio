@@ -10,6 +10,7 @@ on:
       - 'scripts/build_physical_engines.py'
       - 'tests/test_ihp_inductor_lvs.py'
       - 'tests/test_ihp_varactor_lvs.py'
+      - 'tests/test_ihp_varactor_rules.py'
       - 'requirements.txt'
       - '.github/workflows/ihp-inductor-qualification.yml'
   pull_request:
@@ -20,6 +21,7 @@ on:
       - 'scripts/build_physical_engines.py'
       - 'tests/test_ihp_inductor_lvs.py'
       - 'tests/test_ihp_varactor_lvs.py'
+      - 'tests/test_ihp_varactor_rules.py'
       - 'requirements.txt'
       - '.github/workflows/ihp-inductor-qualification.yml'
 permissions:
@@ -41,13 +43,13 @@ jobs:
       - name: Build pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
       - name: Check coil topology, interfaces and lossless stream handling
-        run: python -m unittest tests.test_ihp_inductor_lvs tests.test_ihp_varactor_lvs -v
+        run: python -m unittest tests.test_ihp_inductor_lvs tests.test_ihp_varactor_lvs tests.test_ihp_varactor_rules -v
       - name: Require eight legal orientations and twenty-eight detected faults
         timeout-minutes: 10
         run: python scripts/qualify_ihp_inductor_layouts.py --sources icstudio/assets/qualification/ihp-inductors --output build/ihp-coil-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
-      - name: Require the selected varactor and twelve detected design faults
-        timeout-minutes: 5
-        run: python scripts/qualify_ihp_varactor_layouts.py --size small --pilot --output build/ihp-varactor-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Require forty contacted varactor layouts and twenty-eight detected faults
+        timeout-minutes: 10
+        run: python scripts/qualify_ihp_varactor_layouts.py --size small --contacted --workers 2 --output build/ihp-varactor-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - uses: actions/upload-artifact@v4
         if: always()
         with:
