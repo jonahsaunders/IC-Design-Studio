@@ -85,6 +85,8 @@ def extraction_assets(destination):
         sha256=file_digest(path), change='Keep IND LA/LB/LC recognition text without assigning it to electrical nets. Actual metal connections and conductor labels remain unchanged.')]
     from .ihp_inductor_lvs import extractor_roles
     record['additional_corrections'].extend(extractor_roles(destination))
+    from .ihp_varactor_lvs import extractor_connections
+    record['additional_corrections'].append(extractor_connections(destination))
     atomic_write(destination/'ICSTUDIO-CORRECTIONS.json', json.dumps(record, indent=2))
     return destination/'sg13g2.lvs', record
 
@@ -227,6 +229,12 @@ def extract(executable, source, top, ports, technology, folder):
     converted, changes = bipolar_subcircuits(native.read_text(encoding='utf-8'))
     from .ihp_inductor_lvs import geometry as inductor_geometry
     converted, inductors = inductor_geometry(converted); changes.extend(inductors)
+    from .ihp_varactor_lvs import geometry as varactor_geometry
+    converted, varactors = varactor_geometry(converted); changes.extend(varactors)
+    from .ihp_varactor_lvs import recognition_inventory
+    varactor_marks = recognition_inventory(source, top)
+    if len(varactor_marks) != len(varactors):
+        raise ValueError('IHP extraction did not retain every marked varactor exactly once.')
     from collections import Counter
     if Counter(c['model'] for c in coils['coils']) != Counter(c['model'] for c in inductors):
         raise ValueError('IHP extraction did not retain every marked inductor.')
@@ -243,4 +251,5 @@ def extract(executable, source, top, ports, technology, folder):
                 native_sha256=file_digest(native), source_commit=COMMIT, label_mapping=mapping,
                 interface_conversion=changes, top_port_order=port_order, local_correction=correction,
                 inductor_wiring=coils,
+                varactor_recognition=varactor_marks,
                 settings={k:str(v) for k,v in settings.items()})

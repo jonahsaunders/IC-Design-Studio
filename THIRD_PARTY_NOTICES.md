@@ -409,3 +409,14 @@ adds the explicit perimeter to their `dp` branches. It retains all originals
 alongside the derivatives. The independent equations, runtime guard and
 qualification runners are project code under GPL-3.0. The candidate remains
 outside the default package pending physical and operating-envelope qualification.
+
+The IHP varactor inputs in `icstudio/assets/qualification/ihp-varactors` retain
+the unmodified public GDS, CDL and SVaricap generator from the same pinned IHP
+commit `5e6d592e4002946a4616f798c357f0f3c06cf3b6`. Their source inventory,
+original copyright headers and Apache-2.0 license accompany them. The GPL-3.0
+qualification script adds the exact oxide rectangle specified by that generator
+but absent from the separate LVS fixture, plus explicit conductor labels and a
+contacted substrate. The original GDS is unchanged. The GPL-3.0 adapter preserves
+four terminals in comparison and removes annotation-to-net joins only in the
+private extraction copy. Wider public layouts still have unresolved full-DRC
+findings; see `docs/IHP_VARACTOR_QUALIFICATION.md`.

@@ -59,6 +59,17 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [varactor and detector record](validation/ihp-varactor-and-detector-2026-10-19.json)
+adds four-terminal IHP varactor comparison and prevents recognition annotations
+from shorting separate devices. Forty rotated cases pass strict LVS, sixteen
+also pass full DRC, and twelve deliberate faults are detected. Twenty-four
+smaller-layout rotations and the larger geometry retain unresolved DRC findings;
+see the [physical scope](IHP_VARACTOR_QUALIFICATION.md). The detector now runs
+independent selector-code comparisons in two processes: all 32 waveforms match
+the previous sequential run exactly, and the saved desktop bench passes. Hosted
+acceptance, full device coverage and installed-release qualification remain open.
+Chunk 7 is not complete.
+
 The [IHP coil physical record](validation/ihp-inductor-physical-2026-10-19.json)
 adds both public coil interfaces without inventing electrical models. Eight
 rotated layouts pass full native DRC/LVS and all 28 deliberate faults are
