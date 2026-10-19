@@ -127,6 +127,9 @@ def dispatch(job, directory, progress):
         if job['settings'].get('lvs_extractor')=='gf180-hv-klayout':
             from .gf180_hv_verification import copy_assets
             copy_assets(backend/'icstudio/assets/physical/gf180_hv')
+        if job['settings'].get('lvs_extractor')=='sky130-rf-nwell-klayout':
+            from .sky130_rf_verification import copy_assets
+            copy_assets(backend/'icstudio/assets/verification/sky130')
         atomic_write(backend/'entry.py','from icstudio.digital_backend import supervise\nfrom icstudio.physical_backend import native_run\nraise SystemExit(supervise(native_run))\n')
         atomic_write(work/'native-input.json',json.dumps(native))
         marker_path=digital_runtime.wsl(['--distribution',runtime['distro'],'--exec','wslpath','-a','-u',str(marker)]) if runtime['kind']=='wsl' else str(marker)

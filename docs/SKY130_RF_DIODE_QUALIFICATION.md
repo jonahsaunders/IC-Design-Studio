@@ -2,8 +2,10 @@
 
 The [execution record](validation/sky130-rf-runtime-2026-10-18.json) covers two
 public RF diode candidates, `rf_diode_ps2nw` and `rf_diode_pw2dn`. Chunk 7 remains
-in progress. Neither candidate is promoted into the default library, and no
-physical, full operating-envelope or measured-silicon qualification is claimed.
+in progress. Neither candidate is promoted into the default library. The
+subsequent n-well physical checks below cover selected isolated layouts; no
+complete RF family, full operating-envelope or measured-silicon qualification
+is claimed.
 
 ## Public sources and explicit correction
 
@@ -18,7 +20,7 @@ No fitted parameter, primitive model equation or process corner is replaced.
 Both devices use an explicit two-terminal `X` call: `d0` maps to the public `c0`
 anode, and `d1` to the `c1` cathode. Positive rectangular W/L are in micrometres.
 Area is W×L and perimeter is 2×(W+L); direct overrides of these computed values
-are rejected. These dimensions do not establish a physical layout recipe.
+are rejected. Electrical dimensions alone do not establish physical validity.
 
 ## Automatic runtime requirement
 
@@ -85,17 +87,62 @@ pending hosted run or a packaged-release acceptance has passed.
 
 ## Remaining work
 
-The RF marker, well topology, contacts and strict extracted connectivity still
-need a qualified physical route. Bias-dependent capacitance, transient/noise,
+The RF p-well/deep-n-well topology, its additional substrate junction and full
+RF layout coverage remain open. Bias-dependent capacitance, transient/noise,
 statistical behavior, geometry boundaries and a documented supported operating
 envelope need further checks. The default catalog still has seven unavailable
 real model entries and nine utility entries. Other required device families and
 installed-release acceptance also remain part of chunk 7.
 
-A retained 2 × 2 µm n-well prototype has zero findings under the full enabled
-public KLayout DRC groups and yields 4 µm² / 8 µm in native diode extraction.
-Direct well/tap connectivity produces the intended terminals. This is an
-investigation, not physical acceptance: independent written-contact continuity,
-strict reference comparison, geometry/rotation coverage and deliberate physical
-fault controls are still required. The experimental extraction is not enabled in
-the application and does not bypass its rejection of dropped RF markers.
+## Bounded n-well physical verification
+
+The [physical execution record](validation/sky130-rf-nwell-layout-2026-10-18.json)
+supersedes the earlier unaccepted n-well prototype for its tested scope. The
+desktop action **Analysis → Verify SKY130 RF n-well diode…** accepts one
+rectangular `ps2nw` junction with a continuous contacted substrate ring. It
+requires a linked physical SKY130A package and an explicit two-terminal
+schematic. An example reference for a 2 × 2 µm junction is:
+
+```spice
+.subckt rf_coupon A K
+XD A K sky130_fd_pr__model__parasitic__rf_diode_ps2nw area=4 perim=8
+.ends rf_coupon
+```
+
+The RF marker remains in every exported stream. It must exactly match the
+rectangular n-well, implementing the applicable published
+[RF marker rules](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#rfdiode).
+Unknown device masks, additional junctions and unsupported geometry are rejected.
+The existing pinned GPL public deck runs all enabled block FEOL, BEOL and grid
+groups; its category inventory and source bytes are checked. Complete-chip,
+antenna, density and parasitic verification remain separate.
+
+Before device extraction, a separate audit joins only LI, mcon and metal1.
+Every tap component must have actual licon contacts reaching exactly its named
+metal terminal. Labels, implants, wells and common substrate cannot repair an
+open wire in this audit. Missing contacts, disconnected sections, floating metal
+and shorts fail. Only after this proof may native device extraction connect the
+physical body domains. No native devices are filtered, combined or aligned to
+the reference. Native A/K terminals and measured area/perimeter must also agree
+with independent metal/mask measurements.
+
+For this single-device topology the final comparator checks the entire flat
+graph, exact model, terminal polarity, area and perimeter. It accepts no extra
+elements, directives or parameters. Native SI geometry is converted explicitly
+to the public RF model's µm²/µm interface; no fitted model values are changed.
+This bounded comparison does not substitute for general multi-device LVS.
+
+Six widths/lengths—2×2, 4×2, 2×4, 1×4, 4×4 and 10×10 µm—pass four rotations each.
+All 24 layouts survive save/reopen, GDS/OASIS interchange, native DRC and strict
+extraction. All 102 deliberate physical/reference faults are rejected. These are
+sampled layouts, not a validated continuous geometry or electrical envelope.
+Windows backend and both source desktop checks have separately recorded scope;
+packaged installation acceptance remains open.
+
+```text
+python scripts/qualify_sky130_rf_layouts.py --sky130 LOCKED_PHYSICAL_PACKAGE --klayout KLAYOUT --output build/rf-layouts
+```
+
+The qualifier retains every successful and failed report. The default verifier
+continues to reject RF markers it cannot preserve; choosing the RF action does
+not enable unsupported devices in the default simulation catalog.

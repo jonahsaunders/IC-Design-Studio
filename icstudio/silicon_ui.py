@@ -21,6 +21,7 @@ class SiliconMixin:
             'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Run layout DRC / LVS only…',self.run_layout_verification),
                         ('Verify IHP layout with KLayout extraction…',lambda:self.run_layout_verification(lvs_extractor='ihp-klayout')),
                         ('Verify GF180 high-voltage layout…',lambda:self.run_layout_verification(lvs_extractor='gf180-hv-klayout')),
+                        ('Verify SKY130 RF n-well diode…',lambda:self.run_layout_verification(lvs_extractor='sky130-rf-nwell-klayout')),
                         ('Check linked layout and show connections',self.check_linked_layout)],
             'View':[('Physical workflow',self.open_silicon)]}.items():
             for title,fn in entries:self.action(menus[menu],title,fn)
@@ -46,8 +47,11 @@ class SiliconMixin:
             raise ValueError('Link an IHP SG13G2 physical PDK before selecting its KLayout extraction.')
         if lvs_extractor=='gf180-hv-klayout' and self.project['pdk'].get('package_lock',{}).get('id') not in ('gf180mcuC','gf180mcuD'):
             raise ValueError('Link a GF180 C or D PDK before verifying its asymmetric 10 V layout.')
+        if lvs_extractor=='sky130-rf-nwell-klayout' and self.project['pdk'].get('package_lock',{}).get('id')!='sky130A':
+            raise ValueError('Link a SKY130A physical PDK before verifying an RF n-well diode.')
+        scope='One rectangular RF n-well diode with a contacted substrate ring. The schematic must contain one ps2nw subcircuit call with explicit area and perimeter. This check does not cover RF p-well diodes or complete circuits. ' if lvs_extractor=='sky130-rf-nwell-klayout' else ''
         values=self.simple_form('Layout DRC / LVS',{'Schematic SPICE file':'','Schematic cell':self.cell['name']},
-            'Check the active layout against a self-contained schematic netlist using the linked physical PDK. The reference is captured with the run. Legacy layout labels use the named schematic terminals; no simulation testbench is required.')
+            scope+'Check the active layout against a self-contained schematic netlist using the linked physical PDK. The reference is captured with the run. Legacy layout labels use the named schematic terminals; no simulation testbench is required.')
         if not values:return
         from .layout_verification import reference
         path=Path(values['Schematic SPICE file']).expanduser()

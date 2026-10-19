@@ -59,6 +59,16 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [RF n-well physical record](validation/sky130-rf-nwell-layout-2026-10-18.json)
+closes the earlier prototype gap for one rectangular ps2nw junction. Twenty-four
+rotated layouts pass native public DRC, written-contact proof, unfiltered device
+extraction and strict polarity/geometry comparison; all 102 faults are rejected.
+Independent readback verifies all native dimensions and 648 mask comparisons.
+Both source desktops, eight Windows backend cases, 107 regressions per host and
+archive restoration/replay pass. RF p-well, complete operating envelopes, remaining
+models and installed-release acceptance remain open. No default device is promoted;
+chunk 7 is still incomplete.
+
 The [RF include follow-up](validation/sky130-rf-includes-2026-10-18.json) closes
 the nested-library runtime-detection gap. Both hosts reproduce explicit-call
 currents through two wrapper routes and reject incompatible engines before
