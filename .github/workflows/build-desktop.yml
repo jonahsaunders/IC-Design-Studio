@@ -218,6 +218,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'RF branch qualification failed.' }
           python scripts/qualify_sky130_rf_bias.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-rf-bias
           if ($LASTEXITCODE -ne 0) { throw 'SKY130 RF reverse-bias/noise qualification failed.' }
+          python scripts/qualify_sky130_rf_transient.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-rf-transient
+          if ($LASTEXITCODE -ne 0) { throw 'SKY130 RF transient qualification failed.' }
           python scripts/qualify_sky130_rf_application.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --package build/sky130-rf-candidate --output build/windows-rf-application
           if ($LASTEXITCODE -ne 0) { throw 'RF application qualification failed.' }
       # Exercise Windows' legacy text encoding before larger release dependencies.
@@ -693,6 +695,7 @@ jobs:
             build/windows-capacitor-multipliers
             build/windows-rf-branches
             build/windows-rf-bias
+            build/windows-rf-transient
             build/windows-rf-application
             build/macro-integrity-installed
             build/distribution-evidence/vga

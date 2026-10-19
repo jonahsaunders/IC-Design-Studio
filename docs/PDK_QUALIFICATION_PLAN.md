@@ -59,6 +59,15 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [RF transient record](validation/sky130-rf-transient-2026-10-19.json) adds
+independent nonlinear reverse-pulse integration and native timestep convergence.
+Each host passes 180 valid simulations across 90 conditions and detects all 270
+model faults. Both full local suites pass 3,135 discovered tests with explicit
+platform skips; the ten new RF tests pass separately. Fresh hosted inverter,
+public-layout and interoperability checks pass at `e912509`; remaining hosted
+and installed-release acceptance are tracked separately. These results extend
+the public candidates' tested scope; they do not complete chunk 7.
+
 The [October 19 RF and CI record](validation/chunk7-ci-rf-bias-2026-10-19.json)
 adds reverse-bias DC, complex admittance and noise checks for both public RF
 candidates. Each host passes 90 valid cases and rejects 270 model faults across

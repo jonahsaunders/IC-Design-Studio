@@ -76,6 +76,7 @@ must be new; existing results are retained.
 python scripts/prepare_sky130_rf_qualification.py --output build/rf-candidate
 python scripts/qualify_sky130_rf_branches.py --ngspice ENGINE --output build/rf-branches
 python scripts/qualify_sky130_rf_bias.py --ngspice ENGINE --output build/rf-bias
+python scripts/qualify_sky130_rf_transient.py --ngspice ENGINE --output build/rf-transient
 python scripts/qualify_sky130_rf_application.py --ngspice ENGINE --package build/rf-candidate --output build/rf-application
 python scripts/qualify_sky130_rf_programs.py --application build/rf-application --ngspice ENGINE --reject-ngspice INCOMPATIBLE_ENGINE --output build/rf-programs
 python scripts/qualify_sky130_rf_includes.py --application build/rf-application --ngspice ENGINE --reject-ngspice INCOMPATIBLE_ENGINE --output build/rf-includes
@@ -89,7 +90,7 @@ pending hosted run or a packaged-release acceptance has passed.
 ## Remaining work
 
 The RF p-well/deep-n-well topology, its additional substrate junction and full
-RF layout coverage remain open. Transient behavior, noise and bias coverage
+RF layout coverage remain open. Transient, noise and bias coverage
 beyond the sampled checks below, statistical behavior, geometry boundaries and
 a documented supported operating envelope need further checks. The default catalog still has seven unavailable
 real model entries and nine utility entries. Other required device families and
@@ -129,6 +130,36 @@ is retained: two tiny reverse-current comparisons exceeded the current floor
 because subtracting nearly equal resistor-node voltages lost precision. The
 grounded-anode circuit passes the unchanged tolerance. This does not qualify
 arbitrary common-mode voltage placement or measured RF/noise accuracy.
+
+## Sampled nonlinear reverse pulses
+
+The [transient record](validation/sky130-rf-transient-2026-10-19.json) checks a
+grounded anode with the cathode ramping from 1 V to 1.5 V and back to 1 V.
+Both public RF candidates run across the same three corners, three temperatures
+and five geometries. Pulse timing follows each circuit's calculated RC constants;
+it is not a published device speed rating.
+
+An independent fourth-order Runge–Kutta calculation evolves both junction
+voltages using the public voltage-dependent capacitance, leakage and series
+resistance. Halving its integration step must change the result by less than
+one hundredth of the acceptance budget. Native Gear integration uses two maximum
+timesteps, each independently compared at all 833 output points. Both runs must
+agree with the oracle and with each other. The current budget is 10⁻⁴ relative
+plus 10⁻¹² A absolute; time axes and applied voltage are also checked.
+
+Each host passes 90 conditions at both native refinements (180 valid simulations)
+and rejects 270 missing-perimeter, doubled-capacitance and doubled-perimeter-
+resistance controls. Complete finite waveforms are required before a fault can
+count as detected. Independent readback verifies 900 raw files and 374,850 points
+per host; the largest cross-host current difference consumes less than 0.41%
+of the comparison budget. The largest valid error consumes less than 55%.
+
+The retained exploratory runs include overly strict solver settings that stalled
+and a coarser setting that missed the unchanged accuracy threshold. The accepted
+settings pass the independent calculation and timestep refinement. This evidence
+qualifies only the tested reverse pulses, not arbitrary solver settings, forward
+switching, breakdown, statistical behavior or silicon accuracy. Default catalog
+promotion and complete chunk-7 acceptance remain open.
 
 ## Bounded n-well physical verification
 

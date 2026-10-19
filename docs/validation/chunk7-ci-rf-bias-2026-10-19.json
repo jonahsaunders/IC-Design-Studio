@@ -320,16 +320,34 @@
         "tests",
         "-v"
       ],
+      "discovered": 3135,
+      "skipped": 38,
       "log_sha256": "c074e2768fe9ed929f56d31b64fac8dac5093006a270b43c8a30013fe9504cff",
       "source_manifest_sha256": "6913b83e7763e794ccfc8ca6e191f11bf1109308fc7df4c6bf8221a27fc90cf6",
-      "scope": "Suite discovered before adding the five new RF-bias tests; those pass separately, including archive-restored Linux execution."
+      "scope": "Suite discovered before the five RF-bias and five RF-transient tests were added. All ten added tests pass separately on both hosts; archive-restored Linux executes them again."
     },
     {
       "host": "Linux",
-      "status": "running"
+      "exit": 0,
+      "seconds": 1953.8092738190003,
+      "source_unchanged": true,
+      "command": [
+        "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "discovered": 3135,
+      "skipped": 34,
+      "log_sha256": "1035a6d24ef4c70e29e2bcf570affb6245636368eb601da694752ea2cf6e8614",
+      "source_manifest_sha256": "4f3d5b93927a97e9cb02ebd8b7cea8cd06b51a09ed7816422bfae19cd10f4c88",
+      "scope": "Suite discovered before the five RF-bias and five RF-transient tests were added. All ten added tests pass separately on both hosts; archive-restored Linux executes them again."
     }
   ],
-  "hosted_acceptance": "Pending a fresh pushed commit; local results do not establish hosted or installed-package acceptance.",
+  "hosted_acceptance": "At e912509, interoperability and physical inverter/public-layout jobs pass. Other jobs remain pending in the saved checkpoint; no installed-release acceptance is inferred.",
   "retained_investigations": [
     "Anode-driven -5 V prototype exposed cancellation of tiny series-resistor currents against a large common-mode voltage. Grounded-anode cathode drive passes unchanged tolerance. The original failed prototype is retained; arbitrary common-mode equivalence is not claimed."
   ],
@@ -339,7 +357,258 @@
     "Other device-family physical/extracted coverage, statistical behavior, upstream tool-view completeness and installed-release acceptance remain open."
   ],
   "detector_replay": {
-    "status": "running",
-    "scope": "All sixteen programming codes, native application and pinned public reference."
-  }
+    "status": "passed",
+    "compatibility": "hsa",
+    "dc_startup": true,
+    "corner": "tt",
+    "temperature": 27,
+    "dvdd": 1.8,
+    "vbg": 1.2,
+    "ibias": 6e-07,
+    "supply_step": 0.01,
+    "tolerance": {
+      "relative": 0.001,
+      "absolute_voltage": 2e-06,
+      "trip": "same 10 mV step"
+    },
+    "codes": [
+      {
+        "code": 0,
+        "trip_voltage": 3.299999999999994,
+        "max_reference_error": 0.0006746189441129147,
+        "status": "passed"
+      },
+      {
+        "code": 1,
+        "trip_voltage": 3.429999999999991,
+        "max_reference_error": 0.0014411494653210344,
+        "status": "passed"
+      },
+      {
+        "code": 2,
+        "trip_voltage": 3.579999999999988,
+        "max_reference_error": 0.0003623129437080319,
+        "status": "passed"
+      },
+      {
+        "code": 3,
+        "trip_voltage": 3.739999999999984,
+        "max_reference_error": 0.0009776964657559617,
+        "status": "passed"
+      },
+      {
+        "code": 4,
+        "trip_voltage": 3.829999999999982,
+        "max_reference_error": 0.0004793441250268149,
+        "status": "passed"
+      },
+      {
+        "code": 5,
+        "trip_voltage": 4.009999999999978,
+        "max_reference_error": 0.00025863393750702457,
+        "status": "passed"
+      },
+      {
+        "code": 6,
+        "trip_voltage": 4.109999999999976,
+        "max_reference_error": 0.0005318867242680714,
+        "status": "passed"
+      },
+      {
+        "code": 7,
+        "trip_voltage": 4.319999999999972,
+        "max_reference_error": 0.0002672164925039411,
+        "status": "passed"
+      },
+      {
+        "code": 8,
+        "trip_voltage": 4.439999999999969,
+        "max_reference_error": 0.00022705289834901166,
+        "status": "passed"
+      },
+      {
+        "code": 9,
+        "trip_voltage": 4.559999999999967,
+        "max_reference_error": 0.0002638901817177963,
+        "status": "passed"
+      },
+      {
+        "code": 10,
+        "trip_voltage": 4.689999999999964,
+        "max_reference_error": 0.00016404626157995317,
+        "status": "passed"
+      },
+      {
+        "code": 11,
+        "trip_voltage": 4.819999999999961,
+        "max_reference_error": 0.00019798208311216925,
+        "status": "passed"
+      },
+      {
+        "code": 12,
+        "trip_voltage": 4.969999999999958,
+        "max_reference_error": 0.0002472406915701164,
+        "status": "passed"
+      },
+      {
+        "code": 13,
+        "trip_voltage": 5.119999999999955,
+        "max_reference_error": 0.0007370347939390509,
+        "status": "passed"
+      },
+      {
+        "code": 14,
+        "trip_voltage": 5.279999999999951,
+        "max_reference_error": 0.00021483138815203695,
+        "status": "passed"
+      },
+      {
+        "code": 15,
+        "trip_voltage": 5.459999999999948,
+        "max_reference_error": 0.0004470399232818778,
+        "status": "passed"
+      }
+    ],
+    "scope": "Emitted-deck comparison in the declared compatibility mode; excludes transient timing, hysteresis, PVT and extracted simulation."
+  },
+  "final_evidence_archive": {
+    "path": "IC-Design-Studio-evidence/sky130-rf-transient-2026-10-19/evidence.zip",
+    "sha256": "725c054388007570bdf7d813a8467e9f189a6c08744d7e7252a90248943d30f7",
+    "bytes": 32917531,
+    "files": 6497,
+    "unique_contents": 4524,
+    "all_objects_verified": true
+  },
+  "hosted_checkpoint": [
+    {
+      "run_id": 39263305360,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305360",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "qualify (devices)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (detector)",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "qualify (public-layouts)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (analog-rc)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (two-stage-opamp)",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "qualify (hierarchy-rc)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (bipolar)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (analog)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (inverter)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263313114,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263313114",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "exchange",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263305274,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305274",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "exchange",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263313270,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263313270",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "digital-runtime / runtime",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263305237,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305237",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "digital-runtime / runtime",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
 }

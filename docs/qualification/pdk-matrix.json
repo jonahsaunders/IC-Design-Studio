@@ -40,7 +40,8 @@
       "latest_rf_include_evidence": "docs/validation/sky130-rf-includes-2026-10-18.json",
       "latest_rf_physical_evidence": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json",
       "latest_rf_bias_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
-      "latest_ci_repair_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json"
+      "latest_ci_repair_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
+      "latest_rf_transient_evidence": "docs/validation/sky130-rf-transient-2026-10-19.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24888,8 +24889,13 @@
     },
     "chunk7-ci-rf-bias-2026-10-19": {
       "path": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
-      "sha256": "7ee4731e2a39942ce23ea86da2b261253b6ab5c1c9e2f2c95b3490bac4ea6795",
+      "sha256": "d94c8c0120656aba668f99649a1cc761d9dc88a9ac3d68ba567386524a7b2aae",
       "scope_limit": "Sampled public RF reverse-bias DC/AC/noise and local CI repairs only. Default catalog unchanged; chunk 7 incomplete."
+    },
+    "sky130-rf-transient-2026-10-19": {
+      "path": "docs/validation/sky130-rf-transient-2026-10-19.json",
+      "sha256": "881de248300ae3e3a33934cae60de648a1b306009f1661dfcc7a5d7081af4211",
+      "scope_limit": "Sampled public RF reverse pulses with independent/native convergence only; chunk 7 incomplete."
     }
   },
   "execution_acceptance": {
