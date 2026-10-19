@@ -25,11 +25,11 @@ def reference(text, top):
     ports=re.split(r'\s+(?:params:|\w+\s*=)',matches[0],maxsplit=1,flags=re.I)[0].split()
     if not ports or len(set(p.casefold() for p in ports))!=len(ports) or any(not NET.fullmatch(p) for p in ports):
         raise ValueError('The schematic reference needs unique named terminals.')
-    if not re.search(r'(?im)^\s*[mxrcdqjb]\S*\s+',logical):raise ValueError('The reference has no circuit devices.')
+    if not re.search(r'(?im)^\s*[mxrcdqjbl]\S*\s+',logical):raise ValueError('The reference has no circuit devices.')
     return dict(text=text,top=top,ports=ports,sha256=hashlib.sha256(text.encode()).hexdigest())
 
 
-def verification_stream(source, top, ports, target, *, pin_layers):
+def verification_stream(source, top, ports, target, *, pin_layers, recognition_label=None):
     """Flatten only the private engine input; retain the editable hierarchy.
 
     Child-local labels cannot become global connections when flattening.
@@ -39,7 +39,7 @@ def verification_stream(source, top, ports, target, *, pin_layers):
     import klayout.db as db
     ly=db.Layout();ly.read(str(source));cell=ly.cell(top)
     if cell is None:raise ValueError('Layout top is missing: '+top)
-    expected={p.casefold() for p in ports};found=set();explicit=set();removed=0
+    expected={p.casefold() for p in ports};found=set();explicit=set();removed=0;retained=0
     def mask(c,i):
         shapes=c.begin_shapes_rec(i)
         shapes.shape_flags=db.Shapes.SBoxes|db.Shapes.SPolygons|db.Shapes.SPaths
@@ -50,6 +50,8 @@ def verification_stream(source, top, ports, target, *, pin_layers):
             info=ly.get_info(i)
             for s in list(c.shapes(i).each()):
                 if not s.is_text():continue
+                if recognition_label and recognition_label(info.layer,info.datatype,s.text.string):
+                    retained+=1;continue
                 name=s.text.string.casefold()
                 if c==cell and (info.layer,info.datatype) in pin_layers:explicit.add(name)
                 if c==cell and name in expected:found.add(name)
@@ -69,6 +71,7 @@ def verification_stream(source, top, ports, target, *, pin_layers):
     return dict(source_sha256=file_digest(source),sha256=file_digest(target),source_cells=cells,
                 geometry='Exact flattened region XOR on every layer/datatype',
                 removed_noninterface_labels=removed,ports=ports,
+                retained_recognition_labels=retained,
                 interface='Explicit top pin labels checked; legacy top labels selected by schematic terminals.',
                 hierarchy='Flattened only in private verification input; original project and stream retained.')
 
@@ -148,6 +151,8 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
         if lvs_extractor=='ihp-klayout':
             from .ihp_tap_lvs import reference_geometry
             comparison,taps=reference_geometry(comparison,p['pdk']);defaults.extend(taps)
+            from .ihp_inductor_lvs import geometry as inductor_geometry
+            comparison,inductors=inductor_geometry(comparison);defaults.extend(inductors)
         atomic_write(out/'schematic-lvs.spice',comparison)
         report['reference_defaults']=defaults
         files.update({n:file_digest(out/n) for n in ('input.icproj','schematic.spice','schematic-lvs.spice')})
@@ -164,7 +169,11 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             else:
                 adapter=ADAPTERS.get(p['pdk'].get('package_lock',{}).get('id'))
                 if adapter:pins|={(v['gds'],v['datatype']) for v in p['pdk']['layers'] if v['datatype']==adapter.label_datatype}
-            r=verification_stream(out/'original.gds',c['name'],ref['ports'],out/'layout.gds',pin_layers=pins)
+            recognition=None
+            if lvs_extractor=='ihp-klayout':
+                from .ihp_inductor_lvs import recognition_label
+                recognition=recognition_label
+            r=verification_stream(out/'original.gds',c['name'],ref['ports'],out/'layout.gds',pin_layers=pins,recognition_label=recognition)
             files.update({n:file_digest(out/n) for n in ('original.gds','layout.gds')});return r
         stage('layout_export',stream)
         def magic(folder,commands):

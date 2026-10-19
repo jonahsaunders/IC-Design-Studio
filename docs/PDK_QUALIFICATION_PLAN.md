@@ -59,6 +59,18 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [IHP coil physical record](validation/ihp-inductor-physical-2026-10-19.json)
+adds both public coil interfaces without inventing electrical models. Eight
+rotated layouts pass full native DRC/LVS and all 28 deliberate faults are
+detected, including a turn short missed by public extraction alone. Independent
+readback covers 44 native/comparison netlists and 156 export layer pairs. Sixty-one
+focused tests and both source editor checks pass per host, nine Windows backend
+cases verify 486 received files, and six prior native device cases pass. The
+compact archive restores and replays successfully. Electrical coil models,
+complete operating envelopes, other outstanding families and installed-release
+acceptance remain open; chunk 7 is not complete. See the
+[physical interface scope](IHP_INDUCTOR_QUALIFICATION.md).
+
 The [RF transient record](validation/sky130-rf-transient-2026-10-19.json) adds
 independent nonlinear reverse-pulse integration and native timestep convergence.
 Each host passes 180 valid simulations across 90 conditions and detects all 270

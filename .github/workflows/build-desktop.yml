@@ -492,6 +492,12 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_ihp_taps.py --out build/ihp-tap-editor-evidence
+      - name: Verify both IHP coil physical interfaces in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_ihp_inductor_verification.py --out build/ihp-coil-editor-evidence
       - name: Verify GF180 high-voltage devices in the editor
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -732,6 +738,7 @@ jobs:
             build/ihp-tap-editor-evidence/report.json
             build/ihp-tap-editor-evidence/taps.png
             build/ihp-tap-editor-evidence/taps.icproj
+            build/ihp-coil-editor-evidence
             build/gf180-hv-editor-C/report.json
             build/gf180-hv-editor-C/high-voltage.png
             build/gf180-hv-editor-C/high-voltage.icproj

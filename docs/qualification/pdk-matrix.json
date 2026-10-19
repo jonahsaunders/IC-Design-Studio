@@ -41,7 +41,8 @@
       "latest_rf_physical_evidence": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json",
       "latest_rf_bias_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
       "latest_ci_repair_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
-      "latest_rf_transient_evidence": "docs/validation/sky130-rf-transient-2026-10-19.json"
+      "latest_rf_transient_evidence": "docs/validation/sky130-rf-transient-2026-10-19.json",
+      "latest_ihp_inductor_physical_evidence": "docs/validation/ihp-inductor-physical-2026-10-19.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18504,7 +18505,8 @@
         "scripts/qualify_ihp_pnp_layouts.py",
         "scripts/qualify_ihp_npn_layouts.py",
         "scripts/qualify_sky130_metal_resistor_layouts.py",
-        "scripts/qualify_ihp_tap_layouts.py"
+        "scripts/qualify_ihp_tap_layouts.py",
+        "scripts/qualify_ihp_inductor_layouts.py"
       ],
       "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
@@ -23780,7 +23782,10 @@
           "device-physical"
         ],
         "status": "unsupported",
-        "remaining": "Model is absent from the selected ngspice library closure."
+        "remaining": "Electrical model is absent from the selected ngspice library closure. Sampled physical CDL/GDS interfaces now pass native DRC/LVS and explicit winding faults; continuous geometry, electrical/EM behavior and installed-release qualification remain open.",
+        "historical_evidence": [
+          "ihp-inductor-physical-2026-10-19"
+        ]
       },
       "sg13g2_pr/inductor3.sym": {
         "tests": [
@@ -23789,7 +23794,10 @@
           "device-physical"
         ],
         "status": "unsupported",
-        "remaining": "Model is absent from the selected ngspice library closure."
+        "remaining": "Electrical model is absent from the selected ngspice library closure. Sampled physical CDL/GDS interfaces now pass native DRC/LVS and explicit winding faults; continuous geometry, electrical/EM behavior and installed-release qualification remain open.",
+        "historical_evidence": [
+          "ihp-inductor-physical-2026-10-19"
+        ]
       },
       "sg13g2_pr/isolbox.sym": {
         "tests": [
@@ -24550,7 +24558,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u20131.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0–1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -24896,6 +24904,11 @@
       "path": "docs/validation/sky130-rf-transient-2026-10-19.json",
       "sha256": "881de248300ae3e3a33934cae60de648a1b306009f1661dfcc7a5d7081af4211",
       "scope_limit": "Sampled public RF reverse pulses with independent/native convergence only; chunk 7 incomplete."
+    },
+    "ihp-inductor-physical-2026-10-19": {
+      "path": "docs/validation/ihp-inductor-physical-2026-10-19.json",
+      "sha256": "b156bd7df94812da1202f0c603faebf8ec809e932686dedadadc3a173d20c3b8",
+      "scope_limit": "Two public IHP physical coil fixtures, four rotations each, strict DRC/LVS and wiring fault checks. No electrical model, full geometry envelope, EM calibration or installed-release qualification."
     }
   },
   "execution_acceptance": {

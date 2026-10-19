@@ -94,6 +94,16 @@ def spice(p,cid=None,settings=None,hierarchical=True):
     lines.append('.end');return '\n'.join(lines)+'\n'
 
 def export_layout(p,path):
+    if Path(path).suffix.lower() in ('.oas','.oasis'):
+        # KLayout substitutes invalid OASIS a/n-string characters with '*'.
+        # Reject before touching the destination instead of changing labels.
+        for c in p['cells']:
+            if not c['name'] or any(not 33<=ord(ch)<=126 for ch in c['name']):
+                raise ValueError('OASIS cell names must use printable ASCII without spaces. Use GDS for this layout.')
+            labels=[t['text'] for t in c.get('layout_texts',[])]
+            if c.get('layout_label_mode')!='explicit':labels.extend(s['net'] for s in c['shapes'] if s.get('net'))
+            if any(any(not 32<=ord(ch)<=126 for ch in text) for text in labels):
+                raise ValueError('OASIS cannot preserve multiline or non-ASCII layout text. Use GDS or edit the text before exporting.')
     db=kdb();ly=db.Layout();ly.dbu=p['pdk']['dbu_um'];layers={l['name']:ly.layer(l['gds'],l['datatype']) for l in p['pdk']['layers']}
     by={c['id']:ly.create_cell(c['name']) for c in p['cells']}
     for c in p['cells']:

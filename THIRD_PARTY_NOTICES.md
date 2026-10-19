@@ -367,6 +367,16 @@ extraction without alignment, simplification, purging or implicit connections;
 it retains native results and records the pin-text and BJT instance-prefix
 interoperability conversions separately. Netgen compares the unfiltered circuit.
 
+The same pinned Apache-2.0 IHP repository supplies the original inductor GDS/CDL
+regression fixtures in `icstudio/assets/qualification/ihp-inductors`, with their
+license, Git blob identities, download URLs and SHA-256 hashes. The qualification
+script records its isolated-fixture crop, terminal/contact additions and explicit
+10 nm bridge correction. Studio's private extraction copies preserve IND device
+annotations, assign winding terminals by LA/LC/LB role and keep annotation text
+separate from electrical net names. All public source files remain unchanged;
+each run records hashes and descriptions of its local corrections. See
+`docs/IHP_INDUCTOR_QUALIFICATION.md` for the limits; no electrical model is supplied.
+
 The same pinned Apache-2.0 IHP repository supplies the unmodified NPN GDS/CDL
 reference inputs in `icstudio/assets/physical/ihp_bipolars`, with their source
 inventory and license. Local qualification adds explicitly recorded substrate

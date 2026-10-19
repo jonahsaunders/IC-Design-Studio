@@ -1,0 +1,53 @@
+name: IHP coil physical qualification
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, experimental]
+    paths:
+      - 'icstudio/**'
+      - 'scripts/qualify_ihp_inductor_layouts.py'
+      - 'scripts/build_physical_engines.py'
+      - 'tests/test_ihp_inductor_lvs.py'
+      - 'requirements.txt'
+      - '.github/workflows/ihp-inductor-qualification.yml'
+  pull_request:
+    paths:
+      - 'icstudio/**'
+      - 'scripts/qualify_ihp_inductor_layouts.py'
+      - 'scripts/build_physical_engines.py'
+      - 'tests/test_ihp_inductor_lvs.py'
+      - 'requirements.txt'
+      - '.github/workflows/ihp-inductor-qualification.yml'
+permissions:
+  contents: read
+jobs:
+  physical-coils:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install native build and verification dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev klayout libegl1 libopengl0
+          python -m pip install -r requirements.txt
+      - name: Build pinned Magic and Netgen
+        run: python scripts/build_physical_engines.py --output build/physical-engines
+      - name: Check coil topology, interfaces and lossless stream handling
+        run: python -m unittest discover -s tests -p test_ihp_inductor_lvs.py -v
+      - name: Require eight legal orientations and twenty-eight detected faults
+        timeout-minutes: 10
+        run: python scripts/qualify_ihp_inductor_layouts.py --sources icstudio/assets/qualification/ihp-inductors --output build/ihp-coil-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ihp-coil-physical-evidence
+          path: |
+            build/ihp-coil-evidence
+            build/physical-engines/*-build.log
+            build/physical-engines/*-version.log
+            build/physical-engines/source-lock.json
+          if-no-files-found: error

@@ -1,0 +1,31 @@
+{
+  "repository": "IHP-GmbH/IHP-Open-PDK",
+  "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "license": "Apache-2.0",
+  "files": {
+    "inductor.gds": {
+      "git_blob_sha1": "8c51a138fb74d187936e61127a298ece1878098f",
+      "sha256": "16bc1f047713f3cfe4cc2122938996ceac6ec9668b1b44f60acdec8928c20d86",
+      "bytes": 78634,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/ind_devices/layout/inductor.gds"
+    },
+    "inductor3.gds": {
+      "git_blob_sha1": "9f943a33f72ae3f0192aa4fa04592764d514bfb4",
+      "sha256": "fe1fef03609a1c2318abaf9e0bdb1e2c92d9bc505f090274c3683bf8ae479516",
+      "bytes": 54272,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/ind_devices/layout/inductor3.gds"
+    },
+    "inductor.cdl": {
+      "git_blob_sha1": "4a5edb06b04bfd38d9b332018bccd9e4a465a0b6",
+      "sha256": "9c8e1e76c94d98d1977244c4b03574cfecda39adf9c62740c1d1036e2716575c",
+      "bytes": 2298,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/ind_devices/netlist/inductor.cdl"
+    },
+    "inductor3.cdl": {
+      "git_blob_sha1": "407a669e9991ea90c3e43271f69a19146009fda3",
+      "sha256": "e4c8dd60ef09c87c7977a885508d35b3cbb8704cc8775d2e90e43f4abe810597",
+      "bytes": 1509,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/ind_devices/netlist/inductor3.cdl"
+    }
+  }
+}

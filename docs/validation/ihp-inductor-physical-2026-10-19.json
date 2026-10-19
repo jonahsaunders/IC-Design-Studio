@@ -1,0 +1,389 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "sampled_ihp_inductor_physical_interfaces_passed",
+  "baseline": "1f97acbf9ed7926e1e861632d5ac1c00cd2d532d",
+  "scope": "Two public IHP physical coil fixtures, four rotations each, strict DRC/LVS and wiring fault checks. No electrical model, full geometry envelope, EM calibration or installed-release qualification.",
+  "process": {
+    "target": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-inductor-physical-2026-10-19-v3/evidence.zip",
+    "sha256": "1a69db3a6c8347362533f232c9181203daf6026ad0cb6cefa6ce7f4b748f4378",
+    "bytes": 23595022,
+    "files": 25697,
+    "unique_contents": 6254,
+    "all_objects_verified": true
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "1a69db3a6c8347362533f232c9181203daf6026ad0cb6cefa6ce7f4b748f4378",
+    "source": "/var/tmp/icstudio-ihp-coil-restored-20261019-v2/source",
+    "checks": [
+      {
+        "name": "restore",
+        "exit_code": 0,
+        "log_sha256": "6ebf65c1c01b667b20bef6f498ed84175437f5a854b13872498ea721c343f676"
+      },
+      {
+        "name": "units",
+        "exit_code": 0,
+        "log_sha256": "d5d844d0edecf32f0952b5e2675a3761b823880a575acf4eacf7f5261f832558"
+      }
+    ],
+    "cases": [
+      {
+        "fault": null,
+        "native_status": "passed",
+        "report_sha256": "0bf89cdc3520970ecb5d98f2ee5d16c10b2c2dc2826166cf424dcf484b8b5baa"
+      },
+      {
+        "fault": "turn-short",
+        "native_status": "failed",
+        "report_sha256": "09956e6cf3d3a89d91529c644ffb359de0e59d16bee2838482fcf49f08c87a1c"
+      }
+    ]
+  },
+  "native": {
+    "positive_layouts": 8,
+    "detected_faults": 28,
+    "report_sha256": "fefd9895005dd0499abe695626dbab4e268fb132b3b0bd3b74bf9cd5f7bdc56c",
+    "implementation_unchanged": true
+  },
+  "independent_readback": {
+    "status": "PASS",
+    "measurements": [
+      {
+        "model": "inductor",
+        "outer_span_um": 29.35,
+        "straight_cross_section_nm": [
+          [
+            -14675,
+            -12675
+          ],
+          [
+            12675,
+            14675
+          ]
+        ],
+        "winding_count": 1,
+        "minimum_measured_rectilinear_gap_um": 2.1,
+        "width_um": 2,
+        "derived_public_D_um": 25.35,
+        "actual_inner_cross_section_um": 25.35
+      },
+      {
+        "model": "inductor3",
+        "outer_span_um": 38.050000000000004,
+        "straight_cross_section_nm": [
+          [
+            -19025,
+            -17025
+          ],
+          [
+            -14920,
+            -12920
+          ],
+          [
+            12920,
+            14920
+          ],
+          [
+            17025,
+            19025
+          ]
+        ],
+        "winding_count": 2,
+        "minimum_measured_rectilinear_gap_um": 2.1,
+        "width_um": 2,
+        "derived_public_D_um": 25.85,
+        "actual_inner_cross_section_um": 25.84
+      }
+    ],
+    "positive_layouts": 8,
+    "detected_faults": 28,
+    "audited_native_and_comparison_netlists": 44,
+    "positive_exchange_layer_comparisons": 156,
+    "retained_false_pass_sha256": "de8bf99065cac26c4e94c412c3d2f0666563ff965299e23ba0362e6bd0f08302",
+    "corrected_short_rejection_sha256": "70424d82336cd914ad04a3e6fafdf0dc321554b5b4277157ba3f914fc0a64bad",
+    "limitation": "D is the public derived parameter; it is not the literal inner cross-section. No electrical/EM calibration or general geometric envelope is established."
+  },
+  "focused_regressions": [
+    {
+      "platform": "Windows",
+      "tests": 61,
+      "failures": 0,
+      "errors": 0,
+      "skips": [],
+      "seconds": 11.632728576660156,
+      "gui": [
+        {
+          "name": "gui_ihp_inductor_verification",
+          "exit_code": 0
+        },
+        {
+          "name": "gui_ihp_taps",
+          "exit_code": 0
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "platform": "Linux",
+      "tests": 61,
+      "failures": 0,
+      "errors": 0,
+      "skips": [],
+      "seconds": 21.484610080718994,
+      "gui": [
+        {
+          "name": "gui_ihp_inductor_verification",
+          "exit_code": 0
+        },
+        {
+          "name": "gui_ihp_taps",
+          "exit_code": 0
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "windows_backend": [
+    {
+      "status": "PASS",
+      "process": {
+        "target": "ihp-sg13g2",
+        "revision": "cfb96b74cf33877e",
+        "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+      },
+      "cases": [
+        {
+          "name": "inductor-None",
+          "status": "PASS",
+          "native_status": "passed",
+          "received_files": 82,
+          "result_sha256": "e10e7abdd35347e9345b2604dc707265cd9fea4827e43c8a56555dbf94125291",
+          "input_sha256": "5122324adbb7e4f70773e543cd5ac8e4f0bd66c1c4d9c0393f494d127f4e0a05"
+        },
+        {
+          "name": "inductor-reference-turns",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 82,
+          "result_sha256": "65ed787653b7d6a37db5374bfbdac83dc3f6f178020ed031220e935defb2872f",
+          "input_sha256": "335bb1f26c31519db79e5cb9a42685f302c67c375122418e8a07fbcab3e2eed1"
+        },
+        {
+          "name": "inductor-winding-open",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 19,
+          "result_sha256": "a6dd2a2c73d0d3cfdea509e07d7a4394904136cf7f08623e146435d534f4abfa",
+          "input_sha256": "d947a11f38a865e3ea94562a68ed8014606b6a35091e72e8d31093ed926f3e65"
+        },
+        {
+          "name": "inductor3-None",
+          "status": "PASS",
+          "native_status": "passed",
+          "received_files": 82,
+          "result_sha256": "e2ad39e1cd94fb76907499bbe28e3e53b046a50363b66446f80e793e0e4675c0",
+          "input_sha256": "d75bbb78e1c92e375a1bb2a6120216f8d30dc3ace9c39a005513a9a0f27ba34d"
+        },
+        {
+          "name": "inductor3-reference-turns",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 82,
+          "result_sha256": "9d0ddfde6d210288933edf1a30bcb4325470e5b55ccde96386acfa692e004ab6",
+          "input_sha256": "55a710d07d8167844c51f0bdd30ea535654aaf72837de62d81571a312c706aba"
+        },
+        {
+          "name": "inductor3-winding-open",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 19,
+          "result_sha256": "3a3d9a83f42490bcfd0ef546c778451c37be135c9d7e2993fd2adf863d792b5b",
+          "input_sha256": "fd9fde17185cfa63b19f7a71a6e72e142a7a10b879d3ec81e8b7cfae9a888c4f"
+        },
+        {
+          "name": "inductor3-missing-cross-vias",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 19,
+          "result_sha256": "5db02dd0e812666adc35f2a30929c486f317fbc5229975046bac1917a945edfb",
+          "input_sha256": "082a23c2d66a376868e1ac417399ba68c0256abcf7eec3c7a5cedcb2836ccaef"
+        }
+      ],
+      "scope": "Windows source staging, actual local backend, verified complete artifact receipt; not installed-release acceptance.",
+      "implementation_unchanged": true
+    },
+    {
+      "status": "PASS",
+      "process": {
+        "target": "ihp-sg13g2",
+        "revision": "cfb96b74cf33877e",
+        "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+      },
+      "cases": [
+        {
+          "name": "inductor3-None",
+          "status": "PASS",
+          "native_status": "passed",
+          "received_files": 82,
+          "result_sha256": "d516412dd24f4169b377aa91f4c63a569896d95845942a4843c3b70c04c53566",
+          "input_sha256": "87c3d2a4255097dbed6fd449b4af0fc063160305ec6ef4794098ac2463252bbf"
+        },
+        {
+          "name": "inductor3-turn-short",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 19,
+          "result_sha256": "3775b4bff83d095fd43d060b77f470f2f3f22737b4b0a04e61826ca598d16f84",
+          "input_sha256": "f07141ff29988e92ad42b5be28eb9e351e715064003350ea14f187368c16816b"
+        }
+      ],
+      "scope": "Windows source staging, actual local backend, verified complete artifact receipt; not installed-release acceptance.",
+      "implementation_unchanged": true
+    }
+  ],
+  "previous_native_families": {
+    "status": "PASS",
+    "process": {
+      "target": "ihp-sg13g2",
+      "revision": "cfb96b74cf33877e",
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+    },
+    "cases": [
+      {
+        "name": "pnp",
+        "status": "passed",
+        "error": null,
+        "report_sha256": "df16f49442aa7c5aa3b33c397061ce7a9757959604a08d8c2ee8a78a6cd372da"
+      },
+      {
+        "name": "npn13G2l",
+        "status": "passed",
+        "error": null,
+        "report_sha256": "37649531d6c10560036b71bc6a8e8fe633462eb61221419540d44582ce0c8c76"
+      },
+      {
+        "name": "npn13G2v",
+        "status": "passed",
+        "error": null,
+        "report_sha256": "2ba40998243564cdf4d8e87f43e187f785e62a9086e5dee3b386ee175f05d55c"
+      },
+      {
+        "name": "npn13G2",
+        "status": "passed",
+        "error": null,
+        "report_sha256": "994eb09d01e63bfdb54fda3638103d09b5eed275650867a4b3b68060a657ccf0"
+      },
+      {
+        "name": "ntap1",
+        "status": "passed",
+        "error": null,
+        "report_sha256": "a1b4a0bdfd4f4fe43cee6f21b705a668a22f26d9345a0bca3165fe0ebeb4a931"
+      },
+      {
+        "name": "ptap1",
+        "status": "passed",
+        "error": null,
+        "report_sha256": "f4496c4f495421f8ebd0581eb67af4aaa4d04e4c09d428ad224bd6d1c4f5b241"
+      }
+    ],
+    "scope": "Actual prior IHP KLayout PNP/NPN/tap routes after coil-specific extraction corrections."
+  },
+  "original_sources": {
+    "repository": "IHP-GmbH/IHP-Open-PDK",
+    "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "license": "Apache-2.0",
+    "files": {
+      "inductor.gds": {
+        "git_blob_sha1": "8c51a138fb74d187936e61127a298ece1878098f",
+        "sha256": "16bc1f047713f3cfe4cc2122938996ceac6ec9668b1b44f60acdec8928c20d86",
+        "bytes": 78634,
+        "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/ind_devices/layout/inductor.gds"
+      },
+      "inductor3.gds": {
+        "git_blob_sha1": "9f943a33f72ae3f0192aa4fa04592764d514bfb4",
+        "sha256": "fe1fef03609a1c2318abaf9e0bdb1e2c92d9bc505f090274c3683bf8ae479516",
+        "bytes": 54272,
+        "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/ind_devices/layout/inductor3.gds"
+      },
+      "inductor.cdl": {
+        "git_blob_sha1": "4a5edb06b04bfd38d9b332018bccd9e4a465a0b6",
+        "sha256": "9c8e1e76c94d98d1977244c4b03574cfecda39adf9c62740c1d1036e2716575c",
+        "bytes": 2298,
+        "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/ind_devices/netlist/inductor.cdl"
+      },
+      "inductor3.cdl": {
+        "git_blob_sha1": "407a669e9991ea90c3e43271f69a19146009fda3",
+        "sha256": "e4c8dd60ef09c87c7977a885508d35b3cbb8704cc8775d2e90e43f4abe810597",
+        "bytes": 1509,
+        "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/ind_devices/netlist/inductor3.cdl"
+      }
+    }
+  },
+  "retained_failures": [
+    "Public direct KLayout changed-turn controls both reject; the initially suspected turn-count false pass was not reproduced.",
+    "Native Netgen two-terminal L interpretation loses the substrate terminal; even nominal comparison fails.",
+    "Early isolated coupons lost electrical port names to LA/LB role labels and had insufficient substrate contact enclosure.",
+    "The public center-tap bridge has two vertices 10 nm off 45 degrees; the explicit corrected coupon and original mask are both retained.",
+    "Decorative multiline text was silently replaced in OASIS; export now refuses unsupported text before touching its destination.",
+    "Full v4 batch passed 35/36 checks: an interturn bridge bypassed a coil turn but public DRC and native parameter comparison still passed. The final topology check rejects it.",
+    "The first archive attempt rejected duplicate manifest names; the separately verified v3 archive is the bound recovery source.",
+    "The stricter v6 fault gate did not recognize Netgen's failed-pin-matching diagnostic in two controls. The final gate accepts that explicit finding while rejecting crashed tools and missing evidence; v7 passes all 36 cases."
+  ],
+  "changes": [
+    "Physical L records become explicit X comparison primitives preserving every terminal and W/S/D/NR_R/M.",
+    "Private source-checked extraction corrections preserve recognition text and assign LA/LC/LB roles independently of rotation without global electrical names.",
+    "Actual TopMetal1/TopVia2/TopMetal2 connectivity and conductive-loop checking precede public device recognition.",
+    "OASIS refuses lossy text substitution; generic GDS remains available.",
+    "Both source editor formats and native 36-case CI regression are added."
+  ],
+  "limitations": [
+    "IHP coil electrical models remain unavailable; catalog status is unchanged.",
+    "Two fixed geometry fixtures do not qualify the continuous winding parameter range or filled/slotted windings.",
+    "Public derived D differs by 10 nm from the center-tap fixture horizontal inner opening; both measurements are recorded.",
+    "No inductance, Q, coupling, substrate loss, noise, RF calibration or fabrication signoff claim.",
+    "Chunk 7 still requires missing model/family coverage, reviewed operating envelopes, full upstream view/option reconciliation and installed-runtime acceptance."
+  ],
+  "source_files": {
+    "icstudio/ihp_inductor_lvs.py": "cef79e97f8d5b6e1d0ceea3308659a50d321bcb5e4ace86b3f56faa677f4038f",
+    "icstudio/ihp_klayout_lvs.py": "5f130f955c61e4286bc6799059022c0521becc70e8ae6e0e3f4ff40dbe73685b",
+    "icstudio/layout_verification.py": "f8c8c9e9ede7733ffa692f681e310a326e5bad96f7618be30919726a38168a8e",
+    "icstudio/interchange.py": "edcb9b6bae8d26e418c15d3eadb1c9420e41c65719776c877efb9464aa244ca3",
+    "scripts/qualify_ihp_inductor_layouts.py": "74667ffa002075b19edc6451de90d9f8283beb6e93ceb90d8dfd82c94d7dcbf4",
+    "tests/test_ihp_inductor_lvs.py": "e62479e3dd78896b7449001569a757bbedce22da8dc7c57f18f8dadb85631cbd",
+    "tests/test_stream_compatibility.py": "b50a21670590fcd300e4200321f55c0196736ec8b6c6bb483c9d616930905d46",
+    "tests/gui_ihp_inductor_verification.py": "040ff5b16f48ee081a1dcbd0dc45c6eb93940b4f2b797d41a0c2e30e3d8241d9",
+    ".github/workflows/build-desktop.yml": "a97e15622769bc8260925c377ff83f8116c176386e8478a445bd34512fb3cdc2",
+    ".github/workflows/ihp-inductor-qualification.yml": "60d996990c585fcc51a413a81fea83aca4c3715674ec83e5c718c50e6b7c11ed"
+  },
+  "final_gate_tests": {
+    "Windows": {
+      "tests": 8,
+      "passed": true,
+      "log_sha256": "a42a914ce9c57cf4358a18bd2c629e48570e5d9ef348a43e2f9f88e6bb68d612"
+    },
+    "Linux": {
+      "tests": 8,
+      "passed": true,
+      "log_sha256": "f806e401dd26e0eeed36ebb3aff4e8c1f39419d2f3893a7294b2bab7601cd324"
+    },
+    "scope": "Final diagnostic whitelist and completed-DRC requirements; production implementation is unchanged from the 61-test suites."
+  },
+  "restore_replay_archive": {
+    "path": "IC-Design-Studio-evidence/ihp-inductor-physical-2026-10-19-v3/restore-replay.zip",
+    "sha256": "52bc62ef6cd9aeda26dbdb2c82622cc70273a1a0fab35ad65428f88c3515bdff",
+    "bytes": 266661,
+    "files": 103,
+    "all_files_verified": true
+  }
+}

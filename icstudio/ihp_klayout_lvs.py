@@ -15,6 +15,7 @@ COMMIT = '5e6d592e4002946a4616f798c357f0f3c06cf3b6'
 LABEL_LAYERS = (8, 10, 30, 50, 67, 126, 134, 31)
 BIPOLARS = {'pnpmpa': 3, 'npn13g2': 4, 'npn13g2l': 4, 'npn13g2v': 4}
 BJT_SOURCE_SHA256 = '0cd07122454e4ffefb702861e1c11bdc0cef779a9564649462bbb750d9b4229b'
+IND_CONNECTION_SHA256 = '05682e9e05c6a18bc67b512276e0d6b5bb90c051e4982dab44a7a3bc34a33b92'
 BJT_ORIGINAL = b"""          device.set_parameter('we', we)
           device.set_parameter('le', le)"""
 BJT_REPLACEMENT = b"""          # IC Design Studio: use physical emitter dimensions independent of rotation.
@@ -75,6 +76,15 @@ def extraction_assets(destination):
     path.write_bytes(content.replace(BJT_ORIGINAL, BJT_REPLACEMENT))
     record = dict(path='rule_decks/custom_bjt_extractor.lvs', source_sha256=BJT_SOURCE_SHA256,
                   sha256=file_digest(path), change='Use the short/long sides of every rectangular NPN emitter; reject unequal emitter dimensions. Terminal geometry and Nx unchanged.')
+    path = destination / 'rule_decks/ind_connections.lvs'
+    content = path.read_bytes(); original = b'connect(ind_pin, ind_text)'
+    if file_digest(path) != IND_CONNECTION_SHA256 or content.count(original) != 1:
+        raise ValueError('Unexpected public IHP inductor connection source.')
+    path.write_bytes(content.replace(original, b'# IC Design Studio: LA/LB/LC are recognition labels, not electrical net names.\n# Winding terminals connect through their actual metal and explicit conductor labels.'))
+    record['additional_corrections'] = [dict(path='rule_decks/ind_connections.lvs', source_sha256=IND_CONNECTION_SHA256,
+        sha256=file_digest(path), change='Keep IND LA/LB/LC recognition text without assigning it to electrical nets. Actual metal connections and conductor labels remain unchanged.')]
+    from .ihp_inductor_lvs import extractor_roles
+    record['additional_corrections'].extend(extractor_roles(destination))
     atomic_write(destination/'ICSTUDIO-CORRECTIONS.json', json.dumps(record, indent=2))
     return destination/'sg13g2.lvs', record
 
@@ -191,6 +201,11 @@ def extract(executable, source, top, ports, technology, folder):
     from .engines import execute
     from .external_tools import check_extracted_interface
     folder = Path(folder); folder.mkdir()
+    from .ihp_inductor_lvs import winding_proof
+    coils = winding_proof(source, top)
+    atomic_write(folder/'inductor-wiring.json', json.dumps(coils, indent=2))
+    if not coils['passed']:
+        raise ValueError('IHP inductor recognition/wiring audit failed; see inductor-wiring.json.')
     library = assets(); before = {str(p): file_digest(p) for p in library.values()}
     entry, correction = extraction_assets(folder/'deck')
     run_files = {p: file_digest(p) for p in (folder/'deck').rglob('*') if p.is_file()}
@@ -210,6 +225,11 @@ def extract(executable, source, top, ports, technology, folder):
         raise ValueError('Public IHP extraction did not complete without comparison filtering.')
     native = folder/'native.cir'
     converted, changes = bipolar_subcircuits(native.read_text(encoding='utf-8'))
+    from .ihp_inductor_lvs import geometry as inductor_geometry
+    converted, inductors = inductor_geometry(converted); changes.extend(inductors)
+    from collections import Counter
+    if Counter(c['model'] for c in coils['coils']) != Counter(c['model'] for c in inductors):
+        raise ValueError('IHP extraction did not retain every marked inductor.')
     from .ihp_tap_lvs import extracted_geometry
     converted, taps = extracted_geometry(converted); changes.extend(taps)
     converted, port_order = order_top_ports(converted, top, ports)
@@ -222,4 +242,5 @@ def extract(executable, source, top, ports, technology, folder):
     return dict(deck='lvs-extraction/extracted.spice', sha256=file_digest(output),
                 native_sha256=file_digest(native), source_commit=COMMIT, label_mapping=mapping,
                 interface_conversion=changes, top_port_order=port_order, local_correction=correction,
+                inductor_wiring=coils,
                 settings={k:str(v) for k,v in settings.items()})
