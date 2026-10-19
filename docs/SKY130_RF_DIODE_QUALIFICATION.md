@@ -33,9 +33,8 @@ Each invocation keeps its probe inputs, raw results, engine identity and
 acceptance report. It reruns the check rather than relying on a cached version
 number. Actual ngspice 42 controls are rejected through all three execution
 routes on Windows and Linux. The verified Windows 46 runtime and corrected
-Linux 47 runtime pass. This recognition applies to explicit known RF calls;
-it is not a recursive certification of arbitrary renamed subcircuits hidden
-inside third-party external libraries.
+Linux 47 runtime pass. Recognition includes known RF calls behind external
+wrappers. It does not certify arbitrary renamed third-party model definitions.
 
 ## Executed checks
 
@@ -56,6 +55,16 @@ portable candidate. Saved-program checks preserve OP→AC→DC→AC order and co
 the resulting currents with independently executed application references.
 All automatic runtime checks and actual incompatible-engine controls pass.
 
+The [included-library follow-up](validation/sky130-rf-includes-2026-10-18.json)
+also checks calls hidden behind nested wrappers and selected `.lib` sections.
+Both hosts reproduce the explicit-call currents and reject the incompatible
+engine before running the circuit. Original circuit and library bytes remain
+unchanged. Inspection records the dependency hashes and uses the external
+deck's actual working directory. If a dependency cannot be inspected, the same
+runtime proof is required; absence of a recognized call is insufficient.
+This conservative check does not certify renamed model definitions, execute
+conditional expressions, or establish physical validity.
+
 ## Reproduce locally
 
 Use the verified native engine appropriate to the host. Each output directory
@@ -66,6 +75,7 @@ python scripts/prepare_sky130_rf_qualification.py --output build/rf-candidate
 python scripts/qualify_sky130_rf_branches.py --ngspice ENGINE --output build/rf-branches
 python scripts/qualify_sky130_rf_application.py --ngspice ENGINE --package build/rf-candidate --output build/rf-application
 python scripts/qualify_sky130_rf_programs.py --application build/rf-application --ngspice ENGINE --reject-ngspice INCOMPATIBLE_ENGINE --output build/rf-programs
+python scripts/qualify_sky130_rf_includes.py --application build/rf-application --ngspice ENGINE --reject-ngspice INCOMPATIBLE_ENGINE --output build/rf-includes
 ```
 
 The last command intentionally requires an incompatible engine as a negative
@@ -81,3 +91,11 @@ statistical behavior, geometry boundaries and a documented supported operating
 envelope need further checks. The default catalog still has seven unavailable
 real model entries and nine utility entries. Other required device families and
 installed-release acceptance also remain part of chunk 7.
+
+A retained 2 × 2 µm n-well prototype has zero findings under the full enabled
+public KLayout DRC groups and yields 4 µm² / 8 µm in native diode extraction.
+Direct well/tap connectivity produces the intended terminals. This is an
+investigation, not physical acceptance: independent written-contact continuity,
+strict reference comparison, geometry/rotation coverage and deliberate physical
+fault controls are still required. The experimental extraction is not enabled in
+the application and does not bypass its rejection of dropped RF markers.

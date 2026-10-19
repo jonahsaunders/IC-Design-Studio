@@ -59,6 +59,14 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [RF include follow-up](validation/sky130-rf-includes-2026-10-18.json) closes
+the nested-library runtime-detection gap. Both hosts reproduce explicit-call
+currents through two wrapper routes and reject incompatible engines before
+circuit execution. Affected 146-test suites pass with platform skips; archive
+recovery reproduces both circuits and twelve guard tests. The separate RF
+n-well layout prototype remains an unaccepted investigation. No default device
+is promoted and chunk 7 remains incomplete.
+
 The [public RF runtime record](validation/sky130-rf-runtime-2026-10-18.json) adds
 automatic simulator rejection and reproducible public candidates for two SKY130
 RF diodes. Each host passes 90 valid and 270 deliberately faulty thermal/corner/

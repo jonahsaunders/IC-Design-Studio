@@ -244,7 +244,7 @@ def run_deck(p,cid,settings,executable,directory,progress=lambda *_:None):
     if not deck.is_file():raise ValueError('The SPICE deck does not exist.')
     from .rf_runtime import enforce
     # Inspection only: preserve legacy-encoded external deck bytes for ngspice.
-    enforce(deck.read_text(encoding='utf-8',errors='replace'),executable,directory)
+    enforce(deck.read_text(encoding='utf-8',errors='replace'),executable,directory,input_directory=deck.parent)
     raw=directory/'deck.raw';atomic_write(directory/'deck-snapshot.cir',deck.read_bytes());progress(.05,'Running external SPICE testbench')
     from .spice_program import runtime_environment
     try:log=execute(ngspice_command(p,executable,raw,deck),deck.parent,timeout=int(settings.get('timeout',180)),env=runtime_environment(executable))
