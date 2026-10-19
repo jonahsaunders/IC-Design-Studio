@@ -75,6 +75,7 @@ must be new; existing results are retained.
 ```text
 python scripts/prepare_sky130_rf_qualification.py --output build/rf-candidate
 python scripts/qualify_sky130_rf_branches.py --ngspice ENGINE --output build/rf-branches
+python scripts/qualify_sky130_rf_bias.py --ngspice ENGINE --output build/rf-bias
 python scripts/qualify_sky130_rf_application.py --ngspice ENGINE --package build/rf-candidate --output build/rf-application
 python scripts/qualify_sky130_rf_programs.py --application build/rf-application --ngspice ENGINE --reject-ngspice INCOMPATIBLE_ENGINE --output build/rf-programs
 python scripts/qualify_sky130_rf_includes.py --application build/rf-application --ngspice ENGINE --reject-ngspice INCOMPATIBLE_ENGINE --output build/rf-includes
@@ -88,17 +89,52 @@ pending hosted run or a packaged-release acceptance has passed.
 ## Remaining work
 
 The RF p-well/deep-n-well topology, its additional substrate junction and full
-RF layout coverage remain open. Bias-dependent capacitance, transient/noise,
-statistical behavior, geometry boundaries and a documented supported operating
-envelope need further checks. The default catalog still has seven unavailable
+RF layout coverage remain open. Transient behavior, noise and bias coverage
+beyond the sampled checks below, statistical behavior, geometry boundaries and
+a documented supported operating envelope need further checks. The default catalog still has seven unavailable
 real model entries and nine utility entries. Other required device families and
 installed-release acceptance also remain part of chunk 7.
+
+## Sampled reverse-bias current, admittance and noise
+
+The [October 19 execution record](validation/chunk7-ci-rf-bias-2026-10-19.json)
+adds an independent nonlinear branch solution. Each host tests both RF models,
+three corners, five rectangular area/perimeter pairs and −40, 27 and 125 °C.
+Every circuit visits 0, −0.05, −0.1, −0.5, −1 and −5 V junction bias, then returns
+to zero without resetting. OP current, complex AC admittance and current-noise
+density are checked at 91 frequencies from 10 Hz to 10 GHz. The anode is grounded
+and the cathode is driven. These are test points, not published safe voltage or
+frequency ratings.
+
+The oracle solves the series resistor/junction equations by bisection, including
+temperature-dependent leakage, depletion capacitance and barrier potential.
+It propagates each branch's shot noise and resistor thermal noise independently.
+The implementation follows the retained public model facts and the simulator's
+[diode equations](https://github.com/imr/ngspice/blob/ebdaf58ec76a06ffaac7e0f138360dd1cf5ee4b6/src/spicelib/devices/dio/dioload.c),
+[temperature conventions](https://github.com/imr/ngspice/blob/ebdaf58ec76a06ffaac7e0f138360dd1cf5ee4b6/src/spicelib/devices/dio/diotemp.c)
+and [noise implementation](https://github.com/imr/ngspice/blob/ebdaf58ec76a06ffaac7e0f138360dd1cf5ee4b6/src/spicelib/devices/dio/dionoise.c).
+No fitted model coefficient is changed in a valid case.
+
+Each host passes 90 valid cases and rejects 270 missing-perimeter, doubled-barrier
+and doubled-leakage controls. A fault must produce complete, finite results with
+the correct stimulus before its numerical mismatch counts as detection. Fault
+detection applies to the complete seven-bias sequence; a capacitance fault need
+not alter DC current. Acceptance uses 10⁻⁶ relative tolerance with a 10⁻¹⁸ A
+current floor and a 10⁻²⁴ A/√Hz noise floor.
+
+Independent raw-file readback verifies 15,120 hashes, 461,160 plot points per host
+and 3,913,560 scalar components across Windows 46 and Linux 47. The largest
+cross-host relative difference is below 9.8×10⁻¹⁶. An earlier anode-driven pilot
+is retained: two tiny reverse-current comparisons exceeded the current floor
+because subtracting nearly equal resistor-node voltages lost precision. The
+grounded-anode circuit passes the unchanged tolerance. This does not qualify
+arbitrary common-mode voltage placement or measured RF/noise accuracy.
 
 ## Bounded n-well physical verification
 
 The [physical execution record](validation/sky130-rf-nwell-layout-2026-10-18.json)
 supersedes the earlier unaccepted n-well prototype for its tested scope. The
-desktop action **Analysis → Verify SKY130 RF n-well diode…** accepts one
+desktop action **Verify → Physical verification → Verify SKY130 RF n-well diode…** accepts one
 rectangular `ps2nw` junction with a continuous contacted substrate ring. It
 requires a linked physical SKY130A package and an explicit two-terminal
 schematic. An example reference for a 2 × 2 µm junction is:

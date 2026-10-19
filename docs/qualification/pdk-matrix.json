@@ -1,6 +1,6 @@
 {
   "schema": 6,
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -38,7 +38,9 @@
       "latest_runtime_evidence": "docs/validation/windows-simulation-and-rf-2026-10-18.json",
       "latest_rf_runtime_evidence": "docs/validation/sky130-rf-runtime-2026-10-18.json",
       "latest_rf_include_evidence": "docs/validation/sky130-rf-includes-2026-10-18.json",
-      "latest_rf_physical_evidence": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json"
+      "latest_rf_physical_evidence": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json",
+      "latest_rf_bias_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
+      "latest_ci_repair_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24883,6 +24885,11 @@
       "path": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json",
       "sha256": "bf0b2323b16e33706ae392b33313067c0c11038a1aafffd73fe276cf7f999374",
       "scope_limit": "One rectangular SKY130 RF ps2nw junction with explicit contacted substrate ring. Public block DRC, independent written-contact continuity, unfiltered native extraction, strict single-device polarity/geometry comparison and application exchange. No continuous range, pw2dn, multi-device, calibrated RF parasitic, full process or installed-release qualification."
+    },
+    "chunk7-ci-rf-bias-2026-10-19": {
+      "path": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
+      "sha256": "7ee4731e2a39942ce23ea86da2b261253b6ab5c1c9e2f2c95b3490bac4ea6795",
+      "scope_limit": "Sampled public RF reverse-bias DC/AC/noise and local CI repairs only. Default catalog unchanged; chunk 7 incomplete."
     }
   },
   "execution_acceptance": {

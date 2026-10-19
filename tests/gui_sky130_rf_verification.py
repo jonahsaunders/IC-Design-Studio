@@ -23,6 +23,7 @@ def main():
     text=selected(2,4)['text'];path=out/'reference.spice';path.write_text(text,encoding='utf-8')
     w.simple_form=lambda *args,**kwargs:{'Schematic SPICE file':str(path),'Schematic cell':'rf_coupon'}
     action=next(a for a in w.findChildren(QAction) if a.text()=='Verify SKY130 RF n-well diode…')
+    assert not w.unmapped_commands,w.unmapped_commands
     action.trigger();app.processEvents()
     assert not errors and len(jobs)==1 and jobs[0]['lvs_extractor']=='sky130-rf-nwell-klayout' and jobs[0]['reference']['text']==text,(errors,jobs)
     w.run_layout_verification();assert jobs[-1]['lvs_extractor']=='magic'

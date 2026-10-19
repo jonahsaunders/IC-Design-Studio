@@ -59,6 +59,17 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [October 19 RF and CI record](validation/chunk7-ci-rf-bias-2026-10-19.json)
+adds reverse-bias DC, complex admittance and noise checks for both public RF
+candidates. Each host passes 90 valid cases and rejects 270 model faults across
+three corners, three temperatures, five geometries and seven bias visits.
+Independent readback verifies 15,120 raw files and cross-host agreement. The
+record also repairs the RF menu mapping, Windows path-identity assertions and
+the handling of Magic's exact repeated-boundary warning. The affected physical
+CI jobs now select a pinned simulator with measured diode behavior. Remaining
+physical families, operating envelopes, unavailable models and installed-release
+acceptance still prevent chunk 7 completion; the default catalog is unchanged.
+
 The [RF n-well physical record](validation/sky130-rf-nwell-layout-2026-10-18.json)
 closes the earlier prototype gap for one rectangular ps2nw junction. Twenty-four
 rotated layouts pass native public DRC, written-contact proof, unfiltered device

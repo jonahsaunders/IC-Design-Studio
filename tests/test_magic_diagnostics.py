@@ -42,5 +42,16 @@ class MagicInputDiagnosticsTests(unittest.TestCase):
         require_readable_stream('WARNING: RLIMIT_NOFILE is above 1024\n'
                                 'Warning: Calma reading is not undoable!\n','retained.log')
 
+    def test_repeated_fixed_boundary_does_not_hide_other_reader_errors(self):
+        warning=('Error while reading cell "adc_vcm_generator" (byte position 38763380): '
+                 'Warning:  Cell adc_vcm_generator boundary was redefined.')
+        require_readable_stream((warning+'\n')*8+'STUDIO_DRC_COUNT 0\n','retained.log')
+        for log in (warning+'\n'+LOST_MASK, LOST_MASK+warning,
+                    warning+' Unknown layer/datatype in boundary',
+                    warning.replace('Cell adc_vcm_generator','Cell other'),
+                    warning.replace('was redefined','could not be read')):
+            with self.subTest(log=log),self.assertRaises(ValueError):
+                require_readable_stream(log,'retained.log')
+
 
 if __name__=='__main__':unittest.main()

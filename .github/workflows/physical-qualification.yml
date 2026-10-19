@@ -28,6 +28,15 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Build compatible pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
+      - name: Build the verified simulator for externally included model decks
+        if: matrix.stage == 'inverter' || matrix.stage == 'detector'
+        run: |
+          sudo apt-get install -y autoconf automake libtool bison flex libreadline-dev libsuitesparse-dev
+          python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/simulation-engine
+          python scripts/verify_ngspice_diode_sequences.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/simulation-engine/diode-sequences
+      - name: Qualify public RF reverse-bias current, admittance and noise
+        if: matrix.stage == 'inverter'
+        run: python scripts/qualify_sky130_rf_bias.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/simulation-engine/rf-bias
       - name: Cache checksummed upstream archives
         uses: actions/cache@v4
         with:
@@ -43,7 +52,7 @@ jobs:
       - name: Qualify nominal inverter and deliberate DRC/LVS faults
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
-        run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+        run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice"
       - name: Check exact full-deck width and spacing boundaries
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
@@ -53,7 +62,7 @@ jobs:
         timeout-minutes: 10
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python tests/gui_physical_qualification.py --pdk build/physical-adapter/sky130A --out build/physical-evidence/desktop --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice /usr/bin/ngspice
+        run: python tests/gui_physical_qualification.py --pdk build/physical-adapter/sky130A --out build/physical-evidence/desktop --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice"
       - name: Qualify analog references, corners, extraction and deliberate faults
         if: matrix.stage == 'analog'
         timeout-minutes: 15
@@ -89,7 +98,7 @@ jobs:
       - name: Require detector strict LVS, fault detection and HSA simulation
         if: matrix.stage == 'detector'
         timeout-minutes: 22
-        run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/open-project-evidence --require-consistent --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+        run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/open-project-evidence --require-consistent --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice"
       - name: Verify detector streams after independent export and reimport
         if: matrix.stage == 'detector'
         timeout-minutes: 15
@@ -137,6 +146,11 @@ jobs:
             build/physical-engines/*-build.log
             build/physical-engines/*-version.log
             build/physical-engines/source-lock.json
+            build/simulation-engine/*-build.log
+            build/simulation-engine/*-version.log
+            build/simulation-engine/source-lock.json
+            build/simulation-engine/diode-sequences
+            build/simulation-engine/rf-bias
           if-no-files-found: error
 
   detector-desktop:

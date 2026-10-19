@@ -77,7 +77,7 @@ class RFRuntimeTests(unittest.TestCase):
             (root/'inner.inc').write_text('X1 a k '+MODEL+'\n')
             result=inspect_inputs('.include sub/top.inc\n',root)
             self.assertEqual(len(result['calls']),1)
-            self.assertEqual(result['dependencies'][1]['path'],str(root/'inner.inc'))
+            self.assertTrue(Path(result['dependencies'][1]['path']).samefile(root/'inner.inc'))
             (root/'inner.inc').unlink()
             result=inspect_inputs('.include sub/top.inc\n',root)
             self.assertFalse(result['calls'])
@@ -124,7 +124,7 @@ class RFRuntimeTests(unittest.TestCase):
                     run_deck({},'unused',dict(deck=str(deck)),'engine',output)
                 execute.assert_not_called()
             result=json.loads(next(output.glob('*/rf-acceptance.json')).read_bytes())
-            self.assertEqual(result['calls'][0]['source'],str(inputs/'model.inc'))
+            self.assertTrue(Path(result['calls'][0]['source']).samefile(inputs/'model.inc'))
 
     def test_missing_section_requires_probe(self):
         with tempfile.TemporaryDirectory() as folder:
