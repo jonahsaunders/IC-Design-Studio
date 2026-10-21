@@ -125,7 +125,11 @@ class IhpInductorLvsTests(unittest.TestCase):
     def test_private_corrections_keep_the_pinned_public_bundle_unchanged(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);entry,record=ihp.extraction_assets(root)
-            self.assertTrue(entry.is_file());self.assertEqual(len(record['additional_corrections']),4)
+            self.assertTrue(entry.is_file())
+            self.assertEqual({r['path'] for r in record['additional_corrections']}, {
+                'rule_decks/ind_connections.lvs', 'rule_decks/custom_extractor.lvs',
+                'rule_decks/ind_extraction.lvs', 'rule_decks/cap_connections.lvs',
+                'rule_decks/diode_connections.lvs'})
             ihp.assets()  # Original source hashes still hold.
             with self.assertRaisesRegex(ValueError,'Unexpected public'):
                 ind.extractor_roles(root)  # Refuse already-modified or unrelated sources.

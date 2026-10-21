@@ -59,6 +59,21 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [IHP isolation physical record](validation/ihp-isolation-physical-2026-10-21.json)
+adds 20 isolation-box layouts and eight isolated-transistor/tap layouts, with
+all 80 deliberately introduced faults detected. Twelve contact-enclosure
+boundary checks produce the required four below-limit failures and eight
+at/above-limit passes. The implementation preserves all three isolation
+terminals, connects the physical NWell ring and retains internal tap recognition.
+Both existing tap paths also pass their selected regression cases and twelve
+fault controls. Eighty affected tests pass on each host, and five Windows-to-local-
+Linux runs verify 885 returned files. Independent audits and archive replay
+bind these results to their source. See the [scope and reproduction guide](IHP_ISOLATION_PHYSICAL.md).
+Complete device envelopes, missing model bindings, broader physical coverage
+and final installed-release acceptance remain required; chunk 7 is incomplete.
+
+### Earlier RF isolation checkpoint
+
 The [RF isolation record](validation/sky130-rf-isolation-2026-10-21.json)
 adds explicit anode/cathode/substrate connectivity for a bounded SKY130 RF
 p-well layout. Each host passes 24 legal layouts, detects all 186 deliberate

@@ -60,3 +60,10 @@ tests/fixtures/ihp-measured-workflow-v1/** -whitespace
 # Preserve byte-bound native Windows responses and generated plot serialization.
 docs/qualification/ihp-measured-coil-2026-10-21/* whitespace=cr-at-eol
 docs/qualification/ihp-measured-coil-2026-10-21/measured-comparison.svg -whitespace
+
+# Preserve executed source CRLF and the exact pinned public isolation assets.
+icstudio/ihp_tap_lvs.py whitespace=cr-at-eol
+icstudio/assets/qualification/ihp-isolation/isolbox_code.py -whitespace
+icstudio/assets/qualification/ihp-isolation/isolbox.cdl -whitespace
+icstudio/assets/qualification/ihp-isolation/isolbox_sweep_tb.sch -whitespace
+icstudio/assets/qualification/ihp-isolation/source-lock.json whitespace=cr-at-eol

@@ -333,7 +333,11 @@ Nine corner/temperature cases pass independent terminal-current comparisons and
 including fresh import, save/reopen, Xschem exchange and invalid-dimension rejection.
 The current default repeats all nine cases successfully. Add
 `--historical-isolation` to reproduce the earlier separate package.
-Physical extraction and full bias/geometry envelopes remain open requirements.
+The later [physical extraction checks](IHP_ISOLATION_PHYSICAL.md) preserve all
+three isolation terminals and the internal tap/body connection: 20 standalone
+and eight mixed-circuit layouts pass, with 80 detected faults and twelve native
+contact-enclosure boundary cases. Full bias/geometry envelopes and additional
+physical options remain open requirements.
 
 ## Primitive source inventory
 

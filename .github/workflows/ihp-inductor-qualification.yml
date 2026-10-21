@@ -6,6 +6,9 @@ on:
     paths:
       - 'icstudio/**'
       - 'scripts/qualify_ihp_inductor_layouts.py'
+      - 'scripts/qualify_ihp_isolation_layouts.py'
+      - 'scripts/qualify_ihp_isolation_context.py'
+      - 'tests/test_ihp_isolation_lvs.py'
       - 'scripts/qualify_ihp_varactor_layouts.py'
       - 'scripts/qualify_ihp_npn_layouts.py'
       - 'scripts/qualify_ihp_topvia.py'
@@ -32,6 +35,9 @@ on:
     paths:
       - 'icstudio/**'
       - 'scripts/qualify_ihp_inductor_layouts.py'
+      - 'scripts/qualify_ihp_isolation_layouts.py'
+      - 'scripts/qualify_ihp_isolation_context.py'
+      - 'tests/test_ihp_isolation_lvs.py'
       - 'scripts/qualify_ihp_varactor_layouts.py'
       - 'scripts/qualify_ihp_npn_layouts.py'
       - 'scripts/qualify_ihp_topvia.py'
@@ -91,6 +97,14 @@ jobs:
       - name: Require eight legal orientations and twenty-eight detected faults
         timeout-minutes: 10
         run: python scripts/qualify_ihp_inductor_layouts.py --sources icstudio/assets/qualification/ihp-inductors --output build/ihp-coil-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Require isolation-box terminal preservation and deliberate fault detection
+        timeout-minutes: 5
+        run: |
+          python -m unittest tests.test_ihp_isolation_lvs -v
+          python scripts/qualify_ihp_isolation_layouts.py --pilot --workers 1 --output build/ihp-isolation-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Preserve the transistor, tap and isolation circuit under rotation and reflection
+        timeout-minutes: 5
+        run: python scripts/qualify_ihp_isolation_context.py --workers 2 --output build/ihp-isolation-context --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - name: Require forty contacted varactor layouts and twenty-eight detected faults
         timeout-minutes: 10
         run: python scripts/qualify_ihp_varactor_layouts.py --size small --contacted --workers 2 --output build/ihp-varactor-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
@@ -114,6 +128,8 @@ jobs:
           name: ihp-coil-physical-evidence
           path: |
             build/ihp-coil-evidence
+            build/ihp-isolation-evidence
+            build/ihp-isolation-context
             build/ihp-varactor-evidence
             build/ihp-public-varactor-evidence
             build/ihp-public-npn-evidence

@@ -11,6 +11,11 @@ from .model import file_digest,scalar
 from .ihp_taps import SYMBOLS,MODELS,FORMULA
 
 
+def recognition_label(layer,datatype,text):
+    """Public TEXT markers select tap models; they are not conductor net names."""
+    return (layer,datatype)==(63,0) and text.casefold() in ('well','sub!')
+
+
 def _proof(technology,model):
     root=Path(technology['package_root']).resolve();files=technology['package_lock']['files']
     entry=technology['simulation']['catalog'].get('sg13g2_pr/'+model+'.sym',{})

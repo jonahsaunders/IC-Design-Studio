@@ -87,6 +87,8 @@ def extraction_assets(destination):
     record['additional_corrections'].extend(extractor_roles(destination))
     from .ihp_varactor_lvs import extractor_connections
     record['additional_corrections'].append(extractor_connections(destination))
+    from .ihp_isolation_lvs import extractor_connections as isolation_connections
+    record['additional_corrections'].append(isolation_connections(destination))
     atomic_write(destination/'ICSTUDIO-CORRECTIONS.json', json.dumps(record, indent=2))
     return destination/'sg13g2.lvs', record
 
@@ -240,6 +242,11 @@ def extract(executable, source, top, ports, technology, folder):
         raise ValueError('IHP extraction did not retain every marked inductor.')
     from .ihp_tap_lvs import extracted_geometry
     converted, taps = extracted_geometry(converted); changes.extend(taps)
+    from .ihp_isolation_lvs import geometry as isolation_geometry, recognition_inventory as isolation_inventory
+    converted, isolations = isolation_geometry(converted, extracted=True); changes.extend(isolations)
+    isolation_marks = isolation_inventory(source, top)
+    if len(isolation_marks) != len(isolations):
+        raise ValueError('IHP extraction did not retain every marked isolation box exactly once.')
     converted, port_order = order_top_ports(converted, top, ports)
     output = folder/'extracted.spice'; atomic_write(output, converted)
     check_extracted_interface(output, top, ports, technology)
@@ -252,4 +259,5 @@ def extract(executable, source, top, ports, technology, folder):
                 interface_conversion=changes, top_port_order=port_order, local_correction=correction,
                 inductor_wiring=coils,
                 varactor_recognition=varactor_marks,
+                isolation_recognition=isolation_marks,
                 settings={k:str(v) for k,v in settings.items()})

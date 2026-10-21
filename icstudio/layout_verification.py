@@ -175,6 +175,8 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             comparison,inductors=inductor_geometry(comparison);defaults.extend(inductors)
             from .ihp_varactor_lvs import geometry as varactor_geometry
             comparison,varactors=varactor_geometry(comparison);defaults.extend(varactors)
+            from .ihp_isolation_lvs import geometry as isolation_geometry
+            comparison,isolations=isolation_geometry(comparison,p['pdk']);defaults.extend(isolations)
         atomic_write(out/'schematic-lvs.spice',comparison)
         report['reference_defaults']=defaults
         files.update({n:file_digest(out/n) for n in ('input.icproj','schematic.spice','schematic-lvs.spice')})
@@ -195,7 +197,9 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             if lvs_extractor=='ihp-klayout':
                 from .ihp_inductor_lvs import recognition_label as coil_label
                 from .ihp_varactor_lvs import recognition_label as varactor_label
-                recognition=lambda layer,datatype,text: coil_label(layer,datatype,text) or varactor_label(layer,datatype,text)
+                from .ihp_isolation_lvs import recognition_label as isolation_label
+                from .ihp_tap_lvs import recognition_label as tap_label
+                recognition=lambda layer,datatype,text: coil_label(layer,datatype,text) or varactor_label(layer,datatype,text) or isolation_label(layer,datatype,text) or tap_label(layer,datatype,text)
             r=verification_stream(out/'original.gds',c['name'],ref['ports'],out/'layout.gds',pin_layers=pins,recognition_label=recognition)
             files.update({n:file_digest(out/n) for n in ('original.gds','layout.gds')});return r
         stage('layout_export',stream)
