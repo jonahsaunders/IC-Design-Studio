@@ -35,6 +35,16 @@ def column(data, scale, port, resistance=4.):
 
 
 class OpenEMSTests(unittest.TestCase):
+    def test_truncated_excitation_cannot_pass_even_with_reported_energy_decay(self):
+        p, did = coil()
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)/'run'; m = backend.prepare(p, p['top'], did, 'context', {'samples': 2}, root)
+            log = ('Operator::CalcGaussianPulsExcitation: Requested excitation pusle would be '
+                   '8651602 timesteps or 1.43239e-09 s long. Cutting to max number of timesteps!\n'
+                   'Energy: 1e-30 (-60 dB)\nICSTUDIO_EM:{"state":"complete"}')
+            with self.assertRaisesRegex(ValueError, 'truncated the requested excitation'):
+                backend.check_completion(log, root, m, 1., 1)
+
     def test_exact_masks_all_shapes_rotations_and_pdk_aliases(self):
         db = kdb()
         for shape in inductor.SHAPES:

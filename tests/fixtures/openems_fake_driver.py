@@ -17,6 +17,13 @@ if args.probe:
     raise SystemExit(0)
 data = json.loads(Path(args.model).read_text()); opts = data['settings']
 print('ICSTUDIO_EM:'+json.dumps(dict(state='mesh', cells=1000)), flush=True)
+if mode == 'truncated':
+    # Split the native line across separate reads; the UI must recognize the
+    # reconstructed line and stop without waiting for its ordinary timeout.
+    print('Operator::CalcGaussianPulsExcitation: Cutting to max number of ', end='', flush=True)
+    time.sleep(.1)
+    print('timesteps!\r', flush=True)
+    while True: time.sleep(.1)
 if mode == 'hang':
     while True: time.sleep(.1)
 time.sleep(.08)

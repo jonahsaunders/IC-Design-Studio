@@ -37,6 +37,26 @@ and never fills them with guessed foundry values.
 
 ![openEMS simulation controls](images/dev23/openems-setup.png)
 
+## Public IHP top-metal profile
+
+For the pinned IHP SG13G2 package, **Set up physical layers… → Load public IHP
+top-metal profile** fills the review table from the bundled, source-locked
+Apache-2.0 inputs. Choose the 280 µm bulk substrate or the 180 µm bulk substrate
+from the upstream `SG13G2_200um.xml` file, then press **Apply**. The latter file's
+name describes the public stack option; its bulk silicon is 180 µm. All five
+substrate, epitaxial, oxide, passivation and air slabs retain their original values.
+
+This profile maps only **TopMetal1.drawing, TopVia2.drawing and
+TopMetal2.drawing**. Other drawn layers, including fill and slits, require their
+own physical interpretation and prevent automatic simulation until resolved.
+The source reference and checksum travel with the saved profile. Applying it
+supports undo/redo and changes no schematic device or compact model. The public
+`inductor` and `inductor3` compact-model catalog entries remain unavailable.
+
+These are nominal public material inputs. No frequency/temperature calibration,
+intrinsic-coil accuracy, full-stack coverage or tapeout qualification follows
+from loading them. See [IHP profile validation](IHP_EM_PROFILE.md).
+
 ## Custom installations and source builds
 
 An existing installation can be selected under **Advanced settings → Solver
@@ -107,6 +127,9 @@ bands; do not treat a time-limit exit as a converged measurement.
 **Verify with a finer mesh** defaults on: two terminal excitations at the base
 mesh, then two at a 0.7 mesh scale, each in a fresh process. Every solver log must
 confirm the requested energy decay. Exit code zero alone is insufficient. The
+application also stops as soon as openEMS reports that it truncated the requested
+excitation pulse. Increase the time-step allowance for that model and band before
+retrying; an energy-decay message cannot override this failure. The
 application compares complex differential Z and R at every sample against the
 finer result, with a 1 mΩ denominator floor. Both changes must meet the selected
 tolerance before automatic attachment. Disabling this check is allowed and is

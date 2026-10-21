@@ -171,6 +171,35 @@ bipolar/tap checks remain separate.
 
 ## Reproduction
 
+The mixed-device regression adds twelve layouts: three NPN/small-varactor pairs
+in all four rotations, sharing a physical substrate. It covers `npn13G2l`
+(70 nm × 1 µm, Nx1), `npn13G2v` (120 nm × 5 µm, Nx4), and `npn13G2`
+(70 nm × 0.9 µm, Nx10), paired with small varactors of Nx1, Nx4 and Nx1.
+All original coupon masks and recognition annotations survive placement and
+GDS/OASIS exchange. Both public geometry decks and the full native Magic gate
+pass; strict LVS retains both devices and their individual dimensions.
+The public setup permits only the varactor's two gate terminals to exchange;
+well, substrate and NPN terminal roles remain distinct.
+
+Twenty-one controls remove an NPN emitter contact or varactor recognition,
+remove a patch of gate oxide, short a varactor gate, and change reference emitter
+count, varactor finger count or substrate connection. Every control produces
+the expected native failure; tool errors do not count. Windows independently
+reads back twelve mask exchanges, twenty-four native/comparison netlists and
+twenty-four public geometry reports.
+
+The separate large Nx10 varactor paired with the Nx10 NPN still produces
+**58 full native well-rule findings** (`NW.f`, `NBL.f`, `NW.c1`). Those findings
+are retained, not filtered or promoted by the public deck results. Other mixed
+combinations and complete operating envelopes remain unqualified. Reproduce the
+bounded small-varactor batch with:
+
+```text
+python scripts/qualify_ihp_mixed_layouts.py --workers 2 --output NEW_OUTPUT --magic MAGIC --netgen NETGEN --klayout KLAYOUT
+```
+
+Add `--large-third` to reproduce the unresolved large-varactor combination.
+
 The native CI regression checks all forty explicitly contacted small layouts
 and twenty-eight faults. Independent cases run in separate processes:
 

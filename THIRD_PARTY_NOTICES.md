@@ -435,3 +435,14 @@ license is included. Studio separately checks written thick oxide over marked
 varactor gates using that public device definition. It changes no upstream rule
 or limit and filters no native finding. Antenna, density, electrical operating
 limits and fabrication qualification remain separate requirements.
+
+The optional IHP electromagnetic inputs in `icstudio/assets/physical/ihp_em`
+retain the original `SG13G2.xml`, `SG13G2_200um.xml`, README and Apache-2.0
+license from `VolkerMuehlhaus/openems_ihp_sg13g2` commit
+`e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63`, the openEMS submodule pinned by
+the IHP commit above. `SOURCE.json` records their exact paths, Git blob identities
+and SHA-256 checksums. These originals retain Apache-2.0; the adapter is project
+code under GPL-3.0. It selects three top-metal drawing layers and preserves every
+environment slab, translating the vertical origin according to the public
+substrate offset. It supplies no compact inductor model, calibrated electrical
+accuracy or fabrication qualification.

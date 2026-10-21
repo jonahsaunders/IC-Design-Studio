@@ -49,3 +49,7 @@ docs/qualification/mos-boundary-sources-v1/sources.json whitespace=cr-at-eol
 docs/qualification/mos-boundary-sources-v1/NOTICE.txt whitespace=cr-at-eol
 # Keep the checksummed public IHP geometry sources byte-identical upstream.
 icstudio/assets/physical/ihp_klayout_drc/** -whitespace
+# These locked public material sources also retain upstream whitespace.
+icstudio/assets/physical/ihp_em/** -whitespace
+# Preserve the recorded Windows serialization of this historical source manifest.
+docs/validation/gf180-tested-source-2026-10-21-em.json whitespace=cr-at-eol

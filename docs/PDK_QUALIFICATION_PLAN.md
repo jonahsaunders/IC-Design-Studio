@@ -59,6 +59,25 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [October 21 IHP profile and mixed-layout record](validation/ihp-em-mixed-2026-10-21.json)
+adds the pinned public top-metal material profiles for 280 and 180 µm bulk
+substrates. Both source desktops verify review, apply, undo/redo and save/reopen.
+Two top-via fixtures pass both complete public geometry decks; all five specific
+via faults are detected. The actual generated solver-coil geometry also passes.
+These are source, geometry and interface results, not calibrated EM accuracy or
+replacements for the unavailable IHP compact inductor models.
+
+Twelve mixed NPN/small-varactor layouts pass full native DRC and strict LVS,
+with all twenty-one faults detected. Windows independently verifies the twelve
+exchanges and twenty-four native/comparison netlists. A separate large Nx10
+varactor combination retains 58 full native well-rule findings. Both complete
+source regression suites pass 3,198 discovered tests with platform skips.
+Historical GF180 source bindings preserve the exact previously tested Git blobs.
+The earlier head has seven successful hosted PR checks and one IHP timeout;
+the new timeout allowance retains all checks and adds via/mixed regressions.
+New-head hosted acceptance, full operating envelopes, remaining models and
+installed-release qualification remain open. Chunk 7 is not complete.
+
 The [upstream file and tool-view inventory](UPSTREAM_VIEW_INVENTORY.md)
 now enumerates 13,203 entries across the named IHP/GF180 repositories and
 SKY130 common/primitive archives, including all five IHP submodules and explicit

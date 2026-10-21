@@ -8,6 +8,10 @@ on:
       - 'scripts/qualify_ihp_inductor_layouts.py'
       - 'scripts/qualify_ihp_varactor_layouts.py'
       - 'scripts/qualify_ihp_npn_layouts.py'
+      - 'scripts/qualify_ihp_topvia.py'
+      - 'tests/test_ihp_em_profile.py'
+      - 'scripts/qualify_ihp_mixed_layouts.py'
+      - 'tests/test_ihp_mixed_layouts.py'
       - 'scripts/build_physical_engines.py'
       - 'tests/test_ihp_inductor_lvs.py'
       - 'tests/test_ihp_varactor_lvs.py'
@@ -22,6 +26,10 @@ on:
       - 'scripts/qualify_ihp_inductor_layouts.py'
       - 'scripts/qualify_ihp_varactor_layouts.py'
       - 'scripts/qualify_ihp_npn_layouts.py'
+      - 'scripts/qualify_ihp_topvia.py'
+      - 'tests/test_ihp_em_profile.py'
+      - 'scripts/qualify_ihp_mixed_layouts.py'
+      - 'tests/test_ihp_mixed_layouts.py'
       - 'scripts/build_physical_engines.py'
       - 'tests/test_ihp_inductor_lvs.py'
       - 'tests/test_ihp_varactor_lvs.py'
@@ -35,7 +43,7 @@ permissions:
 jobs:
   physical-coils:
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -52,7 +60,7 @@ jobs:
       - name: Build pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
       - name: Check coil topology, interfaces and lossless stream handling
-        run: python -m unittest tests.test_ihp_inductor_lvs tests.test_ihp_varactor_lvs tests.test_ihp_varactor_rules tests.test_ihp_klayout_drc tests.test_ihp_npn_qualification -v
+        run: python -m unittest tests.test_ihp_inductor_lvs tests.test_ihp_varactor_lvs tests.test_ihp_varactor_rules tests.test_ihp_klayout_drc tests.test_ihp_npn_qualification tests.test_ihp_em_profile tests.test_ihp_mixed_layouts -v
       - name: Require eight legal orientations and twenty-eight detected faults
         timeout-minutes: 10
         run: python scripts/qualify_ihp_inductor_layouts.py --sources icstudio/assets/qualification/ihp-inductors --output build/ihp-coil-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
@@ -63,8 +71,16 @@ jobs:
         timeout-minutes: 15
         run: python scripts/qualify_ihp_varactor_layouts.py --drc-engine ihp-public --workers 2 --output build/ihp-public-varactor-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - name: Check all three NPN families with preserved public annotations
-        timeout-minutes: 15
+        # Hosted run 39525709861 reported all nine cases at 15m05s, then
+        # timed out before the final source/package integrity checks completed.
+        timeout-minutes: 25
         run: python scripts/qualify_ihp_npn_layouts.py --drc-engine ihp-public --package icstudio/assets/pdks/ihp-sg13g2 --workers 2 --output build/ihp-public-npn-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Check top-metal via geometry and five deliberate faults
+        timeout-minutes: 5
+        run: python scripts/qualify_ihp_topvia.py --klayout /usr/bin/klayout --output build/ihp-topvia-evidence
+      - name: Require twelve mixed NPN and small-varactor layouts and twenty-one detected faults
+        timeout-minutes: 15
+        run: python scripts/qualify_ihp_mixed_layouts.py --workers 2 --output build/ihp-mixed-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -74,6 +90,8 @@ jobs:
             build/ihp-varactor-evidence
             build/ihp-public-varactor-evidence
             build/ihp-public-npn-evidence
+            build/ihp-topvia-evidence
+            build/ihp-mixed-evidence
             build/physical-engines/*-build.log
             build/physical-engines/*-version.log
             build/physical-engines/source-lock.json

@@ -133,10 +133,20 @@ def stage_name(scale, port):
     return ('base' if scale == 1 else 'fine')+'-'+str(port)
 
 
+def excitation_error(log):
+    """Recognize native pulse truncation before a costly invalid run continues."""
+    if re.search(r'cutting\s+to\s+max(?:imum)?\s+number\s+of\s+time.?steps', log, re.I):
+        return ('openEMS truncated the requested excitation pulse. Increase the time-step limit; '
+                'these results cannot be attached.')
+    return ''
+
+
 def check_completion(log, directory, model_data, scale, port):
     """Exit zero alone also occurs on an openEMS time-step limit or abort."""
     if (Path(directory)/stage_name(scale, port)/'ABORT').exists():
         raise ValueError('openEMS was aborted; results were not attached.')
+    if error := excitation_error(log):
+        raise ValueError(error)
     if re.search(r'max\.?\s*(?:number of\s*)?time.?steps[^\n]{0,40}(?:was reached|reached before)|end.criteria.*not.*reach', log, re.I):
         raise ValueError('openEMS reached its time-step limit before energy convergence. Increase the limit or inspect the model and logs.')
     energies = [float(x.replace(' ', '')) for x in re.findall(r'\(\s*(-?\s*\d+(?:\.\d+)?)\s*dB\s*\)', log, re.I)]

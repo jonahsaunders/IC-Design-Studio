@@ -1,6 +1,6 @@
 {
   "schema": 6,
-  "as_of": "2026-10-20",
+  "as_of": "2026-10-21",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -40,11 +40,13 @@
       "latest_rf_include_evidence": "docs/validation/sky130-rf-includes-2026-10-18.json",
       "latest_rf_physical_evidence": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json",
       "latest_rf_bias_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
-      "latest_ci_repair_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
+      "latest_ci_repair_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
       "latest_rf_transient_evidence": "docs/validation/sky130-rf-transient-2026-10-19.json",
       "latest_ihp_inductor_physical_evidence": "docs/validation/ihp-inductor-physical-2026-10-19.json",
       "latest_ihp_varactor_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
-      "latest_ihp_public_geometry_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json"
+      "latest_ihp_public_geometry_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
+      "latest_ihp_em_profile_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
+      "latest_ihp_mixed_layout_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24942,6 +24944,11 @@
       "path": "docs/validation/upstream-views-2026-10-20.json",
       "sha256": "7f62adb032d88bd85ab3f8c62bf834ab97a2a2d6df9b017f036dc1645bd07526",
       "scope_limit": "File identity and tool-view enumeration for the exact named inputs. No semantic device/process-option, operating-envelope, electrical/physical or installed-release qualification."
+    },
+    "ihp-em-mixed-2026-10-21": {
+      "path": "docs/validation/ihp-em-mixed-2026-10-21.json",
+      "sha256": "397f260f43ef067dc28431f49933c716e68b688f5beb09a74b3f5322767a5afa",
+      "scope_limit": "Source-locked public top-metal EM profile integration, sampled native via and mixed NPN/small-varactor geometry/connectivity, and source regression checks. No complete device envelope, EM accuracy, unavailable model, installed release or tapeout qualification."
     }
   },
   "execution_acceptance": {
@@ -24957,8 +24964,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-18.json",
-        "sha256": "954bcccf4ba11c52489680c550f2cf68e51a9dc025b4f387d4457439eb743eab"
+        "path": "docs/validation/gf180-tested-source-2026-10-21-em.json",
+        "sha256": "0d294ca680e426708a68c69ded55aa9a00fca9ce529babf5870e3d9b551f66f4"
       }
     },
     "5": {

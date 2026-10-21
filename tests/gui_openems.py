@@ -95,6 +95,17 @@ class JobTests(unittest.TestCase):
         self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
         self.assertEqual(self.owner.commits, 1, self.dialog.status.text())
 
+    def test_truncated_excitation_stops_immediately_without_results(self):
+        self.dialog.fields['timeout_s'][0].setValue(60)
+        with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='truncated'):
+            self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
+        self.assertIn('truncated the requested excitation', self.dialog.status.text())
+        self.assertEqual(self.owner.commits, 0)
+        self.assertEqual(self.dialog.job.process.state(), QProcess.NotRunning)
+        self.assertEqual(self.dialog.job.columns, {})
+        self.assertFalse((self.dialog.job.directory/'results.s2p').exists())
+        self.assertTrue(self.dialog.run.isEnabled())
+
     def test_changed_context_and_project_cannot_receive_completed_results(self):
         self.dialog.start(False); self.wait(lambda: self.dialog.job.mode == 'base-1')
         self.owner.project['cells'][0]['shapes'].append(rect('RDL_B', 200000, 200000, 10000, 10000))
