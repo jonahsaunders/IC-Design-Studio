@@ -59,6 +59,19 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [upstream file and tool-view inventory](UPSTREAM_VIEW_INVENTORY.md)
+now enumerates 13,203 entries across the named IHP/GF180 repositories and
+SKY130 common/primitive archives, including all five IHP submodules and explicit
+non-target SKY130B entries. Every Git tree and archive identity is checked;
+actual package bytes determine matches. Both hosts produce identical reports
+and pass fifteen source-integrity tests. Device/process-option interpretation,
+other source archives and execution qualification remain separate open work.
+
+The new IHP public geometry action is now placed in the physical verification
+submenu. This fixes the hosted interoperability failure caused by its earlier
+top-level placement. Both the unchanged interoperability check and IHP action
+check pass on Windows and Linux; subsequent hosted release acceptance is pending.
+
 The [public IHP geometry record](validation/ihp-public-geometry-2026-10-20.json)
 adds eighty passing varactor layouts across both public geometries and all Nx1–10
 rotations, with all sixty-four faults detected. Thirty-six NPN layouts and

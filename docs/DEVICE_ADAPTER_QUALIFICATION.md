@@ -80,7 +80,11 @@ SKY130 alternatives lack definitions in this closure; alternatives are not
 enabled or qualified by inventory alone. The separate IHP Verilog-A inventory
 finds nine declarations and accounts for all six referenced external types.
 Both inventory reports are identical on Windows and Linux. Other upstream views
-and process options remain outside this source-coverage claim.
+and process options remain outside this source-coverage claim. The later
+[upstream file inventory](UPSTREAM_VIEW_INVENTORY.md) enumerates all files in
+the named pinned repositories and SKY130 archives, including IHP's linked
+tool repositories. Its byte comparisons are separate from semantic model and
+process-option qualification.
 
 ```sh
 python scripts/qualify_sky130_fixed_geometry.py --package icstudio/assets/pdks/sky130A --output /path/to/new-results --ngspice /path/to/ngspice
