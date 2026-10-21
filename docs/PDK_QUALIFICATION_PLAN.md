@@ -59,6 +59,23 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [public IHP geometry record](validation/ihp-public-geometry-2026-10-20.json)
+adds eighty passing varactor layouts across both public geometries and all Nx1–10
+rotations, with all sixty-four faults detected. Thirty-six NPN layouts and
+ninety-nine faults also pass. Both unmodified public geometry decks run locally;
+separate written-oxide and full native NPN checks catch demonstrated omissions.
+All original masks and annotations are retained. Independent readback checks
+232 native/comparison netlists; eleven Windows handoffs verify 1,978 received
+files. The archive restores and replays nine native success/failure controls.
+
+The final full Windows suite discovers 3,175 tests and passes with
+63 explicit platform skips; sixty-one focused Linux tests pass.
+The prior commit's hosted checks pass except Windows frozen digital setup,
+which reached the fourth process profile before its one-hour deadline. This
+change retains every check and allows ninety minutes; new hosted acceptance
+remains pending. Full device envelopes, remaining unavailable models, mixed
+layouts and installed-release acceptance still prevent chunk 7 completion.
+
 The [contacted-varactor record](validation/ihp-varactor-contacts-2026-10-19.json)
 adds forty full-DRC/strict-LVS passes and twenty-eight detected faults for the
 explicitly contacted small IHP geometries. A source-checked private correction

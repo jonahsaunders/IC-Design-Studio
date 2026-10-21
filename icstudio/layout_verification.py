@@ -76,7 +76,7 @@ def verification_stream(source, top, ports, target, *, pin_layers, recognition_l
                 hierarchy='Flattened only in private verification input; original project and stream retained.')
 
 
-def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,lvs_extractor='magic'):
+def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,lvs_extractor='magic',drc_engine='magic'):
     from .interchange import export_layout
     from .interoperability import tool_asset
     from .process_adapters import ADAPTERS
@@ -93,6 +93,11 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
     def stage(name,fn):return record_stage(report,name,fn,publish,progress)
     def preflight():
         if blocked_reason:raise ValueError(blocked_reason)
+        if drc_engine not in ('magic','ihp-public'):
+            raise ValueError('Unknown layout DRC engine.')
+        if drc_engine=='ihp-public' and lvs_extractor!='ihp-klayout':
+            raise ValueError('Public IHP geometry checks require the IHP KLayout extraction route.')
+        report['drc_engine']={'gf180-hv-klayout':'gf180-hv-public','sky130-rf-nwell-klayout':'sky130-rf-public'}.get(lvs_extractor,drc_engine)
         if lvs_extractor not in ('magic','ihp-klayout','gf180-hv-klayout','sky130-rf-nwell-klayout'):
             raise ValueError('Unknown layout LVS extractor.')
         if lvs_extractor=='ihp-klayout' and p['pdk'].get('package_lock',{}).get('id')!='ihp-sg13g2':
@@ -124,6 +129,11 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
         if lvs_extractor=='ihp-klayout':
             from .ihp_klayout_lvs import assets as extraction_assets
             assets.update({'ihp-klayout/'+name:path for name,path in extraction_assets().items()})
+            if drc_engine=='ihp-public':
+                from .ihp_klayout_drc import assets as drc_assets
+                assets.update({'ihp-drc/'+name:path for name,path in drc_assets().items()})
+                report.pop('magic_drc_style',None)
+                report['npn_magic_drc_style']=style
             from .ihp_varactor_rules import prepare as prepare_contact_rules
             original_technology=assets['technology']
             technology,private,proof=prepare_contact_rules(assets,out/'ihp-magic-rules',p['pdk']['package_lock']['files'])
@@ -192,6 +202,25 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
                 files[path.relative_to(out).as_posix()]=file_digest(path)
             return log
         def drc():
+            if drc_engine=='ihp-public':
+                from .ihp_klayout_drc import drc as public_drc
+                # Geometry rules must see the untouched original labels too;
+                # interface-only label pruning is solely an extraction step.
+                try:
+                    result=public_drc(resolved['klayout']['path'],out/'original.gds',c['name'],out/'drc')
+                    from .ihp_varactor_oxide import check as varactor_oxide
+                    oxide=varactor_oxide(out/'layout.gds',c['name'])
+                    atomic_write(out/'drc/ihp-varactor-oxide.json',json.dumps(oxide,indent=2))
+                    from .ihp_npn_drc import check as npn_drc
+                    npn=npn_drc(resolved['magic']['path'],assets['technology'],report['npn_magic_drc_style'],out/'layout.gds',c['name'],ref['ports'],out/'drc/npn-native')
+                finally:
+                    for path in (out/'drc').rglob('*'):
+                        if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                report['drc_count']=result['violations']+oxide['violations']+npn['violations'];report['klayout_drc']=result
+                report['ihp_varactor_oxide']=oxide
+                report['ihp_npn_native_drc']=npn
+                if report['drc_count']:raise ValueError(str(report['drc_count'])+' DRC violations; see the public IHP reports, varactor oxide and native NPN checks.')
+                return dict(native=result,varactor_oxide=oxide,npn_native=npn,violations=0)
             if lvs_extractor=='sky130-rf-nwell-klayout':
                 from .sky130_rf_verification import drc as rf_drc
                 result=rf_drc(resolved['klayout']['path'],out/'layout.gds',c['name'],p['pdk'],out/'drc')

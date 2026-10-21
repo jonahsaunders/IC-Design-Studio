@@ -38,6 +38,12 @@ class IHPNpnQualificationTests(unittest.TestCase):
             folder=Path(tmp)
             for i,item in enumerate(CASES):
                 p=generate(tech,item,folder/str(i));save_project(p,folder/f'{i}.icproj');same_masks(p,load_project(folder/f'{i}.icproj'))
+                from icstudio.layout_import import read_layout
+                from icstudio.catalog import link_technology
+                original,_=read_layout(folder/str(i)/'native.gds');link_technology(original,tech)
+                labels=lambda project:{(t['layer'],t['text'],t['x'],t['y']) for t in project['cells'][0]['layout_texts']}
+                self.assertLessEqual(labels(original),labels(p))
+                self.assertTrue(any(t['text']=='E' and t['layer']=='TEXT.drawing' for t in p['cells'][0]['layout_texts']))
                 q=p
                 for _ in range(4):q=rotated(q)
                 same_masks(p,q)

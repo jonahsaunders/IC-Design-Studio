@@ -107,6 +107,17 @@ def stream(target, size, nx, rotation=0, fault=None, sources=SOURCES, contacted=
             if selected and (cut&poly).area()==cut.area():
                 b=s.bbox();s.box=k.Box(b.left,b.bottom,b.right-5,b.top);break
         else:raise ValueError('No matching contact for the width fault.')
+    elif fault=='metal-width':
+        c.shapes(ly.layer(8,0)).insert(k.Box(-5000,-5000,-4900,-4000))
+    elif fault=='off-grid':
+        shape=next(s for s in c.shapes(ly.layer(8,0)).each() if s.bbox().left<-9000)
+        b=shape.bbox();shape.box=k.Box(b.left+1,b.bottom,b.right,b.top)
+    elif fault=='oxide-gap':
+        gates=k.Region(c.shapes(ly.layer(1,0)))&k.Region(c.shapes(ly.layer(5,0)))&k.Region(c.shapes(ly.layer(31,0)))&k.Region(c.shapes(ly.layer(32,0)))
+        piece=max(gates.decompose_trapezoids_to_region().each(),key=lambda p:p.area())
+        center=piece.bbox().center();gap=k.Region(k.Box(center.x-10,center.y-10,center.x+10,center.y+10))
+        if not (gap-gates).is_empty():raise ValueError('Partial-oxide control is not inside a physical gate.')
+        oxide_layer=c.shapes(ly.layer(44,0));remainder=k.Region(oxide_layer)-gap;oxide_layer.clear();oxide_layer.insert(remainder)
     elif fault not in (None,'missing-oxide'):raise ValueError('Unknown physical varactor fault.')
     if rotation:c.transform(k.Trans(rotation//90,False,0,0))
     ly.write(str(target))
@@ -131,9 +142,21 @@ def selected(size,nx,fault=None):
     return reference('.subckt varactor_coupon G1 W G2 S\n'+line+'\n.ends varactor_coupon\n','varactor_coupon')
 
 
-def detected(result,folder,fault):
+def detected(result,folder,fault,drc_engine='magic'):
     stages={s['name']:s for s in result['stages']};folder=Path(folder)
     if result['status']!='failed' or any(stages.get(n,{}).get('status')!='passed' for n in ('preflight','layout_export')):return False
+    if drc_engine=='ihp-public' and fault in ('missing-oxide','oxide-gap','mixed-contact-width','varactor-contact-width','metal-width','off-grid'):
+        from icstudio.ihp_klayout_drc import read_report
+        if not (result.get('drc_count',0)>0 and all(stages.get(n,{}).get('status')=='passed' for n in ('lvs_extraction','lvs','integrity'))):return False
+        reports=[folder/'drc'/name/'findings.lyrdb' for name in ('main','maximal')]
+        if not all(path.is_file() for path in reports):return False
+        if fault in ('missing-oxide','oxide-gap'):
+            extra=json.loads((folder/'drc/ihp-varactor-oxide.json').read_bytes())
+            return extra['violations']>0 and extra['missing_area_nm2']>0
+        rules={f['rule'].strip("'") for path in reports for f in read_report(path)['findings']}
+        prefix={'mixed-contact-width':'CntB.a','varactor-contact-width':'CntB.a',
+                'metal-width':'M1.a','off-grid':'metal1_drw_Offgrid'}[fault]
+        return any(rule.startswith(prefix) for rule in rules)
     if fault in ('mixed-contact-width','varactor-contact-width','missing-well-ties','missing-substrate-ties'):
         findings=folder/'drc/findings.tsv';width=fault.endswith('contact-width')
         if not (result.get('drc_count',0)>0 and findings.is_file()
@@ -161,7 +184,7 @@ def detected(result,folder,fault):
 
 
 def run_case(job):
-    size,nx,rotation,fault,root,sources,contacted,tech,tools=job
+    size,nx,rotation,fault,root,sources,contacted,tech,tools,drc_engine=job
     folder=Path(root)/f'{size}-{nx}-{rotation}-{fault}';folder.mkdir();row=dict(size=size,nx=nx,rotation=rotation,fault=fault)
     try:
         write(folder/'source.json',stream(folder/'source.gds',size,nx,rotation,fault if fault and not fault.startswith('reference-') else None,sources,contacted=contacted))
@@ -170,9 +193,9 @@ def run_case(job):
         save_project(p,folder/'saved.icproj');p=load_project(folder/'saved.icproj')
         export_layout(p,folder/'export.gds');export_layout(p,folder/'export.oas')
         row['exchange']=compare(folder/'export.gds',folder/'export.oas',text_presentation=False)
-        result=run(p,p['top'],folder/'verification',tools,ref,lvs_extractor='ihp-klayout')
+        result=run(p,p['top'],folder/'verification',tools,ref,lvs_extractor='ihp-klayout',drc_engine=drc_engine)
         row.update(native_status=result['status'],drc_count=result.get('drc_count'),error=result.get('error'),report_sha256=file_digest(folder/'verification/report.json'))
-        row['status']='PASS' if (detected(result,folder/'verification',fault) if fault else result['status']=='passed') else 'FAIL'
+        row['status']='PASS' if (detected(result,folder/'verification',fault,drc_engine) if fault else result['status']=='passed') else 'FAIL'
     except Exception as error:row.update(status='FAIL',error=repr(error),traceback=traceback.format_exc())
     write(folder/'record.json',row)
     return row
@@ -183,10 +206,12 @@ def main():
     ap.add_argument('--sources',type=Path,default=SOURCES);ap.add_argument('--pilot',action='store_true')
     ap.add_argument('--size',choices=('small','large','all'),default='all',help='Explicit physical subset; larger public fixtures currently retain unresolved Magic well findings.')
     ap.add_argument('--contacted',action='store_true',help='Add the explicitly documented well/substrate ties to small coupons; original-source mode stays available.')
+    ap.add_argument('--drc-engine',choices=('magic','ihp-public'),default='magic',help='Explicitly select full Magic checks or both unmodified public KLayout geometry decks.')
     ap.add_argument('--workers',type=int,choices=range(1,5),default=2,help='Independent native cases; completed records are published by the parent.')
     for n in ('magic','netgen','klayout'):ap.add_argument('--'+n,required=True)
     a=ap.parse_args()
     if a.contacted and a.size!='small':ap.error('--contacted requires --size small')
+    if a.contacted and a.drc_engine!='magic':ap.error('--contacted belongs to the retained Magic qualification; public-deck tests use original coupons')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     tools={n:str(Path(getattr(a,n)).resolve(strict=True)) for n in ('magic','netgen','klayout')}
     tech,identity=load_technology('ihp-sg13g2');rows=[]
@@ -197,11 +222,13 @@ def main():
     cases += [(s,1,0,f) for s in sizes for f in FAULTS]
     if a.contacted:
         cases += [('small',n,r,f) for n,f in ((4,'mixed-contact-width'),(4,'varactor-contact-width'),(10,'missing-well-ties'),(10,'missing-substrate-ties')) for r in ((0,) if a.pilot else (0,90,180,270))]
+    if a.drc_engine=='ihp-public':
+        cases += [(s,n,r,f) for s in sizes for n,f in ((4,'mixed-contact-width'),(4,'varactor-contact-width'),(10,'metal-width'),(10,'off-grid'),(10,'oxide-gap')) for r in ((0,) if a.pilot else (0,90,180,270))]
     completed={}
     def publish(index,row):
         completed[index]=row;write(out/'progress.json',[completed[i] for i in sorted(completed)])
         print(row['size'],row['nx'],row['rotation'],row['fault'],row['status'],row.get('error',''),flush=True)
-    jobs=[(*case,out,a.sources,a.contacted,tech,tools) for case in cases]
+    jobs=[(*case,out,a.sources,a.contacted,tech,tools,a.drc_engine) for case in cases]
     if a.workers==1:
         for index,job in enumerate(jobs):publish(index,run_case(job))
     else:
@@ -211,7 +238,7 @@ def main():
     rows=[completed[i] for i in range(len(cases))]
     unchanged=before=={p.relative_to(ROOT).as_posix():file_digest(p) for p in files}
     report=dict(schema=1,chunk=7,chunk_complete=False,qualified=False,default_promoted=False,process=identity,
-                scope=__doc__,selected_sizes=list(sizes),contacted=a.contacted,workers=a.workers,cases=rows,implementation_unchanged=unchanged,
+                scope=__doc__,selected_sizes=list(sizes),contacted=a.contacted,drc_engine=a.drc_engine,workers=a.workers,cases=rows,implementation_unchanged=unchanged,
                 status='PASS' if unchanged and all(r['status']=='PASS' for r in rows) else 'FAIL')
     write(out/'qualification.json',report)
     return 0 if report['status']=='PASS' else 1

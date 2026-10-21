@@ -28,10 +28,13 @@ def main():
     assert action is not None,[a.text() for a in actions if 'IHP' in a.text() or 'LVS' in a.text()]
     action.trigger();app.processEvents()
     assert not errors and len(jobs)==1 and jobs[0]['lvs_extractor']=='ihp-klayout' and jobs[0]['reference']['text']==text,(errors,jobs)
+    public=next(a for a in actions if a.text()=='Verify IHP layout with public geometry decks…')
+    public.trigger();app.processEvents()
+    assert not errors and len(jobs)==2 and jobs[-1]['drc_engine']=='ihp-public' and jobs[-1]['lvs_extractor']=='ihp-klayout'
     w.run_layout_verification();assert jobs[-1]['lvs_extractor']=='magic'
-    w.set_project(example('empty'));action.trigger();app.processEvents();assert len(jobs)==2 and len(errors)==1 and 'IHP SG13G2' in errors[0],errors
+    w.set_project(example('empty'));action.trigger();public.trigger();app.processEvents();assert len(jobs)==3 and len(errors)==2 and all('IHP SG13G2' in e for e in errors),errors
     w.saved_hash=digest(w.project);w.analysis_dirty=False;w.close()
-    report=dict(status='PASS',scope='Source desktop action and captured job settings; not an installed-release acceptance run.',checks=['IHP action selects public KLayout extraction','Self-contained reference captured before queueing','Default action retains Magic extraction','Other PDKs rejected'],job=jobs[0])
+    report=dict(status='PASS',scope='Source desktop action and captured job settings; not an installed-release acceptance run.',checks=['IHP action selects public KLayout extraction','Explicit public geometry action captures both decks','Self-contained reference captured before queueing','Default action retains Magic extraction','Other PDKs rejected'],jobs=jobs)
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print('PASS: IHP desktop action, reference capture, default route and process guard.')
 
 if __name__=='__main__':main()

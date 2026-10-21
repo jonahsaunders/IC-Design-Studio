@@ -424,3 +424,14 @@ Its upstream Apache-2.0 headers and original sources remain intact. The opt-in
 contacted coupon adds explicit well/substrate ties while retaining the original
 gate and pin geometry. Larger public layouts still have unresolved full-DRC
 findings; see `docs/IHP_VARACTOR_QUALIFICATION.md`.
+
+The optional public IHP geometry route in
+`icstudio/assets/physical/ihp_klayout_drc` retains the unmodified main and maximal
+DRC decks, their dependencies, process values, documentation and SVaricap
+generator from IHP-Open-PDK commit
+`5e6d592e4002946a4616f798c357f0f3c06cf3b6`. Every original retains Apache-2.0,
+its source notice and its recorded checksum in `SOURCE.json`; the original
+license is included. Studio separately checks written thick oxide over marked
+varactor gates using that public device definition. It changes no upstream rule
+or limit and filters no native finding. Antenna, density, electrical operating
+limits and fabrication qualification remain separate requirements.

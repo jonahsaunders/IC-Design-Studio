@@ -57,12 +57,17 @@ def generate(tech,item,folder):
     db=kdb();ly=db.Layout();ly.read(str(SOURCE/'npn_adv.gds'));target=db.Layout();target.dbu=ly.dbu
     c=target.create_cell('coupon');c.copy_tree(ly.cell(name));target.write(str(folder/'native.gds'))
     p,_=read_layout(folder/'native.gds');original=clone(p);link_technology(p,tech);c=p['cells'][0];c['ports']=['C','B','E','S'];metal=regions(p)
+    annotations=clone(c['layout_texts'])
     for terminal in ('C','B','E'):
         labels=[t for t in c['layout_texts'] if t['text']==terminal]
         if len(labels)!=1:raise ValueError('Missing/ambiguous native NPN terminal.')
         point=[labels[0]['x'],labels[0]['y']];layer=(10,0) if terminal=='E' else (8,0)
         if not any(poly.inside(db.Point(*point)) for poly in metal[layer].each()):raise ValueError('NPN terminal outside its conductor.')
         mapped=next(v['name'] for v in p['pdk']['layers'] if (v['gds'],v['datatype'])==layer);assign_port(p,c['id'],terminal,mapped,point)
+    # Public DRC uses the original TEXT/E annotation for NPN applicability.
+    # Typed conductor pins supplement those source annotations, not replace
+    # them. No device mask or label position is changed.
+    c['layout_texts'] += [t for t in annotations if t not in c['layout_texts']]
     same_masks(original,p)
     guards=[poly for poly in (metal[1,0]&metal[14,0]).merged().each() if poly.holes()==1]
     if len(guards)!=1:raise ValueError('Expected one public P+ guard ring.')
@@ -134,7 +139,7 @@ def detected(result,folder,ports=('C','B','E','S')):
     return False
 
 
-def case(tech,item,out,tools):
+def case(tech,item,out,tools,drc_engine='magic'):
     folder=out/item[0];folder.mkdir();row=dict(name=item[0],geometry=item[1:],status='RUNNING',layouts=[],faults=[])
     try:
         p=generate(tech,item,folder/'source');save_project(p,folder/'saved.icproj');q=load_project(folder/'saved.icproj');same_masks(p,q);ref=selected_reference(item)
@@ -143,14 +148,22 @@ def case(tech,item,out,tools):
             baseline=folder/f'baseline-{angle}.gds';export_layout(q,baseline);exported=folder/f'rotation-{angle}.oas';export_layout(q,exported)
             ly=kdb().Layout();ly.read(str(exported));external=folder/f'external-{angle}.oas';ly.write(str(external))
             imported,_=read_layout(external);link_technology(imported,tech);imported['cells'][0]['ports']=['C','B','E','S'];same_masks(q,imported)
-            dest=folder/f'physical-{angle}';result=run(imported,imported['top'],dest,tools,ref,lvs_extractor='ihp-klayout')
+            dest=folder/f'physical-{angle}';result=run(imported,imported['top'],dest,tools,ref,lvs_extractor='ihp-klayout',drc_engine=drc_engine)
             if result['status']!='passed':raise ValueError(result.get('error','Native NPN verification failed.'))
             row['layouts'].append(dict(rotation=angle,drc_count=result['drc_count'],report_sha256=file_digest(dest/'report.json'),exchange=compare(baseline,dest/'original.gds'),extracted=audit_extracted(dest/'lvs-extraction/extracted.spice',item),native=audit_extracted(dest/'lvs-extraction/native.cir',item,True)))
         for fault in FAULTS:
             q=p if fault.startswith('reference-') else altered(p,fault);selected=selected_reference(item,fault) if fault.startswith('reference-') else ref
-            dest=folder/fault;result=run(q,q['top'],dest,tools,selected,lvs_extractor='ihp-klayout');found=detected(result,dest)
+            dest=folder/fault;result=run(q,q['top'],dest,tools,selected,lvs_extractor='ihp-klayout',drc_engine=drc_engine);found=detected(result,dest)
             if fault.startswith('unrelated-'):
-                findings=(dest/'drc/findings.tsv').read_text();found=result['status']=='failed' and result.get('drc_count',0)>0 and 'No unrelated diffusion or well may exist in the NPN area' in findings
+                if drc_engine=='ihp-public':
+                    from icstudio.ihp_klayout_drc import read_report
+                    reports=[read_report(dest/'drc'/name/'findings.lyrdb') for name in ('main','maximal')]
+                    expected='npnG2.d.N_Activ' if fault=='unrelated-diffusion' else 'npnG2.d.NWell'
+                    found=result['status']=='failed' and result.get('drc_count',0)>0 and any(f['rule'].strip("'")==expected for r in reports for f in r['findings'])
+                    native=result.get('ihp_npn_native_drc',{})
+                    found=found or (result['status']=='failed' and native.get('required') and native.get('violations',0)>0 and any('No unrelated diffusion or well may exist in the NPN area' in f['reason'] for f in native.get('findings',[])))
+                else:
+                    findings=(dest/'drc/findings.tsv').read_text();found=result['status']=='failed' and result.get('drc_count',0)>0 and 'No unrelated diffusion or well may exist in the NPN area' in findings
             row['faults'].append(dict(name=fault,detected=found,status=result['status'],report_sha256=file_digest(dest/'report.json'),error=result.get('error')))
             if not found:raise ValueError('NPN verification missed '+fault)
         row['status']='PASS'
@@ -159,15 +172,17 @@ def case(tech,item,out,tools):
 
 
 def main():
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True);ap.add_argument('--klayout',required=True);ap.add_argument('--workers',type=int,choices=range(1,5),default=2);ap.add_argument('--family',choices=('all','npn13G2','npn13G2l','npn13G2v'),default='all');ap.add_argument('--package',type=Path,help='Check this exact installed/default package; omit to reproduce the historical separate correction.');a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True);ap.add_argument('--klayout',required=True);ap.add_argument('--workers',type=int,choices=range(1,5),default=2);ap.add_argument('--family',choices=('all','npn13G2','npn13G2l','npn13G2v'),default='all');ap.add_argument('--package',type=Path,help='Check this exact installed/default package; omit to reproduce the historical separate correction.')
+    ap.add_argument('--drc-engine',choices=('magic','ihp-public'),default='magic')
+    a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
     sources=[Path(__file__),ROOT/'scripts/prepare_ihp_npn_qualification.py',ROOT/'scripts/qualify_diode_layouts.py',ROOT/'scripts/qualify_ihp_resistor_layouts.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};write(out/'source-files.json',before)
     (out/'executed-runner.py').write_bytes(Path(__file__).read_bytes())
     package_folder=a.package or out/'package'
     if a.package is None:prepare(ROOT/'icstudio/assets/pdks/ihp-sg13g2',package_folder)
     tech,identity=load_package(package_folder)
-    tools={k:str(Path(getattr(a,k)).resolve(strict=True)) for k in ('magic','netgen','klayout')};report=dict(schema=1,chunk=7,chunk_complete=False,qualified=False,status='RUNNING',scope=__doc__,package=identity,cases=[])
+    tools={k:str(Path(getattr(a,k)).resolve(strict=True)) for k in ('magic','netgen','klayout')};report=dict(schema=1,chunk=7,chunk_complete=False,qualified=False,status='RUNNING',scope=__doc__,drc_engine=a.drc_engine,package=identity,cases=[])
     with ProcessPoolExecutor(max_workers=a.workers) as pool:
-        jobs=[pool.submit(case,tech,item,out,tools) for item in CASES if a.family=='all' or model_name(item)==a.family]
+        jobs=[pool.submit(case,tech,item,out,tools,a.drc_engine) for item in CASES if a.family=='all' or model_name(item)==a.family]
         for job in as_completed(jobs):
             row=job.result();report['cases'].append(row);write(out/'qualification.json',report);print(row['name'],row['status'],row.get('error',''),flush=True)
     report['implementation_unchanged']=before=={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources}

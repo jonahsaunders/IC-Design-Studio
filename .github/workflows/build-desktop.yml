@@ -623,7 +623,7 @@ jobs:
         shell: pwsh
         run: ./scripts/build_windows.ps1
       - name: Qualify included digital engines through the frozen desktop
-        timeout-minutes: 65
+        timeout-minutes: 95
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/verify_frozen_digital.py

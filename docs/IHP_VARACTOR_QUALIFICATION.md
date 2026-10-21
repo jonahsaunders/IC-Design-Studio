@@ -7,10 +7,71 @@ to an explicit `X` comparison primitive. Ordinary two-terminal capacitors stay
 unchanged. Missing terminals, duplicate or unresolved parameters, unsupported
 parameters, nonpositive dimensions and fractional counts are rejected.
 
-The explicitly contacted small-device coupons now pass all forty selected
-geometries and rotations, with all twenty-eight faults detected. This is partial
-family coverage: the larger geometries and chunk 7 remain incomplete. It adds
-no foundry approval or new electrical model.
+The explicit **Verify IHP layout with public geometry decks…** action now passes
+both public W/L geometries, Nx=1 through 10 and all four rotations: eighty
+layouts, with all sixty-four physical/reference faults detected. It runs both
+unmodified public main and maximal decks, unfiltered extraction, strict LVS and
+a separate check of written varactor oxide. The earlier Magic route remains
+available. Continuous operating envelopes, other outstanding devices and chunk 7
+remain incomplete. This adds no foundry approval or new electrical model.
+
+## Public geometry route
+
+The public main and maximal decks, every dependency and both technology-value
+files are checked against the pinned source lock. KLayout 0.30.5 is the tested
+native engine; older versions are rejected. Every run retains both complete
+report databases and command lines. Neither rule limits nor native findings
+are altered. The desktop can navigate findings from either report.
+
+The full sweep uses the original source masks with the documented oxide and
+substrate-terminal additions below; it does not need the additional well and
+substrate contacts used by the earlier Magic-specific coupons. Independent
+readback verifies 160 native/comparison netlists, 800 GDS/OASIS layer pairs,
+all 288 native report databases and retention of every original drawn area.
+
+The native decks alone accept the large Nx=1 fixture after its oxide is removed.
+The pinned public generator explicitly draws thick oxide over the varactor
+gates, so Studio separately requires written ThickGateOx to cover the marked
+device's gate regions. This checks the public device construction, without
+inventing an enclosure distance. Complete oxide removal and 20 nm square holes
+over actual gates are rejected at both W/L sizes and in every tested rotation.
+The native false pass is retained in the evidence.
+
+The remaining controls remove or duplicate recognition, open or short terminals,
+change reference geometry/counts/body connections, narrow contacts to 155 nm,
+add 100 nm metal and put metal off the 5 nm grid. A native crash, missing report,
+disabled rule group or failed extraction never counts as successful detection.
+
+Earlier-device checks pass for the PNP, long/vertical NPN, both taps and both
+coil fixtures. The first ordinary `npn13G2` fixture reported two `nSDB.e`
+overlaps because adding typed conductor pins had removed its original emitter
+annotation. The NPN coupon generator now preserves all original annotations;
+the public deck uses the `E` text to recognize the bipolar applicability.
+No physical mask or native finding is edited.
+
+The NPN fault sweep also proves that both public decks alone miss an unrelated
+active island inside the device boundary. Therefore any layout containing a
+TRANS marker (26/0) must additionally pass the existing full Magic DRC style
+on the entire layout. Every native finding remains visible. This conservative
+combination can retain Magic findings in mixed NPN/varactor layouts; those mixed
+layouts have no blanket qualification. Standalone varactor coupons contain no
+TRANS marker. Antenna, density, electrical operating limits and complete-chip
+qualification retain their separate requirements.
+
+The [execution record](validation/ihp-public-geometry-2026-10-20.json) retains
+all 279 native cases: 116 valid layouts and 163 detected faults. The NPN sweep
+covers nine public geometries across three families and all four rotations.
+Eleven Windows backend handoffs verify 1,978 received files; restored evidence
+replays nine success/failure controls, including the original Magic failure.
+
+Run the reproducible sweep with:
+
+```text
+python scripts/qualify_ihp_varactor_layouts.py --drc-engine ihp-public --workers 2 --output NEW_OUTPUT --magic MAGIC --netgen NETGEN --klayout KLAYOUT
+```
+
+The source decks and generator retain their Apache-2.0 license and attribution
+in `icstudio/assets/physical/ihp_klayout_drc`. The project license is unchanged.
 
 ## Recognition and connectivity
 
@@ -83,13 +144,14 @@ only the contact-operand correction; the original Nx=10 coupon still fails with
 reports seventeen well-related findings despite passing LVS. These cases remain
 failed. The runner exits unsuccessfully when any selected geometry fails.
 
-An independent investigation runs both unmodified public IHP KLayout geometry
+The initial independent investigation ran both unmodified public IHP KLayout geometry
 decks (main and maximal) at the same pinned commit. Both pass the original large
 Nx=1 and original small Nx=10 fixtures; those decks contain explicit varactor
 exceptions. They also pass the contacted small Nx=10 fixture. The oxide-removal
 and narrow-contact probes produce native findings. This identifies a possible
-route for the remaining geometries, but it is not yet an integrated, fault-tested
-replacement qualification. The application still retains the Magic failures.
+route for the remaining geometries. The public route above now integrates and
+fault-tests that approach, including the oxide gap discovered during the full
+qualification. The application still retains the separate Magic failures.
 
 The first twelve controls remove oxide, recognition or gate contacts; duplicate
 recognition; short gate to well; and alter reference W, L, Nx, multiplicity,

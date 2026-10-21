@@ -124,6 +124,9 @@ def dispatch(job, directory, progress):
         if job['settings'].get('lvs_extractor')=='ihp-klayout':
             from .ihp_klayout_lvs import copy_assets
             copy_assets(backend/'icstudio/assets/physical/ihp_klayout_lvs')
+            if job['settings'].get('drc_engine')=='ihp-public':
+                from .ihp_klayout_drc import copy_assets as copy_drc
+                copy_drc(backend/'icstudio/assets/physical/ihp_klayout_drc')
         if job['settings'].get('lvs_extractor')=='gf180-hv-klayout':
             from .gf180_hv_verification import copy_assets
             copy_assets(backend/'icstudio/assets/physical/gf180_hv')

@@ -7,10 +7,13 @@ on:
       - 'icstudio/**'
       - 'scripts/qualify_ihp_inductor_layouts.py'
       - 'scripts/qualify_ihp_varactor_layouts.py'
+      - 'scripts/qualify_ihp_npn_layouts.py'
       - 'scripts/build_physical_engines.py'
       - 'tests/test_ihp_inductor_lvs.py'
       - 'tests/test_ihp_varactor_lvs.py'
       - 'tests/test_ihp_varactor_rules.py'
+      - 'tests/test_ihp_klayout_drc.py'
+      - 'tests/test_ihp_npn_qualification.py'
       - 'requirements.txt'
       - '.github/workflows/ihp-inductor-qualification.yml'
   pull_request:
@@ -18,10 +21,13 @@ on:
       - 'icstudio/**'
       - 'scripts/qualify_ihp_inductor_layouts.py'
       - 'scripts/qualify_ihp_varactor_layouts.py'
+      - 'scripts/qualify_ihp_npn_layouts.py'
       - 'scripts/build_physical_engines.py'
       - 'tests/test_ihp_inductor_lvs.py'
       - 'tests/test_ihp_varactor_lvs.py'
       - 'tests/test_ihp_varactor_rules.py'
+      - 'tests/test_ihp_klayout_drc.py'
+      - 'tests/test_ihp_npn_qualification.py'
       - 'requirements.txt'
       - '.github/workflows/ihp-inductor-qualification.yml'
 permissions:
@@ -29,7 +35,7 @@ permissions:
 jobs:
   physical-coils:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -39,17 +45,26 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev klayout libegl1 libopengl0
+          curl -fL --retry 3 -o /tmp/ihp-klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/ihp-klayout.deb' | sha256sum -c
+          sudo apt-get install -y /tmp/ihp-klayout.deb
           python -m pip install -r requirements.txt
       - name: Build pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
       - name: Check coil topology, interfaces and lossless stream handling
-        run: python -m unittest tests.test_ihp_inductor_lvs tests.test_ihp_varactor_lvs tests.test_ihp_varactor_rules -v
+        run: python -m unittest tests.test_ihp_inductor_lvs tests.test_ihp_varactor_lvs tests.test_ihp_varactor_rules tests.test_ihp_klayout_drc tests.test_ihp_npn_qualification -v
       - name: Require eight legal orientations and twenty-eight detected faults
         timeout-minutes: 10
         run: python scripts/qualify_ihp_inductor_layouts.py --sources icstudio/assets/qualification/ihp-inductors --output build/ihp-coil-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - name: Require forty contacted varactor layouts and twenty-eight detected faults
         timeout-minutes: 10
         run: python scripts/qualify_ihp_varactor_layouts.py --size small --contacted --workers 2 --output build/ihp-varactor-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Require eighty original varactor layouts and sixty-four detected faults with both public decks
+        timeout-minutes: 15
+        run: python scripts/qualify_ihp_varactor_layouts.py --drc-engine ihp-public --workers 2 --output build/ihp-public-varactor-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Check all three NPN families with preserved public annotations
+        timeout-minutes: 15
+        run: python scripts/qualify_ihp_npn_layouts.py --drc-engine ihp-public --package icstudio/assets/pdks/ihp-sg13g2 --workers 2 --output build/ihp-public-npn-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -57,6 +72,8 @@ jobs:
           path: |
             build/ihp-coil-evidence
             build/ihp-varactor-evidence
+            build/ihp-public-varactor-evidence
+            build/ihp-public-npn-evidence
             build/physical-engines/*-build.log
             build/physical-engines/*-version.log
             build/physical-engines/source-lock.json

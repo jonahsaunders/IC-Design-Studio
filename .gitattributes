@@ -47,3 +47,5 @@ icstudio/assets/pdks/sky130A/qualification-sources/bipolar/** -whitespace
 docs/qualification/mos-boundary-sources-v1/*.rst -whitespace
 docs/qualification/mos-boundary-sources-v1/sources.json whitespace=cr-at-eol
 docs/qualification/mos-boundary-sources-v1/NOTICE.txt whitespace=cr-at-eol
+# Keep the checksummed public IHP geometry sources byte-identical upstream.
+icstudio/assets/physical/ihp_klayout_drc/** -whitespace

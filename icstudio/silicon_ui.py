@@ -20,6 +20,7 @@ class SiliconMixin:
                       ('Generate contacted SKY130 guard…',self.process_guard_dialog),('Add tied SKY130 MOS dummy…',self.process_dummy_dialog)],
             'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Run layout DRC / LVS only…',self.run_layout_verification),
                         ('Verify IHP layout with KLayout extraction…',lambda:self.run_layout_verification(lvs_extractor='ihp-klayout')),
+                        ('Verify IHP layout with public geometry decks…',lambda:self.run_layout_verification(lvs_extractor='ihp-klayout',drc_engine='ihp-public')),
                         ('Verify GF180 high-voltage layout…',lambda:self.run_layout_verification(lvs_extractor='gf180-hv-klayout')),
                         ('Verify SKY130 RF n-well diode…',lambda:self.run_layout_verification(lvs_extractor='sky130-rf-nwell-klayout')),
                         ('Check linked layout and show connections',self.check_linked_layout)],
@@ -42,7 +43,7 @@ class SiliconMixin:
     def open_silicon(self):
         self.results_dock.show();self.results_tabs.setCurrentIndex(self.silicon_tab);self.resizeDocks([self.results_dock],[330],Qt.Vertical);self.refresh_silicon()
 
-    def run_layout_verification(self,*,lvs_extractor='magic'):
+    def run_layout_verification(self,*,lvs_extractor='magic',drc_engine='magic'):
         if lvs_extractor=='ihp-klayout' and self.project['pdk'].get('package_lock',{}).get('id')!='ihp-sg13g2':
             raise ValueError('Link an IHP SG13G2 physical PDK before selecting its KLayout extraction.')
         if lvs_extractor=='gf180-hv-klayout' and self.project['pdk'].get('package_lock',{}).get('id') not in ('gf180mcuC','gf180mcuD'):
@@ -50,6 +51,7 @@ class SiliconMixin:
         if lvs_extractor=='sky130-rf-nwell-klayout' and self.project['pdk'].get('package_lock',{}).get('id')!='sky130A':
             raise ValueError('Link a SKY130A physical PDK before verifying an RF n-well diode.')
         scope='One rectangular RF n-well diode with a contacted substrate ring. The schematic must contain one ps2nw subcircuit call with explicit area and perimeter. This check does not cover RF p-well diodes or complete circuits. ' if lvs_extractor=='sky130-rf-nwell-klayout' else ''
+        if drc_engine=='ihp-public':scope='Run both public IHP geometry decks and strict circuit comparison. Antenna, density and fabrication qualification are separate checks. '
         values=self.simple_form('Layout DRC / LVS',{'Schematic SPICE file':'','Schematic cell':self.cell['name']},
             scope+'Check the active layout against a self-contained schematic netlist using the linked physical PDK. The reference is captured with the run. Legacy layout labels use the named schematic terminals; no simulation testbench is required.')
         if not values:return
@@ -57,7 +59,7 @@ class SiliconMixin:
         path=Path(values['Schematic SPICE file']).expanduser()
         if not path.is_file() or path.stat().st_size>10_000_000:raise ValueError('Choose a schematic SPICE file under 10 MB.')
         captured=reference(path.read_text(encoding='utf-8'),values['Schematic cell'].strip())
-        self.start_job({'type':'silicon','verification_mode':'drc_lvs','reference':captured,'lvs_extractor':lvs_extractor});self.open_silicon()
+        self.start_job({'type':'silicon','verification_mode':'drc_lvs','reference':captured,'lvs_extractor':lvs_extractor,'drc_engine':drc_engine});self.open_silicon()
 
     def new_silicon_example(self):
         if not self.maybe_save():return

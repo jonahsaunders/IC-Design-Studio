@@ -1,0 +1,320 @@
+{
+  "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "license": "Apache-2.0",
+  "verified_tree": "beb3a89679354eb0753f8f825c31265d924fc388",
+  "files": {
+    "README.md": {
+      "git_blob_sha1": "58693efa104df5866fbe33015c415cd8fd719895",
+      "sha256": "ba78ff1dadf627d569e2062d7ded6af6d0f5667db6ab54bac1e02f9e509ee3b3",
+      "bytes": 8978,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/README.md"
+    },
+    "docs/extra_rules.md": {
+      "git_blob_sha1": "b78700370a80327fc4e2cbeb2850d7be7aa8a733",
+      "sha256": "7ef1fe66afe918d6e98636495b65331fe9d04aaf194d74298350657e35fd6f02",
+      "bytes": 40066,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/extra_rules.md"
+    },
+    "docs/main_rules.md": {
+      "git_blob_sha1": "77dd8ce9436c90ceda7f882d9a6640c00590a4f2",
+      "sha256": "40b975ffa45bc7f86ecdc27909ff359f1aee2be1d390e6f6bc58f935aa77f202",
+      "bytes": 39321,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/main_rules.md"
+    },
+    "docs/precheck_rules.md": {
+      "git_blob_sha1": "b50a0fe263967b17a9e445ecc36d8fbb0ac87f54",
+      "sha256": "b8dd7fc763a490e831b837405726e7c38a03f19d48446f59560b01c8a2ef6394",
+      "bytes": 14051,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/docs/precheck_rules.md"
+    },
+    "ihp-sg13g2.drc": {
+      "git_blob_sha1": "a915b1bb4c61fbe335886c4b2e504adbfd53c575",
+      "sha256": "22a570bfb43d564b7ce3de9d7df0795197be79f86c8a484b4959932c8dd75961",
+      "bytes": 18267,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/ihp-sg13g2.drc"
+    },
+    "rule_decks/antenna.drc": {
+      "git_blob_sha1": "324ec2d28669d4d6d3da52c76d84ca796194cb84",
+      "sha256": "e3e925d918d2d4e2067751326122fd1a9be9bc3cb4fa10a8aca2fc9349975362",
+      "bytes": 19754,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/antenna.drc"
+    },
+    "rule_decks/beol/5_16_metal1.drc": {
+      "git_blob_sha1": "466d14ed0d91dc4986a0705424755f70addb09de",
+      "sha256": "82a0ffa3d6412e88de6caf103c3b1eb1a4cf09b6cfa1857da8c67740f56c5ed0",
+      "bytes": 4280,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_16_metal1.drc"
+    },
+    "rule_decks/beol/5_17_metaln.drc": {
+      "git_blob_sha1": "a8ecedecd341e16fdb2327ef5df043f98c44bf56",
+      "sha256": "0023b4dfc61eb71e14d2d4b3b003078d3f8121c732445ad80a9bca187279fb6e",
+      "bytes": 4862,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_17_metaln.drc"
+    },
+    "rule_decks/beol/5_18_metalnfiller.drc": {
+      "git_blob_sha1": "738c51ef25670e0a3f809a7fe659c7301e8fe7df",
+      "sha256": "75db77192540e65fa5065a614b6872a90d967447b5a3dade0e0d2cc1630ee83d",
+      "bytes": 2697,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_18_metalnfiller.drc"
+    },
+    "rule_decks/beol/5_19_via1.drc": {
+      "git_blob_sha1": "c2bc6e01339ddbe5c60c5a540648147937dab47c",
+      "sha256": "d86d04e1f8cda3c045dc8caafe85cec64bde15413d0ab521765021153a59ec0e",
+      "bytes": 2215,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_19_via1.drc"
+    },
+    "rule_decks/beol/5_20_vian.drc": {
+      "git_blob_sha1": "67a7773d6ad2de84c58c181739e86d2a2c7e97db",
+      "sha256": "769a1169bf187d88c14e989dd7be8e3e3204cd72edb2a3d70eb45c943a56e2bd",
+      "bytes": 2524,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_20_vian.drc"
+    },
+    "rule_decks/beol/5_21_topvia1.drc": {
+      "git_blob_sha1": "677ecb34deb0317e124a116c358c1d3ca22b13c6",
+      "sha256": "2a749744b68134b5fd9686dcdf6180a0d3acbed5ecdb1e4d5ac8499f8071e813",
+      "bytes": 2537,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_21_topvia1.drc"
+    },
+    "rule_decks/beol/5_22_topmetal1.drc": {
+      "git_blob_sha1": "2435faff21936b397e97ab162ccd6e894b5992e0",
+      "sha256": "907319b08f719536f8487c326ca54d55a2fa0ffea0156c3277ab8b073e4a3c60",
+      "bytes": 1720,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_22_topmetal1.drc"
+    },
+    "rule_decks/beol/5_23_topmetal1filler.drc": {
+      "git_blob_sha1": "4c870a8489bda2e8cbceaa1661aff5882e7c8f3f",
+      "sha256": "0a3bf97c0a34cd5be5cefb3259994f53800a16ba86f69d54aa80e7aa366375fa",
+      "bytes": 2188,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_23_topmetal1filler.drc"
+    },
+    "rule_decks/beol/5_24_topvia2.drc": {
+      "git_blob_sha1": "a7478b3645edb5b40c566fb962848a5182c8c428",
+      "sha256": "0d5124c2fd6ddefe7161bb55c82cd738db6236feaa7bb39901f08c77145021d1",
+      "bytes": 2547,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_24_topvia2.drc"
+    },
+    "rule_decks/beol/5_25_topmetal2.drc": {
+      "git_blob_sha1": "08d61e56ca1a199dcfbe3fd6e241d8e448fc6c9b",
+      "sha256": "356c09fdb4963e8157b9ee60efabf0d521474cd8c70a8ae17b4a2cd61eaff42e",
+      "bytes": 2685,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_25_topmetal2.drc"
+    },
+    "rule_decks/beol/5_26_topmetal2filler.drc": {
+      "git_blob_sha1": "58b2b18670ca450ee9ec659bc3f5bf8934c1937b",
+      "sha256": "da26c6b473924538a0d9fc3e98b1fb77d5496c494de7d3738520d5daed39793e",
+      "bytes": 2175,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_26_topmetal2filler.drc"
+    },
+    "rule_decks/beol/5_27_passiv.drc": {
+      "git_blob_sha1": "7eeab92b0fe0a501ad03d8ab325cdf8e37cb75a5",
+      "sha256": "eb6565030fddb0789be4f4fadb4c4fa3ed690f0d52f83c4b8bfe6780298a3574",
+      "bytes": 2273,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/5_27_passiv.drc"
+    },
+    "rule_decks/beol/6_10_sealring.drc": {
+      "git_blob_sha1": "ec19aa35ca0f70d4c4b7cba17e864c55f073a04c",
+      "sha256": "15802b4d6e32ceb262c1a0c042660f667cf93f804491d73151c4a24de05aa5d4",
+      "bytes": 4536,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_10_sealring.drc"
+    },
+    "rule_decks/beol/6_11_mim.drc": {
+      "git_blob_sha1": "9d7b978a58fc3a8fb501c9c7650dda691112311d",
+      "sha256": "0b41a9e4ff1342940920ff6763093aff39f986a8b2f7bfcf2b5dad47fa9da40d",
+      "bytes": 2309,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_11_mim.drc"
+    },
+    "rule_decks/beol/6_9_copperpillar.drc": {
+      "git_blob_sha1": "652118300bd9b2dceb7e1fa8bd2cf092e688b703",
+      "sha256": "4ff342d047743695f3ce5c2a9daddd011752489097b7337c24401de2b56e4bbb",
+      "bytes": 2679,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_9_copperpillar.drc"
+    },
+    "rule_decks/beol/6_9_pad.drc": {
+      "git_blob_sha1": "1acbb32482c37b8c38f5234455119bf64e84375a",
+      "sha256": "a9a8f450ea73bff364a2c6312575038ef023577d28d1196563d5a834a2790047",
+      "bytes": 2641,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_9_pad.drc"
+    },
+    "rule_decks/beol/6_9_solderbump.drc": {
+      "git_blob_sha1": "50944d4331d46dc8ebeb5bc7522e4edc3e3c06c4",
+      "sha256": "57931abfc4d186fd6ae9b54a6c1683679de6f34b21ab225abdb098d7f3aeb9cb",
+      "bytes": 3100,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/6_9_solderbump.drc"
+    },
+    "rule_decks/beol/7_3_metalslits.drc": {
+      "git_blob_sha1": "993ae7e1ea310bf827a29e443a8635e7f6315f47",
+      "sha256": "51457f1a8c6e312e9dbb39a65adf8fe716f57978a4a213f038b2473ae4bb8e4c",
+      "bytes": 1653,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/7_3_metalslits.drc"
+    },
+    "rule_decks/beol/9_1_lbe.drc": {
+      "git_blob_sha1": "91759790c4600a5abddb9be7a9da5c78a89f96e5",
+      "sha256": "c501e565e2bc172143e048c19bc8c36813972e8604c307977112b1e1791cf2af",
+      "bytes": 2782,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/beol/9_1_lbe.drc"
+    },
+    "rule_decks/density.drc": {
+      "git_blob_sha1": "a59a361b33e9c7b5e98af7e23a6832428f199491",
+      "sha256": "ef143b293fbbb1722f590d59cd3d942fec5bde6ae216e8a8224d46b87010f8dd",
+      "bytes": 44126,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/density.drc"
+    },
+    "rule_decks/feol/5_10_psd.drc": {
+      "git_blob_sha1": "26a8116ab84dc97a839ee0a3e11f83c53f33d34e",
+      "sha256": "66ef753d801e82ab43e930d46f90fe9b4c84085ce62f71e7ea502acac5ab3d62",
+      "bytes": 1533,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_10_psd.drc"
+    },
+    "rule_decks/feol/5_14_cont.drc": {
+      "git_blob_sha1": "43933e2f240a01a2ad98bd397b169ad4d66abe64",
+      "sha256": "1f541374c9b12f74bf806d2013e87aacc368535edec07e0c55661f6b4a7b821f",
+      "bytes": 4857,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_14_cont.drc"
+    },
+    "rule_decks/feol/5_15_contbar.drc": {
+      "git_blob_sha1": "f223275eddc299c06dd904c4ef6705854730890c",
+      "sha256": "83dee69ea9f0949d0bacf78fedaa9073d312d20ead432ba6ce628ded6d1553b3",
+      "bytes": 2892,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_15_contbar.drc"
+    },
+    "rule_decks/feol/5_1_nwell.drc": {
+      "git_blob_sha1": "c8d00a63a6ee189b4d310de8a8683ca68a3712f8",
+      "sha256": "7f0d27bd5507fbc530d55f5b7b2e1adeb65b39294b76b1c85530bc3e9338035d",
+      "bytes": 3657,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_1_nwell.drc"
+    },
+    "rule_decks/feol/5_2_pwellblock.drc": {
+      "git_blob_sha1": "4c9cc44f44c4b239fa4084063daa09fbf813af7a",
+      "sha256": "3dfb01b5b353013f6b322ab0ff20d52d3325f925504e7cd6e85a0615792d60d7",
+      "bytes": 3081,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_2_pwellblock.drc"
+    },
+    "rule_decks/feol/5_3_nbulay.drc": {
+      "git_blob_sha1": "c8d0b427ba66521852af125d9d40ff0668cb9bcc",
+      "sha256": "31a92ec448a6948d7400850f2bc37bb5a7590c0f7cce787ce46c731022edb5cb",
+      "bytes": 3518,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_3_nbulay.drc"
+    },
+    "rule_decks/feol/5_5_activ.drc": {
+      "git_blob_sha1": "288ebf3c6113b5b3ec9efc897d0fcf9794107f04",
+      "sha256": "ab899d25d0a1dbef1a6a6b327353c80ae84331273e0ed0f239497727cf7fec6c",
+      "bytes": 1684,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_5_activ.drc"
+    },
+    "rule_decks/feol/5_6_activfiller.drc": {
+      "git_blob_sha1": "5d0510e73d14101afd7d9340588d1103bfbb03c6",
+      "sha256": "c48ec245d0bf36dac15e55db4865b05e6cee96c258607d75e386bc8e3fcf783d",
+      "bytes": 3930,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_6_activfiller.drc"
+    },
+    "rule_decks/feol/5_7_thickgateox.drc": {
+      "git_blob_sha1": "0d5f9c22ae1c0bb1536c30265948ce613d3ebb87",
+      "sha256": "aa42686a8d1468f549afcbaea2311cb38c893c0cc1d11b5a09a488af76d64ae0",
+      "bytes": 1367,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_7_thickgateox.drc"
+    },
+    "rule_decks/feol/5_8_gatpoly.drc": {
+      "git_blob_sha1": "3124b71c1b0471203c73c29850659123881d55f9",
+      "sha256": "19154ca2432427086fa8fbee0941d8875126d3345487018d833b02025de65529",
+      "bytes": 3532,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_8_gatpoly.drc"
+    },
+    "rule_decks/feol/5_9_gatpolyfiller.drc": {
+      "git_blob_sha1": "f38e84233f1306ec0c78894e1c4a54ce1e2fe309",
+      "sha256": "288a02299408399ccd94573200948cf01bfb3500915c021d2bedaa355bd2016f",
+      "bytes": 2737,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/5_9_gatpolyfiller.drc"
+    },
+    "rule_decks/feol/6_1_npnsubstratetie.drc": {
+      "git_blob_sha1": "05f091e2aa609b1130935f226a08fde2f94f7d47",
+      "sha256": "4826fe274df4f16f8310bee5f3933375fa8a675de691283ae28675fb512e6bfc",
+      "bytes": 2858,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/6_1_npnsubstratetie.drc"
+    },
+    "rule_decks/feol/6_7_schottkydiode.drc": {
+      "git_blob_sha1": "286b658737c045d60fee59310db64e8953c75ab3",
+      "sha256": "7e48869e6d92679f5a877f02a7c48f9ca77826fc1121cfc290eb962fd71e8052",
+      "bytes": 3817,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/6_7_schottkydiode.drc"
+    },
+    "rule_decks/feol/7_2_latchup.drc": {
+      "git_blob_sha1": "45f6f1b34b569e234664932b562d496d0cb89600",
+      "sha256": "e1bf94abb6be10d243c84b0f2c71dcce29020e0941087e32113e5f4a8606b931",
+      "bytes": 1672,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/feol/7_2_latchup.drc"
+    },
+    "rule_decks/forbidden/3_2_forbidden.drc": {
+      "git_blob_sha1": "1b6dabee163f0d0fc25b15da8fc530708cbed175",
+      "sha256": "1e4aba916a0ebbddc58533cf641401f12da8da4959387f693d4e278786cd0486",
+      "bytes": 1695,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/forbidden/3_2_forbidden.drc"
+    },
+    "rule_decks/geometry/3_1_offgrid.drc": {
+      "git_blob_sha1": "5e9e2f609bf4e8d29f93306e03e64f4e524d0221",
+      "sha256": "dc5eb236c1229efb48df98b256a1b3fd3b08cb793db021e4fee889756f292f1d",
+      "bytes": 10083,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/geometry/3_1_offgrid.drc"
+    },
+    "rule_decks/geometry/3_2_angle.drc": {
+      "git_blob_sha1": "5be09fd892595c614bff7202c912def77bd4c4d2",
+      "sha256": "f1a4d08eb5c2b617d04cf73013700a450a3668dae9b5293c0d4c7d988d73efb4",
+      "bytes": 14153,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/geometry/3_2_angle.drc"
+    },
+    "rule_decks/layers_def.drc": {
+      "git_blob_sha1": "ac8ec405e53d94142995d4a3567a7136d7a24ade",
+      "sha256": "a71a4f6250b0220a5608c6d6cc6ef7a9b0a4a8f3f2820208216630528e163147",
+      "bytes": 42605,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/layers_def.drc"
+    },
+    "rule_decks/pin/7_4_pin.drc": {
+      "git_blob_sha1": "15b413be95e7a4dcc2cd9322e780724c1f13c487",
+      "sha256": "508ee712c468f14bd5458b276af3449fcfd167707fc0efb72e27e13189fe5742",
+      "bytes": 1888,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/pin/7_4_pin.drc"
+    },
+    "rule_decks/sg13g2_maximal.drc": {
+      "git_blob_sha1": "c1d8bd6756764fbf06dafacdadc6e07ecba1b9a1",
+      "sha256": "d12e1947f570ce16f04dfd94769f2c38fdbda3920c5f7479272ef517864eae4b",
+      "bytes": 151401,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/sg13g2_maximal.drc"
+    },
+    "rule_decks/sg13g2_tech_default.json": {
+      "git_blob_sha1": "ddd7070b7bfaf204b1577cefe7069ea390ab0954",
+      "sha256": "07930b016cdffe14c2cb82b47fbec193643347607db6d44aa1abfdece056cd2f",
+      "bytes": 9078,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/rule_decks/sg13g2_tech_default.json"
+    },
+    "run_drc.py": {
+      "git_blob_sha1": "72f0e28832e657498326167cc7753ef1a82d947f",
+      "sha256": "6d7246f125d1eb1e77a0340e3b1ffaa7233e0b3a2d4368f39207d6bac3dcdcef",
+      "bytes": 31689,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/drc/run_drc.py"
+    },
+    "LICENSE": {
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357,
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/LICENSE"
+    },
+    "sg13g2_tech_mod.json": {
+      "git_blob_sha1": "7a513d1dd732b7cd5f086c3a3bb074a5292c0e66",
+      "sha256": "229029e23785f3ae58c9645d47acfe326c56f0ec41d940bf9383c7063380f9ff",
+      "bytes": 27346,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/sg13g2_tech_mod.json"
+    },
+    "SVaricap_code.py": {
+      "git_blob_sha1": "df6fcab4c4059bdf0855dcd56dbac3a8115b5f42",
+      "sha256": "276fd8eae4a8faf7a4a15b03909fe8b2c77574372359eb7a8f6e75f005d7d31f",
+      "bytes": 6972,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/SVaricap_code.py"
+    }
+  },
+  "schema": 1,
+  "modified_upstream_files": false,
+  "entries": [
+    "ihp-sg13g2.drc",
+    "rule_decks/sg13g2_maximal.drc"
+  ],
+  "scope": "Unmodified public main and maximal geometry decks; antenna/density remain separate checks."
+}

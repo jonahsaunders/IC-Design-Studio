@@ -1,6 +1,6 @@
 {
   "schema": 6,
-  "as_of": "2026-10-19",
+  "as_of": "2026-10-20",
   "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -40,10 +40,11 @@
       "latest_rf_include_evidence": "docs/validation/sky130-rf-includes-2026-10-18.json",
       "latest_rf_physical_evidence": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json",
       "latest_rf_bias_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
-      "latest_ci_repair_evidence": "docs/validation/ihp-varactor-and-detector-2026-10-19.json",
+      "latest_ci_repair_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
       "latest_rf_transient_evidence": "docs/validation/sky130-rf-transient-2026-10-19.json",
       "latest_ihp_inductor_physical_evidence": "docs/validation/ihp-inductor-physical-2026-10-19.json",
-      "latest_ihp_varactor_evidence": "docs/validation/ihp-varactor-contacts-2026-10-19.json"
+      "latest_ihp_varactor_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
+      "latest_ihp_public_geometry_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -23880,13 +23881,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical and finite public four-terminal reference layouts pass. The current default selects the reviewed NPN rule entry point; all 36 rotated layouts and 99 faults pass with independent audit and Windows staged-backend checks. Continuous geometry/bias, other configurations, thermal/statistical/noise/RF and installed acceptance remain open.",
+        "remaining": "Selected electrical cases and finite public four-terminal layouts pass. Both the default Magic route and the explicit public geometry route retain 36 rotated layouts and 99 detected faults. Original annotations are preserved; TRANS requires the full unfiltered native Magic check. Continuous geometry/bias, other configurations, thermal/statistical/noise/RF and installed acceptance remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "bipolar-families-2026-10-16",
           "ihp-npn-layouts-2026-10-17",
-          "ihp-npn-default-2026-10-18"
+          "ihp-npn-default-2026-10-18",
+          "ihp-public-geometry-2026-10-20"
         ]
       },
       "sg13g2_pr/npn13G2_5t.sym": {
@@ -23911,13 +23913,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical and finite public four-terminal reference layouts pass. The current default selects the reviewed NPN rule entry point; all 36 rotated layouts and 99 faults pass with independent audit and Windows staged-backend checks. Continuous geometry/bias, other configurations, thermal/statistical/noise/RF and installed acceptance remain open.",
+        "remaining": "Selected electrical cases and finite public four-terminal layouts pass. Both the default Magic route and the explicit public geometry route retain 36 rotated layouts and 99 detected faults. Original annotations are preserved; TRANS requires the full unfiltered native Magic check. Continuous geometry/bias, other configurations, thermal/statistical/noise/RF and installed acceptance remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "bipolar-families-2026-10-16",
           "ihp-npn-layouts-2026-10-17",
-          "ihp-npn-default-2026-10-18"
+          "ihp-npn-default-2026-10-18",
+          "ihp-public-geometry-2026-10-20"
         ]
       },
       "sg13g2_pr/npn13G2l_5t.sym": {
@@ -23942,13 +23945,14 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected electrical and finite public four-terminal reference layouts pass. The current default selects the reviewed NPN rule entry point; all 36 rotated layouts and 99 faults pass with independent audit and Windows staged-backend checks. Continuous geometry/bias, other configurations, thermal/statistical/noise/RF and installed acceptance remain open.",
+        "remaining": "Selected electrical cases and finite public four-terminal layouts pass. Both the default Magic route and the explicit public geometry route retain 36 rotated layouts and 99 detected faults. Original annotations are preserved; TRANS requires the full unfiltered native Magic check. Continuous geometry/bias, other configurations, thermal/statistical/noise/RF and installed acceptance remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "bipolar-families-2026-10-16",
           "ihp-npn-layouts-2026-10-17",
-          "ihp-npn-default-2026-10-18"
+          "ihp-npn-default-2026-10-18",
+          "ihp-public-geometry-2026-10-20"
         ]
       },
       "sg13g2_pr/npn13G2v_5t.sym": {
@@ -24196,14 +24200,15 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Forty explicitly contacted small layouts pass full local DRC/LVS and all twenty-eight faults are detected. The original Nx4 contact-fragment defect is corrected without changing its masks; original Nx10 tie and large Nx1 well findings remain failed. Full geometry/operating-envelope and installed-release qualification remain open.",
+        "remaining": "Both public W/L geometries, Nx1 through 10 and four rotations pass the explicit public geometry route: 80 positive layouts, 64 detected faults, independent raw-netlist and mask/exchange audit. The written-oxide gate catches a public-deck omission. Earlier Magic failures remain recorded. Full operating envelopes, mixed-device layouts and exact installed-release qualification remain open.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "four-terminal-capacitors-2026-10-17",
           "default-device-packages-2026-10-17",
           "ihp-varactor-and-detector-2026-10-19",
-          "ihp-varactor-contacts-2026-10-19"
+          "ihp-varactor-contacts-2026-10-19",
+          "ihp-public-geometry-2026-10-20"
         ]
       },
       "sg13g2_pr/sub.sym": {
@@ -24922,6 +24927,11 @@
       "path": "docs/validation/ihp-varactor-contacts-2026-10-19.json",
       "sha256": "334a13890a3501f71ad8af86639f6a052d1108b5e516f81bd0887db08e59752b",
       "scope_limit": "Full local DRC/LVS for forty explicitly contacted small IHP varactor coupons and twenty-eight faults. Original larger/tie-deficient layouts remain failed; no complete family, operating-envelope, foundry or installed-release qualification."
+    },
+    "ihp-public-geometry-2026-10-20": {
+      "path": "docs/validation/ihp-public-geometry-2026-10-20.json",
+      "sha256": "9d582840ed655cbc1b36ee31038a5e697d7c4632d817666f59cb91daf7bbd64a",
+      "scope_limit": "Explicit local public IHP geometry route: eighty varactor layouts and sixty-four faults, plus thirty-six NPN layouts and ninety-nine faults. Preserves all original masks and annotations. Operating envelopes, other required devices, mixed NPN/varactor layouts and installed-release qualification remain open."
     }
   },
   "execution_acceptance": {

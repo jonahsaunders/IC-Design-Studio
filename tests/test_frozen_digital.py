@@ -72,7 +72,7 @@ class FrozenDigitalTests(unittest.TestCase):
         self.assertEqual(result['backend_sha256'], self.record['backend'])
         self.assertEqual(result['acceptance_report_sha256'], file_digest(self.evidence / 'report.json'))
         self.assertGreater(run.call_args.kwargs['timeout'], 25 * 60)
-        self.assertLessEqual(run.call_args.kwargs['timeout'], 3600)
+        self.assertLessEqual(run.call_args.kwargs['timeout'], 5400)
         self.assertNotIn('ICSTUDIO_DIGITAL_PAYLOAD', run.call_args.kwargs['env'])
         self.assertNotIn('ICSTUDIO_DIGITAL_NATIVE', run.call_args.kwargs['env'])
 

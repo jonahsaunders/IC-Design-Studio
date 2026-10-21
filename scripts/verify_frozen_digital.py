@@ -13,10 +13,12 @@ from icstudio.digital_runtime import state_root
 from icstudio.model import atomic_write, digest, file_digest
 from scripts.check_digital_qualification import validate
 
-# Three process profiles and independent SKY130 RC extraction take more than
-# the old 1,100-second single-platform limit on the Windows CI runner. Keep the
-# complete acceptance design and a bounded total deadline (CI allows 65 minutes).
-SETUP_TIMEOUT = 3600
+# Four process profiles (including both GF180 stacks), all timing corners and
+# independent SKY130 RC extraction exceeded one hour on the Windows runner:
+# the retained run completed the first three profiles and was starting IHP.
+# Allow the complete acceptance sequence 90 minutes; CI allows five more minutes
+# for cancellation/evidence. No check or fault control is skipped.
+SETUP_TIMEOUT = 5400
 
 
 def snapshot(path):

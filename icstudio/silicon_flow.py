@@ -192,7 +192,7 @@ def job(p,cid,settings,directory,progress):
     output=Path(directory)/'physical-flow'
     if settings.get('verification_mode')=='drc_lvs':
         from .layout_verification import run as verify_layout
-        report=verify_layout(p,cid,output,settings.get('tools',{}),settings['reference'],progress,blocked_reason=settings.get('physical_blocked_reason'),lvs_extractor=settings.get('lvs_extractor','magic'))
+        report=verify_layout(p,cid,output,settings.get('tools',{}),settings['reference'],progress,blocked_reason=settings.get('physical_blocked_reason'),lvs_extractor=settings.get('lvs_extractor','magic'),drc_engine=settings.get('drc_engine','magic'))
     elif settings.get('testbench'):
         from .hierarchical_flow import run as hierarchical_run
         overrides={'physical_extraction':settings['physical_extraction']} if 'physical_extraction' in settings else {}
