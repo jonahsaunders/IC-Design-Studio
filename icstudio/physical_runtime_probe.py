@@ -21,6 +21,7 @@ def qualify(runtime, directory, progress):
 
 def run(job, directory, progress):
     from .engines import execute, tcl_word, netgen_lvs, require_lvs_match
+    from .magic_diagnostics import require_valid_technology
     from .runtime_setup import check_ngspice
     import klayout.db as db
     root=Path(directory)/'physical-flow';root.mkdir()
@@ -32,7 +33,9 @@ def run(job, directory, progress):
         script=f'load {name}\nbox values 0 0 {width} 20\npaint metal1\ndrc check\ndrc catchup\nputs "PROBE_DRC [drc list count total]"\nquit -noprompt\n'
         atomic_write(root/(name+'.tcl'),script)
         log=execute([tools['magic'],'-dnull','-noconsole','-rcfile',root/'startup.tcl'],root,input_text=script)
-        atomic_write(root/(name+'.log'),log);counts=re.findall(r'^PROBE_DRC (\d+)$',log,re.M)
+        atomic_write(root/(name+'.log'),log)
+        require_valid_technology(log,root/(name+'.log'))
+        counts=re.findall(r'^PROBE_DRC (\d+)$',log,re.M)
         if len(counts)!=1 or ((int(counts[0])==0)!=(name=='legal')):raise ValueError('Magic installation DRC control failed: '+name)
         checks.append({'name':'drc-'+name,'status':'passed','count':int(counts[0])})
     atomic_write(root/'setup.tcl','permute default\nproperty default\n')

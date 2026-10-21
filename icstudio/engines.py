@@ -309,6 +309,8 @@ def magic_import(executable,source,technology,output,flatten=False):
     # import. Bind this run to only the explicitly selected technology.
     startup=output/'startup.tcl';atomic_write(startup,'tech load '+tcl_word(Path(technology).resolve())+'\n')
     log=execute([executable,'-dnull','-noconsole','-rcfile',str(startup)],source.parent,input_text=script);atomic_write(output/'conversion.log',log)
+    from .magic_diagnostics import require_valid_technology
+    require_valid_technology(log,output/'conversion.log')
     if not target.exists() or 'STUDIO_IMPORT_COMPLETE' not in log or 'STUDIO_IMPORT_ERROR' in log:raise RuntimeError('Magic import did not complete. Review the conversion log and technology selection.')
     if flatten:
         # Restore the original public interface name, without reconstructing a

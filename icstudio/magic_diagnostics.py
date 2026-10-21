@@ -1,8 +1,19 @@
-"""Reject incomplete Magic input even when Tcl and the process report success."""
+"""Reject incomplete Magic input and rules despite successful Tcl/process exits."""
 import re
 
 
+def require_valid_technology(log, log_path):
+    # Native TechError/TechPrintLine diagnostics identify the source, line and
+    # section. Magic can skip an invalid rule and still report zero violations
+    # and our Tcl completion marker. Missing includes and truncated definitions
+    # use this same formatter, even when the body calls them a warning.
+    if re.search(r'^.+: line [0-9]+: section [^\r\n]+:\s*$', log, re.M):
+        raise ValueError('Magic could not load the complete technology rules. '
+                         'Inspect the retained native diagnostic in '+str(log_path))
+
+
 def require_readable_stream(log, log_path):
+    require_valid_technology(log, log_path)
     # Magic continues after dropping unmapped GDS masks, and can still emit a
     # plausible circuit. Labels are also part of the connectivity contract.
     # Keep the complete engine output before raising; never waive a lost layer.

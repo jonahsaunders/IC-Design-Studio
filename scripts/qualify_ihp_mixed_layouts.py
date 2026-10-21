@@ -1,4 +1,4 @@
-"""Sampled mixed IHP NPN/small-varactor layouts with a common physical substrate.
+"""Sampled mixed IHP NPN/SVaricap layouts with a common physical substrate.
 
 Preserves both source coupons and their annotations, checks both public geometry
 decks plus existing supplements, and requires strict extracted device/port
@@ -27,10 +27,11 @@ from icstudio.layout_verification import reference, run
 from icstudio.model import file_digest, save_project, load_project, scalar
 from icstudio.stream_contract import compare
 
-PAIRS = ((CASES[0], 'small', 1), (CASES[4], 'small', 4), (CASES[8], 'small', 1))
+PAIRS = ((CASES[0], 'small', 1), (CASES[4], 'small', 4), (CASES[8], 'large', 10))
 PORTS = ['C', 'B', 'E', 'S', 'G1', 'W', 'G2']
 FAULTS = ('npn-E-open', 'npn-reference-count', 'var-oxide-gap',
-          'var-missing-recognition', 'var-gate-short', 'var-reference-fingers', 'reference-substrate')
+          'var-missing-recognition', 'var-gate-short', 'var-reference-fingers', 'reference-substrate',
+          'npn-unrelated-diffusion', 'npn-unrelated-well')
 
 
 def selected(pair, fault=None):
@@ -74,6 +75,12 @@ def build(tech, pair, folder, fault=None):
         actual_texts.extend((pair_id, s.text.string, s.text.x, s.text.y)
                             for s in top.shapes(index).each() if s.is_text())
     if sorted(actual_texts) != sorted(texts): raise ValueError('Mixed placement changed source annotations.')
+    if fault in ('npn-unrelated-diffusion','npn-unrelated-well'):
+        active=k.Region(top.shapes(ly.layer(1,0)));implant=k.Region(top.shapes(ly.layer(14,0)))
+        guards=[p for p in (active & implant).merged().each() if p.holes()==1 and p.bbox().right<50000]
+        if len(guards)!=1:raise ValueError('Missing unique NPN substrate guard for physical fault control.')
+        box=guards[0].bbox();x=box.center().x;y=box.top-1800
+        top.shapes(ly.layer(1 if fault=='npn-unrelated-diffusion' else 31,0)).insert(k.Box(x-200,y-200,x+200,y+200))
     ly.write(str(folder/'mixed.gds'))
     q, _ = read_layout(folder/'mixed.gds'); link_technology(q, tech); q['cells'][0]['ports'] = PORTS[:]
     q['cells'][0].setdefault('layout_ports', [])
@@ -110,6 +117,11 @@ def detected(result, folder, fault):
     if result['status'] != 'failed' or any(stages[n]['status'] != 'passed' for n in ('preflight', 'layout_export')):
         return False
     if fault == 'var-oxide-gap': return varactor_detected(result, folder, 'oxide-gap', 'ihp-public')
+    if fault in ('npn-unrelated-diffusion','npn-unrelated-well'):
+        native=folder/'drc/npn-native/result.json'
+        return (native.is_file() and stages['drc']['status']=='failed'
+                and any('No unrelated diffusion or well may exist in the NPN area' in row['reason']
+                        for row in json.loads(native.read_bytes())['findings']))
     native = folder/'lvs-extraction/native.cir'
     if fault in ('npn-E-open', 'var-gate-short'):
         declarations = re.findall(r'(?im)^\.subckt\s+mixed_coupon\s+([^\n]*)', native.read_text()) if native.is_file() else []
@@ -144,7 +156,7 @@ def case(pair, folder, tools):
                 extracted=audit(dest/'lvs-extraction/extracted.spice', pair),
                 report_sha256=file_digest(dest/'report.json')))
         for fault in FAULTS:
-            q = build(tech, pair, folder/(fault+'-source'), fault) if fault in ('npn-E-open', 'var-oxide-gap', 'var-missing-recognition', 'var-gate-short') else p
+            q = build(tech, pair, folder/(fault+'-source'), fault) if fault in ('npn-E-open', 'var-oxide-gap', 'var-missing-recognition', 'var-gate-short', 'npn-unrelated-diffusion', 'npn-unrelated-well') else p
             dest = folder/fault
             result = run(q, q['top'], dest, tools, selected(pair, fault), lvs_extractor='ihp-klayout', drc_engine='ihp-public')
             found = detected(result, dest, fault)
@@ -159,7 +171,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__); ap.add_argument('--output', type=Path, required=True)
     for tool in ('magic', 'netgen', 'klayout'): ap.add_argument('--'+tool, type=Path, required=True)
     ap.add_argument('--workers', type=int, choices=(1, 2, 3), default=2)
-    ap.add_argument('--large-third', action='store_true', help='Reproduce the unresolved large Nx10 varactor in the third pair; its full native well-rule findings remain failures.')
+    ap.add_argument('--large-third', action='store_true', help='Use the large Nx10 third pair (also the current default).')
     args = ap.parse_args()
     out = args.output.resolve(); out.mkdir(parents=True, exist_ok=False)
     tools = {name: str(getattr(args, name).resolve(strict=True)) for name in ('magic', 'netgen', 'klayout')}
@@ -168,7 +180,7 @@ def main():
     report = dict(schema=1, chunk=7, chunk_complete=False, qualified=False, scope=__doc__, status='RUNNING', cases=[])
     pairs = (*PAIRS[:2], (CASES[8], 'large', 10)) if args.large_third else PAIRS
     report['requested_pairs'] = pairs
-    report['unresolved_scope'] = 'Large-varactor mixed layouts, other device combinations, complete envelopes and installed acceptance remain open. The initial large Nx10 mixed fixture has 58 unfiltered native well-rule findings.'
+    report['unresolved_scope'] = 'Other device combinations, complete operating envelopes and installed acceptance remain open. The full public decks and native NPN supplement are required on every mixed layout.'
     with ProcessPoolExecutor(max_workers=args.workers) as pool:
         jobs = [pool.submit(case, pair, out/('pair-'+str(i)), tools) for i, pair in enumerate(pairs)]
         for job in as_completed(jobs):

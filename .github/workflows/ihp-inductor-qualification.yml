@@ -16,6 +16,7 @@ on:
       - 'tests/test_ihp_inductor_lvs.py'
       - 'tests/test_ihp_varactor_lvs.py'
       - 'tests/test_ihp_varactor_rules.py'
+      - 'tests/test_ihp_varactor_context.py'
       - 'tests/test_ihp_klayout_drc.py'
       - 'tests/test_ihp_npn_qualification.py'
       - 'requirements.txt'
@@ -34,6 +35,7 @@ on:
       - 'tests/test_ihp_inductor_lvs.py'
       - 'tests/test_ihp_varactor_lvs.py'
       - 'tests/test_ihp_varactor_rules.py'
+      - 'tests/test_ihp_varactor_context.py'
       - 'tests/test_ihp_klayout_drc.py'
       - 'tests/test_ihp_npn_qualification.py'
       - 'requirements.txt'
@@ -67,7 +69,7 @@ jobs:
       - name: Build pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
       - name: Check coil topology, interfaces and lossless stream handling
-        run: python -m unittest tests.test_ihp_inductor_lvs tests.test_ihp_varactor_lvs tests.test_ihp_varactor_rules tests.test_ihp_klayout_drc tests.test_ihp_npn_qualification tests.test_ihp_em_profile tests.test_ihp_mixed_layouts -v
+        run: python -m unittest tests.test_ihp_inductor_lvs tests.test_ihp_varactor_lvs tests.test_ihp_varactor_rules tests.test_ihp_varactor_context tests.test_ihp_klayout_drc tests.test_ihp_npn_qualification tests.test_ihp_em_profile tests.test_ihp_mixed_layouts -v
       - name: Require eight legal orientations and twenty-eight detected faults
         timeout-minutes: 10
         run: python scripts/qualify_ihp_inductor_layouts.py --sources icstudio/assets/qualification/ihp-inductors --output build/ihp-coil-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
@@ -85,7 +87,7 @@ jobs:
       - name: Check top-metal via geometry and five deliberate faults
         timeout-minutes: 5
         run: python scripts/qualify_ihp_topvia.py --klayout /usr/bin/klayout --output build/ihp-topvia-evidence
-      - name: Require twelve mixed NPN and small-varactor layouts and twenty-one detected faults
+      - name: Require twelve mixed NPN and small/large-varactor layouts and twenty-seven detected faults
         timeout-minutes: 15
         run: python scripts/qualify_ihp_mixed_layouts.py --workers 2 --output build/ihp-mixed-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - uses: actions/upload-artifact@v4

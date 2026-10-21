@@ -212,7 +212,7 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
                     oxide=varactor_oxide(out/'layout.gds',c['name'])
                     atomic_write(out/'drc/ihp-varactor-oxide.json',json.dumps(oxide,indent=2))
                     from .ihp_npn_drc import check as npn_drc
-                    npn=npn_drc(resolved['magic']['path'],assets['technology'],report['npn_magic_drc_style'],out/'layout.gds',c['name'],ref['ports'],out/'drc/npn-native')
+                    npn=npn_drc(resolved['magic']['path'],assets['technology'],report['npn_magic_drc_style'],out/'layout.gds',c['name'],ref['ports'],out/'drc/npn-native',public_context=(assets,pre['assets']))
                 finally:
                     for path in (out/'drc').rglob('*'):
                         if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)

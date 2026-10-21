@@ -54,6 +54,16 @@ skips remain recorded. Complete installed-runtime acceptance is still separate.
 
 ## Fixed geometry and bundled model inventory
 
+The later [mixed IHP context correction](IHP_MIXED_CONTEXT.md) passes 24 complete
+NPN/SVaricap layouts, including the large Nx10 device in all rotated and mirrored
+orientations. All 27 full-flow faults and 48 additional native faults are detected;
+24 additional valid native controls remain clean. The
+[execution record](validation/ihp-mixed-context-2026-10-21.json) retains independent
+Windows/Linux artifact and physical-stream checks, five actual backend handoffs,
+completed numerical EM refinement studies, and both passing 3,224-test suites.
+The measured-coil reference audit is recorded separately from fresh simulation
+or device-model accuracy. Chunk 7 remains open under its full declared scope.
+
 The [fixed-geometry and inventory record](validation/fixed-geometry-and-model-inventory-2026-10-17.json)
 adds a source-locked contract for all seven SKY130 20 V symbol views. Their
 internal transistor/parasitic dimensions are constant. W/L arguments do not

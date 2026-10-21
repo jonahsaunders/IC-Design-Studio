@@ -59,6 +59,32 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [latest mixed-context and EM record](validation/ihp-mixed-context-2026-10-21.json)
+closes the large mixed-varactor blocker for the tested layouts. All 24 positive
+layouts and 27 full-flow faults pass. The [context implementation](IHP_MIXED_CONTEXT.md)
+retains both complete public decks and the native NPN supplement, with independent
+physical-stream preservation, 72 native controls and five actual Windows backend
+handoffs. Invalid native technology files can no longer pass either application
+or standalone qualification entry points merely by printing a zero count.
+
+Both IHP substrate profiles now pass the unchanged numerical criteria at
+0.8/0.56 µm mesh sizes: maximum resistance changes are 1.91% and 1.93%, and
+maximum impedance changes remain below 0.98%. Independent Windows/Linux raw
+readback agrees, sampled passivity passes, and saved characterizations reopen
+as current. This establishes numerical convergence for those fixtures only.
+Pinned GPL-3.0 measured IHP coil data, its GDS, and published openEMS/Palace
+comparisons are retained; their independent parser audit passes on both hosts.
+Fresh simulation against that measurement remains a separate accuracy gate.
+
+The final source suites discover 3,224 tests each and pass, with 63 Windows and
+55 Linux platform skips. Original failed runs and exact historical GF180 source
+blobs are retained. The verified evidence archive contains 34,943 path bindings;
+restored native diagnostics reproduce their expected outcomes on both hosts.
+Full device envelopes, remaining models, broader physical coverage and exact
+installed-release acceptance still keep chunk 7 open.
+
+### Earlier October 21 checkpoint
+
 The [completed EM refinement and import diagnostics](validation/ihp-em-refinement-2026-10-21.json)
 retain finished native runs and independent Windows/Linux readback. Both IHP
 substrate options reach their energy targets and pass sampled passivity, but
