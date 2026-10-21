@@ -446,3 +446,21 @@ code under GPL-3.0. It selects three top-metal drawing layers and preserves ever
 environment slab, translating the vertical origin according to the public
 substrate offset. It supplies no compact inductor model, calibrated electrical
 accuracy or fabrication qualification.
+
+The measured IHP L6n2 coil inputs in `tests/fixtures/ihp-measured-coil-v1`
+come from `VolkerMuehlhaus/openems_ihp_sg13g2` commit
+`0f87e9d069de3e88bdfdc5bb30d4a0958f045d32` under GPL-3.0. They retain the
+original license, measurement and published solver data, layout, stackups,
+workflow and documentation. `SOURCE.json` records each original path, Git blob
+identity and SHA-256 checksum. Local filenames are shortened; contents are
+unchanged. This newer GPL-licensed reference is distinct from the older
+Apache-2.0 material profiles above. The independent reference-audit script and
+fault tests are project code under GPL-3.0. Published simulation results are
+comparison inputs, not fresh application qualification results.
+
+The eight unmodified workflow modules in
+`tests/fixtures/ihp-measured-workflow-v1/gds2openEMS` come from the same pinned
+GPL-3.0 repository and retain their original headers. The adjacent `SOURCE.json`
+and `LICENSE` identify and license those exact bytes. The project runner creates
+separate derived scripts, records their changes and retains the originals; it
+does not alter the public model parameters or redistribute solver dependencies.

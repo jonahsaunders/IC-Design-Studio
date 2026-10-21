@@ -59,6 +59,32 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [measured-coil and release-input record](validation/ihp-measured-coil-2026-10-21.json)
+completes fresh 1/2 µm reproduction of the public IHP L6n2 fixture. All four
+native excitations reach −60 dB; independent raw-wave arithmetic and archive
+restore/replay pass on both hosts. Full-band measured errors remain explicit in
+the [reference guide](IHP_MEASURED_COIL_REFERENCE.md). This is one geometry and
+stackup, not a general inductor-model accuracy qualification.
+
+Runtime caching now identifies all 537 staged build inputs, including previously
+omitted PDK preparation/model files. Both hosts verify identical staging and
+pass 48 focused packaging/runtime tests. Multiplicity validation also follows
+the emitted SPICE `m` parameter, preventing an `mf` alias from exporting zero or
+negative multiplicity. All 286 available defaults still validate; 788 valid
+exports remain byte-identical and four earlier rejections remain unchanged on
+each host. The final full source suites pass 3,248 tests per host, with 63
+Windows and 56 Linux skips. Documentation/evidence registration follows those
+source snapshots; no executable code is changed afterward.
+
+The retained protected Ubuntu release passes its frozen digital/physical checks
+on older commit `ae5a7a1`; it is historical evidence, not acceptance of this new
+source. Seven nonutility catalog entries still lack qualified default bindings.
+Complete device operating envelopes, broader physical/extracted geometry,
+semantic upstream/process-option coverage and exact final installed-release
+acceptance remain required. Chunk 7 is still in progress.
+
+### Earlier mixed-context checkpoint
+
 The [latest mixed-context and EM record](validation/ihp-mixed-context-2026-10-21.json)
 closes the large mixed-varactor blocker for the tested layouts. All 24 positive
 layouts and 27 full-flow faults pass. The [context implementation](IHP_MIXED_CONTEXT.md)

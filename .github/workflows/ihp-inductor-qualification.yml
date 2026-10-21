@@ -10,6 +10,13 @@ on:
       - 'scripts/qualify_ihp_npn_layouts.py'
       - 'scripts/qualify_ihp_topvia.py'
       - 'tests/test_ihp_em_profile.py'
+      - 'scripts/audit_ihp_measured_reference.py'
+      - 'tests/test_ihp_measured_reference.py'
+      - 'tests/fixtures/ihp-measured-coil-v1/**'
+      - 'scripts/run_ihp_measured_coil.py'
+      - 'tests/test_ihp_measured_workflow.py'
+      - 'tests/fixtures/ihp-measured-workflow-v1/**'
+      - 'requirements-qualification.txt'
       - 'scripts/qualify_ihp_mixed_layouts.py'
       - 'tests/test_ihp_mixed_layouts.py'
       - 'scripts/build_physical_engines.py'
@@ -29,6 +36,13 @@ on:
       - 'scripts/qualify_ihp_npn_layouts.py'
       - 'scripts/qualify_ihp_topvia.py'
       - 'tests/test_ihp_em_profile.py'
+      - 'scripts/audit_ihp_measured_reference.py'
+      - 'tests/test_ihp_measured_reference.py'
+      - 'tests/fixtures/ihp-measured-coil-v1/**'
+      - 'scripts/run_ihp_measured_coil.py'
+      - 'tests/test_ihp_measured_workflow.py'
+      - 'tests/fixtures/ihp-measured-workflow-v1/**'
+      - 'requirements-qualification.txt'
       - 'scripts/qualify_ihp_mixed_layouts.py'
       - 'tests/test_ihp_mixed_layouts.py'
       - 'scripts/build_physical_engines.py'
@@ -65,7 +79,11 @@ jobs:
           curl -fL --retry 3 -o /tmp/ihp-klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
           echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/ihp-klayout.deb' | sha256sum -c
           sudo apt-get install -y /tmp/ihp-klayout.deb
-          python -m pip install -r requirements.txt
+          python -m pip install -r requirements.txt -r requirements-qualification.txt
+      - name: Verify public measured reference and layout exchange without an EM solve
+        run: |
+          python -m unittest tests.test_ihp_measured_reference tests.test_ihp_measured_workflow -v
+          python scripts/audit_ihp_measured_reference.py --output build/ihp-measured-reference.json --exchange-output build/ihp-measured-layout
       - name: Build pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
       - name: Check coil topology, interfaces and lossless stream handling
@@ -101,6 +119,8 @@ jobs:
             build/ihp-public-npn-evidence
             build/ihp-topvia-evidence
             build/ihp-mixed-evidence
+            build/ihp-measured-reference.json
+            build/ihp-measured-layout
             build/physical-engines/*-build.log
             build/physical-engines/*-version.log
             build/physical-engines/source-lock.json

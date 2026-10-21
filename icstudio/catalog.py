@@ -104,7 +104,14 @@ def parameter_values(binding, instance):
             try: val = numeric_formula(raw, resolved)
             except (ValueError, SyntaxError, ZeroDivisionError): continue
             resolved[key] = _check_parameter(key,val,rule); del pending[key]
-        if not pending: return resolved
+        if not pending:
+            # A symbol may call its multiplier "mf" or another alias. Apply
+            # the existing positive-m contract to the emitted SPICE parameter,
+            # so changing its source-field name cannot bypass that contract.
+            for emitted, source in binding.get('emit_parameters', {}).items():
+                if emitted.casefold() == 'm':
+                    _check_parameter(source, resolved[source], {'positive': True})
+            return resolved
     raise ValueError('Cannot resolve PDK parameters: ' + ', '.join(pending))
 
 

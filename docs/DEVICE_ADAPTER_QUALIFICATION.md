@@ -54,6 +54,16 @@ skips remain recorded. Complete installed-runtime acceptance is still separate.
 
 ## Fixed geometry and bundled model inventory
 
+The [measured-reference and input-validation record](validation/ihp-measured-coil-2026-10-21.json)
+adds completed native reproduction of one measured IHP coil and an independent
+portable full-complex export. It also closes a multiplicity validation bypass:
+SKY130 MIM `mf` fields cannot emit zero or negative SPICE `m`. Positive fractional
+values retain existing behavior. Both hosts confirm all 286 available defaults
+and byte-identical output for all 788 valid export cases, with four previous
+rejections unchanged. These checks do not change the public model parameters or
+promote unsupported devices. Final complete suites pass 3,248 tests on each host;
+full device qualification and final installed-release acceptance remain open.
+
 The later [mixed IHP context correction](IHP_MIXED_CONTEXT.md) passes 24 complete
 NPN/SVaricap layouts, including the large Nx10 device in all rotated and mirrored
 orientations. All 27 full-flow faults and 48 additional native faults are detected;

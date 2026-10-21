@@ -53,3 +53,10 @@ icstudio/assets/physical/ihp_klayout_drc/** -whitespace
 icstudio/assets/physical/ihp_em/** -whitespace
 # Preserve the recorded Windows serialization of this historical source manifest.
 docs/validation/gf180-tested-source-2026-10-21-em.json whitespace=cr-at-eol
+# Public measured-coil references retain exact upstream bytes and whitespace.
+tests/fixtures/ihp-measured-coil-v1/** -whitespace
+tests/fixtures/ihp-measured-workflow-v1/** -whitespace
+
+# Preserve byte-bound native Windows responses and generated plot serialization.
+docs/qualification/ihp-measured-coil-2026-10-21/* whitespace=cr-at-eol
+docs/qualification/ihp-measured-coil-2026-10-21/measured-comparison.svg -whitespace
