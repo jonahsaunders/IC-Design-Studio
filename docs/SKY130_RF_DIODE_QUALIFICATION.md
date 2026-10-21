@@ -213,3 +213,72 @@ python scripts/qualify_sky130_rf_layouts.py --sky130 LOCKED_PHYSICAL_PACKAGE --k
 The qualifier retains every successful and failed report. The default verifier
 continues to reject RF markers it cannot preserve; choosing the RF action does
 not enable unsupported devices in the default simulation catalog.
+
+## Explicit p-well isolation connectivity
+
+**Verify → Physical verification → Verify SKY130 RF p-well connectivity…**
+checks one rectangular RF p-well junction inside a deep n-well. It requires
+separate anode, cathode and substrate terminals. Both the cathode n-well ring
+and the outer substrate ring must be continuous and contacted through written
+LI/mcon/metal1. A shared body region cannot repair an open metal connection.
+
+The RF marker must equal the inner opening of the n-well ring, following the
+published [rfdiode.3 rule](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#rfdiode).
+The deep well must contain that opening and overlap the n-well ring. The
+bounded checker rejects extra device masks, extra well regions, missing
+contacts, disconnected metal and any short among the three terminals.
+
+Native KLayout extraction retains three **planar geometry records**: the RF
+p-well footprint, the deep-well footprint and the n-well skirt outside the deep
+well. The two isolation records connect the explicit substrate to the cathode.
+An independent mask/contact audit checks their areas, perimeters and polarity.
+The strict comparator consumes the entire three-record graph; it cannot drop
+an isolation record or substitute the public two-terminal electrical model.
+The existing pinned public block DRC deck also runs with its enabled checks.
+
+These records are **not simulation models**. In particular, the n-well skirt's
+planar perimeter contains both its inner and outer boundaries. It is not an
+electrical junction perimeter and must not be applied to a capacitance model.
+This check establishes the recorded geometry/connectivity only. Complete
+three-terminal isolation behavior, substrate coupling, electrical parasitic
+accuracy, continuous operating envelopes and installed-release acceptance
+remain separate requirements. The default RF simulation catalog is unchanged.
+
+For the supplied 2 × 2 µm coupon, the captured geometry reference is:
+
+```spice
+* Geometry-only reference, NOT simulation models.
+.subckt rf_isolation A K S
+D1 A K rf_pw2dn_geometry area=4 perim=8
+D2 S K isolation_dnwell_geometry area=17.64 perim=16.8
+D3 S K isolation_nwell_skirt_geometry area=7.36 perim=36.8
+.ends rf_isolation
+```
+
+The public marker and all masks survive project save/reopen and GDS/OASIS
+exchange. GDS checks text presentation as well as label strings and anchors;
+OASIS checks strings and anchors and explicitly reports presentation changes.
+Native verification uses the project reimported from OASIS.
+
+```text
+python scripts/qualify_sky130_rf_isolation.py --sky130 LOCKED_PHYSICAL_PACKAGE --klayout KLAYOUT --output build/rf-isolation
+```
+
+The full matrix covers six rectangular sizes and four rotations, with separate
+controls for contact opens, broken rings, shorts, missing/changed wells and RF
+markers, unknown device masks, floating metal, extra labels and reference
+geometry. `--pilot` runs one size in all four orientations with every fault
+control; the physical-device GitHub job runs that pilot and retains its evidence.
+
+The [execution record](validation/sky130-rf-isolation-2026-10-21.json) retains
+24 passing layouts and 186 detected faults per host. The legal sizes are
+1.28×4, 2×2, 4×2, 2×4, 4×4 and 10×10 µm. A separate boundary run checks
+1.26, 1.27 and 1.28 µm openings at four rotations: only the four 1.26 µm cases
+fail, each with exactly the public `MR_nwell.SP.1` finding. Connectivity,
+geometry comparison and file integrity pass for all twelve boundary cases.
+
+Earlier failed pilots remain available: a disconnected native substrate
+terminal, an OASIS text-presentation mismatch, and the initial illegal 1 µm
+opening with incorrectly spaced corner contacts. The corrected contact grid
+retains at least 400 nm pitch at corners for arbitrary sampled widths. The
+1 µm opening remains a required negative control; the DRC threshold is unchanged.

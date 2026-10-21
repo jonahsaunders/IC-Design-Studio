@@ -130,7 +130,7 @@ def dispatch(job, directory, progress):
         if job['settings'].get('lvs_extractor')=='gf180-hv-klayout':
             from .gf180_hv_verification import copy_assets
             copy_assets(backend/'icstudio/assets/physical/gf180_hv')
-        if job['settings'].get('lvs_extractor')=='sky130-rf-nwell-klayout':
+        if job['settings'].get('lvs_extractor') in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
             from .sky130_rf_verification import copy_assets
             copy_assets(backend/'icstudio/assets/verification/sky130')
         atomic_write(backend/'entry.py','from icstudio.digital_backend import supervise\nfrom icstudio.physical_backend import native_run\nraise SystemExit(supervise(native_run))\n')

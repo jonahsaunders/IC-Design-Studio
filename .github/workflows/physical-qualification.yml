@@ -33,6 +33,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev ngspice klayout xschem libegl1 libopengl0
           python -m pip install -r requirements.txt
+      - name: Install the pinned native RF geometry checker
+        if: matrix.stage == 'devices'
+        run: |
+          curl -fL --retry 3 -o /tmp/rf-klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/rf-klayout.deb' | sha256sum -c
+          sudo apt-get install -y /tmp/rf-klayout.deb
       - name: Build compatible pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
       - name: Build the verified simulator for externally included model decks
@@ -56,6 +62,12 @@ jobs:
         run: python scripts/fetch_sky130_reference.py --physical-only --output build/qualification-pdk
       - name: Recreate the locked adapter
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/physical-adapter/sky130A
+      - name: Require explicit RF p-well substrate connectivity and fault detection
+        if: matrix.stage == 'devices'
+        run: python scripts/qualify_sky130_rf_isolation.py --sky130 build/physical-adapter/sky130A --klayout /usr/bin/klayout --output build/rf-isolation-evidence --pilot
+      - name: Check the public RF n-well opening spacing boundary
+        if: matrix.stage == 'devices'
+        run: python scripts/qualify_sky130_rf_isolation_boundaries.py --sky130 build/physical-adapter/sky130A --klayout /usr/bin/klayout --output build/rf-isolation-boundaries --pilot
       - name: Prepare the separately versioned experimental PNP adapter
         if: matrix.stage == 'bipolar'
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/bipolar-adapter/sky130A --bipolar
@@ -162,6 +174,8 @@ jobs:
             build/simulation-engine/diode-sequences
             build/simulation-engine/rf-bias
             build/simulation-engine/rf-transient
+            build/rf-isolation-evidence
+            build/rf-isolation-boundaries
           if-no-files-found: error
 
   detector-desktop:

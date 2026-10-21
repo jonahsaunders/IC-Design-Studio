@@ -23,6 +23,7 @@ class SiliconMixin:
                         ('Verify IHP layout with public geometry decks…',lambda:self.run_layout_verification(lvs_extractor='ihp-klayout',drc_engine='ihp-public')),
                         ('Verify GF180 high-voltage layout…',lambda:self.run_layout_verification(lvs_extractor='gf180-hv-klayout')),
                         ('Verify SKY130 RF n-well diode…',lambda:self.run_layout_verification(lvs_extractor='sky130-rf-nwell-klayout')),
+                        ('Verify SKY130 RF p-well connectivity…',lambda:self.run_layout_verification(lvs_extractor='sky130-rf-isolation-klayout')),
                         ('Check linked layout and show connections',self.check_linked_layout)],
             'View':[('Physical workflow',self.open_silicon)]}.items():
             for title,fn in entries:self.action(menus[menu],title,fn)
@@ -48,9 +49,10 @@ class SiliconMixin:
             raise ValueError('Link an IHP SG13G2 physical PDK before selecting its KLayout extraction.')
         if lvs_extractor=='gf180-hv-klayout' and self.project['pdk'].get('package_lock',{}).get('id') not in ('gf180mcuC','gf180mcuD'):
             raise ValueError('Link a GF180 C or D PDK before verifying its asymmetric 10 V layout.')
-        if lvs_extractor=='sky130-rf-nwell-klayout' and self.project['pdk'].get('package_lock',{}).get('id')!='sky130A':
-            raise ValueError('Link a SKY130A physical PDK before verifying an RF n-well diode.')
+        if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout') and self.project['pdk'].get('package_lock',{}).get('id')!='sky130A':
+            raise ValueError('Link a SKY130A physical PDK before verifying an RF diode.')
         scope='One rectangular RF n-well diode with a contacted substrate ring. The schematic must contain one ps2nw subcircuit call with explicit area and perimeter. This check does not cover RF p-well diodes or complete circuits. ' if lvs_extractor=='sky130-rf-nwell-klayout' else ''
+        if lvs_extractor=='sky130-rf-isolation-klayout':scope='Check the separate anode, cathode and substrate connections against a three-terminal geometry reference. Include all three RF, deep-well and n-well-skirt geometry records. These records are not simulation models; this check does not qualify electrical isolation behavior. '
         if drc_engine=='ihp-public':scope='Run both public IHP geometry decks and strict circuit comparison. Antenna, density and fabrication qualification are separate checks. '
         values=self.simple_form('Layout DRC / LVS',{'Schematic SPICE file':'','Schematic cell':self.cell['name']},
             scope+'Check the active layout against a self-contained schematic netlist using the linked physical PDK. The reference is captured with the run. Legacy layout labels use the named schematic terminals; no simulation testbench is required.')

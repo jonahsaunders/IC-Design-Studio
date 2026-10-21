@@ -97,15 +97,15 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             raise ValueError('Unknown layout DRC engine.')
         if drc_engine=='ihp-public' and lvs_extractor!='ihp-klayout':
             raise ValueError('Public IHP geometry checks require the IHP KLayout extraction route.')
-        report['drc_engine']={'gf180-hv-klayout':'gf180-hv-public','sky130-rf-nwell-klayout':'sky130-rf-public'}.get(lvs_extractor,drc_engine)
-        if lvs_extractor not in ('magic','ihp-klayout','gf180-hv-klayout','sky130-rf-nwell-klayout'):
+        report['drc_engine']={'gf180-hv-klayout':'gf180-hv-public','sky130-rf-nwell-klayout':'sky130-rf-public','sky130-rf-isolation-klayout':'sky130-rf-public'}.get(lvs_extractor,drc_engine)
+        if lvs_extractor not in ('magic','ihp-klayout','gf180-hv-klayout','sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
             raise ValueError('Unknown layout LVS extractor.')
         if lvs_extractor=='ihp-klayout' and p['pdk'].get('package_lock',{}).get('id')!='ihp-sg13g2':
             raise ValueError('The IHP KLayout extractor requires an IHP SG13G2 package.')
         if lvs_extractor=='gf180-hv-klayout' and p['pdk'].get('package_lock',{}).get('id') not in ('gf180mcuC','gf180mcuD'):
             raise ValueError('The GF180 HV verifier requires a GF180 C or D package.')
-        if lvs_extractor=='sky130-rf-nwell-klayout' and p['pdk'].get('package_lock',{}).get('id')!='sky130A':
-            raise ValueError('The RF n-well verifier requires a SKY130A package.')
+        if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout') and p['pdk'].get('package_lock',{}).get('id')!='sky130A':
+            raise ValueError('The RF verifier requires a SKY130A package.')
         report['lvs_extractor']=lvs_extractor
         validate(p);ref.update(reference(selected['text'],selected['top']))
         if ref!=selected:raise ValueError('The captured schematic reference changed before verification.')
@@ -143,13 +143,18 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             from .gf180_hv_verification import assets as extraction_assets
             assets.update({'gf180-hv-klayout/'+name:path for name,path in extraction_assets().items()})
             report.pop('magic_drc_style',None)
-        if lvs_extractor=='sky130-rf-nwell-klayout':
+        if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
             from .sky130_rf_verification import assets as extraction_assets, circuit
+            if lvs_extractor=='sky130-rf-isolation-klayout':
+                from .sky130_rf_isolation import circuit
             circuit(ref['text'],ref['top'])
             assets.update({'sky130-rf/'+name:path for name,path in extraction_assets().items()})
             report.pop('magic_drc_style',None)
             report['qualification']='Bounded single rectangular SKY130 RF n-well diode: public block DRC, written-contact continuity and strict native device/geometry comparison. No pw2dn, multi-device, parasitic or fabrication qualification.'
-        engines={'magic':('magic','netgen'),'ihp-klayout':('magic','netgen','klayout'),'gf180-hv-klayout':('netgen','klayout'),'sky130-rf-nwell-klayout':('klayout',)}
+            if lvs_extractor=='sky130-rf-isolation-klayout':
+                from .sky130_rf_isolation import SCOPE
+                report.update(qualification=SCOPE,simulation_models=False,qualified=False)
+        engines={'magic':('magic','netgen'),'ihp-klayout':('magic','netgen','klayout'),'gf180-hv-klayout':('netgen','klayout'),'sky130-rf-nwell-klayout':('klayout',),'sky130-rf-isolation-klayout':('klayout',)}
         for name in engines[lvs_extractor]:
             path=Path(shutil.which(tools.get(name,'') or name) or tools.get(name,'') or name)
             if not path.is_file():raise ValueError('Configure the '+name+' physical engine.')
@@ -221,7 +226,7 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
                 report['ihp_npn_native_drc']=npn
                 if report['drc_count']:raise ValueError(str(report['drc_count'])+' DRC violations; see the public IHP reports, varactor oxide and native NPN checks.')
                 return dict(native=result,varactor_oxide=oxide,npn_native=npn,violations=0)
-            if lvs_extractor=='sky130-rf-nwell-klayout':
+            if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
                 from .sky130_rf_verification import drc as rf_drc
                 result=rf_drc(resolved['klayout']['path'],out/'layout.gds',c['name'],p['pdk'],out/'drc')
                 report['drc_count']=result['violations'];report['klayout_drc']=result
@@ -255,8 +260,10 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
         try:stage('drc',drc)
         except (ValueError,OSError) as exc:failures.append(str(exc))
         def extract():
-            if lvs_extractor=='sky130-rf-nwell-klayout':
+            if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
                 from .sky130_rf_verification import extract as rf_extract
+                if lvs_extractor=='sky130-rf-isolation-klayout':
+                    from .sky130_rf_isolation import extract as rf_extract
                 result=rf_extract(resolved['klayout']['path'],out/'layout.gds',c['name'],ref['ports'],p['pdk'],out/'lvs-extraction')
                 for path in (out/'lvs-extraction').rglob('*'):
                     if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
@@ -285,8 +292,10 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             return dict(deck='lvs-extraction/extracted.spice',sha256=files['lvs-extraction/extracted.spice'],settings=settings)
         stage('lvs_extraction',extract)
         def lvs():
-            if lvs_extractor=='sky130-rf-nwell-klayout':
+            if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
                 from .sky130_rf_verification import compare
+                if lvs_extractor=='sky130-rf-isolation-klayout':
+                    from .sky130_rf_isolation import compare
                 result=compare((out/'schematic-lvs.spice').read_text(encoding='utf-8'),(out/'lvs-extraction/extracted.spice').read_text(encoding='utf-8'),ref['top'])
                 atomic_write(out/'rf-comparison.json',json.dumps(result,indent=2))
                 files['rf-comparison.json']=file_digest(out/'rf-comparison.json')

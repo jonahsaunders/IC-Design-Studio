@@ -59,6 +59,23 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [RF isolation record](validation/sky130-rf-isolation-2026-10-21.json)
+adds explicit anode/cathode/substrate connectivity for a bounded SKY130 RF
+p-well layout. Each host passes 24 legal layouts, detects all 186 deliberate
+faults and checks twelve below/at/above-minimum n-well openings. Independent
+readback verifies 156 native netlists, 1,056 stream-layer comparisons and 3,480
+artifact bindings across both hosts. The affected 90-test suite passes on each
+system; both source desktop actions and three Windows/native handoffs pass.
+
+The three retained records describe planar geometry, not electrical simulation
+models. Complete isolation behavior, missing default device bindings, full
+operating envelopes, broader geometry/semantic coverage and exact final
+installed-release acceptance remain required. This closes the tested physical
+connectivity gap without changing any device's qualification status. Chunk 7
+remains in progress.
+
+### Earlier measured-coil and release-input checkpoint
+
 The [measured-coil and release-input record](validation/ihp-measured-coil-2026-10-21.json)
 completes fresh 1/2 µm reproduction of the public IHP L6n2 fixture. All four
 native excitations reach −60 dB; independent raw-wave arithmetic and archive
