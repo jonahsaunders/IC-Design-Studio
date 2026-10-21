@@ -7,6 +7,7 @@ incomplete. Historical files are never relabeled as new-driver executions.
 import argparse
 import json
 from pathlib import Path
+import re
 import sys
 
 import numpy as np
@@ -15,6 +16,40 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio import openems_backend as backend, openems_waves
 from icstudio.model import digest, file_digest
+
+
+def probe_position(path, kind, port):
+    """Read actual native coordinates; never infer them from requested geometry."""
+    coordinates = {}
+    with Path(path).open() as stream:
+        for line in stream:
+            if not line.startswith('%'):
+                break
+            match = re.match(r'% (start|stop)-coordinates: \(([^)]+)\) m(?:\s|$)', line)
+            if match:
+                key = match[1]
+                try:
+                    values = [float(value)*1e6 for value in match[2].split(',')]
+                except ValueError as exc:
+                    raise ValueError('Malformed native probe coordinates: '+str(path)) from exc
+                if key in coordinates or len(values) != 3 or not np.all(np.isfinite(values)):
+                    raise ValueError('Malformed native probe coordinates: '+str(path))
+                coordinates[key] = values
+    if set(coordinates) != {'start', 'stop'}:
+        raise ValueError('Missing native probe coordinates in meters: '+str(path))
+    start, stop = port['start_um'], port['stop_um']
+    if kind == 'ut':
+        center = [(a+b)/2 for a,b in zip(start, stop)]
+        requested = [center[:2]+[start[2]], center[:2]+[stop[2]]]
+    elif kind == 'it':
+        center = (start[2]+stop[2])/2
+        requested = [start[:2]+[center], stop[:2]+[center]]
+    else:
+        raise ValueError('Unknown native probe kind: '+kind)
+    actual = [coordinates['start'], coordinates['stop']]
+    return dict(requested_bounds_um=requested, actual_bounds_um=actual,
+                displacement_um=(np.array(actual)-requested).tolist(),
+                scope='Native header coordinates include expected Yee-grid snapping and current-loop enlargement; no de-embedding or correction.')
 
 
 def audit(source):
@@ -49,6 +84,13 @@ def audit(source):
             for row, port in enumerate((1, 2)):
                 for kind, matrix in (('ut', u), ('it', current)):
                     name = f'{label}-{active}/port_{kind}_{port}'; path = source/name
+                    position = probe_position(path, kind, model['ports'][port-1])
+                    positions = report['stages'][f'{label}-{active}'].setdefault('probe_positions', {})
+                    positions[f'{kind}_{port}'] = position
+                    if active == 2:
+                        previous = report['stages'][f'{label}-1']['probe_positions'][f'{kind}_{port}']
+                        if position != previous:
+                            raise ValueError('Paired excitations used different native probe coordinates: '+name)
                     data = np.loadtxt(path, comments='%')
                     if data.ndim != 2 or data.shape[1] != 2 or len(data) < 3 or not np.all(np.isfinite(data)):
                         raise ValueError('Malformed native probe: '+name)

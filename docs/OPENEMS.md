@@ -107,6 +107,15 @@ require a new solver run. The read-only `scripts/audit_openems_waves.py` command
 compares retained native probes with an independent voltage/current conversion;
 its report cannot be attached as a new characterization.
 
+The audit also reads the actual voltage and current coordinates from the native
+probe headers. It records their displacement from the requested positions and
+rejects different positions between the two excitations of one mesh. Missing,
+malformed or non-meter coordinate headers fail the audit. These coordinates
+include the solver's expected staggered-grid snapping and enlargement of current
+loops; displacement alone is not a failed device or a correction to its response.
+See the upstream [probe placement](https://docs.openems.de/en/latest/concepts/probes.html)
+and [staggered mesh](https://docs.openems.de/en/latest/concepts/mesh.html) explanations.
+
 **Results include this fixture.** There is no de-embedding. Reference clearance,
 side/bottom margins and boundary reflections can change L, Q and resonance. Study
 them separately before using results as an intrinsic coil model. A finer-mesh
@@ -157,6 +166,23 @@ The earlier synthetic refinement passed the impedance comparison but fails this
 full-network check. Its saved characterization is retained as stale. Structured
 results without current passivity evidence also require a new run. See the
 [acceptance audit](validation/openems-passivity-2026-10-21.json).
+
+The release execution smoke test now uses a 50 µm side/bottom margin instead of
+5 µm. The production driver finishes both excitations and passes the unchanged
+passivity check for that larger synthetic fixture; the saved project reopens as
+current on Windows and Linux. The original 5 µm fixture is still rejected. The
+top reference plane expands with the domain, so these are distinct numerical
+fixtures. This existing one-mesh CI test establishes execution only. It does not
+replace the two-mesh study or establish device accuracy. The probe command's
+`--margin-um` option keeps the chosen margin in the run identity.
+
+The separate [completed two-mesh run](validation/ihp-em-refinement-2026-10-21.json)
+of that 50 µm production-driver fixture passes with 3.71% Z change, 4.94% R change
+and maximum fine-mesh scattering gain 0.98288. It retains 97,980 base cells and
+242,112 fine cells, all four native logs and independent voltage/current audits
+on both hosts. Its saved characterization reopens as current. This is numerical
+acceptance of the declared synthetic fixture; IHP accuracy, boundary independence
+and operating-envelope qualification remain separate.
 
 **Cancel run**, closing either dialog, a wall-time limit or application shutdown
 stops the current external process and prevents later excitations or imports.

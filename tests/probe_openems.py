@@ -21,6 +21,7 @@ def main():
     parser = argparse.ArgumentParser(); parser.add_argument('--python', default=openems_runtime.discover()[0])
     parser.add_argument('--out', type=Path, required=True); parser.add_argument('--mesh-check', action='store_true')
     parser.add_argument('--mesh-um', type=float, default=2.)
+    parser.add_argument('--margin-um', type=float, default=5., help='Side and bottom domain margin; retained in the run identity')
     parser.add_argument('--threads', type=int, default=1)
     parser.add_argument('--timeout-s', type=int, default=600)
     args = parser.parse_args()
@@ -40,7 +41,7 @@ def main():
     spec = {**inductor.defaults(p), 'turns': 1, 'width': 4000, 'spacing': 2000,
             'inner': 12000, 'lead': 8000, 'via_rows': 1, 'via_columns': 1}
     proposal = inductor.plan(p, p['top'], spec); inductor.install(p, proposal)
-    opts = dict(f_start_hz=5e11, f_stop_hz=1e12, samples=11, mesh_um=args.mesh_um, margin_um=5.,
+    opts = dict(f_start_hz=5e11, f_stop_hz=1e12, samples=11, mesh_um=args.mesh_um, margin_um=args.margin_um,
                 reference_clearance_um=5., end_db=-30., max_steps=1000000,
                 mesh_check=args.mesh_check, timeout_s=args.timeout_s, threads=args.threads)
     root = args.out.resolve(); model = backend.prepare(p, p['top'], proposal['device_id'], 'isolated', opts, root)

@@ -199,7 +199,20 @@ coordinate-dependent recognition in the trial route, not a passing layout or an
 approved repair. No trial change is accepted into the application. The
 [diagnostic record](validation/openems-passivity-2026-10-21.json) preserves all
 attempts. Those findings remain retained and cannot be promoted by
-the public deck results. Other mixed
+the public deck results.
+
+The [follow-up import diagnostics](validation/ihp-em-refinement-2026-10-21.json)
+leave the original geometry fixed. Moving only the experimental recognition
+label by a factor of five, or using a private 1 nm internal grid, changes
+recognition and leaves 39 regions. The initial finer-grid request was refused
+by the original grid limit; the second explicitly changed that private limit.
+Inspection of native `CIFgen.c` finds a database label rectangle passed to the
+tagged input-plane lookup while the input reports a scale factor of five.
+This is evidence consistent with a coordinate-scale mismatch, not a verified
+native-tool repair. Full-active/contact remapping still leaves 47 regions.
+All trials and original failures are retained; no native source, binary or
+application rule is changed, and the large mixed layout remains rejected.
+Other mixed
 combinations and complete operating envelopes remain unqualified. Reproduce the
 bounded small-varactor batch with:
 

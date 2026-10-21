@@ -40,16 +40,17 @@
       "latest_rf_include_evidence": "docs/validation/sky130-rf-includes-2026-10-18.json",
       "latest_rf_physical_evidence": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json",
       "latest_rf_bias_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
-      "latest_ci_repair_evidence": "docs/validation/openems-passivity-2026-10-21.json",
+      "latest_ci_repair_evidence": "docs/validation/ihp-em-refinement-2026-10-21.json",
       "latest_rf_transient_evidence": "docs/validation/sky130-rf-transient-2026-10-19.json",
       "latest_ihp_inductor_physical_evidence": "docs/validation/ihp-inductor-physical-2026-10-19.json",
       "latest_ihp_varactor_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
       "latest_ihp_public_geometry_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
       "latest_ihp_em_profile_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
       "latest_ihp_mixed_layout_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
-      "latest_ihp_em_runtime_evidence": "docs/validation/ihp-em-waves-2026-10-21.json",
+      "latest_ihp_em_runtime_evidence": "docs/validation/ihp-em-refinement-2026-10-21.json",
       "latest_em_mesh_study_evidence": "docs/validation/openems-mesh-study-2026-10-21.json",
-      "latest_em_acceptance_evidence": "docs/validation/openems-passivity-2026-10-21.json"
+      "latest_em_acceptance_evidence": "docs/validation/openems-passivity-2026-10-21.json",
+      "latest_em_probe_evidence": "docs/validation/ihp-em-refinement-2026-10-21.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24972,6 +24973,11 @@
       "path": "docs/validation/openems-passivity-2026-10-21.json",
       "sha256": "3c24bfcfb6bef97a45a6506d65710dd49a95b468d5b46d5dbbfe0ef0c2c21c8c",
       "scope_limit": "Sampled full two-port passivity acceptance, independent native readback, source-desktop lifecycle and complete source regressions. No device envelope, intrinsic EM accuracy, installed release or tapeout qualification."
+    },
+    "ihp-em-refinement-2026-10-21": {
+      "path": "docs/validation/ihp-em-refinement-2026-10-21.json",
+      "sha256": "01567553976f5a1253543f67e583ad1e90bc9e92159de5837f6790415ecfa078",
+      "scope_limit": "Completed IHP numerical refinement studies, independent native probe-position readback and isolated boundary/import diagnostics. No device-accuracy, full operating-envelope, installed-release or tapeout qualification."
     }
   },
   "execution_acceptance": {

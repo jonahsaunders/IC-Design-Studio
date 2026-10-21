@@ -59,6 +59,31 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [completed EM refinement and import diagnostics](validation/ihp-em-refinement-2026-10-21.json)
+retain finished native runs and independent Windows/Linux readback. Both IHP
+substrate options reach their energy targets and pass sampled passivity, but
+the 1 µm refinements still differ by about 5.37% in resistance, above the
+unchanged 5% limit. They remain rejected. The separate synthetic PML/domain
+experiment passes numerical convergence and passivity; it is not a production
+driver change or IHP accuracy result. The audit now checks actual native probe
+coordinates, with deliberate position, unit and duplicate-header faults.
+
+The original 5 µm synthetic CI domain fails the new passivity gate in the actual
+hosted Linux run. The corrected 50 µm execution fixture passes with the unchanged
+production driver and reopens as current on both systems; the original fixture
+remains a rejected control. This retains the single-mesh CI scope and all
+acceptance limits. A separate full two-mesh run of the same production-driver
+fixture passes at 3.71% Z, 4.94% R and maximum scattering gain 0.98288, with
+matching independent readback and current saved results on both systems.
+Native execution of the repaired fixture on hosted Linux and
+exact desktop-package acceptance remain separate gates. The full hosted IHP
+pipeline passes on `552e3ce`, including its varactor, NPN and mixed-layout checks.
+Thirty focused tests pass on each OS after the probe-audit addition; the preceding
+complete suites pass 3,208 tests with explicit platform skips. Further large
+mixed-varactor diagnostics still leave 39–58 native regions and are not promoted.
+Required model availability, full operating envelopes, broader physical/extracted
+coverage and installed-release qualification keep chunk 7 open.
+
 The [full-network acceptance audit](validation/openems-passivity-2026-10-21.json)
 supersedes the earlier synthetic result. Although its meshes agree within 1.40%
 in impedance and 1.95% in resistance, the final two-port response implies gain

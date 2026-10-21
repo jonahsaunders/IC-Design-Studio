@@ -248,7 +248,10 @@ jobs:
         run: python scripts/stage_openems.py
       - name: Run the included native openEMS solver
         timeout-minutes: 12
-        run: python tests/probe_openems.py --out build/openems-native-evidence
+        # The old 5 um domain produces a nonpassive common-mode response.
+        # Keep the full-network acceptance gate and use the verified larger
+        # domain for this execution smoke test; mesh accuracy remains separate.
+        run: python tests/probe_openems.py --out build/openems-native-evidence --margin-um 50
       - name: Check native Windows experimental gestures and inductor creator at 200 percent before packaging
         if: runner.os == 'Windows'
         timeout-minutes: 5

@@ -99,6 +99,25 @@ as stale and cannot be attached as current results. A new run is required.
 The read-only `scripts/audit_openems_waves.py` command audits retained native
 waveforms; it never installs characterization or qualifies a device.
 
+The [completed 1 µm refinement record](validation/ihp-em-refinement-2026-10-21.json)
+adds four finished native stages for each substrate option, using the corrected
+wave conversion and unchanged 100–300 GHz band. Both runs reach their energy
+targets and remain passive at every sampled frequency. The 280 µm case changes
+by 4.0434% in Z and 5.3686% in R; the 180 µm case changes by 4.0433% in Z and
+5.3710% in R. Both therefore fail the unchanged 5% resistance limit and attach
+no characterization. These completed runs supersede the earlier stopped 180 µm
+attempt only as newer evidence; the original failure remains preserved.
+
+Windows and Linux independently reconstruct both results from the actual native
+voltage/current files and agree with the application. The audit now retains
+the actual probe coordinates, including current-loop enlargement and staggered
+mesh placement. For example, the requested current plane is 175.1803 µm, while
+the recorded base and fine planes are 169.479 and 171.173 µm. This reports the
+solver's sampled geometry; it does not correct or de-embed the result. Paired
+excitations with inconsistent coordinates are rejected. Source comparisons
+verify unchanged masks, materials, port requests and band; only mesh size,
+resource timeout and the existing mesh-dependent padding inside PEC change.
+
 A separate [synthetic refinement study](validation/openems-mesh-study-2026-10-21.json)
 reduced the base mesh limit from 2 to 0.5 µm and passed the then-current numerical
 gate: 1.40% in Z and 1.95% in R, below the unchanged 5% limits. Its acceptance is
@@ -111,6 +130,25 @@ Original outputs are preserved. Coil masks, materials, ports, band and reference
 plane were unchanged within that study; computational padding inside the ideal
 PEC cap changed from 2 to 1 µm under the existing mesh rule. These synthetic
 materials cannot establish IHP convergence or device accuracy.
+
+A private synthetic boundary study in the
+[same completed record](validation/ihp-em-refinement-2026-10-21.json) uses a
+50 µm side/bottom margin and five eight-cell PML boundaries, retaining the top
+PEC plane. Both meshes pass the original checks: 3.44% in Z, 1.20% in R and
+maximum fine-mesh scattering gain 0.98257. All drawn geometry, ports and bottom
+material interfaces remain outside the absorbing cells. This changes both the
+boundary method and domain extent, so it does not isolate their individual
+effects. The production driver remains unchanged. A separate attempt to align
+the current-probe plane still gives gain 1.14728 and is rejected. Neither private
+experiment qualifies IHP materials or an intrinsic device model.
+
+The unchanged production driver also passes a separate two-mesh study of the
+50 µm synthetic fixture with its existing MUR boundaries: 3.71% in Z, 4.94% in R
+and maximum fine gain 0.98288. It uses 97,980 base and 242,112 fine cells. Both
+hosts independently audit the raw probes and reopen the accepted characterization.
+The CI execution smoke test retains its original single-mesh scope. Neither
+passing synthetic case resolves the failed IHP convergence or missing independent
+device-accuracy references.
 
 The existing top-reference fixture places the plane at 336.1303 µm and uses
 321.9 µm vertical lumped ports because the public profile retains its 300 µm
