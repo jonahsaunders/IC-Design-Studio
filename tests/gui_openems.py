@@ -29,6 +29,14 @@ class Owner(QWidget):
 
 
 class JobTests(unittest.TestCase):
+    def test_nonzero_unpowered_port_wave_is_resolved_before_attachment(self):
+        with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='coupled-waves'):
+            self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
+        self.assertEqual(self.owner.commits, 1, self.dialog.status.text())
+        result, _ = inductor_em.result_status(self.owner.project, self.owner.project['top'], self.owner.did)
+        self.assertAlmostEqual(result['rows'][0]['resistance_ohm'], 3.6, places=10)
+        self.assertAlmostEqual(result['rows'][0]['inductance_h'], 2e-9, places=15)
+
     def test_negative_base_stops_before_fine_processes_and_never_attaches(self):
         with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='negative-base'):
             self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)

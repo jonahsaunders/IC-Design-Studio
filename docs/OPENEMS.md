@@ -97,6 +97,16 @@ that would pass through another conductor is rejected. The other five boundaries
 use MUR absorption, with the chosen side/bottom margin. Air fills space outside
 the declared slabs.
 
+Both excitations now retain the incoming and outgoing waves at **both** ports.
+The converter solves `B = S A`; it does not assume that the unpowered port has
+zero incoming wave. Singular or ill-conditioned incident matrices are rejected.
+This corrects a demonstrated negative-resistance artifact in the earlier IHP
+experiment, without de-embedding the ports or changing any convergence limit.
+Older structured openEMS characterizations remain saved but show as stale and
+require a new solver run. The read-only `scripts/audit_openems_waves.py` command
+compares retained native probes with an independent voltage/current conversion;
+its report cannot be attached as a new characterization.
+
 **Results include this fixture.** There is no de-embedding. Reference clearance,
 side/bottom margins and boundary reflections can change L, Q and resonance. Study
 them separately before using results as an intrinsic coil model. A finer-mesh

@@ -30,7 +30,8 @@ def column(data, scale, port, resistance=4.):
         values = [diagonal, off] if port == 1 else [off, diagonal]
         real.append([v.real for v in values]); imag.append([v.imag for v in values])
     return dict(run_hash=data['run_hash'], scale=scale, port=port, frequency_hz=frequency,
-                s_real=real, s_imag=imag, versions={'openEMS': 'synthetic test'},
+                wave_basis=data['wave_basis'], a_real=[[int(r == port-1) for r in (0, 1)] for _ in frequency],
+                a_imag=[[0., 0.] for _ in frequency], b_real=real, b_imag=imag, versions={'openEMS': 'synthetic test'},
                 cells=1000, mesh_lines=[11, 11, 11], energy_db=-55)
 
 

@@ -61,12 +61,35 @@ and logs and only writes a passing report after every configured stage and
 acceptance check succeeds.
 
 The [native rejection record](validation/ihp-em-native-rejection-2026-10-21.json)
-retains the actual Windows runs at 100–300 GHz. All four 280 µm stages reach
+retains the actual Windows runs at 100–300 GHz. Its independent-column conversion
+is historical and has the defect described below. All four 280 µm stages reach
 the requested energy decay, but the two meshes disagree by 5.1% in impedance
 and 98.5% in resistance. Independent full-matrix conversion confirms negative
 coarse resistance for both substrate options. The 180 µm final refinement was
 deliberately stopped after that independent review; it has no complete fine-mesh
 acceptance result. Neither run attaches a characterized project.
+
+The subsequent [measured-wave audit](validation/ihp-em-waves-2026-10-21.json)
+identifies a conversion error: the unpowered port has a nonzero incoming wave
+(up to 4.47% of the driven incident wave). The old driver divided each outgoing
+column by only its own driven wave, implicitly treating the incident matrix as
+diagonal. The corrected driver retains both incoming and outgoing waves from
+both excitations and solves `B = S A`. Independent direct `Z = U inv(I)` from
+the original voltage/current files agrees with that correction.
+
+The corrected 280 µm readback has positive differential resistance at every
+sample: 10.43–67.79 Ω coarse and 10.71–73.47 Ω fine. All sampled scattering
+singular values are below one. However, mesh differences remain 4.80% in Z and
+7.73% in R, so the unchanged 5% gate still rejects it. The 180 µm coarse pair
+also has positive resistance; its stopped refinement is still incomplete.
+The earlier negative-resistance explanation and early-stop decision were based
+on the faulty conversion, not a demonstrated active physical device. Original
+outputs remain unchanged and are not relabeled as new executions.
+
+Older structured openEMS characterizations remain in saved projects but show
+as stale and cannot be attached as current results. A new run is required.
+The read-only `scripts/audit_openems_waves.py` command audits retained native
+waveforms; it never installs characterization or qualifies a device.
 
 The existing top-reference fixture places the plane at 336.1303 µm and uses
 321.9 µm vertical lumped ports because the public profile retains its 300 µm

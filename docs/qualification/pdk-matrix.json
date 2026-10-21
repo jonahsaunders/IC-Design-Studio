@@ -47,7 +47,7 @@
       "latest_ihp_public_geometry_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
       "latest_ihp_em_profile_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
       "latest_ihp_mixed_layout_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
-      "latest_ihp_em_runtime_evidence": "docs/validation/ihp-em-native-rejection-2026-10-21.json"
+      "latest_ihp_em_runtime_evidence": "docs/validation/ihp-em-waves-2026-10-21.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24574,7 +24574,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0–1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0â€“1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -24955,6 +24955,11 @@
       "path": "docs/validation/ihp-em-native-rejection-2026-10-21.json",
       "sha256": "d8db4e94bd6ffe8fc12ac8fc9b75245b874244f6e86d1b8c01728a0f51e71b29",
       "scope_limit": "Real Windows openEMS integration experiments and early rejection of results that cannot satisfy the unchanged mesh and nonnegative differential-resistance requirements. Neither substrate option is electrically qualified."
+    },
+    "ihp-em-waves-2026-10-21": {
+      "path": "docs/validation/ihp-em-waves-2026-10-21.json",
+      "sha256": "3e5dfece9dfee875411447329e237161505270a1caf044f5da229aaba57d46d6",
+      "scope_limit": "Correct two-port measured-wave conversion, source desktop lifecycle and stale-result handling, independent native-waveform reconstruction. No device accuracy, complete operating-envelope, installed-release or tapeout qualification."
     }
   },
   "execution_acceptance": {
@@ -24970,8 +24975,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-21-em.json",
-        "sha256": "0d294ca680e426708a68c69ded55aa9a00fca9ce529babf5870e3d9b551f66f4"
+        "path": "docs/validation/gf180-tested-source-2026-10-21-waves.json",
+        "sha256": "c953e5e49bc53dca24e288de4189acd061407840fa73dd103bb657f5e038c4bd"
       }
     },
     "5": {

@@ -59,8 +59,19 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [measured-wave correction](validation/ihp-em-waves-2026-10-21.json) resolves
+the apparent negative IHP resistance in the earlier solver experiment. Native
+probe files show incoming waves at the unpowered port; the driver now retains
+both incident columns and solves the complete wave system. Independent voltage/
+current matrix readback confirms positive resistance. The 280 µm run still fails
+the unchanged mesh gate (4.80% Z and 7.73% R); the stopped 180 µm refinement remains
+incomplete. Legacy structured openEMS characterizations now show as stale while
+their evidence is preserved. This corrects the prior diagnosis, without promoting
+any device or completing chunk 7.
+
 The [native IHP EM follow-up](validation/ihp-em-native-rejection-2026-10-21.json)
-records rejected characterization, not a device pass. The 280 µm two-mesh run
+records the historical rejected characterization, not a device pass. Its
+negative-resistance interpretation is superseded above. The 280 µm two-mesh run
 reaches its energy targets but fails impedance/resistance agreement; independent
 matrix calculations also show negative coarse resistance for both substrate
 options. The remaining 180 µm refinement was stopped once the unchanged

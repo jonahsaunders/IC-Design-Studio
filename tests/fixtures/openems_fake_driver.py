@@ -32,13 +32,18 @@ if mode == 'unconverged': print('Max. number of timesteps was reached before the
 print('Energy: 1e-10 (-60.1dB)', flush=True)
 frequency = [opts['f_start_hz']*(opts['f_stop_hz']/opts['f_start_hz'])**(i/(opts['samples']-1)) for i in range(opts['samples'])]
 real = []; imag = []
+incoming = []
 for f in frequency:
     a = complex(-2 if mode == 'negative-base' else 2, 2*math.pi*f*1e-9); mutual = .2; det = (a+50)**2-mutual**2
     diagonal = ((a-50)*(a+50)-mutual**2)/det; off = 100*mutual/det
-    values = [diagonal, off] if args.port == 1 else [off, diagonal]
+    waves = ([1., -.04+.01j] if args.port == 1 else [.03+.02j, 1.]) if mode == 'coupled-waves' else [int(r == args.port-1) for r in (0,1)]
+    values = [diagonal*waves[0]+off*waves[1], off*waves[0]+diagonal*waves[1]]
+    incoming.append(waves)
     real.append([v.real for v in values]); imag.append([v.imag for v in values])
 out = dict(run_hash=data['run_hash'], port=args.port, scale=args.scale, frequency_hz=frequency,
-           s_real=real, s_imag=imag, versions={'openEMS': 'PROCESS FIXTURE'}, cells=1000, mesh_lines=[11, 11, 11])
+           wave_basis=data['wave_basis'], a_real=[[v.real for v in row] for row in incoming],
+           a_imag=[[v.imag for v in row] for row in incoming], b_real=real, b_imag=imag,
+           versions={'openEMS': 'PROCESS FIXTURE'}, cells=1000, mesh_lines=[11, 11, 11])
 name = ('base' if args.scale == 1 else 'fine')+'-'+str(args.port)
 Path(args.model).with_name(name+'.json').write_text(json.dumps(out))
 print('ICSTUDIO_EM:'+json.dumps(dict(state='complete')), flush=True)
