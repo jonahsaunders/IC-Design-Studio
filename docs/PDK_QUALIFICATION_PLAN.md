@@ -59,12 +59,15 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
-The corrected solver's [synthetic native refinement](validation/openems-mesh-study-2026-10-21.json)
-passes with 1.40% impedance and 1.95% resistance differences at the existing 5%
-limit. Independent native-probe readback agrees on Windows and Linux; the saved
-Windows characterization reopens as current. This is a software integration
-reference with synthetic materials, not an IHP device pass. Explicit mesh-size
-and memory-limit options make IHP refinements reproducible. Separately, the full
+The [full-network acceptance audit](validation/openems-passivity-2026-10-21.json)
+supersedes the earlier synthetic result. Although its meshes agree within 1.40%
+in impedance and 1.95% in resistance, the final two-port response implies gain
+for some incident-wave combinations. Windows and Linux now reject attachment;
+the historical characterization stays saved but stale. The new sampled
+passivity check supplements the unchanged 5% mesh gate and applies to quick
+previews too. No values are clipped or fitted. The
+[synthetic study](validation/openems-mesh-study-2026-10-21.json) retains its exact
+historical evidence and does not qualify any device. Separately, the full
 [hosted IHP geometry pipeline](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39613802857)
 passes on commit `7cb7016`, including its NPN, top-via and mixed-layout checks.
 Newer-source hosted acceptance retains its separate gate.

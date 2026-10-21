@@ -100,15 +100,17 @@ The read-only `scripts/audit_openems_waves.py` command audits retained native
 waveforms; it never installs characterization or qualifies a device.
 
 A separate [synthetic refinement study](validation/openems-mesh-study-2026-10-21.json)
-now passes the corrected native solver: reducing the base mesh limit from 2 to
-0.5 µm brings the two-mesh differences to 1.40% in Z and 1.95% in R, below the
-unchanged 5% limits. Both source hosts independently read back the native probes,
-and Windows reopens the saved characterization as current. Coil masks, material
-slabs, ports, frequency band, side/bottom bounds and reference-plane elevation
-stay unchanged. Extra computational padding inside the ideal PEC cap changes
-from 2 to 1 µm under the existing mesh-dependent padding rule and is recorded.
-This software regression uses explicitly synthetic materials; the IHP-specific
-convergence and accuracy requirements remain open.
+reduced the base mesh limit from 2 to 0.5 µm and passed the then-current numerical
+gate: 1.40% in Z and 1.95% in R, below the unchanged 5% limits. Its acceptance is
+superseded by the [full-network audit](validation/openems-passivity-2026-10-21.json):
+the fine response has a maximum scattering singular value of 1.151684, implying
+gain for an incident-wave combination in this passive fixture. Both hosts now
+reject attachment, and the saved characterization remains available but stale.
+Agreement between meshes and positive differential resistance are insufficient.
+Original outputs are preserved. Coil masks, materials, ports, band and reference
+plane were unchanged within that study; computational padding inside the ideal
+PEC cap changed from 2 to 1 µm under the existing mesh rule. These synthetic
+materials cannot establish IHP convergence or device accuracy.
 
 The existing top-reference fixture places the plane at 336.1303 µm and uses
 321.9 µm vertical lumped ports because the public profile retains its 300 µm

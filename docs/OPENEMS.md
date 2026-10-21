@@ -145,6 +145,19 @@ finer result, with a 1 mΩ denominator floor. Both changes must meet the selecte
 tolerance before automatic attachment. Disabling this check is allowed and is
 recorded as **mesh convergence NOT checked**.
 
+The final two-port response must also be passive at every sampled frequency.
+With both ports referenced to real 50 Ω, the largest singular value of the full
+S matrix must not exceed one, allowing only `1e-9` numerical roundoff. Positive
+differential resistance, individual S entries below one, or two agreeing meshes
+do not establish this condition. Both verified runs and quick previews use this
+check; no response is clipped or fitted to pass. This sampled check does not
+establish passivity between samples or outside the selected band.
+
+The earlier synthetic refinement passed the impedance comparison but fails this
+full-network check. Its saved characterization is retained as stale. Structured
+results without current passivity evidence also require a new run. See the
+[acceptance audit](validation/openems-passivity-2026-10-21.json).
+
 **Cancel run**, closing either dialog, a wall-time limit or application shutdown
 stops the current external process and prevents later excitations or imports.
 Only one openEMS operation runs at a time. Model preparation and FDTD work execute
@@ -160,7 +173,9 @@ manifest/GDS/XML exchange, per-excitation XML/probes/logs, and, on success,
 `results.json` plus `results.s2p`. Results record model/driver hashes, versions,
 fixture dimensions, material approximation, solver settings, mesh sizes and
 convergence evidence. Failed mesh comparison leaves `mesh-comparison.json` and raw
-excitation data for inspection. Studio does not upload process or PDK artifacts.
+excitation data for inspection. A completed passivity check leaves `passivity.json`
+on either pass or failure; it records the worst sampled gain and its frequency.
+Studio does not upload process or PDK artifacts.
 
 The [validation record](validation/openems.json) distinguishes numerical conversion
 and lifecycle fixtures from actual native solver execution. These checks do not

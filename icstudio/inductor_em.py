@@ -207,9 +207,11 @@ def validate_results(data,current):
         run=data['solver_run']
         if not isinstance(run,dict) or run.get('backend')!='openEMS':
             raise ValueError('Unsupported structured solver evidence.')
-        from .openems_waves import BASIS
+        from .openems_waves import BASIS, validate_passivity
         if run.get('wave_basis') != BASIS:
             raise ValueError('Legacy openEMS characterization omits measured incoming waves. Rerun the field solver with the current driver.')
+        convergence=run.get('convergence')
+        validate_passivity(convergence.get('passivity') if isinstance(convergence,dict) else None,frequency)
         for key in ('run_hash','driver_sha256'):
             value=run.get(key)
             if not isinstance(value,str) or len(value)!=64 or any(c not in '0123456789abcdef' for c in value):

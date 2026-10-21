@@ -34,7 +34,9 @@ frequency = [opts['f_start_hz']*(opts['f_stop_hz']/opts['f_start_hz'])**(i/(opts
 real = []; imag = []
 incoming = []
 for f in frequency:
-    a = complex(-2 if mode == 'negative-base' else 2, 2*math.pi*f*1e-9); mutual = .2; det = (a+50)**2-mutual**2
+    a = complex(-2 if mode == 'negative-base' else 2, 2*math.pi*f*1e-9)
+    mutual = -4. if mode == 'active-common-mode' else .2
+    det = (a+50)**2-mutual**2
     diagonal = ((a-50)*(a+50)-mutual**2)/det; off = 100*mutual/det
     waves = ([1., -.04+.01j] if args.port == 1 else [.03+.02j, 1.]) if mode == 'coupled-waves' else [int(r == args.port-1) for r in (0,1)]
     values = [diagonal*waves[0]+off*waves[1], off*waves[0]+diagonal*waves[1]]

@@ -181,7 +181,7 @@ def _pair_result(model_data, columns, scale, diagnostics=None):
     if any(len(c.get(key, [])) != len(frequency) for c in pair for key in keys):
         raise ValueError('Incomplete two-port solver output.')
     lines = ['! '+FIXTURE, '# Hz S RI R 50']
-    conditions = []; leakage = []
+    conditions = []; leakage = []; gains = []
     for i, f in enumerate(frequency):
         values = [f]
         if any(len(c[key][i]) != 2 for c in pair for key in keys):
@@ -198,6 +198,7 @@ def _pair_result(model_data, columns, scale, diagnostics=None):
             leakage.append(max(abs(incident[1-c][c])/max(abs(incident[c][c]), 1e-300) for c in (0, 1)))
         else:
             scattering = matrix('s')  # Explicitly retain historical driver conversion.
+        gains.append(openems_waves.maximum_gain(scattering))
         for column in (0, 1):
             for row in (0, 1):
                 value = scattering[row][column]; values.extend([value.real, value.imag])
@@ -205,7 +206,9 @@ def _pair_result(model_data, columns, scale, diagnostics=None):
     if diagnostics is not None:
         diagnostics.update(basis=basis or 'legacy-independent-column',
                            maximum_incident_condition=max(conditions) if conditions else None,
-                           maximum_inactive_incident_ratio=max(leakage) if leakage else None)
+                           maximum_inactive_incident_ratio=max(leakage) if leakage else None,
+                           maximum_scattering_gain=max(gains),
+                           maximum_gain_frequency_hz=frequency[gains.index(max(gains))])
     text = '\n'.join(lines)+'\n'
     return text, inductor_em.touchstone(text, 2)
 
@@ -257,6 +260,20 @@ def finish(directory, model_data, columns):
         if max(z_errors+r_errors) > opts['mesh_tolerance']:
             atomic_write(directory/'mesh-comparison.json', json.dumps(convergence, indent=2))
             raise ValueError(f'Mesh refinement changed Z by {max(z_errors):.1%} or R by {max(r_errors):.1%}, above the {opts["mesh_tolerance"]:.1%} limit. Reduce mesh size and rerun. Results were not attached.')
+    final_waves = waves['fine' if opts['mesh_check'] else 'base']
+    passivity = dict(check=openems_waves.PASSIVITY_CHECK, reference_ohm=50.,
+                     sample_count=len(result['frequency_hz']),
+                     maximum_scattering_gain=final_waves['maximum_scattering_gain'],
+                     frequency_hz=final_waves['maximum_gain_frequency_hz'],
+                     roundoff_allowance=openems_waves.PASSIVITY_ALLOWANCE,
+                     scope='All incident vectors at each sampled frequency; no claim between samples or outside the band.')
+    passivity['passed'] = passivity['maximum_scattering_gain'] <= 1+openems_waves.PASSIVITY_ALLOWANCE
+    atomic_write(directory/'passivity.json', json.dumps(passivity, indent=2, allow_nan=False))
+    if not passivity['passed']:
+        raise ValueError('The final two-port response is not passive at a sampled frequency. '
+                         'Positive differential resistance alone is insufficient. Review the fixture, '
+                         'port conversion and mesh; results were not attached.')
+    convergence['passivity'] = passivity
     manifest = json.loads((directory/'manifest.json').read_text())
     evidence = dict(backend='openEMS', run_hash=model_data['run_hash'], driver_sha256=model_data['driver_sha256'],
                     wave_basis=model_data['wave_basis'],

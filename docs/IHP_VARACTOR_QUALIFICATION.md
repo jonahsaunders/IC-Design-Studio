@@ -189,8 +189,17 @@ reads back twelve mask exchanges, twenty-four native/comparison netlists and
 twenty-four public geometry reports.
 
 The separate large Nx10 varactor paired with the Nx10 NPN still produces
-**58 full native well-rule findings** (`NW.f`, `NBL.f`, `NW.c1`). Those findings
-are retained, not filtered or promoted by the public deck results. Other mixed
+**58 merged native error regions**, covering `NW.f`, `NW.c1`, `LU.d/LU.d1`,
+`NBL.a`, `NBL.b`, `NBL.e` and `NBL.f`. Rule-specific rectangles overlap, so their
+counts do not sum to 58. Isolated attempts to map the public varactor exceptions
+or change import recognition still leave 58–76 merged regions. Translating the
+same geometry to put its recognition label at the origin changes the experimental
+import's recognized well mask and leaves 39–47 regions. That diagnostic exposes
+coordinate-dependent recognition in the trial route, not a passing layout or an
+approved repair. No trial change is accepted into the application. The
+[diagnostic record](validation/openems-passivity-2026-10-21.json) preserves all
+attempts. Those findings remain retained and cannot be promoted by
+the public deck results. Other mixed
 combinations and complete operating envelopes remain unqualified. Reproduce the
 bounded small-varactor batch with:
 

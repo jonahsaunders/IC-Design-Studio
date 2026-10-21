@@ -40,7 +40,7 @@
       "latest_rf_include_evidence": "docs/validation/sky130-rf-includes-2026-10-18.json",
       "latest_rf_physical_evidence": "docs/validation/sky130-rf-nwell-layout-2026-10-18.json",
       "latest_rf_bias_evidence": "docs/validation/chunk7-ci-rf-bias-2026-10-19.json",
-      "latest_ci_repair_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
+      "latest_ci_repair_evidence": "docs/validation/openems-passivity-2026-10-21.json",
       "latest_rf_transient_evidence": "docs/validation/sky130-rf-transient-2026-10-19.json",
       "latest_ihp_inductor_physical_evidence": "docs/validation/ihp-inductor-physical-2026-10-19.json",
       "latest_ihp_varactor_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
@@ -48,7 +48,8 @@
       "latest_ihp_em_profile_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
       "latest_ihp_mixed_layout_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
       "latest_ihp_em_runtime_evidence": "docs/validation/ihp-em-waves-2026-10-21.json",
-      "latest_em_mesh_study_evidence": "docs/validation/openems-mesh-study-2026-10-21.json"
+      "latest_em_mesh_study_evidence": "docs/validation/openems-mesh-study-2026-10-21.json",
+      "latest_em_acceptance_evidence": "docs/validation/openems-passivity-2026-10-21.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24575,7 +24576,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0Ã¢â‚¬â€œ1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -24966,6 +24967,11 @@
       "path": "docs/validation/openems-mesh-study-2026-10-21.json",
       "sha256": "4b59bb5cf5ccbc7851656f4fc303de914611614590ef2e957364f12c3b78df3a",
       "scope_limit": "Repeat the same synthetic resistive-coil fixture with a finer mesh, same frequency band/materials/geometry and unchanged 5% Z/R limits. This is a solver integration study, not an IHP device qualification."
+    },
+    "openems-passivity-2026-10-21": {
+      "path": "docs/validation/openems-passivity-2026-10-21.json",
+      "sha256": "3c24bfcfb6bef97a45a6506d65710dd49a95b468d5b46d5dbbfe0ef0c2c21c8c",
+      "scope_limit": "Sampled full two-port passivity acceptance, independent native readback, source-desktop lifecycle and complete source regressions. No device envelope, intrinsic EM accuracy, installed release or tapeout qualification."
     }
   },
   "execution_acceptance": {

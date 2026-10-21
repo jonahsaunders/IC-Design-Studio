@@ -13,6 +13,70 @@ from test_openems import coil, column
 
 
 class MeasuredWaveTests(unittest.TestCase):
+    def test_missing_or_failed_passivity_record_is_stale_on_reopen(self):
+        p,did=coil()
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)/'run';m=backend.prepare(p,p['top'],did,'context',{'samples':2},root)
+            cols={backend.stage_name(s,p):column(m,s,p) for s,p in backend.stages(m['settings'])}
+            output=backend.finish(root,m,cols)
+            inductor_em.install_results(p,p['top'],did,output)
+            evidence=p['cells'][0]['parametric_devices'][0]['em_characterization']['evidence']
+            evidence['solver_run']['convergence'].pop('passivity')
+            path=Path(folder)/'old.icproj';save_project(p,path);restored=load_project(path)
+            self.assertIn('em_characterization',restored['cells'][0]['parametric_devices'][0])
+            current,status=inductor_em.result_status(restored,restored['top'],did)
+            self.assertIsNone(current);self.assertIn('passivity evidence is missing',status)
+            faults=({'passed':False},{'check':'unrecognized'}, {'maximum_scattering_gain':1.01},
+                    {'maximum_scattering_gain':-1.}, {'maximum_scattering_gain':True},
+                    {'maximum_scattering_gain':float('nan')},{'roundoff_allowance':.1},
+                    {'reference_ohm':75.},{'frequency_hz':-1.},{'sample_count':1})
+            for fault in faults:
+                bad=copy.deepcopy(output);bad['solver_run']['convergence']['passivity'].update(fault)
+                with self.subTest(fault=fault),self.assertRaisesRegex(ValueError,'passivity'):
+                    inductor_em.install_results(restored,restored['top'],did,bad)
+
+    def test_full_network_gain_matches_independent_svd(self):
+        rng = np.random.default_rng(713)
+        cases = [np.zeros((2,2)), np.eye(2), np.array([[0.,1j],[1.,0.]]),
+                 np.array([[.8,.8],[0.,0.]]), np.array([[1.,0.],[0.,1.+2e-9]])]
+        cases += [rng.normal(size=(2,2))+1j*rng.normal(size=(2,2)) for _ in range(100)]
+        for matrix in cases:
+            for scale in (1., 1e-200, 1e200):
+                actual = waves.maximum_gain((matrix*scale).tolist())
+                expected = float(np.linalg.svd(matrix,compute_uv=False)[0])*scale
+                self.assertAlmostEqual(actual/scale, expected/scale, places=12)
+        with self.assertRaises(ValueError): waves.maximum_gain([[1.]])
+        with self.assertRaises(ValueError): waves.maximum_gain([[1.,0.],[0.,complex(0,float('nan'))]])
+
+    def test_active_common_mode_cannot_hide_behind_positive_differential_resistance(self):
+        # Eigenvalues of this Z are -2 ohm in common mode and +6 ohm in
+        # differential mode. Individual S entries and each column's power
+        # are also below unity; only the combined incident-vector test sees
+        # its active common mode. Both meshes deliberately agree exactly.
+        z = np.array([[2.,-4.],[-4.,2.]])
+        s = (z-50*np.eye(2)) @ np.linalg.inv(z+50*np.eye(2))
+        self.assertTrue(np.all(np.sum(abs(s)**2,axis=0) < 1))
+        p, did = coil()
+        for mesh_check in (True,False):
+            with self.subTest(mesh_check=mesh_check), tempfile.TemporaryDirectory() as folder:
+                root=Path(folder)/'run'
+                m=backend.prepare(p,p['top'],did,'context',{'samples':2,'mesh_check':mesh_check},root)
+                cols={backend.stage_name(sc,port):column(m,sc,port) for sc,port in backend.stages(m['settings'])}
+                for c in cols.values():
+                    j=c['port']-1
+                    c['b_real']=[s[:,j].real.tolist() for _ in range(2)]
+                    c['b_imag']=[s[:,j].imag.tolist() for _ in range(2)]
+                _, result=backend._pair_result(m,cols,1.)
+                np.testing.assert_allclose(result['z_real_ohm'],[12.,12.])
+                backend.check_base_feasibility(root,m,cols)
+                with self.assertRaisesRegex(ValueError,'two-port response is not passive'):
+                    backend.finish(root,m,cols)
+                self.assertFalse((root/'results.json').exists())
+                self.assertFalse((root/'results.s2p').exists())
+                rejection=json.loads((root/'passivity.json').read_text())
+                self.assertFalse(rejection['passed'])
+                self.assertAlmostEqual(rejection['maximum_scattering_gain'],52/48)
+
     def test_known_passive_network_with_coupled_excitations_and_complex_scaling(self):
         z = np.array([[8+12j, 2+3j], [2+3j, 10+15j]])
         # Build voltages from independent current trials, without computing S

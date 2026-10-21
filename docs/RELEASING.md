@@ -36,6 +36,13 @@ runs their defined acceptance tests. Review the actual workflow run before
 promoting a release. Historical embedded-Python Windows archives used a different
 route; their records do not qualify a current PyInstaller/installer asset.
 
+Branch and pull-request checks cancel obsolete runs for the same workflow and
+ref, retaining every check on the newest revision. Each reusable workflow has
+its own concurrency prefix so it cannot cancel its caller. Manual runs, version
+tags and children of **Prepare desktop release** have unique run groups; the
+release-preparation workflow keeps its existing non-cancelling policy. These
+controls reduce redundant queued work; a cancelled old run is not a pass.
+
 ## Desktop build prerequisites
 
 Follow [build-desktop.yml](../.github/workflows/build-desktop.yml) for the exact

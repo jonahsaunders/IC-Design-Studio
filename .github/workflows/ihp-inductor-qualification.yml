@@ -38,6 +38,13 @@ on:
       - 'tests/test_ihp_npn_qualification.py'
       - 'requirements.txt'
       - '.github/workflows/ihp-inductor-qualification.yml'
+# Replace obsolete branch/PR checks. A distinct file prefix prevents reusable
+# workflows from cancelling their callers; release preparation, tags and manual
+# runs use a unique run id so their acceptance evidence can finish.
+concurrency:
+  group: >-
+    ci-ihp-inductor-qualification-${{ github.workflow }}-${{ github.event_name }}-${{ (github.event_name == 'pull_request' && github.event.pull_request.number) || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && github.workflow != 'Prepare desktop release' && github.ref) || github.run_id }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:

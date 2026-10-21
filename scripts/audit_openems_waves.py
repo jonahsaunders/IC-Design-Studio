@@ -77,9 +77,12 @@ def audit(source):
         z = u@np.linalg.inv(current); vector = np.array([1., -1.]); differential = vector@z@vector
         np.testing.assert_allclose(np.array(app['z_real_ohm'])+1j*np.array(app['z_imag_ohm']), differential, rtol=1e-10, atol=1e-10)
         s = reflected@np.linalg.inv(incoming)
+        maximum_gain = float(np.max(np.linalg.svd(s, compute_uv=False)))
+        np.testing.assert_allclose(diagnostic['maximum_scattering_gain'], maximum_gain, rtol=1e-12, atol=1e-12)
         report['meshes'][label] = dict(**diagnostic, frequency_hz=frequency.tolist(),
             resistance_ohm=differential.real.tolist(), reactance_ohm=differential.imag.tolist(),
-            maximum_singular_value=float(np.max(np.linalg.svd(s, compute_uv=False))),
+            maximum_singular_value=maximum_gain,
+            sampled_passivity=maximum_gain <= 1+openems_waves.PASSIVITY_ALLOWANCE,
             maximum_reciprocity_error=float(np.max(abs(s[:,0,1]-s[:,1,0]))),
             minimum_impedance_hermitian_eigenvalue=float(np.min(np.linalg.eigvalsh((z+z.conj().transpose(0,2,1))/2))))
         impedances[label] = differential
@@ -89,7 +92,7 @@ def audit(source):
         re = float(np.max(abs(base.real-fine.real)/np.maximum(abs(fine.real), 1e-3)))
         report['mesh_comparison'] = dict(max_relative_z_change=ze, max_relative_r_change=re,
                                          tolerance=opts['mesh_tolerance'], absolute_floor_ohm=1e-3)
-        report['numerical_gate'] = 'passes_recorded_mesh_and_nonnegative_resistance' if max(ze,re) <= opts['mesh_tolerance'] and np.min(fine.real) >= 0 else 'rejected'
+        report['numerical_gate'] = 'passes_recorded_mesh_and_nonnegative_resistance' if max(ze,re) <= opts['mesh_tolerance'] and np.min(fine.real) >= 0 and report['meshes']['fine']['sampled_passivity'] else 'rejected'
     else: report['numerical_gate'] = 'incomplete' if opts['mesh_check'] else 'mesh_not_checked'
     if any(file_digest(source/name) != sha for name,sha in files.items()):
         raise ValueError('Native evidence changed during readback.')

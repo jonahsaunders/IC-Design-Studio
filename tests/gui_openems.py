@@ -29,6 +29,16 @@ class Owner(QWidget):
 
 
 class JobTests(unittest.TestCase):
+    def test_active_common_mode_never_attaches_and_keeps_diagnostic(self):
+        with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='active-common-mode'):
+            self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
+        self.assertIn('two-port response is not passive', self.dialog.status.text())
+        self.assertEqual(self.owner.commits, 0)
+        self.assertEqual(len(self.dialog.job.columns), 4)
+        self.assertTrue((self.dialog.job.directory/'passivity.json').exists())
+        self.assertFalse((self.dialog.job.directory/'results.json').exists())
+        self.assertTrue(self.dialog.run.isEnabled())
+
     def test_nonzero_unpowered_port_wave_is_resolved_before_attachment(self):
         with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='coupled-waves'):
             self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
