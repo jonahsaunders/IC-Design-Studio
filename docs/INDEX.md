@@ -6,6 +6,8 @@ Use the guides below for the current **0.23.0 engineering preview** source. Desk
 
 For development toward a complete analog/digital release, see the
 [SKY130, GF180MCU and IHP acceptance targets](PUBLIC_RELEASE_TARGETS.md).
+The [chunks 1–12 progress tracker](QUALIFICATION_PROGRESS.md) records current
+qualification status, remaining work and the conditional forecast.
 
 ## Find a complete example
 

@@ -1,0 +1,121 @@
+# Chunks 1–12: progress and forecast
+
+**Snapshot: October 21, 2026.** Latest reviewed application commit:
+[`5095283`](https://github.com/jonahsaunders/IC-Design-Studio/commit/5095283225042ed4d68c7501b6deff88296da9e7),
+on `experimental`. This tracker is updated during project work, without a
+scheduled background monitor.
+
+**Six gates are closed within their declared scope, one is active, and five
+remain pending. This is not a 50% estimate of the remaining engineering work.**
+The later gates include device qualification, complete chips and manufacturing
+acceptance, which are substantially broader than the early reference gates.
+No process is currently qualified for complete-chip tapeout.
+
+The [qualification matrix](qualification/pdk-matrix.json) governs status. The
+[twelve-chunk plan](PDK_QUALIFICATION_PLAN.md#sequence-and-gates) defines the
+completion gates. Forecasts below are engineering judgment, not acceptance
+evidence or promised dates.
+
+## Current tracker
+
+| Chunk | Work | Verified status | Work needed to close the gate / preserve the result | Expected progression |
+| --- | --- | --- | --- | --- |
+| 1 | Qualification matrix | **Defined; planning gate closed.** All bundled requirements have contracts and statuses. | Keep inventory, source identities and gaps current. Full upstream coverage and device limits remain visible in later work. | Maintenance as supported inputs change. High confidence in the existing planning status. |
+| 2 | Toolchain | **Reference gate closed.** [Acceptance](validation/toolchain-2026-10-07.json). | Preserve the exact tested runtime scope; qualify changed distributed runtimes separately. | Mostly regression work unless engines or packaging change. |
+| 3 | GF180 geometry | **Reference gate closed.** [Acceptance](validation/gf180-geometry-2026-10-07.json). | Maintain separate C/D geometry, timing and equivalence evidence for the declared production references. | Mostly regression work; new designs do not inherit qualification. |
+| 4 | GF180 density | **Reference gate closed.** [Acceptance](validation/gf180-fill-closure-2026-10-09.json). | Preserve the six reference layouts' fill, exclusions and post-fill checks. | Mostly regression work; different floorplans need new evidence. |
+| 5 | IHP geometry and fill | **Reference gate closed.** [Acceptance](validation/ihp-fill-closure-2026-10-11.json). | Preserve the declared counter/UART/APB geometry, connectivity and extracted-performance coverage. | Mostly regression work; device and full-chip coverage remain separate. |
+| 6 | SKY130 public physical checks | **Approved public-baseline gate closed.** [Acceptance](validation/sky130-public-baseline-2026-10-16.json). | Maintain local DRC, antenna, LVS, density/fill and generic export for the versioned baseline and its exclusions. Full foundry signoff remains excluded. | Stable baseline with regression work. The user-approved narrower boundary applies only to this chunk. |
+| 7 | Device families | **In progress.** 286 catalog entries remain partial; seven real device bindings remain unavailable, alongside nine utility entries. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
+| 8 | Extraction and corners | **Pending formal qualification.** Coupon, extraction and corner tooling already exists. | Cover required routing layers/vias/device parasitics, coupling/fill and independent RC corners against source-backed references; execute the complete required condition pairs. | More structured once device and corner inputs are settled. **Medium-to-high uncertainty:** GF180/IHP additional independent RC data is an explicit gap. |
+| 9 | Analog blocks | **Pending formal qualification.** Amplifier, reference and other example workflows provide a starting point. | Freeze per-process numerical specifications, then qualify mirror, differential pair, amplifier, reference, oscillator, noise/statistics and relevant IHP bipolar/RF cases before and after extraction. | Substantial design-and-verification iteration. **Medium-to-high uncertainty** from corner failures, startup, stability and parasitics. |
+| 10 | Larger digital and mixed-signal designs | **Pending formal qualification.** Counter/UART/APB and teaching mixed-signal flows provide groundwork. | Lock a larger controller and per-target mixed-signal demonstrator; cover functionality, clock/reset crossings, actual interfaces, all-mode timing and final physical checks. | Existing flows should help. Planning can overlap chunk 9 once device/RC inputs are usable. **Medium-to-high uncertainty** at scale and at analog/digital boundaries. |
+| 11 | Complete test chips | **Pending.** Macro and block results do not establish complete-chip acceptance. | Assemble the actual chip/pad/package configurations; pass final physical, electrical, ESD/latch-up, current-density/voltage-drop and I/O/package checks. | **Likely the next major bottleneck after device qualification. Very high uncertainty** until chip, pad, package and reliability inputs are defined. |
+| 12 | Delivery and tapeout | **Pending.** Desktop packaging and export verification exist, with incomplete full-scope acceptance. | Qualify exact Windows/Ubuntu deliverables and reproduce complete handoffs; satisfy the existing gate's written manufacturing acceptance for the exact design and revisions. | Software packaging is relatively predictable after inputs freeze. **Manufacturing acceptance has no defensible date** before a target and its requirements are resolved. |
+
+“Closed” refers to the recorded gate and its exact reference scope. A changed
+PDK, tool, design or required condition needs its own evidence. Pending chunks
+can have useful code and successful samples without having a completed gate.
+
+## Evidence behind the current forecast
+
+The acceptance records dated October 7 cover toolchain and GF180 geometry;
+October 9 covers GF180 fill; October 11 covers IHP fill; October 16 closes the
+explicit SKY130 public baseline. These are record dates, not measurements of
+uninterrupted engineering time. Chunk 7 is still open in the October 21 matrix.
+This history does not support extrapolating one fixed duration per chunk.
+
+Recent chunk-7 work has produced concrete fixes and reusable verification:
+
+- IHP isolation keeps its three physical terminals and internal tap/body
+  connections. Two repeated cells retain distinct internal bodies.
+- The latest isolation work passes **32 layout cases and 86 deliberate fault
+  controls**, plus separate legacy tap and contact-boundary regressions.
+- Affected source tests, Windows staging/local native execution, independent
+  native-output audits and restored-archive replays pass. See the
+  [physical record](validation/ihp-isolation-physical-2026-10-21.json) and
+  [hierarchy record](validation/ihp-isolation-hierarchy-2026-10-21.json).
+- Those results leave all 286 available catalog entries at `partial`; they do
+  not resolve the seven unavailable real-device bindings or prove complete
+  operating envelopes. See the [device guide](DEVICE_ADAPTER_QUALIFICATION.md).
+
+The wider requirement matrix also shows why later chunks cannot yet be called
+nearly finished: chunk 8 has 11 `not_run` and one `partial` target/test rows;
+chunk 9 has 30 `not_run`; chunk 10 has 12 `not_run`; chunk 11 has 20 `not_run`;
+chunk 12 has eight `partial` and four `needs_definition`. These are **formal
+coverage rows, not estimates of code written or equal units of effort**.
+
+The GitHub snapshot at **23:41:52 UTC on October 21** for application commit
+`5095283` shows **five successful workflows, nine running and two queued**, with
+no reported failure in that snapshot. Push and pull-request runs are counted
+separately. Unfinished runs are not passes, and results at another commit cannot
+stand in for final installed-release acceptance. Check the
+[commit's workflow runs](https://github.com/jonahsaunders/IC-Design-Studio/actions?query=sha%3A5095283225042ed4d68c7501b6deff88296da9e7)
+for newer results.
+
+## How progress is likely to unfold
+
+1. **Device completion comes first.** Separate missing model/source information
+   from implementation defects and finite test batches. Track each family by
+   its remaining gate conditions; repeated sample additions can improve the
+   product without moving overall completion proportionally.
+2. **Extraction should become more systematic.** Reuse the native execution,
+   fault controls, exact-source records and archive replay infrastructure from
+   earlier chunks. Missing independent corner data can still hold a target open.
+3. **Analog and larger digital work can share infrastructure.** Plan their
+   specifications and fixtures together; qualify results only against the
+   settled device, RC and process inputs. Mixed-signal and clock/reset coverage
+   will require additional work beyond the current small references.
+4. **Expect another slowdown at complete chips.** Pads, protection, power,
+   package and reliability introduce requirements that block-level DRC/LVS
+   cannot establish. This is a major remaining workload, even after chunks
+   7–10 pass.
+5. **Freeze inputs before final delivery acceptance.** Package and handoff
+   reproduction should become more predictable at that point. All technical
+   checks remain local. The existing chunk-12 gate separately requires written
+   manufacturer/shuttle acceptance of the exact design; no submission is
+   authorized by this tracker, and that dependency currently has no date.
+
+I do not assign an overall percentage or calendar finish date while the device
+and complete-chip inputs remain unresolved. The useful forecast is that **7 and
+11 carry the largest discovery risk; 8–10 should benefit from existing tooling;
+12 has a separate manufacturing dependency**. This is a conditional assessment,
+not a guarantee that those middle chunks will be quick.
+
+A credible time estimate requires finite remaining device/condition lists,
+source-backed limits and RC corners, frozen block specifications, actual
+chip/pad/package choices and measured durations for representative batches.
+Once those exist, estimate each batch's implementation time, native run time and
+likely repair cycles, then revise the forecast after execution. Until then,
+an hours-to-finish claim would hide the largest uncertainties.
+
+## Update history
+
+| Date | Change | Effect on forecast |
+| --- | --- | --- |
+| 2026-10-21 | Initial tracker created from the matrix and acceptance records at `5095283`; isolated-body fixes and repeated-cell regression recorded. | Six scoped gates closed; chunk 7 remains the active critical path. No later gate promoted. |
+
+During subsequent project work, update the snapshot and affected rows, append a
+brief history entry for meaningful changes, and explain whether the remaining
+work became smaller, larger or better defined. Keep verified status separate
+from confidence and estimates. Preserve prior failures and acceptance scopes.

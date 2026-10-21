@@ -1,5 +1,8 @@
 # PDK qualification in twelve chunks
 
+For a concise view of all twelve chunks, current blockers and the forecast,
+see the [progress tracker](QUALIFICATION_PROGRESS.md), updated during project work.
+
 **2026-10-16 approved completion boundary:** chunk 6 follows the
 [SKY130 local qualification profile](SKY130_LOCAL_PROFILE.md).
 Exports and verification are generic SKY130; Tiny Tapeout is a source of
