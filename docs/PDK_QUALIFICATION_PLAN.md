@@ -69,6 +69,10 @@ Both existing tap paths also pass their selected regression cases and twelve
 fault controls. Eighty affected tests pass on each host, and five Windows-to-local-
 Linux runs verify 885 returned files. Independent audits and archive replay
 bind these results to their source. See the [scope and reproduction guide](IHP_ISOLATION_PHYSICAL.md).
+The [repeated-cell follow-up](validation/ihp-isolation-hierarchy-2026-10-21.json)
+also preserves six devices and two independent internal bodies across four
+orientations of a pair sharing one child cell. Six incorrect cross-instance
+references are rejected; two Windows backend cases verify 356 returned files.
 Complete device envelopes, missing model bindings, broader physical coverage
 and final installed-release acceptance remain required; chunk 7 is incomplete.
 

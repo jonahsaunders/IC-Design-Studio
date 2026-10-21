@@ -85,6 +85,38 @@ bound to the validation record. An independent audit on both hosts checks 48
 native netlists, 10,010 artifact hashes, 528 stream-layer comparisons and the
 Windows receipts. These source runs are not installed-release acceptance.
 
+## Repeated isolated-transistor cells
+
+The [hierarchy follow-up](validation/ihp-isolation-hierarchy-2026-10-21.json)
+checks two instances of the same isolated-transistor cell. The second instance
+is rotated, reflected and translated; the complete pair is checked in all four
+orientations. Both devices share the physical substrate, while their NWell,
+drain, gate, source and internal isolated-body connections remain separate.
+
+All four layouts pass full public DRC and strict LVS. Unfiltered native
+extraction must retain exactly six devices, two distinct internal bodies, and
+all MOS, tap and isolation geometry parameters. Six incorrect references
+deliberately merge the bodies, cross the tap, NWell or gate connections, or
+alter the second tap/isolation geometry. All six fail native comparison while
+DRC, extraction and artifact integrity remain successful.
+
+The same check passes through Windows staging and local native execution;
+the merged-body control fails as required. Both returned six-device circuits
+and all 356 artifact receipts are audited. Independent audits on both hosts
+verify ten raw/comparison graphs, 1,300 integrity bindings and 104 stream-layer
+comparisons. Three additional unit tests per host verify repeated-cell
+recognition and rejection of merged/crossed graphs. The source archive can be
+restored to reproduce a valid circuit and a merged-body rejection.
+
+```sh
+python scripts/qualify_ihp_isolation_hierarchy.py --output /path/to/new-hierarchy-results --magic /path/to/magic --netgen /path/to/netgen --klayout /path/to/klayout
+python -m unittest tests.test_ihp_isolation_hierarchy -v
+```
+
+This regression is also included in the coil physical-qualification workflow.
+It closes the sampled repeated-cell connectivity gap; the complete device
+envelope and remaining chunk-7 requirements below are unchanged.
+
 ## Sources and limits
 
 The reference PCell, GDS, CDL and public schematic are retained under

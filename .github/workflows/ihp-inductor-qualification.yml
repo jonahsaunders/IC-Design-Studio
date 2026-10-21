@@ -8,6 +8,8 @@ on:
       - 'scripts/qualify_ihp_inductor_layouts.py'
       - 'scripts/qualify_ihp_isolation_layouts.py'
       - 'scripts/qualify_ihp_isolation_context.py'
+      - 'scripts/qualify_ihp_isolation_hierarchy.py'
+      - 'tests/test_ihp_isolation_hierarchy.py'
       - 'tests/test_ihp_isolation_lvs.py'
       - 'scripts/qualify_ihp_varactor_layouts.py'
       - 'scripts/qualify_ihp_npn_layouts.py'
@@ -37,6 +39,8 @@ on:
       - 'scripts/qualify_ihp_inductor_layouts.py'
       - 'scripts/qualify_ihp_isolation_layouts.py'
       - 'scripts/qualify_ihp_isolation_context.py'
+      - 'scripts/qualify_ihp_isolation_hierarchy.py'
+      - 'tests/test_ihp_isolation_hierarchy.py'
       - 'tests/test_ihp_isolation_lvs.py'
       - 'scripts/qualify_ihp_varactor_layouts.py'
       - 'scripts/qualify_ihp_npn_layouts.py'
@@ -105,6 +109,11 @@ jobs:
       - name: Preserve the transistor, tap and isolation circuit under rotation and reflection
         timeout-minutes: 5
         run: python scripts/qualify_ihp_isolation_context.py --workers 2 --output build/ihp-isolation-context --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
+      - name: Keep repeated isolated transistor bodies independent through flattening
+        timeout-minutes: 5
+        run: |
+          python -m unittest tests.test_ihp_isolation_hierarchy -v
+          python scripts/qualify_ihp_isolation_hierarchy.py --output build/ihp-isolation-hierarchy --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
       - name: Require forty contacted varactor layouts and twenty-eight detected faults
         timeout-minutes: 10
         run: python scripts/qualify_ihp_varactor_layouts.py --size small --contacted --workers 2 --output build/ihp-varactor-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout
@@ -130,6 +139,7 @@ jobs:
             build/ihp-coil-evidence
             build/ihp-isolation-evidence
             build/ihp-isolation-context
+            build/ihp-isolation-hierarchy
             build/ihp-varactor-evidence
             build/ihp-public-varactor-evidence
             build/ihp-public-npn-evidence
