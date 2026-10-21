@@ -26,12 +26,14 @@ class PublicIHPProfileTests(unittest.TestCase):
         from scripts.qualify_ihp_em_profile import main
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)/'run'
-            argv = ['qualify', '--python', sys.executable, '--output', str(root)]
+            argv = ['qualify', '--python', sys.executable, '--output', str(root), '--mesh-um', '.5', '--max-cells', '3000000']
             with patch.object(sys, 'argv', argv), patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='negative-base'), \
                     patch.object(openems_backend, 'DRIVER', Path(__file__).parent/'fixtures/openems_fake_driver.py'):
                 with self.assertRaisesRegex(ValueError, 'base mesh has negative resistance'):
                     main()
             self.assertTrue((root/'base-2.json').exists())
+            self.assertEqual(json.loads((root/'model.json').read_text())['settings']['mesh_um'], .5)
+            self.assertEqual(json.loads((root/'model.json').read_text())['settings']['max_cells'], 3000000)
             self.assertTrue((root/'base-feasibility.json').exists())
             self.assertFalse((root/'fine-1.log').exists())
             self.assertFalse((root/'qualification.json').exists())

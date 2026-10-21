@@ -60,6 +60,14 @@ agreement and intrinsic device accuracy are separate questions. The runner
 and logs and only writes a passing report after every configured stage and
 acceptance check succeeds.
 
+The command accepts `--mesh-um` to refine the same fixture without editing its
+source. The second mesh retains its 0.7 refinement factor, and both Z and R
+retain the 5% limit. Keep geometry, materials and the frequency band unchanged
+within a mesh study; a passing smaller frequency subset cannot qualify the
+original band. `--max-cells` changes the explicit memory guard when deliberately
+requested; its default stays at two million cells. All unsuccessful attempts
+keep their own output directories.
+
 The [native rejection record](validation/ihp-em-native-rejection-2026-10-21.json)
 retains the actual Windows runs at 100–300 GHz. Its independent-column conversion
 is historical and has the defect described below. All four 280 µm stages reach
@@ -90,6 +98,17 @@ Older structured openEMS characterizations remain in saved projects but show
 as stale and cannot be attached as current results. A new run is required.
 The read-only `scripts/audit_openems_waves.py` command audits retained native
 waveforms; it never installs characterization or qualifies a device.
+
+A separate [synthetic refinement study](validation/openems-mesh-study-2026-10-21.json)
+now passes the corrected native solver: reducing the base mesh limit from 2 to
+0.5 µm brings the two-mesh differences to 1.40% in Z and 1.95% in R, below the
+unchanged 5% limits. Both source hosts independently read back the native probes,
+and Windows reopens the saved characterization as current. Coil masks, material
+slabs, ports, frequency band, side/bottom bounds and reference-plane elevation
+stay unchanged. Extra computational padding inside the ideal PEC cap changes
+from 2 to 1 µm under the existing mesh-dependent padding rule and is recorded.
+This software regression uses explicitly synthetic materials; the IHP-specific
+convergence and accuracy requirements remain open.
 
 The existing top-reference fixture places the plane at 336.1303 µm and uses
 321.9 µm vertical lumped ports because the public profile retains its 300 µm

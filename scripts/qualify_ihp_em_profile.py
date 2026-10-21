@@ -40,12 +40,14 @@ def main():
     ap.add_argument('--threads', default=2, type=int)
     ap.add_argument('--timeout-s', default=900, type=int)
     ap.add_argument('--max-steps', default=2000000, type=int)
+    ap.add_argument('--mesh-um', default=2., type=float, help='Base mesh limit; the second mesh uses the same 0.7 refinement factor')
+    ap.add_argument('--max-cells', default=2000000, type=int, help='Explicit memory guard for each mesh; no automatic increase')
     args = ap.parse_args()
     root = args.output.resolve()
     project, did, package = fixture(args.bulk_um)
-    options = dict(f_start_hz=args.start_ghz*1e9, f_stop_hz=args.stop_ghz*1e9, samples=11, mesh_um=2., margin_um=20.,
+    options = dict(f_start_hz=args.start_ghz*1e9, f_stop_hz=args.stop_ghz*1e9, samples=11, mesh_um=args.mesh_um, margin_um=20.,
                    reference_clearance_um=20., end_db=-40., max_steps=args.max_steps,
-                   max_cells=2000000, timeout_s=args.timeout_s, threads=args.threads, mesh_check=True)
+                   max_cells=args.max_cells, timeout_s=args.timeout_s, threads=args.threads, mesh_check=True)
     model = openems_backend.prepare(project, project['top'], did, 'isolated', options, root)
     save_project(project, root / 'input.icproj')
     executable = args.python.resolve()

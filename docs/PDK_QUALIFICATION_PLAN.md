@@ -59,6 +59,16 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The corrected solver's [synthetic native refinement](validation/openems-mesh-study-2026-10-21.json)
+passes with 1.40% impedance and 1.95% resistance differences at the existing 5%
+limit. Independent native-probe readback agrees on Windows and Linux; the saved
+Windows characterization reopens as current. This is a software integration
+reference with synthetic materials, not an IHP device pass. Explicit mesh-size
+and memory-limit options make IHP refinements reproducible. Separately, the full
+[hosted IHP geometry pipeline](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39613802857)
+passes on commit `7cb7016`, including its NPN, top-via and mixed-layout checks.
+Newer-source hosted acceptance retains its separate gate.
+
 The [measured-wave correction](validation/ihp-em-waves-2026-10-21.json) resolves
 the apparent negative IHP resistance in the earlier solver experiment. Native
 probe files show incoming waves at the unpowered port; the driver now retains
