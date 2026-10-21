@@ -160,30 +160,59 @@ def check_completion(log, directory, model_data, scale, port):
     return data
 
 
+def _pair_result(model_data, columns, scale):
+    """Validate and convert one complete, matched pair of excitations."""
+    opts = model_data['settings']
+    pair = [columns[stage_name(scale, p)] for p in (1, 2)]
+    if pair[0]['versions'] != pair[1]['versions'] or pair[0]['mesh_lines'] != pair[1]['mesh_lines']:
+        raise ValueError('The two excitations used different solver versions or mesh lines.')
+    frequency = pair[0]['frequency_hz']
+    if pair[1]['frequency_hz'] != frequency or len(frequency) != opts['samples']:
+        raise ValueError('The two excitation sweeps do not match.')
+    expected = [opts['f_start_hz']*(opts['f_stop_hz']/opts['f_start_hz'])**(i/(opts['samples']-1)) for i in range(opts['samples'])]
+    if any(not math.isclose(f, e, rel_tol=1e-10) for f, e in zip(frequency, expected)):
+        raise ValueError('Solver samples do not match the requested logarithmic frequency sweep.')
+    if any(len(c.get(key, [])) != len(frequency) for c in pair for key in ('s_real', 's_imag')):
+        raise ValueError('Incomplete two-port solver output.')
+    lines = ['! '+FIXTURE, '# Hz S RI R 50']
+    for i, f in enumerate(frequency):
+        values = [f]
+        for column in pair:
+            if len(column['s_real'][i]) != 2 or len(column['s_imag'][i]) != 2:
+                raise ValueError('Each excitation must return both ports.')
+            for row in (0, 1): values.extend([column['s_real'][i][row], column['s_imag'][i][row]])
+        lines.append(' '.join(format(v, '.17g') for v in values))
+    text = '\n'.join(lines)+'\n'
+    return text, inductor_em.touchstone(text, 2)
+
+
+def check_base_feasibility(directory, model_data, columns):
+    """Stop refinement only when it cannot satisfy the existing acceptance gate.
+
+    A valid final resistance is nonnegative. With tolerance t < 1 and floor F,
+    base R < -t*F cannot satisfy |base R - final R| <= t*max(final R, F).
+    Tiny negative roundoff within this bound must still reach the final gates.
+    """
+    opts = model_data['settings']
+    if not opts['mesh_check']: return
+    _, result = _pair_result(model_data, columns, 1.)
+    minimum = min(result['z_real_ohm']); bound = -opts['mesh_tolerance']*1e-3
+    if minimum < bound:
+        diagnostic = dict(status='rejected_before_refinement', minimum_base_resistance_ohm=minimum,
+                          negative_bound_ohm=bound, absolute_floor_ohm=1e-3,
+                          tolerance=opts['mesh_tolerance'], **result)
+        atomic_write(Path(directory)/'base-feasibility.json', json.dumps(diagnostic, indent=2))
+        raise ValueError('The base mesh has negative resistance that cannot meet the mesh agreement limit '
+                         'with a valid final result. Review the port fixture and mesh; no refinement was '
+                         'accepted and no results were attached.')
+
+
 def finish(directory, model_data, columns):
     """Convert both excitations and keep simulation evidence bound to the layout."""
     directory = Path(directory); opts = model_data['settings']; base = None; touchstones = {}
+    check_base_feasibility(directory, model_data, columns)
     for scale in ([1., .7] if opts['mesh_check'] else [1.]):
-        pair = [columns[stage_name(scale, p)] for p in (1, 2)]
-        if pair[0]['versions'] != pair[1]['versions'] or pair[0]['mesh_lines'] != pair[1]['mesh_lines']:
-            raise ValueError('The two excitations used different solver versions or mesh lines.')
-        frequency = pair[0]['frequency_hz']
-        if pair[1]['frequency_hz'] != frequency or len(frequency) != opts['samples']:
-            raise ValueError('The two excitation sweeps do not match.')
-        expected = [opts['f_start_hz']*(opts['f_stop_hz']/opts['f_start_hz'])**(i/(opts['samples']-1)) for i in range(opts['samples'])]
-        if any(not math.isclose(f, e, rel_tol=1e-10) for f, e in zip(frequency, expected)):
-            raise ValueError('Solver samples do not match the requested logarithmic frequency sweep.')
-        if any(len(c.get(key, [])) != len(frequency) for c in pair for key in ('s_real', 's_imag')):
-            raise ValueError('Incomplete two-port solver output.')
-        lines = ['! '+FIXTURE, '# Hz S RI R 50']
-        for i, f in enumerate(frequency):
-            values = [f]
-            for column in pair:
-                if len(column['s_real'][i]) != 2 or len(column['s_imag'][i]) != 2:
-                    raise ValueError('Each excitation must return both ports.')
-                for row in (0, 1): values.extend([column['s_real'][i][row], column['s_imag'][i][row]])
-            lines.append(' '.join(format(v, '.17g') for v in values))
-        text = '\n'.join(lines)+'\n'; result = inductor_em.touchstone(text, 2)
+        text, result = _pair_result(model_data, columns, scale)
         touchstones[scale] = text
         if base is None: base = result
     convergence = dict(energy_db={name: c['energy_db'] for name, c in columns.items()},

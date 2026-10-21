@@ -141,6 +141,8 @@ class OpenEMSJob(QObject):
             try:
                 scale, port = self.current
                 self.columns[self.mode] = backend.check_completion(self.log, self.directory, self.prepared, scale, port)
+                if self.mode == 'base-2':
+                    backend.check_base_feasibility(self.directory, self.prepared, self.columns)
             except (ValueError, OSError, KeyError, TypeError) as exc:
                 self.finish(None, str(exc)); return
         if self.pending:

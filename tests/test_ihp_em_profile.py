@@ -1,8 +1,11 @@
 import copy
 import json
+import os
 import shutil
+import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -18,6 +21,22 @@ def project():
 
 
 class PublicIHPProfileTests(unittest.TestCase):
+    def test_cli_stops_before_refinement_for_an_impossible_base_pair(self):
+        # External process fixture: exercises the CLI lifecycle, not EM physics.
+        from scripts.qualify_ihp_em_profile import main
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)/'run'
+            argv = ['qualify', '--python', sys.executable, '--output', str(root)]
+            with patch.object(sys, 'argv', argv), patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='negative-base'), \
+                    patch.object(openems_backend, 'DRIVER', Path(__file__).parent/'fixtures/openems_fake_driver.py'):
+                with self.assertRaisesRegex(ValueError, 'base mesh has negative resistance'):
+                    main()
+            self.assertTrue((root/'base-2.json').exists())
+            self.assertTrue((root/'base-feasibility.json').exists())
+            self.assertFalse((root/'fine-1.log').exists())
+            self.assertFalse((root/'qualification.json').exists())
+            self.assertFalse((root/'characterized.icproj').exists())
+
     def test_topvia_receipt_requires_both_decks_and_the_specific_fault(self):
         from scripts.qualify_ihp_topvia import accept
         result = dict(violations=1, decks=[dict(name='main', categories=["'TV2.a'"]),

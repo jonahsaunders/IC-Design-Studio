@@ -33,7 +33,7 @@ print('Energy: 1e-10 (-60.1dB)', flush=True)
 frequency = [opts['f_start_hz']*(opts['f_stop_hz']/opts['f_start_hz'])**(i/(opts['samples']-1)) for i in range(opts['samples'])]
 real = []; imag = []
 for f in frequency:
-    a = complex(2, 2*math.pi*f*1e-9); mutual = .2; det = (a+50)**2-mutual**2
+    a = complex(-2 if mode == 'negative-base' else 2, 2*math.pi*f*1e-9); mutual = .2; det = (a+50)**2-mutual**2
     diagonal = ((a-50)*(a+50)-mutual**2)/det; off = 100*mutual/det
     values = [diagonal, off] if args.port == 1 else [off, diagonal]
     real.append([v.real for v in values]); imag.append([v.imag for v in values])

@@ -46,7 +46,8 @@
       "latest_ihp_varactor_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
       "latest_ihp_public_geometry_evidence": "docs/validation/ihp-public-geometry-2026-10-20.json",
       "latest_ihp_em_profile_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
-      "latest_ihp_mixed_layout_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json"
+      "latest_ihp_mixed_layout_evidence": "docs/validation/ihp-em-mixed-2026-10-21.json",
+      "latest_ihp_em_runtime_evidence": "docs/validation/ihp-em-native-rejection-2026-10-21.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24949,6 +24950,11 @@
       "path": "docs/validation/ihp-em-mixed-2026-10-21.json",
       "sha256": "397f260f43ef067dc28431f49933c716e68b688f5beb09a74b3f5322767a5afa",
       "scope_limit": "Source-locked public top-metal EM profile integration, sampled native via and mixed NPN/small-varactor geometry/connectivity, and source regression checks. No complete device envelope, EM accuracy, unavailable model, installed release or tapeout qualification."
+    },
+    "ihp-em-native-rejection-2026-10-21": {
+      "path": "docs/validation/ihp-em-native-rejection-2026-10-21.json",
+      "sha256": "d8db4e94bd6ffe8fc12ac8fc9b75245b874244f6e86d1b8c01728a0f51e71b29",
+      "scope_limit": "Real Windows openEMS integration experiments and early rejection of results that cannot satisfy the unchanged mesh and nonnegative differential-resistance requirements. Neither substrate option is electrically qualified."
     }
   },
   "execution_acceptance": {

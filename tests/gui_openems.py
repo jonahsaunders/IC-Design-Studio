@@ -29,6 +29,16 @@ class Owner(QWidget):
 
 
 class JobTests(unittest.TestCase):
+    def test_negative_base_stops_before_fine_processes_and_never_attaches(self):
+        with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='negative-base'):
+            self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
+        self.assertIn('base mesh has negative resistance', self.dialog.status.text())
+        self.assertEqual(self.owner.commits, 0)
+        self.assertEqual(set(self.dialog.job.columns), {'base-1', 'base-2'})
+        self.assertTrue((self.dialog.job.directory/'base-feasibility.json').exists())
+        self.assertFalse((self.dialog.job.directory/'fine-1.log').exists())
+        self.assertFalse((self.dialog.job.directory/'results.json').exists())
+
     @classmethod
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([]); cls.app.setQuitOnLastWindowClosed(False)

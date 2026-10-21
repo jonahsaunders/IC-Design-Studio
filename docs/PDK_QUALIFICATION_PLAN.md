@@ -59,6 +59,16 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [native IHP EM follow-up](validation/ihp-em-native-rejection-2026-10-21.json)
+records rejected characterization, not a device pass. The 280 µm two-mesh run
+reaches its energy targets but fails impedance/resistance agreement; independent
+matrix calculations also show negative coarse resistance for both substrate
+options. The remaining 180 µm refinement was stopped once the unchanged
+acceptance gate was shown to be impossible. An early rejection now avoids these
+futile refinements in the editor and qualification command, preserving the
+original mesh and final limits. The earlier complete-suite results below retain
+their tested source; the follow-up records focused checks of the new guard.
+
 The [October 21 IHP profile and mixed-layout record](validation/ihp-em-mixed-2026-10-21.json)
 adds the pinned public top-metal material profiles for 280 and 180 µm bulk
 substrates. Both source desktops verify review, apply, undo/redo and save/reopen.

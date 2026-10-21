@@ -65,6 +65,8 @@ def main():
         if outcome.returncode:
             raise ValueError('Native solver failed in ' + stage + '; original log retained.')
         columns[stage] = openems_backend.check_completion((root / (stage + '.log')).read_text(), root, model, scale, port)
+        if stage == 'base-2':
+            openems_backend.check_base_feasibility(root, model, columns)
     output = openems_backend.finish(root, model, columns)
     metrics = inductor_em.install_results(project, project['top'], did, output)
     save_project(project, root / 'characterized.icproj')

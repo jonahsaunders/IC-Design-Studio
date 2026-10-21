@@ -35,6 +35,25 @@ def column(data, scale, port, resistance=4.):
 
 
 class OpenEMSTests(unittest.TestCase):
+    def test_negative_base_stops_only_when_valid_refinement_cannot_pass(self):
+        p, did = coil()
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)/'run'; m = backend.prepare(p, p['top'], did, 'context', {'samples': 2}, root)
+            columns = {backend.stage_name(1., p): column(m, 1., p, resistance=-4.) for p in (1, 2)}
+            with self.assertRaisesRegex(ValueError, 'base mesh has negative resistance'):
+                backend.check_base_feasibility(root, m, columns)
+            diagnostic = json.loads((root/'base-feasibility.json').read_text())
+            self.assertAlmostEqual(diagnostic['minimum_base_resistance_ohm'], -4.4)
+            self.assertEqual(diagnostic['negative_bound_ohm'], -0.00005)
+            self.assertFalse((root/'results.json').exists())
+            # With a 1 milliohm comparison floor, tiny negative roundoff can
+            # still agree with a nonnegative fine result. Do not reject it early.
+            for port in (1, 2): columns[backend.stage_name(1., port)] = column(m, 1., port, resistance=.4-.000025)
+            backend.check_base_feasibility(root, m, columns)
+            columns['base-2']['frequency_hz'][0] *= 2
+            with self.assertRaisesRegex(ValueError, 'sweeps do not match'):
+                backend.check_base_feasibility(root, m, columns)
+
     def test_truncated_excitation_cannot_pass_even_with_reported_energy_decay(self):
         p, did = coil()
         with tempfile.TemporaryDirectory() as folder:

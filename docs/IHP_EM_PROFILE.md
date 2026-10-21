@@ -60,6 +60,28 @@ agreement and intrinsic device accuracy are separate questions. The runner
 and logs and only writes a passing report after every configured stage and
 acceptance check succeeds.
 
+The [native rejection record](validation/ihp-em-native-rejection-2026-10-21.json)
+retains the actual Windows runs at 100–300 GHz. All four 280 µm stages reach
+the requested energy decay, but the two meshes disagree by 5.1% in impedance
+and 98.5% in resistance. Independent full-matrix conversion confirms negative
+coarse resistance for both substrate options. The 180 µm final refinement was
+deliberately stopped after that independent review; it has no complete fine-mesh
+acceptance result. Neither run attaches a characterized project.
+
+The existing top-reference fixture places the plane at 336.1303 µm and uses
+321.9 µm vertical lumped ports because the public profile retains its 300 µm
+air slab. This is an explicit solver fixture, not an intrinsic IHP inductor
+measurement. Its port/boundary interpretation needs further work before making
+device claims; the high-frequency band above is an integration experiment.
+
+The editor and qualification command now stop after the coarse pair when its
+negative resistance makes the unchanged final mesh gate mathematically
+impossible. For tolerance `t < 1` and the existing `F = 1 mΩ` floor, coarse
+`R < -t*F` cannot agree with any nonnegative final resistance under
+`abs(R - R_final) <= t*max(R_final, F)`. Tiny negative roundoff within that
+bound still reaches the normal final checks. This avoids futile fine runs
+without relaxing any acceptance threshold or modifying the physical mesh.
+
 Remaining device qualification needs an appropriate operating band, converged
 meshes, boundary/port studies, comparison against independent public reference
 data, temperature/frequency treatment, and physical verification of each claimed
