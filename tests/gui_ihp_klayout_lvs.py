@@ -29,6 +29,10 @@ def main():
     action.trigger();app.processEvents()
     assert not errors and len(jobs)==1 and jobs[0]['lvs_extractor']=='ihp-klayout' and jobs[0]['reference']['text']==text,(errors,jobs)
     public=next(a for a in actions if a.text()=='Verify IHP layout with public geometry decks…')
+    verify=next(a.menu() for a in w.menuBar().actions() if a.text().replace('&','')=='Verify')
+    physical=next(a.menu() for a in verify.actions() if a.text().replace('&','')=='Physical verification')
+    assert action in physical.actions() and public in physical.actions()
+    assert action not in verify.actions() and public not in verify.actions()
     public.trigger();app.processEvents()
     assert not errors and len(jobs)==2 and jobs[-1]['drc_engine']=='ihp-public' and jobs[-1]['lvs_extractor']=='ihp-klayout'
     w.run_layout_verification();assert jobs[-1]['lvs_extractor']=='magic'
