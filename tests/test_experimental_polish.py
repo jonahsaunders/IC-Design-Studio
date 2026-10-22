@@ -1,4 +1,5 @@
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -93,7 +94,8 @@ class BuildIdentityTests(unittest.TestCase):
     def test_source_identity_detects_untracked_shipped_code(self):
         import subprocess
         from icstudio import build_identity
-        with tempfile.TemporaryDirectory() as temp:
+        env={k:v for k,v in os.environ.items() if not k.upper().startswith('GIT_')}
+        with patch.dict(os.environ,env,clear=True), tempfile.TemporaryDirectory() as temp:
             root=Path(temp);(root/'icstudio').mkdir();module=root/'icstudio/build_identity.py';module.write_text('# fixture\n')
             def git(*args):return subprocess.check_output(['git',*args],cwd=root,stderr=subprocess.DEVNULL,text=True).strip()
             git('init');git('add','icstudio');git('-c','user.name=Test','-c','user.email=test@example.invalid','commit','-m','fixture')

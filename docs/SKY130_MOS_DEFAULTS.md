@@ -24,10 +24,12 @@ new instances only: saved, reopened, imported and deliberately edited dimensions
 keep their values. These symbols retain the application's explicit drain, gate,
 source and body terminals.
 
-The bundled SKY130 package remains revision `1901822ae8f81ae1`, with manifest
+The starting-dimension batch used unchanged revision `1901822ae8f81ae1`, with manifest
 SHA-256 `42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413`.
-No model coefficients, symbol source bytes, package metadata or upstream license
-notices change. The implementation introduces no private or newly copied PDK
+The later [MiM parameter correction](SKY130_MIM_MULTIPLICITY.md) advances the
+default revision while preserving that batch's tested inputs and MOS bindings.
+That earlier correction changes no model coefficients, symbol source bytes,
+package metadata or upstream license notices. It introduces no private or newly copied PDK
 resources. It uses the public sources already retained by the project.
 
 ## Executed checks

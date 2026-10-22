@@ -73,6 +73,13 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [SKY130 MiM parameter correction](SKY130_MIM_MULTIPLICITY.md) gives the
+second capacitor a separately versioned `mf` mapping and corrects exact-source
+local imports. Both hosts pass the 54-run native integration batch and detect
+all 1,728 faulty instances per host. Independent audits verify actual exports
+and raw samples. This closes the reviewed interface defect while retaining
+the statistical, physical, remaining-model and final-acceptance gates.
+
 The [second MiM layout batch](SKY130_SECOND_MIM_LAYOUT.md) adds a bounded
 square SKY130 recipe: 28 native layouts, 35 detected faults, 21 extracted
 electrical comparisons, both source editors and Windows/local-native handoff

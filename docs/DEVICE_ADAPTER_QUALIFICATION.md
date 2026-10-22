@@ -1,5 +1,12 @@
 # Bundled device corrections and reproducible qualification
 
+The [SKY130 MiM multiplicity correction](SKY130_MIM_MULTIPLICITY.md) fixes the
+second capacitor's unused VM mapping in a separate default revision and local
+PDK import. Both hosts pass 54 native runs, 1,728 faulty instances and independent
+raw/deck audits. Saved revisions and all upstream assets are preserved. This
+checks the public mismatch equation's integration, not silicon accuracy or the
+complete statistical envelope.
+
 The [second SKY130 MiM recipe](SKY130_SECOND_MIM_LAYOUT.md) adds editable
 square metal4/cap2m/metal5 capacitors. Twenty-eight rotated layouts and 35
 deliberate faults pass, with 21 extracted capacitance comparisons, both source
@@ -14,7 +21,7 @@ Linux, with all 756 faulty instances detected per host. Saved dimensions and
 package/model bytes are preserved. This addresses initial placement; complete
 device-family qualification remains open.
 
-New projects use bundled SKY130 revision `1901822ae8f81ae1`, GF180 C revision
+New projects use bundled SKY130 revision `857acac277f431b3`, GF180 C revision
 `b661a751abfc662a`, GF180 D revision `2f92b1f05da58bd7` and IHP revision
 `cfb96b74cf33877e`. These include the tested resistor/NPN and MIM corrections,
 parallel-unit SKY130 varactors, capacitor terminal mappings, GF180 native-model

@@ -12,6 +12,13 @@ REVISION='1901822ae8f81ae1'
 
 @contextmanager
 def previous_li(source):
+    from scripts.sky130_mim_source import previous_mim
+    with previous_mim(source) as old:
+        with _previous_li(old) as base:yield base
+
+
+@contextmanager
+def _previous_li(source):
     source=Path(source).resolve()
     if file_digest(source/'package.json')!=PROMOTED:
         yield source

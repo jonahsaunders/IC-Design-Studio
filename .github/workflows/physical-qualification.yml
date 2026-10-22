@@ -106,6 +106,12 @@ jobs:
         run: |
           python -m unittest tests.test_sky130_mim2 -v
           python scripts/qualify_sky130_mim2.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim2-layout-evidence --pilot
+      - name: Verify MiM model multiplicity and seeded mismatch controls
+        if: matrix.stage == 'devices'
+        timeout-minutes: 10
+        run: |
+          python scripts/qualify_sky130_mim_binding.py --sky130 icstudio/assets/pdks/sky130A --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim-binding-evidence --pilot
+          python scripts/audit_sky130_mim_binding.py build/mim-binding-evidence --output build/mim-binding-evidence/audit.json
       - name: Prepare the separately versioned experimental PNP adapter
         if: matrix.stage == 'bipolar'
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/bipolar-adapter/sky130A --bipolar
@@ -219,6 +225,7 @@ jobs:
             build/threshold-layout-evidence
             build/voltage-layout-evidence
             build/mim2-layout-evidence
+            build/mim-binding-evidence
           if-no-files-found: error
 
   detector-desktop:

@@ -3,7 +3,9 @@
 The editor can generate a bounded square layout for `cap_mim_m3_2`, using
 metal4, cap2m and metal5. The capacitor has distinct top (`c0`) and bottom
 (`c1`) electrodes, 800 nm via4 cuts, and connected physical parallel copies.
-The original catalog, model files and saved PDK revisions are unchanged.
+The original layout batch preserves its exact catalog and model revision.
+The later [multiplicity correction](SKY130_MIM_MULTIPLICITY.md) changes the
+default parameter mapping in a new revision while preserving saved projects.
 
 The recipe accepts equal W/L from 2 to 30 µm on the 5 nm grid, with integer
 parallel multiplicity from 1 to 16. These are implementation bounds, not a
@@ -43,9 +45,11 @@ and property-error reports remain in the evidence archive.
 
 This limitation also prevents claiming complete second-MiM geometry coverage.
 No extracted dimensions, comparison tolerances or upstream rules were rewritten.
-The existing source symbol emits `VM=MF`, while the public model declares `mf`;
-these deterministic checks do not establish mismatch scaling or statistical
-behavior. That interface question remains separate and explicit.
+The original source symbol emits `VM=MF`, while the public model declares `mf`.
+The later [multiplicity batch](SKY130_MIM_MULTIPLICITY.md) corrects that mapping
+and verifies selected native mismatch scaling. The original deterministic
+layout checks retain their historical scope; full statistical qualification
+remains separate.
 
 ## Reproduce
 

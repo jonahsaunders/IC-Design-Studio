@@ -1,7 +1,7 @@
 {
   "schema": 6,
-  "as_of": "2026-10-21",
-  "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
+  "as_of": "2026-10-22",
+  "source_baseline": "cf590699f11b30c6edd7b103416e71c0ddd9a068",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -62,7 +62,8 @@
       "latest_hosted_acceptance": "docs/validation/chunk7-hosted-acceptance-2026-10-22.json",
       "latest_sky130_voltage_evidence": "docs/validation/sky130-voltage-layouts-2026-10-22.json",
       "latest_sky130_default_geometry_evidence": "docs/validation/sky130-mos-defaults-2026-10-22.json",
-      "latest_sky130_mim2_evidence": "docs/validation/sky130-mim2-layouts-2026-10-22.json"
+      "latest_sky130_mim2_evidence": "docs/validation/sky130-mim2-layouts-2026-10-22.json",
+      "latest_sky130_mim_binding_evidence": "docs/validation/sky130-mim-binding-2026-10-22.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -87,9 +88,9 @@
   },
   "inventory": {
     "sky130A": {
-      "revision": "1901822ae8f81ae1",
-      "manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
-      "asset_count": 412,
+      "revision": "857acac277f431b3",
+      "manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
+      "asset_count": 413,
       "indexed_count": 99,
       "placeable_count": 94,
       "source_locks": {
@@ -216,7 +217,7 @@
           "emit_parameters": {
             "l": "l",
             "m": "mf",
-            "vm": "mf",
+            "mf": "mf",
             "w": "w"
           },
           "parameter_scale": {
@@ -18911,7 +18912,8 @@
         "sky130-threshold-layouts-2026-10-21",
         "sky130-voltage-layouts-2026-10-22",
         "sky130-mos-defaults-2026-10-22",
-        "sky130-mim2-layouts-2026-10-22"
+        "sky130-mim2-layouts-2026-10-22",
+        "sky130-mim-binding-2026-10-22"
       ]
     },
     "sky130A:device-physical": {
@@ -18925,7 +18927,8 @@
         "sky130-li-metal-resistors-2026-10-17",
         "sky130-threshold-layouts-2026-10-21",
         "sky130-voltage-layouts-2026-10-22",
-        "sky130-mim2-layouts-2026-10-22"
+        "sky130-mim2-layouts-2026-10-22",
+        "sky130-mim-binding-2026-10-22"
       ]
     },
     "sky130A:device-simulation": {
@@ -18946,7 +18949,8 @@
         "sky130-threshold-layouts-2026-10-21",
         "sky130-voltage-layouts-2026-10-22",
         "sky130-mos-defaults-2026-10-22",
-        "sky130-mim2-layouts-2026-10-22"
+        "sky130-mim2-layouts-2026-10-22",
+        "sky130-mim-binding-2026-10-22"
       ]
     },
     "sky130A:digital-controller": {
@@ -20005,7 +20009,8 @@
           "standard-passives-2026-10-16",
           "device-corrections-2026-10-16",
           "capacitor-families-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mim-binding-2026-10-22"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -20021,7 +20026,8 @@
           "device-corrections-2026-10-16",
           "capacitor-families-2026-10-17",
           "default-device-packages-2026-10-17",
-          "sky130-mim2-layouts-2026-10-22"
+          "sky130-mim2-layouts-2026-10-22",
+          "sky130-mim-binding-2026-10-22"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -25155,6 +25161,11 @@
       "path": "docs/validation/sky130-mim2-layouts-2026-10-22.json",
       "sha256": "2d29b7431f5b354837ff6be852ed0c75a47eba7daa19efe046fda16de8b97a6a",
       "scope_limit": "Bounded square SKY130 second-plate MiM recipe on metal4/cap2m/metal5. Finite native geometry/connectivity, deterministic extracted capacitance, source desktop and Windows/native handoff. Rectangular geometry and full operating/statistical envelopes remain unqualified."
+    },
+    "sky130-mim-binding-2026-10-22": {
+      "path": "docs/validation/sky130-mim-binding-2026-10-22.json",
+      "sha256": "fe7c235301eeeb9f5cb6673ec73de3da649b9ae03173d588633115812606b433",
+      "scope_limit": "Versioned SKY130 second-MiM MF parameter mapping, exact-source local import, finite seeded public-model integration and selected square-layout regression. No silicon, complete statistical/operating, rectangular geometry or tapeout qualification."
     }
   },
   "execution_acceptance": {

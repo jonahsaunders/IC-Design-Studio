@@ -16,8 +16,10 @@ class RFCandidateTests(unittest.TestCase):
         cls.tech=clone(cls.package['technology']);cls.tech['package_lock']={k:cls.package[k] for k in ('id','revision','files')}
 
     def test_exact_originals_and_all_old_bindings_are_retained(self):
-        original=json.loads((self.base/'package.json').read_bytes())
-        self.assertEqual(file_digest(self.base/'package.json'), BASE)
+        from scripts.sky130_mim_source import previous_mim
+        with previous_mim(self.base) as original_source:
+            original=json.loads((original_source/'package.json').read_bytes())
+            self.assertEqual(file_digest(original_source/'package.json'), BASE)
         for name,expected in original['files'].items():
             self.assertEqual(file_digest(self.out/name), expected, name)
         old=original['technology']['simulation']['catalog'];new=self.package['technology']['simulation']['catalog']

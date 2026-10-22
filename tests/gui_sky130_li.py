@@ -16,7 +16,8 @@ def main():
     from icstudio.pdks import PDKRegistry
     from icstudio.project_hub import inventory,build_project
     from icstudio.interchange import spice
-    from scripts.sky130_li_source import REVISION,PROMOTED
+    from scripts.device_qualification_source import REVISIONS,PROMOTED as MANIFESTS
+    REVISION=REVISIONS['sky130A'];PROMOTED=MANIFESTS['sky130A']
     from scripts.prepare_sky130_li_qualification import KEY
     QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(out/'settings'));QStandardPaths.writableLocation=staticmethod(lambda k:str(out/'profile'/str(k.value)))
     errors=[]

@@ -1,13 +1,31 @@
 # Chunks 1–12: progress and forecast
 
 **Snapshot: October 22, 2026.** Latest local evidence:
-[second SKY130 MiM layouts](validation/sky130-mim2-layouts-2026-10-22.json),
+[SKY130 MiM parameter correction](validation/sky130-mim-binding-2026-10-22.json),
 with exact source hashes and baseline
-[`3c1b4b8`](https://github.com/jonahsaunders/IC-Design-Studio/commit/3c1b4b846adf9eac763d9c3258c4f3bd32964e09)
+[`cf59069`](https://github.com/jonahsaunders/IC-Design-Studio/commit/cf590699f11b30c6edd7b103416e71c0ddd9a068)
 on `experimental`. This tracker is updated during project work, without a
 scheduled background monitor.
 
-The latest [second MiM layout batch](SKY130_SECOND_MIM_LAYOUT.md) adds square
+The [MiM parameter correction](SKY130_MIM_MULTIPLICITY.md) fixes unused VM emission in a
+separately versioned default and exact-source local import. **Both hosts pass 54 native
+runs and all 1,728 faulty instances**, plus independent raw/deck audits. Both final
+pilots, both source desktops, twelve rotated square layouts and six physical faults
+pass. **Both complete source suites pass 3,301 tests** (Windows 65 skips, Linux 58). The
+old default and upstream assets remain recoverable; saved projects are not silently
+migrated.
+
+A verified 90.4 MB archive retains 1.06 GB of logical evidence. Restoring 1,924
+source/input files reproduces 18 native runs and all 72 faulty instances with identical
+source and engine hashes. The local Git test-harness mistake was repaired with checked
+source preservation, and final Linux tests verify that the live Git metadata stays
+unchanged. These results close the reviewed parameter defect without promoting any
+device or completing chunk 7. Exact new-revision hosted/installed acceptance remains
+pending.
+
+Final evidence bookkeeping also passes 32 checks and the release-document/workflow checks. The verified 10.3 MB checkpoint retains the restored replay and full-suite logs. Archived temporary copies were removed: 375.3 MB from Windows and 595.4 MB inside Linux. This used no administrator access or WSL disk compaction.
+
+The preceding [second MiM layout batch](SKY130_SECOND_MIM_LAYOUT.md) adds square
 SKY130 metal4/cap2m/metal5 capacitors. **28 rotated layouts, 35 detected faults
 and 21 extracted electrical comparisons pass.** Both host audits, 32 distinct
 targeted tests per host, both source editors and Windows/local-native handoff
@@ -29,6 +47,16 @@ checks were still in progress (latest snapshot: seven passed, seven running,
 three pending; no failures reported). An empty exact-revision API response was followed
 by a successful query showing all 17 runs, so the empty response is not a test
 result. The new capacitor changes require their own hosted acceptance.
+
+Final local follow-up: application and main tracker changes are pushed as
+[`cf59069`](https://github.com/jonahsaunders/IC-Design-Studio/commit/cf590699f11b30c6edd7b103416e71c0ddd9a068),
+and the remote experimental branch matches. The new revision has four successful,
+five running, two pending and six queued workflows, with no failure reported
+at this snapshot. This is not final hosted acceptance. Both verified archives
+(95.3 MB evidence plus 10.4 MB checkpoint) retain the results and restored-source
+replay. Verified temporary copies were removed: 94.9 MB from Windows and
+2.04 GB inside Linux, without administrator access or disk compaction. That
+follow-up note was retained locally until this code batch.
 
 The latest [SKY130 default-geometry batch](validation/sky130-mos-defaults-2026-10-22.json)
 fixes seven newly placed short symbols that failed model selection. Both hosts

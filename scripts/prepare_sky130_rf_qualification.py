@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio.model import digest, file_digest, io_path
 from icstudio.catalog import validate_catalog
+from scripts.sky130_mim_source import previous_mim
 
 BASE = '42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413'
 SOURCE = ROOT / 'icstudio/assets/qualification/sky130-rf'
@@ -49,6 +50,11 @@ def derivative(model, original):
 
 
 def prepare(source, output):
+    with previous_mim(source) as old:
+        return _prepare(old, output)
+
+
+def _prepare(source, output):
     source, output = Path(source).resolve(), Path(output).resolve()
     if output.exists():
         raise ValueError('Choose a new RF candidate package directory.')

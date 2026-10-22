@@ -5,6 +5,7 @@
     "ICSTUDIO-DEVICE-PACKAGE.json": "0cf702db83fe3e2b6a571a3dff04a9a650d36027c303931f58b868b92c13d8ec",
     "ICSTUDIO-FIXED-GEOMETRY.json": "880f6995a317c1b3e11331974b6cb4030388aab3d3e5433dc4d0bfcd25189a86",
     "ICSTUDIO-LI-BINDING.json": "a1636b45fc53aae078298fe591c68e68d3738fc8fe79542cd5fe3bf1944582fe",
+    "ICSTUDIO-MIM2-BINDING.json": "f78e7b00689291dd41e02dee65819b24fef1e13b546cdb3953e26242875f9d79",
     "ICSTUDIO-NPN-PROVENANCE.json": "4fb792ae70d5b4030a1e7e42e2d6841671160b61b3bb5f30a40021e1a21130bd",
     "ICSTUDIO-PARALLEL-VARACTORS.json": "21230bfb2d6c27c9607421cd2acbd13516ccccca18a5c64d82e1f3885b28a507",
     "ICSTUDIO-RESISTOR-CORRECTION.json": "9854229dbcc793b644a10f3612445204248cce94bbe9fcaf56c443b870fb6c7b",
@@ -415,7 +416,7 @@
     "qualification-sources/bipolar/sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0"
   },
   "id": "sky130A",
-  "revision": "1901822ae8f81ae1",
+  "revision": "857acac277f431b3",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3737,7 +3738,7 @@
       ],
       "netgen_setup": ""
     },
-    "revision": "1901822ae8f81ae1",
+    "revision": "857acac277f431b3",
     "simulation": {
       "catalog": {
         "sky130_fd_pr/cap_mim_m3_1.sym": {
@@ -3949,7 +3950,7 @@
           "emit_parameters": {
             "l": "l",
             "m": "mf",
-            "vm": "mf",
+            "mf": "mf",
             "w": "w"
           },
           "kind": "PDK",
@@ -3957,7 +3958,8 @@
           "model": "sky130_fd_pr__cap_mim_m3_2",
           "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_2.model.spice",
           "notes": [
-            "Executable text retained as metadata only."
+            "Executable text retained as metadata only.",
+            "IC Design Studio: MF feeds the declared model mf parameter and ngspice m multiplier; the upstream symbol incorrectly emits VM. Original source assets retained."
           ],
           "parameter_scale": {
             "l": 1000000.0,

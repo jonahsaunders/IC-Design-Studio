@@ -225,6 +225,10 @@ def scan_local(path, progress=lambda message: None):
                     emitted[target]=computed_key
                 remaining=remaining.replace(m[0],'',1)
             if remaining.strip():raise ValueError('Netlist format contains unsupported literal or computed terms.')
+            if family=='sky130' and key=='sky130_fd_pr/cap_mim_m3_2.sym' and model=='sky130_fd_pr__cap_mim_m3_2':
+                from .sky130_mim_binding import reviewed_parameters
+                emitted=reviewed_parameters(sym.read_bytes(),(root/definition['file']).read_bytes(),emitted)
+                notes.append('Reviewed public second MiM correction: MF feeds model mf and simulator m. Upstream VM is unused; model equations retained.')
             kind=meta.get('type','').lower();kind='NMOS' if kind=='nmos' and set(symbol['pins'])==set('dgsb') else 'PMOS' if kind=='pmos' and set(symbol['pins'])==set('dgsb') else 'PDK'
             category=kind if kind!='PDK' else ('Resistors' if 'resistor' in meta.get('type','') else 'Capacitors' if 'cap' in meta.get('type','') else 'Bipolar' if 'npn' in meta.get('type','') or 'pnp' in meta.get('type','') else 'Diodes' if 'diode' in meta.get('type','') else 'Other')
             if family=='ihp-sg13g2' and model in ('ntap1','ptap1'):

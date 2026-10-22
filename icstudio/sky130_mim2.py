@@ -31,7 +31,9 @@ def specification(tech, device):
     if (not supported(tech, device) or device['kind'] != 'PDK'
             or binding.get('prefix') != 'X' or binding.get('pin_order') != ['c0', 'c1']
             or set(device['nets']) != {'c0', 'c1'}
-            or binding.get('emit_parameters') != {'w': 'w', 'l': 'l', 'vm': 'mf', 'm': 'mf'}
+            or binding.get('emit_parameters') not in (
+                {'w': 'w', 'l': 'l', 'vm': 'mf', 'm': 'mf'},
+                {'w': 'w', 'l': 'l', 'mf': 'mf', 'm': 'mf'})
             or binding.get('parameter_scale') != {'w': 1e6, 'l': 1e6}):
         raise ValueError('Use the shipped SKY130 second-plate MiM terminal and parameter binding.')
     layers(tech)

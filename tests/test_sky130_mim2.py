@@ -69,7 +69,7 @@ class Sky130Mim2Tests(unittest.TestCase):
         self.assertFalse(connectivity(p,c['id'])['issues'])
         line=next(v for v in native_subcircuit(p,c['id']).splitlines() if v.startswith('X_C1 '))
         self.assertEqual(line.split()[:4],['X_C1','P','N','sky130_fd_pr__cap_mim_m3_2'])
-        self.assertEqual(set(line.split()[4:]),{'w=4','l=4','vm=3','m=3'})
+        self.assertEqual(set(line.split()[4:]),{'w=4','l=4','mf=3','m=3'})
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(tmp)/'mim2.icproj';save_project(p,path);q=load_project(path)
             self.assertEqual(p['cells'],q['cells']);self.assertFalse(connectivity(q,q['top'])['issues'])
