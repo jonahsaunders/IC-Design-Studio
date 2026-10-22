@@ -1,15 +1,19 @@
 # Chunks 1–12: progress and forecast
 
 **Snapshot: October 21, 2026.** Latest reviewed application commit:
-[`5095283`](https://github.com/jonahsaunders/IC-Design-Studio/commit/5095283225042ed4d68c7501b6deff88296da9e7),
+[`4fc8fd9`](https://github.com/jonahsaunders/IC-Design-Studio/commit/4fc8fd99096529ea5d906c01b6bceef0f7c01128),
 on `experimental`. This tracker is updated during project work, without a
 scheduled background monitor.
 
-The latest qualification implementation is local commit `e7c3aa9` (the SKY130
-MOS bias batch). Application and PDK bytes remain at the reviewed baseline.
-This update and the preceding tracker commit are preserved locally while the
-existing GitHub acceptance runs finish; they have not yet been pushed. A push
-would cancel unfinished branch/PR runs under the current workflow settings.
+The latest completed batch adds generated layouts for SKY130 1.8 V LVT NMOS,
+LVT PMOS and HVT PMOS. Application changes and qualification evidence are in
+commit `4fc8fd9`, following baseline `c76b3f5`; exact changed source hashes are recorded in the
+[execution record](validation/sky130-threshold-layouts-2026-10-21.json).
+Bundled PDK model files and package revisions remain unchanged. Desktop CI now
+preserves an acceptance run already in progress and queues the newest update,
+allowing these changes and the preceding MOS-bias work to be pushed together.
+The new application still needs its own hosted and installed acceptance; the
+older commit's successful workflows below do not satisfy that requirement.
 
 **Six gates are closed within their declared scope, one is active, and five
 remain pending. This is not a 50% estimate of the remaining engineering work.**
@@ -53,6 +57,16 @@ This history does not support extrapolating one fixed duration per chunk.
 
 Recent chunk-7 work has produced concrete fixes and reusable verification:
 
+- The [SKY130 threshold layouts](validation/sky130-threshold-layouts-2026-10-21.json)
+  add six ordinary/per-finger views covering three models. **60 rotated layouts
+  and 120 deliberate fault controls pass**, including both geometry checkers,
+  exact native model/terminal/dimension readback and GDS/OASIS exchange. Both
+  source desktops pass all six views; Windows/native handoff passes three valid
+  layouts and three implant-fault controls. Each host passes 30 affected tests
+  and 32 additional catalog/layout tests. Independent audits and restored-source
+  replay pass. This removes a concrete generator/recognition gap, without closing
+  the complete physical or operating envelope.
+
 - The [SKY130 MOS voltage-boundary batch](validation/sky130-mos-bias-2026-10-21.json)
   passes all **60 local Linux cases for 33 symbol views / 11 models**, with
   6,300 valid device comparisons and 12,600 detected faulty instances. Final
@@ -79,18 +93,25 @@ chunk 9 has 30 `not_run`; chunk 10 has 12 `not_run`; chunk 11 has 20 `not_run`;
 chunk 12 has eight `partial` and four `needs_definition`. These are **formal
 coverage rows, not estimates of code written or equal units of effort**.
 
-The GitHub snapshot at **00:48:25 UTC on October 22 (October 21 locally)** for application commit
-`5095283` shows **thirteen successful workflows and three running**, with
+The latest retained GitHub snapshot on **October 22 UTC (October 21 locally)**
+for application commit `5095283` shows **fourteen successful workflows and two running**, with
 no reported failure in that snapshot. Push and pull-request runs are counted
 separately. Unfinished runs are not passes, and results at another commit cannot
 stand in for final installed-release acceptance. Check the
 [commit's workflow runs](https://github.com/jonahsaunders/IC-Design-Studio/actions?query=sha%3A5095283225042ed4d68c7501b6deff88296da9e7)
 for newer results.
 
-The new MOS bias evidence changes no application or PDK model bytes. Its
-qualification runner, source documents and raw results have separate hashes in
-the validation record. Newly configured hosted pilots still require their own
-successful runs; the existing commit's tests cannot establish that outcome.
+The earlier MOS bias batch changed no application or PDK model bytes. The new
+threshold-layout batch changes the generator and explicit model readout adapter;
+their exact hashes are recorded separately. Newly configured hosted pilots and
+the final installed application still need their own successful runs.
+
+The older protected [release run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39640899481)
+at `ae5a7a1` completed its verification jobs but failed to create the draft release:
+GitHub returned **HTTP 403: Resource not accessible by integration**, despite the
+job showing `Contents: write`. Its assembled payload was retained as an artifact.
+This is a separate release-publication blocker, not acceptance of the current
+application; its underlying permission restriction has not been established.
 
 ## How progress is likely to unfold
 
@@ -135,6 +156,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 | 2026-10-21 | Initial tracker created from the matrix and acceptance records at `5095283`; isolated-body fixes and repeated-cell regression recorded. | Six scoped gates closed; chunk 7 remains the active critical path. No later gate promoted. |
 | 2026-10-21 | Completed the 60-case SKY130 public MOS bias-boundary batch, both final host pilots, independent raw audits and restored-source replay; added ongoing pilot checks. | The finite boundary coverage for 33 views is now verified. Missing bindings, full envelopes and physical coverage still prevent chunk-7 closure; no overall finish date follows from this batch. |
 | 2026-10-21 | Preserved qualification commit `e7c3aa9` locally; 13 existing remote workflows pass and three remain active. Verified archives and replay allow redundant generated runs to be removed. | Push is deferred to preserve ongoing acceptance. No hosted result is claimed for the new pilot configuration. |
+| 2026-10-21 | Completed three SKY130 threshold-model generators: 60 layouts, 120 faults, both desktop paths, Windows/native handoff and independent archive replay. Retained 62 distinct affected/catalog tests per host. Changed desktop CI to preserve active acceptance while queuing updates. | Six symbol views gain verified sampled physical support. Seven missing bindings and complete envelopes still block chunk 7; the older draft release also exposed a GitHub 403. |
 
 During subsequent project work, update the snapshot and affected rows, append a
 brief history entry for meaningful changes, and explain whether the remaining
