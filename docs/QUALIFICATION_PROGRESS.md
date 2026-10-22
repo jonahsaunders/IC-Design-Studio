@@ -1,7 +1,7 @@
 # Chunks 1–12: progress and forecast
 
 **Snapshot: October 22, 2026.** Latest locally tested application commit:
-[`1647800`](https://github.com/jonahsaunders/IC-Design-Studio/commit/1647800c83dccce8bd5738dc60462231bb0ff7b8),
+[`748ad9f`](https://github.com/jonahsaunders/IC-Design-Studio/commit/748ad9faf3f5f2fa15e5975c252c618b6725c9df),
 on `experimental`. This tracker is updated during project work, without a
 scheduled background monitor.
 
