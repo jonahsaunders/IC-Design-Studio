@@ -1,7 +1,7 @@
 # Chunks 1–12: progress and forecast
 
-**Snapshot: October 22, 2026.** Latest reviewed pushed commit:
-[`e29cfd6`](https://github.com/jonahsaunders/IC-Design-Studio/commit/e29cfd657cd607528da530eccce466361d6dee59),
+**Snapshot: October 22, 2026.** Latest locally tested application commit:
+[`1647800`](https://github.com/jonahsaunders/IC-Design-Studio/commit/1647800c83dccce8bd5738dc60462231bb0ff7b8),
 on `experimental`. This tracker is updated during project work, without a
 scheduled background monitor.
 
@@ -12,8 +12,9 @@ tap distance. Independent Windows/Linux readback and all eight source desktop
 views pass. Each host passes six new tests and 60 surrounding regressions.
 Restoring 2,359 archived source/input files reproduces the four-model pilot and
 31 faults. The [execution record](validation/sky130-voltage-layouts-2026-10-22.json)
-binds the new application to its tested bytes. This batch follows `e29cfd6` and
-does not inherit that older pushed version's hosted acceptance.
+binds the new application to its tested bytes. Commit `1647800` follows `e29cfd6`;
+it does not inherit that older revision's hosted acceptance. Both hosts also pass
+32 qualification/evidence bookkeeping tests, and release-document checks pass.
 
 **Six gates are closed within their declared scope, one is active, and five
 remain pending. This is not a 50% estimate of the remaining engineering work.**
@@ -164,7 +165,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
-| 2026-10-22 | Verified all 17 workflows and exact-release validation at `e29cfd6`; four new voltage/native MOS generators pass 128 layouts and 257 faults after fixing the 25 µm substrate-tap violation; both-host regressions, source desktops and archived-source replay pass. | The older release-publication blockage is superseded by an observed successful draft. Device envelopes, seven missing bindings and new-source acceptance remain open. |
+| 2026-10-22 | Verified all 17 workflows and exact-release validation at `e29cfd6`; application commit `1647800` adds four voltage/native MOS generators passing 128 layouts and 257 faults after fixing the 25 µm substrate-tap violation; both-host regressions, source desktops and archived-source replay pass. | The older release-publication blockage is superseded by an observed successful draft. Device envelopes, seven missing bindings and new-source acceptance remain open. |
 | 2026-10-21 | Initial tracker created from the matrix and acceptance records at `5095283`; isolated-body fixes and repeated-cell regression recorded. | Six scoped gates closed; chunk 7 remains the active critical path. No later gate promoted. |
 | 2026-10-21 | Completed the 60-case SKY130 public MOS bias-boundary batch, both final host pilots, independent raw audits and restored-source replay; added ongoing pilot checks. | The finite boundary coverage for 33 views is now verified. Missing bindings, full envelopes and physical coverage still prevent chunk-7 closure; no overall finish date follows from this batch. |
 | 2026-10-21 | Preserved qualification commit `e7c3aa9` locally; 13 existing remote workflows pass and three remain active. Verified archives and replay allow redundant generated runs to be removed. | Push is deferred to preserve ongoing acceptance. No hosted result is claimed for the new pilot configuration. |
