@@ -5,6 +5,12 @@
 on `experimental`. This tracker is updated during project work, without a
 scheduled background monitor.
 
+The latest qualification implementation is local commit `e7c3aa9` (the SKY130
+MOS bias batch). Application and PDK bytes remain at the reviewed baseline.
+This update and the preceding tracker commit are preserved locally while the
+existing GitHub acceptance runs finish; they have not yet been pushed. A push
+would cancel unfinished branch/PR runs under the current workflow settings.
+
 **Six gates are closed within their declared scope, one is active, and five
 remain pending. This is not a 50% estimate of the remaining engineering work.**
 The later gates include device qualification, complete chips and manufacturing
@@ -73,8 +79,8 @@ chunk 9 has 30 `not_run`; chunk 10 has 12 `not_run`; chunk 11 has 20 `not_run`;
 chunk 12 has eight `partial` and four `needs_definition`. These are **formal
 coverage rows, not estimates of code written or equal units of effort**.
 
-The GitHub snapshot at **00:40:54 UTC on October 22 (October 21 locally)** for application commit
-`5095283` shows **twelve successful workflows and four running**, with
+The GitHub snapshot at **00:48:25 UTC on October 22 (October 21 locally)** for application commit
+`5095283` shows **thirteen successful workflows and three running**, with
 no reported failure in that snapshot. Push and pull-request runs are counted
 separately. Unfinished runs are not passes, and results at another commit cannot
 stand in for final installed-release acceptance. Check the
@@ -128,6 +134,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 | --- | --- | --- |
 | 2026-10-21 | Initial tracker created from the matrix and acceptance records at `5095283`; isolated-body fixes and repeated-cell regression recorded. | Six scoped gates closed; chunk 7 remains the active critical path. No later gate promoted. |
 | 2026-10-21 | Completed the 60-case SKY130 public MOS bias-boundary batch, both final host pilots, independent raw audits and restored-source replay; added ongoing pilot checks. | The finite boundary coverage for 33 views is now verified. Missing bindings, full envelopes and physical coverage still prevent chunk-7 closure; no overall finish date follows from this batch. |
+| 2026-10-21 | Preserved qualification commit `e7c3aa9` locally; 13 existing remote workflows pass and three remain active. Verified archives and replay allow redundant generated runs to be removed. | Push is deferred to preserve ongoing acceptance. No hosted result is claimed for the new pilot configuration. |
 
 During subsequent project work, update the snapshot and affected rows, append a
 brief history entry for meaningful changes, and explain whether the remaining
