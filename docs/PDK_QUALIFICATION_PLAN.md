@@ -3,6 +3,12 @@
 For a concise view of all twelve chunks, current blockers and the forecast,
 see the [progress tracker](QUALIFICATION_PROGRESS.md), updated during project work.
 
+The [SKY130 voltage-layout addition](SKY130_VOLTAGE_LAYOUTS.md) covers eight
+four-terminal views of four thick-oxide/native MOS models. All 128 rotated
+layouts and 257 deliberate faults pass. A real 25 µm substrate-tap distance
+failure was corrected with a second connected body tap. The bounded native
+recipes use exact public model-bin centers; full envelopes remain open.
+
 The latest [SKY130 threshold-layout batch](SKY130_THRESHOLD_LAYOUTS.md) adds
 six four-terminal LVT/HVT symbol views to the generator. Sixty native layouts,
 120 faults, both source desktops and Windows/native handoff pass within the

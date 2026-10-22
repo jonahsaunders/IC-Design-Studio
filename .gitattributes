@@ -77,3 +77,7 @@ docs/qualification/sky130-threshold-sources-v1/source-lock.json whitespace=cr-at
 docs/qualification/sky130-threshold-sources-v1/NOTICE whitespace=cr-at-eol
 docs/validation/sky130-threshold-layouts-2026-10-21.json whitespace=cr-at-eol
 docs/validation/gf180-tested-source-2026-10-21-threshold/manifest.json whitespace=cr-at-eol
+
+# Retain exact public voltage-rule and hosted validation bytes.
+docs/qualification/sky130-voltage-sources-v1/*.csv -whitespace
+docs/qualification/hosted-acceptance-2026-10-22/** -whitespace

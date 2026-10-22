@@ -11,9 +11,11 @@ from .catalog import binding_for, parameter_values
 from .model import scalar, file_digest
 
 SKY130_MODELS = {
-    'NMOS': ('sky130_fd_pr__nfet_01v8', 'sky130_fd_pr__nfet_01v8_lvt'),
+    'NMOS': ('sky130_fd_pr__nfet_01v8', 'sky130_fd_pr__nfet_01v8_lvt',
+             'sky130_fd_pr__nfet_g5v0d10v5', 'sky130_fd_pr__nfet_03v3_nvt',
+             'sky130_fd_pr__nfet_05v0_nvt'),
     'PMOS': ('sky130_fd_pr__pfet_01v8', 'sky130_fd_pr__pfet_01v8_lvt',
-             'sky130_fd_pr__pfet_01v8_hvt'),
+             'sky130_fd_pr__pfet_01v8_hvt', 'sky130_fd_pr__pfet_g5v0d10v5'),
 }
 
 

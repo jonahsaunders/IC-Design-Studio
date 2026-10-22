@@ -45,7 +45,7 @@ class ThresholdLayoutTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'0.35'):specification(p['pdk'],d)
         d['params']['l']='.35u';t=clone(self.tech);t['layers']=[v for v in t['layers'] if (v['gds'],v['datatype'])!=(125,44)]
         with self.assertRaisesRegex(ValueError,'implant'):specification(t,d)
-        other=create_device(self.tech,'sky130_fd_pr/nfet_g5v0d10v5.sym','HV')
+        other=create_device(self.tech,'sky130_fd_pr/nfet_g5v0d16v0.sym','HV')
         with self.assertRaises(ValueError):specification(self.tech,other)
         with self.assertRaises(ValueError):dimensions(self.tech,other)
 

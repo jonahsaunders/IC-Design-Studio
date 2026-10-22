@@ -83,6 +83,15 @@ jobs:
         run: |
           python -m unittest tests.test_sky130_threshold_layouts -v
           python scripts/qualify_sky130_threshold_layouts.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --output build/threshold-layout-evidence --pilot
+      - name: Verify thick-oxide and native voltage-device layouts
+        if: matrix.stage == 'devices'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_TEST_NGSPICE: /usr/bin/ngspice
+        run: |
+          python -m unittest tests.test_sky130_voltage_layouts -v
+          python scripts/qualify_sky130_voltage_layouts.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --output build/voltage-layout-evidence --pilot
       - name: Prepare the separately versioned experimental PNP adapter
         if: matrix.stage == 'bipolar'
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/bipolar-adapter/sky130A --bipolar
@@ -193,6 +202,7 @@ jobs:
             build/rf-isolation-evidence
             build/rf-isolation-boundaries
             build/threshold-layout-evidence
+            build/voltage-layout-evidence
           if-no-files-found: error
 
   detector-desktop:

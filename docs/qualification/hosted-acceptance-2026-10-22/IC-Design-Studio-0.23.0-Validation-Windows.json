@@ -1,0 +1,710 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.23.0",
+  "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+  "platform": "Windows",
+  "host": "Windows-2022Server-10.0.20348-SP0",
+  "workflow_run": "39706558991",
+  "workflow_attempt": "1",
+  "distribution": {
+    "status": "passed",
+    "archive": "IC-Design-Studio-0.23.0-Windows-x64-Portable.zip",
+    "archive_sha256": "92fa0998d0b30b97eb3ec19176037b983d7b28cc069605afe659a5677866a567",
+    "clean_application_profile": true,
+    "paths_with_spaces": true,
+    "report": {
+      "version": "0.23.0",
+      "os": "Windows-2022Server-10.0.20348-SP0",
+      "architecture": "AMD64",
+      "frozen": true,
+      "scale": "1",
+      "checks": [
+        "native dark workspace and requested DPI scale",
+        "Included openEMS and Python auto-detected and executed from the packaged app",
+        "0.14 visible schematic/layout grids and complete reorganized command map",
+        "0.14 packaged grid controls, configurable windows and saved stacked views",
+        "save and reopen from a path containing spaces",
+        "native rotation shortcut and undo",
+        "background worker simulation returns 501 transient samples",
+        "0.15 shipped Help action opens the offline compatibility matrix",
+        "0.15 packaged parallel workers, queued dispatch and run table",
+        "0.16 packaged specifications, grouped navigation, waveform calculator and parametric geometry",
+        "0.15 packaged exact X/Y marker checks and measurement export",
+        "0.15 saved analysis plan and durable result history reopen",
+        "independent project copy",
+        "parameterized SPICE component import and instance override",
+        "native simulation runtime dialog",
+        "project hub loads bundled PDKs and displays exact installed or available revisions",
+        "native physical workflow workspace",
+        "saved testbench workspace, native editor and project round trip",
+        "native saved-bench characterization workspace and form",
+        "packaged Xschem capture profile, electrical stretch, cell extraction, symbol generator and hierarchy return",
+        "packaged symbol metadata and saved capture testbench round trip",
+        "packaged reviewed interface rename, atomic undo/redo and saved multi-view history",
+        "packaged native electrical rule policy and project-scope checks",
+        "packaged hierarchy occurrence cross-probe and return to parent",
+        "packaged 0.11 keyboard profile, reference copy, undo and bulk property form",
+        "packaged rotated and mirrored hierarchy context and return",
+        "packaged named workspace, library/cell/view browser and capability guide",
+        "packaged direct Xschem dependency review, editable hierarchy, export and native identity restoration",
+        "0.18 included offline Xschem symbols, bundled ngspice program worker, six cases, waveform selection and exact X/Y checks",
+        "packaged 3D layout viewer, extrusion, display controls and PNG (OpenGLView)",
+        "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+        "Standard component library supports favorite filtering and Enter placement from search",
+        "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+        "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+        "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window",
+        "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+        "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+        "Apply-time layer lock and stale design guards leave the design unchanged",
+        "Five shape previews, dimensions, model selection and rectangle aspect control",
+        "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+        "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+        "Optional openEMS setup dialog, bundled external driver and missing-installation guard",
+        "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection",
+        "packaged live HTTP editing/undo, automatic workflow, reviewer authorization, threaded discussions and unsent reply recovery without auto-posting",
+        "local server button, automatic credential isolation, second editor, startup errors, durable restart and undo",
+        "HTTPS hosting wizard, peer connection check, isolated certificate trust, restart, direct annotation editing/deletion/undo and two-editor synchronization"
+      ],
+      "status": "passed",
+      "build": {
+        "version": "0.23.0",
+        "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+        "branch": "experimental",
+        "dirty": false,
+        "frozen": true
+      },
+      "experimental": {
+        "checks": [
+          "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+          "Standard component library supports favorite filtering and Enter placement from search",
+          "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+          "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+          "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window"
+        ],
+        "component_open_ms": 274.07189999939874,
+        "component_filter_ms": 21.706100000301376,
+        "qt_platform": "windows",
+        "pointer": {
+          "local": [
+            424,
+            278
+          ],
+          "attempts": 1,
+          "native": true
+        }
+      },
+      "inductor": {
+        "status": "passed",
+        "checks": [
+          "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+          "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+          "Apply-time layer lock and stale design guards leave the design unchanged",
+          "Five shape previews, dimensions, model selection and rectangle aspect control",
+          "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+          "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+          "Optional openEMS setup dialog, bundled external driver and missing-installation guard",
+          "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection"
+        ],
+        "platform": "windows",
+        "estimated_h": 4.366216832859381e-09,
+        "shape_count": 29
+      },
+      "diagnostics": {
+        "build": {
+          "version": "0.23.0",
+          "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+          "branch": "experimental",
+          "dirty": false,
+          "frozen": true
+        },
+        "os": "Windows-2022Server-10.0.20348-SP0",
+        "architecture": "AMD64",
+        "python": "3.12.10",
+        "pyside": "6.8.3",
+        "display": "windows",
+        "screens": [
+          {
+            "geometry": [
+              0,
+              0,
+              1920,
+              1080
+            ],
+            "available": [
+              0,
+              0,
+              1920,
+              1040
+            ],
+            "scale": 1.0
+          }
+        ]
+      }
+    },
+    "vga": {
+      "status": "passed",
+      "version": "0.23.0",
+      "build": {
+        "version": "0.23.0",
+        "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+        "branch": "experimental",
+        "dirty": false,
+        "frozen": true
+      },
+      "frozen": true,
+      "os": "Windows-2022Server-10.0.20348-SP0",
+      "checks": [
+        "Offline loopback startup with private Qt WebEngine profile and pinned assets",
+        "All eight project-owned presets compile and produce frames in the embedded renderer",
+        "Native pointer input, keyboard Gamepad controls and reset",
+        "Opt-in Web Audio starts; hiding pauses audio/rendering; returning resumes rendering only",
+        "Invalid RTL stops the old simulation; correction and renderer reload recover the working copy",
+        "Cell switching, save/reopen with sources and memory data, and old-project server teardown",
+        "Application shutdown closes the loopback listener"
+      ],
+      "presets": [
+        {
+          "id": "stripes",
+          "name": "Stripes",
+          "status": "passed"
+        },
+        {
+          "id": "music",
+          "name": "Music",
+          "status": "passed"
+        },
+        {
+          "id": "rings",
+          "name": "Rings",
+          "status": "passed"
+        },
+        {
+          "id": "logo",
+          "name": "Logo",
+          "status": "passed"
+        },
+        {
+          "id": "conway",
+          "name": "Conway",
+          "status": "passed"
+        },
+        {
+          "id": "checkers",
+          "name": "Checkers",
+          "status": "passed"
+        },
+        {
+          "id": "drop",
+          "name": "\"Drop\" demo",
+          "status": "passed"
+        },
+        {
+          "id": "gamepad",
+          "name": "Gamepad",
+          "status": "passed"
+        }
+      ],
+      "limitations": [
+        "Audio device quality and physical display acceptance remain manual."
+      ],
+      "display": "windows",
+      "assets": "D:\\a\\IC-Design-Studio\\IC-Design-Studio\\build\\distribution-evidence\\Extracted app with spaces\\ICDesignStudio\\_internal\\icstudio\\assets\\vga-playground",
+      "errors": []
+    },
+    "display": "native"
+  },
+  "installer": {
+    "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+    "dpi": [
+      100,
+      150,
+      200
+    ],
+    "uninstalled": true,
+    "probes": [
+      {
+        "version": "0.23.0",
+        "os": "Windows-2022Server-10.0.20348-SP0",
+        "architecture": "AMD64",
+        "frozen": true,
+        "scale": "1",
+        "checks": [
+          "native dark workspace and requested DPI scale",
+          "Included openEMS and Python auto-detected and executed from the packaged app",
+          "0.14 visible schematic/layout grids and complete reorganized command map",
+          "0.14 packaged grid controls, configurable windows and saved stacked views",
+          "save and reopen from a path containing spaces",
+          "native rotation shortcut and undo",
+          "background worker simulation returns 501 transient samples",
+          "0.15 shipped Help action opens the offline compatibility matrix",
+          "0.15 packaged parallel workers, queued dispatch and run table",
+          "0.16 packaged specifications, grouped navigation, waveform calculator and parametric geometry",
+          "0.15 packaged exact X/Y marker checks and measurement export",
+          "0.15 saved analysis plan and durable result history reopen",
+          "independent project copy",
+          "parameterized SPICE component import and instance override",
+          "native simulation runtime dialog",
+          "project hub loads bundled PDKs and displays exact installed or available revisions",
+          "native physical workflow workspace",
+          "saved testbench workspace, native editor and project round trip",
+          "native saved-bench characterization workspace and form",
+          "packaged Xschem capture profile, electrical stretch, cell extraction, symbol generator and hierarchy return",
+          "packaged symbol metadata and saved capture testbench round trip",
+          "packaged reviewed interface rename, atomic undo/redo and saved multi-view history",
+          "packaged native electrical rule policy and project-scope checks",
+          "packaged hierarchy occurrence cross-probe and return to parent",
+          "packaged 0.11 keyboard profile, reference copy, undo and bulk property form",
+          "packaged rotated and mirrored hierarchy context and return",
+          "packaged named workspace, library/cell/view browser and capability guide",
+          "packaged direct Xschem dependency review, editable hierarchy, export and native identity restoration",
+          "0.18 included offline Xschem symbols, bundled ngspice program worker, six cases, waveform selection and exact X/Y checks",
+          "packaged 3D layout viewer, extrusion, display controls and PNG (OpenGLView)",
+          "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+          "Standard component library supports favorite filtering and Enter placement from search",
+          "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+          "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+          "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window",
+          "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+          "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+          "Apply-time layer lock and stale design guards leave the design unchanged",
+          "Five shape previews, dimensions, model selection and rectangle aspect control",
+          "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+          "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+          "Optional openEMS setup dialog, bundled external driver and missing-installation guard",
+          "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection",
+          "packaged live HTTP editing/undo, automatic workflow, reviewer authorization, threaded discussions and unsent reply recovery without auto-posting",
+          "local server button, automatic credential isolation, second editor, startup errors, durable restart and undo",
+          "HTTPS hosting wizard, peer connection check, isolated certificate trust, restart, direct annotation editing/deletion/undo and two-editor synchronization"
+        ],
+        "status": "passed",
+        "build": {
+          "version": "0.23.0",
+          "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+          "branch": "experimental",
+          "dirty": false,
+          "frozen": true
+        },
+        "experimental": {
+          "checks": [
+            "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+            "Standard component library supports favorite filtering and Enter placement from search",
+            "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+            "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+            "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window"
+          ],
+          "component_open_ms": 259.9380999999994,
+          "component_filter_ms": 21.24769999863929,
+          "qt_platform": "windows",
+          "pointer": {
+            "local": [
+              424,
+              278
+            ],
+            "attempts": 1,
+            "native": true
+          }
+        },
+        "inductor": {
+          "status": "passed",
+          "checks": [
+            "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+            "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+            "Apply-time layer lock and stale design guards leave the design unchanged",
+            "Five shape previews, dimensions, model selection and rectangle aspect control",
+            "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+            "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+            "Optional openEMS setup dialog, bundled external driver and missing-installation guard",
+            "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection"
+          ],
+          "platform": "windows",
+          "estimated_h": 4.366216832859381e-09,
+          "shape_count": 29
+        },
+        "diagnostics": {
+          "build": {
+            "version": "0.23.0",
+            "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+            "branch": "experimental",
+            "dirty": false,
+            "frozen": true
+          },
+          "os": "Windows-2022Server-10.0.20348-SP0",
+          "architecture": "AMD64",
+          "python": "3.12.10",
+          "pyside": "6.8.3",
+          "display": "windows",
+          "screens": [
+            {
+              "geometry": [
+                0,
+                0,
+                1920,
+                1080
+              ],
+              "available": [
+                0,
+                0,
+                1920,
+                1040
+              ],
+              "scale": 1.0
+            }
+          ]
+        }
+      },
+      {
+        "version": "0.23.0",
+        "os": "Windows-2022Server-10.0.20348-SP0",
+        "architecture": "AMD64",
+        "frozen": true,
+        "scale": "1.5",
+        "checks": [
+          "native dark workspace and requested DPI scale",
+          "Included openEMS and Python auto-detected and executed from the packaged app",
+          "0.14 visible schematic/layout grids and complete reorganized command map",
+          "0.14 packaged grid controls, configurable windows and saved stacked views",
+          "save and reopen from a path containing spaces",
+          "native rotation shortcut and undo",
+          "background worker simulation returns 501 transient samples",
+          "0.15 shipped Help action opens the offline compatibility matrix",
+          "0.15 packaged parallel workers, queued dispatch and run table",
+          "0.16 packaged specifications, grouped navigation, waveform calculator and parametric geometry",
+          "0.15 packaged exact X/Y marker checks and measurement export",
+          "0.15 saved analysis plan and durable result history reopen",
+          "independent project copy",
+          "parameterized SPICE component import and instance override",
+          "native simulation runtime dialog",
+          "project hub loads bundled PDKs and displays exact installed or available revisions",
+          "native physical workflow workspace",
+          "saved testbench workspace, native editor and project round trip",
+          "native saved-bench characterization workspace and form",
+          "packaged Xschem capture profile, electrical stretch, cell extraction, symbol generator and hierarchy return",
+          "packaged symbol metadata and saved capture testbench round trip",
+          "packaged reviewed interface rename, atomic undo/redo and saved multi-view history",
+          "packaged native electrical rule policy and project-scope checks",
+          "packaged hierarchy occurrence cross-probe and return to parent",
+          "packaged 0.11 keyboard profile, reference copy, undo and bulk property form",
+          "packaged rotated and mirrored hierarchy context and return",
+          "packaged named workspace, library/cell/view browser and capability guide",
+          "packaged direct Xschem dependency review, editable hierarchy, export and native identity restoration",
+          "0.18 included offline Xschem symbols, bundled ngspice program worker, six cases, waveform selection and exact X/Y checks",
+          "packaged 3D layout viewer, extrusion, display controls and PNG (OpenGLView)",
+          "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+          "Standard component library supports favorite filtering and Enter placement from search",
+          "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+          "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+          "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window",
+          "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+          "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+          "Apply-time layer lock and stale design guards leave the design unchanged",
+          "Five shape previews, dimensions, model selection and rectangle aspect control",
+          "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+          "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+          "Optional openEMS setup dialog, bundled external driver and missing-installation guard",
+          "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection",
+          "packaged live HTTP editing/undo, automatic workflow, reviewer authorization, threaded discussions and unsent reply recovery without auto-posting",
+          "local server button, automatic credential isolation, second editor, startup errors, durable restart and undo",
+          "HTTPS hosting wizard, peer connection check, isolated certificate trust, restart, direct annotation editing/deletion/undo and two-editor synchronization"
+        ],
+        "status": "passed",
+        "build": {
+          "version": "0.23.0",
+          "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+          "branch": "experimental",
+          "dirty": false,
+          "frozen": true
+        },
+        "experimental": {
+          "checks": [
+            "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+            "Standard component library supports favorite filtering and Enter placement from search",
+            "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+            "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+            "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window"
+          ],
+          "component_open_ms": 273.69999999973516,
+          "component_filter_ms": 22.401000000172644,
+          "qt_platform": "windows",
+          "pointer": {
+            "local": [
+              343,
+              143
+            ],
+            "attempts": 1,
+            "native": true
+          }
+        },
+        "inductor": {
+          "status": "passed",
+          "checks": [
+            "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+            "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+            "Apply-time layer lock and stale design guards leave the design unchanged",
+            "Five shape previews, dimensions, model selection and rectangle aspect control",
+            "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+            "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+            "Optional openEMS setup dialog, bundled external driver and missing-installation guard",
+            "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection"
+          ],
+          "platform": "windows",
+          "estimated_h": 4.366216832859381e-09,
+          "shape_count": 29
+        },
+        "diagnostics": {
+          "build": {
+            "version": "0.23.0",
+            "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+            "branch": "experimental",
+            "dirty": false,
+            "frozen": true
+          },
+          "os": "Windows-2022Server-10.0.20348-SP0",
+          "architecture": "AMD64",
+          "python": "3.12.10",
+          "pyside": "6.8.3",
+          "display": "windows",
+          "screens": [
+            {
+              "geometry": [
+                0,
+                0,
+                1280,
+                720
+              ],
+              "available": [
+                0,
+                0,
+                1280,
+                693
+              ],
+              "scale": 1.5
+            }
+          ]
+        }
+      },
+      {
+        "version": "0.23.0",
+        "os": "Windows-2022Server-10.0.20348-SP0",
+        "architecture": "AMD64",
+        "frozen": true,
+        "scale": "2",
+        "checks": [
+          "native dark workspace and requested DPI scale",
+          "Included openEMS and Python auto-detected and executed from the packaged app",
+          "0.14 visible schematic/layout grids and complete reorganized command map",
+          "0.14 packaged grid controls, configurable windows and saved stacked views",
+          "save and reopen from a path containing spaces",
+          "native rotation shortcut and undo",
+          "background worker simulation returns 501 transient samples",
+          "0.15 shipped Help action opens the offline compatibility matrix",
+          "0.15 packaged parallel workers, queued dispatch and run table",
+          "0.16 packaged specifications, grouped navigation, waveform calculator and parametric geometry",
+          "0.15 packaged exact X/Y marker checks and measurement export",
+          "0.15 saved analysis plan and durable result history reopen",
+          "independent project copy",
+          "parameterized SPICE component import and instance override",
+          "native simulation runtime dialog",
+          "project hub loads bundled PDKs and displays exact installed or available revisions",
+          "native physical workflow workspace",
+          "saved testbench workspace, native editor and project round trip",
+          "native saved-bench characterization workspace and form",
+          "packaged Xschem capture profile, electrical stretch, cell extraction, symbol generator and hierarchy return",
+          "packaged symbol metadata and saved capture testbench round trip",
+          "packaged reviewed interface rename, atomic undo/redo and saved multi-view history",
+          "packaged native electrical rule policy and project-scope checks",
+          "packaged hierarchy occurrence cross-probe and return to parent",
+          "packaged 0.11 keyboard profile, reference copy, undo and bulk property form",
+          "packaged rotated and mirrored hierarchy context and return",
+          "packaged named workspace, library/cell/view browser and capability guide",
+          "packaged direct Xschem dependency review, editable hierarchy, export and native identity restoration",
+          "0.18 included offline Xschem symbols, bundled ngspice program worker, six cases, waveform selection and exact X/Y checks",
+          "packaged 3D layout viewer, extrusion, display controls and PNG (OpenGLView)",
+          "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+          "Standard component library supports favorite filtering and Enter placement from search",
+          "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+          "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+          "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window",
+          "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+          "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+          "Apply-time layer lock and stale design guards leave the design unchanged",
+          "Five shape previews, dimensions, model selection and rectangle aspect control",
+          "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+          "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+          "Optional openEMS setup dialog, bundled external driver and missing-installation guard",
+          "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection",
+          "packaged live HTTP editing/undo, automatic workflow, reviewer authorization, threaded discussions and unsent reply recovery without auto-posting",
+          "local server button, automatic credential isolation, second editor, startup errors, durable restart and undo",
+          "HTTPS hosting wizard, peer connection check, isolated certificate trust, restart, direct annotation editing/deletion/undo and two-editor synchronization"
+        ],
+        "status": "passed",
+        "build": {
+          "version": "0.23.0",
+          "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+          "branch": "experimental",
+          "dirty": false,
+          "frozen": true
+        },
+        "experimental": {
+          "checks": [
+            "10,000 component entries: source persistence, isolated favorites, recent choices, keyboard placement, cached previews and empty-result guard",
+            "Standard component library supports favorite filtering and Enter placement from search",
+            "Hover and click agree at overlapping wire/device geometry; Tab cycles and filtering changes the preview",
+            "Persistent workflow restores with the workspace, navigates findings, rejects stale rows and refreshes after edits",
+            "Visible floating border on all four edges, platform title bar, diagonal resize, saved size restoration and recovery of an offscreen window"
+          ],
+          "component_open_ms": 266.53929999883985,
+          "component_filter_ms": 22.091599999839673,
+          "qt_platform": "windows",
+          "pointer": {
+            "local": [
+              187,
+              54
+            ],
+            "attempts": 1,
+            "native": true
+          }
+        },
+        "inductor": {
+          "status": "passed",
+          "checks": [
+            "Tools menu, compact live preview, dimensions/orientation, invalid-input guard, linked labelled L and single-step undo/redo",
+            "Reopen from layout and placement checklist, stable regeneration identities, explicit estimate opt-in and saved recipe reload",
+            "Apply-time layer lock and stale design guards leave the design unchanged",
+            "Five shape previews, dimensions, model selection and rectangle aspect control",
+            "Responsive bounded target search, candidate selection, cancellation, explicit fixes and series-RL opt-in",
+            "PDK profile editor, explicit layer aliases, invalid-data atomicity, reusable file and undo/redo",
+            "Optional openEMS setup dialog, bundled external driver and missing-installation guard",
+            "EM bundle export, imported L/Q/SRF, project persistence and stale material-data rejection"
+          ],
+          "platform": "windows",
+          "estimated_h": 4.366216832859381e-09,
+          "shape_count": 29
+        },
+        "diagnostics": {
+          "build": {
+            "version": "0.23.0",
+            "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+            "branch": "experimental",
+            "dirty": false,
+            "frozen": true
+          },
+          "os": "Windows-2022Server-10.0.20348-SP0",
+          "architecture": "AMD64",
+          "python": "3.12.10",
+          "pyside": "6.8.3",
+          "display": "windows",
+          "screens": [
+            {
+              "geometry": [
+                0,
+                0,
+                960,
+                540
+              ],
+              "available": [
+                0,
+                0,
+                960,
+                520
+              ],
+              "scale": 2.0
+            }
+          ]
+        }
+      }
+    ],
+    "vga": {
+      "status": "passed",
+      "version": "0.23.0",
+      "build": {
+        "version": "0.23.0",
+        "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+        "branch": "experimental",
+        "dirty": false,
+        "frozen": true
+      },
+      "frozen": true,
+      "os": "Windows-2022Server-10.0.20348-SP0",
+      "checks": [
+        "Offline loopback startup with private Qt WebEngine profile and pinned assets",
+        "All eight project-owned presets compile and produce frames in the embedded renderer",
+        "Native pointer input, keyboard Gamepad controls and reset",
+        "Opt-in Web Audio starts; hiding pauses audio/rendering; returning resumes rendering only",
+        "Invalid RTL stops the old simulation; correction and renderer reload recover the working copy",
+        "Cell switching, save/reopen with sources and memory data, and old-project server teardown",
+        "Application shutdown closes the loopback listener"
+      ],
+      "presets": [
+        {
+          "id": "stripes",
+          "name": "Stripes",
+          "status": "passed"
+        },
+        {
+          "id": "music",
+          "name": "Music",
+          "status": "passed"
+        },
+        {
+          "id": "rings",
+          "name": "Rings",
+          "status": "passed"
+        },
+        {
+          "id": "logo",
+          "name": "Logo",
+          "status": "passed"
+        },
+        {
+          "id": "conway",
+          "name": "Conway",
+          "status": "passed"
+        },
+        {
+          "id": "checkers",
+          "name": "Checkers",
+          "status": "passed"
+        },
+        {
+          "id": "drop",
+          "name": "\"Drop\" demo",
+          "status": "passed"
+        },
+        {
+          "id": "gamepad",
+          "name": "Gamepad",
+          "status": "passed"
+        }
+      ],
+      "limitations": [
+        "Audio device quality and physical display acceptance remain manual."
+      ],
+      "display": "windows",
+      "assets": "D:\\a\\IC-Design-Studio\\IC-Design-Studio\\build\\windows-evidence\\Installed App With Spaces\\_internal\\icstudio\\assets\\vga-playground",
+      "errors": []
+    },
+    "association": true,
+    "installer": "IC-Design-Studio-0.23.0-Windows-x64-Setup.exe",
+    "signing": "not configured",
+    "installed": true,
+    "installer_sha256": "2bade437a7798f8b064e96784f477243cc0596b74a4870c05fb82cb5d10c51bf",
+    "shortcuts": true,
+    "status": "passed",
+    "version": "0.23.0",
+    "simulation": true
+  },
+  "assets": {
+    "IC-Design-Studio-0.23.0-Windows-x64-Setup.exe": "2bade437a7798f8b064e96784f477243cc0596b74a4870c05fb82cb5d10c51bf",
+    "IC-Design-Studio-0.23.0-Windows-x64-Portable.zip": "92fa0998d0b30b97eb3ec19176037b983d7b28cc069605afe659a5677866a567",
+    "IC-Design-Studio-0.23.0-Source-Windows.zip": "a5b7de03920bb1f907e0b7a330c75f59bbbe1c155ccb3cab8d4b3d6e10f795c5",
+    "IC-Design-Studio-0.23.0-Evidence-Windows.zip": "c1237d22daa5ec99496095e2dbc8d9fad7381102e45036887ff86afd26c06c94"
+  },
+  "limitations": [
+    "Engineering preview; no foundry signoff.",
+    "Windows signing is not configured.",
+    "Clean Windows 10/11 consumer-machine and upgrade acceptance remain manual gates.",
+    "Linux archive execution uses offscreen Qt on Ubuntu 24.04."
+  ]
+}

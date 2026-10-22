@@ -9,6 +9,12 @@ registered revisions; migration remains explicit. Original
 licenses, modification notices and source hashes are retained. These changes
 and their selected tests do not complete device-family qualification.
 
+The [SKY130 voltage-layout addition](SKY130_VOLTAGE_LAYOUTS.md) covers eight
+four-terminal views of four thick-oxide/native MOS models. All 128 rotated
+layouts and 257 deliberate faults pass. A real 25 µm substrate-tap distance
+failure was corrected with a second connected body tap. The bounded native
+recipes use exact public model-bin centers; full envelopes remain open.
+
 The [SKY130 threshold-layout addition](SKY130_THRESHOLD_LAYOUTS.md) enables
 the ordinary and per-finger four-terminal LVT NMOS, LVT PMOS and HVT PMOS views.
 Sixty rotated layouts pass public/native geometry checks and strict extracted
