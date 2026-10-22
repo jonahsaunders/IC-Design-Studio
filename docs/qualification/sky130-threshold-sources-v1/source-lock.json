@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "repository": "google/skywater-pdk",
+  "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+  "source_scope": "Unmodified public drawn threshold implants, layer numbers and gate-length rules.",
+  "files": {
+    "p023-hvtp_dotdash.csv": {
+      "upstream_path": "docs/rules/periphery/p023-hvtp_dotdash.csv",
+      "sha256": "2c433641b364769fc59739fbab24ca1aadcad311c64c61ff36afbe6b8260330c",
+      "git_blob_sha1": "341e2a2ec2272d445cb9bdb74929d7a701cca62d",
+      "bytes": 315,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p023-hvtp_dotdash.csv"
+    },
+    "p024-lvtn_dotdash.csv": {
+      "upstream_path": "docs/rules/periphery/p024-lvtn_dotdash.csv",
+      "sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+      "git_blob_sha1": "37dd940e274a3e502a9ad0d76cc990027c5c2706",
+      "bytes": 698,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p024-lvtn_dotdash.csv"
+    },
+    "p028-poly_dotdash.csv": {
+      "upstream_path": "docs/rules/periphery/p028-poly_dotdash.csv",
+      "sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+      "git_blob_sha1": "224fef57ee3cb708197d0805f48bcf0162608759",
+      "bytes": 1566,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p028-poly_dotdash.csv"
+    },
+    "gds_layers.csv": {
+      "upstream_path": "docs/rules/gds_layers.csv",
+      "sha256": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "git_blob_sha1": "8f8dd149208f1beb221ed22a6f0c4d4e55c24f48",
+      "bytes": 9190,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/gds_layers.csv"
+    },
+    "LICENSE": {
+      "upstream_path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "git_blob_sha1": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "bytes": 11358,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/LICENSE"
+    }
+  }
+}

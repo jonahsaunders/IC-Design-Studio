@@ -6,13 +6,13 @@ on:
     tags: ['v*']
     branches: [main, experimental]
   pull_request:
-# Replace obsolete branch/PR checks. A distinct file prefix prevents reusable
-# workflows from cancelling their callers; release preparation, tags and manual
-# runs use a unique run id so their acceptance evidence can finish.
+# Let running desktop acceptance finish when another commit arrives. GitHub's
+# default single pending slot retains the newest queued branch/PR run. Separate
+# caller identities keep release preparation, tags and manual runs independent.
 concurrency:
   group: >-
     ci-build-desktop-${{ github.workflow }}-${{ github.event_name }}-${{ (github.event_name == 'pull_request' && github.event.pull_request.number) || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && github.workflow != 'Prepare desktop release' && github.ref) || github.run_id }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
@@ -355,7 +355,9 @@ jobs:
         timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python tests/gui_sky130_devices.py --out build/sky130-devices-ui-evidence
+        run: |
+          python tests/gui_sky130_devices.py --out build/sky130-devices-ui-evidence
+          python tests/gui_sky130_thresholds.py --out build/sky130-devices-ui-evidence/thresholds
       - name: Test native bus and instance array editing
         timeout-minutes: 5
         env:

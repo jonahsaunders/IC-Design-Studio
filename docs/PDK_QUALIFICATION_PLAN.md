@@ -3,6 +3,11 @@
 For a concise view of all twelve chunks, current blockers and the forecast,
 see the [progress tracker](QUALIFICATION_PROGRESS.md), updated during project work.
 
+The latest [SKY130 threshold-layout batch](SKY130_THRESHOLD_LAYOUTS.md) adds
+six four-terminal LVT/HVT symbol views to the generator. Sixty native layouts,
+120 faults, both source desktops and Windows/native handoff pass within the
+recorded scope. Remaining models and complete envelopes still keep chunk 7 open.
+
 **2026-10-16 approved completion boundary:** chunk 6 follows the
 [SKY130 local qualification profile](SKY130_LOCAL_PROFILE.md).
 Exports and verification are generic SKY130; Tiny Tapeout is a source of

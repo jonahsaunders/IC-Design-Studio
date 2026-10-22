@@ -57,7 +57,8 @@
       "latest_rf_isolation_evidence": "docs/validation/sky130-rf-isolation-2026-10-21.json",
       "latest_ihp_isolation_evidence": "docs/validation/ihp-isolation-physical-2026-10-21.json",
       "latest_ihp_isolation_hierarchy_evidence": "docs/validation/ihp-isolation-hierarchy-2026-10-21.json",
-      "latest_sky130_mos_bias_evidence": "docs/validation/sky130-mos-bias-2026-10-21.json"
+      "latest_sky130_mos_bias_evidence": "docs/validation/sky130-mos-bias-2026-10-21.json",
+      "latest_sky130_threshold_evidence": "docs/validation/sky130-threshold-layouts-2026-10-21.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18902,7 +18903,8 @@
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
         "sky130-li-metal-resistors-2026-10-17",
-        "sky130-mos-bias-2026-10-21"
+        "sky130-mos-bias-2026-10-21",
+        "sky130-threshold-layouts-2026-10-21"
       ]
     },
     "sky130A:device-physical": {
@@ -18913,7 +18915,8 @@
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
-        "sky130-li-metal-resistors-2026-10-17"
+        "sky130-li-metal-resistors-2026-10-17",
+        "sky130-threshold-layouts-2026-10-21"
       ]
     },
     "sky130A:device-simulation": {
@@ -18930,7 +18933,8 @@
         "mos-boundaries-2026-10-17",
         "alternate-models-2026-10-17",
         "sky130-li-metal-resistors-2026-10-17",
-        "sky130-mos-bias-2026-10-21"
+        "sky130-mos-bias-2026-10-21",
+        "sky130-threshold-layouts-2026-10-21"
       ]
     },
     "sky130A:digital-controller": {
@@ -20232,7 +20236,8 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "sky130-mos-bias-2026-10-21"
+          "sky130-mos-bias-2026-10-21",
+          "sky130-threshold-layouts-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_01v8_lvt_nf.sym": {
@@ -20248,7 +20253,8 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "sky130-mos-bias-2026-10-21"
+          "sky130-mos-bias-2026-10-21",
+          "sky130-threshold-layouts-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_01v8_nf.sym": {
@@ -20624,7 +20630,8 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "sky130-mos-bias-2026-10-21"
+          "sky130-mos-bias-2026-10-21",
+          "sky130-threshold-layouts-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt_nf.sym": {
@@ -20640,7 +20647,8 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "sky130-mos-bias-2026-10-21"
+          "sky130-mos-bias-2026-10-21",
+          "sky130-threshold-layouts-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_lvt.sym": {
@@ -20656,7 +20664,8 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "sky130-mos-bias-2026-10-21"
+          "sky130-mos-bias-2026-10-21",
+          "sky130-threshold-layouts-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_lvt_nf.sym": {
@@ -20672,7 +20681,8 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "sky130-mos-bias-2026-10-21"
+          "sky130-mos-bias-2026-10-21",
+          "sky130-threshold-layouts-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_nf.sym": {
@@ -25057,6 +25067,11 @@
       "path": "docs/validation/sky130-mos-bias-2026-10-21.json",
       "sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
       "scope_limit": "33 SKY130 core MOS views / 11 models at sampled public voltage limits; no complete envelope, SOA, silicon, physical or installed release qualification."
+    },
+    "sky130-threshold-layouts-2026-10-21": {
+      "path": "docs/validation/sky130-threshold-layouts-2026-10-21.json",
+      "sha256": "01f84c1839789a78c7dde73761adbd81c86554f082878b5436e0f8a98b248673",
+      "scope_limit": "Six four-terminal ordinary/per-finger SKY130 1.8 V LVT NMOS, LVT PMOS and HVT PMOS views. Finite native geometry and extracted connectivity, source desktop and Windows/native handoff checks. No complete operating envelope or foundry qualification."
     }
   },
   "execution_acceptance": {
@@ -25072,8 +25087,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics.json",
-        "sha256": "fe0026c7fdf5c663770da04501f170003ea9fcc915ba35f01fe34cad562c3aad"
+        "path": "docs/validation/gf180-tested-source-2026-10-21-threshold/manifest.json",
+        "sha256": "5962e560060f8bd9cded273b314d5fd0feb1642731be4323804de46f36255cbb"
       }
     },
     "5": {

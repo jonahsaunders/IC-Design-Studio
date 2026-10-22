@@ -9,6 +9,12 @@ registered revisions; migration remains explicit. Original
 licenses, modification notices and source hashes are retained. These changes
 and their selected tests do not complete device-family qualification.
 
+The [SKY130 threshold-layout addition](SKY130_THRESHOLD_LAYOUTS.md) enables
+the ordinary and per-finger four-terminal LVT NMOS, LVT PMOS and HVT PMOS views.
+Sixty rotated layouts pass public/native geometry checks and strict extracted
+comparison; all 120 deliberate faults are detected. Model files and package revisions remain
+unchanged; full geometry and operating-envelope qualification remain open.
+
 The [GF180 high-voltage addition](GF180_HIGH_VOLTAGE_QUALIFICATION.md) restores
 the exact public source file already identified by the upstream lock. Both
 asymmetric 10 V models are available in each C/D package, with source-backed

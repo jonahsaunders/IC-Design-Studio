@@ -70,3 +70,10 @@ icstudio/assets/qualification/ihp-isolation/source-lock.json whitespace=cr-at-eo
 # Keep the public SKY130 voltage source and its byte-bound source lock intact.
 docs/qualification/sky130-mos-bias-sources-v1/device-details.rst -whitespace
 docs/qualification/sky130-mos-bias-sources-v1/source-lock.json whitespace=cr-at-eol
+# Preserve byte-identical public threshold-mask rule tables.
+docs/qualification/sky130-threshold-sources-v1/*.csv -whitespace
+docs/validation/gf180-tested-source-2026-10-21-threshold/*.txt -whitespace
+docs/qualification/sky130-threshold-sources-v1/source-lock.json whitespace=cr-at-eol
+docs/qualification/sky130-threshold-sources-v1/NOTICE whitespace=cr-at-eol
+docs/validation/sky130-threshold-layouts-2026-10-21.json whitespace=cr-at-eol
+docs/validation/gf180-tested-source-2026-10-21-threshold/manifest.json whitespace=cr-at-eol

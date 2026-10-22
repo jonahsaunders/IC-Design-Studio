@@ -8,6 +8,8 @@ For development toward a complete analog/digital release, see the
 [SKY130, GF180MCU and IHP acceptance targets](PUBLIC_RELEASE_TARGETS.md).
 The [chunks 1–12 progress tracker](QUALIFICATION_PROGRESS.md) records current
 qualification status, remaining work and the conditional forecast.
+The [SKY130 threshold-layout checks](SKY130_THRESHOLD_LAYOUTS.md) cover generated
+LVT/HVT geometry, native model recognition and six source-editor device views.
 
 ## Find a complete example
 

@@ -13,6 +13,9 @@ MASKS = {'diff': (65,20), 'tap': (65,44), 'nwell': (64,20),
          'mcon': (67,44), 'm1': (68,20), 'via': (68,44),
          'm2': (69,20), 'm1label': (68,5), 'm2label': (69,5)}
 MODELS = {'NMOS': 'sky130_fd_pr__nfet_01v8', 'PMOS': 'sky130_fd_pr__pfet_01v8'}
+THRESHOLD_MASKS = {'sky130_fd_pr__nfet_01v8_lvt': (125,44),
+                   'sky130_fd_pr__pfet_01v8_lvt': (125,44),
+                   'sky130_fd_pr__pfet_01v8_hvt': (78,44)}
 API = 1
 
 
@@ -37,8 +40,12 @@ def specification(tech, d):
         return passive_specification(tech,d)
     layers(tech)
     b = binding_for(tech,d)
-    if not b or b['model'] != MODELS.get(d['kind']) or set(d['nets']) != {'d','g','s','b'}:
-        raise ValueError(d['name']+': select a standard four-terminal SKY130 nfet_01v8 or pfet_01v8.')
+    from .process_mos import SKY130_MODELS
+    if not b or b['model'] not in SKY130_MODELS.get(d['kind'], ()) or set(d['nets']) != {'d','g','s','b'}:
+        raise ValueError(d['name']+': select a four-terminal SKY130 1.8 V standard, LVT or HVT MOS.')
+    mask = THRESHOLD_MASKS.get(b['model'])
+    if mask and not any((v['gds'],v['datatype'])==mask for v in tech['layers']):
+        raise ValueError('PDK is missing the required threshold implant mask.')
     values = parameter_values(b,d)
     from .process_mos import dimensions
     geometry = dimensions(tech, d, b)
@@ -46,7 +53,8 @@ def specification(tech, d):
     if nf!=int(nf) or not 1<=nf<=8 or geometry['multiplicity']>16:
         raise ValueError(d['name']+': this layout supports 1–8 fingers and 1–16 parallel copies.')
     size = {}
-    for k, minimum in (('w',420),('l',150)):
+    minimum_length = 350 if b['model']=='sky130_fd_pr__pfet_01v8_lvt' else 150
+    for k, minimum in (('w',420),('l',minimum_length)):
         maximum=30000 if k=='w' else 10000
         raw = (geometry['total_width'] if k == 'w' else geometry['length'])*1e9
         value = round(raw)
@@ -70,6 +78,36 @@ def specification(tech, d):
     return result
 
 
+def threshold_geometry(tech,d,data):
+    """Add the drawn Vt implant around every channel, before parallel copying.
+
+    Public lvtn.4b/hvtp.3 enclose the channel by 180 nm. A single rectangle
+    spans shared fingers. PMOS LVT additionally retains 380 nm of NWell above
+    the implant (lvtn.10). Ordinary MOS output is unchanged.
+    """
+    pair=THRESHOLD_MASKS.get(data['record']['spec']['model'])
+    if pair is None:return data
+    from .layout import kdb,polygon
+    ls=layers(tech);db=kdb();active=db.Region();poly=db.Region()
+    for shape in data['shapes']:
+        if shape['layer']==ls['diff']:active.insert(polygon(shape))
+        elif shape['layer']==ls['poly']:poly.insert(polygon(shape))
+    channels=active & poly
+    if channels.is_empty():raise ValueError('Threshold implant requires physical MOS channels.')
+    bounds=channels.bbox().enlarged(180)
+    layer=next(v['name'] for v in tech['layers'] if (v['gds'],v['datatype'])==pair)
+    shape=rect(layer,bounds.left,bounds.bottom,bounds.width(),bounds.height(),d['id'])
+    shape.update(generated_device=d['id'],generator_role='threshold_implant')
+    data['shapes'].append(shape)
+    if d['kind']=='PMOS' and pair==(125,44):
+        # Only the upper well edge needs enlargement for the existing generator.
+        for well in data['shapes']:
+            if well['layer']==ls['nwell']:
+                high=max(y for x,y in well['points'])
+                well['points']=[[x,max(y,bounds.top+380) if y==high else y] for x,y in well['points']]
+    return data
+
+
 def mos(tech,d,x=0,y=0):
     if d['kind']=='PDK':
         from .sky130_devices import geometry
@@ -79,7 +117,7 @@ def mos(tech,d,x=0,y=0):
     if int(spec['values'].get('nf',1))>1:
         from .sky130_fingers import generate
         from .sky130_devices import finish_mos, parallel_geometry
-        return parallel_geometry(tech,d,finish_mos(tech,d,generate(tech,d,x,y,spec)),spec.get('multiplicity',1))
+        return parallel_geometry(tech,d,finish_mos(tech,d,threshold_geometry(tech,d,generate(tech,d,x,y,spec))),spec.get('multiplicity',1))
     shapes=[];pins=[]
     def box(key,a,b,c,e,net=''):
         s=rect(ls[key],x+a,y+b,c-a,e-b,d['id'],net);s['generated_device']=d['id'];shapes.append(s)
@@ -101,7 +139,7 @@ def mos(tech,d,x=0,y=0):
         pins.append({'id':uid(),'device_id':d['id'],'pin':pin,'layer':ls['m1'],'point':[x+px,y+py]})
     from .layout_eco import roles
     from .sky130_devices import finish_mos, parallel_geometry
-    return parallel_geometry(tech,d,finish_mos(tech,d,roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})),spec.get('multiplicity',1))
+    return parallel_geometry(tech,d,finish_mos(tech,d,threshold_geometry(tech,d,roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}}))),spec.get('multiplicity',1))
 
 
 def install_mos(p,cid,did,x=0,y=0):
