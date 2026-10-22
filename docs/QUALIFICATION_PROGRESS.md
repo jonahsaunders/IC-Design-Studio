@@ -5,16 +5,22 @@
 on `experimental`. This tracker is updated during project work, without a
 scheduled background monitor.
 
-The latest local batch adds four SKY130 thick-oxide/native MOS generators and
-readout adapters, covering eight ordinary/per-finger views. All **128 layouts
-and 257 deliberate faults pass** after fixing the 25 µm transistor's substrate-
-tap distance. Independent Windows/Linux readback and all eight source desktop
-views pass. Each host passes six new tests and 60 surrounding regressions.
-Restoring 2,359 archived source/input files reproduces the four-model pilot and
-31 faults. The [execution record](validation/sky130-voltage-layouts-2026-10-22.json)
-binds the new application to its tested bytes. Commit `1647800` follows `e29cfd6`;
-it does not inherit that older revision's hosted acceptance. Both hosts also pass
-32 qualification/evidence bookkeeping tests, and release-document checks pass.
+The latest [SKY130 default-geometry batch](validation/sky130-mos-defaults-2026-10-22.json)
+fixes seven newly placed short symbols that failed model selection. Both hosts
+pass **14 independent DC/AC cases for all 42 available MOS defaults**, with
+588 valid device comparisons and 756 detected faulty instances per host.
+Independent raw audits verify 92 files and 177,112 current samples across both
+hosts. All 67 distinct affected tests and seven source-editor workflows pass
+per host. The original model/package bytes and existing chosen dimensions are
+preserved; the [guide](SKY130_MOS_DEFAULTS.md) records the exact source checks.
+
+The 28.3 MB deduplicated archive preserves 5.05 GB of logical evidence, including
+the original seven failures. Restoring 1,911 source/input files reproduces the
+42-device pilot and all 84 faulty instances. These seven corrected defaults are
+separate from the seven unavailable real-device bindings. This batch closes a
+placement defect; it does not complete device envelopes, add 16 V physical
+generation or promote any device/chunk status. Earlier hosted acceptance retains
+its exact revision, and the new application needs its own hosted results.
 
 **Six gates are closed within their declared scope, one is active, and five
 remain pending. This is not a 50% estimate of the remaining engineering work.**
@@ -57,6 +63,13 @@ uninterrupted engineering time. Chunk 7 is still open in the October 22 matrix.
 This history does not support extrapolating one fixed duration per chunk.
 
 Recent chunk-7 work has produced concrete fixes and reusable verification:
+
+- The [SKY130 MOS default correction](validation/sky130-mos-defaults-2026-10-22.json)
+  replaces seven invalid starting dimensions with source-checked values. Each
+  host passes 14 independent cases, 67 distinct tests, seven editor workflows,
+  and all 756 faulty device instances. Saved/custom dimensions survive exchange.
+  The original failures, raw audits and successful restored-source replay are
+  retained; complete operating ranges and missing bindings remain open.
 
 - The [SKY130 voltage layouts](validation/sky130-voltage-layouts-2026-10-22.json)
   add eight views covering four models. **128 layouts and 257 fault controls
@@ -122,8 +135,10 @@ at `ae5a7a1` failed to create its draft with HTTP 403. The new successful draft
 supersedes that open publication blockage. Earlier investigation suggested a
 workflow-token/default-branch restriction; current success does not establish
 the cause of the historical error. No permissions or credentials were changed.
-The new voltage-device application changes still need their own hosted and
-installed acceptance.
+The voltage-device and starting-dimension application changes still need their
+own exact-revision hosted and final installed acceptance. The intermediate
+`e8ac8bc` hosted snapshot has six successful, five running and six queued
+workflows; that unfinished snapshot is not an acceptance result for the new code.
 
 ## How progress is likely to unfold
 

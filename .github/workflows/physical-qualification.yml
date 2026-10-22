@@ -59,6 +59,12 @@ jobs:
         run: |
           python -m unittest tests.test_sky130_mos_bias -v
           python scripts/qualify_sky130_mos_bias.py --pilot --workers 2 --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/sky130-mos-bias
+      - name: Check fresh SKY130 MOS defaults against independent model calls
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 10
+        run: |
+          python -m unittest tests.test_sky130_mos_defaults -v
+          python scripts/qualify_sky130_mos_defaults.py --pilot --workers 2 --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/sky130-mos-defaults
       - name: Cache checksummed upstream archives
         uses: actions/cache@v4
         with:
@@ -198,6 +204,7 @@ jobs:
             build/simulation-engine/diode-sequences
             build/simulation-engine/rf-bias
             build/simulation-engine/rf-transient
+            build/sky130-mos-defaults
             build/sky130-mos-bias
             build/rf-isolation-evidence
             build/rf-isolation-boundaries

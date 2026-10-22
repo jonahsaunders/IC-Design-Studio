@@ -143,6 +143,10 @@ def create_device(technology, key, name, x=0, y=0):
     if d['kind'] in ('NMOS', 'PMOS'):
         for param in ('w', 'l'):
             d['params'][param] = f"{scalar(entry['parameters'][param]['default']) / entry.get('parameter_scale', {}).get(param, 1) * 1e6:.12g}u"
+        from .sky130_defaults import initial_dimensions
+        initial=initial_dimensions(technology,key,entry)
+        if initial:
+            d['params'].update({param:f'{value}u' for param,value in initial.items()})
     parameter_values(entry, d)
     return d
 

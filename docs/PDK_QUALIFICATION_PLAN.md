@@ -73,6 +73,14 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [SKY130 starting-dimension correction](SKY130_MOS_DEFAULTS.md) removes seven
+fresh-placement model-selection failures. Both hosts pass 14 independent cases
+for all 42 available MOS defaults, all 756 faulty instances, 67 distinct affected
+tests and seven source-editor workflows. Restoring the archived sources
+reproduces the 42-device pilot and 84 faulty instances. This fixes initial
+geometry without changing model/package bytes, existing dimensions or the
+chunk-7 completion gate.
+
 The [SKY130 MOS voltage-boundary record](validation/sky130-mos-bias-2026-10-21.json)
 adds 60 passing local Linux cases for 33 symbol views / 11 models, covering
 gate, drain, body and gate-off extended-drain sweeps at five process selections

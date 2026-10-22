@@ -359,6 +359,7 @@ jobs:
           python tests/gui_sky130_devices.py --out build/sky130-devices-ui-evidence
           python tests/gui_sky130_thresholds.py --out build/sky130-devices-ui-evidence/thresholds
           python tests/gui_sky130_voltage.py --out build/sky130-devices-ui-evidence/voltage
+          python tests/gui_sky130_defaults.py --out build/sky130-devices-ui-evidence/defaults
       - name: Test native bus and instance array editing
         timeout-minutes: 5
         env:

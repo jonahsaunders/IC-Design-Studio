@@ -1,5 +1,12 @@
 # Bundled device corrections and reproducible qualification
 
+The [SKY130 starting-dimension correction](SKY130_MOS_DEFAULTS.md) fixes seven
+short symbols that failed model selection when newly placed. All 42 available
+MOS defaults now pass the recorded 14 independent DC/AC cases on Windows and
+Linux, with all 756 faulty instances detected per host. Saved dimensions and
+package/model bytes are preserved. This addresses initial placement; complete
+device-family qualification remains open.
+
 New projects use bundled SKY130 revision `1901822ae8f81ae1`, GF180 C revision
 `b661a751abfc662a`, GF180 D revision `2f92b1f05da58bd7` and IHP revision
 `cfb96b74cf33877e`. These include the tested resistor/NPN and MIM corrections,
