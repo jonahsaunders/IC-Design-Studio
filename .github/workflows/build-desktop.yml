@@ -229,6 +229,13 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'SKY130 RF transient qualification failed.' }
           python scripts/qualify_sky130_rf_application.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --package build/sky130-rf-candidate --output build/windows-rf-application
           if ($LASTEXITCODE -ne 0) { throw 'RF application qualification failed.' }
+      - name: Check public SKY130 MOS bias limits with the bundled Windows engine
+        if: runner.os == 'Windows'
+        timeout-minutes: 10
+        shell: pwsh
+        run: |
+          python scripts/qualify_sky130_mos_bias.py --pilot --workers 2 --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-mos-bias
+          if ($LASTEXITCODE -ne 0) { throw 'SKY130 MOS voltage-boundary acceptance failed.' }
       # Exercise Windows' legacy text encoding before larger release dependencies.
       - name: Verify Windows saved bias with UTF-8 mode disabled
         if: runner.os == 'Windows'
@@ -719,6 +726,7 @@ jobs:
             build/windows-rf-bias
             build/windows-rf-transient
             build/windows-rf-application
+            build/windows-mos-bias
             build/macro-integrity-installed
             build/distribution-evidence/vga
             build/windows-evidence/vga

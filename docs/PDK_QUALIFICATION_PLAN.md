@@ -62,6 +62,17 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [SKY130 MOS voltage-boundary record](validation/sky130-mos-bias-2026-10-21.json)
+adds 60 passing local Linux cases for 33 symbol views / 11 models, covering
+gate, drain, body and gate-off extended-drain sweeps at five process selections
+and three selected temperatures. It compares 6,300 device instances and detects
+12,600 deliberate multiplicity or terminal faults. Both final host pilots and
+15 affected tests per host pass. Independent raw readback verifies the actual
+terminal voltages against the public source. See the [reproduction and limits](SKY130_MOS_BIAS_QUALIFICATION.md).
+The operating-temperature range, continuous envelope, SOA, complete physical
+coverage, missing models and final installed release remain open. No device
+or chunk status is promoted.
+
 The [IHP isolation physical record](validation/ihp-isolation-physical-2026-10-21.json)
 adds 20 isolation-box layouts and eight isolated-transistor/tap layouts, with
 all 80 deliberately introduced faults detected. Twelve contact-enclosure

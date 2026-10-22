@@ -47,6 +47,14 @@ This history does not support extrapolating one fixed duration per chunk.
 
 Recent chunk-7 work has produced concrete fixes and reusable verification:
 
+- The [SKY130 MOS voltage-boundary batch](validation/sky130-mos-bias-2026-10-21.json)
+  passes all **60 local Linux cases for 33 symbol views / 11 models**, with
+  6,300 valid device comparisons and 12,600 detected faulty instances. Final
+  Windows/Linux pilots and 15 affected tests on each host pass. Independent
+  audits verify the public voltage limits and actual terminal data; restored
+  archive replay passes. This closes the declared finite boundary batch, while
+  complete operating-envelope and physical qualification remain open.
+
 - IHP isolation keeps its three physical terminals and internal tap/body
   connections. Two repeated cells retain distinct internal bodies.
 - The latest isolation work passes **32 layout cases and 86 deliberate fault
@@ -65,13 +73,18 @@ chunk 9 has 30 `not_run`; chunk 10 has 12 `not_run`; chunk 11 has 20 `not_run`;
 chunk 12 has eight `partial` and four `needs_definition`. These are **formal
 coverage rows, not estimates of code written or equal units of effort**.
 
-The GitHub snapshot at **23:41:52 UTC on October 21** for application commit
-`5095283` shows **five successful workflows, nine running and two queued**, with
+The GitHub snapshot at **00:40:54 UTC on October 22 (October 21 locally)** for application commit
+`5095283` shows **twelve successful workflows and four running**, with
 no reported failure in that snapshot. Push and pull-request runs are counted
 separately. Unfinished runs are not passes, and results at another commit cannot
 stand in for final installed-release acceptance. Check the
 [commit's workflow runs](https://github.com/jonahsaunders/IC-Design-Studio/actions?query=sha%3A5095283225042ed4d68c7501b6deff88296da9e7)
 for newer results.
+
+The new MOS bias evidence changes no application or PDK model bytes. Its
+qualification runner, source documents and raw results have separate hashes in
+the validation record. Newly configured hosted pilots still require their own
+successful runs; the existing commit's tests cannot establish that outcome.
 
 ## How progress is likely to unfold
 
@@ -114,6 +127,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
 | 2026-10-21 | Initial tracker created from the matrix and acceptance records at `5095283`; isolated-body fixes and repeated-cell regression recorded. | Six scoped gates closed; chunk 7 remains the active critical path. No later gate promoted. |
+| 2026-10-21 | Completed the 60-case SKY130 public MOS bias-boundary batch, both final host pilots, independent raw audits and restored-source replay; added ongoing pilot checks. | The finite boundary coverage for 33 views is now verified. Missing bindings, full envelopes and physical coverage still prevent chunk-7 closure; no overall finish date follows from this batch. |
 
 During subsequent project work, update the snapshot and affected rows, append a
 brief history entry for meaningful changes, and explain whether the remaining

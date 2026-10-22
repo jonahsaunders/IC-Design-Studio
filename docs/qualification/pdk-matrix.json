@@ -56,7 +56,8 @@
       "latest_parameter_validation_evidence": "docs/validation/ihp-measured-coil-2026-10-21.json",
       "latest_rf_isolation_evidence": "docs/validation/sky130-rf-isolation-2026-10-21.json",
       "latest_ihp_isolation_evidence": "docs/validation/ihp-isolation-physical-2026-10-21.json",
-      "latest_ihp_isolation_hierarchy_evidence": "docs/validation/ihp-isolation-hierarchy-2026-10-21.json"
+      "latest_ihp_isolation_hierarchy_evidence": "docs/validation/ihp-isolation-hierarchy-2026-10-21.json",
+      "latest_sky130_mos_bias_evidence": "docs/validation/sky130-mos-bias-2026-10-21.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18900,7 +18901,8 @@
         "default-device-packages-2026-10-17",
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
-        "sky130-li-metal-resistors-2026-10-17"
+        "sky130-li-metal-resistors-2026-10-17",
+        "sky130-mos-bias-2026-10-21"
       ]
     },
     "sky130A:device-physical": {
@@ -18927,7 +18929,8 @@
         "default-device-packages-2026-10-17",
         "mos-boundaries-2026-10-17",
         "alternate-models-2026-10-17",
-        "sky130-li-metal-resistors-2026-10-17"
+        "sky130-li-metal-resistors-2026-10-17",
+        "sky130-mos-bias-2026-10-21"
       ]
     },
     "sky130A:digital-controller": {
@@ -18982,7 +18985,8 @@
       "status": "partial",
       "remaining": "Source-locked standard MOS boundary/characterization points and explicitly selected axes now execute. Complete per-device geometry, bias, temperature, reliability and RF limits, mixed/statistical corners, and operating-envelope records for the remaining upstream device families remain open.",
       "historical_evidence": [
-        "mos-boundaries-2026-10-17"
+        "mos-boundaries-2026-10-17",
+        "sky130-mos-bias-2026-10-21"
       ]
     },
     "sky130A:rc-corners": {
@@ -20082,7 +20086,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet3_01v8_lvt.sym": {
@@ -20097,7 +20102,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet3_03v3_nvt.sym": {
@@ -20112,7 +20118,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet3_05v0_nvt.sym": {
@@ -20127,7 +20134,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet3_20v0.sym": {
@@ -20158,7 +20166,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet3_g5v0d16v0.sym": {
@@ -20173,7 +20182,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_01v8.sym": {
@@ -20190,7 +20200,8 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "mos-boundaries-2026-10-17"
+          "mos-boundaries-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_01v8_esd.sym": {
@@ -20220,7 +20231,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_01v8_lvt_nf.sym": {
@@ -20235,7 +20247,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_01v8_nf.sym": {
@@ -20250,7 +20263,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_03v3_nvt.sym": {
@@ -20265,7 +20279,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_03v3_nvt_nf.sym": {
@@ -20280,7 +20295,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_05v0_nvt.sym": {
@@ -20295,7 +20311,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_05v0_nvt_nf.sym": {
@@ -20310,7 +20327,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_20v0.sym": {
@@ -20389,7 +20407,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_esd.sym": {
@@ -20419,7 +20438,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym": {
@@ -20443,7 +20463,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/nfet_g5v0d16v0_nf.sym": {
@@ -20458,7 +20479,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/npn_05v5.sym": {
@@ -20487,7 +20509,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet3_01v8_hvt.sym": {
@@ -20502,7 +20525,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet3_01v8_lvt.sym": {
@@ -20517,7 +20541,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet3_20v0.sym": {
@@ -20548,7 +20573,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet3_g5v0d16v0.sym": {
@@ -20563,7 +20589,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8.sym": {
@@ -20580,7 +20607,8 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "mos-boundaries-2026-10-17"
+          "mos-boundaries-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt.sym": {
@@ -20595,7 +20623,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_hvt_nf.sym": {
@@ -20610,7 +20639,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_lvt.sym": {
@@ -20625,7 +20655,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_lvt_nf.sym": {
@@ -20640,7 +20671,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_01v8_nf.sym": {
@@ -20655,7 +20687,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_20v0.sym": {
@@ -20686,7 +20719,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d10v5_nf.sym": {
@@ -20701,7 +20735,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d16v0.sym": {
@@ -20716,7 +20751,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pfet_g5v0d16v0_nf.sym": {
@@ -20731,7 +20767,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mos-bias-2026-10-21"
         ]
       },
       "sky130_fd_pr/pnp_05v5.sym": {
@@ -25015,6 +25052,11 @@
       "path": "docs/validation/ihp-isolation-hierarchy-2026-10-21.json",
       "sha256": "acaad1a2ffff0e04a9dd5ca68759c75d684ed8c8a735db7430e4d4527057fcf5",
       "scope_limit": "Two repeated hierarchical IHP transistor/tap/isolation cells with shared bulk and separate body/NWell terminals. Selected physical graph/geometry only; no complete envelope or installed-release qualification."
+    },
+    "sky130-mos-bias-2026-10-21": {
+      "path": "docs/validation/sky130-mos-bias-2026-10-21.json",
+      "sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+      "scope_limit": "33 SKY130 core MOS views / 11 models at sampled public voltage limits; no complete envelope, SOA, silicon, physical or installed release qualification."
     }
   },
   "execution_acceptance": {

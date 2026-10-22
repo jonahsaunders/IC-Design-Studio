@@ -67,3 +67,6 @@ icstudio/assets/qualification/ihp-isolation/isolbox_code.py -whitespace
 icstudio/assets/qualification/ihp-isolation/isolbox.cdl -whitespace
 icstudio/assets/qualification/ihp-isolation/isolbox_sweep_tb.sch -whitespace
 icstudio/assets/qualification/ihp-isolation/source-lock.json whitespace=cr-at-eol
+# Keep the public SKY130 voltage source and its byte-bound source lock intact.
+docs/qualification/sky130-mos-bias-sources-v1/device-details.rst -whitespace
+docs/qualification/sky130-mos-bias-sources-v1/source-lock.json whitespace=cr-at-eol

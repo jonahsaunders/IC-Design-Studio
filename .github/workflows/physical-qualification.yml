@@ -53,6 +53,12 @@ jobs:
       - name: Qualify public RF reverse pulses and timestep convergence
         if: matrix.stage == 'inverter'
         run: python scripts/qualify_sky130_rf_transient.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/simulation-engine/rf-transient
+      - name: Check published SKY130 MOS bias limits and deliberate binding faults
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 10
+        run: |
+          python -m unittest tests.test_sky130_mos_bias -v
+          python scripts/qualify_sky130_mos_bias.py --pilot --workers 2 --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/sky130-mos-bias
       - name: Cache checksummed upstream archives
         uses: actions/cache@v4
         with:
@@ -174,6 +180,7 @@ jobs:
             build/simulation-engine/diode-sequences
             build/simulation-engine/rf-bias
             build/simulation-engine/rf-transient
+            build/sky130-mos-bias
             build/rf-isolation-evidence
             build/rf-isolation-boundaries
           if-no-files-found: error

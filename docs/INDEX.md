@@ -40,6 +40,7 @@ The [gallery catalog](../README.md#example-library) contains 13 guided entries. 
 - [Extraction, constraints and durable verification campaigns](ANALOG_CLOSURE.md)
 - [Two-stage amplifier, diagnostics and statistical plans](ANALOG_REFERENCE_WORKFLOW.md)
 - [Process RC, device multiplicity and physical hierarchy](ANALOG_IMPLEMENTATION_EXTENSIONS.md)
+- [SKY130 MOS voltage-boundary evidence and reproduction](SKY130_MOS_BIAS_QUALIFICATION.md)
 - [Saved testbenches, PVT and engineering studies](PROFESSIONAL_WORKFLOWS.md)
 - [Compare schematic and captured extracted implementations](REFERENCE_IMPLEMENTATIONS.md)
 
