@@ -61,7 +61,8 @@
       "latest_sky130_threshold_evidence": "docs/validation/sky130-threshold-layouts-2026-10-21.json",
       "latest_hosted_acceptance": "docs/validation/chunk7-hosted-acceptance-2026-10-22.json",
       "latest_sky130_voltage_evidence": "docs/validation/sky130-voltage-layouts-2026-10-22.json",
-      "latest_sky130_default_geometry_evidence": "docs/validation/sky130-mos-defaults-2026-10-22.json"
+      "latest_sky130_default_geometry_evidence": "docs/validation/sky130-mos-defaults-2026-10-22.json",
+      "latest_sky130_mim2_evidence": "docs/validation/sky130-mim2-layouts-2026-10-22.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18909,7 +18910,8 @@
         "sky130-mos-bias-2026-10-21",
         "sky130-threshold-layouts-2026-10-21",
         "sky130-voltage-layouts-2026-10-22",
-        "sky130-mos-defaults-2026-10-22"
+        "sky130-mos-defaults-2026-10-22",
+        "sky130-mim2-layouts-2026-10-22"
       ]
     },
     "sky130A:device-physical": {
@@ -18922,7 +18924,8 @@
         "standard-mos-sweeps-2026-10-16",
         "sky130-li-metal-resistors-2026-10-17",
         "sky130-threshold-layouts-2026-10-21",
-        "sky130-voltage-layouts-2026-10-22"
+        "sky130-voltage-layouts-2026-10-22",
+        "sky130-mim2-layouts-2026-10-22"
       ]
     },
     "sky130A:device-simulation": {
@@ -18942,7 +18945,8 @@
         "sky130-mos-bias-2026-10-21",
         "sky130-threshold-layouts-2026-10-21",
         "sky130-voltage-layouts-2026-10-22",
-        "sky130-mos-defaults-2026-10-22"
+        "sky130-mos-defaults-2026-10-22",
+        "sky130-mim2-layouts-2026-10-22"
       ]
     },
     "sky130A:digital-controller": {
@@ -20016,7 +20020,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "capacitor-families-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "sky130-mim2-layouts-2026-10-22"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -25145,6 +25150,11 @@
       "path": "docs/validation/sky130-mos-defaults-2026-10-22.json",
       "sha256": "7c867a13f7ec547d1d0b980b33e3a31f24490de25a6dd6b03c5ef12f240ee629",
       "scope_limit": "Fresh instance dimensions for seven reviewed short SKY130 MOS symbols; selected independent DC/corner/temperature and nominal terminal-AC comparisons for all 42 available MOS defaults. Persistence, exchange and source Qt workflows. No new physical or full device-envelope qualification."
+    },
+    "sky130-mim2-layouts-2026-10-22": {
+      "path": "docs/validation/sky130-mim2-layouts-2026-10-22.json",
+      "sha256": "2d29b7431f5b354837ff6be852ed0c75a47eba7daa19efe046fda16de8b97a6a",
+      "scope_limit": "Bounded square SKY130 second-plate MiM recipe on metal4/cap2m/metal5. Finite native geometry/connectivity, deterministic extracted capacitance, source desktop and Windows/native handoff. Rectangular geometry and full operating/statistical envelopes remain unqualified."
     }
   },
   "execution_acceptance": {
@@ -25160,8 +25170,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-21-threshold/manifest.json",
-        "sha256": "5962e560060f8bd9cded273b314d5fd0feb1642731be4323804de46f36255cbb"
+        "path": "docs/validation/gf180-tested-source-2026-10-22-mim2/manifest.json",
+        "sha256": "9731a4fc7d1a45fa85e062d9d2133f9522476ce6cc1c5bc093f430e802c93277"
       }
     },
     "5": {

@@ -73,6 +73,12 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [second MiM layout batch](SKY130_SECOND_MIM_LAYOUT.md) adds a bounded
+square SKY130 recipe: 28 native layouts, 35 detected faults, 21 extracted
+electrical comparisons, both source editors and Windows/local-native handoff
+pass. The failed rectangular-rotation cases remain an explicit physical
+coverage blocker. No device or chunk completion status is promoted.
+
 The [SKY130 starting-dimension correction](SKY130_MOS_DEFAULTS.md) removes seven
 fresh-placement model-selection failures. Both hosts pass 14 independent cases
 for all 42 available MOS defaults, all 756 faulty instances, 67 distinct affected

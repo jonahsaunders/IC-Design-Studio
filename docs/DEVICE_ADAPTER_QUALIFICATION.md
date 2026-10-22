@@ -1,5 +1,12 @@
 # Bundled device corrections and reproducible qualification
 
+The [second SKY130 MiM recipe](SKY130_SECOND_MIM_LAYOUT.md) adds editable
+square metal4/cap2m/metal5 capacitors. Twenty-eight rotated layouts and 35
+deliberate faults pass, with 21 extracted capacitance comparisons, both source
+editors and the Windows/local-native handoff. Rectangular rotation still fails
+strict dimension comparison and is rejected by this new recipe. This bounded
+addition does not complete device qualification.
+
 The [SKY130 starting-dimension correction](SKY130_MOS_DEFAULTS.md) fixes seven
 short symbols that failed model selection when newly placed. All 42 available
 MOS defaults now pass the recorded 14 independent DC/AC cases on Windows and

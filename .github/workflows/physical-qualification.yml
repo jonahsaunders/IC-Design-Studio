@@ -42,7 +42,7 @@ jobs:
       - name: Build compatible pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
       - name: Build the verified simulator for externally included model decks
-        if: matrix.stage == 'inverter' || matrix.stage == 'detector'
+        if: matrix.stage == 'inverter' || matrix.stage == 'detector' || matrix.stage == 'devices'
         run: |
           sudo apt-get install -y autoconf automake libtool bison flex libreadline-dev libsuitesparse-dev
           python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/simulation-engine
@@ -98,6 +98,14 @@ jobs:
         run: |
           python -m unittest tests.test_sky130_voltage_layouts -v
           python scripts/qualify_sky130_voltage_layouts.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --output build/voltage-layout-evidence --pilot
+      - name: Verify second-plate MiM geometry and extracted response
+        if: matrix.stage == 'devices'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          python -m unittest tests.test_sky130_mim2 -v
+          python scripts/qualify_sky130_mim2.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim2-layout-evidence --pilot
       - name: Prepare the separately versioned experimental PNP adapter
         if: matrix.stage == 'bipolar'
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/bipolar-adapter/sky130A --bipolar
@@ -210,6 +218,7 @@ jobs:
             build/rf-isolation-boundaries
             build/threshold-layout-evidence
             build/voltage-layout-evidence
+            build/mim2-layout-evidence
           if-no-files-found: error
 
   detector-desktop:

@@ -1,9 +1,34 @@
 # Chunks 1–12: progress and forecast
 
-**Snapshot: October 22, 2026.** Latest locally tested application commit:
-[`748ad9f`](https://github.com/jonahsaunders/IC-Design-Studio/commit/748ad9faf3f5f2fa15e5975c252c618b6725c9df),
+**Snapshot: October 22, 2026.** Latest local evidence:
+[second SKY130 MiM layouts](validation/sky130-mim2-layouts-2026-10-22.json),
+with exact source hashes and baseline
+[`3c1b4b8`](https://github.com/jonahsaunders/IC-Design-Studio/commit/3c1b4b846adf9eac763d9c3258c4f3bd32964e09)
 on `experimental`. This tracker is updated during project work, without a
 scheduled background monitor.
+
+The latest [second MiM layout batch](SKY130_SECOND_MIM_LAYOUT.md) adds square
+SKY130 metal4/cap2m/metal5 capacitors. **28 rotated layouts, 35 detected faults
+and 21 extracted electrical comparisons pass.** Both host audits, 32 distinct
+targeted tests per host, both source editors and Windows/local-native handoff
+pass. The original small-landing failure was fixed. Rectangular rotation still
+exchanges native W/L and fails strict comparison; the new recipe rejects it.
+Those failures remain visible. This advances one physical recipe without
+promoting device statuses or completing chunk 7.
+
+A verified 95.3 MB archive retains 1.90 GB of logical evidence. Restoring 2,363
+source/input files reproduces one layout, one electrical comparison and all
+five faults. Both hosts pass the additional 32 evidence/matrix checks and the
+release-document checks, bringing this batch to 64 distinct targeted tests per
+host.
+The older GF180 gate retains the exact originally tested source bytes; it is
+not reassigned to this changed application.
+
+At the start of this batch, experimental matched GitHub at `3c1b4b8`; hosted
+checks were still in progress (latest snapshot: seven passed, seven running,
+three pending; no failures reported). An empty exact-revision API response was followed
+by a successful query showing all 17 runs, so the empty response is not a test
+result. The new capacitor changes require their own hosted acceptance.
 
 The latest [SKY130 default-geometry batch](validation/sky130-mos-defaults-2026-10-22.json)
 fixes seven newly placed short symbols that failed model selection. Both hosts
@@ -21,6 +46,14 @@ separate from the seven unavailable real-device bindings. This batch closes a
 placement defect; it does not complete device envelopes, add 16 V physical
 generation or promote any device/chunk status. Earlier hosted acceptance retains
 its exact revision, and the new application needs its own hosted results.
+
+Final follow-up: both hosts also pass 32 qualification/evidence checks, bringing
+this batch to 99 distinct targeted tests per host; release-document checks pass.
+The Windows-mounted Linux evidence attempt was interrupted while resolving PDK
+paths. Unchanged tests from a verified Linux-local snapshot of `3c1b4b8` pass in
+10.1 seconds (32.4 seconds including extraction and verification). This gives
+future validation a faster execution path without changing qualification scope.
+This follow-up note is retained locally to avoid restarting the active CI runs.
 
 **Six gates are closed within their declared scope, one is active, and five
 remain pending. This is not a 50% estimate of the remaining engineering work.**
@@ -137,8 +170,10 @@ workflow-token/default-branch restriction; current success does not establish
 the cause of the historical error. No permissions or credentials were changed.
 The voltage-device and starting-dimension application changes still need their
 own exact-revision hosted and final installed acceptance. The intermediate
-`e8ac8bc` hosted snapshot has six successful, five running and six queued
-workflows; that unfinished snapshot is not an acceptance result for the new code.
+`e8ac8bc` hosted snapshot had six successful, five running and six queued
+workflows. The new `3c1b4b8` snapshot has six successful, six running, three
+pending and two queued workflows. These unfinished snapshots are not final
+hosted or installed acceptance results.
 
 ## How progress is likely to unfold
 
@@ -191,3 +226,8 @@ During subsequent project work, update the snapshot and affected rows, append a
 brief history entry for meaningful changes, and explain whether the remaining
 work became smaller, larger or better defined. Keep verified status separate
 from confidence and estimates. Preserve prior failures and acceptance scopes.
+
+Cleanup for this batch removed 1,764,806,858 bytes of verified Windows test
+copies and 3,788,445,812 bytes inside Linux. The 28.3 MB primary archive and
+87.9 MB checkpoint retain the evidence and exact committed source snapshot.
+No Windows administrator action or disk compaction was used.

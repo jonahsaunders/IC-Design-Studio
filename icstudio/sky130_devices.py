@@ -30,10 +30,13 @@ def layers(tech):
 def supported(tech,d):
     binding=binding_for(tech,d)
     from .sky130_fixed_devices import supported as fixed_supported
-    return bool(binding and binding.get('model') in MODELS) or fixed_supported(tech,d)
+    from .sky130_mim2 import supported as mim2_supported
+    return bool(binding and binding.get('model') in MODELS) or fixed_supported(tech,d) or mim2_supported(tech,d)
 
 
 def specification(tech,d):
+    from .sky130_mim2 import supported as mim2_supported,specification as mim2_specification
+    if mim2_supported(tech,d):return mim2_specification(tech,d)
     from .sky130_fixed_devices import supported as fixed_supported,specification as fixed_specification
     if fixed_supported(tech,d):return fixed_specification(tech,d)
     layers(tech);binding=binding_for(tech,d)
@@ -76,9 +79,14 @@ def configure_connectivity(tech):
         if row not in vias:vias.append(row)
     blocker=dict(conductor=ls['m3'],cut=ls['via3'],mask=ls['capm'])
     if blocker not in cfg.setdefault('via_blockers',[]):cfg['via_blockers'].append(blocker)
+    from .sky130_mim2 import MASKS as mim2_masks,configure_connectivity as configure_mim2
+    if set(mim2_masks.values())<={(v['gds'],v['datatype']) for v in tech['layers']}:
+        configure_mim2(tech)
 
 
 def geometry(tech,d,x=0,y=0):
+    from .sky130_mim2 import supported as mim2_supported,geometry as mim2_geometry
+    if mim2_supported(tech,d):return mim2_geometry(tech,d,x,y)
     from .sky130_fixed_devices import supported as fixed_supported,geometry as fixed_geometry
     if fixed_supported(tech,d):return fixed_geometry(tech,d,x,y)
     spec=specification(tech,d);ls=layers(tech);w,l=spec['dimensions_nm']['w'],spec['dimensions_nm']['l']
@@ -130,6 +138,9 @@ def parallel_geometry(tech,d,data,count):
     # MOS-only technology fixtures do not contain the passive mask set.
     from .sky130_layout import layers as mos_layers
     ls=mos_layers(tech) if d['kind'] in ('NMOS','PMOS') else layers(tech)
+    if data['record']['spec'].get('recipe')=='mim2_capacitor':
+        from .sky130_mim2 import layers as mim2_layers
+        ls.update(mim2_layers(tech))
     from .layout_eco import roles
     roles(data);base=clone(data['shapes']);terminals=clone(data['pins'])
     bottom=min(polygon(s).bbox().bottom for s in base);top=max(polygon(s).bbox().top for s in base)
@@ -138,7 +149,7 @@ def parallel_geometry(tech,d,data,count):
     if shape_count>100000:raise ValueError('Parallel geometry exceeds the 100,000-shape footprint limit; reduce dimensions or multiplicity.')
     # Validate before changing data: only the qualified unit terminal layers
     # have an explicit interconnect construction here.
-    allowed={ls['m1'],ls.get('m4')}
+    allowed={ls['m1'],ls.get('m4'),ls.get('m5')}
     if any(pin['layer'] not in allowed for pin in terminals):raise ValueError('Unsupported terminal layer in physical parallel array.')
     for index in range(1,count):
         for original in base:
@@ -153,13 +164,13 @@ def parallel_geometry(tech,d,data,count):
         name=pin['pin'];net=d['nets'][name];px,py=pin['point']
         # MOS and poly-resistor accesses lift to metal2. MiM accesses already
         # sit on metal4; vertical rails stay outside the opposite electrode.
-        key='m2' if pin['layer']==ls['m1'] else 'm4'
+        key='m2' if pin['layer']==ls['m1'] else 'm5' if pin['layer']==ls.get('m5') else 'm4'
         if key=='m2':
             for index in range(count):
                 for mask,half in (('m1',170),('via',75),('m2',170)):
                     box(f'parallel:access:{name}:{index}:{mask}',mask,px,py+index*pitch,half,net if mask!='via' else '')
         data['shapes'].append(dict(id=uid(),kind='path',layer=ls[key],points=[[px,py],[px,py+(count-1)*pitch]],
-            width=340,net=net,device_id=d['id'],generated_device=d['id'],generator_role='parallel:rail:'+name))
+            width=1600 if key=='m5' else 340,net=net,device_id=d['id'],generated_device=d['id'],generator_role='parallel:rail:'+name))
     data['record']['parallel_units']=dict(count=count,pitch_nm=pitch,
         offsets_nm=[[0,index*pitch] for index in range(count)])
     return data
