@@ -76,20 +76,24 @@ permissions:
 jobs:
   physical-coils:
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    # Individual gates now exceed the original one-hour total. Keep their
+    # existing limits and leave room for setup, all gates and evidence upload.
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install native build and verification dependencies
+        timeout-minutes: 20
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev klayout libegl1 libopengl0
-          curl -fL --retry 3 -o /tmp/ihp-klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          apt_options=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo apt-get "${apt_options[@]}" update --error-on=any
+          sudo apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev klayout libegl1 libopengl0
+          curl -fL --retry 3 --connect-timeout 30 --max-time 300 -o /tmp/ihp-klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
           echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/ihp-klayout.deb' | sha256sum -c
-          sudo apt-get install -y /tmp/ihp-klayout.deb
-          python -m pip install -r requirements.txt -r requirements-qualification.txt
+          sudo apt-get "${apt_options[@]}" install -y /tmp/ihp-klayout.deb
+          python -m pip install --timeout 30 --retries 3 -r requirements.txt -r requirements-qualification.txt
       - name: Verify public measured reference and layout exchange without an EM solve
         run: |
           python -m unittest tests.test_ihp_measured_reference tests.test_ihp_measured_workflow -v

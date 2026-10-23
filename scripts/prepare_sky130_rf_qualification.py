@@ -5,6 +5,7 @@ junctions in micrometres; physical extraction and RF operating limits remain
 qualification requirements. The application's automatic runtime guard applies.
 """
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -20,6 +21,32 @@ BASE = '42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413'
 SOURCE = ROOT / 'icstudio/assets/qualification/sky130-rf'
 LOCK = '9bbc32cb158ae7f842aee085abaa834df9576eb2a5fad0c00f81eeb07607b570'
 COMMON = 'sky130_fd_pr__model__parasitic__'
+
+
+def corner_sources(source=None):
+    """Capture the original RF corner bytes from a reviewed package revision.
+
+    A new default manifest must not replace the historical RF input contract.
+    Reconstruct and validate that contract, then return immutable input text so
+    callers do not keep references into a temporary historical package.
+    """
+    source = Path(source or ROOT/'icstudio/assets/pdks/sky130A').resolve()
+    selected = file_digest(source/'package.json')
+    corners = {}
+    with previous_mim(source) as historical:
+        if file_digest(historical/'package.json') != BASE:
+            raise ValueError('Changed RF corner source package.')
+        package = json.loads((historical/'package.json').read_bytes())
+        for name in ('tt', 'ss', 'ff'):
+            relative = f'libs.tech/ngspice/corners/{name}/nonfet.spice'
+            content = (historical/relative).read_bytes()
+            sha = hashlib.sha256(content).hexdigest()
+            if sha != package['files'][relative]:
+                raise ValueError('Changed RF corner parameters: '+name)
+            corners[name] = dict(path=relative, sha256=sha, text=content.decode('utf-8'))
+    return dict(selected_manifest_sha256=selected, historical_manifest_sha256=BASE,
+                source_helper_sha256=file_digest(__file__),
+                files={row['path']:row['sha256'] for row in corners.values()}), corners
 
 
 def public_sources():

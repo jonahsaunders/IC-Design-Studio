@@ -73,6 +73,13 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [October 23 CI recovery](CHUNK7_CI_RECOVERY.md) restores the exact historical
+RF corner inputs after the MiM default revision. Both hosts pass 360 branch
+cases, 360 reverse-bias/noise cases, 90 transient conditions and application
+runtime checks. Changed/missing sources remain rejected. Hosted setup/job limits
+were repaired separately; fresh hosted acceptance remains pending. Device and
+chunk statuses are unchanged.
+
 The [SKY130 MiM parameter correction](SKY130_MIM_MULTIPLICITY.md) gives the
 second capacitor a separately versioned `mf` mapping and corrects exact-source
 local imports. Both hosts pass the 54-run native integration batch and detect

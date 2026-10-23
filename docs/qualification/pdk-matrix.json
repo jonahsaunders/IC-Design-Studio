@@ -1,7 +1,7 @@
 {
   "schema": 6,
-  "as_of": "2026-10-22",
-  "source_baseline": "cf590699f11b30c6edd7b103416e71c0ddd9a068",
+  "as_of": "2026-10-23",
+  "source_baseline": "b4e00d9bb89546feb3d9dfc728d57c2558bcdc18",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -63,7 +63,8 @@
       "latest_sky130_voltage_evidence": "docs/validation/sky130-voltage-layouts-2026-10-22.json",
       "latest_sky130_default_geometry_evidence": "docs/validation/sky130-mos-defaults-2026-10-22.json",
       "latest_sky130_mim2_evidence": "docs/validation/sky130-mim2-layouts-2026-10-22.json",
-      "latest_sky130_mim_binding_evidence": "docs/validation/sky130-mim-binding-2026-10-22.json"
+      "latest_sky130_mim_binding_evidence": "docs/validation/sky130-mim-binding-2026-10-22.json",
+      "latest_ci_recovery_evidence": "docs/validation/chunk7-ci-recovery-2026-10-23.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18950,7 +18951,8 @@
         "sky130-voltage-layouts-2026-10-22",
         "sky130-mos-defaults-2026-10-22",
         "sky130-mim2-layouts-2026-10-22",
-        "sky130-mim-binding-2026-10-22"
+        "sky130-mim-binding-2026-10-22",
+        "chunk7-ci-recovery-2026-10-23"
       ]
     },
     "sky130A:digital-controller": {
@@ -25166,6 +25168,11 @@
       "path": "docs/validation/sky130-mim-binding-2026-10-22.json",
       "sha256": "fe7c235301eeeb9f5cb6673ec73de3da649b9ae03173d588633115812606b433",
       "scope_limit": "Versioned SKY130 second-MiM MF parameter mapping, exact-source local import, finite seeded public-model integration and selected square-layout regression. No silicon, complete statistical/operating, rectangular geometry or tapeout qualification."
+    },
+    "chunk7-ci-recovery-2026-10-23": {
+      "path": "docs/validation/chunk7-ci-recovery-2026-10-23.json",
+      "sha256": "a3b3e6b9592279124a8869ae93001ac6c21c0d804910874ae0533417f9fd1874",
+      "scope_limit": "Reproduce historical public RF branch/bias/transient and application checks with the current MiM default. Exact corner inputs and thresholds preserved. No new device, operating-envelope, physical, default-promotion or installed-release qualification."
     }
   },
   "execution_acceptance": {

@@ -86,10 +86,14 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install extraction and simulator build dependencies
+        # A stalled package-index request previously consumed this job's entire
+        # 210-minute extraction budget without running the qualification.
+        timeout-minutes: 20
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev libegl1 libopengl0
-          python -m pip install -r requirements.txt
+          apt_options=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo apt-get "${apt_options[@]}" update --error-on=any
+          sudo apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev libegl1 libopengl0
+          python -m pip install --timeout 30 --retries 3 -r requirements.txt
       - name: Build the isolated patched extractor and pinned sparse solver
         run: |
           python scripts/build_physical_engines.py --lock examples/gf180-rc-engine-lock.json --output build/gf180-engines

@@ -19,7 +19,7 @@ from icstudio.diode_runtime import THERMAL_VOLTAGE, verify
 from icstudio.engines import parse_raw
 from icstudio.model import file_digest
 from icstudio.spice_program import runtime_environment
-from scripts.prepare_sky130_rf_qualification import BASE, COMMON, public_sources, derivative
+from scripts.prepare_sky130_rf_qualification import COMMON, public_sources, derivative, corner_sources
 from scripts.qualify_sky130_rf_branches import COEFFICIENTS, GEOMETRIES, TEMPERATURES
 
 JUNCTIONS = {
@@ -154,22 +154,18 @@ def qualify(executable, output, pilot=False):
     executable = str(Path(executable).resolve()); runtime = verify(executable, output/'runtime')
     if runtime['status'] != 'PASS' or runtime['behavior']['mode'] != 'unscaled-explicit-area':
         raise ValueError('RF qualification requires verified unscaled AREA/PJ history.')
-    lock, sources = public_sources(); source = ROOT/'icstudio/assets/pdks/sky130A'
-    if file_digest(source/'package.json') != BASE:raise ValueError('Changed RF corner source package.')
-    package = json.loads((source/'package.json').read_bytes())
+    lock, sources = public_sources(); corner_source, corners = corner_sources()
     report = dict(schema=1, status='RUNNING', qualified=False, chunk_complete=False, pilot=pilot,
                   scope=__doc__, source=lock, runner_sha256=file_digest(__file__), engine_sha256=file_digest(executable),
                   relative_tolerance=1e-6, absolute_current_tolerance_a=1e-18,
                   absolute_noise_tolerance_a_sqrt_hz=1e-24, biases_v=BIASES, frequencies_hz=FREQUENCIES,
                   grounding='Anode grounded; cathode driven. Avoids cancellation of tiny resistor currents at a large anode common-mode voltage.',
-                  corners={}, cases=[])
+                  corner_source=corner_source, corners={}, cases=[])
     for corner in (('tt',) if pilot else ('tt', 'ss', 'ff')):
-        path = source/f'libs.tech/ngspice/corners/{corner}/nonfet.spice'
-        if file_digest(path) != package['files'][path.relative_to(source).as_posix()]:raise ValueError('Changed RF corner parameters.')
-        parameters = '\n'.join(line for line in path.read_text().splitlines()
+        parameters = '\n'.join(line for line in corners[corner]['text'].splitlines()
                                if not line.startswith('*') and any('diode_'+m+'__' in line for m in COEFFICIENTS))
         values = {name:float(value) for name,value in re.findall(r'(sky130\w+)\s*=\s*([\d.eE+-]+)',parameters)}
-        report['corners'][corner] = dict(sha256=file_digest(path), parameters=values)
+        report['corners'][corner] = dict(sha256=corners[corner]['sha256'], parameters=values)
         for model in COEFFICIENTS:
             aj = values[COMMON+'diode_'+model+'__ajunction_mult']; pj = values[COMMON+'diode_'+model+'__pjunction_mult']
             for temperature in ((27,) if pilot else TEMPERATURES):

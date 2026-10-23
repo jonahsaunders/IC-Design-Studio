@@ -1,11 +1,29 @@
 # Chunks 1–12: progress and forecast
 
-**Snapshot: October 22, 2026.** Latest local evidence:
-[SKY130 MiM parameter correction](validation/sky130-mim-binding-2026-10-22.json),
+**Snapshot: October 23, 2026.** Latest local evidence:
+[RF qualification and CI recovery](validation/chunk7-ci-recovery-2026-10-23.json),
 with exact source hashes and baseline
-[`cf59069`](https://github.com/jonahsaunders/IC-Design-Studio/commit/cf590699f11b30c6edd7b103416e71c0ddd9a068)
+[`b4e00d9`](https://github.com/jonahsaunders/IC-Design-Studio/commit/b4e00d9bb89546feb3d9dfc728d57c2558bcdc18)
 on `experimental`. This tracker is updated during project work, without a
 scheduled background monitor.
+
+The [latest CI review](CHUNK7_CI_RECOVERY.md) found **nine successful, four failed
+and three cancelled workflows** at `b4e00d9`. This supersedes its earlier pending
+snapshot. All three RF runners now reconstruct and verify the original corner
+inputs; both hosts pass the full branch, reverse-bias/noise and transient batches,
+the application checks and 21 focused tests. An independent inventory audit
+verifies 8,730 retained raw files per host. Inputs, equations and thresholds are
+unchanged. The initial incompatible Linux engine rejection is retained; the
+reviewed RF engine passes the complete rerun.
+
+IHP's global job budget and the affected dependency-download bounds are fixed
+without removing any qualification gate. Fresh hosted and final installed
+acceptance are still required. The requested rough 60% estimate remains low
+confidence; these repairs do not justify increasing it or promoting any of the
+286 partial entries. Seven required bindings and the broader device gates remain
+open.
+
+A verified 154.1 MB archive retains 1.71 GB of logical evidence. Restoring 1,203 source/input files reproduces all eight RF bias pilot cases and both transient pilot conditions. All original failure logs and the incompatible-engine rejection remain retained. The 35 additional evidence/matrix checks and release-document checks pass. Verified temporary copies were removed: 494.0 MB from Windows and 1.07 GB inside Linux; no administrator access or disk compaction was used.
 
 The [MiM parameter correction](SKY130_MIM_MULTIPLICITY.md) fixes unused VM emission in a
 separately versioned default and exact-source local import. **Both hosts pass 54 native
@@ -24,6 +42,19 @@ device or completing chunk 7. Exact new-revision hosted/installed acceptance rem
 pending.
 
 Final evidence bookkeeping also passes 32 checks and the release-document/workflow checks. The verified 10.3 MB checkpoint retains the restored replay and full-suite logs. Archived temporary copies were removed: 375.3 MB from Windows and 595.4 MB inside Linux. This used no administrator access or WSL disk compaction.
+
+Final follow-up: these application fixes and the main tracker are pushed as
+[`b4e00d9`](https://github.com/jonahsaunders/IC-Design-Studio/commit/b4e00d9bb89546feb3d9dfc728d57c2558bcdc18),
+and the remote `experimental` branch matches. The exact-revision hosted snapshot
+has four successful, three running, four pending and five queued workflows;
+none has reported failure. Pending and queued runs are not acceptance results.
+This follow-up note is local until the next code push, preserving the active
+acceptance runs. The completed batch removes the reviewed MiM parameter defect;
+seven unavailable required bindings, complete operating ranges, wider physical
+and process-option coverage, and exact final installed acceptance still prevent
+chunk-7 closure. The rectangular MiM rotation issue remains open: the pinned
+public generator provides a physical orientation convention, but a separately
+tested extraction correction has not yet been implemented.
 
 The preceding [second MiM layout batch](SKY130_SECOND_MIM_LAYOUT.md) adds square
 SKY130 metal4/cap2m/metal5 capacitors. **28 rotated layouts, 35 detected faults
@@ -205,6 +236,20 @@ hosted or installed acceptance results.
 
 ## How progress is likely to unfold
 
+At the user's request, the **rough engineering estimate for chunk 7 is about
+60% complete**, with a broad planning range of **50–70% and low confidence**
+(October 22, 2026; application revision `b4e00d9`). This is a judgment about the
+implemented integration and accumulated verification work relative to the
+remaining gate, not a measured coverage score or a fraction of time remaining.
+Working device interfaces, selected electrical/physical batches and reusable
+verification infrastructure are well advanced. Missing required model bindings,
+complete source-backed operating ranges, broader physical/process-option
+coverage and final installed acceptance still represent substantial work.
+The estimate is not derived from test counts or the six earlier closed chunks;
+it does not promote any device or change the chunk-7 gate. Revise it as those
+remaining requirements become better defined. No overall project percentage or
+completion date is implied.
+
 1. **Device completion comes first.** Separate missing model/source information
    from implementation defects and finite test batches. Track each family by
    its remaining gate conditions; repeated sample additions can improve the
@@ -243,6 +288,8 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-23 | Repaired stale RF corner guards; both hosts pass 360 branch cases, 360 bias/noise cases, 90 transient conditions, application checks and 21 focused tests. Corrected IHP total-job and dependency-download limits. | Removes confirmed qualification regressions. Fresh hosted acceptance is pending; no device promotion or increase to the low-confidence 60% estimate. |
+| 2026-10-22 | Pushed `b4e00d9`: source-locked MiM multiplicity correction and saved-revision preservation; 54 native runs per host, both 3,301-test source suites, independent audits and archive replay pass. Recovered the isolated test-harness Git mistake without losing source changes. | One concrete integration defect is closed. All device statuses remain unchanged; exact-revision hosted acceptance is still running. This final sync note is local until the next code push. |
 | 2026-10-22 | Verified all 17 workflows and exact-release validation at `e29cfd6`; application commit `1647800` adds four voltage/native MOS generators passing 128 layouts and 257 faults after fixing the 25 µm substrate-tap violation; both-host regressions, source desktops and archived-source replay pass. | The older release-publication blockage is superseded by an observed successful draft. Device envelopes, seven missing bindings and new-source acceptance remain open. |
 | 2026-10-21 | Initial tracker created from the matrix and acceptance records at `5095283`; isolated-body fixes and repeated-cell regression recorded. | Six scoped gates closed; chunk 7 remains the active critical path. No later gate promoted. |
 | 2026-10-21 | Completed the 60-case SKY130 public MOS bias-boundary batch, both final host pilots, independent raw audits and restored-source replay; added ongoing pilot checks. | The finite boundary coverage for 33 views is now verified. Missing bindings, full envelopes and physical coverage still prevent chunk-7 closure; no overall finish date follows from this batch. |
