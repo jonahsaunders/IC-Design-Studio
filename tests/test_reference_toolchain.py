@@ -365,6 +365,150 @@ class ReferenceToolchainTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'KLU support differs'):
                 toolchain.probe(self.root)
 
+    def new_image(self):
+        return patch.object(toolchain, 'environment', return_value={
+            'system': 'Linux', 'machine': 'x86_64', 'image_os': 'ubuntu24', 'image_version': 'new-image'})
+
+    def fake_build(self, command, **kwargs):
+        self.assertEqual(command[:2], [sys.executable, str(self.root / 'scripts/build_physical_engines.py')])
+        folder = Path(command[command.index('--output') + 1]).relative_to(self.root).as_posix()
+        lock_name, only = toolchain.BUNDLES[folder]
+        self.assertEqual(command[command.index('--lock') + 1], str(self.root / lock_name))
+        self.assertEqual(command[command.index('--only') + 1] if '--only' in command else None, only)
+        self.assertEqual(kwargs['cwd'], self.root)
+        self.assertFalse(any(key.upper().startswith('GIT_') for key in kwargs['env']))
+        lock = toolchain.expected_locks(self.root)[folder]
+        self.write(folder + '/source-lock.json', json.dumps(lock).encode())
+        for engine in lock:
+            self.write(folder + '/installed/bin/' + engine, ('fresh fixture ' + engine).encode()).chmod(0o755)
+            self.write(folder + '/licenses/' + engine + '/LICENSE', b'fresh retained license')
+            for suffix in ('-build.log', '-version.log'):
+                self.write(folder + '/' + engine + suffix, b'fresh build evidence')
+
+    def test_matching_prepare_reuses_and_unconditional_ready_probes_verified_inventory(self):
+        sha = self.pack()
+        plan = toolchain.prepare(self.root, self.archive, sha, self.sha)
+        self.assertEqual((plan['resolution'], plan['status']), ('reused', 'prepared'))
+        with patch.object(toolchain, 'probe', return_value={'magic': '8.3.684', 'ngspice': 'ngspice-46 KLU'}) as probe:
+            result = toolchain.ready(self.root, self.archive, sha, self.sha)
+        probe.assert_called_once_with(self.root)
+        self.assertEqual(result['archive_sha256'], sha)
+        self.assertEqual(result['producer_archive_sha256'], sha)
+        self.assertEqual(result['resolution'], 'reused')
+
+    def test_strict_restore_still_rejects_typed_version_mismatch(self):
+        sha = self.pack()
+        with self.new_image(), self.assertRaises(toolchain.ImageVersionMismatch):
+            self.restore(sha)
+        self.assertFalse((self.root / 'build/gf180-engines').exists())
+        self.assertFalse((self.root / 'build' / toolchain.RESOLUTION).exists())
+
+    def test_version_only_miss_builds_same_locks_and_binds_fresh_manifest_before_ready(self):
+        sha = self.pack()
+        with self.new_image():
+            plan = toolchain.prepare(self.root, self.archive, sha, self.sha)
+            self.assertEqual(plan['status'], 'rebuild_required')
+            self.assertFalse((self.root / 'build/gf180-engines').exists())
+            with self.assertRaisesRegex(ValueError, 'not ready'):
+                toolchain.ready(self.root, self.archive, sha, self.sha)
+            with patch.dict(os.environ, {'Git_DIR': 'must-not-leak'}), \
+                    patch.object(toolchain.subprocess, 'check_call', side_effect=self.fake_build) as build:
+                result = toolchain.rebuild(self.root, self.archive, sha, self.sha)
+            self.assertEqual(build.call_count, 2)
+            self.assertNotEqual(result['local_archive_sha256'], sha)
+            manifest = json.loads((self.root / 'build' / toolchain.MANIFEST).read_bytes())
+            self.assertEqual(manifest['environment']['image_version'], 'new-image')
+            with patch.object(toolchain, 'probe', return_value={'magic': '8.3.684', 'ngspice': 'ngspice-46 KLU'}):
+                ready = toolchain.ready(self.root, self.archive, sha, self.sha)
+            self.assertEqual(ready['resolution'], 'rebuilt_for_image_version')
+            self.assertEqual(ready['archive_sha256'], result['local_archive_sha256'])
+            self.assertEqual(ready['producer_archive_sha256'], sha)
+            self.assertTrue((self.root / 'build/reference-toolchain-mismatch.json').is_file())
+
+    def test_image_miss_never_hides_corrupt_payload_paths_schema_or_other_identity(self):
+        self.pack()
+        original = self.archive.read_bytes()
+        faults = ('engine-bytes', 'traversal', 'schema', 'source-lock', 'missing-license', 'duplicate-key',
+                  'candidate', 'workspace', 'inputs', 'machine', 'image-os', 'unknown-environment', 'empty-image-version')
+        for fault in faults:
+            with self.subTest(fault=fault):
+                self.archive.write_bytes(original)
+                def change(contents):
+                    for member, raw in contents:
+                        if fault == 'engine-bytes' and member.name.endswith('/bin/magic'):
+                            raw = b'damaged engine'
+                        if fault == 'source-lock' and member.name == 'build/gf180-engines/source-lock.json':
+                            raw = b'{}'
+                        if fault == 'missing-license' and member.name == 'build/gf180-engines/licenses/magic/LICENSE':
+                            continue
+                        if member.name == toolchain.MANIFEST:
+                            record = json.loads(raw)
+                            if fault == 'schema': record['schema'] = 2
+                            elif fault == 'candidate': record['candidate'] = 'b' * 40
+                            elif fault == 'workspace': record['workspace'] = '/other/workspace'
+                            elif fault == 'inputs': record['inputs']['requirements.txt'] = 'b' * 64
+                            elif fault == 'machine': record['environment']['machine'] = 'aarch64'
+                            elif fault == 'image-os': record['environment']['image_os'] = 'ubuntu22'
+                            elif fault == 'unknown-environment': record['environment']['extra'] = 'unknown'
+                            elif fault == 'empty-image-version': record['environment']['image_version'] = ' '
+                            elif fault == 'missing-license': record['files'].pop('build/gf180-engines/licenses/magic/LICENSE')
+                            elif fault == 'source-lock':
+                                record['files']['build/gf180-engines/source-lock.json'].update(size=2, sha256=toolchain.digest(b'{}'))
+                            raw = json.dumps(record).encode()
+                            if fault == 'duplicate-key': raw = raw.replace(b'{', b'{"schema": 1, ', 1)
+                        yield member, raw
+                    if fault == 'traversal': yield tarfile.TarInfo('../escape'), b'bad'
+                sha = self.mutate_archive(change)
+                with self.new_image(), self.assertRaises(ValueError) as caught:
+                    toolchain.prepare(self.root, self.archive, sha, self.sha)
+                self.assertNotIsInstance(caught.exception, toolchain.ImageVersionMismatch)
+                self.assertFalse((self.root / 'build' / toolchain.RESOLUTION).exists())
+                self.assertFalse((self.root / 'build/gf180-engines').exists())
+
+    def test_image_miss_cannot_ignore_checksum_or_build_over_existing_prefix(self):
+        sha = self.pack()
+        with self.new_image():
+            with self.assertRaisesRegex(ValueError, 'checksum differs'):
+                toolchain.prepare(self.root, self.archive, 'b' * 64, self.sha)
+            toolchain.prepare(self.root, self.archive, sha, self.sha)
+            self.write('build/gf180-engines/sentinel', b'keep')
+            with patch.object(toolchain.subprocess, 'check_call') as build:
+                with self.assertRaisesRegex(ValueError, 'Refusing to overwrite'):
+                    toolchain.rebuild(self.root, self.archive, sha, self.sha)
+            build.assert_not_called()
+
+    def test_failed_rebuild_and_failed_native_probe_cannot_create_readiness(self):
+        sha = self.pack()
+        with self.new_image():
+            toolchain.prepare(self.root, self.archive, sha, self.sha)
+            with patch.object(toolchain.subprocess, 'check_call', side_effect=RuntimeError('build failed')):
+                with self.assertRaisesRegex(RuntimeError, 'build failed'):
+                    toolchain.rebuild(self.root, self.archive, sha, self.sha)
+            with self.assertRaisesRegex(ValueError, 'not ready'):
+                toolchain.ready(self.root, self.archive, sha, self.sha)
+            with patch.object(toolchain.subprocess, 'check_call', side_effect=self.fake_build):
+                toolchain.rebuild(self.root, self.archive, sha, self.sha)
+            with patch.object(toolchain, 'probe', side_effect=ValueError('native KLU probe failed')):
+                with self.assertRaisesRegex(ValueError, 'native KLU probe failed'):
+                    toolchain.ready(self.root, self.archive, sha, self.sha)
+            self.assertFalse((self.root / 'build' / toolchain.READY).exists())
+
+    def test_post_build_bytes_or_bound_source_change_fail_readiness(self):
+        sha = self.pack()
+        with self.new_image():
+            toolchain.prepare(self.root, self.archive, sha, self.sha)
+            with patch.object(toolchain.subprocess, 'check_call', side_effect=self.fake_build):
+                toolchain.rebuild(self.root, self.archive, sha, self.sha)
+            binary = self.root / 'build/gf180-engines/installed/bin/magic'
+            raw = binary.read_bytes(); binary.write_bytes(b'changed after binding')
+            with self.assertRaisesRegex(ValueError, 'bytes, modes or links changed'):
+                toolchain.ready(self.root, self.archive, sha, self.sha)
+            binary.write_bytes(raw)
+            self.write('requirements.txt', b'changed source input')
+            with self.assertRaisesRegex(ValueError, 'resolution identity changed'):
+                toolchain.ready(self.root, self.archive, sha, self.sha)
+            self.assertFalse((self.root / 'build' / toolchain.READY).exists())
+
 
 if __name__ == '__main__':
     unittest.main()

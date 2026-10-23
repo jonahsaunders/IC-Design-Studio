@@ -134,4 +134,78 @@ class MimOrientationTests(unittest.TestCase):
             execute.assert_not_called()
 
 
+class MimDispatchShapeTests(unittest.TestCase):
+    """Dispatch guards only; synthetic masks do not establish DRC/signoff validity."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+
+    def layout(self, entries, hierarchy=False):
+        ly = db.Layout(); ly.dbu = .001; top = ly.create_cell('coupon')
+        cell = ly.create_cell('child') if hierarchy else top
+        for index, (plate, kind, side) in enumerate(entries):
+            region = db.Region(db.Box(0, 0, side, side))
+            if kind == 'l': region -= db.Region(db.Box(side//2, side//2, side, side))
+            elif kind == 'hole': region -= db.Region(db.Box(side//3, side//3, 2*side//3, 2*side//3))
+            elif kind == 'rectangle': region = db.Region(db.Box(0, 0, side, 2*side))
+            cell.shapes(ly.layer(89 if plate == 1 else 97, 44)).insert(
+                region.transformed(db.Trans(index*100000, 0)))
+        if hierarchy:
+            top.insert(db.CellInstArray(cell.cell_index(), db.Trans(1, True, 50000, 70000)))
+        path = self.root/'layout.gds'; ly.write(str(path)); return path
+
+    def reject_before_engine(self, entries, hierarchy=False):
+        from icstudio.external_tools import extraction_commands
+        from icstudio.silicon_flow import magic_script
+        path = self.layout(entries, hierarchy)
+        with self.assertRaisesRegex(ValueError, 'separate rectangular electrodes'):
+            required(path, 'coupon')
+        for mode in ('lvs', 'rc'):
+            commands, _ = extraction_commands(mode)
+            with patch('icstudio.silicon_flow.execute') as engine:
+                with self.assertRaisesRegex(ValueError, 'separate rectangular electrodes'):
+                    magic_script('magic', self.root/'sky130A.tech', path, 'coupon', [],
+                                 self.root/'dispatch', commands)
+                engine.assert_not_called()
+
+    def test_square_bounding_box_l_and_hole_are_rejected_before_native_dispatch(self):
+        for plate in (1, 2):
+            for kind in ('l', 'hole'):
+                with self.subTest(plate=plate, kind=kind):
+                    self.reject_before_engine([(plate, kind, 6000)])
+
+    def test_all_models_and_polygons_are_checked_after_a_nonsquare_is_seen(self):
+        for first, second in ((1, 2), (2, 1), (1, 1), (2, 2)):
+            for reverse in (False, True):
+                entries = [(first, 'rectangle', 2000), (second, 'l', 6000)]
+                with self.subTest(models=(first, second), reverse=reverse):
+                    self.reject_before_engine(entries[::-1] if reverse else entries)
+
+    def test_recursive_transformed_shape_cannot_bypass_dispatch(self):
+        for plate in (1, 2):
+            self.reject_before_engine([(plate, 'hole', 6000)], hierarchy=True)
+
+    def test_true_squares_keep_native_lvs_and_rc_dispatch_without_new_size_limits(self):
+        from icstudio.external_tools import extraction_commands
+        from icstudio.silicon_flow import magic_script
+        # These include shapes outside the generator domain. Native dispatch is
+        # preserved, not asserted to qualify those shapes electrically/physically.
+        for plate in (1, 2):
+            for side in (1995, 2000, 2001, 30005, 31000):
+                path = self.layout([(plate, 'square', side)])
+                self.assertFalse(required(path, 'coupon'))
+                rows = electrodes(path, 'coupon', f'sky130_fd_pr__cap_mim_m3_{plate}')[1]
+                self.assertIsNone(rows[0]['axis'])
+                for mode in ('lvs', 'rc'):
+                    commands, _ = extraction_commands(mode)
+                    with self.subTest(plate=plate, side=side, mode=mode):
+                        with patch('icstudio.silicon_flow.execute', side_effect=RuntimeError('intercepted native')) as engine:
+                            with self.assertRaisesRegex(RuntimeError, 'intercepted native'):
+                                magic_script('magic', self.root/'sky130A.tech', path, 'coupon', [],
+                                             self.root/f'dispatch-{plate}-{side}-{mode}', commands)
+                            self.assertEqual(engine.call_count, 1)
+                            self.assertNotIn(MARKER, engine.call_args.kwargs['input_text'])
+
+
 if __name__=='__main__':unittest.main()

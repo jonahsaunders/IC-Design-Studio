@@ -35,11 +35,19 @@ def masks(path, top, model=MODEL):
 
 
 def required(path, top):
+    needed = False
     for model in MODELS:
         layout, regions = masks(path, top, model)
-        if any(p.bbox().width() != p.bbox().height() for p in regions['cap'].each()):
-            return True
-    return False
+        for cap in regions['cap'].each():
+            box = cap.bbox()
+            # A square bounding box does not establish a square electrode.
+            # Inspect every electrode before dispatch, including later models.
+            if cap.area() != box.area():
+                raise ValueError('MiM orientation requires separate rectangular electrodes.')
+            needed |= box.width() != box.height()
+    # True squares retain native extraction; the nonsquare correction bounds
+    # below are not a qualification claim or a new size limit for that path.
+    return needed
 
 
 def electrodes(path, top, model=MODEL):
@@ -155,7 +163,7 @@ def normalize(gds, top, technology, directory, log):
                  source_convention='sky130::cap_device: W along the bottom-contact direction; L perpendicular.',
                  gds_sha256=file_digest(gds),native_coordinate_nm=scale,gds_dbu_um=dbu,
                  electrodes=rows,changes=changes,native_sha256=file_digest(path),
-                 scope='Rectangular 2–30 µm capm/cap2m on the 5 nm grid (first plate at most 5:1), one bottom electrode per capacitor. Correct unambiguous contact axes; reflection-symmetric four-sided contacts retain native global X/Y without a unique-orientation or RF-resistance claim. Connectivity and all other native values are unchanged.')
+                 scope='Nonsquare capm/cap2m correction is bounded to 2–30 µm on the 5 nm grid (first plate at most 5:1), one bottom electrode per capacitor. Correct unambiguous contact axes; reflection-symmetric four-sided contacts retain native global X/Y without a unique-orientation or RF-resistance claim. True squares retain native dimensions without inheriting these correction bounds or an electrical-validity qualification. Connectivity and all other native values are unchanged.')
     if (directory/'native-original.ext').exists():
         raise ValueError('MiM extraction was already normalized.')
     (directory/'native-original.ext').write_bytes(original)

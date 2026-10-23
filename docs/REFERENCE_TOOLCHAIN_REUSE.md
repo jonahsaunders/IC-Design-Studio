@@ -1,10 +1,12 @@
 # Shared reference qualification toolchain
 
-The reference compatibility workflow builds its patched GF180 RC extractor and
-the pinned KLU-enabled ngspice once per acceptance run. Five independent corner
-jobs consume the same verified installed binaries. This changes ten engine
-builds into two; each corner still performs its complete extraction, terminal
-equivalence, fill fault controls and post-RC startup checks.
+The reference compatibility workflow builds a shared patched GF180 RC extractor
+and pinned KLU-enabled ngspice for each acceptance run. Compatible corner jobs
+reuse those verified binaries. A consumer with a different hosted image-version
+marker builds the same locked tools locally after validating the producer
+payload. With matching images this changes ten engine builds into two; each
+corner still performs its complete extraction, terminal equivalence, fill fault
+controls and post-RC startup checks.
 
 The producer packages only the installed prefixes, upstream licenses, source
 locks, build logs and version logs. Its manifest binds every file's bytes and
@@ -29,13 +31,25 @@ Consumers still install runtime libraries and Python dependencies. The latter
 use the standard download cache keyed by the locked requirements; installation
 and qualification still run. The runtime package repository is not pinned, so
 this is not a hermetic environment. Both producer and consumer retain installed
-package inventories, and a changed hosted runner image causes restoration to
-fail. Rebuilding for the new image is preferable to silently using incompatible
-binaries. The installed prefixes must have the same absolute workspace path,
+package inventories. A changed hosted image-version marker still rejects
+restoration, but a verified version-only difference now permits a fresh build
+on that consumer. Every other identity difference remains a failure. The
+installed prefixes must have the same absolute workspace path,
 because the upstream tools can embed that path.
 The hosted runner's `ImageOS` and `ImageVersion` must both be present; an ordinary
 local environment with missing image identity cannot produce or restore this CI
 artifact.
+
+The CI sequence is `prepare`, optional `rebuild`, then `ready`. Preparation
+verifies the checksum, complete archive inventory, file contents, modes, links,
+source locks and licenses before classifying a version-only reuse miss. It never
+extracts the incompatible binaries. Rebuilding rechecks that decision, requires
+empty prefixes and invokes the unchanged locked builder. The result receives a
+consumer-specific manifest and archive. The unconditional readiness gate checks
+the installed identity and inventory and probes native versions and KLU support.
+A skipped or failed required build cannot reach qualification. Receipts record
+whether tools were reused or rebuilt and retain both producer and consumer
+identities. The standalone `restore` command remains strictly rejecting.
 
 Producer and corner setup use copies of the runner's APT source definitions.
 Only the known Azure Ubuntu archive URI and the hosted image's
@@ -120,11 +134,24 @@ validation record links the original trial and both follow-up attempts to
 separate verified archives. No device-family or chunk completion is inferred
 from this infrastructure checkpoint.
 
-The next diagnostic candidate removes the scheduling dependency from the RC
+The `51917f7` diagnostic candidate removed the scheduling dependency from the RC
 corners to `bandgap-physical`. The RC runner uses checked-in layouts, its own
 pinned PDK checkout and the shared toolchain; it consumes no physical-job
 output. Both jobs remain required by the complete reference workflow, which
 remains a required release gate. All five fresh corners, fail-fast disabled,
 the immutable-candidate guard and the strict identity comparison are preserved.
-This permits identity checks as soon as the toolchain is ready. The resulting
-timing and the remaining mismatch still require hosted verification.
+All five consumers started two to three seconds after the producer finished,
+while physical checks continued. Its ss consumer recorded `ImageVersion`
+`20261023.334.3`, versus the producer's `20261012.334.1`; all other identity
+fields matched. This establishes the differing environment marker, not different
+image contents. The setup log header displayed the older version on both jobs.
+The original fs failures retain their unrecorded exact cause.
+
+The [diagnosis and guarded repair record](validation/reference-toolchain-identity-2026-10-23.json)
+preserves that cancelled diagnostic run separately from the subsequent local
+repair checks. Independent review passes 46 Linux checks and 15 actual CLI
+fixture scenarios, including corrupt payloads combined with image differences,
+source/candidate drift and failed builds/probes. Fixtures do not establish
+native compilation. The [combined source feedback](validation/chunk7-identity-integration-2026-10-23.json)
+passes 320 tests per host, release contracts and both GUI probes. A fresh hosted
+candidate remains required for complete five-corner acceptance of the repair.

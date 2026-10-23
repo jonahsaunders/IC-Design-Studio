@@ -176,12 +176,38 @@ jobs:
         with:
           name: ${{ needs.rc-toolchain.outputs.artifact_name }}
           path: build/rc-toolchain-artifact
-      - name: Verify producer checksum, candidate, platform, inputs and installed engines
+      - name: Validate complete producer payload and select compatible reuse or local rebuild
+        id: resolve
         env:
           CANDIDATE_SHA: ${{ github.sha }}
           TOOLCHAIN_SHA256: ${{ needs.rc-toolchain.outputs.sha256 }}
         run: |
-          python scripts/reference_toolchain.py restore --candidate "$CANDIDATE_SHA" --archive build/rc-toolchain-artifact/reference-toolchain.tar.gz --expected-sha256 "$TOOLCHAIN_SHA256"
+          python scripts/reference_toolchain.py prepare --candidate "$CANDIDATE_SHA" --archive build/rc-toolchain-artifact/reference-toolchain.tar.gz --expected-sha256 "$TOOLCHAIN_SHA256"
+      - name: Install build dependencies only for a verified image-version mismatch
+        if: steps.resolve.outputs.needs_rebuild == 'true'
+        timeout-minutes: 20
+        run: |
+          set -euo pipefail
+          exec > >(tee build/reference-corner-build-setup.log) 2>&1
+          trap 'status=$?; echo "Build setup exit status: $status"; dpkg-query -W > build/reference-corner-build-packages.txt; exit "$status"' EXIT
+          apt_options=(-o "Dir::Etc::sourcelist=$PWD/build/reference-apt-sources/sources.list" -o "Dir::Etc::sourceparts=$PWD/build/reference-apt-sources/sources.list.d" -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo timeout --signal=TERM --kill-after=15s 300s apt-get "${apt_options[@]}" update --error-on=any
+          sudo timeout --signal=TERM --kill-after=15s 600s apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev
+      - name: Rebuild the same locked engines in this consumer's empty prefixes
+        if: steps.resolve.outputs.needs_rebuild == 'true'
+        timeout-minutes: 60
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+          TOOLCHAIN_SHA256: ${{ needs.rc-toolchain.outputs.sha256 }}
+        run: python scripts/reference_toolchain.py rebuild --candidate "$CANDIDATE_SHA" --archive build/rc-toolchain-artifact/reference-toolchain.tar.gz --expected-sha256 "$TOOLCHAIN_SHA256"
+      - name: Require verified installed identity, inventory and native engine probes
+        # This gate also runs when the conditional rebuild was skipped. An
+        # unresolved reuse miss cannot reach the unchanged qualification suite.
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+          TOOLCHAIN_SHA256: ${{ needs.rc-toolchain.outputs.sha256 }}
+        run: |
+          python scripts/reference_toolchain.py ready --candidate "$CANDIDATE_SHA" --archive build/rc-toolchain-artifact/reference-toolchain.tar.gz --expected-sha256 "$TOOLCHAIN_SHA256"
           dpkg-query -W > build/reference-corner-packages.txt
       - name: Require complete extraction, terminal equivalence, fill controls and post-RC startup
         run: python scripts/qualify_gf180_rc.py --open-pdks build/open-pdks --magic "$PWD/build/gf180-engines/installed/bin/magic" --ngspice "$PWD/build/modern-engines/installed/bin/ngspice" --corner "${{ matrix.corner }}" --out build/gf180-rc
@@ -200,8 +226,12 @@ jobs:
             build/reference-toolchain-manifest.json
             build/reference-toolchain-restored.json
             build/reference-toolchain-mismatch.json
+            build/reference-toolchain-resolution.json
+            build/reference-toolchain-local.tar.gz
             build/reference-corner-packages.txt
             build/reference-corner-setup.log
+            build/reference-corner-build-packages.txt
+            build/reference-corner-build-setup.log
             build/reference-apt-sources
           compression-level: 1
           if-no-files-found: error

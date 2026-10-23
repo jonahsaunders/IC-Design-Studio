@@ -26,21 +26,48 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
-**Current investigation: toolchain identity failure, based on `1260cec`.**
-The previous fs attempts remain failed and the differing field is still
-unresolved. The next candidate keeps the new identity diagnostic and removes
-only the unnecessary `bandgap-physical` scheduling prerequisite from the RC
-jobs. They consume their own committed layouts and pinned PDK, plus the shared
-toolchain. Independent review confirms that all physical, five-corner and
-release gates remain required. This should expose identity failures earlier;
-actual timing and acceptance still require a fresh hosted run. No device or
-chunk status has changed.
-The scheduling change passes 39 focused tests on Linux and Windows (six
-POSIX-only skips on Windows), independent dependency review and workflow
-validation. The mismatch diagnostic remains unchanged and the failed historical
-attempts remain recorded.
+**Current investigation: exact toolchain mismatch identified at `51917f7`.**
+The [instrumented reference run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40037005574)
+records the producer's `ImageVersion` as `20261012.334.1` and the failed ss
+consumer's as `20261023.334.3`. Candidate, workspace, all seven source inputs,
+operating-system marker, system and architecture match. This establishes the
+environment-marker difference for this attempt; it does not establish different
+runtime contents or retroactively identify the missing field in the old fs
+failures. The producer archive and failed consumer's full artifact are retained
+and verified. The superseded diagnostic run was cancelled once after capturing
+the cause; it is not a complete five-corner acceptance.
 
-**Latest hosted follow-up: `1260cec` is pushed and matches GitHub `experimental`.**
+The [locally verified repair](validation/reference-toolchain-identity-2026-10-23.json)
+preserves strict rejection of the transferred tools and
+allows a fresh, locked build on the consumer only for a verified image-version
+cache miss. Corrupt archives and all other identity failures remain errors.
+Freshly built tools must receive their own manifest and probes before the
+unchanged native qualification. Independent review passes 46 Linux tests and
+15 actual CLI fixture cases, including corrupt payloads, drift and incomplete
+builds. The [combined integration](validation/chunk7-identity-integration-2026-10-23.json)
+passes 320 tests per host (15 Windows skips, two Linux skips), release contracts
+and both GUI probes in 77.7 seconds on Windows and 37.2 seconds on Linux. All
+1,340 source bindings match the tested snapshot. Fixture builders are synthetic;
+a fresh hosted candidate must still verify the real engines and full native
+acceptance. The earlier scheduling change is verified:
+all five consumers started when the producer was ready while physical checks
+continued. Every physical, five-corner and release gate remains required.
+
+The [automatic PR feedback for `51917f7`](validation/chunk7-scheduling-hosted-feedback-2026-10-23.json)
+passes in 2:22 overall, with 294 tests discovered per host (two Linux skips,
+14 Windows skips), release contracts and both GUI probes. All 1,340 source
+hashes match that exact Git candidate. Separately, the
+[MiM shape correction](validation/sky130-mim-physical-scope-2026-10-23.json)
+fixes a reproduced bypass for nonrectangular electrodes with square bounding
+boxes. Nineteen focused tests pass on each host, and three fresh native layout
+cases pass DRC/LVS, public checks and direct extraction checks. Independent
+readback and a fresh mixed-case replay from archived sources pass. Four malformed
+layout controls reject before engine execution. True square electrodes retain
+their existing native path. Verified recovery precedes removal of 637.5 MB of
+Linux temporary files and 84.9 MB of Windows duplicates; no administrator access
+or Windows virtual-disk shrink is claimed. No device or chunk status has changed.
+
+**Prior hosted follow-up: `1260cec`.**
 Its [automatic PR feedback](validation/chunk7-bias-hosted-feedback-2026-10-23.json)
 passes on actual merge `4c1267ff` in 2:43 overall. Both hosts discover 293 tests
 (two Linux skips, 14 Windows skips), and syntax, release contracts and both

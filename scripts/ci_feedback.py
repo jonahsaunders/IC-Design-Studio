@@ -19,6 +19,7 @@ UNIT_MODULES = (
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
+    'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_contact_topology',
 )
 
 

@@ -158,6 +158,25 @@ to its deck. This detects output substitution, not fully forged raw content.
 The source map remains an unchanged pre-execution record; the later execution
 record closes this selected example without promoting either device.
 
+## Square-electrode dispatch correction
+
+The [subsequent shape regression](validation/sky130-mim-physical-scope-2026-10-23.json)
+fixes a dispatch defect: a square bounding box could conceal an L-shaped or
+holed capacitor electrode. Every electrode is now checked for rectangular
+shape before native extraction begins, including later electrodes and the
+other MiM construction. Genuine squares retain their existing native path;
+the nonsquare normalizer's size and grid bounds are not applied as new physical
+validity limits for that path.
+
+Both 2×2 µm constructions and a separated first-plate square with a rotated
+second-plate 2×10 µm rectangle pass fresh native DRC, strict LVS, public KLayout
+checks and direct extracted model/terminal/dimension checks. Four malformed
+written-layout controls reject before engine execution. Nineteen focused tests
+pass on each host, independent readback verifies the retained native evidence,
+and archived sources reproduce the mixed case. This repairs the shape bypass;
+it does not close the complete `MIM-PHYSICAL-CLASSES` requirement or qualify
+arbitrary imported geometry.
+
 ## Work still needed for family closure
 
 The contract separates local execution from missing source definitions:

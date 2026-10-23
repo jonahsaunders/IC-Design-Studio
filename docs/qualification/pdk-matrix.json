@@ -122,7 +122,8 @@
         "device_statuses_unchanged": true
       },
       "latest_sky130_mim_passive_evidence": "docs/validation/sky130-mim-passive-corners-2026-10-23.json",
-      "latest_sky130_mim_bias_evidence": "docs/validation/sky130-mim-bias-boundaries-2026-10-23.json"
+      "latest_sky130_mim_bias_evidence": "docs/validation/sky130-mim-bias-boundaries-2026-10-23.json",
+      "latest_sky130_mim_shape_evidence": "docs/validation/sky130-mim-physical-scope-2026-10-23.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -20128,7 +20129,8 @@
           "sky130-mim-binding-2026-10-22",
           "sky130-rf-default-2026-10-23",
           "sky130-mim-passive-corners-2026-10-23",
-          "sky130-mim-bias-boundaries-2026-10-23"
+          "sky130-mim-bias-boundaries-2026-10-23",
+          "sky130-mim-physical-scope-2026-10-23"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -20148,7 +20150,8 @@
           "sky130-mim-binding-2026-10-22",
           "sky130-rf-default-2026-10-23",
           "sky130-mim-passive-corners-2026-10-23",
-          "sky130-mim-bias-boundaries-2026-10-23"
+          "sky130-mim-bias-boundaries-2026-10-23",
+          "sky130-mim-physical-scope-2026-10-23"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -24846,7 +24849,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0Ã¢â‚¬â€œ1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -25362,6 +25365,11 @@
       "path": "docs/validation/sky130-mim-bias-boundaries-2026-10-23.json",
       "sha256": "f2b6f9ab7f18b66e4448a3f00a4b9275521a2511bc58ea6a5e4fba274a002df6",
       "scope_limit": "Selected source-mapped differential bias boundary and compact-model integration checks for two 2x10 um SKY130 MiM constructions; all physical inputs reused under original identity. At 27 C, five passive sections, two orientations, -5/0/+5 V. No full envelope, silicon/reliability, installed or foundry qualification."
+    },
+    "sky130-mim-physical-scope-2026-10-23": {
+      "path": "docs/validation/sky130-mim-physical-scope-2026-10-23.json",
+      "sha256": "be1a39a55f11935f4f461148a44d0385938b90d25f35b2a9f1a9c043391d3083",
+      "scope_limit": "Shape dispatch repair regression only: two legal 2x2um squares and a separated first square/rotated second rectangle. No new size, physical-class, electrical-envelope or signoff qualification."
     }
   },
   "execution_acceptance": {
