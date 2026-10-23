@@ -1,7 +1,7 @@
 {
   "schema": 6,
   "as_of": "2026-10-23",
-  "source_baseline": "da9759cd46592ac43b7e8562559f2bc572628e17",
+  "source_baseline": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -98,6 +98,27 @@
         "cases_per_host": 10,
         "matching_cases_per_host": 8,
         "faulty_instances_per_host": 240,
+        "device_statuses_unchanged": true
+      },
+      "latest_ihp_hv_mos_layouts": {
+        "evidence": "ihp-hv-mos-layouts-2026-10-23",
+        "status": "sampled_native_and_source_desktop_passed",
+        "device_layouts": 160,
+        "inverter_layouts": 8,
+        "faults": 158,
+        "independently_read_native_and_exported_channels": 5414,
+        "device_statuses_unchanged": true
+      },
+      "latest_sky130_li_linked": {
+        "evidence": "sky130-li-linked-2026-10-23",
+        "status": "selected_linked_integration_passed",
+        "selected_cases": 10,
+        "passive_sections": 5,
+        "orientations": 2,
+        "electrical_comparisons": 80,
+        "electrical_faults": 60,
+        "physical_faults": 5,
+        "raw_files_independently_audited": 180,
         "device_statuses_unchanged": true
       }
     },
@@ -18563,7 +18584,9 @@
         "scripts/qualify_sky130_li.py",
         "scripts/qualify_ihp_thermal.py",
         "scripts/qualify_ihp_taps.py",
-        "scripts/qualify_gf180_hv.py"
+        "scripts/qualify_gf180_hv.py",
+        "scripts/qualify_sky130_li_linked.py",
+        "scripts/audit_sky130_li_linked.py"
       ],
       "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
@@ -18586,7 +18609,10 @@
         "scripts/qualify_ihp_npn_layouts.py",
         "scripts/qualify_sky130_metal_resistor_layouts.py",
         "scripts/qualify_ihp_tap_layouts.py",
-        "scripts/qualify_ihp_inductor_layouts.py"
+        "scripts/qualify_ihp_inductor_layouts.py",
+        "scripts/qualify_ihp_hv_mos_layouts.py",
+        "scripts/qualify_sky130_li_linked.py",
+        "scripts/audit_sky130_li_linked.py"
       ],
       "automation_gap": "Standard MOS selected geometry/corner/bias sweeps and bounded SKY130 physical recipes now execute; complete upstream interfaces, model-validity envelopes, other device variants/families, measured model accuracy and full parameter-boundary coverage remain open."
     },
@@ -18990,7 +19016,8 @@
         "sky130-mim-binding-2026-10-22",
         "sky130-mim-orientation-2026-10-23",
         "sky130-first-mim-2026-10-23",
-        "sky130-rf-default-2026-10-23"
+        "sky130-rf-default-2026-10-23",
+        "sky130-li-linked-2026-10-23"
       ]
     },
     "sky130A:device-simulation": {
@@ -19016,7 +19043,8 @@
         "chunk7-ci-recovery-2026-10-23",
         "sky130-mim-orientation-2026-10-23",
         "sky130-first-mim-2026-10-23",
-        "sky130-rf-default-2026-10-23"
+        "sky130-rf-default-2026-10-23",
+        "sky130-li-linked-2026-10-23"
       ]
     },
     "sky130A:digital-controller": {
@@ -19915,7 +19943,8 @@
         "ihp-bipolar-layouts-2026-10-17",
         "ihp-npn-layouts-2026-10-17",
         "mos-parallel-layouts-2026-10-23",
-        "mos-finger-layouts-2026-10-23"
+        "mos-finger-layouts-2026-10-23",
+        "ihp-hv-mos-layouts-2026-10-23"
       ]
     },
     "ihp-sg13g2:device-simulation": {
@@ -20956,7 +20985,8 @@
         "status": "partial",
         "remaining": "Selected electrical controls and finite straight-resistor native layouts pass at explicitly recorded, distinct simulation/physical revisions. Continuous geometry/operating limits, arrays/snakes, statistical/RF, full-chip and installed-release acceptance remain open.",
         "historical_evidence": [
-          "sky130-li-metal-resistors-2026-10-17"
+          "sky130-li-metal-resistors-2026-10-17",
+          "sky130-li-linked-2026-10-23"
         ]
       },
       "sky130_fd_pr/res_generic_m1.sym": {
@@ -24313,7 +24343,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "ihp-hv-mos-layouts-2026-10-23"
         ]
       },
       "sg13g2_pr/sg13_hv_pmos.sym": {
@@ -24328,7 +24359,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "ihp-hv-mos-layouts-2026-10-23"
         ]
       },
       "sg13g2_pr/sg13_hv_rf_nmos.sym": {
@@ -25301,6 +25333,16 @@
       "path": "docs/validation/gf180-mos-specifications-2026-10-23.json",
       "sha256": "14bc4aba7239e726f772a2df281f0202b4d2bd62a348f0599bc0784f215073ce",
       "scope_limit": "GF180 C/D nfet_03v3 and pfet_03v3 at W/L=10/0.28 um, 25 C, five process selections. Literal public Idsat/Ioff bounds, independent export equivalence, four-terminal bias/KCL checks and deliberate faults. Threshold is diagnostic. Full device envelopes, layouts, statistical/reliability and installed qualification remain open."
+    },
+    "ihp-hv-mos-layouts-2026-10-23": {
+      "path": "docs/validation/ihp-hv-mos-layouts-2026-10-23.json",
+      "sha256": "46b28b36a5d0136c48d0ced2621b0139b56426b71ad4c80f0456e7d0497b86fc",
+      "scope_limit": "Sampled standard four-terminal IHP SG13G2 3.3 V NMOS/PMOS layouts, gate fingers and separate parallel multiplicity; full Magic and public KLayout DRC/LVS, independent native-channel/exported-mask audits and source desktop workflows. No full device envelope, extracted electrical, installed release or foundry qualification."
+    },
+    "sky130-li-linked-2026-10-23": {
+      "path": "docs/validation/sky130-li-linked-2026-10-23.json",
+      "sha256": "4ecaccb7e058bc204d7791c7a4ac679d6208365262615cadb92784ff1117e4fa",
+      "scope_limit": "Selected 2x5 um straight SKY130 LI resistor at 27 C in two orientations and five passive sections: native extraction, schematic and literal reference DC/AC/transient/noise integration with independent raw-file audits. Shared compact model; no calibrated model accuracy, complete operating or physical envelope, installed release or foundry qualification."
     }
   },
   "execution_acceptance": {

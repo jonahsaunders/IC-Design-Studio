@@ -2,20 +2,84 @@ name: Reference design compatibility
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full 40-character SHA of the selected branch or tag to qualify
+        required: true
+        type: string
   push:
-    branches: [main, experimental]
-  pull_request:
-# Replace obsolete branch/PR checks. A distinct file prefix prevents reusable
-# workflows from cancelling their callers; release preparation, tags and manual
-# runs use a unique run id so their acceptance evidence can finish.
+    tags: ['v*']
+# Exhaustive evidence belongs to one immutable candidate. Routine merge checks
+# run in the fast workflow; a selected acceptance run must finish independently.
 concurrency:
-  group: >-
-    ci-reference-compatibility-${{ github.workflow }}-${{ github.event_name }}-${{ (github.event_name == 'pull_request' && github.event.pull_request.number) || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && github.workflow != 'Prepare desktop release' && github.ref) || github.run_id }}
-  cancel-in-progress: true
+  group: ci-reference-compatibility-${{ github.run_id }}-${{ github.run_attempt }}
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the selected immutable candidate
+        run: python scripts/ci_candidate.py
+  rc-toolchain:
+    needs: candidate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      sha256: ${{ steps.pack.outputs.sha256 }}
+      artifact_name: ${{ steps.pack.outputs.artifact_name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install engine build dependencies once for all five RC corners
+        timeout-minutes: 20
+        run: |
+          apt_options=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo apt-get "${apt_options[@]}" update --error-on=any
+          sudo apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev
+          mkdir -p build
+          dpkg-query -W > build/reference-toolchain-packages.txt
+      - name: Build the isolated patched extractor and pinned sparse solver once
+        run: |
+          python scripts/build_physical_engines.py --lock examples/gf180-rc-engine-lock.json --output build/gf180-engines
+          python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/modern-engines
+      - name: Bind installed files and exact build inputs to this candidate
+        id: pack
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+        run: |
+          python scripts/reference_toolchain.py pack --candidate "$CANDIDATE_SHA" --archive build/reference-toolchain.tar.gz
+          echo "artifact_name=reference-rc-toolchain-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.pack.outputs.artifact_name }}
+          path: |
+            build/reference-toolchain.tar.gz
+            build/reference-toolchain-manifest.json
+            build/reference-toolchain-packages.txt
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reference-rc-toolchain-build-${{ github.run_attempt }}
+          path: |
+            build/gf180-engines/*-build.log
+            build/gf180-engines/*-version.log
+            build/gf180-engines/source-lock.json
+            build/modern-engines/*-build.log
+            build/modern-engines/*-version.log
+            build/modern-engines/source-lock.json
+            build/reference-toolchain-packages.txt
+          compression-level: 1
+          if-no-files-found: warn
   modern-schematic:
+    needs: candidate
     runs-on: ubuntu-24.04
     timeout-minutes: 70
     steps:
@@ -67,7 +131,7 @@ jobs:
           compression-level: 1
           if-no-files-found: error
   bandgap-rc:
-    needs: bandgap-physical
+    needs: [bandgap-physical, rc-toolchain]
     runs-on: ubuntu-24.04
     timeout-minutes: 210
     strategy:
@@ -85,19 +149,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install extraction and simulator build dependencies
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install runtime dependencies for fresh corner acceptance
         # A stalled package-index request previously consumed this job's entire
         # 210-minute extraction budget without running the qualification.
         timeout-minutes: 20
         run: |
           apt_options=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
           sudo apt-get "${apt_options[@]}" update --error-on=any
-          sudo apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev libegl1 libopengl0
+          sudo apt-get "${apt_options[@]}" install -y tcl tk libx11-6 libxrender1 libxpm4 libcairo2 libglu1-mesa libreadline8t64 libklu2 libegl1 libopengl0
           python -m pip install --timeout 30 --retries 3 -r requirements.txt
-      - name: Build the isolated patched extractor and pinned sparse solver
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.rc-toolchain.outputs.artifact_name }}
+          path: build/rc-toolchain-artifact
+      - name: Verify producer checksum, candidate, platform, inputs and installed engines
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+          TOOLCHAIN_SHA256: ${{ needs.rc-toolchain.outputs.sha256 }}
         run: |
-          python scripts/build_physical_engines.py --lock examples/gf180-rc-engine-lock.json --output build/gf180-engines
-          python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/modern-engines
+          python scripts/reference_toolchain.py restore --candidate "$CANDIDATE_SHA" --archive build/rc-toolchain-artifact/reference-toolchain.tar.gz --expected-sha256 "$TOOLCHAIN_SHA256"
+          dpkg-query -W > build/reference-corner-packages.txt
       - name: Require complete extraction, terminal equivalence, fill controls and post-RC startup
         run: python scripts/qualify_gf180_rc.py --open-pdks build/open-pdks --magic "$PWD/build/gf180-engines/installed/bin/magic" --ngspice "$PWD/build/modern-engines/installed/bin/ngspice" --corner "${{ matrix.corner }}" --out build/gf180-rc
       - uses: actions/upload-artifact@v4
@@ -112,9 +185,13 @@ jobs:
             build/modern-engines/*-build.log
             build/modern-engines/*-version.log
             build/modern-engines/source-lock.json
+            build/reference-toolchain-manifest.json
+            build/reference-toolchain-restored.json
+            build/reference-corner-packages.txt
           compression-level: 1
           if-no-files-found: error
   bandgap-schematic:
+    needs: candidate
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -146,6 +223,7 @@ jobs:
           compression-level: 1
           if-no-files-found: error
   bandgap-physical:
+    needs: candidate
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:

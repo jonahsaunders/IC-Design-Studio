@@ -18,23 +18,15 @@ from icstudio.interchange import export_layout
 from icstudio.stream_contract import compare
 from scripts.qualify_standard_mos import load_technology,write
 from scripts.qualify_standard_mos_layout import fault_detected
+from scripts.qualification_geometry import regions,same_masks,rotated
 
 MODELS=('rsil','rppd','rhigh')
 SIZES=((.5,.5),(.5,20),(20,.5),(2,7),(7,2))
 FAULTS=('terminal-open','body-open','terminal-short','reference-width','reference-model')
 
 
-def regions(p):
-    db=kdb();layers={l['name']:(l['gds'],l['datatype']) for l in p['pdk']['layers']};out={}
-    for shape in p['cells'][0]['shapes']:
-        key=layers[shape['layer']];out.setdefault(key,db.Region()).insert(polygon(shape))
-    return {k:r.merged() for k,r in out.items()}
 
 
-def same_masks(a,b):
-    a,b=regions(a),regions(b)
-    if set(a)!=set(b) or any(not (a[k]^b[k]).is_empty() for k in a):
-        raise ValueError('A mask changed during import, port assignment or exchange.')
 
 
 def selected_reference(model,w,l):
@@ -77,14 +69,6 @@ quit -noprompt
     same_masks(raw,p);return p
 
 
-def rotated(p):
-    q=clone(p);c=q['cells'][0]
-    for s in c['shapes']:
-        s['points']=[[-y,x] for x,y in s['points']]
-        s['holes']=[[[-y,x] for x,y in hole] for hole in s.get('holes',[])]
-    for t in c.get('layout_texts',[]):t['x'],t['y']=-t['y'],t['x'];t['rotation']=(t.get('rotation',0)+90)%360
-    for v in c['layout_ports']:v['point']=[-v['point'][1],v['point'][0]]
-    return q
 
 
 def altered(p,fault,metal_pair=(8,0),contact_pair=(6,0)):
@@ -153,7 +137,7 @@ def case(tech,model,w,l,out,tools):
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True)
     ap.add_argument('--pilot',action='store_true');ap.add_argument('--workers',type=int,choices=range(1,5),default=2);a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
-    sources=[Path(__file__),ROOT/'scripts/qualify_standard_mos.py',ROOT/'scripts/qualify_standard_mos_layout.py',*sorted((ROOT/'icstudio').rglob('*.py'))]
+    sources=[Path(__file__),ROOT/'scripts/qualification_geometry.py',ROOT/'scripts/qualify_standard_mos.py',ROOT/'scripts/qualify_standard_mos_layout.py',*sorted((ROOT/'icstudio').rglob('*.py'))]
     before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};write(out/'source-files.json',before);(out/'executed-runner.py').write_bytes(Path(__file__).read_bytes())
     tech,identity=load_technology('ihp-sg13g2');tools={k:str(Path(getattr(a,k)).resolve(strict=True)) for k in ('magic','netgen')}
     report=dict(schema=1,chunk=7,chunk_complete=False,qualified=False,status='RUNNING',scope=__doc__,process=identity,source_files_sha256=file_digest(out/'source-files.json'),cases=[])

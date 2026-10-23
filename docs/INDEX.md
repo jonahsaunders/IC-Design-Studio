@@ -8,6 +8,13 @@ For development toward a complete analog/digital release, see the
 [SKY130, GF180MCU and IHP acceptance targets](PUBLIC_RELEASE_TARGETS.md).
 The [chunks 1–12 progress tracker](QUALIFICATION_PROGRESS.md) records current
 qualification status, remaining work and the conditional forecast.
+The [device-family closure plan](CHUNK7_DEVICE_FAMILY_CLOSURE.md) defines the next
+small acceptance milestones. [Fast source feedback](CI_FEEDBACK.md) and
+[shared reference toolchains](REFERENCE_TOOLCHAIN_REUSE.md) separate everyday
+development from fresh exhaustive acceptance. The
+[IHP 3.3 V MOS guide](IHP_HV_MOS_LAYOUTS.md) describes the new bounded generator.
+The [SKY130 LI requirement contract](SKY130_LI_REQUIREMENTS.md) identifies the
+source-defined next linked physical/electrical milestone.
 The [SKY130 threshold-layout checks](SKY130_THRESHOLD_LAYOUTS.md) cover generated
 LVT/HVT geometry, native model recognition and six source-editor device views.
 

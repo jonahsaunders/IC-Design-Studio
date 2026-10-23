@@ -417,6 +417,14 @@ alongside the derivatives. The independent equations, runtime guard and
 qualification runners are project code under GPL-3.0. The candidate remains
 outside the default package pending physical and operating-envelope qualification.
 
+The IHP HV MOS reference sources in
+`docs/qualification/ihp-hv-mos-sources-v1` retain their original Apache-2.0
+license and copyright notices. These unmodified public PCells and technology
+parameters come from IHP-Open-PDK commit
+`5e6d592e4002946a4616f798c357f0f3c06cf3b6`; `SOURCE.json` records their exact
+Git blob and SHA-256 identities. They define reviewed geometry facts and are
+not relabeled as project code or used to claim complete device qualification.
+
 The IHP varactor inputs in `icstudio/assets/qualification/ihp-varactors` retain
 the unmodified public GDS, CDL and SVaricap generator from the same pinned IHP
 commit `5e6d592e4002946a4616f798c357f0f3c06cf3b6`. Their source inventory,

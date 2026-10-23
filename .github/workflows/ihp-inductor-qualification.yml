@@ -1,80 +1,30 @@
 name: IHP coil physical qualification
 on:
+  workflow_call:
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full 40-character commit of the selected branch or tag
+        type: string
+        required: true
   push:
-    branches: [main, experimental]
-    paths:
-      - 'icstudio/**'
-      - 'scripts/qualify_ihp_inductor_layouts.py'
-      - 'scripts/qualify_ihp_isolation_layouts.py'
-      - 'scripts/qualify_ihp_isolation_context.py'
-      - 'scripts/qualify_ihp_isolation_hierarchy.py'
-      - 'tests/test_ihp_isolation_hierarchy.py'
-      - 'tests/test_ihp_isolation_lvs.py'
-      - 'scripts/qualify_ihp_varactor_layouts.py'
-      - 'scripts/qualify_ihp_npn_layouts.py'
-      - 'scripts/qualify_ihp_topvia.py'
-      - 'tests/test_ihp_em_profile.py'
-      - 'scripts/audit_ihp_measured_reference.py'
-      - 'tests/test_ihp_measured_reference.py'
-      - 'tests/fixtures/ihp-measured-coil-v1/**'
-      - 'scripts/run_ihp_measured_coil.py'
-      - 'tests/test_ihp_measured_workflow.py'
-      - 'tests/fixtures/ihp-measured-workflow-v1/**'
-      - 'requirements-qualification.txt'
-      - 'scripts/qualify_ihp_mixed_layouts.py'
-      - 'tests/test_ihp_mixed_layouts.py'
-      - 'scripts/build_physical_engines.py'
-      - 'tests/test_ihp_inductor_lvs.py'
-      - 'tests/test_ihp_varactor_lvs.py'
-      - 'tests/test_ihp_varactor_rules.py'
-      - 'tests/test_ihp_varactor_context.py'
-      - 'tests/test_ihp_klayout_drc.py'
-      - 'tests/test_ihp_npn_qualification.py'
-      - 'requirements.txt'
-      - '.github/workflows/ihp-inductor-qualification.yml'
-  pull_request:
-    paths:
-      - 'icstudio/**'
-      - 'scripts/qualify_ihp_inductor_layouts.py'
-      - 'scripts/qualify_ihp_isolation_layouts.py'
-      - 'scripts/qualify_ihp_isolation_context.py'
-      - 'scripts/qualify_ihp_isolation_hierarchy.py'
-      - 'tests/test_ihp_isolation_hierarchy.py'
-      - 'tests/test_ihp_isolation_lvs.py'
-      - 'scripts/qualify_ihp_varactor_layouts.py'
-      - 'scripts/qualify_ihp_npn_layouts.py'
-      - 'scripts/qualify_ihp_topvia.py'
-      - 'tests/test_ihp_em_profile.py'
-      - 'scripts/audit_ihp_measured_reference.py'
-      - 'tests/test_ihp_measured_reference.py'
-      - 'tests/fixtures/ihp-measured-coil-v1/**'
-      - 'scripts/run_ihp_measured_coil.py'
-      - 'tests/test_ihp_measured_workflow.py'
-      - 'tests/fixtures/ihp-measured-workflow-v1/**'
-      - 'requirements-qualification.txt'
-      - 'scripts/qualify_ihp_mixed_layouts.py'
-      - 'tests/test_ihp_mixed_layouts.py'
-      - 'scripts/build_physical_engines.py'
-      - 'tests/test_ihp_inductor_lvs.py'
-      - 'tests/test_ihp_varactor_lvs.py'
-      - 'tests/test_ihp_varactor_rules.py'
-      - 'tests/test_ihp_varactor_context.py'
-      - 'tests/test_ihp_klayout_drc.py'
-      - 'tests/test_ihp_npn_qualification.py'
-      - 'requirements.txt'
-      - '.github/workflows/ihp-inductor-qualification.yml'
-# Replace obsolete branch/PR checks. A distinct file prefix prevents reusable
-# workflows from cancelling their callers; release preparation, tags and manual
-# runs use a unique run id so their acceptance evidence can finish.
+    tags: ['v*']
+# Selected candidates retain all acceptance gates and are not cancelled by new pushes.
 concurrency:
-  group: >-
-    ci-ihp-inductor-qualification-${{ github.workflow }}-${{ github.event_name }}-${{ (github.event_name == 'pull_request' && github.event.pull_request.number) || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && github.workflow != 'Prepare desktop release' && github.ref) || github.run_id }}
-  cancel-in-progress: true
+  group: candidate-ihp-inductor-qualification-${{ github.workflow }}-${{ github.run_id }}
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
   physical-coils:
+    needs: candidate
     runs-on: ubuntu-24.04
     # Individual gates now exceed the original one-hour total. Keep their
     # existing limits and leave room for setup, all gates and evidence upload.

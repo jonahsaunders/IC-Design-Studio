@@ -1,6 +1,74 @@
 # Chunks 1–12: progress and forecast
 
+**Snapshot: October 23, 2026; integration work on `b6c623b`.**
+The [IHP standard 3.3 V MOS addition](IHP_HV_MOS_LAYOUTS.md) passes 168 sampled
+layout checks and 158 deliberate fault controls using full Magic and public
+KLayout checks. Independent readback verifies 5,414 native channels and exported
+mask channels. Both hosts pass 56 affected tests and two source editor cases;
+378 sampled LV geometries match the parent exactly. The original broad run
+retains one faulty PMOS negative-test expectation, corrected with a fresh full
+case and a combined audit. The audit binds both exact runners and unchanged
+production sources; it does not claim a complete rerun with the new classifier.
+Earlier failed pilots and interrupted full suites remain evidence, not passes.
+Review fixes strengthen failed-integrity and malformed-parameter detection;
+the final checker revalidates all 158 retained fault controls. The verified
+archive preserves 68,096 file bindings in 143.1 MB. Restoring it reproduces
+the affected PMOS case (16 valid checks and 16 faults) and its nine then-current
+tests; the final stricter checker separately passes 13 focused tests per host.
+
+[Fast feedback](CI_FEEDBACK.md) now separates Windows/Linux PR and merge-queue
+checks from selected immutable acceptance candidates. Existing release gates
+remain. All 11 workflow definitions pass schema/expression validation. The
+[final local feedback lane](validation/ci-feedback-integration-2026-10-23.json)
+passes 211 tests, release-document checks and both GUI probes per host in
+67.3 seconds on Windows and 33.9 seconds on Linux. Linux uses a verified native
+filesystem copy: its test stage takes 6.2 seconds versus 262 seconds through
+the Windows mount. The earlier mounted run remains invalid because an auditor
+changed during execution; that failure and all passing stage logs are retained.
+The [shared reference toolchain](REFERENCE_TOOLCHAIN_REUSE.md) reduces ten
+per-corner engine builds to two per acceptance run and verifies their artifact
+before each fresh corner suite. Transfer/failure-control tests pass locally;
+hosted setup and latency are still unverified. The repository currently has no
+branch protection or rulesets: **PR feedback is not yet an enforced required
+check**. No protection policy was changed.
+
+The [family closure plan](CHUNK7_DEVICE_FAMILY_CLOSURE.md) now has a completed
+selected SKY130 LI milestone. Its [source contract](SKY130_LI_REQUIREMENTS.md)
+binds 24 source hashes and 12 requirements, and identifies that prior nominal,
+ss and ff selections all used typical LI resistor parameters. The selectable
+[linked runner](validation/sky130-li-linked-2026-10-23.json) passes ten fresh
+cases across five distinct passive sections and two orientations at 2x5 um,
+27 C and multiplicity one. Actual native extraction, application export and a
+literal reference pass 80 DC/AC/transient/noise comparisons; 60 electrical and
+five physical faults are detected. The independent audit rereads 180 raw files
+and rejects all five deliberately altered evidence sets. Both hosts pass 17
+focused tests, and a fresh archive replay reproduces one selected case.
+The immutable source contract keeps its historical pre-execution status; the
+new record closes only the selected examples. Full operating definitions,
+physical classes and installed acceptance remain open. General result reuse
+remains deferred until complete loaded-dependency identity and an explicit
+semantic reuse audit are implemented. The current audit verifies fresh results;
+more samples or cached success cannot close missing source requirements.
+
+**Chunk 7 remains about 60% complete, low confidence (50–70%).** This is an
+engineering estimate, not a percentage of devices qualified. The matrix still
+has 287 partial entries, six unavailable real bindings and nine utilities.
+The official bond-pad file remains an empty electrical placeholder. Full
+operating envelopes, remaining physical classes, extracted behavior and exact
+installed acceptance keep the chunk open. No device status or completion gate
+was promoted. Chunk 8–12 forecasts remain conditional on these dependencies;
+hosted speedups and family closure rates need actual measurements before a
+completion-date forecast is credible.
+
 **Snapshot: October 23, 2026; GF180 public current specifications on `da9759c`.**
+Final sync: the batch and tracker are pushed as
+[`b6c623b`](https://github.com/jonahsaunders/IC-Design-Studio/commit/b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5),
+and remote `experimental` matches. Its initial exact-revision snapshot has
+seven queued and eight pending workflows; none has completed. The estimate
+remains 60%, low confidence. This sync-only note stays local for the next
+appropriate project push so it does not restart the active checks. Pending
+hosted work is not acceptance.
+
 The [new numerical specification checks](GF180_MOS_SPECIFICATIONS.md) compare
 standard 3.3 V devices against pinned public GF180 values at W/L = 10/0.28 um
 and 25 C. Both hosts complete ten corner/variant cases and detect all 240

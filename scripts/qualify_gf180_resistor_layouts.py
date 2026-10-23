@@ -151,7 +151,7 @@ def case(tech,model,w,l,out,tools,prepared):
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True)
     ap.add_argument('--pilot',action='store_true');ap.add_argument('--workers',type=int,choices=range(1,5),default=2);ap.add_argument('--targets',nargs='+',choices=TARGETS,default=list(TARGETS));a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
-    sources=[Path(__file__),ROOT/'scripts/qualify_ihp_resistor_layouts.py',ROOT/'scripts/qualify_standard_mos.py',ROOT/'scripts/qualify_standard_mos_layout.py',*sorted((ROOT/'icstudio').rglob('*.py')),*sorted(p for p in SOURCE.rglob('*') if p.is_file() and '__pycache__' not in p.parts)]
+    sources=[Path(__file__),ROOT/'scripts/qualification_geometry.py',ROOT/'scripts/qualify_ihp_resistor_layouts.py',ROOT/'scripts/qualify_standard_mos.py',ROOT/'scripts/qualify_standard_mos_layout.py',*sorted((ROOT/'icstudio').rglob('*.py')),*sorted(p for p in SOURCE.rglob('*') if p.is_file() and '__pycache__' not in p.parts)]
     before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};write(out/'source-files.json',before);(out/'executed-runner.py').write_bytes(Path(__file__).read_bytes())
     tools={k:str(Path(getattr(a,k)).resolve(strict=True)) for k in ('magic','netgen')};report=dict(schema=1,chunk=7,chunk_complete=False,qualified=False,status='RUNNING',scope=__doc__,processes={},source_files_sha256=file_digest(out/'source-files.json'),cases=[])
     with ProcessPoolExecutor(max_workers=a.workers) as pool:

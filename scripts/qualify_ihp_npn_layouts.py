@@ -175,7 +175,7 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True);ap.add_argument('--klayout',required=True);ap.add_argument('--workers',type=int,choices=range(1,5),default=2);ap.add_argument('--family',choices=('all','npn13G2','npn13G2l','npn13G2v'),default='all');ap.add_argument('--package',type=Path,help='Check this exact installed/default package; omit to reproduce the historical separate correction.')
     ap.add_argument('--drc-engine',choices=('magic','ihp-public'),default='magic')
     a=ap.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
-    sources=[Path(__file__),ROOT/'scripts/prepare_ihp_npn_qualification.py',ROOT/'scripts/qualify_diode_layouts.py',ROOT/'scripts/qualify_ihp_resistor_layouts.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};write(out/'source-files.json',before)
+    sources=[Path(__file__),ROOT/'scripts/qualification_geometry.py',ROOT/'scripts/prepare_ihp_npn_qualification.py',ROOT/'scripts/qualify_diode_layouts.py',ROOT/'scripts/qualify_ihp_resistor_layouts.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources};write(out/'source-files.json',before)
     (out/'executed-runner.py').write_bytes(Path(__file__).read_bytes())
     package_folder=a.package or out/'package'
     if a.package is None:prepare(ROOT/'icstudio/assets/pdks/ihp-sg13g2',package_folder)

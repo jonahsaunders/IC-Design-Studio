@@ -7,7 +7,8 @@ import traceback
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__); ap.add_argument('--out', type=Path, required=True); a = ap.parse_args()
+    ap = argparse.ArgumentParser(description=__doc__); ap.add_argument('--out', type=Path, required=True)
+    ap.add_argument('--ihp-hv',action='store_true',help='Exercise both IHP 3.3 V MOS views.'); a = ap.parse_args()
     out = a.out.resolve(); out.mkdir(parents=True, exist_ok=False)
     root = Path(__file__).resolve().parents[1]; sys.path.insert(0, str(root))
     from PySide6.QtCore import QSettings, QStandardPaths
@@ -31,10 +32,14 @@ def main():
         button.click(); app.processEvents(); assert not review.isVisible(), errors
 
     try:
-        for target in TARGETS:
+        for target in (('ihp-sg13g2',) if a.ihp_hv else TARGETS):
             tech, identity = load_technology(target)
             for polarity in ('n', 'p'):
-                p = fixture(tech, target, polarity, (3, 1, 3, 3)); cell = p['cells'][0]; did = cell['devices'][0]['id']
+                if a.ihp_hv:
+                    from scripts.qualify_ihp_hv_mos_layouts import fixture as hv_fixture
+                    p=hv_fixture(tech,polarity,(3,1,3,3))
+                else:p = fixture(tech, target, polarity, (3, 1, 3, 3))
+                cell = p['cells'][0]; did = cell['devices'][0]['id']
                 for key in ('shapes', 'layout_pins', 'layout_ports', 'pdk_layouts'): cell[key] = []
                 studio.set_project(p); studio.select([did]); studio.refresh()
                 accept(studio.mos_layout_dialog())
@@ -54,13 +59,17 @@ def main():
                 assert studio.cell['pdk_layouts'][0]['fingers']['width_nm'] == 1000
                 assert {pin['pin']:pin['id'] for pin in studio.cell['layout_pins']} == pins
                 assert not ADAPTERS[target].implementation().audit(studio.project, studio.cid)
+                if a.ihp_hv:
+                    ls=ADAPTERS[target].layers(studio.project['pdk'])
+                    assert sum(s['layer']==ls['thickox'] for s in studio.cell['shapes'])==16
+                    assert studio.cell['pdk_layouts'][0]['spec']['model']=='sg13_hv_'+polarity+'mos'
                 path = out/(target+'-'+polarity+'.icproj'); studio.path = path; assert studio.save()
                 reopened = load_project(path); assert reopened['cells'] == studio.project['cells']
                 rows.append(dict(target=target, polarity=polarity, status='PASS', package=identity, saved=str(path)))
         assert not errors, errors
         studio.mode_combo.setCurrentIndex(1); studio.layout.fit(); app.processEvents()
         assert studio.grab().save(str(out/'mos-fingers.png'))
-        result = dict(status='PASS', cases=rows, platform=app.platformName(), scope=__doc__+' Source desktop only; installed release acceptance remains separate.')
+        result = dict(status='PASS', cases=rows, ihp_hv=a.ihp_hv, platform=app.platformName(), scope=__doc__+' Source desktop only; installed release acceptance remains separate.')
     except Exception:
         result = dict(status='FAIL', cases=rows, errors=errors, traceback=traceback.format_exc())
     finally:

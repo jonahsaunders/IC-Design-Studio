@@ -229,6 +229,8 @@ def extract(executable, source, top, ports, technology, folder):
         raise ValueError('Public IHP extraction did not complete without comparison filtering.')
     native = folder/'native.cir'
     converted, changes = bipolar_subcircuits(native.read_text(encoding='utf-8'))
+    from .ihp_mos_lvs import subcircuits as mos_subcircuits
+    converted, mos = mos_subcircuits(converted); changes.extend(mos)
     from .ihp_inductor_lvs import geometry as inductor_geometry
     converted, inductors = inductor_geometry(converted); changes.extend(inductors)
     from .ihp_varactor_lvs import geometry as varactor_geometry

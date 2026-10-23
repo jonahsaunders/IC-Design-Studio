@@ -2,21 +2,29 @@ name: Build and verify desktop release
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full 40-character commit of the selected branch or tag
+        type: string
+        required: true
   push:
     tags: ['v*']
-    branches: [main, experimental]
-  pull_request:
-# Let running desktop acceptance finish when another commit arrives. GitHub's
-# default single pending slot retains the newest queued branch/PR run. Separate
-# caller identities keep release preparation, tags and manual runs independent.
+# Selected candidates retain all acceptance gates and are not cancelled by new pushes.
 concurrency:
-  group: >-
-    ci-build-desktop-${{ github.workflow }}-${{ github.event_name }}-${{ (github.event_name == 'pull_request' && github.event.pull_request.number) || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && github.workflow != 'Prepare desktop release' && github.ref) || github.run_id }}
+  group: candidate-build-desktop-${{ github.workflow }}-${{ github.run_id }}
   cancel-in-progress: false
 permissions:
   contents: read
 jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
   release-tools:
+    needs: candidate
     strategy:
       fail-fast: false
       matrix:
@@ -31,6 +39,7 @@ jobs:
       - name: Verify portable release evidence and publishing
         run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_sky130_qualification_package -v
   digital-runtime:
+    needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
   package:
     needs: [digital-runtime, release-tools]

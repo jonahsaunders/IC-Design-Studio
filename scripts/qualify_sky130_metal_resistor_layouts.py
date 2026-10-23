@@ -17,7 +17,7 @@ from icstudio.interchange import export_layout
 from icstudio.stream_contract import compare
 from scripts.qualify_standard_mos import write
 from scripts.qualify_standard_mos_layout import technology,fault_detected
-from scripts.qualify_ihp_resistor_layouts import regions,same_masks,rotated
+from scripts.qualification_geometry import regions,same_masks,rotated
 
 # LI resistor rule li.7 requires .29 um outside areaid.ed, even though the
 # generator's electrical default is .17 um. No exemption marker is added.
@@ -127,7 +127,7 @@ def case(tech,model,w,l,out,tools):
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--sky130',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True);ap.add_argument('--pilot',action='store_true');ap.add_argument('--models',nargs='+',choices=MODELS,default=list(MODELS));ap.add_argument('--workers',type=int,choices=range(1,5),default=2);a=ap.parse_args()
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);tech,identity=technology('sky130A',a.sky130);tools={k:str(Path(getattr(a,k)).resolve(strict=True)) for k in ('magic','netgen')}
-    sources=[Path(__file__),ROOT/'scripts/qualify_standard_mos.py',ROOT/'scripts/qualify_standard_mos_layout.py',ROOT/'scripts/qualify_ihp_resistor_layouts.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources}
+    sources=[Path(__file__),ROOT/'scripts/qualification_geometry.py',ROOT/'scripts/qualify_standard_mos.py',ROOT/'scripts/qualify_standard_mos_layout.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources}
     write(out/'source-files.json',before);(out/'executed-runner.py').write_bytes(Path(__file__).read_bytes());report=dict(schema=1,chunk=7,chunk_complete=False,qualified=False,status='RUNNING',scope=__doc__,process=identity,cases=[],source_files_sha256=file_digest(out/'source-files.json'))
     with ProcessPoolExecutor(max_workers=a.workers) as pool:
         jobs=[pool.submit(case,tech,m,w,l,out,tools) for m in a.models for w,l in ([(2,5)] if a.pilot else [*SIZES,(MODELS[m][1],)*2])]

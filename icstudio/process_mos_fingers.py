@@ -18,7 +18,7 @@ def dimensions(width_nm, fingers, minimum):
 
 def generate(tech, device, x, y, spec, layers):
     ihp = tech['package_lock']['id'] == 'ihp-sg13g2'
-    count, width = dimensions(spec['dimensions_nm']['w'], spec['values']['ng' if ihp else 'nf'], 150 if ihp else 220)
+    count, width = dimensions(spec['dimensions_nm']['w'], spec['values']['ng' if ihp else 'nf'], spec.get('minimum_finger_width_nm',150) if ihp else 220)
     length = spec['dimensions_nm']['l']; pitch = length+1200; last = (count-1)*pitch
     cy = 5*round(width/10); shapes = []; pins = []
 

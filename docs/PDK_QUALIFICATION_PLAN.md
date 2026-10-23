@@ -1,5 +1,14 @@
 # PDK qualification in twelve chunks
 
+The [IHP standard 3.3 V MOS batch](IHP_HV_MOS_LAYOUTS.md) adds 168 passing
+sampled layout checks, 158 fault controls and independent native/mask readback.
+The [family closure plan](CHUNK7_DEVICE_FAMILY_CLOSURE.md) now records the
+LI resistor source contract and ten passing linked electrical/physical examples
+across five distinct passive sections, with independent raw evidence audits.
+[Fast feedback](CI_FEEDBACK.md) and [shared toolchains](REFERENCE_TOOLCHAIN_REUSE.md)
+reduce repeated setup while preserving selected-candidate release gates. Full
+device envelopes and installed acceptance remain open; no status is promoted.
+
 The [GF180 public current checks](GF180_MOS_SPECIFICATIONS.md) add independently sourced numerical limits. Both hosts complete ten cases and all fault controls; two fast-corner cases retain a literal bound mismatch also present with public-model defaults. Device status and full operating-envelope requirements remain unchanged.
 
 The [GF180/IHP shared-finger batch](MOS_FINGER_LAYOUTS.md) adds bounded gate fingers with separate multiplicity. All 156 native layout contexts and 222 fault controls pass the combined native and independent audits. Final Linux and affected Windows tests pass; full device envelopes and final hosted/installed acceptance remain open.
