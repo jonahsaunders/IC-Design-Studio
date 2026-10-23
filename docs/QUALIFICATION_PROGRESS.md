@@ -1,6 +1,52 @@
 # Chunks 1–12: progress and forecast
 
+**Snapshot: October 23, 2026; GF180/IHP shared fingers on `e44f7f3`.**
+The [shared-finger layouts](MOS_FINGER_LAYOUTS.md) add 1–8 gate fingers per
+device and retain separate 1–16-copy multiplicity. All 156 native layout
+contexts pass; the qualification runner detects all 222 faults. Independent
+readback checks 7,182 channels in both extracted netlists and exported masks,
+plus 10,098 evidence bindings. Diffusion-group checks catch wrong physical
+grouping that electrical comparisons cannot distinguish. All 216 prior
+single-finger configurations remain identical, and six source editor cases
+pass on each host.
+
+The final isolated Linux suite passes **3,341 tests** (43 skips). Both hosts
+pass all **58 affected tests** (two skips each). The earlier Windows full run
+retains one obsolete single-finger expectation among 3,340 tests, with 67
+skips; corrected coverage now passes in the affected suite. No final complete
+Windows or installed-release pass is claimed. Initial failures remain retained.
+
+The verified 183.9 MB archive and 3.0 MB checkpoint retain exact sources,
+native results, initial failures and regressions. Archive restoration reproduces
+nine native contexts, 72 faults and all 58 affected tests. Model and PDK assets
+are unchanged; no new third-party asset was imported.
+
+The parent hosted snapshot has six successful workflows, nine running, one
+pending and one failure during OS dependency setup. The coil workflow now
+avoids downloading an older KLayout immediately before the checksum-locked
+version. Edited shell steps pass syntax checks; fresh hosted setup and final
+installed acceptance remain outstanding.
+
+All 35 evidence/matrix/release tests and release-document checks pass.
+Before cleanup, every one of 74,227 non-bytecode files in this batch's temporary
+trees was verified recoverable. Removing those copies freed 378.5 MB on Windows
+and 4.51 GB inside Linux. Archives, repository, PDKs and engines are retained;
+no administrator access or virtual-disk compaction was used.
+
+**Chunk 7 remains about 60% complete, low confidence (50–70%).** There are
+still 287 partial entries, six unavailable required bindings and nine utilities.
+This closes the bounded GF180/IHP shared-finger implementation gap. Full device
+envelopes, unsampled geometry, broader physical/tool-view coverage and final
+acceptance keep chunk 7 open. No device status or completion gate was promoted.
+
 **Snapshot: October 23, 2026; GF180/IHP parallel MOS on `16761b2`.**
+Final sync: the batch and tracker are pushed as
+[`e44f7f3`](https://github.com/jonahsaunders/IC-Design-Studio/commit/e44f7f318e428c764d9faae9ae5a879da483522a),
+and remote `experimental` matches. Its first exact-revision hosted snapshot has
+six pending and eleven queued workflows; none has completed. The estimate stays
+60%, low confidence. This sync-only note remains local for the next appropriate
+push so it does not restart the active checks. Pending CI is not acceptance.
+
 The [parallel MOS layouts](MOS_PARALLEL_LAYOUTS.md) add 1–16 separately contacted
 units to the standard GF180 C/D 3.3 V and IHP 1.2 V generators. Inverter placement
 uses the full array height. All 144 rotated/mirrored device layouts and twelve
@@ -416,7 +462,7 @@ hosted or installed acceptance results.
 
 At the user's request, the **rough engineering estimate for chunk 7 is about
 60% complete**, with a broad planning range of **50–70% and low confidence**
-(October 23, 2026; baseline `16761b2` plus the recorded parallel-MOS correction). This is a judgment about the
+(October 23, 2026; baseline `e44f7f3` plus the recorded shared-finger correction). This is a judgment about the
 implemented integration and accumulated verification work relative to the
 remaining gate, not a measured coverage score or a fraction of time remaining.
 Working device interfaces, selected electrical/physical batches and reusable
@@ -466,6 +512,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-23 | Added bounded GF180/IHP shared MOS fingers: 156 valid layouts, 222 detected faults, 7,182 independently read channels, preserved single-finger behavior, final Linux 3,341-test pass and both 58-test affected passes. Verified archive restore and reduced redundant hosted setup downloads. | Closes sampled shared-finger support; full device envelopes, missing bindings and final acceptance remain. Estimate stays 60%, low confidence. |
 | 2026-10-23 | Added GF180 C/D and IHP standard MOS parallel layouts: 156 valid native contexts, 156 detected faults, 1,134 independently checked transistors, preserved single-unit behavior, the 3,328-test Linux suite and both final 64-test affected suites. The Windows full-suite campaign lock failure is retained and addressed by a tested retry. | Closes a concrete physical multiplicity gap. Shared fingers, full device envelopes, six unavailable bindings and final acceptance keep chunk 7 open; estimate remains 60%, low confidence. |
 | 2026-10-23 | Added the sampled RF n-well default binding; unavailable real models fall from seven to six. Repaired the public MiM contact-topology regression with original fault controls. Both 3,322-test suites, independent audits and archive replay pass. | A concrete model-availability blocker is closed; all 287 available entries remain partial. Broader envelopes and final hosted/installed acceptance remain open. Estimate stays about 60%, low confidence. |
 | 2026-10-23 | Closed bounded rectangular second-MiM orientation: 64 layouts, 47 faults, both 24-condition electrical batches, independent audits, both 3,311-test suites and archive replay pass. | Removes the identified rotation defect. Full device, remaining-model and installed-release gates remain open; no increase to the low-confidence 60% estimate. |

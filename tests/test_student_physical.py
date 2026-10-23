@@ -42,12 +42,17 @@ class StudentPhysicalTests(unittest.TestCase):
                 self.assertEqual(audit(p,cell['id'])[0]['code'],'PDK.STALE')
         self.assertEqual(len(set(hashes)),3)
 
-    def test_ihp_rejects_multiple_fingers_and_preserves_lvs_dimensions(self):
-        from icstudio.ihp_layout import specification
+    def test_ihp_finger_bounds_and_preserved_lvs_dimensions(self):
+        from icstudio.ihp_layout import specification,mos
         from icstudio.native_spice import lvs_defaults
         t=technology('ihp-sg13g2');p=create(profile(t));_,c=context(p);d=c['devices'][0]
+        original=specification(t,d)['dimensions_nm']
         d['model_params']['ng']='2'
-        with self.assertRaisesRegex(ValueError,'one finger'):specification(t,d)
+        self.assertEqual(specification(t,d)['dimensions_nm'],original)
+        self.assertEqual(mos(t,d)['record']['fingers']['width_nm'],original['w']//2)
+        for count,error in (('0','ng must be positive'),('1.5','ng must be a whole number'),('9','finger count')):
+            d['model_params']['ng']=count
+            with self.assertRaisesRegex(ValueError,error):specification(t,d)
         text='Xn Y A 0 0 sg13_lv_nmos w=1u l=.13u ng=1 m=3 mm_ok=1\n'
         actual,changes=lvs_defaults(text,t)
         self.assertNotIn('mm_ok',actual);self.assertIn('w=1u l=.13u ng=1 m=3',actual)

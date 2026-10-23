@@ -1,6 +1,8 @@
 # PDK qualification in twelve chunks
 
-The [GF180/IHP parallel MOS batch](MOS_PARALLEL_LAYOUTS.md) passes 156 valid native layouts, 156 faults and both final affected suites while preserving legacy single-unit behavior. The earlier complete Windows run retained a campaign lock failure, now addressed by a bounded retry and actual Windows lock control. Complete operating envelopes, shared fingers, remaining devices and final acceptance still keep chunk 7 open.
+The [GF180/IHP shared-finger batch](MOS_FINGER_LAYOUTS.md) adds bounded gate fingers with separate multiplicity. All 156 native layout contexts and 222 fault controls pass the combined native and independent audits. Final Linux and affected Windows tests pass; full device envelopes and final hosted/installed acceptance remain open.
+
+The [GF180/IHP parallel MOS batch](MOS_PARALLEL_LAYOUTS.md) passes 156 valid native layouts, 156 faults and both final affected suites while preserving legacy single-unit behavior. The earlier complete Windows run retained a campaign lock failure, now addressed by a bounded retry and actual Windows lock control. Complete operating envelopes, unsampled geometry, remaining devices and final acceptance still keep chunk 7 open.
 
 For a concise view of all twelve chunks, current blockers and the forecast,
 see the [progress tracker](QUALIFICATION_PROGRESS.md), updated during project work.

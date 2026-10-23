@@ -65,7 +65,9 @@ def generate(tech, device, data, layers, multiplicity):
 def inverter_separation(tech, nmos, pmos, implementation, original):
     """Keep the full n-array below the p-array, preserving legacy single units."""
     spec = implementation.specification(tech, nmos)
-    if spec['values'].get('m', 1) == 1:
+    other = implementation.specification(tech, pmos)
+    if spec['values'].get('m', 1) == 1 and all(
+            s['values'].get(k, 1) == 1 for s in (spec, other) for k in ('nf', 'ng')):
         return original
     top = max(polygon(s).bbox().top for s in implementation.mos(tech, nmos)['shapes'])
     bottom = min(polygon(s).bbox().bottom for s in implementation.mos(tech, pmos)['shapes'])

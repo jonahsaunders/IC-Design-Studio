@@ -1,7 +1,7 @@
 {
   "schema": 6,
   "as_of": "2026-10-23",
-  "source_baseline": "16761b2ae4cdabbed9f3ebdeb18a2758dad3860d",
+  "source_baseline": "e44f7f318e428c764d9faae9ae5a879da483522a",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -80,6 +80,15 @@
         "device_layouts": 144,
         "inverter_layouts": 12,
         "faults": 156,
+        "device_statuses_unchanged": true
+      },
+      "latest_mos_finger_layouts": {
+        "evidence": "mos-finger-layouts-2026-10-23",
+        "status": "sampled_native_and_source_desktop_passed",
+        "device_layouts": 144,
+        "inverter_layouts": 12,
+        "faults": 222,
+        "independently_read_native_and_exported_channels": 7182,
         "device_statuses_unchanged": true
       }
     },
@@ -19302,14 +19311,15 @@
         "default-device-packages-2026-10-17",
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
-        "mos-parallel-layouts-2026-10-23"
+        "mos-parallel-layouts-2026-10-23",
+        "mos-finger-layouts-2026-10-23"
       ]
     },
     "gf180mcuC:device-physical": {
       "target": "gf180mcuC",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+      "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
@@ -19317,7 +19327,8 @@
         "mos-physical-boundaries-2026-10-17",
         "resistor-layouts-2026-10-17",
         "diode-layouts-2026-10-17",
-        "mos-parallel-layouts-2026-10-23"
+        "mos-parallel-layouts-2026-10-23",
+        "mos-finger-layouts-2026-10-23"
       ]
     },
     "gf180mcuC:device-simulation": {
@@ -19588,14 +19599,15 @@
         "default-device-packages-2026-10-17",
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
-        "mos-parallel-layouts-2026-10-23"
+        "mos-parallel-layouts-2026-10-23",
+        "mos-finger-layouts-2026-10-23"
       ]
     },
     "gf180mcuD:device-physical": {
       "target": "gf180mcuD",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+      "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
@@ -19603,7 +19615,8 @@
         "mos-physical-boundaries-2026-10-17",
         "resistor-layouts-2026-10-17",
         "diode-layouts-2026-10-17",
-        "mos-parallel-layouts-2026-10-23"
+        "mos-parallel-layouts-2026-10-23",
+        "mos-finger-layouts-2026-10-23"
       ]
     },
     "gf180mcuD:device-simulation": {
@@ -19871,14 +19884,15 @@
         "default-device-packages-2026-10-17",
         "fixed-geometry-and-model-inventory-2026-10-17",
         "ihp-thermal-2026-10-17",
-        "mos-parallel-layouts-2026-10-23"
+        "mos-parallel-layouts-2026-10-23",
+        "mos-finger-layouts-2026-10-23"
       ]
     },
     "ihp-sg13g2:device-physical": {
       "target": "ihp-sg13g2",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+      "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
@@ -19889,7 +19903,8 @@
         "diode-layouts-2026-10-17",
         "ihp-bipolar-layouts-2026-10-17",
         "ihp-npn-layouts-2026-10-17",
-        "mos-parallel-layouts-2026-10-23"
+        "mos-parallel-layouts-2026-10-23",
+        "mos-finger-layouts-2026-10-23"
       ]
     },
     "ihp-sg13g2:device-simulation": {
@@ -21913,7 +21928,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -21922,7 +21937,8 @@
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
-          "mos-parallel-layouts-2026-10-23"
+          "mos-parallel-layouts-2026-10-23",
+          "mos-finger-layouts-2026-10-23"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -22204,7 +22220,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -22213,7 +22229,8 @@
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
-          "mos-parallel-layouts-2026-10-23"
+          "mos-parallel-layouts-2026-10-23",
+          "mos-finger-layouts-2026-10-23"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -23038,7 +23055,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -23047,7 +23064,8 @@
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
-          "mos-parallel-layouts-2026-10-23"
+          "mos-parallel-layouts-2026-10-23",
+          "mos-finger-layouts-2026-10-23"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -23329,7 +23347,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -23338,7 +23356,8 @@
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
-          "mos-parallel-layouts-2026-10-23"
+          "mos-parallel-layouts-2026-10-23",
+          "mos-finger-layouts-2026-10-23"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -24334,7 +24353,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -24344,7 +24363,8 @@
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
           "ihp-isolation-hierarchy-2026-10-21",
-          "mos-parallel-layouts-2026-10-23"
+          "mos-parallel-layouts-2026-10-23",
+          "mos-finger-layouts-2026-10-23"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -24354,7 +24374,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -24363,7 +24383,8 @@
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
-          "mos-parallel-layouts-2026-10-23"
+          "mos-parallel-layouts-2026-10-23",
+          "mos-finger-layouts-2026-10-23"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -25255,6 +25276,11 @@
       "path": "docs/validation/mos-parallel-layouts-2026-10-23.json",
       "sha256": "a4cfc3a04832f31f93b97f9e7fb33ed869a457f8815711cb116ca35940a54503",
       "scope_limit": "Standard four-terminal GF180 C/D 3.3 V and IHP 1.2 V MOS: separately contacted parallel copies, first-unit identity preservation, full-array inverter placement, native geometry/terminal samples and source editor workflows. Not shared-finger, full operating-envelope, extracted electrical or foundry qualification."
+    },
+    "mos-finger-layouts-2026-10-23": {
+      "path": "docs/validation/mos-finger-layouts-2026-10-23.json",
+      "sha256": "9ef45c17f2244997d5d3b1905458995c6d7f8c13e1e5bfa120e33f9cca25eed7",
+      "scope_limit": "Standard four-terminal GF180 C/D 3.3 V and IHP 1.2 V shared-diffusion gate fingers with separate parallel multiplicity, exact native channels and exported diffusion-group verification, rotated stream exchange, selected inverter contexts and source editor workflows. No full operating-envelope, extracted electrical, installed release or foundry qualification."
     }
   },
   "execution_acceptance": {

@@ -94,7 +94,9 @@ class LayoutReleaseTests(unittest.TestCase):
                 bad=clone(d);bad['params'][field]=value
                 with self.assertRaises(ValueError):specification(p['pdk'],bad)
             d['model_params']['nf']='2'
-            with self.assertRaisesRegex(ValueError,'one finger'):specification(p['pdk'],d)
+            self.assertEqual(specification(p['pdk'],d)['values']['nf'],2)
+            d['model_params']['nf']=9
+            with self.assertRaisesRegex(ValueError,'finger count'):specification(p['pdk'],d)
 
     def test_gf180_does_not_enable_ring_or_mirror(self):
         from icstudio.process_adapters import capabilities

@@ -516,6 +516,12 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_mos_parallel.py --out build/mos-parallel-editor
+      - name: Verify shared MOS finger editing and regeneration
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_mos_fingers.py --out build/mos-finger-editor
       - name: Verify IHP tap parameters and saved revision in the editor
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -780,6 +786,7 @@ jobs:
             build/ihp-em-profile-evidence
             build/gf180-hv-editor-C/report.json
             build/mos-parallel-editor
+            build/mos-finger-editor
             build/gf180-hv-editor-C/high-voltage.png
             build/gf180-hv-editor-C/high-voltage.icproj
             build/gf180-hv-editor-D/report.json

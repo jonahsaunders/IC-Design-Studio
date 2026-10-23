@@ -1,6 +1,8 @@
 # Bundled device corrections and reproducible qualification
 
-The [GF180/IHP parallel MOS layouts](MOS_PARALLEL_LAYOUTS.md) add separately contacted standard transistor copies and full-array inverter placement. Native geometry, terminal, fault, source desktop and final affected regression checks pass in the recorded scope; shared-finger and complete device qualification remain open.
+The [GF180/IHP shared-finger batch](MOS_FINGER_LAYOUTS.md) adds bounded gate fingers with separate multiplicity. All 156 native layout contexts and 222 fault controls pass the combined native and independent audits. Final Linux and affected Windows tests pass; full device envelopes and final hosted/installed acceptance remain open.
+
+The [GF180/IHP parallel MOS layouts](MOS_PARALLEL_LAYOUTS.md) add separately contacted standard transistor copies and full-array inverter placement. Native geometry, terminal, fault, source desktop and final affected regression checks pass in the recorded scope; unsampled geometry and complete device qualification remain open.
 
 The [RF n-well default integration](SKY130_RF_DEFAULT.md) makes the tested public
 `rf_diode_ps2nw` simulation binding available in new projects, preserving older

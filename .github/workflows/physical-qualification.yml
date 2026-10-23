@@ -142,6 +142,10 @@ jobs:
         if: matrix.stage == 'inverter'
         timeout-minutes: 15
         run: python scripts/qualify_mos_parallel_layouts.py --output build/mos-parallel-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --workers 2
+      - name: Qualify shared MOS fingers and independent native channel counts
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 15
+        run: python scripts/qualify_mos_finger_layouts.py --output build/mos-finger-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --workers 2
       - name: Check exact full-deck width and spacing boundaries
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
@@ -242,6 +246,7 @@ jobs:
             build/simulation-engine/rf-bias
             build/sky130-rf-default
             build/mos-parallel-evidence
+            build/mos-finger-evidence
             build/simulation-engine/rf-transient
             build/sky130-mos-defaults
             build/sky130-mos-bias

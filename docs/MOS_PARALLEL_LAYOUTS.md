@@ -41,8 +41,10 @@ python tests/gui_mos_parallel.py --out /path/to/new-editor-results
 `--pilot` selects six small device cases and three inverter contexts. It is
 not the complete batch. The unit's existing geometry bounds remain unchanged:
 GF180 W=0.22–10 and L=0.28–10 micrometres; IHP W=0.15–10 and L=0.13–10
-micrometres, on a 5 nm grid. Fractional/out-of-range physical multiplicity and
-multiple fingers per unit are rejected.
+micrometres, on a 5 nm grid. Fractional/out-of-range physical multiplicity is
+rejected. This earlier batch used one finger per unit. The later
+[shared-finger implementation](MOS_FINGER_LAYOUTS.md) adds bounded `nf`/`ng`
+support with its own evidence; it does not expand this historical record.
 
 These results qualify the recorded geometry/connectivity samples. They do
 not establish every layout on the grid, extracted RC or performance, mismatch,

@@ -89,10 +89,12 @@ jobs:
         run: |
           apt_options=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
           sudo apt-get "${apt_options[@]}" update --error-on=any
-          sudo apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev klayout libegl1 libopengl0
+          # Install the checksum-locked KLayout below once; fetching Ubuntu's
+          # older package first wasted 38.9 MB during the observed setup timeout.
+          sudo apt-get "${apt_options[@]}" install -y --no-install-recommends build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libegl1 libopengl0
           curl -fL --retry 3 --connect-timeout 30 --max-time 300 -o /tmp/ihp-klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
           echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/ihp-klayout.deb' | sha256sum -c
-          sudo apt-get "${apt_options[@]}" install -y /tmp/ihp-klayout.deb
+          sudo apt-get "${apt_options[@]}" install -y --no-install-recommends /tmp/ihp-klayout.deb
           python -m pip install --timeout 30 --retries 3 -r requirements.txt -r requirements-qualification.txt
       - name: Verify public measured reference and layout exchange without an EM solve
         run: |

@@ -1,7 +1,8 @@
 """Bounded GF180MCU C/D 3.3 V MOS geometry, using each variant's locked decks.
 
 Native GDS drawing datatype 0 and port datatype 10 are process-specific.
-W=.22..10 um, L=.28..10 um, 5 nm grid, nf=1, m=1..16. All four terminals are contacted.
+Total W=.22..10 um, L=.28..10 um, 5 nm grid, nf=1..8, m=1..16.
+Each finger must be at least .22 um wide. All four terminals are contacted.
 """
 from .model import clone, uid, scalar, validate, digest, file_digest
 from .catalog import binding_for, parameter_values, create_device, link_technology
@@ -43,8 +44,8 @@ def specification(tech, d):
     if not b or b['model'] != MODELS.get(d['kind']) or set(d['nets']) != {'d','g','s','b'}:
         raise ValueError('Select a standard four-terminal GF180 nfet_03v3 or pfet_03v3.')
     values = parameter_values(b,d)
-    if any(values.get(k,1) != 1 for k in ('nf','mult')):
-        raise ValueError('GF180 native geometry supports one finger per parallel unit.')
+    if values.get('mult',1) != 1:
+        raise ValueError('Use the explicit GF180 m parallel-copy binding.')
     from .process_mos import dimensions
     geometry = dimensions(tech, d, b)
     from .process_mos_parallel import count
@@ -57,6 +58,8 @@ def specification(tech, d):
         if abs(raw-n)>1e-6 or n%5 or not minimum<=n<=maximum:
             raise ValueError(f'{d["name"]}: {k.upper()} must be {minimum/1000:g}–{maximum/1000:g} µm on the 5 nm grid.')
         size[k] = n
+    from .process_mos_fingers import dimensions as finger_dimensions
+    finger_dimensions(size['w'],geometry['fingers'],220)
     return {'api': API,'model_ref': clone(d.get('model_ref')),'model':b['model'], 'kind':d['kind'],
             'dimensions_nm':size,'values':values,'nets':clone(d['nets'])}
 
@@ -64,6 +67,10 @@ def specification(tech, d):
 def mos(tech,d,x=0,y=0):
     spec = specification(tech,d); ls = layers(tech); w,l = [spec['dimensions_nm'][k] for k in ('w','l')]
     if any(type(v) is not int or v%5 for v in (x,y)): raise ValueError('Place devices on the 5 nm grid.')
+    if spec['values'].get('nf',1) != 1:
+        from .process_mos_fingers import generate as fingers
+        from .process_mos_parallel import generate as parallel
+        return parallel(tech,d,fingers(tech,d,x,y,spec,ls),ls,spec['values'].get('m',1))
     shapes=[]; pins=[]
     def box(key,a,b,c,e,net=''):
         s=rect(ls[key],x+a,y+b,c-a,e-b,d['id'],net);s['generated_device']=d['id'];shapes.append(s)
