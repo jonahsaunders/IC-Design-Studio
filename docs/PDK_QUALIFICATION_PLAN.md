@@ -73,6 +73,14 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [rectangular second-MiM correction](SKY130_MIM_ORIENTATION.md) derives model
+orientation from written electrodes and verifies it against native extraction.
+All 64 translated rotations/mirrors and 47 physical/reference faults pass, with
+24 complex-admittance and series-resistance conditions on each host. Independent
+raw audits, both source desktops and Windows/local-native receipt pass. Shared
+bottom electrodes and distributed RC remain outside this bounded adapter; full
+device qualification and installed acceptance are unchanged.
+
 The [October 23 CI recovery](CHUNK7_CI_RECOVERY.md) restores the exact historical
 RF corner inputs after the MiM default revision. Both hosts pass 360 branch
 cases, 360 reverse-bias/noise cases, 90 transient conditions and application
@@ -90,8 +98,8 @@ the statistical, physical, remaining-model and final-acceptance gates.
 The [second MiM layout batch](SKY130_SECOND_MIM_LAYOUT.md) adds a bounded
 square SKY130 recipe: 28 native layouts, 35 detected faults, 21 extracted
 electrical comparisons, both source editors and Windows/local-native handoff
-pass. The failed rectangular-rotation cases remain an explicit physical
-coverage blocker. No device or chunk completion status is promoted.
+pass. Its historical rectangular-rotation failures are addressed by the separate
+October 23 correction above. No device or chunk completion status is promoted.
 
 The [SKY130 starting-dimension correction](SKY130_MOS_DEFAULTS.md) removes seven
 fresh-placement model-selection failures. Both hosts pass 14 independent cases

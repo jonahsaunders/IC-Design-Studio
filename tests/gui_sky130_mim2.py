@@ -36,6 +36,12 @@ def main():
         from icstudio.interchange import spice
         line=next(s for s in spice(reopened).splitlines() if s.startswith('X_C1 '))
         assert set(line.split()[4:])=={'w=4','l=4','mf=3','m=3'},line
+        studio.commit(lambda project:project['cells'][0]['devices'][0]['model_params'].update(w=3.005,l=5.005),'Resize rectangular capacitor')
+        studio.selection=[d['id']];studio.refresh();accept(studio.mos_layout_dialog());assert not audit(studio.project,studio.cid)
+        path=out/'rectangular-mim2.icproj';save_project(studio.project,path);reopened=load_project(path)
+        assert reopened['cells']==studio.project['cells']
+        line=next(s for s in spice(reopened).splitlines() if s.startswith('X_C1 '))
+        assert set(line.split()[4:])=={'w=3.005','l=5.005','mf=3','m=3'},line
         assert reopened['pdk']['package_lock']==studio.project['pdk']['package_lock']
         assert not errors,errors
         result=dict(status='PASS',platform=app.platformName(),scope='Source Qt generation/review, undo/redo, regeneration and save/reopen; not frozen desktop acceptance.')

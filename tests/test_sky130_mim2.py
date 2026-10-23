@@ -23,7 +23,7 @@ def fixture(w=2, l=2, count=1):
 class Sky130Mim2Tests(unittest.TestCase):
     def test_second_plate_keeps_electrodes_separate_with_actual_cut_geometry(self):
         from icstudio.layout_routing import conductors
-        for w, l, count in ((2,2,1), (3.005,3.005,1), (10,10,3), (30,30,1), (2,2,16)):
+        for w, l, count in ((2,2,1), (3.005,3.005,1), (10,10,3), (30,30,1), (2,2,16), (2,10,1), (10,2,3), (3.005,5.005,1)):
             with self.subTest(w=w,l=l,count=count):
                 p,c,d = fixture(w,l,count);ls=layers(p['pdk'])
                 self.assertFalse(connectivity(p,c['id'])['issues'])
@@ -48,7 +48,7 @@ class Sky130Mim2Tests(unittest.TestCase):
 
     def test_invalid_dimensions_bindings_and_missing_layers_fail_without_changes(self):
         p,c,d=fixture();before=clone(p)
-        for change in ({'w':1.995},{'w':2.001},{'l':30.005},{'w':2,'l':3},{'mf':0},{'mf':1.5},{'mf':17}):
+        for change in ({'w':1.995},{'w':2.001},{'l':30.005},{'mf':0},{'mf':1.5},{'mf':17}):
             q=clone(d);q['model_params'].update(change)
             with self.subTest(change=change),self.assertRaises(ValueError):geometry(p['pdk'],q)
         for pair in ((71,20),(72,20),(71,44),(97,44)):

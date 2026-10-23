@@ -1,7 +1,7 @@
 {
   "schema": 6,
   "as_of": "2026-10-23",
-  "source_baseline": "b4e00d9bb89546feb3d9dfc728d57c2558bcdc18",
+  "source_baseline": "096c275d32991aae86b09c86ea2049b8e6c1e387",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -64,7 +64,8 @@
       "latest_sky130_default_geometry_evidence": "docs/validation/sky130-mos-defaults-2026-10-22.json",
       "latest_sky130_mim2_evidence": "docs/validation/sky130-mim2-layouts-2026-10-22.json",
       "latest_sky130_mim_binding_evidence": "docs/validation/sky130-mim-binding-2026-10-22.json",
-      "latest_ci_recovery_evidence": "docs/validation/chunk7-ci-recovery-2026-10-23.json"
+      "latest_ci_recovery_evidence": "docs/validation/chunk7-ci-recovery-2026-10-23.json",
+      "latest_sky130_mim_orientation_evidence": "docs/validation/sky130-mim-orientation-2026-10-23.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -18929,7 +18930,8 @@
         "sky130-threshold-layouts-2026-10-21",
         "sky130-voltage-layouts-2026-10-22",
         "sky130-mim2-layouts-2026-10-22",
-        "sky130-mim-binding-2026-10-22"
+        "sky130-mim-binding-2026-10-22",
+        "sky130-mim-orientation-2026-10-23"
       ]
     },
     "sky130A:device-simulation": {
@@ -18952,7 +18954,8 @@
         "sky130-mos-defaults-2026-10-22",
         "sky130-mim2-layouts-2026-10-22",
         "sky130-mim-binding-2026-10-22",
-        "chunk7-ci-recovery-2026-10-23"
+        "chunk7-ci-recovery-2026-10-23",
+        "sky130-mim-orientation-2026-10-23"
       ]
     },
     "sky130A:digital-controller": {
@@ -25173,6 +25176,11 @@
       "path": "docs/validation/chunk7-ci-recovery-2026-10-23.json",
       "sha256": "a3b3e6b9592279124a8869ae93001ac6c21c0d804910874ae0533417f9fd1874",
       "scope_limit": "Reproduce historical public RF branch/bias/transient and application checks with the current MiM default. Exact corner inputs and thresholds preserved. No new device, operating-envelope, physical, default-promotion or installed-release qualification."
+    },
+    "sky130-mim-orientation-2026-10-23": {
+      "path": "docs/validation/sky130-mim-orientation-2026-10-23.json",
+      "sha256": "e9b8b66d436897ac391ec4c1751befcbc92e72e1f27efe9bb0a27136894f12cc",
+      "scope_limit": "Finite rectangular SKY130 second-MiM layout/extraction and public-model equivalence. No measured RF accuracy, complete operating/statistical/reliability envelope, arbitrary geometry, distributed RC, installed-release or foundry qualification."
     }
   },
   "execution_acceptance": {

@@ -287,11 +287,17 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             # verification_stream already flattened the private geometry. Use
             # Magic's hierarchical writer: its flat writer emits device
             # perimeter with area units (1e-12 instead of 1e-6 in 8.3.684).
-            # This changes no geometry and avoids rewriting extracted values.
+            # This changes no geometry. Rectangular second-MiM axis correction
+            # is separately guarded and recorded by magic_script.
             commands,settings=extraction_commands('lvs')
             magic('lvs-extraction',commands+'ext2spice -o extracted.spice')
             path=out/'lvs-extraction/extracted.spice'
             check_extracted_interface(path,c['name'],ref['ports'],p['pdk'])
+            proof=out/'lvs-extraction/mim-orientation.json'
+            if proof.is_file():
+                report['mim_orientation']=json.loads(proof.read_bytes())
+                for name in ('mim-orientation.json','native-original.ext',c['name']+'.ext'):
+                    files['lvs-extraction/'+name]=file_digest(out/'lvs-extraction'/name)
             files['lvs-extraction/extracted.spice']=file_digest(path)
             return dict(deck='lvs-extraction/extracted.spice',sha256=files['lvs-extraction/extracted.spice'],settings=settings)
         stage('lvs_extraction',extract)

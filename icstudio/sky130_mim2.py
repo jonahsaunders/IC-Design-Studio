@@ -1,4 +1,4 @@
-"""Bounded square second-plate SKY130 MiM layout, on metal4/cap2m/metal5.
+"""Bounded second-plate SKY130 MiM layout, on metal4/cap2m/metal5.
 
 The pinned open_pdks technology identifies cap2m as 97/44 and uses via4
 contacts. These are editable recipes; each placed design still needs DRC/LVS.
@@ -47,12 +47,6 @@ def specification(tech, device):
         if not math.isfinite(nm) or abs(nm - round(nm)) > 1e-6 or round(nm) % 5 or not 2000 <= nm <= 30000:
             raise ValueError(key.upper() + ': use 2–30 µm on the 5 nm grid for the second-plate MiM recipe.')
         size[key] = round(nm)
-    # The pinned Magic extractor exchanges rectangular W/L after rotation.
-    # The public model's series resistance depends on L/W, so accepting that
-    # exchange in LVS would change electrical behavior. Keep rectangles out of
-    # this new recipe until their orientation has an independent extraction path.
-    if size['w'] != size['l']:
-        raise ValueError('Second-plate MiM layout currently requires W = L. Rectangular rotation is not qualified by the native extractor.')
     result = dict(api=1, recipe='mim2_capacitor', model=MODEL, model_ref=clone(device['model_ref']),
                   kind=device['kind'], values=values, dimensions_nm=size, nets=clone(device['nets']))
     if count > 1:

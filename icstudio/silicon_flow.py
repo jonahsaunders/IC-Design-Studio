@@ -23,6 +23,13 @@ def testbench(p,cid):
 def magic_script(executable,technology,gds,cell,ports,directory,commands,setup=""):
     from .native_vectors import ports as scalar_ports
     ports=scalar_ports(ports)
+    from .sky130_mim2_extract import required as mim_required, MARKER as mim_marker
+    if (Path(technology).name=='sky130A.tech' and Path(gds).is_file()
+            and re.search(r'^extract all$',commands,re.M) and mim_required(gds,cell)):
+        if '# STUDIO_NORMALIZE_MAGIC_RC_V1' in commands:
+            raise ValueError('Rectangular second-MiM distributed RC extraction is not yet supported; use the reviewed flat LVS flow.')
+        if mim_marker not in commands:
+            commands=commands.replace('extract all\n','extract all\n'+mim_marker+'\n',1)
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)
     rc=directory/'startup.tcl'
     atomic_write(rc,'tech load '+tcl_word(technology)+'\ndrc euclidean on\n')
@@ -56,6 +63,16 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
         if 'STUDIO_MAGIC_COMPLETE' not in log or re.search(r'STUDIO_MAGIC_ERROR|contained errors|Malformed line|Illegal keyword|Error:.*required by this techfile|invalid command name|exttospice:\s*(?:integer|numeric) value.*expected',log,re.I):
             raise ValueError('Magic could not complete the commands. See '+str(directory/log_name))
         return log
+    if mim_marker in commands:
+        if commands.count(mim_marker) != 1 or marker in commands:
+            raise ValueError('Ambiguous MiM normalization boundary.')
+        extraction,export = commands.split(mim_marker)
+        first = invoke(extraction+'\nputs "STUDIO_MIM_SCALE [cif scale out]"\n',
+                       'native-extraction.tcl','native-extraction.log')
+        from .sky130_mim2_extract import normalize
+        normalize(gds,cell,technology,directory,first)
+        second = invoke(export)
+        return first+'\n'+second
     if marker not in commands:return invoke(commands)
     if commands.count(marker)!=1:raise ValueError('Ambiguous Magic RC normalization boundary.')
     resistance,export=commands.split(marker)
