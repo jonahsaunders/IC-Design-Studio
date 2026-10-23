@@ -138,6 +138,10 @@ jobs:
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
         run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice"
+      - name: Qualify GF180 and IHP parallel MOS units and inverter placement
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 15
+        run: python scripts/qualify_mos_parallel_layouts.py --output build/mos-parallel-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --workers 2
       - name: Check exact full-deck width and spacing boundaries
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
@@ -237,6 +241,7 @@ jobs:
             build/simulation-engine/diode-sequences
             build/simulation-engine/rf-bias
             build/sky130-rf-default
+            build/mos-parallel-evidence
             build/simulation-engine/rf-transient
             build/sky130-mos-defaults
             build/sky130-mos-bias

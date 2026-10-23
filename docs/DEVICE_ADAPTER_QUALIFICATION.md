@@ -1,5 +1,7 @@
 # Bundled device corrections and reproducible qualification
 
+The [GF180/IHP parallel MOS layouts](MOS_PARALLEL_LAYOUTS.md) add separately contacted standard transistor copies and full-array inverter placement. Native geometry, terminal, fault, source desktop and final affected regression checks pass in the recorded scope; shared-finger and complete device qualification remain open.
+
 The [RF n-well default integration](SKY130_RF_DEFAULT.md) makes the tested public
 `rf_diode_ps2nw` simulation binding available in new projects, preserving older
 versions and all original assets. The p-well candidate stays separate; complete

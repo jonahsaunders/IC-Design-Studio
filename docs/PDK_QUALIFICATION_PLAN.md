@@ -1,5 +1,7 @@
 # PDK qualification in twelve chunks
 
+The [GF180/IHP parallel MOS batch](MOS_PARALLEL_LAYOUTS.md) passes 156 valid native layouts, 156 faults and both final affected suites while preserving legacy single-unit behavior. The earlier complete Windows run retained a campaign lock failure, now addressed by a bounded retry and actual Windows lock control. Complete operating envelopes, shared fingers, remaining devices and final acceptance still keep chunk 7 open.
+
 For a concise view of all twelve chunks, current blockers and the forecast,
 see the [progress tracker](QUALIFICATION_PROGRESS.md), updated during project work.
 

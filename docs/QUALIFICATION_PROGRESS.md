@@ -1,6 +1,59 @@
 # Chunks 1–12: progress and forecast
 
+**Snapshot: October 23, 2026; GF180/IHP parallel MOS on `16761b2`.**
+The [parallel MOS layouts](MOS_PARALLEL_LAYOUTS.md) add 1–16 separately contacted
+units to the standard GF180 C/D 3.3 V and IHP 1.2 V generators. Inverter placement
+uses the full array height. All 144 rotated/mirrored device layouts and twelve
+inverter contexts pass full native DRC and strict LVS; all 156 faults are detected.
+Independent readback verifies 1,134 native transistors and 8,008 evidence bindings.
+All 72 prior single-unit characterization sizes retain identical geometry,
+terminals, roles and specifications. The legacy GF180 binding regression found
+by the full suites is fixed; the original failing test remains unchanged.
+
+The isolated Linux suite passes **3,328 tests** (42 skips). The Windows run of
+3,328 tests retains one campaign-directory rename error and 67 skips. A bounded
+publication retry now passes an actual Windows reader-lock test, permanent-error
+and competing-destination controls. Final affected suites pass **64 tests** on
+each host; the complete suites retain their earlier source snapshots and outcomes.
+The final custom-emission guard rejects mismatched physical/model multiplicity;
+272 positive GF180 cases retain identical geometry on each host. No fresh full
+suite or installed-release pass is claimed for the final guards.
+
+All six source editor workflows pass on each host. Restoring the verified source
+archive and compatibility delta reproduces nine native contexts, 51 faults and
+46 affected tests. Applying the final exact source delta passes the 64 affected
+tests again on the reconstructed Linux source. Failed runs retain their own
+records. A verified 107.1 MB main archive and final checkpoint retain the exact
+sources, native results, editor evidence and replays. The parent `16761b2`
+public-layout regression passed its pull-request and release-preparation jobs;
+fresh hosted and installed acceptance remains separate.
+
+The final evidence/matrix/release tests and historical GF180 source checks pass.
+The earlier GF180 acceptance retains its exact tested campaign source; it does
+not certify the newly changed application. The verified 48.8 MB checkpoint
+retains final source deltas, regressions and replay. Verified temporary copies
+were removed: 458.9 MB from Windows and 2.38 GB inside Linux, without administrator
+access or virtual-disk compaction. Repository, tools, PDKs and archives remain.
+
+The latest parent hosted snapshot has ten successful workflows, two running,
+two pending and three queued. One job within a pending workflow timed out while
+installing Ubuntu dependencies: downloading 46.9 MB took 20 minutes. It did not
+reach qualification. Fresh hosted and installed acceptance remains outstanding.
+
+**Chunk 7 remains about 60% complete, low confidence (50–70%).** The matrix still
+has 287 partial entries, six unavailable required bindings and nine utilities.
+Shared fingers, full operating envelopes, wider physical/process coverage and
+final acceptance remain open. No device status or completion gate was promoted.
+
 **Snapshot: October 23, 2026; RF default/public-layout follow-up on `2173746`.**
+Final sync: this batch is pushed as
+[`16761b2`](https://github.com/jonahsaunders/IC-Design-Studio/commit/16761b2ae4cdabbed9f3ebdeb18a2758dad3860d),
+and remote `experimental` matches the local commit. Its first exact-revision
+hosted snapshot has ten running, three pending and four queued workflows;
+none has completed yet. This sync-only note remains local for the next appropriate
+push so it does not restart the active checks. The estimate remains 60% with low
+confidence; pending hosted work is not acceptance.
+
 The [new default RF n-well binding](SKY130_RF_DEFAULT.md) resolves one previously
 unavailable simulation choice. New SKY130 projects use `b26f7f28e659ddc1`; older
 assets, candidates and saved project identities remain recoverable. Public model
@@ -363,7 +416,7 @@ hosted or installed acceptance results.
 
 At the user's request, the **rough engineering estimate for chunk 7 is about
 60% complete**, with a broad planning range of **50–70% and low confidence**
-(October 23, 2026; baseline `2173746` plus the recorded RF/default and public-layout corrections). This is a judgment about the
+(October 23, 2026; baseline `16761b2` plus the recorded parallel-MOS correction). This is a judgment about the
 implemented integration and accumulated verification work relative to the
 remaining gate, not a measured coverage score or a fraction of time remaining.
 Working device interfaces, selected electrical/physical batches and reusable
@@ -413,6 +466,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-23 | Added GF180 C/D and IHP standard MOS parallel layouts: 156 valid native contexts, 156 detected faults, 1,134 independently checked transistors, preserved single-unit behavior, the 3,328-test Linux suite and both final 64-test affected suites. The Windows full-suite campaign lock failure is retained and addressed by a tested retry. | Closes a concrete physical multiplicity gap. Shared fingers, full device envelopes, six unavailable bindings and final acceptance keep chunk 7 open; estimate remains 60%, low confidence. |
 | 2026-10-23 | Added the sampled RF n-well default binding; unavailable real models fall from seven to six. Repaired the public MiM contact-topology regression with original fault controls. Both 3,322-test suites, independent audits and archive replay pass. | A concrete model-availability blocker is closed; all 287 available entries remain partial. Broader envelopes and final hosted/installed acceptance remain open. Estimate stays about 60%, low confidence. |
 | 2026-10-23 | Closed bounded rectangular second-MiM orientation: 64 layouts, 47 faults, both 24-condition electrical batches, independent audits, both 3,311-test suites and archive replay pass. | Removes the identified rotation defect. Full device, remaining-model and installed-release gates remain open; no increase to the low-confidence 60% estimate. |
 | 2026-10-23 | Repaired stale RF corner guards; both hosts pass 360 branch cases, 360 bias/noise cases, 90 transient conditions, application checks and 21 focused tests. Corrected IHP total-job and dependency-download limits. | Removes confirmed qualification regressions. Fresh hosted acceptance is pending; no device promotion or increase to the low-confidence 60% estimate. |

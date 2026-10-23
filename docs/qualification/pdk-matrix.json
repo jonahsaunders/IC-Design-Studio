@@ -1,7 +1,7 @@
 {
   "schema": 6,
   "as_of": "2026-10-23",
-  "source_baseline": "1461c4a8ec66a8a133096300d0ba39d7e6d2e11f",
+  "source_baseline": "16761b2ae4cdabbed9f3ebdeb18a2758dad3860d",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -73,6 +73,14 @@
         "unavailable_real_bindings": 6,
         "utilities": 9,
         "scope": "Default RF ps2nw sampled integration, saved-version preservation, and public MiM contact-topology regression. No complete device envelope, measured RF accuracy, foundry or installed-release qualification."
+      },
+      "latest_mos_parallel_layouts": {
+        "evidence": "mos-parallel-layouts-2026-10-23",
+        "status": "sampled_native_and_source_desktop_passed",
+        "device_layouts": 144,
+        "inverter_layouts": 12,
+        "faults": 156,
+        "device_statuses_unchanged": true
       }
     },
     "8": {
@@ -19293,21 +19301,23 @@
         "standard-mos-sweeps-2026-10-16",
         "default-device-packages-2026-10-17",
         "fixed-geometry-and-model-inventory-2026-10-17",
-        "alternate-models-2026-10-17"
+        "alternate-models-2026-10-17",
+        "mos-parallel-layouts-2026-10-23"
       ]
     },
     "gf180mcuC:device-physical": {
       "target": "gf180mcuC",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Standard single-finger NMOS/PMOS native DRC/LVS now passes the published geometry samples in the physical MOS boundary record, including narrow contact landings and 10 um lengths. Multiple fingers/copies, remaining device-family layouts, broader geometry and extracted electrical behavior remain open; each edited layout needs verification.",
+      "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
         "default-device-packages-2026-10-17",
         "mos-physical-boundaries-2026-10-17",
         "resistor-layouts-2026-10-17",
-        "diode-layouts-2026-10-17"
+        "diode-layouts-2026-10-17",
+        "mos-parallel-layouts-2026-10-23"
       ]
     },
     "gf180mcuC:device-simulation": {
@@ -19577,21 +19587,23 @@
         "standard-mos-sweeps-2026-10-16",
         "default-device-packages-2026-10-17",
         "fixed-geometry-and-model-inventory-2026-10-17",
-        "alternate-models-2026-10-17"
+        "alternate-models-2026-10-17",
+        "mos-parallel-layouts-2026-10-23"
       ]
     },
     "gf180mcuD:device-physical": {
       "target": "gf180mcuD",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Standard single-finger NMOS/PMOS native DRC/LVS now passes the published geometry samples in the physical MOS boundary record, including narrow contact landings and 10 um lengths. Multiple fingers/copies, remaining device-family layouts, broader geometry and extracted electrical behavior remain open; each edited layout needs verification.",
+      "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
         "default-device-packages-2026-10-17",
         "mos-physical-boundaries-2026-10-17",
         "resistor-layouts-2026-10-17",
-        "diode-layouts-2026-10-17"
+        "diode-layouts-2026-10-17",
+        "mos-parallel-layouts-2026-10-23"
       ]
     },
     "gf180mcuD:device-simulation": {
@@ -19858,14 +19870,15 @@
         "standard-mos-sweeps-2026-10-16",
         "default-device-packages-2026-10-17",
         "fixed-geometry-and-model-inventory-2026-10-17",
-        "ihp-thermal-2026-10-17"
+        "ihp-thermal-2026-10-17",
+        "mos-parallel-layouts-2026-10-23"
       ]
     },
     "ihp-sg13g2:device-physical": {
       "target": "ihp-sg13g2",
       "test": "device-physical",
       "status": "partial",
-      "remaining": "Standard single-finger NMOS/PMOS native DRC/LVS now passes the published geometry samples in the physical MOS boundary record, including narrow contact landings and 10 um lengths. Multiple fingers/copies, remaining device-family layouts, broader geometry and extracted electrical behavior remain open; each edited layout needs verification.",
+      "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
       "historical_evidence": [
         "standard-mos-initial-2026-10-16",
         "standard-mos-sweeps-2026-10-16",
@@ -19875,7 +19888,8 @@
         "resistor-layouts-2026-10-17",
         "diode-layouts-2026-10-17",
         "ihp-bipolar-layouts-2026-10-17",
-        "ihp-npn-layouts-2026-10-17"
+        "ihp-npn-layouts-2026-10-17",
+        "mos-parallel-layouts-2026-10-23"
       ]
     },
     "ihp-sg13g2:device-simulation": {
@@ -21899,7 +21913,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
+        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -21907,7 +21921,8 @@
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
-          "mos-physical-boundaries-2026-10-17"
+          "mos-physical-boundaries-2026-10-17",
+          "mos-parallel-layouts-2026-10-23"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -22189,7 +22204,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
+        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -22197,7 +22212,8 @@
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
-          "mos-physical-boundaries-2026-10-17"
+          "mos-physical-boundaries-2026-10-17",
+          "mos-parallel-layouts-2026-10-23"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -23022,7 +23038,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
+        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -23030,7 +23046,8 @@
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
-          "mos-physical-boundaries-2026-10-17"
+          "mos-physical-boundaries-2026-10-17",
+          "mos-parallel-layouts-2026-10-23"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -23312,7 +23329,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
+        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -23320,7 +23337,8 @@
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
-          "mos-physical-boundaries-2026-10-17"
+          "mos-physical-boundaries-2026-10-17",
+          "mos-parallel-layouts-2026-10-23"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -24316,7 +24334,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
+        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -24325,7 +24343,8 @@
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
-          "ihp-isolation-hierarchy-2026-10-21"
+          "ihp-isolation-hierarchy-2026-10-21",
+          "mos-parallel-layouts-2026-10-23"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -24335,7 +24354,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Recorded electrical boundary sweeps and physical geometry samples pass on the current default package. Seven native size/connectivity fault types are detected at each physical sample. Complete operating envelopes, mixed/statistical corners, multiple fingers/copies, unsampled geometry and extracted electrical behavior remain open.",
+        "remaining": "Selected separately contacted parallel-unit and inverter samples now pass full native DRC, strict terminal/size LVS and all declared faults. Shared-finger layouts, unsampled geometry/multiplicity combinations, complete operating/statistical/reliability envelopes and extracted electrical behavior remain open; edited layouts require verification.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -24343,7 +24362,8 @@
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
           "mos-boundaries-2026-10-17",
-          "mos-physical-boundaries-2026-10-17"
+          "mos-physical-boundaries-2026-10-17",
+          "mos-parallel-layouts-2026-10-23"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -25230,6 +25250,11 @@
       "path": "docs/validation/sky130-rf-default-2026-10-23.json",
       "sha256": "b67a119a3d9b14b191d5b7d36cb75b296e8af91ad1752966119074c5837e214d",
       "scope_limit": "Default RF ps2nw sampled integration, saved-version preservation, and public MiM contact-topology regression. No complete device envelope, measured RF accuracy, foundry or installed-release qualification."
+    },
+    "mos-parallel-layouts-2026-10-23": {
+      "path": "docs/validation/mos-parallel-layouts-2026-10-23.json",
+      "sha256": "a4cfc3a04832f31f93b97f9e7fb33ed869a457f8815711cb116ca35940a54503",
+      "scope_limit": "Standard four-terminal GF180 C/D 3.3 V and IHP 1.2 V MOS: separately contacted parallel copies, first-unit identity preservation, full-array inverter placement, native geometry/terminal samples and source editor workflows. Not shared-finger, full operating-envelope, extracted electrical or foundry qualification."
     }
   },
   "execution_acceptance": {
@@ -25245,8 +25270,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-22-mim2/manifest.json",
-        "sha256": "9731a4fc7d1a45fa85e062d9d2133f9522476ce6cc1c5bc093f430e802c93277"
+        "path": "docs/validation/gf180-tested-source-2026-10-23-campaign.json",
+        "sha256": "9cb783a7cf5fa0ca18cd8ad3ab9a91926322913515d9efc505264cfb4b98fef8"
       }
     },
     "5": {

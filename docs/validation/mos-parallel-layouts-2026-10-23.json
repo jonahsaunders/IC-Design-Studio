@@ -1,0 +1,4617 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "chunk": 7,
+  "status": "sampled_parallel_layouts_passed",
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "source_baseline": "16761b2ae4cdabbed9f3ebdeb18a2758dad3860d",
+  "scope": "Standard four-terminal GF180 C/D 3.3 V and IHP 1.2 V MOS: separately contacted parallel copies, first-unit identity preservation, full-array inverter placement, native geometry/terminal samples and source editor workflows. Not shared-finger, full operating-envelope, extracted electrical or foundry qualification.",
+  "source_files": {
+    "icstudio/process_mos_parallel.py": "77f982540fd606177c5e8fc142f98e48e3c7ee04ce989416fc408912571077c2",
+    "icstudio/verification_campaigns.py": "bfc23f252522db921cae7c6383df0ae9b757e2ecfb71bde230f6ab78114ca621",
+    "tests/test_campaign_publication.py": "8d4d814570c531f3553c7dce72f21ecce8691ef011a4060774c2f3cee0f5fdb4",
+    "icstudio/gf180_layout.py": "e803fe8e1575afbdef8641b495bdd7f3c50352bb39831a0b2ada7684e521b9c4",
+    "icstudio/ihp_layout.py": "4610431f487e244472094612c6b37adfc4de10ed39c2e3de9820b4ebfdbfdb7d",
+    "scripts/qualify_mos_parallel_layouts.py": "dd9f16880a5880c4022a021433c367cd169ea76d090b29dacd050c2095ee03b4",
+    "tests/test_mos_parallel_layouts.py": "22077234641a3aa918de0678159a48a82baeea46db4c20999b8f69b1f8b96c34",
+    "tests/gui_mos_parallel.py": "9706e8ec28ea8e91dbd04cfb4ea7cbedbbec4e5b73341c3d4ba34c0cb337d292",
+    ".github/workflows/physical-qualification.yml": "2abed3bb30927dc853d0399275c5d6916e0964632f832d595293eb5a40aab7fe",
+    ".github/workflows/build-desktop.yml": "02fe7d8be19988cec98b74ae278d1d7c6f3d32de873abd9cb54d3c1bec2d99d6"
+  },
+  "packages": {
+    "gf180mcuC": {
+      "revision": "b661a751abfc662a",
+      "manifest_sha256": "abfbf8702d759247ad77075c72c7b042a6f9b89d2629f5c194a925a0d4f6194c",
+      "assets": 83,
+      "changed": false
+    },
+    "gf180mcuD": {
+      "revision": "2f92b1f05da58bd7",
+      "manifest_sha256": "d46a592f236f5a42356db52e861b17f1412ec826cd19a73452f1aa3a50a1e6ae",
+      "assets": 83,
+      "changed": false
+    },
+    "ihp-sg13g2": {
+      "revision": "cfb96b74cf33877e",
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0",
+      "assets": 163,
+      "changed": false
+    }
+  },
+  "native": {
+    "status": "PASS",
+    "record_sha256": "998a83085aa719414a050036ad1ef6fd3d2ac73ad8adb057eeee93b44c6afef8",
+    "source_unchanged": true,
+    "device_cases": [
+      {
+        "target": "gf180mcuC",
+        "polarity": "n",
+        "size": [
+          1,
+          1,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "n",
+        "size": [
+          0.22,
+          0.28,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "p",
+        "size": [
+          0.22,
+          0.28,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "n",
+        "size": [
+          10,
+          10,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "p",
+        "size": [
+          1,
+          1,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "p",
+        "size": [
+          10,
+          10,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "n",
+        "size": [
+          0.22,
+          0.28,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "n",
+        "size": [
+          1,
+          1,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "n",
+        "size": [
+          10,
+          10,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "p",
+        "size": [
+          0.22,
+          0.28,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "p",
+        "size": [
+          1,
+          1,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "p",
+        "size": [
+          10,
+          10,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "n",
+        "size": [
+          0.15,
+          0.13,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "n",
+        "size": [
+          1,
+          1,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "n",
+        "size": [
+          10,
+          10,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "p",
+        "size": [
+          0.15,
+          0.13,
+          2
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "p",
+        "size": [
+          1,
+          1,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "p",
+        "size": [
+          10,
+          10,
+          16
+        ],
+        "status": "PASS"
+      }
+    ],
+    "inverters": [
+      {
+        "target": "gf180mcuC",
+        "counts": [
+          1,
+          1
+        ],
+        "status": "PASS",
+        "native_units": {
+          "nfet_03v3": 1,
+          "pfet_03v3": 1
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "gf180mcuC",
+        "counts": [
+          1,
+          3
+        ],
+        "status": "PASS",
+        "native_units": {
+          "nfet_03v3": 1,
+          "pfet_03v3": 3
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "gf180mcuC",
+        "counts": [
+          3,
+          1
+        ],
+        "status": "PASS",
+        "native_units": {
+          "nfet_03v3": 3,
+          "pfet_03v3": 1
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "gf180mcuC",
+        "counts": [
+          16,
+          16
+        ],
+        "status": "PASS",
+        "native_units": {
+          "nfet_03v3": 16,
+          "pfet_03v3": 16
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "gf180mcuD",
+        "counts": [
+          1,
+          1
+        ],
+        "status": "PASS",
+        "native_units": {
+          "nfet_03v3": 1,
+          "pfet_03v3": 1
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "gf180mcuD",
+        "counts": [
+          1,
+          3
+        ],
+        "status": "PASS",
+        "native_units": {
+          "nfet_03v3": 1,
+          "pfet_03v3": 3
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "gf180mcuD",
+        "counts": [
+          3,
+          1
+        ],
+        "status": "PASS",
+        "native_units": {
+          "nfet_03v3": 3,
+          "pfet_03v3": 1
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "gf180mcuD",
+        "counts": [
+          16,
+          16
+        ],
+        "status": "PASS",
+        "native_units": {
+          "nfet_03v3": 16,
+          "pfet_03v3": 16
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "ihp-sg13g2",
+        "counts": [
+          1,
+          1
+        ],
+        "status": "PASS",
+        "native_units": {
+          "sg13_lv_nmos": 1,
+          "sg13_lv_pmos": 1
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "ihp-sg13g2",
+        "counts": [
+          1,
+          3
+        ],
+        "status": "PASS",
+        "native_units": {
+          "sg13_lv_nmos": 1,
+          "sg13_lv_pmos": 3
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "ihp-sg13g2",
+        "counts": [
+          3,
+          1
+        ],
+        "status": "PASS",
+        "native_units": {
+          "sg13_lv_nmos": 3,
+          "sg13_lv_pmos": 1
+        },
+        "fault_detected": true
+      },
+      {
+        "target": "ihp-sg13g2",
+        "counts": [
+          16,
+          16
+        ],
+        "status": "PASS",
+        "native_units": {
+          "sg13_lv_nmos": 16,
+          "sg13_lv_pmos": 16
+        },
+        "fault_detected": true
+      }
+    ],
+    "engines": {
+      "magic": {
+        "path": "/opt/icstudio/bin/magic",
+        "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223"
+      },
+      "netgen": {
+        "path": "/opt/icstudio/bin/netgen",
+        "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+      }
+    },
+    "audit": {
+      "status": "PASS",
+      "record_sha256": "998a83085aa719414a050036ad1ef6fd3d2ac73ad8adb057eeee93b44c6afef8",
+      "valid_layouts": 156,
+      "faults": 156,
+      "native_transistors": 1134,
+      "reports": 312,
+      "integrity_file_bindings": 2912,
+      "asset_bindings": 4472,
+      "tool_bindings": 624,
+      "scope": "Independent native-netlist and report-file readback; exact per-unit model, four terminals, W/L and counts. Every expected fault is a completed native LVS rejection; setup failures cannot pass."
+    }
+  },
+  "compatibility": {
+    "report_sha256": "9e2cebb93dde11db186bad1df17a5b6a8a1cb66125d8ad3afa97c3c260db9344",
+    "cases": 72,
+    "scope": "All existing standard-MOS characterization sizes: complete single-unit geometry, terminal locations, roles and saved specification are identical after removing newly allocated UUIDs."
+  },
+  "desktop": {
+    "Windows": {
+      "status": "PASS",
+      "cases": 6,
+      "record_sha256": "462d640b4af5280fcdd668df4b6ac58decc96dbf0fe7310ce148b36a52eb7e40",
+      "scope": "Source desktop generation, multiplicity editing, regeneration and save/reopen. Source desktop only; installed release acceptance remains separate."
+    },
+    "Linux": {
+      "status": "PASS",
+      "cases": 6,
+      "record_sha256": "da75fdcfe8e0d16eb5c95fae4cfbd2cdb02d2e990103579466504ee22024ccb6",
+      "scope": "Source desktop generation, multiplicity editing, regeneration and save/reopen. Source desktop only; installed release acceptance remains separate."
+    }
+  },
+  "regression": {
+    "Windows": {
+      "status": "FAIL",
+      "tests": 3328,
+      "skipped": 67,
+      "source_unchanged": true,
+      "record_sha256": "33038292878506ea5ba82aa0da7ca9ca6cef0154416c5164f29a009202ab6213",
+      "results": {
+        "full-tests": {
+          "exit": 1,
+          "seconds": 1121.703000000096,
+          "log_sha256": "934350a0293e09d90aded10bd86942e9f6d29d3276d84d9ee108b7288308f204"
+        }
+      }
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 3328,
+      "skipped": 42,
+      "source_unchanged": true,
+      "record_sha256": "690f514e358802ff4db1936f80013b52d934e652a469c5b808831f4201c2ef0a",
+      "results": {
+        "full-tests": {
+          "exit": 0,
+          "seconds": 606.0742948739789,
+          "log_sha256": "76f19b568ee725e48b7daab1a1bee7edd4f6146a082d32f84c41b7544d3b5fa6"
+        },
+        "native": {
+          "exit": 0,
+          "seconds": 105.3560556260054,
+          "log_sha256": "4f717940c6f5fb298fc67861bc3014fddce0938f27a7101f101621a3f74b89d7"
+        }
+      }
+    }
+  },
+  "final_affected_suites": {
+    "status": "PASS",
+    "scope": "Bounded parallel MOS feature and final affected regressions, not complete chunk/device qualification or a fresh full-suite pass on final sources.",
+    "source_baseline": "16761b2ae4cdabbed9f3ebdeb18a2758dad3860d",
+    "source_manifest_sha256": "60e0b1668400ef9baf1516acf2d63874b4f92cf3e23771e0114d7fc6f5cc3899",
+    "source_delta": {
+      "changed": {
+        "icstudio/gf180_layout.py": "e803fe8e1575afbdef8641b495bdd7f3c50352bb39831a0b2ada7684e521b9c4",
+        "tests/test_mos_parallel_layouts.py": "22077234641a3aa918de0678159a48a82baeea46db4c20999b8f69b1f8b96c34",
+        "icstudio/verification_campaigns.py": "bfc23f252522db921cae7c6383df0ae9b757e2ecfb71bde230f6ab78114ca621",
+        "tests/test_campaign_publication.py": "8d4d814570c531f3553c7dce72f21ecce8691ef011a4060774c2f3cee0f5fdb4"
+      },
+      "removed": [],
+      "prior_source_manifest_sha256": "cac18451a330cd7508ec58cc6e5bbe303e4f6d60ee9e14494005073123aeac17",
+      "source_manifest_sha256": "60e0b1668400ef9baf1516acf2d63874b4f92cf3e23771e0114d7fc6f5cc3899"
+    },
+    "hosts": {
+      "Windows": {
+        "status": "PASS",
+        "host": "Windows",
+        "tests_exit": 0,
+        "tests": 64,
+        "skipped": 2,
+        "seconds": 26.0,
+        "log_sha256": "2e8b9d9d1adc817056e804b1e1d2c59809c7f25574ea1a0d6cc852ca0248e509",
+        "source_files": {
+          "icstudio/gf180_layout.py": "e803fe8e1575afbdef8641b495bdd7f3c50352bb39831a0b2ada7684e521b9c4",
+          "tests/test_mos_parallel_layouts.py": "22077234641a3aa918de0678159a48a82baeea46db4c20999b8f69b1f8b96c34",
+          "icstudio/verification_campaigns.py": "bfc23f252522db921cae7c6383df0ae9b757e2ecfb71bde230f6ab78114ca621",
+          "tests/test_campaign_publication.py": "8d4d814570c531f3553c7dce72f21ecce8691ef011a4060774c2f3cee0f5fdb4"
+        },
+        "source_unchanged": true,
+        "scope": "Final targeted MOS and campaign regression suites. Windows includes actual temporary file-lock handling; Linux skips the Windows-specific native lock. Full suites retain their earlier source revisions and outcomes."
+      },
+      "Linux": {
+        "status": "PASS",
+        "host": "Linux",
+        "tests_exit": 0,
+        "tests": 64,
+        "skipped": 3,
+        "seconds": 64.71163528799661,
+        "log_sha256": "13c2f311752bd05fc22f7af994587d2c0d3fe1f938756fe602dfe286de5afd55",
+        "source_files": {
+          "icstudio/gf180_layout.py": "e803fe8e1575afbdef8641b495bdd7f3c50352bb39831a0b2ada7684e521b9c4",
+          "tests/test_mos_parallel_layouts.py": "22077234641a3aa918de0678159a48a82baeea46db4c20999b8f69b1f8b96c34",
+          "icstudio/verification_campaigns.py": "bfc23f252522db921cae7c6383df0ae9b757e2ecfb71bde230f6ab78114ca621",
+          "tests/test_campaign_publication.py": "8d4d814570c531f3553c7dce72f21ecce8691ef011a4060774c2f3cee0f5fdb4"
+        },
+        "source_unchanged": true,
+        "scope": "Final targeted MOS and campaign regression suites. Windows includes actual temporary file-lock handling; Linux skips the Windows-specific native lock. Full suites retain their earlier source revisions and outcomes."
+      }
+    },
+    "guards": {
+      "Windows": {
+        "status": "PASS",
+        "host": "Windows",
+        "tests_exit": 0,
+        "seconds": 5.092999999993481,
+        "log_sha256": "8f8b0115ceca9de4604e2006e132eddb00c977fd8768dc355efa44d4519378df",
+        "equivalent_geometry_cases": 272,
+        "cases": [
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            10,
+            16
+          ]
+        ],
+        "prior_generator_sha256": "b87d563608dc2badf16046cfa84ec95dbec0ff1afaac9a0c56947b613029e508",
+        "source_files": {
+          "icstudio/gf180_layout.py": "e803fe8e1575afbdef8641b495bdd7f3c50352bb39831a0b2ada7684e521b9c4",
+          "tests/test_mos_parallel_layouts.py": "22077234641a3aa918de0678159a48a82baeea46db4c20999b8f69b1f8b96c34"
+        },
+        "scope": "A final stricter guard rejects ambiguous custom m emission. Original positive single/parallel unit outputs are identical; full 3328-test suites retain their immediately preceding source snapshot. This final source passes all 47 affected tests, including the new guard regression."
+      },
+      "Linux": {
+        "status": "PASS",
+        "host": "Linux",
+        "tests_exit": 0,
+        "seconds": 38.40463861700846,
+        "log_sha256": "3fc464fe4703346307b3127dca33a805c3f16355d495f0e11141acde4af81396",
+        "equivalent_geometry_cases": 272,
+        "cases": [
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.22,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            0.5,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            1.2,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "n",
+            10,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.22,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            0.5,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            1.2,
+            10,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            1,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            1,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            1,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            1,
+            16
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            10,
+            1
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            10,
+            2
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            10,
+            3
+          ],
+          [
+            "gf180mcuC",
+            "p",
+            10,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.22,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            0.5,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            1.2,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "n",
+            10,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.22,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            0.5,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            1.2,
+            10,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.28,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.28,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.28,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.28,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.5,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.5,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.5,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            0.5,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            1,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            1,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            1,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            1,
+            16
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            10,
+            1
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            10,
+            2
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            10,
+            3
+          ],
+          [
+            "gf180mcuD",
+            "p",
+            10,
+            10,
+            16
+          ]
+        ],
+        "prior_generator_sha256": "b87d563608dc2badf16046cfa84ec95dbec0ff1afaac9a0c56947b613029e508",
+        "source_files": {
+          "icstudio/gf180_layout.py": "e803fe8e1575afbdef8641b495bdd7f3c50352bb39831a0b2ada7684e521b9c4",
+          "tests/test_mos_parallel_layouts.py": "22077234641a3aa918de0678159a48a82baeea46db4c20999b8f69b1f8b96c34"
+        },
+        "scope": "A final stricter guard rejects ambiguous custom m emission. Original positive single/parallel unit outputs are identical; full 3328-test suites retain their immediately preceding source snapshot. This final source passes all 47 affected tests, including the new guard regression."
+      }
+    },
+    "full_suite_outcomes": {
+      "Windows": {
+        "status": "FAIL",
+        "source_unchanged": true,
+        "results": {
+          "full-tests": {
+            "exit": 1,
+            "seconds": 1121.703000000096,
+            "log_sha256": "934350a0293e09d90aded10bd86942e9f6d29d3276d84d9ee108b7288308f204"
+          }
+        }
+      },
+      "Linux": {
+        "status": "PASS",
+        "source_unchanged": true,
+        "results": {
+          "full-tests": {
+            "exit": 0,
+            "seconds": 606.0742948739789,
+            "log_sha256": "76f19b568ee725e48b7daab1a1bee7edd4f6146a082d32f84c41b7544d3b5fa6"
+          },
+          "native": {
+            "exit": 0,
+            "seconds": 105.3560556260054,
+            "log_sha256": "4f717940c6f5fb298fc67861bc3014fddce0938f27a7101f101621a3f74b89d7"
+          }
+        }
+      }
+    },
+    "full_suite_source_manifest_sha256": "cac18451a330cd7508ec58cc6e5bbe303e4f6d60ee9e14494005073123aeac17",
+    "restored_final_tests": {
+      "status": "PASS",
+      "exit": 0,
+      "seconds": 8.115509689989267,
+      "source_unchanged": true,
+      "source_files": 6356,
+      "log_sha256": "963803b7b9f0bf8c9184a0675e9984d938f403d8c016834677de6ea088f64d80",
+      "prior_replay_sha256": "8491edda877899dd12c6c3a37f89b9a0ed4eba8232914c6b9fb912c4c3d009b1",
+      "source_delta": {
+        "changed": {
+          "icstudio/gf180_layout.py": "e803fe8e1575afbdef8641b495bdd7f3c50352bb39831a0b2ada7684e521b9c4",
+          "tests/test_mos_parallel_layouts.py": "22077234641a3aa918de0678159a48a82baeea46db4c20999b8f69b1f8b96c34",
+          "icstudio/verification_campaigns.py": "bfc23f252522db921cae7c6383df0ae9b757e2ecfb71bde230f6ab78114ca621",
+          "tests/test_campaign_publication.py": "8d4d814570c531f3553c7dce72f21ecce8691ef011a4060774c2f3cee0f5fdb4"
+        },
+        "removed": [],
+        "prior_source_manifest_sha256": "cac18451a330cd7508ec58cc6e5bbe303e4f6d60ee9e14494005073123aeac17",
+        "source_manifest_sha256": "60e0b1668400ef9baf1516acf2d63874b4f92cf3e23771e0114d7fc6f5cc3899"
+      },
+      "scope": "Previously restored and verified archive plus exact compatibility and final guarded-emission/campaign-publication deltas; all final affected tests rerun on reconstructed sources. Native replay remains separately bound to the preceding source snapshot; the guard changes no positive geometry in 272 checked cases."
+    },
+    "remaining": "Exact final hosted and installed release acceptance, device operating envelopes, broader physical/process coverage, and unavailable required bindings remain open."
+  },
+  "full_suite_scope": "Both full suites used source-final-manifest.json before the custom-emission and campaign-publication guards. Linux passed; Windows retained one campaign-directory rename failure. Final sources pass the affected suites on both hosts, including a real Windows lock, but have no fresh complete-suite acceptance yet.",
+  "initial_failures": {
+    "native_fault_parser": "The first pilot correctly rejected swapped gate/body terminals; its runner did not yet recognize the explicit native top-level pin-matching failure. The completed final batch retains and recognizes that required native rejection. No checker or tolerance was relaxed.",
+    "full_suites": "Both initial 3,328-test runs retained one regression: a legacy GF180 binding without an emitted m was rejected at m=1. The production guard now requires explicit m only for multiple copies; absent m retains one unit. The original regression was kept unchanged and passes in the complete Linux suite and both final affected suites. The complete Windows run retained a separate WinError 5 while publishing a campaign; a bounded retry now passes an actual reader-lock control, permanent-error/competing-destination controls and the campaign suite. The original transient lock holder was not identified.",
+    "Windows_initial_source_flag": "The initial Windows process had already imported the earlier GF180 implementation when the compatibility fix was written. Its failed source-change flag is retained; it is not used as final acceptance. Final suites run isolated immutable snapshots.",
+    "final_test_harness": "The first final affected-test invocation omitted tests from PYTHONPATH and failed to import test_silicon. Both original logs remain archived; using the normal repository test import path passes all 64 selected tests on each host.",
+    "campaign_control": "The first real-lock control successfully published both queued cases but checked zero-based paths instead of the existing one-based indices. The control now reads both jobs through Campaign.job, verifies their indices and retained integrity, and passes. No production behavior changed to accommodate this test correction."
+  },
+  "archives": {
+    "archive": {
+      "status": "PASS",
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/mos-parallel-layouts-2026-10-23-v1/evidence.zip",
+      "sha256": "bfdbfc2ec1470fedb62069f300d443b88c2e1f471a4c3496e83a76e58b55cb39",
+      "bytes": 107070327,
+      "files": 16606,
+      "unique_objects": 10145,
+      "logical_bytes": 1045308750,
+      "verified_objects": 10145,
+      "source_zip_sha256": "2e93d38f00da6908243c49ca1a290e7d157c6eefa838ba3f0dff06cbe07a551b",
+      "source_files": 6355,
+      "scope": "Complete exact source and physical/editor evidence, including initial native-control parser failure. Full regression final logs and final documentation are retained separately."
+    },
+    "checkpoint": {
+      "status": "PASS",
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/mos-parallel-layouts-2026-10-23-v1/checkpoint.zip",
+      "sha256": "58a77e8c4e5d1a08849614d06507d21be23698d7df9d4ac1263222c3277263c8",
+      "bytes": 48808380,
+      "files": 10293,
+      "logical_bytes": 767442098,
+      "verified_files": 10293,
+      "base_archive_sha256": "bfdbfc2ec1470fedb62069f300d443b88c2e1f471a4c3496e83a76e58b55cb39",
+      "scope": "Complete final native evidence, final regression logs on both hosts, initial failed regression logs, source delta, restored replay, helper scripts and final work records. Source reconstruction requires the verified main archive, compatibility delta and final accepted-source delta. Earlier full-suite failures and their precise snapshots remain unchanged; final acceptance is bounded to the feature and affected suites."
+    }
+  },
+  "restore_replay": {
+    "status": "PASS",
+    "restored_source_files": 6355,
+    "final_delta": {
+      "base_archive_sha256": "bfdbfc2ec1470fedb62069f300d443b88c2e1f471a4c3496e83a76e58b55cb39",
+      "changed": {
+        "docs/QUALIFICATION_PROGRESS.md": "9d2252ed7bd124624b5daf56292c152d964c65db12dabac322f7f6980b14315a",
+        "icstudio/gf180_layout.py": "b87d563608dc2badf16046cfa84ec95dbec0ff1afaac9a0c56947b613029e508"
+      },
+      "removed": [],
+      "final_source_manifest_sha256": "cac18451a330cd7508ec58cc6e5bbe303e4f6d60ee9e14494005073123aeac17"
+    },
+    "source_unchanged": true,
+    "results": {
+      "native": {
+        "exit": 0,
+        "seconds": 20.556658582994714,
+        "log_sha256": "f3e9864f8b74565b3c87980cc79b7ec8bfbb153cf444277c816019e6acfcc441"
+      },
+      "tests": {
+        "exit": 0,
+        "seconds": 3.6414758499886375,
+        "log_sha256": "df88078891eeb700b7a8c90d2d67a44201a146c843d3a0ba85182353b3f04704"
+      }
+    }
+  },
+  "final_restore_replay": {
+    "status": "PASS",
+    "exit": 0,
+    "seconds": 8.115509689989267,
+    "source_unchanged": true,
+    "source_files": 6356,
+    "log_sha256": "963803b7b9f0bf8c9184a0675e9984d938f403d8c016834677de6ea088f64d80",
+    "prior_replay_sha256": "8491edda877899dd12c6c3a37f89b9a0ed4eba8232914c6b9fb912c4c3d009b1",
+    "source_delta": {
+      "changed": {
+        "icstudio/gf180_layout.py": "e803fe8e1575afbdef8641b495bdd7f3c50352bb39831a0b2ada7684e521b9c4",
+        "tests/test_mos_parallel_layouts.py": "22077234641a3aa918de0678159a48a82baeea46db4c20999b8f69b1f8b96c34",
+        "icstudio/verification_campaigns.py": "bfc23f252522db921cae7c6383df0ae9b757e2ecfb71bde230f6ab78114ca621",
+        "tests/test_campaign_publication.py": "8d4d814570c531f3553c7dce72f21ecce8691ef011a4060774c2f3cee0f5fdb4"
+      },
+      "removed": [],
+      "prior_source_manifest_sha256": "cac18451a330cd7508ec58cc6e5bbe303e4f6d60ee9e14494005073123aeac17",
+      "source_manifest_sha256": "60e0b1668400ef9baf1516acf2d63874b4f92cf3e23771e0114d7fc6f5cc3899"
+    },
+    "scope": "Previously restored and verified archive plus exact compatibility and final guarded-emission/campaign-publication deltas; all final affected tests rerun on reconstructed sources. Native replay remains separately bound to the preceding source snapshot; the guard changes no positive geometry in 272 checked cases."
+  },
+  "remaining": [
+    "Shared diffusion/multiple fingers per unit in GF180 and IHP.",
+    "Unsampled geometry/multiplicity combinations and complete device operating, temperature, statistical and reliability ranges.",
+    "Extracted RC and electrical performance, coupling, mismatch and complete-chip acceptance.",
+    "Six unavailable required model bindings and remaining device/process coverage.",
+    "Exact final hosted and installed-release acceptance."
+  ],
+  "final_bookkeeping": {
+    "tests": {
+      "bookkeeping-final": {
+        "tests": 35,
+        "status": "PASS",
+        "log_sha256": "d37516f2433a0f37c716d996c1f002293b4ce97b340e5c25a9d92bde55b1e5fb"
+      },
+      "historical-tests": {
+        "tests": 4,
+        "status": "PASS",
+        "log_sha256": "6cbe33e7ed8df6b8293fe04ed698f066f87c04cf9f25ae2fbf2e911c77b11cfe"
+      }
+    },
+    "release": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 167,
+      "local_links": 1778,
+      "gallery_examples": 13,
+      "pdk_coverage": {
+        "status": "matrix_consistent",
+        "process_qualification": "unqualified",
+        "targets": 4,
+        "requirements": 125,
+        "device_entries": 302,
+        "requirement_statuses": {
+          "not_run": 73,
+          "partial": 34,
+          "needs_definition": 4,
+          "passed_reference": 14
+        }
+      }
+    },
+    "release_log_sha256": "bb9951a176530da7cedf740543683cdf6e3f95e0b2c1623d52decd7719cca952",
+    "historical_source": {
+      "status": "PASS",
+      "binding": {
+        "path": "docs/validation/gf180-tested-source-2026-10-23-campaign.json",
+        "sha256": "9cb783a7cf5fa0ca18cd8ad3ab9a91926322913515d9efc505264cfb4b98fef8"
+      },
+      "original_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+      "retained_file": {
+        "path": "docs/validation/gf180-tested-source-2026-10-23-campaign/verification_campaigns.py.txt",
+        "sha256": "a5836f6d7e50a1f9e1cb4f4571b6271571c88598b28caee34e620c5aaa89267d"
+      },
+      "scope": "Retain the exact original GF180-tested campaign source while adding bounded Windows directory-publication retry to the current application. The immutable earlier production evidence is not relabeled as final application acceptance. Current campaign and parallel-MOS checks are recorded separately."
+    }
+  },
+  "cleanup": {
+    "Windows": {
+      "status": "PASS",
+      "removed_bytes": 458902068,
+      "targets": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mos-parallel-20261023-v1\\Windows-final",
+          "bytes": 289900345
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mos-parallel-20261023-v1\\source.zip",
+          "bytes": 84500698
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mos-parallel-20261023-v1\\source-final.zip",
+          "bytes": 84501025
+        }
+      ],
+      "scope": "Only this batch temporary Windows source copies; verified permanent archives and the working repository retained. No administrator access."
+    },
+    "Linux": {
+      "status": "PASS",
+      "removed_bytes": 2375903785,
+      "targets": [
+        {
+          "path": "/var/tmp/icstudio-mos-parallel-20261023-pilot",
+          "bytes": 10547166
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-parallel-20261023-fault-pilot",
+          "bytes": 78991301
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-parallel-20261023-full-v1",
+          "bytes": 670045532
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-parallel-20261023-editor",
+          "bytes": 4269467
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-parallel-20261023-regression",
+          "bytes": 289902109
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-parallel-20261023-final",
+          "bytes": 959759084
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-parallel-20261023-replay",
+          "bytes": 362389126
+        }
+      ],
+      "scope": "Only this batch temporary Linux copies; permanent archives, repository, engines and PDKs retained. Space freed inside Linux; no Windows administrator access or virtual-disk compaction."
+    }
+  },
+  "parent_hosted_snapshot": {
+    "sha": "16761b2ae4cdabbed9f3ebdeb18a2758dad3860d",
+    "checked_at": "2026-10-23T17:27:42.597934+00:00",
+    "workflow_counts": {
+      "pending": 2,
+      "success": 10,
+      "in_progress": 2,
+      "queued": 3
+    },
+    "record_sha256": "5e2a1669eef4619feb4db6c519ca3a361cb55678cd98f6e0e80c7c831cc84de6",
+    "failed_job": 120535716662,
+    "failure_log_sha256": "1658e69b0967f3f74c968a0945040c9c84bf76526e9177c259d6218b5e197522",
+    "scope": "The bandgap-rc fs job timed out during OS dependency installation after a 46.9 MB download took 20m5s at 38.9 kB/s. No qualification ran in that job. Parent public-layout PR/release-preparation jobs passed; other workflows remain pending or running. This is not final-current-commit acceptance."
+  }
+}
