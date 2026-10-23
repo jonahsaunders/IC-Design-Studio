@@ -119,3 +119,12 @@ resolve the measured mismatch without weakening the identity checks. The
 validation record links the original trial and both follow-up attempts to
 separate verified archives. No device-family or chunk completion is inferred
 from this infrastructure checkpoint.
+
+The next diagnostic candidate removes the scheduling dependency from the RC
+corners to `bandgap-physical`. The RC runner uses checked-in layouts, its own
+pinned PDK checkout and the shared toolchain; it consumes no physical-job
+output. Both jobs remain required by the complete reference workflow, which
+remains a required release gate. All five fresh corners, fail-fast disabled,
+the immutable-candidate guard and the strict identity comparison are preserved.
+This permits identity checks as soon as the toolchain is ready. The resulting
+timing and the remaining mismatch still require hosted verification.

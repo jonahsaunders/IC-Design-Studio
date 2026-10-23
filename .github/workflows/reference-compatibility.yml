@@ -136,7 +136,9 @@ jobs:
           compression-level: 1
           if-no-files-found: error
   bandgap-rc:
-    needs: [bandgap-physical, rc-toolchain]
+    # RC reads committed layouts and its own pinned PDK; it consumes no output
+    # from bandgap-physical. Both remain required for the whole workflow.
+    needs: rc-toolchain
     runs-on: ubuntu-24.04
     timeout-minutes: 210
     strategy:

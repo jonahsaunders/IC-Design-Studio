@@ -26,6 +26,31 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**Current investigation: toolchain identity failure, based on `1260cec`.**
+The previous fs attempts remain failed and the differing field is still
+unresolved. The next candidate keeps the new identity diagnostic and removes
+only the unnecessary `bandgap-physical` scheduling prerequisite from the RC
+jobs. They consume their own committed layouts and pinned PDK, plus the shared
+toolchain. Independent review confirms that all physical, five-corner and
+release gates remain required. This should expose identity failures earlier;
+actual timing and acceptance still require a fresh hosted run. No device or
+chunk status has changed.
+The scheduling change passes 39 focused tests on Linux and Windows (six
+POSIX-only skips on Windows), independent dependency review and workflow
+validation. The mismatch diagnostic remains unchanged and the failed historical
+attempts remain recorded.
+
+**Latest hosted follow-up: `1260cec` is pushed and matches GitHub `experimental`.**
+Its [automatic PR feedback](validation/chunk7-bias-hosted-feedback-2026-10-23.json)
+passes on actual merge `4c1267ff` in 2:43 overall. Both hosts discover 293 tests
+(two Linux skips, 14 Windows skips), and syntax, release contracts and both
+GUI probes pass. Both artifact ZIPs and all 1,340 source hashes are verified.
+This follow-up receipt and tracker note are included with the next meaningful
+workflow change, avoiding a separate launch for status alone. Implementation
+and the preceding qualification records are already pushed. Shared-toolchain
+five-corner acceptance remains incomplete because fs failed its identity gate.
+
+
 **Working snapshot: October 23, 2026; integration based on `d38615c`.**
 The hosted reference run retains immutable candidate
 [`d38615c`](https://github.com/jonahsaunders/IC-Design-Studio/commit/d38615c77ecb7b09ff4128d591c6d6294ce4d57b).

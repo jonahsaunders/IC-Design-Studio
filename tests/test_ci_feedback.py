@@ -111,6 +111,30 @@ class FeedbackTests(unittest.TestCase):
         self.assertIn('RELEASE_COMMIT: ${{ github.sha }}', text)
         self.assertIn('scripts/release_evidence.py package', text)
 
+    def test_independent_reference_corners_start_early_without_skipping_physical_gate(self):
+        text = workflow('reference-compatibility')
+        jobs = dict(re.findall(r'^  ([a-z][a-z0-9-]*):\n((?:(?!^  [a-z]).|\n)*)',
+                               text.split('jobs:\n', 1)[1], re.M))
+        self.assertEqual(set(jobs), {'candidate', 'rc-toolchain', 'modern-schematic',
+                                    'bandgap-rc', 'bandgap-schematic', 'bandgap-physical'})
+        self.assertRegex(jobs['rc-toolchain'], r'(?m)^    needs: candidate$')
+        self.assertRegex(jobs['bandgap-physical'], r'(?m)^    needs: candidate$')
+        self.assertRegex(jobs['bandgap-rc'], r'(?m)^    needs: rc-toolchain$')
+        self.assertIn('fail-fast: false', jobs['bandgap-rc'])
+        self.assertIn('corner: [nominal, ff, ss, fs, sf]', jobs['bandgap-rc'])
+        self.assertIn('needs.rc-toolchain.outputs.artifact_name', jobs['bandgap-rc'])
+        self.assertIn('needs.rc-toolchain.outputs.sha256', jobs['bandgap-rc'])
+        self.assertIn('scripts/qualify_gf180_rc.py', jobs['bandgap-rc'])
+        self.assertNotIn('--extraction-only', jobs['bandgap-rc'])
+        self.assertIn('scripts/qualify_gf180_exchange.py', jobs['bandgap-physical'])
+        self.assertIn('name: reference-bandgap-physical', jobs['bandgap-physical'])
+        for name in jobs:
+            self.assertNotRegex(jobs[name], r'(?m)^    (if|continue-on-error):')
+        self.assertNotIn('continue-on-error:', text)
+        release = workflow('release-preview')
+        self.assertIn('uses: ./.github/workflows/reference-compatibility.yml', release)
+        self.assertIn('statistics, reference-compatibility]', release)
+
 
 if __name__ == '__main__':
     unittest.main()
