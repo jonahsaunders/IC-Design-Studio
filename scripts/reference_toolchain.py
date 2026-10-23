@@ -27,6 +27,54 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def apt_sources(apt_root, output):
+    """Copy source definitions, bypassing only the hosted Ubuntu Azure mirror.
+
+    Keep suites, components and trust settings byte-for-byte. APT receives these
+    copies through command-line options; the runner's /etc/apt is never changed.
+    Both the current mirror+file form and older direct Azure URIs are supported.
+    """
+    apt_root, output = Path(apt_root), Path(output)
+    if output.exists() or output.is_symlink():
+        raise ValueError('Choose a new APT source directory.')
+    paths = [apt_root / 'sources.list']
+    parts = apt_root / 'sources.list.d'
+    if parts.is_symlink():
+        raise ValueError('Linked APT source directory is not supported.')
+    paths += sorted([*parts.glob('*.list'), *parts.glob('*.sources')])
+    definitions = {}
+    for path in paths:
+        if path.is_symlink():
+            raise ValueError('Linked APT source definition is not supported: ' + str(path))
+        if not path.exists():
+            continue
+        raw = path.read_bytes()
+        # Match complete URI tokens only, never lookalike hosts or paths. Do not
+        # interpret or rewrite unknown mirror lists, options, comments or keys.
+        pattern = rb'(?<!\S)(?:https?://azure\.archive\.ubuntu\.com/ubuntu/?|mirror\+file:/etc/apt/apt-mirrors\.txt)(?=\s|$)'
+        lines = []
+        for line in raw.splitlines(keepends=True):
+            active, marker, comment = line.partition(b'#')
+            lines.append(re.sub(pattern, b'https://archive.ubuntu.com/ubuntu/', active)
+                         + marker + comment)
+        changed = b''.join(lines)
+        definitions[path.relative_to(apt_root).as_posix()] = (raw, changed)
+    if not definitions or not any(raw.strip() for raw, _ in definitions.values()):
+        raise ValueError('No APT source definitions were found.')
+    receipt = {'schema': 1, 'source_root': str(apt_root), 'files': {}}
+    (output / 'sources.list.d').mkdir(parents=True)
+    # An explicit empty main list prevents APT from reading its system default.
+    (output / 'sources.list').write_bytes(b'')
+    for name, (raw, changed) in definitions.items():
+        (output / name).write_bytes(changed)
+        receipt['files'][name] = {'original_sha256': digest(raw),
+                                  'selected_sha256': digest(changed),
+                                  'changed': raw != changed}
+    (output / 'receipt.json').write_bytes(
+        (json.dumps(receipt, indent=2, sort_keys=True) + '\n').encode())
+    return receipt
+
+
 def expected_locks(root):
     result = {}
     for folder, (name, only) in BUNDLES.items():
@@ -236,11 +284,20 @@ def probe(root):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=('pack', 'restore'))
-    parser.add_argument('--archive', type=Path, required=True)
-    parser.add_argument('--candidate', required=True)
-    parser.add_argument('--expected-sha256')
+    commands = parser.add_subparsers(dest='action', required=True)
+    apt = commands.add_parser('apt-sources', help='Prepare scoped official Ubuntu archive sources')
+    apt.add_argument('--apt-root', type=Path, default=Path('/etc/apt'))
+    apt.add_argument('--output', type=Path, required=True)
+    for action in ('pack', 'restore'):
+        command = commands.add_parser(action)
+        command.add_argument('--archive', type=Path, required=True)
+        command.add_argument('--candidate', required=True)
+        if action == 'restore':
+            command.add_argument('--expected-sha256', required=True)
     args = parser.parse_args()
+    if args.action == 'apt-sources':
+        print(json.dumps(apt_sources(args.apt_root, args.output), indent=2))
+        return
     if args.action == 'pack':
         sha = pack(ROOT, args.archive, args.candidate)
         print(sha)
@@ -248,8 +305,6 @@ def main():
             with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
                 output.write('sha256=' + sha + '\n')
     else:
-        if not args.expected_sha256:
-            parser.error('restore requires --expected-sha256 from the producer job')
         restore(ROOT, args.archive, args.expected_sha256, args.candidate)
         result = {'candidate': args.candidate, 'archive_sha256': args.expected_sha256,
                   'engines': probe(ROOT)}

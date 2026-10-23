@@ -16,6 +16,77 @@ import reference_toolchain as toolchain
 REAL_ENVIRONMENT = toolchain.environment
 
 
+class ReferenceAptSourceTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.apt = self.root / 'etc-apt'
+        (self.apt / 'sources.list.d').mkdir(parents=True)
+        self.output = self.root / 'selected'
+
+    def test_current_runner_mirror_is_replaced_without_changing_trust_or_suites(self):
+        name = 'sources.list.d/ubuntu.sources'
+        source = self.apt / name
+        original = (b'Types: deb\nURIs: mirror+file:/etc/apt/apt-mirrors.txt\n'
+                    b'Suites: noble noble-updates noble-backports noble-security\n'
+                    b'Components: main restricted universe multiverse\n'
+                    b'Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg\n')
+        source.write_bytes(original)
+        receipt = toolchain.apt_sources(self.apt, self.output)
+        expected = original.replace(b'mirror+file:/etc/apt/apt-mirrors.txt',
+                                    b'https://archive.ubuntu.com/ubuntu/')
+        self.assertEqual((self.output / name).read_bytes(), expected)
+        self.assertEqual(source.read_bytes(), original)
+        self.assertEqual((self.output / 'sources.list').read_bytes(), b'')
+        self.assertEqual(receipt['files'][name], {
+            'original_sha256': toolchain.digest(original),
+            'selected_sha256': toolchain.digest(expected), 'changed': True})
+        self.assertEqual(json.loads((self.output / 'receipt.json').read_bytes()), receipt)
+
+    def test_legacy_sources_preserve_options_comments_and_other_repositories(self):
+        original = (b'deb [arch=amd64 signed-by=/key.gpg] http://azure.archive.ubuntu.com/ubuntu noble main\n'
+                    b'deb https://azure.archive.ubuntu.com/ubuntu/ noble-security main # http://azure.archive.ubuntu.com/ubuntu\n'
+                    b'# mirror+file:/etc/apt/apt-mirrors.txt\n'
+                    b'deb https://packages.microsoft.com/ubuntu/24.04/prod noble main\n')
+        (self.apt / 'sources.list').write_bytes(original)
+        toolchain.apt_sources(self.apt, self.output)
+        expected = (b'deb [arch=amd64 signed-by=/key.gpg] https://archive.ubuntu.com/ubuntu/ noble main\n'
+                    b'deb https://archive.ubuntu.com/ubuntu/ noble-security main # http://azure.archive.ubuntu.com/ubuntu\n'
+                    b'# mirror+file:/etc/apt/apt-mirrors.txt\n'
+                    b'deb https://packages.microsoft.com/ubuntu/24.04/prod noble main\n')
+        self.assertEqual((self.output / 'sources.list').read_bytes(), expected)
+
+    def test_unrecognized_hosts_paths_and_mirror_lists_are_not_rewritten(self):
+        original = (b'URIs: https://azure.archive.ubuntu.com.evil/ubuntu/\n'
+                    b' https://azure.archive.ubuntu.com/ubuntu-other\n'
+                    b' mirror+file:/etc/apt/apt-mirrors.txt.other\n'
+                    b' https://security.ubuntu.com/ubuntu/\n')
+        (self.apt / 'sources.list.d/ubuntu.sources').write_bytes(original)
+        receipt = toolchain.apt_sources(self.apt, self.output)
+        self.assertEqual((self.output / 'sources.list.d/ubuntu.sources').read_bytes(), original)
+        self.assertFalse(receipt['files']['sources.list.d/ubuntu.sources']['changed'])
+
+    def test_missing_sources_and_existing_output_fail_without_overwriting(self):
+        with self.assertRaisesRegex(ValueError, 'No APT source'):
+            toolchain.apt_sources(self.apt, self.output)
+        self.assertFalse(self.output.exists())
+        (self.apt / 'sources.list').write_bytes(b'deb https://archive.ubuntu.com/ubuntu noble main\n')
+        toolchain.apt_sources(self.apt, self.output)
+        sentinel = self.output / 'sentinel'
+        sentinel.write_bytes(b'keep')
+        with self.assertRaisesRegex(ValueError, 'new APT source directory'):
+            toolchain.apt_sources(self.apt, self.output)
+        self.assertEqual(sentinel.read_bytes(), b'keep')
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX symlink construction')
+    def test_linked_source_definitions_are_rejected_before_writing(self):
+        (self.apt / 'sources.list').symlink_to(self.root / 'missing')
+        with self.assertRaisesRegex(ValueError, 'Linked APT source definition'):
+            toolchain.apt_sources(self.apt, self.output)
+        self.assertFalse(self.output.exists())
+
+
 class ReferenceToolchainTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()

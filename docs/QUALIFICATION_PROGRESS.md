@@ -1,6 +1,69 @@
 # Chunks 1–12: progress and forecast
 
-**Snapshot: October 23, 2026; integration work on `b6c623b`.**
+**Working snapshot: October 23, 2026; local continuation on `43a04bb`.**
+The new [MiM source contract](SKY130_MIM_REQUIREMENTS.md) and
+[execution record](validation/sky130-mim-passive-corners-2026-10-23.json)
+close a concrete execution gap: both capacitor
+constructions now pass the predefined twenty contexts across five genuine
+passive sections and two orientations, with four fresh native layouts,
+twelve physical faults and 120 electrical faults. All eighteen initial focused
+tests pass on both hosts. The complete archived data passes independent readback
+on Windows, and archived sources reproduce a fresh selected case on Linux.
+Subsequent independent review found incomplete execution-script bindings in
+both the capacitor and LI reuse auditors. Both fixes now reject all five
+previously accepted script alterations, with pristine evidence still passing.
+The capacitor checker passes all 23 final focused tests on both hosts and
+the complete Windows/Linux readback; LI passes 21 tests and 21 native controls,
+plus five independent review controls. The native results and earlier checker
+versions remain preserved separately.
+
+The [selected LI development runner](SKY130_LI_DEVELOPMENT_REUSE.md) has demonstrated a real original-execution
+cache hit. Its latest guarded fresh run takes 13.9 seconds and reuse takes
+9.4 seconds; native execution alone takes 4.5 seconds. This establishes safe
+reuse mechanics under the declared runtime profile, not a speedup over the
+original tiny unkeyed native case. Final independent review passes; verified
+archives preserve the sources, failures and original execution identity.
+Default/exhaustive/release callers remain fresh.
+
+The [first shared-toolchain hosted trial](validation/reference-toolchain-reuse-2026-10-23.json)
+passed its three independent reference jobs but failed during stalled Ubuntu
+package downloads before the producer built either engine. Five dependent
+corners were skipped. The scoped official-mirror fix passes 26 Linux tests,
+Windows checks with six POSIX skips, native APT parsing, and explicit package
+error/timeout controls. A new immutable hosted candidate is still required to
+validate the producer, all five consumers and actual timing.
+
+The [final combined local feedback](validation/chunk7-focused-integration-2026-10-23.json)
+passes 260 focused tests per host (15 Windows skips, two Linux skips), release
+document validation and both GUI probes. It takes 72.9 seconds on Windows and
+36.6 seconds on a verified Linux-local source copy, excluding setup. All 1,336
+code/workflow/dependency bindings match the tested sources. This continuation
+is local pending one combined experimental push. **Chunk 7 remains about 60% complete, low confidence
+(50–70%).** The 287 partial entries and six unavailable bindings are unchanged.
+The selected MiM milestone does not close missing envelopes, physical classes
+or installed acceptance. Chunks 8–12 remain conditional on those dependencies.
+
+**Snapshot: October 23, 2026; integration pushed as `43a04bb`.**
+Local `experimental` and GitHub match
+[`43a04bb`](https://github.com/jonahsaunders/IC-Design-Studio/commit/43a04bb00af3118fe97d3d177ec73599056027b6).
+The [first hosted feedback run](validation/chunk7-integration-feedback-2026-10-23.json)
+passes on the actual PR merge commit: 211 focused tests per host (13 Windows
+skips, two Linux skips), release-document validation and both GUI probes.
+Including setup, Linux finishes in 1:35 and Windows in 2:29. The final aggregate
+passes at 4:07, including its 91-second queue wait. Both downloaded artifacts
+match all 1,328 current source identity bindings. `main` now requires the
+GitHub Actions **PR feedback** check with an up-to-date base; the default
+administrator bypass is available. Four unfinished workflows on the superseded
+candidate were cancelled. Native shared-toolchain and merge-queue execution
+remain unverified by this PR run.
+
+Verified archives retain exact sources, failed attempts, native results and
+final audits. Cleanup removes 0.52 GB of temporary Windows files and 4.17 GB
+inside Linux; no administrator access or virtual-disk compaction was used.
+The new hosted receipt and this sync/cleanup note are local documentation
+updates for the next project push, avoiding a second run for status alone.
+The implementation, family evidence and earlier tracker snapshot are pushed.
+
 The [IHP standard 3.3 V MOS addition](IHP_HV_MOS_LAYOUTS.md) passes 168 sampled
 layout checks and 158 deliberate fault controls using full Magic and public
 KLayout checks. Independent readback verifies 5,414 native channels and exported
@@ -28,9 +91,9 @@ changed during execution; that failure and all passing stage logs are retained.
 The [shared reference toolchain](REFERENCE_TOOLCHAIN_REUSE.md) reduces ten
 per-corner engine builds to two per acceptance run and verifies their artifact
 before each fresh corner suite. Transfer/failure-control tests pass locally;
-hosted setup and latency are still unverified. The repository currently has no
-branch protection or rulesets: **PR feedback is not yet an enforced required
-check**. No protection policy was changed.
+hosted shared-toolchain setup and latency are still unverified. At this local
+checkpoint the repository had no protection policy. The later hosted run and
+required-check configuration are recorded above.
 
 The [family closure plan](CHUNK7_DEVICE_FAMILY_CLOSURE.md) now has a completed
 selected SKY130 LI milestone. Its [source contract](SKY130_LI_REQUIREMENTS.md)

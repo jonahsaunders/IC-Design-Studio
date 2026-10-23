@@ -1,7 +1,7 @@
 {
   "schema": 6,
   "as_of": "2026-10-23",
-  "source_baseline": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+  "source_baseline": "43a04bb00af3118fe97d3d177ec73599056027b6",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -120,7 +120,8 @@
         "physical_faults": 5,
         "raw_files_independently_audited": 180,
         "device_statuses_unchanged": true
-      }
+      },
+      "latest_sky130_mim_passive_evidence": "docs/validation/sky130-mim-passive-corners-2026-10-23.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -19017,7 +19018,8 @@
         "sky130-mim-orientation-2026-10-23",
         "sky130-first-mim-2026-10-23",
         "sky130-rf-default-2026-10-23",
-        "sky130-li-linked-2026-10-23"
+        "sky130-li-linked-2026-10-23",
+        "sky130-mim-passive-corners-2026-10-23"
       ]
     },
     "sky130A:device-simulation": {
@@ -19044,7 +19046,8 @@
         "sky130-mim-orientation-2026-10-23",
         "sky130-first-mim-2026-10-23",
         "sky130-rf-default-2026-10-23",
-        "sky130-li-linked-2026-10-23"
+        "sky130-li-linked-2026-10-23",
+        "sky130-mim-passive-corners-2026-10-23"
       ]
     },
     "sky130A:digital-controller": {
@@ -20121,7 +20124,8 @@
           "capacitor-families-2026-10-17",
           "default-device-packages-2026-10-17",
           "sky130-mim-binding-2026-10-22",
-          "sky130-rf-default-2026-10-23"
+          "sky130-rf-default-2026-10-23",
+          "sky130-mim-passive-corners-2026-10-23"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -20139,7 +20143,8 @@
           "default-device-packages-2026-10-17",
           "sky130-mim2-layouts-2026-10-22",
           "sky130-mim-binding-2026-10-22",
-          "sky130-rf-default-2026-10-23"
+          "sky130-rf-default-2026-10-23",
+          "sky130-mim-passive-corners-2026-10-23"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -24837,7 +24842,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0Ã¢â‚¬â€œ1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -25343,6 +25348,11 @@
       "path": "docs/validation/sky130-li-linked-2026-10-23.json",
       "sha256": "4ecaccb7e058bc204d7791c7a4ac679d6208365262615cadb92784ff1117e4fa",
       "scope_limit": "Selected 2x5 um straight SKY130 LI resistor at 27 C in two orientations and five passive sections: native extraction, schematic and literal reference DC/AC/transient/noise integration with independent raw-file audits. Shared compact model; no calibrated model accuracy, complete operating or physical envelope, installed release or foundry qualification."
+    },
+    "sky130-mim-passive-corners-2026-10-23": {
+      "path": "docs/validation/sky130-mim-passive-corners-2026-10-23.json",
+      "sha256": "c683c7df708ef44a326216582e62f23b11aaa99f4b8f25e2413716d60ec62a8a",
+      "scope_limit": "Both SKY130 MiM constructions at 2x10 um, m=1, 0/90 degrees, tt/ll/hh/hl/lh, 27 C reference/operating temperature, zero DC bias, AC=1, statistical switches disabled. Actual extraction, application export, literal model call and independent public-series-RC equations; no silicon/RF accuracy, complete operating/statistical/reliability envelope, arbitrary layout, installed release or foundry qualification."
     }
   },
   "execution_acceptance": {

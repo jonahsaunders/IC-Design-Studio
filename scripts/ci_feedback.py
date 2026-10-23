@@ -17,6 +17,7 @@ UNIT_MODULES = (
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_sky130_li_linked',
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
+    'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
 )
 
 

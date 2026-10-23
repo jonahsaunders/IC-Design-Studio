@@ -125,7 +125,16 @@ def case(tech,model,w,l,out,tools):
 
 
 def main():
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--sky130',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True);ap.add_argument('--pilot',action='store_true');ap.add_argument('--models',nargs='+',choices=MODELS,default=list(MODELS));ap.add_argument('--workers',type=int,choices=range(1,5),default=2);a=ap.parse_args()
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--sky130',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--magic',required=True);ap.add_argument('--netgen',required=True);ap.add_argument('--pilot',action='store_true');ap.add_argument('--models',nargs='+',choices=MODELS,default=list(MODELS));ap.add_argument('--workers',type=int,choices=range(1,5),default=2)
+    ap.add_argument('--development',action='store_true',help='Selected physical development pilot; never release acceptance.')
+    ap.add_argument('--select',nargs='*',help='Development case selection; currently only l1-w2-l5.')
+    ap.add_argument('--resume-from',type=Path,help='Original completed development run; outputs are independently re-audited.')
+    a=ap.parse_args()
+    if a.development:
+        from scripts.sky130_li_resume import execute
+        return execute(a,sys.modules[__name__],technology)
+    if a.select is not None or a.resume_from is not None:
+        ap.error('--select and --resume-from require --development; exhaustive/release runs always execute fresh.')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);tech,identity=technology('sky130A',a.sky130);tools={k:str(Path(getattr(a,k)).resolve(strict=True)) for k in ('magic','netgen')}
     sources=[Path(__file__),ROOT/'scripts/qualification_geometry.py',ROOT/'scripts/qualify_standard_mos.py',ROOT/'scripts/qualify_standard_mos_layout.py',*sorted((ROOT/'icstudio').rglob('*.py'))];before={p.relative_to(ROOT).as_posix():file_digest(p) for p in sources}
     write(out/'source-files.json',before);(out/'executed-runner.py').write_bytes(Path(__file__).read_bytes());report=dict(schema=1,chunk=7,chunk_complete=False,qualified=False,status='RUNNING',scope=__doc__,process=identity,cases=[],source_files_sha256=file_digest(out/'source-files.json'))

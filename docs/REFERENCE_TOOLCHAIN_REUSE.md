@@ -37,6 +37,24 @@ The hosted runner's `ImageOS` and `ImageVersion` must both be present; an ordina
 local environment with missing image identity cannot produce or restore this CI
 artifact.
 
+Producer and corner setup use copies of the runner's APT source definitions.
+Only the known Azure Ubuntu archive URI and the hosted image's
+`mirror+file:/etc/apt/apt-mirrors.txt` reference are replaced with the official
+HTTPS Ubuntu archive. Suites, components, signing-key settings and other
+repositories are preserved; system source files are not edited. This avoids the
+observed slow Azure download route, while retaining APT signature and package
+hash verification. It is not a package-version pin or a guarantee of availability.
+The [hosted image configuration](https://github.com/actions/runner-images/blob/main/images/ubuntu/scripts/build/configure-apt-sources.sh)
+documents that mirror-list form.
+
+APT index refresh and package installation have total limits of five and ten
+minutes, in addition to connection timeouts and the existing step limit. Each
+command must succeed. The timeout process runs with the same hosted-runner
+privileges as APT so it can terminate stalled child processes. Setup logs, selected
+source definitions, original/selected source hashes and package inventories are
+retained even on ordinary setup failures. These limits fail a stalled setup
+explicitly; they never turn a missing dependency into successful acceptance.
+
 Routine PR and merge-queue checks use the fast workflow. Exhaustive reference
 acceptance runs for selected manual candidates, version tags or release workflow
 calls. A manual run requires the full SHA matching the selected branch or tag;
@@ -49,8 +67,20 @@ Focused checks:
 python -m unittest tests.test_reference_toolchain tests.test_physical_engine_build -v
 ```
 
-These local transfer/failure-control tests do not establish a successful hosted
-build or measure the resulting CI latency. The next selected acceptance run must
+The first [hosted trial, run 40021382276](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40021382276),
+at candidate `43a04bb00af3118fe97d3d177ec73599056027b6`, failed before either
+shared engine built: Azure package downloads exhausted the producer's 20-minute
+setup limit. The five dependent corners were skipped. The modern schematic,
+bandgap schematic and bandgap physical jobs passed independently. This failure
+motivated the scoped archive selection and earlier setup logging above; it does
+not validate artifact reuse. The [validation record](validation/reference-toolchain-reuse-2026-10-23.json)
+binds the failed trial, fixed sources, focused tests and offline setup probes to
+retained logs and a verified compact evidence archive. Local fault probes confirm
+that both package errors and total timeouts remain failures, stop later setup and
+retain diagnostics for the producer and consumer scripts.
+
+Local transfer/failure-control tests do not establish a successful hosted build
+or measure the resulting CI latency. The next selected acceptance run must
 verify the actual producer build, five artifact restores and full native corner
 results. Compare setup time, first useful failure and queue time against the
 previous workflow; do not infer a device qualification improvement from reuse.

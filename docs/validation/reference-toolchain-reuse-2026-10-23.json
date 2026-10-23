@@ -1,0 +1,220 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "hosted_setup_failed_local_fix_verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "scope": "Failed first hosted shared-toolchain trial and bounded local verification of its package-setup fix. No successful shared artifact, consumer restore or complete five-corner acceptance yet.",
+  "hosted_trial": {
+    "candidate": "43a04bb00af3118fe97d3d177ec73599056027b6",
+    "run_id": 40021382276,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40021382276",
+    "attempt": 1,
+    "event": "workflow_dispatch",
+    "conclusion": "failure",
+    "created_at": "2026-10-23T20:43:11Z",
+    "updated_at": "2026-10-23T21:09:13Z",
+    "jobs": [
+      {
+        "id": 120646522686,
+        "name": "candidate",
+        "conclusion": "success",
+        "started_at": "2026-10-23T20:43:15Z",
+        "completed_at": "2026-10-23T20:43:25Z"
+      },
+      {
+        "id": 120646625816,
+        "name": "rc-toolchain",
+        "conclusion": "failure",
+        "started_at": "2026-10-23T20:43:31Z",
+        "completed_at": "2026-10-23T21:03:53Z"
+      },
+      {
+        "id": 120646626062,
+        "name": "bandgap-physical",
+        "conclusion": "success",
+        "started_at": "2026-10-23T20:43:31Z",
+        "completed_at": "2026-10-23T21:00:57Z"
+      },
+      {
+        "id": 120646626178,
+        "name": "bandgap-schematic",
+        "conclusion": "success",
+        "started_at": "2026-10-23T20:44:08Z",
+        "completed_at": "2026-10-23T20:50:21Z"
+      },
+      {
+        "id": 120646626300,
+        "name": "modern-schematic",
+        "conclusion": "success",
+        "started_at": "2026-10-23T20:45:29Z",
+        "completed_at": "2026-10-23T21:09:13Z"
+      },
+      {
+        "id": 120655374882,
+        "name": "bandgap-rc",
+        "conclusion": "skipped",
+        "started_at": "2026-10-23T21:03:54Z",
+        "completed_at": "2026-10-23T21:03:53Z"
+      }
+    ],
+    "shared_artifact_produced": false,
+    "completed_corner_restores": 0,
+    "corners_skipped": [
+      "nominal",
+      "ff",
+      "ss",
+      "fs",
+      "sf"
+    ],
+    "independent_artifacts": [
+      {
+        "id": 12532225590,
+        "name": "reference-bandgap-physical",
+        "size_in_bytes": 66470509,
+        "digest": "sha256:c436566132d57e2b3adbd75e631e55ae9006175ed0e1d301cbcfef36688434d9"
+      },
+      {
+        "id": 12532062450,
+        "name": "reference-modern-schematic",
+        "size_in_bytes": 94336975,
+        "digest": "sha256:bca2a5acf79a09f92efdaeec0da06b6424f2cab06e7d638e4043a3da0f472f87"
+      },
+      {
+        "id": 12531455960,
+        "name": "reference-bandgap-schematic",
+        "size_in_bytes": 26784785,
+        "digest": "sha256:d2cd63e6d4c87eb43dda402304ab9a32a46cddbcf50f169e823293660cc7f3eb"
+      }
+    ],
+    "artifact_scope": "API metadata retained; independent success artifacts were not re-downloaded or promoted to current-head acceptance."
+  },
+  "failure": {
+    "job_id": 120646625816,
+    "step": "Install engine build dependencies once for all five RC corners",
+    "started_at": "2026-10-23T20:43:38Z",
+    "completed_at": "2026-10-23T21:03:50Z",
+    "timeout_error": "The action 'Install engine build dependencies once for all five RC corners' has timed out after 20 minutes.",
+    "raw_log_sha256": "e0a7cf96931078d9a2c825ecd56fccf88e941872f73f87a3531f612f7931f544",
+    "observed": "APT index refresh completed; Azure GraphBLAS and LAPACK package downloads stalled/retried until the configured step timeout. Both engine builds and artifact packaging were skipped.",
+    "missing_build_artifact": "The original always-upload step found no files because build/ and package inventory were created only after installation."
+  },
+  "fix": {
+    "base_candidate": "43a04bb00af3118fe97d3d177ec73599056027b6",
+    "source_sha256": {
+      "scripts/reference_toolchain.py": "2420b94b5e84a12400aaccb240430fc5f7ac2076a17eb873dd3fc4a8677ee637",
+      "scripts/build_physical_engines.py": "4b6bb2d6c26da0800c46f79c09186e1c1d6fd513861eae68721bfb78683d3305",
+      "tests/test_reference_toolchain.py": "f8e0db31055115f9407bff19715a04079b2bb8d818446156b71f430dce39c5e9",
+      "tests/test_physical_engine_build.py": "02290c569db6f7d92ae688b1da7e8014f5f756dbbcdf3b6a65d2b6e2ce339a9b",
+      ".github/workflows/reference-compatibility.yml": "1740d6ffed477d830d95ce33e717f1d8b07d4a9105bf90ef5283055fa94f73ac",
+      "docs/REFERENCE_TOOLCHAIN_REUSE.md": "ccc2f97b3c9a8b6af4aae9902d053fc5be81dd9d90a2aefb7ee3ff9bd69197bf"
+    },
+    "changes": [
+      "Copy source definitions and replace only the known Azure Ubuntu URI or hosted mirror+file reference with the official HTTPS Ubuntu archive.",
+      "Preserve suites, components, signing-key settings and other repositories; do not edit system source definitions.",
+      "Require APT success, with total limits of 300 seconds for update and 600 seconds for install, and retain setup/source/package diagnostics on ordinary failures."
+    ],
+    "limits": "Repository packages remain unpinned; this is not a hermetic environment. The next immutable hosted candidate must establish actual build and restore success."
+  },
+  "local_validation": {
+    "Linux": {
+      "tests": 26,
+      "skipped": 0,
+      "elapsed_seconds": 0.19,
+      "command": "python -m unittest tests.test_reference_toolchain tests.test_physical_engine_build -v",
+      "log_sha256": "8ffb38fa61d291dd55a304d465e821dc60adfdd3e17b0881f086b98f47f06845",
+      "source_copy_verified": true
+    },
+    "offline_apt": {
+      "status": "passed",
+      "log_sha256": "33404ca3777d9d8f5fc4573050ee3f9c2e65ccf13125ed9f576388f457c7e3e4",
+      "method": "Native apt-get --print-uris accepted the copied current-runner source format and selected only official Ubuntu archive URIs; no package download or installation.",
+      "controls": "Focused tests cover source/key/suite preservation, legacy source form, unknown-host/path isolation, linked definitions and existing-output refusal."
+    },
+    "setup_faults": {
+      "status": "passed",
+      "report_sha256": "45caeaff3df8e93308050f28f454472d8382d9e026e0d902a939a0a9b4c0bc6f",
+      "method": "Exact workflow setup scripts with sudo/apt/dpkg shims; timeout cases use the real GNU timeout with a 0.1-second substituted limit. The production limits and authentication policy are unchanged.",
+      "probes": [
+        {
+          "job": "producer",
+          "fault": "package-error",
+          "returncode": 100,
+          "elapsed_seconds": 0.036,
+          "apt_calls": 1,
+          "later_install_blocked": true,
+          "setup_log_retained": true,
+          "package_inventory_retained": true,
+          "log": "producer-package-error.log",
+          "log_sha256": "ccdba323ca38aeed6b3dc13b128da821306a7014bb25cf1dd0616d491ce73421",
+          "workflow_script_sha256": "ce60b77f15e58648f45f44c8d3b5bbe33f308f10aa9ed4824d920f7dea0379b1"
+        },
+        {
+          "job": "producer",
+          "fault": "timeout",
+          "returncode": 124,
+          "elapsed_seconds": 0.137,
+          "apt_calls": 1,
+          "later_install_blocked": true,
+          "setup_log_retained": true,
+          "package_inventory_retained": true,
+          "log": "producer-timeout.log",
+          "log_sha256": "cb21ecf00bc46ba0ed29ba1c410149c5269d5723dd397a1df5056c3af966139d",
+          "workflow_script_sha256": "ce60b77f15e58648f45f44c8d3b5bbe33f308f10aa9ed4824d920f7dea0379b1"
+        },
+        {
+          "job": "consumer",
+          "fault": "package-error",
+          "returncode": 100,
+          "elapsed_seconds": 0.032,
+          "apt_calls": 1,
+          "later_install_blocked": true,
+          "setup_log_retained": true,
+          "package_inventory_retained": true,
+          "log": "consumer-package-error.log",
+          "log_sha256": "1809c6cc43eb70a6cbd8f543a96fc747c11a40e92c0642c939dfb7b81b383401",
+          "workflow_script_sha256": "caeaa886f91224ff79f96467fa059054d1afcf1ca9177546cc36cac006e7dcea"
+        },
+        {
+          "job": "consumer",
+          "fault": "timeout",
+          "returncode": 124,
+          "elapsed_seconds": 0.136,
+          "apt_calls": 1,
+          "later_install_blocked": true,
+          "setup_log_retained": true,
+          "package_inventory_retained": true,
+          "log": "consumer-timeout.log",
+          "log_sha256": "3604405376ba460b71839a5f34dc3e7dafe346310f6a8f04e6be1280d1968662",
+          "workflow_script_sha256": "caeaa886f91224ff79f96467fa059054d1afcf1ca9177546cc36cac006e7dcea"
+        }
+      ]
+    },
+    "workflow": {
+      "returncode": 0,
+      "validator_sha256": "6d470a52039a433bccdf57bd65170885a5b23e511155d0de587c2c3ce0eb1c24",
+      "workflow_sha256": "1740d6ffed477d830d95ce33e717f1d8b07d4a9105bf90ef5283055fa94f73ac",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "limitations": "ShellCheck and Pyflakes integrations disabled."
+    }
+  },
+  "remaining": [
+    "Successful hosted producer build and verified archive upload on the fixed immutable candidate.",
+    "Five successful consumer checksum/identity checks, native engine probes and complete fresh corner acceptance.",
+    "Measured setup/queue/qualification timings before claiming a speed improvement."
+  ],
+  "cleanup": {
+    "redundant_large_setup_copies_created": false,
+    "removed_bytes": 0,
+    "scope": "Small local probe copies used temporary directories and were automatically removed. Raw receipts are retained; no broad cleanup, disk compaction or administrator use."
+  },
+  "evidence_archive": {
+    "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/reference-toolchain-reuse-2026-10-23-v1/checkpoint.zip",
+    "sha256": "e7ec1952406eec2f83caf7a71e21ecbed83574283548a25be7aba873506e8d65",
+    "bytes": 51425,
+    "files": 28,
+    "all_members_verified": true,
+    "manifest_sha256": "45ff9e1d3cdcd2f1ad4a597cc4a5d5c46783f584ea6518e6e5c10b44d790516e"
+  }
+}

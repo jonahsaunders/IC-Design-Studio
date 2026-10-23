@@ -1,11 +1,11 @@
 # Chunk 7: close one device family at a time
 
-Planning snapshot: October 23, 2026, committed baseline `b6c623b` plus the
+Planning snapshot: October 23, 2026, committed baseline `43a04bb` plus the
 [sampled IHP high-voltage MOS acceptance](IHP_HV_MOS_LAYOUTS.md). This is an execution plan,
 not new acceptance evidence. The authoritative
 [matrix](qualification/pdk-matrix.json) still contains 287 partial device
 entries, six unavailable real-device bindings and nine utilities. Its recorded
-source baseline is `b6c623b`. Historical records retain their own sources and
+source baseline is `43a04bb`. Historical records retain their own sources and
 package revisions.
 
 The existing chunk gate is unchanged: every supported device must pass its
@@ -78,7 +78,7 @@ adding LI samples and call that progress toward resolving the missing definition
 | Priority | Family and target | Concrete next milestone | What still prevents family closure |
 | --- | --- | --- | --- |
 | 1 | SKY130 LI, then M1–M4 generic resistors | Contract and linked legal LI example above; extend electrical/model-specific checks to each metal separately. | Full applicable envelope/class reconciliation and exact installed acceptance. Metal layout evidence does not inherit LI electrical coverage. |
-| 2 | SKY130 first and second MiM | Consolidate existing binding, mismatch, orientation and mixed-layout evidence into two explicit contracts; execute missing required boundary/context combinations once. | Source-backed operating/statistical/reliability applicability, unsupported physical classes and installed acceptance. Fractional electrical multiplicity does not imply fractional physical copies. |
+| 2 | SKY130 first and second MiM | [Versioned two-device contract](SKY130_MIM_REQUIREMENTS.md) and the selected twenty-context passive-section example are recorded. Next resolve the named voltage-limit mapping and exercise required boundaries/classes, then exact installed acceptance. | Source-backed operating/statistical/reliability applicability, unsupported physical classes and installed acceptance. Fractional electrical multiplicity does not imply fractional physical copies. |
 | 3 | IHP 1.2 V and 3.3 V MOS, separate standard and RF views | Reconcile the sampled standard LV/HV geometry acceptance with the full model envelopes, then join extracted electrical checks. | HV sampled native geometry passes; unsampled classes and complete envelopes remain open. Public model measurements at 27 C do not establish complete temperature validity. Standard geometry cannot stand in for RF geometry even where compact model names overlap. |
 | 4 | GF180 C and D standard 3.3 V MOS | Resolve the two retained fast-corner specification discrepancies and the incomplete threshold-extraction definition; consolidate finger/multiplicity coverage against the contract. | Literal published current bounds still differ from direct public-model results. Geometry batches and source/reference agreement cannot override those mismatches. C/D physical stacks remain separate. |
 | 5 | IHP straight resistors and taps; GF180 C/D straight resistor families | Join each model's electrical envelope to its existing physical classes and native extraction. For taps include the exact computed-resistance binding and independent body/port check. | Selected geometry/temperature points, body handling, optional via classes, model-specific operating limits and installed acceptance. A disabled optional via stack is not a passed via class. |
@@ -143,8 +143,10 @@ and SKY130 imports the process-neutral module directly. Existing IHP/SKY130
 mask, port, rotation and fault-mutation regression tests pass. This removes
 cross-process runner coupling without claiming extra qualification coverage.
 
-Use a new immutable run directory for every invocation. Proposed development
-interface: `--select l1-w2-l5 --resume-from /existing/complete-run`. Unknown,
+The [opt-in development pilot](SKY130_LI_DEVELOPMENT_REUSE.md) implements one
+complete LI case; default and release paths remain fresh. Use a new immutable
+run directory for every invocation. The development interface adds
+`--development --select l1-w2-l5 --resume-from /existing/complete-run`. Unknown,
 duplicate or empty selections must fail before tools launch. The selection list
 and full required case list must both appear in the report; a selected run must
 never report complete-family or release acceptance.

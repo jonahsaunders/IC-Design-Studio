@@ -8,11 +8,12 @@ PDK, runtime, physical-interface and release-contract tests plus the menu and
 project-hub GUI smoke checks. The lane has no path filter, so documentation-only
 PRs also report its stable aggregate check, **PR feedback**.
 
-Repository branch protection or rulesets must separately select **PR feedback**
-as a required check and remove obsolete automatically triggered acceptance
-checks where appropriate. A workflow file cannot configure that requirement;
-this change does not claim it has been enabled. Source feedback is not packaged
-desktop acceptance, native physical qualification or foundry signoff.
+After the first hosted run passed on October 23, `main` was configured to require
+**PR feedback** from GitHub Actions, with an up-to-date base and the default
+administrator bypass. The [configuration receipt](validation/chunk7-integration-feedback-2026-10-23.json)
+records the exact policy readback. A workflow file alone cannot configure that
+requirement. Source feedback is not packaged desktop acceptance, native physical
+qualification or foundry signoff.
 
 Expensive desktop and qualification workflows run for version tags, selected
 manual candidates, or as reusable gates of release preparation. They no longer
@@ -66,3 +67,19 @@ the Windows-mounted checkout: its test stage took 262 seconds, compared with
 for WSL test checkouts; retain source identities when copying, and remove
 redundant copies after verified evidence retention. The earlier overall run
 remains invalid because the LI auditor changed while it was running.
+
+The first hosted run on integration candidate `43a04bb` passes on GitHub's actual
+PR merge commit. Linux completes in 1:35 and Windows in 2:29 including setup;
+the aggregate passes at 4:07 after a 91-second queue wait. The feedback commands
+themselves take 54.0 and 80.9 seconds respectively. Both hosts discover 211 tests
+(two Linux skips, 13 Windows skips); all required stages pass, and downloaded
+artifacts match all 1,328 checkpoint source hashes. These timings are one observation,
+not a measured long-term speedup or full acceptance. Merge-queue execution and
+the new native shared-toolchain producer/consumers remain separate verification.
+
+The [subsequent focused integration](validation/chunk7-focused-integration-2026-10-23.json)
+adds the selected LI reuse and MiM passive-corner/auditor checks. All 260 tests
+pass on both hosts (15 Windows skips, two Linux skips), alongside release
+document validation and both GUI probes. The observed local totals are 72.9
+seconds on Windows and 36.6 seconds on native Linux storage; environment setup
+and hosted queue time are excluded. Every checked source identity is retained.

@@ -1,0 +1,152 @@
+# SKY130 MiM capacitor requirement contracts
+
+The [versioned contract](qualification/sky130-mim-contract-v1.json) consolidates
+both `cap_mim_m3_1` and `cap_mim_m3_2`. It binds 41 source records, nine classified
+facts and twelve remaining requirements. It is a source-review deliverable;
+the planned experiment remains unexecuted in this immutable contract. Neither
+device is promoted and the chunk-7 gate is unchanged.
+
+The later [passive-section execution record](validation/sky130-mim-passive-corners-2026-10-23.json)
+closes the predefined twenty-context example below. Both constructions pass
+fresh native extraction at two orientations, followed by all five distinct
+passive sections. The independent audit verifies four layouts, twelve physical
+faults, 120 electrical faults and 320 AC samples from forty raw files. Its
+seventeen rehashed evidence controls reject changed model sources, substituted
+native paths, false summaries, incomplete bindings and unrelated physical
+failures. This leaves the immutable contract's historical planning status intact;
+the new record supplies the subsequent bounded result.
+
+A later independent review added exact native startup, DRC, extraction and LVS
+input checks. Five deliberately altered execution scripts/setup paths accepted
+by the earlier checker now reject. The original data still passes complete
+Windows/Linux readback, and the archived-source replay passes the stricter
+checker. These checker changes and their 23 focused tests are retained separately
+from the unchanged native producer and original audit. No native rerun is claimed
+for an audit-only change.
+
+**The source review identified missing genuine passive-corner coverage.**
+The earlier nominal, ss and ff batches all select the same typical resistor and
+capacitor coefficients. Their different MOS sections and selected temperatures
+do not establish the distinct `ll`, `hh`, `hl` and `lh` MiM conditions.
+
+## What the retained evidence already establishes
+
+| Record | Bounded result | Remaining distinction |
+| --- | --- | --- |
+| [Capacitor families, October 17](validation/capacitor-families-2026-10-17.json) | Explicit terminal probes, selected complex admittance, parallel scaling and faults; MiM examples use 2×2 and 7×7 µm at ±0.5 V. | Historical package and second-MiM `vm` mapping; not the later mismatch correction or full voltage domain. |
+| [Second-MiM layouts, October 22](validation/sky130-mim2-layouts-2026-10-22.json) | 28 selected square layouts and 35 controls; extracted capacitance checks at three selected conditions. | Original square-only scope and original package retained. |
+| [MiM binding, October 22](validation/sky130-mim-binding-2026-10-22.json) | Corrected second-model `mf`/simulator `m` mapping; seeded paired mismatch scaling at four shapes and multipliers 0.5, 1, 4 and 16. | Shared-model integration; no measured distribution, correlation or lifetime calibration. |
+| [Second-MiM orientation, October 23](validation/sky130-mim-orientation-2026-10-23.json) | Rectangles preserve mask-derived W/L through rotations and mirrors; 64 layouts, 47 controls and 24 electrical conditions. | Selected geometry and zero-bias public-model equivalence, not measured RF accuracy. |
+| [First-MiM correction, October 23](validation/sky130-first-mim-2026-10-23.json) | Corresponding first-plate orientation and contact-edge defects corrected; both-family regression and separated mixed-family layouts checked. | Does not qualify stacked overlap, shared electrodes, distributed RC or installed deliverables. |
+
+Every record retains its original code and package identity. The current
+simulation package is `b26f7f28e659ddc1`; the physical adapter is separately
+locked to revision `9a491f0ebd51a0aa`. The contract records both underlying
+model/symbol hashes and the exact public technology/PCell identities. Earlier
+results are not silently relabeled as current-package acceptance.
+
+## Source definitions and their limits
+
+The [public MiM section](qualification/sky130-mos-bias-sources-v1/device-details.rst)
+defines model-validity voltage as `|Vc0 − Vc1| = 0–5 V` and describes CAPM above
+metal3 and CAP2M above metal4. Its listed cell/model identifiers differ from the
+shipped two-terminal wrapper names. The construction correspondence supports a
+bounded family mapping, which must be recorded explicitly before adding linked
+±5 V boundary checks. That wording does not establish leakage, breakdown or
+lifetime qualification. The shipped wrappers themselves contain no voltage-
+dependent capacitor or leakage term.
+
+The [electrical table](qualification/sky130-mim-sources-v1/cap_mim-table0.rst)
+lists the same values for both constructions:
+
+| Quantity | Nominal | Lower / upper specification | Unit |
+| --- | ---: | ---: | --- |
+| Area capacitance | 2 | 1.8 / 2.2 | fF/µm² |
+| Perimeter capacitance | 0.19 | 0.11 / 0.27 | fF/µm |
+| Top-plate sheet resistance | 5.8 | 4.8 / 6.8 | Ω/square |
+
+The table does not supply the complete measurement conditions or mapping to
+stress corners. In particular, the model's extreme area/perimeter coefficients
+extend beyond these tabulated values. This is an unresolved specification/model
+mapping, not grounds to replace coefficients or declare a measurement failure.
+The wrappers model bottom-metal and contact resistance; the table's top-plate
+sheet resistance is not a substitute for either. Documentation mentions
+bottom-to-substrate parasitics, while these two-pin wrappers have no explicit
+substrate terminal. Complete parasitic and RF accuracy remain unqualified.
+
+The public PCell defaults/checks bound W and L to 2–30 µm and label the drawn
+capacitor routines as work in progress. These are generator bounds. The
+application uses the same dimension bounds, a 5 nm grid and 1–16 integer
+parallel copies; first MiM additionally limits aspect ratio to 5:1. Second MiM
+has no equivalent ratio test. Footprint budgets and exact binding/layer guards
+can reject otherwise in-range inputs. None of these checks supplies a complete
+electrical geometry-validity envelope. Positive fractional electrical `mf`
+does not represent a fractional physical copy.
+
+The retained [public periphery table](qualification/sky130-mim-sources-v1/periphery-rules.rst)
+contains N/A values for capm geometry rules and uses legacy met2/via2 wording.
+Its named area, aspect and context restrictions still require reconciliation
+with the pinned executable technology's metal3/metal4 constructions. Native DRC
+success cannot resolve an unspecified or unimplemented written rule.
+
+## Predefined next acceptance example
+
+Use one **2×10 µm, multiplicity-one rectangle of each MiM construction**, at
+0° and 90°. This is the previously exercised asymmetric layout and makes swapped
+W/L observable in series resistance. Generate and verify fresh native geometry,
+then retain its original/corrected extraction and masks. Compare application
+export, the actual extracted file, a literal model call and independently
+calculated series RC in all five sections: twenty selected contexts.
+
+| Section | Area coefficient, fF/µm² | Perimeter coefficient, fF/µm | Metal tolerance, nm |
+| --- | ---: | ---: | ---: |
+| tt | 2 | 0.19 | 0 |
+| ll | 1.778 | 0.03 | +45.5 |
+| hh | 2.231 | 0.35 | −45.5 |
+| hl | 1.778 | 0.03 | −65 |
+| lh | 2.231 | 0.35 | +65 |
+
+These are source-fixed coefficients, not validity bounds. The contract also
+records each section's metal/contact resistance, the common −25 nm dimension
+offset, exact include names and native parameter units.
+
+Set temperature and reference temperature explicitly to 27 °C, DC differential
+bias to zero, AC normalization to one and both statistical switches to zero.
+Use the existing eight frequencies from 1 kHz to 10 GHz. Save actual applied
+voltages and effective coefficient probes. At this chosen reference temperature,
+the model gives `C = camimc·wc·lc + 2·cpmimc·(wc+lc)` and
+`R = rmN·lc/wc + rcviaN·pitch²/(wc·lc)`, where the effective dimensions include
+the recorded offset/tolerance and the contact pitches are 0.56/0.73 µm for
+first/second MiM. Compare complex admittance, reconstructed resistance and
+capacitance at relative tolerance 10⁻⁶. This checks implementation of the
+published equations; it does not validate those equations against silicon.
+
+Keep the existing physical faults, require swapped W/L to change resistance
+by more than 5%, and detect other electrical mutations against the ordinary
+comparison tolerance. In particular, a wrong MiM model need not change the
+total response by 5% in every section. A wrong section must fail coefficient
+readback or numerical comparison. An independent audit must reject a rehashed
+manual substitute for the actual extracted path. Preserve all failures and
+exact selected coverage. Closing this example only closes the selected
+`MIM-PASSIVE-CORNERS` execution gap.
+
+## Work still needed for family closure
+
+The contract separates local execution from missing source definitions:
+
+- **Local:** distinct passive sections; source-mapped ±5 V linked boundary
+  checks; supported physical-class reconciliation; exact installed Windows/Linux
+  candidate acceptance with old saved revisions preserved.
+- **Source or calibration:** complete electrical W/L and temperature validity;
+  measurement conditions for the tabulated limits; statistical correlations and
+  calibration; ripple, leakage, field, self-heating and lifetime applicability;
+  complete written-rule and parasitic-model mapping.
+- **Unsupported or separately qualified classes:** stacked/shared electrodes,
+  PCell dummy/contact-coverage variations, arbitrary imported geometry, direct
+  hierarchical native extraction and distributed RC. Existing separated mixed
+  capacitors do not establish these classes.
+
+All copied documentation remains unmodified under its original Apache-2.0
+license and pinned public revision. No private resource is required for the
+planned passive-section example. Chunk 7 remains approximately **60% complete**,
+with low confidence (50–70%); this contract does not increase that estimate.

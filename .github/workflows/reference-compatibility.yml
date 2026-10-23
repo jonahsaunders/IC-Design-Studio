@@ -39,11 +39,14 @@ jobs:
       - name: Install engine build dependencies once for all five RC corners
         timeout-minutes: 20
         run: |
-          apt_options=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
-          sudo apt-get "${apt_options[@]}" update --error-on=any
-          sudo apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev
+          set -euo pipefail
           mkdir -p build
-          dpkg-query -W > build/reference-toolchain-packages.txt
+          exec > >(tee build/reference-toolchain-setup.log) 2>&1
+          trap 'status=$?; echo "Setup exit status: $status"; dpkg-query -W > build/reference-toolchain-packages.txt; exit "$status"' EXIT
+          python scripts/reference_toolchain.py apt-sources --output build/reference-apt-sources
+          apt_options=(-o "Dir::Etc::sourcelist=$PWD/build/reference-apt-sources/sources.list" -o "Dir::Etc::sourceparts=$PWD/build/reference-apt-sources/sources.list.d" -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo timeout --signal=TERM --kill-after=15s 300s apt-get "${apt_options[@]}" update --error-on=any
+          sudo timeout --signal=TERM --kill-after=15s 600s apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev
       - name: Build the isolated patched extractor and pinned sparse solver once
         run: |
           python scripts/build_physical_engines.py --lock examples/gf180-rc-engine-lock.json --output build/gf180-engines
@@ -76,6 +79,8 @@ jobs:
             build/modern-engines/*-version.log
             build/modern-engines/source-lock.json
             build/reference-toolchain-packages.txt
+            build/reference-toolchain-setup.log
+            build/reference-apt-sources
           compression-level: 1
           if-no-files-found: warn
   modern-schematic:
@@ -156,10 +161,15 @@ jobs:
         # 210-minute extraction budget without running the qualification.
         timeout-minutes: 20
         run: |
-          apt_options=(-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
-          sudo apt-get "${apt_options[@]}" update --error-on=any
-          sudo apt-get "${apt_options[@]}" install -y tcl tk libx11-6 libxrender1 libxpm4 libcairo2 libglu1-mesa libreadline8t64 libklu2 libegl1 libopengl0
-          python -m pip install --timeout 30 --retries 3 -r requirements.txt
+          set -euo pipefail
+          mkdir -p build
+          exec > >(tee build/reference-corner-setup.log) 2>&1
+          trap 'status=$?; echo "Setup exit status: $status"; dpkg-query -W > build/reference-corner-packages.txt; exit "$status"' EXIT
+          python scripts/reference_toolchain.py apt-sources --output build/reference-apt-sources
+          apt_options=(-o "Dir::Etc::sourcelist=$PWD/build/reference-apt-sources/sources.list" -o "Dir::Etc::sourceparts=$PWD/build/reference-apt-sources/sources.list.d" -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo timeout --signal=TERM --kill-after=15s 300s apt-get "${apt_options[@]}" update --error-on=any
+          sudo timeout --signal=TERM --kill-after=15s 600s apt-get "${apt_options[@]}" install -y tcl tk libx11-6 libxrender1 libxpm4 libcairo2 libglu1-mesa libreadline8t64 libklu2 libegl1 libopengl0
+          timeout --signal=TERM --kill-after=15s 300s python -m pip install --timeout 30 --retries 3 -r requirements.txt
       - uses: actions/download-artifact@v4
         with:
           name: ${{ needs.rc-toolchain.outputs.artifact_name }}
@@ -188,6 +198,8 @@ jobs:
             build/reference-toolchain-manifest.json
             build/reference-toolchain-restored.json
             build/reference-corner-packages.txt
+            build/reference-corner-setup.log
+            build/reference-apt-sources
           compression-level: 1
           if-no-files-found: error
   bandgap-schematic:
