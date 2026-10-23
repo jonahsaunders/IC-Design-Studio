@@ -1,7 +1,7 @@
 {
   "schema": 6,
   "as_of": "2026-10-23",
-  "source_baseline": "e44f7f318e428c764d9faae9ae5a879da483522a",
+  "source_baseline": "da9759cd46592ac43b7e8562559f2bc572628e17",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -89,6 +89,15 @@
         "inverter_layouts": 12,
         "faults": 222,
         "independently_read_native_and_exported_channels": 7182,
+        "device_statuses_unchanged": true
+      },
+      "latest_gf180_mos_specifications": {
+        "evidence": "gf180-mos-specifications-2026-10-23",
+        "execution_status": "PASS",
+        "specification_status": "MISMATCH",
+        "cases_per_host": 10,
+        "matching_cases_per_host": 8,
+        "faulty_instances_per_host": 240,
         "device_statuses_unchanged": true
       }
     },
@@ -19343,7 +19352,8 @@
         "standard-passives-2026-10-16",
         "default-device-packages-2026-10-17",
         "mos-boundaries-2026-10-17",
-        "alternate-models-2026-10-17"
+        "alternate-models-2026-10-17",
+        "gf180-mos-specifications-2026-10-23"
       ]
     },
     "gf180mcuC:digital-controller": {
@@ -19630,7 +19640,8 @@
         "standard-passives-2026-10-16",
         "default-device-packages-2026-10-17",
         "mos-boundaries-2026-10-17",
-        "alternate-models-2026-10-17"
+        "alternate-models-2026-10-17",
+        "gf180-mos-specifications-2026-10-23"
       ]
     },
     "gf180mcuD:digital-controller": {
@@ -21928,7 +21939,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification. The selected public 3.3 V current-specification probe retains a literal fast-corner mismatch; threshold extraction remains diagnostic.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -21938,7 +21949,8 @@
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
-          "mos-finger-layouts-2026-10-23"
+          "mos-finger-layouts-2026-10-23",
+          "gf180-mos-specifications-2026-10-23"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -22220,7 +22232,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification. The selected public 3.3 V current-specification probe retains a literal fast-corner mismatch; threshold extraction remains diagnostic.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -22230,7 +22242,8 @@
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
-          "mos-finger-layouts-2026-10-23"
+          "mos-finger-layouts-2026-10-23",
+          "gf180-mos-specifications-2026-10-23"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -23055,7 +23068,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification. The selected public 3.3 V current-specification probe retains a literal fast-corner mismatch; threshold extraction remains diagnostic.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -23065,7 +23078,8 @@
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
-          "mos-finger-layouts-2026-10-23"
+          "mos-finger-layouts-2026-10-23",
+          "gf180-mos-specifications-2026-10-23"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -23347,7 +23361,7 @@
           "device-physical"
         ],
         "status": "partial",
-        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification.",
+        "remaining": "Selected shared-finger, separate-copy and inverter samples pass full native DRC, strict LVS and independent channel/diffusion-group audits. Unsampled geometry/finger/multiplicity combinations, full operating/statistical/reliability envelopes, extracted electrical behavior and final acceptance remain open; edited layouts require verification. The selected public 3.3 V current-specification probe retains a literal fast-corner mismatch; threshold extraction remains diagnostic.",
         "historical_evidence": [
           "standard-mos-initial-2026-10-16",
           "standard-mos-sweeps-2026-10-16",
@@ -23357,7 +23371,8 @@
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
-          "mos-finger-layouts-2026-10-23"
+          "mos-finger-layouts-2026-10-23",
+          "gf180-mos-specifications-2026-10-23"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -24790,7 +24805,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0Ã¢â‚¬â€œ1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -25281,6 +25296,11 @@
       "path": "docs/validation/mos-finger-layouts-2026-10-23.json",
       "sha256": "9ef45c17f2244997d5d3b1905458995c6d7f8c13e1e5bfa120e33f9cca25eed7",
       "scope_limit": "Standard four-terminal GF180 C/D 3.3 V and IHP 1.2 V shared-diffusion gate fingers with separate parallel multiplicity, exact native channels and exported diffusion-group verification, rotated stream exchange, selected inverter contexts and source editor workflows. No full operating-envelope, extracted electrical, installed release or foundry qualification."
+    },
+    "gf180-mos-specifications-2026-10-23": {
+      "path": "docs/validation/gf180-mos-specifications-2026-10-23.json",
+      "sha256": "14bc4aba7239e726f772a2df281f0202b4d2bd62a348f0599bc0784f215073ce",
+      "scope_limit": "GF180 C/D nfet_03v3 and pfet_03v3 at W/L=10/0.28 um, 25 C, five process selections. Literal public Idsat/Ioff bounds, independent export equivalence, four-terminal bias/KCL checks and deliberate faults. Threshold is diagnostic. Full device envelopes, layouts, statistical/reliability and installed qualification remain open."
     }
   },
   "execution_acceptance": {

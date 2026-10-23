@@ -146,6 +146,13 @@ foundry mask-generation equivalence or complete physical qualification.
 
 ## Included Xschem and GF180 simulation assets
 
+The [GF180 MOS specification source subset](docs/qualification/gf180-mos-spec-sources-v1/README.md)
+contains unmodified documentation and tables from google/gf180mcu-pdk revision
+`de3240d7529a6970437ac3344820aaae7839f215`, copyright 2022 GlobalFoundries PDK
+Authors, under Apache-2.0. Its original license, source URLs and file hashes are
+retained beside the excerpts. These files keep their upstream license; the new
+qualification runner and regression tests are project code.
+
 Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyright and license headers are retained under icstudio/assets/exchange/xschem; the GPL text is in licenses/GPL-2.0.txt. Corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/x/xschem/ and https://github.com/StefanSchippers/xschem/tree/3.4.4.
 
 GF180MCU primitive symbols and ngspice model files: Apache-2.0, upstream commit 4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c. Source: https://github.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr/tree/4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c. Original files and license accompany the application; assets/exchange/index.json records individual hashes and source paths. These are schematic and simulation assets, not physical signoff decks.

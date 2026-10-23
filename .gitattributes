@@ -17,6 +17,8 @@ tests/fixtures/sky130-public-decks-v1/*/sky130A_mr.drc -whitespace
 icstudio/assets/verification/sky130/sky130A_mr.drc -whitespace
 tests/fixtures/sky130-public-seal-oracles-v1/*.log -whitespace
 docs/qualification/sky130-device-tables/** -whitespace
+# Retain the original byte-hashed GF180 specification excerpts and tables.
+docs/qualification/gf180-mos-spec-sources-v1/** -whitespace
 icstudio/assets/pdks/gf180mcuC/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/magic/** -whitespace
 icstudio/assets/pdks/gf180mcuD/libs.tech/netgen/** -whitespace

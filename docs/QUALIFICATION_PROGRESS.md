@@ -1,6 +1,49 @@
 # Chunks 1–12: progress and forecast
 
+**Snapshot: October 23, 2026; GF180 public current specifications on `da9759c`.**
+The [new numerical specification checks](GF180_MOS_SPECIFICATIONS.md) compare
+standard 3.3 V devices against pinned public GF180 values at W/L = 10/0.28 um
+and 25 C. Both hosts complete ten corner/variant cases and detect all 240
+faulty instances each. Independent audits reread 80 native files, 1,585,920
+terminal-current samples and 400 model-file bindings per host. Reported currents
+match exactly across Windows and Linux; all 47 affected tests pass on each.
+
+Eight cases meet the printed current bounds. The two ff cases retain NMOS
+590.277446 versus maximum 590 uA/um and PMOS -290.390199 versus minimum -290
+uA/um. Direct public-model defaults reproduce the discrepancy. The work isolates
+it from application export; it does not resolve its upstream cause. Limits are
+unchanged, and the maximum-gm threshold estimate remains diagnostic because
+the retained public source does not supply the complete extraction equation.
+
+Both final native batches and audits were repeated after correcting the recorded
+corner on deliberate wrong-corner tests. Initial numerical-pilot failures,
+Windows sandbox test errors, exact sources and native evidence are retained.
+The source bundle keeps its upstream Apache-2.0 license. This adds independent
+acceptance evidence but does not promote any device or change a completion gate.
+
+The verified archives preserve exact sources, public licenses, both complete
+native batches and failed attempts. Restoring the archived sources reproduces
+both nominal cases, 48 faulty instances and all seven new tests. After verifying
+23,337 recoverable files, cleanup removed 1.04 GB from Windows and 1.43 GB inside
+Linux. Archives and working sources remain; no administrator access or virtual
+disk compaction was used. Final source tests and release-document checks pass.
+
+**Chunk 7 remains about 60% complete, low confidence (50–70%).** The matrix still
+has 287 partial entries, six unavailable real bindings and nine utilities.
+Complete device envelopes, broader physical/process coverage, unresolved
+specification differences and final installed acceptance remain open. The
+next useful work is source-defined numerical/operating coverage for the remaining
+families and resolution of required bindings; a completion date is not yet reliable.
+
 **Snapshot: October 23, 2026; GF180/IHP shared fingers on `e44f7f3`.**
+Final sync: this batch and its tracker are pushed as
+[`da9759c`](https://github.com/jonahsaunders/IC-Design-Studio/commit/da9759cd46592ac43b7e8562559f2bc572628e17),
+and remote `experimental` matches. Its first exact-revision hosted snapshot has
+six running, eight pending and three queued workflows; none has completed.
+The estimate remains 60%, low confidence. This sync-only note stays local for
+the next appropriate project push so it does not restart the active checks.
+Pending CI is not acceptance.
+
 The [shared-finger layouts](MOS_FINGER_LAYOUTS.md) add 1–8 gate fingers per
 device and retain separate 1–16-copy multiplicity. All 156 native layout
 contexts pass; the qualification runner detects all 222 faults. Independent
@@ -512,6 +555,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-23 | Added source-locked GF180 current specifications: ten completed cases and 240 detected faults per host, identical current measurements, independent raw audits and both 47-test passes. Two fast-corner cases retain literal published-bound mismatches, also present with direct public-model defaults. | Stronger independent numerical evidence; full device qualification is still open. Estimate remains 60%, low confidence. |
 | 2026-10-23 | Added bounded GF180/IHP shared MOS fingers: 156 valid layouts, 222 detected faults, 7,182 independently read channels, preserved single-finger behavior, final Linux 3,341-test pass and both 58-test affected passes. Verified archive restore and reduced redundant hosted setup downloads. | Closes sampled shared-finger support; full device envelopes, missing bindings and final acceptance remain. Estimate stays 60%, low confidence. |
 | 2026-10-23 | Added GF180 C/D and IHP standard MOS parallel layouts: 156 valid native contexts, 156 detected faults, 1,134 independently checked transistors, preserved single-unit behavior, the 3,328-test Linux suite and both final 64-test affected suites. The Windows full-suite campaign lock failure is retained and addressed by a tested retry. | Closes a concrete physical multiplicity gap. Shared fingers, full device envelopes, six unavailable bindings and final acceptance keep chunk 7 open; estimate remains 60%, low confidence. |
 | 2026-10-23 | Added the sampled RF n-well default binding; unavailable real models fall from seven to six. Repaired the public MiM contact-topology regression with original fault controls. Both 3,322-test suites, independent audits and archive replay pass. | A concrete model-availability blocker is closed; all 287 available entries remain partial. Broader envelopes and final hosted/installed acceptance remain open. Estimate stays about 60%, low confidence. |
