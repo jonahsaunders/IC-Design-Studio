@@ -73,6 +73,12 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [first-MiM follow-up](SKY130_FIRST_MIM_LAYOUT.md) fixes the corresponding
+rectangular orientation defect and contact-edge placement at fractional
+dimensions. It retains the first plate's existing geometry bounds and qualifies
+both model identities together. Complete operating envelopes, unavailable
+bindings and final installed acceptance remain required; no status is promoted.
+
 The [rectangular second-MiM correction](SKY130_MIM_ORIENTATION.md) derives model
 orientation from written electrodes and verifies it against native extraction.
 All 64 translated rotations/mirrors and 47 physical/reference faults pass, with

@@ -27,7 +27,7 @@ def magic_script(executable,technology,gds,cell,ports,directory,commands,setup="
     if (Path(technology).name=='sky130A.tech' and Path(gds).is_file()
             and re.search(r'^extract all$',commands,re.M) and mim_required(gds,cell)):
         if '# STUDIO_NORMALIZE_MAGIC_RC_V1' in commands:
-            raise ValueError('Rectangular second-MiM distributed RC extraction is not yet supported; use the reviewed flat LVS flow.')
+            raise ValueError('Rectangular MiM distributed RC extraction is not yet supported; use the reviewed flat LVS flow.')
         if mim_marker not in commands:
             commands=commands.replace('extract all\n','extract all\n'+mim_marker+'\n',1)
     directory=Path(directory);directory.mkdir(parents=True,exist_ok=True)

@@ -1,5 +1,10 @@
 # Bundled device corrections and reproducible qualification
 
+The [first SKY130 MiM correction](SKY130_FIRST_MIM_LAYOUT.md) addresses rotated
+rectangular extraction and a contact-placement defect at fractional dimensions.
+Its native, electrical and mixed-family checks retain their bounded scope;
+complete device-family qualification remains open.
+
 The [SKY130 MiM multiplicity correction](SKY130_MIM_MULTIPLICITY.md) fixes the
 second capacitor's unused VM mapping in a separate default revision and local
 PDK import. Both hosts pass 54 native runs, 1,728 faulty instances and independent
@@ -10,9 +15,10 @@ complete statistical envelope.
 The [second SKY130 MiM recipe](SKY130_SECOND_MIM_LAYOUT.md) adds editable
 square metal4/cap2m/metal5 capacitors. Twenty-eight rotated layouts and 35
 deliberate faults pass, with 21 extracted capacitance comparisons, both source
-editors and the Windows/local-native handoff. Rectangular rotation still fails
-strict dimension comparison and is rejected by this new recipe. This bounded
-addition does not complete device qualification.
+editors and the Windows/local-native handoff. That square-only batch retains its
+original scope. The later [rectangular orientation adapter](SKY130_MIM_ORIENTATION.md)
+addresses the rotation failure for the declared flat-layout recipe. Neither
+batch completes device qualification.
 
 The [SKY130 starting-dimension correction](SKY130_MOS_DEFAULTS.md) fixes seven
 short symbols that failed model selection when newly placed. All 42 available

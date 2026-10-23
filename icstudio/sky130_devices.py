@@ -102,8 +102,11 @@ def geometry(tech,d,x=0,y=0):
         box('bottom','m3',-500,-500,w+3000,l+1000,bottom)
         box('dielectric_top','capm',0,0,w,l,top)
         box('top_access','m4',100,100,w-200,l-200,top)
-        for ix,a in enumerate(range(300,w-300,400)):
-            for iy,b in enumerate(range(300,l-300,400)):
+        # Coordinates are the cut's lower edge, not its center. Keep the
+        # entire 200 nm cut inside the 300 nm edge margin, including lengths
+        # just above a 400 nm pitch boundary (for example 3.005 um).
+        for ix,a in enumerate(range(300,w-499,400)):
+            for iy,b in enumerate(range(300,l-499,400)):
                 box(f'top_via_{ix}_{iy}','via3',a,b,200,200)
         bx=w+1500
         box('bottom_access','m4',bx-700,cy-700,1400,1400,bottom)

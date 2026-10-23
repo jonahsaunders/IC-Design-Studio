@@ -81,3 +81,5 @@ docs/validation/gf180-tested-source-2026-10-21-threshold/manifest.json whitespac
 # Retain exact public voltage-rule and hosted validation bytes.
 docs/qualification/sky130-voltage-sources-v1/*.csv -whitespace
 docs/qualification/hosted-acceptance-2026-10-22/** -whitespace
+# Native failure fixtures retain their checksummed engine output verbatim.
+tests/fixtures/sky130-mim1-orientation-v1/**/*.log -whitespace

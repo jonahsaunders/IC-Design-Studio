@@ -1,4 +1,4 @@
-"""Bounded MiM2 orientation from written electrodes, never schematic values.
+"""Bounded SKY130 MiM orientation from written electrodes, never schematic values.
 
 The pinned public cap_device draws W along the bottom-contact direction and L
 across it. Magic reports global X/Y dimensions. Preserve its connectivity and
@@ -14,11 +14,15 @@ from .model import atomic_write, file_digest
 
 MARKER = '# STUDIO_SKY130_MIM2_ORIENTATION_V1'
 MODEL = 'sky130_fd_pr__cap_mim_m3_2'
+MODELS = {
+    'sky130_fd_pr__cap_mim_m3_1': {'cap':(89,44), 'bottom':(70,20), 'cut':(70,44)},
+    MODEL: {'cap':(97,44), 'bottom':(71,20), 'cut':(71,44)},
+}
 TECH = '5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e'
 PCELL = '48d2111c3246cbbed88bca5cf479dd8edc4ce4629d5241cca4102368765da69a'
 
 
-def masks(path, top):
+def masks(path, top, model=MODEL):
     import klayout.db as db
     layout = db.Layout(); layout.read(str(path)); cell = layout.cell(top)
     if cell is None:
@@ -27,27 +31,31 @@ def masks(path, top):
         index = layout.find_layer(*pair)
         return db.Region() if index is None else db.Region(cell.begin_shapes_rec(index)).merged()
     # Keep the layout alive while regions reference recursive shape iterators.
-    return layout, {key:region(pair) for key,pair in
-                        {'cap':(97,44), 'bottom':(71,20), 'cut':(71,44)}.items()}
+    return layout, {key:region(pair) for key,pair in MODELS[model].items()}
 
 
 def required(path, top):
-    layout, regions = masks(path, top)
-    return any(p.bbox().width() != p.bbox().height() for p in regions['cap'].each())
+    for model in MODELS:
+        layout, regions = masks(path, top, model)
+        if any(p.bbox().width() != p.bbox().height() for p in regions['cap'].each()):
+            return True
+    return False
 
 
-def electrodes(path, top):
+def electrodes(path, top, model=MODEL):
     import klayout.db as db
-    layout, regions = masks(path, top); dbu = layout.dbu; rows = []
+    layout, regions = masks(path, top, model); dbu = layout.dbu; rows = []
     for cap in regions['cap'].each():
         box = cap.bbox()
         if cap.area() != box.area():
-            raise ValueError('MiM orientation requires separate rectangular cap2m electrodes.')
-        row = dict(box=[box.left,box.bottom,box.right,box.top], axis=None)
+            raise ValueError('MiM orientation requires separate rectangular electrodes.')
+        row = dict(model=model, box=[box.left,box.bottom,box.right,box.top], axis=None)
         if box.width() != box.height():
             nm = [box.width()*dbu*1000,box.height()*dbu*1000]
             if any(not 2000 <= v <= 30000 or abs(v/5-round(v/5)) > 1e-6 for v in nm):
                 raise ValueError('Rectangular MiM extraction requires 2–30 µm on the 5 nm grid.')
+            if model.endswith('_1') and max(nm) > 5*min(nm):
+                raise ValueError('First-plate MiM extraction supports aspect ratio at most 5:1.')
             bottom = [p for p in regions['bottom'].each() if (db.Region(cap)-db.Region(p)).is_empty()]
             if len(bottom) != 1:
                 raise ValueError('MiM orientation requires one continuous bottom electrode.')
@@ -91,14 +99,18 @@ def normalize(gds, top, technology, directory, log):
     if not math.isfinite(scale) or min(abs(scale-5),abs(scale-10)) > 1e-5:
         raise ValueError('Unreviewed native MiM coordinate scale.')
     scale = round(scale)
-    dbu, rows = electrodes(gds, top); step = scale/(dbu*1000)
+    rows = []
+    for model in MODELS:
+        dbu, model_rows = electrodes(gds, top, model)
+        rows.extend(model_rows)
+    step = scale/(dbu*1000)
     path = directory/(top+'.ext'); original = path.read_bytes()
     text = original.decode('utf-8')
     if re.search(r'^use\s', text, re.M):
         raise ValueError('MiM orientation requires the private flattened extraction input.')
     seen = set(); changes = []; lines = []
     for line in text.splitlines(keepends=True):
-        if line.startswith('device csubckt '+MODEL+' '):
+        if any(line.startswith('device csubckt '+model+' ') for model in MODELS):
             tokens = shlex.split(line)
             if len(tokens) < 9 or not tokens[7].startswith('w=') or not tokens[8].startswith('l='):
                 raise ValueError('Unreviewed native MiM parameter record.')
@@ -107,7 +119,7 @@ def normalize(gds, top, technology, directory, log):
             if any(not math.isfinite(v) or abs(v-round(v)) > 1e-6 for v in coords+native):
                 raise ValueError('Nonintegral native MiM geometry.')
             site = db.Box(*(round(v) for v in coords))
-            matches = [(i,row) for i,row in enumerate(rows) if
+            matches = [(i,row) for i,row in enumerate(rows) if row['model'] == tokens[2] and
                        db.Box(*row['box']).contains(site.p1) and db.Box(*row['box']).contains(site.p2)]
             if len(matches) != 1 or matches[0][0] in seen:
                 raise ValueError('Native MiM location does not identify one unused electrode.')
@@ -125,11 +137,13 @@ def normalize(gds, top, technology, directory, log):
     if len(seen) != len(rows):
         raise ValueError('Native MiM extraction did not account for every electrode.')
     corrected = ''.join(lines).encode('utf-8')
-    proof = dict(schema=1, model=MODEL, technology_sha256=TECH, pcell_sha256=PCELL,
+    models = sorted({row['model'] for row in rows})
+    proof = dict(schema=1, model=models[0] if len(models)==1 else None, models=models,
+                 technology_sha256=TECH, pcell_sha256=PCELL,
                  source_convention='sky130::cap_device: W along the bottom-contact direction; L perpendicular.',
                  gds_sha256=file_digest(gds),native_coordinate_nm=scale,gds_dbu_um=dbu,
                  electrodes=rows,changes=changes,native_sha256=file_digest(path),
-                 scope='Rectangular 2–30 µm cap2m on the 5 nm grid, one bottom electrode per capacitor and unambiguous contact axis. Connectivity and all other native values are unchanged.')
+                 scope='Rectangular 2–30 µm capm/cap2m on the 5 nm grid (first plate at most 5:1), one bottom electrode per capacitor and unambiguous contact axis. Connectivity and all other native values are unchanged.')
     if (directory/'native-original.ext').exists():
         raise ValueError('MiM extraction was already normalized.')
     (directory/'native-original.ext').write_bytes(original)

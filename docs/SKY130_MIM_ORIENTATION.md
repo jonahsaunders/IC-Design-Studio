@@ -1,5 +1,9 @@
 # Rectangular SKY130 second-MiM extraction
 
+The later [first-MiM correction](SKY130_FIRST_MIM_LAYOUT.md) extends the shared
+adapter to the first plate and tests both families together. This guide's
+original second-plate acceptance retains the exact sources recorded below.
+
 The experimental application now supports rectangular metal4/cap2m/metal5 MiM
 recipes within the existing 2–30 µm, 5 nm grid and 1–16 parallel-unit bounds.
 The public Magic extractor reports width and length along the global coordinate

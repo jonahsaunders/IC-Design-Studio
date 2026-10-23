@@ -22,7 +22,7 @@ jobs:
       matrix:
         stage: [inverter, analog, analog-rc, hierarchy-rc, devices, bipolar, two-stage-opamp, detector, public-layouts]
     runs-on: ubuntu-24.04
-    timeout-minutes: ${{ matrix.stage == 'two-stage-opamp' && 90 || (matrix.stage == 'detector' || matrix.stage == 'devices') && 60 || 45 }}
+    timeout-minutes: ${{ (matrix.stage == 'two-stage-opamp' || matrix.stage == 'devices') && 90 || matrix.stage == 'detector' && 60 || 45 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -113,6 +113,14 @@ jobs:
           python -m unittest tests.test_sky130_mim2_extract -v
           python scripts/qualify_sky130_mim_orientation.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim-orientation-evidence
           python scripts/audit_sky130_mim_orientation.py --root build/mim-orientation-evidence --output build/mim-orientation-evidence/audit.json
+      - name: Require first-MiM orientation and contact-edge regression
+        if: matrix.stage == 'devices'
+        timeout-minutes: 20
+        run: |
+          python -m unittest tests.test_sky130_mim1_extract -v
+          python scripts/qualify_sky130_mim_orientation.py --plate 1 --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim1-orientation-evidence
+          python scripts/audit_sky130_mim_orientation.py --root build/mim1-orientation-evidence --output build/mim1-orientation-evidence/audit.json
+          python scripts/qualify_sky130_mim_mixed.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --output build/mim-mixed-evidence
       - name: Verify MiM model multiplicity and seeded mismatch controls
         if: matrix.stage == 'devices'
         timeout-minutes: 10
@@ -233,6 +241,8 @@ jobs:
             build/voltage-layout-evidence
             build/mim2-layout-evidence
             build/mim-orientation-evidence
+            build/mim1-orientation-evidence
+            build/mim-mixed-evidence
             build/mim-binding-evidence
           if-no-files-found: error
 

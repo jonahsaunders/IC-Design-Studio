@@ -42,16 +42,18 @@ def raw(path):
     return result
 
 
-def normalization(folder,size):
-    w,l,count=size;masks=regions(folder/'layout.gds');caps=list(masks[(97,44)].each())
+def normalization(folder,size,plate=2):
+    model=f'sky130_fd_pr__cap_mim_m3_{plate}'
+    cap_mask,bottom_mask,extension=((89,44),(70,20),3000) if plate==1 else ((97,44),(71,20),4500)
+    w,l,count=size;masks=regions(folder/'layout.gds');caps=list(masks[cap_mask].each())
     assert len(caps)==count
     axes=[]
     for cap in caps:
         b=cap.bbox();assert cap.is_box()
-        bottoms=[p for p in masks[(71,20)].each() if (db.Region(cap)-db.Region(p)).is_empty()]
+        bottoms=[p for p in masks[bottom_mask].each() if (db.Region(cap)-db.Region(p)).is_empty()]
         assert len(bottoms)==1;bottom=bottoms[0].bbox()
         extra=(bottom.width()-b.width(),bottom.height()-b.height())
-        assert sorted(extra)==[1000,4500]
+        assert sorted(extra)==[1000,extension]
         axis=0 if extra[0]>extra[1] else 1
         dimensions=[b.width()/1000,b.height()/1000]
         if axis==1:dimensions.reverse()
@@ -64,7 +66,7 @@ def normalization(folder,size):
     scale=proof['native_coordinate_nm'];assert scale in (5,10)
     seen=set();expected=[]
     for line in before.read_text().splitlines(keepends=True):
-        if line.startswith('device csubckt '+MODEL+' '):
+        if line.startswith('device csubckt '+model+' '):
             t=shlex.split(line);site=db.Box(*(int(v)*scale for v in t[3:7]))
             matches=[(i,b,axis) for i,(b,axis) in enumerate(axes) if b.contains(site.p1) and b.contains(site.p2)]
             assert len(matches)==1;i,b,axis=matches[0];assert i not in seen;seen.add(i)
@@ -77,7 +79,11 @@ def normalization(folder,size):
 
 def audit(root):
     record=load(root/'record.json');assert record['status']=='PASS' and record['source_unchanged']
+    plate=record.get('plate',2);assert plate in (1,2)
+    model=f'sky130_fd_pr__cap_mim_m3_{plate}'
+    cap_mask,cut_mask=((89,44),(70,44)) if plate==1 else ((97,44),(71,44))
     expected=((2,10,1),(10,2,1),(3.005,5.005,1),(2,30,1),(30,2,1),(2,10,3),(2,10,16),(2,2,1))
+    if plate==1:expected=((2,10,1),(10,2,1),(3.005,5.005,1),(6,30,1),(30,6,1),(2,10,3),(2,10,16),(2,2,1))
     assert len(record['cases'])==8 and {tuple(c['size']) for c in record['cases']}==set(expected)
     counts=dict(layouts=0,capacitors=0,faults=0,streams=0,integrity_bindings=0,raw_responses=0,ac_samples=0,swapped_resistance_faults=0)
     def verify(folder,status):
@@ -93,13 +99,13 @@ def audit(root):
             name=row['name'];dest=folder/f'valid-{name}';assert sha(dest/'report.json')==row['report_sha256']
             report,stages=verify(dest,'passed');assert report['drc_count']==0 and all(v['status']=='passed' for v in report['stages'])
             assert not ET.parse(dest/'public-drc/report.lyrdb').findall('.//items/item')
-            counts['capacitors']+=normalization(dest,size)
+            counts['capacitors']+=normalization(dest,size,plate)
             text=re.sub(r'\n\s*\+\s*',' ',(dest/'lvs-extraction/extracted.spice').read_text())
             lines=[v.split() for v in text.splitlines() if v.strip() and not v.lstrip().startswith('*')]
             assert lines[0]==['.subckt','device_coupon','P','N'] and lines[-1]==['.ends']
             copies=0
             for fields in lines[1:-1]:
-                assert fields[0].startswith('X') and fields[1:4]==['P','N',MODEL]
+                assert fields[0].startswith('X') and fields[1:4]==['P','N',model]
                 params=dict(t.split('=',1) for t in fields[4:]);assert set(params)<={'w','l','m'}
                 assert float(params['w'])==w and float(params['l'])==l;copies+=float(params.get('m',1))
             assert copies==count
@@ -131,19 +137,19 @@ def audit(root):
             assert stages['preflight']['status']=='passed' and stages['layout_export']['status']=='passed'
             masks=regions(dest/'layout.gds');extraction=dest/'lvs-extraction'
             if row['name']=='bottom-open' and w!=l:
-                assert (masks[(71,44)]-masks[(97,44)]).is_empty()
+                assert (masks[cut_mask]-masks[cap_mask]).is_empty()
                 assert stages['lvs_extraction']['status']=='failed' and 'bottom contacts on exactly one axis' in report['error']
                 assert not (extraction/'extracted.spice').exists() and not (extraction/'native-original.ext').exists()
                 assert 'STUDIO_MAGIC_COMPLETE' in (extraction/'native-extraction.log').read_text()
             elif stages['lvs_extraction']['status']=='passed':
                 assert stages['lvs']['status']=='failed' and re.search(r'netlists do not match|circuits do not match|property errors|failed pin matching',(dest/'lvs/lvs.log').read_text(),re.I)
             else:
-                assert row['name']=='dielectric-missing' and masks.get((97,44),db.Region()).is_empty()
-                assert 'sky130_fd_pr__cap_mim_m3_2' not in (extraction/'extracted.spice').read_text()
+                assert row['name']=='dielectric-missing' and masks.get(cap_mask,db.Region()).is_empty()
+                assert model not in (extraction/'extracted.spice').read_text()
                 assert 'Extracted port order differs' in report['error']
             counts['faults']+=1
     assert counts['layouts']==64 and counts['capacitors']==200 and counts['faults']==47 and counts['raw_responses']==24
-    return dict(status='PASS',counts=counts,record_sha256=sha(root/'record.json'),audit_sha256=sha(__file__),scope=__doc__)
+    return dict(status='PASS',plate=plate,counts=counts,record_sha256=sha(root/'record.json'),audit_sha256=sha(__file__),scope=__doc__)
 
 
 def main():

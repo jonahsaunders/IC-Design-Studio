@@ -29,26 +29,28 @@ SIZES=((2,2,1),(5,5,1),(10,10,1),(3.005,3.005,1),(30,30,1),(2,2,3),(2,2,16))
 FAULTS=('dielectric-missing','top-open','bottom-open','reference-width','reference-count')
 
 
-def fixture(tech,size):
+def fixture(tech,size,plate=2):
     w,l,count=size;p=example('empty');p['pdk']=clone(tech);c=p['cells'][0]
     c.update(name='device_coupon',ports=['P','N'])
-    d=create_device(tech,'sky130_fd_pr/cap_mim_m3_2.sym','C1')
+    if plate not in (1,2):raise ValueError('Unknown MiM plate.')
+    d=create_device(tech,f'sky130_fd_pr/cap_mim_m3_{plate}.sym','C1')
     d['model_params'].update(w=w,l=l,mf=count);d['nets']=dict(c0='P',c1='N');c['devices']=[d]
     install(p,c['id'],d['id'])
     for pin in c['layout_pins']:assign_port(p,c['id'],d['nets'][pin['pin']],pin['layer'],pin['point'])
     return p
 
 
-def independent(size,fault=None):
+def independent(size,fault=None,plate=2):
     w,l,count=size
     if fault=='reference-width':w*=1.2
     if fault=='reference-count':count+=1
-    return f'.subckt device_coupon P N\nX1 P N sky130_fd_pr__cap_mim_m3_2 w={w:g} l={l:g} m={count}\n.ends device_coupon\n'
+    return f'.subckt device_coupon P N\nX1 P N sky130_fd_pr__cap_mim_m3_{plate} w={w:g} l={l:g} m={count}\n.ends device_coupon\n'
 
 
-def altered(original,fault):
-    p=clone(original);c=p['cells'][0];ls=layers(p['pdk'])
-    if fault=='dielectric-missing':removed=[s for s in c['shapes'] if s['layer']==ls['cap2m']]
+def altered(original,fault,plate=2):
+    from icstudio.sky130_devices import layers as first_layers
+    p=clone(original);c=p['cells'][0];ls=(layers if plate==2 else first_layers)(p['pdk'])
+    if fault=='dielectric-missing':removed=[s for s in c['shapes'] if s['layer']==ls['cap2m' if plate==2 else 'capm']]
     elif fault in ('top-open','bottom-open'):
         role='passive:top_via_' if fault=='top-open' else 'passive:bottom_via'
         removed=[s for s in c['shapes'] if role in s.get('generator_role','')]
@@ -58,14 +60,14 @@ def altered(original,fault):
     c['shapes']=[s for s in c['shapes'] if s not in removed];return p
 
 
-def audit_native(path,size):
+def audit_native(path,size,plate=2):
     w,l,count=size;text=re.sub(r'\n\s*\+\s*',' ',path.read_text(encoding='utf-8'))
     rows=[v.split() for v in text.splitlines() if v.strip() and not v.lstrip().startswith('*')]
     if rows[0]!=['.subckt','device_coupon','P','N'] or rows[-1] not in (['.ends'],['.ends','device_coupon']):
         raise ValueError('Unexpected extracted circuit boundary.')
     units=0
     for row in rows[1:-1]:
-        if not row[0].startswith('X') or row[1:4]!=['P','N','sky130_fd_pr__cap_mim_m3_2']:
+        if not row[0].startswith('X') or row[1:4]!=['P','N',f'sky130_fd_pr__cap_mim_m3_{plate}']:
             raise ValueError('Extracted model or electrode polarity differs: '+' '.join(row))
         values=dict(v.split('=',1) for v in row[4:])
         if len(values)!=len(row)-4 or set(values)-{'w','l','m'} or not {'w','l'}<=values.keys():
@@ -76,7 +78,7 @@ def audit_native(path,size):
         if not math.isfinite(m) or m<=0:raise ValueError('Invalid extracted count.')
         units+=m
     if units!=count:raise ValueError('Extracted parallel count differs.')
-    return dict(model='sky130_fd_pr__cap_mim_m3_2',terminals=['P','N'],dimensions_um=[w,l],units=units,sha256=file_digest(path))
+    return dict(model=f'sky130_fd_pr__cap_mim_m3_{plate}',terminals=['P','N'],dimensions_um=[w,l],units=units,sha256=file_digest(path))
 
 
 def execute(tech,size,index,output,tools,pilot):

@@ -1,6 +1,39 @@
 # Chunks 1–12: progress and forecast
 
-**Snapshot: October 23, 2026.** Latest local evidence:
+**Snapshot: October 23, 2026; first-MiM follow-up on `1461c4a`.**
+The [first-MiM correction](SKY130_FIRST_MIM_LAYOUT.md) fixes two reproduced defects:
+rotations exchanged model W/L, and some fractional dimensions placed contact cuts
+too near an electrode edge. Both corrections retain original model/package bytes
+and the existing geometry bounds.
+
+**Final local results pass:** 64 first-MiM and 64 second-MiM layouts, 47 fault
+controls for each family, plus eight mixed-family layouts and four mixed faults.
+Independent audits check 416 native capacitors and 2,556 integrity bindings.
+Both hosts pass all 24 first-MiM electrical conditions; the second-MiM Linux
+regression passes its 24 conditions. Four corrupted-output controls are rejected.
+Both source desktops, Windows/native staging and checked receipt, and 40 affected
+tests on each host pass. The earlier complete suites retain their own revision;
+this batch does not claim a new full-suite or installed-release acceptance.
+
+A verified 146.1 MB archive retains 6.81 GB of logical source/evidence, including
+the original failures. Restoring its exact sources and adapter reproduces two
+native orientations, all six fault controls and one electrical condition.
+The new full first-family and mixed-family checks are required in CI.
+All 47 evidence/matrix/release tests and release-document checks pass. A verified
+6.1 MB checkpoint retains the restored pilot and final checks. Verified redundant
+copies were removed: 925.6 MB from Windows and 6.31 GB inside Linux. The permanent
+archives, working repository, PDKs and engines remain; no administrator access or
+virtual-disk compaction was used.
+
+**Chunk 7 remains incomplete, approximately 60% by low-confidence engineering
+estimate.** The matrix still has 286 partial entries, seven unavailable real
+bindings and nine utilities. Complete device envelopes, broader physical/process
+coverage and exact final hosted/installed acceptance remain required. No gate or
+device status changed. The latest read-only hosted snapshot at `1461c4a` has six
+successful, five running, two pending and three queued workflows; it is not final
+acceptance. This batch will receive its own revision and hosted checks.
+
+**Previous completed batch, October 23, 2026.** Local evidence:
 [rectangular SKY130 second-MiM extraction](validation/sky130-mim-orientation-2026-10-23.json),
 with exact source hashes and baseline `096c275` on `experimental`. The tracker is
 updated during project work, without a scheduled monitor.
@@ -34,6 +67,21 @@ not acceptance. Exact new-revision hosted/installed acceptance is still required
 real-device bindings and nine utility entries. The rough 60% estimate remains
 low confidence. This batch resolves a concrete rotation defect without changing
 the completion gate, promoting a device or proving measured RF accuracy.
+
+Final follow-up: the RF/CI repairs and rectangular-MiM fix are pushed through
+[`1461c4a`](https://github.com/jonahsaunders/IC-Design-Studio/commit/1461c4a8ec66a8a133096300d0ba39d7e6d2e11f),
+and remote `experimental` matches. Its hosted snapshot has four successful,
+eight running and four pending workflows; none has reported failure. This is
+not final hosted acceptance.
+
+A [fresh public-source review](validation/chunk7-public-source-review-2026-10-23.json)
+confirms the upstream IHP bondpad is still a placeholder and does not establish
+replacement bindings for the missing SKY130 ESD/VPP or IHP coil models. Existing
+RF candidates retain their separate electrical/isolation limitations. Both
+upstream trees and four source files are retained with verified identities.
+No alias, device promotion or completion-gate change was made. This final source
+review and sync note were held locally and are included with the first-MiM
+follow-up. Their original source identities and limited scope are unchanged.
 
 The [preceding CI review](CHUNK7_CI_RECOVERY.md) found **nine successful, four failed
 and three cancelled workflows** at `b4e00d9`. This supersedes its earlier pending
@@ -178,7 +226,7 @@ can have useful code and successful samples without having a completed gate.
 The acceptance records dated October 7 cover toolchain and GF180 geometry;
 October 9 covers GF180 fill; October 11 covers IHP fill; October 16 closes the
 explicit SKY130 public baseline. These are record dates, not measurements of
-uninterrupted engineering time. Chunk 7 is still open in the October 22 matrix.
+uninterrupted engineering time. Chunk 7 is still open in the October 23 matrix.
 This history does not support extrapolating one fixed duration per chunk.
 
 Recent chunk-7 work has produced concrete fixes and reusable verification:

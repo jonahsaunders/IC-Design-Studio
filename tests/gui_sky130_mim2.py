@@ -1,9 +1,10 @@
-"""Source desktop generation, undo, regeneration and reopen of second MiM."""
+"""Source desktop generation, undo, regeneration and reopen of either MiM."""
 import argparse,json,sys,traceback
 from pathlib import Path
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('--out',required=True,type=Path);a=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('--out',required=True,type=Path)
+    ap.add_argument('--plate',type=int,choices=(1,2),default=2);a=ap.parse_args()
     out=a.out.resolve();out.mkdir(parents=True,exist_ok=False)
     root=Path(__file__).resolve().parents[1];sys.path.insert(0,str(root))
     from PySide6.QtCore import QSettings,QStandardPaths
@@ -24,7 +25,7 @@ def main():
         package=json.loads((root/'icstudio/assets/pdks/sky130A/package.json').read_bytes())
         p=example('empty');p['pdk']=clone(package['technology'])
         p['pdk'].update(package_root=str(root/'icstudio/assets/pdks/sky130A'),package_lock={k:package[k] for k in ('id','revision','files')})
-        d=create_device(p['pdk'],'sky130_fd_pr/cap_mim_m3_2.sym','C1')
+        d=create_device(p['pdk'],f'sky130_fd_pr/cap_mim_m3_{a.plate}.sym','C1')
         d['model_params'].update(w=2,l=2,mf=3);d['nets']=dict(c0='P',c1='N');p['cells'][0]['devices']=[d]
         studio.set_project(p);studio.selection=[d['id']];studio.refresh()
         accept(studio.mos_layout_dialog());assert not audit(studio.project,studio.cid)
@@ -44,7 +45,7 @@ def main():
         assert set(line.split()[4:])=={'w=3.005','l=5.005','mf=3','m=3'},line
         assert reopened['pdk']['package_lock']==studio.project['pdk']['package_lock']
         assert not errors,errors
-        result=dict(status='PASS',platform=app.platformName(),scope='Source Qt generation/review, undo/redo, regeneration and save/reopen; not frozen desktop acceptance.')
+        result=dict(status='PASS',plate=a.plate,platform=app.platformName(),scope='Source Qt generation/review, undo/redo, regeneration and save/reopen; not frozen desktop acceptance.')
     except Exception:result=dict(status='FAIL',errors=errors,traceback=traceback.format_exc())
     finally:studio.close();app.processEvents()
     (out/'record.json').write_bytes((json.dumps(result,indent=2)+'\n').encode());print(json.dumps(result,indent=2))
