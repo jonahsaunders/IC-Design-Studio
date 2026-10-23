@@ -1,6 +1,43 @@
 # Chunks 1–12: progress and forecast
 
-**Working snapshot: October 23, 2026; local continuation on `43a04bb`.**
+Updated October 23, 2026. Chunk 7 is approximately **60% complete**, with low
+confidence (50–70%); this is an engineering estimate, not verified acceptance.
+
+## Current tracker
+
+| Chunk | Work | Verified status | Work needed to close the gate / preserve the result | Expected progression |
+| --- | --- | --- | --- | --- |
+| 1 | Qualification matrix | **Defined; planning gate closed.** All bundled requirements have contracts and statuses. | Keep inventory, source identities and gaps current. Full upstream coverage and device limits remain visible in later work. | Maintenance as supported inputs change. High confidence in the existing planning status. |
+| 2 | Toolchain | **Reference gate closed.** [Acceptance](validation/toolchain-2026-10-07.json). | Preserve the exact tested runtime scope; qualify changed distributed runtimes separately. | Mostly regression work unless engines or packaging change. |
+| 3 | GF180 geometry | **Reference gate closed.** [Acceptance](validation/gf180-geometry-2026-10-07.json). | Maintain separate C/D geometry, timing and equivalence evidence for the declared production references. | Mostly regression work; new designs do not inherit qualification. |
+| 4 | GF180 density | **Reference gate closed.** [Acceptance](validation/gf180-fill-closure-2026-10-09.json). | Preserve the six reference layouts' fill, exclusions and post-fill checks. | Mostly regression work; different floorplans need new evidence. |
+| 5 | IHP geometry and fill | **Reference gate closed.** [Acceptance](validation/ihp-fill-closure-2026-10-11.json). | Preserve the declared counter/UART/APB geometry, connectivity and extracted-performance coverage. | Mostly regression work; device and full-chip coverage remain separate. |
+| 6 | SKY130 public physical checks | **Approved public-baseline gate closed.** [Acceptance](validation/sky130-public-baseline-2026-10-16.json). | Maintain local DRC, antenna, LVS, density/fill and generic export for the versioned baseline and its exclusions. Full foundry signoff remains excluded. | Stable baseline with regression work. The user-approved narrower boundary applies only to this chunk. |
+| 7 | Device families | **In progress.** 287 catalog entries remain partial; six real device bindings remain unavailable, alongside nine utility entries. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
+| 8 | Extraction and corners | **Pending formal qualification.** Coupon, extraction and corner tooling already exists. | Cover required routing layers/vias/device parasitics, coupling/fill and independent RC corners against source-backed references; execute the complete required condition pairs. | More structured once device and corner inputs are settled. **Medium-to-high uncertainty:** GF180/IHP additional independent RC data is an explicit gap. |
+| 9 | Analog blocks | **Pending formal qualification.** Amplifier, reference and other example workflows provide a starting point. | Freeze per-process numerical specifications, then qualify mirror, differential pair, amplifier, reference, oscillator, noise/statistics and relevant IHP bipolar/RF cases before and after extraction. | Substantial design-and-verification iteration. **Medium-to-high uncertainty** from corner failures, startup, stability and parasitics. |
+| 10 | Larger digital and mixed-signal designs | **Pending formal qualification.** Counter/UART/APB and teaching mixed-signal flows provide groundwork. | Lock a larger controller and per-target mixed-signal demonstrator; cover functionality, clock/reset crossings, actual interfaces, all-mode timing and final physical checks. | Existing flows should help. Planning can overlap chunk 9 once device/RC inputs are usable. **Medium-to-high uncertainty** at scale and at analog/digital boundaries. |
+| 11 | Complete test chips | **Pending.** Macro and block results do not establish complete-chip acceptance. | Assemble the actual chip/pad/package configurations; pass final physical, electrical, ESD/latch-up, current-density/voltage-drop and I/O/package checks. | **Likely the next major bottleneck after device qualification. Very high uncertainty** until chip, pad, package and reliability inputs are defined. |
+| 12 | Delivery and tapeout | **Pending.** Desktop packaging and export verification exist, with incomplete full-scope acceptance. | Qualify exact Windows/Ubuntu deliverables and reproduce complete handoffs; satisfy the existing gate's written manufacturing acceptance for the exact design and revisions. | Software packaging is relatively predictable after inputs freeze. **Manufacturing acceptance has no defensible date** before a target and its requirements are resolved. |
+
+“Closed” refers to the recorded gate and its exact reference scope. A changed
+PDK, tool, design or required condition needs its own evidence. Pending chunks
+can have useful code and successful samples without having a completed gate.
+
+## Latest work and retained checkpoints
+
+**Working snapshot: October 23, 2026; integration based on `d38615c`.**
+The hosted reference run retains immutable candidate
+[`d38615c`](https://github.com/jonahsaunders/IC-Design-Studio/commit/d38615c77ecb7b09ff4128d591c6d6294ce4d57b).
+This integration includes the subsequent signed-bias implementation, toolchain
+mismatch diagnostics, hosted receipts and cleanup records. Later source
+identities are recorded separately from that hosted candidate.
+The [hosted PR feedback](validation/chunk7-focused-integration-2026-10-23.json)
+also passes on actual merge commit `a0ea2451`: 260 tests discovered per host
+(two Linux skips, 14 Windows skips), release contracts and both GUI probes.
+The workflow finishes in 2:24 including queue/setup; source feedback itself
+takes 53.4 seconds on Linux and 86.8 seconds on Windows. Both downloaded
+artifacts match all 1,336 checked source hashes.
 The new [MiM source contract](SKY130_MIM_REQUIREMENTS.md) and
 [execution record](validation/sky130-mim-passive-corners-2026-10-23.json)
 close a concrete execution gap: both capacitor
@@ -16,6 +53,21 @@ The capacitor checker passes all 23 final focused tests on both hosts and
 the complete Windows/Linux readback; LI passes 21 tests and 21 native controls,
 plus five independent review controls. The native results and earlier checker
 versions remain preserved separately.
+The [subsequent voltage source map](qualification/sky130-mim-bias-source-map-v1.json)
+verifies twelve source hashes and four historical native inputs. The later
+[signed-bias execution](validation/sky130-mim-bias-boundaries-2026-10-23.json)
+passes all sixty selected −5/0/+5 V contexts with sixty actual operating points,
+480 AC samples and 180 detected bias faults. Its strengthened independent audit
+also verifies five domain rejections and forty zero-bias comparisons. All
+twenty-nine rehashed evidence controls are rejected. Four historical physical
+inputs retain their identities; no physical layouts were rerun. The mapping
+remains an explicitly reviewed construction inference, and the result does
+not establish the full operating or reliability envelope.
+Archive-restored source reproduces four fresh electrical contexts and both
+independent live audits. Verified recovery precedes removal of 3.13 GB of
+unique Linux file data and 84.9 MB of Windows source ZIP duplicates. These
+figures do not claim a Windows virtual-disk shrink; no administrator access
+was used.
 
 The [selected LI development runner](SKY130_LI_DEVELOPMENT_REUSE.md) has demonstrated a real original-execution
 cache hit. Its latest guarded fresh run takes 13.9 seconds and reuse takes
@@ -26,22 +78,43 @@ archives preserve the sources, failures and original execution identity.
 Default/exhaustive/release callers remain fresh.
 
 The [first shared-toolchain hosted trial](validation/reference-toolchain-reuse-2026-10-23.json)
-passed its three independent reference jobs but failed during stalled Ubuntu
-package downloads before the producer built either engine. Five dependent
-corners were skipped. The scoped official-mirror fix passes 26 Linux tests,
-Windows checks with six POSIX skips, native APT parsing, and explicit package
-error/timeout controls. A new immutable hosted candidate is still required to
-validate the producer, all five consumers and actual timing.
+retains its package-download failure and five skipped consumers. The subsequent
+[immutable `d38615c` trial](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40028442049)
+builds both engines once: dependency setup takes 32 seconds, engine builds
+234 seconds and packing four seconds. Its archive and seven source inputs
+pass readback. Nominal, ss, ff and sf have completed native qualification with
+verified selected report members. The fs consumer failed
+the strict toolchain identity check before simulation. Its exact mismatched
+field is unresolved, and the original failure remains evidence. A local
+diagnostic improvement records the differing identity fields without weakening
+the gate; it has not repaired or validated that failed hosted consumer. One
+retry of only fs failed the same gate; debug logs still do not retain the exact
+differing field. No successful corner or toolchain producer was restarted. Full
+shared-environment acceptance requires all five corners. Consumer ZIP digests
+are API-reported where only selected report members were downloaded.
 
-The [final combined local feedback](validation/chunk7-focused-integration-2026-10-23.json)
+The [earlier combined local feedback](validation/chunk7-focused-integration-2026-10-23.json)
 passes 260 focused tests per host (15 Windows skips, two Linux skips), release
 document validation and both GUI probes. It takes 72.9 seconds on Windows and
 36.6 seconds on a verified Linux-local source copy, excluding setup. All 1,336
-code/workflow/dependency bindings match the tested sources. This continuation
-is local pending one combined experimental push. **Chunk 7 remains about 60% complete, low confidence
+code/workflow/dependency bindings match the tested sources. That implementation,
+source contracts and those local-test results are pushed. The
+[subsequent local integration](validation/chunk7-bias-integration-2026-10-23.json)
+passes 293 tests per host (15 Windows skips, two Linux skips), release-document
+validation and both GUI probes. It takes 81.7 seconds on Windows and 39.0 seconds
+on native Linux storage, with all 1,340 code/workflow/dependency bindings checked.
+The final source snapshot has verified archive recovery; removing its temporary
+Linux copy recovers 283.2 MB of logical file data, without a Windows disk-size
+claim. **Chunk 7 remains about 60% complete, low confidence
 (50–70%).** The 287 partial entries and six unavailable bindings are unchanged.
 The selected MiM milestone does not close missing envelopes, physical classes
 or installed acceptance. Chunks 8–12 remain conditional on those dependencies.
+
+Verified archive recovery allowed another 280.5 MB of Windows duplicates and
+974.4 MB of Linux temporary data to be removed. Separate LI and review-copy
+cleanup receipts retain their own totals. These are file sizes, not a claim
+that Linux deletions shrink the Windows virtual disk; no administrator access
+was used.
 
 **Snapshot: October 23, 2026; integration pushed as `43a04bb`.**
 Local `experimental` and GitHub match
@@ -522,27 +595,6 @@ The [qualification matrix](qualification/pdk-matrix.json) governs status. The
 [twelve-chunk plan](PDK_QUALIFICATION_PLAN.md#sequence-and-gates) defines the
 completion gates. Forecasts below are engineering judgment, not acceptance
 evidence or promised dates.
-
-## Current tracker
-
-| Chunk | Work | Verified status | Work needed to close the gate / preserve the result | Expected progression |
-| --- | --- | --- | --- | --- |
-| 1 | Qualification matrix | **Defined; planning gate closed.** All bundled requirements have contracts and statuses. | Keep inventory, source identities and gaps current. Full upstream coverage and device limits remain visible in later work. | Maintenance as supported inputs change. High confidence in the existing planning status. |
-| 2 | Toolchain | **Reference gate closed.** [Acceptance](validation/toolchain-2026-10-07.json). | Preserve the exact tested runtime scope; qualify changed distributed runtimes separately. | Mostly regression work unless engines or packaging change. |
-| 3 | GF180 geometry | **Reference gate closed.** [Acceptance](validation/gf180-geometry-2026-10-07.json). | Maintain separate C/D geometry, timing and equivalence evidence for the declared production references. | Mostly regression work; new designs do not inherit qualification. |
-| 4 | GF180 density | **Reference gate closed.** [Acceptance](validation/gf180-fill-closure-2026-10-09.json). | Preserve the six reference layouts' fill, exclusions and post-fill checks. | Mostly regression work; different floorplans need new evidence. |
-| 5 | IHP geometry and fill | **Reference gate closed.** [Acceptance](validation/ihp-fill-closure-2026-10-11.json). | Preserve the declared counter/UART/APB geometry, connectivity and extracted-performance coverage. | Mostly regression work; device and full-chip coverage remain separate. |
-| 6 | SKY130 public physical checks | **Approved public-baseline gate closed.** [Acceptance](validation/sky130-public-baseline-2026-10-16.json). | Maintain local DRC, antenna, LVS, density/fill and generic export for the versioned baseline and its exclusions. Full foundry signoff remains excluded. | Stable baseline with regression work. The user-approved narrower boundary applies only to this chunk. |
-| 7 | Device families | **In progress.** 287 catalog entries remain partial; six real device bindings remain unavailable, alongside nine utility entries. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
-| 8 | Extraction and corners | **Pending formal qualification.** Coupon, extraction and corner tooling already exists. | Cover required routing layers/vias/device parasitics, coupling/fill and independent RC corners against source-backed references; execute the complete required condition pairs. | More structured once device and corner inputs are settled. **Medium-to-high uncertainty:** GF180/IHP additional independent RC data is an explicit gap. |
-| 9 | Analog blocks | **Pending formal qualification.** Amplifier, reference and other example workflows provide a starting point. | Freeze per-process numerical specifications, then qualify mirror, differential pair, amplifier, reference, oscillator, noise/statistics and relevant IHP bipolar/RF cases before and after extraction. | Substantial design-and-verification iteration. **Medium-to-high uncertainty** from corner failures, startup, stability and parasitics. |
-| 10 | Larger digital and mixed-signal designs | **Pending formal qualification.** Counter/UART/APB and teaching mixed-signal flows provide groundwork. | Lock a larger controller and per-target mixed-signal demonstrator; cover functionality, clock/reset crossings, actual interfaces, all-mode timing and final physical checks. | Existing flows should help. Planning can overlap chunk 9 once device/RC inputs are usable. **Medium-to-high uncertainty** at scale and at analog/digital boundaries. |
-| 11 | Complete test chips | **Pending.** Macro and block results do not establish complete-chip acceptance. | Assemble the actual chip/pad/package configurations; pass final physical, electrical, ESD/latch-up, current-density/voltage-drop and I/O/package checks. | **Likely the next major bottleneck after device qualification. Very high uncertainty** until chip, pad, package and reliability inputs are defined. |
-| 12 | Delivery and tapeout | **Pending.** Desktop packaging and export verification exist, with incomplete full-scope acceptance. | Qualify exact Windows/Ubuntu deliverables and reproduce complete handoffs; satisfy the existing gate's written manufacturing acceptance for the exact design and revisions. | Software packaging is relatively predictable after inputs freeze. **Manufacturing acceptance has no defensible date** before a target and its requirements are resolved. |
-
-“Closed” refers to the recorded gate and its exact reference scope. A changed
-PDK, tool, design or required condition needs its own evidence. Pending chunks
-can have useful code and successful samples without having a completed gate.
 
 ## Evidence behind the current forecast
 

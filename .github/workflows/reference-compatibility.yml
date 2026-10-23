@@ -197,6 +197,7 @@ jobs:
             build/modern-engines/source-lock.json
             build/reference-toolchain-manifest.json
             build/reference-toolchain-restored.json
+            build/reference-toolchain-mismatch.json
             build/reference-corner-packages.txt
             build/reference-corner-setup.log
             build/reference-apt-sources

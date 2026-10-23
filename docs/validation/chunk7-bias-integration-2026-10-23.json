@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "local_focused_integration_passed",
+  "source_baseline": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "scope": "Frozen local source tests, release-document validation and two GUI probes on Windows/Linux, including selected MiM signed-bias checks and shared-toolchain mismatch diagnostics. Linux native-filesystem snapshot; ordinary-account Windows execution. No hosted, installed or exhaustive acceptance claim.",
+  "source_snapshot": {
+    "files": 6439,
+    "manifest_sha256": "016428b02e377ceec3ccb26cd12f6169b28f6be3102014ba382948371e188fc6"
+  },
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 293,
+      "skipped": 15,
+      "elapsed_seconds": 81.703,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 34.344
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.234
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.375
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.531
+        }
+      ],
+      "identity_bindings": 1340,
+      "report_sha256": "ec37e9ec00dead04d4c29e21155d847926c977af589f1e50287ced4d7e56ec30"
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 293,
+      "skipped": 2,
+      "elapsed_seconds": 38.983,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 8.332
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.62
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 24.313
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.072
+        }
+      ],
+      "identity_bindings": 1340,
+      "report_sha256": "34ad42fa0b6359043ec68a148fd7b3cf26050fa16ab827cf2d5d221b8e6fe403"
+    }
+  },
+  "archive": {
+    "file": "feedback.zip",
+    "bytes": 4940005,
+    "sha256": "540b666527441b1a2373c58f990f02cbbd427806c95a45aab28bc20729a6cd63",
+    "members": 1381,
+    "verified": true,
+    "recovery_source_files": 6439,
+    "prior_archive_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+  },
+  "retained_attempts": [
+    "Initial Windows sandbox invocation interrupted after file-based tests reported errors; its incomplete report and log are retained. Same source hashes pass the ordinary-account rerun without administrator privileges."
+  ],
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  },
+  "cleanup": {
+    "status": "removed_after_verified_recovery",
+    "root": "/var/tmp/icstudio-bias-feedback-20261023-v1",
+    "source_files": 6439,
+    "all_files": 6910,
+    "regenerable_git_and_bytecode_files": 420,
+    "logical_bytes": 283243786,
+    "recovery_archive_sha256": "540b666527441b1a2373c58f990f02cbbd427806c95a45aab28bc20729a6cd63",
+    "gui_archive_sha256": "58021ef0a506ce8e55c257596db2e240bbd7356598d326ee97b393e94aa7500e",
+    "gui_evidence_files": 51,
+    "space_claim": "Linux logical file bytes only; no Windows virtual-disk shrink or administrator access.",
+    "receipt_sha256": "89b40357aa1a902cb8d27a0879280c0e8fd06c0782f72a09ac154602f2fd57b3"
+  }
+}

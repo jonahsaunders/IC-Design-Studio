@@ -80,7 +80,42 @@ that both package errors and total timeouts remain failures, stop later setup an
 retain diagnostics for the producer and consumer scripts.
 
 Local transfer/failure-control tests do not establish a successful hosted build
-or measure the resulting CI latency. The next selected acceptance run must
-verify the actual producer build, five artifact restores and full native corner
-results. Compare setup time, first useful failure and queue time against the
-previous workflow; do not infer a device qualification improvement from reuse.
+or measure the resulting CI latency. The subsequent [run 40028442049](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40028442049)
+at immutable candidate `d38615c77ecb7b09ff4128d591c6d6294ce4d57b` built the shared
+toolchain successfully: setup took 32 seconds, the two engine builds 234 seconds,
+packaging four seconds and the producer job 282 seconds. The full 8,246,272-byte
+producer ZIP digest was independently verified, together with the inner archive,
+all 449 inventory entries and all seven source inputs against the candidate's
+Git blobs.
+
+The nominal, ff, ss and sf consumers restored that exact toolchain and passed
+complete fresh native acceptance. Their total job times were 865, 1,008, 536 and
+898 seconds respectively. Each verified report contains 106 nets, 3,261 resistors,
+103 devices, four PVT cases and twelve startup ramps, with passing capacitance,
+terminal-equivalence, conservation and fill controls. Every report retains
+`signoff=false`. Selected report, manifest, engine receipt and package-inventory
+members were downloaded using bounded ranges; their bytes and ZIP CRCs were
+verified locally. The complete consumer ZIP digests are reported by GitHub and
+were not recomputed locally. The three independent schematic/physical jobs also
+passed. The physical prerequisite took 1,055 seconds and still gates the corners;
+this run does not establish a comparable end-to-end speed improvement.
+
+The fs corner failed the strict identity comparison before extraction or native
+qualification. One authorized debug retry of only that job failed the same
+check; there were no further retries. Both attempts and their small complete
+failure ZIPs are preserved separately. Candidate and archive digest matched;
+displayed image/workspace labels and package inventories matched passing jobs.
+The debug logs do not contain the exact consumer environment, resolved workspace
+and input hashes needed to identify the differing field. The cause remains
+unresolved, and five-corner acceptance is incomplete.
+
+The subsequent diagnostic change preserves the rejection and records only known
+candidate, workspace, environment and input-hash fields, with a safe stderr
+fallback if the receipt cannot be written. Its 28 focused tests pass on Linux
+and Windows (six POSIX-only tests skip on Windows), and workflow validation
+passes. This is an observability improvement, not a root-cause fix; it was not
+executed in the immutable d386 run. A new selected candidate must expose and
+resolve the measured mismatch without weakening the identity checks. The
+validation record links the original trial and both follow-up attempts to
+separate verified archives. No device-family or chunk completion is inferred
+from this infrastructure checkpoint.

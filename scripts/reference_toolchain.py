@@ -13,6 +13,7 @@ import platform
 import re
 import stat
 import subprocess
+import sys
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -130,6 +131,50 @@ def identity(root, candidate):
             'environment': environment(), 'inputs': inputs(root)}
 
 
+def identity_mismatch(root, expected, supplied):
+    """Retain only the known identity fields; never dump the process environment."""
+    fields = ('candidate', 'workspace', 'environment', 'inputs')
+    environment_keys = ('system', 'machine', 'image_os', 'image_version')
+
+    def scalar(value):
+        return value[:4096] if isinstance(value, str) else {'invalid_type': type(value).__name__}
+
+    def mapping(value, keys, hashes=False):
+        if not isinstance(value, dict):
+            return {'invalid_type': type(value).__name__}
+        result = {key: (scalar(value.get(key)) if not hashes else
+                        value[key] if isinstance(value.get(key), str) and
+                        re.fullmatch('[0-9a-f]{64}', value[key]) else {'invalid_hash': True})
+                  for key in keys}
+        result['unlisted_keys_count'] = len(set(value) - set(keys))
+        return result
+
+    def whitelisted(value):
+        return {'candidate': scalar(value.get('candidate')),
+                'workspace': scalar(value.get('workspace')),
+                'environment': mapping(value.get('environment'), environment_keys),
+                'inputs': mapping(value.get('inputs'), sorted(expected['inputs']), hashes=True)}
+
+    report = {'status': 'rejected_identity_mismatch',
+              'fields': [key for key in fields if supplied.get(key) != expected[key]],
+              'unlisted_identity_mismatch': any(supplied.get(key) != value
+                                                for key, value in expected.items() if key not in fields),
+              'producer': whitelisted(supplied), 'consumer': whitelisted(expected)}
+    raw = (json.dumps(report, indent=2, sort_keys=True) + '\n').encode()
+    path = root / 'build/reference-toolchain-mismatch.json'
+    try:
+        if path.is_symlink() or not path.resolve().is_relative_to(root):
+            raise OSError('Unsafe diagnostic location.')
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(raw)
+        print('Toolchain identity mismatch fields: ' + ', '.join(report['fields']) +
+              '; details: build/reference-toolchain-mismatch.json', file=sys.stderr)
+    except OSError:
+        # Diagnostics must not replace the original rejection if disk writes
+        # fail. This fallback contains exactly the same whitelisted fields.
+        print(raw.decode(), file=sys.stderr)
+
+
 def selected(root):
     """Only runtime prefixes, licenses and build provenance; never source trees."""
     result = []
@@ -221,6 +266,7 @@ def restore(root, archive_path, expected_sha256, candidate):
             raise ValueError('Invalid archive manifest.')
         record = json.load(archive.extractfile(manifest_member))
         if {key: record.get(key) for key in expected} != expected:
+            identity_mismatch(root, expected, record)
             raise ValueError('Toolchain candidate, prefix, environment or inputs changed.')
         if set(names) != {MANIFEST, *record.get('files', {})}:
             raise ValueError('Toolchain file inventory differs.')

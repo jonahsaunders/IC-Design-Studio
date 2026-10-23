@@ -191,6 +191,54 @@ class ReferenceToolchainTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Pinned engine patch changed'):
             self.restore(sha)
 
+    def test_identity_mismatch_retains_only_allowed_producer_and_consumer_fields(self):
+        self.pack()
+        name = 'scripts/build_physical_engines.py'
+        def change(contents):
+            for member, raw in contents:
+                if member.name == toolchain.MANIFEST:
+                    record = json.loads(raw)
+                    record['workspace'] = '/different/producer/prefix'
+                    record['environment']['image_version'] = 'different-image'
+                    record['environment']['PRIVATE_TOKEN'] = 'do-not-record-secret'
+                    record['inputs'][name] = 'b' * 64
+                    record['inputs']['private/key'] = 'do-not-record-secret'
+                    raw = json.dumps(record).encode()
+                yield member, raw
+        sha = self.mutate_archive(change)
+        with patch.dict(os.environ, {'UNRELATED_SECRET': 'never-dump-the-process-environment'}):
+            with self.assertRaisesRegex(ValueError, 'candidate, prefix'):
+                self.restore(sha)
+        diagnostic = self.root / 'build/reference-toolchain-mismatch.json'
+        raw = diagnostic.read_text()
+        report = json.loads(raw)
+        self.assertEqual(report['fields'], ['workspace', 'environment', 'inputs'])
+        self.assertEqual(report['producer']['workspace'], '/different/producer/prefix')
+        self.assertEqual(report['consumer']['workspace'], str(self.root))
+        self.assertEqual(report['producer']['environment']['image_version'], 'different-image')
+        self.assertEqual(report['consumer']['environment']['image_version'], 'fixture')
+        self.assertEqual(report['producer']['inputs'][name], 'b' * 64)
+        self.assertEqual(report['consumer']['inputs'][name], toolchain.digest((self.root / name).read_bytes()))
+        self.assertEqual(report['producer']['environment']['unlisted_keys_count'], 1)
+        self.assertEqual(report['producer']['inputs']['unlisted_keys_count'], 1)
+        for forbidden in ('PRIVATE_TOKEN', 'do-not-record-secret', 'private/key',
+                          'UNRELATED_SECRET', 'never-dump-the-process-environment'):
+            self.assertNotIn(forbidden, raw)
+        self.assertFalse((self.root / 'build/gf180-engines').exists())
+
+    def test_unwritable_mismatch_receipt_preserves_rejection_and_safe_console_diagnostic(self):
+        sha = self.pack()
+        stderr = io.StringIO()
+        with patch.object(toolchain, 'environment', return_value={'image_version': 'changed'}), \
+                patch.object(Path, 'write_bytes', side_effect=PermissionError('test disk failure')), \
+                patch.object(toolchain.sys, 'stderr', stderr):
+            with self.assertRaisesRegex(ValueError, 'candidate, prefix'):
+                self.restore(sha)
+        report = json.loads(stderr.getvalue())
+        self.assertEqual(report['fields'], ['environment'])
+        self.assertEqual(report['consumer']['environment']['image_version'], 'changed')
+        self.assertFalse((self.root / 'build/gf180-engines').exists())
+
     def test_runtime_damage_rejected_even_if_outer_checksum_is_updated(self):
         self.pack()
         def change(contents):

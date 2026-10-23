@@ -3425,5 +3425,20 @@
       70
     ],
     "meaning": "Engineering estimate; not percentage of qualified devices."
+  },
+  "cleanup": {
+    "status": "PASS",
+    "scope": "Only three explicitly named Linux native/source roots and two explicitly named Windows duplicates. Repository, integration feedback, small work logs and metadata remain untouched.",
+    "linux_logical_bytes": 974404246,
+    "linux_unique_logical_bytes": 974404246,
+    "windows_removed_bytes": 280534023,
+    "space_claim": "Linux sizes describe deleted file data and unique inodes, not Windows C: free space. Windows totals are lengths of directly removed Windows files, not a disk-volume free-space measurement.",
+    "full_receipt_sha256": "dcf0d01b5165b6a9bd0cef52b3109afcbaf040e861359eb31aa913cbe2b65d87",
+    "recovery_archives": {
+      "main": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430",
+      "replay": "666a3a8029ebc6dbcf7b506975095142446441d264f18ae6547c02b768237f5e",
+      "strict": "463b0d1e1b008d6906627cdaee6f35b1e10764e5cd82a3df4fc771cf30ea9af7",
+      "replay_bytecode_delta": "849ee8a2820e06aa52a93f92b84d0e01159d5c90e3d8dda20030279244383aae"
+    }
   }
 }

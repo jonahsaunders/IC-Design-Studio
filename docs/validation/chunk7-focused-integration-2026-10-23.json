@@ -100,5 +100,111 @@
       50,
       70
     ]
+  },
+  "hosted_followup": {
+    "status": "PASS",
+    "run_id": 40028365094,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40028365094",
+    "candidate": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+    "synthetic_merge_commit": "a0ea2451c4915434a8100bf099c937cbb1ab87eb",
+    "merge_parents": [
+      "49c79957b4d6f4978127da612e167e5c75cda6b3",
+      "d38615c77ecb7b09ff4128d591c6d6294ce4d57b"
+    ],
+    "synthetic_merge_tree": "8cf5e6ed86fcf55d5f48f140c22e5234a78f877b",
+    "candidate_tree": "8cf5e6ed86fcf55d5f48f140c22e5234a78f877b",
+    "merge_tree_equals_candidate_tree": true,
+    "source_hashes_identical_across_platforms_and_current_checkout": 1336,
+    "local_source_manifest_sha256": "0490d40910e83588d98042f0d01903af3ec75276ee82260904557f93d0e487d2",
+    "workflow_elapsed_seconds": 144.0,
+    "aggregate": {
+      "name": "PR feedback",
+      "conclusion": "success",
+      "queue_seconds": 2.0,
+      "job_seconds": 3.0
+    },
+    "release_acceptance": false,
+    "limits": "Focused source/contract/GUI feedback only, not full installed/native release acceptance or PDK/foundry qualification. Source equality covers the 1336 hashed Python/workflow/requirements files. No workflow dispatched or external branch protection changed by this verification.",
+    "full_receipt_sha256": "9a15089048a0090a724cadcfc0dd630837526d229754767bb8c02a84880212fe",
+    "platforms": [
+      {
+        "platform": "Linux",
+        "job_id": 120670143624,
+        "conclusion": "success",
+        "queue_seconds": 2.0,
+        "job_seconds": 94.0,
+        "pre_feedback_seconds": 37.0,
+        "syntax_files": 1321,
+        "source_hashes_verified": 1336,
+        "unit_tests_run": 260,
+        "unit_tests_passed": 258,
+        "unit_tests_skipped": 2,
+        "feedback_seconds": 53.355,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 14.948
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 3.172
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 27.678
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 4.574
+          }
+        ],
+        "artifact_id": 12533866851,
+        "artifact_sha256": "c001ff72030344d0d5923966bffd1d8135f5bca9c8576a472e86e81d29dd3238",
+        "artifact_files_verified": 55
+      },
+      {
+        "platform": "Windows",
+        "job_id": 120670144113,
+        "conclusion": "success",
+        "queue_seconds": 3.0,
+        "job_seconds": 136.0,
+        "pre_feedback_seconds": 44.0,
+        "syntax_files": 1321,
+        "source_hashes_verified": 1336,
+        "unit_tests_run": 260,
+        "unit_tests_passed": 246,
+        "unit_tests_skipped": 14,
+        "feedback_seconds": 86.812,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 35.016
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 5.031
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 34.297
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 9.281
+          }
+        ],
+        "artifact_id": 12533842191,
+        "artifact_sha256": "affa79783790c0bd77059bc19749a20e482bec31612dbe3e748de721012b6ee2",
+        "artifact_files_verified": 13
+      }
+    ]
   }
 }

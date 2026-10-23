@@ -130,12 +130,41 @@ manual substitute for the actual extracted path. Preserve all failures and
 exact selected coverage. Closing this example only closes the selected
 `MIM-PASSIVE-CORNERS` execution gap.
 
+## Selected voltage-boundary follow-up
+
+The subsequent [construction source map](qualification/sky130-mim-bias-source-map-v1.json)
+verifies twelve pinned source hashes and four retained native inputs. Native
+mask/extraction mappings, public PCells, wrapper coefficients and terminal
+bindings consistently connect first MiM to CAPM over metal3 and second MiM to
+CAP2M over metal4. This supports an explicitly inferred mapping for selected
+−5/0/+5 V differential model-integration checks. It does not supply an upstream
+legacy-name alias table or establish equivalence of omitted substrate parasitics.
+
+The [subsequent execution record](validation/sky130-mim-bias-boundaries-2026-10-23.json)
+passes sixty contexts: both constructions, two orientations,
+five passive sections and three signed DC biases at 27 °C. It requires separate
+actual operating-point readback for both terminals and source current, alongside
+the existing eight-frequency independent RC comparison. AC agreement alone
+cannot detect omitted or wrong DC bias in these voltage-independent models.
+The source map defined thresholds and deliberate missing/reversed/incorrect
+bias controls before execution. Four historical physical inputs were restored
+and strictly re-audited with their original identities; all new electrical
+execution was fresh. The strengthened independent checker verifies sixty
+operating points, 480 AC samples, 180 bias faults, five domain rejections and
+forty comparisons against zero-bias response. Twenty-nine rehashed evidence
+mutations are rejected, including a same-bias output from a different
+orientation. Unique execution/case/analysis/control titles bind each raw file
+to its deck. This detects output substitution, not fully forged raw content.
+The source map remains an unchanged pre-execution record; the later execution
+record closes this selected example without promoting either device.
+
 ## Work still needed for family closure
 
 The contract separates local execution from missing source definitions:
 
-- **Local:** distinct passive sections; source-mapped ±5 V linked boundary
-  checks; supported physical-class reconciliation; exact installed Windows/Linux
+- **Local:** the selected passive-section and mapped ±5 V linked examples are
+  completed. Remaining work includes supported physical-class reconciliation
+  and exact installed Windows/Linux
   candidate acceptance with old saved revisions preserved.
 - **Source or calibration:** complete electrical W/L and temperature validity;
   measurement conditions for the tabulated limits; statistical correlations and

@@ -83,3 +83,18 @@ pass on both hosts (15 Windows skips, two Linux skips), alongside release
 document validation and both GUI probes. The observed local totals are 72.9
 seconds on Windows and 36.6 seconds on native Linux storage; environment setup
 and hosted queue time are excluded. Every checked source identity is retained.
+
+Candidate `d38615c` subsequently passes [hosted PR feedback](validation/chunk7-focused-integration-2026-10-23.json)
+in 2:24 overall on its actual merge commit. Both hosts discover 260 tests (two
+Linux skips, 14 Windows skips) and pass all required stages. Source feedback
+takes 53.4 seconds on Linux and 86.8 seconds on Windows; queue waits are two
+and three seconds, with 37 and 44 seconds of setup before feedback. Downloaded
+artifacts match all 1,336 current source bindings. This is a second measured
+run, not a long-term latency guarantee or exhaustive acceptance.
+
+The [signed-bias integration](validation/chunk7-bias-integration-2026-10-23.json)
+adds the new MiM producer/auditor tests and shared-toolchain mismatch diagnostics.
+It passes 293 tests per host (15 Windows skips, two Linux skips), release-document
+checks and both GUI probes in 81.7 seconds on Windows and 39.0 seconds on native
+Linux storage. All 1,340 source bindings match the frozen snapshot. These are
+local timings; hosted queue/setup and installed acceptance remain separate.

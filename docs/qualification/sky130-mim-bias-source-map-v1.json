@@ -1,0 +1,498 @@
+{
+  "schema": 1,
+  "id": "sky130-mim-voltage-source-review-20261023-v1",
+  "status": "reviewed_ready_to_implement_selected_boundary_integration",
+  "native_executed": false,
+  "qualified": false,
+  "chunk_complete": false,
+  "candidate_commit": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+  "immutable_contract": {
+    "path": "docs/qualification/sky130-mim-contract-v1.json",
+    "sha256": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209",
+    "unchanged": true
+  },
+  "requirement_id": "MIM-BIAS-BOUNDARIES",
+  "aliases": [
+    "MIM-VOLTAGE"
+  ],
+  "decision": "Construction identity is sufficient for an explicitly scoped integration check at differential -5, 0, +5 V for the two shipped wrappers. It is not a vendor statement that the legacy documented model names and present reduced two-terminal wrappers have identical parasitics or reliability guarantees.",
+  "source_archive": {
+    "path": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+    "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+  },
+  "sources": {
+    "device_docs": {
+      "path": "docs/qualification/sky130-mos-bias-sources-v1/device-details.rst",
+      "relative_path": "docs/qualification/sky130-mos-bias-sources-v1/device-details.rst",
+      "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+      "bytes": 45543,
+      "lines": [
+        [
+          1223,
+          1228
+        ],
+        [
+          1233,
+          1238
+        ],
+        [
+          1247,
+          1247
+        ]
+      ],
+      "upstream_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst",
+      "license": "Apache-2.0"
+    },
+    "physical_technology": {
+      "archive": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+      "member": "accepted/native/contract-sources/physical_technology",
+      "original_asset": "sky130A/libs.tech/magic/sky130A.tech",
+      "sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "bytes": 162731,
+      "lines": [
+        [
+          2,
+          8
+        ],
+        [
+          65,
+          66
+        ],
+        [
+          258,
+          269
+        ],
+        [
+          1355,
+          1361
+        ],
+        [
+          3437,
+          3453
+        ],
+        [
+          4742,
+          4751
+        ],
+        [
+          5894,
+          5895
+        ]
+      ],
+      "upstream_revision": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "url": "https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "license": "See retained original source notice and source contract; no relicensing."
+    },
+    "physical_pcell": {
+      "archive": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+      "member": "accepted/native/contract-sources/physical_pcell",
+      "original_asset": "sky130A/libs.tech/magic/sky130A.tcl",
+      "sha256": "48d2111c3246cbbed88bca5cf479dd8edc4ce4629d5241cca4102368765da69a",
+      "bytes": 226099,
+      "lines": [
+        [
+          184,
+          187
+        ],
+        [
+          2320,
+          2326
+        ],
+        [
+          2340,
+          2346
+        ]
+      ],
+      "upstream_revision": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "url": "https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "license": "See retained original source notice and source contract; no relicensing."
+    },
+    "model_1": {
+      "path": "icstudio/assets/pdks/sky130A/libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_1.model.spice",
+      "relative_path": "icstudio/assets/pdks/sky130A/libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_1.model.spice",
+      "sha256": "5cb086313d55341351305d30500ca39571d689b692d2be525c4b3b8b4db86e6f",
+      "bytes": 1262,
+      "lines": [
+        [
+          1,
+          13
+        ],
+        [
+          16,
+          29
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "Apache-2.0"
+    },
+    "symbol_1": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/cap_mim_m3_1.sym",
+      "relative_path": "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/cap_mim_m3_1.sym",
+      "sha256": "da40e6b6461fe88068dbb412e1e5d56115b744ee50a4d60e86d6af6b507ab617",
+      "bytes": 773,
+      "lines": [
+        [
+          3,
+          5
+        ],
+        [
+          13,
+          14
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "Apache-2.0"
+    },
+    "model_2": {
+      "path": "icstudio/assets/pdks/sky130A/libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_2.model.spice",
+      "relative_path": "icstudio/assets/pdks/sky130A/libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_2.model.spice",
+      "sha256": "a2e9ed5568b23debce5ac002f15df8c675010bac34d05b0c4e8a8dcca916260f",
+      "bytes": 1262,
+      "lines": [
+        [
+          1,
+          13
+        ],
+        [
+          16,
+          29
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "Apache-2.0"
+    },
+    "symbol_2": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/cap_mim_m3_2.sym",
+      "relative_path": "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/cap_mim_m3_2.sym",
+      "sha256": "b20c6884dcacecd897b81276a7dc220beb0c760815f0fde2da241456557fec2e",
+      "bytes": 772,
+      "lines": [
+        [
+          3,
+          5
+        ],
+        [
+          13,
+          14
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "Apache-2.0"
+    },
+    "package": {
+      "path": "icstudio/assets/pdks/sky130A/package.json",
+      "relative_path": "icstudio/assets/pdks/sky130A/package.json",
+      "sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+      "bytes": 915525,
+      "lines": [
+        [
+          3751,
+          3795
+        ],
+        [
+          3955,
+          4000
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "See retained original source notice and source contract; no relicensing."
+    },
+    "public_license": {
+      "path": "docs/qualification/sky130-mim-sources-v1/LICENSE",
+      "relative_path": "docs/qualification/sky130-mim-sources-v1/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "lines": [
+        [
+          1,
+          4
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "See retained original source notice and source contract; no relicensing."
+    },
+    "models_license": {
+      "path": "icstudio/assets/pdks/sky130A/LICENSE-models.txt",
+      "relative_path": "icstudio/assets/pdks/sky130A/LICENSE-models.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "lines": [
+        [
+          1,
+          4
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "See retained original source notice and source contract; no relicensing."
+    },
+    "symbols_license": {
+      "path": "icstudio/assets/pdks/sky130A/LICENSE-symbols.txt",
+      "relative_path": "icstudio/assets/pdks/sky130A/LICENSE-symbols.txt",
+      "sha256": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141",
+      "bytes": 11355,
+      "lines": [
+        [
+          1,
+          4
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "See retained original source notice and source contract; no relicensing."
+    },
+    "orientation_adapter": {
+      "path": "icstudio/sky130_mim2_extract.py",
+      "relative_path": "icstudio/sky130_mim2_extract.py",
+      "sha256": "0ef71dfe61e9c05b5a9179c2bdfc3fefa60e056932f972889757a3d83b0cd39f",
+      "bytes": 9541,
+      "lines": [
+        [
+          16,
+          22
+        ]
+      ],
+      "upstream_revision": null,
+      "url": null,
+      "license": "See retained original source notice and source contract; no relicensing.",
+      "scope": "Application corroboration only; public native technology supplies the independent construction identity."
+    }
+  },
+  "retained_native_inputs": {
+    "p1-r0": {
+      "archive": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+      "member": "accepted/native/physical/1/valid-0-plain/lvs-extraction/extracted.spice",
+      "sha256": "445df248d969a7a6a97bec7252bb400f17f76f5997772d4bdec0fa0ddbf1a316",
+      "bytes": 145,
+      "lines": [
+        [
+          3,
+          5
+        ]
+      ],
+      "model": "sky130_fd_pr__cap_mim_m3_1",
+      "ports": [
+        "P",
+        "N"
+      ],
+      "w_um": 2,
+      "l_um": 10
+    },
+    "p1-r90": {
+      "archive": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+      "member": "accepted/native/physical/1/valid-90-plain/lvs-extraction/extracted.spice",
+      "sha256": "445df248d969a7a6a97bec7252bb400f17f76f5997772d4bdec0fa0ddbf1a316",
+      "bytes": 145,
+      "lines": [
+        [
+          3,
+          5
+        ]
+      ],
+      "model": "sky130_fd_pr__cap_mim_m3_1",
+      "ports": [
+        "P",
+        "N"
+      ],
+      "w_um": 2,
+      "l_um": 10
+    },
+    "p2-r0": {
+      "archive": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+      "member": "accepted/native/physical/2/valid-0-plain/lvs-extraction/extracted.spice",
+      "sha256": "758ad949b7680a096eb024ac65aab61ff749d51948ea07cdb1378ecca0b7c46d",
+      "bytes": 145,
+      "lines": [
+        [
+          3,
+          5
+        ]
+      ],
+      "model": "sky130_fd_pr__cap_mim_m3_2",
+      "ports": [
+        "P",
+        "N"
+      ],
+      "w_um": 2,
+      "l_um": 10
+    },
+    "p2-r90": {
+      "archive": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+      "member": "accepted/native/physical/2/valid-90-plain/lvs-extraction/extracted.spice",
+      "sha256": "758ad949b7680a096eb024ac65aab61ff749d51948ea07cdb1378ecca0b7c46d",
+      "bytes": 145,
+      "lines": [
+        [
+          3,
+          5
+        ]
+      ],
+      "model": "sky130_fd_pr__cap_mim_m3_2",
+      "ports": [
+        "P",
+        "N"
+      ],
+      "w_um": 2,
+      "l_um": 10
+    }
+  },
+  "constructions": [
+    {
+      "model": "sky130_fd_pr__cap_mim_m3_1",
+      "public_name": "CAPM over Metal-3",
+      "magic_type": "mimcap",
+      "cap_gds": [
+        89,
+        44
+      ],
+      "bottom_gds": [
+        70,
+        20
+      ],
+      "contact_gds": [
+        70,
+        44
+      ],
+      "rc_metal": 3,
+      "rc_via": 3,
+      "c0": "top dielectric conductor",
+      "c1": "bottom metal3"
+    },
+    {
+      "model": "sky130_fd_pr__cap_mim_m3_2",
+      "public_name": "CAP2M over Metal-4",
+      "magic_cif_name": "CAPM2",
+      "magic_type": "mimcap2",
+      "cap_gds": [
+        97,
+        44
+      ],
+      "bottom_gds": [
+        71,
+        20
+      ],
+      "contact_gds": [
+        71,
+        44
+      ],
+      "rc_metal": 4,
+      "rc_via": 4,
+      "c0": "top dielectric conductor",
+      "c1": "bottom metal4"
+    }
+  ],
+  "inference": {
+    "kind": "reviewed construction correspondence, not an explicit legacy-name alias table",
+    "chain": [
+      "Public document names both constructions under the same |Vc0-Vc1| 0 to 5 V validity wording.",
+      "Native CIF input and extraction declarations map each construction to its exact shipped wrapper.",
+      "Public PCell bottom metals/contact choices and independent wrapper RC metal/via parameters agree.",
+      "Symbols/catalog map c0,c1 in order; actual extracted P,N calls retain exact models and dimensions."
+    ],
+    "not_inferred": [
+      "An explicit upstream legacy model-name alias.",
+      "Bottom-to-substrate parasitic accuracy.",
+      "Breakdown, leakage, lifetime or reliability qualification."
+    ]
+  },
+  "acceptance": {
+    "status": "planned_not_executed",
+    "geometries": {
+      "w_um": 2,
+      "l_um": 10,
+      "mf": 1,
+      "simulator_m": 1,
+      "rotations_deg": [
+        0,
+        90
+      ],
+      "constructions": [
+        1,
+        2
+      ]
+    },
+    "sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "differential_dc_V": [
+      -5,
+      0,
+      5
+    ],
+    "common_mode_policy": "N/c1 fixed to 0 V; P/c0 equals the selected differential bias. This is a simulator reference choice, not an established substrate/common-mode operating limit.",
+    "temperature_C": 27,
+    "tnom_C": 27,
+    "statistical_switches": {
+      "MC_MM_SWITCH": 0,
+      "MC_PR_SWITCH": 0
+    },
+    "positive_contexts": 60,
+    "positive_op_points": 60,
+    "positive_ac_samples": 480,
+    "input_policy": "Restore the four already audited native files and their original receipts under explicit immutable identity, then rerun strict physical readback. Do not relabel those historical results as fresh physical execution. Regenerate physically only if inputs/package/extractor change; use fresh electrical runs for this new voltage milestone.",
+    "circuits": [
+      "application schematic export",
+      "exact retained native extracted file via include",
+      "literal independently wired wrapper reference"
+    ],
+    "analyses": [
+      "Separate retained OP and AC raw files for each context; do not assume an AC raw file carries its operating-point bias.",
+      "AC frequencies 1e3 through 1e10 Hz in decade steps, normalization AC=1; this denotes a linearized small-signal derivative, not a physical +/-1 V waveform on a 5 V bias."
+    ],
+    "observables": [
+      "Finite OP voltages of both terminals on every branch, actual signed differential, finite source current, exact model/geometry/multiplicity and applied deck bias.",
+      "Finite AC terminal phasors and source currents on every branch; effective raw passive coefficients and switches; exact temperature and selected library section.",
+      "Complex admittance, series R and effective C, compared across the three paths and against the independent source-fixed RC equation from contract v1.",
+      "Bias invariance against the matching zero-bias model result, explicitly a property of these voltage-independent compact models."
+    ],
+    "tolerances": {
+      "op_terminal_voltage_absolute_V": 1e-09,
+      "ideal_model_dc_current_absolute_A": 1e-12,
+      "complex_Y_R_C_relative": 1e-06,
+      "coefficient_relative": 1e-10,
+      "coefficient_absolute": 1e-24,
+      "origin": "Numerical integration criteria selected for this harness, not foundry electrical/leakage specifications."
+    },
+    "controls": [
+      "On a nonzero case omit DC bias: raw OP must reject although the unchanged linear AC response would pass.",
+      "Reverse the requested nonzero bias, clamp it to +/-4.99 V, or alter the grounded terminal: reject actual OP terminal values/differential.",
+      "Request +/-5.001 V or nonfinite bias: reject the declared test domain before simulation; do not interpret successful beyond-domain simulation as a valid operating limit.",
+      "Change selected section, effective coefficient, model, native orientation/path, dimensions, or mf/m: reject the fixed identity/analytical contract.",
+      "Rehash a substituted manual native deck, remove/duplicate OP plot, omit/duplicate case identity, inject NaN/current/voltage or a false saved bias: independent audit must reject.",
+      "Retain the existing completed physical faults and prior numerical controls under original identity; preserve all fresh electrical-control failures."
+    ],
+    "completion_claim": "Only the predefined linked DC boundary/model-integration example of MIM-BIAS-BOUNDARIES at one geometry, two orientations, five passive sections, 27 C. No full family or operating-envelope qualification."
+  },
+  "unresolved": [
+    "Legacy documentation names differ; there is no explicit upstream alias table in the retained material.",
+    "The document mentions a bottom-to-substrate parasitic, but these wrapper files have only c0,c1 and no explicit substrate branch; common-mode/substrate validity is unspecified.",
+    "The model contains no bias-dependent C, leakage, breakdown or lifetime term; agreement cannot validate those omitted effects.",
+    "Complete electrical W/L and temperature validity, statistical/reliability calibration, and other physical classes remain separate open requirements."
+  ],
+  "license_handling": "No new upstream content downloaded or relicensed. Exact existing source/package/archive paths and hashes are referenced; retained Apache-2.0 notices remain with the original resources.",
+  "repository_mutations": [],
+  "gate_or_contract_changes": [],
+  "local_review_sha256": "a77532b97637fd231ec31b6572a204edccd5f9eac1144df6e9b930323c0473eb",
+  "verification": {
+    "status": "PASS",
+    "source_records": 12,
+    "retained_native_inputs": 4,
+    "all_source_hashes_match_contract": true,
+    "immutable_contract_unchanged": true,
+    "native_execution": false,
+    "planned_positive_contexts": 60,
+    "source_map_sha256": "a77532b97637fd231ec31b6572a204edccd5f9eac1144df6e9b930323c0473eb",
+    "verifier_sha256": "7f0fc1f897c1fdcd58194b97bc189d57e5f501462e97288631553bc5830b8be3"
+  }
+}

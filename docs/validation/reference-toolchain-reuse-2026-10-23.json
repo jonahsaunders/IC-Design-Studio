@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "date": "2026-10-23",
-  "status": "hosted_setup_failed_local_fix_verified",
+  "status": "hosted_producer_and_four_corners_verified_fs_identity_unresolved",
   "qualified": false,
   "chunk_complete": false,
   "release_acceptance": false,
-  "scope": "Failed first hosted shared-toolchain trial and bounded local verification of its package-setup fix. No successful shared artifact, consumer restore or complete five-corner acceptance yet.",
+  "scope": "The original 43a setup failure and fix are preserved below. On immutable d386, the producer and four complete native consumers passed; fs rejected identity on attempt 1 and one debug retry. Five-corner acceptance is incomplete.",
   "hosted_trial": {
     "candidate": "43a04bb00af3118fe97d3d177ec73599056027b6",
     "run_id": 40021382276,
@@ -200,9 +200,9 @@
     }
   },
   "remaining": [
-    "Successful hosted producer build and verified archive upload on the fixed immutable candidate.",
-    "Five successful consumer checksum/identity checks, native engine probes and complete fresh corner acceptance.",
-    "Measured setup/queue/qualification timings before claiming a speed improvement."
+    "Publish the tested mismatch diagnostics in a new immutable candidate to identify the exact differing fs identity field; original d386 logs do not contain it.",
+    "Resolve the measured mismatch while retaining the candidate, workspace, image and input checks, then obtain complete fresh five-corner acceptance.",
+    "Use comparable successful runs before claiming an end-to-end latency improvement. This checkpoint does not close a device family or the chunk."
   ],
   "cleanup": {
     "redundant_large_setup_copies_created": false,
@@ -216,5 +216,468 @@
     "files": 28,
     "all_members_verified": true,
     "manifest_sha256": "45ff9e1d3cdcd2f1ad4a597cc4a5d5c46783f584ea6518e6e5c10b44d790516e"
+  },
+  "hosted_followup": {
+    "candidate": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+    "run_id": 40028442049,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40028442049",
+    "dispatches": 1,
+    "attempt_1_conclusion": "failure",
+    "attempt_2_conclusion": "failure",
+    "attempt_2_scope": "Exactly one debug retry of fs. GitHub carried forward successful jobs under new API IDs with their original timestamps and unchanged log bytes; they were not re-executed.",
+    "attempt_1_jobs": [
+      {
+        "id": 120670406651,
+        "name": "candidate",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:40:14Z",
+        "started_at": "2026-10-23T21:40:16Z",
+        "completed_at": "2026-10-23T21:40:23Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 7,
+        "steps": [
+          {
+            "name": "Verify the selected immutable candidate",
+            "conclusion": "success",
+            "seconds": 0
+          }
+        ]
+      },
+      {
+        "id": 120670469095,
+        "name": "bandgap-physical",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:40:23Z",
+        "started_at": "2026-10-23T21:40:25Z",
+        "completed_at": "2026-10-23T21:58:00Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 1055,
+        "steps": [
+          {
+            "name": "Install KLayout and the locked Python dependencies",
+            "conclusion": "success",
+            "seconds": 36
+          },
+          {
+            "name": "Qualify exchange, full DRC/LVS and deliberate physical faults",
+            "conclusion": "success",
+            "seconds": 998
+          }
+        ]
+      },
+      {
+        "id": 120670469180,
+        "name": "modern-schematic",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:40:23Z",
+        "started_at": "2026-10-23T21:40:25Z",
+        "completed_at": "2026-10-23T22:03:22Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 1377,
+        "steps": [
+          {
+            "name": "Install engine build dependencies",
+            "conclusion": "success",
+            "seconds": 28
+          },
+          {
+            "name": "Build both exact modern schematic tools and stable physical tools",
+            "conclusion": "success",
+            "seconds": 273
+          },
+          {
+            "name": "Qualify modern destination semantics",
+            "conclusion": "success",
+            "seconds": 1
+          },
+          {
+            "name": "Require detector LVS, injected faults and every modern trip code",
+            "conclusion": "success",
+            "seconds": 792
+          },
+          {
+            "name": "Require fresh detector exchange through modern Xschem",
+            "conclusion": "success",
+            "seconds": 157
+          }
+        ]
+      },
+      {
+        "id": 120670469333,
+        "name": "rc-toolchain",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:40:23Z",
+        "started_at": "2026-10-23T21:40:25Z",
+        "completed_at": "2026-10-23T21:45:07Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 282,
+        "steps": [
+          {
+            "name": "Install engine build dependencies once for all five RC corners",
+            "conclusion": "success",
+            "seconds": 32
+          },
+          {
+            "name": "Build the isolated patched extractor and pinned sparse solver once",
+            "conclusion": "success",
+            "seconds": 234
+          },
+          {
+            "name": "Bind installed files and exact build inputs to this candidate",
+            "conclusion": "success",
+            "seconds": 4
+          }
+        ]
+      },
+      {
+        "id": 120670469369,
+        "name": "bandgap-schematic",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:40:23Z",
+        "started_at": "2026-10-23T21:40:25Z",
+        "completed_at": "2026-10-23T21:42:00Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 95,
+        "steps": [
+          {
+            "name": "Install the destination schematic tools",
+            "conclusion": "success",
+            "seconds": 19
+          }
+        ]
+      },
+      {
+        "id": 120677170366,
+        "name": "bandgap-rc (nominal)",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:58:00Z",
+        "started_at": "2026-10-23T21:58:02Z",
+        "completed_at": "2026-10-23T22:12:27Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 865,
+        "steps": [
+          {
+            "name": "Install runtime dependencies for fresh corner acceptance",
+            "conclusion": "success",
+            "seconds": 30
+          },
+          {
+            "name": "Verify producer checksum, candidate, platform, inputs and installed engines",
+            "conclusion": "success",
+            "seconds": 1
+          },
+          {
+            "name": "Require complete extraction, terminal equivalence, fill controls and post-RC startup",
+            "conclusion": "success",
+            "seconds": 820
+          }
+        ]
+      },
+      {
+        "id": 120677170374,
+        "name": "bandgap-rc (ss)",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:58:00Z",
+        "started_at": "2026-10-23T21:58:02Z",
+        "completed_at": "2026-10-23T22:06:58Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 536,
+        "steps": [
+          {
+            "name": "Install runtime dependencies for fresh corner acceptance",
+            "conclusion": "success",
+            "seconds": 31
+          },
+          {
+            "name": "Verify producer checksum, candidate, platform, inputs and installed engines",
+            "conclusion": "success",
+            "seconds": 1
+          },
+          {
+            "name": "Require complete extraction, terminal equivalence, fill controls and post-RC startup",
+            "conclusion": "success",
+            "seconds": 489
+          }
+        ]
+      },
+      {
+        "id": 120677170423,
+        "name": "bandgap-rc (ff)",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:58:00Z",
+        "started_at": "2026-10-23T21:58:02Z",
+        "completed_at": "2026-10-23T22:14:50Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 1008,
+        "steps": [
+          {
+            "name": "Install runtime dependencies for fresh corner acceptance",
+            "conclusion": "success",
+            "seconds": 31
+          },
+          {
+            "name": "Verify producer checksum, candidate, platform, inputs and installed engines",
+            "conclusion": "success",
+            "seconds": 0
+          },
+          {
+            "name": "Require complete extraction, terminal equivalence, fill controls and post-RC startup",
+            "conclusion": "success",
+            "seconds": 959
+          }
+        ]
+      },
+      {
+        "id": 120677170441,
+        "name": "bandgap-rc (sf)",
+        "conclusion": "success",
+        "created_at": "2026-10-23T21:58:00Z",
+        "started_at": "2026-10-23T21:58:02Z",
+        "completed_at": "2026-10-23T22:13:00Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 898,
+        "steps": [
+          {
+            "name": "Install runtime dependencies for fresh corner acceptance",
+            "conclusion": "success",
+            "seconds": 27
+          },
+          {
+            "name": "Verify producer checksum, candidate, platform, inputs and installed engines",
+            "conclusion": "success",
+            "seconds": 0
+          },
+          {
+            "name": "Require complete extraction, terminal equivalence, fill controls and post-RC startup",
+            "conclusion": "success",
+            "seconds": 858
+          }
+        ]
+      },
+      {
+        "id": 120677170462,
+        "name": "bandgap-rc (fs)",
+        "conclusion": "failure",
+        "created_at": "2026-10-23T21:58:00Z",
+        "started_at": "2026-10-23T21:58:02Z",
+        "completed_at": "2026-10-23T21:58:41Z",
+        "queue_seconds": 2,
+        "elapsed_seconds": 39,
+        "steps": [
+          {
+            "name": "Install runtime dependencies for fresh corner acceptance",
+            "conclusion": "success",
+            "seconds": 26
+          },
+          {
+            "name": "Verify producer checksum, candidate, platform, inputs and installed engines",
+            "conclusion": "failure",
+            "seconds": 0
+          },
+          {
+            "name": "Require complete extraction, terminal equivalence, fill controls and post-RC startup",
+            "conclusion": "skipped",
+            "seconds": 0
+          }
+        ]
+      }
+    ],
+    "attempt_2_fs_job": {
+      "id": 120683854215,
+      "name": "bandgap-rc (fs)",
+      "conclusion": "failure",
+      "created_at": "2026-10-23T22:16:02Z",
+      "started_at": "2026-10-23T22:16:04Z",
+      "completed_at": "2026-10-23T22:16:50Z",
+      "queue_seconds": 2,
+      "elapsed_seconds": 46,
+      "steps": [
+        {
+          "name": "Install runtime dependencies for fresh corner acceptance",
+          "conclusion": "success",
+          "seconds": 33
+        },
+        {
+          "name": "Verify producer checksum, candidate, platform, inputs and installed engines",
+          "conclusion": "failure",
+          "seconds": 0
+        },
+        {
+          "name": "Require complete extraction, terminal equivalence, fill controls and post-RC startup",
+          "conclusion": "skipped",
+          "seconds": 0
+        }
+      ]
+    },
+    "producer": {
+      "artifact_id": 12533732919,
+      "artifact_name": "reference-rc-toolchain-1",
+      "artifact_zip_sha256": "b8e9b5875ffec070bc16229564549d6b2d7ebbc61bb7ed3a7925d8c5fda1c4f2",
+      "artifact_zip_bytes": 8246272,
+      "toolchain_archive_sha256": "38a091aac7cd9160c7466986676add7842fb29059f7565944d5ab56f36d49e0d",
+      "manifest_sha256": "51decace7cf59323a487b3130907d1662ac60fda13db3f027cd5a8ee4a1bf1b5",
+      "package_inventory_sha256": "1d9dd2a701f715972c90ee317e583be3ecf04d7c1463c7db47f2c167774665b0",
+      "workspace": "/home/runner/work/IC-Design-Studio/IC-Design-Studio",
+      "environment": {
+        "image_os": "ubuntu24",
+        "image_version": "20261012.334.1",
+        "machine": "x86_64",
+        "system": "Linux"
+      },
+      "inputs_verified_against_candidate_git_blobs": 7,
+      "files_bytes_modes_links_verified": 449
+    },
+    "producer_inputs_sha256": {
+      ".github/workflows/reference-compatibility.yml": "1740d6ffed477d830d95ce33e717f1d8b07d4a9105bf90ef5283055fa94f73ac",
+      "examples/gf180-rc-engine-lock.json": "8a6c895d28352dc1aa8eecd3a2e375b8a43baed0ed0cdf01a19d0668e903bbb2",
+      "examples/modern-schematic-engine-lock.json": "baf670ddeae85da0cd7563538b5fdc0d71a6188425f3b72b475202e052b1552b",
+      "packaging/physical/magic-gf180-rc.patch": "29f8e0e7b206e208aca33f85e90a9aeff027531a930e39d99dbc4d5b8b76bbc6",
+      "requirements.txt": "6ca8d64e4388a6934e215115131e1c1b4b9985da3a5a0ddbf71202ed1dd73623",
+      "scripts/build_physical_engines.py": "4b6bb2d6c26da0800c46f79c09186e1c1d6fd513861eae68721bfb78683d3305",
+      "scripts/reference_toolchain.py": "2420b94b5e84a12400aaccb240430fc5f7ac2076a17eb873dd3fc4a8677ee637"
+    },
+    "producer_audit_sha256": "f9e3add8f378f39e8e4a2ded610f27e0159376292634ae7759c642746e7bedc3",
+    "producer_digest_scope": "Full ZIP bytes downloaded and SHA-256 matched to GitHub. Inner archive SHA matched producer output; 449 file/mode/link inventory entries and all 7 source inputs verified against exact d386 Git blobs.",
+    "consumer_reports": [
+      {
+        "corner": "sf",
+        "status": "passed",
+        "signoff": false,
+        "artifact_id": 12534609480,
+        "report_sha256": "7e1d61fd51e003280bf3047c05a20a301214cb6fd0734477c8e55dd4e9c3e39f",
+        "restored_receipt_sha256": "94b23430b0edceaecdb15ef31f4f7dcb234eb42cf52dbbb13648a7740239922a",
+        "producer_manifest_sha256": "51decace7cf59323a487b3130907d1662ac60fda13db3f027cd5a8ee4a1bf1b5",
+        "candidate": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+        "nets": 106,
+        "resistors": 3261,
+        "devices": 103,
+        "pvt_cases": 4,
+        "startup_ramps": 12,
+        "identity_and_report_controls_passed": true,
+        "bytes_downloaded_for_selected_members": 73305,
+        "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+      },
+      {
+        "corner": "ss",
+        "status": "passed",
+        "signoff": false,
+        "artifact_id": 12534688288,
+        "report_sha256": "1ab1b7d3d14f85419f60ff4177c1e9d65aa7ca707e2c980696a74e9c9b48f09e",
+        "restored_receipt_sha256": "94b23430b0edceaecdb15ef31f4f7dcb234eb42cf52dbbb13648a7740239922a",
+        "producer_manifest_sha256": "51decace7cf59323a487b3130907d1662ac60fda13db3f027cd5a8ee4a1bf1b5",
+        "candidate": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+        "nets": 106,
+        "resistors": 3261,
+        "devices": 103,
+        "pvt_cases": 4,
+        "startup_ramps": 12,
+        "identity_and_report_controls_passed": true,
+        "bytes_downloaded_for_selected_members": 73325,
+        "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+      },
+      {
+        "corner": "nominal",
+        "status": "passed",
+        "signoff": false,
+        "artifact_id": 12535043303,
+        "report_sha256": "6ae8625091eb067aeecf9d41ab451ade0eb61afbfb24ea52f074895ddd27365b",
+        "restored_receipt_sha256": "94b23430b0edceaecdb15ef31f4f7dcb234eb42cf52dbbb13648a7740239922a",
+        "producer_manifest_sha256": "51decace7cf59323a487b3130907d1662ac60fda13db3f027cd5a8ee4a1bf1b5",
+        "candidate": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+        "nets": 106,
+        "resistors": 3261,
+        "devices": 103,
+        "pvt_cases": 4,
+        "startup_ramps": 12,
+        "identity_and_report_controls_passed": true,
+        "bytes_downloaded_for_selected_members": 74022,
+        "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+      },
+      {
+        "corner": "ff",
+        "status": "passed",
+        "signoff": false,
+        "artifact_id": 12535287030,
+        "report_sha256": "c9138a8d41bb108a70ca155fa00e885f98015dbe02973e153e23ab835bb61377",
+        "restored_receipt_sha256": "94b23430b0edceaecdb15ef31f4f7dcb234eb42cf52dbbb13648a7740239922a",
+        "producer_manifest_sha256": "51decace7cf59323a487b3130907d1662ac60fda13db3f027cd5a8ee4a1bf1b5",
+        "candidate": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+        "nets": 106,
+        "resistors": 3261,
+        "devices": 103,
+        "pvt_cases": 4,
+        "startup_ramps": 12,
+        "identity_and_report_controls_passed": true,
+        "bytes_downloaded_for_selected_members": 73260,
+        "zip_digest_scope": "GitHub API reported; selected member bytes and CRCs verified locally."
+      }
+    ],
+    "consumer_scope": "Four complete native GF180 RC reference corners; each has 106 nets, 3261 resistors, 103 devices, four PVT cases and twelve startup ramps. Capacitance, terminal equivalence, conservation and fill controls pass. Native engine hashes match the producer. Every report retains signoff=false.",
+    "consumer_digest_scope": "Only selected native report, manifest, restored-engine receipt and package inventory members were downloaded by bounded HTTPS ranges. Their ZIP CRCs and local SHA-256 hashes were verified. Full consumer ZIP digests are API-reported, not independently recomputed.",
+    "fs_failure": {
+      "error": "Toolchain candidate, prefix, environment or inputs changed.",
+      "exact_differing_identity_field": null,
+      "cause_status": "unresolved",
+      "attempt_1_job_id": 120677170462,
+      "attempt_2_job_id": 120683854215,
+      "attempt_1_log_sha256": "5a088fea1498581e70ce8bd26a0b06762d41c633210679483e66fdeaa3b4b059",
+      "attempt_2_debug_log_sha256": "80913bc368d2dca4d416154f16a6adc5b0c557e63c60426d84929fc8c3eb960d",
+      "attempt_1_failed_artifact_id": 12533939623,
+      "attempt_1_failed_artifact_sha256": "5aec3bf0ebe4099c0d6d513ed5410c1f8e68ec0dbb0d100f09b85d5edfc824db",
+      "attempt_2_failed_artifact_id": 12534993010,
+      "attempt_2_failed_artifact_sha256": "300f958419f344d281af05ede0067388de74d9987306b61fcc8922ad0cc2f50a",
+      "failed_artifact_digest_scope": "Both complete small failure ZIPs downloaded, SHA-256 matched to GitHub and all member CRCs checked.",
+      "retry_debug_bundle_sha256": "3493cb55054a54bcfc2cfa20b467e7ad0bf373e841a49175a4cb4a4fbb57b2fd",
+      "package_comparison_sha256": "db600200ce71f1fcaa574cd50baf1cb22be3b03dfa921dc0528b1cdcf93fbe7b",
+      "independent_debug_review_sha256": "ba8abc3fe451e1605534f493701a1f6aebef1d046e3f1344761441486cbbc2ab",
+      "observed": "Both fs attempts used the exact candidate/archive digest and displayed the same Ubuntu image version and workspace labels as the producer. Both package inventories match all passing corners byte for byte. These observations do not prove the unrecorded identity fields or current input hashes equal the producer.",
+      "not_executed": "fs archive extraction, native engine probes and full native qualification."
+    },
+    "diagnostic_fix": {
+      "status": "local_tested_not_executed_in_d386",
+      "source_sha256": {
+        "scripts/reference_toolchain.py": "e2d53c829444e55cf90d0a72b22d1005412d64c53ad989d2f8ceb7f3af6a2893",
+        "scripts/build_physical_engines.py": "4b6bb2d6c26da0800c46f79c09186e1c1d6fd513861eae68721bfb78683d3305",
+        "tests/test_reference_toolchain.py": "75b68a59cc4e45b97f0b9b723518ff5283ff26e8f04919e19b72de4c1e5c2093",
+        "tests/test_physical_engine_build.py": "02290c569db6f7d92ae688b1da7e8014f5f756dbbcdf3b6a65d2b6e2ce339a9b",
+        ".github/workflows/reference-compatibility.yml": "f5c719db27c6b41e069d6ea5b74b9798d1fdb130fe6d737aad0604b85eb12861"
+      },
+      "change": "Observability improvement, not a root-cause fix. Preserve the strict rejection and emit a bounded whitelisted candidate/workspace/environment/input-hash mismatch receipt. Archive that receipt on failure; safe stderr fallback retains rejection if writing fails.",
+      "Linux": {
+        "tests": 28,
+        "skipped": 0,
+        "elapsed_seconds": 0.189,
+        "log_sha256": "894078211799145705e88722d962a474f603d443e6ac5bf8d50e69965e32aad7"
+      },
+      "Windows": {
+        "tests": 28,
+        "skipped": 6,
+        "elapsed_seconds": 2.971,
+        "log_sha256": "02c0c7d600b9ef6e283a1f393d9904f6b9a4c1e21d86c8f8d9d208e5fe7015e5"
+      },
+      "workflow_actionlint_and_diff_check": "passed; ShellCheck and Pyflakes integrations disabled",
+      "focused_controls": "Mismatched known fields are retained; unrelated environment/unlisted keys are excluded; extraction stays blocked; a diagnostic write failure keeps the original rejection."
+    },
+    "independent_fixture_review": {
+      "receipt_sha256": "ec29e0ac2f51d32b8e7ea4a9dafeb976ad44a963ee0822059ac9e543a35f8bd3",
+      "tests": 22,
+      "probes": 7,
+      "findings": 0,
+      "scope": "Original d386 transfer logic; fixture engines and mocked identities with real Linux archive/filesystem behavior. One pristine transfer and six invalid-transfer controls. Separate from actual hosted native consumer evidence."
+    },
+    "timing_scope": "Producer setup 32s, engine builds 234s, packaging 4s, total 282s. First-attempt job queue timestamps show 2s from creation to execution. Corners depended on the 1055s physical job, so engine reuse alone does not remove that prerequisite. No comparable successful before/after latency claim.",
+    "remaining_corner": "fs",
+    "all_five_native_corners_passed": false,
+    "full_foundry_signoff": false,
+    "chunk_complete": false,
+    "evidence_archive": {
+      "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/reference-toolchain-reuse-2026-10-23-v1/checkpoint-d38615c.zip",
+      "sha256": "826554c06b0fafc195c56cb6f1805bcae0bc52796aab892506885762c6a36067",
+      "bytes": 8728118,
+      "files": 96,
+      "all_members_verified": true,
+      "manifest_sha256": "afba39bb153440df3398584c2a12f9c7888004ac0efbd215609809eaad1a5fd4",
+      "scope": "Original and retry logs, full producer and failed-fs ZIPs, selected passing-corner evidence, exact candidate/fix sources and local checks. Poll snapshots and redundant downloads omitted."
+    }
   }
 }
