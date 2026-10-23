@@ -2,7 +2,9 @@
 
 The [execution record](validation/sky130-rf-runtime-2026-10-18.json) covers two
 public RF diode candidates, `rf_diode_ps2nw` and `rf_diode_pw2dn`. Chunk 7 remains
-in progress. Neither candidate is promoted into the default library. The
+in progress. Neither candidate was promoted in that historical record. The later
+[default integration](SKY130_RF_DEFAULT.md) makes only `rf_diode_ps2nw` available
+for its sampled simulation scope; `rf_diode_pw2dn` remains separate. The
 subsequent n-well physical checks below cover selected isolated layouts; no
 complete RF family, full operating-envelope or measured-silicon qualification
 is claimed.
@@ -12,8 +14,8 @@ is claimed.
 Four public Apache-2.0 model originals, their license and exact upstream
 identities are retained under `icstudio/assets/qualification/sky130-rf`.
 The [source lock](../icstudio/assets/qualification/sky130-rf/source-lock.json)
-contains portable paths and hashes. The candidate builder preserves all original
-assets in the current SKY130 package. It adds separate derivative wrappers that
+contains portable paths and hashes. The candidate builder reconstructs its exact historical SKY130 package and
+preserves all of its original assets. It adds separate derivative wrappers that
 pass `PJ={perim}` to the perimeter branch, whose public wrapper omitted it.
 No fitted parameter, primitive model equation or process corner is replaced.
 
@@ -92,8 +94,8 @@ pending hosted run or a packaged-release acceptance has passed.
 The RF p-well/deep-n-well topology, its additional substrate junction and full
 RF layout coverage remain open. Transient, noise and bias coverage
 beyond the sampled checks below, statistical behavior, geometry boundaries and
-a documented supported operating envelope need further checks. The default catalog still has seven unavailable
-real model entries and nine utility entries. Other required device families and
+a documented supported operating envelope need further checks. The current default catalog has six unavailable
+real model entries and nine utility entries after the separate n-well integration. Other required device families and
 installed-release acceptance also remain part of chunk 7.
 
 ## Sampled reverse-bias current, admittance and noise

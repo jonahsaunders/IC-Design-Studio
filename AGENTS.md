@@ -17,3 +17,9 @@ Update the tracker during project work; the user chose this instead of scheduled
 background checks. A documentation-only tracker update need not interrupt long
 running CI jobs by triggering a new push. Preserve it locally and include it in
 the next appropriate project push, reporting that distinction to the user.
+
+The user also wants every completed work response for the current and future
+chunks to include that chunk's estimated completion percentage. State its
+uncertainty and distinguish engineering estimates from verified acceptance.
+Keep the estimate in the progress tracker consistent with the final response;
+do not increase it merely because more tests were run.

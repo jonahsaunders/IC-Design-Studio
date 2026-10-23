@@ -70,6 +70,15 @@ class QualificationEvidenceTests(unittest.TestCase):
             self.assertEqual(json.loads((directory / 'engine.command.json').read_text()), ['engine', '--check'])
 
     def test_required_blocked_case_cannot_pass_and_optional_scope_remains_visible(self):
+        # This unit checks evidence statuses, not the surrounding checkout.
+        # Keep archive replays independent of live Git metadata.
+        real_check_output = subprocess.check_output
+        def checkout_metadata(command, *args, **kwargs):
+            if command[0] == 'git':
+                return '0'*40 if 'rev-parse' in command else ''
+            return real_check_output(command, *args, **kwargs)
+        self.enterContext(patch('scripts.qualification_evidence.subprocess.check_output',
+                                side_effect=checkout_metadata))
         report = Report(self.root / 'required', 'fixture')
         report.case('valid', lambda: {'violations': 0})
         report.blocked('missing-engine', 'Unavailable', required=True)

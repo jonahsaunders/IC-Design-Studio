@@ -52,7 +52,7 @@ class CatalogMultiplicityTests(unittest.TestCase):
                     if emitted.casefold() == 'm': self.assertGreater(values[source], 0, (target, key))
                 count += 1
             counts[target] = count
-        self.assertEqual(counts, {'sky130A': 94, 'gf180mcuC': 77, 'gf180mcuD': 77, 'ihp-sg13g2': 38})
+        self.assertEqual(counts, {'sky130A': 95, 'gf180mcuC': 77, 'gf180mcuD': 77, 'ihp-sg13g2': 38})
 
 
 if __name__ == '__main__': unittest.main()

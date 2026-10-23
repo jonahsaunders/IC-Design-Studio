@@ -21,7 +21,7 @@ def qualify(application,executable,rejected_executable,output):
     def netlist(p,directory):
         text=spice(p,p['top'],hierarchical=False)
         return stage_model_deck(p['pdk'],text.rsplit('.end',1)[0]+'.temp 27\n.control\n'+program+'.endc\n.end\n',directory)
-    settings=dict(probes='v(drive) '+ ' '.join('i(vd'+str(i)+str(j)+')' for i in range(2) for j in range(3)))
+    settings=dict(probes='v(drive) '+ ' '.join('i(vd'+str(i)+str(j)+')' for i in range(len(json.loads((app/'report.json').read_bytes()).get('models',['ps2nw','pw2dn']))) for j in range(3)))
     accepted=out/'accepted';accepted.mkdir()
     r=run_program(p,p['top'],settings,str(exe),accepted,lambda *_:None,netlist,'RF runtime acceptance',p['pdk']['package_lock'],'cases')
     assert p==before and r['program_status']=='Complete' and [x['analysis'] for x in r['cases']]==['op','ac','dc','ac']

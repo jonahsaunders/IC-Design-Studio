@@ -15,11 +15,13 @@ from scripts.qualify_catalog_interfaces import one
 from scripts.verify_ngspice_diode_sequences import verify
 
 
-def qualify(executable,package_root,output):
+def qualify(executable,package_root,output,models=('ps2nw','pw2dn'),conditions=(('nominal',27),),default_binding=False):
+    if not models or set(models)-{'ps2nw','pw2dn'} or len(set(models))!=len(models):
+        raise ValueError('Choose distinct reviewed RF models.')
     out=Path(output).resolve();exe=Path(executable).resolve();source=Path(package_root).resolve()
     out.mkdir(exist_ok=False)
     package=json.loads((source/'package.json').read_bytes());tech=clone(package['technology']);tech.update(package_root=str(source),package_lock={k:package[k] for k in ('id','revision','files')})
-    points=[dict(model=m,w=width,l=length,area=area,perim=perim,tag=f'd{i}{j}') for i,m in enumerate(('ps2nw','pw2dn')) for j,(width,length,area,perim) in enumerate(((2,2,4,8),(4,2,8,12),(10,10,100,40)))]
+    points=[dict(model=m,w=width,l=length,area=area,perim=perim,tag=f'd{i}{j}') for i,m in enumerate(models) for j,(width,length,area,perim) in enumerate(((2,2,4,8),(4,2,8,12),(10,10,100,40)))]
     common='sky130_fd_pr__model__parasitic__rf_diode_'
     def key(m):return 'sky130_fd_pr/diode__'+common+m+'.sym'
     def fixture():
@@ -40,10 +42,10 @@ def qualify(executable,package_root,output):
     def compare(a,b,analysis):
         left=currents(a,analysis);right=currents(b,analysis)
         return {name:max(abs(x-y)/(1e-16+1e-6*abs(y)) for x,y in zip(left[name],values)) for name,values in right.items()}
-    report=dict(status='RUNNING',qualified=False,chunk_complete=False,default_promoted=False,scope='Explicit RF candidate integration: two public derivatives, three rectangular geometries, selected DC/AC and terminal/geometry faults; not full RF or physical qualification.',host=sys.platform,manifest_sha256=file_digest(source/'package.json'),engine_sha256=file_digest(exe),runner_sha256=file_digest(__file__),interfaces=[],cases=[])
-    for m in ('ps2nw','pw2dn'):
+    report=dict(status='RUNNING',qualified=False,chunk_complete=False,default_promoted=default_binding,scope='Sampled RF integration: selected public derivatives, three rectangular geometries, selected DC/AC and terminal/geometry faults; not full RF or physical qualification.',host=sys.platform,manifest_sha256=file_digest(source/'package.json'),engine_sha256=file_digest(exe),runner_sha256=file_digest(__file__),models=list(models),interfaces=[],cases=[])
+    for m in models:
         r=one(tech,key(m),out/('interface-'+m));report['interfaces'].append(r);assert r['status']=='PASS',r
-    for corner,temp in [('nominal',27)]:
+    for corner,temp in conditions:
         root=out/(corner+'-'+str(temp));root.mkdir();row=dict(corner=corner,temperature_c=temp,checks=[])
         s=dict(corner=corner,temperature=temp,source='VG',dc_start='0',dc_stop='.6',dc_step='.025',start='1k',end='1g',points=5)
         for analysis in ('dc','ac'):
@@ -69,7 +71,7 @@ def qualify(executable,package_root,output):
     report['automatic_runtime_checks']=[]
     for path in out.rglob('rf-acceptance.json'):
         proof=json.loads(path.read_bytes());assert proof['status']=='PASS';report['automatic_runtime_checks'].append(dict(path=path.relative_to(out).as_posix(),sha256=file_digest(path)))
-    assert len(report['automatic_runtime_checks'])==6
+    assert len(report['automatic_runtime_checks'])==6*len(conditions)
     report['status']='PASS';(out/'report.json').write_text(json.dumps(report,indent=2)+'\n');return report
 
 

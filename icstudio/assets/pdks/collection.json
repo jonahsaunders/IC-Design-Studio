@@ -3,12 +3,12 @@
   "packages": [
     {
       "variant": "sky130A",
-      "revision": "857acac277f431b3",
+      "revision": "b26f7f28e659ddc1",
       "family": "sky130",
       "assets": 413,
       "indexed_symbols": 99,
       "placeable_symbols": 94,
-      "manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db"
+      "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
     },
     {
       "variant": "gf180mcuC",

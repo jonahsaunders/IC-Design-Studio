@@ -47,6 +47,10 @@ jobs:
           sudo apt-get install -y autoconf automake libtool bison flex libreadline-dev libsuitesparse-dev
           python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/simulation-engine
           python scripts/verify_ngspice_diode_sequences.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/simulation-engine/diode-sequences
+      - name: Qualify the installed public RF n-well default binding
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 10
+        run: python scripts/qualify_sky130_rf_default.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/sky130-rf-default
       - name: Qualify public RF reverse-bias current, admittance and noise
         if: matrix.stage == 'inverter'
         run: python scripts/qualify_sky130_rf_bias.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/simulation-engine/rf-bias
@@ -232,6 +236,7 @@ jobs:
             build/simulation-engine/source-lock.json
             build/simulation-engine/diode-sequences
             build/simulation-engine/rf-bias
+            build/sky130-rf-default
             build/simulation-engine/rf-transient
             build/sky130-mos-defaults
             build/sky130-mos-bias

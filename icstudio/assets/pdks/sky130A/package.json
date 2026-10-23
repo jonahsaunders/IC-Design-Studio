@@ -9,6 +9,7 @@
     "ICSTUDIO-NPN-PROVENANCE.json": "4fb792ae70d5b4030a1e7e42e2d6841671160b61b3bb5f30a40021e1a21130bd",
     "ICSTUDIO-PARALLEL-VARACTORS.json": "21230bfb2d6c27c9607421cd2acbd13516ccccca18a5c64d82e1f3885b28a507",
     "ICSTUDIO-RESISTOR-CORRECTION.json": "9854229dbcc793b644a10f3612445204248cce94bbe9fcaf56c443b870fb6c7b",
+    "ICSTUDIO-RF-PS2NW-BINDING.json": "59f92481f77b895e95b093f815b2852ad605c4b053c6536b956eb843545d7428",
     "ICSTUDIO-VPP-BINDING.json": "ec8fcdc12e19dac30389ae1dd72fef434451c9eb8ffb4552baeb71547fc89561",
     "LICENSE-models.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "LICENSE-symbols.txt": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141",
@@ -301,6 +302,12 @@
     "libs.tech/ngspice/head.spice": "0c2499173f578cf0084df58a03872072e76f34c25a085cfbd24cca8c23bcb1ef",
     "libs.tech/ngspice/icstudio-npn-corners.lib": "2854e72fe39e98041ed95fe248dc351adbbf6c4107edd0d0f6aa34811e2ddaf0",
     "libs.tech/ngspice/icstudio-parallel-varactors.spice": "661303a3bee98e9aab0e6e5928ca46d8b0ad9607d3c0fe7bd0af497f42c3a34a",
+    "libs.tech/ngspice/icstudio-rf-ps2nw/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "libs.tech/ngspice/icstudio-rf-ps2nw/library.spice": "4bd247533bf7ba52bcaf2c43182acdfabe842a48af453699d40b14036f3f8801",
+    "libs.tech/ngspice/icstudio-rf-ps2nw/original/sky130_fd_pr__model__parasitic__diode_ps2nw_noresistor.model.spice": "b869dcc80134e66cc044f24304eece2ca0b797a217f5d669b06e61219f6cd4a5",
+    "libs.tech/ngspice/icstudio-rf-ps2nw/original/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice": "9162840af01b56ca3b36556ee7a5d996cf41f0ec63e65430337f624d7dfa358c",
+    "libs.tech/ngspice/icstudio-rf-ps2nw/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice": "b3ccc79e2354c6630d0dafc3d2feced19968e70c9010dcbd8e441136b8d3d59a",
+    "libs.tech/ngspice/icstudio-rf-ps2nw/source-lock.json": "9bbc32cb158ae7f842aee085abaa834df9576eb2a5fad0c00f81eeb07607b570",
     "libs.tech/ngspice/parameters/critical.spice": "94ba392849ae3466798d7cfd29d53a31336204730e895dabfbc0c39ade8d6a28",
     "libs.tech/ngspice/parameters/fast.spice": "283dd86a353fc872c3bbfe7c276d959faa11f91450103185af7407d1017f93c9",
     "libs.tech/ngspice/parameters/fast_70p.spice": "6eb7f5e84f7d0676e2a4b35decd2ce27fa98bb54e5ee71544a4992a5068ada5c",
@@ -416,7 +423,7 @@
     "qualification-sources/bipolar/sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0"
   },
   "id": "sky130A",
-  "revision": "857acac277f431b3",
+  "revision": "b26f7f28e659ddc1",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3738,7 +3745,7 @@
       ],
       "netgen_setup": ""
     },
-    "revision": "857acac277f431b3",
+    "revision": "b26f7f28e659ddc1",
     "simulation": {
       "catalog": {
         "sky130_fd_pr/cap_mim_m3_1.sym": {
@@ -6642,13 +6649,16 @@
           "alternate_of": "sky130_fd_pr/diode.sym",
           "category": "Diodes",
           "emit_parameters": {
-            "area": "area"
+            "area": "area",
+            "perim": "perim"
           },
           "kind": "PDK",
           "label": "model__parasitic__rf_diode_ps2nw (diode)",
           "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+          "model_source": "libs.tech/ngspice/icstudio-rf-ps2nw/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice",
           "notes": [
-            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "IC Design Studio: two-terminal public RF ps2nw simulation binding, d0 anode/d1 cathode. Positive rectangular W/L are in micrometres. Explicit PJ perimeter correction; automatic engine geometry/history check required. Sampled checks only: complete RF operating envelope, substrate parasitics and measured accuracy remain unqualified."
           ],
           "parameter_scale": {
             "l": 1000000.0,
@@ -6656,17 +6666,35 @@
           },
           "parameters": {
             "area": {
-              "default": "1e12",
-              "derived": false,
-              "integer": false,
-              "positive": false
+              "computed": true,
+              "default": "w*l",
+              "derived": true,
+              "positive": true,
+              "unit": "um^2"
+            },
+            "l": {
+              "default": "2",
+              "positive": true,
+              "unit": "um"
+            },
+            "perim": {
+              "computed": true,
+              "default": "2*(w+l)",
+              "derived": true,
+              "positive": true,
+              "unit": "um"
+            },
+            "w": {
+              "default": "2",
+              "positive": true,
+              "unit": "um"
             }
           },
           "pin_order": [
             "d0",
             "d1"
           ],
-          "prefix": "D",
+          "prefix": "X",
           "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
           "symbol": {
             "attributes": {
@@ -6811,7 +6839,7 @@
               }
             ]
           },
-          "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected."
+          "unavailable": ""
         },
         "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_pw2dn.sym": {
           "alternate_of": "sky130_fd_pr/diode.sym",
@@ -34266,6 +34294,9 @@
         },
         {
           "path": "libs.tech/ngspice/icstudio-parallel-varactors.spice"
+        },
+        {
+          "path": "libs.tech/ngspice/icstudio-rf-ps2nw/library.spice"
         }
       ],
       "ngspice_compatibility": "hsa"

@@ -66,7 +66,14 @@
       "latest_sky130_mim_binding_evidence": "docs/validation/sky130-mim-binding-2026-10-22.json",
       "latest_ci_recovery_evidence": "docs/validation/chunk7-ci-recovery-2026-10-23.json",
       "latest_sky130_mim_orientation_evidence": "docs/validation/sky130-mim-orientation-2026-10-23.json",
-      "latest_sky130_first_mim_evidence": "docs/validation/sky130-first-mim-2026-10-23.json"
+      "latest_sky130_first_mim_evidence": "docs/validation/sky130-first-mim-2026-10-23.json",
+      "latest_rf_default_binding": {
+        "evidence": "sky130-rf-default-2026-10-23",
+        "default_available_entries": 287,
+        "unavailable_real_bindings": 6,
+        "utilities": 9,
+        "scope": "Default RF ps2nw sampled integration, saved-version preservation, and public MiM contact-topology regression. No complete device envelope, measured RF accuracy, foundry or installed-release qualification."
+      }
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -91,11 +98,11 @@
   },
   "inventory": {
     "sky130A": {
-      "revision": "857acac277f431b3",
-      "manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
-      "asset_count": 413,
+      "revision": "b26f7f28e659ddc1",
+      "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+      "asset_count": 420,
       "indexed_count": 99,
-      "placeable_count": 94,
+      "placeable_count": 95,
       "source_locks": {
         "UPSTREAM-LOCK.json": {
           "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c",
@@ -133,6 +140,9 @@
         },
         {
           "path": "libs.tech/ngspice/icstudio-parallel-varactors.spice"
+        },
+        {
+          "path": "libs.tech/ngspice/icstudio-rf-ps2nw/library.spice"
         }
       ],
       "requires_osdi": false,
@@ -641,7 +651,7 @@
         "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_ps2nw.sym": {
           "category": "Diodes",
           "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
-          "model_source": null,
+          "model_source": "libs.tech/ngspice/icstudio-rf-ps2nw/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice",
           "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
           "pin_order": [
             "d0",
@@ -649,20 +659,39 @@
           ],
           "parameters": {
             "area": {
-              "default": "1e12",
-              "derived": false,
-              "integer": false,
-              "positive": false
+              "computed": true,
+              "default": "w*l",
+              "derived": true,
+              "positive": true,
+              "unit": "um^2"
+            },
+            "l": {
+              "default": "2",
+              "positive": true,
+              "unit": "um"
+            },
+            "perim": {
+              "computed": true,
+              "default": "2*(w+l)",
+              "derived": true,
+              "positive": true,
+              "unit": "um"
+            },
+            "w": {
+              "default": "2",
+              "positive": true,
+              "unit": "um"
             }
           },
           "emit_parameters": {
-            "area": "area"
+            "area": "area",
+            "perim": "perim"
           },
           "parameter_scale": {
             "l": 1000000.0,
             "w": 1000000.0
           },
-          "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected.",
+          "unavailable": "",
           "family": "diode",
           "rf_batch": true
         },
@@ -18916,7 +18945,8 @@
         "sky130-voltage-layouts-2026-10-22",
         "sky130-mos-defaults-2026-10-22",
         "sky130-mim2-layouts-2026-10-22",
-        "sky130-mim-binding-2026-10-22"
+        "sky130-mim-binding-2026-10-22",
+        "sky130-rf-default-2026-10-23"
       ]
     },
     "sky130A:device-physical": {
@@ -18933,7 +18963,8 @@
         "sky130-mim2-layouts-2026-10-22",
         "sky130-mim-binding-2026-10-22",
         "sky130-mim-orientation-2026-10-23",
-        "sky130-first-mim-2026-10-23"
+        "sky130-first-mim-2026-10-23",
+        "sky130-rf-default-2026-10-23"
       ]
     },
     "sky130A:device-simulation": {
@@ -18958,7 +18989,8 @@
         "sky130-mim-binding-2026-10-22",
         "chunk7-ci-recovery-2026-10-23",
         "sky130-mim-orientation-2026-10-23",
-        "sky130-first-mim-2026-10-23"
+        "sky130-first-mim-2026-10-23",
+        "sky130-rf-default-2026-10-23"
       ]
     },
     "sky130A:digital-controller": {
@@ -19125,7 +19157,8 @@
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
-        "upstream-views-2026-10-20"
+        "upstream-views-2026-10-20",
+        "sky130-rf-default-2026-10-23"
       ]
     },
     "sky130A:tool-install": {
@@ -20018,7 +20051,8 @@
           "device-corrections-2026-10-16",
           "capacitor-families-2026-10-17",
           "default-device-packages-2026-10-17",
-          "sky130-mim-binding-2026-10-22"
+          "sky130-mim-binding-2026-10-22",
+          "sky130-rf-default-2026-10-23"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -20035,7 +20069,8 @@
           "capacitor-families-2026-10-17",
           "default-device-packages-2026-10-17",
           "sky130-mim2-layouts-2026-10-22",
-          "sky130-mim-binding-2026-10-22"
+          "sky130-mim-binding-2026-10-22",
+          "sky130-rf-default-2026-10-23"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -21292,10 +21327,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "unsupported",
-        "remaining": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected.",
+        "status": "partial",
+        "remaining": "The source-locked two-terminal default binding and sampled electrical/interface checks pass. Complete operating envelope, statistical/measured RF accuracy, substrate parasitics and final installed qualification remain open.",
         "historical_evidence": [
-          "alternate-models-2026-10-17"
+          "alternate-models-2026-10-17",
+          "sky130-rf-default-2026-10-23"
         ]
       },
       "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_pw2dn.sym": {
@@ -25189,6 +25225,11 @@
       "path": "docs/validation/sky130-first-mim-2026-10-23.json",
       "sha256": "85608b52405e75bb42f06e3ba416da77b1aca10c5cea0ec0a1727c90fd4a43ab",
       "scope_limit": "Finite first-MiM orientation and contact-edge correction, both-family native regression and public-model electrical equivalence. No measured RF accuracy, complete operating/statistical/reliability envelope, arbitrary layout, distributed RC, installed-release or foundry qualification."
+    },
+    "sky130-rf-default-2026-10-23": {
+      "path": "docs/validation/sky130-rf-default-2026-10-23.json",
+      "sha256": "b67a119a3d9b14b191d5b7d36cb75b296e8af91ad1752966119074c5837e214d",
+      "scope_limit": "Default RF ps2nw sampled integration, saved-version preservation, and public MiM contact-topology regression. No complete device envelope, measured RF accuracy, foundry or installed-release qualification."
     }
   },
   "execution_acceptance": {

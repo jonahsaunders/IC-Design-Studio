@@ -1,0 +1,818 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "date": "2026-10-23",
+  "status": "passed_bounded_default_binding_and_public_layout_regression",
+  "chunk_complete": false,
+  "qualified": false,
+  "baseline_commit": "21737469388cf68e4985ebb653e29b5390fd7375",
+  "branch": "experimental",
+  "scope": "Default RF ps2nw sampled integration, saved-version preservation, and public MiM contact-topology regression. No complete device envelope, measured RF accuracy, foundry or installed-release qualification.",
+  "source_files": {
+    "icstudio/sky130_mim2_extract.py": "0ef71dfe61e9c05b5a9179c2bdfc3fefa60e056932f972889757a3d83b0cd39f",
+    "scripts/prepare_sky130_rf_default.py": "2db5c78d25261b1934a315a4fb283244ae17f77a89e37ef7a0f70d21666b2041",
+    "scripts/sky130_rf_source.py": "17293f8b5b4597ca2f73ef6a2b433c1281b32029d55840ef10ff8f9f549006d6",
+    "scripts/sky130_mim_source.py": "5ebd6fca75062aa8e368711c6c749ce1f6f48d75d3764d0818f71038d869e5ca",
+    "scripts/device_qualification_source.py": "7b624fcef323a2c61e70d5c0f55a27e4c7e0d361d9de98e929695e87ee4f1f42",
+    "scripts/prepare_default_device_packages.py": "f456a87baaf616121d5daed431e4ee53422effd183bd489acc41af23419e456c",
+    "scripts/qualify_sky130_rf_default.py": "30c155b6144c4cc1b979e890a001bf9b47560e91824375f17e4709a1c313a520",
+    "scripts/qualify_sky130_rf_application.py": "a053065e031b53efe3ea3ef7ef799cf277f97e586d1d6831571d709dfdbc7acb",
+    "scripts/qualify_sky130_rf_programs.py": "aeab126e0275040783ffeeb51b926733faf9807bc30345b22537c2f80577b0b8",
+    "tests/test_sky130_rf_default.py": "0065e8385f2c3f4d43b9f1d95dbe47510cc119692545fb2db6fb9a3e63b8dcba",
+    "tests/test_sky130_mim_contact_topology.py": "b7e563430f0c5da2bea4e88e07e6aca0e3510eb734d2c17bd44132e3a8dcd714",
+    "tests/test_qualification_evidence.py": "f0ba1cafcb1908628c35872b64f63e419c5e4b0fc09afbea54b07e7ed22b9698",
+    "tests/test_catalog_multiplicity.py": "e3408d1ebd2d983f1d85c524124d871c79330f94330ccf13647d1a759a4a2876",
+    ".github/workflows/build-desktop.yml": "7dda4bff1b5c74087acd92d43cad12bd62494af947f24b2a037898277bc7f5f8",
+    ".github/workflows/physical-qualification.yml": "e3299c28803f433b5077647873afa43497aecc4975c86edd67651293761856a8"
+  },
+  "package": {
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+    "proof": {
+      "schema": 1,
+      "source_manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
+      "source_revision": "857acac277f431b3",
+      "source_lock_sha256": "9bbc32cb158ae7f842aee085abaa834df9576eb2a5fad0c00f81eeb07607b570",
+      "source": {
+        "schema": 1,
+        "repository": "https://github.com/google/skywater-pdk-libs-sky130_fd_pr",
+        "tree_sha": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+        "license": "Apache-2.0",
+        "files": [
+          {
+            "path": "models/parasitics/sky130_fd_pr__model__parasitic__diode_ps2nw_noresistor.model.spice",
+            "git_blob": "9066b2ca05b37bf870b1ed8d57e53b5ad3d1fe4c",
+            "sha256": "b869dcc80134e66cc044f24304eece2ca0b797a217f5d669b06e61219f6cd4a5",
+            "local_file": "sky130_fd_pr__model__parasitic__diode_ps2nw_noresistor.model.spice"
+          },
+          {
+            "path": "models/parasitics/sky130_fd_pr__model__parasitic__diode_pw2dn_noresistor.model.spice",
+            "git_blob": "1296a73d228176a082d092ab39c531e7fb2a9f63",
+            "sha256": "dde8dc3c9d8a8e38734d0fd9c8305f9f8e4be3af3a0373f23012d76202b1b303",
+            "local_file": "sky130_fd_pr__model__parasitic__diode_pw2dn_noresistor.model.spice"
+          },
+          {
+            "path": "models/parasitics/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice",
+            "git_blob": "1aaadf50c97a3ceae699fb552abb8df6a39cbd8e",
+            "sha256": "9162840af01b56ca3b36556ee7a5d996cf41f0ec63e65430337f624d7dfa358c",
+            "local_file": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice"
+          },
+          {
+            "path": "models/parasitics/sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice",
+            "git_blob": "f195f53a72a82d4880e8f0d15d60e0638c57e275",
+            "sha256": "e50e34a0a7fc44b30095258717e2ed394e7dc614af2d18402c0765d196ef3906",
+            "local_file": "sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice"
+          }
+        ],
+        "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "scope": "Unmodified public original RF diode and primitive models. Separate explicitly named derivatives add the missing perimeter parameter; no complete RF qualification."
+      },
+      "original_binding": {
+        "alternate_of": "sky130_fd_pr/diode.sym",
+        "category": "Diodes",
+        "emit_parameters": {
+          "area": "area"
+        },
+        "kind": "PDK",
+        "label": "model__parasitic__rf_diode_ps2nw (diode)",
+        "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+        "notes": [
+          "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+        ],
+        "parameter_scale": {
+          "l": 1000000.0,
+          "w": 1000000.0
+        },
+        "parameters": {
+          "area": {
+            "default": "1e12",
+            "derived": false,
+            "integer": false,
+            "positive": false
+          }
+        },
+        "pin_order": [
+          "d0",
+          "d1"
+        ],
+        "prefix": "D",
+        "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
+        "symbol": {
+          "attributes": {
+            "format": "@name @pinlist sky130_fd_pr__@model area=@area",
+            "template": "name=D1\nmodel=diode_pw2nd_05v5\narea=1e12\n",
+            "type": "diode"
+          },
+          "pin_meta": {
+            "d0": {
+              "bus": "",
+              "direction": "inout",
+              "label_visible": true,
+              "required": true,
+              "role": "signal"
+            },
+            "d1": {
+              "bus": "",
+              "direction": "inout",
+              "label_visible": true,
+              "required": true,
+              "role": "signal"
+            }
+          },
+          "pin_order": [
+            "d0",
+            "d1"
+          ],
+          "pins": {
+            "d0": [
+              0.0,
+              30.0
+            ],
+            "d1": [
+              0.0,
+              -30.0
+            ]
+          },
+          "primitives": [
+            {
+              "kind": "line",
+              "points": [
+                [
+                  0.0,
+                  -30.0
+                ],
+                [
+                  0.0,
+                  -5.0
+                ]
+              ]
+            },
+            {
+              "kind": "line",
+              "points": [
+                [
+                  0.0,
+                  5.0
+                ],
+                [
+                  0.0,
+                  30.0
+                ]
+              ]
+            },
+            {
+              "kind": "line",
+              "points": [
+                [
+                  -10.0,
+                  -5.0
+                ],
+                [
+                  10.0,
+                  -5.0
+                ]
+              ]
+            },
+            {
+              "kind": "polygon",
+              "points": [
+                [
+                  0.0,
+                  -5.0
+                ],
+                [
+                  -10.0,
+                  5.0
+                ],
+                [
+                  10.0,
+                  5.0
+                ]
+              ]
+            },
+            {
+              "font_size": 8.0,
+              "kind": "text",
+              "points": [
+                [
+                  15.0,
+                  25.0
+                ],
+                [
+                  35.0,
+                  35.0
+                ]
+              ],
+              "rotation": 180,
+              "text": "@name"
+            },
+            {
+              "font_size": 8.0,
+              "kind": "text",
+              "points": [
+                [
+                  15.0,
+                  -12.5
+                ],
+                [
+                  35.0,
+                  -2.5
+                ]
+              ],
+              "rotation": 180,
+              "text": "@model"
+            },
+            {
+              "font_size": 8.0,
+              "kind": "text",
+              "points": [
+                [
+                  15.0,
+                  7.5
+                ],
+                [
+                  35.0,
+                  17.5
+                ]
+              ],
+              "rotation": 180,
+              "text": "@symname"
+            }
+          ]
+        },
+        "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected."
+      },
+      "device": "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_ps2nw.sym",
+      "terminal_mapping": {
+        "d0": "c0 anode",
+        "d1": "c1 cathode"
+      },
+      "change": "Bind the reviewed X subcircuit; derive area/perimeter from rectangular W/L. Preserve the public originals; derivative adds PJ={perim} to dp only.",
+      "scope": "Sampled two-terminal simulation integration only. Complete operating envelope, statistical behavior, substrate parasitics, measured RF accuracy and final installed acceptance remain unqualified.",
+      "qualified": false,
+      "default_promoted": true,
+      "excluded": "rf_diode_pw2dn remains unavailable in the default; no electrical model of its three-terminal isolation is asserted.",
+      "license": "Original Apache-2.0 model files and license retained with an explicit modification notice. Application integration is GPL-3.0-or-later."
+    }
+  },
+  "full_source_acceptance": {
+    "status": "PASS",
+    "chunk_complete": false,
+    "qualified": false,
+    "hosts": {
+      "Linux": {
+        "status": "PASS",
+        "full_suite_tests": 3322,
+        "full_suite_skips": 42,
+        "full_suite_log_sha256": "f2aedbe482c043995538a3e59899d5e908e5a99ac658b53cff8fcaa17f440cf2",
+        "final_fixture_checks": 15,
+        "fixture_log_sha256": "e2fb31f39d4f17242c70931cac25eeb54cb7208ca41b51de0441cf5e08ff1690",
+        "native_record_sha256": "45af311b2fb6b6d27fe0fbb81d50c13f0dccd20a1bc3019ef8ff4f072b859a92",
+        "production_sources_unchanged": true
+      },
+      "Windows": {
+        "status": "PASS",
+        "full_suite_tests": 3322,
+        "full_suite_skips": 65,
+        "full_suite_log_sha256": "d9ac9942b2a0535ba6a20dbca94b81539686dc5aa4680b7db878299a2f24cca6",
+        "final_fixture_checks": 15,
+        "fixture_log_sha256": "db46d3937386b285d87416385a3c3bdae061da22cbafc0239ef102a9e8c19ec3",
+        "native_record_sha256": "d246f37b11c5e8e46c0bd317d09376408fc8f4b90f8cc1bd7615b64215d8264d",
+        "production_sources_unchanged": true
+      }
+    },
+    "linux_repaired_full_suite_sha256": "c91e955d7d332775ad2158ad69670e73beb0bd8fdc353bf4ee2b2468d3382c57",
+    "current_fixture_sha256": "f0ba1cafcb1908628c35872b64f63e419c5e4b0fc09afbea54b07e7ed22b9698",
+    "scope": "Complete source suites and final native batches; the final isolated fixture repair is separately tested on both hosts. Earlier failed runs and harness source-change flags remain retained. No hosted or installed-release acceptance."
+  },
+  "independent_rf_audit": {
+    "status": "PASS",
+    "hosts": {
+      "Linux": {
+        "status": "PASS",
+        "raw_files": 54,
+        "samples": 1512,
+        "faulted_instances": 54,
+        "automatic_runtime_proofs": 54,
+        "program_fault_routes": 3,
+        "files": {
+          "default/application/nominal-27/dc/application/result.raw": "0f1ab4d6e580aabb69c40f590216b71c479d9e0193e0a6f665413a6759327a0b",
+          "default/application/nominal-27/dc/independent/deck.raw": "c86177bbffa8b9dbe7c4d7b928dcf6beef716986a36dba9eb598f76cd3c9b8c3",
+          "default/application/nominal-27/ac/application/result.raw": "97f9d6c0dee3feb145a62fdff99d6f12a2de14e628942fd4173a563bae75a0c9",
+          "default/application/nominal-27/ac/independent/deck.raw": "9a4254fcd8baf4b18c1630f4f0c8b6963654a9d6579c16ffc32819bc0a7303b1",
+          "default/application/nominal-27/reversed-pins/result.raw": "ab170aafb7483bff6722237f9358a0a93bcacabcead5eea81206e28fc120e5e0",
+          "default/application/nominal-27/wrong-width/result.raw": "adb40768c6422101bf386f4f35a1fcf62dc50722dafa7fb365e97510261467cc",
+          "default/application/nominal--40/dc/application/result.raw": "7c4ab6a18a542d3e639ed293762119ef0bd1b8a89d0590a6315dcb3e6247be65",
+          "default/application/nominal--40/dc/independent/deck.raw": "b1133b96f1c09cdff21575046d9ef086239bf653dae8eb7a167b08e3be9649e3",
+          "default/application/nominal--40/ac/application/result.raw": "86d4588f10ae6a7801453eb8e7cef55899b2bb0d0cabf8e0db7493fb99910e25",
+          "default/application/nominal--40/ac/independent/deck.raw": "b6c4011bd20a4f1466f9d0d59a2cc092120a6e4a75047bb01dac9a6b95a4afb8",
+          "default/application/nominal--40/reversed-pins/result.raw": "5a7d8776409514c803c19515afd108d3e3b34c578dbbe11d9d125a66c4a38681",
+          "default/application/nominal--40/wrong-width/result.raw": "517d5015c2eccd84cdf75a711ca9222bbbc4f41873864cc37904964e10937e30",
+          "default/application/nominal-125/dc/application/result.raw": "73d4709924c696ba361ba2f0afbe94344c51c602da3bf503f4db2e7541396a4a",
+          "default/application/nominal-125/dc/independent/deck.raw": "f425083b6c8cb7fc181320e9224942c49974d7bcf0e6c01a32c07214a8bb72c3",
+          "default/application/nominal-125/ac/application/result.raw": "912b9b43923a36adba1c83ec60ab9a9cc522502626254fd97ff98f20337d1170",
+          "default/application/nominal-125/ac/independent/deck.raw": "21858bc536061e803dccd906115ac1df52ff2b0b0ef181407c0827b9c3b2a9b3",
+          "default/application/nominal-125/reversed-pins/result.raw": "e18521113686bd1b0c7be3a33518af1f03d10035b2d283cc0c1907864498b099",
+          "default/application/nominal-125/wrong-width/result.raw": "84518dade3673b331c64f41d363ce5bb0f61ee324e43130996409a5a5db9fdd5",
+          "default/application/ss-27/dc/application/result.raw": "ffd42c39926bcd25ba720888ab40ff5e6bc8a0b15e653a76332e69fcf7b76cc4",
+          "default/application/ss-27/dc/independent/deck.raw": "d9c89d909afd4d899731268791751140d41d6c2f1d2475cda780789ea18ab561",
+          "default/application/ss-27/ac/application/result.raw": "b8550fcf433640ed4f3361519e0112b801331d607df3ba4b7db8b57f3aeac3c8",
+          "default/application/ss-27/ac/independent/deck.raw": "4206e8337b5278b6ca2117c2b73a2de9812354a717aed8177ac4dbfee5f9b28c",
+          "default/application/ss-27/reversed-pins/result.raw": "c595a5441b529054e483c02b051040cf08ca65bdf9a854505dba869e81ff740a",
+          "default/application/ss-27/wrong-width/result.raw": "9ebb0379841c5ccff3a4d4a08cc6cc96d40b2b69b622064be9c67cf4d45e3aa7",
+          "default/application/ss--40/dc/application/result.raw": "e102f5a7045dc185ec514ebd12b7536aac1990e75f892310f900f908e35c38f4",
+          "default/application/ss--40/dc/independent/deck.raw": "19d90fd82a02267039be02a5cbbf17a0e0154830eb983408264bf45f98d6e7f1",
+          "default/application/ss--40/ac/application/result.raw": "f94a93a106242e9a3d57e2ba95c7934caf4c62af5fe8a2625ee8d5a7b0457b7f",
+          "default/application/ss--40/ac/independent/deck.raw": "83e2b2562eddfe726ff5d93738f409db79cc5b54ee901876bd1e90f667f7d6fc",
+          "default/application/ss--40/reversed-pins/result.raw": "a33e6cdd90534a12254dfa91468cbc4e75c573e141c935c1054a4f5634e31db9",
+          "default/application/ss--40/wrong-width/result.raw": "c957c26aabaeb033d2932c9f0b1bfbcb4762126f4206f0338ea13506a5d5e23b",
+          "default/application/ss-125/dc/application/result.raw": "d93bd0d6a89ee2d392e62c9c046b4b25160baa44c32f2741c6477134ef1b1162",
+          "default/application/ss-125/dc/independent/deck.raw": "9c4f387890d20d9ee544aef09fe5baa6105a72f97d61c9d8885ac2fcf8d62448",
+          "default/application/ss-125/ac/application/result.raw": "53c1262005a29472068b640334c6686505024d2327b8c0c2da52fcea2a4ede99",
+          "default/application/ss-125/ac/independent/deck.raw": "c762385804af9bf447f54e8594009a6f1fce896aac7bfb56af6ca87f87bf8db9",
+          "default/application/ss-125/reversed-pins/result.raw": "88a6560f7566ac5f633c5d57006e51bac6bdcb2940a34eb7bb000e08ff7fa344",
+          "default/application/ss-125/wrong-width/result.raw": "3df2c3c7ee983dcc06a097f8175db9dedd8b4e859122d88abcf6423a2e5ee14d",
+          "default/application/ff-27/dc/application/result.raw": "145248a9f2c436d9160187eedc7914fe3217cde7ce96fc8c18fe4f3b1e267c44",
+          "default/application/ff-27/dc/independent/deck.raw": "0efe16a43075adbfc0f61dc7ee8ba405ac112e6faf1b910bf9975d1c463a8c1a",
+          "default/application/ff-27/ac/application/result.raw": "3581c359c76a20b24c75def88896a51ba0db9006538cdefd4edad73e0edb1920",
+          "default/application/ff-27/ac/independent/deck.raw": "a3745b7f93e683827e93f0a76a2ae62d981b826232ee5ebf14dd71dcf4d476a6",
+          "default/application/ff-27/reversed-pins/result.raw": "f7b020d2320d2131401758477b25ba9b009ee0c81f74bb5700ae4b90578b83f7",
+          "default/application/ff-27/wrong-width/result.raw": "191877cbd8d15ff40d66b97564e387faa60390324bf79c0d247985163e789a0b",
+          "default/application/ff--40/dc/application/result.raw": "bf50677fa77fd6ca18f0b1ef93a0ea74ff60d55d3cd889d03041b8707e1fa07e",
+          "default/application/ff--40/dc/independent/deck.raw": "b2e509885931f208a8c4cc6616ba6465601b945aafebe30f1dd18ac9aae25539",
+          "default/application/ff--40/ac/application/result.raw": "498b0820f29a4e613fe5e53d22a9519210602bd285aa606c514b8dab41e5f674",
+          "default/application/ff--40/ac/independent/deck.raw": "b5c37fd5187c3d108474d07541da8b1b62400e58bb6649e6ed3a41b19ab7d426",
+          "default/application/ff--40/reversed-pins/result.raw": "3fc69c9711f8c4c93e2a0107584ab37855bac86c5c2824ce4889562835c3c064",
+          "default/application/ff--40/wrong-width/result.raw": "f648433fece7d1cd4a5fe1270d7c78f8bba89d8960c812ecbbdb639767e7c342",
+          "default/application/ff-125/dc/application/result.raw": "39358445cf273ce8214c3e441ceba1887d8f2c60cc95f7f5b2b9878a861df9b7",
+          "default/application/ff-125/dc/independent/deck.raw": "510290d6d1711f284bae312270d14982a8d54d3304fe9e47427fdbe39cd5f239",
+          "default/application/ff-125/ac/application/result.raw": "1da8e3245b74bbb5e8f0760ebfd3b9380b2a4c76115cf66c71efcd153ecfd512",
+          "default/application/ff-125/ac/independent/deck.raw": "fa22354332732dbcd077fe0d17606c658765369dfcb064dac68221ae871114ce",
+          "default/application/ff-125/reversed-pins/result.raw": "ca618e71e43f2f7aea5f4435954a00f3471a52d17b065e7636f048db8af9e458",
+          "default/application/ff-125/wrong-width/result.raw": "f28ed9c427f039207207493f98d427273b0fbe0c910a867862a0ca9433a58efe"
+        }
+      },
+      "Windows": {
+        "status": "PASS",
+        "raw_files": 54,
+        "samples": 1512,
+        "faulted_instances": 54,
+        "automatic_runtime_proofs": 54,
+        "program_fault_routes": 3,
+        "files": {
+          "default/application/nominal-27/dc/application/result.raw": "b4013b0724608a85324b53b51c69e83b02a6d1f7f6f8d417efdef38268c0e9aa",
+          "default/application/nominal-27/dc/independent/deck.raw": "3cd169719a7844c16533354254f7106c2ff43a60daa99532a0adfaf51d78d595",
+          "default/application/nominal-27/ac/application/result.raw": "d915d04cd9f4996298ae3273732a50ce87ce0308280888008affc904e66b64a6",
+          "default/application/nominal-27/ac/independent/deck.raw": "ad17b76e0ff544f92df8695fa511d5e50f36578ee8eb7089b5f1fdba5b095e68",
+          "default/application/nominal-27/reversed-pins/result.raw": "aa175ba3f5a11426b575e6724f37e65b25591d91a2e8e59146496106c4cf1545",
+          "default/application/nominal-27/wrong-width/result.raw": "9ed8851b855ef5b227f4be58d450a5c3ae5086042f0fd002fef48067cd7de93b",
+          "default/application/nominal--40/dc/application/result.raw": "9f098576576d88498347501481569d2cdb9b0ca94a8ad76c74d9d379f714b87c",
+          "default/application/nominal--40/dc/independent/deck.raw": "aff655ebdb2afdaa9efd520dd04926a6d595fcbf813df5e947487c388cd21069",
+          "default/application/nominal--40/ac/application/result.raw": "72a8bd8fe24b9c6e275984923cfc0dc4fde0cc12e775d75bf50298f7a0635746",
+          "default/application/nominal--40/ac/independent/deck.raw": "cea16442ecfcef4df96519626567912ef2098e4e5d8fbe215a1012ecc5b2a3bc",
+          "default/application/nominal--40/reversed-pins/result.raw": "3a5d89a8a93fdab795b7cdb0bd754414bdaba7f731ec46e348283d757638d5e6",
+          "default/application/nominal--40/wrong-width/result.raw": "400b513ea69b02f0852435e3bb8bb8c1b123fcfd125f46ee6780205ce64468e4",
+          "default/application/nominal-125/dc/application/result.raw": "4c9fd3f829dca9c0676d57e3da6e2f87e88e453f0adebff87ad37a22a846cfb7",
+          "default/application/nominal-125/dc/independent/deck.raw": "29a281eee6f9a8e23813e396768b43b608ca92d1a344954007463a310aad524e",
+          "default/application/nominal-125/ac/application/result.raw": "02e840a877527da6797df19d68b31dd481930cadcb799353c7c1cb468b965332",
+          "default/application/nominal-125/ac/independent/deck.raw": "5099787f07572cd6a5cb8ddd9d888cc04c8eb83abab6afc532cc31e18464091c",
+          "default/application/nominal-125/reversed-pins/result.raw": "0a7907d2abc2d83ba9e1a5f376281abf362dd95666033f6bef5107306fd78353",
+          "default/application/nominal-125/wrong-width/result.raw": "922cc606192d01e4a82f784bb5b74d1d1bf50bc153aeb056e746c11cd4c6b3da",
+          "default/application/ss-27/dc/application/result.raw": "cbf6ad1a8dd453eee4255c58da6d3b114507ff2a98c654e8f71cdf9b2f0cb032",
+          "default/application/ss-27/dc/independent/deck.raw": "49eddb1646243170a7fc3695929383248279c7f4a846513645e5b41438b6d9ed",
+          "default/application/ss-27/ac/application/result.raw": "4cc6e92f31bc8705dd161c50e7c93073ec61112d01c019f85969bec5d9ebdb7e",
+          "default/application/ss-27/ac/independent/deck.raw": "a20f917b68f38e7c15dc905d9cbf86a6fff921c0a8fc935db399b52ff9d1f3d4",
+          "default/application/ss-27/reversed-pins/result.raw": "0b1561ac21bf723a2627b42854178be7d3b667e27778f8e607f3b387d4ce497d",
+          "default/application/ss-27/wrong-width/result.raw": "f95160ae5867c9c18e4de769c831ff6fb2edbeddfdbad537ba2a217e5f7201f9",
+          "default/application/ss--40/dc/application/result.raw": "773763af72d54bd5a79fd586abf805775b514d55553fab2069c8017aadd5c93b",
+          "default/application/ss--40/dc/independent/deck.raw": "fe078413e70c36d11be6de6fd1dde7413b6eccdaf0bd256d8780e00d2acc064a",
+          "default/application/ss--40/ac/application/result.raw": "5deda795b15d3c43029d0b5ccff5a3061039a4e479ebaf95ac78ce7d893fbba5",
+          "default/application/ss--40/ac/independent/deck.raw": "f978ebede0a4407a499df89e5d92ebd0803b4b8eccb0bd2e5113cc59887a7b30",
+          "default/application/ss--40/reversed-pins/result.raw": "18ab631e7e277ac5262d011b6709b52fa7c12fec893c60a1f6f89808da110f93",
+          "default/application/ss--40/wrong-width/result.raw": "ddf6d14564b15296ec477841cc0751d8610a6dd9d135ed0ce22f022cd37c35a9",
+          "default/application/ss-125/dc/application/result.raw": "19b8f5cfa46824fed737977376e915adc47eff42690a290d1a5802bf9b933bea",
+          "default/application/ss-125/dc/independent/deck.raw": "0e83910ce9d4424e0c01950e0d54fea8c4ae6af29cb75f5309bf97d9afb72d9b",
+          "default/application/ss-125/ac/application/result.raw": "37a3ff9c84cecb73818dcdf72eb1b81414c02de062cced388274365b99005431",
+          "default/application/ss-125/ac/independent/deck.raw": "e76e0f7be1d64f8fa3c63ba340c51dfa85248f8d24801c6493e82f54e946f069",
+          "default/application/ss-125/reversed-pins/result.raw": "4cdcace65ba6724b0c20fc182ff31f48a6e07850d6b2cf1e521fb08b695916a5",
+          "default/application/ss-125/wrong-width/result.raw": "b7298a03327e6c92506b58c1960d87a2bcfb9a0eec4a6e4efa5d1f62083cffac",
+          "default/application/ff-27/dc/application/result.raw": "a5630495664ccc1dc84513b4bd8be7cbad19293609584af19a508adc553ad859",
+          "default/application/ff-27/dc/independent/deck.raw": "6c85a1554025241735eb11e2449dae92c32b6eb5a9da90fe643da5b37ebb6370",
+          "default/application/ff-27/ac/application/result.raw": "304866e4dd2f38a20c80626b422b4241b5973efc816fd9e96859f5ec362fa2f6",
+          "default/application/ff-27/ac/independent/deck.raw": "cd3e4eaf9a80872408105c5e502aa00d2c2b30b5cd373b8d69fc51829f73b268",
+          "default/application/ff-27/reversed-pins/result.raw": "22cea4fd956e4dc9e151fdc2afcdaca309359149089d46503c35877cf53ad3bc",
+          "default/application/ff-27/wrong-width/result.raw": "21e5ed49c6ac39047dc3ff1442032cd8ac1f94200d83f46adf9e92320b36f1c7",
+          "default/application/ff--40/dc/application/result.raw": "4bb6934ba8e467ed4e60b11dce219675869b296c9bd08e402e14d5a57702a1ba",
+          "default/application/ff--40/dc/independent/deck.raw": "f9434197320c409626e596486089e9977b05af85d04b46ca3f0a56c14e6d0f84",
+          "default/application/ff--40/ac/application/result.raw": "502f7a3f155d6a39210c1a5b1f9d8ea6dd0b953824dfb5ca76cb3c6dae3f48b1",
+          "default/application/ff--40/ac/independent/deck.raw": "a54e0d1536da7d9a74a7c84c3a832860be21da9263591d8eaa9b5b3687ef4d43",
+          "default/application/ff--40/reversed-pins/result.raw": "3b081c1bdcca8869eb9e70544638bb8cda4972957758e13ab80ce275db26bc49",
+          "default/application/ff--40/wrong-width/result.raw": "7453d8867e2d266d9ff6fb8955a6f398af023912d1b4cd876473e09bd92cbed1",
+          "default/application/ff-125/dc/application/result.raw": "e00a8f60e2c990afa8d9d50520a90cbf05b52dec030f170f6362dc5a5fa6feff",
+          "default/application/ff-125/dc/independent/deck.raw": "45c97563e48f172d858e91936f1d6d66e55372d45dc15cfa454b3f31e3e36e39",
+          "default/application/ff-125/ac/application/result.raw": "b108f0c1529a35826875d5b165b36b2318b3c15842a4687f5ebf113acc8fbcea",
+          "default/application/ff-125/ac/independent/deck.raw": "85c716821d7b6619fb0e83be49b12e9b3bf8eda59f9a87a7270edb5f02374064",
+          "default/application/ff-125/reversed-pins/result.raw": "cef5bdd276cd72259e95def84e7ae62c81a38f5b0694ce774ed7e1bd80309575",
+          "default/application/ff-125/wrong-width/result.raw": "5a61e7eb81541b6901747197d045b1d38ffdef29f41ec5ca23f605a3c75a6c85"
+        }
+      }
+    },
+    "cross_host_samples": 1512,
+    "cross_host_max_normalized_error": 0.0,
+    "auditor_sha256": "9a35580cb16f9fc2b0f582adc8d21fc8d5289da4d0f155f1291990a2ce3bb9b8"
+  },
+  "full_catalog_interfaces": {
+    "status": "PASS",
+    "entries": 302,
+    "available": 287,
+    "expected_rejections": 15,
+    "windows_record_sha256": "539f53f978390011687945ff8822bc9490821819c129225cd249a2637623fde8",
+    "linux_record_sha256": "438a94778dd39f2747a13a6a537c8a5a28125b802ac8b32c5b2d7fe09b63d9da",
+    "scope": "Both host runs pass; Linux raw interface output is retained in the archive."
+  },
+  "active_model_inventory": {
+    "status": "PASS",
+    "record_sha256": "22332ff3fed815764db5dea35c9a8061549b79defcdc327385b74164ca1a3718",
+    "targets": {
+      "sky130A": {
+        "revision": "b26f7f28e659ddc1",
+        "files": 322,
+        "definition_counts": {
+          "catalog": 101,
+          "unmapped-top-level": 203,
+          "internal": 4509
+        },
+        "missing_active_catalog_models": 0
+      },
+      "gf180mcuC": {
+        "revision": "b661a751abfc662a",
+        "files": 5,
+        "definition_counts": {
+          "catalog": 150,
+          "unmapped-top-level": 442,
+          "internal": 144
+        },
+        "missing_active_catalog_models": 0
+      },
+      "gf180mcuD": {
+        "revision": "2f92b1f05da58bd7",
+        "files": 5,
+        "definition_counts": {
+          "catalog": 150,
+          "unmapped-top-level": 442,
+          "internal": 144
+        },
+        "missing_active_catalog_models": 0
+      },
+      "ihp-sg13g2": {
+        "revision": "cfb96b74cf33877e",
+        "files": 39,
+        "definition_counts": {
+          "catalog": 58,
+          "internal": 37,
+          "unmapped-top-level": 32
+        },
+        "missing_active_catalog_models": 0
+      }
+    }
+  },
+  "public_layout_replay": {
+    "status": "PASS",
+    "source_sha256": "0ef71dfe61e9c05b5a9179c2bdfc3fefa60e056932f972889757a3d83b0cd39f",
+    "archive_sha256": "49cc164b5e55497bbf6fd42f40968c2bccaeae11e36403a60e19e2edcc1208dd",
+    "adapter_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+    "engine_sha256": {
+      "magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+      "netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+    },
+    "cases": [
+      {
+        "design": "comparator",
+        "route": "imported",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "design": "comparator",
+        "route": "gds",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "design": "comparator",
+        "route": "oasis",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "design": "comparator",
+        "route": "xschem",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "design": "common-mode",
+        "route": "imported",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "design": "common-mode",
+        "route": "gds",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "design": "common-mode",
+        "route": "oasis",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "design": "common-mode",
+        "route": "xschem",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "design": "amplifier",
+        "route": "imported",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "failed"
+      },
+      {
+        "design": "amplifier",
+        "route": "gds",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "failed"
+      },
+      {
+        "design": "amplifier",
+        "route": "oasis",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "failed"
+      },
+      {
+        "design": "amplifier",
+        "route": "xschem",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "failed"
+      },
+      {
+        "design": "amplifier",
+        "route": "corrected",
+        "status": "PASS",
+        "drc": 0,
+        "lvs": "passed"
+      },
+      {
+        "fault": "narrow-metal",
+        "status": "DETECTED"
+      },
+      {
+        "fault": "device-width",
+        "status": "DETECTED"
+      }
+    ],
+    "scope": "Replay all thirteen hosted native physical routes and two faults. Original amplifier polarity remains a required mismatch; no new external Xschem/import qualification."
+  },
+  "public_layout_audit": {
+    "status": "PASS",
+    "counts": {
+      "reports": 15,
+      "file_bindings": 179,
+      "asset_bindings": 675,
+      "native_capacitors": 42,
+      "native_ring_capacitors": 12
+    },
+    "auditor_sha256": "04dedacfb6f8690c9e9cb5134c3bc3d1e81450d9ed9342a9b7341f99b60fbd18",
+    "scope": "Independent integrity hashes and native global capacitor dimensions; all original extraction bytes remain unchanged in this public-layout replay."
+  },
+  "mim_orientation_regression": [
+    {
+      "status": "PASS",
+      "plate": 1,
+      "counts": {
+        "layouts": 64,
+        "capacitors": 200,
+        "faults": 47,
+        "streams": 128,
+        "integrity_bindings": 1200,
+        "raw_responses": 24,
+        "ac_samples": 192,
+        "swapped_resistance_faults": 21
+      },
+      "record_sha256": "9de42921c227548260563670074b95101d6d71cecad34b112b210a2f710659bb",
+      "audit_sha256": "f24bcdbf1f955ac100f1fce7eececac4400b217232bbd0fd2857401fcaba9c9f",
+      "scope": "Independent re-read of rectangular MiM masks, native records and AC data.\n\nNo application, generator, normalizer, qualifier or application raw parser is\nimported. Bottom-metal extension independently establishes the expected axis.\n"
+    },
+    {
+      "status": "PASS",
+      "plate": 2,
+      "counts": {
+        "layouts": 64,
+        "capacitors": 200,
+        "faults": 47,
+        "streams": 128,
+        "integrity_bindings": 1200,
+        "raw_responses": 24,
+        "ac_samples": 192,
+        "swapped_resistance_faults": 21
+      },
+      "record_sha256": "20d71d3f45d74eda25d7a32542249b8a61242cf31fbcfc57775d192ded7411be",
+      "audit_sha256": "f24bcdbf1f955ac100f1fce7eececac4400b217232bbd0fd2857401fcaba9c9f",
+      "scope": "Independent re-read of rectangular MiM masks, native records and AC data.\n\nNo application, generator, normalizer, qualifier or application raw parser is\nimported. Bottom-metal extension independently establishes the expected axis.\n"
+    }
+  ],
+  "archive": {
+    "status": "PASS",
+    "archive_sha256": "c3afac6dd2d0d12ee19749bbbe8f39b28630e62b93b580f92ac4644caebda79a",
+    "archive_bytes": 235544227,
+    "logical_files": 110177,
+    "unique_objects": 16919,
+    "logical_bytes": 10840780466,
+    "verified_all_objects": true,
+    "hosted_archive_sha256": "49cc164b5e55497bbf6fd42f40968c2bccaeae11e36403a60e19e2edcc1208dd",
+    "hosted_archive_bytes": 107978852,
+    "source_zip_entries_verified": true,
+    "skipped_archives": [
+      "hosted-public-layouts.zip",
+      "source-final.zip",
+      "source.zip"
+    ]
+  },
+  "archive_location": "IC-Design-Studio-evidence/sky130-rf-default-2026-10-23-v1",
+  "archive_replay": {
+    "status": "PASS",
+    "restored_files": 6791,
+    "archive_sha256": "c3afac6dd2d0d12ee19749bbbe8f39b28630e62b93b580f92ac4644caebda79a",
+    "results": {
+      "comparator-imported": {
+        "status": "PASS",
+        "report_sha256": "e550066197a1f6b4f5f6e505079224ead919446d4bda8b58bd07511e43c14546"
+      },
+      "fault-narrow-metal": {
+        "status": "PASS",
+        "report_sha256": "ed7577ff95ce2112511ca816f8c3437aab319f412b7a933374b2dc91e1edb854"
+      },
+      "fault-device-width": {
+        "status": "PASS",
+        "report_sha256": "0758e678338c6cba840881162f83fcc7bd18faa364ff58e984385cbb02d7d36d"
+      },
+      "rf-pilot": {
+        "status": "PASS",
+        "log_sha256": "baa5858d30d86ba4e32b6a534355da1c1bd84c0aff29e58e68d799c7a4ad1d07"
+      },
+      "tests": {
+        "status": "PASS",
+        "log_sha256": "69baef8e3c13a3de89958d005995648a3d871ad9357344daa72de92b37f1bdb8"
+      }
+    },
+    "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+    "runner_sha256": "a3ea0ae9c96b97aeae768ef0b15b9a5eb20ed331ab4b49107b58ab56685ed60c"
+  },
+  "initial_failures_preserved": [
+    "Fresh-project harness initially compared differently formatted manifest bytes. Corrected by verifying the bundled identity and exact installed content, retaining both hashes.",
+    "Initial 3319-test runs found the stale 94-device SKY130 assertion; Linux also exposed a Git-dependent unit fixture. Both are corrected.",
+    "The first isolated Git mock also intercepted Linux platform detection and exhausted its call list. Scoped Git-only interception passes fifteen focused checks per host and the complete repaired Linux suite.",
+    "Windows native wrapper source-change flags remain failed because the unrelated MiM module/test fixture changed during those runs. Individual simulation results, independent raw audits and later pilots are retained; unchanged production sources are explicitly reconciled in the acceptance record.",
+    "Hosted public-layout comparison rejected valid surround/end contact geometry. All thirteen physical routes and both fault controls replay with expected outcomes after correction; original amplifier polarity remains a required failure."
+  ],
+  "remaining": [
+    "Six unavailable real-device bindings and nine utility entries; all 287 usable entries remain partial.",
+    "Complete operating envelopes, statistical and measured RF accuracy, substrate/isolation electrical behavior.",
+    "Broader physical/extracted and process-option coverage.",
+    "Fresh exact-revision hosted and final installed-release acceptance."
+  ],
+  "checkpoint": {
+    "status": "PASS",
+    "sha256": "b9de898bb2ecc0dfca612453dc5b0902dcb39c559c509d01f6d5fc5e9d433af5",
+    "bytes": 38714745,
+    "files": 2652,
+    "verified": true
+  },
+  "cleanup": {
+    "Linux": {
+      "status": "removed_verified_temporary_copies",
+      "targets": [
+        {
+          "path": "/var/tmp/icstudio-rf-default-20261023-v1",
+          "bytes": 886858846,
+          "verified_files": 12229
+        },
+        {
+          "path": "/var/tmp/icstudio-rf-default-20261023-v2",
+          "bytes": 2346642370,
+          "verified_files": 26773
+        },
+        {
+          "path": "/var/tmp/icstudio-rf-default-20261023-final",
+          "bytes": 3232658706,
+          "verified_files": 33334
+        },
+        {
+          "path": "/var/tmp/icstudio-rf-default-20261023-public",
+          "bytes": 975704464,
+          "verified_files": 405
+        },
+        {
+          "path": "/var/tmp/icstudio-rf-default-20261023-suite",
+          "bytes": 289760555,
+          "verified_files": 6351
+        },
+        {
+          "path": "/var/tmp/icstudio-rf-default-20261023-replay",
+          "bytes": 588567538,
+          "verified_files": 9395
+        }
+      ],
+      "bytes": 8320192479,
+      "archive_sha256": "c3afac6dd2d0d12ee19749bbbe8f39b28630e62b93b580f92ac4644caebda79a",
+      "checkpoint_sha256": "b9de898bb2ecc0dfca612453dc5b0902dcb39c559c509d01f6d5fc5e9d433af5",
+      "scope": "Only this batch temporary copies. Repository, persistent PDK/engines and permanent archives remain; no administrator access or VHD compaction."
+    },
+    "Windows": {
+      "status": "removed_verified_temporary_copies",
+      "targets": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-rf-default-20261023-v1\\Windows",
+          "bytes": 598128268,
+          "verified_files": 5881
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-rf-default-20261023-v1\\Windows-v2",
+          "bytes": 2074150159,
+          "verified_files": 20424
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-rf-default-20261023-v1\\Windows-final",
+          "bytes": 388981436,
+          "verified_files": 3881
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-rf-default-20261023-v1\\package",
+          "bytes": 35813547,
+          "verified_files": 421
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-rf-default-20261023-v1\\source.zip",
+          "bytes": 84470410,
+          "verified_files": 6348
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-rf-default-20261023-v1\\source-final.zip",
+          "bytes": 84472476,
+          "verified_files": 6349
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-rf-default-20261023-v1\\hosted-public-layouts.zip",
+          "bytes": 107978852,
+          "verified_files": 1
+        }
+      ],
+      "bytes": 3373995148,
+      "archive_sha256": "c3afac6dd2d0d12ee19749bbbe8f39b28630e62b93b580f92ac4644caebda79a",
+      "checkpoint_sha256": "b9de898bb2ecc0dfca612453dc5b0902dcb39c559c509d01f6d5fc5e9d433af5",
+      "scope": "Only this batch temporary copies. Repository, persistent PDK/engines and permanent archives remain; no administrator access or VHD compaction."
+    }
+  },
+  "final_bookkeeping": {
+    "tests": 35,
+    "status": "PASS",
+    "log_sha256": "0add2e15c65258915aa033d14576b5ec39083e813bd4f1b2356d81511fe41644",
+    "release": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 166,
+      "local_links": 1774,
+      "gallery_examples": 13,
+      "pdk_coverage": {
+        "status": "matrix_consistent",
+        "process_qualification": "unqualified",
+        "targets": 4,
+        "requirements": 125,
+        "device_entries": 302,
+        "requirement_statuses": {
+          "not_run": 73,
+          "partial": 34,
+          "needs_definition": 4,
+          "passed_reference": 14
+        }
+      }
+    },
+    "release_log_sha256": "cb4271d3ab0ffd5f28301c8815592c64a558484715562cf5fa8f84583a18a953",
+    "workflow_validation": "Both changed workflows pass actionlint; no qualification checks were removed."
+  }
+}

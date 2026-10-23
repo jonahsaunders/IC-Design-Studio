@@ -7,7 +7,8 @@ import tempfile
 import unittest
 
 from scripts.prepare_sky130_rf_qualification import BASE, ROOT, corner_sources
-from scripts.sky130_mim_source import PROMOTED, previous_mim
+from scripts.sky130_mim_source import previous_mim
+from scripts.sky130_rf_source import PROMOTED
 
 
 class RFCornerSourceTests(unittest.TestCase):

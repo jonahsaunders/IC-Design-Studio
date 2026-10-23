@@ -7,13 +7,14 @@ from scripts.device_qualification_source import PROMOTED,PREVIOUS,INTERMEDIATE,p
 from scripts.prepare_alternate_models import BASE as ALTERNATE_BASE,prepare as alternate_package
 from scripts.sky130_li_source import BASE as LI_BASE
 from scripts.sky130_mim_source import BASE as MIM_BASE
+from scripts.sky130_rf_source import BASE as RF_BASE
 from scripts.gf180_hv_source import BASE as HV_BASE
 from scripts.ihp_npn_source import BASE as NPN_BASE
 
 
 def prepare(source,output,target):
     if target not in PROMOTED:raise ValueError('Unknown device package target.')
-    if file_digest(Path(source)/'package.json') not in (PROMOTED[target],PREVIOUS[target],INTERMEDIATE.get(target),ALTERNATE_BASE.get(target),HV_BASE.get(target),LI_BASE if target=='sky130A' else None,MIM_BASE if target=='sky130A' else None,NPN_BASE if target=='ihp-sg13g2' else None):
+    if file_digest(Path(source)/'package.json') not in (PROMOTED[target],PREVIOUS[target],INTERMEDIATE.get(target),ALTERNATE_BASE.get(target),HV_BASE.get(target),LI_BASE if target=='sky130A' else None,MIM_BASE if target=='sky130A' else None,RF_BASE if target=='sky130A' else None,NPN_BASE if target=='ihp-sg13g2' else None):
         raise ValueError('Input is not an exact reviewed package for '+target+'.')
     if target=='sky130A':
         from scripts.prepare_sky130_fixed_geometry import prepare as build
@@ -28,7 +29,9 @@ def prepare(source,output,target):
                     from scripts.prepare_sky130_mim_binding import prepare as mim_package
                     alternate=Path(tmp)/'alternate';alternate_package(base,alternate)
                     li=Path(tmp)/'li';li_package(alternate,li)
-                    record=mim_package(li,output)
+                    mim=Path(tmp)/'mim';mim_package(li,mim)
+                    from scripts.prepare_sky130_rf_default import prepare as rf_package
+                    record=rf_package(mim,output)
                 else:
                     from scripts.prepare_gf180_hv import prepare as hv_package
                     alternate=Path(tmp)/'alternate';alternate_package(base,alternate)

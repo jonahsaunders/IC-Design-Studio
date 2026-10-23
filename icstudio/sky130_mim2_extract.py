@@ -62,25 +62,37 @@ def electrodes(path, top, model=MODEL):
             bottom = db.Region(bottom[0])
             if len(list((regions['cap'] & bottom).each())) != 1:
                 raise ValueError('Shared MiM bottom electrodes need a separate extraction adapter.')
-            axes = set(); contacts = []
+            axes = set(); contacts = []; contact_region = db.Region()
             for cut in regions['cut'].each():
                 region = db.Region(cut)
                 if not (region-bottom).is_empty() or (region-db.Region(cap)).is_empty():
                     continue
                 if not (region & db.Region(cap)).is_empty():
                     raise ValueError('A MiM contact straddles the electrode boundary.')
+                contact_region += region
                 via = cut.bbox()
                 horizontal = ((via.right < box.left or via.left > box.right)
-                              and box.bottom <= via.bottom and via.top <= box.top)
+                              and via.top >= box.bottom and via.bottom <= box.top)
                 vertical = ((via.top < box.bottom or via.bottom > box.top)
-                            and box.left <= via.left and via.right <= box.right)
-                if horizontal == vertical:
-                    raise ValueError('MiM bottom-contact orientation is ambiguous.')
-                axes.add('x' if horizontal else 'y')
+                            and via.right >= box.left and via.left <= box.right)
+                axes.add('x' if horizontal and not vertical else 'y' if vertical and not horizontal else 'corner')
                 contacts.append([via.left,via.bottom,via.right,via.top])
-            if len(axes) != 1:
+            # A complete reflection-symmetric surround has no privileged axis.
+            # Retain native global X/Y values, with explicit evidence, instead
+            # of inventing a W direction or rejecting existing public layouts.
+            # This does not qualify its distributed resistance/parasitic model.
+            reflect_x = db.Trans(0, True, 0, box.bottom+box.top)
+            reflect_y = db.Trans(2, True, box.left+box.right, 0)
+            ring = {'x','y'} <= axes and all(
+                (region ^ region.transformed(transform)).is_empty()
+                for region in (bottom, contact_region) for transform in (reflect_x,reflect_y))
+            if ring:
+                row.update(axis='native', bottom_contacts=contacts,
+                    convention='Reflection-symmetric four-sided contacts: retain native global X/Y; no unique PCell orientation or RF resistance qualification inferred.')
+            elif axes == {'x'} or axes == {'y'}:
+                row.update(axis=axes.pop(), bottom_contacts=contacts)
+            else:
                 raise ValueError('MiM orientation needs bottom contacts on exactly one axis.')
-            row.update(axis=axes.pop(), bottom_contacts=contacts)
         rows.append(row)
     return dbu, rows
 
@@ -143,7 +155,7 @@ def normalize(gds, top, technology, directory, log):
                  source_convention='sky130::cap_device: W along the bottom-contact direction; L perpendicular.',
                  gds_sha256=file_digest(gds),native_coordinate_nm=scale,gds_dbu_um=dbu,
                  electrodes=rows,changes=changes,native_sha256=file_digest(path),
-                 scope='Rectangular 2–30 µm capm/cap2m on the 5 nm grid (first plate at most 5:1), one bottom electrode per capacitor and unambiguous contact axis. Connectivity and all other native values are unchanged.')
+                 scope='Rectangular 2–30 µm capm/cap2m on the 5 nm grid (first plate at most 5:1), one bottom electrode per capacitor. Correct unambiguous contact axes; reflection-symmetric four-sided contacts retain native global X/Y without a unique-orientation or RF-resistance claim. Connectivity and all other native values are unchanged.')
     if (directory/'native-original.ext').exists():
         raise ValueError('MiM extraction was already normalized.')
     (directory/'native-original.ext').write_bytes(original)

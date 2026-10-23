@@ -73,6 +73,12 @@ user, not a claim that those requirements have been solved.
 
 ## Chunk 7: device execution is in progress
 
+The [RF default integration](SKY130_RF_DEFAULT.md) resolves the n-well RF diode
+simulation binding in a new package revision. Six real bindings remain
+unavailable; all 287 available entries remain partial. The public-layout MiM
+regression is repaired locally with all original fault controls retained. Full
+operating envelopes and exact final hosted/installed acceptance remain open.
+
 The [first-MiM follow-up](SKY130_FIRST_MIM_LAYOUT.md) fixes the corresponding
 rectangular orientation defect and contact-edge placement at fractional
 dimensions. It retains the first plate's existing geometry bounds and qualifies

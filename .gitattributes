@@ -83,3 +83,7 @@ docs/qualification/sky130-voltage-sources-v1/*.csv -whitespace
 docs/qualification/hosted-acceptance-2026-10-22/** -whitespace
 # Native failure fixtures retain their checksummed engine output verbatim.
 tests/fixtures/sky130-mim1-orientation-v1/**/*.log -whitespace
+
+# The default RF wrapper and retained public originals keep their locked bytes.
+icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-rf-ps2nw/*.spice -whitespace
+icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-rf-ps2nw/original/*.spice -whitespace

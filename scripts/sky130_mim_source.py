@@ -14,6 +14,13 @@ REVISION = '857acac277f431b3'
 
 @contextmanager
 def previous_mim(source):
+    from scripts.sky130_rf_source import previous_rf
+    with previous_rf(source) as old:
+        with _previous_mim(old) as base:yield base
+
+
+@contextmanager
+def _previous_mim(source):
     source = Path(source).resolve()
     if file_digest(source/'package.json') != PROMOTED:
         yield source

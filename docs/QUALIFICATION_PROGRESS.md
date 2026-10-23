@@ -1,5 +1,47 @@
 # Chunks 1–12: progress and forecast
 
+**Snapshot: October 23, 2026; RF default/public-layout follow-up on `2173746`.**
+The [new default RF n-well binding](SKY130_RF_DEFAULT.md) resolves one previously
+unavailable simulation choice. New SKY130 projects use `b26f7f28e659ddc1`; older
+assets, candidates and saved project identities remain recoverable. Public model
+originals and their Apache-2.0 license are retained with an explicit derivative
+notice. The p-well RF candidate remains separate.
+
+Both hosts pass nine corner/temperature conditions, 54 detected faulty instances,
+54 runtime proofs and three incompatible-engine routes. Independent readback
+checks 1,512 current samples per host; cross-host values match exactly. All 302
+catalog interfaces pass or produce their expected rejection. Both complete
+source suites pass **3,322 tests** (Windows 65 skips; Linux 42), with the final
+isolated fixture correction separately checked on both hosts. Original failures
+and source-change flags are retained and reconciled explicitly in the
+[execution record](validation/sky130-rf-default-2026-10-23.json).
+
+The hosted MiM contact-topology regression is repaired locally. All thirteen
+public physical routes and both deliberate faults produce expected results;
+the original amplifier polarity error remains a required mismatch. Independent
+audit checks 854 file/rule bindings and 42 native capacitors without changing
+their native extraction bytes. Both complete orientation batches also pass:
+128 layouts, 94 physical/reference faults and 48 electrical conditions, with
+400 capacitors and 2,400 integrity bindings independently re-read.
+
+A verified archive retains the exact source, native results and initial failures;
+restoring it reproduces the RF pilot, public comparator, both fault controls and
+eighteen regression tests. Fresh hosted and final installed acceptance are still
+required. The latest parent snapshot has nine successful workflows and two
+public-layout job failures corresponding to the locally repaired regression;
+other workflows remain running/pending. This batch has not claimed a hosted pass.
+
+A verified 38.7 MB checkpoint retains the restored replay and final checks.
+All 35 evidence/matrix/release tests, release-document checks and both workflow
+checks pass. Verified temporary copies were removed: 3.37 GB from Windows and
+8.32 GB inside Linux. Permanent evidence, the working repository, PDKs and engines
+remain; no administrator access or virtual-disk compaction was used.
+
+**Chunk 7 remains approximately 60% complete, low confidence (50–70%).** The
+matrix now has **287 partial entries, six unavailable real bindings and nine
+utilities**. Full operating envelopes, remaining models, wider physical/process
+coverage and final acceptance remain open. No completion gate was reduced.
+
 **Snapshot: October 23, 2026; first-MiM follow-up on `1461c4a`.**
 The [first-MiM correction](SKY130_FIRST_MIM_LAYOUT.md) fixes two reproduced defects:
 rotations exchanged model W/L, and some fractional dimensions placed contact cuts
@@ -32,6 +74,14 @@ coverage and exact final hosted/installed acceptance remain required. No gate or
 device status changed. The latest read-only hosted snapshot at `1461c4a` has six
 successful, five running, two pending and three queued workflows; it is not final
 acceptance. This batch will receive its own revision and hosted checks.
+
+Final sync follow-up: the fixes, retained regression fixtures, main tracker and
+public-source review are pushed as
+[`2173746`](https://github.com/jonahsaunders/IC-Design-Studio/commit/21737469388cf68e4985ebb653e29b5390fd7375).
+Remote `experimental` matches. Its first exact-revision hosted snapshot has seven
+running, six pending and three queued workflows; none has reported failure.
+Pending work is not acceptance. This sync/CI note remains local until the next
+appropriate push so it does not restart the active checks.
 
 **Previous completed batch, October 23, 2026.** Local evidence:
 [rectangular SKY130 second-MiM extraction](validation/sky130-mim-orientation-2026-10-23.json),
@@ -210,7 +260,7 @@ evidence or promised dates.
 | 4 | GF180 density | **Reference gate closed.** [Acceptance](validation/gf180-fill-closure-2026-10-09.json). | Preserve the six reference layouts' fill, exclusions and post-fill checks. | Mostly regression work; different floorplans need new evidence. |
 | 5 | IHP geometry and fill | **Reference gate closed.** [Acceptance](validation/ihp-fill-closure-2026-10-11.json). | Preserve the declared counter/UART/APB geometry, connectivity and extracted-performance coverage. | Mostly regression work; device and full-chip coverage remain separate. |
 | 6 | SKY130 public physical checks | **Approved public-baseline gate closed.** [Acceptance](validation/sky130-public-baseline-2026-10-16.json). | Maintain local DRC, antenna, LVS, density/fill and generic export for the versioned baseline and its exclusions. Full foundry signoff remains excluded. | Stable baseline with regression work. The user-approved narrower boundary applies only to this chunk. |
-| 7 | Device families | **In progress.** 286 catalog entries remain partial; seven real device bindings remain unavailable, alongside nine utility entries. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
+| 7 | Device families | **In progress.** 287 catalog entries remain partial; six real device bindings remain unavailable, alongside nine utility entries. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
 | 8 | Extraction and corners | **Pending formal qualification.** Coupon, extraction and corner tooling already exists. | Cover required routing layers/vias/device parasitics, coupling/fill and independent RC corners against source-backed references; execute the complete required condition pairs. | More structured once device and corner inputs are settled. **Medium-to-high uncertainty:** GF180/IHP additional independent RC data is an explicit gap. |
 | 9 | Analog blocks | **Pending formal qualification.** Amplifier, reference and other example workflows provide a starting point. | Freeze per-process numerical specifications, then qualify mirror, differential pair, amplifier, reference, oscillator, noise/statistics and relevant IHP bipolar/RF cases before and after extraction. | Substantial design-and-verification iteration. **Medium-to-high uncertainty** from corner failures, startup, stability and parasitics. |
 | 10 | Larger digital and mixed-signal designs | **Pending formal qualification.** Counter/UART/APB and teaching mixed-signal flows provide groundwork. | Lock a larger controller and per-target mixed-signal demonstrator; cover functionality, clock/reset crossings, actual interfaces, all-mode timing and final physical checks. | Existing flows should help. Planning can overlap chunk 9 once device/RC inputs are usable. **Medium-to-high uncertainty** at scale and at analog/digital boundaries. |
@@ -272,9 +322,9 @@ Recent chunk-7 work has produced concrete fixes and reusable verification:
   native-output audits and restored-archive replays pass. See the
   [physical record](validation/ihp-isolation-physical-2026-10-21.json) and
   [hierarchy record](validation/ihp-isolation-hierarchy-2026-10-21.json).
-- Those results leave all 286 available catalog entries at `partial`; they do
-  not resolve the seven unavailable real-device bindings or prove complete
-  operating envelopes. See the [device guide](DEVICE_ADAPTER_QUALIFICATION.md).
+- The current default has 287 available catalog entries at `partial`; six real
+  bindings remain unavailable. The RF default integration resolves one binding
+  without proving complete operating envelopes. See the [device guide](DEVICE_ADAPTER_QUALIFICATION.md).
 
 The wider requirement matrix also shows why later chunks cannot yet be called
 nearly finished: chunk 8 has 11 `not_run` and one `partial` target/test rows;
@@ -313,7 +363,7 @@ hosted or installed acceptance results.
 
 At the user's request, the **rough engineering estimate for chunk 7 is about
 60% complete**, with a broad planning range of **50–70% and low confidence**
-(October 22, 2026; application revision `b4e00d9`). This is a judgment about the
+(October 23, 2026; baseline `2173746` plus the recorded RF/default and public-layout corrections). This is a judgment about the
 implemented integration and accumulated verification work relative to the
 remaining gate, not a measured coverage score or a fraction of time remaining.
 Working device interfaces, selected electrical/physical batches and reusable
@@ -363,6 +413,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-23 | Added the sampled RF n-well default binding; unavailable real models fall from seven to six. Repaired the public MiM contact-topology regression with original fault controls. Both 3,322-test suites, independent audits and archive replay pass. | A concrete model-availability blocker is closed; all 287 available entries remain partial. Broader envelopes and final hosted/installed acceptance remain open. Estimate stays about 60%, low confidence. |
 | 2026-10-23 | Closed bounded rectangular second-MiM orientation: 64 layouts, 47 faults, both 24-condition electrical batches, independent audits, both 3,311-test suites and archive replay pass. | Removes the identified rotation defect. Full device, remaining-model and installed-release gates remain open; no increase to the low-confidence 60% estimate. |
 | 2026-10-23 | Repaired stale RF corner guards; both hosts pass 360 branch cases, 360 bias/noise cases, 90 transient conditions, application checks and 21 focused tests. Corrected IHP total-job and dependency-download limits. | Removes confirmed qualification regressions. Fresh hosted acceptance is pending; no device promotion or increase to the low-confidence 60% estimate. |
 | 2026-10-22 | Pushed `b4e00d9`: source-locked MiM multiplicity correction and saved-revision preservation; 54 native runs per host, both 3,301-test source suites, independent audits and archive replay pass. Recovered the isolated test-harness Git mistake without losing source changes. | One concrete integration defect is closed. All device statuses remain unchanged; exact-revision hosted acceptance is still running. This final sync note is local until the next code push. |

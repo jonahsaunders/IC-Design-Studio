@@ -1,5 +1,11 @@
 # Bundled device corrections and reproducible qualification
 
+The [RF n-well default integration](SKY130_RF_DEFAULT.md) makes the tested public
+`rf_diode_ps2nw` simulation binding available in new projects, preserving older
+versions and all original assets. The p-well candidate stays separate; complete
+RF device qualification remains open. The same batch repairs the public-layout
+MiM contact-topology regression without removing strict comparison or faults.
+
 The [first SKY130 MiM correction](SKY130_FIRST_MIM_LAYOUT.md) addresses rotated
 rectangular extraction and a contact-placement defect at fractional dimensions.
 Its native, electrical and mixed-family checks retain their bounded scope;
@@ -27,7 +33,7 @@ Linux, with all 756 faulty instances detected per host. Saved dimensions and
 package/model bytes are preserved. This addresses initial placement; complete
 device-family qualification remains open.
 
-New projects use bundled SKY130 revision `857acac277f431b3`, GF180 C revision
+New projects use bundled SKY130 revision `b26f7f28e659ddc1`, GF180 C revision
 `b661a751abfc662a`, GF180 D revision `2f92b1f05da58bd7` and IHP revision
 `cfb96b74cf33877e`. These include the tested resistor/NPN and MIM corrections,
 parallel-unit SKY130 varactors, capacitor terminal mappings, GF180 native-model
