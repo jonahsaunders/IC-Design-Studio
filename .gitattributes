@@ -3,6 +3,9 @@
 # Disabling newline conversion does not disable Git's text diffs.
 * -text
 
+# Preserve the exact archived Windows serialization of this source-only receipt.
+docs/validation/sky130-mim-installed-electrical-source-2026-10-23.json whitespace=cr-at-eol
+
 # Raw extraction evidence is byte-hashed; preserve engine whitespace verbatim.
 docs/validation/analog_extensions/primitive-rc/** -whitespace
 docs/validation/analog_extensions/floating-fill/** -whitespace

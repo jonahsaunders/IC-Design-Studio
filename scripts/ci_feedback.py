@@ -20,6 +20,8 @@ UNIT_MODULES = (
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
     'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_contact_topology',
+    'test_mim_desktop_probe', 'test_frozen_mim',
+    'test_installed_mim_electrical', 'test_installed_mim_public_drc', 'test_installed_mim_aggregate',
 )
 
 

@@ -153,5 +153,29 @@ repair checks. Independent review passes 46 Linux checks and 15 actual CLI
 fixture scenarios, including corrupt payloads combined with image differences,
 source/candidate drift and failed builds/probes. Fixtures do not establish
 native compilation. The [combined source feedback](validation/chunk7-identity-integration-2026-10-23.json)
-passes 320 tests per host, release contracts and both GUI probes. A fresh hosted
-candidate remains required for complete five-corner acceptance of the repair.
+passes 320 tests per host, release contracts and both GUI probes. Those local
+checks required a fresh hosted candidate for complete five-corner acceptance.
+
+The subsequent [recovery run 40039513837](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40039513837)
+at `c61eeaa3a416800cbd83c03a0409c475d638573a` passes all ten jobs, with one
+dispatch and no retries or cancellations. The producer reports image version
+`20261023.334.3`; nominal, ff and fs consumers report `20261012.334.1` and
+perform genuine locked native rebuilds. The ss and sf consumers match and reuse
+the producer's verified tools. All five readiness checks and complete native
+suites pass. Each suite records 106 nets, 3,261 resistors, 103 devices, four PVT
+cases and twelve startup ramps; every report retains `signoff=false`.
+
+The [hosted recovery record](validation/reference-toolchain-recovery-2026-10-23.json)
+binds the exact sources, all five reports, full producer and three rebuilt
+tool archives, and independent readback. Selected members of large consumer
+artifacts have locally verified hashes and ZIP CRCs; their complete ZIP hashes
+remain GitHub-reported. The three independent reference jobs also pass. The
+optional raw hierarchical Magic stream still fails with 288 DRC findings;
+the separately required canonical stream passes. This attempt supplies no raw
+stream LVS result. Other blocked optional scopes remain recorded separately.
+The producer takes 270 seconds
+(34 seconds setup, 220 seconds build), the three consumer rebuilds take
+178/252/254 seconds, and the complete job span is 24:21. These measurements
+describe this run; they are not a controlled speed comparison across different
+host images. This closes the observed infrastructure blocker without changing
+device-family, release or signoff gates.

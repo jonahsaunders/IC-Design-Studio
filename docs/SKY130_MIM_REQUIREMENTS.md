@@ -177,6 +177,68 @@ and archived sources reproduce the mixed case. This repairs the shape bypass;
 it does not close the complete `MIM-PHYSICAL-CLASSES` requirement or qualify
 arbitrary imported geometry.
 
+## Staged Windows engine preflight
+
+The [Windows engine preflight](validation/sky130-mim-windows-preflight-2026-10-23.json)
+passes 546 capacitor-multiplier comparisons and four linked MiM contexts using
+the exact staged ngspice 46 binary. Both models at 0° and tt pass 0/+5 V actual
+operating-point readback and 32 AC samples, with ten detected bias faults and
+five declared-domain rejections. Independent review binds the source to
+`c61eeaa`, verifies unchanged models/runtime and checks the selected historical
+native extraction under its original identity. This supports bringing up the
+installed probe with this engine; it is source/staged-engine integration and
+does not close `MIM-INSTALLED`. Other corners, −5 V and 90° are outside this
+selected Windows preflight.
+
+The [Linux native-runtime preflight](validation/sky130-mim-linux-runtime-preflight-2026-10-23.json)
+also passes all 546 analytical multiplier comparisons on the already available
+Ubuntu ngspice 42 binary. The desktop workflow selects this runtime separately
+from the corrected ngspice 47 managed payload. The known failure in unpatched
+47 therefore does not justify replacing 42 for this scope. This check uses
+the local system binary, not a frozen desktop, and does not exercise a PDK or
+the sixty-context linked MiM requirement.
+
+## Installed editor and native-layout subgate in development
+
+The built-in `--mim-acceptance` probe and separate
+`scripts/verify_frozen_mim.py` checker are implemented for both release
+platforms. The checker requires the selected clean commit, the actual frozen
+executable, the locked physical adapter, the bundled current simulation
+package and managed engines. The bounded scope is both 2×10 µm
+capacitors at 0/90 degrees, actual editor placement/edit/save/reopen and layout
+generation, preserved historical parameter mapping, native verification and
+failure/repair/stale-evidence controls. The
+[source bring-up record](validation/sky130-mim-installed-probe-source-2026-10-23.json)
+passes four GUI/native cases and three saved binding states, with seven queued
+jobs and six actual native executions. Independent readback verifies the raw
+scripts, geometry, extraction and DRC/LVS results, rejects ten rehashed evidence
+corruptions and confirms that the installed checker rejects the source report.
+
+Windows runs this inside the existing per-user installation before uninstall;
+Linux runs it against the frozen application before archive assembly. Both
+platforms then require public KLayout checks on the four exact GUI exports and
+a narrow-metal control, followed by all sixty predefined electrical contexts
+through the discovered shipped simulator. An independent electrical auditor
+checks raw operating points, AC samples, faulty-bias controls and model/runtime
+identity. `scripts/verify_installed_mim.py` binds these results to one selected
+candidate, the original GUI jobs and unchanged evidence inventories. The public
+and electrical pilots remain explicitly source-only; they cannot satisfy that
+installed aggregate. Release evidence archives retain every subgate.
+
+The [public source pilot](validation/sky130-mim-installed-public-drc-source-2026-10-23.json)
+passes all four exact exports and the declared narrow-metal fault under the
+255-category deck. The [electrical source pilot](validation/sky130-mim-installed-electrical-source-2026-10-23.json)
+passes all sixty contexts on the actual local ngspice 42, with sixty operating
+points, 480 AC samples and 180 detected bias faults. Independent readback rejects
+ten public-output and thirteen electrical-output corruptions. These are
+development checks against fresh GUI inputs, with exact engine identities and
+recoverable evidence; they do not describe a frozen installation.
+
+All existing release gates remain. Implementation and source-only bring-up do
+not establish installed acceptance. This selected workflow does not close
+`MIM-INSTALLED` for all applicable physical classes, or establish silicon
+accuracy, reliability or complete family qualification.
+
 ## Work still needed for family closure
 
 The contract separates local execution from missing source definitions:

@@ -123,7 +123,20 @@
       },
       "latest_sky130_mim_passive_evidence": "docs/validation/sky130-mim-passive-corners-2026-10-23.json",
       "latest_sky130_mim_bias_evidence": "docs/validation/sky130-mim-bias-boundaries-2026-10-23.json",
-      "latest_sky130_mim_shape_evidence": "docs/validation/sky130-mim-physical-scope-2026-10-23.json"
+      "latest_sky130_mim_shape_evidence": "docs/validation/sky130-mim-physical-scope-2026-10-23.json",
+      "latest_sky130_mim_windows_preflight": "docs/validation/sky130-mim-windows-preflight-2026-10-23.json",
+      "latest_sky130_mim_installed_source": {
+        "evidence": [
+          "sky130-mim-installed-probe-source-2026-10-23",
+          "sky130-mim-installed-public-drc-source-2026-10-23",
+          "sky130-mim-installed-electrical-source-2026-10-23"
+        ],
+        "status": "source_subgates_passed_installed_acceptance_pending",
+        "fresh_gui_native_inputs": 4,
+        "electrical_contexts": 60,
+        "installed_acceptance": false,
+        "device_statuses_unchanged": true
+      }
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -20130,7 +20143,8 @@
           "sky130-rf-default-2026-10-23",
           "sky130-mim-passive-corners-2026-10-23",
           "sky130-mim-bias-boundaries-2026-10-23",
-          "sky130-mim-physical-scope-2026-10-23"
+          "sky130-mim-physical-scope-2026-10-23",
+          "sky130-mim-windows-preflight-2026-10-23"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -20151,7 +20165,8 @@
           "sky130-rf-default-2026-10-23",
           "sky130-mim-passive-corners-2026-10-23",
           "sky130-mim-bias-boundaries-2026-10-23",
-          "sky130-mim-physical-scope-2026-10-23"
+          "sky130-mim-physical-scope-2026-10-23",
+          "sky130-mim-windows-preflight-2026-10-23"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -25370,6 +25385,26 @@
       "path": "docs/validation/sky130-mim-physical-scope-2026-10-23.json",
       "sha256": "be1a39a55f11935f4f461148a44d0385938b90d25f35b2a9f1a9c043391d3083",
       "scope_limit": "Shape dispatch repair regression only: two legal 2x2um squares and a separated first square/rotated second rectangle. No new size, physical-class, electrical-envelope or signoff qualification."
+    },
+    "sky130-mim-windows-preflight-2026-10-23": {
+      "path": "docs/validation/sky130-mim-windows-preflight-2026-10-23.json",
+      "sha256": "5dced7d900ce3590ef4e282eda65b56d1017264f34a11ce0bdf035f906dc41dd",
+      "scope_limit": "Staged native Windows46 engine and frozen project Python/model integration preflight; no installed desktop, new physical geometry, complete runtime dependency closure, full operating-envelope or manufacturing acceptance."
+    },
+    "sky130-mim-installed-probe-source-2026-10-23": {
+      "path": "docs/validation/sky130-mim-installed-probe-source-2026-10-23.json",
+      "sha256": "6b0eedd12c8866c42c1d73591e2dba5a61f4c4bafee345726fb2504aa1139025",
+      "scope_limit": "Source GUI/editor and fresh native layout implementation proof only; no installed or complete device/foundry acceptance."
+    },
+    "sky130-mim-installed-public-drc-source-2026-10-23": {
+      "path": "docs/validation/sky130-mim-installed-public-drc-source-2026-10-23.json",
+      "sha256": "18342c3920d701490d70012b58fe821176dcff85cf26cc505abbaf676fdaf790",
+      "scope_limit": "Source-only public block-geometry checks on four exact GUI exports and one width fault; complete-chip, density, antenna, installed and foundry acceptance excluded."
+    },
+    "sky130-mim-installed-electrical-source-2026-10-23": {
+      "path": "docs/validation/sky130-mim-installed-electrical-source-2026-10-23.json",
+      "sha256": "e072b7811a2174063492000427dd764a9d1bd01a2731157971356b5bb93c930a",
+      "scope_limit": "Source-only sixty-context electrical integration on four fresh GUI/native exports using actual apt ngspice42; no installed, silicon calibration, reliability, full envelope or foundry acceptance."
     }
   },
   "execution_acceptance": {
@@ -25385,8 +25420,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-23-campaign.json",
-        "sha256": "9cb783a7cf5fa0ca18cd8ad3ab9a91926322913515d9efc505264cfb4b98fef8"
+        "path": "docs/validation/gf180-tested-source-2026-10-23-mim-installed/manifest.json",
+        "sha256": "223027afbc7487e96b44215423ec38462b47cd7998ffaac93e9566db52bd9097"
       }
     },
     "5": {

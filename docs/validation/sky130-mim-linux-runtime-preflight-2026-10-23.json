@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "scope": "Offline analytical capacitor multiplier check on already present Linux apt42; not frozen/installed desktop acceptance or 60-context MiM integration.",
+  "source_candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+  "engine": {
+    "path": "/usr/bin/ngspice",
+    "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "package": "ngspice\t42+ds-3build1",
+    "version": "42"
+  },
+  "analytical": {
+    "biases_V": [
+      -0.5,
+      0,
+      0.5
+    ],
+    "forms": 7,
+    "frequency_points": 26,
+    "current_values": 546,
+    "maximum_normalized_error": 2.8892244116883096e-09,
+    "relative_tolerance": 1e-06,
+    "absolute_current_tolerance_A": 1e-14,
+    "report_sha256": "d032f29acbcfe472d4087d9344541af13cdf058bbb348e4bd63b47fbf069a282"
+  },
+  "source_sha256": {
+    "scripts/verify_ngspice_capacitors.py": "802b531a0f2b60ae1927cc4e9542fdeba2c97e6a8f21c0ac00fe7657f530c82b",
+    "scripts/qualify_standard_mos.py": "e81ecb7830395d47e5ae1f14e3e25c3f13c513e30a3801b5ed8c85a83c09cc94",
+    "icstudio/engines.py": "ab0e2a1a1dd8f4f22b9495ae3481273965212a48bf5e3896dae69ea6d5b13049",
+    "icstudio/model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249"
+  },
+  "source_unchanged": true,
+  "engine_unchanged": true,
+  "packaging_finding": "At c61eeaa the Linux desktop workflow selects apt ngspice as ICSTUDIO_BUNDLED_NGSPICE; package.py copies that binary, separate from corrected47 in the managed Linux/WSL payload. The resistor-divider packaging check alone does not exercise nonlinear capacitor multiplier semantics.",
+  "decision": "Keep the current Linux native42 runtime for this scope; actual42 passed the known analytical regression. Do not infer42 failure from retained unpatched47 failure. Add the pending real installed GUI/native/electrical60 gate.",
+  "retained_environment_error": {
+    "cause": "Initial sandbox WSL read returned Wsl/E_ACCESSDENIED before engine execution. Authorized ordinary-account retry succeeded; no Windows administrator privileges used."
+  },
+  "limits": [
+    "This engine lives at local /usr/bin/ngspice; it is not claimed to be the installed desktop binary.",
+    "Four direct source files verified against c61eeaa; not a full Python import/dependency closure.",
+    "ldd output retained; full loaded-system-library digest closure was not claimed.",
+    "No PDK, new physical layout, full operating envelope or foundry signoff tested here."
+  ],
+  "archive": {
+    "sha256": "342279aae97886200e70344a5b9f30800522029d6a9aecbb2c770b8d775b45ce",
+    "bytes": 62382,
+    "payload_files": 27,
+    "manifest_sha256": "e69e977dd77b84eae40ce5ebf1fa6032b6909f0b02c7fa05cb2ecac4e61a2c4c",
+    "all_members_verified": true
+  },
+  "date": "2026-10-23",
+  "qualified": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "summary_sha256": "303cc18d711b92eb45b27c3178054a93b7e2addfdaf947b62baf26121b71c0aa"
+}

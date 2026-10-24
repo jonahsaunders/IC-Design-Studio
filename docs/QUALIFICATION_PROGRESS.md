@@ -26,7 +26,32 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
-**Current investigation: exact toolchain mismatch identified at `51917f7`.**
+**Current hosted reference candidate: `c61eeaa3a416800cbd83c03a0409c475d638573a`, pushed and
+verified against GitHub.** The guarded rebuild and MiM shape corrections,
+local acceptance records and tracker are committed on `experimental`.
+The [full reference run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40039513837)
+passes all ten jobs for that exact candidate in a 24:21 job span, with one dispatch
+and no retries or cancellations. Its [automatic PR feedback](validation/chunk7-identity-hosted-feedback-2026-10-23.json)
+passes in 2:08 overall: 320 tests per host (two Linux skips, 14 Windows skips),
+syntax, release contracts and both GUI probes. All 1,340 source hashes match
+the exact candidate Git blobs, and both full artifact ZIPs are verified.
+All five toolchain readiness steps have now passed: nominal, ff and fs executed
+real hosted builds after version-only mismatches; ss and sf reused the producer.
+All five pass the unchanged full native suite: each has 106 nets, 3,261 resistors,
+103 devices, four PVT cases and twelve startup ramps. The
+[hosted recovery record](validation/reference-toolchain-recovery-2026-10-23.json)
+binds all five complete reports, producer and rebuilt tool archives, candidate
+sources and independent review. All independent schematic/physical jobs pass;
+the known optional raw hierarchical Magic stream still has 288 DRC findings,
+while its required canonical-stream checks pass. Blocked optional scopes remain
+recorded separately. The 33.3 MB recovery
+archive passes readback. This closes the specific toolchain identity blocker;
+it does not close chunk 7 or establish foundry signoff.
+Verified archive recovery also allowed removal of the disposable Linux source
+feedback copy (283.5 MB of logical file data). This status note is local for the
+next appropriate push, avoiding another run for documentation alone.
+
+**Resolved investigation: exact toolchain mismatch identified at `51917f7`.**
 The [instrumented reference run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40037005574)
 records the producer's `ImageVersion` as `20261012.334.1` and the failed ss
 consumer's as `20261023.334.3`. Candidate, workspace, all seven source inputs,
@@ -48,8 +73,8 @@ builds. The [combined integration](validation/chunk7-identity-integration-2026-1
 passes 320 tests per host (15 Windows skips, two Linux skips), release contracts
 and both GUI probes in 77.7 seconds on Windows and 37.2 seconds on Linux. All
 1,340 source bindings match the tested snapshot. Fixture builders are synthetic;
-a fresh hosted candidate must still verify the real engines and full native
-acceptance. The earlier scheduling change is verified:
+the separate `c61eeaa` hosted record above verifies the real engines and full
+native acceptance. The earlier scheduling change is verified:
 all five consumers started when the producer was ready while physical checks
 continued. Every physical, five-corner and release gate remains required.
 
@@ -66,6 +91,62 @@ layout controls reject before engine execution. True square electrodes retain
 their existing native path. Verified recovery precedes removal of 637.5 MB of
 Linux temporary files and 84.9 MB of Windows duplicates; no administrator access
 or Windows virtual-disk shrink is claimed. No device or chunk status has changed.
+
+The next executable MiM requirement is exact installed Windows/Linux acceptance:
+place/edit/save/reopen, preserved old package bindings, rotated native exports
+and the predefined electrical cases through the shipped engines. The existing
+frozen physical probe covers an inverter, so a MiM-specific in-app probe must
+precede a new package build. Retained desktop artifacts from `e44f7f3` predate
+these fixes and cannot qualify this candidate. Their successful full build took
+5:36 overall (Windows package job 4:37; Linux 1:16). A comparable future build
+may take roughly 4–6 hours, with low confidence and additional risk from queueing,
+cache misses or new failures; this is a forecast for that build, not chunk 7.
+The [staged Windows preflight](validation/sky130-mim-windows-preflight-2026-10-23.json)
+now passes 546 multiplier comparisons and four linked MiM contexts: four actual
+operating points, 32 AC samples, ten bias faults and five domain rejections.
+Independent review verifies 800 source files against `c61eeaa`, the unchanged
+models/runtime and selected historical extraction members. Its scope is tt,
+0°, 0/+5 V, with no fresh physical execution or installed acceptance. Verified
+archive recovery permits removal of 168 MB of temporary Windows copies.
+The separate [Linux runtime preflight](validation/sky130-mim-linux-runtime-preflight-2026-10-23.json)
+passes 546 analytical multiplier comparisons on the existing apt ngspice 42.
+It supplies no PDK or installed-desktop acceptance and does not require a
+runtime replacement for the known unpatched-47 parsing issue.
+
+After the verified toolchain recovery, the built-in MiM editor/native-layout
+probe and separate installed-output checker pass
+[source bring-up](validation/sky130-mim-installed-probe-source-2026-10-23.json).
+Four actual GUI cases cover both capacitor bindings at 0/90 degrees, plus three
+current/historical save/reopen states. Seven queued source jobs exercise four
+clean native layouts, an actual DRC failure, fresh repair and missing-engine
+blocking in 17.3 seconds on Linux. Independent readback verifies all six native
+outputs and rejects ten rehashed corruptions; the installed checker correctly
+rejects this source/custom-engine report. There is no new package build or
+installed acceptance yet. The [public-deck source record](validation/sky130-mim-installed-public-drc-source-2026-10-23.json)
+passes four clean exports and one narrow-metal fault through all 255 public
+categories. The [electrical source record](validation/sky130-mim-installed-electrical-source-2026-10-23.json)
+passes sixty contexts in 469.6 seconds: sixty operating
+points, 480 AC samples, 180 bias faults, five domain rejections and forty
+zero-bias comparisons. Both use the same four fresh GUI/native inputs.
+Independent readback rejects ten public-output and thirteen electrical-output
+corruptions, and the compact recovery archives are verified. The new aggregate
+checker binds the original GUI jobs, raw inventories and independent electrical
+audit; resealed cross-case substitutions and qualification overclaims reject.
+These runners are now mandatory in Windows installation and Linux frozen-app
+acceptance, before release archive assembly. The original `MIM-INSTALLED`
+requirement and complete family gate remain open; no catalog entry is promoted.
+The first combined source feedback retains seven failures per host, all from
+the old GF180 gate detecting the changed application entry point. A new
+historical source snapshot preserves the exact original `__main__.py` Git blob
+and acceptance hash without editing the old record or weakening its checker.
+The [final combined feedback](validation/chunk7-mim-installed-integration-2026-10-23.json)
+passes 384 tests per host (16 Windows skips, two Linux skips), release contracts
+and both GUI checks: 102.0 seconds on Windows and 42.8 seconds on Linux. All
+1,352 checked source hashes match the retained snapshot. The earlier failure,
+all 6,467 source files and final GUI evidence are recoverable from verified
+compact archives. No new GF180 execution is claimed by the historical snapshot
+correction. A new selected package build is the next acceptance step; no
+installed result is inferred from this source feedback.
 
 **Prior hosted follow-up: `1260cec`.**
 Its [automatic PR feedback](validation/chunk7-bias-hosted-feedback-2026-10-23.json)
