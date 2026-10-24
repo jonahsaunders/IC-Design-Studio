@@ -57,6 +57,14 @@ To reproduce the source lane locally, install `requirements.txt` and run
 this lane; the selected acceptance workflows retain their existing commands,
 fault controls, raw evidence and release gates.
 
+For local Windows runs, use a short, writable temporary directory and the
+ordinary user account. The junction-protection fixtures require the ability to
+create junctions; a restricted sandbox can block them even when file creation
+works. Check temporary write/cleanup and those fixture prerequisites before
+launching the full lane. Do not skip the protection tests or request Windows
+administrator privileges. Preserve environment failures separately from the
+subsequent unchanged-source acceptance.
+
 The [October 23 local integration check](validation/ci-feedback-integration-2026-10-23.json)
 passes 211 focused tests on each host (14 Windows skips, two Linux skips),
 release-document validation and both GUI probes. Final elapsed times are

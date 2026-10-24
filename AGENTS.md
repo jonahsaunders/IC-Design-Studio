@@ -23,3 +23,10 @@ chunks to include that chunk's estimated completion percentage. State its
 uncertainty and distinguish engineering estimates from verified acceptance.
 Keep the estimate in the progress tracker consistent with the final response;
 do not increase it merely because more tests were run.
+
+For local source feedback, follow `docs/CI_FEEDBACK.md`: run WSL suites from a
+verified source snapshot on native Linux storage, not the Windows-mounted
+checkout. On Windows, use a short writable temporary path and verify ordinary-
+user junction-test prerequisites before launching the lane. Keep all source
+identity checks, timeouts and protection tests intact; no Windows administrator
+access is needed. Retain environment failures and final acceptance separately.

@@ -1,6 +1,6 @@
 {
   "schema": 6,
-  "as_of": "2026-10-23",
+  "as_of": "2026-10-24",
   "source_baseline": "43a04bb00af3118fe97d3d177ec73599056027b6",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -59,7 +59,7 @@
       "latest_ihp_isolation_hierarchy_evidence": "docs/validation/ihp-isolation-hierarchy-2026-10-21.json",
       "latest_sky130_mos_bias_evidence": "docs/validation/sky130-mos-bias-2026-10-21.json",
       "latest_sky130_threshold_evidence": "docs/validation/sky130-threshold-layouts-2026-10-21.json",
-      "latest_hosted_acceptance": "docs/validation/chunk7-hosted-acceptance-2026-10-22.json",
+      "latest_hosted_acceptance": "docs/validation/sky130-mim-installed-acceptance-2026-10-24.json",
       "latest_sky130_voltage_evidence": "docs/validation/sky130-voltage-layouts-2026-10-22.json",
       "latest_sky130_default_geometry_evidence": "docs/validation/sky130-mos-defaults-2026-10-22.json",
       "latest_sky130_mim2_evidence": "docs/validation/sky130-mim2-layouts-2026-10-22.json",
@@ -135,6 +135,25 @@
         "fresh_gui_native_inputs": 4,
         "electrical_contexts": 60,
         "installed_acceptance": false,
+        "device_statuses_unchanged": true
+      },
+      "latest_sky130_mim_installed_acceptance": {
+        "evidence": "sky130-mim-installed-acceptance-2026-10-24",
+        "candidate": "65614924f125200db068d66669af6fe102c71e45",
+        "status": "selected_configured_workflow_passed_windows_linux",
+        "installed_selected_workflow_acceptance": true,
+        "full_mim_installed": false,
+        "fresh_gui_native_inputs_per_platform": 4,
+        "electrical_contexts_per_platform": 60,
+        "device_statuses_unchanged": true,
+        "defined_installation_requirement": "MIM-INSTALLED: completed for the original selected recipe"
+      },
+      "latest_sky130_mim_mismatch_alias_evidence": {
+        "evidence": "sky130-mim-mismatch-aliases-2026-10-24",
+        "status": "selected_source_alias_integration_passed_windows_linux",
+        "native_runs_per_host": 45,
+        "selected_aliases": 5,
+        "calibrated_statistics": false,
         "device_statuses_unchanged": true
       }
     },
@@ -25405,6 +25424,16 @@
       "path": "docs/validation/sky130-mim-installed-electrical-source-2026-10-23.json",
       "sha256": "e072b7811a2174063492000427dd764a9d1bd01a2731157971356b5bb93c930a",
       "scope_limit": "Source-only sixty-context electrical integration on four fresh GUI/native exports using actual apt ngspice42; no installed, silicon calibration, reliability, full envelope or foundry acceptance."
+    },
+    "sky130-mim-installed-acceptance-2026-10-24": {
+      "path": "docs/validation/sky130-mim-installed-acceptance-2026-10-24.json",
+      "sha256": "605f9630415567b3d6e60a695375727c79e44e2741488e0b06f7a8c7f0ee6290",
+      "scope_limit": "Exact candidate Windows installation and Linux frozen application: both 2x10um MiM constructions at 0/90 degrees, current/historical binding lifecycle, included native engines, selected public block DRC and sixty linear-model electrical contexts per platform. Explicit separately locked physical PDK adapter. No full device family, complete geometry/operating/statistical envelope, silicon calibration, reliability or manufacturing signoff."
+    },
+    "sky130-mim-mismatch-aliases-2026-10-24": {
+      "path": "docs/validation/sky130-mim-mismatch-aliases-2026-10-24.json",
+      "sha256": "63e31b427a71a3cada9a2ef39888cae8518e61d5d1a7fbbf0446551fa6fe9457",
+      "scope_limit": "Finite source compact-model integration of actual tt_mm/ll_mm/hh_mm/hl_mm/lh_mm library aliases for both SKY130 MiM constructions. No measured distribution/correlation, calibrated variation, full geometry/operating/reliability envelope, installed workflow or manufacturing qualification."
     }
   },
   "execution_acceptance": {

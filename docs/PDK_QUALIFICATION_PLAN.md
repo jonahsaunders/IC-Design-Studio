@@ -1,5 +1,13 @@
 # PDK qualification in twelve chunks
 
+The [October 24 desktop acceptance](validation/sky130-mim-installed-acceptance-2026-10-24.json)
+passes all seven required jobs at `65614924`, including the defined configured
+Windows/Linux MiM installation recipe. The [MiM requirement dispositions](SKY130_MIM_REQUIREMENTS.md)
+separate that completed milestone from unresolved device envelopes, physical
+classes and calibration. The [toolchain recovery](validation/reference-toolchain-recovery-2026-10-23.json)
+also passes all ten hosted reference jobs. Full chunk-7 device qualification
+remains open; older checkpoint statements below retain their historical scope.
+
 The [IHP standard 3.3 V MOS batch](IHP_HV_MOS_LAYOUTS.md) adds 168 passing
 sampled layout checks, 158 fault controls and independent native/mask readback.
 The [family closure plan](CHUNK7_DEVICE_FAMILY_CLOSURE.md) now records the

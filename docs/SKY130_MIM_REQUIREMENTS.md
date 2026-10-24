@@ -6,6 +6,70 @@ facts and twelve remaining requirements. It is a source-review deliverable;
 the planned experiment remains unexecuted in this immutable contract. Neither
 device is promoted and the chunk-7 gate is unchanged.
 
+The [October 24 installed acceptance](validation/sky130-mim-installed-acceptance-2026-10-24.json)
+now completes the selected configured workflow at exact candidate `65614924`:
+the actual Windows installation and Linux frozen application pass current and
+historical binding lifecycle, four fresh native layouts, public geometry checks
+and sixty electrical contexts per host. The shipped simulation package and
+engines run with the separately locked physical PDK adapter. Complete retained
+diagnostics and independent raw readback support this bounded result. The
+immutable contract remains a historical planning record; the full family,
+complete physical classes, operating limits and statistical/reliability scope
+remain open. The installed electrical selection has mismatch disabled; actual
+`_mm` alias integration is covered by the separate source experiment below,
+while empirical statistical calibration remains unresolved.
+
+## Current requirement disposition
+
+The twelve original requirements retain their original definitions. Later
+records close the predefined passive-section example, the selected bias-boundary
+example, and the installed workflow recipe. They leave the remaining family
+requirements open; the immutable planning contract is not rewritten.
+
+| Original requirement | Current disposition |
+| --- | --- |
+| `MIM-INTERFACE` | Selected installed lifecycle passes; complete import/invalid-input coverage remains partial. |
+| `MIM-PASSIVE-CORNERS` | Predefined twenty-context example completed, with later installed repetition. |
+| `MIM-BIAS-BOUNDARIES` | Predefined signed-bias example completed. Leakage, breakdown and lifetime are separate. |
+| `MIM-ELECTRICAL-GEOMETRY` | Full electrical validity/accuracy domain remains undefined. PCell bounds are not a substitute. |
+| `MIM-TEMPERATURE` | MiM-specific validity/accuracy limits remain unresolved. |
+| `MIM-RELIABILITY` | Duty, time, temperature and electrical-stress applicability remain unresolved. |
+| `MIM-SPEC-ACCURACY` | Published limits still need measurement-condition and topology mapping. |
+| `MIM-STATISTICS` | Selected actual alias execution completed; empirical distributions/correlations, process/layout dependence and reliability calibration remain open. |
+| `MIM-PHYSICAL-CLASSES` | Selected isolated rectangles and parallel examples pass; stacked/shared/dummy/imported/hierarchical classes remain partial. |
+| `MIM-WRITTEN-RULES` | Legacy stack terminology and missing numerical/context definitions remain unresolved. |
+| `MIM-EXTRACTED-RC` | Selected mask-derived lumped-model integration passes; distributed/substrate/top-sheet accuracy and direct hierarchy remain open. |
+| `MIM-INSTALLED` | Original configured Windows/Linux recipe completed at `65614924`; no added family-wide prerequisite. |
+
+## Actual mismatch-library sections
+
+The [October 24 alias execution](validation/sky130-mim-mismatch-aliases-2026-10-24.json)
+closes the selected `_mm` execution gap under a separate
+[predefined contract](qualification/sky130-mim-mismatch-aliases-v1.json).
+Both capacitor models select `tt_mm`, `ll_mm`, `hh_mm`, `hl_mm` and `lh_mm`
+through the existing application library interface, without manually overriding
+statistical switches. The corresponding base sections supply deterministic
+references. Each host passes 45 native runs, with independent readback of
+1,080 device-frequency observations and 20 detected control conditions.
+
+The fixed example uses 2×10 µm geometry, 27 °C, zero DC bias, unit AC stimulus,
+three frequencies, multipliers one/four, a fixed seed and four replicas per
+model. Application/literal mapping and the paired multiplicity law pass the
+predefined tolerances. Wrong-section, disabled-mismatch, incorrect `mf` and
+actually omitted simulator `m` controls are detected. Sixteen rehashed evidence
+controls reject changed summaries, decks, results, runtime assets, source
+provenance, coverage and scope claims; fifteen are offline-auditor checks and
+one is the separate comparison with the reviewed source snapshot.
+
+Windows uses the existing ngspice 46 and Linux the existing reviewed ngspice 42.
+Each host independently passes the paired law; equality of random draws across
+engine versions is not required. Four replicas do not establish a distribution,
+correlation or silicon calibration. The application, public models and package
+revisions are unchanged. This source experiment adds no installed or physical
+coverage to the separate exact-candidate acceptance.
+
+## Earlier bounded acceptance
+
 The later [passive-section execution record](validation/sky130-mim-passive-corners-2026-10-23.json)
 closes the predefined twenty-context example below. Both constructions pass
 fresh native extraction at two orientations, followed by all five distinct
@@ -234,19 +298,19 @@ ten public-output and thirteen electrical-output corruptions. These are
 development checks against fresh GUI inputs, with exact engine identities and
 recoverable evidence; they do not describe a frozen installation.
 
-All existing release gates remain. Implementation and source-only bring-up do
-not establish installed acceptance. This selected workflow does not close
-`MIM-INSTALLED` for all applicable physical classes, or establish silicon
-accuracy, reliability or complete family qualification.
+This source bring-up was a historical preparation step, superseded by the
+October 24 installed acceptance above. The original `MIM-INSTALLED` recipe is
+now completed for that exact candidate. All-class physical coverage, silicon
+accuracy, reliability and complete family qualification remain separate gates.
 
 ## Work still needed for family closure
 
 The contract separates local execution from missing source definitions:
 
-- **Local:** the selected passive-section and mapped ±5 V linked examples are
-  completed. Remaining work includes supported physical-class reconciliation
-  and exact installed Windows/Linux
-  candidate acceptance with old saved revisions preserved.
+- **Local:** the selected passive-section and mapped ±5 V linked examples and
+  the defined installed Windows/Linux recipe are completed. Remaining work
+  includes supported physical-class reconciliation, broader import coverage
+  and full extracted behavior.
 - **Source or calibration:** complete electrical W/L and temperature validity;
   measurement conditions for the tabulated limits; statistical correlations and
   calibration; ripple, leakage, field, self-heating and lifetime applicability;

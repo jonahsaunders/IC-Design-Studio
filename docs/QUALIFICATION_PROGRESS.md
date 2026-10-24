@@ -1,6 +1,6 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 23, 2026. Chunk 7 is approximately **60% complete**, with low
+Updated October 24, 2026. Chunk 7 is approximately **60% complete**, with low
 confidence (50–70%); this is an engineering estimate, not verified acceptance.
 
 ## Current tracker
@@ -26,20 +26,55 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
-**Latest fixture repair: locally verified, hosted recheck pending.** The
-[retained failure and repair](validation/chunk7-mim-path-fixture-repair-2026-10-23.json)
-records the [automatic feedback for `1896ee1`](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40045985456):
-Linux passes all 384 discovered tests (two skips); Windows has one fixture failure
-among 384 tests (15 skips). All 1,352 source hashes match the candidate Git blobs
-and both complete artifacts and merge parents are verified. The package guard
-resolves paths; the old mock compared against an unresolved alias. A real Windows
-8.3 path reproduces the exact committed test failure, and the corrected test
-passes with that same mechanism. The hosted log itself does not reveal its raw
-temporary-path spelling. All four focused tests pass on both hosts, including a
-deterministic canonical/alias regression. Production code is unchanged. The
-failed hosted artifacts and independent before/after proof are archived and
-verified. The repair changes only the test fixture; no additional native or GUI
-qualification is claimed. The selected desktop build has not been dispatched.
+**Desktop acceptance passed: `65614924f125200db068d66669af6fe102c71e45`.**
+The [selected desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40047259255)
+completed all seven required jobs on its first attempt in 5:26:20. Windows
+installation, 100/150/200% display probes and uninstallation pass; Linux frozen
+desktop acceptance passes. Both hosts discover 3,558 core tests with no failures
+(35 Linux skips, 40 Windows skips). All platform-specific skips pass on the
+other host, but 22 tool-configuration-dependent core tests remain skipped on both;
+the separate runtime gates do not retroactively pass those exact tests.
+
+The [installed MiM acceptance](validation/sky130-mim-installed-acceptance-2026-10-24.json)
+closes the selected configured workflow on both hosts: four fresh GUI/native
+layouts, three current/historical binding states, actual DRC failure and repair,
+missing-engine rejection, four clean public-deck layouts and one detected width
+fault across 255 categories. Each host passes 60 selected electrical contexts,
+480 AC samples, 60 operating points, 180 bias faults, five domain rejections and
+40 bias-invariance comparisons. The shipped simulation package and engines are
+used with the separately locked physical PDK adapter. Independent receipt review
+and full archive readback verify all 7,361 selected inventory files, 470 source/
+contract Git-blob identities per host, 600 raw electrical files and ten public
+outputs. Complete diagnostic ZIPs are retained; duplicate multi-GB installers
+were not downloaded. Four deliberate digital fault verdicts and four
+informational pre-layout timing failures remain explicitly classified; required
+equivalence and extracted timing pass. Code signing remains unconfigured.
+
+The original `MIM-INSTALLED` recipe is completed for this exact candidate.
+Full family qualification and chunk 7 remain open: the completed recipe does
+not establish all physical classes, operating envelopes,
+calibrated statistics or reliability. The
+[actual mismatch-alias execution](validation/sky130-mim-mismatch-aliases-2026-10-24.json)
+now completes the selected source-integration gap: 45 native runs on each host,
+independent readback of 1,080 device-frequency observations and 20 detected
+control conditions per host across all five selected sections. The actual
+application aliases set the switches; no manual override substitutes for them.
+Four fixed replicas remain an integration sample, with empirical statistical
+calibration still open. Sixteen rehashed controls reject altered evidence or
+source provenance. The original and new predefined contracts are unchanged.
+
+Both final combined lanes pass 399 tests (15 Windows skips, two Linux skips),
+release contracts and both GUI probes in 122.547/47.110 seconds. All 1,356 source
+identities match. Earlier Windows temporary-folder/junction/cleanup failures
+and the Linux mounted-checkout 300-second timeout remain retained; the same
+sources pass using short ordinary-user Windows temporary storage and a verified
+Linux-local fixture. No Windows admin, increased timeout, weakened test or
+repeated successful native batch was needed. A 20.6 MB archive retains 3,911
+logical files through 1,247 distinct objects; complete readback and restored
+pilot/full Windows/full Linux audits pass. The application, models and PDK
+package revisions remain unchanged. The estimate remains **60% (low confidence,
+50–70%)**; six unavailable real bindings, complete operating limits, broader
+physical classes and full family qualification still remain.
 
 **Current hosted reference candidate: `c61eeaa3a416800cbd83c03a0409c475d638573a`, pushed and
 verified against GitHub.** The guarded rebuild and MiM shape corrections,
@@ -107,7 +142,8 @@ their existing native path. Verified recovery precedes removal of 637.5 MB of
 Linux temporary files and 84.9 MB of Windows duplicates; no administrator access
 or Windows virtual-disk shrink is claimed. No device or chunk status has changed.
 
-The next executable MiM requirement is exact installed Windows/Linux acceptance:
+**Historical pre-build plan, superseded by the October 24 acceptance above.**
+The next executable MiM requirement at that checkpoint was exact installed Windows/Linux acceptance:
 place/edit/save/reopen, preserved old package bindings, rotated native exports
 and the predefined electrical cases through the shipped engines. The existing
 frozen physical probe covers an inverter, so a MiM-specific in-app probe must
@@ -886,6 +922,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-24 | Verified all seven desktop jobs and completed the defined MiM installed recipe at `65614924`. Added actual five-section mismatch-alias source acceptance: 45 native runs and 399-test feedback per host, independent audits and verified compact recovery. | Concrete installed and alias milestones completed; all family statuses remain partial. Estimate stays 60%, low confidence (50–70%). |
 | 2026-10-23 | Added source-locked GF180 current specifications: ten completed cases and 240 detected faults per host, identical current measurements, independent raw audits and both 47-test passes. Two fast-corner cases retain literal published-bound mismatches, also present with direct public-model defaults. | Stronger independent numerical evidence; full device qualification is still open. Estimate remains 60%, low confidence. |
 | 2026-10-23 | Added bounded GF180/IHP shared MOS fingers: 156 valid layouts, 222 detected faults, 7,182 independently read channels, preserved single-finger behavior, final Linux 3,341-test pass and both 58-test affected passes. Verified archive restore and reduced redundant hosted setup downloads. | Closes sampled shared-finger support; full device envelopes, missing bindings and final acceptance remain. Estimate stays 60%, low confidence. |
 | 2026-10-23 | Added GF180 C/D and IHP standard MOS parallel layouts: 156 valid native contexts, 156 detected faults, 1,134 independently checked transistors, preserved single-unit behavior, the 3,328-test Linux suite and both final 64-test affected suites. The Windows full-suite campaign lock failure is retained and addressed by a tested retry. | Closes a concrete physical multiplicity gap. Shared fingers, full device envelopes, six unavailable bindings and final acceptance keep chunk 7 open; estimate remains 60%, low confidence. |

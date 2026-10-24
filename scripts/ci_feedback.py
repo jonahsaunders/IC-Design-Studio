@@ -22,6 +22,7 @@ UNIT_MODULES = (
     'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_contact_topology',
     'test_mim_desktop_probe', 'test_frozen_mim',
     'test_installed_mim_electrical', 'test_installed_mim_public_drc', 'test_installed_mim_aggregate',
+    'test_sky130_mim_mismatch_aliases', 'test_sky130_mim_mismatch_alias_audit',
 )
 
 
