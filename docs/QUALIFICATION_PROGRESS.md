@@ -26,6 +26,21 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**Latest fixture repair: locally verified, hosted recheck pending.** The
+[retained failure and repair](validation/chunk7-mim-path-fixture-repair-2026-10-23.json)
+records the [automatic feedback for `1896ee1`](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40045985456):
+Linux passes all 384 discovered tests (two skips); Windows has one fixture failure
+among 384 tests (15 skips). All 1,352 source hashes match the candidate Git blobs
+and both complete artifacts and merge parents are verified. The package guard
+resolves paths; the old mock compared against an unresolved alias. A real Windows
+8.3 path reproduces the exact committed test failure, and the corrected test
+passes with that same mechanism. The hosted log itself does not reveal its raw
+temporary-path spelling. All four focused tests pass on both hosts, including a
+deterministic canonical/alias regression. Production code is unchanged. The
+failed hosted artifacts and independent before/after proof are archived and
+verified. The repair changes only the test fixture; no additional native or GUI
+qualification is claimed. The selected desktop build has not been dispatched.
+
 **Current hosted reference candidate: `c61eeaa3a416800cbd83c03a0409c475d638573a`, pushed and
 verified against GitHub.** The guarded rebuild and MiM shape corrections,
 local acceptance records and tracker are committed on `experimental`.

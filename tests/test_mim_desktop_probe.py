@@ -19,7 +19,7 @@ NONCE = '0123456789abcdef0123456789abcdef'
 class ProbeBoundaryTests(unittest.TestCase):
     def test_package_missing_changed_and_escaping_assets_fail(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)/'package'
+            root = Path(tmp).resolve()/'package'
             root.mkdir()
             outside = Path(tmp)/'outside'
             outside.write_bytes(b'locked')
@@ -33,9 +33,19 @@ class ProbeBoundaryTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Unexpected package manifest'):
                 verified_package(root, '0'*64)
             (root/'package.json').write_text(json.dumps(dict(id='sky130A', files={'asset': file_digest(root/'asset')})))
-            with patch.object(Path, 'is_symlink', lambda path: path == root/'asset'):
-                with self.assertRaisesRegex(ValueError, 'Linked package asset'):
-                    verified_package(root)
+            # A parent traversal reproduces short-name/canonical-path differences
+            # on every host without creating a real symlink or requiring admin.
+            alias_parent = root.parent/'path alias'
+            alias_parent.mkdir()
+            alias_root = alias_parent/'..'/root.name
+            self.assertNotEqual(alias_root, root)
+            self.assertEqual(alias_root.resolve(), root)
+            canonical_asset = (root/'asset').resolve()
+            with patch.object(Path, 'is_symlink', lambda path: path == canonical_asset):
+                for selected_root in (root, alias_root):
+                    with self.subTest(package_root=str(selected_root)):
+                        with self.assertRaisesRegex(ValueError, 'Linked package asset'):
+                            verified_package(selected_root)
 
     def test_historical_manifest_mutation_rejects_before_copy(self):
         with tempfile.TemporaryDirectory() as tmp:
