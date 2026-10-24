@@ -25,7 +25,11 @@ def _native_via_recipes(tech, process=None):
                    ('Local interconnect to M1', (67,20), (67,44), (68,20), 170, 340, 190)],
         'gf180mcuC': [('M1 to M2', (34,0), (35,0), (36,0), 260, 440, 260)],
         'gf180mcuD': [('M1 to M2', (34,0), (35,0), (36,0), 260, 440, 260)],
-        'ihp-sg13g2': [('M1 to M2', (8,0), (19,0), (10,0), 190, 440, 220)],
+        # Pinned public SG13G2 TV2.a/b/c/d: 0.90 um cut, 1.06 um spacing,
+        # 0.50 um minimum enclosure on both metals. Use 2.00 um pads to also
+        # satisfy TM2.a, yielding 0.55 um actual enclosure. No pad/edge-seal claim.
+        'ihp-sg13g2': [('M1 to M2', (8,0), (19,0), (10,0), 190, 440, 220),
+                      ('TopMetal1 to TopMetal2', (126,0), (133,0), (134,0), 900, 2000, 1060)],
     }
     return [dict(name=name,lower=by[a],cut=by[cut],upper=by[b],size=size,
                  enclosure=(pad-size)//2,spacing=space)

@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "tests": 21,
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "8110a8b2a1a9c6cfed2ae8a76124d7f3b975598350444605f1c9b593802e3a46",
+  "tests_sha256": "a63cce1b8c3c2df4c4f4d8d474d5a09262fac04a748438fa9c88f5966023a176",
+  "driver_sha256": "f4e4ac78fd7fed0dafc493fdc1e57920378072c225e6cc32fe0dd04cfe9d9873",
+  "source_files": {
+    "scripts/sky130_voltage_intent_review.py": "1dd3bc4f62d66efaaf7114707c7376a02e94199836fd92904c7ff97fb67ebec6",
+    "scripts/sky130_voltage_contract.py": "c42de10d05409c3ee79591ed9d4b7e0a22c50c662aa5e801481d73b282b6465a",
+    "tests/test_sky130_voltage_contract.py": "d5723a274ba260363f2c8bc654e17ff44dfeacd64d3478a95b08c3e7f73850e4",
+    "tests/test_sky130_voltage_intent.py": "3d4cb0e79f32806508fd69e1f39222188d2ae8a8291f431aad4ed3a4caf2d41e",
+    "scripts/check_sky130_circuit_invariance.py": "893682f0d08f1b85521d91cd94dde4d118c55c756c0ba856d6ef36f9b6e38706",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a"
+  }
+}

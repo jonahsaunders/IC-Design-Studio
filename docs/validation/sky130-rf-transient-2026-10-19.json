@@ -1,0 +1,438 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "sampled_rf_reverse_pulse_checks_passed",
+  "baseline": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+  "scope": "Two public RF candidates, three corners, three temperatures, five geometries; grounded anode, cathode 1 -> 1.5 -> 1 V. Independent nonlinear integration and native timestep refinement. No full family, operating-envelope, arbitrary solver, silicon or installed-release qualification.",
+  "source_files": {
+    "scripts/qualify_sky130_rf_transient.py": "5c27e47d1eda96e91502b1b8e993dd5e6ed61607d1c8e540e77acb60e483128c",
+    "tests/test_sky130_rf_transient.py": "de73a624efa7714fe95d2dba8502eae6f1460b80193f1f4e0c8ade1cce029a59",
+    ".github/workflows/physical-qualification.yml": "1cfe2b50123df59bc793ef61ba5f3ac9b7923d14b8007b2d47f2ef539e0f1732",
+    ".github/workflows/build-desktop.yml": "30563840386074cc7b23664a49a9e00e4a5a0c716f7ccf59a8e0d16f9dbe04b6"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/sky130-rf-transient-2026-10-19/evidence.zip",
+    "sha256": "725c054388007570bdf7d813a8467e9f189a6c08744d7e7252a90248943d30f7",
+    "bytes": 32917531,
+    "files": 6497,
+    "unique_contents": 4524,
+    "all_objects_verified": true
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "725c054388007570bdf7d813a8467e9f189a6c08744d7e7252a90248943d30f7",
+    "checks": [
+      {
+        "name": "restore",
+        "exit": 0,
+        "log_sha256": "9a84cec9e68e346000208f279b3bac6a728ffef66dbdefe949acdb1223908d2e"
+      },
+      {
+        "name": "units",
+        "exit": 0,
+        "log_sha256": "16d77e8f28f0a6cb1f423bc2e1390befcd7f385c105a088ad8bfcd48905b5b22"
+      },
+      {
+        "name": "pilot",
+        "exit": 0,
+        "log_sha256": "c232c6e39b00a472fb6ec1d84266eaedcf4e8f5528987236fdb0243da99dc7e1"
+      }
+    ],
+    "conditions": 2,
+    "native_simulations": 10,
+    "source": "/var/tmp/icstudio-rf-transient-restored-20261019-v1/source"
+  },
+  "independent_readback": {
+    "status": "PASS",
+    "raw_files": 900,
+    "points_per_host": 374850,
+    "scalar_comparisons": 1124550,
+    "maximum_cross_host_normalized_current_difference": 0.004079454687142286,
+    "hosts": [
+      {
+        "host": "Windows",
+        "conditions": 90,
+        "valid_simulations": 180,
+        "detected_faults": 270,
+        "maximum_valid_error": 0.5470707524658823,
+        "maximum_oracle_convergence": 0.0008671258438692381,
+        "maximum_native_convergence": 0.2772696977853533
+      },
+      {
+        "host": "Linux",
+        "conditions": 90,
+        "valid_simulations": 180,
+        "detected_faults": 270,
+        "maximum_valid_error": 0.5470696525492919,
+        "maximum_oracle_convergence": 0.0008671258438692381,
+        "maximum_native_convergence": 0.27726964633144324
+      }
+    ]
+  },
+  "acceptance": {
+    "relative_current_tolerance": 0.0001,
+    "absolute_current_tolerance_a": 1e-12,
+    "points_per_simulation": 833,
+    "oracle": "RK4 integration of C(u) du/dt = -(u+Vc)/R - I(u), using public temperature-corrected nonlinear junction capacitance/leakage and series resistance. Both junction states are integrated independently.",
+    "oracle_steps": "Minimum initial/final branch RC time divided by 20 and 40; every pulse corner is an exact integration boundary.",
+    "oracle_difference_budget": 0.01,
+    "native_steps": "Minimum initial/final branch RC time divided by 160 and 320; each nominal run agrees with the oracle and their mutual difference stays within the same acceptance budget.",
+    "native_solver": "Gear, reltol 1e-5, abstol 1e-14, vntol 1e-8, gmin 1e-30; single OpenMP thread.",
+    "faults": [
+      "missing-perimeter",
+      "wrong-capacitance",
+      "wrong-series-resistance"
+    ],
+    "fault_requirement": "Complete finite output, exact time axis and voltage stimulus, then numerical disagreement. Solver errors never count as fault detection."
+  },
+  "hosts": [
+    {
+      "host": "Windows",
+      "status": "PASS",
+      "conditions": 90,
+      "valid_simulations": 180,
+      "detected_faults": 270,
+      "report_sha256": "40ca7ab3947f5e8c42f3791624659a397f4aac3335e7353184894b92d06e3420",
+      "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "runner_sha256": "5c27e47d1eda96e91502b1b8e993dd5e6ed61607d1c8e540e77acb60e483128c"
+    },
+    {
+      "host": "Linux",
+      "status": "PASS",
+      "conditions": 90,
+      "valid_simulations": 180,
+      "detected_faults": 270,
+      "report_sha256": "21e2288cf91ab560709bc1e116e31ec852a48b705bbf3f953d276a885552e9dc",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "runner_sha256": "5c27e47d1eda96e91502b1b8e993dd5e6ed61607d1c8e540e77acb60e483128c"
+    }
+  ],
+  "full_suites": [
+    {
+      "host": "Windows",
+      "exit": 0,
+      "seconds": 1249.1870000000054,
+      "source_unchanged": true,
+      "command": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8=0",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "discovered": 3135,
+      "skipped": 38,
+      "log_sha256": "c074e2768fe9ed929f56d31b64fac8dac5093006a270b43c8a30013fe9504cff",
+      "source_manifest_sha256": "6913b83e7763e794ccfc8ca6e191f11bf1109308fc7df4c6bf8221a27fc90cf6",
+      "scope": "Suite discovered before the five RF-bias and five RF-transient tests were added. All ten added tests pass separately on both hosts; archive-restored Linux executes them again."
+    },
+    {
+      "host": "Linux",
+      "exit": 0,
+      "seconds": 1953.8092738190003,
+      "source_unchanged": true,
+      "command": [
+        "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "discovered": 3135,
+      "skipped": 34,
+      "log_sha256": "1035a6d24ef4c70e29e2bcf570affb6245636368eb601da694752ea2cf6e8614",
+      "source_manifest_sha256": "4f3d5b93927a97e9cb02ebd8b7cea8cd06b51a09ed7816422bfae19cd10f4c88",
+      "scope": "Suite discovered before the five RF-bias and five RF-transient tests were added. All ten added tests pass separately on both hosts; archive-restored Linux executes them again."
+    }
+  ],
+  "added_unit_tests": {
+    "Windows": 10,
+    "Linux": 10,
+    "restored_Linux_total": 27,
+    "status": "PASS"
+  },
+  "detector_replay": {
+    "status": "passed",
+    "compatibility": "hsa",
+    "dc_startup": true,
+    "corner": "tt",
+    "temperature": 27,
+    "dvdd": 1.8,
+    "vbg": 1.2,
+    "ibias": 6e-07,
+    "supply_step": 0.01,
+    "tolerance": {
+      "relative": 0.001,
+      "absolute_voltage": 2e-06,
+      "trip": "same 10 mV step"
+    },
+    "codes": [
+      {
+        "code": 0,
+        "trip_voltage": 3.299999999999994,
+        "max_reference_error": 0.0006746189441129147,
+        "status": "passed"
+      },
+      {
+        "code": 1,
+        "trip_voltage": 3.429999999999991,
+        "max_reference_error": 0.0014411494653210344,
+        "status": "passed"
+      },
+      {
+        "code": 2,
+        "trip_voltage": 3.579999999999988,
+        "max_reference_error": 0.0003623129437080319,
+        "status": "passed"
+      },
+      {
+        "code": 3,
+        "trip_voltage": 3.739999999999984,
+        "max_reference_error": 0.0009776964657559617,
+        "status": "passed"
+      },
+      {
+        "code": 4,
+        "trip_voltage": 3.829999999999982,
+        "max_reference_error": 0.0004793441250268149,
+        "status": "passed"
+      },
+      {
+        "code": 5,
+        "trip_voltage": 4.009999999999978,
+        "max_reference_error": 0.00025863393750702457,
+        "status": "passed"
+      },
+      {
+        "code": 6,
+        "trip_voltage": 4.109999999999976,
+        "max_reference_error": 0.0005318867242680714,
+        "status": "passed"
+      },
+      {
+        "code": 7,
+        "trip_voltage": 4.319999999999972,
+        "max_reference_error": 0.0002672164925039411,
+        "status": "passed"
+      },
+      {
+        "code": 8,
+        "trip_voltage": 4.439999999999969,
+        "max_reference_error": 0.00022705289834901166,
+        "status": "passed"
+      },
+      {
+        "code": 9,
+        "trip_voltage": 4.559999999999967,
+        "max_reference_error": 0.0002638901817177963,
+        "status": "passed"
+      },
+      {
+        "code": 10,
+        "trip_voltage": 4.689999999999964,
+        "max_reference_error": 0.00016404626157995317,
+        "status": "passed"
+      },
+      {
+        "code": 11,
+        "trip_voltage": 4.819999999999961,
+        "max_reference_error": 0.00019798208311216925,
+        "status": "passed"
+      },
+      {
+        "code": 12,
+        "trip_voltage": 4.969999999999958,
+        "max_reference_error": 0.0002472406915701164,
+        "status": "passed"
+      },
+      {
+        "code": 13,
+        "trip_voltage": 5.119999999999955,
+        "max_reference_error": 0.0007370347939390509,
+        "status": "passed"
+      },
+      {
+        "code": 14,
+        "trip_voltage": 5.279999999999951,
+        "max_reference_error": 0.00021483138815203695,
+        "status": "passed"
+      },
+      {
+        "code": 15,
+        "trip_voltage": 5.459999999999948,
+        "max_reference_error": 0.0004470399232818778,
+        "status": "passed"
+      }
+    ],
+    "scope": "Emitted-deck comparison in the declared compatibility mode; excludes transient timing, hysteresis, PVT and extracted simulation."
+  },
+  "hosted_checkpoint": [
+    {
+      "run_id": 39263305360,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305360",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "qualify (devices)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (detector)",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "qualify (public-layouts)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (analog-rc)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (two-stage-opamp)",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "qualify (hierarchy-rc)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (bipolar)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (analog)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (inverter)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263313114,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263313114",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "exchange",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263305274,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305274",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "exchange",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263313270,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263313270",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "digital-runtime / runtime",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263305237,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305237",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "digital-runtime / runtime",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "investigations": [
+    {
+      "prototype": "v1",
+      "outcome": "Rejected: SPICE parameter continuation markers missing; corrected before any acceptance."
+    },
+    {
+      "prototype": "v2",
+      "outcome": "Stopped exploratory trapezoidal run after time stagnation; stdout retained."
+    },
+    {
+      "prototype": "v3",
+      "outcome": "Complete but failed unchanged current tolerance: maximum normalized errors 2.6404 and 1.3327."
+    },
+    {
+      "prototype": "v4/v5",
+      "outcome": "Sixty-second timeout at overly strict numerical settings; partial inputs retained."
+    },
+    {
+      "prototype": "v6",
+      "outcome": "Stable Gear integration and smaller maximum step pass unchanged tolerance. Final qualification additionally halves native and oracle timesteps."
+    }
+  ],
+  "remaining": [
+    "Seven default real model entries remain unavailable; no RF default promotion.",
+    "RF pw2dn physical topology/extraction and other device-family coverage remain open.",
+    "Complete operating ranges, statistical behavior, upstream tool-view completeness and installed-release acceptance remain unqualified."
+  ]
+}

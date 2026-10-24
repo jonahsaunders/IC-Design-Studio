@@ -1,0 +1,23 @@
+test_bulk_mode_cannot_silence_unsupported_geometry (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_bulk_mode_cannot_silence_unsupported_geometry) ... ok
+test_bulk_records_failure_measurements_without_claiming_pass (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_bulk_records_failure_measurements_without_claiming_pass) ... ok
+test_dnwell_hole_does_not_establish_enclosure (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_dnwell_hole_does_not_establish_enclosure) ... ok
+test_enabled_isolation_pass_and_missing_or_partial_well_fail (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_enabled_isolation_pass_and_missing_or_partial_well_fail) ... ok
+test_gate_straddling_well_needs_review (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_gate_straddling_well_needs_review) ... ok
+test_invalid_measurement_is_rejected (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_invalid_measurement_is_rejected) ... ok
+test_mode_is_explicit_and_boolean (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_mode_is_explicit_and_boolean) ... ok
+test_pfet_is_not_an_nfet_target (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_pfet_is_not_an_nfet_target) ... ok
+test_published_source_binding (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_published_source_binding) ... ok
+test_raw_text_is_recorded_but_cannot_enclose_a_gate (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_raw_text_is_recorded_but_cannot_enclose_a_gate) ... ok
+test_transformed_array_checks_every_gate (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_transformed_array_checks_every_gate) ... ok
+test_union_of_adjacent_well_polygons_covers_gate (tests.test_sky130_isolation_policy.IsolationPolicyTests.test_union_of_adjacent_well_polygons_covers_gate) ... ok
+test_decision_cannot_be_promoted_or_switch_changed (tests.test_sky130_isolation_review.IsolationReviewTests.test_decision_cannot_be_promoted_or_switch_changed) ... ok
+test_enabled_failed_measurement_is_never_covered (tests.test_sky130_isolation_review.IsolationReviewTests.test_enabled_failed_measurement_is_never_covered) ... ok
+test_explicit_bulk_choice_changes_only_x29 (tests.test_sky130_isolation_review.IsolationReviewTests.test_explicit_bulk_choice_changes_only_x29) ... ok
+test_missing_duplicate_or_changed_unrelated_row_rejected (tests.test_sky130_isolation_review.IsolationReviewTests.test_missing_duplicate_or_changed_unrelated_row_rejected) ... ok
+test_reconstructs_all_three_preceding_ledgers (tests.test_sky130_isolation_review.IsolationReviewTests.test_reconstructs_all_three_preceding_ledgers) ... ok
+test_second_reconciliation_is_rejected (tests.test_sky130_isolation_review.IsolationReviewTests.test_second_reconciliation_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.462s
+
+OK

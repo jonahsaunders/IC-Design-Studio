@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "scope": "Final acceptance/matrix and release-documentation checks for the bounded chunk-6 baseline; no complete-process or full-repository test claim.",
+  "acceptance_record": {
+    "path": "docs/validation/sky130-public-baseline-2026-10-16.json",
+    "sha256": "5a15be0b65082faebdc847fd68f9d4df6140ead86200e8225549e600e7bc6175"
+  },
+  "matrix_sha256": "2aaeaa2c9143040580e7d956d3a282cb4596364d4049611fd6b758c33b5bbada",
+  "runs": {
+    "win32": {
+      "status": "PASS",
+      "platform": "win32",
+      "driver_sha256": "6d947f3954a9f9fa18a0e74a1834c005febf4352f2031be59993e06d14fad59b",
+      "acceptance_record_sha256": "5a15be0b65082faebdc847fd68f9d4df6140ead86200e8225549e600e7bc6175",
+      "baseline": {
+        "status": "public-reference-gate-complete",
+        "chunk_complete": true,
+        "public_baseline_qualified": true,
+        "qualified": false,
+        "foundry_signoff": false,
+        "profile": "sky130a-hd-public-checks-v1"
+      },
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "log_sha256": "03dae09cb52dba5f7b5eddb37113f1b5afd7680a55aab7f87e51ea407f0000d2",
+      "release": {
+        "version": "0.23.0",
+        "status": "passed",
+        "documents": 135,
+        "local_links": 1546,
+        "gallery_examples": 13,
+        "pdk_coverage": {
+          "status": "matrix_consistent",
+          "process_qualification": "unqualified",
+          "targets": 4,
+          "requirements": 125,
+          "device_entries": 255,
+          "requirement_statuses": {
+            "not_run": 79,
+            "partial": 20,
+            "needs_definition": 12,
+            "passed_reference": 14
+          }
+        }
+      },
+      "release_sha256": "89dcd7a4ed93997d8e3ec4193c5b293bd7d89a4f3f928d627f0b0c8f6d314db9",
+      "elapsed_seconds": 12.125,
+      "test_log": "test_complete_public_baseline_does_not_qualify_the_process (tests.test_sky130_public_acceptance.PublicAcceptanceTests.test_complete_public_baseline_does_not_qualify_the_process) ... ok\ntest_matrix_completion_needs_this_acceptance_record (tests.test_sky130_public_acceptance.PublicAcceptanceTests.test_matrix_completion_needs_this_acceptance_record) ... ok\ntest_missing_checks_context_or_exclusions_prevent_completion (tests.test_sky130_public_acceptance.PublicAcceptanceTests.test_missing_checks_context_or_exclusions_prevent_completion) ... ok\ntest_changed_evidence_and_empty_acceptance_contract_are_rejected (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_changed_evidence_and_empty_acceptance_contract_are_rejected) ... ok\ntest_complete_inventory_is_bookkeeping_not_qualification (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_complete_inventory_is_bookkeeping_not_qualification) ... ok\ntest_density_reference_record_cannot_complete_missing_fill_coverage (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_density_reference_record_cannot_complete_missing_fill_coverage) ... ok\ntest_geometry_and_later_chunks_cannot_be_promoted_without_bound_evidence (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_geometry_and_later_chunks_cannot_be_promoted_without_bound_evidence) ... ok\ntest_omitted_unavailable_device_is_rejected (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_omitted_unavailable_device_is_rejected) ... ok\ntest_reference_pass_requires_its_own_acceptance_record (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_reference_pass_requires_its_own_acceptance_record) ... ok\ntest_smoke_result_cannot_be_promoted_to_qualified (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_smoke_result_cannot_be_promoted_to_qualified) ... ok\ntest_stale_manifest_and_partial_device_test_are_rejected (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_stale_manifest_and_partial_device_test_are_rejected) ... ok\ntest_unavailable_model_cannot_be_promoted (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_unavailable_model_cannot_be_promoted) ... ok\ntest_variant_c_evidence_cannot_remove_variant_d_requirement (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_variant_c_evidence_cannot_remove_variant_d_requirement) ... ok\ntest_reference_record_demands_both_os_current_source_and_all_cases (tests.test_pdk_qualification_matrix.ToolchainRecordTests.test_reference_record_demands_both_os_current_source_and_all_cases) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 7.940s\n\nOK\n"
+    },
+    "linux": {
+      "status": "PASS",
+      "platform": "linux",
+      "driver_sha256": "6d947f3954a9f9fa18a0e74a1834c005febf4352f2031be59993e06d14fad59b",
+      "acceptance_record_sha256": "5a15be0b65082faebdc847fd68f9d4df6140ead86200e8225549e600e7bc6175",
+      "baseline": {
+        "status": "public-reference-gate-complete",
+        "chunk_complete": true,
+        "public_baseline_qualified": true,
+        "qualified": false,
+        "foundry_signoff": false,
+        "profile": "sky130a-hd-public-checks-v1"
+      },
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "log_sha256": "5e01070377e461218e33fd1e058ac14499bcd247e6edc3419c1654cce53fdf45",
+      "release": {
+        "version": "0.23.0",
+        "status": "passed",
+        "documents": 135,
+        "local_links": 1546,
+        "gallery_examples": 13,
+        "pdk_coverage": {
+          "status": "matrix_consistent",
+          "process_qualification": "unqualified",
+          "targets": 4,
+          "requirements": 125,
+          "device_entries": 255,
+          "requirement_statuses": {
+            "not_run": 79,
+            "partial": 20,
+            "needs_definition": 12,
+            "passed_reference": 14
+          }
+        }
+      },
+      "release_sha256": "89dcd7a4ed93997d8e3ec4193c5b293bd7d89a4f3f928d627f0b0c8f6d314db9",
+      "elapsed_seconds": 260.790275585,
+      "test_log": "test_complete_public_baseline_does_not_qualify_the_process (tests.test_sky130_public_acceptance.PublicAcceptanceTests.test_complete_public_baseline_does_not_qualify_the_process) ... ok\ntest_matrix_completion_needs_this_acceptance_record (tests.test_sky130_public_acceptance.PublicAcceptanceTests.test_matrix_completion_needs_this_acceptance_record) ... ok\ntest_missing_checks_context_or_exclusions_prevent_completion (tests.test_sky130_public_acceptance.PublicAcceptanceTests.test_missing_checks_context_or_exclusions_prevent_completion) ... ok\ntest_changed_evidence_and_empty_acceptance_contract_are_rejected (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_changed_evidence_and_empty_acceptance_contract_are_rejected) ... ok\ntest_complete_inventory_is_bookkeeping_not_qualification (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_complete_inventory_is_bookkeeping_not_qualification) ... ok\ntest_density_reference_record_cannot_complete_missing_fill_coverage (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_density_reference_record_cannot_complete_missing_fill_coverage) ... ok\ntest_geometry_and_later_chunks_cannot_be_promoted_without_bound_evidence (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_geometry_and_later_chunks_cannot_be_promoted_without_bound_evidence) ... ok\ntest_omitted_unavailable_device_is_rejected (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_omitted_unavailable_device_is_rejected) ... ok\ntest_reference_pass_requires_its_own_acceptance_record (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_reference_pass_requires_its_own_acceptance_record) ... ok\ntest_smoke_result_cannot_be_promoted_to_qualified (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_smoke_result_cannot_be_promoted_to_qualified) ... ok\ntest_stale_manifest_and_partial_device_test_are_rejected (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_stale_manifest_and_partial_device_test_are_rejected) ... ok\ntest_unavailable_model_cannot_be_promoted (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_unavailable_model_cannot_be_promoted) ... ok\ntest_variant_c_evidence_cannot_remove_variant_d_requirement (tests.test_pdk_qualification_matrix.QualificationMatrixTests.test_variant_c_evidence_cannot_remove_variant_d_requirement) ... ok\ntest_reference_record_demands_both_os_current_source_and_all_cases (tests.test_pdk_qualification_matrix.ToolchainRecordTests.test_reference_record_demands_both_os_current_source_and_all_cases) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 200.551s\n\nOK\n"
+    }
+  }
+}

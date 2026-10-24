@@ -1,0 +1,681 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "date": "2026-10-18",
+  "status": "selected_hv_physical_integration_passed",
+  "scope": "GF180 C/D asymmetric 10 V N/P devices: five W/L pairs in four orientations, exact stream exchange, full public DRC with an explicit local operand correction, unfiltered asymmetric extraction, independent body-metal checking and strict LVS. No complete device/PDK operating envelope, installed-release or foundry qualification.",
+  "upstream": {
+    "schema": 1,
+    "repository": "https://github.com/google/globalfoundries-pdk-libs-gf180mcu_fd_pr",
+    "commit": "9f992d5a9186d1f7820c58f039c484ad35b2edea",
+    "license": "Apache-2.0",
+    "modified_upstream_files": false,
+    "files": {
+      "LICENSE": {
+        "path": "LICENSE",
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+      },
+      "AUTHORS": {
+        "path": "AUTHORS",
+        "sha256": "c61dc34be0b6186601f8809e9d2f76ade4e15c94948bf3cc1aa33470965cb6b6",
+        "git_blob": "0dc06d5be7e6bab33a0143fe092bf7631a9a244a"
+      },
+      "gf180mcu.drc": {
+        "path": "rules/klayout/drc/gf180mcu.drc",
+        "sha256": "1da08a5cefb3bb42caecf72397a23be67d7b03318501453ebc322297811fe14f",
+        "git_blob": "1e5a87a561e474f014e626fbb33c1e7e9db71f3b"
+      },
+      "gf180mcu.lvs": {
+        "path": "rules/klayout/lvs/gf180mcu.lvs",
+        "sha256": "e63cf0e288c5d0c10c7528f12d28871eb29c8334f63e1581de2b0719caae5ded",
+        "git_blob": "9a7c6068f4ff129290d96d52c122bc33df4df107"
+      }
+    }
+  },
+  "qualification_sha256": "9c2614c9d66bd3bed824bcfb8c0f112ca3c345ab6189fbc1f96184aeb70e967b",
+  "independent_audit": {
+    "status": "PASS",
+    "counts": {
+      "mask_layer_pairs": 1320,
+      "raw_netlists": 80,
+      "accepted_layouts": 40,
+      "native_devices": 80,
+      "raw_unconnected_sources": 20,
+      "physical_faults": 110,
+      "raw_gate_source_shorts": 20,
+      "reference_faults": 40,
+      "cases": 10,
+      "field_gap_faults": 32
+    },
+    "qualification_sha256": "9c2614c9d66bd3bed824bcfb8c0f112ca3c345ab6189fbc1f96184aeb70e967b",
+    "scope": "Independent original/export/verification masks and labels, raw terminal/model/W/L/junction readback, exact comparison and fault-stage evidence. Selected physical samples only."
+  },
+  "processes": {
+    "gf180mcuC": {
+      "target": "gf180mcuC",
+      "revision": "b661a751abfc662a",
+      "manifest_sha256": "abfbf8702d759247ad77075c72c7b042a6f9b89d2629f5c194a925a0d4f6194c"
+    },
+    "gf180mcuD": {
+      "target": "gf180mcuD",
+      "revision": "2f92b1f05da58bd7",
+      "manifest_sha256": "d46a592f236f5a42356db52e861b17f1412ec826cd19a73452f1aa3a50a1e6ae"
+    }
+  },
+  "selected_geometry": {
+    "width_length_um": [
+      [
+        4,
+        0.6
+      ],
+      [
+        4,
+        20
+      ],
+      [
+        50,
+        0.6
+      ],
+      [
+        50,
+        20
+      ],
+      [
+        25,
+        0.6
+      ]
+    ],
+    "rotations_degrees": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "devices_per_layout": 2,
+    "layouts": 40
+  },
+  "corrections": [
+    "Reject unknown Magic GDS layers and cell-read errors even after exit zero and a zero-DRC result; preserve the complete engine log.",
+    "Private MDN.10d operand expands on both axes and remains clipped to actual Poly2; the original 0.16 um minimum/maximum and all other rules remain unchanged.",
+    "Remove implicit label joins and reference-driven alignment/simplification/purging. Independently require all body contacts in each domain to share a physical metal network before deriving the common substrate.",
+    "Use the native asymmetric MOS extractor, splitting the unchanged source/drain regions by public MVSD/MVPSD drain masks. Preserve distinct D/S in all orientations, W/L and all four junction parameters.",
+    "Convert only native model aliases and M/X interface prefixes; preserve measured device terminals and geometry. Netgen performs the independent strict comparison."
+  ],
+  "full_regressions": {
+    "Windows": {
+      "discovered": 3100,
+      "seconds": 1151.098,
+      "skipped": 38,
+      "log_sha256": "8e8cdbfe470399c759ad59820074b807c8a8620d40e3bc4df2083d9138076ae5",
+      "execution": {
+        "exit": 0,
+        "implementation_unchanged": true,
+        "source_files_sha256": "443c8b00672eb498fcad501ebaa32c15d3e9c1aff78ed5976b2ebe3bde133a87",
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+          "-X",
+          "utf8=0",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      }
+    },
+    "Linux": {
+      "discovered": 3100,
+      "seconds": 575.056,
+      "skipped": 31,
+      "log_sha256": "983f9ae37e80affa9210ff877b646604aec338f78304fe300976fb88d27ccadc",
+      "execution": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit": 0,
+        "environment": {
+          "OMP_THREAD_LIMIT": "1",
+          "QT_QPA_PLATFORM": "offscreen",
+          "GIT_OPTIONAL_LOCKS": "0",
+          "ICSTUDIO_TEST_NGSPICE": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/ngspice",
+          "SPICE_LIB_DIR": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice",
+          "SPICE_SCRIPTS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice/scripts",
+          "ICSTUDIO_SPICE_MODELS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/lib/ngspice"
+        },
+        "source_bytes": 264144179,
+        "status": "PASS",
+        "files": 6011,
+        "implementation_unchanged": true,
+        "source_snapshot_sha256": "501086003616a9e72aad32bf8e222aab7e1cfc890a6ea5d74089cfef9abdb251"
+      }
+    }
+  },
+  "source_editors": {
+    "Windows": {
+      "report_sha256": "50386390aac13711bc940bf6c31ee80bfe35f9422953e5924919ad9d2b88644a",
+      "scope": "Source desktop action and job capture; not installed-release qualification."
+    },
+    "Linux": {
+      "report_sha256": "a2a2de10e20ebed2128cba9bed4c23238978c1de0453a2007c3ebaaadfa27416",
+      "scope": "Source desktop action and job capture; not installed-release qualification."
+    }
+  },
+  "windows_source_backend": {
+    "report_sha256": "4393da583aa17280dfd5030f814fd7c646383cb89e39c7819b1e64862beba1a9",
+    "cases": [
+      {
+        "name": "gf180mcuC-good",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 32,
+        "result_sha256": "2b7db1c45d120d398586995a05072a86443b3d64cb0aedd2171452c22f9bb291",
+        "input_sha256": "8918b393524b4a40c352e75e416e12a376555651740903a8740adea9726941eb"
+      },
+      {
+        "name": "gf180mcuC-substrate-route",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 17,
+        "result_sha256": "feb2e29c778034b098846d243c9c6c193af10364ca4ed82016373dbbe9704fa6",
+        "input_sha256": "97b03fb627acdf4c8a7e1603f4046f454cb3a6d5bf9228b79a301a6098a0f42d"
+      },
+      {
+        "name": "gf180mcuC-reference-p-drain-source",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 32,
+        "result_sha256": "27006a1b8c80d8a5842a2ea322215ffa853e88dfcf57240835ed597b8a70c403",
+        "input_sha256": "279432ea088aa2d57b4f3800f8e121014a61a4ebe79d0e97a7f0f8acaf6837b6"
+      },
+      {
+        "name": "gf180mcuC-magic-mask-rejection",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 21,
+        "result_sha256": "ea3b9c0444acb071ac5f63b667e08c5eeab42279ec39379f2b1cda8544e9c21b",
+        "input_sha256": "87222003c4f1622752f6f86526ac3df1842bbda10ea07e873006d534d3cc328f"
+      },
+      {
+        "name": "gf180mcuD-good",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 32,
+        "result_sha256": "e6894720535a2596a214fd9784c498503f173e9d6ccfa3246eae1a2da9ad1515",
+        "input_sha256": "feea025f5a3f1005d03d45114b54343c5dee614fa2c1eab19aa3eac95efa777a"
+      },
+      {
+        "name": "gf180mcuD-substrate-route",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 17,
+        "result_sha256": "30f19bb43801497f5e7ff7331f4008911b1731d5678c93bb376bc8fac1375ce8",
+        "input_sha256": "5214731cf4828cda815060a3d67885cc0b0ce9a27d5305d9ac952928bcc99bd2"
+      },
+      {
+        "name": "gf180mcuD-reference-p-drain-source",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 32,
+        "result_sha256": "a0bb369ff8f8bb2b9bf55c70ef05631baee24626a1f50b91f96986ca0f578757",
+        "input_sha256": "8d5d96ba674f8b3f938b1de92cf5481a46a48cf5f7e221c5f32029d0bab8c88c"
+      },
+      {
+        "name": "gf180mcuD-magic-mask-rejection",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 21,
+        "result_sha256": "1282b9836d4724b2028b283f076492288dd208712d8efc6613d7efaba9a7c02d",
+        "input_sha256": "b6e6471095471ec2667921d253e362a436b217017b63008f6176ca95d28d0d1c"
+      }
+    ],
+    "received_files": 204,
+    "scope": "Windows staging, actual local source backend and hash-verified artifact receipt. No installed-executable claim."
+  },
+  "other_native_layouts": {
+    "count": 16,
+    "report": {
+      "status": "PASS",
+      "cases": [
+        {
+          "name": "mos-n",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "46c31666c7339e9d30987b0a80e1b7931e0fe25664ca4c248323e0f3d402900a",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "03043eaecc14c2712210282d26190108ecd3b24a5557d9ee9c5a23398a12e970"
+        },
+        {
+          "name": "mos-p",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "dab95a86ac9d05c871159a15a47f641a43be286d497515d29c9b3b15759dbf1a",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "5ba786fb8ab0967e8e1db7d6ce7e87ff07c2ed8c2492a7112658ce937a727967"
+        },
+        {
+          "name": "rsil",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "1a00334fd2cd549ca9fa16a74bd9f62473f97538bb4807b2b6fa04bcedd0941d",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "c2c92a5ea9b3ed5ed4ab8730a11d49a12c394af0099fcd4a9e2276e8d5a431dc"
+        },
+        {
+          "name": "rppd",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "f8d74660613e85d0293f600985ba3b828316c5edf7ce781ab9142c6a62679320",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "403ba09361b4a58f88d685c3a7f645e56df381f18c58384591f04b809389463e"
+        },
+        {
+          "name": "rhigh",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "9ef5146e1e30bd7f5bb061510a05d37659fa1b95eee029bc704cc4f31a8a110d",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "17eb5374346eefcf9e6ffaa3a6c2aa4b5cf47bb9ddcc44fb88c004ba07709282"
+        },
+        {
+          "name": "mim",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "17abb2808d52993ab8e92a52411bb8a21d41077ab2f1c10a0fd699236d04ad4f",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "461f850939e64614231fbcd7702ffd3a27a527c8988d02c21537eb2bb74da4d2"
+        },
+        {
+          "name": "pnp",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "673a689afeae01dc2ee2d8d36d0c4172d2c23cc6f43b1e208e6c3d4896b72bcc",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "f74c76fa61d60b68ed63f78eedd8ab3a95547a5818238f36b243b17b8db759e8"
+        },
+        {
+          "name": "npn13G2l",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "e7f19d538c2017f4913491999c1985b0b87ad93fce70ef475b4bea69314803f7",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "bda2c62700dfe61cb60451ff7ea5986f6b11e71382bb5a32893587015ce1754d"
+        },
+        {
+          "name": "npn13G2v",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "77a1fc6f14f8cc8acd3e8176d2cbe5bbd69eab9af6284603c299f4c832f80708",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "4948a267a1ac46356d559cf81e0a58525272542e7527c0bb648b0d23bc98c2d8"
+        },
+        {
+          "name": "npn13G2",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": {
+            "schema": 1,
+            "status": "PASS",
+            "rule": "Cnt.a",
+            "minimum_width_nm": 160,
+            "layer": [
+              6,
+              0
+            ],
+            "violations": 0,
+            "boxes_nm": [],
+            "layout_sha256": "47d11a9e8b18909d53a7b0eed07386453b50dc8c471bd8acc412e9b39df8bd91",
+            "rule_source": {
+              "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+              "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+            },
+            "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+          },
+          "error": null,
+          "report_sha256": "d1ae56a5f63b73ec28720f702673b60deaa1d9b4dac2728ed92bc121408bc125"
+        },
+        {
+          "name": "gf180mcuC-n",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": null,
+          "error": null,
+          "report_sha256": "f968e8b91878ce5a8abe43199923ae642887a4de6284563fbcc3db3539528479"
+        },
+        {
+          "name": "gf180mcuC-p",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": null,
+          "error": null,
+          "report_sha256": "57fba96e3dc29dcee7e9d7769befcb168efa08fe3381c1ebc18784e1be5611b2"
+        },
+        {
+          "name": "gf180mcuD-n",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": null,
+          "error": null,
+          "report_sha256": "39d05b58cee4d22da18770ea2906467d39536a91df0a0260c591bccac8d72bbc"
+        },
+        {
+          "name": "gf180mcuD-p",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": null,
+          "error": null,
+          "report_sha256": "3c3adb407e3d5ae1e2388d4fb143daa442639fb791b8719f9c95bd3c75b1229d"
+        },
+        {
+          "name": "sky130A-n",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": null,
+          "error": null,
+          "report_sha256": "f0e335bc7a812073f0f8be47a7b0b6a107c7ca71ec49f8984a4eb62fbd764975"
+        },
+        {
+          "name": "sky130A-p",
+          "status": "passed",
+          "drc_count": 0,
+          "contact_width": null,
+          "error": null,
+          "report_sha256": "e99441e0e704f0af5cabf4391e7aa7f7808bd2f914c659a7a676bbe428839b1a"
+        }
+      ],
+      "scope": "Sixteen representative device layouts across all processes with strict stream-input diagnostics."
+    },
+    "sha256": "bdc3bb62a502be803bb6a5a4f534651e66cea3ad18b978f027a0eb1d1c23ccc1"
+  },
+  "source_files": {
+    "icstudio/gf180_hv_verification.py": "7a2789564eb14bfb97354ab7e0620cb5c7d49742108a0cc2028cc65c5be842ae",
+    "icstudio/magic_diagnostics.py": "f31ff59744329f236e6cbac9830d9a98b5d2d087056095eb25109ce77e7f6df0",
+    "icstudio/layout_verification.py": "6f5d2431fb4ecf5be111d0f4c4fd666e6c67fa6830d7af900fbd183c9316c4aa",
+    "icstudio/engines.py": "38ceb6ed240455720363d19e150b18ba61f1ec46392e5248fdc96ef345e24141",
+    "icstudio/silicon_flow.py": "c9a9095ccd1b1316e51bf999bb908d7ccffc183c54f1fb83e9a573ab177f506a",
+    "icstudio/sky130_flow.py": "1b3f2f64dbe7af47e858fc0f313660665378c5105278c0560ae6db661317415d",
+    "icstudio/physical_backend.py": "d9e8ef915ab2f5b7f23da2817fe7b5b0cbb00ef8f5e92e10a9e3023dbf157328",
+    "icstudio/silicon_ui.py": "d82184a86e666f64c9bd5782e5287073508fe4878e48c7b010949a174dedd5d7",
+    "icstudio/verification_navigation.py": "116602b94a34e517fe2c651dcebd992c42762e4477c5f802064ec3abc2462460",
+    "scripts/qualify_gf180_hv_layouts.py": "2b11cd3e381f863a54a55023b939e11c5e7a13d015f075c56c16dbe1fe2fde95",
+    "tests/test_magic_diagnostics.py": "2030e3366f38ed45fdf108f8733fa01dbffb0652b28dbd2ec391ff94cfb749ab",
+    "tests/test_gf180_hv_verification.py": "6b62e5c5a44b53fcc3639c93e0999a2f5ad5dfb20eeda45463b42f89df7a6864",
+    "tests/gui_gf180_hv_verification.py": "60b8b2745d50f9aa8abec5bb89955877b5d947f723db4314c4def6a504769cbb",
+    "scripts/sky130_retained_catalog.py": "2b0721189de21a4f1924d9db6766fc492e121d16cabaad9fe6036a57ca3521fc",
+    "tests/test_sky130_retained_catalog.py": "dd5b300c6e65fd5573cf6942bdc831d9e454fb9c0dcfb416303f9cade80e66e5",
+    "tests/gui_ihp_taps.py": "7b33b32708f364a10e635426b5b0ab6e32f3d87d71e1b2eb4143f5a9a21de702",
+    ".github/workflows/build-desktop.yml": "bb3c8fcd1c0e0938bd2e9f42492e59bb8961671bf5bbabbdb68d5c2bbc3b88e9"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/gf180-hv-layouts-2026-10-18/evidence.zip",
+    "sha256": "bcbef47f03e1c1402671c2a7ff39e771c261a98f3192750bb973877faebb6af6",
+    "bytes": 107773213,
+    "files": 28605,
+    "unique_contents": 10448,
+    "all_objects_verified": true,
+    "restore_check": {
+      "status": "PASS",
+      "archive_sha256": "bcbef47f03e1c1402671c2a7ff39e771c261a98f3192750bb973877faebb6af6",
+      "root": "/var/tmp/icstudio-gf180-hv-restore-20261018-v1",
+      "prefixes": {
+        "icstudio-gf180-hv-fulltests-Linux-20261018-v2": "source",
+        "icstudio-gf180-hv-app-20261018-v3/gf180mcuD-w4-l0.6": "case"
+      },
+      "files_verified": 7071,
+      "restored_checker_tests": 10,
+      "restored_native_cases": 4,
+      "scope": "Byte-exact restored source, rules, packages, layouts and references. Ten restored unit checks, one rotated native DRC/LVS layout and three native fault controls pass."
+    },
+    "native_replay_and_ci_repair": {
+      "path": "IC-Design-Studio-evidence/gf180-hv-layouts-2026-10-18/restored-native-and-ci-repair.zip",
+      "sha256": "2a860c8ed4467ec77beb10b69acda2648e6405949f0e25f7bdf18999b5d584af",
+      "bytes": 2424703,
+      "files": 455,
+      "all_files_verified": true
+    }
+  },
+  "retained_failures": [
+    "Original Magic generator/reimport loses high-voltage recognition and changes extracted devices.",
+    "First pilot fault detector did not recognize the genuine Netgen swapped-pin failure.",
+    "First full matrix exposed the X-only MDN.10d operand on a 90-degree rotation.",
+    "Second full matrix exposed symmetric MOS extraction exchanging physical D/S at 180 degrees.",
+    "The first full Linux suite failed historical source authentication after the mask-read safety change. Exact old engines.py and sky130_flow.py bytes are now retained for those historical checks. The concurrent Windows attempt was stopped after the same failure was identified."
+  ],
+  "remaining": [
+    "Seven required real catalog models remain unavailable; this change adds no catalog entries.",
+    "Broader device-family physical coverage and declared operating-envelope closure.",
+    "GF180 HV transient/noise/statistical/RF coverage and additional legal layout topologies.",
+    "Final installed-executable acceptance on both supported hosts."
+  ],
+  "post_suite_editor_repair": {
+    "change": {
+      "path": "tests/gui_ihp_taps.py",
+      "before_sha256": "cadeb0616997e8426ed1f38cb7870673a89a2d9e1f9c63d91e17869c1bf1ac84",
+      "after_sha256": "7b33b32708f364a10e635426b5b0ab6e32f3d87d71e1b2eb4143f5a9a21de702",
+      "reason": "Fresh registry projects select the current default package. Assert its frozen identity, while preserving all placement, calculated resistance and saved-project checks."
+    },
+    "hosted_failure": {
+      "run": 39160858513,
+      "job": 117777411506,
+      "step": "Verify IHP tap parameters and saved revision in the editor",
+      "log_sha256": "ac87379790f2eccdc1a9ca07163a25be826b7fa63bd55097e46d7cdb6a439c02"
+    },
+    "checks": {
+      "Windows": {
+        "status": "PASS",
+        "scope": "Current-source offscreen desktop; placement, parameter editing, computed resistance, save/reopen/netlist. Not installed acceptance.",
+        "revision": "cfb96b74cf33877e",
+        "checks": [
+          {
+            "model": "ntap1",
+            "initial_ohms": 262.84733397704105,
+            "edited_ohms": 40.83333333333334
+          },
+          {
+            "model": "ptap1",
+            "initial_ohms": 262.84733397704105,
+            "edited_ohms": 40.83333333333334
+          }
+        ],
+        "source_sha256": "7b33b32708f364a10e635426b5b0ab6e32f3d87d71e1b2eb4143f5a9a21de702",
+        "saved_sha256": "94479b1a50228b364cd2c6d9bf058a59c6c0bb9390a50aa1f29c5606f056732d"
+      },
+      "Linux": {
+        "status": "PASS",
+        "scope": "Current-source offscreen desktop; placement, parameter editing, computed resistance, save/reopen/netlist. Not installed acceptance.",
+        "revision": "cfb96b74cf33877e",
+        "checks": [
+          {
+            "model": "ntap1",
+            "initial_ohms": 262.84733397704105,
+            "edited_ohms": 40.83333333333334
+          },
+          {
+            "model": "ptap1",
+            "initial_ohms": 262.84733397704105,
+            "edited_ohms": 40.83333333333334
+          }
+        ],
+        "source_sha256": "7b33b32708f364a10e635426b5b0ab6e32f3d87d71e1b2eb4143f5a9a21de702",
+        "saved_sha256": "041c59f1ba7ee43a26f0743de8a48461fe2e7e9dc1490fc2285f262bd4dddf67"
+      }
+    },
+    "scope": "The full suites ran unchanged source captured in the main archive. Afterwards, only the standalone IHP editor test and workflow were changed in executable/test code. Both corrected editor runs pass; the workflow now also exercises the already-tested GF180 physical action. Hosted acceptance of this repair remains pending."
+  },
+  "post_suite_line_endings": [
+    {
+      "path": "scripts/sky130_retained_catalog.py",
+      "before_sha256": "d672727247b4a5aff9607145c5dd971e8d440bda197b93b799a93ee3c3732eda",
+      "after_sha256": "2b0721189de21a4f1924d9db6766fc492e121d16cabaad9fe6036a57ca3521fc",
+      "ast_identical": true
+    },
+    {
+      "path": "tests/test_sky130_retained_catalog.py",
+      "before_sha256": "f21306fd5193bf1a0a08b6fc63864463f4468ac3ae9143e9cc6fec8ac4629e32",
+      "after_sha256": "dd5b300c6e65fd5573cf6942bdc831d9e454fb9c0dcfb416303f9cade80e66e5",
+      "ast_identical": true
+    }
+  ]
+}

@@ -26,7 +26,7 @@ class DigitalSetupDialog(QDialog):
         self.process = None; self.buffer = ''; self.cancel_requested = False
         layout=QVBoxLayout(self)
         title=QLabel('Everything you need for digital design'); title.setStyleSheet('font-size:20px;font-weight:600'); layout.addWidget(title)
-        note=QLabel('Studio includes tools for simulation, synthesis and chip layout, plus the SKY130 HD platform. '
+        note=QLabel('Studio includes tools for simulation, synthesis and chip layout, with digital platforms listed in the package. '
                     'First setup takes several minutes and several GB of disk space. You can keep editing while it runs.')
         note.setWordWrap(True); layout.addWidget(note)
         if physical:

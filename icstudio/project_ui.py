@@ -170,11 +170,20 @@ class ProjectMixin:
                 edit.setPlaceholderText(str(meta['default']));edit.setToolTip('Blank restores the PDK default: '+str(meta['default']))
             effective=QLabel();effective.setWordWrap(True);effective.setAccessibleName('Resolved PDK parameter values');effective.setTextInteractionFlags(Qt.TextSelectableByMouse);section.form.addRow('Resolved values',effective)
             fields={k:w for k,w in self.form_fields.items() if k.startswith('modelparam:') or k in ('param:w','param:l')}
+            for key,rule in binding.get('parameters',{}).items():
+                field=fields.get(('param:' if d['kind'] in ('NMOS','PMOS') and key in ('w','l') else 'modelparam:')+key)
+                if field is not None and 'fixed' in rule:
+                    field.setReadOnly(True)
+                    field.setToolTip('Fixed model geometry. This public model does not support scaling '+key+'.')
+                elif field is not None and rule.get('computed'):
+                    field.setReadOnly(True)
+                    field.setToolTip('Calculated from the other PDK parameters. Edit those dimensions to change this value.')
             def preview_parameters():
                 from .catalog import parameter_details
                 candidate=clone(d)
                 try:
                     for key,edit in fields.items():
+                        if key.startswith('modelparam:') and binding['parameters'][key[11:]].get('computed'):continue
                         raw=edit.text().strip()
                         if key.startswith('param:'):candidate['params'][key[6:]]=raw
                         elif raw:candidate.setdefault('model_params',{})[key[11:]]=raw

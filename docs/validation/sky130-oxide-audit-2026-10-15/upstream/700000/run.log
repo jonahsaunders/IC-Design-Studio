@@ -1,0 +1,25 @@
+met_tiled_density.drc:: sourcing design file=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-controls-v1/linux/upstream-700000.gds topcell=density_control ...
+done.
+flattening chip boundary...
+done.
+step size = 70
+llx=10.0 lly=-20.0 urx=710.0 ury=680.0
+x_cnt = 9
+y_cnt = 9
+dbu = 0.001
+bbox_area = 490000.0
+calculating subtile areas (= 81)...
+tiles per step = 10
+calculating window step densities (= 0)...
+m1 minimum met_tiled density  = 1.0000
+m1 maximum met_tiled density  = 0.0000
+m2 minimum met_tiled density  = 1.0000
+m2 maximum met_tiled density  = 0.0000
+m3 minimum met_tiled density  = 1.0000
+m3 maximum met_tiled density  = 0.0000
+m4 minimum met_tiled density  = 1.0000
+m4 maximum met_tiled density  = 0.0000
+finish received: success = true
+finish received: success = true
+finish received: success = true
+finish received: success = true

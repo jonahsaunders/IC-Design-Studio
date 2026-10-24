@@ -8,7 +8,7 @@ import time
 import uuid
 from .model import atomic_write, clone, design_digest, digest, file_digest
 
-TOOLS=('magic','netgen','ngspice')
+TOOLS=('magic','netgen','ngspice','klayout')
 
 
 def available():
@@ -121,6 +121,18 @@ def dispatch(job, directory, progress):
         source=digital_runtime.payload_root()/'backend/icstudio'
         if not source.is_dir():source=Path(__file__).parent
         shutil.copytree(source,backend/'icstudio',ignore=shutil.ignore_patterns('assets','__pycache__','*.pyc','*.so','*.dll'))
+        if job['settings'].get('lvs_extractor')=='ihp-klayout':
+            from .ihp_klayout_lvs import copy_assets
+            copy_assets(backend/'icstudio/assets/physical/ihp_klayout_lvs')
+            if job['settings'].get('drc_engine')=='ihp-public':
+                from .ihp_klayout_drc import copy_assets as copy_drc
+                copy_drc(backend/'icstudio/assets/physical/ihp_klayout_drc')
+        if job['settings'].get('lvs_extractor')=='gf180-hv-klayout':
+            from .gf180_hv_verification import copy_assets
+            copy_assets(backend/'icstudio/assets/physical/gf180_hv')
+        if job['settings'].get('lvs_extractor') in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
+            from .sky130_rf_verification import copy_assets
+            copy_assets(backend/'icstudio/assets/verification/sky130')
         atomic_write(backend/'entry.py','from icstudio.digital_backend import supervise\nfrom icstudio.physical_backend import native_run\nraise SystemExit(supervise(native_run))\n')
         atomic_write(work/'native-input.json',json.dumps(native))
         marker_path=digital_runtime.wsl(['--distribution',runtime['distro'],'--exec','wslpath','-a','-u',str(marker)]) if runtime['kind']=='wsl' else str(marker)

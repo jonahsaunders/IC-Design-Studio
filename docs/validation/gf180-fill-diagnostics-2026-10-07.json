@@ -1,0 +1,1821 @@
+{
+  "schema": 1,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk": 4,
+  "scope": "GF180 C reference experiments and fill-rule diagnostics; neither C nor D density is qualified.",
+  "application_source": "1989dbfd7f023bb64bc6183988e43a82981d6175",
+  "backend": "b000d627695f07f908c22dd74210fbfea91b28e741eb7a27c1d58992e07330c5",
+  "capacitive_filler_audit": {
+    "status": "reference-experiment-audited; density-and-fill-qualification-open",
+    "scope": "Exploratory GF180 C counter fill-cell selection. Metal density, complete fill-rule coverage, LVS and tapeout are not qualified.",
+    "backend": "b000d627695f07f908c22dd74210fbfea91b28e741eb7a27c1d58992e07330c5",
+    "source_files": {
+      "__init__.py": "a7096e59a4cf2fc5e46fd1b73c437cfe3b97660cae5e874116642fc25c3da5be",
+      "__main__.py": "6970616749b653499dfac1c2c24756d1103af650f947bef8f19fa2b2c39f92b6",
+      "analog.py": "1af5b662ca84e3d5eacd33cd7a8d25f5f9e51df41f5853e3ac6b0c4ae3b679a8",
+      "analog_adaptive.py": "53ffc6fec63ef51867a0c971dcb704d2cca52096a7733e63517eb8d96eaccb9f",
+      "analog_advanced_ui.py": "52759853571636a81a9020567072fe2296308350d2cfd56af444ed6ebd74f4ed",
+      "analog_automation.py": "5fca854523612c56c4362d91de190abf2e79155b92e1b2250a36f31c796ec5d4",
+      "analog_bank.py": "2ca6cc7d4233af15ab017efb262d7555e15e4bfca2a77bb424c39ab350afa2d7",
+      "analog_bayesian.py": "4b75904438e4b92e3988ad3d643eabf16f4f2fe96a2fb600f3c8168d59e4a649",
+      "analog_characterization.py": "8195595b6c0831f486f29f707bcb9c0672221781e01fdd4252cf8789a3617649",
+      "analog_characterization_ui.py": "d5ee933f2e7d08eaf13893c228bd0000abf2f628765d1681d509429dce158e27",
+      "analog_constraints.py": "75caa810aa71b80bb76f489bb0d180cfc7b59ebf3e8830dbe02a61475a662f99",
+      "analog_debug.py": "0a719a05a04723a09a02779b303d58cc3fb98c893dfe07f6d85b2f9116de33ce",
+      "analog_diagnostics.py": "f7dd5dd9ed0b11eb20f1623b8f5ee9e46fde5493c6ba4584f998e82cd9513646",
+      "analog_fidelity.py": "38d2b7a873eff5848a11ed898d2e5722c9020261c8269ea327d00fdb391e1632",
+      "analog_guided.py": "2ac6ffd25dc41c0532bf25cbceb87a126976a5d2bc24ce0d44b8f160df2b1441",
+      "analog_guided_ui.py": "190a334957e03673810e18911d774c547915634b640ad6f3bf0a411977ebcea9",
+      "analog_layout.py": "c600d1be8a3082f1b3f463d24fefd921e2a25001d84578d34e85ebe63d46ce19",
+      "analog_optimizer.py": "e81ec268c0cc79300d5f82c4f205edd9e9479e91a13563a834e2fc3af4ea4155",
+      "analog_optimizer_ui.py": "0ef5ea9369812cb7619f5343df4bdc67064720a664d5994cd0fe60f687ffe759",
+      "analog_reference.py": "9463f678c5192db9ebccc74acc1557c6c9a66aa17098b7e1c59d39a4e9ad9f7e",
+      "analog_robustness.py": "1e6c26c2be0b14b267eaa54f23ac24fa6fa9fb85ec6d3c6f3aaf73b360f61648",
+      "analog_run_ui.py": "ee729e38ea447c318f72013485271398cdb02e395d2ff375eb880ed65809528c",
+      "analog_sensitivity.py": "047b884eec47a044e0675b94605fe82efc0bf00cff63b9da5b7b57999fa01e60",
+      "analog_surrogate.py": "b1a15ba1c031c87c9dce5313adf6e2be24f42a82dc9904e1e008751c900aba44",
+      "analog_ui.py": "3c851e98632a02845746086fc2b3d3a2eb421a1944bf9edc2e03898be9cb5563",
+      "analog_widgets.py": "8da9acbd6c3ab1b1e80c4134337cd34467009c7abde449a9128ad18c75e54209",
+      "analog_workspace.py": "779fe36062d0743cc13b272bafc7ebeb7c2e2cbac67b7688b0749ea54fd76a3b",
+      "analog_workspace_ui.py": "b8c2229a35af525e045cffc6dbcadd9c33a0ff6115e8726e9c662f4a99d8339c",
+      "analysis_plan.py": "3744866057f202c5712e859c81c7bd86ed1819cef50906a8d6180a18e5746520",
+      "analysis_sources.py": "6cfb59700c5342346bd2654d13b1f2127fbde73ee811f9271335a347cebe6094",
+      "annotation_ui.py": "4507e6b491346417cde3e7501a937995db05cdd031ce779c8229ee45e71b981e",
+      "annotations.py": "b0c86c188fc6056e91be9ee0bee6b3e7aea880847f9b31903920b9269cd7a3c0",
+      "app_workspaces.py": "af1187a62cc9f3cd02b3f58c36378805337da6845d6f81701d7f55c798712ce7",
+      "automation_benchmark.py": "dd3fb5882d624e4c5ce152452edead875faba4965b1d7dbd5452d36e9dd09f45",
+      "automation_cli.py": "faccb09ab11a844bf8516ceea578492bf3a6950b161ce81f10cbfdcaa21edabc",
+      "automation_ui.py": "c493e68233689591da04c999c4f3f07f932eec4c94cf488f19ed1ec802ec614a",
+      "build_identity.py": "da9f4d0c843ab6f96ca2aa05fe61e00ab5dc2333447564d909e981ee61c8fe03",
+      "build_info.py": "4e2ac62f1d34cec2ccc4cee6844908ddf775e5f7f032a2ce5e52385f0160c033",
+      "bundled_pdks.py": "5dbf58014a86a11217767dd94dec3e86b6603f665b33c3eebea61f28aee2a39f",
+      "campaign_statistics.py": "8fc2887841e963e1d5f4636d50d715f004e8d9e316d160e546cadc006744f868",
+      "campaign_statistics_ui.py": "de4d1560c9a5ded129fa16c01091613d0346bddc9297e66ffd800c60e739f0c0",
+      "campaign_ui.py": "71ef936b1b5b1978454ea61b5a212e05fc3e059d0aca20d65913fea978232256",
+      "canvas.py": "7eca313a5132facbbf33fef64371559064132fb696334b261943af0c959cc0ed",
+      "capture_keys.py": "85d1e423ae41f52be1b587058d95232ca5294059faa63a78136938375912004e",
+      "capture_ops.py": "cf3a39ff259b617b3ace68eec6cf46601401de09af4fc4d025b3af38da1f7594",
+      "capture_workspace.py": "02d52e5f3ee6a23b84411af61cd0c11602ca9fd6d75b6ecd7845d491f14f0bd7",
+      "catalog.py": "9ec02006afb2835c3be9ddb3db5ad03540b382f0d6ad53559295229505a0fc81",
+      "catalog_migration.py": "f95a1b5ee94f15b9052604067d37580a15cde7bc3ef8258c4db1e13bf28ccd8a",
+      "characterization.py": "8b740351cdb681cfd55f05adfe827e2c746a3b2b0874412ba43f95a71d9a52c8",
+      "cli.py": "6d0364b93fdc03460d4102a2f59d734e78229c7aa1c5b14d17115eb3f6f7dc65",
+      "collaboration_dashboard.py": "5d3d64262d04fa1c63b7f8657a6f8e5218d6237d2483a3329a683b2f53206879",
+      "collaboration_document.py": "7c3417060041a7d4641b0afcb4faae37bcbe66375c99a61b47268a4dbeb0dced",
+      "collaboration_review_ui.py": "0143ed2cee159a34934ff2b816d344b3b9b6b5a63c7cb871303815bf097c9140",
+      "compatibility.py": "0e9a431d93595593780f577114d38736e4091df2dcf98ab1a1571a69b166d8c6",
+      "component_browser.py": "e1a584e95e569d9bd7b5979c11090fed17051ba9cecf6bb011cb003af25afd34",
+      "component_preferences.py": "0b2962ec92467926c7715fdb60b03d8026a6da8a207831ece4f519ff3d584912",
+      "component_sources.py": "cfa0e213910aea9ecae9381f84c247aca934a02048344fcf278103cd75fb8653",
+      "components.py": "84d1842c6824662d72b4539420d78071d14aa54b4f3a49f676fd9838edeb0314",
+      "consistency_workspace.py": "0e714e5009cf124ab2d487f2d8c75f511f35f870f82a73752e4a00e313019a57",
+      "contact_rules.py": "05d3ea7ce39fee05418f65f0224a7785a6f0a299a2f9ad6ef52a1a89e0846df9",
+      "cross_probe.py": "6fef035ae74c719f63ba5d85ee5338be8250f7cb786f76f8f4e5737c325c1d84",
+      "dc_startup.py": "7ca5f62a6c5724fe5834b27828f4bc1f612edf9aa8ab0e5eed6b6535a6f3da08",
+      "design_automation.py": "bd576b8f9d566332897eb959afb579f3357bbe58154b8d6179b1867bfdf5dc76",
+      "design_ops.py": "80cec5dea5728f0bdbe709051e4d3f0adb6e6b490af622c9ec9d30bdfedc345d",
+      "design_search.py": "906bf21897d3d5f1eaeaf6b2f4644e9f9ae4795d92d4378ec70f52ce66d6b665",
+      "design_workflow.py": "02e9a3c1ba98ac4b082a99dca608cef96f34016fadeda01987d12a483d022ebb",
+      "desktop_acceptance.py": "fa17b4a1a14acc6a49b56e1b90cb550c07b1f22e9126dba230e7272fd60865fe",
+      "digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+      "digital_apb_example.py": "0eab253a16a2292d6ca32a602f0160ab5f5f531eed7981b3cda1b28714e9c288",
+      "digital_backend.py": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6",
+      "digital_cli.py": "8d32654db5cdc002926f9de14b7ae0a4d338ccc3dd728f25ea21fa6455fccd83",
+      "digital_constraints.py": "9771a358129e78f7b7bd3dc2f08fa8fdc952d191b0f14b8873212945fc7005b6",
+      "digital_constraints_ui.py": "a7b3a4f3b428469656d33294960d4d4a390675135b273f3ab9959b9382b42fa1",
+      "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+      "digital_editor.py": "462152c2fe423643ea203bbf5456fed342e6c33d59498636ea8953a17bfe14bd",
+      "digital_examples.py": "9cb9e5cbf0afd01abc329a6dbcbc409680d9ddf6826073ca61297e513de55b25",
+      "digital_flow.py": "dcfc1c78076e78abce08a03c8f8ffb6ec17b066a3fe32a1eff8d0bd03f024903",
+      "digital_identity.py": "eb729eb73a3bdb67848a5d4cd9629ede72ce729e187e054f5de53769f8145ad9",
+      "digital_implementation.py": "8775ef393f39ee1562a722e0e795ec3e2a99bb3166230e4ebd3e27ec40aead40",
+      "digital_inspection.py": "b515de8a5d8bba4cddad9a6f993b323933697e23f29195e8f98f4d204c90a6bb",
+      "digital_layout.py": "490c6884d012a9f5348e5eef3bdbf25bc5012e9f452cb6926e24fe64d8243265",
+      "digital_logic_ui.py": "70492458c40e98498cbe47ebd4fc0a9dbbde8912992601f39050742dcc83a7d8",
+      "digital_lsp.py": "1555f1bde82376814d27558ecefa578389b9abe05c491c6e933e12a711c4e67f",
+      "digital_macro.py": "a02c8593228623fdf02ce858b18f202ef9a40f230fa4b554b320939e3aaed5a6",
+      "digital_mapping.py": "7890689f3b697c2ddd87e3cd240e4eb7307b99cce323f81b207fc40dd7b5b34d",
+      "digital_odb.py": "83c80d8d35e2ac6edded3f022181df6d58d5111d02dca9c3b663d6446bb223cb",
+      "digital_physical.py": "017768dd91a5e8961b8755e3068d758061f95ecf2dbe52559922892411939d5f",
+      "digital_physical_checks.py": "b6727b27b061ed86e30666f40f04b0fc3d201577915b5453f7a13cbbf1b829ac",
+      "digital_physical_engine.py": "f71d5d2b8d5c87ddb94761b6e27025b7db7235be3c20a6377cfc16cff87d7489",
+      "digital_physical_ui.py": "8d918bc11df0f5c34e5995f98b0f37f8e2b873bbd87fb42cbd805caafca6ef9c",
+      "digital_physical_view.py": "97cb2fd302523d198dfcd0da580c6884a8eb6ecf8402c95aa0a14f1d3053b7ba",
+      "digital_planning.py": "73602bd3b1afb0aaab5243b5cbe655bda00de19dd7459713569275303b91a527",
+      "digital_platform.py": "0601eb12e4a23c7e1fdaf20970b0804e2eeb20fefea258237175249bc9503d45",
+      "digital_qualification.py": "89995283c03fb8deca5da283e016dd506303efdedf6dabe26e947b26432c9b2e",
+      "digital_rc.py": "2890fc4229205a007cf928edede9b18da3d1569c81a35d8f48e53d24d957c877",
+      "digital_recipes.py": "c602ef05777f79926d087f1a85523a72f735eadb318adef755f317b9911f51e6",
+      "digital_regression.py": "65673f44e8fb586403257696c13fbfaccc2b692ee69e1029e9bb71e30b650f2e",
+      "digital_reports.py": "8d915e4e49839afc521a11a2bac0a31bdcff8ded6f629ac6dbb8c6f25d1f5deb",
+      "digital_runtime.py": "8a11b3be62af512ebcb4d4f4ea9f17396678b42058ca2cfe2443f95acfd0bd6c",
+      "digital_setup_probe.py": "3006e3c327d25f87bb984e4173637926ac32a812b589c725cd950132cb1380f0",
+      "digital_setup_ui.py": "cbc4a5e21932d01e5932df27f787518f2ce6c43745a8a5e6fe88a9c1a3884c20",
+      "digital_shell.py": "55bf0796bd46e4ed31eb2200d663cf6e5b846174cfcdd5de5d12dd96d6f22b13",
+      "digital_tools.py": "d53090a2d97f432899086846d2e2c10cc4d47bc60d78d7e3d51b06091a408660",
+      "digital_trace_store.py": "f2b5be9e2c0d131496c707cd08073e9d452cc2ff69570f9dcb933c18b411113f",
+      "digital_ui.py": "687e51dd51cddc0b0bf49d20de34f42d95b754cfe9c9e83caf68713c6c52b259",
+      "digital_vga.py": "770fba42c61d20b05956b407e4d0152451b5aee377e923b554870ec79d1aef4f",
+      "digital_vga_ui.py": "6b0c5f017cba7ecae1b2251fbce588a7477602f83a7d4f8a3117246b3256c649",
+      "digital_wave_tools.py": "f6ac733f253fd287d1f506d76223cd580c26a63c48e80ee0926c40e10006e8c1",
+      "digital_waveform.py": "a1f48745cdb96e75a9bcab14646621df636272254da9fee45f43820716489ec4",
+      "digital_workspace.py": "9eff651934d4ecb602e1fef218d9a543d13b85569f312e9088a1e82311fa9124",
+      "distributed_rc.py": "e741914a7d90fa68940d7e994d58b6d5c8672039c9e912b5295ca79fc50de79e",
+      "document.py": "98ad76b41b5c8fd55da7da998181114ba442a8a4e342063f79935858d556fc41",
+      "drawing_canvas.py": "6944a66957502e61c025939d70bea56b65c02f7d12d2946ff10043d95c5be711",
+      "drawing_options.py": "ed18f4cced88fb0080f7f2e9784640b90eb37303ba41515e47ec31c11ebde629",
+      "editing_assistant.py": "416a6ceb3776a02119c822935d7d85808b291c531eb5a64c8597aa1a69c6098d",
+      "editor_canvas.py": "0db600d46dffb8fd61068530cba6fc958c74ab23c3f2f7edcb29821c163955ba",
+      "editor_ops.py": "836e0ab9dbf5a5da90b23632e436d0294df55aaf50987e5c282209b033db5a0c",
+      "editor_workspace.py": "61dec3f76c26c475e97cfc5bbc7f47caff90e277b6b4a246abac661836504dd9",
+      "electrical_identity.py": "f7e764f0375df57b2eb53e76ba775161372b30a92dafe5c2f1ae82198780c16d",
+      "electrical_rules.py": "e3e78af7726258e9cf21c5517777602ce0cd659f6e6670a7b77bd692be0a113b",
+      "em_profile_ui.py": "74f5e0ba4f92b8e4b9dc85174d56b41def56bc613701e483693b0a5ca6cc71c8",
+      "em_technology.py": "adb57f81dd63c245843bff04c69a4e085a72525244d62c4c810c5a7341402829",
+      "engine_selection.py": "328a8c0ff635a0733c5bd6f8d2b9a6fdd56f8952f801403605ecf90de824f1b6",
+      "engineering_workspace.py": "1f402122394d445e1e524d12113cbf12805a307d681bc34ebfe20c118ebce083",
+      "engines.py": "50565d2f2077a119fe77b25c79ef79729e3d0e4b3ee5dd4b37eae2c92caceafe",
+      "example_schematics.py": "dafc6cf5e706b55b7a04c585c507a9e69edde0fca5285ce583b4bb4991c05d83",
+      "exchange_review.py": "5fa840c94de27c6da0e9238808664a9b729fa952465bb42c54e66bfa424f3f52",
+      "experimental_probe.py": "c6ce90154a00b549b458c6f9430c75d797562a7d05b4e2c1e9ae5a4c38563da6",
+      "external_tools.py": "8e4131b26d09b0f56381ca1439fe854f2585141d3f402a14c0c5f3fd9cb04fff",
+      "feature_cli.py": "883a563ff7de1e06566f683edff01eb2d7863e0a192c35dc215b97d94a925bd2",
+      "feature_ui.py": "3ec28890960fc6948ef43e8b1d8574aa5a4b207497ef5b3d887fc67d424ae881",
+      "fill_capacitance.py": "778c22d2e611b9562ad4d0f26c51994071cd03af57de31db6a6b9c3749143d0c",
+      "floating_panels.py": "401f3604949706288bbdc98e34012bfc1075fdb7f1cd92f5cc538fd67c04540b",
+      "getting_started.py": "7017bc6d601c10d8b75f4318e1cb4cf20f940bad3ac73b40af49e577e4ee35d6",
+      "gf180_layout.py": "744555609e25e0e70aa5f58f950d327eb224682f23ed4c19cc8b3c834876032a",
+      "gf180_rc.py": "9c89b5333c453948f09e2627cb0daedacfbbe9189de1763632a0a4a661af3c04",
+      "grid.py": "1ab9ab1f59dd391e273056e054e9f22fc26dfa7d983668b8d323302b01df97e5",
+      "grid_settings.py": "57fb262f4839535574aaa7d776d5eee1ef90ea617b5dc3b1d9df464c65de8dfd",
+      "gui.py": "6d0cb7f11ee948a17da3554661dade9f47d5ca8ff406ef692ee5294a62c7c997",
+      "help_navigation.py": "b2bd4685cdfa356286ecfc20c76f6a166c3ca98219a05794ab0d6de5781a5add",
+      "hierarchical_flow.py": "dd30dbd93a1ef9fbfc2f3ade72e446fee308cc2fdb8eb1dc6628c4c8aa45ce28",
+      "hierarchy_ui.py": "001f4b7b5c7dfe9e3317072b05936785e70969bd568acc61f9eb6b5525fbdcc7",
+      "history_delta.py": "67423f55117df83b903103856934e70ecc2d90900adead5a012dafa73c257878",
+      "host_annotations_probe.py": "f4077786ca5644f5c9a0adacee0e65de0b0ba8f494ef10f44d447ad9d5a4a53b",
+      "human_workspace.py": "ca16daa9d011fe70533ed809b3532bc97ccf145fa87be8785fab03fb42d7c7ca",
+      "ihp_layout.py": "c9cf94b535a57aac4d677be853b1156c01c58f25e8322132b7cfed56b82cf284",
+      "implementation_views.py": "618a99e750869c7aa60880c8e3db840e52cca43a05be5c497a0aac4b98184911",
+      "implementation_views_ui.py": "5e453173ce74bc3543604cfb8876c857a588b6810b484471b910ae15ff428954",
+      "import_review.py": "5ed22432ad35921c3dbdc25667e2cbed4a8e0aa24da70f296a4b1e71704d0ae4",
+      "inductor.py": "90a8ab2a870a9a86520b2e75fc3127a047a2a8c808df37a1bc3719592283d9c7",
+      "inductor_design_probe.py": "f186d7f610b835137bda0b5cd7f75d015484f5e4df13d3dbda1644eb04219bf2",
+      "inductor_electrical.py": "085bc54da2475a08230ca820f0108e38e58fa6d4e71fbf96d827ca4b23585bde",
+      "inductor_em.py": "5f07f47c809a78f4477bfc5faf6b15b245633f8e773feb7c7003a652a676ec7f",
+      "inductor_em_ui.py": "079ee99594be0091fbbc3dcebc1998621e2c77e6abab0339adfd22dc0070a4f8",
+      "inductor_jobs.py": "40fe311cbd365f1c46436a006851511b53ff3f8e41ade40e442ab2af9a12efe9",
+      "inductor_probe.py": "9da25c7cc63034e5e98f41f5681ac4010ef294fc0583f4b69eb0fe296ffc5fee",
+      "inductor_shapes.py": "5f59d502573d1db73a2eba3094f8aa451c659dd10588102cc87fe0cf3100ef79",
+      "inductor_synthesis.py": "cba28de24986d82a1d9872588a594a1dd7d581014ff7bea45fc591fb2b0d037f",
+      "inductor_ui.py": "590521225c1db56c13d24bbf21d4eb8933e0be2afaf4aed4f8de47a0e3da8825",
+      "interchange.py": "29993ee82c62651d08334f94aebffac2b6c162681f5b6ef429c8c556dde34616",
+      "interface_ui.py": "757a6628dbb273d2eac480f6966954c69e6dc24d52478bb7e9ff119914bdc1af",
+      "interface_update.py": "7a5c8252007659333cd01b59573a0558bd06967ea82fe9f4adabcccb705996f1",
+      "interop_cli.py": "ea188113be46da108f7bee7e614d4ee93708a902379e10441798c9e8cb15690f",
+      "interoperability.py": "0030559c4459eee2da740cb2432f0571604022e51b457d3238b902d619a43f17",
+      "interoperability_ui.py": "c52924c72ad0378d8be1267b0ceb5463f97e810c66d7d65f787e11710bef5602",
+      "job_store.py": "a357ed98e9f7fc7ba11d335c884b43b7f35e490e239c01a85c63dc42e5ad8c37",
+      "klayout_lvs.py": "e4d80f5c9f77fba3fb7c21ad4b9128e5c4899d6110a22008d3c511c10044c9e8",
+      "klayout_runtime_probe.py": "51d750b45a8787dd07a45a75e40e371fe9961e8f2e651388a47a709cb422d7a2",
+      "klayout_verification.py": "5ff4f96863a4066d01be52eee4ebdf75c34b110408508d2d634da1213a1860b7",
+      "label_canvas.py": "3e907c40d6e74a472216f19712cddc821ceb63f4cdf4f5332219269fdce2a4e5",
+      "label_ui.py": "0c2c05568ddc9d370931e3d43d8fecf75ee26902e8e8cae9db769e11bbb30c9d",
+      "layout.py": "eb6fd29a4dc7841622066df382389422d9fbf90e100cefa8f67855751d5ad8b7",
+      "layout_3d.py": "5c0c00e10acb47341031bcd6e3498aea1b7aad62eb018d1dfb50302914e051df",
+      "layout_3d_ui.py": "d0980be63406de5446c6cfb858d0e6200d978fcda0a0f2cf8afd82ce0efee799",
+      "layout_3d_view.py": "655213a18ffffc62e3ee2d412675d7c4629ae6364c790817b744ae253c909cf7",
+      "layout_arrange.py": "2bb81896eaf5a80e3c0bb6d421ff800ced848dc8a550d1918797bde743e68489",
+      "layout_attach.py": "7bff67750ada406998b0a3d078b105b2c8d84a7783c7e99748a672b91338fc8e",
+      "layout_cache.py": "bbb8e586797eac4d19de198f5245b86af7996000df9d69241d1be09a914f6cad",
+      "layout_collaboration.py": "bd22f6af16fa847e08d1bbf4d6b5559c42d022a3ad16d7c7ee6404ef9bbf2a20",
+      "layout_collaboration_ui.py": "79a4e811547f703e3950143ae258de6e4f022ea41660fbd34fe2a6b3808554d0",
+      "layout_comparison.py": "1b873c09169048ca9b4e88032763c049cc8fdeab387fadfc4c6e1a768090ecd9",
+      "layout_development_ui.py": "7debbb6c0270a70e8746056d3606772a654c20d47c8c335a2d489d847bee1fd3",
+      "layout_eco.py": "c185727fb992dec5d1a1d2bec915ce1a89746c06a59c5c8c08f1c19e82e2b40d",
+      "layout_eco_hierarchy.py": "0938773f690c3e46e4601f9bd33d9f7071003e81b3ec9bb66186d316ab03083f",
+      "layout_eco_review.py": "190e5375239585f27194a08a2fd27f03246b34f1cf936ac7400731b988f5d7b1",
+      "layout_eco_ui.py": "1431d0022adbb761428e9977f5ab345718eb62a2d070688037a197ff09f75356",
+      "layout_edit.py": "c94420b4aafcc90fc18dc225f227e4a27fbbd456218a0ba4c82ec24ac0e4d136",
+      "layout_exchange.py": "8e81d57186de6638349979d85f1fcead6dfd52b4c9c42779854f77bad9b50a49",
+      "layout_graph.py": "1e2b82c8e37a049f303dfa76740175826d302258a8e1127ba42f7e6c28b488e4",
+      "layout_import.py": "2ced19046d0462a2d95cba350f527be388a19dc89e71778e489a1e9bf206ea9e",
+      "layout_index.py": "8d6029c68584e0a9e91900386c6aa33a30769d41709b5cf179e7093306d372b3",
+      "layout_inspection.py": "6ef19200b7d820091aed0ddd86f64d91d815952e55085d2e21c65996811a5775",
+      "layout_jobs.py": "c3d42e76384c5dd4f426f90b5785ff6fa685063111a41f4bfb78139394684032",
+      "layout_limits.py": "7c8f1ae93ccff3b5a08de2202b17cb5c60fd894130e30ca495c3b510c2467ff7",
+      "layout_routing.py": "6ea312b7a5b67cc2a49cb3c6d1398b5102b4bcd799fbeb3e148cb4b7488ac49c",
+      "layout_scene.py": "50687f558aec46d916cc0257b1ff922d56eaa038d13c0dd629bff778b5d4d606",
+      "layout_snap.py": "6d8978d7eae134683139171d5515a9f158c5dee16a648f93de13b4b3c33b2d95",
+      "layout_source.py": "2936d3e141fbb6cecda665c4b81158a2c2235311744f32506f84fc2ed6c90a2c",
+      "layout_tools_ui.py": "6aec6580710113677d147397a09b1cb59fca14a1edf640e49bad26b14af758eb",
+      "layout_topology.py": "5fa01fa557a8fe5505f07f51cfc9e06331b13b734a8c58e009b873d3397f0c1b",
+      "layout_transaction.py": "ef7b26392650ec0b2a401fc2b2c9de6e7a56ff2c6767fa13915293ae845b8efb",
+      "layout_ui.py": "4aa4a464aa83e02b10da1f4ff5e73b692a44b481dc3f62afe36c2d7b793210bb",
+      "layout_verification.py": "8754f0a9a0da11033f8d1241bb126a7b9403831e79b5090dc4bd4e4f88c8f717",
+      "layout_vias.py": "33cd3a59330ea0a1d66d69491e039e6fc0e6af8696fd66b2259c0e33876fad18",
+      "lifecycle.py": "425e769b01a654e6d9051680dd56cf55714332d13e1308c3c0e705ba7da52c22",
+      "lifecycle_ui.py": "946f11025bfe0774680ffdb119f2d6cbf9623f3d6e552bc2e81fb959263fdc86",
+      "live_client.py": "5601a0a6d79c5ebe4d0f07da2952490a3948ba0448b0ea5ded499adb0fbddbc0",
+      "live_geometry.py": "ef0b861eb43599af50c6ff0242ef78709bab692ab78c7693066951eafdf98b42",
+      "live_probe.py": "e10ba0caf770bfd9be306fb98f0c3d27a4d666bfdbb2e1b55e874e08f3b8a252",
+      "live_protocol.py": "4a8bade7541b7c316cc734d4a9d8766ba9addb8399991f891eed663a08a10186",
+      "live_review.py": "28cdddd234f6fe8a5b8eba944be0312237753c1625675443aeac113559fff260",
+      "live_review_store.py": "7ad684070c2e84c2dd07a4a8777218c11ed179c1ca02cbae3794097350d374b1",
+      "live_server.py": "d25ed75bd8f6efd79d925c7c89c9f9d9f477e5a4cf46ac908289ee0f79607fed",
+      "live_store.py": "200e57718424c63a2f68347993f28e1888bec7ca14800a7b3653ddbf3cae0cd8",
+      "live_ui.py": "096cb4f40a091dae8adc163a72ba8bebcbf03a14f30d4c9cbb54362d699c5cd1",
+      "local_collaboration.py": "0695ddb93a7f67588a9b78ae438ee171b6ebba454da9f97aca30a02503717f4e",
+      "local_collaboration_probe.py": "d56044da5b93be25812cee82418a55a9bc817f6782143dfd34bc3efc0817fda2",
+      "magic_dependencies.py": "ec33281674eb994a6f8e6aa03c1901a96ff44f9184be929061a6e828ad112ee5",
+      "magic_rc.py": "1c6effcc90b9b83e00a26f8f1378028d02b19d90f007b42269cfe6af6a7763f9",
+      "measurements.py": "cf61db3def473aebf6b0aee3682bf36cdee02050a4353daa673131a9b32228dc",
+      "menu_map.py": "4765514d333af8534057932d74e0665ae92de5e9f886e4ffc83d3faed2412072",
+      "migration_ui.py": "9930cbac2ad179afb138f5b11dd722a4500a8a3169cd63ab0c137209f6917c08",
+      "mixed_signal.py": "af857b8fbaff991471cc64480538da9b16d5539078da4cde38d56bf0a806851d",
+      "mixed_signal_ui.py": "393bbb7171fef16a0192c37ac07a85541fa3f0f9054d01237641464aa33e8da9",
+      "model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+      "mos_array.py": "360ffff317bb86520a187f402fbb03bd68fb2a0cf0dc63754dc373928e3e0ae5",
+      "native_analysis.py": "42f41163e17400a3351628df6d4ca8c45e45440f33e35dd744ddbf1fe31c140d",
+      "native_core.py": "6b97ec807f41ec81875a5fb9400f41d95f67ad617eba6d475f11f35fed789006",
+      "native_exchange.py": "99efea89e7edcb957eb5de44574b522ebb853b5c0a35856388726d5bfb32570f",
+      "native_migration.py": "81efe1d4ca5a5e9dc63b0b51435fb460ae5049ace6eb20858d67e6533e009ad6",
+      "native_physical.py": "602e96ab1b294439aed87f64c5c6cfd6cb0b94d4fc6b18c1dcbf2ea2ff907cfd",
+      "native_spice.py": "5f841b2b1fbc9151770e011929bb54253e48a1fe2277f474f7e35c7962bbebaf",
+      "native_vectors.py": "79154c357a3f06715e959af3f55a0ab20c8c3101f47d0975ee673372dfb2ac01",
+      "native_workspace.py": "7663d08ed0965b87bb922483349ef47e5256fc01969ea2dde2a4c52cdd6c177f",
+      "net_labels.py": "f8d1b7f5462c2698c97df5dccc3ce497e23f81bd452f798bdb679c389fb131c6",
+      "network_collaboration.py": "909601cd32b1a3a91cc0d851d4a8f9acfff63ce65f1494566c6d7d97198e6f14",
+      "network_host_ui.py": "30abb8f7cf4e70afa2508c0f2465f54ab6f322302945c8e9db965437585424d8",
+      "network_tls.py": "a56d0f1d6a4d4a90ea11003656c48a127ef788fc7d1e47a8e70c0af53e693b41",
+      "ngspice_compat.py": "8ea16d8e5ff6a6aa947f0ae635097e9895131738491b4d5674ae7aca0ed5a50b",
+      "onboarding.py": "fe890defaff89aff426a6d8d29165fedadb1f8cfed9de7eb0509555b59725bcf",
+      "openems_backend.py": "2242af22ce30b60952f27b520c969b809109e9c695fb7a1993c6a0ad4fba042c",
+      "openems_runtime.py": "cde41317ac8710d2d189f881b16bdfe53f4fe5f841f4ee7de215582315546a18",
+      "openems_ui.py": "d110fd3a4416fe1b2bf989bfe0f98f67868a09dda5068e7dbf66a6b60193ba05",
+      "operating_data.py": "34036270b71e9a033cc90f2054f6f3eb854be68a49129751cd6437b30689fcb3",
+      "osdi.py": "957f657f2578aa07e0466177eadf8b3e929be8cbef3a1ac8b225392e887c364e",
+      "parametric.py": "0e2c726b9c64fc2e537675f22de9a74f08ea73b891380a0d506f857b8ec2fe35",
+      "pcell_library.py": "22d2f2803afe2e597c526ecb0de5494c2733132ede09096fdf465859cc84fb45",
+      "pdk_import.py": "b6a6723ef2f2c3a30ef013cd1afe58996c1b64a3381320f69bc935e5ce75bad0",
+      "pdks.py": "275334010a5156b7e11f4f763746b35996e564af2a8b59576d71035965590623",
+      "physical.py": "c30fb4ee16a82867952f5c3f0daa2f962e34528be862f75b649539d0a3d8ac1a",
+      "physical_backend.py": "4013dd9a3af04e1d0bea76427e362b0e5ab948c5b212cbd3fd157ddac9a63cda",
+      "physical_cells.py": "169d25942a62f8d60fb48e25e367818b753673fcfd9fb85eacb8ac03f9ee8f2a",
+      "physical_desktop_probe.py": "ca8804a0d823b7ad60938a6dffb7a7e7777e4d9230cb7db129217259222d60f1",
+      "physical_extraction.py": "5d6dcaef523d6202dbc1099c80999c50f3c515dfe00cf45578094e63a71f219c",
+      "physical_hierarchy_ui.py": "ec6bf4c97242ea4d85ca2e36a84971227d3f32188ef4a87a4cb3a8f87e5c43ad",
+      "physical_runtime_probe.py": "7cc634223f4967efcedc66db193e55c4db9e98462716b12cb16047969fabf13d",
+      "physical_variants.py": "ff37916e3add634bdb36c910f4d87f024844285bb762b6dda2e1dfb514c20587",
+      "physical_workspace.py": "57dc4db65ba7c2bc80e08a26d9fc0cfac92b14efba3a30497694620d03b3bf99",
+      "plot.py": "952187010cd6389e9e04f54d414651273461a746e28ff7bd5cfe7afc9edd63fc",
+      "process_adapters.py": "dbad8dadd6d610dfe1fe1d41ece85f031b8636de390f01f96f2a81955ebe9dee",
+      "process_mos.py": "ead3ad5ef09812c9f7d08ec5bb7c1431a068e69812244d82c976105306278da7",
+      "project_hub.py": "6786a20992be344efa6f656175c0fdbef27877d26d9eae4cc7574068c9fd5028",
+      "project_hub_ui.py": "864d63c5999c1b6b8fdb6960065fe1ca690c658e35c2a11da2c9ce3ad3354e8f",
+      "project_manager.py": "53b263812d010c1b5c948e10c21f3381491c1a36f41f95edab442f720db8c8f9",
+      "project_store.py": "b181a3cf9b445bed24f062b9d954f8ea44f9d25be04e69ae35177b9e9f649dd6",
+      "project_templates.py": "daa0e8c74ae5aa2d76b5374929db8e2526612b76fcaeaf14b3d85ecadabab89c",
+      "project_ui.py": "063eab0b10d459bbcacea1b7a0c647bb5e3193dbf6242f45ab2bb0ec0e29ec43",
+      "qualification.py": "6842227b4a3c1e31ad1073e88efa3a43f67ef146e2ab53cb85dfa89a5d8286d3",
+      "rc_calibration.py": "9c7652759ba38c8a1df012d1ccaf7b4ffa86b3a3eb567be7c24ce6abff3bbdfd",
+      "rc_hierarchy.py": "6a0363b1d1a3af8426f0ea11d4138edb923c3a8acd0073faa71d87e78f4341ce",
+      "rc_islands.py": "bcb1a1b5c419a44d3040e3564321472f0c92af91b30d8cad2e8bcc21647638de",
+      "recovery.py": "64b831739e45388b7ec0ad846df7c58a22bacd28f9e27b1dda3e49f598f0fb81",
+      "recovery_queue.py": "8aaea8a14381b504a6779d6136a1e09d58aacd77a1c4bfd159054d8bd5551c05",
+      "recovery_snapshot.py": "9c586b025ac7f84279250d1dd95a0314d0a641e893edbb03e2f52f446a208bc4",
+      "recovery_ui.py": "5954fc52d222def0692da93b5a87ed64f5229d49c7ba231ee71b46f1eb51dacc",
+      "release_acceptance.py": "8b107f3984e9b8afaaed93f1b752b6226f00805410acef87fe544461bbc187cd",
+      "release_probe.py": "d845982b67eaff430309f0be3737f1328e0a8fa3bdf5e85d5c5c2fb8c6d52e15",
+      "review_anchors.py": "18cacb98c8361c333109e5a8a9adf7abfa1d347d38f5d38436b72da330871001",
+      "review_drafts.py": "ba3f5c2c11bc3db90ff3b3a56c30df447391f2baadeb6db2f9002d0f4104c13d",
+      "review_outbox.py": "3c0b15b88e95812331c7ac5a9cc97804355b1d7fe5166cb44f8e232efa2dc8f1",
+      "ring_oscillator.py": "ed97d7fdb7b577d040eeec7ffd84db9b71c0072e90cf2019b21add7ded220182",
+      "route_constraints.py": "28acd120b85cb6b03536ff23fbd9eb1590ac1eb1f45c50945024535408a2ace6",
+      "route_interaction.py": "4b3e1b27931345242db852b6d11e3e1991bc45e0876c16f98f6551685cf19cf4",
+      "rule_bundle.py": "ff481ba9ffb87fa2aa8b4050eb5143dd52740f1ba90c57d1ce8627599cc30fc1",
+      "run_environment.py": "8bec9704bfae10c44a4c9a9dfcc66e12441b6d43d0f0a69c52582baa191fc112",
+      "run_manager.py": "2a66ed7e675f5526e47e9c7c7a67e409c4c03373120d748a0bfc4aba523df736",
+      "runtime_setup.py": "3c3b3c270e76bacec009adae2fa9b5ad4fd1d02f387a91f9f4d84edf1145bd9b",
+      "sar_example.py": "4895e24053300abf43f209fbf8587146eea43a6f0d3292a204d13f085396f13f",
+      "saved_bench_diagnostics.py": "27e3978c448c649fbf60deb31bba24612a857692aab01086019a94f1da525e98",
+      "saved_bench_diagnostics_ui.py": "61e0d71823e79d2f8c2e638e793b4fc1631c5585a4ebcbdd27104eef2619bab0",
+      "saved_bias.py": "296f7b3662bfb17daba2aa0a15f46295ab4f9618e04d7452267c3b7d78c0a223",
+      "schematic_labels.py": "945645b83e4445a4f4365ff3e2ff3fd7cd9c4ed78104a68f25bc2728bc08b609",
+      "schematic_transaction.py": "1906f3467cd45301df826a9beecca4b3317f85c3d39c06f1a003a752a94e2aee",
+      "schematic_ui.py": "3310c2b775f50144913c99a9c6a40ea88b0bcad970a8ec71170ab2faf8b10ba2",
+      "sdk.py": "1a28d3be670a854ea0de9522d3fd6f4fa45f6628289f6893002a41aa2de3564a",
+      "silicon_flow.py": "ad8cd39b7633733ecb3842146e4487149f739dc2ae6274bf37e063974af3cfc2",
+      "silicon_ui.py": "baba7d04f3793b2bc253d50ad58cda2921de2d84878d737386975825e01e62cd",
+      "simulation.py": "145d938166250d00b531cfbbb86173a9231f7f9e748732d7fd7fec3af44b33ac",
+      "simulation_workspace.py": "e813a1ec7f80fcf2f3eb9b60e1fa02e6260a504747436cd643d5a01ef4d40399",
+      "sky130_bipolar_rules.py": "cbeb2f52d9b80641bdbd82b9b0ccc628c14602e7926d65245183f90abc753bd8",
+      "sky130_devices.py": "2206128e0bbc159e33de810ebe0d2467bb6c3132067a294a48b0e14753d72441",
+      "sky130_devices_ui.py": "220fa96ab00d90ceda1740c7ccecb30156ec946ea8a1d894c452320215972858",
+      "sky130_fingers.py": "12ed8cc673ae4c6bf8a1c7f1d535b5347dac2b56ca388b318f255b70932e59ae",
+      "sky130_fixed_devices.py": "af4b461665bff686f43864c67b8cb99d8fa24802e7368e148d89af2c7bb55d3d",
+      "sky130_flow.py": "c06e2755cd3fc7a5a30d0ec1d58346d9a7b4cb2e835db7661176089aa32696cd",
+      "sky130_layout.py": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b",
+      "source_assets.py": "69ae8b92b84f0e5f8b417afb16bbaf5c35b0d6205052ddbb4f22826813c7cadb",
+      "spatial.py": "1f245c8f6e817efc8b43e784cc7d5306044e008391bc35f920baf144857bafc9",
+      "specifications.py": "61eb678cc6d6512b1e5c29a18cb80a41fc87ea8c14087bfee9c368e9f56e9532",
+      "spice_import.py": "0116919ab9589c7dba65265bb4619c04a58c5c833bfc8949ab5c665f4ee4833e",
+      "spice_program.py": "5f078a943141742e78a5bfe44aea3a35cdf91b2e4ac07f7d2854cb7988f16c9a",
+      "stream_contract.py": "3c814edce2649d245765f8b58dc5b6b2126a92a8c5ae518e4dc31546e9f8f726",
+      "student_capstone.py": "de3f5f2634b223542f2526202a7468bae6f0b4efe391eea12f849e3ce2304f0e",
+      "student_design_labs.py": "54f4d6228739d5f3c4ad3df936b17c031d93addf5b61a6503eb85adeae165903",
+      "student_hub.py": "4e37d3453f88f74a389c399b0e6cdb82ea33c3f23c545481baca934d5b2b87c8",
+      "student_hub_ui.py": "2279cdbbce617ec18f75406f32c77e969dba962d13e3b12e9ea28c4472c28d4b",
+      "student_inverter.py": "8daa537173449b4091469434870c319236202707a555d69967bab4f34e304e0b",
+      "student_learning.py": "9d09513ee984babf8a6547ced6cfb7a9644b4e59f3e67d5aeccc44079516809e",
+      "student_projects.py": "b440785f3b4dd224ceed30fa290cfb26f285f0140758852b4b5c84e9c35d2e9f",
+      "studies.py": "52f37c4e1a220f60fe11de1fc3f771b719de7f4cd21869106a83cf837ef0e000",
+      "symbol_editor.py": "67ef92e0363c258087954e3ce9c63de213f0ed308e5c92db1390499a6b61bf3d",
+      "symbol_geometry.py": "010915073e6edf52acfdd3148dc0a0639aede45ee4b6fb8404aea2d6822f1e78",
+      "symbol_io.py": "74efe59765639d3da5e0dbec79564a87ee6b17c5a361dc1d92f9c29083550fe6",
+      "team_review_ui.py": "579302d43ff8c623a15739f6a6358c65c375fe65eb582cc5ecced35506f7375e",
+      "test_plan_ui.py": "e9fc6ea2b9e0676c6cca6f7b6f8441090a32a8b38fc6d485a2950e72c2fa6fe5",
+      "test_plans.py": "ac9216c977f0945f4be1b8d518f7e10852a538ce10fa0f98ef0ed62db9b601b9",
+      "testbench_ui.py": "182b357efd690c7833e0c53d6de55066c57c1150d8515b4cc54a406b01e6af3a",
+      "testbenches.py": "e0111b43b370782b7c7378c420250d5aefeddf1ac6b2a999b9dcd35334375b26",
+      "text_presentation.py": "17a77d51bd54bec0ef433f64ff66d49bd36b5b326a06fcd80f689516d7c85435",
+      "two_stage_opamp.py": "ff931687157a096696ce3af2e9822977b5a80e70903749e7084d9bb1f02049ee",
+      "two_stage_opamp_layout.py": "e18d5289cf305144736d0f97b6fdc5afbd771e25210f25aeb94ef0937bf7c6e3",
+      "ui_style.py": "d0c886901a7a0e794c419aab7e2d4351803a2225a6dd2b304f04c04e5ca414e8",
+      "variation_runs.py": "2a2665219822e4607305c966257c969ce528222ca78ff215663d88b7b4ba0a97",
+      "verification_campaigns.py": "a5836f6d7e50a1f9e1cb4f4571b6271571c88598b28caee34e620c5aaa89267d",
+      "verification_navigation.py": "e711dde5b8cac3bd985495514a1500855c73f58babb4e1e03de0081c732dc400",
+      "verification_workspace.py": "f38002e17582fcb9c3071a68f141455280df781e9d26775ea012b55782419d4b",
+      "vga_probe.py": "1ee50754542ce222f36303534b4eca4077418727a83d6b76f7250b04f616f647",
+      "view_screenshot.py": "5ecec0163daa57841f03f3478cf0af3c5440cc9596efb4f87c2174218545a7fc",
+      "wavecalc.py": "f49d06ef394e57cac293eda9ce380ce73892839dd7fec5952a6dfa7e87af6596",
+      "waveform_tools.py": "d99e5d1343839ffe6fcb8711ac497965c20a983dca057dc7a8cb2139f3a5c0f9",
+      "window_geometry.py": "61fab219aec732e866ba67ec78e57e37f27b7cee9161da3bd7f40eb6c6b04d76",
+      "windows_stdio.py": "70bd03c0b0687a25ec9408c858d872e3cfb2249f7238f94cd64944005813db64",
+      "wire_canvas.py": "df045636099b7c2307eee4ca6fa683ccaf073cf7dc7f378cfcd97b6dbcf780a7",
+      "wiring.py": "2d2ca4e48b0c53b8bab3399cb8844bb716e482e40840fcdef334ea3bddc5e689",
+      "worker.py": "759638108d3d756c1601e60266805c1509fec111157573426d663742aa4be00d",
+      "workflow_jobs.py": "129562a84113fe61500416fa0fe5528e40d6f9ee8bf3d1d530ebc4137c56810f",
+      "workflow_status.py": "16319c801df6e271a16d13c9cf3fd9aad1369be2407dad5a1adec5b78ef2c940",
+      "workspace.py": "e67b603dc6ed9a70e7637ce948f561477d1e860c3d71e2be06e1ae50dd4b5b5e",
+      "xschem_compat.py": "e7f7444a4e19e702bc4204e537a6541e88b3b5733092f2a329b653ace02208a3",
+      "xschem_export_contract.py": "b5bb1f775b5b98e58ee889a6921ca1f7cced4d3c9ceb687d7f4ec48aa3e69f03",
+      "xschem_io.py": "4b5b0724c9598b982932bc441008d67cc8c49631c252b349e06e1d032fd2eca0",
+      "xschem_libraries.py": "f0f0003561aeeb2029e053de2936252f5b9b47dc7fea2de9d1024f315dd4744b",
+      "xschem_paths.py": "13952f20aee746dcab3f9c002c1b7cbb5bd2717d9c27f84a1b0a89bb19a88f4a",
+      "xschem_project.py": "40a0896046a0b71d9a27e67d8587a132505fbeda7f1d79e8c82d725e2c37e83a",
+      "xschem_runtime.py": "026c8720786e8809723023b4f9ddd152cdbce0446fb60a446d7217af58ef58b7",
+      "xschem_semantics.py": "7566c536dd0c0fe186139009c545ef0d34b7c152877230d50cd9c216e81d2f4f",
+      "xschem_source_compat.py": "0cff93085c1c56c82dd29aea9562935753b6fdff2af7db8b9a6e0357ee1383e5",
+      "xschem_vectors.py": "ccd96f20c038c95b873d9abcfec8810b503117623bc8c1dcd850e09c5facee93",
+      "xschem_workflow.py": "d6dde1c77beefe5adf63a70da1b528171955b41872770b2c0ee85524cb53c51c",
+      "xschem_workspace.py": "a1a92cc289bbf2b81fb769bb6db33f646ea61c09a2ee88dbc1c70f731588a42b"
+    },
+    "original_input_sha256": "c95468b013d7ac1a2ca40ce5628c60c9f38a16b4470096865964d057acdd9957",
+    "production_report_sha256": "7fdad7447cda37a9c96f26d73e731bdc0040699451d5e05fb16a12a219d42b5a",
+    "audit_script_sha256": "13472fc7d9c0a8007241640f87123ec1f9d0f203824ee849261549bc0d78f6c6",
+    "changed_platform_files": [
+      "gf180/config.mk"
+    ],
+    "checks": [
+      {
+        "stage": "mapped",
+        "name": "mapped",
+        "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+        "verdict": null,
+        "result_sha256": "89eebf8993eecbcddea58530dc4a7b05b2288c6085a396a63d364339a57cc96e"
+      },
+      {
+        "stage": "equivalence",
+        "name": "equivalent",
+        "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+        "verdict": "PASS",
+        "result_sha256": "cb61d76529d6d3bb892730a308d707a33b824cbf6f99a0112f1bb8b2ee6badb4"
+      },
+      {
+        "stage": "equivalence",
+        "name": "fault-detected",
+        "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+        "verdict": "FAIL",
+        "result_sha256": "38c7b6095adc411c11219c322ffd0bca239eb7f40d73820bcba24da05078796b"
+      },
+      {
+        "stage": "finish",
+        "name": "finished",
+        "summary": "Physical finish complete \u00b7 790 placed cells",
+        "verdict": null,
+        "result_sha256": "6c6271910b7c14e2045f3dfb2fa4ccdce1109777bb4f22e12525bec82fd51abb",
+        "router": {
+          "detailed_route_drc_errors": [
+            0
+          ],
+          "scope": "Router rule checks; not foundry DRC/LVS"
+        },
+        "physical_checks": {
+          "schema": 2,
+          "status": "PASS",
+          "issues": [],
+          "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks. Logic inputs require positive gate area; declared CORE ANTENNACELL inputs require positive diffusion area, retained separately in the coverage report.",
+          "checkpoint_sha256": "5309a879eada6b5c1c26809410e6090e49bccb43ead11e5fa40554dfca947df8",
+          "top": "counter",
+          "checks": {
+            "schema": 2,
+            "checkpoint_sha256": "5309a879eada6b5c1c26809410e6090e49bccb43ead11e5fa40554dfca947df8",
+            "top": "counter",
+            "signal_inputs": 38,
+            "gate_inputs": 38,
+            "antenna_diode_inputs": [],
+            "missing_gate_models": [],
+            "unrouted_inputs": [],
+            "unconnected_power_pins": [],
+            "routing_layers": [
+              {
+                "name": "Metal1",
+                "has_antenna_rule": true
+              },
+              {
+                "name": "Metal2",
+                "has_antenna_rule": true
+              },
+              {
+                "name": "Metal3",
+                "has_antenna_rule": true
+              },
+              {
+                "name": "Metal4",
+                "has_antenna_rule": true
+              },
+              {
+                "name": "Metal5",
+                "has_antenna_rule": true
+              }
+            ],
+            "antenna": {
+              "error": "",
+              "violating_nets": 0
+            },
+            "power": [
+              {
+                "net": "VDD",
+                "kind": "POWER",
+                "terminals": 790,
+                "special_wires": 1,
+                "error": ""
+              },
+              {
+                "net": "VSS",
+                "kind": "GROUND",
+                "terminals": 790,
+                "special_wires": 1,
+                "error": ""
+              }
+            ]
+          },
+          "platform_fingerprint": "bf338074ba13c344bc72827cd71b24aecff6cde2df71bfb9dadc57dc31020491"
+        }
+      },
+      {
+        "stage": "timing",
+        "name": "extracted-timing",
+        "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+        "verdict": "PASS",
+        "result_sha256": "b1ab2b76aab41a48863668b27fadec35f1a413e54405dec00486915ec2c5e47e",
+        "timing": {
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 44.42683,
+            "hold_worst_slack_ns": 0.254871,
+            "setup_reported_violations": 0,
+            "hold_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "unconstrained": false,
+          "incomplete_reasons": [],
+          "checks": "",
+          "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+          "electrical_checks": "",
+          "electrical_status": "No reported violations",
+          "scope": "Every selected library corner crossed with each captured interconnect extraction. Legacy single-SPEF and pre-layout results retain their narrower scope.",
+          "corner": "typical",
+          "parasitics": "extracted SPEF",
+          "corners": [
+            {
+              "status": "PASS",
+              "summary": {
+                "setup_worst_slack_ns": 46.479496,
+                "setup_reported_violations": 0,
+                "setup_total_negative_slack_ns": 0.0,
+                "hold_worst_slack_ns": 0.530289,
+                "hold_reported_violations": 0,
+                "hold_total_negative_slack_ns": 0.0
+              },
+              "unconstrained": false,
+              "incomplete_reasons": [],
+              "checks": "",
+              "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+              "electrical_checks": "",
+              "electrical_status": "No reported violations",
+              "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+              "corner": "typical",
+              "rc_corner": null,
+              "scenario": "typical",
+              "parasitics": "extracted SPEF",
+              "path_count": 16
+            },
+            {
+              "status": "PASS",
+              "summary": {
+                "setup_worst_slack_ns": 44.42683,
+                "setup_reported_violations": 0,
+                "setup_total_negative_slack_ns": 0.0,
+                "hold_worst_slack_ns": 1.159882,
+                "hold_reported_violations": 0,
+                "hold_total_negative_slack_ns": 0.0
+              },
+              "unconstrained": false,
+              "incomplete_reasons": [],
+              "checks": "",
+              "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+              "electrical_checks": "",
+              "electrical_status": "No reported violations",
+              "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+              "corner": "slow",
+              "rc_corner": null,
+              "scenario": "slow",
+              "parasitics": "extracted SPEF",
+              "path_count": 16
+            },
+            {
+              "status": "PASS",
+              "summary": {
+                "setup_worst_slack_ns": 47.392334,
+                "setup_reported_violations": 0,
+                "setup_total_negative_slack_ns": 0.0,
+                "hold_worst_slack_ns": 0.254871,
+                "hold_reported_violations": 0,
+                "hold_total_negative_slack_ns": 0.0
+              },
+              "unconstrained": false,
+              "incomplete_reasons": [],
+              "checks": "",
+              "units": " time 1ns\n capacitance 1pF\n resistance 1ohm\n voltage 1v\n current 1mA\n power 1uW\n distance 1um\n",
+              "electrical_checks": "",
+              "electrical_status": "No reported violations",
+              "scope": "Reported paths for the selected library corner; inspect constraints and path coverage.",
+              "corner": "fast",
+              "rc_corner": null,
+              "scenario": "fast",
+              "parasitics": "extracted SPEF",
+              "path_count": 16
+            }
+          ],
+          "rc_corners": [],
+          "path_count": 48
+        }
+      },
+      {
+        "stage": "equivalence",
+        "name": "physical-equivalent",
+        "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+        "verdict": "PASS",
+        "result_sha256": "10794ffd692bdc305a112d966c079c992e51e78c79a120f9082f2821d85cf126"
+      }
+    ],
+    "rules": {
+      "counts": {
+        "antenna": 0,
+        "density": 4387,
+        "main": 0
+      },
+      "reports": [
+        {
+          "path": "drc/6_final_antenna.lyrdb",
+          "sha256": "16bc08638588768ac2878fdc032425eb79b7be2b768a13dc73cf4014505e8551",
+          "group": "antenna",
+          "markers": 0,
+          "categories": {}
+        },
+        {
+          "path": "drc/6_final_density.lyrdb",
+          "sha256": "d0cff1f8edd8f453f875d68cb7e6d3585852ee75a0028682270d16952790ca91",
+          "group": "density",
+          "markers": 4387,
+          "categories": {
+            "'M1.4'": 4075,
+            "'M2.4'": 161,
+            "'M3.4'": 137,
+            "'M4.4'": 8,
+            "'M5.4'": 3,
+            "'MT.3'": 3
+          }
+        },
+        {
+          "path": "drc/6_final_main.lyrdb",
+          "sha256": "221d3afc1bc82ae18bdc6a7364c43b45991942530b7af1b95eb388ef37ee4ce4",
+          "group": "main",
+          "markers": 0,
+          "categories": {}
+        }
+      ],
+      "record_sha256": "9c307ec5ff06f4fd67001a647a5a3ee82f5ddba244198127f74b983d0d2a2045"
+    },
+    "measurements": [
+      {
+        "name": "original",
+        "gds_sha256": "6b3be55039c5e8e8eb197b0217b5a66e06d0a66367478a98d94c879bdbc4c853",
+        "bounds_um": [
+          0.0,
+          0.0,
+          182.69,
+          176.85
+        ],
+        "area_um2": 32308.726499999997,
+        "density": {
+          "comp": {
+            "circuit_percent": 1.6395977414956298,
+            "dummy_percent": 0.0,
+            "total_percent": 1.6395977414956298
+          },
+          "poly": {
+            "circuit_percent": 0.7842060874791831,
+            "dummy_percent": 0.0,
+            "total_percent": 0.7842060874791831
+          },
+          "m1": {
+            "circuit_percent": 15.870622987879141,
+            "dummy_percent": 0.0,
+            "total_percent": 15.870622987879141
+          },
+          "m2": {
+            "circuit_percent": 1.0917322909647955,
+            "dummy_percent": 0.0,
+            "total_percent": 1.0917322909647955
+          },
+          "m3": {
+            "circuit_percent": 0.549397080073707,
+            "dummy_percent": 0.0,
+            "total_percent": 0.549397080073707
+          },
+          "m4": {
+            "circuit_percent": 14.764017393257514,
+            "dummy_percent": 0.0,
+            "total_percent": 14.764017393257514
+          },
+          "m5": {
+            "circuit_percent": 6.63914747614704,
+            "dummy_percent": 0.0,
+            "total_percent": 6.63914747614704
+          }
+        }
+      },
+      {
+        "name": "capacitive-fillers",
+        "gds_sha256": "86d8c2d80d191ef165b42c1a58a3071751eb0c5c5b85eb1fbce827e0eca08ab2",
+        "bounds_um": [
+          0.0,
+          0.0,
+          182.69,
+          176.85
+        ],
+        "area_um2": 32308.726499999997,
+        "density": {
+          "comp": {
+            "circuit_percent": 37.71188304187724,
+            "dummy_percent": 0.0,
+            "total_percent": 37.71188304187724
+          },
+          "poly": {
+            "circuit_percent": 28.2556695634537,
+            "dummy_percent": 0.0,
+            "total_percent": 28.2556695634537
+          },
+          "m1": {
+            "circuit_percent": 26.546118971913053,
+            "dummy_percent": 0.0,
+            "total_percent": 26.546118971913053
+          },
+          "m2": {
+            "circuit_percent": 1.0917322909647955,
+            "dummy_percent": 0.0,
+            "total_percent": 1.0917322909647955
+          },
+          "m3": {
+            "circuit_percent": 0.549397080073707,
+            "dummy_percent": 0.0,
+            "total_percent": 0.549397080073707
+          },
+          "m4": {
+            "circuit_percent": 14.764017393257514,
+            "dummy_percent": 0.0,
+            "total_percent": 14.764017393257514
+          },
+          "m5": {
+            "circuit_percent": 6.63914747614704,
+            "dummy_percent": 0.0,
+            "total_percent": 6.63914747614704
+          }
+        }
+      }
+    ],
+    "archive": {
+      "name": "evidence.tar.gz",
+      "sha256": "40fd4f5509476b7c20fc0ad5f5f3d3115931f7c6cffc6492b2188d09c3fef9fa",
+      "bytes": 8266807
+    }
+  },
+  "fill_rule_audit": {
+    "status": "diagnostic-gaps-confirmed; fill-qualification-open",
+    "scope": "Seven real native rule coupons plus independent supplemental checks; not full fill qualification.",
+    "deck_revision": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+    "deck_lock_sha256": "4ba84b61084fa7861424bbd096f91b28b096f17dafafc3bd77d2397e624b6eff",
+    "native_report_sha256": "01d60d45881e9f1bf40e0d331da9f4ea8a0eded71950829b52ca0f4cfb857759",
+    "manual_revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "manual_lock_sha256": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+    "checker_sha256": "c002205f9bd54b38290c6e3919146209d237071c5fb34e7453a48ec90bac6da5",
+    "audit_script_sha256": "befc830080669ee0069b1f48032b3ce8bb49757a756157e0a7f2bd98ce3b3bb9",
+    "cases": [
+      {
+        "name": "empty-layers",
+        "purpose": "Density below minimum: every process layer empty.",
+        "native_counts": {
+          "antenna": 0,
+          "density": 0,
+          "main": 0
+        },
+        "native_reports": [
+          {
+            "path": "drc/coupon_antenna.lyrdb",
+            "sha256": "26eb948e19bc7ba524d7e64518b68c0bca7e77314c34ec7666a9edefc6193e17",
+            "group": "antenna",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_density.lyrdb",
+            "sha256": "09e7d886c9eb33b452ceedd855ff8063ee0d4dd578a96a60b54034c5dbe76da1",
+            "group": "density",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_main.lyrdb",
+            "sha256": "9c09d3d09ae81187772df1410fb796b5ff5b95241145b6aedf37612d86b33b52",
+            "group": "main",
+            "markers": 0,
+            "categories": {}
+          }
+        ],
+        "gds_sha256": "ebb4434f493b9cf0eef77eb1cad69d13c7afcbc66fe001a5747d20102a180942",
+        "supplemental_status": "failed",
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          }
+        ]
+      },
+      {
+        "name": "comp-correct-size",
+        "purpose": "DCF.1c size control: one 5 x 5 um dummy COMP.",
+        "native_counts": {
+          "antenna": 0,
+          "density": 0,
+          "main": 0
+        },
+        "native_reports": [
+          {
+            "path": "drc/coupon_antenna.lyrdb",
+            "sha256": "26eb948e19bc7ba524d7e64518b68c0bca7e77314c34ec7666a9edefc6193e17",
+            "group": "antenna",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_density.lyrdb",
+            "sha256": "09e7d886c9eb33b452ceedd855ff8063ee0d4dd578a96a60b54034c5dbe76da1",
+            "group": "density",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_main.lyrdb",
+            "sha256": "bd4f4b9dea99e221c0a534c590459d545d853a7bae9da1eead9f5fb6bf363bc5",
+            "group": "main",
+            "markers": 0,
+            "categories": {}
+          }
+        ],
+        "gds_sha256": "4bb3c96747e978243973a71556963edda25be609df5ba26ceb68d3d19ef4e67c",
+        "supplemental_status": "failed",
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.25
+          },
+          {
+            "rule": "global-density",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          }
+        ]
+      },
+      {
+        "name": "comp-wrong-size",
+        "purpose": "DCF.1c fault: one 1 x 1 um dummy COMP.",
+        "native_counts": {
+          "antenna": 0,
+          "density": 0,
+          "main": 0
+        },
+        "native_reports": [
+          {
+            "path": "drc/coupon_antenna.lyrdb",
+            "sha256": "26eb948e19bc7ba524d7e64518b68c0bca7e77314c34ec7666a9edefc6193e17",
+            "group": "antenna",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_density.lyrdb",
+            "sha256": "09e7d886c9eb33b452ceedd855ff8063ee0d4dd578a96a60b54034c5dbe76da1",
+            "group": "density",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_main.lyrdb",
+            "sha256": "8cdc7fdcdc210d5e05620c8e7b38de961a5ce80202d648e3068f243c9576a5cd",
+            "group": "main",
+            "markers": 0,
+            "categories": {}
+          }
+        ],
+        "gds_sha256": "43856512b64dafe8cbe458117a945c7375fc4d8a147e32654dbb11837da36549",
+        "supplemental_status": "failed",
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.01
+          },
+          {
+            "rule": "DCF.1c/10",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "expected_size_um": 5.0,
+            "polygons": 1
+          },
+          {
+            "rule": "global-density",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          }
+        ]
+      },
+      {
+        "name": "poly-correct-size",
+        "purpose": "DPF.1 size control: matching COMP/poly centered.",
+        "native_counts": {
+          "antenna": 0,
+          "density": 0,
+          "main": 0
+        },
+        "native_reports": [
+          {
+            "path": "drc/coupon_antenna.lyrdb",
+            "sha256": "26eb948e19bc7ba524d7e64518b68c0bca7e77314c34ec7666a9edefc6193e17",
+            "group": "antenna",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_density.lyrdb",
+            "sha256": "09e7d886c9eb33b452ceedd855ff8063ee0d4dd578a96a60b54034c5dbe76da1",
+            "group": "density",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_main.lyrdb",
+            "sha256": "f79bac5b3ab1cfe951c491daea967653dfc010c331f08b3785c66351130f3f76",
+            "group": "main",
+            "markers": 0,
+            "categories": {}
+          }
+        ],
+        "gds_sha256": "e87c0632bc9f320f2c0941e247edc9180561c631235a659a75553bd20158c63a",
+        "supplemental_status": "failed",
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.25
+          },
+          {
+            "rule": "global-density",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.3136
+          },
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          }
+        ]
+      },
+      {
+        "name": "poly-wrong-size",
+        "purpose": "DPF.1 fault: poly 1 x 1 um fails size/enclosure.",
+        "native_counts": {
+          "antenna": 0,
+          "density": 0,
+          "main": 0
+        },
+        "native_reports": [
+          {
+            "path": "drc/coupon_antenna.lyrdb",
+            "sha256": "26eb948e19bc7ba524d7e64518b68c0bca7e77314c34ec7666a9edefc6193e17",
+            "group": "antenna",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_density.lyrdb",
+            "sha256": "09e7d886c9eb33b452ceedd855ff8063ee0d4dd578a96a60b54034c5dbe76da1",
+            "group": "density",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_main.lyrdb",
+            "sha256": "25113b46b060d77c1e2f75a4babd061a82cc08f09bde0a50b198b2829ad69374",
+            "group": "main",
+            "markers": 0,
+            "categories": {}
+          }
+        ],
+        "gds_sha256": "d8c5a5ff19e4f259488f4f459c5e638170e79a792ef70c5184dc23dd3691d8e3",
+        "supplemental_status": "failed",
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.25
+          },
+          {
+            "rule": "global-density",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.01
+          },
+          {
+            "rule": "DPF.1/10",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "expected_size_um": 5.6,
+            "polygons": 1
+          },
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "DPF.1-enclosure",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1
+          }
+        ]
+      },
+      {
+        "name": "metal-correct-size",
+        "purpose": "DM.1 size control: one 2 x 2 um dummy Metal1.",
+        "native_counts": {
+          "antenna": 0,
+          "density": 1,
+          "main": 0
+        },
+        "native_reports": [
+          {
+            "path": "drc/coupon_antenna.lyrdb",
+            "sha256": "26eb948e19bc7ba524d7e64518b68c0bca7e77314c34ec7666a9edefc6193e17",
+            "group": "antenna",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_density.lyrdb",
+            "sha256": "4a2a876d19d997b258f6294b0fb901ad5d3e69d11694ce1e7c8b188353ee9261",
+            "group": "density",
+            "markers": 1,
+            "categories": {
+              "'M1.4'": 1
+            }
+          },
+          {
+            "path": "drc/coupon_main.lyrdb",
+            "sha256": "b8600f076e0f9003731e029740c0dce57540a07be2cbbc757221bebd2ee02e1b",
+            "group": "main",
+            "markers": 0,
+            "categories": {}
+          }
+        ],
+        "gds_sha256": "4ef927abf5a938c7ce30a907df9816c425838abd88acb16f0d932ad65f00012a",
+        "supplemental_status": "failed",
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.04
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          }
+        ]
+      },
+      {
+        "name": "metal-wrong-size",
+        "purpose": "DM.1 fault: one 1 x 1 um dummy Metal1.",
+        "native_counts": {
+          "antenna": 0,
+          "density": 1,
+          "main": 0
+        },
+        "native_reports": [
+          {
+            "path": "drc/coupon_antenna.lyrdb",
+            "sha256": "26eb948e19bc7ba524d7e64518b68c0bca7e77314c34ec7666a9edefc6193e17",
+            "group": "antenna",
+            "markers": 0,
+            "categories": {}
+          },
+          {
+            "path": "drc/coupon_density.lyrdb",
+            "sha256": "f982c41bf52ff8586f9b93ad57e4fdcfa95aaa86f273e7a2d072b1dd4281bfb0",
+            "group": "density",
+            "markers": 1,
+            "categories": {
+              "'M1.4'": 1
+            }
+          },
+          {
+            "path": "drc/coupon_main.lyrdb",
+            "sha256": "8dd4e402e8195c3ad09329c1ef8090c8b1cfad64ff3a80935fa776595e0c49c8",
+            "group": "main",
+            "markers": 0,
+            "categories": {}
+          }
+        ],
+        "gds_sha256": "feb41bfde3c2fade1fe2fe9087fe05ccb7cecbf615047ec40d44c66779c0bd90",
+        "supplemental_status": "failed",
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.01
+          },
+          {
+            "rule": "DM.1",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "expected_size_um": 2.0,
+            "polygons": 1
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.0
+          }
+        ]
+      }
+    ],
+    "measurements": [
+      {
+        "name": "original",
+        "gds_sha256": "6b3be55039c5e8e8eb197b0217b5a66e06d0a66367478a98d94c879bdbc4c853",
+        "bounds_source": "Captured input project physical.die_area; empty margins retained.",
+        "bounds_um": [
+          0,
+          0,
+          200,
+          200
+        ],
+        "geometry_extent_um": [
+          0.0,
+          0.0,
+          182.69,
+          176.85
+        ],
+        "density": {
+          "comp": {
+            "circuit_percent": 1.324332875,
+            "dummy_percent": 0.0,
+            "total_percent": 1.324332875,
+            "limits_percent": [
+              25,
+              70
+            ]
+          },
+          "poly": {
+            "circuit_percent": 0.6334175,
+            "dummy_percent": 0.0,
+            "total_percent": 0.6334175,
+            "limits_percent": [
+              14,
+              100
+            ]
+          },
+          "m1": {
+            "circuit_percent": 12.8189904375,
+            "dummy_percent": 0.0,
+            "total_percent": 12.8189904375,
+            "limits_percent": [
+              30,
+              100
+            ]
+          },
+          "m2": {
+            "circuit_percent": 0.881812,
+            "dummy_percent": 0.0,
+            "total_percent": 0.881812,
+            "limits_percent": [
+              30,
+              100
+            ]
+          },
+          "m3": {
+            "circuit_percent": 0.443758,
+            "dummy_percent": 0.0,
+            "total_percent": 0.443758,
+            "limits_percent": [
+              30,
+              100
+            ]
+          },
+          "m4": {
+            "circuit_percent": 11.925165,
+            "dummy_percent": 0.0,
+            "total_percent": 11.925165,
+            "limits_percent": [
+              30,
+              100
+            ]
+          },
+          "m5": {
+            "circuit_percent": 5.36256,
+            "dummy_percent": 0.0,
+            "total_percent": 5.36256,
+            "limits_percent": [
+              30,
+              100
+            ]
+          }
+        },
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "comp",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 1.324332875
+          },
+          {
+            "rule": "global-density",
+            "layer": "poly",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.6334175
+          },
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 12.8189904375
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.881812
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.443758
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 11.925165
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 5.36256
+          }
+        ]
+      },
+      {
+        "name": "capacitive-fillers",
+        "gds_sha256": "86d8c2d80d191ef165b42c1a58a3071751eb0c5c5b85eb1fbce827e0eca08ab2",
+        "bounds_source": "Captured input project physical.die_area; empty margins retained.",
+        "bounds_um": [
+          0,
+          0,
+          200,
+          200
+        ],
+        "geometry_extent_um": [
+          0.0,
+          0.0,
+          182.69,
+          176.85
+        ],
+        "density": {
+          "comp": {
+            "circuit_percent": 30.460572875,
+            "dummy_percent": 0.0,
+            "total_percent": 30.460572875,
+            "limits_percent": [
+              25,
+              70
+            ]
+          },
+          "poly": {
+            "circuit_percent": 22.8226175,
+            "dummy_percent": 0.0,
+            "total_percent": 22.8226175,
+            "limits_percent": [
+              14,
+              100
+            ]
+          },
+          "m1": {
+            "circuit_percent": 21.4417824375,
+            "dummy_percent": 0.0,
+            "total_percent": 21.4417824375,
+            "limits_percent": [
+              30,
+              100
+            ]
+          },
+          "m2": {
+            "circuit_percent": 0.881812,
+            "dummy_percent": 0.0,
+            "total_percent": 0.881812,
+            "limits_percent": [
+              30,
+              100
+            ]
+          },
+          "m3": {
+            "circuit_percent": 0.443758,
+            "dummy_percent": 0.0,
+            "total_percent": 0.443758,
+            "limits_percent": [
+              30,
+              100
+            ]
+          },
+          "m4": {
+            "circuit_percent": 11.925165,
+            "dummy_percent": 0.0,
+            "total_percent": 11.925165,
+            "limits_percent": [
+              30,
+              100
+            ]
+          },
+          "m5": {
+            "circuit_percent": 5.36256,
+            "dummy_percent": 0.0,
+            "total_percent": 5.36256,
+            "limits_percent": [
+              30,
+              100
+            ]
+          }
+        },
+        "failed_checks": [
+          {
+            "rule": "global-density",
+            "layer": "m1",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 21.4417824375
+          },
+          {
+            "rule": "global-density",
+            "layer": "m2",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.881812
+          },
+          {
+            "rule": "global-density",
+            "layer": "m3",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 0.443758
+          },
+          {
+            "rule": "global-density",
+            "layer": "m4",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 11.925165
+          },
+          {
+            "rule": "global-density",
+            "layer": "m5",
+            "status": "failed",
+            "violations": 1,
+            "measured_percent": 5.36256
+          }
+        ]
+      }
+    ],
+    "archive": {
+      "name": "evidence.tar.gz",
+      "sha256": "b6ce34d454b83c404b76322c6e8681b9bbada76d02e9b92513fc09ca2c8a9e6a",
+      "bytes": 534718
+    }
+  },
+  "supplemental_windows": {
+    "path": "outputs/gf180-fill-supplement-Windows.json",
+    "sha256": "8a367745fb21583439f4b523985c14c89656f3952149bc4bfdbc25776c9a7059",
+    "cases": 7,
+    "status": "matches-native-Linux-measurements"
+  },
+  "failed_power_mesh_trials": {
+    "status": "four-experimental-meshes-failed",
+    "scope": "Diagnostic power mesh trials; no production recipe change.",
+    "trials": [
+      {
+        "name": "gf180-density-power-v1",
+        "status": "failed",
+        "report_sha256": "42b880e818a254bfa37c96c1139208f4a33513251911a082cc910fb3c313771c",
+        "script_sha256": "5275b6277510c00d1371066ad483b85532e44e102f8263cf0f0316d845034634",
+        "completed_stages": [
+          {
+            "stage": "mapped",
+            "name": "mapped",
+            "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+            "verdict": null,
+            "result_sha256": "de256338fba3ae41efea5212cdbd0a3644503b1e07db23dd0926ea7d72ffc352"
+          },
+          {
+            "stage": "equivalence",
+            "name": "equivalent",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "verdict": "PASS",
+            "result_sha256": "98ebd8d7ada3510cfac9bc4bab55eafaf591d09e29582e57e9e9ccf3e4716e6f"
+          },
+          {
+            "stage": "equivalence",
+            "name": "fault-detected",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "verdict": "FAIL",
+            "result_sha256": "9021d69eb5a9aeb1113933dea951367c11f358e208c270f376c57e982263c002"
+          }
+        ],
+        "failure_tail": "-power-v1/finished/flow/scripts/flow.sh 3_5_place_dp detail_place\nRunning detail_place.tcl, stage 3_5_place_dp\nread_liberty -corner icstudio_0 /qualification/gf180-density-power-v1/finished/liberty/75de8f18d2ecc8564a8ff73e48f1507cb184fd0915ba15f4ff72785cbeb243d2.lib\nread_liberty -corner icstudio_1 /qualification/gf180-density-power-v1/finished/liberty/f1a627be0609117981f5e1df3968aec9d201fc65fea6de325b46d1cb4e69640b.lib\nread_liberty -corner icstudio_2 /qualification/gf180-density-power-v1/finished/liberty/940599dcc80b891142af0f3c277f1085fc034df77aa45936dfa2012427c67455.lib\nread_db /qualification/gf180-density-power-v1/finished/physical/results/gf180/counter/base/3_4_place_resized.odb\nread_sdc /qualification/gf180-density-power-v1/finished/physical/results/gf180/counter/base/2_floorplan.sdc\nsource /qualification/gf180-density-power-v1/finished/platform_rc.tcl\ndetailed_placement\n[INFO DPL-0006] Core area: 24935.90 um^2, Instances area: 2097.04 um^2, Utilization: 8.4%\n[INFO DPL-0005] Diamond search max displacement: +/- 500 sites horizontally, +/- 100 rows vertically.\n[INFO DPL-1101] Legalizing using diamond search.\nMovements Summary\n---------------------------------------\nTotal cells:                      18\nDiamond Move Success:              3 ( 16.67%)\nDiamond Move Failure:             15\nRip-up and replace Success:        0 (  0.00% of diamond failures)\nRip-up and replace Failure:       15\nTotal Placement Failures:         15\n---------------------------------------\n[INFO DPL-0034] Detailed placement failed on the following 15 instances:\n[INFO DPL-0035]  _19_\n[INFO DPL-0035]  _18_\n[INFO DPL-0035]  _20_\n[INFO DPL-0035]  _21_\n[INFO DPL-0035]  output4\n[INFO DPL-0035]  output3\n[INFO DPL-0035]  output2\n[INFO DPL-0035]  input1\n[INFO DPL-0035]  output5\n[INFO DPL-0035]  _16_\n[INFO DPL-0035]  _13_\n[INFO DPL-0035]  _10_\n[INFO DPL-0035]  _11_\n[INFO DPL-0035]  _14_\n[INFO DPL-0035]  _15_\n[ERROR DPL-0036] Detailed placement failed inside DPL.\nwrite_db /qualification/gf180-density-power-v1/finished/physical/results/gf180/counter/base/3_5_place_dp-failed.odb\nError: detail_place.tcl, 40 DPL-0036\nElapsed time: 0:01.22[h:]min:sec. CPU time: user 1.22 sys 0.07 (106%). Peak memory: 190324KB.\nmake[1]: *** [/qualification/gf180-density-power-v1/finished/flow/Makefile:474: do-3_5_place_dp] Error 1\nmake: *** [/qualification/gf180-density-power-v1/finished/flow/Makefile:474: /qualification/gf180-density-power-v1/finished/physical/results/gf180/counter/base/3_5_place_dp.odb] Error 2\n"
+      },
+      {
+        "name": "gf180-density-power-v2",
+        "status": "failed",
+        "report_sha256": "34b9d5267d915d14f9a76e7020d0988fe3040b9ed4ee6c3ac62384b95e47a47d",
+        "script_sha256": "ad89a75b8fa632342f4b1573f4bccc8aeee0e21c42e3823d08d04e578151c19b",
+        "completed_stages": [
+          {
+            "stage": "mapped",
+            "name": "mapped",
+            "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+            "verdict": null,
+            "result_sha256": "1924059dc9ae3769b55b4f393e582c1de72f16f1238b221c4800da78ff4a4dc6"
+          },
+          {
+            "stage": "equivalence",
+            "name": "equivalent",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "verdict": "PASS",
+            "result_sha256": "aafe42bfb0992b1bd42c34481e59da42823b93c4b306805d9bb4f288f41fd542"
+          },
+          {
+            "stage": "equivalence",
+            "name": "fault-detected",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "verdict": "FAIL",
+            "result_sha256": "a40ccd715b3e3d20c0d57ebec12179606c11d2509f1f55d998160dc256c92801"
+          }
+        ],
+        "failure_tail": "-power-v2/finished/flow/scripts/flow.sh 3_5_place_dp detail_place\nRunning detail_place.tcl, stage 3_5_place_dp\nread_liberty -corner icstudio_0 /qualification/gf180-density-power-v2/finished/liberty/75de8f18d2ecc8564a8ff73e48f1507cb184fd0915ba15f4ff72785cbeb243d2.lib\nread_liberty -corner icstudio_1 /qualification/gf180-density-power-v2/finished/liberty/f1a627be0609117981f5e1df3968aec9d201fc65fea6de325b46d1cb4e69640b.lib\nread_liberty -corner icstudio_2 /qualification/gf180-density-power-v2/finished/liberty/940599dcc80b891142af0f3c277f1085fc034df77aa45936dfa2012427c67455.lib\nread_db /qualification/gf180-density-power-v2/finished/physical/results/gf180/counter/base/3_4_place_resized.odb\nread_sdc /qualification/gf180-density-power-v2/finished/physical/results/gf180/counter/base/2_floorplan.sdc\nsource /qualification/gf180-density-power-v2/finished/platform_rc.tcl\ndetailed_placement\n[INFO DPL-0006] Core area: 24935.90 um^2, Instances area: 2097.04 um^2, Utilization: 8.4%\n[INFO DPL-0005] Diamond search max displacement: +/- 500 sites horizontally, +/- 100 rows vertically.\n[INFO DPL-1101] Legalizing using diamond search.\nMovements Summary\n---------------------------------------\nTotal cells:                      18\nDiamond Move Success:              3 ( 16.67%)\nDiamond Move Failure:             15\nRip-up and replace Success:        0 (  0.00% of diamond failures)\nRip-up and replace Failure:       15\nTotal Placement Failures:         15\n---------------------------------------\n[INFO DPL-0034] Detailed placement failed on the following 15 instances:\n[INFO DPL-0035]  _19_\n[INFO DPL-0035]  _18_\n[INFO DPL-0035]  _20_\n[INFO DPL-0035]  _21_\n[INFO DPL-0035]  output4\n[INFO DPL-0035]  output3\n[INFO DPL-0035]  output2\n[INFO DPL-0035]  input1\n[INFO DPL-0035]  output5\n[INFO DPL-0035]  _16_\n[INFO DPL-0035]  _13_\n[INFO DPL-0035]  _10_\n[INFO DPL-0035]  _11_\n[INFO DPL-0035]  _14_\n[INFO DPL-0035]  _15_\n[ERROR DPL-0036] Detailed placement failed inside DPL.\nwrite_db /qualification/gf180-density-power-v2/finished/physical/results/gf180/counter/base/3_5_place_dp-failed.odb\nError: detail_place.tcl, 40 DPL-0036\nElapsed time: 0:01.24[h:]min:sec. CPU time: user 1.19 sys 0.12 (106%). Peak memory: 189176KB.\nmake[1]: *** [/qualification/gf180-density-power-v2/finished/flow/Makefile:474: do-3_5_place_dp] Error 1\nmake: *** [/qualification/gf180-density-power-v2/finished/flow/Makefile:474: /qualification/gf180-density-power-v2/finished/physical/results/gf180/counter/base/3_5_place_dp.odb] Error 2\n"
+      },
+      {
+        "name": "gf180-density-power-v3",
+        "status": "failed",
+        "report_sha256": "2f02abbf8fdb599909d873a602f273c85be9c97550e8b13c22d0312434616627",
+        "script_sha256": "a02bedbe74001bb9cef34d42fe46408d798aeaf6e6ac102926e7171d5511548c",
+        "completed_stages": [
+          {
+            "stage": "mapped",
+            "name": "mapped",
+            "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+            "verdict": null,
+            "result_sha256": "0c6ac837ddeddf05cf99359ff016577757e2b49ed5cfb91cf860a4aa9cdda67e"
+          },
+          {
+            "stage": "equivalence",
+            "name": "equivalent",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "verdict": "PASS",
+            "result_sha256": "7b929adfc7a75c2869bca808f5c04468b2950d8fa1728def3c3ecae787e605c8"
+          },
+          {
+            "stage": "equivalence",
+            "name": "fault-detected",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "verdict": "FAIL",
+            "result_sha256": "1a0d1e98025af7c5051e758d2fd322d6d4be9d428b9887341617cd326adf1041"
+          }
+        ],
+        "failure_tail": "27be0609117981f5e1df3968aec9d201fc65fea6de325b46d1cb4e69640b.lib\nread_liberty -corner icstudio_2 /qualification/gf180-density-power-v3/finished/liberty/940599dcc80b891142af0f3c277f1085fc034df77aa45936dfa2012427c67455.lib\nread_db /qualification/gf180-density-power-v3/finished/physical/results/gf180/counter/base/2_2_floorplan_macro.odb\nread_sdc /qualification/gf180-density-power-v3/finished/physical/results/gf180/counter/base/2_1_floorplan.sdc\nsource /qualification/gf180-density-power-v3/finished/platform_rc.tcl\n[INFO TAP-0004] Inserted 62 endcaps.\n[INFO TAP-0005] Inserted 181 tapcells.\nDesign area 1885 um^2 8% utilization.\nwrite_db /qualification/gf180-density-power-v3/finished/physical/results/gf180/counter/base/2_3_floorplan_tapcell.odb\nElapsed time: 0:01.22[h:]min:sec. CPU time: user 1.19 sys 0.11 (106%). Peak memory: 186888KB.\nLog                        Elapsed/s Peak Memory/MB  sha1sum .odb [0:20)\n2_3_floorplan_tapcell              1            182 28c28226e22437ea131f\n/qualification/gf180-density-power-v3/finished/flow/scripts/flow.sh 2_4_floorplan_pdn pdn\nRunning pdn.tcl, stage 2_4_floorplan_pdn\nread_liberty -corner icstudio_0 /qualification/gf180-density-power-v3/finished/liberty/75de8f18d2ecc8564a8ff73e48f1507cb184fd0915ba15f4ff72785cbeb243d2.lib\nread_liberty -corner icstudio_1 /qualification/gf180-density-power-v3/finished/liberty/f1a627be0609117981f5e1df3968aec9d201fc65fea6de325b46d1cb4e69640b.lib\nread_liberty -corner icstudio_2 /qualification/gf180-density-power-v3/finished/liberty/940599dcc80b891142af0f3c277f1085fc034df77aa45936dfa2012427c67455.lib\nread_db /qualification/gf180-density-power-v3/finished/physical/results/gf180/counter/base/2_3_floorplan_tapcell.odb\nread_sdc /qualification/gf180-density-power-v3/finished/physical/results/gf180/counter/base/2_1_floorplan.sdc\nsource /qualification/gf180-density-power-v3/finished/platform_rc.tcl\n[INFO PDN-0001] Inserting grid: block\n[WARNING PDN-0178] Remaining channel (20.1600, 19.7100) - (179.7600, 176.8500) on Metal1 for nets: VDD, VSS\n[ERROR PDN-0179] Unable to repair all channels.\nError: pdn.tcl, 7 PDN-0179\nElapsed time: 0:01.09[h:]min:sec. CPU time: user 1.09 sys 0.06 (105%). Peak memory: 189084KB.\nmake[1]: *** [/qualification/gf180-density-power-v3/finished/flow/Makefile:427: do-2_4_floorplan_pdn] Error 1\nmake: *** [/qualification/gf180-density-power-v3/finished/flow/Makefile:427: /qualification/gf180-density-power-v3/finished/physical/results/gf180/counter/base/2_4_floorplan_pdn.odb] Error 2\n"
+      },
+      {
+        "name": "gf180-density-power-v4",
+        "status": "failed",
+        "report_sha256": "282688429b1ab457cba36da154031741edbe8d1c1f5e03d18e619a3e6fd36cce",
+        "script_sha256": "c8158883d4d76f9add2aa193d9d4a226065565a93768cc86fc91e0d3ee004251",
+        "completed_stages": [
+          {
+            "stage": "mapped",
+            "name": "mapped",
+            "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+            "verdict": null,
+            "result_sha256": "ae8f4c0354c5d0238a4fb4d5d2b5bf9ab418175efd3b2bf045839759b4b5eadf"
+          },
+          {
+            "stage": "equivalence",
+            "name": "equivalent",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "verdict": "PASS",
+            "result_sha256": "622c1d92e5173d83744a3cc24d36df720c44f1c96df274e2b67b2fdef02751f2"
+          },
+          {
+            "stage": "equivalence",
+            "name": "fault-detected",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "verdict": "FAIL",
+            "result_sha256": "f8ca65de486cd80816f60070e2716f36cda3fc3d23c9fc35c6d5f6ad269bc1ac"
+          }
+        ],
+        "failure_tail": "-power-v4/finished/flow/scripts/flow.sh 3_5_place_dp detail_place\nRunning detail_place.tcl, stage 3_5_place_dp\nread_liberty -corner icstudio_0 /qualification/gf180-density-power-v4/finished/liberty/75de8f18d2ecc8564a8ff73e48f1507cb184fd0915ba15f4ff72785cbeb243d2.lib\nread_liberty -corner icstudio_1 /qualification/gf180-density-power-v4/finished/liberty/f1a627be0609117981f5e1df3968aec9d201fc65fea6de325b46d1cb4e69640b.lib\nread_liberty -corner icstudio_2 /qualification/gf180-density-power-v4/finished/liberty/940599dcc80b891142af0f3c277f1085fc034df77aa45936dfa2012427c67455.lib\nread_db /qualification/gf180-density-power-v4/finished/physical/results/gf180/counter/base/3_4_place_resized.odb\nread_sdc /qualification/gf180-density-power-v4/finished/physical/results/gf180/counter/base/2_floorplan.sdc\nsource /qualification/gf180-density-power-v4/finished/platform_rc.tcl\ndetailed_placement\n[INFO DPL-0006] Core area: 24935.90 um^2, Instances area: 2097.04 um^2, Utilization: 8.4%\n[INFO DPL-0005] Diamond search max displacement: +/- 500 sites horizontally, +/- 100 rows vertically.\n[INFO DPL-1101] Legalizing using diamond search.\nMovements Summary\n---------------------------------------\nTotal cells:                      18\nDiamond Move Success:              3 ( 16.67%)\nDiamond Move Failure:             15\nRip-up and replace Success:        0 (  0.00% of diamond failures)\nRip-up and replace Failure:       15\nTotal Placement Failures:         15\n---------------------------------------\n[INFO DPL-0034] Detailed placement failed on the following 15 instances:\n[INFO DPL-0035]  _19_\n[INFO DPL-0035]  _18_\n[INFO DPL-0035]  _20_\n[INFO DPL-0035]  _21_\n[INFO DPL-0035]  output4\n[INFO DPL-0035]  output3\n[INFO DPL-0035]  output2\n[INFO DPL-0035]  input1\n[INFO DPL-0035]  output5\n[INFO DPL-0035]  _16_\n[INFO DPL-0035]  _13_\n[INFO DPL-0035]  _10_\n[INFO DPL-0035]  _11_\n[INFO DPL-0035]  _14_\n[INFO DPL-0035]  _15_\n[ERROR DPL-0036] Detailed placement failed inside DPL.\nwrite_db /qualification/gf180-density-power-v4/finished/physical/results/gf180/counter/base/3_5_place_dp-failed.odb\nError: detail_place.tcl, 40 DPL-0036\nElapsed time: 0:01.17[h:]min:sec. CPU time: user 1.12 sys 0.12 (106%). Peak memory: 189940KB.\nmake[1]: *** [/qualification/gf180-density-power-v4/finished/flow/Makefile:474: do-3_5_place_dp] Error 1\nmake: *** [/qualification/gf180-density-power-v4/finished/flow/Makefile:474: /qualification/gf180-density-power-v4/finished/physical/results/gf180/counter/base/3_5_place_dp.odb] Error 2\n"
+      }
+    ],
+    "pdn_def_export": {
+      "exit": 0,
+      "path": "power-v2.def"
+    },
+    "archive": {
+      "name": "evidence.tar.gz",
+      "sha256": "6db9e5e56ceb10f54e2b4fb27533cf8aeb4d8782cdb6e2a17df5d3aaade43716",
+      "bytes": 16299231
+    }
+  },
+  "verification": {
+    "full_suite": {
+      "tests": 1453,
+      "skips": 63,
+      "failures": 0,
+      "seconds": 283.266,
+      "log_sha256": "f4abb0a918df954c7fb1b5944174ab2fa566e2d56fe9563943f1abf3d39c526c"
+    },
+    "focused_written_geometry_tests": 9,
+    "final_focused_suite": {
+      "tests": 22,
+      "failures": 0,
+      "seconds": 3.738,
+      "log_sha256": "ec85f317a87dcb55b167d5fb619f015b5759520f8eb7064671b67c1ca44d06d8"
+    },
+    "test_source_sha256": "5bfe1a72805f2cc63aadc2581e2301ed6796ec63aee3dae9aed77c10106cb408"
+  },
+  "local_evidence_archives": [
+    {
+      "path": "outputs/gf180-density-caps-audit-v1/evidence.tar.gz",
+      "name": "evidence.tar.gz",
+      "sha256": "40fd4f5509476b7c20fc0ad5f5f3d3115931f7c6cffc6492b2188d09c3fef9fa",
+      "bytes": 8266807
+    },
+    {
+      "path": "outputs/gf180-fill-rule-audit-v1/evidence.tar.gz",
+      "name": "evidence.tar.gz",
+      "sha256": "b6ce34d454b83c404b76322c6e8681b9bbada76d02e9b92513fc09ca2c8a9e6a",
+      "bytes": 534718
+    },
+    {
+      "path": "outputs/gf180-density-power-trials-v2/evidence.tar.gz",
+      "name": "evidence.tar.gz",
+      "sha256": "6db9e5e56ceb10f54e2b4fb27533cf8aeb4d8782cdb6e2a17df5d3aaade43716",
+      "bytes": 16299231
+    }
+  ],
+  "initial_native_coupon_launch": {
+    "status": "failed before rule execution",
+    "cause": "Diagnostic helper replaced the runtime Python search path; corrected by preserving it.",
+    "log_sha256": "0dd99fb05e9c0624db0d5d6f006ed2f6e0def376d7a0348f023c4d15cc5d15a7",
+    "script_sha256": "a3b775a2deaa7c16608d5ed2fbbf12707c3530bdf68693c2654da8d5d295e03e"
+  },
+  "remaining": [
+    "Close all five metal densities on the fixed floorplan; preserve circuit and timing requirements.",
+    "Implement and validate every required fill rule, including exclusions and local density.",
+    "Resolve connected mesh placement/channel failures or establish another legal fill strategy.",
+    "Final-layout LVS, post-fill extraction/timing and native geometry/antenna checks.",
+    "Repeat accepted recipe on counter, UART and APB for C/D and both supported systems.",
+    "No complete-chip, foundry/shuttle, release or tapeout acceptance is established."
+  ]
+}

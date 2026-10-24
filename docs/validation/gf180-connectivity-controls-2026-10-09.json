@@ -1,0 +1,1987 @@
+{
+  "schema_version": 1,
+  "status": "six-positive-and-thirty-negative-connectivity-controls-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T14:01:09.826774+00:00",
+  "application_source_commit": "3256447405885763d2dcc8aa7946d46d0261fe9e",
+  "application_backend": "6b86270f84e008fe9a727f20aa5005d8e58c13ee08ace491eaece6431fd0dd68",
+  "audit": {
+    "path": "outputs/gf180-connectivity-fault-audit-v2/record.json",
+    "sha256": "5d90940f24f047bae75ac26c593969ae51ea5ac34fd6802b1db4ee896a670823"
+  },
+  "substrate_rechecks": {
+    "path": "outputs/gf180-apb-substrate-rejections-v1/record.json",
+    "sha256": "e19fc080c7780452ec149c205a314afb46c591382924e412dc5d8f13bb3f5d03"
+  },
+  "engine": {
+    "path": "/opt/icstudio/bin/klayout",
+    "sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+    "version": "KLayout 0.30.5"
+  },
+  "positive_controls": 6,
+  "negative_controls": 30,
+  "checked_positive_device_terminals": 394080,
+  "checked_positive_primary_parameters": 197048,
+  "cases": [
+    {
+      "case": "c-counter",
+      "source_gds": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/top-labels-only.gds",
+        "sha256": "1fb6317cec4835a67c258bac3f9a49d0721174f11fc024b85645dc3344d78cd5"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-counter/reference.cdl",
+        "sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/positive/fault.gds",
+            "sha256": "cc7a6f899fa81ae8583d800aa821f94ee94c8d878f3bdc76d4689f287f1ab335"
+          },
+          "changed_masks": {},
+          "lvs_matched": true,
+          "combined_passed": true,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "b1b320a97a08b938e6fa65e4ef6939a1422d83eeaab17e2ba580ec251f766753",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            },
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vdd-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/vdd-port-open/fault.gds",
+            "sha256": "cdc66fa3eabfb35829ca1902f5663f677f3cb8dceaab0347daeb1b8aaa567840"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 801
+          },
+          "native_database_sha256": "fdc3d3adc18291c8ef7fcb8126b45b7faf5350cf1abb3815669589d3773c17b6",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            },
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/vss-port-open/fault.gds",
+            "sha256": "c90eac53d0a19749ea7dcd4c497dec5af5b64487028da631de9d8e6033c7020d"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 801
+          },
+          "native_database_sha256": "adc00c51ec0dc44a1c0d45263f3d971ef5c0d3fb92ec599a9ffa1d5e709829df",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            },
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "signal-short",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/signal-short/fault.gds",
+            "sha256": "eaee673b88f38bf0c080964110e4b5322e27d7054bb7e8580b363db8e3f57a44"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 0.16799999999999998,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "shorted-top-ports": 1
+          },
+          "native_database_sha256": "363785259351b81dcac5f43aa4a5426f214eb375cf14064ef8567d80f1855fb6",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 4,
+              "Match": 2089,
+              "MatchWithWarning": 1965
+            },
+            "device": {
+              "Match": 4180,
+              "Mismatch": 4
+            },
+            "pin": {
+              "Match": 8
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/substrate-taps-open/fault.gds",
+            "sha256": "e1994e38949143b7a3e994132d3c81f1a3d82884938e06d71e5c155ee02122d0"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 32.2828,
+              "polygons": 667
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "9f4fbe8a7900f11317a848c080a96b8604fd0bb1254fd12a8199f23d5d4006e0",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 7957,
+              "Match": 32
+            },
+            "device": {
+              "Mismatch": 8027,
+              "Match": 162
+            },
+            "pin": {
+              "Match": 9
+            },
+            "instance": {}
+          }
+        }
+      ]
+    },
+    {
+      "case": "c-uart",
+      "source_gds": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/top-labels-only.gds",
+        "sha256": "f9c34299db63b7177035ec42d2ebb27b3e31f281ddd7d25333904547329140cf"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v3/c-uart/reference.cdl",
+        "sha256": "bb6537a6a3a46cdad19c114b995728f99fed53caa686bafa7baa6aa0891f3ca2"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-uart-v2/positive/fault.gds",
+            "sha256": "985ab52da1869326c011b590874941d0718e1800c3f20757c9f3a65172fecdf3"
+          },
+          "changed_masks": {},
+          "lvs_matched": true,
+          "combined_passed": true,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "65fb01c5b569a579516337a4894ae1a94f7133303c677cc5aa02b5d182af716a",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            },
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vdd-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-uart-v2/vdd-port-open/fault.gds",
+            "sha256": "7a39438d7518f40b4fc0d06183c9d1d7e3b17520232b32e98235b60a5e3fc96e"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 3839
+          },
+          "native_database_sha256": "d6414af21c63e49f748696ded6a379065b596c73b21e30b268e37fdaa7f697f4",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            },
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-uart-v2/vss-port-open/fault.gds",
+            "sha256": "1887d99c882bc8b49e52e8db5f0b5f4fbb0af561c44e8cf260bfe499e6b3e9a3"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 3839
+          },
+          "native_database_sha256": "d301dcd6db40ed09a7cafa4f4c864ae91c29dd6d06f97847bbb5d1c707085616",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            },
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "signal-short",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-uart-v2/signal-short/fault.gds",
+            "sha256": "28e6cf8a49d91345c58905cc95b6d74e6c2cb63acef0c27eb65ad1979b08cd2b"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 5.992,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "shorted-top-ports": 1
+          },
+          "native_database_sha256": "c7dbe86c4cc28df634fb2855b1421c2173d03d97326c057cfebf5c8564630b8e",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 4,
+              "Match": 11257,
+              "MatchWithWarning": 9721
+            },
+            "device": {
+              "Match": 22580,
+              "Mismatch": 8
+            },
+            "pin": {
+              "Match": 15
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-uart-v2/substrate-taps-open/fault.gds",
+            "sha256": "4bddd94bbc66aa5f6136ee152da6502c729dcb40c6e5a242563d5e5da5acf4e6"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 146.45839999999998,
+              "polygons": 3026
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "b6abf965df504b9738c56e200bf18826ab7f3c5938448f0f7417b0a730cd3978",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 40210,
+              "Match": 449,
+              "MatchWithWarning": 2
+            },
+            "device": {
+              "Mismatch": 41376,
+              "Match": 1790
+            },
+            "pin": {
+              "Match": 24
+            },
+            "instance": {}
+          }
+        }
+      ]
+    },
+    {
+      "case": "c-apb",
+      "source_gds": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/top-labels-only.gds",
+        "sha256": "b4a5f5b6e8074e5293d7e0db4024ed56f4944bf56a6274903075b007655f185a"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/c-apb/reference.cdl",
+        "sha256": "24b6e16e5099387ce8c4f12a3aab56bec2db6a7b8d619a1d4e35f5a296b02c85"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-apb-v2/positive/fault.gds",
+            "sha256": "523b91b2e5549e47476469e96caf5e171adb132aa74609f4a2c80a6c67c08fd7"
+          },
+          "changed_masks": {},
+          "lvs_matched": true,
+          "combined_passed": true,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "44e09278d5724de51c3bceb4c3c9dd05d984368a20e98a76171da856a9c35f4c",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            },
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vdd-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-apb-v2/vdd-port-open/fault.gds",
+            "sha256": "1a93cefa2620e1bb9c2f000c9bae129f1df3d996d8511e9922306a8242269704"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 3656
+          },
+          "native_database_sha256": "5537f36489c39c0b8b796809a0d9995401b305bf6615b217f9bed95c9aad8d82",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            },
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-apb-v2/vss-port-open/fault.gds",
+            "sha256": "93b118bcad85487c68bd471a50e2c40318a632f68e2195f475eddb5f57ddfd77"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 3656
+          },
+          "native_database_sha256": "1b9939bb46575edd9c6d33250a9413882236febd712a727619ebae9e660d3d53",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            },
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "signal-short",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-apb-v2/signal-short/fault.gds",
+            "sha256": "e0190a90a3451438925a29f8d2923aeac4b3895a0628462807196a82527ba5d0"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 0.16799999999999998,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "shorted-top-ports": 1
+          },
+          "native_database_sha256": "b586d59c08cac7d356f57bd19eaf4c088cfd385a2a6f978d5b25365a190739a5",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 4,
+              "Match": 11269,
+              "MatchWithWarning": 9968
+            },
+            "device": {
+              "Match": 22488,
+              "Mismatch": 2
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-apb-v2/substrate-taps-open/fault.gds",
+            "sha256": "33dd6756aa2c735837e0de976154a95c8d4aded4d11b7e4bc5225e242aded340"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 146.45839999999998,
+              "polygons": 3026
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "rejection": "source-bound-soft-connection-extraction-error",
+          "fresh_engine_log": {
+            "path": "outputs/gf180-apb-substrate-rejections-v1/c-apb/engine.log",
+            "sha256": "304d943ef8ed4df25bd6bd12a3ca23181246b79373e4e6b64c147461907f4141"
+          },
+          "retained_harness_failure": "RuntimeError('Unable to open file: /var/tmp/icstudio-gf180-cd-connectivity-faults-c-apb-v2/substrate-taps-open//fault.lvsdb (errno=2) in LayoutVsSchematic.read')"
+        },
+        {
+          "case": "diode-area-fault",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-apb-v3/diode-area-fault/fault.gds",
+            "sha256": "523b91b2e5549e47476469e96caf5e171adb132aa74609f4a2c80a6c67c08fd7"
+          },
+          "changed_masks": {},
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "36e58bac8e8d695a249ebd32223178b150930c0174f33555c1313815d38ac3ba",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Match": 11270,
+              "MatchWithWarning": 9968,
+              "Mismatch": 3
+            },
+            "device": {
+              "MatchWithWarning": 2,
+              "Match": 22488
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          },
+          "diodes": [
+            {
+              "status": "MatchWithWarning",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "pwdata[2]"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.3034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "PWDATA[2]"
+                }
+              }
+            },
+            {
+              "status": "MatchWithWarning",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "reset"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.3034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "RESET"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "pwdata[2]",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "PWDATA[2]",
+                  "C": "VDD"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "reset",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "RESET",
+                  "C": "VDD"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "diode-perimeter-fault",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-apb-v3/diode-perimeter-fault/fault.gds",
+            "sha256": "523b91b2e5549e47476469e96caf5e171adb132aa74609f4a2c80a6c67c08fd7"
+          },
+          "changed_masks": {},
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "4f16b6a29ad80eb9c74c118a1e42721441046dfa8e287871469d6b6dcc4873e9",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Match": 11270,
+              "MatchWithWarning": 9968,
+              "Mismatch": 3
+            },
+            "device": {
+              "MatchWithWarning": 2,
+              "Match": 22488
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          },
+          "diodes": [
+            {
+              "status": "MatchWithWarning",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "pwdata[2]"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 2.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "PWDATA[2]"
+                }
+              }
+            },
+            {
+              "status": "MatchWithWarning",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "reset"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 2.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "RESET"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "pwdata[2]",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "PWDATA[2]",
+                  "C": "VDD"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "reset",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "RESET",
+                  "C": "VDD"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "diode-polarity-fault",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-c-apb-v3/diode-polarity-fault/fault.gds",
+            "sha256": "523b91b2e5549e47476469e96caf5e171adb132aa74609f4a2c80a6c67c08fd7"
+          },
+          "changed_masks": {},
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "be5d14928abcd9d34e3bf3d3fefdd33a542424134daca22d33c1d94a1b16902b",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Match": 11270,
+              "MatchWithWarning": 9968,
+              "Mismatch": 3
+            },
+            "device": {
+              "Mismatch": 2,
+              "Match": 22488
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          },
+          "diodes": [
+            {
+              "status": "Mismatch",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "reset"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "PWDATA[2]",
+                  "C": "VSS"
+                }
+              }
+            },
+            {
+              "status": "Mismatch",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "pwdata[2]"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "RESET",
+                  "C": "VSS"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "pwdata[2]",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "PWDATA[2]",
+                  "C": "VDD"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "reset",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "RESET",
+                  "C": "VDD"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "d-counter",
+      "source_gds": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/top-labels-only.gds",
+        "sha256": "1fb6317cec4835a67c258bac3f9a49d0721174f11fc024b85645dc3344d78cd5"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-counter/reference.cdl",
+        "sha256": "671f937dadf9343d9bc177f03c3ca1093d91b5a1747d2af3762a32c5e85205ce"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-counter-v2/positive/fault.gds",
+            "sha256": "cc7a6f899fa81ae8583d800aa821f94ee94c8d878f3bdc76d4689f287f1ab335"
+          },
+          "changed_masks": {},
+          "lvs_matched": true,
+          "combined_passed": true,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "e19f30062df5b81bcbe445537e1abc375e09bfc4fdc7e72924b9aa24826e415a",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            },
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vdd-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-counter-v2/vdd-port-open/fault.gds",
+            "sha256": "cdc66fa3eabfb35829ca1902f5663f677f3cb8dceaab0347daeb1b8aaa567840"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 801
+          },
+          "native_database_sha256": "9e0fc439c71fb6fd4da423f65f5cdbf60adec1732f1d1cdd341d88392ac410f4",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            },
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-counter-v2/vss-port-open/fault.gds",
+            "sha256": "c90eac53d0a19749ea7dcd4c497dec5af5b64487028da631de9d8e6033c7020d"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 801
+          },
+          "native_database_sha256": "c9d399b419c9ba92b34e296591fcf0dae4bbabde7507548398be5cba5e1d463b",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 2093,
+              "MatchWithWarning": 1965
+            },
+            "device": {
+              "Match": 4184
+            },
+            "pin": {
+              "Match": 8
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "signal-short",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-counter-v2/signal-short/fault.gds",
+            "sha256": "eaee673b88f38bf0c080964110e4b5322e27d7054bb7e8580b363db8e3f57a44"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 0.16799999999999998,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "shorted-top-ports": 1
+          },
+          "native_database_sha256": "897a238354531f04d8366ac9698258d434dd3d1437474fed3a3fb7bbea9b3342",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 4,
+              "Match": 2089,
+              "MatchWithWarning": 1965
+            },
+            "device": {
+              "Match": 4180,
+              "Mismatch": 4
+            },
+            "pin": {
+              "Match": 8
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-counter-v2/substrate-taps-open/fault.gds",
+            "sha256": "e1994e38949143b7a3e994132d3c81f1a3d82884938e06d71e5c155ee02122d0"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 32.2828,
+              "polygons": 667
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "4e7d7231d54fcbdc3d5ff60d0c4172241cdeb23f5d9258e5aff7e41788ad571b",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 7957,
+              "Match": 32
+            },
+            "device": {
+              "Mismatch": 8027,
+              "Match": 162
+            },
+            "pin": {
+              "Match": 9
+            },
+            "instance": {}
+          }
+        }
+      ]
+    },
+    {
+      "case": "d-uart",
+      "source_gds": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/top-labels-only.gds",
+        "sha256": "bc068fa4919ed8b2abe73ceb8bf56fca10465614d3707f2eee5fa14c61632612"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v5/d-uart/reference.cdl",
+        "sha256": "bb6537a6a3a46cdad19c114b995728f99fed53caa686bafa7baa6aa0891f3ca2"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-uart-v2/positive/fault.gds",
+            "sha256": "985ab52da1869326c011b590874941d0718e1800c3f20757c9f3a65172fecdf3"
+          },
+          "changed_masks": {},
+          "lvs_matched": true,
+          "combined_passed": true,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "6ce6c6e26d02c912e03296a8d7edf224315482bc6a41c97ce7bf9794522ef0f3",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            },
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vdd-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-uart-v2/vdd-port-open/fault.gds",
+            "sha256": "7a39438d7518f40b4fc0d06183c9d1d7e3b17520232b32e98235b60a5e3fc96e"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 3839
+          },
+          "native_database_sha256": "7d96d82bd734a9e85e2769bb28a787177da0215947b60c4f32b59c3e605b6da2",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            },
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-uart-v2/vss-port-open/fault.gds",
+            "sha256": "1887d99c882bc8b49e52e8db5f0b5f4fbb0af561c44e8cf260bfe499e6b3e9a3"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 3839
+          },
+          "native_database_sha256": "0e44926e72875b2b7ed3611db8ba3561e2cabfc757495ace22fa54493aef744e",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11261,
+              "MatchWithWarning": 9721
+            },
+            "device": {
+              "Match": 22588
+            },
+            "pin": {
+              "Match": 15
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "signal-short",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-uart-v2/signal-short/fault.gds",
+            "sha256": "28e6cf8a49d91345c58905cc95b6d74e6c2cb63acef0c27eb65ad1979b08cd2b"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 5.992,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "shorted-top-ports": 1
+          },
+          "native_database_sha256": "298be2265e9ac0840404d2839526bff598894725b83bb226bdd1dfa16cf29aef",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 4,
+              "Match": 11257,
+              "MatchWithWarning": 9721
+            },
+            "device": {
+              "Match": 22580,
+              "Mismatch": 8
+            },
+            "pin": {
+              "Match": 15
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-uart-v2/substrate-taps-open/fault.gds",
+            "sha256": "4bddd94bbc66aa5f6136ee152da6502c729dcb40c6e5a242563d5e5da5acf4e6"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 146.45839999999998,
+              "polygons": 3026
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "4e3cea6cc1f4243015ca9b992b3b0309a1abbec9bcf587f8574e58f4959553dc",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 40210,
+              "Match": 449,
+              "MatchWithWarning": 2
+            },
+            "device": {
+              "Mismatch": 41376,
+              "Match": 1790
+            },
+            "pin": {
+              "Match": 24
+            },
+            "instance": {}
+          }
+        }
+      ]
+    },
+    {
+      "case": "d-apb",
+      "source_gds": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/top-labels-only.gds",
+        "sha256": "dde0405f5aabe2c3ad8559bfbdf883315f22acf8b6bdf80fb157a6b428c48d64"
+      },
+      "reference": {
+        "path": "outputs/gf180-cd-filled-connectivity-v6/d-apb/reference.cdl",
+        "sha256": "24b6e16e5099387ce8c4f12a3aab56bec2db6a7b8d619a1d4e35f5a296b02c85"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-apb-v2/positive/fault.gds",
+            "sha256": "523b91b2e5549e47476469e96caf5e171adb132aa74609f4a2c80a6c67c08fd7"
+          },
+          "changed_masks": {},
+          "lvs_matched": true,
+          "combined_passed": true,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "475c5121ca4415a5977e1395bbdb531baa1d83b462dd095ec546537edc6e9822",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            },
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vdd-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-apb-v2/vdd-port-open/fault.gds",
+            "sha256": "1a93cefa2620e1bb9c2f000c9bae129f1df3d996d8511e9922306a8242269704"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 3656
+          },
+          "native_database_sha256": "9ccf844ff06862304fd555f5052bd59ac94cdb74d0f43077f7a952d67658d156",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            },
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-apb-v2/vss-port-open/fault.gds",
+            "sha256": "93b118bcad85487c68bd471a50e2c40318a632f68e2195f475eddb5f57ddfd77"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": true,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "power-terminal-disconnected": 3656
+          },
+          "native_database_sha256": "c6f413c76b4994ae35e0f7a805ffff178562f3fe067ca4ba95e977a585b98240",
+          "circuit_status": "Match",
+          "counts": {
+            "net": {
+              "Match": 11273,
+              "MatchWithWarning": 9968
+            },
+            "device": {
+              "Match": 22490
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "signal-short",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-apb-v2/signal-short/fault.gds",
+            "sha256": "e0190a90a3451438925a29f8d2923aeac4b3895a0628462807196a82527ba5d0"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 0.16799999999999998,
+              "polygons": 1
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": false,
+          "metal_failure_counts": {
+            "shorted-top-ports": 1
+          },
+          "native_database_sha256": "5fba282e59489de15d55d82ce9f122d326615552ccfe8924b1dd2f77b804c5bf",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Mismatch": 4,
+              "Match": 11269,
+              "MatchWithWarning": 9968
+            },
+            "device": {
+              "Match": 22488,
+              "Mismatch": 2
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-apb-v2/substrate-taps-open/fault.gds",
+            "sha256": "33dd6756aa2c735837e0de976154a95c8d4aded4d11b7e4bc5225e242aded340"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 146.45839999999998,
+              "polygons": 3026
+            }
+          },
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "rejection": "source-bound-soft-connection-extraction-error",
+          "fresh_engine_log": {
+            "path": "outputs/gf180-apb-substrate-rejections-v1/d-apb/engine.log",
+            "sha256": "f2f230dd1ad2898cdafdb7ca99520642b2bca5ccac12cf44d46382e31ead2cc1"
+          },
+          "retained_harness_failure": "RuntimeError('Unable to open file: /var/tmp/icstudio-gf180-cd-connectivity-faults-d-apb-v2/substrate-taps-open//fault.lvsdb (errno=2) in LayoutVsSchematic.read')"
+        },
+        {
+          "case": "diode-area-fault",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-apb-v3/diode-area-fault/fault.gds",
+            "sha256": "523b91b2e5549e47476469e96caf5e171adb132aa74609f4a2c80a6c67c08fd7"
+          },
+          "changed_masks": {},
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "b5235cc211795e5e18cae0405ecb5b19ecbff48e6defdcc2ec4692f38124b355",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Match": 11270,
+              "MatchWithWarning": 9968,
+              "Mismatch": 3
+            },
+            "device": {
+              "MatchWithWarning": 2,
+              "Match": 22488
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          },
+          "diodes": [
+            {
+              "status": "MatchWithWarning",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "pwdata[2]"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.3034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "PWDATA[2]"
+                }
+              }
+            },
+            {
+              "status": "MatchWithWarning",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "reset"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.3034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "RESET"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "pwdata[2]",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "PWDATA[2]",
+                  "C": "VDD"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "reset",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "RESET",
+                  "C": "VDD"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "diode-perimeter-fault",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-apb-v3/diode-perimeter-fault/fault.gds",
+            "sha256": "523b91b2e5549e47476469e96caf5e171adb132aa74609f4a2c80a6c67c08fd7"
+          },
+          "changed_masks": {},
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "53c3b57f0a375ce0464c53d236d16eac5f575304dcbc0e777867472fcf93114d",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Match": 11270,
+              "MatchWithWarning": 9968,
+              "Mismatch": 3
+            },
+            "device": {
+              "MatchWithWarning": 2,
+              "Match": 22488
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          },
+          "diodes": [
+            {
+              "status": "MatchWithWarning",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "pwdata[2]"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 2.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "PWDATA[2]"
+                }
+              }
+            },
+            {
+              "status": "MatchWithWarning",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "reset"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 2.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "RESET"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "pwdata[2]",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "PWDATA[2]",
+                  "C": "VDD"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "reset",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "RESET",
+                  "C": "VDD"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "case": "diode-polarity-fault",
+          "gds": {
+            "path": "outputs/gf180-cd-connectivity-faults-d-apb-v3/diode-polarity-fault/fault.gds",
+            "sha256": "523b91b2e5549e47476469e96caf5e171adb132aa74609f4a2c80a6c67c08fd7"
+          },
+          "changed_masks": {},
+          "lvs_matched": false,
+          "combined_passed": false,
+          "expectation_met": true,
+          "metal_passed": true,
+          "metal_failure_counts": {},
+          "native_database_sha256": "59175b734f9ec5d8c1f6fbc1530eb11bd6db27489896b402b6549df07e0cd4b2",
+          "circuit_status": "NoMatch",
+          "counts": {
+            "net": {
+              "Match": 11270,
+              "MatchWithWarning": 9968,
+              "Mismatch": 3
+            },
+            "device": {
+              "Mismatch": 2,
+              "Match": 22488
+            },
+            "pin": {
+              "Match": 30
+            },
+            "instance": {}
+          },
+          "diodes": [
+            {
+              "status": "Mismatch",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "reset"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "PWDATA[2]",
+                  "C": "VSS"
+                }
+              }
+            },
+            {
+              "status": "Mismatch",
+              "layout": {
+                "name": "",
+                "model": "diode_nd2ps_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "VSS",
+                  "C": "pwdata[2]"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.0",
+                "model": "DIODE_ND2PS_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "RESET",
+                  "C": "VSS"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "pwdata[2]",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_1.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "PWDATA[2]",
+                  "C": "VDD"
+                }
+              }
+            },
+            {
+              "status": "Match",
+              "layout": {
+                "name": "",
+                "model": "diode_pd2nw_06v0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "reset",
+                  "C": "VDD"
+                }
+              },
+              "reference": {
+                "name": "ANTENNA_2.1",
+                "model": "DIODE_PD2NW_06V0",
+                "parameters": {
+                  "A": 0.2034,
+                  "P": 1.85
+                },
+                "terminals": {
+                  "A": "RESET",
+                  "C": "VDD"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Independent readback of the six actual C/D filled-layout positive controls and thirty injected faults. Recompute mask changes and metal connectivity, reread native cross-references and primary parameters, and require explicit reproduced substrate rejection. Experimental substrate/diode deck remains distinct from stock-deck and tapeout acceptance.",
+  "retained_failures": [
+    "Two original APB substrate runs rejected incomplete wiring, then the v2 harness tried to read a missing LVS database. Original failure records are unchanged; explicit repeats reproduce the specific extraction rejection.",
+    "The first independent audit compared a whole live batch snapshot with the later completed batch file. The selected completed case is byte-equivalent as JSON; the revised audit verifies that case plus both snapshot identity and direct artifact hashes."
+  ],
+  "remaining": [
+    "Stock-deck chip-top VSS must-connect warning and accepted production substrate/diode integration.",
+    "Larger-reference post-fill function and timing.",
+    "Complete required fill-rule coverage and fresh production installations."
+  ],
+  "archive": {
+    "path": "IC-Design-Studio-evidence/gf180-connectivity-controls-2026-10-09-v1/evidence.tar.gz",
+    "sha256": "7f9ffe90ce5527c30e53cf2f1163101871161f3871cc6b9328daee197351bdf1",
+    "bytes": 227538538,
+    "logical_files": 919,
+    "unique_objects": 652,
+    "verified": true,
+    "logical_bytes": 2480588520
+  },
+  "manifest_sha256": "29a21002ad99065c1ef6336703f3d2b48f841daa0beecf2795c9df4b433cc343",
+  "checkpoint_sha256": "23231d2fdb0d819b9e47aa1031d7ae60dd7afb412cb2f60772c21fe775db665d",
+  "published_at": "2026-10-09T14:07:20.674299+00:00"
+}

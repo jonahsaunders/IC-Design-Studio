@@ -2,17 +2,18 @@ name: Prepare desktop release
 on:
   workflow_dispatch:
     inputs:
+      candidate_sha:
+        description: Full 40-character commit of the selected main or experimental branch
+        type: string
+        required: true
       publish_release:
         description: Publish the qualified main version with Windows and Linux downloads
         type: boolean
         default: false
-  push:
-    branches: [main, experimental]
-    paths: [icstudio/__init__.py, icstudio/experimental_probe.py, icstudio/inductor_probe.py, icstudio/inductor_design_probe.py, scripts/assemble_prerelease.py, scripts/release_evidence.py, scripts/publish_prerelease.py, scripts/release_intent.py, .github/workflows/build-desktop.yml, .github/workflows/release-preview.yml]
 permissions:
   contents: read
 concurrency:
-  group: preview-release-${{ github.ref }}
+  group: preview-release-${{ github.run_id }}
   cancel-in-progress: false
 jobs:
   mode:
@@ -24,6 +25,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
       - name: Select draft or explicitly requested public release
         id: intent
         run: python scripts/release_intent.py

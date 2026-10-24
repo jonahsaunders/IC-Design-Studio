@@ -1,0 +1,306 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Physical coverage expansion on the original SKY130 counter, UART and APB final GDS. This is progress evidence, not complete required-rule acceptance.",
+  "source_baseline": "33809bd3b4269f67ff8c062f825a436ba55f054b",
+  "source_files": {
+    "scripts/sky130_rule_inventory.py": "3dddcf66e44ec7a2eb6301c509a6551ed432dc0a5a417735f961caea73922fae",
+    "scripts/sky130_poly_antenna.drc": "7968f49b24553b9e41d20a6dd3dc474dc5ea0e8c47516420a63cda8d5fc94196",
+    "tests/test_sky130_rule_inventory.py": "e6f540a350b46192b7990592a1fa62048d45f062da6d132ea80de7356c5e8a70",
+    "docs/qualification/sky130-rule-inventory.json": "470a056e6ef613b60d4082c575f70f097ddb0d5b340a6dda0d6620eb20edb58f"
+  },
+  "geometry": [
+    {
+      "case": "counter",
+      "engine": "orfs-klayout",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/counter-orfs-klayout.json",
+        "sha256": "2f27acd61452539664420aa8d64df170b6047f5b4d16dbf8518ffd35d7cdb4f0"
+      }
+    },
+    {
+      "case": "counter",
+      "engine": "volare-klayout",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/counter-volare-klayout.json",
+        "sha256": "114d9a243d3d11e96f9c057306bd2958400271a8c47bd902d92210338bd7b3c8"
+      }
+    },
+    {
+      "case": "counter",
+      "engine": "volare-magic",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/counter-volare-magic.json",
+        "sha256": "7aa46529018077b248910c23b6978c8e662014b2ed44d438bc8e1f57833951ef"
+      }
+    },
+    {
+      "case": "uart",
+      "engine": "orfs-klayout",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/uart-orfs-klayout.json",
+        "sha256": "d6f530673cf060a28b3ebff764a6857704bddd4dd8b32e0d4eebe59f4907e64a"
+      }
+    },
+    {
+      "case": "uart",
+      "engine": "volare-klayout",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/uart-volare-klayout.json",
+        "sha256": "b3cf509a0b5c15cadc42cfd98028b59768eda56c7a2d283014be255f7cc780cc"
+      }
+    },
+    {
+      "case": "uart",
+      "engine": "volare-magic",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/uart-volare-magic.json",
+        "sha256": "29d78b590360bf49c73523718da18d10e3cf3f5896e03c6aadd352dcdce68df7"
+      }
+    },
+    {
+      "case": "apb",
+      "engine": "orfs-klayout",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/apb-orfs-klayout.json",
+        "sha256": "8f7e90c20cca5dc04e89f39b8b44eef0bdeb9e4a88c5574858d44feb727d9f70"
+      }
+    },
+    {
+      "case": "apb",
+      "engine": "volare-klayout",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/apb-volare-klayout.json",
+        "sha256": "2aa0a274418fb87efd5dd6411a48e0e83e55e4dac7ad7cfe2e67732e8338f339"
+      }
+    },
+    {
+      "case": "apb",
+      "engine": "volare-magic",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/apb-volare-magic.json",
+        "sha256": "954f3689e3e4cf4a5d1c8a5ad689a8da533753fc3c03a95c932ef795a1d73fe3"
+      }
+    }
+  ],
+  "geometry_controls": {
+    "path": "docs/validation/sky130-physical-2026-10-11/geometry-controls.json",
+    "sha256": "5f988e294ea7cd145b69a30ddfa85aa4d2fc987e04affbf624ab212e3892fe1c"
+  },
+  "poly_antenna": [
+    {
+      "case": "counter",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/counter-poly-antenna.json",
+        "sha256": "15527bb5d4f1c417df3b287b246c0ae630c1deeedc9670e0723f3448155d11f7"
+      }
+    },
+    {
+      "case": "uart",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/uart-poly-antenna.json",
+        "sha256": "cee735a6ca45cd90e32563abdd97be7fbee6692d9fa1162f0ccaf1fcebb13cad"
+      }
+    },
+    {
+      "case": "apb",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/apb-poly-antenna.json",
+        "sha256": "950552c672014faf0a7c712ed5d5cee23d5543b1dc30d0189e50757635b35734"
+      }
+    },
+    {
+      "case": "control",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/control-poly-antenna.json",
+        "sha256": "6a96e83047a806ce6e1e4b3daf011e9fcf1d43b2dd62bbdb18b53d8da74f4494"
+      }
+    },
+    {
+      "case": "fault",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/fault-poly-antenna.json",
+        "sha256": "d6c6873473b8a9d55e09687aebadb8fae893068fa96ebf2ea422bf0cb830da50"
+      }
+    },
+    {
+      "case": "boundary-0",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/boundary-0-poly-antenna.json",
+        "sha256": "1b3398c7a0275b1de6556a6b82af6de89416face87d57e61f3271f75f2a2434f"
+      }
+    },
+    {
+      "case": "boundary-1",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/boundary-1-poly-antenna.json",
+        "sha256": "74b3f831bbae7de942f76cd2236a8c0c07da11c82d4872af028c72c649e02e70"
+      }
+    },
+    {
+      "case": "boundary-2",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/boundary-2-poly-antenna.json",
+        "sha256": "4c8fbc8f430b30953238f0c30d1b3a209589a3b69c1e2232ffe384f7a3b26184"
+      }
+    }
+  ],
+  "native_antenna_density": [
+    {
+      "case": "counter",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/counter-antenna-density.json",
+        "sha256": "b52cc19a18c1424da353ac4bf08beebbb3de5391abcadb526d707cce2eaf161c"
+      }
+    },
+    {
+      "case": "uart",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/uart-antenna-density.json",
+        "sha256": "d47d9d83fd0ae2ffc70bb9abaf77b6f14a936f83919ad131f60c409563edbec4"
+      }
+    },
+    {
+      "case": "apb",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/apb-antenna-density.json",
+        "sha256": "b262b3e8ff5a4b4d59e7897462cdd699becc1f3a975b3b39dfc57e015eb6d435"
+      }
+    }
+  ],
+  "native_antenna_controls": [
+    {
+      "case": "control",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/control-native-antenna.json",
+        "sha256": "0b9470223406b27599a2530f9ef43d7ea5860f711385d346273440264bb94ad0"
+      }
+    },
+    {
+      "case": "fault",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/fault-native-antenna.json",
+        "sha256": "577b17e072d541655a556180cbe7e6bdeeb238ecd37137cc4cfd61d08f27d234"
+      }
+    },
+    {
+      "case": "li-control",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/li-control-native-antenna.json",
+        "sha256": "31a5f9332c154e6c6809dea560c367fad6b1966a72ef67e6c6cb39342730ed76"
+      }
+    },
+    {
+      "case": "li-fault",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/li-fault-native-antenna.json",
+        "sha256": "82f9933fafa8a99372a1e3376d414318b71fc4b911dbb40442518a100f28402c"
+      }
+    }
+  ],
+  "via3_diagnostics": [
+    {
+      "case": "counter",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/counter-via3-diagnostic.json",
+        "sha256": "67b80f2115a329c524c470321a902e0bb42f19312a376ed628d3a9ddbb561d2b"
+      }
+    },
+    {
+      "case": "uart",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/uart-via3-diagnostic.json",
+        "sha256": "34a0b4331ce4c8793c42887510f73a10599f48bd207003c96715532181434b98"
+      }
+    },
+    {
+      "case": "apb",
+      "evidence": {
+        "path": "docs/validation/sky130-physical-2026-10-11/apb-via3-diagnostic.json",
+        "sha256": "29d7803e9d46ee02ab73c39a590debce1a84798e9433949b61502876de9dcb99"
+      }
+    }
+  ],
+  "apb_via3_measurement": {
+    "path": "docs/validation/sky130-physical-2026-10-11/apb-via3-measure.json",
+    "sha256": "df36cc2acfffe6b313af1b387286edd3c6ef794830550f22474288b4d9cb8e3d"
+  },
+  "findings": [
+    "All three original GDS files pass full geometry in the enabled ORFS deck, full Volare KLayout deck and full Magic deck.",
+    "Both full geometry engines detect injected poly-width and Metal1-width faults.",
+    "Magic misses the isolated poly antenna fault; the supplemental KLayout poly check rejects it and the just-over-limit boundary. All three reference poly checks pass.",
+    "Magic native antenna accepts counter/UART and reports three APB contact-stage findings with 24 feedback shapes.",
+    "The independent via3 diagnostic reports no violations. A separate measurement-only run finds six gate-connected via3 cuts, each 0.04 square micrometres; the three relevant gate networks each have 0.213 square micrometres of gate area and ratio 0.187793427230047. This disagreement remains unresolved.",
+    "Density was remeasured using the original declared die rectangle. The v1 cell-bounding-box measurements are superseded and never accepted.",
+    "601 published periphery rows and all 165 captured rule documents are pinned. Deck text hits are search candidates only; applicability and executed coverage remain unreviewed."
+  ],
+  "remaining": [
+    "Reconcile every required manual/deck rule, including exclusions and non-DRC obligations.",
+    "Qualify every antenna etch stage and resolve the APB native/independent discrepancy with fault controls.",
+    "Resolve applicable density interpretation and fill requirements with complete native/supplemental execution.",
+    "Run strict final-GDS device, body, supply and port LVS with deliberate connectivity faults.",
+    "Integrate the complete coverage gate into the application and verify Windows/Linux delivery."
+  ],
+  "rejected_experiments": [
+    "Antenna/density v1 used the current cell extent for density instead of the declared die.",
+    "Poly antenna v1 omitted visible completion output; those captures were not accepted.",
+    "Geometry-fault v1 assumed a 1 nm database unit and stopped before native execution."
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-physical-coverage-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "6cd0438b6ae2f1908011b30f31b8ffc2142df1f586810d1d46ea02c85430a072",
+    "bytes": 8871836,
+    "files": 707,
+    "manifest_sha256": "d03d711b95667a39e1a324edc583732c8eed77e57826904b3e57e649a9d6c9df",
+    "scope": "Chunk 6 progress including failed diagnostics and unresolved antenna discrepancies. No acceptance claimed."
+  },
+  "regression": {
+    "evidence_kind": "summary of captured tool execution output",
+    "suite": "tests.test_sky130_rule_inventory",
+    "windows": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "status": "OK",
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-m",
+        "unittest",
+        "tests.test_sky130_rule_inventory",
+        "-v"
+      ]
+    },
+    "linux": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "status": "OK",
+      "command": [
+        "/opt/icstudio/bin/python3",
+        "-m",
+        "unittest",
+        "tests.test_sky130_rule_inventory",
+        "-v"
+      ]
+    },
+    "windows_release_consistency": {
+      "status": "passed",
+      "documents": 134,
+      "local_links": 1337,
+      "requirements": 125,
+      "device_entries": 255,
+      "process_qualification": "unqualified"
+    },
+    "source_files": {
+      "scripts/sky130_rule_inventory.py": "3dddcf66e44ec7a2eb6301c509a6551ed432dc0a5a417735f961caea73922fae",
+      "scripts/sky130_poly_antenna.drc": "7968f49b24553b9e41d20a6dd3dc474dc5ea0e8c47516420a63cda8d5fc94196",
+      "tests/test_sky130_rule_inventory.py": "e6f540a350b46192b7990592a1fa62048d45f062da6d132ea80de7356c5e8a70",
+      "docs/qualification/sky130-rule-inventory.json": "470a056e6ef613b60d4082c575f70f097ddb0d5b340a6dda0d6620eb20edb58f"
+    }
+  }
+}

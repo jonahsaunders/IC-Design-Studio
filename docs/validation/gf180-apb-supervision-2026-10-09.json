@@ -1,0 +1,658 @@
+{
+  "schema": 1,
+  "status": "full-rc-supervisor-failure-and-repair-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T17:19:01.181823+00:00",
+  "failure": {
+    "path": "outputs/gf180-c-apb-full-rc-v3/record.json",
+    "sha256": "867b53f678fa34c72ec4366d600ba231b937c462b72b23f91c1826a13c3adbcc"
+  },
+  "result": {
+    "status": "failed",
+    "qualified": false,
+    "script": {
+      "path": "work/run_gf180_c_apb_full_rc_v3.py",
+      "sha256": "d8e0ecfeabeba3d9ffc2b8eda29a795e268dffaf0174e15b17653bb95ed4ac71"
+    },
+    "observed_at": "2026-10-09T15:58:19.723257+00:00",
+    "fixtures": {
+      "path": "outputs/gf180-larger-function-fixtures-v1/record.json",
+      "sha256": "9cce45db651977973308c668ead800b5f4640e9abcdb889639a41409d4f06edb"
+    },
+    "nominal_audit": {
+      "path": "outputs/gf180-device-audit-c-apb-v1/record.json",
+      "sha256": "cdf0c1fc0f6cb1bf16f7db6ba288d797b20bf1655fa2e9e2e08e40497b635702"
+    },
+    "exports": {
+      "path": "outputs/gf180-larger-affine-rc-v1/record.json",
+      "sha256": "cc4be02b3912898b7a609193667f5b89478557c0eb5d5d3a59c08f88bb16e685"
+    },
+    "operator_audit": {
+      "path": "outputs/gf180-larger-affine-operator-audit-v1/record.json",
+      "sha256": "2511ff1e401fe92adeafcbc13731720ded97b05e6d36f5ca0dcf41764dd7171d"
+    },
+    "binary_sha256": "48c1dca1ee855e18dc29a9e5199cffc1e59e964d7571d53eaf1f85694117a8bf",
+    "execution_limits": {
+      "cpu_seconds": 259200,
+      "wall_seconds": 129600,
+      "address_space_bytes": 12884901888,
+      "concurrency": 1
+    },
+    "fixture": {
+      "voltage": 5,
+      "temperature_c": 25,
+      "clock_period_ns": 20,
+      "load_pf": 0.01,
+      "load_source": "Exact SDC explicit 10 fF output load",
+      "supply_ramp_ns": 5,
+      "stimulus_offset_ns": 50,
+      "input_transition_ns": 0.2,
+      "stop_ns": 1652.0,
+      "low_max_v": 1,
+      "high_min_v": 4,
+      "initial_state": "UIC; no added leakage or initial-state forcing",
+      "numerics": {
+        "reltol": 1e-05,
+        "vntol": 1e-07,
+        "abstol": 1e-12,
+        "max_step_ns": 0.1
+      }
+    },
+    "assertion_checks": [
+      {
+        "time_ns": 139.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 139.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 139.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 8
+      },
+      {
+        "time_ns": 199.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 199.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 199.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 0
+      },
+      {
+        "time_ns": 259.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 259.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 350.0,
+        "signal": "irq",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 399.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 399.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 459.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 459.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 519.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 519.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 579.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 579.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 590.0,
+        "signal": "irq",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 639.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 639.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 639.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 20
+      },
+      {
+        "time_ns": 699.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 699.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 759.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 759.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 759.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 64
+      },
+      {
+        "time_ns": 819.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 819.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 819.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 65
+      },
+      {
+        "time_ns": 879.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 879.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 879.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 66
+      },
+      {
+        "time_ns": 939.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 939.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 939.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 67
+      },
+      {
+        "time_ns": 950.0,
+        "signal": "irq",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 999.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 999.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1059.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1059.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1059.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 165
+      },
+      {
+        "time_ns": 1119.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1119.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1179.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1179.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1179.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 165
+      },
+      {
+        "time_ns": 1239.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1239.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1299.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1299.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1299.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 165
+      },
+      {
+        "time_ns": 1359.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1359.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1419.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1419.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1479.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1479.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1579.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1579.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1579.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 8
+      },
+      {
+        "time_ns": 1639.0,
+        "signal": "pready",
+        "width": 1,
+        "expected": 1
+      },
+      {
+        "time_ns": 1639.0,
+        "signal": "pslverr",
+        "width": 1,
+        "expected": 0
+      },
+      {
+        "time_ns": 1639.0,
+        "signal": "prdata",
+        "width": 8,
+        "expected": 0
+      }
+    ],
+    "saved_signals": [
+      "vdd",
+      "clk",
+      "reset",
+      "psel",
+      "penable",
+      "pwrite",
+      "paddr[0]",
+      "paddr[1]",
+      "paddr[2]",
+      "paddr[3]",
+      "pwdata[0]",
+      "pwdata[1]",
+      "pwdata[2]",
+      "pwdata[3]",
+      "pwdata[4]",
+      "pwdata[5]",
+      "pwdata[6]",
+      "pwdata[7]",
+      "prdata[0]",
+      "prdata[1]",
+      "prdata[2]",
+      "prdata[3]",
+      "prdata[4]",
+      "prdata[5]",
+      "prdata[6]",
+      "prdata[7]",
+      "pready",
+      "pslverr",
+      "irq"
+    ],
+    "signal_bits": {
+      "clk": [
+        "clk"
+      ],
+      "reset": [
+        "reset"
+      ],
+      "psel": [
+        "psel"
+      ],
+      "penable": [
+        "penable"
+      ],
+      "pwrite": [
+        "pwrite"
+      ],
+      "paddr": [
+        "paddr[0]",
+        "paddr[1]",
+        "paddr[2]",
+        "paddr[3]"
+      ],
+      "pwdata": [
+        "pwdata[0]",
+        "pwdata[1]",
+        "pwdata[2]",
+        "pwdata[3]",
+        "pwdata[4]",
+        "pwdata[5]",
+        "pwdata[6]",
+        "pwdata[7]"
+      ],
+      "prdata": [
+        "prdata[0]",
+        "prdata[1]",
+        "prdata[2]",
+        "prdata[3]",
+        "prdata[4]",
+        "prdata[5]",
+        "prdata[6]",
+        "prdata[7]"
+      ],
+      "pready": [
+        "pready"
+      ],
+      "pslverr": [
+        "pslverr"
+      ],
+      "irq": [
+        "irq"
+      ]
+    },
+    "scope": "Complete C APB before-fill RC model at nominal 5 V / 25 C with the frozen full 1652 ns program. This experiment does not establish all-path timing, PVT, calibrated field extraction or tapeout acceptance.",
+    "cases": [
+      {
+        "case": "c-apb-before",
+        "status": "runner-failed",
+        "native_directory": "/var/tmp/icstudio-gf180-c-apb-full-rc-v3/before",
+        "source_native_directory": "/var/tmp/icstudio-gf180-larger-affine-rc-v1/c-apb/before",
+        "deck_sha256": "f9ea72e7f883e8fc037dfea9c2aa77ba23489d46862cde2b902f8d84fe9840bb",
+        "dut_sha256": "868856dcb95043813e49ff13f4b9b41e934f446d0334ed850091c15d543c0947",
+        "models": {
+          "31987f30dc28716123774c5e.spice": "c991d7d3e8c66cb691915a73395a62041b10c8ff7943575e7c510b44e1567c7d",
+          "a9baecac6ed1e4a471fd73e8.spice": "7e222f050318388f37543a64fbd0be55cc15e4b93f57501a09f7c159c4c9e561",
+          "f3820c6e6aaf2b76c63830e2.spice": "4e22cf76e2a75dc7908c1ca567a4b379586170e82d538fddd68a1b28245e5984",
+          "f3c9dd0c02366fbd9ca7def0.spice": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f"
+        },
+        "counts": {
+          "M": 0,
+          "X": 22486,
+          "D": 4,
+          "R": 284749,
+          "C": 130715,
+          "G": 409787,
+          "E": 21241,
+          "F": 0,
+          "H": 0,
+          "B": 0,
+          "V": 0,
+          "I": 0
+        },
+        "export_counts": {
+          "resistors": 242267,
+          "compact": {
+            "capacitors": 130715,
+            "encoding": "anchored-current-sum-v2",
+            "sources": 431028,
+            "controlled_current_sources": 409787,
+            "output_buffers": 21241,
+            "internal_sum_resistors": 42482,
+            "auxiliary_nodes": 63723,
+            "max_sources": 600000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          }
+        },
+        "unchanged_deck": true,
+        "assertions": 63,
+        "stop_ns": 1652.0,
+        "command": [
+          "/var/tmp/icstudio-ngspice-ordering-v2/build/src/ngspice",
+          "-n",
+          "-D",
+          "ngbehavior=hsa",
+          "-b",
+          "test.spice"
+        ],
+        "started_unix": 1791561503.0458477,
+        "proc_start_ticks": 641973,
+        "progress": {
+          "observed_unix": 1791565737.7173789,
+          "wall_seconds": 4234.671531915665,
+          "cpu_seconds": 4199.53,
+          "rss_kib": 2044012.0,
+          "simulated_seconds": 1.11373e-09
+        },
+        "exit_code": -9
+      }
+    ],
+    "previous_attempt": {
+      "path": "outputs/gf180-c-apb-full-rc-v2/record.json",
+      "sha256": "277cce878a85c4a94cc88f6ae188945b29bd1a6a30cb7da86d4dbd3409cacf22"
+    },
+    "status_diagnostic": {
+      "path": "outputs/gf180-apb-klu-status-v1/record.json",
+      "sha256": "968a9d78a3dd42f5a898ea11674d40f5df2aea7ba2c155a9bfc7936d5bb124d1"
+    },
+    "retained_failure": "Both v2 RC startups failed under a 6 GiB address-space guard. An isolated status-only build identifies KLU_OUT_OF_MEMORY (-2), not a numerical rank result, on the before case. This serial before-case retry uses 12 GiB with the original binary, unchanged full circuit, deck, models and tolerances. Filled retry remains required separately.",
+    "error": "PermissionError(13, 'Could not replace the destination. The save did not complete. Permission denied')"
+  },
+  "input_dependencies": {
+    "gf180-affine-rc": {
+      "directory": "gf180-affine-rc-2026-10-09-v1",
+      "archive": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-affine-rc-2026-10-09-v1\\evidence.tar.gz",
+        "sha256": "088d5804c43de4d6fe8990d327fb6461c83b782f7808621612df9c23b5868bac",
+        "bytes": 631080990,
+        "logical_files": 1525,
+        "unique_objects": 1222,
+        "verified": true,
+        "logical_bytes": 5931130841
+      },
+      "object_sha256": "868856dcb95043813e49ff13f4b9b41e934f446d0334ed850091c15d543c0947",
+      "logical_files": [
+        "native/icstudio-gf180-larger-affine-rc-v1/c-apb/before/extracted.spice",
+        "native/icstudio-gf180-larger-affine-rc-v1/c-apb/before/electrical.spice"
+      ]
+    },
+    "gf180-device-c-apb": {
+      "directory": "gf180-device-c-apb-2026-10-09-v1",
+      "archive": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-device-c-apb-2026-10-09-v1\\evidence.tar.gz",
+        "sha256": "5a01c17eee971320749642d21211ad23d1a33310291a03930a8266dd89751de9",
+        "bytes": 24034637,
+        "logical_files": 20,
+        "unique_objects": 20,
+        "verified": true
+      },
+      "object_sha256": "48c1dca1ee855e18dc29a9e5199cffc1e59e964d7571d53eaf1f85694117a8bf",
+      "logical_files": [
+        "outputs/gf180-device-audit-c-apb-v1/ngspice"
+      ]
+    }
+  },
+  "tests": {
+    "tests": 3,
+    "skipped": 0,
+    "log": {
+      "path": "outputs/gf180-apb-supervision-evidence-v1/supervision-tests.log",
+      "sha256": "3cf0a5ad1a10ad49f6e1a3d55d534820f302f0827ad3aa09a967dea84d3bf61c"
+    }
+  },
+  "scope": "The full before-fill C APB simulation was terminated by its runner after a progress-file replacement PermissionError on the mounted Windows drive. No complete waveform or circuit acceptance resulted. Retry v4 uses unchanged deck, model, binary, complete RC and numerical settings, with native authoritative progress and a nonfatal Windows mirror.",
+  "remaining": [
+    "Complete and independently audit the full before/filled electrical programs.",
+    "All required timing and process conditions; remaining chunk 4 and later qualification gates."
+  ],
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/gf180-apb-supervision-2026-10-09-v1/evidence.tar.gz",
+    "sha256": "3d32f8c9f2536759f814d603cb247d09c603c01aea384196c13780765c481e1b",
+    "bytes": 311082,
+    "logical_files": 16,
+    "unique_objects": 16,
+    "verified": true
+  }
+}

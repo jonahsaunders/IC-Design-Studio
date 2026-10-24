@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/VolkerMuehlhaus/openems_ihp_sg13g2",
+  "commit": "e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+  "parent_repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "parent_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "parent_gitlink": "ihp-sg13g2/libs.tech/openems/openems_ihp_sg13g2",
+  "license": "Apache-2.0",
+  "files": {
+    "LICENSE": {
+      "repository_path": "LICENSE",
+      "git_blob_sha1": "b09cd7856d58590578ee1a4f3ad45d1310a97f87",
+      "sha256": "50e6751797c50dedd75ef1b8a0d9e42f5f8472e9fbce91f34718e9f97b0c780a",
+      "bytes": 11324
+    },
+    "UPSTREAM-README.md": {
+      "repository_path": "README.md",
+      "git_blob_sha1": "5ad4b8b046abee23511a4b0435e98e73b06778b0",
+      "sha256": "f35af0c30cc6046bf5575688ba00408f251c7955cf7dff04ab7899cd249a6db7",
+      "bytes": 6789
+    },
+    "SG13G2.xml": {
+      "repository_path": "workflow/SG13G2.xml",
+      "git_blob_sha1": "b8e87f487055f32ea4b001caf9da85f5907c83e1",
+      "sha256": "c610fd87231debde837e8ab3c66842b407e4c274387d5fb594b32171bd695cd0",
+      "bytes": 5503
+    },
+    "SG13G2_200um.xml": {
+      "repository_path": "workflow/SG13G2_200um.xml",
+      "git_blob_sha1": "03c5777dcc745de9e914747c4f3233778dbb089e",
+      "sha256": "5d4529432b38d7996814f5096af2173d96e8ad5ff84c73ebb57904f1faf03bdf",
+      "bytes": 5503
+    }
+  },
+  "modification": "Original files retained byte-for-byte. A separate application adapter selects only TopMetal1, TopVia2, TopMetal2 and the full dielectric/substrate environment. No device-model or EM-accuracy qualification is claimed."
+}

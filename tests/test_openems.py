@@ -30,11 +30,41 @@ def column(data, scale, port, resistance=4.):
         values = [diagonal, off] if port == 1 else [off, diagonal]
         real.append([v.real for v in values]); imag.append([v.imag for v in values])
     return dict(run_hash=data['run_hash'], scale=scale, port=port, frequency_hz=frequency,
-                s_real=real, s_imag=imag, versions={'openEMS': 'synthetic test'},
+                wave_basis=data['wave_basis'], a_real=[[int(r == port-1) for r in (0, 1)] for _ in frequency],
+                a_imag=[[0., 0.] for _ in frequency], b_real=real, b_imag=imag, versions={'openEMS': 'synthetic test'},
                 cells=1000, mesh_lines=[11, 11, 11], energy_db=-55)
 
 
 class OpenEMSTests(unittest.TestCase):
+    def test_negative_base_stops_only_when_valid_refinement_cannot_pass(self):
+        p, did = coil()
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)/'run'; m = backend.prepare(p, p['top'], did, 'context', {'samples': 2}, root)
+            columns = {backend.stage_name(1., p): column(m, 1., p, resistance=-4.) for p in (1, 2)}
+            with self.assertRaisesRegex(ValueError, 'base mesh has negative resistance'):
+                backend.check_base_feasibility(root, m, columns)
+            diagnostic = json.loads((root/'base-feasibility.json').read_text())
+            self.assertAlmostEqual(diagnostic['minimum_base_resistance_ohm'], -4.4)
+            self.assertEqual(diagnostic['negative_bound_ohm'], -0.00005)
+            self.assertFalse((root/'results.json').exists())
+            # With a 1 milliohm comparison floor, tiny negative roundoff can
+            # still agree with a nonnegative fine result. Do not reject it early.
+            for port in (1, 2): columns[backend.stage_name(1., port)] = column(m, 1., port, resistance=.4-.000025)
+            backend.check_base_feasibility(root, m, columns)
+            columns['base-2']['frequency_hz'][0] *= 2
+            with self.assertRaisesRegex(ValueError, 'sweeps do not match'):
+                backend.check_base_feasibility(root, m, columns)
+
+    def test_truncated_excitation_cannot_pass_even_with_reported_energy_decay(self):
+        p, did = coil()
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)/'run'; m = backend.prepare(p, p['top'], did, 'context', {'samples': 2}, root)
+            log = ('Operator::CalcGaussianPulsExcitation: Requested excitation pusle would be '
+                   '8651602 timesteps or 1.43239e-09 s long. Cutting to max number of timesteps!\n'
+                   'Energy: 1e-30 (-60 dB)\nICSTUDIO_EM:{"state":"complete"}')
+            with self.assertRaisesRegex(ValueError, 'truncated the requested excitation'):
+                backend.check_completion(log, root, m, 1., 1)
+
     def test_exact_masks_all_shapes_rotations_and_pdk_aliases(self):
         db = kdb()
         for shape in inductor.SHAPES:

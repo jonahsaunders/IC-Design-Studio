@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "review_date_local": "2026-10-15",
+  "chunk": 6,
+  "status": "public-route-definition-blocker-confirmed",
+  "qualified": false,
+  "chunk_complete": false,
+  "application_commit": "252045c5ae72853308da69c0ae591caf8b219e3e",
+  "new_coverage_decisions": 0,
+  "unresolved_catalog_records": 302,
+  "scope": "Read-only review of the current Tiny Tapeout SKY130 shuttle and exact dependencies. No new external source, runtime behavior, waiver, threshold or catalog disposition is incorporated. This does not prove that no public solution could ever exist.",
+  "previous_goal_turn": {
+    "classification": "progress",
+    "evidence": "Commit 252045c retained 14 native runs, a new contact regression and 14 targeted tests passing per OS. It reproduced an upstream gap and preserved compatible source licenses; missing definitions remained open."
+  },
+  "primary_repository": {
+    "repository": "https://github.com/TinyTapeout/tinytapeout-sky-26d",
+    "revision": "ce46b6d44c1b0bf3cdf2d7d7b5bcdf034c543092",
+    "commit_date_utc": "2026-10-15T20:45:45Z",
+    "tree_entries": 994,
+    "tree_truncated": false,
+    "root_license": "Apache-2.0; does not override file-specific licenses",
+    "root_license_git_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "reviewed_files": [
+      {
+        "path": ".github/workflows/gds.yaml",
+        "git_blob": "a8bd8e460268245deea7ea2278a02fd1df904174",
+        "finding": "Uses a Magic FILLOBSM5 spacing patch, a documented rpm.1 false-positive workaround that disables that check, and --skip-xor-checks for top-level construction. These choices are not adopted or treated as Studio waivers."
+      },
+      {
+        "path": ".github/workflows/precheck.yaml",
+        "git_blob": "d4d7b36ac4b37f3aec5f0d4541ca7fe7991cd393",
+        "finding": "Installs cf-precheck without a version pin and checks out Caravel without a revision pin. Its command skips lvs, makefile and oeb. A separate job assembles Caravel and runs the four public density scripts. Workflow configuration is not proof that all Studio requirements were executed or accepted."
+      },
+      {
+        "path": ".github/config/librelane.txt",
+        "git_blob": "eea79cf4798350f293c93bb229b3db2215037d7a",
+        "librelane": "3.0.0.dev40",
+        "pdk": "8afc8346a57fe1ab7934ba5a6056ea8b43078e71",
+        "finding": "Differs from Studio's pinned reference PDK. The separate tapeout-density job declares 0fe599b2afb6708d281543108caf8310912f54af. Applicability is not assumed across revisions."
+      },
+      {
+        "path": "sky130_density_fix/README.md",
+        "git_blob": "a971e1cfdaa740709959228d5c8f09fc1179873d",
+        "finding": "Describes selected decap replacement with geometry lacking poly gate structures. This is a layout change requiring electrical revalidation, not a definition of missing masks. No replacement cell was downloaded or incorporated."
+      },
+      {
+        "path": ".gitmodules",
+        "git_blob": "00410d1c41b253e0abc19c95b0edcccb196e18cc",
+        "finding": "Identifies tt-support-tools and tt-multiplexer upstreams for the exact submodule commits below."
+      }
+    ]
+  },
+  "pinned_dependencies": [
+    {
+      "repository": "https://github.com/TinyTapeout/tt-support-tools",
+      "revision": "ff75e344cd8b65c744081e3719e0cb926203eb57",
+      "tree_entries": 225,
+      "tree_truncated": false,
+      "main_when_checked": "01d5d2814fa9dd61e9d211e0b235a4a592a9316a",
+      "precheck_git_blob": "104ce8742500819bd057e8856e90ce1db28ef490",
+      "tech_files_tree": "0f1443a0ba15b25bf4e7ba546b2c518cd4f53fb9",
+      "main_sky130_deck_git_blob": "6f1aeb8b514d202bb8a9404c3c8cefa6a93a8a23",
+      "finding": "The shuttle pins a different commit from main, but precheck.py and the entire tech-files tree match the reviewed version. No new rule implementation is supplied through this dependency."
+    },
+    {
+      "repository": "https://github.com/TinyTapeout/tt-multiplexer",
+      "revision": "8fbe6cd3ebc3808a4cb3d589d1a2728c46a7054c",
+      "path": "ol2/tt_top/build.py",
+      "git_blob": "2994463988fe93bf3a837e044b843d166989615a",
+      "license_header": "Apache-2.0",
+      "finding": "Defines OpenFrame integration with die/core bounds, routing, extraction, timing, Magic DRC and LVS. Its optional argument removes XOR steps; it uses a DRC cell exclusion list and sets GRT_REPAIR_ANTENNAS false. These settings do not establish generated-mask construction, RF Table H5 or x.20. No code was incorporated or executed."
+    }
+  ],
+  "density_sources": {
+    "current_shuttle_tree": "e4d122371c6669e419e88e1169468e6b11a2b516",
+    "previous_repository": "TinyTapeout/tinytapeout-10",
+    "previous_revision": "46f0a2f45c3b1fcc27aac7acb7faa054631d9955",
+    "previous_tree": "e4d122371c6669e419e88e1169468e6b11a2b516",
+    "finding": "The full sky130_tapeout_drc tree is byte-identical by Git tree identity. It provides no changed implementation resolving the prior endpoint or final-mask applicability questions."
+  },
+  "authoritative_manual_recheck": {
+    "repository": "https://github.com/google/skywater-pdk",
+    "current_main": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "path": "docs/rules/periphery/p018-x_dotdash.csv",
+    "sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+    "rule": "x.20",
+    "finding": "The row describes same-layer pin center-to-center spacing enabled by IP_block, but the numeric value and unit remain blank. A shuttle pin template or passing layout does not supply a general substitute."
+  },
+  "blocking_condition": {
+    "description": "Verified, version-applicable, license-compatible public definitions or accepted equivalents remain missing for required SKY130 predicates and density acceptance. Passing subsets cannot establish the original complete-required-rule gate.",
+    "private_package_available": false,
+    "license_constraint": "Use only resources compatible with the current project license and preserve original terms and notices.",
+    "consecutive_review_checkpoints": [
+      "782262ee673507f0570380d858fc037806d04eb0: compatible alternatives reviewed; definitions still missing",
+      "252045c5ae72853308da69c0ae591caf8b219e3e: public decks executed; definitions still missing",
+      "Current continuation: latest shuttle and exact dependencies reviewed; definitions still missing"
+    ],
+    "what_can_unblock": "Authoritative public definitions or publicly documented acceptance/equivalence covering the missing predicates for the selected revision. An explicit user change could authorize a separate narrower milestone, but no change is assumed.",
+    "not_a_solution": "Guessing x.20, copying restricted material, dropping unresolved rows, aliasing generated masks to raw layers, silently adopting shuttle skips, or advancing past chunk 6 under the original sequential instruction."
+  }
+}

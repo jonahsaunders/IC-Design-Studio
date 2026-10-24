@@ -19,7 +19,7 @@ ADVANCED = STAGES[4:]
 def tool_names(stage, simulator):
     if stage in ('synth','elaborate','mapped'): return ('yosys',)
     if stage == 'timing': return ('yosys','sta')
-    if stage == 'equivalence': return ('yosys','eqy','sby','bitwuzla')
+    if stage == 'equivalence': return ('yosys','eqy','sby','bitwuzla','yosys-abc')
     if stage in ('floorplan','place','cts','route','finish'): return ('yosys','openroad','make') + (('klayout',) if stage=='finish' else ())
     if stage == 'regression':return ()
     if stage == 'lint' or simulator == 'verilator': return ('verilator',)
@@ -30,7 +30,7 @@ def environment(job):
     from .build_info import WORKFLOW_SOURCE_HASH
     sources = {}
     if not getattr(sys, 'frozen', False):
-        for name in [p.name for p in Path(__file__).parent.glob('digital*.py')] + ['engines.py']:
+        for name in [p.name for p in Path(__file__).parent.glob('digital*.py')] + ['engines.py', 'gf180_cdl.py', 'gf180_connectivity.py', 'fill_capacitance.py']:
             sources[name] = file_digest(Path(__file__).with_name(name))
     runtime = job['settings'].get('runtime')
     if runtime:
@@ -44,6 +44,28 @@ def environment(job):
     if job['settings']['stage'] in ADVANCED and 'platform' in config:
         from .digital_platform import verify
         out['platform']=verify(config['platform'])
+        if job['settings']['stage']=='finish' and config['platform'].get('lvs_reference') is not None:
+            out['lvs_reference']=clone(config['platform']['lvs_reference'])
+        if job['settings']['stage']=='finish' and config['platform'].get('gf180_connectivity') is not None:
+            out['gf180_connectivity']=clone(config['platform']['gf180_connectivity'])
+        if job['settings']['stage']=='finish' and config['platform'].get('sky130_rules') is not None:
+            out['sky130_rules']=clone(config['platform']['sky130_rules'])
+        if job['settings']['stage']=='finish' and config['platform'].get('sky130_antenna') is not None:
+            out['sky130_antenna']=clone(config['platform']['sky130_antenna'])
+        if job['settings']['stage']=='finish':
+            if config['platform'].get('name') == 'sky130hd':
+                from .digital_sky130_native import POLICY, resources
+                resources()
+                out['sky130_native'] = clone(POLICY)
+                from .digital_sky130_lvs import POLICY as LVS_POLICY, resources as lvs_resources
+                lvs_resources()
+                out['sky130_lvs'] = clone(LVS_POLICY)
+                from .digital_sky130_density import POLICY as DENSITY_POLICY, resources as density_resources
+                density_resources()
+                out['sky130_density'] = clone(DENSITY_POLICY)
+            from .digital_sky130_isolation import selected as isolation_policy
+            policy=isolation_policy(config)
+            if policy is not None:out['sky130_isolation']=policy
     if 'flow' in job['settings']:
         from .digital_platform import verify_flow
         out['flow']=verify_flow(job['settings']['flow'])
@@ -76,6 +98,8 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
     if stage == 'simulate' and (not config.get('testbench') or not any(f['role'] == 'testbench' for f in config['files'])):
         raise ValueError('Set a testbench top and mark its source as Testbench.')
     names=list(tool_names(stage, simulator))
+    if stage=='finish' and config.get('physical',{}).get('ihp_fill'):
+        names.append('magic')
     if stage=='regression':
         from .digital_regression import required_tools
         names=required_tools(config)
@@ -97,7 +121,7 @@ def prepare(project, stage='simulate', simulator='icarus', tools=None, cell_id=N
             raise ValueError('Custom tools: '+name+' was not found. Open Digital tools and select Included tools, or correct its custom executable path.')
         resolved[name] = str(path)
     if stage=='equivalence' and len({str(Path(p).parent) for p in resolved.values()})!=1:
-        raise ValueError('Use Yosys, EQY, SBY and Bitwuzla from the same toolchain bin directory so nested proof commands use the captured tools.')
+        raise ValueError('Use Yosys, EQY, SBY, Bitwuzla and yosys-abc from the same toolchain bin directory so nested proof commands use the captured tools.')
     job = {'project': project, 'cell': cell_id, 'engine': 'digital',
            'settings': {'type': 'digital', 'stage': stage, 'simulator': simulator, 'tools': resolved}}
     if runtime: job['settings']['runtime'] = clone(runtime)
@@ -156,11 +180,15 @@ def yosys_script(config, elaborate=False):
 
 
 def artifact(root, path, allow_empty=False):
-    path = Path(path)
+    # Windows may spell the same job directory with an 8.3 alias in TEMP
+    # and a full path in prepared PDK resources. Store one portable identity.
+    root = Path(root).resolve()
+    path = Path(path).resolve()
+    relative = path.relative_to(root).as_posix()
     local = io_path(path)
     if not local.is_file() or local.stat().st_size == 0 and not allow_empty:
         raise ValueError('The digital tool did not produce '+path.name+'. Inspect its log.')
-    return {'path': path.relative_to(root).as_posix(), 'sha256': file_digest(local), 'bytes': local.stat().st_size}
+    return {'path': relative, 'sha256': file_digest(local), 'bytes': local.stat().st_size}
 
 
 def artifact_path(value):
@@ -172,7 +200,7 @@ def artifact_path(value):
     return value
 
 
-def validate_result(result, directory):
+def validate_result(result, directory, *, return_verified=False):
     data = result.get('digital_result')
     if (result.get('result_type') != 'digital' or not isinstance(data, dict)
             or data.get('stage') not in STAGES or not isinstance(data.get('artifacts'), dict)
@@ -192,6 +220,31 @@ def validate_result(result, directory):
         path = (root / relative).resolve()
         if not path.is_relative_to(root) or not path.is_file() or file_digest(path) != record.get('sha256'):
             raise ValueError('A captured digital artifact is missing or changed: '+relative)
+    verified = {}
+    if data['stage']=='finish':
+        from .digital_physical_checks import validate_saved
+        verified['physical_checks'] = validate_saved(data,root)
+        from .digital_sky130_pins import validate_saved as validate_sky130_pins
+        validate_sky130_pins(data,root)
+        from .digital_sky130_native import validate_saved as validate_sky130_native
+        verified['sky130_native'] = validate_sky130_native(data,root)
+        from .digital_sky130_rules import validate_saved as validate_sky130_rules
+        verified['sky130_rules'] = validate_sky130_rules(data,root)
+        from .digital_sky130_density import validate_saved as validate_sky130_density
+        verified['sky130_density'] = validate_sky130_density(data,root)
+        from .digital_sky130_fill import validate_saved as validate_sky130_fill
+        verified['sky130_fill'] = validate_sky130_fill(data,root)
+        from .digital_sky130_lvs import validate_saved as validate_sky130_lvs
+        verified['sky130_lvs'] = validate_sky130_lvs(data,root)
+        from .digital_sky130_antenna import validate_saved as validate_sky130_antenna
+        verified['sky130_antenna'] = validate_sky130_antenna(data,root)
+        from .digital_sky130_isolation import validate_saved as validate_sky130_isolation
+        verified['sky130_isolation'] = validate_sky130_isolation(data,root)
+        from .digital_lvs_reference import validate_saved as validate_reference
+        verified['lvs_reference'] = validate_reference(data,root)
+        from .digital_gf180_checks import validate_saved as validate_connectivity
+        verified['gf180_connectivity'] = validate_connectivity(data,root)
+    if return_verified: return verified
 
 
 def run(job, directory, progress=lambda *_: None):
@@ -311,9 +364,10 @@ def export_flow(config, directory):
     stage_sources(config, root/'sources')
     atomic_write(root/'synth.ys', yosys_script(config))
     gold = read_rtl(config)+'\n'
+    from .digital_implementation import proof_strategies
     eqy = ('[gold]\n'+gold+'prep -top '+config['top']+'\n\n[gate]\n'
            'read_verilog ../netlist.v\nprep -top '+config['top']+'\n\n'
-           '[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\n')
+           +proof_strategies(config.get('timeout',60)))
     atomic_write(root/'equivalence.eqy', eqy)
     lines = ['# Generated starting configuration; qualify with a pinned ORFS/platform revision.',
              'ICSTUDIO_ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))',
@@ -334,9 +388,11 @@ From the sources directory:
 
 The EQY check compares RTL with the generic netlist produced above. It does
 not check the separate technology-mapped ORFS netlist. Inspect EQY's status;
-unproved/timeout is not a pass. Install matching Yosys, EQY, SBY and Bitwuzla
-executables on PATH. This uses explicit undefined-state propagation and
-SMT induction with a depth budget of 30.
+unproved/timeout is not a pass. Install matching Yosys, EQY, SBY, Bitwuzla and
+yosys-abc executables on PATH. This uses explicit undefined-state propagation and
+SMT induction with a depth budget of 30, followed by ABC PDR for unresolved
+partitions. Each strategy receives half the configured timeout; no reset
+assumptions are inserted.
 
 With a separately installed, pinned OpenROAD Flow Scripts checkout/platform:
   make -C /path/to/OpenROAD-flow-scripts/flow DESIGN_CONFIG=/absolute/path/to/config.mk

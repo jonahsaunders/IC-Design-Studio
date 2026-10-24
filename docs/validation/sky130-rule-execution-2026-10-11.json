@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Eighteen low-voltage drawn implant/HVTP manual requirements executed on the final counter, UART and APB layouts with all 41 checks/profile guards present and passing. Other rules and full chunk 6 remain open.",
+  "data": {
+    "path": "docs/validation/sky130-rule-execution-2026-10-11/data.json",
+    "sha256": "d85cd747cf386dfc5fec113a3820858f6e2a752b81a0bc1ff0b03a87b0d9df3e"
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-rule-execution-2026-10-11/win32.json",
+      "sha256": "21d03fae1995a440f5f2e3e2dddd03dc9abce4fd8a40a6e9990b1f53d04a8cd6"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-rule-execution-2026-10-11/linux.json",
+      "sha256": "edce9a46e5739408470b6f5a3d18cd7f93b5c77f60367f73e79fa64247f3710d"
+    }
+  },
+  "baseline_commit": "3c5a2f3",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "a8556fcc162393a6a16d41e6b059587771b20528f312a6ff53dc7e70ab667fe9",
+    "scripts/sky130_rule_execution.py": "8be916576bfd6c104e233bd75ed1287ffe24c66a96ddbd3e536dd064f543fc1e",
+    "scripts/sky130_block_applicability.py": "fe49d9bdd213366620731b25e5860c182f319fe6b48653b1caa40178bbe2a873",
+    "tests/test_sky130_raw_feol.py": "a9be93fc67a0a6ded8cbc639db7894038d34951f33a0e41c01a803b6b9eba882",
+    "tests/test_sky130_rule_execution.py": "3651c0f28a760ef598b70d625a78cd0898c9617da330a02e8135382831ccfe70"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-rule-execution-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "6c37a12c606b2607bfe131d422d4065573d99f03c6ffc2cb4db0ab45d95c0c93",
+    "bytes": 257720,
+    "files": 196,
+    "unique_blobs": 194,
+    "manifest_sha256": "b100a1ebb95e215b6a2f94a159463493ab124b15f043acc9335bf5d54fc0f3c8",
+    "dependency": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-fill-progress-2026-10-11-v1\\evidence.tar.gz",
+      "sha256": "ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0",
+      "bytes": 920448744,
+      "files": 1959,
+      "unique_blobs": 1399,
+      "manifest_sha256": "81f06b06441a6c9864cc93abcd90af2ab87b5658fef3a2953efcedb90c2da9b0",
+      "seconds": 162.43700000000536,
+      "scope": "SKY130 fill, failed attempts, final physical/native circuit checks, partial rule applicability and diode comparison. Not chunk 6 acceptance."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 18,
+        "execution-review-required": 210,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 18
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 18,
+        "execution-review-required": 210,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 18
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 18,
+        "execution-review-required": 210,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 18
+    }
+  ],
+  "notes": [
+    "Rules n/ psd.5a/5b check 0.125 um enclosure after removing only actual coincident butting-edge portions; rule 6 requires zero enclosure on those portions; rule 7 checks 0.130 um opposite-active spacing.",
+    "Boundary and failure controls cover both implant types, diffusion/tap, partial butting, missing implants, diagonal corner spacing and omitted rule/profile guards.",
+    "The manual-merge requirement is conditionally clear because neither implant has a subminimum spacing/notch trigger.",
+    "Windows and Linux pass all 19 implant/execution tests without skips and produce identical final-layout execution ledgers.",
+    "The first ledger attempt rejected a mismatch with the published n/ psd spelling. Its exact source and test output are retained; it is not counted as a passing layout run.",
+    "All 601 periphery records remain: 18 executed-reviewed, 207 absent-operand, 77 upstream-NA, 27 advisory, 61 other-backend, 210 execution-review-required and one definition-required."
+  ]
+}

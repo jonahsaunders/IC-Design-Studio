@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "status": "FAIL",
+  "qualified": false,
+  "driver_sha256": "2072e2f075f158c2fe283a2e9c0ab5775d548ec1d307ad8e04d52ef800f527fa",
+  "controls": [
+    {
+      "fault": "timing",
+      "stage": "timing",
+      "expected": "FAIL",
+      "actual": "FAIL",
+      "result_sha256": "03367363cdc204e2e67ec4b697febeac2dfa12910a50a3df26f3e0a4f7ffb212",
+      "summary": {
+        "setup_worst_slack_ns": -2.344575,
+        "hold_worst_slack_ns": 0.29123,
+        "setup_reported_violations": 8,
+        "hold_reported_violations": 0,
+        "setup_total_negative_slack_ns": -15.84,
+        "hold_total_negative_slack_ns": 0.0
+      },
+      "reasons": [],
+      "counterexamples": null
+    },
+    {
+      "fault": "missing-parasitics",
+      "stage": "timing",
+      "expected": "INCOMPLETE",
+      "actual": "INCOMPLETE",
+      "result_sha256": "ac245b6384628ef0059384f4230c54b0924c1ec0afa05b91d3371a1a62d44fa4",
+      "summary": {
+        "setup_worst_slack_ns": 47.654427,
+        "hold_worst_slack_ns": 0.29123,
+        "setup_reported_violations": 0,
+        "hold_reported_violations": 0,
+        "setup_total_negative_slack_ns": 0.0,
+        "hold_total_negative_slack_ns": 0.0
+      },
+      "reasons": [
+        "typical: Missing extracted parasitics on connected drivers; inspect parasitic_annotation.txt."
+      ],
+      "counterexamples": null
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "magic": {
+    "version": "8.3.684",
+    "patch_sha256": "df30364946b0868060d0f711a04e4c47f1bbeeff9bfe2cda4637ab36bac71bd7",
+    "patch": "packaging/physical/magic-gf180-shield-rc.patch",
+    "repository": "https://github.com/RTimothyEdwards/magic.git",
+    "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84"
+  }
+}

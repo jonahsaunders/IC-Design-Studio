@@ -64,11 +64,14 @@ def parse_raw(path):
     with a large numerical matrix.
     """
     import re
-    with Path(path).open(encoding='utf-8',errors='strict') as stream:
+    with Path(path).open('rb') as stream:
         lines=[];size=0
-        for line in stream:
-            if line.strip()=='Values:':break
-            size+=len(line)
+        for raw_line in stream:
+            if raw_line.strip()==b'Values:':break
+            # ngspice echoes an external deck's title bytes unchanged. The title
+            # is descriptive only; vector names and numeric data remain strict.
+            line=raw_line.decode('utf-8',errors='replace' if raw_line.lower().startswith(b'title:') else 'strict')
+            size+=len(raw_line)
             if size>16*1024*1024:raise ValueError('Unsupported raw-file header size.')
             lines.append(line)
         else:raise ValueError('The raw file contains no ASCII values.')
@@ -80,7 +83,7 @@ def parse_raw(path):
         except (TypeError,IndexError,ValueError) as exc:raise ValueError('Malformed raw-file header.') from exc
         if len(variables)!=count or not 0<count<=50000 or not 0<points<=1000000 or count*points>10000000:
             raise ValueError('Unsupported raw-file dimensions (maximum 50,000 vectors and 10 million values).')
-        rows=[];values=(line.split()[-1] for line in stream if line.strip())
+        rows=[];values=(line.decode('ascii').split()[-1] for line in stream if line.strip())
         try:
             for i in range(points):
                 row=[]
@@ -173,8 +176,11 @@ def magic_convert(executable,gds,technology,output,top):
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=True)
     script=f'gds read {tcl_word(Path(gds).resolve())}\nload {tcl_word(top)}\nwriteall force\nquit -noprompt\n'
     log=execute([executable,'-dnull','-noconsole','-T',str(Path(technology).resolve())],output,input_text=script)
+    atomic_write(output/'conversion.log',log)
+    from .magic_diagnostics import require_readable_stream
+    require_readable_stream(log,output/'conversion.log')
     if not list(output.glob('*.mag')):raise RuntimeError('Magic returned no native cells. Check technology and top-cell name.\n'+log)
-    atomic_write(output/'conversion.log',log);return log
+    return log
 
 def netgen_lvs(executable,schematic,schematic_cell,extracted,layout_cell,setup,output):
     output=Path(output).resolve();output.mkdir(parents=True,exist_ok=True);log=output/'lvs.log'
@@ -236,6 +242,9 @@ def run_deck(p,cid,settings,executable,directory,progress=lambda *_:None):
     import math,cmath
     deck=Path(settings['deck']).resolve();directory=Path(directory).resolve()
     if not deck.is_file():raise ValueError('The SPICE deck does not exist.')
+    from .rf_runtime import enforce
+    # Inspection only: preserve legacy-encoded external deck bytes for ngspice.
+    enforce(deck.read_text(encoding='utf-8',errors='replace'),executable,directory,input_directory=deck.parent)
     raw=directory/'deck.raw';atomic_write(directory/'deck-snapshot.cir',deck.read_bytes());progress(.05,'Running external SPICE testbench')
     from .spice_program import runtime_environment
     try:log=execute(ngspice_command(p,executable,raw,deck),deck.parent,timeout=int(settings.get('timeout',180)),env=runtime_environment(executable))
@@ -300,6 +309,8 @@ def magic_import(executable,source,technology,output,flatten=False):
     # import. Bind this run to only the explicitly selected technology.
     startup=output/'startup.tcl';atomic_write(startup,'tech load '+tcl_word(Path(technology).resolve())+'\n')
     log=execute([executable,'-dnull','-noconsole','-rcfile',str(startup)],source.parent,input_text=script);atomic_write(output/'conversion.log',log)
+    from .magic_diagnostics import require_valid_technology
+    require_valid_technology(log,output/'conversion.log')
     if not target.exists() or 'STUDIO_IMPORT_COMPLETE' not in log or 'STUDIO_IMPORT_ERROR' in log:raise RuntimeError('Magic import did not complete. Review the conversion log and technology selection.')
     if flatten:
         # Restore the original public interface name, without reconstructing a

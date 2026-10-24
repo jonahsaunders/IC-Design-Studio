@@ -1,0 +1,679 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "6faabcb0c5d0dfbf5ceb634f3dbd743bfa9e906b",
+  "scope": "Eight standard MOS views: sampled published boundary/characterization points and explicitly selected axes, independent four-terminal currents, per-device injected faults, and raw readback. Complete operating envelopes, other families and physical/extracted qualification remain open.",
+  "electrical": {
+    "Linux": {
+      "cases": 216,
+      "device_comparisons": 8856,
+      "terminal_vectors": 35424,
+      "terminal_samples": 1452384,
+      "faulted_devices": 17712,
+      "raw_files": 864,
+      "report_sha256": "bc38ae20bd9d373c8adab33fbdf25c07639f3f597b742105384e68820b404773",
+      "processes": {
+        "sky130A": {
+          "target": "sky130A",
+          "revision": "293106f92f3e1dc5",
+          "manifest_sha256": "ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b"
+        },
+        "gf180mcuC": {
+          "target": "gf180mcuC",
+          "revision": "5f3017f16df69dbe",
+          "manifest_sha256": "408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0"
+        },
+        "gf180mcuD": {
+          "target": "gf180mcuD",
+          "revision": "836ecc491786bd41",
+          "manifest_sha256": "ec95eefadaade5459b0bae8ac6d3d01d23927507ec10b86801fa4f2cf9f14bc2"
+        },
+        "ihp-sg13g2": {
+          "target": "ihp-sg13g2",
+          "revision": "1e24ec25b491028b",
+          "manifest_sha256": "ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab"
+        }
+      },
+      "engine_launcher_or_executable_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "source_files_sha256": "9e9d9686ecaa22daabd3039f8d60b6088cc3eb5cbf06c6a496a7314fc72fb08f",
+      "contracts": {
+        "sky130A": {
+          "voltage": 1.95,
+          "reverse_body": 1.95,
+          "forward_body": {
+            "n": 0.3,
+            "p": 0.1
+          },
+          "sizes": [
+            [
+              0.42,
+              0.15
+            ],
+            [
+              0.42,
+              1
+            ],
+            [
+              0.42,
+              8
+            ],
+            [
+              7,
+              0.15
+            ],
+            [
+              7,
+              8
+            ]
+          ],
+          "temperatures": [
+            0,
+            27,
+            85
+          ],
+          "published": [
+            "gate voltage",
+            "drain voltage",
+            "body voltage"
+          ],
+          "selected": [
+            "temperature",
+            "geometry points from public characterization tables"
+          ]
+        },
+        "gf180mcuC": {
+          "voltage": 3.3,
+          "reverse_body": 0.3,
+          "forward_body": {
+            "n": 0.0,
+            "p": 0.0
+          },
+          "sizes": [
+            [
+              0.22,
+              0.28
+            ],
+            [
+              0.22,
+              0.5
+            ],
+            [
+              0.22,
+              1
+            ],
+            [
+              0.22,
+              10
+            ],
+            [
+              0.5,
+              0.28
+            ],
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.5,
+              1
+            ],
+            [
+              0.5,
+              10
+            ],
+            [
+              1.2,
+              0.28
+            ],
+            [
+              1.2,
+              0.5
+            ],
+            [
+              1.2,
+              1
+            ],
+            [
+              1.2,
+              10
+            ],
+            [
+              10,
+              0.28
+            ],
+            [
+              10,
+              0.5
+            ],
+            [
+              10,
+              1
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "temperatures": [
+            -40,
+            25,
+            125
+          ],
+          "published": [
+            "measured geometry matrix",
+            "characterization temperatures"
+          ],
+          "selected": [
+            "0 to nominal 3.3 V gate/drain",
+            "0 to 0.3 V reverse body bias"
+          ]
+        },
+        "gf180mcuD": {
+          "voltage": 3.3,
+          "reverse_body": 0.3,
+          "forward_body": {
+            "n": 0.0,
+            "p": 0.0
+          },
+          "sizes": [
+            [
+              0.22,
+              0.28
+            ],
+            [
+              0.22,
+              0.5
+            ],
+            [
+              0.22,
+              1
+            ],
+            [
+              0.22,
+              10
+            ],
+            [
+              0.5,
+              0.28
+            ],
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.5,
+              1
+            ],
+            [
+              0.5,
+              10
+            ],
+            [
+              1.2,
+              0.28
+            ],
+            [
+              1.2,
+              0.5
+            ],
+            [
+              1.2,
+              1
+            ],
+            [
+              1.2,
+              10
+            ],
+            [
+              10,
+              0.28
+            ],
+            [
+              10,
+              0.5
+            ],
+            [
+              10,
+              1
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "temperatures": [
+            -40,
+            25,
+            125
+          ],
+          "published": [
+            "measured geometry matrix",
+            "characterization temperatures"
+          ],
+          "selected": [
+            "0 to nominal 3.3 V gate/drain",
+            "0 to 0.3 V reverse body bias"
+          ]
+        },
+        "ihp-sg13g2": {
+          "voltage": 1.5,
+          "reverse_body": 0.3,
+          "forward_body": {
+            "n": 0.0,
+            "p": 0.0
+          },
+          "sizes": [
+            [
+              0.15,
+              0.13
+            ],
+            [
+              0.15,
+              10
+            ],
+            [
+              10,
+              0.13
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "temperatures": [
+            0,
+            27,
+            85
+          ],
+          "published": [
+            "geometry bounds",
+            "maximum drain-source voltage",
+            "27 C measurement"
+          ],
+          "selected": [
+            "0 to nominal 1.2 V gate",
+            "0 to 0.3 V reverse body bias",
+            "0 and 85 C"
+          ]
+        }
+      }
+    },
+    "Windows": {
+      "cases": 162,
+      "device_comparisons": 7992,
+      "terminal_vectors": 31968,
+      "terminal_samples": 1310688,
+      "faulted_devices": 15984,
+      "raw_files": 648,
+      "report_sha256": "4137dcf943065a951ec663dac246b7a3e23adb8948d3f796f3f6a08914383b00",
+      "processes": {
+        "sky130A": {
+          "target": "sky130A",
+          "revision": "293106f92f3e1dc5",
+          "manifest_sha256": "ac79988e7ccf06ef550966de9ffc7ab394d934c5ddda861d1fb01e0813337f4b"
+        },
+        "gf180mcuC": {
+          "target": "gf180mcuC",
+          "revision": "5f3017f16df69dbe",
+          "manifest_sha256": "408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0"
+        },
+        "gf180mcuD": {
+          "target": "gf180mcuD",
+          "revision": "836ecc491786bd41",
+          "manifest_sha256": "ec95eefadaade5459b0bae8ac6d3d01d23927507ec10b86801fa4f2cf9f14bc2"
+        }
+      },
+      "engine_launcher_or_executable_sha256": "f86062f3bb1016dcf1552a57f38954891b4e71aee6defbebde6de589ee55682f",
+      "source_files_sha256": "07f0ff27ca166d3e15956f3cc9091b07e370a8454cb46b518793d4e415226216",
+      "contracts": {
+        "sky130A": {
+          "voltage": 1.95,
+          "reverse_body": 1.95,
+          "forward_body": {
+            "n": 0.3,
+            "p": 0.1
+          },
+          "sizes": [
+            [
+              0.42,
+              0.15
+            ],
+            [
+              0.42,
+              1
+            ],
+            [
+              0.42,
+              8
+            ],
+            [
+              7,
+              0.15
+            ],
+            [
+              7,
+              8
+            ]
+          ],
+          "temperatures": [
+            0,
+            27,
+            85
+          ],
+          "published": [
+            "gate voltage",
+            "drain voltage",
+            "body voltage"
+          ],
+          "selected": [
+            "temperature",
+            "geometry points from public characterization tables"
+          ]
+        },
+        "gf180mcuC": {
+          "voltage": 3.3,
+          "reverse_body": 0.3,
+          "forward_body": {
+            "n": 0.0,
+            "p": 0.0
+          },
+          "sizes": [
+            [
+              0.22,
+              0.28
+            ],
+            [
+              0.22,
+              0.5
+            ],
+            [
+              0.22,
+              1
+            ],
+            [
+              0.22,
+              10
+            ],
+            [
+              0.5,
+              0.28
+            ],
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.5,
+              1
+            ],
+            [
+              0.5,
+              10
+            ],
+            [
+              1.2,
+              0.28
+            ],
+            [
+              1.2,
+              0.5
+            ],
+            [
+              1.2,
+              1
+            ],
+            [
+              1.2,
+              10
+            ],
+            [
+              10,
+              0.28
+            ],
+            [
+              10,
+              0.5
+            ],
+            [
+              10,
+              1
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "temperatures": [
+            -40,
+            25,
+            125
+          ],
+          "published": [
+            "measured geometry matrix",
+            "characterization temperatures"
+          ],
+          "selected": [
+            "0 to nominal 3.3 V gate/drain",
+            "0 to 0.3 V reverse body bias"
+          ]
+        },
+        "gf180mcuD": {
+          "voltage": 3.3,
+          "reverse_body": 0.3,
+          "forward_body": {
+            "n": 0.0,
+            "p": 0.0
+          },
+          "sizes": [
+            [
+              0.22,
+              0.28
+            ],
+            [
+              0.22,
+              0.5
+            ],
+            [
+              0.22,
+              1
+            ],
+            [
+              0.22,
+              10
+            ],
+            [
+              0.5,
+              0.28
+            ],
+            [
+              0.5,
+              0.5
+            ],
+            [
+              0.5,
+              1
+            ],
+            [
+              0.5,
+              10
+            ],
+            [
+              1.2,
+              0.28
+            ],
+            [
+              1.2,
+              0.5
+            ],
+            [
+              1.2,
+              1
+            ],
+            [
+              1.2,
+              10
+            ],
+            [
+              10,
+              0.28
+            ],
+            [
+              10,
+              0.5
+            ],
+            [
+              10,
+              1
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "temperatures": [
+            -40,
+            25,
+            125
+          ],
+          "published": [
+            "measured geometry matrix",
+            "characterization temperatures"
+          ],
+          "selected": [
+            "0 to nominal 3.3 V gate/drain",
+            "0 to 0.3 V reverse body bias"
+          ]
+        }
+      }
+    }
+  },
+  "pilot": {
+    "status": "PASS",
+    "cases": 24,
+    "report_sha256": "b28d157bac4525356b93f60ed9f675939befb4f0fa70e789e2a3d95ff464171a"
+  },
+  "regressions": {
+    "Linux": {
+      "passed": 17,
+      "skipped": 0,
+      "log_sha256": "a2fb75739dab5aef113ada2ec0779f49a730afba841262e62811096f6d757a22"
+    },
+    "Windows": {
+      "passed": 17,
+      "skipped": 0,
+      "log_sha256": "82554343b9ec6a49db5975e6151dbed62c22bac6712e1d7543cc11908a9ab464"
+    }
+  },
+  "sources": {
+    "documentation": {
+      "sky130-nfet.rst": {
+        "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/nfet_01v8/index.rst",
+        "repository": "https://github.com/google/skywater-pdk",
+        "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+        "path": "docs/rules/device-details/nfet_01v8/index.rst",
+        "sha256": "81bbe5cbcf8b2ccb479461f31b4b155cd7a7ecf627e2df05a09cb04989d80c32",
+        "bytes": 887
+      },
+      "sky130-pfet.rst": {
+        "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/pfet_01v8/index.rst",
+        "repository": "https://github.com/google/skywater-pdk",
+        "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+        "path": "docs/rules/device-details/pfet_01v8/index.rst",
+        "sha256": "247a1e889c575337ca058f6b0e35c93750a2d1d7f94ceb50d0260e0fc9dbea5f",
+        "bytes": 912
+      },
+      "sky130-LICENSE": {
+        "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/LICENSE",
+        "repository": "https://github.com/google/skywater-pdk",
+        "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+        "path": "LICENSE",
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "bytes": 11358
+      },
+      "gf180-extraction.rst": {
+        "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/LV_2_1.rst",
+        "repository": "https://github.com/google/gf180mcu-pdk",
+        "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+        "path": "docs/analog/model_parameters/LV/LV_2_1.rst",
+        "sha256": "693f50e781c23713612db00469bce08d07b582bd638ccc07b22033a435787a78",
+        "bytes": 772
+      },
+      "gf180-geometry.rst": {
+        "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/LV_2_2.rst",
+        "repository": "https://github.com/google/gf180mcu-pdk",
+        "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+        "path": "docs/analog/model_parameters/LV/LV_2_2.rst",
+        "sha256": "03057618ac1531ee2e53fd91fcec00938867d1c27546d0b2841be994daa437f0",
+        "bytes": 732
+      },
+      "gf180-LICENSE": {
+        "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/LICENSE",
+        "repository": "https://github.com/google/gf180mcu-pdk",
+        "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+        "path": "LICENSE",
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "bytes": 11358
+      },
+      "sky130-nfet-table.rst": {
+        "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/nfet_01v8/nfet_01v8-table0.rst",
+        "repository": "https://github.com/google/skywater-pdk",
+        "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+        "path": "docs/rules/device-details/nfet_01v8/nfet_01v8-table0.rst",
+        "sha256": "6e55cfb827824bbf23e76ed6b751da15074eace6f34d7179fae73fe5ae2da392",
+        "bytes": 1127
+      },
+      "sky130-pfet-table.rst": {
+        "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/pfet_01v8/pfet_01v8-table0.rst",
+        "repository": "https://github.com/google/skywater-pdk",
+        "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+        "path": "docs/rules/device-details/pfet_01v8/pfet_01v8-table0.rst",
+        "sha256": "4519ed42053e9114cc76a9a0322cb7eeadfa295d44ad32a8f0ce73fe482e9fa7",
+        "bytes": 1163
+      },
+      "gf180-geometry.csv": {
+        "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/tables_clear/16_LV_NPMOS.csv",
+        "repository": "https://github.com/google/gf180mcu-pdk",
+        "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+        "path": "docs/analog/model_parameters/LV/tables_clear/16_LV_NPMOS.csv",
+        "sha256": "f48cb4fec3a63df67c5e7567baf373c2068cccb6d0104d1363acf587396e6789",
+        "bytes": 102
+      }
+    },
+    "ihp": {
+      "path": "icstudio/assets/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib",
+      "sha256": "03d505847c880d233b341be115a1e5460edf4d8e9b3e8a7df791a52fa4455d67"
+    }
+  },
+  "raw_audit_sha256": "d93c28591b594cb025e09757531f6a6ef117b6d453fcd8804f2643d0d341feb8",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/mos-boundaries-2026-10-17/evidence.zip",
+    "sha256": "6fc552fe89d3a30f43b8ade3ef7dff6c0b30b6626b24d6e9705bcdc762724515",
+    "bytes": 158596253,
+    "files": 175703,
+    "unique_contents": 7121,
+    "all_objects_verified": true
+  },
+  "engine_identity": {
+    "linux_binary_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+    "linux_version": "47 with retained capacitor-parser correction",
+    "windows_version": "42; separate numerical acceptance, not cross-engine equivalence"
+  },
+  "failures_preserved": [
+    {
+      "status": "aborted",
+      "experiment": "First Windows launch",
+      "reason": "The initial launch passed a relative executable path into workers running in separate directories. It was stopped before completion; the runner now resolves the path before dispatch. Partial files are retained without a pass claim."
+    }
+  ],
+  "limits": [
+    "Three generic process corners only; mixed and device-specific statistical corners remain unqualified.",
+    "SKY130 voltage extrema are documented; temperatures remain selected test points. The five geometry points are the union of N/P characterization sizes.",
+    "GF180 geometry and characterization temperatures are published. Gate/drain sweep stops at nominal 3.3 V and body bias is selected, not a documented reliability envelope.",
+    "IHP dimensions and maximum drain-source voltage are published. Gate stops at nominal 1.2 V; reverse body bias and 0/85 C are selected test points.",
+    "This does not establish continuous-range coverage, silicon calibration, reliability/ESD ratings, RF or physical acceptance.",
+    "IHP runs with the Linux/WSL OSDI engine. Native Windows IHP OSDI and final installed-release acceptance are not established."
+  ]
+}

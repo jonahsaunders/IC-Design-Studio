@@ -7,30 +7,180 @@ from .digital_flow import validate_result
 from .model import clone
 
 
+def captured_notices(job, directory):
+    """Copy the exact captured source notices, independent of the installed PDK."""
+    from .digital_design import config
+    from .digital_platform import validate
+    from .model import file_digest
+    platform=config(job['project'],job['cell']).get('platform')
+    if not platform:return []
+    validate(platform);root=(Path(directory)/'platform').resolve();result=[]
+    for record in platform['files']:
+        name=Path(record['path']).name.lower()
+        if not (name.startswith(('license','copying')) or 'notice' in name or name=='upstream-lock.json'):continue
+        path=(root/record['path']).resolve()
+        if not path.is_relative_to(root) or not path.is_file() or file_digest(path)!=record['sha256']:
+            raise ValueError('Captured platform notice is missing or changed: '+record['path'])
+        result.append((path,{'path':'notices/'+record['path'],'source_path':record['path'],
+                            'sha256':record['sha256'],'bytes':record['bytes']}))
+    return result
+
+
+def verify_inputs(result, job):
+    """Bind exported metadata to the inputs that produced the retained geometry."""
+    from .digital import source_hash
+    from .digital_design import config
+    from .digital_identity import stage_key
+    from .model import design_digest
+    message='The captured job inputs do not match the implemented macro. Restore the original input snapshot or run physical finish again.'
+    if (not isinstance(job,dict) or not isinstance(job.get('project'),dict)
+            or result.get('project_id')!=job['project'].get('id') or result.get('cell_id')!=job.get('cell')
+            or result.get('design_hash')!=design_digest(job['project'])):
+        raise ValueError(message)
+    data=result['digital_result'];value=config(job['project'],job['cell'])
+    if (data.get('source_hash')!=source_hash(value)
+            or data.get('input_key') and data['input_key']!=stage_key(value,'finish')):
+        raise ValueError(message)
+    return value
+
+
 def export(result, directory, destination):
     directory=Path(directory);destination=Path(destination)
-    validate_result(result,directory);data=result['digital_result'];artifacts=data['artifacts']
+    verified=validate_result(result,directory,return_verified=True);data=result['digital_result'];artifacts=data['artifacts']
     if data['stage']!='finish' or not {'gds','lef','netlist','layout_preview'}<=artifacts.keys():
         raise ValueError('Finish the physical flow before exporting a macro bundle.')
     preview=json.loads((directory/artifacts['layout_preview']['path']).read_text())
-    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence')}
+    selected={k:v for k,v in artifacts.items() if k in ('gds','lef','netlist','spef','sdc','layout_preview','database','timing','equivalence','def','extraction','physical_checks','gf180_connectivity','fill','ihp_fill','sky130_rules','sky130_antenna','sky130_isolation') or k.startswith(('spef_','extraction_script_','physical_check_','lvs_reference','gf180_check_','fill_','ihp_fill_','sky130_pin_','sky130_rule_','sky130_antenna_','sky130_isolation_'))}
+    selected.update({k:v for k,v in artifacts.items() if k == 'sky130_native' or k.startswith('sky130_native_')})
+    selected.update({k:v for k,v in artifacts.items() if k == 'sky130_fill' or k.startswith('sky130_fill_')})
+    selected.update({k:v for k,v in artifacts.items() if k == 'sky130_lvs' or k.startswith('sky130_lvs_')})
+    selected.update({k:v for k,v in artifacts.items() if k == 'sky130_density' or k.startswith('sky130_density_')})
     job=json.loads((directory/'input.json').read_text())
-    from .digital_design import config
-    manifest={'version':1,'top':config(job['project'],job['cell'])['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
+    value=verify_inputs(result,job)
+    native_geometry=verified['sky130_native']
+    sky130_lvs=verified['sky130_lvs']
+    sky130_density=verified['sky130_density']
+    if sky130_density is not None and sky130_density.get('top') != value['top']:
+        raise ValueError('SKY130 density evidence belongs to another top-level design.')
+    if sky130_lvs is not None and sky130_lvs.get('top') != value['top']:
+        raise ValueError('SKY130 connectivity evidence belongs to another top-level design.')
+    if native_geometry is not None and native_geometry.get('top') != value['top']:
+        raise ValueError('SKY130 native geometry evidence belongs to another top-level design.')
+    from .digital_sky130_isolation import selected as isolation_policy
+    isolation=verified['sky130_isolation']
+    if isolation_policy(value) != data.get('environment',{}).get('sky130_isolation'):
+        raise ValueError('SKY130 isolation policy differs from the captured macro inputs.')
+    sky130_review=verified['sky130_rules']
+    sky130_fill=verified['sky130_fill']
+    if value.get('platform',{}).get('sky130_rules') != data.get('environment',{}).get('sky130_rules'):
+        raise ValueError('SKY130 rule policy differs from the captured macro inputs.')
+    if sky130_review is not None and sky130_review.get('top') != value['top']:
+        raise ValueError('SKY130 rule evidence belongs to another top-level design.')
+    antenna=verified['sky130_antenna']
+    if value.get('platform',{}).get('sky130_antenna') != data.get('environment',{}).get('sky130_antenna'):
+        raise ValueError('SKY130 antenna policy differs from the captured macro inputs.')
+    if antenna is not None and antenna.get('top') != value['top']:
+        raise ValueError('SKY130 antenna evidence belongs to another top-level design.')
+    from .digital_gf180_fill import verify as verify_fill
+    verify_fill({'root':str(directory),'artifacts':artifacts},value)
+    from .digital_ihp_fill import verify as verify_ihp_fill
+    verify_ihp_fill({'root':str(directory),'artifacts':artifacts},value)
+    checks=verified['physical_checks']
+    if checks is not None and checks.get('top')!=value['top']:
+        raise ValueError('Physical-check evidence belongs to another top-level design.')
+    reference=verified['lvs_reference']
+    if reference is not None and reference.get('top')!=value['top']:
+        raise ValueError('Generated reference belongs to another top-level design.')
+    if reference is not None and value.get('platform',{}).get('lvs_reference')!=data.get('environment',{}).get('lvs_reference'):
+        raise ValueError('Generated reference policy differs from the captured macro inputs.')
+    connectivity=verified['gf180_connectivity']
+    if connectivity is not None and (connectivity.get('top')!=value['top'] or
+            value.get('platform',{}).get('gf180_connectivity')!=data.get('environment',{}).get('gf180_connectivity')):
+        raise ValueError('Combined connectivity differs from the captured macro inputs.')
+    if reference is not None or connectivity is not None or sky130_review is not None or antenna is not None or isolation is not None or native_geometry is not None or sky130_lvs is not None or sky130_density is not None or 'sky130_pin_export' in artifacts:
+        selected['checkpoint']=artifacts['checkpoint']
+    notices=captured_notices(job,directory)
+    manifest={'version':1,'top':value['top'],'source_hash':data['source_hash'],'input_key':data.get('input_key'),
+              'design_hash':result['design_hash'],
               'project_id':result['project_id'],'cell_id':result['cell_id'],
               'ports':preview.get('pins',[]),'bounds_um':preview['die'],'platform':data.get('platform'),
               'environment':data.get('environment'),'artifacts':clone(selected),
+              'notices':[record for path,record in notices],
+              'notices_scope':'Captured platform license/source notices only; custom platforms may supply none. Review the captured sources and redistribution terms for the intended handoff.',
               'qualification':{'physical_stage':'finish','drc':'Not qualified by this export','lvs':'Not qualified by this export',
+                               'physical_checks':{'status':checks['status'],'scope':checks['scope'],'artifact':'physical_checks'} if checks else {'status':'Not qualified by this historical job'},
                                'abstract_timing_model':None,
                                'scope':'LEF/GDS geometry with the actual gate netlist and captured SPEF. No characterized macro Liberty model is implied.'}}
-    job=json.loads((directory/'input.json').read_text())
-    from .digital_design import config
-    constraints=[f for f in config(job['project'],job['cell'])['files'] if f['role']=='constraint']
+    if reference is not None:
+        manifest['qualification']['generated_reference']={
+            'status':reference['status'],'scope':reference['scope'],'artifact':'lvs_reference',
+            'report_artifact':'lvs_reference_report'}
+    if native_geometry is not None:
+        manifest['qualification']['sky130_native'] = {
+            'status':native_geometry['status'], 'scope':native_geometry['scope'],
+            'artifact':'sky130_native', 'qualified':False,
+            'categories':native_geometry['categories'], 'markers':native_geometry['markers'],
+            'deck_sha256':native_geometry['policy']['deck_sha256']}
+    if sky130_review is not None:
+        manifest['qualification']['sky130_rules']={
+            'status':sky130_review['status'],'scope':sky130_review['scope'],'artifact':'sky130_rules',
+            'qualified':False,'coverage':sky130_review['coverage']}
+    if sky130_density is not None:
+        manifest['qualification']['sky130_density'] = {
+            'status':sky130_density['status'], 'scope':sky130_density['scope'], 'artifact':'sky130_density',
+            'qualified':False, 'acceptance_established':False, 'full_windows':sky130_density['full_windows']}
+    if sky130_fill is not None:
+        manifest['qualification']['sky130_fill'] = {
+            'status':sky130_fill['status'], 'scope':sky130_fill['scope'], 'artifact':'sky130_fill',
+            'qualified':False, 'density_status':sky130_fill['density_status'],
+            'full_windows':sky130_fill['full_windows']}
+    if sky130_lvs is not None:
+        manifest['qualification']['lvs']='Strict captured SKY130 HD device/body/port comparison passed; see sky130_lvs scope.'
+        manifest['qualification']['sky130_lvs'] = {
+            'status':sky130_lvs['status'], 'scope':sky130_lvs['scope'], 'artifact':'sky130_lvs',
+            'qualified':False, 'matched':sky130_lvs['audit']['matched'],
+            'inventory':sky130_lvs['audit']['inventory']}
+    if connectivity is not None:
+        manifest['qualification']['gf180_connectivity']={
+            'status':connectivity['status'],'scope':connectivity['scope'],'artifact':'gf180_connectivity'}
+    if antenna is not None:
+        manifest['qualification']['sky130_antenna']={
+            'status':antenna['status'],'scope':antenna['scope'],'artifact':'sky130_antenna',
+            'qualified':False,'stages':len(antenna['stages'])}
+    if isolation is not None:
+        manifest['qualification']['sky130_isolation']={
+            'status':isolation['status'],'scope':isolation['scope'],'artifact':'sky130_isolation',
+            'qualified':False,'enforced':isolation['enforced'],'measurement':isolation['measurement']}
+    from .digital_sky130_public_baseline import summarize as public_baseline
+    baseline=public_baseline(data,verified,value)
+    if baseline is not None:
+        manifest['qualification']['sky130_public_baseline']=baseline
+    if 'extraction' in selected:
+        extraction=json.loads((directory/selected['extraction']['path']).read_text())
+        if extraction.get('schema')!=1 or extraction.get('status')!='complete' or extraction.get('def')!=selected.get('def') or extraction.get('netlist')!=selected['netlist']:
+            raise ValueError('Macro extraction evidence does not match the exported final geometry and netlist.')
+        if not extraction.get('corners') or any(item.get('spef')!=selected.get(item.get('spef_key')) or item.get('spef_key') not in selected for item in extraction['corners'].values()):
+            raise ValueError('Macro export is missing a captured interconnect corner.')
+        manifest['interconnect_corners']={name:{'spef_artifact':item['spef_key'],'inputs':item['inputs'],
+            'source_def_sha256':extraction['def']['sha256'],'source_netlist_sha256':extraction['netlist']['sha256']}
+            for name,item in extraction['corners'].items()}
+        manifest['extraction_evidence_scope']='The retained extraction report uses original job paths; exported files are addressed by the artifact keys in this manifest.'
+    constraints=[f for f in value['files'] if f['role']=='constraint']
     temporary=destination.with_name(destination.name+'.partial')
+    def copy_verified(archive,path,name,expected):
+        # Hash the bytes actually written, closing the gap between validation
+        # and copying without repeating expensive geometry measurements.
+        import hashlib
+        checksum=hashlib.sha256()
+        with Path(path).open('rb') as source, archive.open(name,'w',force_zip64=True) as target:
+            while chunk:=source.read(1024*1024):
+                checksum.update(chunk);target.write(chunk)
+        if checksum.hexdigest()!=expected:raise ValueError('An artifact changed during macro export: '+name)
     try:
         with zipfile.ZipFile(temporary,'w',compression=zipfile.ZIP_DEFLATED) as archive:
+            for path,record in notices:copy_verified(archive,path,record['path'],record['sha256'])
             for key,record in selected.items():
-                name='artifacts/'+key+Path(record['path']).suffix;archive.write(directory/record['path'],name)
+                name='artifacts/'+key+Path(record['path']).suffix;copy_verified(archive,directory/record['path'],name,record['sha256'])
                 manifest['artifacts'][key]['path']=name
             import hashlib
             manifest['constraints']=[]

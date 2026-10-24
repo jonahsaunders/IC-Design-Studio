@@ -1,0 +1,582 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "partial_varactor_physical_coverage_and_detector_execution_verified",
+  "baseline": "2440f3fae3633ec9797644239cb1c85a4d85a3ac",
+  "scope": "IHP four-terminal varactor interface, bounded physical layouts, explicit failed wider geometry, and unchanged detector simulations in concurrent processes. No complete family, operating-envelope, foundry or installed-release qualification.",
+  "varactor": {
+    "physical_family_status": "FAIL",
+    "native_report_sha256": "59f6056feedb59ba96baef1f060e9c2018168c6fb1afc7c52d263f820c6fb314",
+    "implementation_unchanged": true,
+    "lvs_positives": 40,
+    "full_drc_lvs_positives": 16,
+    "unresolved_small_drc_cases": 24,
+    "detected_faults": 12,
+    "small_geometry": {
+      "w_um": 3.74,
+      "l_um": 0.3,
+      "nx": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    "full_drc_lvs_nx": [
+      1,
+      2,
+      3,
+      5
+    ],
+    "larger_probe": {
+      "w_um": 9.74,
+      "l_um": 0.8,
+      "nx": 1,
+      "drc_count": 17,
+      "lvs": "passed",
+      "status": "failed"
+    },
+    "source_mask_audit": {
+      "status": "AUDIT_PASS",
+      "physical_family_status": "FAIL",
+      "physical_positive_passes": [
+        {
+          "nx": 1,
+          "rotation": 0
+        },
+        {
+          "nx": 1,
+          "rotation": 90
+        },
+        {
+          "nx": 1,
+          "rotation": 180
+        },
+        {
+          "nx": 1,
+          "rotation": 270
+        },
+        {
+          "nx": 2,
+          "rotation": 0
+        },
+        {
+          "nx": 2,
+          "rotation": 90
+        },
+        {
+          "nx": 2,
+          "rotation": 180
+        },
+        {
+          "nx": 2,
+          "rotation": 270
+        },
+        {
+          "nx": 3,
+          "rotation": 0
+        },
+        {
+          "nx": 3,
+          "rotation": 90
+        },
+        {
+          "nx": 3,
+          "rotation": 180
+        },
+        {
+          "nx": 3,
+          "rotation": 270
+        },
+        {
+          "nx": 5,
+          "rotation": 0
+        },
+        {
+          "nx": 5,
+          "rotation": 90
+        },
+        {
+          "nx": 5,
+          "rotation": 180
+        },
+        {
+          "nx": 5,
+          "rotation": 270
+        }
+      ],
+      "unresolved_drc": [
+        {
+          "nx": 4,
+          "rotation": 0,
+          "violations": 4,
+          "rules": [
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 4,
+          "rotation": 90,
+          "violations": 4,
+          "rules": [
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 4,
+          "rotation": 180,
+          "violations": 4,
+          "rules": [
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 4,
+          "rotation": 270,
+          "violations": 4,
+          "rules": [
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 6,
+          "rotation": 0,
+          "violations": 9,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 6,
+          "rotation": 90,
+          "violations": 8,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 6,
+          "rotation": 180,
+          "violations": 9,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 6,
+          "rotation": 270,
+          "violations": 8,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 7,
+          "rotation": 0,
+          "violations": 13,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 7,
+          "rotation": 90,
+          "violations": 12,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 7,
+          "rotation": 180,
+          "violations": 13,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 7,
+          "rotation": 270,
+          "violations": 12,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 8,
+          "rotation": 0,
+          "violations": 13,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)"
+          ]
+        },
+        {
+          "nx": 8,
+          "rotation": 90,
+          "violations": 12,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)"
+          ]
+        },
+        {
+          "nx": 8,
+          "rotation": 180,
+          "violations": 13,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)"
+          ]
+        },
+        {
+          "nx": 8,
+          "rotation": 270,
+          "violations": 12,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)"
+          ]
+        },
+        {
+          "nx": 9,
+          "rotation": 0,
+          "violations": 21,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 9,
+          "rotation": 90,
+          "violations": 20,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 9,
+          "rotation": 180,
+          "violations": 21,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 9,
+          "rotation": 270,
+          "violations": 20,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)",
+            "poly contact width        < 32 (Cnt.a)"
+          ]
+        },
+        {
+          "nx": 10,
+          "rotation": 0,
+          "violations": 23,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)"
+          ]
+        },
+        {
+          "nx": 10,
+          "rotation": 90,
+          "violations": 22,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)"
+          ]
+        },
+        {
+          "nx": 10,
+          "rotation": 180,
+          "violations": 23,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)"
+          ]
+        },
+        {
+          "nx": 10,
+          "rotation": 270,
+          "violations": 22,
+          "rules": [
+            "Extension of tie diffusion beyond tie contact < 6.0um (LU.d, LU.d1)"
+          ]
+        }
+      ],
+      "all_40_lvs_passed": true,
+      "detected_faults": 12,
+      "native_and_comparison_netlists": 80,
+      "exchange_layer_pairs": 400,
+      "source_masks_preserved": true,
+      "limitation": "No full varactor physical qualification: 24 smaller-layout rotations and the larger public geometry remain DRC failures."
+    },
+    "annotation_connectivity": {
+      "status": "PASS",
+      "cases": [
+        {
+          "original_global_connection": false,
+          "native_status": "passed",
+          "error": null,
+          "drc_count": 0
+        },
+        {
+          "original_global_connection": true,
+          "native_status": "failed",
+          "error": "IHP extracted port names differ from the schematic.",
+          "drc_count": 0
+        }
+      ],
+      "description": "Two physically distinct W nets; equal SVaricap recognition text moved onto each well port must not short them."
+    },
+    "windows_backend": {
+      "status": "PASS",
+      "cases": [
+        {
+          "name": "small-3-90-None",
+          "status": "PASS",
+          "native_status": "passed",
+          "received_files": 82,
+          "result_sha256": "851c57611ae35f0c6828fd7f38511254521bd99fc3aeb76798fcefc5ab0a0cf3"
+        },
+        {
+          "name": "small-1-0-reference-fingers",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 82,
+          "result_sha256": "4a59efa61f92e3e0f3375e57b53252f2230764a8cdac366ac1ac5d958de59ac8"
+        },
+        {
+          "name": "small-1-0-gate-open",
+          "status": "PASS",
+          "native_status": "failed",
+          "received_files": 77,
+          "result_sha256": "462558631eb40b2762456d80774cb79844d90005cda23cb624d87896165eca49"
+        }
+      ],
+      "implementation_unchanged": true,
+      "scope": "Windows source staging and actual ordinary-user Linux backend; not installed desktop qualification."
+    }
+  },
+  "detector": {
+    "workers": 2,
+    "codes": 16,
+    "compared_waveforms": 32,
+    "maximum_voltage_difference": 0,
+    "parallel_report_sha256": "6532d6c16f65298baeabd3bde7c745ed499e99a5d6f72620c0ecc135b22b8479",
+    "runner_sha256": "214f5bf6833ec90d2f270c4cc4c22f6c19635d2f19b07d435db8ef0869c6e962",
+    "timing": {
+      "sequential_first_file": "/var/tmp/icstudio-chunk7-ci-detector-20261019-v1/simulation/00-native/rf-runtime-9d72579034784f58938964756fc561e1/diode-geometry-probe/input.cir",
+      "sequential_first_mtime": 1792416195.8694434,
+      "sequential_last_file": "/var/tmp/icstudio-chunk7-ci-detector-20261019-v1/simulation/15-reference/engine.log",
+      "sequential_last_mtime": 1792418626.004481,
+      "sequential_file_span_seconds": 2430.1350376605988,
+      "parallel_measured_seconds": 1077.335720603,
+      "limitation": "Retained sequential file-time span versus fresh measured parallel wall time on this host; not a controlled hardware benchmark or hosted-runtime guarantee."
+    },
+    "desktop_bench": {
+      "status": "PASS",
+      "source_sha256": "4dfc7cb231fbb18112c61f891c29dab913f50a99bf913e147dc80fb4e3bb86ad",
+      "saved_bench_sha256": "f37457b01c6f73f21c913efd5001c418941a8096c9b0f7de6ee25b40ed1125d0",
+      "elapsed_seconds": 68.08847742399985,
+      "points": 301,
+      "max_reference_error": 0.00029493101422617407,
+      "compatibility": "hsa",
+      "dc_startup": true,
+      "engine": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/icstudio-ngspice",
+      "scope": "Exact final desktop simulation that exceeded the hosted time budget, using the retained hosted imported project."
+    },
+    "existing_tolerances_and_timeout_unchanged": true,
+    "hosted_failure": {
+      "run": 39263313103,
+      "job": 118096347379,
+      "commit": "e912509",
+      "reason": "22-minute step limit after all 16 codes passed, while the final saved desktop bench was running.",
+      "log_sha256": "c53be46c7aecbcc7b0604736a440ee35c12adef0adb53c40898af9249e9fe318"
+    },
+    "hosted_repaired_result": "pending"
+  },
+  "regression": {
+    "focused_tests_per_host": 36,
+    "windows": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "focused",
+          "exit_code": 0,
+          "log_sha256": "1e566df974f659259c4f664bb6218bd2d376c00b549b13eb821ae094f9b9c449"
+        }
+      ]
+    },
+    "linux": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "focused",
+          "exit_code": 0,
+          "log_sha256": "55008030c9df7228d42af05679fce8f6947c992cde17cdd03915f9f89f5a1d75"
+        }
+      ]
+    },
+    "prior_native": {
+      "status": "PASS",
+      "process": {
+        "target": "ihp-sg13g2",
+        "revision": "cfb96b74cf33877e",
+        "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+      },
+      "cases": [
+        {
+          "name": "pnp",
+          "status": "passed",
+          "error": null,
+          "report_sha256": "2932b108f8614383e8cf8fe8ee7d50351e740b4442c946aa6eb6ac20c230f76c"
+        },
+        {
+          "name": "npn13G2l",
+          "status": "passed",
+          "error": null,
+          "report_sha256": "4d6d3a2a66339731b0001ddc1d8102ebabb0a3bb1403078d1a9f10e15db1d723"
+        },
+        {
+          "name": "npn13G2v",
+          "status": "passed",
+          "error": null,
+          "report_sha256": "d1019829925484e18e6c3583267741f0e26173da2ebc1a49d3c5b48bb1908118"
+        },
+        {
+          "name": "npn13G2",
+          "status": "passed",
+          "error": null,
+          "report_sha256": "a23a666b6ed34692ff13d838e5519385dfd0668cb494a12cbb72f579af8d0e5f"
+        },
+        {
+          "name": "ntap1",
+          "status": "passed",
+          "error": null,
+          "report_sha256": "828a94b08853272aabc0f19e978d4283634878634a02921ca96819d26e024778"
+        },
+        {
+          "name": "ptap1",
+          "status": "passed",
+          "error": null,
+          "report_sha256": "66d12b69c6c56ab93baa8a4fed1f2dc70966a87fd4cad18535b7c495d05a1370"
+        }
+      ],
+      "scope": "Actual prior IHP KLayout PNP/NPN/tap routes after varactor-specific extraction corrections."
+    }
+  },
+  "source_files": {
+    "icstudio/ihp_varactor_lvs.py": "e6883234b0c3db463e05b70634ee9e7ec4be483425160a353af248ad410a778b",
+    "icstudio/ihp_klayout_lvs.py": "9f93f767c04d16e9cc93f5dfac7ee47c7a64b0326244dad23eb929172f852c52",
+    "icstudio/layout_verification.py": "6498d45bd5c5d998baca46a72a64b2dd7278491f686e1b68fa9cec919a7509c8",
+    "scripts/qualify_ihp_varactor_layouts.py": "57bd93f63720d317a04e44808d28e22e9abcfcae91deb8abefe1988f2bff2dbe",
+    "scripts/qualify_open_project.py": "214f5bf6833ec90d2f270c4cc4c22f6c19635d2f19b07d435db8ef0869c6e962",
+    "tests/test_ihp_varactor_lvs.py": "07320b6c7979f114ab0b9d82a1ab828aee5bf9e887f396a240fd60ca7116c07d",
+    "tests/test_open_project_simulation.py": "3b26e94bfcf7b887d3db31f963b58b2d039c62267d3c3afd19f8cd508ad4d823",
+    ".github/workflows/ihp-inductor-qualification.yml": "0d4c7f7d85c68209b105f1c79154bda476f8128653abf6cb4420e3773337eca8"
+  },
+  "remaining": [
+    "Resolve the retained IHP varactor contact/tie and larger-geometry well DRC findings without waivers.",
+    "Complete the other outstanding device interfaces and operating envelopes; unresolved public electrical models remain unavailable.",
+    "Require fresh hosted and installed Windows/Linux release acceptance."
+  ],
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-varactor-detector-2026-10-19-v1/evidence.zip",
+    "sha256": "0339f362fdef4e47259a421680c329c5fee54d2e9e3553a4602a6e52b47b288a",
+    "bytes": 43633524,
+    "files": 13218,
+    "unique_contents": 5779,
+    "all_objects_verified": true
+  },
+  "restore_replay": {
+    "status": "PASS",
+    "archive_sha256": "0339f362fdef4e47259a421680c329c5fee54d2e9e3553a4602a6e52b47b288a",
+    "checks": [
+      {
+        "name": "restore",
+        "exit_code": 0,
+        "log_sha256": "0c8858cb29a1611ae17371e1f3d3503450c9b123589e59c19443c8cb4219e2a5"
+      },
+      {
+        "name": "units",
+        "exit_code": 0,
+        "log_sha256": "e0fcac344d42d4360cf4bcdac15eef148da338e51ad5d5ab2b716519ab8dd0f8"
+      }
+    ],
+    "cases": [
+      {
+        "family": "varactor",
+        "fault": null,
+        "status": "PASS",
+        "native_status": "passed",
+        "report_sha256": "2960f57eb13381431cca56f56d2d21c0e8526fd410df3ceef69cb1d6ba3e25c3"
+      },
+      {
+        "family": "varactor",
+        "fault": "gate-open",
+        "status": "PASS",
+        "native_status": "failed",
+        "report_sha256": "2750d1692da072cd75e4cfac99f711cb5abad510bdf138b56f849af7202692c3"
+      },
+      {
+        "family": "varactor",
+        "fault": "missing-oxide",
+        "status": "PASS",
+        "native_status": "failed",
+        "report_sha256": "b8d5615b51fb1db8ee9f964d1ce3987d0e5b15f5ef3d8a4c7dd2a7e4e30fc852"
+      },
+      {
+        "family": "inductor",
+        "fault": null,
+        "status": "PASS",
+        "native_status": "passed",
+        "report_sha256": "a22a779fe07450b31bba0200f631d852d2440ecdaac51dd8a8435a8b31c321d0"
+      },
+      {
+        "family": "inductor3",
+        "fault": null,
+        "status": "PASS",
+        "native_status": "passed",
+        "report_sha256": "5d6be023e9a9612771d140fdb763d90cf7a04daedc7cfc68f7e8e64cc4331218"
+      },
+      {
+        "family": "inductor3",
+        "fault": "turn-short",
+        "status": "PASS",
+        "native_status": "failed",
+        "report_sha256": "4b027c3a37aefda29b8c8bcefd91a882bfbd2f31a7f869e6ff9f135e13144680"
+      }
+    ],
+    "replay_archive": {
+      "path": "IC-Design-Studio-evidence/ihp-varactor-detector-2026-10-19-v1/restore-replay.zip",
+      "sha256": "95a03c4a10cbb2ac1a10a69e07c184361ebf9a8bc3b2fdc3fec646b902b74341",
+      "bytes": 480402,
+      "files": 427,
+      "all_objects_verified": true
+    }
+  }
+}

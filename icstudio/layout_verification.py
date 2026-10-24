@@ -25,11 +25,11 @@ def reference(text, top):
     ports=re.split(r'\s+(?:params:|\w+\s*=)',matches[0],maxsplit=1,flags=re.I)[0].split()
     if not ports or len(set(p.casefold() for p in ports))!=len(ports) or any(not NET.fullmatch(p) for p in ports):
         raise ValueError('The schematic reference needs unique named terminals.')
-    if not re.search(r'(?im)^\s*[mxrcdqjb]\S*\s+',logical):raise ValueError('The reference has no circuit devices.')
+    if not re.search(r'(?im)^\s*[mxrcdqjbl]\S*\s+',logical):raise ValueError('The reference has no circuit devices.')
     return dict(text=text,top=top,ports=ports,sha256=hashlib.sha256(text.encode()).hexdigest())
 
 
-def verification_stream(source, top, ports, target, *, pin_layers):
+def verification_stream(source, top, ports, target, *, pin_layers, recognition_label=None):
     """Flatten only the private engine input; retain the editable hierarchy.
 
     Child-local labels cannot become global connections when flattening.
@@ -39,7 +39,7 @@ def verification_stream(source, top, ports, target, *, pin_layers):
     import klayout.db as db
     ly=db.Layout();ly.read(str(source));cell=ly.cell(top)
     if cell is None:raise ValueError('Layout top is missing: '+top)
-    expected={p.casefold() for p in ports};found=set();explicit=set();removed=0
+    expected={p.casefold() for p in ports};found=set();explicit=set();removed=0;retained=0
     def mask(c,i):
         shapes=c.begin_shapes_rec(i)
         shapes.shape_flags=db.Shapes.SBoxes|db.Shapes.SPolygons|db.Shapes.SPaths
@@ -50,6 +50,8 @@ def verification_stream(source, top, ports, target, *, pin_layers):
             info=ly.get_info(i)
             for s in list(c.shapes(i).each()):
                 if not s.is_text():continue
+                if recognition_label and recognition_label(info.layer,info.datatype,s.text.string):
+                    retained+=1;continue
                 name=s.text.string.casefold()
                 if c==cell and (info.layer,info.datatype) in pin_layers:explicit.add(name)
                 if c==cell and name in expected:found.add(name)
@@ -69,11 +71,12 @@ def verification_stream(source, top, ports, target, *, pin_layers):
     return dict(source_sha256=file_digest(source),sha256=file_digest(target),source_cells=cells,
                 geometry='Exact flattened region XOR on every layer/datatype',
                 removed_noninterface_labels=removed,ports=ports,
+                retained_recognition_labels=retained,
                 interface='Explicit top pin labels checked; legacy top labels selected by schematic terminals.',
                 hierarchy='Flattened only in private verification input; original project and stream retained.')
 
 
-def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None):
+def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,lvs_extractor='magic',drc_engine='magic'):
     from .interchange import export_layout
     from .interoperability import tool_asset
     from .process_adapters import ADAPTERS
@@ -90,6 +93,20 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
     def stage(name,fn):return record_stage(report,name,fn,publish,progress)
     def preflight():
         if blocked_reason:raise ValueError(blocked_reason)
+        if drc_engine not in ('magic','ihp-public'):
+            raise ValueError('Unknown layout DRC engine.')
+        if drc_engine=='ihp-public' and lvs_extractor!='ihp-klayout':
+            raise ValueError('Public IHP geometry checks require the IHP KLayout extraction route.')
+        report['drc_engine']={'gf180-hv-klayout':'gf180-hv-public','sky130-rf-nwell-klayout':'sky130-rf-public','sky130-rf-isolation-klayout':'sky130-rf-public'}.get(lvs_extractor,drc_engine)
+        if lvs_extractor not in ('magic','ihp-klayout','gf180-hv-klayout','sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
+            raise ValueError('Unknown layout LVS extractor.')
+        if lvs_extractor=='ihp-klayout' and p['pdk'].get('package_lock',{}).get('id')!='ihp-sg13g2':
+            raise ValueError('The IHP KLayout extractor requires an IHP SG13G2 package.')
+        if lvs_extractor=='gf180-hv-klayout' and p['pdk'].get('package_lock',{}).get('id') not in ('gf180mcuC','gf180mcuD'):
+            raise ValueError('The GF180 HV verifier requires a GF180 C or D package.')
+        if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout') and p['pdk'].get('package_lock',{}).get('id')!='sky130A':
+            raise ValueError('The RF verifier requires a SKY130A package.')
+        report['lvs_extractor']=lvs_extractor
         validate(p);ref.update(reference(selected['text'],selected['top']))
         if ref!=selected:raise ValueError('The captured schematic reference changed before verification.')
         report['reference']={k:v for k,v in ref.items() if k!='text'}
@@ -109,18 +126,58 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
                 if not path.is_relative_to(pdk_root) or not path.is_file() or file_digest(path)!=sha:
                     raise ValueError('Physical rule dependency is missing or changed: '+relative)
                 assets[relative]=path
-        for name in ('magic','netgen'):
+        if lvs_extractor=='ihp-klayout':
+            from .ihp_klayout_lvs import assets as extraction_assets
+            assets.update({'ihp-klayout/'+name:path for name,path in extraction_assets().items()})
+            if drc_engine=='ihp-public':
+                from .ihp_klayout_drc import assets as drc_assets
+                assets.update({'ihp-drc/'+name:path for name,path in drc_assets().items()})
+                report.pop('magic_drc_style',None)
+                report['npn_magic_drc_style']=style
+            from .ihp_varactor_rules import prepare as prepare_contact_rules
+            original_technology=assets['technology']
+            technology,private,proof=prepare_contact_rules(assets,out/'ihp-magic-rules',p['pdk']['package_lock']['files'])
+            assets.update(private);assets['original-technology']=original_technology;assets['technology']=technology
+            report['ihp_contact_operand_correction']=proof
+        if lvs_extractor=='gf180-hv-klayout':
+            from .gf180_hv_verification import assets as extraction_assets
+            assets.update({'gf180-hv-klayout/'+name:path for name,path in extraction_assets().items()})
+            report.pop('magic_drc_style',None)
+        if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
+            from .sky130_rf_verification import assets as extraction_assets, circuit
+            if lvs_extractor=='sky130-rf-isolation-klayout':
+                from .sky130_rf_isolation import circuit
+            circuit(ref['text'],ref['top'])
+            assets.update({'sky130-rf/'+name:path for name,path in extraction_assets().items()})
+            report.pop('magic_drc_style',None)
+            report['qualification']='Bounded single rectangular SKY130 RF n-well diode: public block DRC, written-contact continuity and strict native device/geometry comparison. No pw2dn, multi-device, parasitic or fabrication qualification.'
+            if lvs_extractor=='sky130-rf-isolation-klayout':
+                from .sky130_rf_isolation import SCOPE
+                report.update(qualification=SCOPE,simulation_models=False,qualified=False)
+        engines={'magic':('magic','netgen'),'ihp-klayout':('magic','netgen','klayout'),'gf180-hv-klayout':('netgen','klayout'),'sky130-rf-nwell-klayout':('klayout',),'sky130-rf-isolation-klayout':('klayout',)}
+        for name in engines[lvs_extractor]:
             path=Path(shutil.which(tools.get(name,'') or name) or tools.get(name,'') or name)
             if not path.is_file():raise ValueError('Configure the '+name+' physical engine.')
             path=path.resolve();resolved[name]=dict(path=str(path),sha256=file_digest(path))
-            atomic_write(out/(name+'-version.log'),execute([str(path),'-batch' if name=='netgen' else '--version'],out,timeout=20))
-        required=re.search(r'(?m)^\s*requires\s+magic-([0-9]+\.[0-9]+\.[0-9]+)',assets['technology'].read_text(encoding='utf-8'))
-        actual=re.search(r'\b([0-9]+\.[0-9]+\.[0-9]+)\b',(out/'magic-version.log').read_text())
+            flag={'netgen':'-batch','magic':'--version','klayout':'-v'}[name]
+            atomic_write(out/(name+'-version.log'),execute([str(path),flag],out,timeout=20))
+        required=re.search(r'(?m)^\s*requires\s+magic-([0-9]+\.[0-9]+\.[0-9]+)',assets['technology'].read_text(encoding='utf-8')) if 'magic' in resolved else None
+        actual=re.search(r'\b([0-9]+\.[0-9]+\.[0-9]+)\b',(out/'magic-version.log').read_text()) if 'magic' in resolved else None
         if required and (not actual or tuple(map(int,actual[1].split('.')))<tuple(map(int,required[1].split('.')))):
             raise ValueError('This PDK requires Magic '+required[1]+' or newer. Set up the current included physical tools.')
         save_project(p,out/'input.icproj');atomic_write(out/'schematic.spice',ref['text'])
         from .native_spice import lvs_defaults
-        comparison,defaults=lvs_defaults(ref['text'],p['pdk']);atomic_write(out/'schematic-lvs.spice',comparison)
+        comparison,defaults=lvs_defaults(ref['text'],p['pdk'])
+        if lvs_extractor=='ihp-klayout':
+            from .ihp_tap_lvs import reference_geometry
+            comparison,taps=reference_geometry(comparison,p['pdk']);defaults.extend(taps)
+            from .ihp_inductor_lvs import geometry as inductor_geometry
+            comparison,inductors=inductor_geometry(comparison);defaults.extend(inductors)
+            from .ihp_varactor_lvs import geometry as varactor_geometry
+            comparison,varactors=varactor_geometry(comparison);defaults.extend(varactors)
+            from .ihp_isolation_lvs import geometry as isolation_geometry
+            comparison,isolations=isolation_geometry(comparison,p['pdk']);defaults.extend(isolations)
+        atomic_write(out/'schematic-lvs.spice',comparison)
         report['reference_defaults']=defaults
         files.update({n:file_digest(out/n) for n in ('input.icproj','schematic.spice','schematic-lvs.spice')})
         return dict(assets={str(v):file_digest(v) for v in assets.values()},tools=resolved,reference=report['reference'],model_defaults=defaults)
@@ -136,7 +193,14 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
             else:
                 adapter=ADAPTERS.get(p['pdk'].get('package_lock',{}).get('id'))
                 if adapter:pins|={(v['gds'],v['datatype']) for v in p['pdk']['layers'] if v['datatype']==adapter.label_datatype}
-            r=verification_stream(out/'original.gds',c['name'],ref['ports'],out/'layout.gds',pin_layers=pins)
+            recognition=None
+            if lvs_extractor=='ihp-klayout':
+                from .ihp_inductor_lvs import recognition_label as coil_label
+                from .ihp_varactor_lvs import recognition_label as varactor_label
+                from .ihp_isolation_lvs import recognition_label as isolation_label
+                from .ihp_tap_lvs import recognition_label as tap_label
+                recognition=lambda layer,datatype,text: coil_label(layer,datatype,text) or varactor_label(layer,datatype,text) or isolation_label(layer,datatype,text) or tap_label(layer,datatype,text)
+            r=verification_stream(out/'original.gds',c['name'],ref['ports'],out/'layout.gds',pin_layers=pins,recognition_label=recognition)
             files.update({n:file_digest(out/n) for n in ('original.gds','layout.gds')});return r
         stage('layout_export',stream)
         def magic(folder,commands):
@@ -147,27 +211,111 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None)
                 files[path.relative_to(out).as_posix()]=file_digest(path)
             return log
         def drc():
+            if drc_engine=='ihp-public':
+                from .ihp_klayout_drc import drc as public_drc
+                # Geometry rules must see the untouched original labels too;
+                # interface-only label pruning is solely an extraction step.
+                try:
+                    result=public_drc(resolved['klayout']['path'],out/'original.gds',c['name'],out/'drc')
+                    from .ihp_varactor_oxide import check as varactor_oxide
+                    oxide=varactor_oxide(out/'layout.gds',c['name'])
+                    atomic_write(out/'drc/ihp-varactor-oxide.json',json.dumps(oxide,indent=2))
+                    from .ihp_npn_drc import check as npn_drc
+                    npn=npn_drc(resolved['magic']['path'],assets['technology'],report['npn_magic_drc_style'],out/'layout.gds',c['name'],ref['ports'],out/'drc/npn-native',public_context=(assets,pre['assets']))
+                finally:
+                    for path in (out/'drc').rglob('*'):
+                        if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                report['drc_count']=result['violations']+oxide['violations']+npn['violations'];report['klayout_drc']=result
+                report['ihp_varactor_oxide']=oxide
+                report['ihp_npn_native_drc']=npn
+                if report['drc_count']:raise ValueError(str(report['drc_count'])+' DRC violations; see the public IHP reports, varactor oxide and native NPN checks.')
+                return dict(native=result,varactor_oxide=oxide,npn_native=npn,violations=0)
+            if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
+                from .sky130_rf_verification import drc as rf_drc
+                result=rf_drc(resolved['klayout']['path'],out/'layout.gds',c['name'],p['pdk'],out/'drc')
+                report['drc_count']=result['violations'];report['klayout_drc']=result
+                for path in (out/'drc').iterdir():
+                    if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                if result['violations']:raise ValueError(str(result['violations'])+' DRC violations; see retained native findings.')
+                return result
+            if lvs_extractor=='gf180-hv-klayout':
+                from .gf180_hv_verification import drc as hv_drc
+                result=hv_drc(resolved['klayout']['path'],out/'layout.gds',c['name'],p['pdk'],out/'drc')
+                report['drc_count']=result['violations'];report['klayout_drc']=result
+                for path in (out/'drc').iterdir():
+                    if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                if result['violations']:raise ValueError(str(result['violations'])+' DRC violations; see retained native findings.')
+                return result
             commands='snap internal\nselect top cell\nbox values {*}[select bbox]\nbox grow c 10um\ndrc style '+tcl_word(report['magic_drc_style'])+'\ndrc ignore none\ndrc check\ndrc catchup\nputs "STUDIO_DRC_COUNT [drc list count total]"\nputs "STUDIO_DRC_STYLE [drc list style]"\nputs "STUDIO_MAGIC_SCALE [cif scale out]"\n'
             commands+='set f [open findings.tsv w]\nforeach {reason boxes} [drc listall why] {foreach coords $boxes {puts $f "[string map {\\t { } \\n { }} $reason]\\t[join $coords {,}]"}}\nclose $f\n'
             log=magic('drc',commands);counts=re.findall(r'^STUDIO_DRC_COUNT (\d+)$',log,re.M)
             if len(counts)!=1 or re.findall(r'^STUDIO_DRC_STYLE (.+)$',log,re.M)!=[report['magic_drc_style']]:raise ValueError('Magic did not finish the selected full DRC check.')
-            report['drc_count']=int(counts[0])
-            if report['drc_count']:raise ValueError(str(report['drc_count'])+' Magic DRC violations; see findings.tsv.')
-            return dict(violations=0,style=report['magic_drc_style'])
+            report['drc_count']=int(counts[0]);report['magic_drc_count']=int(counts[0])
+            if p['pdk'].get('package_lock',{}).get('id')=='ihp-sg13g2':
+                from .ihp_contact_rules import check as contact_width
+                extra=contact_width(out/'layout.gds',c['name'],p['pdk'])
+                atomic_write(out/'drc/ihp-contact-width.json',json.dumps(extra,indent=2))
+                files['drc/ihp-contact-width.json']=file_digest(out/'drc/ihp-contact-width.json')
+                report['ihp_contact_width']=extra;report['drc_count']+=extra['violations']
+            if report['drc_count']:raise ValueError(str(report['drc_count'])+' DRC violations; see retained native and supplemental findings.')
+            return dict(violations=0,style=report['magic_drc_style'],native_violations=report['magic_drc_count'],supplemental_contact_width=report.get('ihp_contact_width'))
         # Keep LVS evidence even when the original design fails a layout rule.
         failures=[]
         try:stage('drc',drc)
         except (ValueError,OSError) as exc:failures.append(str(exc))
         def extract():
-            commands,_=extraction_commands('lvs',{'hierarchy':False})
+            if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
+                from .sky130_rf_verification import extract as rf_extract
+                if lvs_extractor=='sky130-rf-isolation-klayout':
+                    from .sky130_rf_isolation import extract as rf_extract
+                result=rf_extract(resolved['klayout']['path'],out/'layout.gds',c['name'],ref['ports'],p['pdk'],out/'lvs-extraction')
+                for path in (out/'lvs-extraction').rglob('*'):
+                    if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                return result
+            if lvs_extractor=='gf180-hv-klayout':
+                from .gf180_hv_verification import extract as hv_extract
+                result=hv_extract(resolved['klayout']['path'],out/'layout.gds',c['name'],ref['ports'],p['pdk'],out/'lvs-extraction')
+                for path in (out/'lvs-extraction').rglob('*'):
+                    if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                return result
+            if lvs_extractor=='ihp-klayout':
+                from .ihp_klayout_lvs import extract as ihp_extract
+                result=ihp_extract(resolved['klayout']['path'],out/'layout.gds',c['name'],ref['ports'],p['pdk'],out/'lvs-extraction')
+                for path in (out/'lvs-extraction').rglob('*'):
+                    if path.is_file():files[path.relative_to(out).as_posix()]=file_digest(path)
+                return result
+            # verification_stream already flattened the private geometry. Use
+            # Magic's hierarchical writer: its flat writer emits device
+            # perimeter with area units (1e-12 instead of 1e-6 in 8.3.684).
+            # This changes no geometry. Rectangular second-MiM axis correction
+            # is separately guarded and recorded by magic_script.
+            commands,settings=extraction_commands('lvs')
             magic('lvs-extraction',commands+'ext2spice -o extracted.spice')
             path=out/'lvs-extraction/extracted.spice'
             check_extracted_interface(path,c['name'],ref['ports'],p['pdk'])
+            proof=out/'lvs-extraction/mim-orientation.json'
+            if proof.is_file():
+                report['mim_orientation']=json.loads(proof.read_bytes())
+                for name in ('mim-orientation.json','native-original.ext',c['name']+'.ext'):
+                    files['lvs-extraction/'+name]=file_digest(out/'lvs-extraction'/name)
             files['lvs-extraction/extracted.spice']=file_digest(path)
-            return dict(deck='lvs-extraction/extracted.spice',sha256=files['lvs-extraction/extracted.spice'])
+            return dict(deck='lvs-extraction/extracted.spice',sha256=files['lvs-extraction/extracted.spice'],settings=settings)
         stage('lvs_extraction',extract)
         def lvs():
-            log=netgen_lvs(resolved['netgen']['path'],out/'schematic-lvs.spice',ref['top'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')
+            if lvs_extractor in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
+                from .sky130_rf_verification import compare
+                if lvs_extractor=='sky130-rf-isolation-klayout':
+                    from .sky130_rf_isolation import compare
+                result=compare((out/'schematic-lvs.spice').read_text(encoding='utf-8'),(out/'lvs-extraction/extracted.spice').read_text(encoding='utf-8'),ref['top'])
+                atomic_write(out/'rf-comparison.json',json.dumps(result,indent=2))
+                files['rf-comparison.json']=file_digest(out/'rf-comparison.json')
+                return result
+            setup=assets['setup']
+            if lvs_extractor=='ihp-klayout':
+                from .ihp_klayout_lvs import comparison_setup
+                setup,record=comparison_setup(setup,out/'ihp-strict-lvs.tcl')
+                report['comparison_setup']=record;files['ihp-strict-lvs.tcl']=file_digest(setup)
+            log=netgen_lvs(resolved['netgen']['path'],out/'schematic-lvs.spice',ref['top'],out/'lvs-extraction/extracted.spice',c['name'],setup,out/'lvs')
             files['lvs/lvs.log']=file_digest(out/'lvs/lvs.log')
             require_lvs_match(log);return dict(unique_match=True,log='lvs/lvs.log')
         try:stage('lvs',lvs)

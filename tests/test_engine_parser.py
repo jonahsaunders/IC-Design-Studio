@@ -11,6 +11,16 @@ class EngineParserTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as td:
    path=Path(td)/'fixture.raw';path.write_text(raw);_,rows,is_complex=parse_raw(path);self.assertTrue(is_complex);self.assertEqual(rows[0][1],.5-.5j)
  def test_literal_tcl_path(self):self.assertEqual(tcl_word('/a b/$x[cmd]'),'"/a b/\\$x\\[cmd\\]"')
+ def test_legacy_title_bytes_do_not_change_vector_or_numeric_decoding(self):
+  header=b'Title: caf\xe9\nPlotname: Operating Point\nFlags: real\nNo. Variables: 2\nNo. Points: 1\nVariables:\n 0 v(out) voltage\n 1 i(v1) current\nValues:\n'
+  with tempfile.TemporaryDirectory() as td:
+   path=Path(td)/'legacy.raw';path.write_bytes(header+b'0 1\n -.001\n')
+   names,rows,complex_data=parse_raw(path)
+   self.assertEqual(names,['v(out)','i(v1)']);self.assertEqual(rows,[[1,-.001]]);self.assertFalse(complex_data)
+   path.write_bytes(header.replace(b'v(out)',b'v(\xffout)')+b'0 1\n -.001\n')
+   with self.assertRaises(UnicodeDecodeError):parse_raw(path)
+   path.write_bytes(header+b'0 1\n \xff.001\n')
+   with self.assertRaisesRegex(ValueError,'malformed'):parse_raw(path)
  def test_wide_extracted_noise_matrix_streams_with_bounded_total_values(self):
   count=20743
   header='Title: extracted noise\nFlags: real\nNo. Variables: '+str(count)+'\nNo. Points: 2\nVariables:\n'

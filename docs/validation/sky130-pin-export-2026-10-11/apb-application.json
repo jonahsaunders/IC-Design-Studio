@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "status": "application-pin-export-pass",
+  "qualified": false,
+  "case": "apb",
+  "source_result_sha256": "efafba492dd8940e339b3102bbbf6335124735abd7798dbef04b9322c690cd0e",
+  "source_job_sha256": "fc95cbe14780e00f3a5705473aca89eb5c4a6a0ba2c7ff0c129614df0ba792ba",
+  "script_sha256": "ab2bdc40d1b03e030e6ba6252c505c17fde07a6837f791a9245bd669dcb1c483",
+  "scope": "Actual Runner pin-export, saved-result and macro-export entry points on captured routed checkpoints; not new place/route or installer qualification.",
+  "gds_sha256": "ee514670858619ef2065d02b149a87a55ca836bab93b56ac05a6fc235dea3111",
+  "x5_sha256": "ac3c866c85500307f200fe5c9f902e5e08358b17937796053d813e10aa3c238c",
+  "macro_sha256": "1d9cbe4be3310dbc34bf7f426d8ae6ddb9eeb9cc71ff69da2d2f94cfb5fc52e5",
+  "seconds": 19.819791861998965
+}

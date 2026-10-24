@@ -1,0 +1,669 @@
+# frozen_string_literal: true
+
+#==========================================================================
+# Copyright 2024 IHP PDK Authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# SPDX-License-Identifier: Apache-2.0
+#==========================================================================
+
+#=========== CUSTOM READER ===========
+
+# Custom reader for subcircuit models
+class CustomReader < RBA::NetlistSpiceReaderDelegate
+  # Cleanup sch for R, C elements
+  def clean_sch(line, element)
+    return clean_cap_line(line) if element == 'C'
+    return clean_res_line(line) if element == 'R'
+
+    line
+  end
+
+  # Accepted capacitor forms:
+  # 2T (cap_cmim)
+  # - C1 PLUS MINUS cap_cmim w=6.99u l=6.99u m=1 C=74.620f
+  # - C1 PLUS MINUS 74.620f $[cap_cmim] w=6.99u l=6.99u m=1
+  # 3T (rfcmim)
+  # - C1 N1 N2 SUB rfcmim w=7u l=7u wfeed=3u m=1 C=74.823f
+  #
+  # Input : raw capacitor netlist line.
+  # Output: compact line with device pins + valid key=value params.
+  # Usage : called by clean_sch for element 'C'.
+  def clean_cap_line(line)
+    valid_params = line.scan(/\b\w+\s*=\s*\S+\b/)
+    fields = line.split
+
+    num_terms =
+      if line.downcase.include?('varicap')
+        5
+      elsif line.downcase.include?('rfcmim')
+        4
+      else
+        # 2T value-before-model form:
+        # C1 PLUS MINUS 74.620f cap_cmim w=6.99u l=6.99u m=1
+        # Normalize to explicit C=<value> and model-first.
+        if fields.size >= 5 && capacitor_value_field?(fields[3]) && cap_cmim_model_field?(fields[4])
+          cap_value = fields[3]
+          valid_params << "C=#{cap_value}" unless valid_params.any? { |p| p.upcase.start_with?('C=') }
+          line_no_param = [fields[0], fields[1], fields[2], canonical_cap_model(fields[4])].join(' ')
+          return "#{line_no_param.strip} #{valid_params.join(' ')}".strip
+        end
+
+        cap_cmim_model_field?(fields[3]) ? 4 : 3
+      end
+
+    line_no_param = fields.take(num_terms).join(' ')
+    "#{line_no_param.strip} #{valid_params.join(' ')}"
+  end
+
+  def capacitor_value_field?(field)
+    !!(field && field.match?(/\A[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?[a-zA-Z]*\z/))
+  end
+
+  def canonical_cap_model(field)
+    return '' if field.nil?
+
+    field.to_s.delete_prefix('$').sub(/\A\[(.+)\]\z/, '\1').downcase
+  end
+
+  # 2-terminal custom-MIM-style cap models (DeviceCustomMIM): cap_cmim and the two
+  # MoM capacitors. Both the value-before-model normalization and the model-first
+  # term count key on this, so a cap_cmomi or cap_cmomf C-line keeps its model
+  # token instead of having it parsed as a value and stripped.
+  def cap_cmim_model_field?(field)
+    ['cap_cmim', 'cap_cmomi', 'cap_cmomf'].include?(canonical_cap_model(field))
+  end
+
+  # Accepted resistor forms:
+  # 2T (metal resistor)
+  # - Rm2 net3 net4 res_metal1 l=1.5u w=5u R=20k
+  # - Rm1 net1 net2 20k $[res_metal1] l=1u w=5u
+  # - Rm1 net1 net2 3.6m $[res_topmetal1] l=1u w=5u
+  # 3T (poly resistor)
+  # - Rs1 net1 net2 sub rsil m=1 l=0.5u w=0.5u R=3.1583k
+  # - RR1 net8 net9 3.1583k $SUB=sub! $rhigh w=0.5e-6 l=0.96e-6 b=0
+  #
+  # Internal rewrite target:
+  # - R n1 n2 [sub] [R|0] MODEL=<name> <params>
+  #
+  # Input : raw resistor netlist line.
+  # Output: parser-stable resistor line with explicit MODEL=<name>.
+  # Usage : called by clean_sch for element 'R'.
+  def clean_res_line(line)
+    fields = split_res_fields(line)
+    return line if fields.size < 4
+
+    rewrite_poly_with_sub_param(fields) || rewrite_res_from_model_position(fields) || line
+  end
+
+  # Input : raw resistor netlist line.
+  # Output: field list with normalized spacing around '=' and separators.
+  # Usage : first step in clean_res_line.
+  def split_res_fields(line)
+    line.gsub(/\s*=\s*/, '=').gsub(/\s+\/\s+/, ' ').gsub(/\s+\\\s+/, ' ').split
+  end
+
+  # Handle: R n1 n2 RVAL $SUB=sub! <poly_model> <params>
+  #
+  # Input : resistor field list.
+  # Output: rewritten line, or nil when this form does not match.
+  # Usage : first rewrite attempt in clean_res_line.
+  def rewrite_poly_with_sub_param(fields)
+    sub_idx = fields.find_index { |f| f.upcase.start_with?('$SUB=') || f.upcase.start_with?('SUB=') }
+    return nil if sub_idx.nil?
+
+    model_idx = fields.find_index { |f| poly_res_model?(f) }
+    return nil if model_idx.nil? || model_idx <= 2
+
+    value_idx = fields.each_index.find { |i| i >= 2 && i < model_idx && resistor_value_field?(fields[i]) }
+    return nil if value_idx.nil?
+
+    prefix = fields.take(value_idx - 2)
+    n1 = fields[value_idx - 2]
+    n2 = fields[value_idx - 1]
+    # Poly resistor value is not used in LVS comparison.
+    # Keep parser behavior stable by forcing positional value to 0.
+    value = '0'
+    model = canonical_res_model_name(fields[model_idx])
+    sub = fields[sub_idx].split('=', 2)[1]
+    rest = fields.each_with_index.filter_map do |field, idx|
+      next if idx <= value_idx
+      next if idx == sub_idx || idx == model_idx
+
+      field
+    end
+
+    build_clean_res_line(prefix, n1, n2, sub, value, model, rest)
+  end
+
+  # Handle:
+  # - Metal 2T: R n1 n2 <metal_model> [R] <params>
+  # - Poly 3T : R n1 n2 <sub> <poly_model> [R] <params>
+  #
+  # Input : resistor field list.
+  # Output: rewritten line, or nil when this form does not match.
+  # Usage : second rewrite attempt in clean_res_line.
+  def rewrite_res_from_model_position(fields)
+    model_idx = fields.find_index { |f| resistor_model_field?(f) }
+    return nil if model_idx.nil?
+
+    model = canonical_res_model_name(fields[model_idx])
+    rest = fields.drop(model_idx + 1)
+    value = resistor_value_field?(rest.first) ? rest.shift : '0'
+
+    if metal_res_model?(model)
+      # Form: Rm1 n1 n2 20k res_metal1 ...
+      if model_idx >= 3 && resistor_value_field?(fields[model_idx - 1])
+        prefix = fields.take(model_idx - 3)
+        n1 = fields[model_idx - 3]
+        n2 = fields[model_idx - 2]
+        value = fields[model_idx - 1]
+        return build_clean_res_line(prefix, n1, n2, nil, value, model, rest)
+      end
+
+      return nil if model_idx < 2
+
+      prefix = fields.take(model_idx - 2)
+      n1 = fields[model_idx - 2]
+      n2 = fields[model_idx - 1]
+      return build_clean_res_line(prefix, n1, n2, nil, value, model, rest)
+    end
+
+    return nil if model_idx < 3
+
+    prefix = fields.take(model_idx - 3)
+    n1 = fields[model_idx - 3]
+    n2 = fields[model_idx - 2]
+    sub = fields[model_idx - 1]
+    build_clean_res_line(prefix, n1, n2, sub, value, model, rest)
+  end
+
+  # Input : one resistor model field candidate.
+  # Output: model name without '$' prefix or surrounding [].
+  # Usage : called before model checks and rewrite output.
+  def canonical_res_model_name(field)
+    return '' if field.nil?
+
+    model = field.to_s.strip
+    model = model[1..] if model.start_with?('$')
+    model = Regexp.last_match(1) if model.match?(/^\[(.+)\]$/)
+    model.downcase
+  end
+
+  # Input : one resistor field candidate.
+  # Output: true if the field is a supported resistor model name.
+  # Usage : used to detect resistor model position in netlist line.
+  def resistor_model_field?(field)
+    model = canonical_res_model_name(field)
+    RES_DEV.include?(model) || metal_res_model?(model)
+  end
+
+  def metal_res_model?(model)
+    model.start_with?('res_metal') || model.start_with?('res_topmetal')
+  end
+
+  # Input : one resistor field candidate.
+  # Output: true if the field is a poly resistor model from RES_DEV.
+  # Usage : used by $SUB-based 3-terminal rewrite path.
+  def poly_res_model?(field)
+    RES_DEV.include?(canonical_res_model_name(field))
+  end
+
+  # Input : one resistor field candidate.
+  # Output: true if the field is parsed as numeric value (e.g. 20k, 3.1e-6).
+  # Usage : optional resistor value detection.
+  def resistor_value_field?(field)
+    !!(field && field.match?(/\A[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?[a-zA-Z]*\z/))
+  end
+
+  # Input : parsed resistor parts.
+  # Output: canonical clean resistor line with MODEL=<name>.
+  # Usage : shared builder for all resistor rewrite paths.
+  def build_clean_res_line(prefix, n1, n2, sub, value, model, rest)
+    base = prefix + [n1, n2]
+    base << sub unless sub.nil?
+    (base + [value, "MODEL=#{model}"] + rest).join(' ').strip
+  end
+
+  # Override parse_element method to handle exceptions gracefully
+  def parse_element(line, element)
+
+    # Remove the slash that separates the pins from the device type:
+    # XDECINV net1 CS_OUT VDD VSS / RSC_IHPSG13_INVX4
+    # to
+    # XDECINV net1 CS_OUT VDD VSS RSC_IHPSG13_INVX4
+    line = line.gsub(/\s+\/\s+/, ' ')
+    
+    # Remove $[...] around the device type:
+    # C0 PLUS1 MINUS1 $[cap_cmim] 74.620f w=6.99u l=6.99u m=1
+    # to
+    # C0 PLUS1 MINUS1 cap_cmim 74.620f w=6.99u l=6.99u m=1
+    line = line.gsub(/\$\[([^\]]+)\]/, '\1')
+    # Prep sch for C/R.
+    line = clean_sch(line, element) if element == 'C' || element == 'R'
+
+    super
+  rescue StandardError
+    case element
+    when 'C'
+      if line.downcase.include?('varicap')
+        super(line.to_s, 'M')
+      elsif line.downcase.include?('rfcmim')
+        super(line.to_s, 'Q')
+      else
+        super("#{line} C=1e-18", element)
+      end
+    when 'R'
+      super("#{line} R=0", element)
+    when 'D'
+      if line.downcase.include?('diodev') || line.downcase.include?('schottky') || line.downcase.include?('isolbox')
+        super(line.to_s, 'Q')
+      else
+        super(line.to_s, element)
+      end
+    when 'L'
+      if line.downcase.include?('inductor3')
+        super("#{line} L=0", 'M')
+      else
+        super("#{line} L=0", element)
+      end
+    else
+      super
+    end
+  end
+
+  # Override the element method to handle different types of elements
+  def element(circuit, ele, name, model, value, nets, params)
+    if CUSTOM_READER.include?(ele)
+      process_device(ele, circuit, name, model, nets, params)
+    else
+      super
+    end
+    true
+  end
+
+  private
+
+  # Prepare MOS model+params for comparison.
+  # Supports both input netlist styles:
+  # - old RF model names (rfnmos/rfpmos/...) without rfmode
+  # - base model names with explicit rfmode
+  def map_mos_model(model, params)
+    map_params = (params || {}).dup
+    model_key = model.to_s.downcase
+    rfmode_raw = map_params['RFMODE'] || map_params['rfmode']
+    rfmode = RFMODE_TO_BINARY.call(rfmode_raw)
+    mapped = RF_TO_BASE_MOS_MODEL.fetch(model_key, model_key)
+
+    # rf* naming implies RF mode when rfmode is not provided explicitly.
+    if RF_TO_BASE_MOS_MODEL.key?(model_key) && rfmode.nil?
+      rfmode = 1
+    end
+
+    map_params['RFMODE'] = rfmode unless rfmode.nil?
+    map_params.delete('rfmode')
+
+    [mapped, map_params]
+  end
+
+  # Process device element
+  def process_device(ele, circuit, name, model, nets, params)
+    # For MOS devices, map RF model naming before class lookup/creation.
+    if ele == 'M'
+      model, params = map_mos_model(model, params)
+    end
+    if ele == 'R'
+      # clean_res_line stores resistor model in MODEL=<name>.
+      # Read it back here before class selection.
+      parsed_model = params && params.delete('MODEL')
+      model = parsed_model unless parsed_model.nil? || parsed_model.to_s.empty?
+    end
+
+    cls = device_class_cache(circuit.netlist, model)
+    unless cls
+      cls = create_device_class(ele, circuit, model, nets.size)
+      device_class_cache(circuit.netlist, model, cls)
+    end
+
+    device = circuit.create_device(cls, name)
+    connect_terminals(ele, device, model, nets)
+    map_params(ele, device, model, params)
+  end
+
+  # prevents accidental duplicate class definitions.
+  def device_class_cache(netlist, model, klass = nil)
+    @device_class_cache ||= {}
+    key = device_class_key(netlist, model)
+    @device_class_cache[key] = klass unless klass.nil?
+    @device_class_cache[key] ||= netlist.device_class_by_name(model)
+  end
+
+  def device_class_key(netlist, model)
+    "#{netlist.object_id}:#{model.to_s.downcase}"
+  end
+
+  # Create or retrieve the device class based on the element type, model name, and number of nets.
+  #
+  # @param ele [String] The type of element (C, R, Q, L).
+  # @param circuit [Circuit] The circuit object to which the device class will be added.
+  # @param model [String] The model name of the device class.
+  # @param num_nets [Integer] The number of nets the device class should have.
+  # @return [RBA::DeviceClass] The created or retrieved device class.
+  def create_device_class(ele, circuit, model, num_nets)
+    cls = case ele
+          when 'M' then create_mos
+          when 'C' then create_capacitor(model, num_nets)
+          when 'R' then create_resistor(model, num_nets)
+          when 'Q' then create_bjt(model, num_nets)
+          when 'L' then DeviceCustomInd.new(model, num_nets - 1)
+          when 'D' then create_diode(model)
+          else
+            return super
+          end
+
+    cls.name = model
+    circuit.netlist.add(cls)
+    cls
+  end
+
+  # Create MOS4 device class.
+  def create_mos
+    mos_class = RBA::DeviceClassMOS4Transistor.new
+    mos_class.add_parameter(RBA::DeviceParameterDefinition.new('rfmode', 'rf mode', 0, true))
+    mos_class
+  end
+
+  # Create a capacitor device class.
+  def create_capacitor(model, num_nets)
+    if model.downcase.include?('varicap')
+      raise ArgumentError, 'Varicap should have 4 nodes, please recheck' unless num_nets == 4
+
+      DeviceCustomVaractor.new(model, num_nets - 1)
+    elsif model.downcase.include?('moscap')
+      raise ArgumentError, 'MOSCAP should have 2 nodes, please recheck' unless num_nets == 2
+
+      DeviceCustomMOSCAP.new(model)
+    else
+      raise ArgumentError, 'Capacitor should have 2 or 3 nodes, please recheck' unless [2, 3].include?(num_nets)
+
+      DeviceCustomMIM.new(model)
+
+    end
+  end
+
+  # Create a diode device class.
+  def create_diode(model)
+    if model.downcase.include?('isolbox')
+      Isolbox3Term.new
+    elsif model.downcase.include?('diodev') || model.downcase.include?('schottky')
+      Esd3Term.new
+    elsif model.downcase.include?('nmoscl')
+      Esd2Term.new
+    else
+      EnDiode.new
+    end
+  end
+
+  # Create a resistor device class.
+  def create_resistor(model, num_nets)
+    if RES_DEV.include?(model.downcase)
+      raise ArgumentError, 'Poly resistor should have 3 nodes, please recheck' unless num_nets == 3
+
+      # Poly resistors are handled as 3-terminal devices:
+      # two main terminals and one substrate terminal.
+      DeviceCustomRes.new(model, 2, 1)
+    elsif num_nets == 2 && model.downcase.include?('tap')
+      CustomTap.new
+    elsif num_nets == 2
+      RBA::DeviceClassResistor.new
+    elsif num_nets == 3
+      RBA::DeviceClassResistorWithBulk.new
+    else
+      raise ArgumentError, 'Resistor should have two or three nodes, please recheck'
+    end
+  end
+
+  # Create a bjt device class.
+  def create_bjt(model, _num_nets)
+    if model.downcase.include?('isolbox')
+      Isolbox3Term.new
+    elsif model.downcase.include?('pnp')
+      CustomBJT3Pnp.new
+    else
+      CustomBJT4.new
+    end
+  end
+
+  # Connect device terminals based on element type, device, model, and nets.
+  #
+  # @param ele [String] The type of element (C, R, Q).
+  # @param device [RBA::Device] The device object to which terminals will be connected.
+  # @param model [String] The model name of the device.
+  # @param nets [Array<String>] Array of net names to which terminals will be connected.
+  def connect_terminals(ele, device, model, nets)
+    term_list = terminal_list_for_element(ele, model, nets)
+
+    term_list.each_with_index do |t, index|
+      device.connect_terminal(t, nets[index])
+    end
+  end
+
+  # Determine terminal list based on element type, model, and nets.
+  def terminal_list_for_element(ele, model, nets)
+    case ele
+    when 'M'
+      %w[D G S B]
+    when 'Q'
+      if model.downcase.include?('isolbox')
+        %w[S I Bn]
+      elsif model.downcase.include?('pnp')
+        %w[C B E]
+      else
+        %w[C B E S]
+      end
+    when 'C'
+      if model.downcase.include?('varicap')
+        %w[G1 W G2 SUB]
+      elsif model.downcase.include?('moscap_p')
+        %w[G NW]
+      elsif model.downcase.include?('moscap_n')
+        %w[G SUB]
+      else
+        gen_mim_terms(model)
+      end
+    when 'R'
+      if RES_DEV.include?(model.downcase)
+        gen_res_terms(model, nets.size)
+      elsif model.downcase.include?('tap')
+        %w[TIE WELL]
+      else
+        nets.size == 3 ? %w[A B W] : %w[A B]
+      end
+    when 'D'
+      if model.downcase.include?('isolbox')
+        %w[S I Bn]
+      elsif model.downcase.include?('diodevdd')
+        %w[B E C]
+      elsif model.downcase.include?('diodevss')
+        %w[C E B]
+      elsif model.downcase.include?('schottky')
+        %w[E B C]
+      elsif model.downcase.include?('nmoscl')
+        %w[C A]
+      else
+        %w[A C]
+      end
+    when 'L'
+      gen_term_with_sub(model, nets.size)
+    else
+      gen_term_names(model, nets.size)
+    end
+  end
+
+  # Generate terminal names based on model and the number of nets.
+  def gen_term_names(model, size)
+    (0...size).map { |i| "#{model}_#{i + 1}" }
+  end
+
+  # Generate terminal names for poly resistors with optional substrate net.
+  def gen_res_terms(model, size)
+    terms = ["#{model}_1", "#{model}_2"]
+    terms << "#{model}_sub" if size >= 3
+    terms
+  end
+
+  # Generate terminal names based on model and the number of nets.
+  def gen_mim_terms(model)
+    terms = %w[mim_top mim_btm]
+
+    return terms unless model.downcase.include?('rfcmim')
+
+    terms << 'mim_sub' # Add sub terminal
+    terms
+  end
+
+  # Generate terminal names based on model and the number of nets.
+  def gen_term_with_sub(model, size)
+    terms = (0...size - 1).map { |i| "#{model}_#{i + 1}" }
+    terms << "#{model}_sub" # Add sub terminal
+  end
+
+  # Map parameters based on the model type.
+  #
+  # @param ele [String] The type of element (M, C, R, Q, L, D).
+  # @param device [RBA::Device] The device object to which parameters will be mapped.
+  # @param model [String] The model name of the device.
+  # @param params [Hash] Hash containing parameter values.
+  def map_params(ele, device, model, params)
+    case ele
+    when 'M'
+      map_mos_params(device, params)
+    when 'Q'
+      map_bjt_params(device, model, params)
+    when 'C'
+      map_capacitor_params(device, model, params)
+    when 'R'
+      map_resistor_params(device, model, params)
+    when 'D'
+      map_diode_params(device, model, params)
+    when 'L'
+      map_inductor_params(device, params)
+    else
+      raise ArgumentError, "#{ele} device with model #{model} is not supported, please recheck"
+    end
+  end
+
+  # Map parameters for mos devices.
+  def map_mos_params(device, params)
+    device.set_parameter('W', (params['W'] || 0.0) * (params['M'] || 1.0) * 1e6)
+    device.set_parameter('L', (params['L'] || 0.0) * 1e6)
+    device.set_parameter('rfmode', RFMODE_TO_BINARY.call(params['RFMODE']) || 0.0)
+  end
+
+  # Map parameters for a BJT device.
+  def map_bjt_params(device, model, params)
+    if model.downcase.include?('isolbox')
+      a = params['A'] || params['a'] || ((params['W'] || 0.0) * (params['L'] || 0.0))
+      p = params['P'] || params['p'] || (((params['W'] || 0.0) + (params['L'] || 0.0)) * 2)
+
+      device.set_parameter('a', a * 1e12)
+      device.set_parameter('p', p * 1e6)
+      return
+    end
+
+    if model.downcase.include?('pnp')
+      w = params['W'] || params['w'] || 0.0
+      l = params['L'] || params['l'] || 0.0
+      a = params['A'] || params['a'] || (w * l)
+      p = params['P'] || params['p'] || ((w + l) * 2)
+
+      device.set_parameter('A', a * 1e12)
+      device.set_parameter('P', p * 1e6)
+      device.set_parameter('m', params['M'] || 1.0)
+      return
+    end
+
+    we = params['WE'] || params['W'] || 0.0
+    le = params['LE'] || params['L'] || 0.0
+    
+    device.set_parameter('we', we * 1e6)
+    device.set_parameter('le', le * 1e6)
+    device.set_parameter('m', params['M'] || 1.0)
+
+    unless model.downcase.include?('pnp')
+      device.set_parameter('Nx', params['NX'] || 1.0)
+    end
+  end
+
+  # Map parameters for a diode device.
+  def map_diode_params(device, model, params)
+    if model.downcase.include?('isolbox')
+      a = params['A'] || params['a'] || ((params['W'] || 0.0) * (params['L'] || 0.0))
+      p = params['P'] || params['p'] || (((params['W'] || 0.0) + (params['L'] || 0.0)) * 2)
+
+      device.set_parameter('a', a * 1e12)
+      device.set_parameter('p', p * 1e6)
+      return
+    end
+
+    unless model.downcase.include?('diodev') || model.downcase.include?('schottky') || model.downcase.include?('nmoscl')
+      device.set_parameter('A', (params['A'] || ((params['W'] || 0.0) * (params['L'] || 0.0))) * 1e12)
+      device.set_parameter('P', (params['P'] || (((params['W'] || 0.0) + (params['L'] || 0.0)) * 2)) * 1e6)
+    end
+    device.set_parameter('m', params['M'] || 1.0)
+  end
+
+  # Map parameters for a capacitor device.
+  def map_capacitor_params(device, model, params)
+    device.set_parameter('w', (params['W'] || 0.0) * 1e6)
+    device.set_parameter('l', (params['L'] || 0.0) * 1e6)
+    device.set_parameter('Nx', params['NX'] || 1.0) if model.downcase.include?('varicap')
+    device.set_parameter('m', params['M'] || params['MF'] || 1.0) if model.downcase.include?('mim')
+
+    if model.downcase.include?('mim')
+      device.set_parameter('A', (params['A'] || ((params['W'] || 0.0) * (params['L'] || 0.0))) * 1e12)
+      device.set_parameter('P', (params['P'] || (((params['W'] || 0.0) + (params['L'] || 0.0)) * 2)) * 1e6)
+    end
+    return unless model.downcase.include?('rfcmim')
+
+    device.set_parameter('wfeed', (params['WFEED'] || 0.0) * 1e6)
+  end
+
+  # Map parameters for a resistor device.
+  def map_resistor_params(device, model, params)
+    if model.downcase.include?('tap')
+      device.set_parameter('A', (params['A'] || ((params['W'] || 0.0) * (params['L'] || 0.0))) * 1e12)
+      device.set_parameter('P',
+                           (params['P'] || params['PERIM'] || (((params['W'] || 0.0) + (params['L'] || 0.0)) * 2)) * 1e6)
+    elsif RES_DEV.include?(model.downcase)
+      device.set_parameter('w', (params['W'] || 0.0) * 1e6)
+      device.set_parameter('l', (params['L'] || 0.0) * 1e6)
+      device.set_parameter('ps', (params['PS'] || 0.0) * 1e6)
+      device.set_parameter('b', params['B'] || 0.0)
+      device.set_parameter('m', params['M'] || 1.0)
+    else
+      device.set_parameter('W', (params['W'] || params['WIDTH'] || 0.0) * (params['M'] || 1.0) * 1e6)
+      device.set_parameter('L', (params['L'] || params['LENGTH'] || 0.0) * (params['S'] || 1.0) * 1e6)
+      device.set_parameter('R', (params['R'] || 0.0) * (params['S'] || 1.0) / (params['M'] || 1.0))
+    end
+  end
+
+  # Map parameters for an inductor device.
+  def map_inductor_params(device, params)
+    device.set_parameter('w', (params['W'] || 0.0) * 1e6)
+    device.set_parameter('s', (params['S'] || 0.0) * 1e6)
+    device.set_parameter('d', (params['D'] || 0.0) * 1e6)
+    device.set_parameter('nr_r', params['NR_R'] || 0.0)
+  end
+
+end

@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "rule": "x.29",
+  "options": {
+    "nfet_in_dnwell": true
+  },
+  "qualified": false,
+  "status": "PASS",
+  "disposition": "executed-reviewed",
+  "enforced": true,
+  "measured_noncontained_gates": 0,
+  "measurement": {
+    "top": "control",
+    "nfet_gates": 1,
+    "pfet_gates": 0,
+    "dnwell_polygons": 1,
+    "raw_dnwell_shapes": 1,
+    "raw_dnwell_texts": 0,
+    "nfet_not_contained": 0,
+    "outside_examples_nm": []
+  },
+  "scope": "The explicit nfet_in_dnwell switch controls only x.29. C3 defines nfet as (poly AND diff) NOT nwell. Complete containment in the union of drawn deep-nwell polygons is measured without inventing a numeric margin. Other well spacing, body connectivity, RF requirements and physical qualification remain separate.",
+  "gds_sha256": "569bec3366ba5ca0a304b7b6c73c86a40afbcd4cfbbecefe51d55bfd17523c1d",
+  "checker_sha256": "c52c00e24763fbdac22c61f335bcad5262a1e14848e2a0979fc6158e4bd35b86"
+}

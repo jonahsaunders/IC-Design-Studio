@@ -44,7 +44,7 @@ There is no qualified macOS desktop package.
 
 On Windows, install 64-bit Python 3.12 and run `launch-windows.bat`. It creates
 an isolated environment under `%LOCALAPPDATA%\ICStudio`, installs the pinned
-Python requirements, stages the checksum-pinned ngspice 42 runtime when needed,
+Python requirements, stages the checksum-pinned ngspice 46 runtime when needed,
 and checks a real divider simulation before launch. Failed or interrupted
 downloads are retried; an incomplete setup stops launch. A source archive may
 include staged Windows ngspice files, but a Git clone does not include its native
@@ -63,7 +63,7 @@ install Icarus, the managed digital runtime, VGA assets or openEMS.
 For offline Windows provisioning from an already downloaded official archive:
 
 ```sh
-python scripts/stage_windows_ngspice.py --archive path/to/ngspice-42_64.7z --ensure
+python scripts/stage_windows_ngspice.py --archive path/to/ngspice-46_64.7z --ensure
 ```
 
 The archive must match the pinned SHA-256. Optional XSPICE code-model plugins

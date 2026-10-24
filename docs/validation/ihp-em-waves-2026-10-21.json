@@ -1,0 +1,747 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "measured_wave_conversion_corrected_native_mesh_gate_unresolved",
+  "baseline": "7cb70161af9cf35be5b1b81f8b957b016add55c0",
+  "scope": "Correct two-port measured-wave conversion, source desktop lifecycle and stale-result handling, independent native-waveform reconstruction. No device accuracy, complete operating-envelope, installed-release or tapeout qualification.",
+  "source_files": {
+    "icstudio/openems_backend.py": "ad0461c4350b3ae17610d93cc1245e2bcb2205d55d879c62a1de44028ec98586",
+    "icstudio/openems_waves.py": "1a539c1495f839bdc742b51850aaa7eb721c6e3d6bbed8975d8bd0b0bdc8c0ab",
+    "icstudio/inductor_em.py": "30e6bff74fff5e4226720371957016172c7d37c437e7f0c2cccabbf7dd7586b1",
+    "icstudio/assets/openems/driver.py": "7a79ddbd7a9244b1769dad66e4e58d1c0b2d2cdeebd7a2fb479dc015a5a23269",
+    "scripts/audit_openems_waves.py": "063e1726c29f6a5ac65cad3c0e14781ce20e721790e9fe66c76218675dee0cd4",
+    "tests/test_openems.py": "a3d8204eb4cfdc48c1f86184cde1d7a78a9a653bcd934f560bc9ee61193f0443",
+    "tests/test_openems_waves.py": "39312537f760278d6d67abc6e0cec396a1c29e2cf26121875902fedf53db4a72",
+    "tests/gui_openems.py": "3f5f2eb7f3c9860e11f525ad6c1479e7aaa6f9ce0a4eacd309f249d09f7325ac",
+    "tests/fixtures/openems_fake_driver.py": "24c204119489eb938cd224eed2cdaa5207528126b6884e4a4a4cfc4402ebcb96",
+    "tests/probe_openems.py": "29ae12fb0282fa29f2260146f252fdbe97e08023635de1753af9e552357a262b",
+    "tests/test_ihp_em_profile.py": "d0d16ad5dea7f88856875d82b5b586721effa41e4a9438dbc1cc51690efe7b6e",
+    "scripts/qualify_ihp_em_profile.py": "1c96157e7d8fcdd889955dbfba08d6c24521ee9050dc053afb214d3b10defbd3"
+  },
+  "regression": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 44,
+      "seconds": 31.009,
+      "sha256": "e370180e539a975582cba0d980f91d8b645951cb50a2a75f113352428ac7ab1f",
+      "log": "final-Windows.log"
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 44,
+      "seconds": 230.288,
+      "sha256": "7268f65e693ed29145c17843149ef5f9d5e2808b27de719608a68c6381853d00",
+      "log": "final-Linux.log"
+    }
+  },
+  "gui_cases_in_each_regression": 10,
+  "audit_fault_controls": {
+    "Windows": {
+      "status": "PASS",
+      "cases": [
+        {
+          "fault": "model",
+          "detected": true,
+          "outcome": "Changed original model identity."
+        },
+        {
+          "fault": "driver",
+          "detected": true,
+          "outcome": "Changed original native driver."
+        },
+        {
+          "fault": "voltage",
+          "detected": true,
+          "outcome": "\nNot equal to tolerance rtol=1e-09, atol=1e-10\nNative probe/driver output disagreement\nMismatched elements: 11 / 22 (50%)\nMax absolute difference among violations: 1.52121051e-06\nMax relative difference among violations: 0.00011433\n ACTUAL: array([[ 1.      +0.j      , -0.003636-0.005304j],\n       [ 1.      +0.j      , -0.004081-0.005501j],\n       [ 1.      +0.j      , -0.004573-0.005686j],...\n DESIRED: array([[ 1.      +0.j      , -0.003635-0.005303j],\n       [ 1.      +0.j      , -0.00408 -0.0055j  ],\n       [ 1.      -0.j      , -0.004573-0.005686j],..."
+        },
+        {
+          "fault": "sample-times",
+          "detected": true,
+          "outcome": "Probe sample times are not uniformly increasing: base-1/port_ut_1"
+        },
+        {
+          "fault": "wave-column",
+          "detected": true,
+          "outcome": "\nNot equal to tolerance rtol=1e-09, atol=1e-10\nNative probe/driver output disagreement\nMismatched elements: 1 / 22 (4.55%)\nMax absolute difference among violations: 0.05\nMax relative difference among violations: 0.07877801\n ACTUAL: array([[0.680302+0.074549j, 0.385567-0.27713j ],\n       [0.645733+0.068688j, 0.372152-0.289965j],\n       [0.662201+0.060526j, 0.357861-0.3029j  ],...\n DESIRED: array([[0.630302+0.074549j, 0.385567-0.27713j ],\n       [0.645733+0.068688j, 0.372152-0.289965j],\n       [0.662201+0.060526j, 0.357861-0.3029j  ],..."
+        },
+        {
+          "fault": "run-identity",
+          "detected": true,
+          "outcome": "Solver output does not match this run and excitation."
+        },
+        {
+          "fault": "missing-stage",
+          "detected": true,
+          "outcome": "incomplete"
+        },
+        {
+          "fault": "abort",
+          "detected": true,
+          "outcome": "incomplete"
+        },
+        {
+          "fault": "missing-decay",
+          "detected": true,
+          "outcome": "The solver log does not confirm the requested energy decay. Inspect the run log; no results were attached."
+        }
+      ],
+      "script_sha256": "cd59acd83cf0aabb399b1a36e632aef1d7341a8b8ff2d478885dc0c8c67906a5",
+      "auditor_sha256": "063e1726c29f6a5ac65cad3c0e14781ce20e721790e9fe66c76218675dee0cd4"
+    },
+    "Linux": {
+      "status": "PASS",
+      "cases": [
+        {
+          "fault": "model",
+          "detected": true,
+          "outcome": "Changed original model identity."
+        },
+        {
+          "fault": "driver",
+          "detected": true,
+          "outcome": "Changed original native driver."
+        },
+        {
+          "fault": "voltage",
+          "detected": true,
+          "outcome": "\nNot equal to tolerance rtol=1e-09, atol=1e-10\nNative probe/driver output disagreement\nMismatched elements: 11 / 22 (50%)\nMax absolute difference among violations: 1.52121051e-06\nMax relative difference among violations: 0.00011433\n ACTUAL: array([[ 1.      +0.j      , -0.003636-0.005304j],\n       [ 1.      +0.j      , -0.004081-0.005501j],\n       [ 1.      +0.j      , -0.004573-0.005686j],...\n DESIRED: array([[ 1.      +0.000000e+00j, -0.003635-5.303462e-03j],\n       [ 1.      +0.000000e+00j, -0.00408 -5.500494e-03j],\n       [ 1.      +3.562012e-17j, -0.004573-5.686276e-03j],..."
+        },
+        {
+          "fault": "sample-times",
+          "detected": true,
+          "outcome": "Probe sample times are not uniformly increasing: base-1/port_ut_1"
+        },
+        {
+          "fault": "wave-column",
+          "detected": true,
+          "outcome": "\nNot equal to tolerance rtol=1e-09, atol=1e-10\nNative probe/driver output disagreement\nMismatched elements: 1 / 22 (4.55%)\nMax absolute difference among violations: 0.05\nMax relative difference among violations: 0.07877801\n ACTUAL: array([[0.680302+0.074549j, 0.385567-0.27713j ],\n       [0.645733+0.068688j, 0.372152-0.289965j],\n       [0.662201+0.060526j, 0.357861-0.3029j  ],...\n DESIRED: array([[0.630302+0.074549j, 0.385567-0.27713j ],\n       [0.645733+0.068688j, 0.372152-0.289965j],\n       [0.662201+0.060526j, 0.357861-0.3029j  ],..."
+        },
+        {
+          "fault": "run-identity",
+          "detected": true,
+          "outcome": "Solver output does not match this run and excitation."
+        },
+        {
+          "fault": "missing-stage",
+          "detected": true,
+          "outcome": "incomplete"
+        },
+        {
+          "fault": "abort",
+          "detected": true,
+          "outcome": "incomplete"
+        },
+        {
+          "fault": "missing-decay",
+          "detected": true,
+          "outcome": "The solver log does not confirm the requested energy decay. Inspect the run log; no results were attached."
+        }
+      ],
+      "script_sha256": "cd59acd83cf0aabb399b1a36e632aef1d7341a8b8ff2d478885dc0c8c67906a5",
+      "auditor_sha256": "063e1726c29f6a5ac65cad3c0e14781ce20e721790e9fe66c76218675dee0cd4"
+    }
+  },
+  "correction": "Each actual excitation has incident waves at both ports. Keep normalized A and B columns and solve B = S A; the old independent-column conversion silently discarded off-diagonal A. Reject singular or ill-conditioned A. Preserve mesh, energy and nonnegative-resistance limits.",
+  "native_audits": {
+    "ihp-280": {
+      "schema": 1,
+      "status": "AUDIT_MATCHED",
+      "source_run_hash": "cd5db9a733f2ebd76c2f5e755733d464ceed72e8851058363bd7ae904ec9fce2",
+      "original_wave_basis": "legacy-independent-column",
+      "audit_wave_basis": "full-incident-matrix-v1",
+      "stages": {
+        "base-1": {
+          "energy_db": -40.06,
+          "cells": 498078,
+          "mesh_lines": [
+            63,
+            59,
+            134
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "base-2": {
+          "energy_db": -40.26,
+          "cells": 498078,
+          "mesh_lines": [
+            63,
+            59,
+            134
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-1": {
+          "energy_db": -40.85,
+          "cells": 1299116,
+          "mesh_lines": [
+            91,
+            86,
+            166
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-2": {
+          "energy_db": -41.11,
+          "cells": 1299116,
+          "mesh_lines": [
+            91,
+            86,
+            166
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        }
+      },
+      "meshes": {
+        "base": {
+          "basis": "full-incident-matrix-v1",
+          "maximum_incident_condition": 1.092339373945978,
+          "maximum_inactive_incident_ratio": 0.044149108073932554,
+          "frequency_hz": [
+            100000000000.0,
+            111612317403.39035,
+            124573093961.55154,
+            139038917031.5912,
+            155184557391.53613,
+            173205080756.88776,
+            193318204493.17615,
+            215766927997.459,
+            240822468528.06967,
+            268787537952.22897,
+            300000000000.0
+          ],
+          "resistance_ohm": [
+            10.431168555306272,
+            12.251698058592837,
+            14.509355730967428,
+            17.301372672549974,
+            20.73964890376007,
+            24.965950915434206,
+            30.16896720785843,
+            36.593972211367884,
+            44.55472676805317,
+            54.55086345017742,
+            67.78726367044226
+          ],
+          "reactance_ohm": [
+            243.41525750373592,
+            271.6755879239688,
+            303.2318922170359,
+            338.49247767735733,
+            377.9283659470034,
+            422.0900433101123,
+            471.64554754498886,
+            527.4569720262917,
+            590.7314265430825,
+            663.3591605860704,
+            748.8772987318634
+          ],
+          "maximum_singular_value": 0.9767101461957838,
+          "maximum_reciprocity_error": 0.0006386368146896748,
+          "minimum_impedance_hermitian_eigenvalue": 5.20920327077954
+        },
+        "fine": {
+          "basis": "full-incident-matrix-v1",
+          "maximum_incident_condition": 1.093624216309466,
+          "maximum_inactive_incident_ratio": 0.044723299924736705,
+          "frequency_hz": [
+            100000000000.0,
+            111612317403.39035,
+            124573093961.55154,
+            139038917031.5912,
+            155184557391.53613,
+            173205080756.88776,
+            193318204493.17615,
+            215766927997.459,
+            240822468528.06967,
+            268787537952.22897,
+            300000000000.0
+          ],
+          "resistance_ohm": [
+            10.710619074463324,
+            12.622424820327723,
+            14.995357932272839,
+            17.93572114716514,
+            21.57059218061275,
+            26.063116733649252,
+            31.630186927925422,
+            38.557253779884206,
+            47.23069145040819,
+            58.319980942440225,
+            73.47013954334119
+          ],
+          "reactance_ohm": [
+            253.24740536089092,
+            282.699154052288,
+            315.6026817693503,
+            352.39732328869803,
+            393.59182183437747,
+            439.78409598884787,
+            491.70929517751733,
+            550.3399046031386,
+            617.0882955961038,
+            694.2622853714012,
+            786.3887306339384
+          ],
+          "maximum_singular_value": 0.9770791478780546,
+          "maximum_reciprocity_error": 0.0006419909220733858,
+          "minimum_impedance_hermitian_eigenvalue": 5.348808158446992
+        }
+      },
+      "incomplete": [],
+      "scope": "Independently audit retained native port waveforms without attaching results.\n\nReads actual voltage/current probe files and compares direct Z = U inv(I) with\nthe application's full incident-wave conversion. Incomplete/aborted stages stay\nincomplete. Historical files are never relabeled as new-driver executions.\n",
+      "qualified": false,
+      "chunk_complete": false,
+      "mesh_comparison": {
+        "max_relative_z_change": 0.048035982963657,
+        "max_relative_r_change": 0.07734946344489403,
+        "tolerance": 0.05,
+        "absolute_floor_ohm": 0.001
+      },
+      "numerical_gate": "rejected",
+      "files": {
+        "model.json": "20d08a2b8ca9d632b237c672aa5efb5cc5e89bb254617018131e6c1716b6f563",
+        "driver.py": "bbd1bb46e59294df34afdf9d217f013cca17fe09aa4f62feb8c42be418e169c9",
+        "manifest.json": "e51e855f2d476a4a0e3e095a1e0d77ca74197ed39312e92ab3ad71bca7128bad",
+        "exchange.zip": "12239b5f4e2ff92f7c0c076e8fddc7f714329248efd10fb1ef62ee08715a5a59",
+        "base-1.json": "51a06e8b08def52440a871c43d8b323987507b79ddc76646401e2fcb0677f43d",
+        "base-1.log": "db722da42945d1272dfd2de48ff9077fd5f8ec0d03132f0e839c7b68c354a32d",
+        "base-2.json": "c918b7e54736dbeef00f8f6da042297690a81fe4ca0c7db96a08e0776d81600f",
+        "base-2.log": "52e6f914de139c7184bbc6f72e1ffc9649fa854e68a07f3364f92b9cdb13082c",
+        "base-1/port_ut_1": "660b8c02a35124a856de77ffa0ae55d30ba1c4c41a34e7207d24d85a2ad081b2",
+        "base-1/port_it_1": "2f657dd348ee72594cf0c3a94b6493fcf5e0e5802efbf72c8f7c7bb148ec96d8",
+        "base-1/port_ut_2": "f1815947b9f2200c84a7c5fb1869b1f8eb4840ed69721bdd60e8296a16c46864",
+        "base-1/port_it_2": "a615219a424f4a61bcaf04ed9d3dc420710202c4567a2a8763c22aa91064f9bb",
+        "base-2/port_ut_1": "76a820c065c56539e9db2e836f4122ebb200b87f35866aa2b724e4970512f9cb",
+        "base-2/port_it_1": "3814060f6af7808dd1c66762f146db57389867a17e97491fdc084b0318c88394",
+        "base-2/port_ut_2": "7688d283651ec3f91d4fae46dd9bb135f3f5f9a7d71eed5a165afea651d0a643",
+        "base-2/port_it_2": "3cac2da912a5834e1905ea95ba9b8d2c2793823646eabda089840057c0eb5cc9",
+        "fine-1.json": "183c9d070b83c2471f519bdc8e6c0cfd9361e250ad732d790c74fb54bae721ac",
+        "fine-1.log": "2dcf91e6294cc936267d8431fd4cbd4a70c2c45ac6e0095de12eb6314d444d21",
+        "fine-2.json": "be536f0d8cf6cbd0fbc926d69c34d3619c01f92131fa1fd65f48f095e26a9585",
+        "fine-2.log": "618e72a5991287e9e85df430952207ab543047a59d3d5151847bd4a923620677",
+        "fine-1/port_ut_1": "6a8e98d165ae348995a48a4743671c8d2261df5e4d9c035fceee01381576b9c0",
+        "fine-1/port_it_1": "7ca347faae654e9a95bdbb6fa5d966d5d1987c1d8db545f86ff98d74712022fc",
+        "fine-1/port_ut_2": "261aa558cc1e1741107ca920fa2bf2d8453724c0dcd8cae4a1cb21cf853e095d",
+        "fine-1/port_it_2": "e883cbe7bd76dbfa24c6cdbf21b86a9430b1f82498a603f8281c28b238414706",
+        "fine-2/port_ut_1": "7cf85b99ade121c5a433d53fe47979457470be6a9da4eccc89692761585e2b9c",
+        "fine-2/port_it_1": "a7934b1927a2dc49b8e832fccac09cd4bf190f3aaadc10430bcd3b463a39cad9",
+        "fine-2/port_ut_2": "5ac3c6c898f30ef08379b4a0407db11fc9eb8e69c7cfbe0c48f4af3c4df3b4c1",
+        "fine-2/port_it_2": "e89b58e673d74854dec7c9c346baf878cd639479ab889c77d4590d26c51c5dff"
+      },
+      "auditor_sha256": "063e1726c29f6a5ac65cad3c0e14781ce20e721790e9fe66c76218675dee0cd4",
+      "converter_sha256": "1a539c1495f839bdc742b51850aaa7eb721c6e3d6bbed8975d8bd0b0bdc8c0ab",
+      "backend_sha256": "ad0461c4350b3ae17610d93cc1245e2bcb2205d55d879c62a1de44028ec98586"
+    },
+    "ihp-180": {
+      "schema": 1,
+      "status": "AUDIT_MATCHED",
+      "source_run_hash": "b12b874489967b06be37f05604f9ebeffe73999de2e41b507574cfc198f11ba7",
+      "original_wave_basis": "legacy-independent-column",
+      "audit_wave_basis": "full-incident-matrix-v1",
+      "stages": {
+        "base-1": {
+          "energy_db": -42.09,
+          "cells": 472059,
+          "mesh_lines": [
+            63,
+            59,
+            127
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "base-2": {
+          "energy_db": -42.43,
+          "cells": 472059,
+          "mesh_lines": [
+            63,
+            59,
+            127
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-1": {
+          "energy_db": -41.84,
+          "cells": 1244334,
+          "mesh_lines": [
+            91,
+            86,
+            159
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        }
+      },
+      "meshes": {
+        "base": {
+          "basis": "full-incident-matrix-v1",
+          "maximum_incident_condition": 1.0920646019927427,
+          "maximum_inactive_incident_ratio": 0.04402459762579722,
+          "frequency_hz": [
+            100000000000.0,
+            111612317403.39035,
+            124573093961.55154,
+            139038917031.5912,
+            155184557391.53613,
+            173205080756.88776,
+            193318204493.17615,
+            215766927997.459,
+            240822468528.06967,
+            268787537952.22897,
+            300000000000.0
+          ],
+          "resistance_ohm": [
+            10.371988249057054,
+            12.233256665666886,
+            14.523650960257584,
+            17.305016091949312,
+            20.720709583199948,
+            24.958614423138414,
+            30.180870436663554,
+            36.58640785542741,
+            44.57032963316925,
+            54.558416179002734,
+            67.82263163772552
+          ],
+          "reactance_ohm": [
+            243.41213431388599,
+            271.7066588400306,
+            303.24420345207625,
+            338.47891582324326,
+            377.92522602866075,
+            422.1092084514139,
+            471.6512998269991,
+            527.4558233361752,
+            590.7570358960463,
+            663.3100554837239,
+            749.028254643826
+          ],
+          "maximum_singular_value": 0.9767073794936095,
+          "maximum_reciprocity_error": 0.0006235816059873455,
+          "minimum_impedance_hermitian_eigenvalue": 5.179739440486852
+        }
+      },
+      "incomplete": [
+        "fine-2"
+      ],
+      "scope": "Independently audit retained native port waveforms without attaching results.\n\nReads actual voltage/current probe files and compares direct Z = U inv(I) with\nthe application's full incident-wave conversion. Incomplete/aborted stages stay\nincomplete. Historical files are never relabeled as new-driver executions.\n",
+      "qualified": false,
+      "chunk_complete": false,
+      "numerical_gate": "incomplete",
+      "files": {
+        "model.json": "4ce7f728b4a671f019ee35d85164c44f3b8419e2a3536338a85c7e3bd811cae0",
+        "driver.py": "bbd1bb46e59294df34afdf9d217f013cca17fe09aa4f62feb8c42be418e169c9",
+        "manifest.json": "93cb46045ad5e834ac17afc55c95364149035f6fe02ae2fa04fd3200b22979cd",
+        "exchange.zip": "a2d6e89c5ea5935bec574140ca7f24b82eba4992280f1d3ae5158f1ca2a3dff0",
+        "base-1.json": "7dcae7ec52327e5400d94bfaf69acf347fc8b587701494f2148aeb72042a8b45",
+        "base-1.log": "117f2ad0e4efc798908ea81afa55c432a42df53b26997f448f39861cbfb8c054",
+        "base-2.json": "5389b41fb36c0d2e89da31c92ac27f15557ea4e25fed68ed7e9ee8edf286a9c2",
+        "base-2.log": "d27434d6b9bbe4d46caa074ad510974ab4a44e73146f19a645b3d8b8c4a54730",
+        "base-1/port_ut_1": "404f674365fcfcbec9e2669399adbaaf36bac786981b3d4bef63a561ee35e5af",
+        "base-1/port_it_1": "23e64379545674c68016a0c471ecd2a0ac36f903475ba2725b68f4aaeb5fa87b",
+        "base-1/port_ut_2": "eeb9be7289a4fba169587f0f8b7a7549f84bbd6f94dfbd0d94ed73cc4462c12c",
+        "base-1/port_it_2": "e2e080606da0bff1974ac455f8fb8880b049e29e7561a479d199a86baed33b40",
+        "base-2/port_ut_1": "efa7876416a93022723404d2a8345a4ec187ec2d5adb1ec6dce566c82db783a5",
+        "base-2/port_it_1": "4edc1c2d2d9f9d07ee5407075e936c0d99087265905eeac9902eb5244b293d07",
+        "base-2/port_ut_2": "0386fa87488fc6e370febe02b05e2fa89c5fd1623eaf322a76b285d91a82003f",
+        "base-2/port_it_2": "e194930bfc90b8bb50af83415d84f9d926843a6b1a563bdd257cb3d5b5ff90b9",
+        "fine-1.json": "303b2465dd6677691afe5d5c6832533b3f24e3c4b6af077da1a1b83caef4a3f9",
+        "fine-1.log": "c83918ca42b15b3a0796834cbfdf9f30b4a27b1d09b30295cde18b17612efcbb",
+        "fine-2.json": "62bf6d7e3e75eef80b999132ebd6dec5f737f9f2fbad2619d53db51cdbed906e",
+        "fine-2.log": "50ec4335d42df3f8724dedf4dcf96b61e11ca85fef7b667ab51068aaf648e550",
+        "fine-2/ABORT": "5da6c68c178210acbcf8fd33ba860288ca53dcfb61ef66fa4b098830e0fc3068"
+      },
+      "auditor_sha256": "063e1726c29f6a5ac65cad3c0e14781ce20e721790e9fe66c76218675dee0cd4",
+      "converter_sha256": "1a539c1495f839bdc742b51850aaa7eb721c6e3d6bbed8975d8bd0b0bdc8c0ab",
+      "backend_sha256": "ad0461c4350b3ae17610d93cc1245e2bcb2205d55d879c62a1de44028ec98586"
+    },
+    "synthetic": {
+      "schema": 1,
+      "status": "AUDIT_MATCHED",
+      "source_run_hash": "6fe192ce9c0a4b724c477259ae01cb09f16169eaa922a83bcaca0a37ada32a9a",
+      "original_wave_basis": "full-incident-matrix-v1",
+      "audit_wave_basis": "full-incident-matrix-v1",
+      "stages": {
+        "base-1": {
+          "energy_db": -72.52,
+          "cells": 43248,
+          "mesh_lines": [
+            53,
+            51,
+            16
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "base-2": {
+          "energy_db": -73.04,
+          "cells": 43248,
+          "mesh_lines": [
+            53,
+            51,
+            16
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-1": {
+          "energy_db": -33.1,
+          "cells": 122100,
+          "mesh_lines": [
+            75,
+            74,
+            22
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        },
+        "fine-2": {
+          "energy_db": -30.87,
+          "cells": 122100,
+          "mesh_lines": [
+            75,
+            74,
+            22
+          ],
+          "versions": {
+            "python": "3.11.16",
+            "numpy": "1.23.5",
+            "openEMS": "0.0.36",
+            "CSXCAD": "0.6.3"
+          }
+        }
+      },
+      "meshes": {
+        "base": {
+          "basis": "full-incident-matrix-v1",
+          "maximum_incident_condition": 1.0268965321793009,
+          "maximum_inactive_incident_ratio": 0.013305829309297806,
+          "frequency_hz": [
+            500000000000.0,
+            535886731268.1474,
+            574349177498.517,
+            615572206672.4586,
+            659753955386.446,
+            707106781186.5475,
+            757858283255.2002,
+            812252396356.2349,
+            870550563296.1249,
+            933032991536.8059,
+            1000000000000.0
+          ],
+          "resistance_ohm": [
+            115.8653654090481,
+            119.25759619527145,
+            123.32076697714359,
+            128.23423834909875,
+            134.22868129686015,
+            141.6082966377478,
+            150.79546238544623,
+            162.39854037804668,
+            177.3028285081383,
+            196.80581455482428,
+            222.93061033032086
+          ],
+          "reactance_ohm": [
+            103.63596721222049,
+            111.83473506900117,
+            120.808327330622,
+            130.65755813525288,
+            141.49304248286933,
+            153.4440759802699,
+            166.6621316187281,
+            181.30835319790924,
+            197.5183203373598,
+            215.34886907176366,
+            234.65284634269858
+          ],
+          "maximum_singular_value": 1.1971225787703037,
+          "maximum_reciprocity_error": 0.001353030350374696,
+          "minimum_impedance_hermitian_eigenvalue": -111.02422300434773
+        },
+        "fine": {
+          "basis": "full-incident-matrix-v1",
+          "maximum_incident_condition": 1.0271121459465795,
+          "maximum_inactive_incident_ratio": 0.013406885384096352,
+          "frequency_hz": [
+            500000000000.0,
+            535886731268.1474,
+            574349177498.517,
+            615572206672.4586,
+            659753955386.446,
+            707106781186.5475,
+            757858283255.2002,
+            812252396356.2349,
+            870550563296.1249,
+            933032991536.8059,
+            1000000000000.0
+          ],
+          "resistance_ohm": [
+            118.72852473424985,
+            119.98326968804867,
+            124.78006279681196,
+            131.296009150001,
+            138.69510322806767,
+            146.78526476962162,
+            155.86496673120354,
+            166.84523561689008,
+            181.84982314384166,
+            205.78148940911382,
+            243.7956822362538
+          ],
+          "reactance_ohm": [
+            99.51509727131159,
+            111.86944702652971,
+            123.63654465889059,
+            134.64806149103427,
+            145.46794926193013,
+            156.85074372855723,
+            169.6465151977126,
+            184.8268076012381,
+            203.34848979391376,
+            224.46066521064748,
+            234.19481532684853
+          ],
+          "maximum_singular_value": 1.1990293452350727,
+          "maximum_reciprocity_error": 0.008301017116277986,
+          "minimum_impedance_hermitian_eigenvalue": -103.4573246794125
+        }
+      },
+      "incomplete": [],
+      "scope": "Independently audit retained native port waveforms without attaching results.\n\nReads actual voltage/current probe files and compares direct Z = U inv(I) with\nthe application's full incident-wave conversion. Incomplete/aborted stages stay\nincomplete. Historical files are never relabeled as new-driver executions.\n",
+      "qualified": false,
+      "chunk_complete": false,
+      "mesh_comparison": {
+        "max_relative_z_change": 0.06173516995815389,
+        "max_relative_r_change": 0.08558425528518321,
+        "tolerance": 0.05,
+        "absolute_floor_ohm": 0.001
+      },
+      "numerical_gate": "rejected",
+      "files": {
+        "model.json": "dc2b67bf7e467e5b48d94aabd227118d174791ae5fada73dbaaaaee3b295f86a",
+        "driver.py": "7a79ddbd7a9244b1769dad66e4e58d1c0b2d2cdeebd7a2fb479dc015a5a23269",
+        "manifest.json": "8d45cf548efd62939dc67c2752c758ec6b814141d55255763551654e07caa6f8",
+        "exchange.zip": "7f85baa54ac4ab7941719e5869baf98ca3b7c0f7c4296690b7cf2fda089847ce",
+        "base-1.json": "4f190d50f671f289d5a4ec9ad1f31c820bbf56f1114c19866c47a2fcce8c9479",
+        "base-1.log": "14874869b2bf44a453a4a137fcd01a40da9d33d00a7ed0f57489564c1b1933ef",
+        "base-2.json": "8c19a5bccd290c6597ca002f0e872cc64bee1eb2db13218e633fd8f6eebcd939",
+        "base-2.log": "66b249bc25a52f97a7956dcd27775f574a74cf82cdfbff0380d8941117cb9d2a",
+        "base-1/port_ut_1": "bf6f36ef6f4e57a6335b5f3f0e1631b2212ae146c425fb318f85e48d873189af",
+        "base-1/port_it_1": "9f432a96d7ac5236ea547decf259f7892d12fc86bd052916575ddca49f3064f2",
+        "base-1/port_ut_2": "f454b20d14cdf36fb8193f1258d7669c323048e3c4a83bb9b3b190a6f4d371cf",
+        "base-1/port_it_2": "ff9e3e523fc29ad022d4159fdb41a8d62a2c75238c6a560b1919c85f588ab7b4",
+        "base-2/port_ut_1": "07c295e1b84c609f501eb5f234055a7941223a4c265ec9c0c42b3e9e60390e17",
+        "base-2/port_it_1": "ad95d4f75f8bbc1ac3410aa6a1d202185d0b00a5d254dfb9743067351865906a",
+        "base-2/port_ut_2": "f802b0aba7633ae9c731bccebd63dad61de7a8bc71e818fb8fa40ce19cdf94da",
+        "base-2/port_it_2": "27ed98128279175c65e441f3a94be07a5fea444abf34c9f0bcf0bdae5deaea20",
+        "fine-1.json": "d9ab3795a38102b22ecce7854c55bf8cb31cc74840432991029ecea498119bf9",
+        "fine-1.log": "3a535d5ccac7738ffe2a55eab7e347e871ff9539512f945e75e6daac66cd1a04",
+        "fine-2.json": "1a46b7ea5f0eed56bcb8109825fd10b96d8b802cf9eea5f45268b5d8afb56df2",
+        "fine-2.log": "28bbfc38ff379cf2d56f4ff65324094179feaed1e14436049e65b5219f5986f7",
+        "fine-1/port_ut_1": "22c1d9b84b164c393f309711168b0476d35875de2b951c19f058ce967d97d81b",
+        "fine-1/port_it_1": "8626484ec4e58f3dd736af50e46b28c730df5055aa75c9960e2ed3352d311705",
+        "fine-1/port_ut_2": "120040fcead2e7f2e6f586730a3d1af8473e5676b0a922228d67199da884b197",
+        "fine-1/port_it_2": "e0be684f20dd63df8bd3b9091c04db21f8ceb96a334a4426c494872e00bc2c25",
+        "fine-2/port_ut_1": "de299b1bb36e9178afbf47a42f4d1ab63d04eb9f87d34b707d757a8fb3e96530",
+        "fine-2/port_it_1": "685b2f906234ce32882545a99c149cfc02f2fea0ed9bca4256ea8ba24c82cb10",
+        "fine-2/port_ut_2": "5c0bd27982b25616ff12932d69cbadd0a5b3c6ce4a35bba1edf5fea5fb1e9afa",
+        "fine-2/port_it_2": "071ad61aafd33ae48b68916ce90303e48fe2a87c0c19976aed8312d208831e6a"
+      },
+      "auditor_sha256": "063e1726c29f6a5ac65cad3c0e14781ce20e721790e9fe66c76218675dee0cd4",
+      "converter_sha256": "1a539c1495f839bdc742b51850aaa7eb721c6e3d6bbed8975d8bd0b0bdc8c0ab",
+      "backend_sha256": "ad0461c4350b3ae17610d93cc1245e2bcb2205d55d879c62a1de44028ec98586"
+    }
+  },
+  "linux_readback": {
+    "status": "PASS",
+    "same_native_file_hashes": true,
+    "same_numerical_gate_outcomes": true,
+    "impedance_relative_tolerance": 1e-10,
+    "impedance_absolute_tolerance": 1e-10,
+    "report_sha256": "5dcc1c5fac088fe460df00cb32e2571a5e1cefa937cac6c10cf3cf7983188c0a"
+  },
+  "provenance": "The two IHP records reprocess unchanged historical raw probes and are not fresh runs. The synthetic fixture executes all four stages with the new driver; its unchanged mesh gate rejects 6.17% Z and 8.56% R differences. No characterized project is attached.",
+  "legacy_results": "Saved evidence is retained, but old structured openEMS characterizations are stale and cannot be reattached without a new solver run.",
+  "historical_source": {
+    "manifest": "docs/validation/gf180-tested-source-2026-10-21-waves.json",
+    "sha256": "c953e5e49bc53dca24e288de4189acd061407840fa73dd103bb657f5e038c4bd",
+    "source_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+    "reason": "Preserve the exact earlier GF180-tested inductor_em.py bytes after changing current validity checks. Original native acceptance is unchanged."
+  },
+  "varactor_investigation": {
+    "original_native_findings": 58,
+    "experimental_pvar_union_findings": 67,
+    "status": "hypothesis_rejected",
+    "application_rule_changes": false,
+    "scope": "Isolated private-copy import diagnosis only; all findings retained and no rule weakening installed."
+  },
+  "retained_test_failures": [
+    "Initial invocation named two nonexistent test modules. Correct module names used subsequently.",
+    "The changed current inductor_em.py exposed the historical GF180 source binding. Preserve its exact previously tested blob and re-run; final 44 checks pass on each OS."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-em-waves-2026-10-21-v1\\evidence.zip",
+    "sha256": "20fff3452ac6af94f4dd519007efb5d6e7588957a3933aecac387a39289f2841",
+    "bytes": 2128659,
+    "files": 211,
+    "unique_objects": 167,
+    "all_objects_verified": true,
+    "recovery": "Read manifest.json; each path maps to objects/<sha256>. The original native folders are retained separately. No solver runtime binary is duplicated."
+  },
+  "remaining": [
+    "IHP mesh, port/boundary and calibrated operating-band studies",
+    "Incomplete 180 um refinement",
+    "Large-varactor mixed well-rule findings and other device combinations",
+    "Full device operating envelopes, unavailable models and semantic upstream completeness",
+    "Exact installed-release acceptance"
+  ]
+}

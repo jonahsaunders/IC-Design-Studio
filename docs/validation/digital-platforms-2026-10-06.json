@@ -1,0 +1,824 @@
+{
+  "date": "2026-10-06",
+  "status": "integration milestone passed; full release remains unqualified",
+  "base_commit": "1e664aa67c734649b02b3b961f2f06ab2354625f",
+  "engine_qualification": {
+    "date": "2026-10-06",
+    "status": "passed",
+    "source_matches_engine_run": true,
+    "scope": "Declared standard-cell counter flow; not foundry or full-chip signoff",
+    "source_files": {
+      "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+      "digital_apb_example.py": "0eab253a16a2292d6ca32a602f0160ab5f5f531eed7981b3cda1b28714e9c288",
+      "digital_backend.py": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6",
+      "digital_cli.py": "086497a3f461dab8d3c7ec9a7f5759b716453b0e4a4b1d20edbb08c0d2afa0ad",
+      "digital_constraints.py": "715b45c46c7ed2cdbd0b7feafd9885ca6cc2b6aa11225f513a17cd4e3354b566",
+      "digital_constraints_ui.py": "e006d437f1959280d36002bfc7adf00fb8e94110e61d14ae09cfb8feccd26ae3",
+      "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+      "digital_editor.py": "462152c2fe423643ea203bbf5456fed342e6c33d59498636ea8953a17bfe14bd",
+      "digital_examples.py": "9cb9e5cbf0afd01abc329a6dbcbc409680d9ddf6826073ca61297e513de55b25",
+      "digital_flow.py": "a1bf5e975c04d71bacbc8a9e58f96d1315a5b37260de0fc61a6e161a9efdfe53",
+      "digital_identity.py": "ba5b0e3107ddae3dfaabeb9ca05b4ccb34b709b83adbd0908d18587f6e0c8336",
+      "digital_implementation.py": "33242e5aa0a103ed5dbaff59a471ee8994845a6fd1ae1fa6e95a288f5df85bb6",
+      "digital_inspection.py": "b515de8a5d8bba4cddad9a6f993b323933697e23f29195e8f98f4d204c90a6bb",
+      "digital_layout.py": "490c6884d012a9f5348e5eef3bdbf25bc5012e9f452cb6926e24fe64d8243265",
+      "digital_logic_ui.py": "70492458c40e98498cbe47ebd4fc0a9dbbde8912992601f39050742dcc83a7d8",
+      "digital_lsp.py": "1555f1bde82376814d27558ecefa578389b9abe05c491c6e933e12a711c4e67f",
+      "digital_macro.py": "7785bf0a325061ac6b9665d182506602af4f0597c7b1cacd88cfe3f157ad4492",
+      "digital_odb.py": "83c80d8d35e2ac6edded3f022181df6d58d5111d02dca9c3b663d6446bb223cb",
+      "digital_physical.py": "bede77bed3b2ef627d0742b85fe358f8bb931a85e4529bb8e7351d5701253201",
+      "digital_physical_ui.py": "8d918bc11df0f5c34e5995f98b0f37f8e2b873bbd87fb42cbd805caafca6ef9c",
+      "digital_physical_view.py": "97cb2fd302523d198dfcd0da580c6884a8eb6ecf8402c95aa0a14f1d3053b7ba",
+      "digital_planning.py": "73602bd3b1afb0aaab5243b5cbe655bda00de19dd7459713569275303b91a527",
+      "digital_platform.py": "4dd123eedd0d66f141a8ff103ae91bde835aa0e3c54b79808c9589f4476b9f74",
+      "digital_regression.py": "65673f44e8fb586403257696c13fbfaccc2b692ee69e1029e9bb71e30b650f2e",
+      "digital_reports.py": "4382a7a1b3c0ae814813c4e70e5dca21f2782444c05c3b2293df9c997f8309d3",
+      "digital_runtime.py": "75c57c0bf2c82420641f310fd11df1aeaf5554e4a6c5e12a9e8aec380ae12b40",
+      "digital_setup_probe.py": "41ed3c171391261e53c14cf10753d38fca5bc9a7ec3a2743eebdf933280da283",
+      "digital_setup_ui.py": "8fcbd94f384fee3d54940a0c3aaeef67c68cebca802de72e43f0513d5cdcd532",
+      "digital_shell.py": "55bf0796bd46e4ed31eb2200d663cf6e5b846174cfcdd5de5d12dd96d6f22b13",
+      "digital_tools.py": "d53090a2d97f432899086846d2e2c10cc4d47bc60d78d7e3d51b06091a408660",
+      "digital_trace_store.py": "f2b5be9e2c0d131496c707cd08073e9d452cc2ff69570f9dcb933c18b411113f",
+      "digital_ui.py": "687e51dd51cddc0b0bf49d20de34f42d95b754cfe9c9e83caf68713c6c52b259",
+      "digital_vga.py": "770fba42c61d20b05956b407e4d0152451b5aee377e923b554870ec79d1aef4f",
+      "digital_vga_ui.py": "6b0c5f017cba7ecae1b2251fbce588a7477602f83a7d4f8a3117246b3256c649",
+      "digital_wave_tools.py": "f6ac733f253fd287d1f506d76223cd580c26a63c48e80ee0926c40e10006e8c1",
+      "digital_waveform.py": "a1f48745cdb96e75a9bcab14646621df636272254da9fee45f43820716489ec4",
+      "digital_workspace.py": "92f5b3fa3b835e0cf11cd16e44532d1e84216c69a10f39dd44f11dfcbd6486bc"
+    },
+    "qualifier_run_sha256": "50734ed4d35f3564b5d2f557f43fef439ce649c19ddcd4fd0c938dc7806eef40",
+    "final_qualifier_sha256": "aeb91ab3cf6ff429d32cfb51db79e35d0b772273470cd3c58f5a8ef66ea4ff3e",
+    "validation_note": "Final detailed-router gate was added after the engine run started and separately applied below to its immutable captured metrics.",
+    "orfs_commit": "eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+    "platforms": [
+      {
+        "name": "sky130hd",
+        "status": "passed",
+        "platform": {
+          "version": 1,
+          "name": "sky130hd",
+          "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+          "directory": "sky130hd",
+          "corner": "typical",
+          "corners": {
+            "typical": [
+              "sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib"
+            ]
+          },
+          "fingerprint": "9362025842aa01b8319f350fbe373fd94f593a04d00968525ae3bbf1e1f3221a",
+          "tie_cells": {
+            "high": [
+              "sky130_fd_sc_hd__conb_1",
+              "HI"
+            ],
+            "low": [
+              "sky130_fd_sc_hd__conb_1",
+              "LO"
+            ]
+          }
+        },
+        "captured_files": 22,
+        "conditions": {
+          "clock_period_ns": 50,
+          "load_pf": 0.01,
+          "physical": {
+            "die_area": [
+              0,
+              0,
+              200,
+              200
+            ],
+            "core_area": [
+              20,
+              20,
+              180,
+              180
+            ],
+            "place_density": 0.6,
+            "threads": 2
+          }
+        },
+        "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+        "physical_checks": {
+          "detailed_route_drc_errors": [
+            0
+          ],
+          "scope": "Router rule checks; not foundry DRC/LVS"
+        },
+        "versions": {
+          "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+        },
+        "cases": [
+          {
+            "name": "mapped",
+            "verdict": null,
+            "summary": "Mapped synthesis complete \u00b7 sky130hd / typical",
+            "result_sha256": "44a2e152242f04b37934f4bc1e403f0065a0f969a0eda12a97f3d1dfb0a0c5b6"
+          },
+          {
+            "name": "timing",
+            "verdict": "FAIL",
+            "summary": "Timing FAIL \u00b7 typical \u00b7 No extracted interconnect; pre-layout estimate",
+            "result_sha256": "eadf983a31026b7cf67cf12f0062560b672ddd79a42c4595aa8246faa040294d",
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "FAIL",
+                "summary": {
+                  "setup_worst_slack_ns": 48.481773,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": -0.027617,
+                  "hold_reported_violations": 2,
+                  "hold_total_negative_slack_ns": -0.05
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          {
+            "name": "equivalent",
+            "verdict": "PASS",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "result_sha256": "eaf8b2ff7c3c0778913397eafb86c95684665aa4f970ea2687ec3b30e0752e22"
+          },
+          {
+            "name": "fault-detected",
+            "verdict": "FAIL",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "result_sha256": "a57172a95a72b70ce1451c1ec06a6316958a47ba129fb330fdeb99e7e73e136d"
+          },
+          {
+            "name": "finished",
+            "verdict": null,
+            "summary": "Physical finish complete \u00b7 3330 placed cells",
+            "result_sha256": "9c4f747f7ee07116f2e2448cd31c71de3087d0c15cd655aa7ff17c3708ced8b8",
+            "artifacts": {
+              "gds": {
+                "path": "physical/results/sky130hd/counter/base/6_final.gds",
+                "sha256": "02e8b246ee109437d9eaebb765cfae981abb0235b4297c629aaaabbd7d2086c0",
+                "bytes": 453974
+              },
+              "spef": {
+                "path": "physical/results/sky130hd/counter/base/6_final.spef",
+                "sha256": "481ed983b513a9f69be5cc949b6fdd613df296a4dab3a2091e6eeb1673c88473",
+                "bytes": 79119
+              },
+              "netlist": {
+                "path": "netlist.v",
+                "sha256": "7ed56cc35e87eb566bc5138a083838495042fbb30e72bda6aabd06f01ee2080f",
+                "bytes": 2023
+              },
+              "physical_metrics": {
+                "path": "physical_metrics.json",
+                "sha256": "455d464102edfab69171c77276e2683af013c8bd654b0a820d956b896ec3eb8a",
+                "bytes": 21097
+              }
+            },
+            "physical": {
+              "stage": "finish",
+              "resumed": false,
+              "upstream": "/tmp/icstudio-multipdk-nj7h1zo2/evidence/sky130hd/mapped",
+              "flow_fingerprint": "eb320b88d301666b63720765b914234c573db42cf4f43eaef5e7195effa66c6c",
+              "settings": {
+                "die_area": [
+                  0,
+                  0,
+                  200,
+                  200
+                ],
+                "core_area": [
+                  20,
+                  20,
+                  180,
+                  180
+                ],
+                "place_density": 0.6,
+                "threads": 2
+              },
+              "timing_corners": [
+                "typical"
+              ],
+              "scope": "Engine implementation; timing, equivalence and physical rule qualification remain explicit checks."
+            }
+          },
+          {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical \u00b7 extracted SPEF",
+            "result_sha256": "75a5cfa08f41b7efa08121bba0f8f392955a38f4f5191686d429a728f6e401b0",
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.654427,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.29123,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          {
+            "name": "physical-equivalent",
+            "verdict": "PASS",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "result_sha256": "38e7a1ba8835b0940a900658318ba795472e687b75f3bb1d52c24f7b496a2193"
+          }
+        ]
+      },
+      {
+        "name": "gf180",
+        "status": "passed",
+        "platform": {
+          "version": 1,
+          "name": "gf180",
+          "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+          "directory": "gf180",
+          "corner": "typical",
+          "corners": {
+            "typical": [
+              "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__tt_025C_5v00.lib.gz"
+            ],
+            "slow": [
+              "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__ss_125C_4v50.lib.gz"
+            ],
+            "fast": [
+              "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__ff_n40C_5v50.lib.gz"
+            ]
+          },
+          "fingerprint": "8ba23ac7b82d9860c71e7f3ab6b7bf71cd5e3b857804853bbd6cef49525b811d",
+          "tie_cells": {
+            "high": [
+              "gf180mcu_fd_sc_mcu9t5v0__tieh",
+              "Z"
+            ],
+            "low": [
+              "gf180mcu_fd_sc_mcu9t5v0__tiel",
+              "ZN"
+            ]
+          },
+          "orfs": {
+            "rc_file": "setRC.tcl",
+            "rc_vias": {
+              "typical": {
+                "Via1": "Via1_HH",
+                "Via2": "Via2_HH",
+                "Via3": "Via3_HH",
+                "Via4": "Via4_HH"
+              }
+            },
+            "variables": {
+              "TRACK_OPTION": "9t",
+              "METAL_OPTION": "5LM_1TM",
+              "KVALUE": "9",
+              "POWER_OPTION": "5v0"
+            },
+            "corners": {
+              "typical": {
+                "CORNER": "TC",
+                "PWR_NETS_VOLTAGES": "VDD 5.0"
+              },
+              "slow": {
+                "CORNER": "WC",
+                "PWR_NETS_VOLTAGES": "VDD 4.5"
+              },
+              "fast": {
+                "CORNER": "BC",
+                "PWR_NETS_VOLTAGES": "VDD 5.5"
+              }
+            }
+          }
+        },
+        "captured_files": 602,
+        "conditions": {
+          "clock_period_ns": 50,
+          "load_pf": 0.01,
+          "physical": {
+            "die_area": [
+              0,
+              0,
+              200,
+              200
+            ],
+            "core_area": [
+              20,
+              20,
+              180,
+              180
+            ],
+            "place_density": 0.6,
+            "threads": 2
+          }
+        },
+        "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+        "physical_checks": {
+          "detailed_route_drc_errors": [
+            0
+          ],
+          "scope": "Router rule checks; not foundry DRC/LVS"
+        },
+        "versions": {
+          "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+        },
+        "cases": [
+          {
+            "name": "mapped",
+            "verdict": null,
+            "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+            "result_sha256": "34191e43c8315f4ccb0e155c93b4daeea6217b3e674e1264006e32f2fe2d04e4"
+          },
+          {
+            "name": "timing",
+            "verdict": "FAIL",
+            "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+            "result_sha256": "e1d5c4eab1edc20ebf1fb31075274f8166d688497806c7e37ae997d0e245ba47",
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "FAIL",
+                "summary": {
+                  "setup_worst_slack_ns": 48.119022,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": -0.13921,
+                  "hold_reported_violations": 3,
+                  "hold_total_negative_slack_ns": -0.4
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "status": "FAIL",
+                "summary": {
+                  "setup_worst_slack_ns": 46.630257,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": -0.166338,
+                  "hold_reported_violations": 3,
+                  "hold_total_negative_slack_ns": -0.47
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "status": "FAIL",
+                "summary": {
+                  "setup_worst_slack_ns": 48.428669,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": -0.128397,
+                  "hold_reported_violations": 3,
+                  "hold_total_negative_slack_ns": -0.38
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          {
+            "name": "equivalent",
+            "verdict": "PASS",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "result_sha256": "b969c6c8089e8bdfe02fb28d7d5a946f9d65edfe2125037eefc78345a33029b6"
+          },
+          {
+            "name": "fault-detected",
+            "verdict": "FAIL",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "result_sha256": "33958eb6b0a65b74a212925696385b77af36fd0260813e8992f302de405ffb64"
+          },
+          {
+            "name": "finished",
+            "verdict": null,
+            "summary": "Physical finish complete \u00b7 375 placed cells",
+            "result_sha256": "f217034f819fc312f77eea358d7a72cc70c1b1ca56a9ffe256d29f4b43995755",
+            "artifacts": {
+              "gds": {
+                "path": "physical/results/gf180/counter/base/6_final.gds",
+                "sha256": "fb16155d46b753174ca9b7c1cf44c8d40e4711995500831a2607e4ffe82657a0",
+                "bytes": 556632
+              },
+              "spef": {
+                "path": "physical/results/gf180/counter/base/6_final.spef",
+                "sha256": "f92afccdd38c3f6c8b121e0903820fe95a4626bd46bceb38fcda76e16ca0d41f",
+                "bytes": 19789
+              },
+              "netlist": {
+                "path": "netlist.v",
+                "sha256": "7afea770fc5dd54513336f586c0ab46479f315769aeda422af91c0c14ffaebee",
+                "bytes": 2159
+              },
+              "physical_metrics": {
+                "path": "physical_metrics.json",
+                "sha256": "da4f712c01378a71c763febe98777e720ea4faf022fd631e079ada3e74de2e1c",
+                "bytes": 21349
+              }
+            },
+            "physical": {
+              "stage": "finish",
+              "resumed": false,
+              "upstream": "/tmp/icstudio-multipdk-nj7h1zo2/evidence/gf180/mapped",
+              "flow_fingerprint": "eb320b88d301666b63720765b914234c573db42cf4f43eaef5e7195effa66c6c",
+              "settings": {
+                "die_area": [
+                  0,
+                  0,
+                  200,
+                  200
+                ],
+                "core_area": [
+                  20,
+                  20,
+                  180,
+                  180
+                ],
+                "place_density": 0.6,
+                "threads": 2
+              },
+              "timing_corners": [
+                "typical",
+                "slow",
+                "fast"
+              ],
+              "scope": "Engine implementation; timing, equivalence and physical rule qualification remain explicit checks."
+            }
+          },
+          {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+            "result_sha256": "5470f562514f83603f474c044e9c065c2d5e64723693ab0d965b476b4c9b167e",
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.488331,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.516922,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 44.443768,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 1.135645,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.397301,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.246833,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          {
+            "name": "physical-equivalent",
+            "verdict": "PASS",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "result_sha256": "ed9f0c2c1279ceb75b3b6b82e4c6e7c0e197cbc3213848c7da53877f0166bf5a"
+          }
+        ]
+      },
+      {
+        "name": "ihp-sg13g2",
+        "status": "passed",
+        "platform": {
+          "version": 1,
+          "name": "ihp-sg13g2",
+          "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+          "directory": "ihp-sg13g2",
+          "corner": "typical",
+          "corners": {
+            "typical": [
+              "ihp-sg13g2/lib/sg13g2_stdcell_typ_1p20V_25C.lib"
+            ],
+            "slow": [
+              "ihp-sg13g2/lib/sg13g2_stdcell_slow_1p08V_125C.lib"
+            ],
+            "fast": [
+              "ihp-sg13g2/lib/sg13g2_stdcell_fast_1p32V_m40C.lib"
+            ]
+          },
+          "fingerprint": "81a4e526186423c3db2be380c7df69c0d796bb1aff167e21b4059dc80093307b",
+          "tie_cells": {
+            "high": [
+              "sg13g2_tiehi",
+              "L_HI"
+            ],
+            "low": [
+              "sg13g2_tielo",
+              "L_LO"
+            ]
+          },
+          "orfs": {
+            "variables": {},
+            "corners": {
+              "typical": {
+                "PWR_NETS_VOLTAGES": "VDD 1.2"
+              },
+              "slow": {
+                "PWR_NETS_VOLTAGES": "VDD 1.08"
+              },
+              "fast": {
+                "PWR_NETS_VOLTAGES": "VDD 1.32"
+              }
+            }
+          }
+        },
+        "captured_files": 155,
+        "conditions": {
+          "clock_period_ns": 50,
+          "load_pf": 0.01,
+          "physical": {
+            "die_area": [
+              0,
+              0,
+              200,
+              200
+            ],
+            "core_area": [
+              20,
+              20,
+              180,
+              180
+            ],
+            "place_density": 0.6,
+            "threads": 2
+          }
+        },
+        "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+        "physical_checks": {
+          "detailed_route_drc_errors": [
+            0
+          ],
+          "scope": "Router rule checks; not foundry DRC/LVS"
+        },
+        "versions": {
+          "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+        },
+        "cases": [
+          {
+            "name": "mapped",
+            "verdict": null,
+            "summary": "Mapped synthesis complete \u00b7 ihp-sg13g2 / typical",
+            "result_sha256": "87784dffd5ea72850a0ee5495d96e2b11a3f424cfb6cfa635f2f3263e387bbd7"
+          },
+          {
+            "name": "timing",
+            "verdict": "FAIL",
+            "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+            "result_sha256": "121aec8fbd2cc8350f6453f1dd263b3ee2f30ee6a0d73972eab47b362b87b5fb",
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "FAIL",
+                "summary": {
+                  "setup_worst_slack_ns": 48.660114,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": -0.044147,
+                  "hold_reported_violations": 3,
+                  "hold_total_negative_slack_ns": -0.13
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "status": "FAIL",
+                "summary": {
+                  "setup_worst_slack_ns": 48.504726,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": -0.016907,
+                  "hold_reported_violations": 3,
+                  "hold_total_negative_slack_ns": -0.04
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "status": "FAIL",
+                "summary": {
+                  "setup_worst_slack_ns": 48.739105,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": -0.061685,
+                  "hold_reported_violations": 4,
+                  "hold_total_negative_slack_ns": -0.21
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          {
+            "name": "equivalent",
+            "verdict": "PASS",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "result_sha256": "537ea2ad6755cf7a490056b632430a6acbfa11eb0d9b17b3dc397e513f80d647"
+          },
+          {
+            "name": "fault-detected",
+            "verdict": "FAIL",
+            "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+            "result_sha256": "3595c141cb9493454a5e4701ad681c0477d3d4b1d30f43b84761c181da0a6b73"
+          },
+          {
+            "name": "finished",
+            "verdict": null,
+            "summary": "Physical finish complete \u00b7 1976 placed cells",
+            "result_sha256": "01c7168ee55d65e45865e2a7a56c0a410a5c7fdc2b723297836a5b7b58b30a9a",
+            "artifacts": {
+              "gds": {
+                "path": "physical/results/ihp-sg13g2/counter/base/6_final.gds",
+                "sha256": "eb3ba7bb2c3a6d4f86b1596dfb77ecee48542f29fa3771ce46c5aa58a3511b5a",
+                "bytes": 294252
+              },
+              "spef": {
+                "path": "physical/results/ihp-sg13g2/counter/base/6_final.spef",
+                "sha256": "cf32184adbb5fec4420c7b5f6744702da120dd9f12b7a92672dccf335f64732c",
+                "bytes": 49654
+              },
+              "netlist": {
+                "path": "netlist.v",
+                "sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+                "bytes": 2091
+              },
+              "physical_metrics": {
+                "path": "physical_metrics.json",
+                "sha256": "ce58d0f409bf973ea259926c791e13c3aa54bb2231eedba579f2cbbc1526c14e",
+                "bytes": 21039
+              }
+            },
+            "physical": {
+              "stage": "finish",
+              "resumed": false,
+              "upstream": "/tmp/icstudio-multipdk-nj7h1zo2/evidence/ihp-sg13g2/mapped",
+              "flow_fingerprint": "eb320b88d301666b63720765b914234c573db42cf4f43eaef5e7195effa66c6c",
+              "settings": {
+                "die_area": [
+                  0,
+                  0,
+                  200,
+                  200
+                ],
+                "core_area": [
+                  20,
+                  20,
+                  180,
+                  180
+                ],
+                "place_density": 0.6,
+                "threads": 2
+              },
+              "timing_corners": [
+                "typical",
+                "slow",
+                "fast"
+              ],
+              "scope": "Engine implementation; timing, equivalence and physical rule qualification remain explicit checks."
+            }
+          },
+          {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+            "result_sha256": "e7b1372cdbc85b7daa98f5be520d0988c79c6856ee87bcaf90dede2a4e4fe546",
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.260189,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.195837,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.852211,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.370399,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.477261,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.096999,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          {
+            "name": "physical-equivalent",
+            "verdict": "PASS",
+            "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+            "result_sha256": "7ce68342210b513303f664f66537045adcec986dc35c8a11c77eb002faf2b860"
+          }
+        ]
+      }
+    ]
+  },
+  "local_validation": {
+    "core": {
+      "tests": 1354,
+      "skipped": 62,
+      "failures": 0,
+      "seconds": 251.647,
+      "scope": "Windows Python 3.12.14; complete suite before one extra router-evidence fixture was added"
+    },
+    "final_focused": {
+      "tests": 42,
+      "skipped": 0,
+      "failures": 0,
+      "includes_final_router_gate_fixture": true
+    },
+    "gui": {
+      "status": "passed",
+      "scope": "Offscreen Qt 6.8.3 with isolated settings and explicitly loaded Windows Segoe UI/Arial fonts; not native consumer acceptance",
+      "checks": [
+        "Captured flow resume",
+        "Queued cancellation",
+        "Persistent plan state",
+        "Central workspace lifecycle",
+        "1280px layout",
+        "Simultaneous timing and physical panes",
+        "22,500 indexed instances",
+        "Density/layer controls",
+        "Light and dark modes"
+      ]
+    },
+    "documentation": {
+      "status": "passed",
+      "documents": 120,
+      "local_links": 1150,
+      "gallery_examples": 13
+    }
+  },
+  "evidence": {
+    "archive": "digital-platform-evidence.tar.gz",
+    "sha256": "3b33dd6782d22c7ec8a1f4bc63dbf11273baf652232bf57f00736d1461be5471",
+    "scope": "Captured job inputs/results, scripts, logs, proof, physical outputs and timing; repeated locked platform/ORFS/liberty trees omitted from archive. Exact locks remain in inputs and source identity is pinned."
+  },
+  "remaining": [
+    "Bundle GF180/IHP platform selection and qualification into the included Windows/Linux runtime",
+    "Expand digital workload, PVT and RC-corner coverage; SKY130 currently has only its typical library",
+    "Qualify GF180 process variants and analog/digital integration against matching physical decks",
+    "Foundry DRC/LVS, antenna, density/fill, ERC/ESD/latch-up, chip I/O, CDC/RDC and EM/IR requirements",
+    "Exact-package native desktop, network, accessibility and distribution acceptance",
+    "Process-owner or shuttle acceptance of exact design/deck/tool revisions"
+  ]
+}

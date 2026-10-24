@@ -1,41 +1,41 @@
 {
-  "application": "0.22.0.dev10",
+  "application": "0.23.0",
   "packages": [
     {
       "variant": "sky130A",
-      "revision": "24bc6d0bfd6a0224",
+      "revision": "b26f7f28e659ddc1",
       "family": "sky130",
-      "assets": 396,
-      "indexed_symbols": 74,
-      "placeable_symbols": 71,
-      "manifest_sha256": "189ec230833fb9cfc6a5c70d1b66c0e06278bcd114462b3c8d4d58637d2ab9c2"
+      "assets": 413,
+      "indexed_symbols": 99,
+      "placeable_symbols": 94,
+      "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
     },
     {
       "variant": "gf180mcuC",
-      "revision": "627ca682d68e1e92",
+      "revision": "b661a751abfc662a",
       "family": "gf180mcu",
-      "assets": 79,
-      "indexed_symbols": 68,
-      "placeable_symbols": 64,
-      "manifest_sha256": "7b9aea112d1d66e2761168c7a0487f13dfe574a49a8db6e1e36fbb099a055ee5"
+      "assets": 83,
+      "indexed_symbols": 79,
+      "placeable_symbols": 77,
+      "manifest_sha256": "abfbf8702d759247ad77075c72c7b042a6f9b89d2629f5c194a925a0d4f6194c"
     },
     {
       "variant": "gf180mcuD",
-      "revision": "7dd87219f1333dbb",
+      "revision": "2f92b1f05da58bd7",
       "family": "gf180mcu",
-      "assets": 79,
-      "indexed_symbols": 68,
-      "placeable_symbols": 64,
-      "manifest_sha256": "357035faaa856379a674b0aa010f132ae0de2d629cf3b25f8bb41b16457e8d51"
+      "assets": 83,
+      "indexed_symbols": 79,
+      "placeable_symbols": 77,
+      "manifest_sha256": "d46a592f236f5a42356db52e861b17f1412ec826cd19a73452f1aa3a50a1e6ae"
     },
     {
       "variant": "ihp-sg13g2",
-      "revision": "3abac20fcb57e184",
+      "revision": "cfb96b74cf33877e",
       "family": "ihp-sg13g2",
-      "assets": 156,
+      "assets": 163,
       "indexed_symbols": 45,
-      "placeable_symbols": 35,
-      "manifest_sha256": "7540b8ac3241f339361bc83d5d154025dd0db6b374ebb1092dbe4db137b59de3"
+      "placeable_symbols": 38,
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
     }
   ]
 }

@@ -1,0 +1,161 @@
+{
+  "schema": 1,
+  "status": "native-spatial-accounting-progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "pdk_revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "cases": {
+    "counter": {
+      "original": {
+        "capture": {
+          "path": "outputs/ihp-spatial-capture-v3/counter/original/trace-record.json",
+          "sha256": "75656690024601cfc1f2d93b63379382fdc88c45e45c60aeb9c700ae45b92206"
+        },
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/counter-original.json",
+          "sha256": "986315ea0eb24d797d34ba9a69084d33929c48c11e346764cda0ae4309a61f4d"
+        },
+        "trace_rows": 261902,
+        "signal_mutual_pairs": 937
+      },
+      "filled": {
+        "capture": {
+          "path": "outputs/ihp-spatial-capture-v3/counter/filled/trace-record.json",
+          "sha256": "73e0de67ad16faa06c4709e08892ddc79adb74880b6347bed485abbe134db496"
+        },
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/counter-filled.json",
+          "sha256": "7bd3f8657f51f3c953eb8fd6b2b111f5ee1c579387a4e57c8f709a7d43578b39"
+        },
+        "trace_rows": 255074,
+        "signal_mutual_pairs": 1342
+      },
+      "ground_delta": {
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/counter-ground.json",
+          "sha256": "157a3a43110f53a96e57d5c9e227e7648a6159d397dba5ba128e525697de5f2b"
+        },
+        "signal_nodes": 28
+      }
+    },
+    "uart": {
+      "original": {
+        "capture": {
+          "path": "outputs/ihp-spatial-capture-v3/uart/original/trace-record.json",
+          "sha256": "f75f605b2c961d27b63496c639ead1aaf06d1d6e23969b0b7c5985c54dfefb51"
+        },
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/uart-original.json",
+          "sha256": "9fc44e94974fff407fe2bee693a56ad93597827cbf9171e62dbf0219791b14e4"
+        },
+        "trace_rows": 3519847,
+        "signal_mutual_pairs": 17387
+      },
+      "filled": {
+        "capture": {
+          "path": "outputs/ihp-spatial-capture-v3/uart/filled/trace-record.json",
+          "sha256": "79f94fa07dbcce021116f372ef9f88a8be8c20f32b5922c0817c1b2b89d2d281"
+        },
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/uart-filled.json",
+          "sha256": "9aa997410315a8d2910a4ef87819fea946b0e30116625b6351b0879649a9440e"
+        },
+        "trace_rows": 3455997,
+        "signal_mutual_pairs": 19780
+      },
+      "ground_delta": {
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/uart-ground.json",
+          "sha256": "253ecf5a5840266b17c3e6d0d91b8f3e91cfee79bd6ce953915f0bdcef63e0fe"
+        },
+        "signal_nodes": 351
+      }
+    },
+    "apb": {
+      "original": {
+        "capture": {
+          "path": "outputs/ihp-spatial-capture-v3/apb/original/trace-record.json",
+          "sha256": "b23181e031cdef0943019d1575af5b442e69a88ca722bc6d357d401d0fecb09f"
+        },
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/apb-original.json",
+          "sha256": "d1a2dd8fd5db60da8eb34b7e9a20b2473625d52058bcf5d2bb3b5178fc9e8a57"
+        },
+        "trace_rows": 3338888,
+        "signal_mutual_pairs": 15625
+      },
+      "filled": {
+        "capture": {
+          "path": "outputs/ihp-spatial-capture-v3/apb/filled/trace-record.json",
+          "sha256": "014c8392279490ee438bb64c47801373865e5b3695b8cd64053662e90a02820c"
+        },
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/apb-filled.json",
+          "sha256": "a2e729e3179b1c41529afbe0632b6b4a732942d08325826e040778bcbc76d5ae"
+        },
+        "trace_rows": 3211938,
+        "signal_mutual_pairs": 20581
+      },
+      "ground_delta": {
+        "audit": {
+          "path": "outputs/ihp-spatial-audit-linux-v2/apb-ground.json",
+          "sha256": "634330ab3c529f63ed7d251c3914e9115b9c6c346f74e879a1a2b9c0e1203fa1"
+        },
+        "signal_nodes": 262
+      }
+    }
+  },
+  "tests": {
+    "win32": {
+      "record": {
+        "path": "outputs/ihp-fill-coverage-tests-win32-v25/record.json",
+        "sha256": "f8277b91a358e730712ddba28084c432b2419fde7ec4d17520b25687db328989"
+      },
+      "tests": 161,
+      "skips": 0,
+      "log_sha256": "a8496bb9a950f52cc513a2d3fe78de0af66b738258343c8771cfe2ced27ba465"
+    },
+    "linux": {
+      "record": {
+        "path": "outputs/ihp-fill-coverage-tests-linux-v25/record.json",
+        "sha256": "78fa671f9c3cc7ee12da81c663c05cddf7137739d9c483b74fa312a176007aa8"
+      },
+      "tests": 161,
+      "skips": 0,
+      "log_sha256": "4fc2664b398f994d259849aa9854a5acebf7b82afd1beca4c366b71a7d2339fc"
+    }
+  },
+  "decoded_cross_platform_reports_identical": 9,
+  "production_binaries_unchanged": true,
+  "diagnostic_build": {
+    "path": "outputs/ihp-spatial-trace-build-v3/record.json",
+    "sha256": "c57fe3954291731f90ac1b0614502cbb3fe807432fb8712f923ac0b895235aca"
+  },
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-spatial-accounting-2026-10-11-v1/evidence.tar.gz",
+    "sha256": "741833f3c22fe8cb136760c6d0cf4bd680886de6c7175c3c28aebdbd5ede24a4",
+    "bytes": 364946125,
+    "logical_files": 1935,
+    "unique_blobs": 1476,
+    "manifest_sha256": "64f6ab63cfac7f2b6c9a1ecac5ffbfe1a51eb7bcfc30217d4c9a1d4b3c71ac52",
+    "verified": true
+  },
+  "failed_apb_further_tight": {
+    "path": "outputs/ihp-cell-keepout-waveform-v5/apb-typ-1610-fine/simulation.json",
+    "sha256": "cf8581427d214531ebcbcc04c5161b38fce8d256520be8111a6492d50575ef08"
+  },
+  "failed_apb_more_iterations": {
+    "path": "outputs/ihp-cell-keepout-waveform-v6/apb-typ-210-fine/simulation.json",
+    "sha256": "16db693ea71e7c28f78309682c908d12f81ebf3329baf175a318cf39220c3943"
+  },
+  "source_sha256": {
+    "scripts/ihp_spatial_capacitance.py": "3509fe68d94f88dda0c06159a287c9bb9b83dcfe0e81cf75fe2ed2cae86055cd",
+    "tests/test_ihp_spatial_capacitance.py": "a907ab95ca909be34524690eeb0108b9ed0184a99d9a883c38586f3abbdf41ab"
+  },
+  "scope": "A separate logging-only native build preserves every original/final native capacitor and transistor record. Trace sums reproduce all signal mutual C at native six-significant-digit serialization. Shielding and substrate relocation account for ground-C changes, conditioned on independently checked unchanged circuit masks. Trace rectangles are not yet qualified conductor locations or resistance endpoint assignments.",
+  "remaining": [
+    "Complete UART and APB full-workload numerical convergence at the unchanged 1 ps limit. The further-tight APB run failed at 180 ns; allowing more iterations failed at 70 ns. Neither is a pass.",
+    "Qualify spatial conductor ownership and resistance endpoint mapping, complete the nominal extraction/timing handoff with cell-capacitance accounting.",
+    "Integrate the accepted recipe into production, bind final exports, and repeat affected release/package checks."
+  ]
+}

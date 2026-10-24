@@ -1,0 +1,344 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "diagnosed_and_locally_repaired_hosted_acceptance_pending",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "scope": "Exact hosted environment-marker diagnosis, guarded version-only fresh rebuild and local/independent verification. The historical diagnostic run does not execute the repair.",
+  "diagnosis": {
+    "schema": 1,
+    "candidate": "51917f7029b51eaba08239964bc1975639380c7e",
+    "run_id": 40037005574,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40037005574",
+    "status": "cancelled_after_exact_identity_diagnosis",
+    "run_conclusion": "cancelled",
+    "cancellation_requested_once": true,
+    "cancellation_receipt_sha256": "19359212a74429b73b7506a382911aec8581963c99464feaf04402a2d132d1ff",
+    "jobs": [
+      {
+        "id": 120698868601,
+        "name": "candidate",
+        "conclusion": "success",
+        "created_at": "2026-10-23T22:59:21Z",
+        "started_at": "2026-10-23T22:59:23Z",
+        "completed_at": "2026-10-23T22:59:32Z"
+      },
+      {
+        "id": 120698927017,
+        "name": "rc-toolchain",
+        "conclusion": "success",
+        "created_at": "2026-10-23T22:59:32Z",
+        "started_at": "2026-10-23T22:59:34Z",
+        "completed_at": "2026-10-23T23:03:43Z"
+      },
+      {
+        "id": 120698927036,
+        "name": "bandgap-physical",
+        "conclusion": "cancelled",
+        "created_at": "2026-10-23T22:59:32Z",
+        "started_at": "2026-10-23T22:59:34Z",
+        "completed_at": "2026-10-23T23:09:13Z"
+      },
+      {
+        "id": 120698927040,
+        "name": "modern-schematic",
+        "conclusion": "cancelled",
+        "created_at": "2026-10-23T22:59:32Z",
+        "started_at": "2026-10-23T22:59:34Z",
+        "completed_at": "2026-10-23T23:09:15Z"
+      },
+      {
+        "id": 120698927117,
+        "name": "bandgap-schematic",
+        "conclusion": "success",
+        "created_at": "2026-10-23T22:59:32Z",
+        "started_at": "2026-10-23T22:59:34Z",
+        "completed_at": "2026-10-23T23:01:01Z"
+      },
+      {
+        "id": 120700308130,
+        "name": "bandgap-rc (ss)",
+        "conclusion": "failure",
+        "created_at": "2026-10-23T23:03:43Z",
+        "started_at": "2026-10-23T23:03:45Z",
+        "completed_at": "2026-10-23T23:04:20Z"
+      },
+      {
+        "id": 120700308147,
+        "name": "bandgap-rc (sf)",
+        "conclusion": "cancelled",
+        "created_at": "2026-10-23T23:03:43Z",
+        "started_at": "2026-10-23T23:03:45Z",
+        "completed_at": "2026-10-23T23:09:14Z"
+      },
+      {
+        "id": 120700308219,
+        "name": "bandgap-rc (ff)",
+        "conclusion": "cancelled",
+        "created_at": "2026-10-23T23:03:43Z",
+        "started_at": "2026-10-23T23:03:45Z",
+        "completed_at": "2026-10-23T23:10:18Z"
+      },
+      {
+        "id": 120700308231,
+        "name": "bandgap-rc (fs)",
+        "conclusion": "cancelled",
+        "created_at": "2026-10-23T23:03:43Z",
+        "started_at": "2026-10-23T23:03:46Z",
+        "completed_at": "2026-10-23T23:09:15Z"
+      },
+      {
+        "id": 120700308238,
+        "name": "bandgap-rc (nominal)",
+        "conclusion": "cancelled",
+        "created_at": "2026-10-23T23:03:43Z",
+        "started_at": "2026-10-23T23:03:45Z",
+        "completed_at": "2026-10-23T23:09:13Z"
+      }
+    ],
+    "producer": {
+      "status": "passed",
+      "run_id": 40037005574,
+      "candidate": "51917f7029b51eaba08239964bc1975639380c7e",
+      "job_id": 120698927017,
+      "artifact_id": 12537089575,
+      "artifact_name": "reference-rc-toolchain-1",
+      "artifact_zip_sha256": "c82cfb3ed13583e1c2bbad93e5aa4ff37b0c6455a15d86313bc54c49668f0294",
+      "artifact_zip_bytes": 8246254,
+      "toolchain_archive_sha256": "f7fea773b3c0498fab2d47e37deb95dde875c5abd0af0c644b4b2659e0eab29a",
+      "manifest_sha256": "e175515c63a8112c034e4027b6e705ecb9423bd33cc7cba15836a3ca094399f4",
+      "package_inventory_sha256": "1d9dd2a701f715972c90ee317e583be3ecf04d7c1463c7db47f2c167774665b0",
+      "workspace": "/home/runner/work/IC-Design-Studio/IC-Design-Studio",
+      "environment": {
+        "image_os": "ubuntu24",
+        "image_version": "20261012.334.1",
+        "machine": "x86_64",
+        "system": "Linux"
+      },
+      "inputs_verified_against_candidate_git_blobs": 7,
+      "files_bytes_modes_links_verified": 449,
+      "versions": {
+        "build/gf180-engines/magic-version.log": "8.3.684\n",
+        "build/modern-engines/ngspice-version.log": "******\n** ngspice-46 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Fri Oct 23 23:00:48 UTC 2026\n******\n"
+      },
+      "limits": "Full archive byte/inventory/source audit; consumer native engine probes and qualification are separately verified."
+    },
+    "identity_cause": {
+      "status": "exact_image_version_difference_verified",
+      "run_id": 40037005574,
+      "candidate": "51917f7029b51eaba08239964bc1975639380c7e",
+      "job_id": 120700308130,
+      "artifact_id": 12538006325,
+      "mismatch_receipt_sha256": "959596c9d79f172166542eae32db0f25741b037fe5a44c0a50be69ae1155f137",
+      "producer_image_version": "20261012.334.1",
+      "consumer_image_version": "20261023.334.3",
+      "all_other_identity_fields_equal": true,
+      "failed_archive_verification": "454ee091a1557be6c0097aedd7f7fc5d64437fc13cc93639def8c39f454b9f32",
+      "scope": "This is direct evidence for the 51917f7 ss rejection; it does not retroactively establish the missing fields in d386 failures."
+    },
+    "observed_runtime_marker_difference": {
+      "producer": "20261012.334.1",
+      "consumer_ss": "20261023.334.3",
+      "display_header_both": "20261012.334.1",
+      "contents_change_established": false
+    },
+    "partial_corners": [
+      {
+        "artifact_id": 12537638239,
+        "name": "reference-bandgap-rc-fs",
+        "restored_manifest_sha256": "e175515c63a8112c034e4027b6e705ecb9423bd33cc7cba15836a3ca094399f4",
+        "native_probe_receipt_sha256": "dbc4f274f7ec89671091aa46715035113381be1899291b72a67cd4b83cba462a",
+        "restore_and_engine_probes_verified": true,
+        "complete_qualification": false,
+        "qualification_report_present": false,
+        "selected_member_download_bytes": 56250
+      },
+      {
+        "artifact_id": 12537612537,
+        "name": "reference-bandgap-rc-ff",
+        "restored_manifest_sha256": "e175515c63a8112c034e4027b6e705ecb9423bd33cc7cba15836a3ca094399f4",
+        "native_probe_receipt_sha256": "dbc4f274f7ec89671091aa46715035113381be1899291b72a67cd4b83cba462a",
+        "restore_and_engine_probes_verified": true,
+        "complete_qualification": false,
+        "qualification_report_present": false,
+        "selected_member_download_bytes": 60262
+      },
+      {
+        "artifact_id": 12537468677,
+        "name": "reference-bandgap-rc-sf",
+        "restored_manifest_sha256": "e175515c63a8112c034e4027b6e705ecb9423bd33cc7cba15836a3ca094399f4",
+        "native_probe_receipt_sha256": "dbc4f274f7ec89671091aa46715035113381be1899291b72a67cd4b83cba462a",
+        "restore_and_engine_probes_verified": true,
+        "complete_qualification": false,
+        "qualification_report_present": false,
+        "selected_member_download_bytes": 56250
+      },
+      {
+        "artifact_id": 12536839857,
+        "name": "reference-bandgap-rc-nominal",
+        "restored_manifest_sha256": "e175515c63a8112c034e4027b6e705ecb9423bd33cc7cba15836a3ca094399f4",
+        "native_probe_receipt_sha256": "dbc4f274f7ec89671091aa46715035113381be1899291b72a67cd4b83cba462a",
+        "restore_and_engine_probes_verified": true,
+        "complete_qualification": false,
+        "qualification_report_present": false,
+        "selected_member_download_bytes": 59734
+      }
+    ],
+    "complete_native_corner_acceptances": 0,
+    "qualification_scope": "Four restores/native engine probes verified; their native suites were intentionally cancelled and no qualification.json was produced. No partial artifact is promoted to complete corner acceptance.",
+    "digest_scope": "Full producer and failed-ss ZIP digests verified locally; other corner ZIP digests are API-reported. Only selected corner members were downloaded and locally SHA/CRC verified.",
+    "timings_seconds": {
+      "producer_setup": 33,
+      "engine_builds": 203,
+      "packaging": 3,
+      "producer_total": 249
+    },
+    "repair_scope": "Targeted guarded rebuild fallback is separate unexecuted source work; this diagnostic candidate does not validate it.",
+    "evidence_archive": {
+      "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/toolchain-identity-2026-10-23-v1/checkpoint-51917f7.zip",
+      "sha256": "158c886793eb54cdee8170dc2b75921417ad2cecbf94482dcfe9f9039154ae8b",
+      "bytes": 8475548,
+      "payload_files": 57,
+      "all_members_verified": true,
+      "manifest_sha256": "c1dfcb8e29c61b991cd06a83ca684ab5bd29d08f3711139164e5db35041389ff"
+    }
+  },
+  "local_fix": {
+    "schema": 1,
+    "status": "local_fix_and_independent_review_passed_hosted_acceptance_pending",
+    "base_candidate": "51917f7029b51eaba08239964bc1975639380c7e",
+    "source_sha256": {
+      "scripts/reference_toolchain.py": "2f3fc8b7961643e549334fa8498ebc062a2cd7f85aa8e75937f9dc9b2e8ec131",
+      "tests/test_reference_toolchain.py": "bfc95ca2a63e18f00d9464601e30f1f6edfeab288058a910fe65c0a4d7b5ff32",
+      ".github/workflows/reference-compatibility.yml": "6f269f3b0af59373eab8753b42ad0726f29e4551836aee3300f2e16bea02f529"
+    },
+    "scope": "Only a fully validated producer payload whose identity differs solely in nonempty ImageVersion can select a fresh consumer build. Default restore remains strict. Other identity, schema, path, inventory, checksum and content failures remain hard failures.",
+    "readiness": "Reused or freshly rebuilt provenance is explicit. Original payload and current candidate/input identity are revalidated; fresh builds use the same locked source helper in empty prefixes. Installed bytes/modes/links and actual engine version/KLU probes must pass the unconditional readiness gate before the unchanged native qualification suite.",
+    "tests": {
+      "windows_focused": {
+        "run": 35,
+        "passed": 29,
+        "skipped": 6,
+        "failures": 0,
+        "errors": 0,
+        "seconds": 3.63,
+        "log_sha256": "d15cc0cca4306a85bdf6e38f55d3063008eea3002e281bf1211aa23a4baa3bce",
+        "execution": "ordinary user outside sandbox; no administrator elevation"
+      },
+      "linux_focused": {
+        "run": 46,
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "modules": {
+          "reference_toolchain": 31,
+          "ci_feedback": 7,
+          "ci_candidate": 4,
+          "physical_engine_build": 4
+        },
+        "log": "Linux-focused.log",
+        "sha256": "c1013a9c3b5e18c6c9d5716fd76c031b1ed47fb1062b2556c308abb2ee1720f6"
+      },
+      "production_cli": {
+        "cases": 15,
+        "passed": 15,
+        "log_count": 44,
+        "receipt_sha256": "2e420bb3f2bc74c860f25023ae6757e0c2717e65da2c8c55606441491b42fb1a",
+        "native_compilation": false,
+        "engines_and_builder": "Synthetic executable/version probes and synthetic builder; production CLI and actual isolated local Git identity."
+      },
+      "actionlint": {
+        "tool": "actionlint 1.7.7",
+        "result": "PASS",
+        "files": [
+          ".github/workflows/reference-compatibility.yml",
+          ".github/workflows/release-preview.yml"
+        ],
+        "shellcheck": false,
+        "pyflakes": false,
+        "log": "actionlint.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "independent_review": {
+      "status": "PASS",
+      "findings": [],
+      "receipt_sha256": "7c20da2004f3606348abd752a6c8fce4618e13adc3712ab809976d02de97a7d7",
+      "static_review": {
+        "unchanged_other_jobs": [
+          "bandgap-physical",
+          "bandgap-schematic",
+          "candidate",
+          "modern-schematic",
+          "rc-toolchain"
+        ],
+        "all_triggers_unchanged": true,
+        "all_five_rc_corners": true,
+        "rc_needs_only_toolchain": true,
+        "exact_qualification_command_unchanged": true,
+        "release_preview_byte_content_unchanged": true,
+        "unconditional_readiness_before_qualification": true
+      }
+    },
+    "negative_controls": [
+      "Strict restore rejects image-version mismatch.",
+      "Image mismatch plus corrupt payload, traversal, schema/duplicate key, missing license, source-lock, checksum or other identity mismatch cannot select fallback.",
+      "Existing output prefixes, skipped/failed build, failed version/KLU probe and premature readiness cannot emit readiness.",
+      "Same-candidate source drift, changed candidate with stale or updated arguments, installed byte drift and changed local manifest/archive cannot promote stale preparation."
+    ],
+    "retained_nonproduct_failures": [
+      {
+        "path": "windows/Windows-focused-35-sandbox-error.json",
+        "cause": "Windows sandbox temporary-directory ACLs raised WinError5. Ordinary-user unsandboxed repeat passed; no Windows administrator request."
+      },
+      {
+        "path": "windows/recording-invocation-error.json",
+        "cause": "Local recorder initially resolved the wrong repository parent. Corrected before tests started."
+      },
+      {
+        "path": "Linux-focused-invocation-error.log",
+        "sha256": "fbf4ca410eec103bf53b3fa75008cce6ad370ea38de949074a4fcbe941be05e2",
+        "cause": "Reviewer initially invoked nonexistent tests.test_physical_engine_builder; corrected tests.test_physical_engine_build and all focused tests passed."
+      }
+    ],
+    "diagnostic_hosted_archive": {
+      "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/toolchain-identity-2026-10-23-v1/checkpoint-51917f7.zip",
+      "sha256": "158c886793eb54cdee8170dc2b75921417ad2cecbf94482dcfe9f9039154ae8b",
+      "bytes": 8475548,
+      "payload_files": 57,
+      "all_members_verified": true,
+      "manifest_sha256": "c1dfcb8e29c61b991cd06a83ca684ab5bd29d08f3711139164e5db35041389ff"
+    },
+    "remaining_hosted_gate": "A new immutable candidate containing these exact changes still needs one complete hosted reference workflow: shared producer, all five full native corner consumers, and all independent reference jobs. A real image-version-only miss must rebuild locally and pass readiness/full native suite before claiming hosted recovery acceptance. No new candidate has been dispatched by this fix record.",
+    "limits": [
+      "No hosted/native rebuild result is claimed by fixture tests.",
+      "Builds retain pinned source and APT package provenance but are not hermetic.",
+      "Historical failures and intentionally cancelled diagnostic native suites remain failures/cancellations, never promoted to acceptance."
+    ],
+    "evidence_archive": {
+      "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/toolchain-identity-2026-10-23-v1/fallback-fix-2f3fc8b.zip",
+      "sha256": "475224ee5db7caa96d28e99afd8387d192c9c78db427cbe2ab60b72e8e8ee548",
+      "bytes": 111418,
+      "payload_files": 31,
+      "all_members_verified": true,
+      "manifest_sha256": "bbccf3a5b5802a513226f1cf6dcb30a7c94ca81c8329aacbd0b1a79e1f76d851"
+    }
+  },
+  "diagnostic_summary_sha256": "681a9b3d4583f9a66a8d463c267519ccfb8c633313ba1b91544bb6d03b4e634a",
+  "local_fix_summary_sha256": "99d2dfd5c8c489a7fcec3d49071d4af1b47e5de7824a7f64e1e801a27b765041",
+  "combined_feedback": {
+    "path": "docs/validation/chunk7-identity-integration-2026-10-23.json",
+    "sha256": "e88dc88bb606b0af5311c8d957868f94b47df3233b601ad3c432393e21e17031"
+  },
+  "prior_attempts": "docs/validation/reference-toolchain-reuse-2026-10-23.json",
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  }
+}

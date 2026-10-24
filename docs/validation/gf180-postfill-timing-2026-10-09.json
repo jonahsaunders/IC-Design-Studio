@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "status": "six-reference-postfill-timing-and-annotation-controls-retained",
+  "qualified": false,
+  "current_chunk": 4,
+  "chunk_complete": false,
+  "observed_at": "2026-10-09T20:04:30.017179+00:00",
+  "backend": "7613eeb443579a161ff91f820d194a7b55cc01f9b8502469afce6c50359cbeba",
+  "source_base_commit": "a73961e4ab5c85d9d49261220e2e20599438e3a6",
+  "audits": {
+    "windows": {
+      "path": "outputs/gf180-six-postfill-timing-audit-windows-v5/record.json",
+      "sha256": "8f21b638ba96f17994da9f614fd40c73e5b37ed4bb2c2439894b137397cff619"
+    },
+    "linux": {
+      "path": "outputs/gf180-six-postfill-timing-audit-linux-v5/record.json",
+      "sha256": "62a8b8d8ac6ab985bf8c916fc5c4f07d21c16dd40c149d0616eeccf31027c23a"
+    }
+  },
+  "native": {
+    "path": "outputs/gf180-six-postfill-timing-v3/record.json",
+    "sha256": "6a63c5fc09d48685f914f1125a9b688914a5c1314bd5a7857a93fbbce13bd913"
+  },
+  "exports": {
+    "path": "outputs/gf180-antenna-export-v2/record.json",
+    "sha256": "ccfe7c86df3f6a0f265cb940d9db80386c9a5a3b285bd952fabcf00b7c5b717f"
+  },
+  "reduction": {
+    "path": "outputs/gf180-six-filled-spef-reduction-v2/record.json",
+    "sha256": "ca07c39d63cc140ba58ce3a3c4b483f55fc7ea64c7e114bd12cdf873ff8cd213"
+  },
+  "before_cases": 18,
+  "filled_cases": 18,
+  "capacitance_faults": 18,
+  "missing_clock_faults": 18,
+  "missing_antenna_faults": 6,
+  "rows": [
+    {
+      "design": "c-counter",
+      "corners": [
+        "typical",
+        "slow",
+        "fast"
+      ],
+      "minimum_setup_slack_ns": 44.368145,
+      "minimum_hold_slack_ns": 0.293279
+    },
+    {
+      "design": "c-uart",
+      "corners": [
+        "typical",
+        "slow",
+        "fast"
+      ],
+      "minimum_setup_slack_ns": 0.550356,
+      "minimum_hold_slack_ns": 0.508568
+    },
+    {
+      "design": "c-apb",
+      "corners": [
+        "typical",
+        "slow",
+        "fast"
+      ],
+      "minimum_setup_slack_ns": 8.153233,
+      "minimum_hold_slack_ns": 0.313971
+    },
+    {
+      "design": "d-counter",
+      "corners": [
+        "typical",
+        "slow",
+        "fast"
+      ],
+      "minimum_setup_slack_ns": 44.368137,
+      "minimum_hold_slack_ns": 0.293281
+    },
+    {
+      "design": "d-uart",
+      "corners": [
+        "typical",
+        "slow",
+        "fast"
+      ],
+      "minimum_setup_slack_ns": 0.54577,
+      "minimum_hold_slack_ns": 0.508568
+    },
+    {
+      "design": "d-apb",
+      "corners": [
+        "typical",
+        "slow",
+        "fast"
+      ],
+      "minimum_setup_slack_ns": 8.153145,
+      "minimum_hold_slack_ns": 0.313974
+    }
+  ],
+  "full_tests": {
+    "tests": 1650,
+    "skipped": 62,
+    "record": {
+      "path": "outputs/gf180-antenna-annotation-full-tests-v2.log",
+      "sha256": "0319d77682414a02c1f0829852506b77ae5ec95719b0eae89f80d3c90da4c1ec"
+    }
+  },
+  "maximum_sampled_floating_resistance_error": 1.2573192983515972e-06,
+  "scope": "Six original GF180 C/D counter/UART/APB designs at three captured Liberty conditions and one stack-specific typical interconnect condition, with exact floating-fill shape representation, independently checked quasistatic reduction and coupling factor 1.0. Full original signal resistances, constraints and functional logic are preserved. Corrected APB exports retain characterized antenna input loads.",
+  "rejected_attempts": [
+    "Original APB timing omitted antenna loads despite clean slack; the warning audit rejects it.",
+    "A missing clock network and missing antenna cells still have positive slack; the new production annotation gate rejects them.",
+    "Initial shape/API/unit probes and the first netlist text comparison failed; their records are retained.",
+    "Windows WSL-share readback was inaccessible; verified portable input copies enable independent Windows reconstruction.",
+    "First full suite hit sandbox permissions and one superseded fixture; the final unrestricted suite is separately retained."
+  ],
+  "remaining": [
+    "Complete fill coverage and integration of the experimental fill/extraction flow.",
+    "Block/chip boundary scope and die-margin applicability.",
+    "Independent complete before/filled transistor-RC programs remain running or unstarted.",
+    "Fresh installed acceptance for the corrected backend.",
+    "Wider PVT/SI and calibrated interconnect qualification remain separate later-chunk requirements."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-postfill-timing-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "6f7435b430ba014785137186b7a710b5d335138198540d6284ddc92eddb3ecf8",
+    "bytes": 35620418,
+    "logical_files": 5351,
+    "unique_objects": 1661,
+    "verified": true
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "chunk": 7,
+  "status": "selected_development_reuse_passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "default_promoted": false,
+  "scope": "One complete selected LI 2x5 um physical development case: two orientations and all five faults, independently audited original native evidence reuse. No full envelope, electrical/silicon accuracy, installed release or foundry qualification.",
+  "source_baseline": "43a04bb00af3118fe97d3d177ec73599056027b6",
+  "source_files": {
+    "scripts/qualify_sky130_metal_resistor_layouts.py": "3779e4b021b8d62325edd0338d696fbade968f386c080af33534131921cc2020",
+    "scripts/sky130_li_resume.py": "f82459107b66f3110afb04af28b071bbe92d1752037e825d3aad6ed0eb51d2c5",
+    "scripts/audit_sky130_li_case.py": "6ddf5174fd0fd5665f8e0438ac0c760a29266c59f057603ab385edd51be29bd9",
+    "tests/test_sky130_li_resume.py": "a55aa5aef9e8921efe1e7f001b91f27a4b30c451b029f6bff686a67a2b61ff13"
+  },
+  "source_snapshot": {
+    "path": "native/source-v5",
+    "manifest_sha256": "2e38665c1d0c01abb3c3cb68b01844d4060f1eb70b8eb19db7a466a467a5800d",
+    "files": 2534,
+    "source_key_sha256": "735567062da2b0011493d7c47f128edb3492198ae8ef4b0e03f38a57e9d3ab58",
+    "scope": "Bounded immutable source closure; original commit plus exact dirty-source hashes. Concurrent integration checkout changes do not inherit this acceptance."
+  },
+  "input_identity": {
+    "key": "7c097721c2da626c68352c2ad5a229bb2d518d731d097ef1263010b79f7429b2",
+    "manifest_sha256": "7c097721c2da626c68352c2ad5a229bb2d518d731d097ef1263010b79f7429b2",
+    "runtime_key_sha256": "5285f2518a3d75f811c38317e30ac87080b4759af363dab3fc15462bca94c7d4",
+    "physical_pdk_key_sha256": "7c8f78ff5dd766bd7b33fd685bbe1b65125c923f599f67a468a4dbdcaa2c514d",
+    "runtime_profile": "linux-x86_64-headless-icstudio-v1",
+    "bytecode_cache_prefix": "/__icstudio_li_development_no_bytecode__",
+    "simulation_pdk": null,
+    "physical_process": {
+      "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+      "revision": "9a491f0ebd51a0aa",
+      "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK.",
+      "target": "sky130A"
+    }
+  },
+  "execution": {
+    "original_run_id": "f0238988-a9f7-4173-a1bf-434542763dda",
+    "case": "l1-w2-l5",
+    "started": "2026-10-23T21:19:29.903829+00:00",
+    "finished": "2026-10-23T21:19:34.424594+00:00",
+    "original": "native/final-fresh-v4",
+    "reuse_validation": "native/final-hit-v3",
+    "receipt_sha256": "ba88b558ece15e1c0d0cca11f0eae037fc9fa4e5dc113def703736f997f32253",
+    "case_manifest_sha256": "39f5d839d81d4ea47fa3ed87ca5bf4324b3a538b455c6f02bf6d5f9943616ff6",
+    "fresh_report_sha256": "aff8124286476d938a8178357d8f89f98bc61167634e10dee928547d576f6e50",
+    "reuse_report_sha256": "bd597959b33f95111733bd4b40f8ac6b5a92c8e796adedee6159d5cd4fdf66ae",
+    "reuse_hit": true,
+    "reuse_native_execution": false,
+    "original_execution_identity_preserved": true,
+    "fresh_timings_seconds": {
+      "independent_audit": 0.048741,
+      "input_identity_after": 2.619926,
+      "input_identity_before": 6.160638,
+      "native_execution": 4.520767,
+      "reuse_lookup_and_audit": 6e-06,
+      "total": 13.869518
+    },
+    "reuse_timings_seconds": {
+      "input_identity_after": 2.737921,
+      "input_identity_before": 5.620115,
+      "reuse_lookup_and_audit": 0.183851,
+      "total": 9.361071
+    },
+    "performance_limit": "Broad runtime identity dominates this tiny case. No measured speedup over the original unkeyed fresh case; cache warmth and filesystem differ. Reuse avoids native execution but is not a release optimization claim."
+  },
+  "controls": {
+    "path": "native/native-controls-v2/controls.json",
+    "sha256": "15bd3740a91912d2e2e5d680997892d81b23b1f3254b21bfcfaecf4d1b0d2008",
+    "count": 21,
+    "status": "PASS",
+    "original_unchanged": true,
+    "names": [
+      "real-original-hit",
+      "helper-content",
+      "threshold",
+      "case-parameter",
+      "tool-content",
+      "pdk-asset-content",
+      "effective-environment",
+      "wrong-marker-geometry",
+      "wrong-terminal-label",
+      "wrong-extracted-model",
+      "wrong-extracted-width",
+      "fault-not-detected",
+      "truncated-native-log",
+      "missing-required-output",
+      "wrong-generator-source",
+      "wrong-startup-tech",
+      "drc-ignored",
+      "blackbox-extraction",
+      "wrong-netgen-setup",
+      "publication-running",
+      "publication-fail"
+    ],
+    "identity_mutations": "Lookup misses against actual original identity; native tools were not rerun with fabricated helper/tool/asset/parameter fingerprints.",
+    "semantic_mutations": "Actual retained raw copies with updated internal/outer hashes; geometry, terminal, model, width, fault outcome, completion, required output and all five execution-binding mutations rejected."
+  },
+  "tests": [
+    {
+      "host": "Windows",
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "path": "work/unit-windows-reviewed.log",
+      "sha256": "81c505da1cd1050c484fd4db1680b400b418d28ef9db0f3a87bdd7a6f35a1389"
+    },
+    {
+      "host": "Linux",
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "path": "work/unit-linux-reviewed.log",
+      "sha256": "457cf372e2d88018a0c5eabbef25d1ed1a19a4237bdb9c84700261c69d14f155"
+    }
+  ],
+  "retained_repairs": [
+    {
+      "path": "native/development-probe-v1",
+      "result": "Failed closed on dependency-free ELF ldd output; parser corrected."
+    },
+    {
+      "path": "native/development-probe-v2",
+      "result": "Inputs changed during execution; terminal receipt withheld."
+    },
+    {
+      "path": "native/source-v1",
+      "result": "Concurrent source copy rejected; no frozen-source manifest accepted."
+    },
+    {
+      "path": "native/development-hit-probe-v1",
+      "result": "False identity miss from tuple/list JSON normalization; no false cache hit; corrected and regression tested."
+    },
+    {
+      "path": "native/final-fresh-v3",
+      "result": "Pre-review native evidence retained. Independent review exposed five rehashed execution-binding false acceptances; current audit and new native proof supersede that audit."
+    }
+  ],
+  "limits": [
+    "Linux-only reviewed headless runtime; unsupported launcher/native Tcl profiles reject reuse.",
+    "Only l1-w2-l5 is selectable; complete original required, no stage or chained reuse.",
+    "Default/exhaustive/release entry points reject development reuse and remain fresh.",
+    "No device-family gate or matrix status changed."
+  ],
+  "archive": {
+    "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-li-development-reuse-2026-10-23-v1/evidence.zip",
+    "sha256": "846657ac4858aa906223e41b225e768ea6cac1aa1fb122e8d5cdd191b3a2814e",
+    "bytes": 27768554,
+    "files": 18955,
+    "unique_objects": 3277,
+    "all_objects_verified": true,
+    "manifest_sha256": "009c8886da690a9ac0b4b5f056f6f18283df74e610ffeb7a3ab5a48471f96d64"
+  },
+  "independent_review": {
+    "path": "work/independent-review-fixed.json",
+    "sha256": "9eea60dd065013f460110e7e46b3747f2f212b84de9eda6e4750910b5ad1c918",
+    "result": {
+      "scope": "Copied-evidence semantic review only; originals untouched; no native run.",
+      "baseline": "PASS",
+      "restored": "PASS",
+      "original_unchanged": true,
+      "controls": [
+        {
+          "control": "wrong-generator-source",
+          "status": "REJECTED",
+          "error": "ValueError('Native generator source/parameters differ from captured PDK/fixed case.')",
+          "path": "generator/generate.tcl",
+          "before": "source {/var/tmp/icstudio-resume-pilot-20261023-v1/physical-adapter/libs.tech/magic/sky130A.tcl}",
+          "after": "source {/unbound/incorrect-generator.tcl}"
+        },
+        {
+          "control": "wrong-startup-technology",
+          "status": "REJECTED",
+          "error": "ValueError('Native startup technology/settings differ from captured PDK.')",
+          "path": "physical-0/drc/startup.tcl",
+          "before": "tech load \"/var/tmp/icstudio-resume-pilot-20261023-v1/physical-adapter/libs.tech/magic/sky130A.tech\"",
+          "after": "tech load \"/unbound/incorrect.tech\""
+        },
+        {
+          "control": "disabled-drc",
+          "status": "REJECTED",
+          "error": "ValueError('Native drc script/source/settings differ from the fixed case.')",
+          "path": "physical-0/drc/run.tcl",
+          "before": "drc ignore none",
+          "after": "drc ignore all"
+        },
+        {
+          "control": "wrong-extraction-settings",
+          "status": "REJECTED",
+          "error": "ValueError('Native lvs-extraction script/source/settings differ from the fixed case.')",
+          "path": "physical-0/lvs-extraction/run.tcl",
+          "before": "ext2spice blackbox off",
+          "after": "ext2spice blackbox on"
+        },
+        {
+          "control": "wrong-netgen-setup",
+          "status": "REJECTED",
+          "error": "ValueError('Netgen setup differs from captured PDK.')",
+          "path": "physical-0/lvs/console.log",
+          "before": "Reading setup file /var/tmp/icstudio-resume-pilot-20261023-v1/physical-adapter/libs.tech/netgen/sky130A_setup.tcl",
+          "after": "Reading setup file /unbound/incorrect_setup.tcl"
+        }
+      ]
+    }
+  },
+  "archive_replay": {
+    "status": "PASS",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-li-development-reuse-2026-10-23-v1\\archive-replay.json",
+    "sha256": "376614da3b41edb39ad6ea4409dc6b75f40de3255d99bdac161bc4e0146e4a4c",
+    "auditor_sha256": "6ddf5174fd0fd5665f8e0438ac0c760a29266c59f057603ab385edd51be29bd9",
+    "restored_files": 196,
+    "native_execution": false,
+    "scope": "Archive-restored case and archived independent auditor; actual raw scripts/geometry/extraction/faults audited. Persistent recorded PDK assets checked, no new native execution."
+  },
+  "affected_regression": [
+    {
+      "host": "Windows",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "path": "work/unit-windows-regression.log",
+      "sha256": "a5b1832ae81af0f192949d0bc56e658a8a3ed4a61b45315ec34d9adb0fb51158"
+    },
+    {
+      "host": "Linux",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "path": "work/unit-linux-regression.log",
+      "sha256": "a8d311db09b955e12f353048587f0a7c277701b9d1e1f88cd2388e09b7161a12"
+    }
+  ]
+}

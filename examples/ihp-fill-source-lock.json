@@ -1,0 +1,44 @@
+{
+  "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "files": [
+    {
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/macros/sg13g2_filler_ActGatP.lym",
+      "file": "sg13g2_filler_ActGatP.lym",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/macros/sg13g2_filler_ActGatP.lym",
+      "sha256": "ea36de0e0485bc876481a35a0ebae5039d8d47272e52f7b3488b7b1984278d11",
+      "git_blob": "a60a7efe4dc6dde3204e0fa9d5aaa38f4e71fa3e",
+      "bytes": 7825
+    },
+    {
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/macros/sg13g2_filler_Metal.lym",
+      "file": "sg13g2_filler_Metal.lym",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/macros/sg13g2_filler_Metal.lym",
+      "sha256": "bf1fb2dcdba695ed87d0c7b8cfa5e9829e40e3239d2a43366d1cb88e7df95131",
+      "git_blob": "4bf5cee3878f2f8916d8b67cfe0fe42d48ebdfd4",
+      "bytes": 11942
+    },
+    {
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/macros/sg13g2_filler_TopMetal.lym",
+      "file": "sg13g2_filler_TopMetal.lym",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/macros/sg13g2_filler_TopMetal.lym",
+      "sha256": "85f428cb34955f4c31b172d4a6830d6bc56e640dc229160e6a11959b5b410b5c",
+      "git_blob": "817b9f0558046e3697e80cb92fa7317036ab16b2",
+      "bytes": 4961
+    }
+  ],
+  "native_drc": {
+    "repository": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts",
+    "revision": "eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+    "path": "flow/platforms/ihp-sg13g2/drc/sg13g2_maximal.lydrc",
+    "sha256": "46f21123f6439da8e46f2eb32035d4870c2125ee1a1684308937597c4d4d608a",
+    "line_endings": "LF; Windows checkout CRLF may be restored to LF before checking"
+  },
+  "recipe": {
+    "scope": "Original-footprint standard-cell blocks, no seal ring or chip boundary.",
+    "active": "Upstream active squares; existing circuit poly must exceed 15 percent. Do not add dummy MOS gates.",
+    "ordinary_metals": "Upstream adjustable M1-M5 spacing 1.5 um; all native minima unchanged.",
+    "top_metals": "Unchanged upstream TM1/TM2 pattern."
+  },
+  "qualified": false
+}

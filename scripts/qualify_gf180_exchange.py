@@ -57,6 +57,20 @@ def remove_layer(source, target, pair):
     layout.write(str(target))
 
 
+def rejected_vias(result):
+    """Require independent physical evidence, never accept a generic crash."""
+    lvs = result['lvs']
+    metal = lvs['written_metal']
+    if lvs['passed'] or metal['passed'] or not metal.get('failure_counts', {}).get('open'):
+        raise ValueError('Missing-via geometry did not produce independently detected opens.')
+    mismatch = lvs['comparison_completed'] and lvs['exit_code'] == 0 and not lvs['native_passed']
+    extraction_rejected = (not lvs['comparison_completed'] and lvs['exit_code'] == 1
+                           and lvs.get('incomplete_wiring_reported', False))
+    if not (mismatch or extraction_rejected):
+        raise ValueError('LVS failed without identifying the intended broken wiring.')
+    return 'comparison-mismatch' if mismatch else 'extraction-rejected-incomplete-wiring'
+
+
 def qualify(args):
     report = Report(args.out, 'gf180-bandgap-exchange')
     state = {}
@@ -107,9 +121,9 @@ def qualify(args):
         source = report.output / 'missing-vias.gds'
         remove_layer(EXAMPLE / 'banba-layout.gds', source, (35, 0))
         result = check(source, 'missing-vias')
-        if result['lvs']['exit_code'] or result['lvs']['passed']:
-            raise ValueError('Missing-via geometry did not yield a completed LVS mismatch.')
-        return dict(observed_lvs='failed', lvs=result['lvs'], drc=result['drc'], source_sha256=file_digest(source))
+        detection = rejected_vias(result)
+        return dict(observed_lvs='failed', detection=detection, lvs=result['lvs'],
+                    drc=result['drc'], source_sha256=file_digest(source))
     report.case('bandgap-reject-missing-vias', missing_vias)
     report.blocked('bandgap-distributed-rc-and-fill-coupling',
                    'The archived Magic RC flow is unqualified and its technology does not extract dummy-fill coupling. DRC/LVS do not establish parasitic accuracy.')

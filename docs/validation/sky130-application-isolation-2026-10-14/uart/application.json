@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "status": "application-checks-and-export-pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "case": "uart",
+  "platform": "linux",
+  "driver_sha256": "6480e3faf6066527407af5d8e53427e86e0f204e3e2cfa8ab5b04e64ca5cf07d",
+  "source_result_sha256": "d85812ac451b2ef0a2b639b4647572df8f7e351ba60e8d789f903809b50fe8ab",
+  "source_input_sha256": "ecdf75aa48f65ad8ca837703cdadc93b51d1503ea522f6e4bc0d3893bf3be660",
+  "scope": "Actual Runner execution of isolation, six partial geometry profiles, thirteen antenna stages, OpenDB checks and export on unchanged final filled GDS/checkpoints. Prior nominal timing/equivalence remains separate; no new place/route, extraction, full physical signoff or installer qualification.",
+  "isolation": "NOT_REQUESTED",
+  "measurement": {
+    "top": "uart_tx",
+    "nfet_gates": 8500,
+    "pfet_gates": 8502,
+    "dnwell_polygons": 0,
+    "raw_dnwell_shapes": 0,
+    "raw_dnwell_texts": 0,
+    "nfet_not_contained": 8500,
+    "outside_examples_nm": [
+      [
+        20635,
+        21995,
+        23525,
+        22545
+      ],
+      [
+        20635,
+        26415,
+        23525,
+        26965
+      ],
+      [
+        20635,
+        27435,
+        23525,
+        27985
+      ],
+      [
+        20635,
+        31855,
+        23525,
+        32405
+      ],
+      [
+        20635,
+        32875,
+        23525,
+        33425
+      ],
+      [
+        20635,
+        37295,
+        23525,
+        37845
+      ],
+      [
+        20635,
+        38315,
+        23525,
+        38865
+      ],
+      [
+        20635,
+        42735,
+        23525,
+        43285
+      ],
+      [
+        20635,
+        43755,
+        23525,
+        44305
+      ],
+      [
+        20635,
+        48175,
+        23525,
+        48725
+      ],
+      [
+        20635,
+        49195,
+        23525,
+        49745
+      ],
+      [
+        20635,
+        53615,
+        23525,
+        54165
+      ],
+      [
+        20635,
+        54635,
+        23525,
+        55185
+      ],
+      [
+        20635,
+        59055,
+        23525,
+        59605
+      ],
+      [
+        20635,
+        60075,
+        23525,
+        60625
+      ],
+      [
+        20635,
+        64495,
+        23525,
+        65045
+      ],
+      [
+        20635,
+        65515,
+        23525,
+        66065
+      ],
+      [
+        20635,
+        69935,
+        23525,
+        70485
+      ],
+      [
+        20635,
+        70955,
+        23525,
+        71505
+      ],
+      [
+        20635,
+        75375,
+        23525,
+        75925
+      ]
+    ]
+  },
+  "isolated_control_status": "FAIL",
+  "result_sha256": "051d5df3962b63ad732327baa53b586c4bdc66766812cfaae5361f6d49354d2d",
+  "macro_sha256": "0248f36b2b363ca54b66f372c602143b5e39e9f6ccb18cbbd1e27dc5d6526c3c",
+  "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+  "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+  "elapsed_seconds": 116.88234827000002
+}

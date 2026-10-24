@@ -1,0 +1,340 @@
+{
+  "schema": 1,
+  "recipe": "sky130-empty-module-binary-operand-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+      "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+    }
+  },
+  "scope": "Thirty-four spacing and one overlap record have the explicit module operand areaid.mt on 81:10. Published periphery x.12a/x.12d and x.16 identify that operand; their catalog messages call it moduleCutAREA. With no raw shape of any kind on that purpose anywhere in reachable hierarchy, there are no module/other shape pairs for a spacing violation and no module intersection for an overlap violation. The construction of q0/q1 and extentDie is not inferred. Any raw module data, including text or malformed geometry, leaves all these decisions unreviewed. This does not waive enclosure, establish complete-chip context, validate an omitted required marker or qualify present modules. Enclosure records are never included: an absent enclosing region cannot establish that its required targets are enclosed.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "e6a10fa95ca82e2cc2d82afc00b3290dc93733be223ca47aa87fe13eabcb3be5",
+  "measurements": {
+    "raw_module_shapes": 1,
+    "module_texts": 1
+  },
+  "rows": [
+    {
+      "id": "r261",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0nwellnotBuildSpace",
+      "limit_um": "0.635",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r263",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0diffnotBuildSpace",
+      "limit_um": "0.135",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r265",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0dnwellnotBuildSpace",
+      "limit_um": "3.15",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r267",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0tapnotBuildSpace",
+      "limit_um": "0.135",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r269",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0lvtnnotBuildSpace",
+      "limit_um": "0.19",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r271",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0hvtpnotBuildSpace",
+      "limit_um": "0.19",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r273",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0hvinotBuildSpace",
+      "limit_um": "0.35",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r275",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0tunmnotBuildSpace",
+      "limit_um": "0.25",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r277",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0polynotBuildSpace",
+      "limit_um": "0.105",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r279",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0npcnotBuildSpace",
+      "limit_um": "0.135",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r281",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0nsdmnotBuildSpace",
+      "limit_um": "0.19",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r283",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0psdmnotBuildSpace",
+      "limit_um": "0.19",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r285",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0licon1notBuildSpace",
+      "limit_um": "0.085",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r287",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0li1notBuildSpace",
+      "limit_um": "0.085",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r289",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0mconnotBuildSpace",
+      "limit_um": "0.095",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r291",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0met1notBuildSpace",
+      "limit_um": "0.07",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r293",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0vianotBuildSpace",
+      "limit_um": "0.085",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r295",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0met2notBuildSpace",
+      "limit_um": "0.07",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r297",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0via2notBuildSpace",
+      "limit_um": "0.1",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r299",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0met3notBuildSpace",
+      "limit_um": "0.15",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r301",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0via3notBuildSpace",
+      "limit_um": "0.1",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r303",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0met4notBuildSpace",
+      "limit_um": "0.15",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r305",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0via4notBuildSpace",
+      "limit_um": "0.4",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r307",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0met5notBuildSpace",
+      "limit_um": "0.8",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r309",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0nsmnotBuildSpace",
+      "limit_um": "2",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r311",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0padnotBuildSpace",
+      "limit_um": "0.635",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r313",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0ldntmnotBuildSpace",
+      "limit_um": "0.35",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r315",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0hvntmnotBuildSpace",
+      "limit_um": "0.19",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r317",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0ncmnotBuildSpace",
+      "limit_um": "0.19",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r319",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0rdlnotBuildSpace",
+      "limit_um": "5",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r321",
+      "rule": "x.12a",
+      "operation": "spacing",
+      "other_operand": "q0hvtrnotBuildSpace",
+      "limit_um": "0.19",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r323",
+      "rule": "x.12d",
+      "operation": "spacing",
+      "other_operand": "q1met1notBuildSpace",
+      "limit_um": "0.14",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r325",
+      "rule": "x.12d",
+      "operation": "spacing",
+      "other_operand": "q1met2notBuildSpace",
+      "limit_um": "0.14",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r329",
+      "rule": "x.12d",
+      "operation": "spacing",
+      "other_operand": "q1met4notBuildSpace",
+      "limit_um": "0.2",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    },
+    {
+      "id": "r378",
+      "rule": "x.16",
+      "operation": "overlap",
+      "other_operand": "extentDie",
+      "disposition": "unreviewed",
+      "reason": "present-module-needs-other-operand"
+    }
+  ],
+  "unreviewed": 35,
+  "status": "review-required"
+}

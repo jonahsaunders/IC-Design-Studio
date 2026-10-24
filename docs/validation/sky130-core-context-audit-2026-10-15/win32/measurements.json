@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "driver_sha256": "533408d93ee38e7f442c267ac2168e67f0b3978cd1949f8b394206ecd739d865",
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "b3fb813d1b15b33210be66ef61d0b5ce91e1918ac933426359df4bad02ccc1d6",
+  "cases": {
+    "counter": {
+      "original_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 476,
+        "unreviewed": 614,
+        "standard-cell-wl-exempt": 90
+      },
+      "corrected_counts": {
+        "absent-operand": 37,
+        "executed-reviewed": 8
+      }
+    },
+    "uart": {
+      "original_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 476,
+        "unreviewed": 614,
+        "standard-cell-wl-exempt": 90
+      },
+      "corrected_counts": {
+        "absent-operand": 37,
+        "executed-reviewed": 8
+      }
+    },
+    "apb": {
+      "original_counts": {
+        "executed-reviewed": 376,
+        "absent-operand": 476,
+        "unreviewed": 614,
+        "standard-cell-wl-exempt": 90
+      },
+      "corrected_counts": {
+        "absent-operand": 37,
+        "executed-reviewed": 8
+      }
+    }
+  },
+  "elapsed_seconds": 1.0780000000013388
+}

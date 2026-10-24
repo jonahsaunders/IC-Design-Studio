@@ -1,0 +1,76 @@
+{
+  "repository": "https://github.com/google/gf180mcu-pdk",
+  "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+  "files": {
+    "LICENSE": {
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/LICENSE"
+    },
+    "docs/physical_verification/design_manual/drm_13.rst": {
+      "sha256": "f5a7c74430b474bc8282d4a369180053b908f01679a9c679bf61f38b9761dc3a",
+      "bytes": 1641,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_13.rst"
+    },
+    "docs/physical_verification/design_manual/drm_13_1.rst": {
+      "sha256": "00da78fa0a3722986ec1dad61f7c671e59d9d4a29413c3ada8b6b0da83af6b6c",
+      "bytes": 1580,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_13_1.rst"
+    },
+    "docs/physical_verification/design_manual/drm_13_2.rst": {
+      "sha256": "3502234427aead8fc2cb2175702d535b4e7eed403a1fdb1d710159d7267cdcea",
+      "bytes": 1191,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_13_2.rst"
+    },
+    "docs/physical_verification/design_manual/drm_13_3.rst": {
+      "sha256": "aa7ea7714064b547eaf68b13b1ce326b055dba21e0bce41c7fbb4ce997776e3d",
+      "bytes": 1011,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/drm_13_3.rst"
+    },
+    "docs/physical_verification/design_manual/tables_clear/51_Dummy_COMP_136.csv": {
+      "sha256": "07d5d19b694fbec7aa4ef40a11c76e077215dc7a7ab33b0ea16fdf0077dc824e",
+      "bytes": 3175,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/tables_clear/51_Dummy_COMP_136.csv"
+    },
+    "docs/physical_verification/design_manual/tables_clear/52_Dummy_Poly2_141.csv": {
+      "sha256": "c62230a040e475b89bdfbf4aa30c6a3d6b7faf14ff2724d26df38ea36a46cdd5",
+      "bytes": 1808,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/tables_clear/52_Dummy_Poly2_141.csv"
+    },
+    "docs/physical_verification/design_manual/tables_clear/53_Dummy_Metal_145.csv": {
+      "sha256": "da14e79970f7bfcb511c14d4787682ee4f3ef9633e13b14bc9a83a84542b368a",
+      "bytes": 1509,
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/tables_clear/53_Dummy_Metal_145.csv"
+    },
+    "docs/physical_verification/design_manual/images/Dummy_COMP1.png": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/images/Dummy_COMP1.png",
+      "sha256": "7e900c50b7120016c25476e347b3366b0e853450747bb6325f2eeda53aef0f97",
+      "bytes": 142895
+    },
+    "docs/physical_verification/design_manual/images/Dummy_COMP2.png": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/images/Dummy_COMP2.png",
+      "sha256": "51167ce84928685f9a0d37d8c66abddd3c333ce1e3f1ec530ab0d711c1e58ce6",
+      "bytes": 112617
+    },
+    "docs/physical_verification/design_manual/images/Dummy_COMP3.png": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/images/Dummy_COMP3.png",
+      "sha256": "07ec1fb68b731aa217741d18b7d9e3c1024f397b17ecddb31aec492636a3168a",
+      "bytes": 68031
+    },
+    "docs/physical_verification/design_manual/images/Dummy_Poly2_1.png": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/images/Dummy_Poly2_1.png",
+      "sha256": "27b1754c6a7ae7be8396089d6e5c4960fb53b7a51bea5a0a41cb02d5d3033005",
+      "bytes": 189289
+    },
+    "docs/physical_verification/design_manual/images/Dummy_Poly2_2.png": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/images/Dummy_Poly2_2.png",
+      "sha256": "4f37c679aadc8a6871f35c230ce9e4cfd9dcc4d6ebfbe985ce45078866352434",
+      "bytes": 31026
+    },
+    "docs/physical_verification/design_manual/images/Dummy_Metal.png": {
+      "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/physical_verification/design_manual/images/Dummy_Metal.png",
+      "sha256": "fc9a9b495b62dcb778d6fde0b1762daf0e61ae1f3c4d39cbf1e6e0fcc54e5744",
+      "bytes": 33853
+    }
+  }
+}

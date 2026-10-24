@@ -40,6 +40,14 @@ python scripts/verify_packaged_vga.py --executable "$exe" --output "$evidence/vg
 if ($LASTEXITCODE -ne 0) { throw 'Installed Windows VGA qualification failed.' }
 python scripts/verify_frozen_physical.py --executable "$exe" --pdk build/physical-adapter/sky130A --out "$evidence/physical"
 if ($LASTEXITCODE -ne 0) { throw 'Installed Windows physical qualification failed.' }
+python scripts/verify_frozen_mim.py --executable "$exe" --physical-pdk build/physical-adapter/sky130A --expected-commit "$commit" --out "$evidence/mim"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows MiM editor and native layout acceptance failed.' }
+python scripts/qualify_installed_sky130_mim_public_drc.py --gui "$evidence/mim" --expected-commit "$commit" --out "$evidence/mim-public-drc"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows MiM public geometry acceptance failed.' }
+python scripts/qualify_installed_sky130_mim_electrical.py --gui-root "$evidence/mim" --expected-commit "$commit" --out "$evidence/mim-electrical"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows MiM electrical acceptance failed.' }
+python scripts/verify_installed_mim.py --gui "$evidence/mim" --public "$evidence/mim-public-drc" --electrical "$evidence/mim-electrical" --expected-commit "$commit" --out "$evidence/mim-acceptance.json"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows MiM evidence does not describe one complete selected workflow.' }
 $shortcut = Join-Path ([Environment]::GetFolderPath('Programs')) 'IC Design Studio\IC Design Studio.lnk'
 if (-not (Test-Path $shortcut)) { throw 'Start menu shortcut is missing.' }
 $shell = New-Object -ComObject WScript.Shell
@@ -52,4 +60,4 @@ Wait-Checked (Join-Path $install 'unins000.exe') "/VERYSILENT /SUPPRESSMSGBOXES 
 if (Test-Path $exe) { throw 'Uninstall left the application executable behind.' }
 if (Test-Path 'HKCU:\Software\Classes\icstudio') { throw 'Uninstall left the invitation protocol registered.' }
 if ((Get-FileHash $setup.FullName -Algorithm SHA256).Hash.ToLowerInvariant() -ne $setupSha256) { throw 'Installer changed during acceptance execution.' }
-@{status='passed';version=$version;commit=$commit;installer=$setup.Name;installer_sha256=$setupSha256;probes=$probes;installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;vga=(Get-Content "$evidence/vga/probe/vga-test.json" -Raw | ConvertFrom-Json);uninstalled=$true;signing='not configured'} | ConvertTo-Json -Depth 30 | Set-Content "$evidence\windows-release.json"
+@{status='passed';version=$version;commit=$commit;installer=$setup.Name;installer_sha256=$setupSha256;probes=$probes;installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;vga=(Get-Content "$evidence/vga/probe/vga-test.json" -Raw | ConvertFrom-Json);mim=(Get-Content "$evidence/mim-acceptance.json" -Raw | ConvertFrom-Json);uninstalled=$true;signing='not configured'} | ConvertTo-Json -Depth 30 | Set-Content "$evidence\windows-release.json"

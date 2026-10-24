@@ -1,0 +1,74 @@
+{
+  "sky130-nfet.rst": {
+    "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/nfet_01v8/index.rst",
+    "repository": "https://github.com/google/skywater-pdk",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "path": "docs/rules/device-details/nfet_01v8/index.rst",
+    "sha256": "81bbe5cbcf8b2ccb479461f31b4b155cd7a7ecf627e2df05a09cb04989d80c32",
+    "bytes": 887
+  },
+  "sky130-pfet.rst": {
+    "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/pfet_01v8/index.rst",
+    "repository": "https://github.com/google/skywater-pdk",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "path": "docs/rules/device-details/pfet_01v8/index.rst",
+    "sha256": "247a1e889c575337ca058f6b0e35c93750a2d1d7f94ceb50d0260e0fc9dbea5f",
+    "bytes": 912
+  },
+  "sky130-LICENSE": {
+    "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/LICENSE",
+    "repository": "https://github.com/google/skywater-pdk",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "path": "LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "bytes": 11358
+  },
+  "gf180-extraction.rst": {
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/LV_2_1.rst",
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "path": "docs/analog/model_parameters/LV/LV_2_1.rst",
+    "sha256": "693f50e781c23713612db00469bce08d07b582bd638ccc07b22033a435787a78",
+    "bytes": 772
+  },
+  "gf180-geometry.rst": {
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/LV_2_2.rst",
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "path": "docs/analog/model_parameters/LV/LV_2_2.rst",
+    "sha256": "03057618ac1531ee2e53fd91fcec00938867d1c27546d0b2841be994daa437f0",
+    "bytes": 732
+  },
+  "gf180-LICENSE": {
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/LICENSE",
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "path": "LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "bytes": 11358
+  },
+  "sky130-nfet-table.rst": {
+    "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/nfet_01v8/nfet_01v8-table0.rst",
+    "repository": "https://github.com/google/skywater-pdk",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "path": "docs/rules/device-details/nfet_01v8/nfet_01v8-table0.rst",
+    "sha256": "6e55cfb827824bbf23e76ed6b751da15074eace6f34d7179fae73fe5ae2da392",
+    "bytes": 1127
+  },
+  "sky130-pfet-table.rst": {
+    "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/pfet_01v8/pfet_01v8-table0.rst",
+    "repository": "https://github.com/google/skywater-pdk",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "path": "docs/rules/device-details/pfet_01v8/pfet_01v8-table0.rst",
+    "sha256": "4519ed42053e9114cc76a9a0322cb7eeadfa295d44ad32a8f0ce73fe482e9fa7",
+    "bytes": 1163
+  },
+  "gf180-geometry.csv": {
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/tables_clear/16_LV_NPMOS.csv",
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "path": "docs/analog/model_parameters/LV/tables_clear/16_LV_NPMOS.csv",
+    "sha256": "f48cb4fec3a63df67c5e7567baf373c2068cccb6d0104d1363acf587396e6789",
+    "bytes": 102
+  }
+}

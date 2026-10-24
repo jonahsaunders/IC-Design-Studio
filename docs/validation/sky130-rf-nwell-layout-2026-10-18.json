@@ -1,0 +1,1890 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "sampled_rf_nwell_physical_checks_passed",
+  "scope": "One rectangular SKY130 RF ps2nw junction with explicit contacted substrate ring. Public block DRC, independent written-contact continuity, unfiltered native extraction, strict single-device polarity/geometry comparison and application exchange. No continuous range, pw2dn, multi-device, calibrated RF parasitic, full process or installed-release qualification.",
+  "source_files": {
+    "icstudio/sky130_rf_verification.py": "8a7b56036b671119db2e871280a09da937ad646f811af65593ab2b84c13a6c44",
+    "icstudio/layout_verification.py": "56fc0e7aef512017ec054e755a4041eeeaebd9f766e65b116b7dc399dd7bae22",
+    "icstudio/physical_backend.py": "cc01439a234f4811a106fee7458631b382f3b3f3ca4e72942b3fd0416ae8d6ba",
+    "icstudio/silicon_ui.py": "4c9ee091ed1aa7268f3bdf33f4cd6a48f949be22b10cdb6255fb6e491d21227e",
+    "scripts/qualify_sky130_rf_layouts.py": "71d2a5ff249f9c9884ad64350bebb29714c2e56a67af0748597e184bf7b8c02c",
+    "tests/test_sky130_rf_verification.py": "3980479f204c2094e06a563e62ad0d12e4dff2c73c71e5def22699e40cc9ca78",
+    "tests/gui_sky130_rf_verification.py": "c00057090934e1b355d69396e97e1e77a36b7fdc0f8172e192e3f2b555096b90"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/sky130-rf-nwell-layout-2026-10-18/evidence.zip",
+    "sha256": "592cf1e1c3a57be18af6c4cf7970337d703d981d3f5fe42b5c8e5dcadd434f63",
+    "bytes": 23553813,
+    "files": 9099,
+    "unique_contents": 3555,
+    "all_objects_verified": true
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "592cf1e1c3a57be18af6c4cf7970337d703d981d3f5fe42b5c8e5dcadd434f63",
+    "restored": {
+      "current-source": 1217,
+      "sky130-physical": 442
+    },
+    "unit_test_exit": 0,
+    "unit_test_log_sha256": "441783e0304cfc8c0c5d5d67848e578c47d38e61752cad7003a74a3f200f010c",
+    "native_replay": {
+      "status": "PASS",
+      "layouts": 1,
+      "faults": 17,
+      "record_sha256": "987c6f134154c90f8359b0a207ad1818f76138649ba47d96b3608078e49d76a8"
+    }
+  },
+  "native_layouts": [
+    {
+      "geometry": "10x10",
+      "status": "PASS",
+      "package": {
+        "target": "sky130A",
+        "revision": "9a491f0ebd51a0aa",
+        "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+        "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+      },
+      "layouts": [
+        {
+          "name": "w10-l10-r0",
+          "width_um": 10,
+          "length_um": 10,
+          "angle": 0,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 100.0,
+            "perimeter_um": 40.0
+          },
+          "report_sha256": "8b4773e438c9f35227aef217c42252819cc53acc93a461789f35953f831cc341"
+        },
+        {
+          "name": "w10-l10-r90",
+          "width_um": 10,
+          "length_um": 10,
+          "angle": 90,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 100.0,
+            "perimeter_um": 40.0
+          },
+          "report_sha256": "a6f902ad78a50f716219c1f70f27a8aae456851eea3adc5fba10cbaf4e6f945b"
+        },
+        {
+          "name": "w10-l10-r180",
+          "width_um": 10,
+          "length_um": 10,
+          "angle": 180,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 100.0,
+            "perimeter_um": 40.0
+          },
+          "report_sha256": "47d0b5c9eda717c1d61081ba79d4966f0e9b9e07514a42b5b54d06c6693f2111"
+        },
+        {
+          "name": "w10-l10-r270",
+          "width_um": 10,
+          "length_um": 10,
+          "angle": 270,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 100.0,
+            "perimeter_um": 40.0
+          },
+          "report_sha256": "6f75db670f563599fe173341f6fb118ef9bb266028bca6c8275b291150576ffd"
+        }
+      ],
+      "faults": [
+        {
+          "name": "w10-l10-anode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "04079cd49c46becf5dc8a4e25c2a33de0d1eb59c0945a1fbaa8abd98bd9ea7f7"
+        },
+        {
+          "name": "w10-l10-cathode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "fb083f6d03b619741a2a6d0d380cf8b5ef33c1dac011cb9991eec6d96477b04a"
+        },
+        {
+          "name": "w10-l10-anode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "758287e5e411d7e8f34126336b5e89f43a46b0396ca8082e097494dc6f4238be"
+        },
+        {
+          "name": "w10-l10-cathode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "700d025286058c578d8a977e01033c655e7d03ee90d2b4ea3759cfce99725d52"
+        },
+        {
+          "name": "w10-l10-short",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "c8a71011884bdfa471f2ee5dce4b463e6dac148ac6f8ac442fa121fccec5f0e2"
+        },
+        {
+          "name": "w10-l10-guard-open",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "a8f99c4e446c37ae0aa45c8bb8c444e3b3a231a21f264f3d1f94195b0b6fc4f0"
+        },
+        {
+          "name": "w10-l10-split-guard-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "b731af62a70c625c3f2082f5c097af7fc9974d12248ba223d9af6253a024b312"
+        },
+        {
+          "name": "w10-l10-missing-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "ba0716c667e52473c824f6d92c9ce20c9a47abee3e91bbf6268e54c7023846c0"
+        },
+        {
+          "name": "w10-l10-shifted-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "dc579f5900822cf80738938e6a71a202eefcdf6bfa0a0ac6b16c6ad35c16cc00"
+        },
+        {
+          "name": "w10-l10-missing-nwell",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "1e9d1b6d4f609d46cf566fb6b6ad07491d2ac0052d757775b94e694d04919867"
+        },
+        {
+          "name": "w10-l10-extra-device-mask",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "1bce9d1cf136b1191e74f14db0df44980b7fc4b6cff06edc4510814a78022a91"
+        },
+        {
+          "name": "w10-l10-floating-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "50a5f1defcc0637168e3659ea64fdea895c71df23c01d57c6ab89640e44d0688"
+        },
+        {
+          "name": "w10-l10-duplicate-port",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "b8268b0c5a7100dc6de972095c5fd596a8f0ad62bfc9019c306c4154477ef074"
+        },
+        {
+          "name": "w10-l10-reference-area",
+          "detected": true,
+          "error": "RF strict LVS area_um2 mismatch.",
+          "report_sha256": "10e7e6ff065c23c8cf1f292707f95d1f4acb9c4c66656f21ff8b7c01fba15967"
+        },
+        {
+          "name": "w10-l10-reference-perimeter",
+          "detected": true,
+          "error": "RF strict LVS perimeter_um mismatch.",
+          "report_sha256": "fe54468af277d929b790c748b5bb20d4d0460d53573d84b0ee4057fcb7c2219a"
+        },
+        {
+          "name": "w10-l10-reference-polarity",
+          "detected": true,
+          "error": "RF strict LVS terminals mismatch.",
+          "report_sha256": "31ca9644c86568e05782d4600df7ff176bca8061d33f52cdad6f27e3a1db221f"
+        },
+        {
+          "name": "w10-l10-reference-model",
+          "detected": true,
+          "error": "Unexpected RF device, model, terminal or parameter count.",
+          "report_sha256": "ed094beae8d7b6a873ff939f1a53efcb1d4575c997270ee81e6ca836b7cb7c17"
+        }
+      ],
+      "record_sha256": "39162a8df3f1b140552b7badce3114c5674390c3c3ff7c27152c621431dbedd5"
+    },
+    {
+      "geometry": "1x4",
+      "status": "PASS",
+      "package": {
+        "target": "sky130A",
+        "revision": "9a491f0ebd51a0aa",
+        "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+        "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+      },
+      "layouts": [
+        {
+          "name": "w1-l4-r0",
+          "width_um": 1,
+          "length_um": 4,
+          "angle": 0,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 4.0,
+            "perimeter_um": 10.0
+          },
+          "report_sha256": "fbb3e03defa2a626614f9747be32563c8ebe5ffcf657dcb67758335ef54ca493"
+        },
+        {
+          "name": "w1-l4-r90",
+          "width_um": 1,
+          "length_um": 4,
+          "angle": 90,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 4.0,
+            "perimeter_um": 10.0
+          },
+          "report_sha256": "2a0426e1d1b882cc5e9e9889ba4a4c64275abb64ebc7c6e76308f950b267ee3d"
+        },
+        {
+          "name": "w1-l4-r180",
+          "width_um": 1,
+          "length_um": 4,
+          "angle": 180,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 4.0,
+            "perimeter_um": 10.0
+          },
+          "report_sha256": "94ad49f1bb6b8cdb9063f729c1a1434262941ec8302e8403fa1bec93201bc634"
+        },
+        {
+          "name": "w1-l4-r270",
+          "width_um": 1,
+          "length_um": 4,
+          "angle": 270,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 4.0,
+            "perimeter_um": 10.0
+          },
+          "report_sha256": "2025a2ab5663697625cf0c28550a1d760c45ce64e9480fbc74a4045519b1a7f5"
+        }
+      ],
+      "faults": [
+        {
+          "name": "w1-l4-anode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "d7f0e1940e61c76d15b2c9f3b3157f855cfc45d41a2a8a8275ec7d32719b6166"
+        },
+        {
+          "name": "w1-l4-cathode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "172721b6320e5b8279d41688701b9210df2891e4921962150040277e9fc67f2d"
+        },
+        {
+          "name": "w1-l4-anode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "0044a314cca947bf6ad74a5d01334b004ecb8f0407a8a9a0653e64e02d065457"
+        },
+        {
+          "name": "w1-l4-cathode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "23a313388f7506f850ce35f0f483ce003d96ba2786024d9799e24572682c19a5"
+        },
+        {
+          "name": "w1-l4-short",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "a13e74eb250966d6be542515f72d63d92b272b063b06a51d1f617c441e5b1bb0"
+        },
+        {
+          "name": "w1-l4-guard-open",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "ee62cdedb6be703f0220a3b9ba8635420bccc99597362f2588deea88ac307d68"
+        },
+        {
+          "name": "w1-l4-split-guard-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "8e2dad98e40b59c9e77fd6a6ac9a7af69abdfa9e6da2fb657be21a2c9d106884"
+        },
+        {
+          "name": "w1-l4-missing-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "523239628e8eac1f48db7433a0ef38b470704eb936c2f8b68407f58e0bdfe8db"
+        },
+        {
+          "name": "w1-l4-shifted-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "f48cb486cd2408a52133eed6513c8cdafc8c7996c715e8afa065ba173133ade5"
+        },
+        {
+          "name": "w1-l4-missing-nwell",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "93f01828ddb3219c0ede6b33ba78f9fb51be2705681af77b34104c032ccb3c41"
+        },
+        {
+          "name": "w1-l4-extra-device-mask",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "c97a94ee97ca035c9a29a4b55702267a564951ede9452c42547372af5171413d"
+        },
+        {
+          "name": "w1-l4-floating-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "18fcd9966625b4464bebc95e9e2a7ef063d40c6635c8ece0c79720608bc55e2c"
+        },
+        {
+          "name": "w1-l4-duplicate-port",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "d471876cf34b54e90422a8bc5df186d94bcc08735f15a984444e48ef0561cec6"
+        },
+        {
+          "name": "w1-l4-reference-area",
+          "detected": true,
+          "error": "RF strict LVS area_um2 mismatch.",
+          "report_sha256": "cddb0c768375dfdcd57bbb1194b589368e3d0ac6784ccb2c171862df9fef98ed"
+        },
+        {
+          "name": "w1-l4-reference-perimeter",
+          "detected": true,
+          "error": "RF strict LVS perimeter_um mismatch.",
+          "report_sha256": "774b0ac87b6f8c0409e30d7be36a11b4c7ce48b673414ac31505b60e5b958744"
+        },
+        {
+          "name": "w1-l4-reference-polarity",
+          "detected": true,
+          "error": "RF strict LVS terminals mismatch.",
+          "report_sha256": "f1c8e66feca6cad1e35d68d34c9aeffa01d02b00cc89cfdedf1c780ca5294e4a"
+        },
+        {
+          "name": "w1-l4-reference-model",
+          "detected": true,
+          "error": "Unexpected RF device, model, terminal or parameter count.",
+          "report_sha256": "011d3a486dba4541087cd3ae296537f92233869a7c97a3bbb730ebb54a491477"
+        }
+      ],
+      "record_sha256": "c6ac56c6716cb17c5e4c02979c82700c288402bf470796eec259b9af6571816a"
+    },
+    {
+      "geometry": "2x2",
+      "status": "PASS",
+      "package": {
+        "target": "sky130A",
+        "revision": "9a491f0ebd51a0aa",
+        "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+        "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+      },
+      "layouts": [
+        {
+          "name": "w2-l2-r0",
+          "width_um": 2,
+          "length_um": 2,
+          "angle": 0,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 4.0,
+            "perimeter_um": 8.0
+          },
+          "report_sha256": "4a16748d37579a8c0310c5ed585fb352daa899a4e8fb21de9084d08d0375413b"
+        },
+        {
+          "name": "w2-l2-r90",
+          "width_um": 2,
+          "length_um": 2,
+          "angle": 90,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 4.0,
+            "perimeter_um": 8.0
+          },
+          "report_sha256": "10247ff770adbbc82973c7a1cc37fc83f11535cc661ab82dba3695ae17106592"
+        },
+        {
+          "name": "w2-l2-r180",
+          "width_um": 2,
+          "length_um": 2,
+          "angle": 180,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 4.0,
+            "perimeter_um": 8.0
+          },
+          "report_sha256": "d8fb2abca9ebb54b52a56dd2d03dae4cb3f2ddadc259842c79ca87dedbccb47c"
+        },
+        {
+          "name": "w2-l2-r270",
+          "width_um": 2,
+          "length_um": 2,
+          "angle": 270,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 4.0,
+            "perimeter_um": 8.0
+          },
+          "report_sha256": "947f92e1edc18c9d1b1b696a52b7e5836fca8d7929d9b8206adb4e5c001201fc"
+        }
+      ],
+      "faults": [
+        {
+          "name": "w2-l2-anode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "7b6687d8c382ced20767f70a4c3b4be743268212658da1e82d6eec248ee17048"
+        },
+        {
+          "name": "w2-l2-cathode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "47375b77b888acd2878716739c05976817399da7d1bfbd99bcd07ab35ebc4249"
+        },
+        {
+          "name": "w2-l2-anode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "f89e9816f95c7d6af76c05b638265c22b59796c342d74dc28c4a299191c8921d"
+        },
+        {
+          "name": "w2-l2-cathode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "51281414d3ccce711cc5d756620a6ced4e32932c1c6d320604dcacc703f5482e"
+        },
+        {
+          "name": "w2-l2-short",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "b76a0926780beaedc42ea2a2507491603dc6d45c19b5799398990844b2e28e37"
+        },
+        {
+          "name": "w2-l2-guard-open",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "873666a18d74257373ac9c4365d6399fb7c52c97603dc2890e2ae3986107f35b"
+        },
+        {
+          "name": "w2-l2-split-guard-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "d88ea09bc69465ba5e6f0421ef8c82b76a31b4742218fefb862aa866206d9faa"
+        },
+        {
+          "name": "w2-l2-missing-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "f500040dcb575c8d709282bd4c2b213bc2ee4173f319dbdf8caf9d7e1f4ca06d"
+        },
+        {
+          "name": "w2-l2-shifted-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "2c08aeed809fadab052f2425b2230c6abad9e4a9b25ac113dc67db134abfda46"
+        },
+        {
+          "name": "w2-l2-missing-nwell",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "b1868e9482ae259633ad024c6f0b23d73c9473047ba6cde4b53c0ba23e894585"
+        },
+        {
+          "name": "w2-l2-extra-device-mask",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "1716b3050db3337454391aa65d99bcd2f3cbd5cf05814ef536a7815c4838647b"
+        },
+        {
+          "name": "w2-l2-floating-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "6b58a6f47e0195d9d8f16e5ca6c1a6a965ffee4a611877396cf86b269bed3616"
+        },
+        {
+          "name": "w2-l2-duplicate-port",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "0bdaeedd6b358ca657921598512f84781c0c38f60240bf8dfbffddd8a886cb90"
+        },
+        {
+          "name": "w2-l2-reference-area",
+          "detected": true,
+          "error": "RF strict LVS area_um2 mismatch.",
+          "report_sha256": "3e0224f9721188375322eaaa7511f0f703e72f47bbc67a61c1b65d959e167244"
+        },
+        {
+          "name": "w2-l2-reference-perimeter",
+          "detected": true,
+          "error": "RF strict LVS perimeter_um mismatch.",
+          "report_sha256": "8dec3ef2a29aeb29fdd9b20af1503cb2691a984c7fa97fa4348ce33c85ed44ef"
+        },
+        {
+          "name": "w2-l2-reference-polarity",
+          "detected": true,
+          "error": "RF strict LVS terminals mismatch.",
+          "report_sha256": "666c6ba5a08b46a19eef975f284f66d3c402d6b6ae1bc94212db8b89561430b8"
+        },
+        {
+          "name": "w2-l2-reference-model",
+          "detected": true,
+          "error": "Unexpected RF device, model, terminal or parameter count.",
+          "report_sha256": "bc17c2becb5f527d66192ffadf3ee78ad29e8259fd0b5d9a277c3801c9e2e78a"
+        }
+      ],
+      "record_sha256": "3e3c506dab607e9779b8488e5a36907cc82607889e07d9513d48c8579462d6ff"
+    },
+    {
+      "geometry": "2x4",
+      "status": "PASS",
+      "package": {
+        "target": "sky130A",
+        "revision": "9a491f0ebd51a0aa",
+        "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+        "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+      },
+      "layouts": [
+        {
+          "name": "w2-l4-r0",
+          "width_um": 2,
+          "length_um": 4,
+          "angle": 0,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 8.0,
+            "perimeter_um": 12.0
+          },
+          "report_sha256": "a6a4bcfea065345253e76d14be61d8bb8d50102926af47bcde55a0a900ee94f2"
+        },
+        {
+          "name": "w2-l4-r90",
+          "width_um": 2,
+          "length_um": 4,
+          "angle": 90,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 8.0,
+            "perimeter_um": 12.0
+          },
+          "report_sha256": "fa10ead4d4d60aaae7668402ea1cddb56d6f98757180df76fd09fed254fab455"
+        },
+        {
+          "name": "w2-l4-r180",
+          "width_um": 2,
+          "length_um": 4,
+          "angle": 180,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 8.0,
+            "perimeter_um": 12.0
+          },
+          "report_sha256": "04b5a41a5025b35d53fbdcc36847c39aababd71394f52bd90542cfcf06be88a9"
+        },
+        {
+          "name": "w2-l4-r270",
+          "width_um": 2,
+          "length_um": 4,
+          "angle": 270,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 8.0,
+            "perimeter_um": 12.0
+          },
+          "report_sha256": "a0a033e758eb06f3d6336765679f0e857453b3bc222025fffe7f66569f6a2391"
+        }
+      ],
+      "faults": [
+        {
+          "name": "w2-l4-anode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "78ee17b1e5850cfdac44cd23845ff5c91f4fa582877c0b994efe440aaf411704"
+        },
+        {
+          "name": "w2-l4-cathode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "1fd3f65b1b5aae8ad887ca5c886a234471e7f25bd49604d99b49630295e49811"
+        },
+        {
+          "name": "w2-l4-anode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "6a311fa975f1912ba550e955e3b0259902650209781dea33490e53336f8c5fac"
+        },
+        {
+          "name": "w2-l4-cathode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "4d825c8acee89fa62674a4ccfdea57b3dded487daddd253d7a7cebab67fc2e1a"
+        },
+        {
+          "name": "w2-l4-short",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "bd268a7aef9323c237ea08a3ec2ae952193fc0a606f5ffbab57833f96c61eec0"
+        },
+        {
+          "name": "w2-l4-guard-open",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "b40752af52d1008bfb21e343382786b780eaeed7986c0a70e959a4ea914d501d"
+        },
+        {
+          "name": "w2-l4-split-guard-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "4c62280606a67e8ca5b8939c794612973340de6a6c71e89b2ee3279b7eb7fbb2"
+        },
+        {
+          "name": "w2-l4-missing-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "c4db6d30429c480854ef002eeaf989a46b7a8c0dd3a58c59299b9879a162a9ed"
+        },
+        {
+          "name": "w2-l4-shifted-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "8e8495bfb22f5a530707d9294e6ad1f6b509e69d254a287525b470f436218b29"
+        },
+        {
+          "name": "w2-l4-missing-nwell",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "8bd0bbd7127cfc649b0324a10d68b35ef03e30c52b3db948233670c787d3e9bf"
+        },
+        {
+          "name": "w2-l4-extra-device-mask",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "d660b50dce257b1254e0a994c80ee626ed06d7e98f04de6fc8fcf4dea02e6fa1"
+        },
+        {
+          "name": "w2-l4-floating-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "c5ff0ba3a4502d90d2c77f3d048387c8b5c6f365ca2ed3774923c33e48113736"
+        },
+        {
+          "name": "w2-l4-duplicate-port",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "d691d45996519f55b9449b6c0e8e9b2a4f3cbd08eab4c71c59ef33824928e4d8"
+        },
+        {
+          "name": "w2-l4-reference-area",
+          "detected": true,
+          "error": "RF strict LVS area_um2 mismatch.",
+          "report_sha256": "195e98a84195f243e2047ac6902270429c1477fce9c6b37dea69de544f9d0d70"
+        },
+        {
+          "name": "w2-l4-reference-perimeter",
+          "detected": true,
+          "error": "RF strict LVS perimeter_um mismatch.",
+          "report_sha256": "29b3f82bda3e27f9a2dea5dfb89c7cdc6965540256dfb37a3ac80f764ccdc609"
+        },
+        {
+          "name": "w2-l4-reference-polarity",
+          "detected": true,
+          "error": "RF strict LVS terminals mismatch.",
+          "report_sha256": "25ae2185b64ae91639ad012e2eab79bf7cd434fa40d69c6ee03f9da8c15e3f22"
+        },
+        {
+          "name": "w2-l4-reference-model",
+          "detected": true,
+          "error": "Unexpected RF device, model, terminal or parameter count.",
+          "report_sha256": "2f1cf1b1bfc7fc48bcc6ff619c24b7cd21ac3d37ce064f4cad86bd7572a500f6"
+        }
+      ],
+      "record_sha256": "fad2ca0e611b3a8bca5b33283284a14e4e7e33187564c509c20a85f30b3f949d"
+    },
+    {
+      "geometry": "4x2",
+      "status": "PASS",
+      "package": {
+        "target": "sky130A",
+        "revision": "9a491f0ebd51a0aa",
+        "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+        "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+      },
+      "layouts": [
+        {
+          "name": "w4-l2-r0",
+          "width_um": 4,
+          "length_um": 2,
+          "angle": 0,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 8.0,
+            "perimeter_um": 12.0
+          },
+          "report_sha256": "e5b74452bff07da9979f3f61f65c6335df2afcd30bebb698c1b2fe91da888308"
+        },
+        {
+          "name": "w4-l2-r90",
+          "width_um": 4,
+          "length_um": 2,
+          "angle": 90,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 8.0,
+            "perimeter_um": 12.0
+          },
+          "report_sha256": "9b13e7b20d8a9b09c11879862058a1912b7c5ab64f7dd3b3a48273210f30ab96"
+        },
+        {
+          "name": "w4-l2-r180",
+          "width_um": 4,
+          "length_um": 2,
+          "angle": 180,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 8.0,
+            "perimeter_um": 12.0
+          },
+          "report_sha256": "9817f243635c38de11b8fc83321d29b19a67bc36f93c61dee4d4528b32341146"
+        },
+        {
+          "name": "w4-l2-r270",
+          "width_um": 4,
+          "length_um": 2,
+          "angle": 270,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 8.0,
+            "perimeter_um": 12.0
+          },
+          "report_sha256": "60d08bf16ea8c3afbfc52f773a2bb4789c15a765bba05124923b84ef45c8f441"
+        }
+      ],
+      "faults": [
+        {
+          "name": "w4-l2-anode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "6e7ae38b02f0ded330db61c4ffcf9486ef725f6c4c9645b57b86908ff39676de"
+        },
+        {
+          "name": "w4-l2-cathode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "833cf0c165b590f51613418c03945f7df4259ee38a35d0086aa3891a5618d385"
+        },
+        {
+          "name": "w4-l2-anode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "f7cdcaf755f4c5b39474c3da58cae0d670d3e1fbefda50d616cab674b201d812"
+        },
+        {
+          "name": "w4-l2-cathode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "d935a7d418ac9bf5e01d0883c945f07fcd114c2bcadc19dfb04dfe12f7f8c392"
+        },
+        {
+          "name": "w4-l2-short",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "62d1f453f9597098d69166a143883dd94bc70a89068dc5c4c95056e4b7b56d65"
+        },
+        {
+          "name": "w4-l2-guard-open",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "5a5301512f03c87b0f1da35a59a5008cbefb50d93757de9d7d517d2582f6aefc"
+        },
+        {
+          "name": "w4-l2-split-guard-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "4d4db4995a9eebc3aa064b907ffd669c12fe4fb698e4a37b2cb2f2acdd9db8b5"
+        },
+        {
+          "name": "w4-l2-missing-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "6938ce00137ced7afa4358950c895aa020436aba33f11cfc7512eb36e212076f"
+        },
+        {
+          "name": "w4-l2-shifted-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "5cac35361a7daa69b7358b7ad8c36c83bd8ad89939842fbdfe0f96b6acacda2b"
+        },
+        {
+          "name": "w4-l2-missing-nwell",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "5a0869f255ec4f034ddfa6c34fbce04de272d83fafa329699db2dd46d8a89052"
+        },
+        {
+          "name": "w4-l2-extra-device-mask",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "24e52316ad4e1624a6fcc978a7d51015e463c2de712776cd5709ca8bdcd34d73"
+        },
+        {
+          "name": "w4-l2-floating-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "6287c23a8320dde029be3bfbe5724871195fe03fdc4e84c9e790774db2e97312"
+        },
+        {
+          "name": "w4-l2-duplicate-port",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "fdcf3d8c90acdfb617d5a8320e1fad1043cfa8f42dd949c2e6885a680d241e3c"
+        },
+        {
+          "name": "w4-l2-reference-area",
+          "detected": true,
+          "error": "RF strict LVS area_um2 mismatch.",
+          "report_sha256": "a5e37c2ac3ff51c89d42d4e4e061a3f95cf7b386f73b22ba1f9b4ef8d517f605"
+        },
+        {
+          "name": "w4-l2-reference-perimeter",
+          "detected": true,
+          "error": "RF strict LVS perimeter_um mismatch.",
+          "report_sha256": "28999b4e71947f03687d56c0bbcc4aed1c7ef013f81bc52ba360f7eb89ac5062"
+        },
+        {
+          "name": "w4-l2-reference-polarity",
+          "detected": true,
+          "error": "RF strict LVS terminals mismatch.",
+          "report_sha256": "d710f93502cc87a74fbdfb18f5f944004b4fbce498814fefa17ccb51c226a6e4"
+        },
+        {
+          "name": "w4-l2-reference-model",
+          "detected": true,
+          "error": "Unexpected RF device, model, terminal or parameter count.",
+          "report_sha256": "8af2a99ee5b34ef8660651003e6c3097e7d308a93abab095605e3aa1577bd6bf"
+        }
+      ],
+      "record_sha256": "00063af475bd3c03f100760067879ae7c091ea61311be97a0775bf4b6686e3fb"
+    },
+    {
+      "geometry": "4x4",
+      "status": "PASS",
+      "package": {
+        "target": "sky130A",
+        "revision": "9a491f0ebd51a0aa",
+        "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+        "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+      },
+      "layouts": [
+        {
+          "name": "w4-l4-r0",
+          "width_um": 4,
+          "length_um": 4,
+          "angle": 0,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 16.0,
+            "perimeter_um": 16.0
+          },
+          "report_sha256": "68208415d8a2278719babc79d87cf3989bcd112068c8202a850c81ac0336ffb0"
+        },
+        {
+          "name": "w4-l4-r90",
+          "width_um": 4,
+          "length_um": 4,
+          "angle": 90,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 16.0,
+            "perimeter_um": 16.0
+          },
+          "report_sha256": "a734edb9846c22d10739914b43662e93595f0584555737f6bbc46c938ea7db6d"
+        },
+        {
+          "name": "w4-l4-r180",
+          "width_um": 4,
+          "length_um": 4,
+          "angle": 180,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 16.0,
+            "perimeter_um": 16.0
+          },
+          "report_sha256": "a1b46e9f74caf04cdf63a4cbbaf75fb6fef24a045b24298740287a87048c14f3"
+        },
+        {
+          "name": "w4-l4-r270",
+          "width_um": 4,
+          "length_um": 4,
+          "angle": 270,
+          "exchange": {
+            "status": "passed",
+            "cells": 1,
+            "cell_layers": 10,
+            "text_presentation_compared": false,
+            "presentation_changed_cell_layers": 0,
+            "checks": [
+              "region XOR",
+              "label strings and anchor positions",
+              "hierarchy and array transforms",
+              "database units"
+            ]
+          },
+          "native": {
+            "ports": [
+              "A",
+              "K"
+            ],
+            "terminals": [
+              "A",
+              "K"
+            ],
+            "model": "sky130_fd_pr__model__parasitic__rf_diode_ps2nw",
+            "area_um2": 16.0,
+            "perimeter_um": 16.0
+          },
+          "report_sha256": "b936bdd951368db759c8f2fbb47e0a1354095fd18b0381f8b6b97a6a0d0fca89"
+        }
+      ],
+      "faults": [
+        {
+          "name": "w4-l4-anode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "22fa5d65cb6d32ba391bb42aca8da753204ef911ad8efb0e13055c68fdb1d430"
+        },
+        {
+          "name": "w4-l4-cathode-licon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "6ae58ebec9997dc2640bb2a885637759067976ba021908571d4881675d059cb6"
+        },
+        {
+          "name": "w4-l4-anode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "0d88fc8fb12679a7eb5a99015a073d1d04780be426796cb25e8088790e5835f9"
+        },
+        {
+          "name": "w4-l4-cathode-mcon",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "c4e1fe284e9ef2869e2b1bc5cf65efdd7d23c71cadd8350631a83e831f50938e"
+        },
+        {
+          "name": "w4-l4-short",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "130ddb427e12232cee171b848cd9c84e818025e853ee0f83e78ddee72bfb2946"
+        },
+        {
+          "name": "w4-l4-guard-open",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "3a90afcb3dc20bc4cd87057eb96658c12b424fde2b2b3e4d726de0e3bc59365b"
+        },
+        {
+          "name": "w4-l4-split-guard-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "14456c57f2f53360dd49a1db6d6583bcfb56042e5de82552e85c5d4b1bf1469f"
+        },
+        {
+          "name": "w4-l4-missing-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "74a784203b50d092e34dbe53e7ac4fa05765a9863e10c296df5eaf18ba9463c5"
+        },
+        {
+          "name": "w4-l4-shifted-marker",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "bf25928689e596b91e50dfbf493093c6352b2f87cac536274ce911c7a64581e2"
+        },
+        {
+          "name": "w4-l4-missing-nwell",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "348f5a589303dad81028d3532c45b7fff2f7a914d19060d25018e34a8928cd6a"
+        },
+        {
+          "name": "w4-l4-extra-device-mask",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "e828e97e4ebae280a0c3a624640d84e3b85406676d3f15211a081919290096b0"
+        },
+        {
+          "name": "w4-l4-floating-metal",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "16d64a226b261ef4332aa54b928b26fd7c55942e9fa87a76e5e82bcc12420712"
+        },
+        {
+          "name": "w4-l4-duplicate-port",
+          "detected": true,
+          "error": "RF recognition/contact audit failed; see contacts.json.",
+          "report_sha256": "94c67b69c9e1a985f47bc174ed962eb5ce75a7c311f7b94417f10e6a2d069da5"
+        },
+        {
+          "name": "w4-l4-reference-area",
+          "detected": true,
+          "error": "RF strict LVS area_um2 mismatch.",
+          "report_sha256": "3097ec635886885465780d5749ec39aa35de50103fc26670442c1db340d6a1a8"
+        },
+        {
+          "name": "w4-l4-reference-perimeter",
+          "detected": true,
+          "error": "RF strict LVS perimeter_um mismatch.",
+          "report_sha256": "431252d3ed1d238869f434a521253d89f961f0794635090f9d2b1392f1c77b08"
+        },
+        {
+          "name": "w4-l4-reference-polarity",
+          "detected": true,
+          "error": "RF strict LVS terminals mismatch.",
+          "report_sha256": "dedb65c109a48f44d1cbb5a3bbbdab4e228bd36c938b82a842ab3c5e23287d10"
+        },
+        {
+          "name": "w4-l4-reference-model",
+          "detected": true,
+          "error": "Unexpected RF device, model, terminal or parameter count.",
+          "report_sha256": "63cf58aa65a7d41b8fb608f1a7e0500985a2d3fedf2737c7b1e271f762066039"
+        }
+      ],
+      "record_sha256": "34b7339d90e493377a5bb869cd33084c347f23aed2515040eb12ebfd1c6c63b0"
+    }
+  ],
+  "fault_controls": 102,
+  "regressions": {
+    "Windows": {
+      "status": "PASS",
+      "host": "Windows",
+      "exit": 0,
+      "source_unchanged": true,
+      "seconds": 19.625,
+      "modules": [
+        "tests.test_sky130_rf_verification",
+        "tests.test_layout_verification",
+        "tests.test_physical_backend",
+        "tests.test_silicon",
+        "tests.test_sky130_native",
+        "tests.test_sky130_lvs",
+        "tests.test_sky130_diode_lvs",
+        "tests.test_gf180_hv_verification",
+        "tests.test_ihp_klayout_lvs",
+        "tests.test_pdk_qualification_matrix",
+        "tests.test_sky130_rf_candidate",
+        "tests.test_rf_runtime"
+      ],
+      "log_sha256": "11f2708335c7a37ad15e05056d10a5b237afaf2922a86bfe8d6b483654482eac",
+      "discovered": 107,
+      "passed": 107,
+      "skipped": 0,
+      "failed": 0
+    },
+    "Linux": {
+      "status": "PASS",
+      "host": "Linux",
+      "exit": 0,
+      "source_unchanged": true,
+      "seconds": 260.231266904,
+      "modules": [
+        "tests.test_sky130_rf_verification",
+        "tests.test_layout_verification",
+        "tests.test_physical_backend",
+        "tests.test_silicon",
+        "tests.test_sky130_native",
+        "tests.test_sky130_lvs",
+        "tests.test_sky130_diode_lvs",
+        "tests.test_gf180_hv_verification",
+        "tests.test_ihp_klayout_lvs",
+        "tests.test_pdk_qualification_matrix",
+        "tests.test_sky130_rf_candidate",
+        "tests.test_rf_runtime"
+      ],
+      "log_sha256": "c65ba7b3de612d12a0db0c8491ea3d3d6aea2d768bdc7e68c7d670587f4f02fe",
+      "discovered": 107,
+      "passed": 107,
+      "skipped": 0,
+      "failed": 0
+    }
+  },
+  "desktop": {
+    "Windows": {
+      "status": "PASS",
+      "checks": [
+        "RF action and exact reference",
+        "Default verifier retained",
+        "Wrong process rejected"
+      ],
+      "report_sha256": "eb9592142f42d1903e3950b4a2cde9e108d5131f94947c258ea503a5fac0a0e5",
+      "scope": "Source desktop action/captured job, not installed release."
+    },
+    "Linux": {
+      "status": "PASS",
+      "checks": [
+        "RF action and exact reference",
+        "Default verifier retained",
+        "Wrong process rejected"
+      ],
+      "report_sha256": "2423774ca9525b80c88d6a5ce7808bd0b641f843536fa4c877256e62697ec2cd",
+      "scope": "Source desktop action/captured job, not installed release."
+    }
+  },
+  "windows_backend": {
+    "status": "PASS",
+    "cases": [
+      {
+        "name": "good",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 26,
+        "result_sha256": "c1e767ae447bb5f7641171dfc04b47cbaf7ebff67ea0af2fcf8f8596f2dfdfaa",
+        "input_sha256": "38ec7c7e1cf027bbf0a056276bfeb317ba617e19303e95cbe9c80165bc61ff83"
+      },
+      {
+        "name": "cathode-licon",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 18,
+        "result_sha256": "6126676b056fec3755ada81e4f59e258d051fccbe4742e3ded6853cc95ed061c",
+        "input_sha256": "26d600f0ca376b1c0905eac5a4638b24f70cd944afe1d09fa4e51cad6e5fc03f"
+      },
+      {
+        "name": "anode-mcon",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 18,
+        "result_sha256": "bcedfddfc4523ea945274e0be5cc9519b15ed6af05439f6c910eca108602786d",
+        "input_sha256": "2e1db84f82e3af42c47ba1ae0dbbe739578ba4db43c35ee80bf47ca2ac618674"
+      },
+      {
+        "name": "short",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 18,
+        "result_sha256": "b4ec48d830d64247d1c96fd269ec68e99c52645f77e251921c28eb3712a4ef7a",
+        "input_sha256": "6047a3a76459b92270e03a013d407c6a8095f2ac95385003198cec7d4d1adb2e"
+      },
+      {
+        "name": "shifted-marker",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 18,
+        "result_sha256": "d8ae41bdd727094b7ef647626d1ecdf76f265b15e357169110483f2e3f9fb2ce",
+        "input_sha256": "90fbe850b7521972d585fa3a146f1bac92fe110147d429422c62810a1e92b6e4"
+      },
+      {
+        "name": "reference-area",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 25,
+        "result_sha256": "5da12ed5aba7dc9b3d7f0cd56ea61a1fdcee31bbf8709451a2f3b4e809149d47",
+        "input_sha256": "4f43248e8874d42ed0343d1a68cf4a44da6953c9b4940423f47a89f45fd08efe"
+      },
+      {
+        "name": "reference-polarity",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 25,
+        "result_sha256": "f59f863c9d4efb2f0257b05ef71e3aabdb092b754cbbfebcc0ae38cda2e8d2a8",
+        "input_sha256": "13772a98d26ec07affd3d88a8f9487bff05609dd59c23f6637038eccba9570e3"
+      },
+      {
+        "name": "magic-mask-rejection",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 21,
+        "result_sha256": "642a40f682d0b8bb0b81e39958a8b816e478aa7a7c8b342625daf6b0cf6440c6",
+        "input_sha256": "5278aa95fd3420971964efd36e14a7b065436bdfac2ec65ed1ada1bf6372842f"
+      }
+    ],
+    "scope": "Windows staging, actual local source backend and hash-verified artifact receipt. No installed-executable claim.",
+    "implementation_unchanged": true
+  },
+  "independent_audit": {
+    "status": "PASS",
+    "layouts": 24,
+    "faults": 102,
+    "exact_mask_comparisons": 648,
+    "native_devices": [
+      {
+        "name": "w10-l10-r0",
+        "native_sha256": "c0030e9d90a6ebef06b6c470ee1ec06ed90b3d3da48b0297131e0a3720910b19",
+        "gds_sha256": "3491c60843fbb1b8372c247eb11517b793ee17be9e7c6dd9506060ffe8c825bd",
+        "area_um2": "100",
+        "perimeter_um": "40"
+      },
+      {
+        "name": "w10-l10-r90",
+        "native_sha256": "2a66de067654bb1a8b32d223ad420047b6034003aa7cee9ab1bbb2b0522dbdeb",
+        "gds_sha256": "6fa91798d6b8b1397b6e65738d855d61d4526ad34a804160df58cbf1421f0edb",
+        "area_um2": "100",
+        "perimeter_um": "40"
+      },
+      {
+        "name": "w10-l10-r180",
+        "native_sha256": "9846c0dd44e9f19581b7c201dbabae4b65ecfe77817e183fd12a25a951d928f0",
+        "gds_sha256": "8251c7061bc6c2998196ae6616e4edfc67fde0cbfc9eb97861821d5bb37eace1",
+        "area_um2": "100",
+        "perimeter_um": "40"
+      },
+      {
+        "name": "w10-l10-r270",
+        "native_sha256": "7fe8b9a60822aa4337ea2fb450ed7da5581325bde1036a8a24697b05ed29c01d",
+        "gds_sha256": "8e2757b4c03ddc405be5e74ec42325379e424b614e7cd20b04a3c635ecc50475",
+        "area_um2": "100",
+        "perimeter_um": "40"
+      },
+      {
+        "name": "w1-l4-r0",
+        "native_sha256": "218f3bf01564af3ee0f0b746a186c66f75c5d033405df1fbab114d09bee6dd31",
+        "gds_sha256": "7170459665062a7c8e1254c035a2da1180e24c1ae0bb473acbb83a013aff45aa",
+        "area_um2": "4",
+        "perimeter_um": "10"
+      },
+      {
+        "name": "w1-l4-r90",
+        "native_sha256": "6d73fb26575bc479c168a2fbcfcb61cf05967b695e23762738c1633062a5c76b",
+        "gds_sha256": "5ab55ea90168c59f7d6211bbb42252164b689ec0ad29d5ea099a09530f247b55",
+        "area_um2": "4",
+        "perimeter_um": "10"
+      },
+      {
+        "name": "w1-l4-r180",
+        "native_sha256": "092386b9596d2f9b9ae57b88ca43a55dcd21d4b9879a6b56ceaa9f4611d0b28a",
+        "gds_sha256": "82b4ef4fc9e779063044dfd10763074e2e2b55769b3c0bfd89d816d870b567e8",
+        "area_um2": "4",
+        "perimeter_um": "10"
+      },
+      {
+        "name": "w1-l4-r270",
+        "native_sha256": "7956a7ea0a4d70da7b10ba6716b972eb49d9042c6009812e55f526db562b1e76",
+        "gds_sha256": "050029b40a5ca64b2474f8e7d149d3959c6d7bdc9f0b9680896c115411362830",
+        "area_um2": "4",
+        "perimeter_um": "10"
+      },
+      {
+        "name": "w2-l2-r0",
+        "native_sha256": "d52bf5fca1e2949b1223b026556a7bf621e1a5e39c98bab0a8fc39850e792ca9",
+        "gds_sha256": "11b22d040d272497e7245660b4779ff321d9bd520ce675ef6e5f1625fcf86059",
+        "area_um2": "4",
+        "perimeter_um": "8"
+      },
+      {
+        "name": "w2-l2-r90",
+        "native_sha256": "986e638925668d42a7e26702c36a0f0e9e0bfa21f1924dcae03b423e28eea05e",
+        "gds_sha256": "42f7f7f44aff53943150ba933b671deeae5b79e69ef55562fe9e71762803205a",
+        "area_um2": "4",
+        "perimeter_um": "8"
+      },
+      {
+        "name": "w2-l2-r180",
+        "native_sha256": "470e89b4c763e5640f8f84eacb6f44ae3a504f0a8f36d97ce141014007a1aa76",
+        "gds_sha256": "657bc2a6cbe33926ada07e14d04e622b78da998f6c1a2772cfa1febc30cfcd7b",
+        "area_um2": "4",
+        "perimeter_um": "8"
+      },
+      {
+        "name": "w2-l2-r270",
+        "native_sha256": "4506057f89274a3eaf19186a8e7dde4a800caead751b2bd8096cb81af61e5b32",
+        "gds_sha256": "dbc5b24a4a8dd2ddf5bf48a13375334e39202497471363309127e9d8b1074733",
+        "area_um2": "4",
+        "perimeter_um": "8"
+      },
+      {
+        "name": "w2-l4-r0",
+        "native_sha256": "aff16207af3ed1af100caa9a0e923979c42633054f5125aa5507c75fbaeeb8b1",
+        "gds_sha256": "a61f949b814986a5d9df97ca9c8644e4cd5b3cc684a081f4480a32f25fef0cc0",
+        "area_um2": "8",
+        "perimeter_um": "12"
+      },
+      {
+        "name": "w2-l4-r90",
+        "native_sha256": "f0155155a07ee4802f1c3480c45e84692a15ac751496f4186483e787abed67c4",
+        "gds_sha256": "174f0457551bf81850742492a47a9281d18aa8146f5441b24bad51f920a4b962",
+        "area_um2": "8",
+        "perimeter_um": "12"
+      },
+      {
+        "name": "w2-l4-r180",
+        "native_sha256": "4fdfe28e0c44f0c588a76d9cf05426fa01cd94efe1608b22056a448e2242f55d",
+        "gds_sha256": "8527bfd92e27fc32dd98a8ac313235db2cb48720f7962df95ecb6a4a77804e9e",
+        "area_um2": "8",
+        "perimeter_um": "12"
+      },
+      {
+        "name": "w2-l4-r270",
+        "native_sha256": "4820cd49c64cfb3d2f82681cdfebb293c740c9dd9a534a5444e8a4d6988160e1",
+        "gds_sha256": "49fa327a7b3fd7e579426b73308e914c5c3dad03fe36e41215f06f2659160745",
+        "area_um2": "8",
+        "perimeter_um": "12"
+      },
+      {
+        "name": "w4-l2-r0",
+        "native_sha256": "71573887eeb544b692c7ed1f435cd91736bc95d7b8ff2d09e7b168b2b9ff7a1d",
+        "gds_sha256": "dc445693f2982efb2f0f284ddfd27f417e195a6f94127a93ddc518fa39acdd0b",
+        "area_um2": "8",
+        "perimeter_um": "12"
+      },
+      {
+        "name": "w4-l2-r90",
+        "native_sha256": "7228c707781218417c482b97efa9fbdac5fe277d7487924f946bedd02ac48aa4",
+        "gds_sha256": "58d9f27f8c22299fb3747e8faa82b57006a1bff24a9d05ecd460cef0e65e2e3d",
+        "area_um2": "8",
+        "perimeter_um": "12"
+      },
+      {
+        "name": "w4-l2-r180",
+        "native_sha256": "b3759848c261e951cd3d620c0194eccaa351298abc53d751814ea57777736099",
+        "gds_sha256": "6229e15e793ee0e7dd90b1d187dd0b00ea08209735a140fc39a227a09a575956",
+        "area_um2": "8",
+        "perimeter_um": "12"
+      },
+      {
+        "name": "w4-l2-r270",
+        "native_sha256": "a2971f8a5aaf10d670ea3e0df9f822ad4c4e8fffda70f13198657ae3422b670a",
+        "gds_sha256": "59f86aab62ae2acebdab6253473daf4a17044ba24b675dab51337ebda17000d2",
+        "area_um2": "8",
+        "perimeter_um": "12"
+      },
+      {
+        "name": "w4-l4-r0",
+        "native_sha256": "ce1a30daa09915f888a3630fd7809596a629fb47994516f7bea91aad5f193980",
+        "gds_sha256": "b07e1fb95c01b3911d328c81c0a7a42c378fa54ad5a257e5377dde680e2e6b7e",
+        "area_um2": "16",
+        "perimeter_um": "16"
+      },
+      {
+        "name": "w4-l4-r90",
+        "native_sha256": "423f63910645dd72ecf957b904b678a6271704a25eb4122f5256d27d3637a194",
+        "gds_sha256": "ba27c5fa33b542ce74615f5fdc64b2c4b36d922af6120546b2482f0f85234620",
+        "area_um2": "16",
+        "perimeter_um": "16"
+      },
+      {
+        "name": "w4-l4-r180",
+        "native_sha256": "9a7f035022370b926f539680a5598e75c4136f2b8caf4f660557d8aa374b2bdc",
+        "gds_sha256": "5c4affabb707f1d58e28c9b9c9ed704a735b75d2d2ba70c7c67282b0e01d7314",
+        "area_um2": "16",
+        "perimeter_um": "16"
+      },
+      {
+        "name": "w4-l4-r270",
+        "native_sha256": "1550f1fa4c29285a3f33dfdc8196ec5b134e8c4085031adf0be917fb4c3afe1e",
+        "gds_sha256": "1c4622b213559d1ee3feb55390340d3d94bebd46c90dd977c5943b02e036e9c9",
+        "area_um2": "16",
+        "perimeter_um": "16"
+      }
+    ],
+    "scope": "Independent Decimal readback of unfiltered native A/K/area/perimeter and exact every-mask GDS/OASIS/private-stream XOR. No production conversion/comparison function used."
+  },
+  "initial_audit_failure": {
+    "status": "REJECTED_AUDIT_ATTEMPT",
+    "stage": "independent GDS region readback",
+    "input": "icstudio-rf-nwell-physical-20261018-v1/10x10/w10-l10-r0/input.gds",
+    "observed": "The recursive-iterator Region returned from a helper became empty after the helper's layout/cell objects went out of scope. Native and application results were not changed.",
+    "correction": "Materialize polygon-only Regions and retain the source Layout objects throughout comparison. Recheck all 24 native junctions and all 648 mask pairs.",
+    "original_failed_assertion": "assert (81,125) in before and before[(81,125)].area()==int(ww*ll*1000000)",
+    "counted_as_pass": false
+  },
+  "source_references": [
+    "https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#rfdiode",
+    "https://www.klayout.de/doc/manual/lvs_device_extractors.html"
+  ],
+  "comparison": "Native A/P and A/K are checked against independent masks/metal before converting SI units to the public X model. Final one-device comparator admits no unexamined directives, devices or parameters; this is not general multi-device LVS.",
+  "default_inventory": {
+    "entries": 302,
+    "usable": 286,
+    "unavailable_real_models": 7,
+    "unavailable_utilities": 9
+  },
+  "remaining": [
+    "RF pw2dn physical topology and additional substrate-junction treatment.",
+    "RF bias-dependent capacitance, transient/noise, statistical behavior and documented operating/geometry envelope.",
+    "Remaining required model definitions and broader device-family qualification.",
+    "Current packaged/installed release acceptance."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "source_commit": "33809bd3b4269f67ff8c062f825a436ba55f054b",
+  "scope": "historical-tested-source-only",
+  "acceptance_record": {
+    "path": "docs/validation/ihp-fill-closure-2026-10-11.json",
+    "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004"
+  },
+  "files": {
+    "icstudio/digital_physical.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-11/icstudio/digital_physical.py",
+      "sha256": "e1c220a88450f43cefd9638e7f8eb92e131715b28dd12a84e111983ddf723223"
+    },
+    "icstudio/digital_flow.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-11/icstudio/digital_flow.py",
+      "sha256": "79b59b5e4fb8bfb94b9e08d2bb3eb88c045b00b2294967f69c5b1f67469e8105"
+    },
+    "icstudio/digital_macro.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-11/icstudio/digital_macro.py",
+      "sha256": "42c5491a73a31687ab654b1ebb3327bf5eddbd5168c839707d7418038ced7f7e"
+    },
+    "scripts/check_ihp_fill_closure.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-11/scripts/check_ihp_fill_closure.py",
+      "sha256": "bd56ca837b1378575bfd8ba1dc7029e54b342a9343d3721e1e33d849415c10ce"
+    },
+    "icstudio/digital_platform.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14/icstudio/digital_platform.py",
+      "sha256": "d161bd774635aea8ab5b33bcc21e90bc4e4d93c30dd71d06e1f0b5a290717e92"
+    },
+    "scripts/build_digital_runtime.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14/scripts/build_digital_runtime.py",
+      "sha256": "ded2d3e9c6ab325976e4f8bc38ee5931c78f59a2d1b445661539e7b258ba4012"
+    },
+    "packaging/digital/Dockerfile": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14/packaging/digital/Dockerfile",
+      "sha256": "a8b09c781001d607c017c060e6d655589ccef0af7cd9f6ea2596ae120333d50e"
+    },
+    "packaging/digital/bundle_platforms.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14/packaging/digital/bundle_platforms.py",
+      "sha256": "3aeaad8fd169a33b27cb0107a76ceb8673e2cd512e7e83f5c11186ab86812376"
+    }
+  },
+  "previous_snapshot": {
+    "path": "docs/validation/ihp-fill-tested-source-2026-10-11/manifest.json",
+    "sha256": "c6e0041e26764b5dc62f0284293c34fb5c60cb6c5a48f402705e9ed0d7893bbf"
+  },
+  "note": "Retain the exact original IHP-tested source for four more shared platform/build files changed by SKY130 integration. No IHP engine rerun or broader acceptance is asserted."
+}

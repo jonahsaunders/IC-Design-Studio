@@ -1,0 +1,208 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "hosted_source_feedback_passed",
+  "candidate": "43a04bb00af3118fe97d3d177ec73599056027b6",
+  "merge_commit": "c6115d8a8d8a65f3264ec5d860d1008917ffce47",
+  "chunk_complete": false,
+  "qualified": false,
+  "release_acceptance": false,
+  "scope": "First hosted PR source-feedback execution, required main-branch check configuration, and verified temporary-evidence cleanup. No new native, packaged, merge-queue or exhaustive release acceptance.",
+  "workflow": {
+    "id": 40020269405,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40020269405",
+    "event": "pull_request",
+    "conclusion": "success",
+    "created_at": "2026-10-23T20:34:28Z",
+    "completed_at": "2026-10-23T20:38:35Z",
+    "elapsed_seconds_including_queue": 247.0
+  },
+  "jobs": [
+    {
+      "id": 120642706515,
+      "name": "source feedback (ubuntu-24.04)",
+      "created_at": "2026-10-23T20:34:28Z",
+      "started_at": "2026-10-23T20:34:31Z",
+      "completed_at": "2026-10-23T20:36:06Z",
+      "conclusion": "success",
+      "queue_seconds": 3.0,
+      "elapsed_seconds_including_setup": 95.0
+    },
+    {
+      "id": 120642706899,
+      "name": "source feedback (windows-2022)",
+      "created_at": "2026-10-23T20:34:29Z",
+      "started_at": "2026-10-23T20:34:30Z",
+      "completed_at": "2026-10-23T20:36:59Z",
+      "conclusion": "success",
+      "queue_seconds": 1.0,
+      "elapsed_seconds_including_setup": 149.0
+    },
+    {
+      "id": 120643836125,
+      "name": "PR feedback",
+      "created_at": "2026-10-23T20:37:00Z",
+      "started_at": "2026-10-23T20:38:31Z",
+      "completed_at": "2026-10-23T20:38:35Z",
+      "conclusion": "success",
+      "queue_seconds": 91.0,
+      "elapsed_seconds_including_setup": 4.0
+    }
+  ],
+  "artifact_readback": {
+    "Linux": {
+      "status": "passed",
+      "commit": "c6115d8a8d8a65f3264ec5d860d1008917ffce47",
+      "tests": 211,
+      "skipped": 2,
+      "elapsed_seconds": 54.0,
+      "source_files": 1328,
+      "source_matches_current": true,
+      "report_sha256": "1cb5d7830022a2ac85a2060aa7b041d6756a27a34b294a3569c05e6c10957bac",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 14.8
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.222
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.132
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.876
+        }
+      ]
+    },
+    "Windows": {
+      "status": "passed",
+      "commit": "c6115d8a8d8a65f3264ec5d860d1008917ffce47",
+      "tests": 211,
+      "skipped": 13,
+      "elapsed_seconds": 80.86,
+      "source_files": 1328,
+      "source_matches_current": true,
+      "report_sha256": "19a55963cd71aa1f1873f5e2c880276f8de477925caaa2e1d5a825dab0dd658f",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 32.125
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.281
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 32.563
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.797
+        }
+      ]
+    }
+  },
+  "required_check": {
+    "branch": "main",
+    "context": "PR feedback",
+    "github_app_id": 15368,
+    "strict_up_to_date": true,
+    "administrator_bypass": true,
+    "verified_response_sha256": "f21500d226e81c3961bb38266e6c50a2d5420200e1effecc7871fec6132062bf",
+    "previous_state": "No branch protection or repository rulesets."
+  },
+  "superseded_runs": [
+    {
+      "id": 40009880407,
+      "head_sha": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+      "workflow": "Build and verify desktop release",
+      "before_status": "pending",
+      "before_conclusion": null,
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40009880407",
+      "cancel_returncode": 0,
+      "response": "{}"
+    },
+    {
+      "id": 40009871616,
+      "head_sha": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+      "workflow": "Build and verify desktop release",
+      "before_status": "pending",
+      "before_conclusion": null,
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40009871616",
+      "cancel_returncode": 0,
+      "response": "{}"
+    },
+    {
+      "id": 40009880379,
+      "head_sha": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+      "workflow": "Pinned SKY130 physical qualification",
+      "before_status": "in_progress",
+      "before_conclusion": null,
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40009880379",
+      "cancel_returncode": 0,
+      "response": "{}"
+    },
+    {
+      "id": 40009871510,
+      "head_sha": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+      "workflow": "Pinned SKY130 physical qualification",
+      "before_status": "in_progress",
+      "before_conclusion": null,
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40009871510",
+      "cancel_returncode": 0,
+      "response": "{}"
+    }
+  ],
+  "evidence_checkpoint": {
+    "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-hv-mos-2026-10-23-v1/checkpoint.zip",
+    "sha256": "70fd0629a5b29a5232e2c52c5fd15d8907e6782f7beb8b011f687138d0ac3b21",
+    "bytes": 5595354,
+    "base_archive_sha256": "775962486ce5c7eb29c825f0b02c8748024411387f1454dee366ae2e0366a36f",
+    "path_bindings": 22764,
+    "new_objects": 722,
+    "all_objects_verified": true,
+    "format": "sha256-deduplicated-zip-delta-v1"
+  },
+  "cleanup": {
+    "Windows_removed_bytes": 523129333,
+    "Linux_logical_removed_bytes": 4165053365,
+    "Windows_administrator_used": false,
+    "virtual_disk_compaction": false,
+    "scope": "Only temporary test copies verified recoverable from exact archives. Linux free space does not imply reclaimed C: virtual-disk allocation."
+  },
+  "receipt_archive": {
+    "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-hv-mos-2026-10-23-v1/hosted-feedback-receipts.zip",
+    "sha256": "2b275e0e812fc8008a905db4b5a236f2124c8d1a12d072479ab688cf1a201d38",
+    "bytes": 598146,
+    "files": 56,
+    "all_objects_verified": true
+  },
+  "remaining": [
+    "Native hosted shared-toolchain producer build, five consumer restores and exhaustive reference acceptance.",
+    "Merge-queue execution has a trigger and identity check but was not exercised by this PR run.",
+    "Resumable development reuse requires complete loaded-dependency identity and semantic reuse controls.",
+    "Chunk 7 device operating envelopes, remaining physical/model classes and exact installed acceptance."
+  ],
+  "chunk_7_estimate": {
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ],
+    "basis": "Engineering estimate; unchanged by infrastructure speedups and bounded sample counts."
+  }
+}

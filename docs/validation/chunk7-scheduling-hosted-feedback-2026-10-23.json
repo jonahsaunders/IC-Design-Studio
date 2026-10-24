@@ -1,0 +1,132 @@
+{
+  "run_id": 40036991637,
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40036991637",
+  "candidate": "51917f7029b51eaba08239964bc1975639380c7e",
+  "pull_request": 68,
+  "synthetic_merge_commit": "ca11bb4dc10b1409bda1478b0307d9faaa5a5c0b",
+  "merge_parents": [
+    "49c79957b4d6f4978127da612e167e5c75cda6b3",
+    "51917f7029b51eaba08239964bc1975639380c7e"
+  ],
+  "synthetic_merge_tree": "30d2ec2cb1a1f188d87ddb934059c40f31862dde",
+  "candidate_tree": "30d2ec2cb1a1f188d87ddb934059c40f31862dde",
+  "merge_tree_equals_candidate_tree": true,
+  "source_hashes_identical_across_platforms_and_candidate_git_blobs": 1340,
+  "workflow_elapsed_seconds": 142.0,
+  "aggregate": {
+    "name": "PR feedback",
+    "conclusion": "success",
+    "queue_seconds": 2.0,
+    "job_seconds": 3.0
+  },
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "hosted_pr_feedback_passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "scope": "Actual PR merge feedback for the independent RC scheduling change. Source hashes verified against exact candidate Git blobs, not the concurrently edited checkout. Not exhaustive reference, installed or release acceptance.",
+  "verification_sha256": "ab33950a21f49dd0e3a36894b793a034d831db38dc1aef065c8e2177e9ddc13f",
+  "archive": {
+    "archive_sha256": "415eb913d79a29ab7724121736e0558bfc396c712bf9599e8d04509a79a8f8c7",
+    "archive_bytes": 689604,
+    "manifest_sha256": "c53ed1f589463c1b441a8edb1209b02b73c117a4c7201c0b20990a21dc0b9974",
+    "files": 15,
+    "all_files_readback_verified": true,
+    "host_artifacts": [
+      {
+        "file": "12537556520.zip",
+        "sha256": "83037fe9b67867f7b79e4b7028c2773c7fd01686bbf45d6fdd39726d36373aac",
+        "bytes": 129510,
+        "members_verified": 13
+      },
+      {
+        "file": "12536679208.zip",
+        "sha256": "45f7e9d804e54da24885f2fcbfbe43a3d98dfd0c8c76d08dbe3465729f7144ee",
+        "bytes": 466253,
+        "members_verified": 55
+      }
+    ]
+  },
+  "platforms": [
+    {
+      "platform": "Windows",
+      "conclusion": "success",
+      "queue_seconds": 3.0,
+      "job_seconds": 134.0,
+      "pre_feedback_seconds": 40.0,
+      "syntax_files": 1325,
+      "source_hashes_verified": 1340,
+      "unit_tests_run": 294,
+      "unit_tests_passed": 280,
+      "unit_tests_skipped": 14,
+      "feedback_seconds": 87.781,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 36.375
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 5.313
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 33.765
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.078
+        }
+      ]
+    },
+    {
+      "platform": "Linux",
+      "conclusion": "success",
+      "queue_seconds": 2.0,
+      "job_seconds": 85.0,
+      "pre_feedback_seconds": 27.0,
+      "syntax_files": 1325,
+      "source_hashes_verified": 1340,
+      "unit_tests_run": 294,
+      "unit_tests_passed": 292,
+      "unit_tests_skipped": 2,
+      "feedback_seconds": 53.811,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 15.151
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.072
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.93
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.625
+        }
+      ]
+    }
+  ],
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  }
+}

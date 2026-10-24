@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "status": "native-diode-connectivity-controls-passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "case": "counter",
+  "binding": {
+    "cell": "sky130_fd_sc_hd__diode_2",
+    "model": "sky130_fd_pr__diode_pw2nd_05v5",
+    "area_um2": "0.4347",
+    "perimeter_um": "2.64",
+    "source_spice_sha256": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45",
+    "source_gds_sha256": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+    "installed_gds_sha256": "15240e34c50e42419336c0f3f498aaeac1e1e403c62134c0eee088225b69dc13",
+    "polygon_layers_equal": true,
+    "reference_units_checked_against_source_layout": true
+  },
+  "original_record_sha256": "017c05a73ae41acb6d2cb157cd14ff3349a39809a5c9d26bb2df42dddc8d14d2",
+  "source_gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+  "driver_sha256": "cb286d9760432f2af4c7f1d1f9ace04458b3c41b2a7a5bc8f47316324ceae403",
+  "adapter_sha256": "fcc94a5d7c3c82bba988323df74370bd6eca60bffdc91a455e1fb92daffcd0fb",
+  "engine_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+  "rows": [
+    {
+      "control": "valid",
+      "matched": true,
+      "inventory": {
+        "layout": {
+          "devices": {
+            "pfet_01v8_hvt": 104,
+            "nfet_01v8": 104
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000010",
+            "n0000014",
+            "n0000015",
+            "n0000016",
+            "n0000017",
+            "n0000023"
+          ]
+        },
+        "reference": {
+          "devices": {
+            "pfet_01v8_hvt": 104,
+            "nfet_01v8": 104
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000010",
+            "n0000014",
+            "n0000015",
+            "n0000016",
+            "n0000017",
+            "n0000023"
+          ]
+        }
+      },
+      "expected_match": true,
+      "report_sha256": "6e127856e833f394176db77b14c0f04f81d795e4600d19220eea759f656c9c72"
+    }
+  ],
+  "seconds": 3.868452606999199,
+  "files": {
+    "valid/reference.cdl": "0bee0fda07dbb3ebdf861b21ed2cabac0da06d005774edd5971bfe14a815b5fe",
+    "valid/engine.log": "aa8e7d700c58ae7a635ca618df7939925c13dbd007fff29417ca84347cb6ad43",
+    "valid/strict.lvs": "a4e4082d22f3f934ea195fcc4294a61e1c444900666db3cb861a65edd0202802",
+    "valid/report.lvsdb": "6e127856e833f394176db77b14c0f04f81d795e4600d19220eea759f656c9c72",
+    "valid/extracted.cir": "40f4ca732e3e987e4b61f527b6c820ec71347394cabae2280f144cdcd504cf0d",
+    "valid/layout.gds": "4f9b84a2b4a1dafaf0450b3b4a996b4813ffcb934e53b71039beac9c5cd66f7c",
+    "valid/audit.json": "17a85fe757100961bde4180f6de78a6478d81c7abba997d8474acdd9fd52e244"
+  }
+}

@@ -29,6 +29,34 @@ class Owner(QWidget):
 
 
 class JobTests(unittest.TestCase):
+    def test_active_common_mode_never_attaches_and_keeps_diagnostic(self):
+        with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='active-common-mode'):
+            self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
+        self.assertIn('two-port response is not passive', self.dialog.status.text())
+        self.assertEqual(self.owner.commits, 0)
+        self.assertEqual(len(self.dialog.job.columns), 4)
+        self.assertTrue((self.dialog.job.directory/'passivity.json').exists())
+        self.assertFalse((self.dialog.job.directory/'results.json').exists())
+        self.assertTrue(self.dialog.run.isEnabled())
+
+    def test_nonzero_unpowered_port_wave_is_resolved_before_attachment(self):
+        with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='coupled-waves'):
+            self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
+        self.assertEqual(self.owner.commits, 1, self.dialog.status.text())
+        result, _ = inductor_em.result_status(self.owner.project, self.owner.project['top'], self.owner.did)
+        self.assertAlmostEqual(result['rows'][0]['resistance_ohm'], 3.6, places=10)
+        self.assertAlmostEqual(result['rows'][0]['inductance_h'], 2e-9, places=15)
+
+    def test_negative_base_stops_before_fine_processes_and_never_attaches(self):
+        with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='negative-base'):
+            self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
+        self.assertIn('base mesh has negative resistance', self.dialog.status.text())
+        self.assertEqual(self.owner.commits, 0)
+        self.assertEqual(set(self.dialog.job.columns), {'base-1', 'base-2'})
+        self.assertTrue((self.dialog.job.directory/'base-feasibility.json').exists())
+        self.assertFalse((self.dialog.job.directory/'fine-1.log').exists())
+        self.assertFalse((self.dialog.job.directory/'results.json').exists())
+
     @classmethod
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([]); cls.app.setQuitOnLastWindowClosed(False)
@@ -94,6 +122,17 @@ class JobTests(unittest.TestCase):
             self.assertEqual(self.owner.commits, 0); self.assertTrue(self.dialog.run.isEnabled())
         self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
         self.assertEqual(self.owner.commits, 1, self.dialog.status.text())
+
+    def test_truncated_excitation_stops_immediately_without_results(self):
+        self.dialog.fields['timeout_s'][0].setValue(60)
+        with patch.dict(os.environ, ICSTUDIO_TEST_EM_MODE='truncated'):
+            self.dialog.start(False); self.wait(lambda: not self.dialog.job.running)
+        self.assertIn('truncated the requested excitation', self.dialog.status.text())
+        self.assertEqual(self.owner.commits, 0)
+        self.assertEqual(self.dialog.job.process.state(), QProcess.NotRunning)
+        self.assertEqual(self.dialog.job.columns, {})
+        self.assertFalse((self.dialog.job.directory/'results.s2p').exists())
+        self.assertTrue(self.dialog.run.isEnabled())
 
     def test_changed_context_and_project_cannot_receive_completed_results(self):
         self.dialog.start(False); self.wait(lambda: self.dialog.job.mode == 'base-1')

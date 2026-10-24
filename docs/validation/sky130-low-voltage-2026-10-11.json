@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Forty-three additional well, diffusion, gate, NPC and local-contact manual requirements executed on all three final layouts, with companion implant checks and all profile guards passing. Sixty-one requirements now have reviewed execution bindings; full chunk 6 remains open.",
+  "data": {
+    "path": "docs/validation/sky130-low-voltage-2026-10-11/data.json",
+    "sha256": "ca4e1fd127af6eaf5127dcfc560cba4708c4a43d2cf6d7e485aa5284f2344a81"
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-low-voltage-2026-10-11/win32.json",
+      "sha256": "1d0de3c0e3e41245f571d38b09ba30d31fc7c938100fd74c5ef15a166eea5bdc"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-low-voltage-2026-10-11/linux.json",
+      "sha256": "10d42a16dafac83fa1f1fd41b47bb75e584435e1d78ced835fa6baf328a5f825"
+    }
+  },
+  "baseline_commit": "389a7a0",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "a8556fcc162393a6a16d41e6b059587771b20528f312a6ff53dc7e70ab667fe9",
+    "scripts/sky130_low_voltage_geometry.py": "774b00f5b960c54f5a17a94bd7d5cc75be6e545e6de9be660d0654e7b867f283",
+    "scripts/sky130_rule_execution.py": "516b42a574ac5edcaaad62996478520bdac6c89ea7d3381e9bd5e002518380e4",
+    "scripts/sky130_block_applicability.py": "fe49d9bdd213366620731b25e5860c182f319fe6b48653b1caa40178bbe2a873",
+    "tests/test_sky130_raw_feol.py": "a9be93fc67a0a6ded8cbc639db7894038d34951f33a0e41c01a803b6b9eba882",
+    "tests/test_sky130_low_voltage_geometry.py": "1182d3adf26253d2c0c8d1d3355f45300ae05f5a3476313a237d7f732cce6b81",
+    "tests/test_sky130_rule_execution.py": "725c7da49ba7165b56c8e3301c39f20e94248080356843412f6c3fc774599605"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-low-voltage-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "ab4cf885caa2329db67ad38371a8d6ca528bfd9dac5e33b04c68418e8095f4a1",
+    "bytes": 274330,
+    "files": 193,
+    "unique_blobs": 191,
+    "manifest_sha256": "9c31f528e4e96f52821be2ee26ba11996d64ddf5ce138e7defa4767ff622fe26",
+    "dependency": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-fill-progress-2026-10-11-v1\\evidence.tar.gz",
+      "sha256": "ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0",
+      "bytes": 920448744,
+      "files": 1959,
+      "unique_blobs": 1399,
+      "manifest_sha256": "81f06b06441a6c9864cc93abcd90af2ab87b5658fef3a2953efcedb90c2da9b0",
+      "seconds": 162.43700000000536,
+      "scope": "SKY130 fill, failed attempts, final physical/native circuit checks, partial rule applicability and diode comparison. Not chunk 6 acceptance."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 61,
+        "execution-review-required": 167,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 61
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 61,
+        "execution-review-required": 167,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 61
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "absent-operand": 207,
+        "advisory": 27,
+        "definition-required": 1,
+        "executed-reviewed": 61,
+        "execution-review-required": 167,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 61
+    }
+  ],
+  "notes": [
+    "All 46 implant, geometry and binding tests pass on Windows and Linux without skips; both platforms produce identical execution ledgers.",
+    "Tests cover channel-width direction, partial standard-cell markers, missing tap contacts, endcaps, gate termination/bends, concave diffusion corners, exact contact dimensions and overlap/enclosure/spacing boundaries.",
+    "The first exploratory implementation used the wrong convex-corner sign and a slow per-gate edge intersection; its source and outputs are retained but not used as accepted execution evidence.",
+    "The accepted checker uses point-like concave corners and an exact directed-edge index; no distance thresholds were changed.",
+    "Every final GDS remains identical to the preserved remote-fill candidates. Both the low-voltage and companion implant reports are required for these bindings.",
+    "All 601 periphery records remain: 61 executed-reviewed, 207 absent-operand, 77 upstream-NA, 27 advisory, 61 other-backend, 167 execution-review-required and one definition-required."
+  ]
+}

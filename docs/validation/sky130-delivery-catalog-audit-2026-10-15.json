@@ -1,0 +1,429 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "corrected-reference-full-catalog-replay-verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "99e12403a69c9f1a5fca6838cb0f5cbde6aefc21",
+  "scope": "The complete 1556-record catalog is replayed on each exact corrected reference export, with every reviewed decision rebuilt from fresh geometry and authenticated source bindings. Counts are 424 executed, 593 absent, 90 explicit W/L exemptions, eight advisories and 441 unreviewed. Windows/Linux reports agree byte for byte; 74 tests pass per OS. Native extraction and nominal voltage inputs are explicitly retained and authenticated, not reexecuted. The standalone reference replay does not change general application policy or qualify chunk 6.",
+  "measurements": {
+    "path": "docs/validation/sky130-delivery-catalog-2026-10-15.json",
+    "sha256": "1c581d1dfaef93b577221f9130dec1978de1251d3aa6951861a4abb8087fcf06"
+  },
+  "systems": {
+    "win32": {
+      "tests": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "win32",
+        "tests": 74,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "modules": [
+          "tests.test_sky130_delivery_catalog",
+          "tests.test_sky130_filled_replay",
+          "tests.test_sky130_catalog_queue",
+          "tests.test_sky130_selected_subjects",
+          "tests.test_sky130_local_hv_review",
+          "tests.test_sky130_standard_cell_wl",
+          "tests.test_sky130_grid_catalog"
+        ],
+        "log_sha256": "fa5d0eabac6b457c236d89f085afe98cca543d248a56db320d5d4fd0b63b2f35",
+        "driver_sha256": "91a424e9c2f0f14e2c1e7fc2de9a5942deb3e63fb94d1a587b1c0047430cc6b1",
+        "elapsed_seconds": 34.17199999999866
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/win32/record.json",
+          "sha256": "b0e98c343e926d50b82bacfb3d5a6708aad73c0aa9a05aba2b4890276213462b"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/win32/tests.log",
+          "sha256": "fa5d0eabac6b457c236d89f085afe98cca543d248a56db320d5d4fd0b63b2f35"
+        }
+      },
+      "replays": {
+        "counter": {
+          "result": {
+            "schema": 1,
+            "status": "PASS",
+            "platform": "win32",
+            "case": "counter",
+            "driver_sha256": "5e5263bc3cf15aed7d52a659fe4801c91dc493318d9894b5bbb3fc6d68d2af5b",
+            "qualified": false,
+            "chunk_complete": false,
+            "data_sha256": "26d69844196f35bb4f4c4ea98573f16c7e3c73b50b83ec5ee305c77cc80821ee",
+            "counts": {
+              "executed-reviewed": 424,
+              "absent-operand": 593,
+              "unreviewed": 441,
+              "standard-cell-wl-exempt": 90,
+              "advisory": 8
+            },
+            "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+            "elapsed_seconds": 34.15600000000268
+          },
+          "evidence": {
+            "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/win32/counter.json",
+            "sha256": "a01d784e0584aeac653709db9529c39a8c1964851628b6c13869d4d3f1b876b6"
+          }
+        },
+        "uart": {
+          "result": {
+            "schema": 1,
+            "status": "PASS",
+            "platform": "win32",
+            "case": "uart",
+            "driver_sha256": "5e5263bc3cf15aed7d52a659fe4801c91dc493318d9894b5bbb3fc6d68d2af5b",
+            "qualified": false,
+            "chunk_complete": false,
+            "data_sha256": "7a7f5249c3346804d443d3ca16e5ed18561a491532873e1e5805742aaf2080a3",
+            "counts": {
+              "executed-reviewed": 424,
+              "absent-operand": 593,
+              "unreviewed": 441,
+              "standard-cell-wl-exempt": 90,
+              "advisory": 8
+            },
+            "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+            "elapsed_seconds": 175.9210000000021
+          },
+          "evidence": {
+            "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/win32/uart.json",
+            "sha256": "90dab3b265446d20a19c9828680731f4e03f06c7f1252abcf0d996ae82651137"
+          }
+        },
+        "apb": {
+          "result": {
+            "schema": 1,
+            "status": "PASS",
+            "platform": "win32",
+            "case": "apb",
+            "driver_sha256": "5e5263bc3cf15aed7d52a659fe4801c91dc493318d9894b5bbb3fc6d68d2af5b",
+            "qualified": false,
+            "chunk_complete": false,
+            "data_sha256": "86d7a7946c8513f5143b7331ab76d4765b1a1a4cd27c9bf8ef4b269695865344",
+            "counts": {
+              "executed-reviewed": 424,
+              "absent-operand": 593,
+              "unreviewed": 441,
+              "standard-cell-wl-exempt": 90,
+              "advisory": 8
+            },
+            "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+            "elapsed_seconds": 167.84399999999732
+          },
+          "evidence": {
+            "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/win32/apb.json",
+            "sha256": "d0c693576b2e337c87904d002143032a4f46343dc4602f3b9ab3f7d71107cacd"
+          }
+        }
+      }
+    },
+    "linux": {
+      "tests": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "linux",
+        "tests": 74,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "modules": [
+          "tests.test_sky130_delivery_catalog",
+          "tests.test_sky130_filled_replay",
+          "tests.test_sky130_catalog_queue",
+          "tests.test_sky130_selected_subjects",
+          "tests.test_sky130_local_hv_review",
+          "tests.test_sky130_standard_cell_wl",
+          "tests.test_sky130_grid_catalog"
+        ],
+        "log_sha256": "d16bba31c3ba6841dc319dc9d956a643fdf210971c1e12b0985e32506812f086",
+        "driver_sha256": "91a424e9c2f0f14e2c1e7fc2de9a5942deb3e63fb94d1a587b1c0047430cc6b1",
+        "elapsed_seconds": 35.569260455
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/linux/record.json",
+          "sha256": "d00cf900b31c462f4e0ebcb29d367a3e5c2ad2226fb88d3cded006f699ef9662"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/linux/tests.log",
+          "sha256": "d16bba31c3ba6841dc319dc9d956a643fdf210971c1e12b0985e32506812f086"
+        }
+      },
+      "replays": {
+        "counter": {
+          "result": {
+            "schema": 1,
+            "status": "PASS",
+            "platform": "linux",
+            "case": "counter",
+            "driver_sha256": "5e5263bc3cf15aed7d52a659fe4801c91dc493318d9894b5bbb3fc6d68d2af5b",
+            "qualified": false,
+            "chunk_complete": false,
+            "data_sha256": "26d69844196f35bb4f4c4ea98573f16c7e3c73b50b83ec5ee305c77cc80821ee",
+            "counts": {
+              "executed-reviewed": 424,
+              "absent-operand": 593,
+              "unreviewed": 441,
+              "standard-cell-wl-exempt": 90,
+              "advisory": 8
+            },
+            "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+            "elapsed_seconds": 31.443599972
+          },
+          "evidence": {
+            "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/linux/counter.json",
+            "sha256": "0e17c47b5524a6f46678e29eb5325499da4ab460469372ed3802491a9b8d656f"
+          }
+        },
+        "uart": {
+          "result": {
+            "schema": 1,
+            "status": "PASS",
+            "platform": "linux",
+            "case": "uart",
+            "driver_sha256": "5e5263bc3cf15aed7d52a659fe4801c91dc493318d9894b5bbb3fc6d68d2af5b",
+            "qualified": false,
+            "chunk_complete": false,
+            "data_sha256": "7a7f5249c3346804d443d3ca16e5ed18561a491532873e1e5805742aaf2080a3",
+            "counts": {
+              "executed-reviewed": 424,
+              "absent-operand": 593,
+              "unreviewed": 441,
+              "standard-cell-wl-exempt": 90,
+              "advisory": 8
+            },
+            "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+            "elapsed_seconds": 147.436944523
+          },
+          "evidence": {
+            "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/linux/uart.json",
+            "sha256": "c61234d6e7957d9a52adb0fb3aacee2ad953f21c53efa9f4c4fe5d3ef3116fe2"
+          }
+        },
+        "apb": {
+          "result": {
+            "schema": 1,
+            "status": "PASS",
+            "platform": "linux",
+            "case": "apb",
+            "driver_sha256": "5e5263bc3cf15aed7d52a659fe4801c91dc493318d9894b5bbb3fc6d68d2af5b",
+            "qualified": false,
+            "chunk_complete": false,
+            "data_sha256": "86d7a7946c8513f5143b7331ab76d4765b1a1a4cd27c9bf8ef4b269695865344",
+            "counts": {
+              "executed-reviewed": 424,
+              "absent-operand": 593,
+              "unreviewed": 441,
+              "standard-cell-wl-exempt": 90,
+              "advisory": 8
+            },
+            "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+            "elapsed_seconds": 141.79916191
+          },
+          "evidence": {
+            "path": "docs/validation/sky130-delivery-catalog-audit-2026-10-15/linux/apb.json",
+            "sha256": "963538c9843e660af5f463621de85f861e4cd1366fa3e0658d16c5aa861e65c6"
+          }
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+      "original_gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "executed-reviewed": 424,
+        "absent-operand": 593,
+        "unreviewed": 441,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "remaining_batches": {
+        "local_geometry": 1,
+        "voltage": 0,
+        "grid": 16,
+        "device_selection": 70,
+        "core_generated": 36,
+        "module": 69,
+        "frame_scribe": 156,
+        "pad_via": 76,
+        "density_fill": 17,
+        "connectivity": 0,
+        "routing_boundary": 0
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+      "original_gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "executed-reviewed": 424,
+        "absent-operand": 593,
+        "unreviewed": 441,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "remaining_batches": {
+        "local_geometry": 1,
+        "voltage": 0,
+        "grid": 16,
+        "device_selection": 70,
+        "core_generated": 36,
+        "module": 69,
+        "frame_scribe": 156,
+        "pad_via": 76,
+        "density_fill": 17,
+        "connectivity": 0,
+        "routing_boundary": 0
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+      "original_gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "executed-reviewed": 424,
+        "absent-operand": 593,
+        "unreviewed": 441,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "remaining_batches": {
+        "local_geometry": 1,
+        "voltage": 0,
+        "grid": 16,
+        "device_selection": 70,
+        "core_generated": 36,
+        "module": 69,
+        "frame_scribe": 156,
+        "pad_via": 76,
+        "density_fill": 17,
+        "connectivity": 0,
+        "routing_boundary": 0
+      }
+    }
+  ],
+  "source_files": {
+    "icstudio/digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+    "icstudio/digital_flow.py": "855c59d78a340f09ee6ba484744b1bbd6877527bc492b27227163cc9da07ddfb",
+    "icstudio/digital_macro.py": "8effc00c6e73442fe3ea84234d0631a5ad153358e73a431b96ab8b48de734e71",
+    "icstudio/digital_platform.py": "116dca61a91e498b91588991bfa211b407ca0023067fb8994b767f0a030866a4",
+    "icstudio/digital_sky130_boundaries.py": "3ccfda72825de8b1dce28d665ab7fe0cdc8b36251ad15371449b7923808a16ae",
+    "icstudio/digital_sky130_boundary_interactions.py": "76a8c723847278d27284a2717e3ce7b8aad8e65b13fc49945d2158408ac8dbc3",
+    "icstudio/digital_sky130_catalog_context.py": "5a8115233d16d2517b08fe20a8a82ddd751ef07853af11ecd84c66e84a178ac9",
+    "icstudio/digital_sky130_catalog_labels.py": "b4e13f719e97e90c0377c5d4cf413abe141d45cde17cb639fd4688a6a6120f10",
+    "icstudio/digital_sky130_conservative_bounds.py": "d655b6b816ff46b7a2208c20739ec404bdb82a1369f80bc3788948632e7af322",
+    "icstudio/digital_sky130_device_roots.py": "148e85a72123792a7d5766896e7cbe25cd3c128cd7e570465050d092b55f862f",
+    "icstudio/digital_sky130_pad_scope.py": "123225c40dc494d01cc24cbedcc894e25eea3a9262347d27a6b63b01259d35e4",
+    "icstudio/digital_sky130_pins.py": "413ef2626b803bf17c5f65339e5ffe2e9deb0c63f451befaa28a9f669dfe535b",
+    "icstudio/digital_sky130_scope.py": "9f081c4229441aef29380b44e776d2890c20ec3df316d9a0b9dbfafa2864f95f",
+    "icstudio/digital_sky130_selected_devices.py": "cdc133014a8155b96c0432babcaeb24939825163e270cd921aa5ba56e1ddf76d",
+    "icstudio/digital_sky130_special_subjects.py": "2b70548041d2d10a52ab2dcdaf154c795b9f3ac1d5d05e2a394e45c375a265ce",
+    "icstudio/digital_sky130_vpp.py": "290bd4855d64c8732075757ed4d9b8b2209554c99a9e849e96d35f649b24ffc6",
+    "icstudio/engines.py": "50565d2f2077a119fe77b25c79ef79729e3d0e4b3ee5dd4b37eae2c92caceafe",
+    "icstudio/interchange.py": "29993ee82c62651d08334f94aebffac2b6c162681f5b6ef429c8c556dde34616",
+    "icstudio/layout.py": "eb6fd29a4dc7841622066df382389422d9fbf90e100cefa8f67855751d5ad8b7",
+    "icstudio/model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+    "scripts/check_sky130_circuit_invariance.py": "893682f0d08f1b85521d91cd94dde4d118c55c756c0ba856d6ef36f9b6e38706",
+    "scripts/check_sky130_delivery_catalog.py": "47602de6258cf951f15f9fab2c5f357ea25a0a7eca6a679b10a0cea821260e58",
+    "scripts/check_sky130_filled_replay.py": "3b70b41abdff2032b0f7c41716466995d673a3cb43847e90200d21d9b16fe15a",
+    "scripts/check_sky130_grid_density.py": "1ead5b4e7265729affa46d06f96b706b1da0744fce485b0383e646e9d0730d52",
+    "scripts/check_sky130_reference_replay.py": "94dc981cc8434c70de6ce260bc4a395adacc2c55354a6edea3679f8a5a0138ab",
+    "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+    "scripts/sky130_block_applicability.py": "fcafea17b84219eb19d26bc325911b931d35030067408f23377db8c988abf009",
+    "scripts/sky130_boundary_interaction_review.py": "ddea4dcc8ed92324edde83d4e1dbe830c59920a96f0b3cee4ee3e5fd48af6876",
+    "scripts/sky130_catalog_queue.py": "a7e67cac3ff2c4957e9a998ac11c40e9ef0444c1bc1224bcd36b049ba40dde23",
+    "scripts/sky130_conservative_bound_review.py": "781d610c757ebf51fd44d4d58b13433bf6e51092346f1b129ec3d9fe1794bc30",
+    "scripts/sky130_core_context_review.py": "ce08c31e1044d2c2e51b0b00baebfce896312b6b60103676e0ebf5b3de3f7119",
+    "scripts/sky130_density_rule_scope.py": "ebcc069d036c841a8bb06712700b4d85853fc902e1240696ee4e05833059e2d7",
+    "scripts/sky130_density_windows.py": "abd286d12d149e453cbef2bd160a9394eb1b19a99a797ec4df0d41fda590b2b7",
+    "scripts/sky130_device_intent_review.py": "bc7fed0d2544f1eac7fe4091c211af2518cd360aa4805734b22e193bd201c19b",
+    "scripts/sky130_device_root_review.py": "cff0775b629b62f037d4ddf786727052578bc77272b041b3a336276379d37953",
+    "scripts/sky130_error_reconciliation.py": "2d3bf1af1ab8a2df1d46421f655f36cc9259c4974c729e7413f68f95bbb5385e",
+    "scripts/sky130_esd_fuse_review.py": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a",
+    "scripts/sky130_floating_connectivity.py": "58c4b7ceeb809959d9ff8532838f774e4e4c5dcc404cea8d3e70942302d68896",
+    "scripts/sky130_geometry_reconciliation.py": "dc0efc97952152c99a1d872aec21f42258c91234e71c6370175b3d5e41945110",
+    "scripts/sky130_global_geometry.py": "e02e3ad28b50009f99682bf57641bf7d3100f45e43e9b84adecef9f785032343",
+    "scripts/sky130_grid_catalog_review.py": "e3d0517f493f971ef1906feefd55ea58ceca57989f6791aa16025cd6ed477e6f",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a",
+    "scripts/sky130_interconnect_geometry.py": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+    "scripts/sky130_label_subject_review.py": "8327f512d301f9c09b90971316a8a286a9c4af9e33a2ad7c4b551740dc691785",
+    "scripts/sky130_local_hv_review.py": "d0f09cba88dd09d4f488a1ea37103923f60aed53920f2851e4ca3e5822b0d37c",
+    "scripts/sky130_low_voltage_geometry.py": "7751ceb802aafcfbb2e18b1068c2c641d422992c78ce6fc522c0915c62de3690",
+    "scripts/sky130_lvs_reference.py": "505be1aedd0ac00623cd58618101744228395a247a45ece0fe46c1024753791d",
+    "scripts/sky130_marker_reconciliation.py": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622",
+    "scripts/sky130_nsm_reconciliation.py": "cb4f837576497e8bc7578c61f328900b1bda8f49491eed60fd72631bf79834b2",
+    "scripts/sky130_raw_feol.py": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+    "scripts/sky130_rule_errors.py": "a99e219f108e0274ff1926046c6bbfc6494cc3dd391d55a6fccfccaf99f860f1",
+    "scripts/sky130_rule_execution.py": "c923d365f8eb5ad77e802230a1c29187829496f4e74e6969e06d9b17baa27d26",
+    "scripts/sky130_rule_inventory.py": "3dddcf66e44ec7a2eb6301c509a6551ed432dc0a5a417735f961caea73922fae",
+    "scripts/sky130_scope_corrections.py": "94edfc415fe27f24f2229d26dda0b701f309087eb558363d103992a7671edd17",
+    "scripts/sky130_selected_device_review.py": "f4e3b7d1c163553b825c7cf7827c6352bda37b2d3f0e133976e3138405d2dbfa",
+    "scripts/sky130_selected_subject_review.py": "40002d7e33547e3baf8a138c37d6805ffb6801d434453adf2d2aa441774ba378",
+    "scripts/sky130_special_subject_review.py": "0533da11ce3d252d0072edc630d255b5ef398d7f9143722a003ec0d0002513cb",
+    "scripts/sky130_standard_cell_wl_review.py": "3280d25d7e7b3b993f0a6a26cac28ea9471e5a6e627b072ba6f36566246b1989",
+    "scripts/sky130_voltage_contract.py": "c42de10d05409c3ee79591ed9d4b7e0a22c50c662aa5e801481d73b282b6465a",
+    "scripts/sky130_voltage_intent_review.py": "1dd3bc4f62d66efaaf7114707c7376a02e94199836fd92904c7ff97fb67ebec6",
+    "scripts/sky130_vpp_review.py": "fa95b10a04ab124aad2bb33727f31271e062f2fc4e14aa91ca9cb297eb91de2e",
+    "scripts/sky130_waffle_density_review.py": "76e309ac6baee46826ecc18f7049083dc203f90e5e621d5de8aab89a70adbafa",
+    "scripts/sky130_wide_metal.py": "e804ee01d9516e58575f9a97be2bb012fae3b09331ee5385d5d0481389a3749a",
+    "tests/test_sky130_delivery_catalog.py": "0f030749e5ce838114d4c28b6b264544f6605981baf7a0bf1bf52064d66237ed"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-delivery-catalog-audit-2026-10-15-v1\\evidence.tar.gz",
+    "sha256": "8260912e629656e0d1b3329f3f285f0b2d9348ebff7e87dff33b428ea661d5a4",
+    "bytes": 294566042,
+    "files": 170,
+    "unique_blobs": 155,
+    "manifest_sha256": "b7bb5dacc5a0ec3a56f97ea4b17057cc6f3e8b733d7447497edc231121178c19",
+    "dependency_supplement": {
+      "status": "readback-verified",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-delivery-catalog-audit-2026-10-15-v1\\dependency-supplement.tar.gz",
+      "sha256": "eb52a7a94568a26dfd65617043bc1251ca22322f95f27fa83a243e9bd689cfb3",
+      "bytes": 6448,
+      "files": {
+        "repository/docs/validation/sky130-pin-progress-2026-10-11.json": {
+          "sha256": "ab7042f040c03decb02384b3e9f222bb3c5fdb7633a8f0df654631199cd384fc",
+          "bytes": 9159
+        },
+        "work/trace_sky130_delivery_inputs_v1.py": {
+          "sha256": "2fb4860343a81fe84c4eee496624e8fe633d2824d4a2d6352402525fc569c11e",
+          "bytes": 1094
+        },
+        "work/complete_sky130_delivery_archive_v1.py": {
+          "sha256": "d833d6b40bf08ec379ff17039c81f337b65f94d67758c1b67032bf62de607ca7",
+          "bytes": 3148
+        },
+        "outputs/sky130-delivery-input-trace-v1.json": {
+          "sha256": "53d7ca34f8650bca2bc79b201e8522e0285ba0b378c220c3a67897fefaaf51bf",
+          "bytes": 8387
+        }
+      },
+      "manifest_sha256": "e1a4a8021d549fd48bc23394903ae7517527f914891a84d72d4469d2bb51bb3f",
+      "scope": "Includes the historical pin-inventory checkpoint discovered by tracing every file read during a byte-identical counter replay. Combined with the base archive, no preceding archive chain is required."
+    }
+  },
+  "limitations": [
+    "All 441 unresolved records remain explicit. A full inventory is not a fully passing required rule set.",
+    "The eight boundary prohibitions were already implemented; this replay joins their current passing evidence with the rest of the freshly replayed catalog.",
+    "This reference-only replay does not install a new full-catalog policy in arbitrary Finish jobs.",
+    "Retained native extraction and nominal voltage contracts remain conditional on exact authenticated input geometry and source files. No new extraction or electrical run occurred.",
+    "Periphery, grid/text, pin-spacing, generated-mask, RF, frame/pad, complete-chip context and density acceptance remain separate open requirements."
+  ],
+  "dependency_trace": {
+    "status": "PASS",
+    "files": 114,
+    "replay_report": "byte-identical",
+    "all_traced_files_preserved": true,
+    "trace_sha256": "53d7ca34f8650bca2bc79b201e8522e0285ba0b378c220c3a67897fefaaf51bf"
+  }
+}

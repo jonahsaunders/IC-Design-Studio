@@ -1,0 +1,1899 @@
+{
+  "date": "2026-10-06",
+  "status": "Six block implementation cases passed; full release and tapeout remain unqualified",
+  "source_commit": "fd79183c1f6f43b691eb0d43ff885c3e601b430c",
+  "backend_sha256": "f6e558b0851594f872c63b8badfa24fb8b9c71703a0852dea25e8f7d8551efc7",
+  "digital_source_files": {
+    "digital.py": "cedb08e487f3ed92d14316499bf62c2b903bac8936fb702db4c77db84ff1e58f",
+    "digital_apb_example.py": "0eab253a16a2292d6ca32a602f0160ab5f5f531eed7981b3cda1b28714e9c288",
+    "digital_backend.py": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6",
+    "digital_cli.py": "8d32654db5cdc002926f9de14b7ae0a4d338ccc3dd728f25ea21fa6455fccd83",
+    "digital_constraints.py": "9771a358129e78f7b7bd3dc2f08fa8fdc952d191b0f14b8873212945fc7005b6",
+    "digital_constraints_ui.py": "cf65f9b1de247afb2e1529ae972adfdc0eebd6d2848df2c5ec4b20a56fb3ed40",
+    "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+    "digital_editor.py": "462152c2fe423643ea203bbf5456fed342e6c33d59498636ea8953a17bfe14bd",
+    "digital_examples.py": "9cb9e5cbf0afd01abc329a6dbcbc409680d9ddf6826073ca61297e513de55b25",
+    "digital_flow.py": "049be2b5f1120ce51fe4f2a03036a56846e9e08d9e667b74ae8dfce49ff683fd",
+    "digital_identity.py": "ba5b0e3107ddae3dfaabeb9ca05b4ccb34b709b83adbd0908d18587f6e0c8336",
+    "digital_implementation.py": "0d8c35e92fe0997446bac1e4de3d6f82a90d357e489ffeadef696cd499a93823",
+    "digital_inspection.py": "b515de8a5d8bba4cddad9a6f993b323933697e23f29195e8f98f4d204c90a6bb",
+    "digital_layout.py": "490c6884d012a9f5348e5eef3bdbf25bc5012e9f452cb6926e24fe64d8243265",
+    "digital_logic_ui.py": "70492458c40e98498cbe47ebd4fc0a9dbbde8912992601f39050742dcc83a7d8",
+    "digital_lsp.py": "1555f1bde82376814d27558ecefa578389b9abe05c491c6e933e12a711c4e67f",
+    "digital_macro.py": "7785bf0a325061ac6b9665d182506602af4f0597c7b1cacd88cfe3f157ad4492",
+    "digital_mapping.py": "7890689f3b697c2ddd87e3cd240e4eb7307b99cce323f81b207fc40dd7b5b34d",
+    "digital_odb.py": "83c80d8d35e2ac6edded3f022181df6d58d5111d02dca9c3b663d6446bb223cb",
+    "digital_physical.py": "bede77bed3b2ef627d0742b85fe358f8bb931a85e4529bb8e7351d5701253201",
+    "digital_physical_ui.py": "8d918bc11df0f5c34e5995f98b0f37f8e2b873bbd87fb42cbd805caafca6ef9c",
+    "digital_physical_view.py": "97cb2fd302523d198dfcd0da580c6884a8eb6ecf8402c95aa0a14f1d3053b7ba",
+    "digital_planning.py": "73602bd3b1afb0aaab5243b5cbe655bda00de19dd7459713569275303b91a527",
+    "digital_platform.py": "7e726cab95849e84db64bddbb4fc0dd0359857ddaf26f0f3163127f7e74a24d9",
+    "digital_qualification.py": "6d9e4cf0ae01ef013bdde737c9a983220633e67a52a4bacf23e28b4a8cce9047",
+    "digital_regression.py": "65673f44e8fb586403257696c13fbfaccc2b692ee69e1029e9bb71e30b650f2e",
+    "digital_reports.py": "4382a7a1b3c0ae814813c4e70e5dca21f2782444c05c3b2293df9c997f8309d3",
+    "digital_runtime.py": "34fa50ef1e853d32282729f1deb68fead6dc8a52b3f52ba1816f030d21deb78f",
+    "digital_setup_probe.py": "e5e907dc688bac58cadd40c6da37654210cbf0066572ef079d112de9fca598c8",
+    "digital_setup_ui.py": "cbc4a5e21932d01e5932df27f787518f2ce6c43745a8a5e6fe88a9c1a3884c20",
+    "digital_shell.py": "55bf0796bd46e4ed31eb2200d663cf6e5b846174cfcdd5de5d12dd96d6f22b13",
+    "digital_tools.py": "d53090a2d97f432899086846d2e2c10cc4d47bc60d78d7e3d51b06091a408660",
+    "digital_trace_store.py": "f2b5be9e2c0d131496c707cd08073e9d452cc2ff69570f9dcb933c18b411113f",
+    "digital_ui.py": "687e51dd51cddc0b0bf49d20de34f42d95b754cfe9c9e83caf68713c6c52b259",
+    "digital_vga.py": "770fba42c61d20b05956b407e4d0152451b5aee377e923b554870ec79d1aef4f",
+    "digital_vga_ui.py": "6b0c5f017cba7ecae1b2251fbce588a7477602f83a7d4f8a3117246b3256c649",
+    "digital_wave_tools.py": "f6ac733f253fd287d1f506d76223cd580c26a63c48e80ee0926c40e10006e8c1",
+    "digital_waveform.py": "a1f48745cdb96e75a9bcab14646621df636272254da9fee45f43820716489ec4",
+    "digital_workspace.py": "4c01a9bd6388da51151707d749377217ed5a68fefffdadbb28f8df3cec6f0c0d"
+  },
+  "qualifier_sha256": "132d8a46db2871b1c6b2cff4346d68a3b8e0e38694b27f1697032158f491322e",
+  "scope": "UART and hierarchical APB FIFO on three locked process profiles; one declared RC extraction per case, all captured Liberty corners",
+  "constraints": "Original example RTL and SDC retained: UART 10 ns and APB 20 ns; no added reset assumptions",
+  "evidence_archive_scope": "Inputs, reports, proof/engine logs and physical outputs. Repeated locked platform/flow/Liberty trees and simulator build objects are omitted; archives are audit evidence rather than standalone reopenable job bundles.",
+  "engine_versions": {
+    "bitwuzla": [
+      "0.9.1"
+    ],
+    "eqy": [
+      "EQY v0.69"
+    ],
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 2000-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\nIcarus Verilog Preprocessor version 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 1999-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\nIcarus Verilog Parser/Elaborator version 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 1998-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\n FLAGS DLL vvp.tgt\nvvp.tgt: Icarus Verilog VVP Code Generator 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 2001-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+    ],
+    "klayout": [
+      "KLayout 0.28.16"
+    ],
+    "make": [
+      "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+    ],
+    "openroad": [
+      "26Q2-1164-g08f67ee5ec"
+    ],
+    "sby": [
+      "SBY v0.69"
+    ],
+    "sta": [
+      "3.1.0"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-73-g298922d88 (mod)"
+    ],
+    "verilator_coverage": [
+      "Verilator 5.053 devel rev v5.052-73-g298922d88 (mod)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 2001-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+    ],
+    "yosys": [
+      "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+    ],
+    "yosys-abc": [
+      "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+    ]
+  },
+  "workloads": [
+    {
+      "platform": "sky130hd",
+      "design": "uart",
+      "technology": {
+        "name": "sky130hd",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "9362025842aa01b8319f350fbe373fd94f593a04d00968525ae3bbf1e1f3221a",
+        "corner": "typical",
+        "corners": {
+          "typical": [
+            "sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib"
+          ]
+        },
+        "orfs": null
+      },
+      "conditions": {
+        "physical": {
+          "die_area": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "core_area": [
+            20,
+            20,
+            380,
+            380
+          ],
+          "place_density": 0.6,
+          "threads": 2
+        },
+        "timing_corners": [
+          "typical"
+        ],
+        "mapping_corner": "typical",
+        "synthesis": {},
+        "constraints": [
+          {
+            "path": "constraints.sdc",
+            "role": "constraint",
+            "text": "create_clock -name core_clk -period 10 [get_ports clk]\nset_input_delay 1 -clock core_clk [get_ports {reset send data*}]\nset_output_delay 1 -clock core_clk [get_ports {tx busy}]\n"
+          }
+        ]
+      },
+      "constraint_sha256": "2b5962350b06ced120d091262fbf7ae9cc27bb08cd144dee35caa941fcce2adc",
+      "stages": [
+        {
+          "name": "behavior",
+          "verdict": "PASS",
+          "result_sha256": "5a0c6bd793a52d2d05ce96a2e9d1492cfaf7153a3651d356be81312aa5201865"
+        },
+        {
+          "name": "mapped",
+          "verdict": null,
+          "result_sha256": "e342362359b11a958696c6ebb402ccd2d27fc2e3a5ace3df17213bfa3509df95"
+        },
+        {
+          "name": "equivalent",
+          "verdict": "PASS",
+          "result_sha256": "8b94b95e878d624926dac6c357fa7492ff29e7d4cd7b9e12e4e88e1c5b0eddfe"
+        },
+        {
+          "name": "fault-detected",
+          "verdict": "FAIL",
+          "result_sha256": "c8216cc1bb5cb0aac009296c068c3f1ea186849ba96f31dec5a1ab28b2587cf5"
+        },
+        {
+          "name": "pre-layout-timing",
+          "verdict": "FAIL",
+          "result_sha256": "a96bbdb0d9498cb9def9841a02b97b2c942791f12edfca2c7160986f9bf16677"
+        },
+        {
+          "name": "finished",
+          "verdict": null,
+          "result_sha256": "ab7efa639b8b7af1c44f5852c53828b880f84697c6eac29026b62d188f5927c9"
+        },
+        {
+          "name": "extracted-timing",
+          "verdict": "PASS",
+          "result_sha256": "9167e0a7916e1377dda2a38305c1c0b173478451dcd08bd594f209547417fe82"
+        },
+        {
+          "name": "physical-equivalent",
+          "verdict": "PASS",
+          "result_sha256": "e34ed5fac24c6d94d746ce9f2f14bc9ea20139710a504ce295d64773bbcd71fd"
+        }
+      ],
+      "mapped_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "uart_tx.bit_index": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.busy": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.frame": {
+            "pdr": "PASS",
+            "smtbmc": "UNKNOWN"
+          },
+          "uart_tx.ticks": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [
+          "uart_tx.frame"
+        ],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "physical_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "uart_tx.bit_index": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.busy": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.frame": {
+            "pdr": "PASS",
+            "smtbmc": "UNKNOWN"
+          },
+          "uart_tx.ticks": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [
+          "uart_tx.frame"
+        ],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "mapping_recipe": null,
+      "fault": {
+        "cell_type": "sky130_fd_sc_hd__dfxtp_1",
+        "instance": "_405_",
+        "output": "busy",
+        "before": "sky130_fd_sc_hd__dfxtp_1 _405_ (\n    .CLK(clk),\n    .D(_043_),\n    .Q(busy)\n  );",
+        "after": "sky130_fd_sc_hd__dfxtp_1 _405_ (\n    .CLK(clk),\n    .D(1'b0),\n    .Q(busy)\n  );"
+      },
+      "counterexamples": [
+        "strategies/uart_tx.frame/smtbmc/uart_tx.frame/engine_0/trace_induct.vcd",
+        "strategies/uart_tx.busy/smtbmc/uart_tx.busy/engine_0/trace.vcd"
+      ],
+      "pre_layout_timing": "FAIL",
+      "extracted_timing": [
+        {
+          "corner": "typical",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 3.353671,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.454787,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        }
+      ],
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_artifacts": {
+        "gds": {
+          "path": "physical/results/sky130hd/uart_tx/base/6_final.gds",
+          "sha256": "fd3859e7a10143c9a769649c4345736a12353d463a316b37c2d4b928108c9580",
+          "bytes": 2283830
+        },
+        "spef": {
+          "path": "physical/results/sky130hd/uart_tx/base/6_final.spef",
+          "sha256": "afaf72b67dadd8595510167dbcff96848973a8552bc96b6e60ceea58e792d52c",
+          "bytes": 570451
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "d8a6a784995a6143785dfd77583f8d4f156b0eae454d035b4a8b699fe7b0d04d",
+          "bytes": 27421
+        },
+        "physical_metrics": {
+          "path": "physical_metrics.json",
+          "sha256": "bd98db533385234a5b5a38395458310233a2e80d173ee8c31b72431c680578ac",
+          "bytes": 21542
+        }
+      }
+    },
+    {
+      "platform": "sky130hd",
+      "design": "apb",
+      "technology": {
+        "name": "sky130hd",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "9362025842aa01b8319f350fbe373fd94f593a04d00968525ae3bbf1e1f3221a",
+        "corner": "typical",
+        "corners": {
+          "typical": [
+            "sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib"
+          ]
+        },
+        "orfs": null
+      },
+      "conditions": {
+        "physical": {
+          "die_area": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "core_area": [
+            20,
+            20,
+            380,
+            380
+          ],
+          "place_density": 0.6,
+          "threads": 2
+        },
+        "timing_corners": [
+          "typical"
+        ],
+        "mapping_corner": "typical",
+        "synthesis": {},
+        "constraints": [
+          {
+            "path": "constraints.sdc",
+            "role": "constraint",
+            "text": "# Generated by IC Design Studio. Time: ns; capacitance: pF.\nset_cmd_units -time ns -capacitance pF\ncreate_clock -name \"core_clk\" -period 20 [get_ports \"clk\"]\nset_clock_uncertainty 0.1 [get_clocks \"core_clk\"]\nset_input_delay -min 0 -clock \"core_clk\" [get_ports \"reset psel penable pwrite paddr* pwdata*\"]\nset_input_delay -max 1 -clock \"core_clk\" [get_ports \"reset psel penable pwrite paddr* pwdata*\"]\nset_output_delay -min 0 -clock \"core_clk\" [get_ports \"prdata* pready pslverr irq\"]\nset_output_delay -max 1 -clock \"core_clk\" [get_ports \"prdata* pready pslverr irq\"]\nset_load 0.01 [all_outputs]\n"
+          }
+        ]
+      },
+      "constraint_sha256": "3b298fae1a065086a850b88f03ff9214a07ce70c125cb736638a7f23b59ef9f8",
+      "stages": [
+        {
+          "name": "behavior",
+          "verdict": "PASS",
+          "result_sha256": "d5b46e776c145c23aee66238fa7b8b6ec40e7ba5c0ff4c461430f53da9efc257"
+        },
+        {
+          "name": "mapped",
+          "verdict": null,
+          "result_sha256": "a75a4495fd553eedeebfe457b4e70439773cd937f015a48e998b8920bd322a40"
+        },
+        {
+          "name": "equivalent",
+          "verdict": "PASS",
+          "result_sha256": "f2244e5eca293559d6b6af241f8be7ccdacfbf160b84936be6d24ab0fcf848aa"
+        },
+        {
+          "name": "fault-detected",
+          "verdict": "FAIL",
+          "result_sha256": "fad815fb6bec6fcc45c1a58624067b0e16523a32d798bb0c85765314dce1b712"
+        },
+        {
+          "name": "pre-layout-timing",
+          "verdict": "FAIL",
+          "result_sha256": "7f2544c0cbc9e90f8c9fcd7c1455633abcbe82a24667b0c6b4580194414d1867"
+        },
+        {
+          "name": "finished",
+          "verdict": null,
+          "result_sha256": "29965dc9f11fdb46557fe2d26046a33b7af742513e61e96ae25542f5fe1463ab"
+        },
+        {
+          "name": "extracted-timing",
+          "verdict": "PASS",
+          "result_sha256": "0667c1b75ed73c94985a73d41f891681c8adfa26ce2a690fa0e43cabc12c35ff"
+        },
+        {
+          "name": "physical-equivalent",
+          "verdict": "PASS",
+          "result_sha256": "8f3cdffa961b58e7b5d7d63cc340ad151a78a99a815c9c67cbff83d323c2a58b"
+        }
+      ],
+      "mapped_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "apb_fifo.fifo.count": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.0": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.1": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.2": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.3": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.rd": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.wr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq_enable": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.prdata": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pready": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pslverr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "physical_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "apb_fifo.fifo.count": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.0": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.1": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.2": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.3": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.rd": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.wr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq_enable": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.prdata": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pready": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pslverr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "mapping_recipe": null,
+      "fault": {
+        "cell_type": "sky130_fd_sc_hd__edfxtp_1",
+        "instance": "_138_",
+        "output": null,
+        "before": "sky130_fd_sc_hd__edfxtp_1 _138_ (\n    .CLK(clk),\n    .D(pwdata[0]),\n    .DE(_014_),\n    .Q(\\fifo.mem[3] [0])\n  );",
+        "after": "sky130_fd_sc_hd__edfxtp_1 _138_ (\n    .CLK(clk),\n    .D(1'b0),\n    .DE(_014_),\n    .Q(\\fifo.mem[3] [0])\n  );"
+      },
+      "counterexamples": [
+        "strategies/apb_fifo.fifo.mem.3/smtbmc/apb_fifo.fifo.mem.3/engine_0/trace.vcd"
+      ],
+      "pre_layout_timing": "FAIL",
+      "extracted_timing": [
+        {
+          "corner": "typical",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 15.705125,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.280477,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        }
+      ],
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_artifacts": {
+        "gds": {
+          "path": "physical/results/sky130hd/apb_fifo/base/6_final.gds",
+          "sha256": "c1e58883c3711232da7792137ca6ce2bf7e945f986ec219aa070b3b56d0bc98c",
+          "bytes": 2210698
+        },
+        "spef": {
+          "path": "physical/results/sky130hd/apb_fifo/base/6_final.spef",
+          "sha256": "105ed777d38463e93f352f73bad66555e9de3b6acb69fc3a1bcdfc41989dfafc",
+          "bytes": 484641
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "4f9cac22775e07dd497f60867c04247ce748683be3e2398e05b07502504029d8",
+          "bytes": 17061
+        },
+        "physical_metrics": {
+          "path": "physical_metrics.json",
+          "sha256": "eb96bd5547b2fc1573d2af9463a20fe00d654488a544f37e10dc23bbfcde1226",
+          "bytes": 22779
+        }
+      }
+    },
+    {
+      "platform": "gf180",
+      "design": "uart",
+      "technology": {
+        "name": "gf180",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "8ba23ac7b82d9860c71e7f3ab6b7bf71cd5e3b857804853bbd6cef49525b811d",
+        "corner": "slow",
+        "corners": {
+          "typical": [
+            "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__tt_025C_5v00.lib.gz"
+          ],
+          "slow": [
+            "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__ss_125C_4v50.lib.gz"
+          ],
+          "fast": [
+            "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__ff_n40C_5v50.lib.gz"
+          ]
+        },
+        "orfs": {
+          "rc_file": "setRC.tcl",
+          "rc_vias": {
+            "typical": {
+              "Via1": "Via1_HH",
+              "Via2": "Via2_HH",
+              "Via3": "Via3_HH",
+              "Via4": "Via4_HH"
+            }
+          },
+          "variables": {
+            "TRACK_OPTION": "9t",
+            "METAL_OPTION": "5LM_1TM",
+            "KVALUE": "9",
+            "POWER_OPTION": "5v0"
+          },
+          "corners": {
+            "typical": {
+              "CORNER": "TC",
+              "PWR_NETS_VOLTAGES": "VDD 5.0"
+            },
+            "slow": {
+              "CORNER": "WC",
+              "PWR_NETS_VOLTAGES": "VDD 4.5"
+            },
+            "fast": {
+              "CORNER": "BC",
+              "PWR_NETS_VOLTAGES": "VDD 5.5"
+            }
+          }
+        }
+      },
+      "conditions": {
+        "physical": {
+          "die_area": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "core_area": [
+            20,
+            20,
+            380,
+            380
+          ],
+          "place_density": 0.6,
+          "threads": 2
+        },
+        "timing_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "mapping_corner": "slow",
+        "synthesis": {
+          "mapping": "speed",
+          "delay_ns": 8,
+          "driving_cell": "gf180mcu_fd_sc_mcu9t5v0__buf_4",
+          "load_pf": 0
+        },
+        "constraints": [
+          {
+            "path": "constraints.sdc",
+            "role": "constraint",
+            "text": "create_clock -name core_clk -period 10 [get_ports clk]\nset_input_delay 1 -clock core_clk [get_ports {reset send data*}]\nset_output_delay 1 -clock core_clk [get_ports {tx busy}]\n"
+          }
+        ]
+      },
+      "constraint_sha256": "2b5962350b06ced120d091262fbf7ae9cc27bb08cd144dee35caa941fcce2adc",
+      "stages": [
+        {
+          "name": "behavior",
+          "verdict": "PASS",
+          "result_sha256": "b07748eabb0b9aa6c608bcf587e20e5d44b7c15728a06672463b6230159ba07d"
+        },
+        {
+          "name": "mapped",
+          "verdict": null,
+          "result_sha256": "59915e8d00ea3d5acb2d1f7b9a5a3362fb79481ca56c9b3eed4f63c200b94e51"
+        },
+        {
+          "name": "equivalent",
+          "verdict": "PASS",
+          "result_sha256": "dc6eb4ac24695ba8fc9cc21a2446636b88411dba2a60f19ba291741a95c1eb66"
+        },
+        {
+          "name": "fault-detected",
+          "verdict": "FAIL",
+          "result_sha256": "0933ac6eee0b5631e6426876b98866f369860af6cba4b7ac96331798dd72878a"
+        },
+        {
+          "name": "pre-layout-timing",
+          "verdict": "PASS",
+          "result_sha256": "8ab8111e2e7b4cb4fe67fde872036bd16ead076efab4f6cd5b36cf32f37c71b9"
+        },
+        {
+          "name": "finished",
+          "verdict": null,
+          "result_sha256": "a0ade46879358b3d56d0745448137a827acc08d634884b8e729e96fcd58d5730"
+        },
+        {
+          "name": "extracted-timing",
+          "verdict": "PASS",
+          "result_sha256": "22ca77045052a579c4587ad766e8d75446a878fced8bf7637b0ecad98296f1db"
+        },
+        {
+          "name": "physical-equivalent",
+          "verdict": "PASS",
+          "result_sha256": "2fa1a0f386b0db23c11af0e0b171da8bc70667c23ba8e91f126060d003e1bc65"
+        }
+      ],
+      "mapped_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "uart_tx.bit_index": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.busy": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.frame": {
+            "pdr": "PASS",
+            "smtbmc": "UNKNOWN"
+          },
+          "uart_tx.ticks": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [
+          "uart_tx.frame"
+        ],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "physical_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "uart_tx.bit_index": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.busy": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.frame": {
+            "pdr": "PASS",
+            "smtbmc": "UNKNOWN"
+          },
+          "uart_tx.ticks": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [
+          "uart_tx.frame"
+        ],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "mapping_recipe": {
+        "source": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/blob/eaba6576441bf7c1743ea56ecdb1904210ec02c2/flow/scripts/abc_speed.script",
+        "script_sha256": "5abf77d623d14f133f64d77f1549dd5b8992c199004481e4dfd21fdaef4dc01c",
+        "delay_ns": 8,
+        "mapping": "speed"
+      },
+      "fault": {
+        "cell_type": "gf180mcu_fd_sc_mcu9t5v0__dffq_1",
+        "instance": "_529_",
+        "output": "busy",
+        "before": "gf180mcu_fd_sc_mcu9t5v0__dffq_1 _529_ (\n    .CLK(clk),\n    .D(_043_),\n    .Q(busy)\n  );",
+        "after": "gf180mcu_fd_sc_mcu9t5v0__dffq_1 _529_ (\n    .CLK(clk),\n    .D(1'b0),\n    .Q(busy)\n  );"
+      },
+      "counterexamples": [
+        "strategies/uart_tx.frame/smtbmc/uart_tx.frame/engine_0/trace_induct.vcd",
+        "strategies/uart_tx.busy/smtbmc/uart_tx.busy/engine_0/trace.vcd"
+      ],
+      "pre_layout_timing": "PASS",
+      "extracted_timing": [
+        {
+          "corner": "typical",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 5.260603,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.778051,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 1.243254,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 1.424478,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 6.745357,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.488683,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        }
+      ],
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_artifacts": {
+        "gds": {
+          "path": "physical/results/gf180/uart_tx/base/6_final.gds",
+          "sha256": "695a3c986036f66ea3965357aa42fb32be5a42ec95a52f2fd17537464da68673",
+          "bytes": 2968290
+        },
+        "spef": {
+          "path": "physical/results/gf180/uart_tx/base/6_final.spef",
+          "sha256": "6addd5437c317cb7d3f16510c9df19dfe262f288f6b69b33896c9273f1eaf597",
+          "bytes": 375540
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "d9f03d48eb845e667297da99c9ef64c05870a5307eaf40417f71d9df8d051da4",
+          "bytes": 36181
+        },
+        "physical_metrics": {
+          "path": "physical_metrics.json",
+          "sha256": "74c8f3b14acd200d640eacab872447778ac81407e5fceef4a065409224bc23d7",
+          "bytes": 21741
+        }
+      }
+    },
+    {
+      "platform": "gf180",
+      "design": "apb",
+      "technology": {
+        "name": "gf180",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "8ba23ac7b82d9860c71e7f3ab6b7bf71cd5e3b857804853bbd6cef49525b811d",
+        "corner": "typical",
+        "corners": {
+          "typical": [
+            "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__tt_025C_5v00.lib.gz"
+          ],
+          "slow": [
+            "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__ss_125C_4v50.lib.gz"
+          ],
+          "fast": [
+            "gf180/lib/gf180mcu_fd_sc_mcu9t5v0__ff_n40C_5v50.lib.gz"
+          ]
+        },
+        "orfs": {
+          "rc_file": "setRC.tcl",
+          "rc_vias": {
+            "typical": {
+              "Via1": "Via1_HH",
+              "Via2": "Via2_HH",
+              "Via3": "Via3_HH",
+              "Via4": "Via4_HH"
+            }
+          },
+          "variables": {
+            "TRACK_OPTION": "9t",
+            "METAL_OPTION": "5LM_1TM",
+            "KVALUE": "9",
+            "POWER_OPTION": "5v0"
+          },
+          "corners": {
+            "typical": {
+              "CORNER": "TC",
+              "PWR_NETS_VOLTAGES": "VDD 5.0"
+            },
+            "slow": {
+              "CORNER": "WC",
+              "PWR_NETS_VOLTAGES": "VDD 4.5"
+            },
+            "fast": {
+              "CORNER": "BC",
+              "PWR_NETS_VOLTAGES": "VDD 5.5"
+            }
+          }
+        }
+      },
+      "conditions": {
+        "physical": {
+          "die_area": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "core_area": [
+            20,
+            20,
+            380,
+            380
+          ],
+          "place_density": 0.6,
+          "threads": 2
+        },
+        "timing_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "mapping_corner": "typical",
+        "synthesis": {},
+        "constraints": [
+          {
+            "path": "constraints.sdc",
+            "role": "constraint",
+            "text": "# Generated by IC Design Studio. Time: ns; capacitance: pF.\nset_cmd_units -time ns -capacitance pF\ncreate_clock -name \"core_clk\" -period 20 [get_ports \"clk\"]\nset_clock_uncertainty 0.1 [get_clocks \"core_clk\"]\nset_input_delay -min 0 -clock \"core_clk\" [get_ports \"reset psel penable pwrite paddr* pwdata*\"]\nset_input_delay -max 1 -clock \"core_clk\" [get_ports \"reset psel penable pwrite paddr* pwdata*\"]\nset_output_delay -min 0 -clock \"core_clk\" [get_ports \"prdata* pready pslverr irq\"]\nset_output_delay -max 1 -clock \"core_clk\" [get_ports \"prdata* pready pslverr irq\"]\nset_load 0.01 [all_outputs]\n"
+          }
+        ]
+      },
+      "constraint_sha256": "3b298fae1a065086a850b88f03ff9214a07ce70c125cb736638a7f23b59ef9f8",
+      "stages": [
+        {
+          "name": "behavior",
+          "verdict": "PASS",
+          "result_sha256": "7b5ee45a569b21f8986f82876f2fa1aacce244480c138184b7771252ea0b46d6"
+        },
+        {
+          "name": "mapped",
+          "verdict": null,
+          "result_sha256": "26f11856b76b304286b4b48fabf3a5db7186e6b2aa97646444f4d00f64e006b9"
+        },
+        {
+          "name": "equivalent",
+          "verdict": "PASS",
+          "result_sha256": "ab24a9f22e001b8e74082e91a973d57396273cc4d54d62d24e433a66beda4168"
+        },
+        {
+          "name": "fault-detected",
+          "verdict": "FAIL",
+          "result_sha256": "4c1a8b45e2fe8ac11532bc39d64579fc51d2f73d423675230c9cfda7bc0b0a23"
+        },
+        {
+          "name": "pre-layout-timing",
+          "verdict": "FAIL",
+          "result_sha256": "dcde26f62e1a5362fcbca90c82fde03b3120e0d78f55f244dd570178b6a85ac7"
+        },
+        {
+          "name": "finished",
+          "verdict": null,
+          "result_sha256": "cfd6ed4f944398f477feaca29880ffbb981d1b44560b67224df798cb0d6db5f6"
+        },
+        {
+          "name": "extracted-timing",
+          "verdict": "PASS",
+          "result_sha256": "6f9f79fbcac43a76cd6053c3311ab02c2b65c845e8a777c60466e9890742aacd"
+        },
+        {
+          "name": "physical-equivalent",
+          "verdict": "PASS",
+          "result_sha256": "9b8959878006e47589e0d67ab02b6134fc3030fa35843e82a20cc5f52c5b5e54"
+        }
+      ],
+      "mapped_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "apb_fifo.fifo.count": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.0": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.1": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.2": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.3": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.rd": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.wr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq_enable": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.prdata": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pready": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pslverr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "physical_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "apb_fifo.fifo.count": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.0": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.1": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.2": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.3": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.rd": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.wr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq_enable": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.prdata": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pready": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pslverr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "mapping_recipe": null,
+      "fault": {
+        "cell_type": "gf180mcu_fd_sc_mcu9t5v0__dffq_1",
+        "instance": "_216_",
+        "output": null,
+        "before": "gf180mcu_fd_sc_mcu9t5v0__dffq_1 _216_ (\n    .CLK(clk),\n    .D(_033_),\n    .Q(\\fifo.mem[3] [0])\n  );",
+        "after": "gf180mcu_fd_sc_mcu9t5v0__dffq_1 _216_ (\n    .CLK(clk),\n    .D(1'b0),\n    .Q(\\fifo.mem[3] [0])\n  );"
+      },
+      "counterexamples": [
+        "strategies/apb_fifo.fifo.mem.3/smtbmc/apb_fifo.fifo.mem.3/engine_0/trace.vcd"
+      ],
+      "pre_layout_timing": "FAIL",
+      "extracted_timing": [
+        {
+          "corner": "typical",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 13.292046,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.563092,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 9.185636,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 1.178737,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 15.092546,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.272918,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        }
+      ],
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_artifacts": {
+        "gds": {
+          "path": "physical/results/gf180/apb_fifo/base/6_final.gds",
+          "sha256": "74d144b61f20675ccb6ad0a2dd0486f3ec2dbf6d01fa977529f4e2567ab3fdd5",
+          "bytes": 2772636
+        },
+        "spef": {
+          "path": "physical/results/gf180/apb_fifo/base/6_final.spef",
+          "sha256": "d963dc98c5b2574bf4f83adcce61d05abdb43ae41aa832cadd4848c64bd9b176",
+          "bytes": 195447
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "91b0ee511da2a024b6372c8a65f9216caf8b1a200e73bbdfd7a0531ad244b59c",
+          "bytes": 21885
+        },
+        "physical_metrics": {
+          "path": "physical_metrics.json",
+          "sha256": "113a256af177d23520d4149785a4cb6343b683badc29a3a5fe8501c6587fd04b",
+          "bytes": 21983
+        }
+      }
+    },
+    {
+      "platform": "ihp-sg13g2",
+      "design": "uart",
+      "technology": {
+        "name": "ihp-sg13g2",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "81a4e526186423c3db2be380c7df69c0d796bb1aff167e21b4059dc80093307b",
+        "corner": "typical",
+        "corners": {
+          "typical": [
+            "ihp-sg13g2/lib/sg13g2_stdcell_typ_1p20V_25C.lib"
+          ],
+          "slow": [
+            "ihp-sg13g2/lib/sg13g2_stdcell_slow_1p08V_125C.lib"
+          ],
+          "fast": [
+            "ihp-sg13g2/lib/sg13g2_stdcell_fast_1p32V_m40C.lib"
+          ]
+        },
+        "orfs": {
+          "variables": {},
+          "corners": {
+            "typical": {
+              "PWR_NETS_VOLTAGES": "VDD 1.2"
+            },
+            "slow": {
+              "PWR_NETS_VOLTAGES": "VDD 1.08"
+            },
+            "fast": {
+              "PWR_NETS_VOLTAGES": "VDD 1.32"
+            }
+          }
+        }
+      },
+      "conditions": {
+        "physical": {
+          "die_area": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "core_area": [
+            20,
+            20,
+            380,
+            380
+          ],
+          "place_density": 0.6,
+          "threads": 2
+        },
+        "timing_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "mapping_corner": "typical",
+        "synthesis": {},
+        "constraints": [
+          {
+            "path": "constraints.sdc",
+            "role": "constraint",
+            "text": "create_clock -name core_clk -period 10 [get_ports clk]\nset_input_delay 1 -clock core_clk [get_ports {reset send data*}]\nset_output_delay 1 -clock core_clk [get_ports {tx busy}]\n"
+          }
+        ]
+      },
+      "constraint_sha256": "2b5962350b06ced120d091262fbf7ae9cc27bb08cd144dee35caa941fcce2adc",
+      "stages": [
+        {
+          "name": "behavior",
+          "verdict": "PASS",
+          "result_sha256": "357e52ba0de28a2091d11f36b0d263d122d78da3f00ac2977cd15eb216df72c9"
+        },
+        {
+          "name": "mapped",
+          "verdict": null,
+          "result_sha256": "e076a8ed0da77bc4c95af0fae90b1f0b9278875c009aa2272c23c9743aea1e08"
+        },
+        {
+          "name": "equivalent",
+          "verdict": "PASS",
+          "result_sha256": "9f6ff019ae7f8101e9a4302c463f9a6a9c497f78a2a25b358454b60dc57221a3"
+        },
+        {
+          "name": "fault-detected",
+          "verdict": "FAIL",
+          "result_sha256": "9dbdfcb733b8ed74cfc94de4c1cef71f2b5a9671eafc73b2e88e7cfe70274f2a"
+        },
+        {
+          "name": "pre-layout-timing",
+          "verdict": "FAIL",
+          "result_sha256": "b8d5b450d65d2dd80f9bbc14dd2763fd5a7d417c337431ddc562c296b6e65db2"
+        },
+        {
+          "name": "finished",
+          "verdict": null,
+          "result_sha256": "ae8fe15a89f8f421b778b4fd5ad223d91d170ec53c9bfe5f7277ba6d2c961fbc"
+        },
+        {
+          "name": "extracted-timing",
+          "verdict": "PASS",
+          "result_sha256": "072abc8c1e18865572f37d403c309bc769e3f9beba0985c1d61dc847c4c93757"
+        },
+        {
+          "name": "physical-equivalent",
+          "verdict": "PASS",
+          "result_sha256": "607f22f1f164bf07ddf8f8e80acf0fe407f11d432148048b4c0ed9bbd1f7c6be"
+        }
+      ],
+      "mapped_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "uart_tx.bit_index": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.busy": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.frame": {
+            "pdr": "PASS",
+            "smtbmc": "UNKNOWN"
+          },
+          "uart_tx.ticks": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [
+          "uart_tx.frame"
+        ],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "physical_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "uart_tx.bit_index": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.busy": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "uart_tx.frame": {
+            "pdr": "PASS",
+            "smtbmc": "UNKNOWN"
+          },
+          "uart_tx.ticks": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [
+          "uart_tx.frame"
+        ],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "mapping_recipe": null,
+      "fault": {
+        "cell_type": "sg13g2_dfrbpq_1",
+        "instance": "_422_",
+        "output": "busy",
+        "before": "sg13g2_dfrbpq_1 _422_ (\n    .CLK(clk),\n    .D(_043_),\n    .Q(busy),\n    .RESET_B(_206_)\n  );",
+        "after": "sg13g2_dfrbpq_1 _422_ (\n    .CLK(clk),\n    .D(1'b0),\n    .Q(busy),\n    .RESET_B(_206_)\n  );"
+      },
+      "counterexamples": [
+        "strategies/uart_tx.frame/smtbmc/uart_tx.frame/engine_0/trace_induct.vcd",
+        "strategies/uart_tx.busy/smtbmc/uart_tx.busy/engine_0/trace.vcd"
+      ],
+      "pre_layout_timing": "FAIL",
+      "extracted_timing": [
+        {
+          "corner": "typical",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 6.235878,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.275543,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 4.029944,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.435757,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 7.526152,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.184451,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        }
+      ],
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_artifacts": {
+        "gds": {
+          "path": "physical/results/ihp-sg13g2/uart_tx/base/6_final.gds",
+          "sha256": "9b87fd06b9c922684f50bc59fcde8470bdae2352309a67467a9e44c47923d5f4",
+          "bytes": 1291944
+        },
+        "spef": {
+          "path": "physical/results/ihp-sg13g2/uart_tx/base/6_final.spef",
+          "sha256": "4d7037e28003a27c1e959b1b9370bff74763aea8ded20a0e6e21987d69c33e4d",
+          "bytes": 400775
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+          "bytes": 29429
+        },
+        "physical_metrics": {
+          "path": "physical_metrics.json",
+          "sha256": "79354dcadc6e7ffe2076ac6ce0c9713a0829c9aa233f0c75b845b6721013531c",
+          "bytes": 21438
+        }
+      }
+    },
+    {
+      "platform": "ihp-sg13g2",
+      "design": "apb",
+      "technology": {
+        "name": "ihp-sg13g2",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "81a4e526186423c3db2be380c7df69c0d796bb1aff167e21b4059dc80093307b",
+        "corner": "typical",
+        "corners": {
+          "typical": [
+            "ihp-sg13g2/lib/sg13g2_stdcell_typ_1p20V_25C.lib"
+          ],
+          "slow": [
+            "ihp-sg13g2/lib/sg13g2_stdcell_slow_1p08V_125C.lib"
+          ],
+          "fast": [
+            "ihp-sg13g2/lib/sg13g2_stdcell_fast_1p32V_m40C.lib"
+          ]
+        },
+        "orfs": {
+          "variables": {},
+          "corners": {
+            "typical": {
+              "PWR_NETS_VOLTAGES": "VDD 1.2"
+            },
+            "slow": {
+              "PWR_NETS_VOLTAGES": "VDD 1.08"
+            },
+            "fast": {
+              "PWR_NETS_VOLTAGES": "VDD 1.32"
+            }
+          }
+        }
+      },
+      "conditions": {
+        "physical": {
+          "die_area": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "core_area": [
+            20,
+            20,
+            380,
+            380
+          ],
+          "place_density": 0.6,
+          "threads": 2
+        },
+        "timing_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "mapping_corner": "typical",
+        "synthesis": {},
+        "constraints": [
+          {
+            "path": "constraints.sdc",
+            "role": "constraint",
+            "text": "# Generated by IC Design Studio. Time: ns; capacitance: pF.\nset_cmd_units -time ns -capacitance pF\ncreate_clock -name \"core_clk\" -period 20 [get_ports \"clk\"]\nset_clock_uncertainty 0.1 [get_clocks \"core_clk\"]\nset_input_delay -min 0 -clock \"core_clk\" [get_ports \"reset psel penable pwrite paddr* pwdata*\"]\nset_input_delay -max 1 -clock \"core_clk\" [get_ports \"reset psel penable pwrite paddr* pwdata*\"]\nset_output_delay -min 0 -clock \"core_clk\" [get_ports \"prdata* pready pslverr irq\"]\nset_output_delay -max 1 -clock \"core_clk\" [get_ports \"prdata* pready pslverr irq\"]\nset_load 0.01 [all_outputs]\n"
+          }
+        ]
+      },
+      "constraint_sha256": "3b298fae1a065086a850b88f03ff9214a07ce70c125cb736638a7f23b59ef9f8",
+      "stages": [
+        {
+          "name": "behavior",
+          "verdict": "PASS",
+          "result_sha256": "b095cf82a4dac0be35b0c08ed4f5af1ae9f21ed41c47d779a4348e130f897003"
+        },
+        {
+          "name": "mapped",
+          "verdict": null,
+          "result_sha256": "e3bc406827bb0696e0b006886d86a1f9f7d0a579b98bb559ba1971fa2d35e3c8"
+        },
+        {
+          "name": "equivalent",
+          "verdict": "PASS",
+          "result_sha256": "290c8b8f02db96794ed987a0c17f1da33b2ce5dbe7c78589cdb9e1fbe9e1f938"
+        },
+        {
+          "name": "fault-detected",
+          "verdict": "FAIL",
+          "result_sha256": "cb7e12486442e5fdfe2f0f50b3eb2c8b34ec96342b0d671b56ccf0ded2e0cf50"
+        },
+        {
+          "name": "pre-layout-timing",
+          "verdict": "FAIL",
+          "result_sha256": "b983033ade6db5262057bcdd447a6d83c13fd417f65eb6f732cbb60ed3ae65b2"
+        },
+        {
+          "name": "finished",
+          "verdict": null,
+          "result_sha256": "b7597dcb25a0f4ad38b4d28133e364c52a7275521eb20a4503d1c0d9788b0b45"
+        },
+        {
+          "name": "extracted-timing",
+          "verdict": "PASS",
+          "result_sha256": "0b61077fd3ce5604c3ff2a9251c687201fb873587b8e75302ea969fce76f7e4f"
+        },
+        {
+          "name": "physical-equivalent",
+          "verdict": "PASS",
+          "result_sha256": "d8e05821505704219fa7225518f40bd6832d18563f863a0ce242a236c4a5619c"
+        }
+      ],
+      "mapped_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "apb_fifo.fifo.count": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.0": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.1": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.2": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.3": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.rd": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.wr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq_enable": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.prdata": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pready": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pslverr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "physical_proof": {
+        "status": "PASS",
+        "strategy_status_files": {
+          "apb_fifo.fifo.count": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.0": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.1": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.2": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.mem.3": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.rd": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.fifo.wr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.irq_enable": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.prdata": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pready": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          },
+          "apb_fifo.pslverr": {
+            "pdr": "PASS (cached)",
+            "smtbmc": "PASS"
+          }
+        },
+        "pdr_proved_partitions": [],
+        "cached_status_note": "EQY copies an earlier conclusive result into later strategy status files as PASS/FAIL (cached); those are not fresh executions."
+      },
+      "mapping_recipe": null,
+      "fault": {
+        "cell_type": "sg13g2_dfrbpq_1",
+        "instance": "_220_",
+        "output": null,
+        "before": "sg13g2_dfrbpq_1 _220_ (\n    .CLK(clk),\n    .D(_033_),\n    .Q(\\fifo.mem[3] [0]),\n    .RESET_B(_105_)\n  );",
+        "after": "sg13g2_dfrbpq_1 _220_ (\n    .CLK(clk),\n    .D(1'b0),\n    .Q(\\fifo.mem[3] [0]),\n    .RESET_B(_105_)\n  );"
+      },
+      "counterexamples": [
+        "strategies/apb_fifo.fifo.mem.3/smtbmc/apb_fifo.fifo.mem.3/engine_0/trace.vcd"
+      ],
+      "pre_layout_timing": "FAIL",
+      "extracted_timing": [
+        {
+          "corner": "typical",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 16.386774,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.077623,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 15.444564,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.182089,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 16.912468,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.009543,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        }
+      ],
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_artifacts": {
+        "gds": {
+          "path": "physical/results/ihp-sg13g2/apb_fifo/base/6_final.gds",
+          "sha256": "559b57f8b615ebb1a65324c4d85e1e2a70c1cfb7812438093ee667c1a5c550b7",
+          "bytes": 1236216
+        },
+        "spef": {
+          "path": "physical/results/ihp-sg13g2/apb_fifo/base/6_final.spef",
+          "sha256": "43a6d4dd54988b2c57c42e42a44e35f0f563416656822f0f6f8270d9e4735839",
+          "bytes": 353685
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+          "bytes": 22735
+        },
+        "physical_metrics": {
+          "path": "physical_metrics.json",
+          "sha256": "2f18399876308c9bcc3442ddb393992e5835b458b0b0af173d840a25a1884e22",
+          "bytes": 21484
+        }
+      }
+    }
+  ],
+  "installed_runtime": {
+    "Linux": {
+      "status": "passed",
+      "digital_checks": 26,
+      "checked": "2026-10-07T00:00:03+00:00",
+      "platforms": [
+        "sky130hd",
+        "gf180",
+        "ihp-sg13g2"
+      ],
+      "physical_tool_checks": {
+        "status": "passed",
+        "design_hash": "8fdc49de9595bee6fe063339e84ac3954fecdaaf1eeddb5c11ee0ef61bbb7155",
+        "qualification": "Runtime tool smoke tests only; no process or design qualification.",
+        "stages": [
+          {
+            "name": "drc-legal",
+            "status": "passed",
+            "count": 0
+          },
+          {
+            "name": "drc-narrow",
+            "status": "passed",
+            "count": 1
+          },
+          {
+            "name": "lvs-equal",
+            "status": "passed"
+          },
+          {
+            "name": "lvs-wrong",
+            "status": "passed"
+          },
+          {
+            "name": "ngspice",
+            "status": "passed"
+          }
+        ],
+        "klayout": "0.30.5",
+        "native_design_hash": "7aaa3b9e83ccfdeb0f436eb0372010ad6b1e623c7f9ed081f42a1c922f59c837",
+        "execution": {
+          "runtime": {
+            "kind": "linux",
+            "root": "/state/runtimes/479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563",
+            "sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563"
+          },
+          "native_directory": "/tmp/icstudio-physical-qbgajlt8",
+          "native_input_sha256": "65f950823c68675bf5002870195ee7d269b96509ebfa62f735924f72197d32e6",
+          "received_files": {
+            "physical-backend-result.json": "0e1b1e15afe732132f86d425e239614d88166af6ccd9dbb60b19b9072b09c820",
+            "physical-flow/legal.log": "8197c515b2eb8777f4f39f54ac8aba4bb0c1d68b0b7c8a010de345139257025b",
+            "physical-flow/narrow.tcl": "ce0385ae715968111aa70008c899f368f8b4975042ecf75fcdaa7a5a335928d7",
+            "physical-flow/legal.tcl": "ee090d774cf3ce61fda80fe40ebc3caf9ed620e6e3c5cfc860c4ac40f8b6775c",
+            "physical-flow/setup.tcl": "066b62eb66b2428b270d410a77dae833a0f3d6dde7244cb8d0402701d5e07390",
+            "physical-flow/report.json": "258a2a739695fc9b293a95367d516dfe0318a8297d2aa56b4734e4ab123a13f4",
+            "physical-flow/narrow.log": "42da79bd6c39b848df5e76004c0cd45cca3913354ba26d524beb5a176fe18283",
+            "physical-flow/equal.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/reference.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/startup.tcl": "6e7299927bf208458ad55c89135689cdf368070d6ee7eb7f28a4977bb958a875",
+            "physical-flow/wrong.spice": "6a51082e74a23ad0503569f6632d9df462a10ee14adf37ed2727bd3eab37f6b3",
+            "physical-flow/wrong/lvs.log": "c876f9eb14e79734f988f302447f3a1f7fcf2d4958207c067099c7132c4b9bb8",
+            "physical-flow/wrong/lvs.json": "503ebaccddf32815e37daf760f69b7ec19a1c671783cc0ca6e82f6fc40543e95",
+            "physical-flow/wrong/console.log": "1c7ec964230218631ebc5cda6ac58f2f73a4e6161144d09edd846cbef05a6b19",
+            "physical-flow/equal/lvs.log": "3bd2772702557fca047a8a35df14610d511240b685b1d2af9dd787cf3ea2f2b9",
+            "physical-flow/equal/lvs.json": "41e6c9c74ec7212b7f4bd03b98dfa7310cb9f0ba26e904e2864bd973b2dcffc8",
+            "physical-flow/equal/console.log": "32e98dd4ddbbd5e5880123679ab5203e4bf70a9540370003e96ad71f42eda0a7"
+          }
+        }
+      },
+      "scope": "Existing installed candidate requalified against this backend; not final frozen desktop acceptance",
+      "runtime_sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563"
+    },
+    "Windows": {
+      "status": "passed",
+      "digital_checks": 26,
+      "checked": "2026-10-07T00:16:45+00:00",
+      "platforms": [
+        "sky130hd",
+        "gf180",
+        "ihp-sg13g2"
+      ],
+      "physical_tool_checks": {
+        "status": "passed",
+        "design_hash": "91e024a61cd9408cd12111f05fe738a541fc177cc743dea97cae5dbd2c962e26",
+        "qualification": "Runtime tool smoke tests only; no process or design qualification.",
+        "stages": [
+          {
+            "name": "drc-legal",
+            "status": "passed",
+            "count": 0
+          },
+          {
+            "name": "drc-narrow",
+            "status": "passed",
+            "count": 1
+          },
+          {
+            "name": "lvs-equal",
+            "status": "passed"
+          },
+          {
+            "name": "lvs-wrong",
+            "status": "passed"
+          },
+          {
+            "name": "ngspice",
+            "status": "passed"
+          }
+        ],
+        "klayout": "0.30.5",
+        "native_design_hash": "44731898d403cfa24f745b6f2452c9ac705f0962fda7306ac6a68446b07dcfff",
+        "execution": {
+          "runtime": {
+            "kind": "wsl",
+            "distro": "ICStudio-Digital-479ab2d7898f92fa-55f1d1d7",
+            "root": "\\\\wsl.localhost\\ICStudio-Digital-479ab2d7898f92fa-55f1d1d7",
+            "sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563"
+          },
+          "native_directory": "/var/tmp/icstudio-physical/68d7b10239d84da695d97ff5fcae5d19",
+          "native_input_sha256": "503c3b2ab34821263818b592c57d5e9c307e6419a18b70afa0ad31e8328d8a59",
+          "received_files": {
+            "physical-backend-result.json": "4e8bd9f3bcd361b0fde1dbee99511e0c1f477ae5f4805bd0229a8f3d196c198a",
+            "physical-flow/startup.tcl": "c7ed08d69a9d5548e14e9f59dfde1dcacaa0ceded71a6545555cfadd17999e52",
+            "physical-flow/reference.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/report.json": "9152ea2d9ab7f1bc347eca6b0a50b341464c6a1ecf1aa20e40524e0d59e9c01b",
+            "physical-flow/setup.tcl": "066b62eb66b2428b270d410a77dae833a0f3d6dde7244cb8d0402701d5e07390",
+            "physical-flow/equal.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/legal.tcl": "ee090d774cf3ce61fda80fe40ebc3caf9ed620e6e3c5cfc860c4ac40f8b6775c",
+            "physical-flow/narrow.log": "46a4859dfc40c6d2ac0e9fc4b69e20b85b91a5568cf6d31ca8cd3b6228c3473b",
+            "physical-flow/legal.log": "c6c2c95031b51f99b9ba7d2bf56346669a5a4b8a54ca192b04ef74a4a1a23804",
+            "physical-flow/narrow.tcl": "ce0385ae715968111aa70008c899f368f8b4975042ecf75fcdaa7a5a335928d7",
+            "physical-flow/wrong.spice": "6a51082e74a23ad0503569f6632d9df462a10ee14adf37ed2727bd3eab37f6b3",
+            "physical-flow/wrong/lvs.json": "503ebaccddf32815e37daf760f69b7ec19a1c671783cc0ca6e82f6fc40543e95",
+            "physical-flow/wrong/lvs.log": "c876f9eb14e79734f988f302447f3a1f7fcf2d4958207c067099c7132c4b9bb8",
+            "physical-flow/wrong/console.log": "79e22942a5089a52354e11ff51d3e97bd24129d1d6b1f005a7401dbeac1f0172",
+            "physical-flow/equal/lvs.json": "41e6c9c74ec7212b7f4bd03b98dfa7310cb9f0ba26e904e2864bd973b2dcffc8",
+            "physical-flow/equal/lvs.log": "3bd2772702557fca047a8a35df14610d511240b685b1d2af9dd787cf3ea2f2b9",
+            "physical-flow/equal/console.log": "765a511c723a48420f8b276baf706e943cc20f5887cefc344dc98065fb9f602d"
+          }
+        }
+      },
+      "scope": "Existing installed candidate requalified against this backend; not final frozen desktop acceptance",
+      "runtime_sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563"
+    }
+  },
+  "evidence": {
+    "digital-workload-runtime-Linux-audit.json": {
+      "sha256": "1aba917a6e66cf03fc23519089a7c0030d63b523c499884b61b42c0e6c88c12a",
+      "bytes": 78047
+    },
+    "digital-workload-runtime-Linux-evidence.tar.gz": {
+      "sha256": "81c06e125078f9e5c0e98a4e9bf409acd8cff1323a4bb43b379244a1c10ec0af",
+      "bytes": 28695431
+    },
+    "digital-workload-runtime-Windows-audit.json": {
+      "sha256": "77fc52436051f81bda168c9e48e65f6a6e3ca641da23df430f0b00267eb2b510",
+      "bytes": 79883
+    },
+    "digital-workload-runtime-Windows-evidence.tar.gz": {
+      "sha256": "249a627ef9ea658fc7439bfd23af15466d1ebdfc125d88624a6748f35cee71e4",
+      "bytes": 28682412
+    },
+    "digital-workload-evidence.tar.gz": {
+      "sha256": "b6034654a7d15aa96480a1cfbf0908a885fe0441599f46de47bd3e0b75305b5b",
+      "bytes": 98896848
+    },
+    "digital-workload-audit.json": {
+      "sha256": "770ebf299ab5f56c451b2af8807cc3f996c045fe7f1985c7f9a7bc6abd78d657",
+      "bytes": 484069
+    },
+    "digital-workload-report.json": {
+      "sha256": "7df30be59008fa526156ec9096f8f86108d5d8f070b07aee0e1abac6ddbcb4af",
+      "bytes": 405790
+    }
+  },
+  "local_validation": {
+    "full_suite": {
+      "tests": 1373,
+      "skips": 63,
+      "failures": 0,
+      "seconds": 302.406
+    },
+    "focused": {
+      "tests": 57,
+      "skips": 9,
+      "failures": 0
+    },
+    "gui": {
+      "status": "passed",
+      "checks": [
+        "Explicit mapping and driver/load retained",
+        "Manual SDC unchanged",
+        "Save/reopen",
+        "Missing speed-mapping driver rejected",
+        "Return to default mapping"
+      ]
+    },
+    "gui_scope": "Offscreen Qt with isolated settings and system fonts; not consumer desktop acceptance",
+    "documentation": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 120,
+      "local_links": 1157,
+      "gallery_examples": 13
+    }
+  },
+  "remaining": [
+    "SKY130 additional PVT libraries and complete independently extracted RC-corner sweeps",
+    "Broader analog/digital workloads, GF180 variants, chip-level DRC/LVS/antenna/density/EMIR/CDC/RDC",
+    "Exact frozen-desktop consumer qualification and process-owner/shuttle acceptance"
+  ],
+  "recovery_note": "One Windows requalification attempt stopped before proof launch on Wsl/Service/0x8007274c; it remained failed. The recorded pass requires a full subsequent qualification on the same source."
+}

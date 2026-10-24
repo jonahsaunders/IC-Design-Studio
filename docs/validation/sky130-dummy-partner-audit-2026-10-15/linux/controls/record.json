@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "9c2df504ddcb06bc596f63f3eeeb2d1bddaa5bd0bf892ccc393904dcb449cb65",
+  "checker_sha256": "49015f15c3ae735b240fa838affc151aea1873a7801f60ea8a72320cb88945f4",
+  "cases": [
+    {
+      "case": "empty",
+      "gds_sha256": "f409e778d8194f598d56c7f49be7ddd50812d6cc038a55b4d7709d0f5dcf1837",
+      "report_sha256": "477fa0a5fef261587010c349f88e2cf0b0121623e725bec24ce3cc52102d5937",
+      "unreviewed": 0
+    },
+    {
+      "case": "unknown_dummy_present",
+      "gds_sha256": "3bd503d9670938a97f1f73610a7ac3038af21333637524d2266cc99b15a61549",
+      "report_sha256": "9a6d524381183a6da363c6ca8b47c594ac21713ffc9595dd442231120f86f038",
+      "unreviewed": 0
+    },
+    {
+      "case": "seal",
+      "gds_sha256": "ab5de76a2fcf292a9568a912ada18f2e6bbb2b8774173188d2d8f259ff4de411",
+      "report_sha256": "c6ae3717979400290126a916517e53ac7fdedb0231609701fde0006622a6d915",
+      "unreviewed": 2
+    },
+    {
+      "case": "diecut",
+      "gds_sha256": "2022581a254bdc3cdb50c11096b8093ea7b70a605df34704c89c945e01b0bc09",
+      "report_sha256": "01070c2b33a38e36d602760dfeb1c319ac861782ee1d6903bdaf971af1d676a1",
+      "unreviewed": 1
+    },
+    {
+      "case": "fuse_m2_guard",
+      "gds_sha256": "d7869f9e5c7ebb79ff192f393cadd0d2fc36f773dae05bdda4bd74387cd3386d",
+      "report_sha256": "93c1f869020101a7ee8891dad963668025b27b286263c77fd570fa36f274f5e5",
+      "unreviewed": 2
+    },
+    {
+      "case": "fuse_m3",
+      "gds_sha256": "9c7787f697b9315c99843cc744d4206e02f136526658362fe23035deab7b288c",
+      "report_sha256": "f919fc018d1c573fbbca919e62b10b9ba848c4bd82001cc0f240059822f369f2",
+      "unreviewed": 2
+    },
+    {
+      "case": "fuse_m4",
+      "gds_sha256": "c91f8a59cd783a00409b6277de2e5ff81250d7b0a76ad4d1f6e9699da69a37a8",
+      "report_sha256": "fc25b9ae23e89359c3a5bd666c3d4e4328b6541bafc3406f662ee05806c7e53b",
+      "unreviewed": 2
+    },
+    {
+      "case": "fuse_m5",
+      "gds_sha256": "e6bbdf056a9fab46d4cd208b256932457e1529d2f26ed90e5ef7c84a3f072ea7",
+      "report_sha256": "b8d6e7b9ac8dd04715c16d03bccd12ad21473a8ddc8ac48a16646147ebf4c5f4",
+      "unreviewed": 2
+    },
+    {
+      "case": "fuse_target",
+      "gds_sha256": "a3b09faacf1ee429107c5c18d93bd04ecdded2edb8e687627562a59f5d970ded",
+      "report_sha256": "ec514c090581c31252bef411bcbfd53c867752f5c6d65b21d8c72f8d3e448d30",
+      "unreviewed": 2
+    },
+    {
+      "case": "seal_text",
+      "gds_sha256": "00165d0f18b43ed0d9ca25785b6ed69b451b10720e056322a6605d6c666bfab6",
+      "report_sha256": "a42ff00e37119470ca980c9be164fcc6317d460dcf6dc677d080de8dfc910039",
+      "unreviewed": 2
+    },
+    {
+      "case": "fuse_text",
+      "gds_sha256": "718f14f096fbae310b24da43fff50e861d816ec336a0bb7e319d8c9e457bf9f2",
+      "report_sha256": "f0bf51d0ba1cd7a6032f60c50141c51c1d487a1e6bb29f563fab7f41ce4f5a3d",
+      "unreviewed": 2
+    },
+    {
+      "case": "diecut_text",
+      "gds_sha256": "e6f0901655bf58ba98ccda9084d650d866c7a7e0f11f2471e2a888cb155b95bc",
+      "report_sha256": "261db2f8b1a8da972e3ee10b49badb3504e6f7515f4491e82b7fdc0e7ee683e8",
+      "unreviewed": 1
+    },
+    {
+      "case": "nested_array",
+      "gds_sha256": "6a8e0ae8a53d26be6c9dc8bc1bdec6d140c9ec3549731725684e401809ec5c32",
+      "report_sha256": "4c989c0e792c5ec88bdaa090fb9df54d38b0f14d122a7258f323cbde4529df30",
+      "unreviewed": 2
+    },
+    {
+      "case": "complex_transform",
+      "gds_sha256": "bfce2c2be1849646d356d787818232ac89b062407d73f55915c9a07e8350e4de",
+      "report_sha256": "b58291d5a35b9238fcf6701d8ad2bf5334ada8543908d0535e87526dbd1fa524",
+      "unreviewed": 2
+    },
+    {
+      "case": "odd_path",
+      "gds_sha256": "cc3a10e77b835c298b5ac17603ce6e9aee578d71a62e3965b8a7a0c1103685e2",
+      "report_sha256": "83e5694476fd74bb198b1c30896215708aad86d6792c2b901701ea2876dafe9f",
+      "unreviewed": 1
+    },
+    {
+      "case": "one_nm_sliver",
+      "gds_sha256": "8133ac21ac6ea4294d9a9ce35f7610ffbb34739b53159787294fc7d7203414d0",
+      "report_sha256": "df6a68e8b7d185788c1e16d06e30ebabc6f19e567be3db042dd04977630041c4",
+      "unreviewed": 2
+    },
+    {
+      "case": "all_partners",
+      "gds_sha256": "2500c3995720a288f51931508c6cbdd9c8cc0f5044b40f16a1d66e86765dec8f",
+      "report_sha256": "0be1855fbd47f3a1bea59ba4f52cb46dc1d58f25d625c409373ae1263e2445a9",
+      "unreviewed": 5
+    },
+    {
+      "case": "named_exemption",
+      "gds_sha256": "2965fc9a691973a57971c6e6917c4571a7220bb75889057e2437027091859913",
+      "report_sha256": "4a53e4336a265f40718e5803c0098788ccfc5ea69243543593784afd66cf4550",
+      "unreviewed": 2
+    },
+    {
+      "case": "wrong_purpose",
+      "gds_sha256": "f165fa640826e18fe07fa43c55aa89df391ba54b54a7d2ab4ba7e597bb8de9c1",
+      "report_sha256": "188f1f21b5b35e287dec86a0080388b7b6b004f29eaf993465a5366cc3a30dfa",
+      "unreviewed": 0
+    }
+  ],
+  "elapsed_seconds": 0.6976209899999999
+}

@@ -1,0 +1,183 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "01a8efd2156e9e6bba7cece54dc735deaff1b4e84f16191090a640f4c9dd234b",
+  "checker_sha256": "baa5d926fcdc6813753d803083f975ee53a47f36de734c96895a56219b730a94",
+  "cases": [
+    {
+      "case": "empty",
+      "gds_sha256": "f409e778d8194f598d56c7f49be7ddd50812d6cc038a55b4d7709d0f5dcf1837",
+      "report_sha256": "e62cff949725cc0a98d275e011e6e80d4b0f723b870eea21dd71e50afbf54ed1",
+      "dispositions": {
+        "r379": "absent-operand",
+        "r392": "absent-operand"
+      }
+    },
+    {
+      "case": "ring_exact",
+      "gds_sha256": "817019346730220fddf0aff36855b716224a8b2f68d2efa2eb1a5685dc4b9ae5",
+      "report_sha256": "ba7b4adbcbe41f5cee40536ca3aac7845cd22d3a9c1dda521514d58d9c1c50bf",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "ring_above",
+      "gds_sha256": "9461efbe54b816b7c4ca5f9fadce1c0b73f494a7403d6e2b3bfa58a77019b747",
+      "report_sha256": "5b12f18b0848d756b08427a58779d64dc97baa7bcf8c5f51e0dfe6b33221c778",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "ring_below",
+      "gds_sha256": "1164a2a02232ce01d00c503df02bcf63d87b321490c3985e2f23b35f695194a7",
+      "report_sha256": "67725d7cd534085ad86ccbfe1144f2ccd2ef7734ec4400561eba292e736006f2",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "failed"
+      }
+    },
+    {
+      "case": "shift_x",
+      "gds_sha256": "7b0948402cca65d6ebd707d4abbe054ffc58a884a743073c41781178b44dfea3",
+      "report_sha256": "ec8e3bfc96907d8c12711d391de61e71879264c39882d93a916592075eaf5f14",
+      "dispositions": {
+        "r379": "failed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "shift_y",
+      "gds_sha256": "bf800600eaecc1b3dd25889474bf40db728e411ed673893203ce9397fb205a8a",
+      "report_sha256": "bac0a6db2dc0142e6f79a5b887c793bb85041e741760fa7a621669c11c87e180",
+      "dispositions": {
+        "r379": "failed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "negative_x",
+      "gds_sha256": "c51ba4c7c3ef4b39a66e3e3877110871bfcf8b8cfc2629dfaa14d8fab0199138",
+      "report_sha256": "0bde02e7ad66db18e3ccb18d1033784ac71fb3a216d336983ea368bd7f4ac3d9",
+      "dispositions": {
+        "r379": "failed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "negative_y",
+      "gds_sha256": "2de246887a6d3cd8815c0b95e59583c07621801705169d6c458fea763bf741b4",
+      "report_sha256": "1a7e54c037b7b2ac63701c596bfa6d864a821b74f9ccdd2a85113dcdd0246bff",
+      "dispositions": {
+        "r379": "failed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "centered",
+      "gds_sha256": "f1a49fa427ec538e5f32d2f5c14c463655542f5c63f87f2c4b39fdae42d96273",
+      "report_sha256": "d0518d3749ea122976260aa4e4b465c8a5f79946419c9a1821cf4fdf4f501e2b",
+      "dispositions": {
+        "r379": "failed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "single_narrow_wall",
+      "gds_sha256": "ec974e750ae0aa2c090116297fc425a3669eb3d8b2b61b7b8b0ee3a2f30a51c1",
+      "report_sha256": "5f23d47add1ee7ddb6001b359bbf1b63f32a81fa26f830825490617337479e2d",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "failed"
+      }
+    },
+    {
+      "case": "fragmented_ring",
+      "gds_sha256": "ca4fc9bf237e9d4b2f062d8bbac3808351130c9a3aa8c45c25f4c6c4643fd37c",
+      "report_sha256": "d77cb5fa5f751ec3328a3b97ae7a707a525070749bcdd1b5dba710629c5710b0",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "duplicate_ring",
+      "gds_sha256": "9d7f4df8fd51361f8e8aa269c90b2455c5218ac9a1114a57c7a6050351a1387a",
+      "report_sha256": "9da2b6fc9cb8348ed448843c86e47e7ddb9e87e9e0c5c55f46bade4c264de0ce",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "multiple",
+      "gds_sha256": "1224aa9d50e0499e95a226d88b3d3406485d9575646293b413b04f51416c1250",
+      "report_sha256": "0f0288d4f568c1d308045317da086b5d8e0942b9d522754b06c14c91eafb1496",
+      "dispositions": {
+        "r379": "unreviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "corner_touch",
+      "gds_sha256": "6c6bc4b6cf128fe9195933827528db3d4571aedd9435e5c060d29fc29200410f",
+      "report_sha256": "82c3b8490a34c5fbd7d99766cac059f70379db417d5903f31e7cf96d6b2ff5b1",
+      "dispositions": {
+        "r379": "unreviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "hierarchy",
+      "gds_sha256": "95b57496641bedd3512c5ec4590bd2ff638bac8dcb05f5bedff7bbda7b7e0fa3",
+      "report_sha256": "e5f9a1e076f95382c2886ac5e2bc426ecb05ad1730e36117d551c36fa6089f6b",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "reflected",
+      "gds_sha256": "11a0db6436a31cc28faf53a19f61338cf193d56147f1af2eea56a2b8ad8757f9",
+      "report_sha256": "05fbc15ae3159547f4fce05d5415378599207521ac3ccda4f5700df959922c0b",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "array",
+      "gds_sha256": "d47edf35e173311224b3a2c5e6854f4c86983d41ebb4b86e54e2ef804a2453f1",
+      "report_sha256": "f70dbbae0bcecb6a31ac960a8cadaf8001a44501367c49150cc6f8c99a002755",
+      "dispositions": {
+        "r379": "unreviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "exact_path",
+      "gds_sha256": "0dc5c6b559b1e65340bcf5686505322ad443c2c9ec71b5649134479f762db217",
+      "report_sha256": "dd3ff22dd32c4504db16cc26a6f8dcb650b1c24ff507da5dc84877e7bff06c31",
+      "dispositions": {
+        "r379": "executed-reviewed",
+        "r392": "executed-reviewed"
+      }
+    },
+    {
+      "case": "signal_pad_alias",
+      "gds_sha256": "9e785e4cda792b036f2ead89aea1cd90922db46947e36b6d0b278ea6980d6f69",
+      "report_sha256": "ed619500cc97c89346d2075efc283f1ded709ed602ca26f84049b5c0c68155d9",
+      "dispositions": {
+        "r379": "absent-operand",
+        "r392": "absent-operand"
+      }
+    }
+  ],
+  "elapsed_seconds": 0.8454148890000002
+}

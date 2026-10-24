@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "source_manifest_sha256": "ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab",
+  "source_revision": "1e24ec25b491028b",
+  "symbol_hashes": {
+    "ntap1": "4793bb1189cb3a44307745c35d7ff8b6fdae3c7b9a36fb62fc549041eb307281",
+    "ptap1": "ca93ba7e1aefc330edfa3735186977289b77594f8f137b000e8f432634a8ecb9"
+  },
+  "model_hashes": {
+    "resistors_mod.lib": "7c77da0c0419c8a332550da3f934f530262bd452734090db827b68ff88d09c43",
+    "resistors_mod_mismatch.lib": "ce5ea8559df174fbdad8192e45e5d65772ae3af90af61ba295419b2cb5154b29"
+  },
+  "change": "Reviewed IHP tap formula evaluated as bounded arithmetic; original Tcl is not executed. W/L are metres and determine resistance.",
+  "qualified": false,
+  "scope": "Declarative two-terminal schematic model bindings. No complete operating envelope or physical qualification."
+}

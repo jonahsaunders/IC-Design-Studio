@@ -1,0 +1,29 @@
+
+Magic 8.3 revision 684 - Compiled on Tue Oct  6 22:55:21 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Input style sky130(vendor): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Using technology "sky130A", version 1.0.291-82-gfa87f8f
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: LIB
+Reading "device_coupon".
+Warning:  snap setting is also changing units.  This usage is deprecated
+and may be removed in the future.  Use "units" to change units, and
+change units before setting snap to keep this message from appearing.
+DRC style is now "drc(full)"
+Loading DRC CIF style.
+STUDIO_DRC_COUNT 0
+STUDIO_DRC_STYLE drc(full)
+STUDIO_MAGIC_SCALE 0.009999999776482582
+No errors found.
+STUDIO_MAGIC_COMPLETE

@@ -1,0 +1,207 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "definition-dependencies-unresolved",
+  "qualified": false,
+  "chunk_complete": false,
+  "checked_at_utc": "2026-10-16T00:39:47Z",
+  "application_commit": "ab72af2fee979aba4fd4c7316e223c758b926c19",
+  "remote_experimental_commit": "ab72af2fee979aba4fd4c7316e223c758b926c19",
+  "new_coverage_decisions": 0,
+  "unresolved_catalog_records": 302,
+  "scope": "Additional bounded source research only. No new rule execution, code modification, geometry acceptance, or foundry qualification. This audit does not advance the physical completion gate.",
+  "checkpoint": {
+    "path": "docs/validation/sky130-dummy-partners-2026-10-15.json",
+    "sha256": "90cf555faf23a7a49ba95edb421e2278145402141242f86aadaf004da9b4aab3"
+  },
+  "dependency_inventory": {
+    "path": "docs/validation/sky130-source-dependencies-2026-10-15.json",
+    "sha256": "58dbb942fca6c61c391db30e12050761c0dd6e419647bf0c42db19e07e08700d"
+  },
+  "upstream_head": {
+    "repository": "https://github.com/google/skywater-pdk",
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "commit_date": "2023-05-29T11:20:48Z",
+    "retrieval": "https://api.github.com/repos/google/skywater-pdk/commits/main"
+  },
+  "independent_blocker": {
+    "rule": "x.20",
+    "source": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p018-x_dotdash.csv",
+    "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+    "finding": "The current upstream source still provides no numerical value or unit for the IP-block pin center-spacing rule.",
+    "consequence": "A numeric acceptance predicate and just-below/at/above-limit tests cannot be established from this row. An arbitrary limit or silently disabling IP_block would not satisfy chunk 6.",
+    "needed": "A version-applicable public clarification or validated reference defining the limit, units and applicability under a license compatible with project distribution."
+  },
+  "additional_sources": [
+    {
+      "repository": "https://github.com/mithro/sky130-process-tech",
+      "revision": "579ba1fcb802435b13d6c83c9fe90a5bb8126160",
+      "source": "docs/masks/ntm.md",
+      "git_blob": "98bb03e7cc610e97d1cb8cb0062a2bd343a9727d",
+      "root_license_git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "assessment": "Explanatory material, not a foundry rule definition. The author identifies the displayed mask expression as a public interpretation and distinguishes it from the unpublished manufacturing recipe. Its source references lead back to the same mask table and catalog already reviewed.",
+      "decision": "No CLNTM implementation or disposition is derived from the reconstructed expression."
+    },
+    {
+      "repository": "https://github.com/google/skywater-pdk-sky130-raw-data",
+      "revision": "1f7214f2f81a0629303947a07e1ec00a28ae8a33",
+      "root_license_git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "tree_entries": 1466,
+      "tree_truncated": false,
+      "assessment": "The primary README describes silicon measurement data and documentation for test tiles. The full path inventory provides no file named fixed_layout_model_map or a mask-generation rule package. This is a path/README inspection, not a content review of all measurement files.",
+      "decision": "No test-tile document, model file or layout is incorporated or treated as a rule-deck substitute."
+    },
+    {
+      "repository": "https://github.com/stineje/sky130_cds",
+      "revision": "e7194f64aa375e540fa1e46ab23d8a10d917b83c",
+      "root_license_git_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "root_license": "Apache-2.0",
+      "tree_entries": 5154,
+      "tree_truncated": false,
+      "reviewed_files": [
+        {
+          "path": "README.md",
+          "git_blob": "76f0a872ed1e9dc3ca03fb8762aa044e84494fdf"
+        },
+        {
+          "path": "DISCLAIMER",
+          "git_blob": "a291851e2d3bfd755a48502183cd10d119349284"
+        },
+        {
+          "path": "DRC/sky130_drcRules.pvl",
+          "git_blob": "fbe6504e024138e39c99a96c769f04dd908f137c"
+        },
+        {
+          "path": "VirtuosoOA/layer.map",
+          "git_blob": "1f5cbd87abb917d418aa8fd6c001d963a43f8e29"
+        },
+        {
+          "path": "pnr/streamOut.map",
+          "git_blob": "23c4b83a2716d2bd0c547c02c352c5945b6c540b"
+        },
+        {
+          "path": "VirtuosoOA/sky130.tf",
+          "git_blob": "04dc2af454aadf8dc41bfcd6d68bb644075d6286",
+          "last_file_commit": "8f6f910d71251869a633e6137ff91003f675c910"
+        }
+      ],
+      "assessment": "The inspected DRC deck explicitly identifies unused masks and contains none of the sought x.20, CLNTM, metop1-8, ViaTop, fomDummyDRC, EUTESTPAD or RF-map definitions. The technology file contains metal-option display aliases, but the inspected layer map supplies no option1-8 stream mapping. Those aliases alone cannot define the unresolved catalog operands.",
+      "decision": "No rule code or mapping is incorporated. A repository license or a successful run of this partial deck would not prove complete rule coverage."
+    }
+  ],
+  "searches": [
+    {
+      "query": "\"x.20\" \"pin\" repo:RTimothyEdwards/open_pdks",
+      "limit": 10,
+      "returned_urls": [],
+      "interpretation": "No returned matches; not a proof of absence."
+    },
+    {
+      "query": "\"x.20\" \"pins\" sky130",
+      "limit": 10,
+      "returned_urls": [
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery-rules.rst",
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p018-x_dotdash.csv",
+        "https://github.com/tabbydoc/tabbyld2/blob/9a31f6904da75295e19f2434f212e1a1928a586f/datasets/GitTables_SemTab_2022/tables/GitTables_4085.csv",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/periphery-rules.rst",
+        "https://github.com/dirkarnez/openlane-playground/blob/0d34e3a1ccdd3d7f916101fe4dd8314329a06e9c/OpenLane/pdk/skywater-pdk/docs/rules/periphery-rules.rst",
+        "https://github.com/dev-12/pd_course/blob/10362a6276e43da3a319d8c91a08b70fdb9faaba/openlane_working_dir/pdks/skywater-pdk/docs/rules/periphery-rules.rst",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/periphery/p018-x_dotdash.csv",
+        "https://github.com/dirkarnez/openlane-playground/blob/0d34e3a1ccdd3d7f916101fe4dd8314329a06e9c/OpenLane/pdk/skywater-pdk/docs/rules/periphery/p018-x_dotdash.csv",
+        "https://github.com/dev-12/pd_course/blob/10362a6276e43da3a319d8c91a08b70fdb9faaba/openlane_working_dir/pdks/skywater-pdk/docs/rules/periphery/p018-x_dotdash.csv",
+        "https://github.com/matthiasgoergens/protocol-emulator-notes/blob/9b80de7b37f9ac1a55a983f5efe355b5ce2d0120/notes/prior-art-multiphase-timing.md"
+      ],
+      "interpretation": "Returned rule table and mirrors still omit the numerical limit."
+    },
+    {
+      "query": "\"fixed_layout_model_map\" NOT path:periphery-rules.rst NOT path:periphery.csv",
+      "limit": 10,
+      "returned_urls": [
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery-rules.rst",
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p020-dnwell_dotdash.csv",
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/periphery.csv",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/periphery-rules.rst",
+        "https://github.com/dirkarnez/openlane-playground/blob/0d34e3a1ccdd3d7f916101fe4dd8314329a06e9c/OpenLane/pdk/skywater-pdk/docs/rules/periphery-rules.rst",
+        "https://github.com/dev-12/pd_course/blob/10362a6276e43da3a319d8c91a08b70fdb9faaba/openlane_working_dir/pdks/skywater-pdk/docs/rules/periphery-rules.rst",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/periphery/p020-dnwell_dotdash.csv",
+        "https://github.com/dirkarnez/openlane-playground/blob/0d34e3a1ccdd3d7f916101fe4dd8314329a06e9c/OpenLane/pdk/skywater-pdk/docs/rules/periphery/p020-dnwell_dotdash.csv",
+        "https://github.com/dev-12/pd_course/blob/10362a6276e43da3a319d8c91a08b70fdb9faaba/openlane_working_dir/pdks/skywater-pdk/docs/rules/periphery/p020-dnwell_dotdash.csv",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/periphery/periphery.csv"
+      ],
+      "interpretation": "Returned references to the map, not the map itself; requested path exclusions were not honored in the returned results."
+    },
+    {
+      "query": "\"CLNTM\" sky130 NOT repo:neu-ucb-tvip/tvip-analog-workspace NOT repo:stineje/sky130RHBDlib",
+      "limit": 10,
+      "returned_urls": [
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+        "https://github.com/mithro/sky130-process-tech/blob/579ba1fcb802435b13d6c83c9fe90a5bb8126160/docs/masks/ntm.md",
+        "https://github.com/mithro/sky130-process-tech/blob/579ba1fcb802435b13d6c83c9fe90a5bb8126160/docs/steps/064-ntm.md",
+        "https://github.com/mithro/sky130-process-tech/blob/579ba1fcb802435b13d6c83c9fe90a5bb8126160/docs/masks/ldntm.md",
+        "https://github.com/mithro/sky130-process-tech/blob/579ba1fcb802435b13d6c83c9fe90a5bb8126160/docs/masks/index.md",
+        "https://github.com/ep-infosec/50_google_skywater-pdk/blob/3d7887b3a6825f45cbacdc15d986cd3aa56e49a5/docs/rules/errors.csv",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/errors.csv",
+        "https://github.com/dirkarnez/openlane-playground/blob/0d34e3a1ccdd3d7f916101fe4dd8314329a06e9c/OpenLane/pdk/skywater-pdk/docs/rules/errors.csv",
+        "https://github.com/dev-12/pd_course/blob/10362a6276e43da3a319d8c91a08b70fdb9faaba/openlane_working_dir/pdks/skywater-pdk/docs/rules/errors.csv"
+      ],
+      "interpretation": "Returned catalog mentions and an explanatory reconstruction; neither supplies a verified mask construction."
+    },
+    {
+      "query": "\"metop8\" sky130",
+      "limit": 8,
+      "returned_urls": [
+        "https://github.com/stineje/sky130_cds/blob/e7194f64aa375e540fa1e46ab23d8a10d917b83c/VirtuosoOA/sky130.tf",
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+        "https://github.com/neu-ucb-tvip/tvip-analog-workspace/blob/a4cbf5f807853b91e73e4ef0a0cbbb27672ef950/libs/sky130_fd_pr_main/techfile.tf",
+        "https://github.com/ucb-substrate/substrate2/blob/01d9600f946437d3bc18806a6517e35001b68251/tools/pegasus/examples/lvs/erc.summary",
+        "https://github.com/NotYiLongMa/ee140/blob/db7fd46f07759d1a6bc6f79da770f18380667e79/sky130_release_0.0.4/libs/sky130_fd_pr_main/techfile.tf",
+        "https://github.com/peuch7/SIliconJacketsPD/blob/68d22b1e973432c711245c8e81a63b47885c6d87/RTL2GDS/flowtool/resources/cadence_sky130/sky130_release_0.0.9/libs/sky130_fd_pr_main/techfile.tf",
+        "https://github.com/ep-infosec/50_google_skywater-pdk/blob/3d7887b3a6825f45cbacdc15d986cd3aa56e49a5/docs/rules/errors.csv",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/errors.csv"
+      ],
+      "interpretation": "Technology-display aliases and report files are leads, not a complete binding of catalog operands."
+    },
+    {
+      "query": "\"fomDummyDRC\" sky130",
+      "limit": 8,
+      "returned_urls": [
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+        "https://github.com/ep-infosec/50_google_skywater-pdk/blob/3d7887b3a6825f45cbacdc15d986cd3aa56e49a5/docs/rules/errors.csv",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/errors.csv",
+        "https://github.com/dirkarnez/openlane-playground/blob/0d34e3a1ccdd3d7f916101fe4dd8314329a06e9c/OpenLane/pdk/skywater-pdk/docs/rules/errors.csv",
+        "https://github.com/dev-12/pd_course/blob/10362a6276e43da3a319d8c91a08b70fdb9faaba/openlane_working_dir/pdks/skywater-pdk/docs/rules/errors.csv"
+      ],
+      "interpretation": "Returned catalog mentions and mirrors, not complete operand construction."
+    },
+    {
+      "query": "\"EUTESTPAD\" sky130",
+      "limit": 8,
+      "returned_urls": [
+        "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+        "https://github.com/ep-infosec/50_google_skywater-pdk/blob/3d7887b3a6825f45cbacdc15d986cd3aa56e49a5/docs/rules/errors.csv",
+        "https://github.com/SiD4422/multisimLive/blob/e7a45011f17d8aae0ef0f196e88a7828cfe5773a/skywater-pdk-main/skywater-pdk-main/docs/rules/errors.csv",
+        "https://github.com/dirkarnez/openlane-playground/blob/0d34e3a1ccdd3d7f916101fe4dd8314329a06e9c/OpenLane/pdk/skywater-pdk/docs/rules/errors.csv",
+        "https://github.com/dev-12/pd_course/blob/10362a6276e43da3a319d8c91a08b70fdb9faaba/openlane_working_dir/pdks/skywater-pdk/docs/rules/errors.csv"
+      ],
+      "interpretation": "Returned catalog mentions and mirrors, not complete operand construction."
+    }
+  ],
+  "search_limitations": "Queries are limited and ranking-dependent. Some returned results ignore requested exclusions or contain unrelated matches. Results prove only which leads were returned and examined, not that no compatible definition exists anywhere. Search excerpts and explanatory reconstructions are not acceptance evidence.",
+  "licensing": "Only URLs, immutable identities and original review notes are retained here. No proprietary foundry manual, Cadence Public License code, or third-party source contents are incorporated. Existing GPL-3.0-or-later policy remains in force.",
+  "remaining_dependency": "All 17 catalog groups and both independent obligations in the authenticated dependency inventory remain unresolved. A complete chip would provide missing physical context but cannot supply unknown process definitions. Additional execution of the same diagnostic recipes cannot establish the missing requirements.",
+  "next_action": "Resume implementation when a GPL-compatible, version-applicable definition or independently validated equivalent establishes an unresolved operand or policy. Validate nonempty valid and malformed controls, then run the actual reference/application flow before changing any disposition.",
+  "validation": {
+    "documentation_check": {
+      "command": "python scripts/check_release.py",
+      "platform": "win32",
+      "status": "passed",
+      "documents": 134,
+      "local_links": 1516,
+      "qualification_requirements": 125,
+      "process_qualification": "unqualified"
+    },
+    "reference_hashes": "checkpoint, dependency inventory and x.20 source verified",
+    "new_runtime_tests": 0,
+    "reason": "Only documentation and source-review metadata changed; the earlier 411-test checkpoint is historical evidence, not a fresh run."
+  }
+}

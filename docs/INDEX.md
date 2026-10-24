@@ -4,6 +4,20 @@ Use the guides below for the current **0.23.0 engineering preview** source. Desk
 
 **Quick links:** [First waveform](GETTING_STARTED.md) · [Examples](../examples/README.md) · [Feature tour](../README.md#explore-the-workspace) · [Source setup](../README.md#start-in-three-steps) · [Simulation engines](../SIMULATION_SETUP.md)
 
+For development toward a complete analog/digital release, see the
+[SKY130, GF180MCU and IHP acceptance targets](PUBLIC_RELEASE_TARGETS.md).
+The [chunks 1–12 progress tracker](QUALIFICATION_PROGRESS.md) records current
+qualification status, remaining work and the conditional forecast.
+The [device-family closure plan](CHUNK7_DEVICE_FAMILY_CLOSURE.md) defines the next
+small acceptance milestones. [Fast source feedback](CI_FEEDBACK.md) and
+[shared reference toolchains](REFERENCE_TOOLCHAIN_REUSE.md) separate everyday
+development from fresh exhaustive acceptance. The
+[IHP 3.3 V MOS guide](IHP_HV_MOS_LAYOUTS.md) describes the new bounded generator.
+The [SKY130 LI requirement contract](SKY130_LI_REQUIREMENTS.md) identifies the
+source-defined next linked physical/electrical milestone.
+The [SKY130 threshold-layout checks](SKY130_THRESHOLD_LAYOUTS.md) cover generated
+LVT/HVT geometry, native model recognition and six source-editor device views.
+
 ## Find a complete example
 
 | Circuit | Start here | Main purpose |
@@ -35,6 +49,7 @@ The [gallery catalog](../README.md#example-library) contains 13 guided entries. 
 - [Extraction, constraints and durable verification campaigns](ANALOG_CLOSURE.md)
 - [Two-stage amplifier, diagnostics and statistical plans](ANALOG_REFERENCE_WORKFLOW.md)
 - [Process RC, device multiplicity and physical hierarchy](ANALOG_IMPLEMENTATION_EXTENSIONS.md)
+- [SKY130 MOS voltage-boundary evidence and reproduction](SKY130_MOS_BIAS_QUALIFICATION.md)
 - [Saved testbenches, PVT and engineering studies](PROFESSIONAL_WORKFLOWS.md)
 - [Compare schematic and captured extracted implementations](REFERENCE_IMPLEMENTATIONS.md)
 
@@ -42,6 +57,7 @@ The [gallery catalog](../README.md#example-library) contains 13 guided entries. 
 
 - [RTL editing, debug, timing and physical inspection](DIGITAL_WORKSPACE.md)
 - [Digital engines, constraints and RTL-to-GDS implementation](DIGITAL_FLOW.md)
+- [SKY130, GF180 and IHP digital profiles and qualification](DIGITAL_PLATFORM_QUALIFICATION.md)
 - [Eight interactive offline RTL presets](VGA_PLAYGROUND.md)
 - [Four-bit SAR ADC with clocked ngspice/Icarus coupling](MIXED_SIGNAL_SAR.md)
 - [Native buses, ordered slices and instance arrays](NATIVE_VECTORS.md)

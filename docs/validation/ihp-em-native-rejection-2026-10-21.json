@@ -1,0 +1,442 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "native_characterization_rejected_and_early_stop_verified",
+  "scope": "Real Windows openEMS integration experiments and early rejection of results that cannot satisfy the unchanged mesh and nonnegative differential-resistance requirements. Neither substrate option is electrically qualified.",
+  "executed_source_commit": "82813ec467bc424f41d7adc1c67a08af2a40b238",
+  "executed_files": {
+    "280": {
+      "executed-backend.py": "0c81ccf924935ad025556353a70b0e7374a5ec4a3153cff8374becd26a7fefef",
+      "executed-runner.py": "267b3219e2a426c8cf0b48eaa95f0db9910240dc466ea11cc00ba604882126f5",
+      "driver.py": "bbd1bb46e59294df34afdf9d217f013cca17fe09aa4f62feb8c42be418e169c9",
+      "model.json": "20d08a2b8ca9d632b237c672aa5efb5cc5e89bb254617018131e6c1716b6f563",
+      "exchange.zip": "12239b5f4e2ff92f7c0c076e8fddc7f714329248efd10fb1ef62ee08715a5a59"
+    },
+    "180": {
+      "executed-backend.py": "0c81ccf924935ad025556353a70b0e7374a5ec4a3153cff8374becd26a7fefef",
+      "executed-runner.py": "267b3219e2a426c8cf0b48eaa95f0db9910240dc466ea11cc00ba604882126f5",
+      "driver.py": "bbd1bb46e59294df34afdf9d217f013cca17fe09aa4f62feb8c42be418e169c9",
+      "model.json": "4ce7f728b4a671f019ee35d85164c44f3b8419e2a3536338a85c7e3bd811cae0",
+      "exchange.zip": "a2d6e89c5ea5935bec574140ca7f24b82eba4992280f1d3ae5158f1ca2a3dff0"
+    }
+  },
+  "source_files": {
+    "icstudio/openems_backend.py": "a28be9e034c500760c58f0784525d785b4ae7b959b4576e520b049155bba94cd",
+    "icstudio/openems_ui.py": "fbbd45c3e5e91da296fd5b040614c25fc6003274ef34e09f09d01d81bf7da954",
+    "scripts/qualify_ihp_em_profile.py": "1c96157e7d8fcdd889955dbfba08d6c24521ee9050dc053afb214d3b10defbd3",
+    "tests/test_openems.py": "9c0fc09e718b97b057a1feacf9f65ae9383dff4014c54b9235274113b36bb436",
+    "tests/gui_openems.py": "e1be64c12035a9c04b6c3fb8696a56734e1b3a0cc17e8ed8abc2a32f780f32dc",
+    "tests/test_ihp_em_profile.py": "d0d16ad5dea7f88856875d82b5b586721effa41e4a9438dbc1cc51690efe7b6e",
+    "tests/fixtures/openems_fake_driver.py": "eb319d7e31d16ed4f9f111cba9aa0dbc5f680ce95a7e1d43dd52e05b6a88f719"
+  },
+  "runtime_versions": {
+    "python": "3.11.16",
+    "numpy": "1.23.5",
+    "openEMS": "0.0.36",
+    "CSXCAD": "0.6.3"
+  },
+  "runtime_manifest_sha256": "e759e150ae61d50ca57470a90d53abc08c95250640ec74e69119f8687201ea22",
+  "experiment": {
+    "frequency_ghz": [
+      100,
+      300
+    ],
+    "samples": 11,
+    "coarse_mesh_um": 2,
+    "fine_scale": 0.7,
+    "energy_target_db": -40,
+    "mesh_relative_tolerance": 0.05,
+    "resistance_floor_ohm": 0.001,
+    "bulk_substrate_um": [
+      280,
+      180
+    ],
+    "reference_plane_um": 336.1303,
+    "vertical_port_length_um": 321.9,
+    "description": "Generated one-turn top-metal coil with the existing top-reference-plane fixture. All public environment slabs retained, including 300 um air. This fixture/band is not a de-embedded intrinsic device model."
+  },
+  "native_280": {
+    "completed_stages": 4,
+    "all_energy_targets_reached": true,
+    "status": "rejected_mesh_convergence",
+    "max_relative_z_change": 0.050929629208260004,
+    "max_relative_r_change": 0.9846420731375412,
+    "independent_audit": {
+      "status": "AUDIT_MATCHED",
+      "solver_acceptance": "rejected_mesh_convergence",
+      "bulk_substrate_um": 280,
+      "max_relative_z_change": 0.050929629208260004,
+      "max_relative_r_change": 0.9846420731375412,
+      "tolerance": 0.05,
+      "energy_db": {
+        "base-1": -40.06,
+        "base-2": -40.26,
+        "fine-1": -40.85,
+        "fine-2": -41.11
+      },
+      "mesh": {
+        "base": {
+          "cells": 498078,
+          "lines": [
+            63,
+            59,
+            134
+          ],
+          "diagnostics": [
+            {
+              "frequency_hz": 100000000000.0,
+              "max_singular_value": 1.0117569041621146,
+              "reciprocity_absolute": 0.0010211092713516394
+            },
+            {
+              "frequency_hz": 111612317403.39035,
+              "max_singular_value": 1.0138051326594941,
+              "reciprocity_absolute": 0.0010131336833730533
+            },
+            {
+              "frequency_hz": 124573093961.55154,
+              "max_singular_value": 1.014230076491212,
+              "reciprocity_absolute": 0.0009720332220418987
+            },
+            {
+              "frequency_hz": 139038917031.5912,
+              "max_singular_value": 1.0133397022028243,
+              "reciprocity_absolute": 0.0009070284314900031
+            },
+            {
+              "frequency_hz": 155184557391.53613,
+              "max_singular_value": 1.0116433718416038,
+              "reciprocity_absolute": 0.0008289753320786645
+            },
+            {
+              "frequency_hz": 173205080756.88776,
+              "max_singular_value": 1.0096327949631936,
+              "reciprocity_absolute": 0.0007496330617438177
+            },
+            {
+              "frequency_hz": 193318204493.17615,
+              "max_singular_value": 1.007638478740661,
+              "reciprocity_absolute": 0.0006797643778207457
+            },
+            {
+              "frequency_hz": 215766927997.459,
+              "max_singular_value": 1.0057840274053866,
+              "reciprocity_absolute": 0.0006255305988767142
+            },
+            {
+              "frequency_hz": 240822468528.06967,
+              "max_singular_value": 1.00400107796735,
+              "reciprocity_absolute": 0.0005844570717424236
+            },
+            {
+              "frequency_hz": 268787537952.22897,
+              "max_singular_value": 1.002090890799212,
+              "reciprocity_absolute": 0.0005461092763887806
+            },
+            {
+              "frequency_hz": 300000000000.0,
+              "max_singular_value": 0.9999902898532476,
+              "reciprocity_absolute": 0.0005115744600497191
+            }
+          ]
+        },
+        "fine": {
+          "cells": 1299116,
+          "lines": [
+            91,
+            86,
+            166
+          ],
+          "diagnostics": [
+            {
+              "frequency_hz": 100000000000.0,
+              "max_singular_value": 1.0139066361144013,
+              "reciprocity_absolute": 0.0006997422814690008
+            },
+            {
+              "frequency_hz": 111612317403.39035,
+              "max_singular_value": 1.015777093173928,
+              "reciprocity_absolute": 0.0007000943197647658
+            },
+            {
+              "frequency_hz": 124573093961.55154,
+              "max_singular_value": 1.015890084854183,
+              "reciprocity_absolute": 0.0006722390488625731
+            },
+            {
+              "frequency_hz": 139038917031.5912,
+              "max_singular_value": 1.0146114568825162,
+              "reciprocity_absolute": 0.0006221449671264744
+            },
+            {
+              "frequency_hz": 155184557391.53613,
+              "max_singular_value": 1.0125167945497977,
+              "reciprocity_absolute": 0.0005571625476452891
+            },
+            {
+              "frequency_hz": 173205080756.88776,
+              "max_singular_value": 1.0101492515837327,
+              "reciprocity_absolute": 0.00048582261877715225
+            },
+            {
+              "frequency_hz": 193318204493.17615,
+              "max_singular_value": 1.007864390109202,
+              "reciprocity_absolute": 0.0004171077415030277
+            },
+            {
+              "frequency_hz": 215766927997.459,
+              "max_singular_value": 1.0057833978485924,
+              "reciprocity_absolute": 0.00035852175573016523
+            },
+            {
+              "frequency_hz": 240822468528.06967,
+              "max_singular_value": 1.003812340503091,
+              "reciprocity_absolute": 0.0003122352132362827
+            },
+            {
+              "frequency_hz": 268787537952.22897,
+              "max_singular_value": 1.0017152517606627,
+              "reciprocity_absolute": 0.00027137677396268727
+            },
+            {
+              "frequency_hz": 300000000000.0,
+              "max_singular_value": 0.9994132339132671,
+              "reciprocity_absolute": 0.00023264393830564302
+            }
+          ]
+        }
+      },
+      "stage_files": {
+        "base-1.json": "51a06e8b08def52440a871c43d8b323987507b79ddc76646401e2fcb0677f43d",
+        "base-1.log": "db722da42945d1272dfd2de48ff9077fd5f8ec0d03132f0e839c7b68c354a32d",
+        "base-2.json": "c918b7e54736dbeef00f8f6da042297690a81fe4ca0c7db96a08e0776d81600f",
+        "base-2.log": "52e6f914de139c7184bbc6f72e1ffc9649fa854e68a07f3364f92b9cdb13082c",
+        "fine-1.json": "183c9d070b83c2471f519bdc8e6c0cfd9361e250ad732d790c74fb54bae721ac",
+        "fine-1.log": "2dcf91e6294cc936267d8431fd4cbd4a70c2c45ac6e0095de12eb6314d444d21",
+        "fine-2.json": "be536f0d8cf6cbd0fbc926d69c34d3619c01f92131fa1fd65f48f095e26a9585",
+        "fine-2.log": "618e72a5991287e9e85df430952207ab543047a59d3d5151847bd4a923620677"
+      },
+      "driver_sha256": "bbd1bb46e59294df34afdf9d217f013cca17fe09aa4f62feb8c42be418e169c9",
+      "model_sha256": "20d08a2b8ca9d632b237c672aa5efb5cc5e89bb254617018131e6c1716b6f563",
+      "runner_sha256": "7ddb8176e2bfe7e7cc60f2107acaae98824e467adceacb005d90a61414eae882",
+      "reference_plane_um": 336.1303,
+      "port_lengths_um": [
+        321.9,
+        321.9
+      ],
+      "comparison": [
+        {
+          "frequency_hz": 100000000000.0,
+          "base_r_ohm": -3.9840551076081283,
+          "fine_r_ohm": -5.043881626268259,
+          "base_x_ohm": 241.34744910421978,
+          "fine_x_ohm": 251.2067758307224
+        },
+        {
+          "frequency_hz": 111612317403.39035,
+          "base_r_ohm": -5.723160030040276,
+          "fine_r_ohm": -7.025954282439784,
+          "base_x_ohm": 271.1436684032967,
+          "fine_x_ohm": 282.4607593167367
+        },
+        {
+          "frequency_hz": 124573093961.55154,
+          "base_r_ohm": -7.279609737304213,
+          "fine_r_ohm": -8.76432609508123,
+          "base_x_ohm": 305.0300175457645,
+          "fine_x_ohm": 318.0701867134296
+        },
+        {
+          "frequency_hz": 139038917031.5912,
+          "base_r_ohm": -8.476936974789396,
+          "fine_r_ohm": -10.046228230620159,
+          "base_x_ohm": 343.39438813932975,
+          "fine_x_ohm": 358.4251465998081
+        },
+        {
+          "frequency_hz": 155184557391.53613,
+          "base_r_ohm": -9.234615965656161,
+          "fine_r_ohm": -10.774908024671305,
+          "base_x_ohm": 386.66604894649674,
+          "fine_x_ohm": 403.95507224115113
+        },
+        {
+          "frequency_hz": 173205080756.88776,
+          "base_r_ohm": -9.569219633196155,
+          "fine_r_ohm": -10.973010308796006,
+          "base_x_ohm": 435.4217300430999,
+          "fine_x_ohm": 455.25770752024994
+        },
+        {
+          "frequency_hz": 193318204493.17615,
+          "base_r_ohm": -9.536813255676833,
+          "fine_r_ohm": -10.712744578375805,
+          "base_x_ohm": 490.524084339419,
+          "fine_x_ohm": 513.2665185527912
+        },
+        {
+          "frequency_hz": 215766927997.459,
+          "base_r_ohm": -9.116811062517428,
+          "fine_r_ohm": -9.970711619450356,
+          "base_x_ohm": 553.2799865814529,
+          "fine_x_ohm": 579.4419259967176
+        },
+        {
+          "frequency_hz": 240822468528.06967,
+          "base_r_ohm": -8.013632090314672,
+          "fine_r_ohm": -8.376954436436705,
+          "base_x_ohm": 625.5955641669638,
+          "fine_x_ohm": 655.9657252996792
+        },
+        {
+          "frequency_hz": 268787537952.22897,
+          "base_r_ohm": -5.369243286474784,
+          "fine_r_ohm": -4.852298279099443,
+          "base_x_ohm": 710.0629537126056,
+          "fine_x_ohm": 745.8820503183399
+        },
+        {
+          "frequency_hz": 300000000000.0,
+          "base_r_ohm": 0.03333723370343478,
+          "fine_r_ohm": 2.170685796461555,
+          "base_x_ohm": 810.6338182762365,
+          "fine_x_ohm": 854.0793611743735
+        }
+      ],
+      "scope": "Independent full two-port matrix conversion and agreement with the unchanged application mesh gate. Singular values and reciprocity are diagnostics, not calibrated device-accuracy claims.",
+      "mesh_comparison_sha256": "bcacc0b6fafe225ba5c3967d1d0faca9f92b067aeeac8bc85fd0d8ea22e77258"
+    }
+  },
+  "native_180": {
+    "completed_stages": 3,
+    "final_stage": "deliberately_aborted",
+    "status": "rejected_coarse_result",
+    "reason": "Independent coarse matrix conversion and the verified early gate prove that no nonnegative fine resistance can meet the unchanged mesh tolerance. The remaining refinement was stopped instead of continuing an unacceptable run.",
+    "aborted_marker_sha256": "5da6c68c178210acbcf8fd33ba860288ca53dcfb61ef66fa4b098830e0fc3068",
+    "no_complete_fine_comparison": true
+  },
+  "independent_coarse_audit": {
+    "status": "AUDIT_MATCHED",
+    "solver_acceptance": "rejected",
+    "cases": [
+      {
+        "bulk_substrate_um": 280,
+        "independent_minimum_base_r_ohm": -9.569219633196155,
+        "negative_bound_ohm": -5e-05,
+        "result": "Cannot agree with any nonnegative fine resistance under the configured mesh gate.",
+        "final_refinement_aborted": false
+      },
+      {
+        "bulk_substrate_um": 180,
+        "independent_minimum_base_r_ohm": -9.538362442291856,
+        "negative_bound_ohm": -5e-05,
+        "result": "Cannot agree with any nonnegative fine resistance under the configured mesh gate.",
+        "final_refinement_aborted": true
+      }
+    ],
+    "scope": "Independent full-matrix conversion of both actual native coarse pairs. No complete fine-mesh result is claimed for the deliberately aborted 180 um run."
+  },
+  "early_guard_replay": {
+    "status": "PASS",
+    "scope": "Replay of the new early gate on the actual completed native coarse-mesh outputs. Confirms rejection without launching either fine stage; no successful solver characterization is claimed.",
+    "backend_sha256": "a28be9e034c500760c58f0784525d785b4ae7b959b4576e520b049155bba94cd",
+    "runner_sha256": "e73f44d9197af3b21751c9692d9d591f70fcaa2e215de3ab8254bc585f0af020",
+    "cases": [
+      {
+        "bulk_substrate_um": 280,
+        "status": "expected_native_rejection",
+        "message": "The base mesh has negative resistance that cannot meet the mesh agreement limit with a valid final result. Review the port fixture and mesh; no refinement was accepted and no results were attached.",
+        "minimum_base_resistance_ohm": -9.569219633196155,
+        "threshold_ohm": -5e-05,
+        "input_files": {
+          "model.json": "20d08a2b8ca9d632b237c672aa5efb5cc5e89bb254617018131e6c1716b6f563",
+          "base-1.json": "51a06e8b08def52440a871c43d8b323987507b79ddc76646401e2fcb0677f43d",
+          "base-1.log": "db722da42945d1272dfd2de48ff9077fd5f8ec0d03132f0e839c7b68c354a32d",
+          "base-2.json": "c918b7e54736dbeef00f8f6da042297690a81fe4ca0c7db96a08e0776d81600f",
+          "base-2.log": "52e6f914de139c7184bbc6f72e1ffc9649fa854e68a07f3364f92b9cdb13082c"
+        },
+        "diagnostic_sha256": "80c716b3a46de3bffcdb914d7a35e97ed530a7cc08dd63b9ef172c50a145b6bd"
+      },
+      {
+        "bulk_substrate_um": 180,
+        "status": "expected_native_rejection",
+        "message": "The base mesh has negative resistance that cannot meet the mesh agreement limit with a valid final result. Review the port fixture and mesh; no refinement was accepted and no results were attached.",
+        "minimum_base_resistance_ohm": -9.538362442291827,
+        "threshold_ohm": -5e-05,
+        "input_files": {
+          "model.json": "4ce7f728b4a671f019ee35d85164c44f3b8419e2a3536338a85c7e3bd811cae0",
+          "base-1.json": "7dcae7ec52327e5400d94bfaf69acf347fc8b587701494f2148aeb72042a8b45",
+          "base-1.log": "117f2ad0e4efc798908ea81afa55c432a42df53b26997f448f39861cbfb8c054",
+          "base-2.json": "5389b41fb36c0d2e89da31c92ac27f15557ea4e25fed68ed7e9ee8edf286a9c2",
+          "base-2.log": "d27434d6b9bbe4d46caa074ad510974ab4a44e73146f19a645b3d8b8c4a54730"
+        },
+        "diagnostic_sha256": "96004809a2c1fd14c954730a1213d4b0ad6183a66d64f23d48b68a3ab3dca83f"
+      }
+    ]
+  },
+  "early_stop": {
+    "proof": "For tolerance t < 1 and floor F, coarse R < -t*F cannot satisfy abs(R-R_final) <= t*max(R_final,F) for any R_final >= 0.",
+    "thresholds_unchanged": true,
+    "mesh_unchanged": true,
+    "editor_and_cli_stop_before_refinement": true,
+    "tiny_negative_roundoff_within_bound_not_rejected_early": true
+  },
+  "tests": {
+    "Windows": {
+      "regression": {
+        "status": "PASS",
+        "tests": 38,
+        "seconds": 34.447,
+        "sha256": "ff6a13a95c69282f43204237176809d5fe70a8d6bacac458df18d5a4fff91cc5",
+        "log": "feasibility-Windows.log"
+      },
+      "cli_followup": {
+        "status": "PASS",
+        "tests": 1,
+        "seconds": 0.639,
+        "sha256": "b260b36bd1324b19ede854cfe899c47e089c1c1bb3fcbe5cffe3256057521711",
+        "log": "feasibility-cli-Windows.log"
+      },
+      "gui_process_cases": 9
+    },
+    "Linux": {
+      "regression": {
+        "status": "PASS",
+        "tests": 38,
+        "seconds": 325.352,
+        "sha256": "cdd683c86a1d017bbc7bcf39024b1e5772ae63d7ae367c37256fc9137fad4a3d",
+        "log": "feasibility-Linux.log"
+      },
+      "cli_followup": {
+        "status": "PASS",
+        "tests": 1,
+        "seconds": 2.645,
+        "sha256": "45c4e40aaa488a5876cf2eb5c04f4f4b79320481665891bd9a93dad0fd6919cb",
+        "log": "feasibility-cli-Linux.log"
+      },
+      "gui_process_cases": 9
+    }
+  },
+  "prior_full_regression": {
+    "record": "docs/validation/ihp-em-mixed-2026-10-21.json",
+    "discovered_per_host": 3198,
+    "scope": "Complete suites at the preceding profile/mixed-layout implementation. The new early guard has the focused follow-up checks above; no new complete-suite execution is claimed."
+  },
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-em-mixed-2026-10-21-v1\\native-rejections.zip",
+    "sha256": "c204825b89bf1c82f5e073ae0b60e6c6c22a94ae229f36f1b1bdcbf5545b4241",
+    "bytes": 8339853,
+    "files": 114,
+    "unique_objects": 99,
+    "all_objects_verified": true
+  },
+  "remaining": [
+    "Converged, passive EM results in an appropriate device operating band",
+    "Port/reference-boundary studies and independent public accuracy references",
+    "Large-varactor mixed native findings, full device operating envelopes and required unavailable models",
+    "Semantic upstream/process-option completeness and exact installed-release acceptance"
+  ]
+}

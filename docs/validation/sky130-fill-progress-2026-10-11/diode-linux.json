@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "status": "diode-connectivity-audited",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "data_sha256": "4c279c193fc5f533e7c7b193dc51fc4216de500450469ee8e4702bc4195ea210",
+  "driver_sha256": "e1aa684c1017b9f7ceba8a3fb5d25846a40e09721605ca057b97aed1f9a2681a",
+  "tests": 6,
+  "skipped": 0,
+  "log_sha256": "b762328f03fcd0e0647909d0e51f3894e33faafc30d78dcf65c756adf01ce0a6",
+  "source_files": {
+    "scripts/sky130_diode_lvs.py": "fcc94a5d7c3c82bba988323df74370bd6eca60bffdc91a455e1fb92daffcd0fb",
+    "tests/test_sky130_diode_lvs.py": "9ab0008120570ca3ff197fa8b3927fe096ea28aafadbfd8f6474a94f03baed4a"
+  }
+}

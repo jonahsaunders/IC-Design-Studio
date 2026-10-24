@@ -1,0 +1,50 @@
+# Diagnostic all-etch-stage implementation for the captured 5-metal HD stack.
+# Numerical rules: SkyWater PDK Authors and contributors, Apache-2.0.
+# google/skywater-pdk 7198cf647113f56041e02abf3eb623692820c5e1,
+# docs/rules/antenna.rst and antenna/table-Ig-antenna-rules-s8p12.csv.
+# This supplements geometry and LVS; it does not claim complete PDK signoff.
+# Published SKY130 antenna table Ig; diode/short definitions from antenna.rst.
+# Table Ig's met5 description says met4, while its rule id and 1.2 um thickness
+# agree with the captured 5-metal technology LEF. Scope requires reconciliation.
+require 'json'
+raise "input, top_cell, report and metrics required" unless $input && $top_cell && $report && $metrics
+source($input,$top_cell)
+report("SKY130 staged antenna diagnostic",$report)
+deep
+threads(4)
+poly=polygons(66,20);diff=polygons(65,20);tap=polygons(65,44);nwell=polygons(64,20)
+gate=poly & diff
+raise "No MOS gates in input" if gate.is_empty?
+short=(tap-poly)-nwell
+diode=(diff+tap)-(poly+short)
+layers=[poly,polygons(66,44),polygons(67,20),polygons(67,44),polygons(68,20),polygons(68,44),polygons(69,20),polygons(69,44),polygons(70,20),polygons(70,44),polygons(71,20),polygons(71,44),polygons(72,20)]
+names=['poly','licon','li','mcon','met1','via','met2','via2','met3','via3','met4','via4','met5']
+limits=[50,3,75,3,400,6,400,6,400,6,400,6,400]
+thicknesses=[0.180,0,0.100,0,0.350,0,0.350,0,0.800,0,0.800,0,1.200]
+factors=[0,0,450,18,400,36,400,36,400,36,400,36,400]
+bonuses=[0,0,0,0,2200,0,2200,0,2200,0,2200,0,2200]
+connect(gate,poly)
+rows=[]
+layers.each_with_index do |metal,i|
+  if i>0
+    connect(layers[i-1],metal)
+  end
+  if i==1
+    connect(diode,metal)
+    connect(short,metal)
+  end
+  # Include disconnected diode/short layers in the netter for poly's zero-credit
+  # measurement without adding any upper-layer connection.
+  if i==0
+    connect(diode,diode)
+    connect(short,short)
+  end
+  expression="var ga=area; var da=area(DIODE); var ea=(thickness>0 ? perimeter(MET)*thickness : area(MET)); var credit=factor*da+(da>0 ? bonus : 0); var ratio=ea/ga-credit; put('gate_area',ga); put('etch_area',ea); put('diode_area',da); put('EGAR',ratio); put('limit',limit); skip(area(SHORT)>0 || ratio<=limit)"
+  errors=evaluate_nets(gate,{'MET'=>metal,'DIODE'=>diode,'SHORT'=>short},expression,
+                      {'thickness'=>thicknesses[i],'factor'=>factors[i],'bonus'=>bonuses[i],'limit'=>limits[i]})
+  errors.output('ar_q.'+names[i]+'.1','Staged etched area / gate area - diode credit <= published limit')
+  rows << {'stage'=>names[i],'limit'=>limits[i],'thickness_um'=>thicknesses[i],
+           'diode_area_factor'=>factors[i],'diode_bonus'=>bonuses[i],'markers'=>errors.count}
+end
+File.write($metrics,JSON.pretty_generate({'status'=>'all-stages-executed','qualified'=>false,'scope'=>'diagnostic HD MOS stack; all rule applicability and controls remain required','stages'=>rows})+"\n")
+puts 'ICSTUDIO_ALL_ANTENNA_STAGES_COMPLETE'

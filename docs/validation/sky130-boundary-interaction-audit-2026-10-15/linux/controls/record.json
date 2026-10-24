@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "1a453e5c4995c6ce01a5ab33e6916626f065fe8b1cffe5dc9d81592e68182fa9",
+  "checker_sha256": "76a8c723847278d27284a2717e3ce7b8aad8e65b13fc49945d2158408ac8dbc3",
+  "cases": [
+    {
+      "case": "module_inside",
+      "gds_sha256": "e9ff252149421ac7ca67f07989d507cfb37a3810549638001af744692dcf8cc8",
+      "report_sha256": "c3107f36b8eb16a593a01724485ddc6306d6710ee9844bcab854eba8793a198b",
+      "failed_checks": []
+    },
+    {
+      "case": "module_cross_1nm",
+      "gds_sha256": "f158dde740e4fa3d155d16d8383ebecb47c3f8c55b21a91a658b98e4378284c3",
+      "report_sha256": "7fa77363cfce4de441d849cf96568f8b60064aecc8569f57196d9a7a048fbf36",
+      "failed_checks": [
+        "r1407",
+        "r1408",
+        "r1409",
+        "r1410",
+        "r1411",
+        "r1412",
+        "r1413",
+        "r1414",
+        "r1415",
+        "r1416",
+        "r1417",
+        "r1418",
+        "r1419",
+        "r1420",
+        "r1421",
+        "r1422",
+        "r1423",
+        "r1424",
+        "r1425",
+        "r1426",
+        "r1427",
+        "r1428",
+        "r1429",
+        "r1430",
+        "r1431",
+        "r1432",
+        "r1433",
+        "r1434",
+        "r1435",
+        "r1437",
+        "r1438",
+        "r1439",
+        "r1441",
+        "r1443",
+        "r1444"
+      ]
+    },
+    {
+      "case": "module_touch",
+      "gds_sha256": "b1f7bf440eea061d511ad98967fb50bad7a17312176acfa25404048b4274801a",
+      "report_sha256": "286f21ff55333ea2db8a58685d88bc2dfbb51178b306e4a94d408995a804e4eb",
+      "failed_checks": []
+    },
+    {
+      "case": "module_hole",
+      "gds_sha256": "673a1c3772cbd1ead6c71f60c6816d979da08a0406f08ea51a929fb4f4f87aa0",
+      "report_sha256": "d04c24f363890480031fe23e9574fa7cfd44833f2480e7f3b696b395503b868e",
+      "failed_checks": [
+        "r1415"
+      ]
+    },
+    {
+      "case": "seal_clear",
+      "gds_sha256": "4512395300f0d257e138947bda3ad025d428fa469763219c23696a338be35a5a",
+      "report_sha256": "eb0ec4acd0c78590f3bdd42bdb77f4d77fcc43b4184c2181ba28ad766f6b1063",
+      "failed_checks": []
+    },
+    {
+      "case": "seal_overlap_1nm",
+      "gds_sha256": "3702cf851f350ede36d151775a250a9a7f59d64850865d3b655aa4b98cfae428",
+      "report_sha256": "2bf3c3a7e97331d79b44bfb70f7277f9ed1c4cbfb6e7720f230453b33b282282",
+      "failed_checks": [
+        "r382",
+        "r383",
+        "r384",
+        "r385",
+        "r386",
+        "r387",
+        "r388",
+        "r389"
+      ]
+    },
+    {
+      "case": "seal_diff_cross",
+      "gds_sha256": "64644a5dafef8195097f90d469f04764a85eafd60b18aeeaa5a335634daa6648",
+      "report_sha256": "31d3f7334d8112dde8a32732c55ee146e708123f8e4d9872a64c20a6872ae4a2",
+      "failed_checks": [
+        "r381"
+      ]
+    },
+    {
+      "case": "two_modules",
+      "gds_sha256": "7b0cab602cdd90f76593f5ef400284ca196201d73b1d232019224fec3f22976b",
+      "report_sha256": "c12bdb3490b3bcf868bfaa5585df845519a61f7ce1eab15cc71dbbabf39455bf",
+      "failed_checks": [
+        "r1415"
+      ]
+    },
+    {
+      "case": "no_boundaries",
+      "gds_sha256": "4abf21e8d25f539bac31b4afb42c860ba4a868dc5896fd49c737cd3e56a7ccf1",
+      "report_sha256": "5b478d19295769cd8124f2882aca0cf0210f1f1c23694ac0fbeba4b1a0f7220d",
+      "failed_checks": []
+    },
+    {
+      "case": "hierarchy_cross",
+      "gds_sha256": "5b1813e0170e92f91c150e388d824f6831bb4d0126122dbe8ef6fa028828d806",
+      "report_sha256": "691288b3a4e0d614792984e703fd503065c5a7e5e77280729981adf99f667dfc",
+      "failed_checks": [
+        "r1415"
+      ]
+    },
+    {
+      "case": "ambiguous_seam",
+      "gds_sha256": "fd4317691f441841a9adfb9dc6609765502103f21c5f8252bf1506161b4bf202",
+      "report_sha256": "6379c9010911233c2c9d3c63fd7a141da447412959ace29576a9f674413f8b0b",
+      "failed_checks": []
+    }
+  ],
+  "elapsed_seconds": 0.27907303899999647
+}

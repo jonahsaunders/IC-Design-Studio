@@ -1,0 +1,327 @@
+{
+  "schema": 1,
+  "checked_at_utc": "2026-10-15 22:48:47 UTC",
+  "repositories": [
+    "google/skywater-pdk",
+    "fossi-foundation/open-pdks"
+  ],
+  "scope": "Default-branch GitHub connector code searches. Results are observations, not proof that a definition is unavailable everywhere. Pinned source inspection and exact coverage remain separate.",
+  "results": [
+    {
+      "query": "fomDummyDRC",
+      "results": [
+        {
+          "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+          "path": "docs/rules/errors.csv",
+          "display_url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+          "display_title": "docs/rules/errors.csv",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "r989,nsm.3a,3 min. enclosure of tap_not_NSM3a_exempt by frameBndr\r\nr990,nsm.3a,3 min. enclosure of fomDummyDRC_not_NSM3a_exempt by frameBndr\r\nr991,nsm.3a,3 min. enclosure of FOMmk_not_NSM3a_exempt by frameBndr\r",
+              "matches": [
+                {
+                  "text": "fomDummyDRC",
+                  "indices": [
+                    99,
+                    110
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "r1260,fomdmy.4,fomDummyDRC must not overlap SEALID\r\nr1261,fomdmy.6,3.25 min. spacing of fomDummyDRC & fuse\r\nr1262,fomdmy.6,fomDummyDRC must not overlap fuse\r",
+              "matches": [
+                {
+                  "text": "fomDummyDRC",
+                  "indices": [
+                    15,
+                    26
+                  ]
+                },
+                {
+                  "text": "fomDummyDRC",
+                  "indices": [
+                    88,
+                    99
+                  ]
+                },
+                {
+                  "text": "fomDummyDRC",
+                  "indices": [
+                    123,
+                    134
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "CLNTM",
+      "results": [
+        {
+          "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+          "path": "docs/rules/errors.csv",
+          "display_url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+          "display_title": "docs/rules/errors.csv",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "r1476,chvtpm.4,0 min. enclosure of ((LVnwell overlapping Var_channel) AND hvtp) by CLHVTPM\r\nr1477,clvtnm.1,0.38 min. width of clvtnm in periphery\r\nr1478,clvtnm.2,0.38 min. spacing/notch of CLLVTNM\r\nr1479,cntm.2,0.7 min. spacing/notch of CLNTM\r\nr1480,cntm.1,0.84 min. width of CLNTM\r\nr1481,cntm.3,0 min. enclosure of nwell by CLNTM\r\nr1482,cntm.3,nwell must be enclosed by CLNTM\r",
+              "matches": [
+                {
+                  "text": "CLNTM",
+                  "indices": [
+                    237,
+                    242
+                  ]
+                },
+                {
+                  "text": "CLNTM",
+                  "indices": [
+                    276,
+                    281
+                  ]
+                },
+                {
+                  "text": "CLNTM",
+                  "indices": [
+                    325,
+                    330
+                  ]
+                },
+                {
+                  "text": "CLNTM",
+                  "indices": [
+                    371,
+                    376
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "fixed_layout_model_map",
+      "results": [
+        {
+          "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery-rules.rst",
+          "path": "docs/rules/periphery-rules.rst",
+          "display_url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery-rules.rst",
+          "display_title": "docs/rules/periphery-rules.rst",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "     - \n     - \n   * - :drc_rule:`(dnwell.6)`\n     - RF NMOS must be enclosed by deep nwell (RF FETs are listed in $DESIGN/config/tech/model_set/calibre/fixed_layout_model_map of corresponding techs)\n     - \n     - \n     - ",
+              "matches": [
+                {
+                  "text": "fixed_layout_model_map",
+                  "indices": [
+                    153,
+                    175
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p020-dnwell_dotdash.csv",
+          "path": "docs/rules/periphery/p020-dnwell_dotdash.csv",
+          "display_url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p020-dnwell_dotdash.csv",
+          "display_title": "docs/rules/periphery/p020-dnwell_dotdash.csv",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "(dnwell.3b),Min spacing between deep-nwells inside UHVI and deep-nwell outside UHVI,,N/A,N/A\n(dnwell.3c),Min spacing between deep-nwells inside UHVI and nwell outsideUHVI,,N/A,N/A\n(dnwell.3d),Min spacing between deep-nwells inside UHVI on different nets,,N/A,N/A\n(dnwell.4),Dnwell can not overlap pnp:dg,,,\n(dnwell.5),P+_diff can not straddle Dnwell,,,\n(dnwell.6),RF NMOS must be enclosed by deep nwell (RF FETs are listed in $DESIGN/config/tech/model_set/calibre/fixed_layout_model_map of corresponding techs),,,\n(dnwell.7),Dnwell can not straddle areaid:substratecut,,,",
+              "matches": [
+                {
+                  "text": "fixed_layout_model_map",
+                  "indices": [
+                    464,
+                    486
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/periphery.csv",
+          "path": "docs/rules/periphery/periphery.csv",
+          "display_url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/periphery.csv",
+          "display_title": "docs/rules/periphery/periphery.csv",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "3d,Min spacing between deep-nwells inside UHVI on different nets,,N/A,N/A\n4,Dnwell can not overlap pnp:dg,,,\n5,P+_diff can not straddle Dnwell,,,\n6,RF NMOS must be enclosed by deep nwell (RF FETs are listed in $DESIGN/config/tech/model_set/calibre/fixed_layout_model_map of corresponding techs),,,\n7,Dnwell can not straddle areaid:substratecut,,,\n,,,\n,,,",
+              "matches": [
+                {
+                  "text": "fixed_layout_model_map",
+                  "indices": [
+                    248,
+                    270
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "metop8",
+      "results": [
+        {
+          "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+          "path": "docs/rules/errors.csv",
+          "display_url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+          "display_title": "docs/rules/errors.csv",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "r41,x.1b,off 0.005 grid metop7 vertex\r\nr42,x.1b,off 0.005 grid metop8 vertex\r\nr43,x.1b,off 0.005 grid NTMdrop vertex\r",
+              "matches": [
+                {
+                  "text": "metop8",
+                  "indices": [
+                    63,
+                    69
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "r156,x.3a,non-octagonal metop7 edge\r\nr157,x.3a,non-octagonal metop8 edge\r\nr158,x.3a,non-octagonal NTMdrop edge\r",
+              "matches": [
+                {
+                  "text": "metop8",
+                  "indices": [
+                    61,
+                    67
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "query": "ViaTop",
+      "results": [
+        {
+          "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+          "path": "docs/rules/errors.csv",
+          "display_url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv",
+          "display_title": "docs/rules/errors.csv",
+          "text_matches": [
+            {
+              "property": "content",
+              "fragment": "r836,viatop.1,viatop should be rectangular\r\nr837,viatop.1,0.42 min. width of viatop\r\nr838,viatop.1,0.42 max. length of viatop\r",
+              "matches": [
+                {
+                  "text": "viatop",
+                  "indices": [
+                    5,
+                    11
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    14,
+                    20
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    49,
+                    55
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    77,
+                    83
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    90,
+                    96
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    119,
+                    125
+                  ]
+                }
+              ]
+            },
+            {
+              "property": "content",
+              "fragment": "r839,viatop.2,0.42 min. spacing/notch of viatop\r\nr840,viatop.3,Only min square ViaTop's are allowed\r\nr841,viatop.4,0.29 min. enclosure of viatop by met5\r",
+              "matches": [
+                {
+                  "text": "viatop",
+                  "indices": [
+                    5,
+                    11
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    41,
+                    47
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    54,
+                    60
+                  ]
+                },
+                {
+                  "text": "ViaTop",
+                  "indices": [
+                    79,
+                    85
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    106,
+                    112
+                  ]
+                },
+                {
+                  "text": "viatop",
+                  "indices": [
+                    138,
+                    144
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

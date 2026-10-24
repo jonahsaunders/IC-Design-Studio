@@ -1,0 +1,473 @@
+{
+  "schema": 1,
+  "status": "unfilled-apb-full-rc-convergence-preserved",
+  "qualified": false,
+  "chunk_complete": false,
+  "case": "apb-original",
+  "convergence": {
+    "schema": 1,
+    "status": "convergence-pass",
+    "qualified": false,
+    "convergence_limit_ps": 1.0,
+    "transition_start_ns": 10.0,
+    "duration_ns": 1610,
+    "matched_input_sha256": {
+      "circuit.spice": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f",
+      "capacitance.spice": "bc68836951e50b62b7f9757ab8f1d5d34239c55ac178f0588800fa01f011f11a",
+      ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+      "expectations.json": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972"
+    },
+    "settings": [
+      {
+        "reltol": 1e-05,
+        "abstol": 1e-12,
+        "vntol": 1e-08,
+        "output_step": 1e-10,
+        "maximum_step": 2e-10
+      },
+      {
+        "reltol": 5e-06,
+        "abstol": 5e-13,
+        "vntol": 5e-09,
+        "output_step": 5e-11,
+        "maximum_step": 1e-10
+      }
+    ],
+    "captured_file_sha256": [
+      {
+        "circuit.spice": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f",
+        "capacitance.spice": "bc68836951e50b62b7f9757ab8f1d5d34239c55ac178f0588800fa01f011f11a",
+        ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+        "expectations.json": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+        "bench.spice": "cc6eb3e9274ca61082986d5853a7a0213bdc479a7df2bed0fa3b33e6ac452782",
+        "waveform.txt": "c93be35c73f1e48bce2e2971141ec693eda063c0fc67c3aa383ee0e5f204a5cc",
+        "engine.log": "86ab72e1687e5f4973b31558c01674f5bc123b1b9da5c2b6efc68993e2fe92d6"
+      },
+      {
+        "circuit.spice": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f",
+        "capacitance.spice": "bc68836951e50b62b7f9757ab8f1d5d34239c55ac178f0588800fa01f011f11a",
+        ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+        "expectations.json": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+        "bench.spice": "3d79e2b56faf9f60429f51d0f79e966ce46da972bdbbe83ec02c845c1b4b3a8c",
+        "waveform.txt": "3aa51a44b06a47d3c3fca18428bc713f31b546a38785d438941d27ad9c6cbc9b",
+        "engine.log": "64189198e8c2fd109b4b4a182c52af1e26c00ec7c6bcee9428f480af9ea30114"
+      }
+    ],
+    "bench_sha256": [
+      "cc6eb3e9274ca61082986d5853a7a0213bdc479a7df2bed0fa3b33e6ac452782",
+      "3d79e2b56faf9f60429f51d0f79e966ce46da972bdbbe83ec02c845c1b4b3a8c"
+    ],
+    "waveform_audits": [
+      {
+        "schema": 1,
+        "status": "pass",
+        "qualified": false,
+        "complete_waveform": true,
+        "tested_bits": 869,
+        "failed_bits": 0,
+        "failures": [],
+        "duration_ns": 1610,
+        "waveform_sha256": "c93be35c73f1e48bce2e2971141ec693eda063c0fc67c3aa383ee0e5f204a5cc",
+        "expectations_sha256": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+        "engine_log_sha256": "86ab72e1687e5f4973b31558c01674f5bc123b1b9da5c2b6efc68993e2fe92d6",
+        "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+      },
+      {
+        "schema": 1,
+        "status": "pass",
+        "qualified": false,
+        "complete_waveform": true,
+        "tested_bits": 869,
+        "failed_bits": 0,
+        "failures": [],
+        "duration_ns": 1610,
+        "waveform_sha256": "3aa51a44b06a47d3c3fca18428bc713f31b546a38785d438941d27ad9c6cbc9b",
+        "expectations_sha256": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+        "engine_log_sha256": "64189198e8c2fd109b4b4a182c52af1e26c00ec7c6bcee9428f480af9ea30114",
+        "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+      }
+    ],
+    "channels": [
+      {
+        "channel": {
+          "port": "prdata",
+          "bit": 0,
+          "node": "NET000244"
+        },
+        "baseline_edges": 14,
+        "tighter_edges": 14,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.7557300123668765
+      },
+      {
+        "channel": {
+          "port": "prdata",
+          "bit": 1,
+          "node": "NET000245"
+        },
+        "baseline_edges": 4,
+        "tighter_edges": 4,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.695075952047961
+      },
+      {
+        "channel": {
+          "port": "prdata",
+          "bit": 2,
+          "node": "NET000246"
+        },
+        "baseline_edges": 10,
+        "tighter_edges": 10,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.5088650880267425
+      },
+      {
+        "channel": {
+          "port": "prdata",
+          "bit": 3,
+          "node": "NET000247"
+        },
+        "baseline_edges": 6,
+        "tighter_edges": 6,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.19371402395777412
+      },
+      {
+        "channel": {
+          "port": "prdata",
+          "bit": 4,
+          "node": "NET000248"
+        },
+        "baseline_edges": 4,
+        "tighter_edges": 4,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.5163513246685283
+      },
+      {
+        "channel": {
+          "port": "prdata",
+          "bit": 5,
+          "node": "NET000249"
+        },
+        "baseline_edges": 8,
+        "tighter_edges": 8,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.6431838295519772
+      },
+      {
+        "channel": {
+          "port": "prdata",
+          "bit": 6,
+          "node": "NET000250"
+        },
+        "baseline_edges": 8,
+        "tighter_edges": 8,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.5366740038481588
+      },
+      {
+        "channel": {
+          "port": "prdata",
+          "bit": 7,
+          "node": "NET000251"
+        },
+        "baseline_edges": 8,
+        "tighter_edges": 8,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.5902628557337538
+      },
+      {
+        "channel": {
+          "port": "pready",
+          "bit": 0,
+          "node": "NET000196"
+        },
+        "baseline_edges": 0,
+        "tighter_edges": 0,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.0
+      },
+      {
+        "channel": {
+          "port": "pslverr",
+          "bit": 0,
+          "node": "NET000253"
+        },
+        "baseline_edges": 18,
+        "tighter_edges": 18,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.7057404303731156
+      },
+      {
+        "channel": {
+          "port": "irq",
+          "bit": 0,
+          "node": "NET000157"
+        },
+        "baseline_edges": 10,
+        "tighter_edges": 10,
+        "same_direction_sequence": true,
+        "maximum_edge_change_ps": 0.5253471446994601
+      }
+    ],
+    "matched_edges": 90,
+    "maximum_edge_change_ps": 0.7557300123668765,
+    "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence.",
+    "capture_records": [
+      {
+        "record_sha256": "4f9f21b2a0e84ee7724adcca8c5ae706e678ae35d7264a63c1ce85f9b5d6fa02",
+        "elapsed_seconds": 4342.534829854965
+      },
+      {
+        "record_sha256": "b708c8a3b21a13436681e905d8297b7efdef5b007c3f4314a796b50be44568ab",
+        "elapsed_seconds": 6086.340698480606
+      }
+    ]
+  },
+  "windows_replay_identical": true,
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-convergence-runtime-2026-10-10-v2/evidence.tar.gz",
+    "sha256": "a524cfb7b867d1f5c8292e2d022b0aae09de0bc0e83eaba9121859f035901388",
+    "bytes": 104017704,
+    "logical_files": 307,
+    "unique_blobs": 207,
+    "verified": true,
+    "manifest_sha256": "81dae616ee6d4bf3c0243e0b9363d52dace961ab6832d1cb74c28bae5e31af28"
+  },
+  "previous_diagnostics": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-numerical-profiling-2026-10-10-v1/checkpoint.json",
+    "sha256": "4ab68a18aa4fde0d687bee5d34be56fd8ab5f0f0ae42cd6c7b544b663961002a"
+  },
+  "numerical_profiles": {
+    "schema": 1,
+    "status": "profile-compared",
+    "qualified": false,
+    "inputs": [
+      {
+        "folder": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/ihp-row-index-profile-v1/filled",
+        "elapsed_seconds": 234.37449645299967,
+        "files": {
+          "waveform.txt": "4fb21c0ff7a84391e475717aa6d1da57de302d08ea961a178ff6b61a05cc0418",
+          "bench.spice": "002820934e66009400edfec35c88cd4a1dca1095b398c0bd3ba8d2fb28f28511",
+          "circuit.spice": "e8fa5ea4f3e121ad012fb851ae50410db87b19eb84b5af73916ca62413836356",
+          "capacitance.spice": "0968d75d05786c1309a080ad8c76dd96eb8e9ed7367731da684e8c2f9c185cec",
+          "engine.log": "c3651b8ed5741d780e188fc1bd61f25d887f0877ce7b74baa018d1911cf9489b"
+        }
+      },
+      {
+        "folder": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/ihp-metis-profile-v1/filled",
+        "elapsed_seconds": 76.15580549900005,
+        "files": {
+          "waveform.txt": "74e25d02a51df84cc82efa6f42aed2424dcd5456db9459a42c4c90a1d60249ca",
+          "bench.spice": "002820934e66009400edfec35c88cd4a1dca1095b398c0bd3ba8d2fb28f28511",
+          "circuit.spice": "e8fa5ea4f3e121ad012fb851ae50410db87b19eb84b5af73916ca62413836356",
+          "capacitance.spice": "0968d75d05786c1309a080ad8c76dd96eb8e9ed7367731da684e8c2f9c185cec",
+          "engine.log": "70381beb17b4dd70dfc048cfebe6a4667c767bcf425132de5ed06d7bd18284fe"
+        }
+      },
+      {
+        "folder": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/ihp-metis8-profile-v1/filled",
+        "elapsed_seconds": 84.26810977800051,
+        "files": {
+          "waveform.txt": "9fe3e4f0aec7c21defb1c95824fe0420755a9d06190275e564613e4f2494bac1",
+          "bench.spice": "002820934e66009400edfec35c88cd4a1dca1095b398c0bd3ba8d2fb28f28511",
+          "circuit.spice": "e8fa5ea4f3e121ad012fb851ae50410db87b19eb84b5af73916ca62413836356",
+          "capacitance.spice": "0968d75d05786c1309a080ad8c76dd96eb8e9ed7367731da684e8c2f9c185cec",
+          "engine.log": "0dad02277fd63dc0b40b3f3d1810a584271c72e5f4c5f643774958cc301554dc"
+        }
+      }
+    ],
+    "comparisons": [
+      {
+        "candidate": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/ihp-metis-profile-v1/filled",
+        "maximum_interpolated_voltage_difference_v": 3.831522945780542e-14,
+        "speedup": 3.077565720922971
+      },
+      {
+        "candidate": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/ihp-metis8-profile-v1/filled",
+        "maximum_interpolated_voltage_difference_v": 6.577806033570277e-14,
+        "speedup": 2.781295285612147
+      }
+    ],
+    "scope": "Complete 5 ns quiet interval, identical physical circuits and numerical settings. This establishes no output-transition, full-workload or 1 ps convergence acceptance."
+  },
+  "changed_internal_capacitance": [
+    {
+      "case": "counter",
+      "qualified": false,
+      "original_nodes": 151,
+      "filled_nodes": 9594,
+      "checkpoint_nets": 30,
+      "non_checkpoint_nodes": 121,
+      "changed_non_checkpoint_pairs": 1701,
+      "total_absolute_changed_capacitance_af": 3168.7312864551,
+      "maximum_change_af": 49.1211,
+      "changed_nodes": 120,
+      "source_sha256": {
+        "outputs/ihp-capacitance-views-counter-v1/labels.json": "7870cd8a0b65c59240582ef4884e8a1398a377c5a90c34644c71d4960544d2a8",
+        "outputs/ihp-conserved-rc-counter-v3/original/native-original.ext": "077ccf3214b7c47889286f3fb3c4978c70549e98ab2b590367fa3d37b0ca2227",
+        "outputs/ihp-conserved-rc-counter-v3/active/native-original.ext": "3e55243644f5bfc00409c4a911c782b1977dde928af9dfb8b8552f181951a1af"
+      },
+      "scope": "Raw native capacitor differences touching nodes absent from the checkpoint interconnect. Unchanged intrinsic capacitance cannot be assumed if this inventory is nonzero; no cell-pin deembedding or timing acceptance."
+    },
+    {
+      "case": "uart",
+      "qualified": false,
+      "original_nodes": 1889,
+      "filled_nodes": 38147,
+      "checkpoint_nets": 353,
+      "non_checkpoint_nodes": 1536,
+      "changed_non_checkpoint_pairs": 17271,
+      "total_absolute_changed_capacitance_af": 32437.9542527427,
+      "maximum_change_af": 99.3789,
+      "changed_nodes": 1525,
+      "source_sha256": {
+        "outputs/ihp-capacitance-views-uart-v1/labels.json": "c5fb13b860e949ad880090f6d6868ba8f3c08fa4f4e7095596847660003453d4",
+        "outputs/ihp-conserved-rc-uart-v3/original/native-original.ext": "e70fec4cd74e7cce757ea1959f175c4b528cadf16d28f4762e4fb4f122a0b55d",
+        "outputs/ihp-conserved-rc-uart-v3/active/native-original.ext": "619b66e6d665f32388bed53acc78c71f38e24ea327c91bce25f923a8bc2884db"
+      },
+      "scope": "Raw native capacitor differences touching nodes absent from the checkpoint interconnect. Unchanged intrinsic capacitance cannot be assumed if this inventory is nonzero; no cell-pin deembedding or timing acceptance."
+    },
+    {
+      "case": "apb",
+      "qualified": false,
+      "original_nodes": 1677,
+      "filled_nodes": 37886,
+      "checkpoint_nets": 264,
+      "non_checkpoint_nodes": 1413,
+      "changed_non_checkpoint_pairs": 16124,
+      "total_absolute_changed_capacitance_af": 31128.2452621339,
+      "maximum_change_af": 87.6348,
+      "changed_nodes": 1404,
+      "source_sha256": {
+        "outputs/ihp-capacitance-views-apb-v1/labels.json": "f1fb3c905c2e963d02cfefb6ff4f8f504ebfc8e2e0008205630ed46f2c80848a",
+        "outputs/ihp-conserved-rc-apb-v3/original/native-original.ext": "f7397973996311a4d8ebe7282d9eb87831eb80179cb9046820e62b683680b86e",
+        "outputs/ihp-conserved-rc-apb-v3/active/native-original.ext": "7bd91b0b4b7084ac4e98ed0f067c5eb3ed1cbabad5d87f342ea81dd4ddc205d5"
+      },
+      "scope": "Raw native capacitor differences touching nodes absent from the checkpoint interconnect. Unchanged intrinsic capacitance cannot be assumed if this inventory is nonzero; no cell-pin deembedding or timing acceptance."
+    }
+  ],
+  "tests": [
+    {
+      "platform": "win32",
+      "schema": 1,
+      "status": "pass",
+      "tests": 127,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "282c6f55bdca878dcc89a4bcb4ba7d80220c93c4a31ff901e93f4005020df4ab",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/check_ihp_rcx_widths.py": "de0e6056b6abb36b69f489e745b9938d518c81a856f3ff4ef1e25f6aa02dc25d",
+        "scripts/check_ihp_waveform.py": "b4134c5960ce45805ae9680d394b7f0bbed47a169cae3650c3564ef846f28599",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_calibration_geometry.py": "884cda7fbec8a0e86d7f711b71a377c9590abeac6ea5adbe3ddfc3631db5dd20",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+        "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "scripts/ihp_native_spef.py": "7e9725b2bff7c7afde43a649bd8bd6a7eca9f9ea7adede05d89389231cfa8d13",
+        "scripts/ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+        "scripts/ihp_transformer_capacitance.py": "07ffab4c502f9b7402a4e8a6b40f761cc962911c80e30c841e84a0cb4a7896b8",
+        "scripts/ihp_waveform_convergence.py": "4cfc5ab9cada9c8fc0baca13039a3a04856f5246283fe854e0500811a2147111",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_calibration_geometry.py": "2b41aef07e4973c4ed662610433ade9c86546b517b18e4bdac6fbad8c1b91529",
+        "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+        "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+        "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+        "tests/test_ihp_native_spef.py": "784676e186181743b82fa7cb24a4aea7429a4819996e5c25794932aa32579cdb",
+        "tests/test_ihp_rcx_material.py": "d557993c69c70b8b8a6579c9a31780df12d5253e93e53b7526d686e919c971ca",
+        "tests/test_ihp_rcx_widths.py": "b275a6823052ffe06492ac00ff900034b8a6ac68754cdb395364bde029f83b1b",
+        "tests/test_ihp_transformer_capacitance.py": "18adc85d85118b4cd2141f7d9febf04c36b9d86f3507c2d29a8a0e7696bdda38",
+        "tests/test_ihp_waveform.py": "8ec4daae6ec70c2ec893189369e8055f82f9b71c1df0d09c65847e37a7ae46da",
+        "tests/test_ihp_waveform_convergence.py": "b0f93da3a4f75b6d0cd65eeff54fcc49d0e75702e108faa66768dfbb7fa0d8ab"
+      }
+    },
+    {
+      "platform": "linux",
+      "schema": 1,
+      "status": "pass",
+      "tests": 127,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "5ee2276de3ef7a2749c93f35594e05f42d968f86da4f108f3d9fd6cbe8b7c451",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/check_ihp_rcx_widths.py": "de0e6056b6abb36b69f489e745b9938d518c81a856f3ff4ef1e25f6aa02dc25d",
+        "scripts/check_ihp_waveform.py": "b4134c5960ce45805ae9680d394b7f0bbed47a169cae3650c3564ef846f28599",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_calibration_geometry.py": "884cda7fbec8a0e86d7f711b71a377c9590abeac6ea5adbe3ddfc3631db5dd20",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+        "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "scripts/ihp_native_spef.py": "7e9725b2bff7c7afde43a649bd8bd6a7eca9f9ea7adede05d89389231cfa8d13",
+        "scripts/ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+        "scripts/ihp_transformer_capacitance.py": "07ffab4c502f9b7402a4e8a6b40f761cc962911c80e30c841e84a0cb4a7896b8",
+        "scripts/ihp_waveform_convergence.py": "4cfc5ab9cada9c8fc0baca13039a3a04856f5246283fe854e0500811a2147111",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_calibration_geometry.py": "2b41aef07e4973c4ed662610433ade9c86546b517b18e4bdac6fbad8c1b91529",
+        "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+        "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+        "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+        "tests/test_ihp_native_spef.py": "784676e186181743b82fa7cb24a4aea7429a4819996e5c25794932aa32579cdb",
+        "tests/test_ihp_rcx_material.py": "d557993c69c70b8b8a6579c9a31780df12d5253e93e53b7526d686e919c971ca",
+        "tests/test_ihp_rcx_widths.py": "b275a6823052ffe06492ac00ff900034b8a6ac68754cdb395364bde029f83b1b",
+        "tests/test_ihp_transformer_capacitance.py": "18adc85d85118b4cd2141f7d9febf04c36b9d86f3507c2d29a8a0e7696bdda38",
+        "tests/test_ihp_waveform.py": "8ec4daae6ec70c2ec893189369e8055f82f9b71c1df0d09c65847e37a7ae46da",
+        "tests/test_ihp_waveform_convergence.py": "b0f93da3a4f75b6d0cd65eeff54fcc49d0e75702e108faa66768dfbb7fa0d8ab"
+      }
+    }
+  ],
+  "scope": "One complete 1610 ns unfilled APB full-RC convergence pair at the fixed 1 ps limit. Private solver speed probes are diagnostic only; no production engine change.",
+  "remaining": [
+    "Matched filled UART/APB full-RC workloads and numerical convergence.",
+    "Cold fast-corner startup: native completed-waveform checks reject current filled counter failures.",
+    "Accepted nominal post-fill timing, including internal-cell coupling and independent extraction accuracy.",
+    "Production IHP fill integration, final export binding and affected release checks."
+  ]
+}

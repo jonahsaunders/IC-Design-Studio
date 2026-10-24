@@ -13,6 +13,7 @@ from pathlib import Path
 from . import inductor_em
 from .layout import kdb, polygon
 from .model import atomic_write, clone, digest
+from . import openems_waves
 
 DRIVER = Path(__file__).parent/'assets'/'openems'/'driver.py'
 DEFAULTS = dict(f_start_hz=1e9, f_stop_hz=3e9, samples=101, mesh_um=2.,
@@ -97,7 +98,7 @@ def model(data, values, cancelled=lambda: False):
         ports.append(dict(name=pin_name.upper(), start_um=start, stop_um=stop))
         for axis in (0, 1): features[axis].extend([start[axis], (start[axis]+stop[axis])/2, stop[axis]])
     margin = opts['margin_um']
-    return dict(schema=1, settings=opts, layers=clone(layers), solids=solids, ports=ports,
+    return dict(schema=1, wave_basis=openems_waves.BASIS, settings=opts, layers=clone(layers), solids=solids, ports=ports,
                 bounds_um=[[bbox.left/1000-margin, bbox.bottom/1000-margin, bottom],
                            [bbox.right/1000+margin, bbox.top/1000+margin, top+max(opts['mesh_um'], 1.)]],
                 reference_plane_um=top,
@@ -133,10 +134,20 @@ def stage_name(scale, port):
     return ('base' if scale == 1 else 'fine')+'-'+str(port)
 
 
+def excitation_error(log):
+    """Recognize native pulse truncation before a costly invalid run continues."""
+    if re.search(r'cutting\s+to\s+max(?:imum)?\s+number\s+of\s+time.?steps', log, re.I):
+        return ('openEMS truncated the requested excitation pulse. Increase the time-step limit; '
+                'these results cannot be attached.')
+    return ''
+
+
 def check_completion(log, directory, model_data, scale, port):
     """Exit zero alone also occurs on an openEMS time-step limit or abort."""
     if (Path(directory)/stage_name(scale, port)/'ABORT').exists():
         raise ValueError('openEMS was aborted; results were not attached.')
+    if error := excitation_error(log):
+        raise ValueError(error)
     if re.search(r'max\.?\s*(?:number of\s*)?time.?steps[^\n]{0,40}(?:was reached|reached before)|end.criteria.*not.*reach', log, re.I):
         raise ValueError('openEMS reached its time-step limit before energy convergence. Increase the limit or inspect the model and logs.')
     energies = [float(x.replace(' ', '')) for x in re.findall(r'\(\s*(-?\s*\d+(?:\.\d+)?)\s*dB\s*\)', log, re.I)]
@@ -150,30 +161,89 @@ def check_completion(log, directory, model_data, scale, port):
     return data
 
 
+def _pair_result(model_data, columns, scale, diagnostics=None):
+    """Validate and convert one complete, matched pair of excitations."""
+    opts = model_data['settings']
+    pair = [columns[stage_name(scale, p)] for p in (1, 2)]
+    if pair[0]['versions'] != pair[1]['versions'] or pair[0]['mesh_lines'] != pair[1]['mesh_lines']:
+        raise ValueError('The two excitations used different solver versions or mesh lines.')
+    frequency = pair[0]['frequency_hz']
+    if pair[1]['frequency_hz'] != frequency or len(frequency) != opts['samples']:
+        raise ValueError('The two excitation sweeps do not match.')
+    expected = [opts['f_start_hz']*(opts['f_stop_hz']/opts['f_start_hz'])**(i/(opts['samples']-1)) for i in range(opts['samples'])]
+    if any(not math.isclose(f, e, rel_tol=1e-10) for f, e in zip(frequency, expected)):
+        raise ValueError('Solver samples do not match the requested logarithmic frequency sweep.')
+    basis = model_data.get('wave_basis')
+    if basis not in (None, openems_waves.BASIS): raise ValueError('Unsupported measured-wave basis.')
+    if any(c.get('wave_basis') != basis for c in pair):
+        raise ValueError('Solver wave representation does not match the prepared run.')
+    keys = ('a_real', 'a_imag', 'b_real', 'b_imag') if basis else ('s_real', 's_imag')
+    if any(len(c.get(key, [])) != len(frequency) for c in pair for key in keys):
+        raise ValueError('Incomplete two-port solver output.')
+    lines = ['! '+FIXTURE, '# Hz S RI R 50']
+    conditions = []; leakage = []; gains = []
+    for i, f in enumerate(frequency):
+        values = [f]
+        if any(len(c[key][i]) != 2 for c in pair for key in keys):
+            raise ValueError('Each excitation must return both ports.')
+        def matrix(prefix):
+            if any(type(v) not in (int, float) or not math.isfinite(v)
+                   for c in pair for suffix in ('real', 'imag') for v in c[prefix+'_'+suffix][i]):
+                raise ValueError('Non-finite or invalid measured port waves.')
+            return [[complex(c[prefix+'_real'][i][r], c[prefix+'_imag'][i][r]) for c in pair] for r in (0, 1)]
+        if basis:
+            incident = matrix('a')
+            scattering, condition = openems_waves.scattering(incident, matrix('b'))
+            conditions.append(condition)
+            leakage.append(max(abs(incident[1-c][c])/max(abs(incident[c][c]), 1e-300) for c in (0, 1)))
+        else:
+            scattering = matrix('s')  # Explicitly retain historical driver conversion.
+        gains.append(openems_waves.maximum_gain(scattering))
+        for column in (0, 1):
+            for row in (0, 1):
+                value = scattering[row][column]; values.extend([value.real, value.imag])
+        lines.append(' '.join(format(v, '.17g') for v in values))
+    if diagnostics is not None:
+        diagnostics.update(basis=basis or 'legacy-independent-column',
+                           maximum_incident_condition=max(conditions) if conditions else None,
+                           maximum_inactive_incident_ratio=max(leakage) if leakage else None,
+                           maximum_scattering_gain=max(gains),
+                           maximum_gain_frequency_hz=frequency[gains.index(max(gains))])
+    text = '\n'.join(lines)+'\n'
+    return text, inductor_em.touchstone(text, 2)
+
+
+def check_base_feasibility(directory, model_data, columns):
+    """Stop refinement only when it cannot satisfy the existing acceptance gate.
+
+    A valid final resistance is nonnegative. With tolerance t < 1 and floor F,
+    base R < -t*F cannot satisfy |base R - final R| <= t*max(final R, F).
+    Tiny negative roundoff within this bound must still reach the final gates.
+    """
+    opts = model_data['settings']
+    if not opts['mesh_check']: return
+    _, result = _pair_result(model_data, columns, 1.)
+    minimum = min(result['z_real_ohm']); bound = -opts['mesh_tolerance']*1e-3
+    if minimum < bound:
+        diagnostic = dict(status='rejected_before_refinement', minimum_base_resistance_ohm=minimum,
+                          negative_bound_ohm=bound, absolute_floor_ohm=1e-3,
+                          tolerance=opts['mesh_tolerance'], **result)
+        atomic_write(Path(directory)/'base-feasibility.json', json.dumps(diagnostic, indent=2))
+        raise ValueError('The base mesh has negative resistance that cannot meet the mesh agreement limit '
+                         'with a valid final result. Review the port fixture and mesh; no refinement was '
+                         'accepted and no results were attached.')
+
+
 def finish(directory, model_data, columns):
     """Convert both excitations and keep simulation evidence bound to the layout."""
-    directory = Path(directory); opts = model_data['settings']; base = None; touchstones = {}
+    if model_data.get('wave_basis') != openems_waves.BASIS:
+        raise ValueError('Legacy openEMS columns omit measured incoming waves. Rerun with the current driver before attaching results.')
+    directory = Path(directory); opts = model_data['settings']; base = None; touchstones = {}; waves = {}
+    check_base_feasibility(directory, model_data, columns)
     for scale in ([1., .7] if opts['mesh_check'] else [1.]):
-        pair = [columns[stage_name(scale, p)] for p in (1, 2)]
-        if pair[0]['versions'] != pair[1]['versions'] or pair[0]['mesh_lines'] != pair[1]['mesh_lines']:
-            raise ValueError('The two excitations used different solver versions or mesh lines.')
-        frequency = pair[0]['frequency_hz']
-        if pair[1]['frequency_hz'] != frequency or len(frequency) != opts['samples']:
-            raise ValueError('The two excitation sweeps do not match.')
-        expected = [opts['f_start_hz']*(opts['f_stop_hz']/opts['f_start_hz'])**(i/(opts['samples']-1)) for i in range(opts['samples'])]
-        if any(not math.isclose(f, e, rel_tol=1e-10) for f, e in zip(frequency, expected)):
-            raise ValueError('Solver samples do not match the requested logarithmic frequency sweep.')
-        if any(len(c.get(key, [])) != len(frequency) for c in pair for key in ('s_real', 's_imag')):
-            raise ValueError('Incomplete two-port solver output.')
-        lines = ['! '+FIXTURE, '# Hz S RI R 50']
-        for i, f in enumerate(frequency):
-            values = [f]
-            for column in pair:
-                if len(column['s_real'][i]) != 2 or len(column['s_imag'][i]) != 2:
-                    raise ValueError('Each excitation must return both ports.')
-                for row in (0, 1): values.extend([column['s_real'][i][row], column['s_imag'][i][row]])
-            lines.append(' '.join(format(v, '.17g') for v in values))
-        text = '\n'.join(lines)+'\n'; result = inductor_em.touchstone(text, 2)
+        diagnostic = {}
+        text, result = _pair_result(model_data, columns, scale, diagnostic)
+        waves['base' if scale == 1. else 'fine'] = diagnostic
         touchstones[scale] = text
         if base is None: base = result
     convergence = dict(energy_db={name: c['energy_db'] for name, c in columns.items()},
@@ -190,10 +260,26 @@ def finish(directory, model_data, columns):
         if max(z_errors+r_errors) > opts['mesh_tolerance']:
             atomic_write(directory/'mesh-comparison.json', json.dumps(convergence, indent=2))
             raise ValueError(f'Mesh refinement changed Z by {max(z_errors):.1%} or R by {max(r_errors):.1%}, above the {opts["mesh_tolerance"]:.1%} limit. Reduce mesh size and rerun. Results were not attached.')
+    final_waves = waves['fine' if opts['mesh_check'] else 'base']
+    passivity = dict(check=openems_waves.PASSIVITY_CHECK, reference_ohm=50.,
+                     sample_count=len(result['frequency_hz']),
+                     maximum_scattering_gain=final_waves['maximum_scattering_gain'],
+                     frequency_hz=final_waves['maximum_gain_frequency_hz'],
+                     roundoff_allowance=openems_waves.PASSIVITY_ALLOWANCE,
+                     scope='All incident vectors at each sampled frequency; no claim between samples or outside the band.')
+    passivity['passed'] = passivity['maximum_scattering_gain'] <= 1+openems_waves.PASSIVITY_ALLOWANCE
+    atomic_write(directory/'passivity.json', json.dumps(passivity, indent=2, allow_nan=False))
+    if not passivity['passed']:
+        raise ValueError('The final two-port response is not passive at a sampled frequency. '
+                         'Positive differential resistance alone is insufficient. Review the fixture, '
+                         'port conversion and mesh; results were not attached.')
+    convergence['passivity'] = passivity
     manifest = json.loads((directory/'manifest.json').read_text())
     evidence = dict(backend='openEMS', run_hash=model_data['run_hash'], driver_sha256=model_data['driver_sha256'],
+                    wave_basis=model_data['wave_basis'],
                     fixture=model_data['fixture'], ports=model_data['ports'], bounds_um=model_data['bounds_um'],
                     material_model=model_data['material_model'], loss_reference_hz=model_data['loss_reference_hz'],
+                    wave_analysis=waves,
                     settings=opts, convergence=convergence,
                     stages={name: {k: c[k] for k in ('versions', 'cells', 'mesh_lines')} for name, c in columns.items()})
     source = ('openEMS external Python backend; '+FIXTURE+' '+model_data['material_model']+

@@ -1,0 +1,12 @@
+test_all_three_references_preserve_every_other_decision (tests.test_sky130_waffle_density.WaffleDensityTests.test_all_three_references_preserve_every_other_decision) ... ok
+test_each_nonempty_layer_reopens_all_its_twelve_records (tests.test_sky130_waffle_density.WaffleDensityTests.test_each_nonempty_layer_reopens_all_its_twelve_records) ... ok
+test_exact_sources_bind_only_48_literal_records (tests.test_sky130_waffle_density.WaffleDensityTests.test_exact_sources_bind_only_48_literal_records) ... ok
+test_invalid_counts_and_changed_identity_fail_closed (tests.test_sky130_waffle_density.WaffleDensityTests.test_invalid_counts_and_changed_identity_fail_closed) ... ok
+test_missing_or_false_parent_witness_is_not_accepted (tests.test_sky130_waffle_density.WaffleDensityTests.test_missing_or_false_parent_witness_is_not_accepted) ... ok
+test_raw_shapes_and_text_in_rotated_arrays_never_disappear (tests.test_sky130_waffle_density.WaffleDensityTests.test_raw_shapes_and_text_in_rotated_arrays_never_disappear) ... ok
+test_source_or_catalog_changes_require_new_review (tests.test_sky130_waffle_density.WaffleDensityTests.test_source_or_catalog_changes_require_new_review) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.845s
+
+OK
