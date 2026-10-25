@@ -1,5 +1,10 @@
 # SKY130 local-interconnect and metal resistors
 
+The October 25 [native editor and linked electrical milestone](SKY130_METAL_RESISTOR_EDITOR.md)
+adds direct placement/regeneration for all five models and independently
+audited M1–M4 DC/AC/transient/noise linkage. The earlier records below retain
+their original LI-only electrical scope and separate physical evidence.
+
 The [retained execution record](validation/sky130-li-metal-resistors-2026-10-17.json)
 contains 72 electrical analysis comparisons on Windows/Linux, 864 detected
 faulted instances, 60 legal physical layouts and 150 detected layout/reference

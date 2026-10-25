@@ -98,10 +98,10 @@ def audit_extracted(path,model,w,l):
     return dict(model=row[3],terminals=row[1:3],width_um=w,length_um=l,sha256=file_digest(path))
 
 
-def case(tech,model,w,l,out,tools):
+def case(tech,model,w,l,out,tools,generate_layout=None):
     folder=out/f'{model}-w{w:g}-l{l:g}';folder.mkdir();row=dict(name=folder.name,model=model,width_um=w,length_um=l,status='RUNNING',layouts=[],faults=[])
     try:
-        p=generate(tech,model,w,l,folder/'generator',tools['magic']);ref=selected_reference(model,w,l)
+        p=(generate_layout or generate)(tech,model,w,l,folder/'generator',tools['magic']);ref=selected_reference(model,w,l)
         save_project(p,folder/'saved.icproj');q=load_project(folder/'saved.icproj');same_masks(p,q)
         for angle in (0,90):
             if angle:q=rotated(q)

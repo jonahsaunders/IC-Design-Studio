@@ -29,12 +29,15 @@ def layers(tech):
 
 def supported(tech,d):
     binding=binding_for(tech,d)
+    from .sky130_metal_resistors import supported as metal_supported
     from .sky130_fixed_devices import supported as fixed_supported
     from .sky130_mim2 import supported as mim2_supported
-    return bool(binding and binding.get('model') in MODELS) or fixed_supported(tech,d) or mim2_supported(tech,d)
+    return bool(binding and binding.get('model') in MODELS) or fixed_supported(tech,d) or mim2_supported(tech,d) or metal_supported(tech,d)
 
 
 def specification(tech,d):
+    from .sky130_metal_resistors import supported as metal_supported,specification as metal_specification
+    if metal_supported(tech,d):return metal_specification(tech,d)
     from .sky130_mim2 import supported as mim2_supported,specification as mim2_specification
     if mim2_supported(tech,d):return mim2_specification(tech,d)
     from .sky130_fixed_devices import supported as fixed_supported,specification as fixed_specification
@@ -68,6 +71,8 @@ def specification(tech,d):
 
 
 def configure_connectivity(tech):
+    from .sky130_metal_resistors import configure_connectivity as configure_metals
+    configure_metals(tech)
     ls=layers(tech);cfg=tech.setdefault('connectivity',{})
     cfg['conductors']=list(dict.fromkeys(cfg.get('conductors',[])+[ls[k] for k in ('li','m1','m2','m3','m4','capm')]))
     # capm is a device electrode, not a general routing layer. Keeping it in
@@ -85,6 +90,8 @@ def configure_connectivity(tech):
 
 
 def geometry(tech,d,x=0,y=0):
+    from .sky130_metal_resistors import supported as metal_supported,geometry as metal_geometry
+    if metal_supported(tech,d):return metal_geometry(tech,d,x,y)
     from .sky130_mim2 import supported as mim2_supported,geometry as mim2_geometry
     if mim2_supported(tech,d):return mim2_geometry(tech,d,x,y)
     from .sky130_fixed_devices import supported as fixed_supported,geometry as fixed_geometry

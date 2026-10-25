@@ -23,6 +23,8 @@ UNIT_MODULES = (
     'test_mim_desktop_probe', 'test_frozen_mim',
     'test_installed_mim_electrical', 'test_installed_mim_public_drc', 'test_installed_mim_aggregate',
     'test_sky130_mim_mismatch_aliases', 'test_sky130_mim_mismatch_alias_audit',
+    'test_sky130_metal_editor', 'test_sky130_metal_resistors_linked',
+    'test_sky130_metal_resistors_linked_audit', 'test_pdks_publication',
 )
 
 
@@ -43,13 +45,15 @@ def source_identity(root=ROOT):
             for path in sorted(files)}
 
 
-def stages():
+def stages(output=ROOT / 'build/ci-feedback'):
     return [
         ('unit-contracts', [sys.executable, '-m', 'unittest',
                             *('tests.' + name for name in UNIT_MODULES), '-v']),
         ('release-contracts', [sys.executable, 'scripts/check_release.py']),
         ('menu-smoke', [sys.executable, 'tests/gui_menu_audit.py']),
         ('project-hub-smoke', [sys.executable, 'tests/gui_project_hub.py']),
+        ('metal-resistor-editor-smoke', [sys.executable, 'tests/gui_sky130_metal_editor.py',
+                                      '--out', str(Path(output)/'metal-resistor-editor')]),
     ]
 
 
@@ -73,7 +77,7 @@ def main():
     try:
         report['syntax_files'] = check_syntax()
         save()
-        for name, command in stages():
+        for name, command in stages(args.output):
             step_start = time.monotonic()
             print('Running ' + name, flush=True)
             with (args.output / (name + '.log')).open('w', encoding='utf-8') as log:

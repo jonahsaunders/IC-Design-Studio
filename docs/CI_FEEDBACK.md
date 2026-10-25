@@ -4,8 +4,8 @@ Pull requests and merge-queue groups run **Fast source feedback** on Windows and
 Linux. The default checkout tests GitHub's synthetic merge commit, preserving
 compatibility with the proposed base. The lane compiles application, script and
 test Python sources before installing dependencies, then runs focused editing,
-PDK, runtime, physical-interface and release-contract tests plus the menu and
-project-hub GUI smoke checks. The lane has no path filter, so documentation-only
+PDK, runtime, physical-interface and release-contract tests plus the menu,
+project-hub and five-model SKY130 resistor editor GUI smoke checks. The lane has no path filter, so documentation-only
 PRs also report its stable aggregate check, **PR feedback**.
 
 After the first hosted run passed on October 23, `main` was configured to require

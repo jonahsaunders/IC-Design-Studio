@@ -1,7 +1,7 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 24, 2026. Chunk 7 is approximately **60% complete**, with low
-confidence (50–70%); this is an engineering estimate, not verified acceptance.
+Updated October 25, 2026. Chunk 7 is approximately **65% complete**, with low
+confidence (55–75%); this is an engineering estimate, not verified acceptance.
 
 ## Current tracker
 
@@ -25,6 +25,60 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**October 25 capability milestone, based on `6a9980b`: native resistor editing
+and independently audited four-model electrical linkage.** The editor now
+places and regenerates straight LI and M1–M4 resistors through the ordinary
+preview/apply workflow, with persistent terminals, undo/redo and saved package
+identity. Live connectivity uses the actual resistor marker masks, and
+connected edits enforce terminal spacing in flat and hierarchical layouts.
+The full editor batch passes 30 coupons, 60 native orientations and 150 detected
+physical/reference faults; independent readback verifies every native device
+and 360 exported mask comparisons.
+
+A separate M1–M4 contract now joins application export, actual extracted devices
+and analytical references across five passive sections and three temperatures.
+All 90 native batches pass: 720 selected conditions each for DC, AC and transient,
+120 noise conditions and 4,680 detected branch/context faults. Independent raw
+readback and twelve rehashed evidence-corruption controls pass. All 24 relevant
+editor-generated extractions are byte-identical to the electrically tested
+inputs. Multiplicity three means three electrical copies, not a qualified
+physical array. The transient pilot failure remains retained; tighter numerical
+integration settings repair it without changing the fixed tolerance.
+
+This delivers missing editing capability for five device types and closes a
+specific extracted-electrical integration gap for four models. On that basis,
+the engineering estimate rises to **65% (55–75%, low confidence)**. This is not
+computed from test counts: all 287 device entries remain partial, six required
+bindings remain unavailable, and full envelopes, additional physical classes,
+calibration/reliability and applicable installed workflows remain open.
+Final Windows and Linux source feedback pass 442 tests each (16/four skips),
+release contracts and all three GUI probes in 124.828/55.642 seconds. All 1,365
+reported source identities match the reviewed checkout. The GF180 historical
+identity failure is repaired with exact original Git blobs. A separate Windows
+PDK publication failure is fixed with bounded retries and no-overwrite/path
+checks; actual lock/junction tests pass. Linux retains its original operation.
+The native batches retain their exact pre-repair sources; explicit source deltas
+and focused tests bind the final changes without relabelling old execution.
+[Execution record](validation/sky130-metal-editor-linked-2026-10-25.json).
+The 93.8 MB compact archive passes full readback of 66,920 logical files through
+verified local and pinned dependency objects. It retains original failures and
+source versions without repeatedly copying toolchains. GitHub delivery and its
+automatic merge feedback are the remaining steps for this source milestone.
+
+**Previous source candidate: `6a9980bc83e7594d86b65034ff5b115b03cc14ef`, pushed
+and verified against GitHub.** The [automatic PR feedback](validation/chunk7-mim-alias-hosted-feedback-2026-10-24.json)
+passes on actual merge `cdf0b6589aeb0a39ec22765ddc616a1c159abe9c`:
+399 tests per host (15 Windows skips, two Linux skips), release contracts and
+both GUI checks. All 1,356 reported source hashes match the exact Git blobs;
+the separate post-commit native/source binding verifies 1,358 Python, contract,
+workflow and dependency identities. Both complete hosted artifact ZIPs and merge
+parents are verified and retained. The exact installed desktop result below
+remains bound to `65614924`; this source-only qualification update does not
+claim a new package build. The implementation, acceptance records and tracker
+checkpoint are pushed. This final hosted receipt and status note remain local
+for the next appropriate push, avoiding another run for status alone. Chunk 7
+remains **60% complete (50–70%, low confidence)**.
 
 **Desktop acceptance passed: `65614924f125200db068d66669af6fe102c71e45`.**
 The [selected desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40047259255)
@@ -871,8 +925,9 @@ hosted or installed acceptance results.
 ## How progress is likely to unfold
 
 At the user's request, the **rough engineering estimate for chunk 7 is about
-60% complete**, with a broad planning range of **50–70% and low confidence**
-(October 23, 2026; baseline `e44f7f3` plus the recorded shared-finger correction). This is a judgment about the
+65% complete**, with a broad planning range of **55–75% and low confidence**
+(October 25, 2026; baseline `6a9980b` plus the native resistor editor and
+independently audited M1–M4 linked integration). This is a judgment about the
 implemented integration and accumulated verification work relative to the
 remaining gate, not a measured coverage score or a fraction of time remaining.
 Working device interfaces, selected electrical/physical batches and reusable
@@ -922,6 +977,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-25 | Delivered native straight LI/M1–M4 editing and separate M1–M4 extracted-electrical integration across five passive sections and three temperatures; independent native, mask, electrical and fault audits pass. Both final 442-test source lanes and all three GUI probes pass; verified compact retention is complete and GitHub delivery is being completed. | Missing editor capability and four-model linkage are closed within the declared scope. Estimate rises to 65%, low confidence (55–75%); full family gates and all catalog statuses remain unchanged. |
 | 2026-10-24 | Verified all seven desktop jobs and completed the defined MiM installed recipe at `65614924`. Added actual five-section mismatch-alias source acceptance: 45 native runs and 399-test feedback per host, independent audits and verified compact recovery. | Concrete installed and alias milestones completed; all family statuses remain partial. Estimate stays 60%, low confidence (50–70%). |
 | 2026-10-23 | Added source-locked GF180 current specifications: ten completed cases and 240 detected faults per host, identical current measurements, independent raw audits and both 47-test passes. Two fast-corner cases retain literal published-bound mismatches, also present with direct public-model defaults. | Stronger independent numerical evidence; full device qualification is still open. Estimate remains 60%, low confidence. |
 | 2026-10-23 | Added bounded GF180/IHP shared MOS fingers: 156 valid layouts, 222 detected faults, 7,182 independently read channels, preserved single-finger behavior, final Linux 3,341-test pass and both 58-test affected passes. Verified archive restore and reduced redundant hosted setup downloads. | Closes sampled shared-finger support; full device envelopes, missing bindings and final acceptance remain. Estimate stays 60%, low confidence. |

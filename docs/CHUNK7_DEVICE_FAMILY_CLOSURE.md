@@ -1,8 +1,10 @@
 # Chunk 7: close one device family at a time
 
-Planning snapshot: October 23, 2026, committed baseline `43a04bb` plus the
-[sampled IHP high-voltage MOS acceptance](IHP_HV_MOS_LAYOUTS.md). This is an execution plan,
-not new acceptance evidence. The authoritative
+Execution update: October 25, 2026, based on `6a9980b` plus the new
+[editable resistor and linked M1–M4 milestone](SKY130_METAL_RESISTOR_EDITOR.md).
+The original planning baseline `43a04bb` and the
+[sampled IHP high-voltage MOS acceptance](IHP_HV_MOS_LAYOUTS.md) retain their
+historical scope. New results are linked explicitly below. The authoritative
 [matrix](qualification/pdk-matrix.json) still contains 287 partial device
 entries, six unavailable real-device bindings and nine utilities. Its recorded
 source baseline is `43a04bb`. Historical records retain their own sources and
@@ -19,8 +21,10 @@ envelope **before** execution. The present batch count is not that envelope.
 
 Start with **SKY130 local-interconnect generic resistor `res_generic_li.sym`**
 as the first narrow submilestone, then extend the completed method separately
-to M1–M4. **The metal models still need their own electrical coverage:** the
-current LI electrical runner tests only `res_generic_l1`. This is a conditional
+to M1–M4. **The selected M1–M4 linkage is now complete:** its separate
+contract tests actual extraction against application export and analytical
+references across five passive sections and three temperatures. The native
+editor now supports all five straight resistor types. Full family closure is a conditional
 engineering priority, not a claim that its remaining limits are available.
 The LI model has a simple two-terminal primitive, a corrected public binding,
 native physical extraction, independent electrical references and analytical
@@ -51,7 +55,7 @@ entry if public evidence does not supply it. Retain upstream license notices.
 | Binding and interfaces | Source-checked `res_generic_li` → `res_generic_l1`; save/reopen and catalog exchange. | Bind every supported alias and imported/native view to the same reviewed contract. Verify current and saved package identities separately. No implicit migration. |
 | Geometry and physical classes | Straight single resistors, six selected sizes, two rotations per LI/M1–M4 model; full native DRC/LVS and stream exchange. | Reconcile public marker rules, generator rules, extraction dimensions, grid, contact class, multiplicity and any snake/array views with the declared support. Identify each uncovered class explicitly. Verify boundary and interior cases for each supported class. |
 | Operating conditions | LI DC, AC, transient and noise at selected conditions. | Establish source-backed geometry, temperature, voltage/current or power restrictions and actual corner mappings. Specify required observables and tolerances before new runs; record any missing reliability/statistical applicability rather than marking it passed. |
-| Extracted electrical behavior | Linked actual 2 × 5 µm native extraction, application export and literal model reference; five passive sections, two rotations, DC/AC/transient/noise at 27 C. | Extend only to source-backed required boundaries and supported classes. Shared-model agreement does not establish calibrated resistance/noise accuracy. |
+| Extracted electrical behavior | LI retains its linked 2 × 5 µm example. M1–M4 now have separate three-geometry, two-rotation, five-section, three-temperature DC/AC/transient coverage and selected noise, with all 24 native inputs byte-matched to editor extractions. | Extend only to source-backed required boundaries and supported classes. Shared-model agreement does not establish calibrated resistance/noise accuracy. |
 | Installed acceptance | Both source desktops and historical tests. | On one frozen integration candidate, install exact Windows/Linux deliverables, perform place/edit/save/reopen/export/native verification, and run the required electrical cases. Record desktop/runtime/package hashes and actual received artifacts. Source tests do not satisfy this row. |
 
 The smallest useful linked acceptance example is the existing legal **2 × 5 µm,
@@ -77,8 +81,8 @@ adding LI samples and call that progress toward resolving the missing definition
 
 | Priority | Family and target | Concrete next milestone | What still prevents family closure |
 | --- | --- | --- | --- |
-| 1 | SKY130 LI, then M1–M4 generic resistors | Contract and linked legal LI example above; extend electrical/model-specific checks to each metal separately. | Full applicable envelope/class reconciliation and exact installed acceptance. Metal layout evidence does not inherit LI electrical coverage. |
-| 2 | SKY130 first and second MiM | [Versioned two-device contract](SKY130_MIM_REQUIREMENTS.md), twenty-context passive-section example and sixty-context selected ±5 V integration checks with actual DC readback are recorded. Reconcile the remaining supported physical classes and source-defined boundaries, then perform exact installed acceptance. | Source-backed operating/statistical/reliability applicability, unsupported physical classes and installed acceptance. Fractional electrical multiplicity does not imply fractional physical copies. |
+| 1 | SKY130 LI, then M1–M4 generic resistors | Five native editor recipes and the separate M1–M4 linked source-integration milestone are complete. Reconcile required geometry/envelope limits and qualify the exact installed recipe next. | Full applicable envelope/class reconciliation and exact installed acceptance. Metal layout evidence does not inherit LI electrical coverage. |
+| 2 | SKY130 first and second MiM | [Versioned two-device contract](SKY130_MIM_REQUIREMENTS.md), twenty-context passive-section example and sixty-context selected ±5 V integration checks with actual DC readback are recorded. Reconcile the remaining supported physical classes and source-defined boundaries, retain the completed October 24 installed recipe and qualify added classes separately. | Source-backed operating/statistical/reliability applicability, unsupported physical classes and acceptance beyond the completed selected installed recipe. Fractional electrical multiplicity does not imply fractional physical copies. |
 | 3 | IHP 1.2 V and 3.3 V MOS, separate standard and RF views | Reconcile the sampled standard LV/HV geometry acceptance with the full model envelopes, then join extracted electrical checks. | HV sampled native geometry passes; unsampled classes and complete envelopes remain open. Public model measurements at 27 C do not establish complete temperature validity. Standard geometry cannot stand in for RF geometry even where compact model names overlap. |
 | 4 | GF180 C and D standard 3.3 V MOS | Resolve the two retained fast-corner specification discrepancies and the incomplete threshold-extraction definition; consolidate finger/multiplicity coverage against the contract. | Literal published current bounds still differ from direct public-model results. Geometry batches and source/reference agreement cannot override those mismatches. C/D physical stacks remain separate. |
 | 5 | IHP straight resistors and taps; GF180 C/D straight resistor families | Join each model's electrical envelope to its existing physical classes and native extraction. For taps include the exact computed-resistance binding and independent body/port check. | Selected geometry/temperature points, body handling, optional via classes, model-specific operating limits and installed acceptance. A disabled optional via stack is not a passed via class. |
@@ -207,7 +211,9 @@ rows and the exact evidence identity. Record native execution time separately
 from environment preparation, queueing, reused audit time and repair work.
 Measure time to first actionable failure and time to close a contract row.
 
-The current chunk estimate remains **about 60%, low confidence (50–70%)**.
-This plan adds no verified qualification. Revise the estimate when actual
-remaining gates close or become better bounded, not when another sample batch
-or infrastructure test passes.
+The current estimate is in the [progress tracker](QUALIFICATION_PROGRESS.md).
+The October 25 milestone delivers missing native editing for five device types
+and closes four models’ selected extracted-electrical integration. Complete
+family qualification still needs all applicable contract rows, six missing
+bindings and exact installed workflows. Revise the estimate for delivered
+capability and resolved requirements, not for the number of samples or tests.

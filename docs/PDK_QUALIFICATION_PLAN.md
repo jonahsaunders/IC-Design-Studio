@@ -1,5 +1,12 @@
 # PDK qualification in twelve chunks
 
+The October 25 [resistor milestone](SKY130_METAL_RESISTOR_EDITOR.md) delivers
+native editing for straight SKY130 LI and M1–M4 resistors, plus a separate
+source-locked four-model extracted-electrical contract. All selected native
+geometry, electrical and fault checks pass independent readback. Full device
+envelopes, additional physical classes and exact installed acceptance remain
+open; the chunk gate and partial catalog statuses are unchanged.
+
 The [October 24 desktop acceptance](validation/sky130-mim-installed-acceptance-2026-10-24.json)
 passes all seven required jobs at `65614924`, including the defined configured
 Windows/Linux MiM installation recipe. The [MiM requirement dispositions](SKY130_MIM_REQUIREMENTS.md)

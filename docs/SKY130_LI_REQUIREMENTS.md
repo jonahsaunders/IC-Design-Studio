@@ -38,8 +38,10 @@ resolve that definition or waive an unchecked requirement.
 The public documentation cautions against generic resistors for analog use.
 LI is the first narrow integration milestone because the project already has
 electrical, physical and interface evidence. It is not a proposed precision
-analog resistor. **M1–M4 still need their own electrical contracts and evidence**;
-the five-model physical batch does not inherit LI-only electrical results.
+analog resistor. M1–M4 now have their own [linked contract and selected
+evidence](SKY130_METAL_RESISTOR_EDITOR.md), including actual native extraction
+across five passive sections and three temperatures. Those results retain their
+own models and scope; they do not inherit LI-only electrical results.
 
 ## Selectable linked pilot
 
@@ -114,5 +116,5 @@ other routing layers cannot be applied to LI without evidence of applicability.
 The source bundle retains the original Apache-2.0 license and exact public
 revision; the project license does not replace it. Existing acceptance remains
 in [sky130-li-metal-resistors-2026-10-17](validation/sky130-li-metal-resistors-2026-10-17.json).
-No matrix status or completion gate changes. Chunk 7 remains approximately
-60% complete, low confidence (50–70%).
+No matrix status or completion gate changes. See the current
+[progress tracker](QUALIFICATION_PROGRESS.md) for the chunk estimate and uncertainty.

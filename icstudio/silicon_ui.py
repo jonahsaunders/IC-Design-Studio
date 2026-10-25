@@ -70,7 +70,7 @@ class SiliconMixin:
     def mos_layout_dialog(self):
         if not self.idle_edit():return
         d=next((d for d in self.cell['devices'] if d['id'] in self.selection),None)
-        if len(self.selection)!=1 or d is None:raise ValueError('Select one supported schematic MOS, MiM capacitor, poly resistor or fixed PNP first.')
+        if len(self.selection)!=1 or d is None:raise ValueError('Select one supported schematic transistor, capacitor or resistor first.')
         did=d['id'];cid=self.cid
         from .sky130_devices_ui import body_tie_field, set_body_tie
         tie_fields=body_tie_field(self.project['pdk'],d)
@@ -94,7 +94,7 @@ class SiliconMixin:
                 p=clone(self.project);set_body_tie(p,cid,did,v);install_mos(p,cid,did,x,y);check_layers(self,p,cid)
                 return p,'Generate the linked footprint of '+d['name']+' with its schematic dimensions and model. Review terminal connections, then run process DRC/LVS.'
             self.review_dialog('Generate PDK device layout',build,apply_candidate=apply_candidate(self,cid))
-        return self.workflow_form('Generate linked PDK device',[('x','X (µm)','0'),('y','Y (µm)','0')]+tie_fields,submit,'SKY130: 1.8 V MOS with 1–8 fingers per unit, MiM m3_1 capacitor (2–30 µm W/L), generic poly resistor (W 0.5–10 µm, L 1.65–100 µm), and fixed PNP W3.40/L3.40 with the experimental bipolar adapter. These recipes support 1–16 parallel units from the schematic multiplicity. A source body tie requires matching source/body nets. GF180: standard 3.3 V MOS. Dimensions and terminals follow the schematic process model; run process DRC/LVS.')
+        return self.workflow_form('Generate linked PDK device',[('x','X (µm)','0'),('y','Y (µm)','0')]+tie_fields,submit,'Generate a footprint using the selected device’s schematic dimensions, model and terminals. SKY130 straight LI and metal1–metal4 resistors support one unit with W/L 0.5–10 µm on a 5 nm grid; route their two ends on the same layer. Other supported devices retain their own size and multiplicity limits. Review the connections and run process DRC/LVS after placement or regeneration.')
 
     def process_guard_dialog(self):
         from .sky130_devices_ui import guard_dialog

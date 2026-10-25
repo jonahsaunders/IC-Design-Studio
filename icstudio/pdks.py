@@ -1,8 +1,48 @@
 """Local, content-verified PDK revisions; never imply foundry qualification."""
 from __future__ import annotations
-import json,shutil,re,os
+import json,shutil,re,os,errno,stat,sys,time
 from pathlib import Path
 from .model import clone,digest,file_digest,atomic_write,example,validate,uid,io_path
+
+
+def _publication_path(path, *, missing=False):
+    """Check original Windows path components before following/resolving them."""
+    path=Path(path)
+    if not path.is_absolute():path=Path.cwd()/path
+    for component in (path,*path.parents):
+        try:info=io_path(component).lstat()
+        except FileNotFoundError:
+            if missing and component==path:continue
+            raise
+        if stat.S_ISLNK(info.st_mode) or getattr(info,'st_file_attributes',0)&0x400:
+            raise ValueError('PDK publication cannot follow a symbolic link or junction: '+str(component))
+    return io_path(path)
+
+
+def _publish_directory(stage,destination):
+    # Preserve existing non-Windows publication semantics. Windows rename is
+    # the no-overwrite primitive; replace would have different file semantics.
+    if sys.platform!='win32':
+        os.replace(io_path(stage),io_path(destination));return
+    source=_publication_path(stage);target=_publication_path(destination,missing=True)
+    if not source.is_dir() or source.parent.resolve()!=target.parent.resolve():
+        raise ValueError('Publish a staged PDK directory within its original registry.')
+    identity=lambda path:(path.stat().st_dev,path.stat().st_ino)
+    expected_source,expected_parent=identity(source),identity(source.parent)
+    delays=(.01,.02,.04,.08,.15)  # Same bounded policy as model._replace_with_retry.
+    for attempt in range(len(delays)+1):
+        source=_publication_path(stage);target=_publication_path(destination,missing=True)
+        if identity(source)!=expected_source or identity(source.parent)!=expected_parent:
+            raise ValueError('The PDK staging directory or registry changed during publication.')
+        if os.path.lexists(target):
+            raise FileExistsError(errno.EEXIST,'The PDK destination already exists; it was not replaced.',str(target))
+        try:
+            os.rename(source,target)
+            return
+        except OSError as exc:
+            if getattr(exc,'winerror',None) not in (5,32,33) or attempt==len(delays):raise
+            time.sleep(delays[attempt])
+
 
 class PDKRegistry:
     def __init__(self,root): self.root=Path(root);io_path(self.root).mkdir(parents=True,exist_ok=True)
@@ -30,7 +70,7 @@ class PDKRegistry:
             for rel in files:
                 target=stage/rel;io_path(target.parent).mkdir(parents=True,exist_ok=True);shutil.copyfile(io_path(base/rel),io_path(target))
                 if file_digest(target)!=files[rel]:raise ValueError('PDK asset changed during installation: '+rel)
-            atomic_write(io_path(stage/'package.json'),json.dumps(manifest,indent=2));os.replace(io_path(stage),io_path(dest))
+            atomic_write(io_path(stage/'package.json'),json.dumps(manifest,indent=2));_publish_directory(stage,dest)
         finally:
             if io_path(stage).exists():shutil.rmtree(io_path(stage))
         return key
@@ -44,7 +84,7 @@ class PDKRegistry:
             self.verify(key);return key
         stage=self.root/('_install_'+uid());io_path(stage).mkdir()
         try:
-            atomic_write(io_path(stage/'package.json'),json.dumps(manifest,indent=2));os.replace(io_path(stage),io_path(dest))
+            atomic_write(io_path(stage/'package.json'),json.dumps(manifest,indent=2));_publish_directory(stage,dest)
         finally:
             if io_path(stage).exists():shutil.rmtree(io_path(stage))
         return key

@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "date": "2026-10-24",
+  "status": "hosted_pr_feedback_passed",
+  "scope": "Exact-candidate automatic merge feedback for the bounded mismatch alias qualification and desktop acceptance records. Native/installed/family scope remains separately recorded.",
+  "qualified": false,
+  "release_acceptance": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "verification": {
+    "schema": 1,
+    "run": 40100868595,
+    "candidate": "6a9980bc83e7594d86b65034ff5b115b03cc14ef",
+    "status": "success",
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40100868595",
+    "platforms": [
+      {
+        "artifact": "source-feedback-Linux-cdf0b6589aeb0a39ec22765ddc616a1c159abe9c",
+        "artifact_sha256": "f021fffad0a7e6187dfe6b1cc565edc9e2a7f1b5856180f947f76ef7f28d3f26",
+        "tests": 399,
+        "counts": "skipped=2",
+        "source_bindings": 1356,
+        "source_report_sha256": "6b4c764db05a33a91f5e00452309e6e8dd8b29a1bda07c77d0cc65c95f123502",
+        "status": "passed",
+        "merge_commit": "cdf0b6589aeb0a39ec22765ddc616a1c159abe9c",
+        "seconds": 70.665
+      },
+      {
+        "artifact": "source-feedback-Windows-cdf0b6589aeb0a39ec22765ddc616a1c159abe9c",
+        "artifact_sha256": "d82e65ea61d405cf55259a4227f0937096b3b6079e90b1ff58d401bc956a45b8",
+        "tests": 399,
+        "counts": "skipped=15",
+        "source_bindings": 1356,
+        "source_report_sha256": "6b4c764db05a33a91f5e00452309e6e8dd8b29a1bda07c77d0cc65c95f123502",
+        "status": "passed",
+        "merge_commit": "cdf0b6589aeb0a39ec22765ddc616a1c159abe9c",
+        "seconds": 114.422
+      }
+    ],
+    "merge_commit": "cdf0b6589aeb0a39ec22765ddc616a1c159abe9c",
+    "parents": [
+      "49c79957b4d6f4978127da612e167e5c75cda6b3",
+      "6a9980bc83e7594d86b65034ff5b115b03cc14ef"
+    ],
+    "all_candidate_source_bindings_verified": true,
+    "installed_acceptance": false,
+    "chunk_complete": false
+  },
+  "archive": {
+    "directory": "mim-alias-feedback-40100868595-2026-10-24-v1",
+    "file": "evidence.zip",
+    "bytes": 602358,
+    "sha256": "9dcc646adc4f676ab4eb66cb294ad9001dfd0d4fe8bf75282b5f0f4f2bfebea1",
+    "files": 9,
+    "manifest_sha256": "2c2b7672c8236e8d427281d316590c1bc3ada7aaa20af2c98006eb20ba2dbe43",
+    "all_files_readback_verified": true
+  },
+  "native_source_git_binding": {
+    "candidate": "6a9980bc83e7594d86b65034ff5b115b03cc14ef",
+    "matched_sources": 1358,
+    "receipt_sha256": "59be896a43ad8bf74dd69185049af721ff453ad711e3ff10a351ba76961733b5",
+    "directory": "sky130-mim-mismatch-aliases-2026-10-24-v1/post-run-receipts/git-binding"
+  }
+}
