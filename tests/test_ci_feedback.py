@@ -58,7 +58,7 @@ class FeedbackTests(unittest.TestCase):
 
     def test_focused_modules_exist_and_release_contracts_remain_fast_checks(self):
         for name in UNIT_MODULES:
-            self.assertTrue((ROOT / 'tests' / (name + '.py')).is_file(), name)
+            self.assertTrue((ROOT / 'tests' / (name.split('.')[0] + '.py')).is_file(), name)
         commands = stages()
         self.assertEqual([name for name, _ in commands],
                          ['unit-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',

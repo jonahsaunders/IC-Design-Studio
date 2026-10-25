@@ -1,0 +1,285 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "chunk": 7,
+  "status": "selected_source_gui_native_electrical_workflow_passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "signoff": false,
+  "source_baseline": "489b0ea0310aea74a7c298b842362e7851f3f868",
+  "scope": "Source rehearsal of the selected installed resistor workflow: actual Qt exports, fresh queued extraction and received-input electrical checks. Exact Windows/Linux packaged acceptance remains pending; no full family, operating envelope or manufacturing qualification.",
+  "contract": {
+    "path": "docs/qualification/sky130-metal-installed-v1.json",
+    "sha256": "9245943194baf0fca698b9487b962390d2dc2af07983e19d0b493ae21f952fa2"
+  },
+  "source_contract": {
+    "path": "docs/qualification/sky130-metal-resistors-linked-v1.json",
+    "sha256": "2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612"
+  },
+  "delivered": [
+    "Actual application acceptance entry point for LI/M1-M4 editor, saved package bindings and fresh native queued controls.",
+    "M1-M4 electrical acceptance consumes the actual GUI references and native netlists, retaining top-name-only byte edits and separate fault copies.",
+    "Independent raw/checker readback, candidate-bound aggregate, Windows installer and Linux frozen-app release hooks, and bounded everyday regression coverage."
+  ],
+  "gui_native": {
+    "status": "PASS",
+    "execution_id": "f0dc81b1a2db4e44b745492ee208ab37",
+    "counts": {
+      "lifecycle": 30,
+      "binding_lifecycle": 15,
+      "native_layouts": 30,
+      "fresh_native_jobs": 42,
+      "queued_jobs": 43,
+      "width_faults": 5,
+      "drc_faults": 1,
+      "repairs": 6,
+      "blocked": 1
+    },
+    "seconds": 94.737395355,
+    "report_sha256": "5851ac5014368e56306c2f781278dc2d325de2935f82aa194b85773c4bfc8c4f",
+    "files_sha256": "5272fbe852bf20b5a6f03396e181ff39c2af02124917cb015bb0672d20495481",
+    "source_manifest_sha256": "06404786d9a0a618ef7ca113b9815fcb6ffb061519cb8c19a5561ce426849d20",
+    "independent_readback_sha256": "f939b7d4778569dee653aee40a90a9ba50de0a3530cc102a61df756efd699750",
+    "source_scope": "Explicit developer Magic/Netgen tools; not a packaged runtime.",
+    "source_history": "Original 6501-file executed source preserved. Later checker corrects failed-stage error schema and empty-label normalization only; original native output remains unchanged."
+  },
+  "electrical": {
+    "status": "PASS",
+    "mode": "source-pilot",
+    "counts": {
+      "contexts": 90,
+      "logical_variants": 48,
+      "fresh_gui_native_inputs": 24,
+      "dc_conditions": 720,
+      "ac_conditions": 720,
+      "transient_conditions": 720,
+      "noise_conditions": 120,
+      "detected_branch_controls": 4680
+    },
+    "branch_samples": 7829496,
+    "maximum_normalized_errors": {
+      "dc": 7.405639574220675e-10,
+      "ac": 1.3073664071422826e-09,
+      "tran": 0.9216023143633437,
+      "noise": 8.259433735212002e-10
+    },
+    "seconds": 164.45176615100002,
+    "sampled_sections": [
+      "hh",
+      "hl",
+      "lh",
+      "ll",
+      "tt"
+    ],
+    "sampled_temperatures_c": [
+      -40,
+      27,
+      125
+    ],
+    "input_guards": {
+      "runtime": true,
+      "sources": true,
+      "gui": true,
+      "public_contract": true,
+      "simulation_package": true,
+      "staged_models": true,
+      "retained_inputs": true
+    },
+    "hashes": {
+      "qualification.json": "b9c06973b25320717ce5031f7612d9958f0e0a65a58a9717e094ae696de313a0",
+      "audit.json": "e0ef7b059a9ad04abce0ec544925b86014b07735b32fbc392f6c4d2bd50bbbf9",
+      "manifest.json": "3862b27622c7bebd469b34640a0a22daf0dfe0cf42f77394ec86daa35cf98eb7",
+      "source-files.json": "ecbe7aeccd45c930588e4130776182fff213e6e1708be2ecf112b83602ce8598",
+      "inputs.json": "9fca7f0092e035d24c34d89d788089195482a122be780d7ec791f5113868498e",
+      "normalized-inputs.json": "943bf00c7d860ca06084d093c1ef2ddc7cdc17b782366d02798fea8ec88a958f",
+      "fault-inputs.json": "4ab990e38800a1fb5ec519c701e4fa22d47adbd49278ffbb998cde7e27818aa6"
+    },
+    "source_files": 851,
+    "inputs": "Twenty-four actual GUI/export/native pairs from the same 30-layout source execution; no regenerated positive catalog devices.",
+    "pilot": "Six selected batches passed before the complete 90-batch execution; both original raw runs are retained.",
+    "multiplicity": "Three electrical copies of each received single-device subcircuit; no physical array qualification."
+  },
+  "independent_review": {
+    "status": "PASS",
+    "receipt_sha256": "372dd7ebe972af32a878fea771a0e0781f446bdc650a411f346229189026de77",
+    "gui_component_corruptions_rejected": 8,
+    "electrical_component_corruptions_rejected": 8,
+    "scope": "Actual copied-evidence component controls, not sixteen fresh full native gate executions."
+  },
+  "feedback": {
+    "status": "PASS",
+    "source_bindings": 1377,
+    "source_bindings_match_current_checkout": true,
+    "windows": {
+      "tests": 504,
+      "skips": 16,
+      "seconds": 123.171,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 71.609
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.172
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 30.094
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.875
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.312
+        }
+      ],
+      "report_sha256": "37f2262e6b439a8cd1b17e39ebf08a72be564c63a3c33998b3fae1065ea41f2b"
+    },
+    "linux": {
+      "tests": 504,
+      "skips": 4,
+      "seconds": 51.488,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 18.412
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.518
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.371
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.022
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.675
+        }
+      ],
+      "report_sha256": "f69509bed503f8fc3f8656bc41fdd10ed1e226a9cbceba8a1f69717294c5eb99",
+      "historical_git_metadata": "65614924f125200db068d66669af6fe102c71e45",
+      "actual_source_identity": "All 1,377 feedback file hashes match the current checkout; retained Git metadata is not the new candidate."
+    },
+    "windows_prerequisites": "Actual ordinary-user junction and file-lock checks passed; no Windows administrator access."
+  },
+  "preserved_failures": [
+    "Initial source GUI driver used an obsolete inspector field; fixed through the actual Width/vertex-table UI with regression coverage.",
+    "Initial independent checker assumed a failed LVS stage had successful-stage evidence; exact failed-stage error plus raw LVS property failure are now required.",
+    "Real shape edits materialize an empty labels list; checker permits that exact empty normalization and rejects added labels.",
+    "Initial Linux feedback fixture omitted one existing hosted-feedback document; all original bytes preserved and the exact missing file added before final feedback."
+  ],
+  "installed_candidate": {
+    "status": "pending",
+    "gate": "Both exact candidate desktop platforms and all unchanged release gates must pass.",
+    "windows_engine_portability_preflight": "all90 selected contexts passed; this does not qualify a Windows GUI/native or installed run"
+  },
+  "retention": {
+    "status": "verified",
+    "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-metal-installed-source-2026-10-25-v1\\evidence.zip",
+    "sha256": "3b499f8588b1d55bcc04a293f378d9459bc3e870f3cb2cd924ade3450e7fab57",
+    "bytes": 87183525,
+    "manifest_sha256": "6813189a32095698db845da461762df9fb8e11a0eff8d717fd438cd71e931e02",
+    "logical_files": 37015,
+    "logical_bytes": 3118529469,
+    "full_readback": "PASS: 8632 unique referenced members",
+    "verification_sha256": "3dbbaa63148414825cb406ad88216d62619c4b65ca48626f48255919691b1776",
+    "selected_recovery": {
+      "status": "PASS",
+      "files": 25,
+      "bytes": 54503021,
+      "receipt_sha256": "07afae7eda9aa757d4554735f1b150d1464ea97233c4299ff32f72aa926ba543"
+    },
+    "dependencies": [
+      {
+        "archive": "sky130-metal-editor-linked-2026-10-25-v1/evidence.zip",
+        "sha256": "774c392bd55be672a892cefd6a753492dc9bbea2a88730c1651e0c3c0ab8cf97"
+      },
+      {
+        "archive": "sky130-mim-passive-2026-10-23-v1/evidence.zip",
+        "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+      }
+    ],
+    "source_versions_and_failures_preserved": true,
+    "original_outputs_deleted": false
+  },
+  "remaining": [
+    "Complete geometry and operating envelopes, remaining physical classes and process options.",
+    "Six unavailable real bindings, other device families, calibration/statistics and reliability.",
+    "Exact installed Windows/Linux acceptance for this new selected workflow; later chunks and manufacturing qualification."
+  ],
+  "chunk7_estimate": {
+    "percent": 65,
+    "confidence": "low",
+    "range_percent": [
+      55,
+      75
+    ],
+    "engineering_estimate": true
+  },
+  "windows_engine_portability": {
+    "status": "PASS",
+    "scope": "Windows staged engine portability using exact prior Linux source GUI/native inputs; no installed application or Windows GUI/native execution claim.",
+    "counts": {
+      "contexts": 90,
+      "logical_variants": 48,
+      "origin_gui_native_inputs": 24,
+      "dc_conditions": 720,
+      "ac_conditions": 720,
+      "transient_conditions": 720,
+      "noise_conditions": 120,
+      "detected_branch_controls": 4680
+    },
+    "seconds": 344.73399999999947,
+    "branch_samples": 7828056,
+    "maximum_normalized_errors": {
+      "dc": 7.405639574220675e-10,
+      "ac": 1.3073664071422826e-09,
+      "tran": 0.979982340979121,
+      "noise": 8.259433735212002e-10
+    },
+    "worst_transient": {
+      "name": "lh-t-40-tran-positive",
+      "status": "PASS",
+      "analysis": "tran",
+      "control": "positive",
+      "samples": 531504,
+      "detected_branch_controls": 0,
+      "logical_conditions": 48,
+      "maximum_normalized_error": 0.979982340979121,
+      "record_sha256": "e554e809d14ba96b88ddb70fb7e7934f4710cc4a1bcfe00ea0bf3f0fb89a5e97"
+    },
+    "guards": {
+      "source": true,
+      "runtime": true,
+      "package": true,
+      "copied_original_and_derived_inputs": true
+    },
+    "reviewed_source_files": 851,
+    "review_sha256": "fe970ac9cb7d5731b70e4bdbf1bf82c909f7b238b8bfb56c865fc2928da6fa27",
+    "portability_sha256": "9d6a370ce9b63bcb2bb93509651ed0557bc26eec56f077156c154114f47c4c53",
+    "engine": "Pinned ngspice46",
+    "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+    "input_mapping": "Original copied Linux GUI/native input bytes unchanged; all90 original decks differ only by reviewed output/include paths and fresh execution context title.",
+    "numerical_margin": "Maximum selected normalized transient error0.97998234 under the unchanged limit1. Preserve this exact runtime/options; installed execution must pass independently."
+  }
+}

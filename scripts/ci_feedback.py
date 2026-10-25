@@ -25,6 +25,10 @@ UNIT_MODULES = (
     'test_sky130_mim_mismatch_aliases', 'test_sky130_mim_mismatch_alias_audit',
     'test_sky130_metal_editor', 'test_sky130_metal_resistors_linked',
     'test_sky130_metal_resistors_linked_audit', 'test_pdks_publication',
+    # Full thirty-layout Qt lifecycle remains in exhaustive core discovery.
+    'test_metal_resistor_desktop_probe.ProbeBoundaries', 'test_frozen_metal_resistors',
+    'test_installed_metal_resistor_inputs', 'test_installed_metal_resistors',
+    'test_installed_metal_resistors_audit', 'test_installed_metal_resistors_aggregate',
 )
 
 

@@ -25,6 +25,9 @@ def main():
     if '--physical-acceptance' in sys.argv:
         from .physical_desktop_probe import main as probe
         return probe(sys.argv[sys.argv.index('--physical-acceptance')+1:])
+    if '--metal-resistor-acceptance' in sys.argv:
+        from .metal_resistor_desktop_probe import main as probe
+        return probe(sys.argv[sys.argv.index('--metal-resistor-acceptance')+1:])
     if '--mim-acceptance' in sys.argv:
         from .mim_desktop_probe import main as probe
         return probe(sys.argv[sys.argv.index('--mim-acceptance')+1:])

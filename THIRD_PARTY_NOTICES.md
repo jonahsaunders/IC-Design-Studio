@@ -159,6 +159,14 @@ GF180MCU primitive symbols and ngspice model files: Apache-2.0, upstream commit 
 
 ngspice: BSD-style and component-specific licenses retained in the runtime COPYING/copyright files. The Windows console runtime is the unmodified official version 46 distribution: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/46/ngspice-46_64.7z/download; corresponding source: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/46/. Its COPYING document retains its CC-BY-SA 4.0 notice, and the executable retains its upstream component terms. Historical Windows evidence used version 42 and keeps that identity. The Linux host-tools reference is Ubuntu 42+ds-3build1; corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/. The managed Linux/WSL runtime is separately described below.
 
+The selected resistor qualification references in
+`docs/qualification/ngspice42-metal-reference` retain six unchanged ngspice 42
+C/header files with their original University of California notices, plus the
+upstream `COPYING` document. The code uses the Modified BSD terms reproduced
+there; the licensing document retains its separate CC-BY-SA 4.0 attribution
+to the ngspice team. These files are not relicensed. The bundle README and
+immutable resistor contract identify the original archive and per-file hashes.
+
 The current Windows installer and portable archive use the same PyInstaller
 directory build from `scripts/package.py` and `scripts/build_windows.ps1`.
 Corresponding application source accompanies the build as a source ZIP;

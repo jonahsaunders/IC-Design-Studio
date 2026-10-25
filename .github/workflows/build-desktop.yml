@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_installed_mim_aggregate tests.test_sky130_qualification_package -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_sky130_qualification_package -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
@@ -719,6 +719,21 @@ jobs:
           python scripts/qualify_installed_sky130_mim_public_drc.py --gui build/frozen-mim-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-public-drc-evidence
           python scripts/qualify_installed_sky130_mim_electrical.py --gui-root build/frozen-mim-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-electrical-evidence
           python scripts/verify_installed_mim.py --gui build/frozen-mim-evidence --public build/frozen-mim-public-drc-evidence --electrical build/frozen-mim-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-workflow-evidence/acceptance.json
+      - name: Verify frozen Linux resistor editor and fresh native layout workflow
+        if: runner.os == 'Linux'
+        timeout-minutes: 45
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_metal_resistors.py --executable dist/ICDesignStudio/ICDesignStudio --physical-pdk build/physical-adapter/sky130A --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 2400 --out build/frozen-metal-resistor-evidence
+      - name: Verify frozen Linux resistor electrical workflow and independent readback
+        if: runner.os == 'Linux'
+        timeout-minutes: 30
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          python scripts/qualify_installed_sky130_metal_resistors.py --gui-root build/frozen-metal-resistor-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-resistor-electrical-evidence
+          python scripts/verify_installed_metal_resistors.py --gui build/frozen-metal-resistor-evidence --electrical build/frozen-metal-resistor-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-resistor-workflow-evidence/acceptance.json
       - name: Assemble and execute release archives
         env:
           QT_QPA_PLATFORM: offscreen
@@ -780,11 +795,17 @@ jobs:
             build/windows-evidence/mim-public-drc
             build/windows-evidence/mim-electrical
             build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/metal-resistors
+            build/windows-evidence/metal-resistors-electrical
+            build/windows-evidence/metal-resistors-acceptance.json
             build/frozen-physical-evidence
             build/frozen-mim-evidence
             build/frozen-mim-public-drc-evidence
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-metal-resistor-evidence
+            build/frozen-metal-resistor-electrical-evidence
+            build/frozen-metal-resistor-workflow-evidence/acceptance.json
             build/digital-first-run-ui
             build/digital-state/checks/**/report.json
             build/digital-state/checks/**/result.json
@@ -813,6 +834,9 @@ jobs:
             build/frozen-mim-public-drc-evidence
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-metal-resistor-evidence
+            build/frozen-metal-resistor-electrical-evidence
+            build/frozen-metal-resistor-workflow-evidence/acceptance.json
             build/x11-evidence
             build/native-migration-evidence
             build/native-workflow-evidence

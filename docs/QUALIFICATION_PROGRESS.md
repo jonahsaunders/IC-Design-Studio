@@ -26,6 +26,52 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**October 25 next milestone in progress, based on `489b0ea`: installed resistor
+acceptance.** The new versioned contract fixes 30 actual editor/native inputs
+across LI/M1–M4, three geometries and two orientations. Twenty-four M1–M4
+inputs must feed the unchanged 90-batch electrical selection from the installed
+app’s actual references, fresh extraction and shipped simulator. The 30-case Qt source lifecycle and
+independent checker tests pass. Windows installer and Linux frozen-app hooks
+now require the new selected GUI/native and electrical aggregate. The fresh
+Linux source-native run passes all 30 layouts and 43 queued jobs in 94.737
+seconds, including all five width faults/repairs, a DRC fault/repair and the
+missing-engine rejection. The first failed driver attempt is retained; the
+current inspector-field fix has an actual Qt regression. Independent raw
+readback and all 90 electrical batches pass on the actual 24 received M1–M4
+inputs: 720 conditions each for DC/AC/transient, 120 noise conditions and
+4,680 detected controls, with no tolerance changes. Sixteen copied-evidence
+component corruptions reject. Both final source-feedback lanes pass 504 tests
+and all three GUI checks (Windows 123.171 seconds, Linux 51.488 seconds).
+All 1,377 source/workflow/dependency identities match the reviewed checkout.
+The Linux snapshot-only missing-document attempt is preserved separately.
+[Source execution record](validation/sky130-metal-installed-source-2026-10-25.json).
+The Windows ngspice46 portability check also passes all 90 contexts and
+4,680 controls on exact copied GUI/native inputs, with 851 unchanged source
+bindings. Its worst selected transient error is 0.97998234 against the fixed
+normalized limit of 1; installed execution must pass independently.
+The 87.2 MB permanent archive passes full readback of 37,015 logical files
+and recovery of 25 selected files from authenticated objects; original failures,
+source versions and both platforms’ raw results remain recoverable.
+The exact packaged candidate is next. Source pilots
+remain development evidence; a selected installed result requires both exact
+candidate deliverables and the existing release gates. This work does not yet
+raise the 65% estimate or change a device status.
+
+**Previous accepted source candidate: `489b0ea0310aea74a7c298b842362e7851f3f868`.**
+The [automatic GitHub merge checks](validation/chunk7-metal-hosted-feedback-2026-10-25.json)
+pass on `e0965a0bcc55ebfd9ad84c7fb257eff9a1f686b9`: both 442-test lanes,
+release contracts and all three GUI workflows, with four Linux and fifteen
+Windows skips. All 1,365 reported source hashes match the exact candidate Git
+blobs; the post-commit check also binds the unchanged CRLF contract, for 1,366
+identities. Both complete small artifacts and merge-parent evidence are verified
+and retained. The published implementation, milestone record and 65% estimate
+are on `experimental`; this final hosted receipt/status note stays local for
+the next substantive push, avoiding another CI run solely for a result note.
+After verified archive readback, exactly seven disposable Linux output folders
+were removed (2,168,874,044 logical bytes). Tools, PDKs, reusable source fixture,
+receipts and archives remain; no Windows-admin or physical C:/VHD reclaim is
+claimed. Chunk 7 remains **65% complete (55–75%, low confidence)**.
+
 **October 25 capability milestone, based on `6a9980b`: native resistor editing
 and independently audited four-model electrical linkage.** The editor now
 places and regenerates straight LI and M1–M4 resistors through the ordinary
@@ -63,8 +109,8 @@ and focused tests bind the final changes without relabelling old execution.
 [Execution record](validation/sky130-metal-editor-linked-2026-10-25.json).
 The 93.8 MB compact archive passes full readback of 66,920 logical files through
 verified local and pinned dependency objects. It retains original failures and
-source versions without repeatedly copying toolchains. GitHub delivery and its
-automatic merge feedback are the remaining steps for this source milestone.
+source versions without repeatedly copying toolchains. The source milestone is
+pushed and its automatic GitHub merge feedback passes, as recorded above.
 
 **Previous source candidate: `6a9980bc83e7594d86b65034ff5b115b03cc14ef`, pushed
 and verified against GitHub.** The [automatic PR feedback](validation/chunk7-mim-alias-hosted-feedback-2026-10-24.json)
@@ -977,7 +1023,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
-| 2026-10-25 | Delivered native straight LI/M1–M4 editing and separate M1–M4 extracted-electrical integration across five passive sections and three temperatures; independent native, mask, electrical and fault audits pass. Both final 442-test source lanes and all three GUI probes pass; verified compact retention is complete and GitHub delivery is being completed. | Missing editor capability and four-model linkage are closed within the declared scope. Estimate rises to 65%, low confidence (55–75%); full family gates and all catalog statuses remain unchanged. |
+| 2026-10-25 | Delivered native straight LI/M1–M4 editing and separate M1–M4 extracted-electrical integration across five passive sections and three temperatures; independent native, mask, electrical and fault audits pass. Both final 442-test source lanes and all three GUI probes pass; verified compact retention and GitHub delivery/merge feedback are complete. | Missing editor capability and four-model linkage are closed within the declared scope. Estimate rises to 65%, low confidence (55–75%); full family gates and all catalog statuses remain unchanged. |
 | 2026-10-24 | Verified all seven desktop jobs and completed the defined MiM installed recipe at `65614924`. Added actual five-section mismatch-alias source acceptance: 45 native runs and 399-test feedback per host, independent audits and verified compact recovery. | Concrete installed and alias milestones completed; all family statuses remain partial. Estimate stays 60%, low confidence (50–70%). |
 | 2026-10-23 | Added source-locked GF180 current specifications: ten completed cases and 240 detected faults per host, identical current measurements, independent raw audits and both 47-test passes. Two fast-corner cases retain literal published-bound mismatches, also present with direct public-model defaults. | Stronger independent numerical evidence; full device qualification is still open. Estimate remains 60%, low confidence. |
 | 2026-10-23 | Added bounded GF180/IHP shared MOS fingers: 156 valid layouts, 222 detected faults, 7,182 independently read channels, preserved single-finger behavior, final Linux 3,341-test pass and both 58-test affected passes. Verified archive restore and reduced redundant hosted setup downloads. | Closes sampled shared-finger support; full device envelopes, missing bindings and final acceptance remain. Estimate stays 60%, low confidence. |

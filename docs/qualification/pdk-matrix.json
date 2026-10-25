@@ -156,7 +156,8 @@
         "calibrated_statistics": false,
         "device_statuses_unchanged": true
       },
-      "latest_sky130_metal_editor_evidence": "sky130-metal-editor-linked-2026-10-25"
+      "latest_sky130_metal_editor_evidence": "sky130-metal-editor-linked-2026-10-25",
+      "latest_sky130_metal_installed_source": "sky130-metal-installed-source-2026-10-25"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -21034,7 +21035,8 @@
         "historical_evidence": [
           "sky130-li-metal-resistors-2026-10-17",
           "sky130-li-linked-2026-10-23",
-          "sky130-metal-editor-linked-2026-10-25"
+          "sky130-metal-editor-linked-2026-10-25",
+          "sky130-metal-installed-source-2026-10-25"
         ]
       },
       "sky130_fd_pr/res_generic_m1.sym": {
@@ -21049,7 +21051,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "sky130-li-metal-resistors-2026-10-17",
-          "sky130-metal-editor-linked-2026-10-25"
+          "sky130-metal-editor-linked-2026-10-25",
+          "sky130-metal-installed-source-2026-10-25"
         ]
       },
       "sky130_fd_pr/res_generic_m2.sym": {
@@ -21064,7 +21067,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "sky130-li-metal-resistors-2026-10-17",
-          "sky130-metal-editor-linked-2026-10-25"
+          "sky130-metal-editor-linked-2026-10-25",
+          "sky130-metal-installed-source-2026-10-25"
         ]
       },
       "sky130_fd_pr/res_generic_m3.sym": {
@@ -21079,7 +21083,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "sky130-li-metal-resistors-2026-10-17",
-          "sky130-metal-editor-linked-2026-10-25"
+          "sky130-metal-editor-linked-2026-10-25",
+          "sky130-metal-installed-source-2026-10-25"
         ]
       },
       "sky130_fd_pr/res_generic_m4.sym": {
@@ -21094,7 +21099,8 @@
           "standard-mos-initial-2026-10-16",
           "device-corrections-2026-10-16",
           "sky130-li-metal-resistors-2026-10-17",
-          "sky130-metal-editor-linked-2026-10-25"
+          "sky130-metal-editor-linked-2026-10-25",
+          "sky130-metal-installed-source-2026-10-25"
         ]
       },
       "sky130_fd_pr/res_generic_nd.sym": {
@@ -25445,6 +25451,11 @@
       "path": "docs/validation/sky130-metal-editor-linked-2026-10-25.json",
       "sha256": "870b04de52886babdefe30357f73fef4d8dced0eb76faabce86e9d15b2d9f13a",
       "scope_limit": "Finite source-editor support for straight LI/M1-M4 and separate M1-M4 application/native/analytical electrical linkage. No full family/operating envelope, installed delivery, calibrated accuracy/statistics/reliability or manufacturing qualification."
+    },
+    "sky130-metal-installed-source-2026-10-25": {
+      "path": "docs/validation/sky130-metal-installed-source-2026-10-25.json",
+      "sha256": "b754804ab47f4a3f813e43629ea6291abec2633f646671ca65b0f3d7c3973224",
+      "scope_limit": "Source rehearsal of the selected installed resistor workflow: actual Qt exports, fresh queued extraction and received-input electrical checks. Exact Windows/Linux packaged acceptance remains pending; no full family, operating envelope or manufacturing qualification."
     }
   },
   "execution_acceptance": {
