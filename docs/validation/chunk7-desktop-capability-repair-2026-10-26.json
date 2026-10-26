@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "chunk": 7,
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "status": "capability_expectation_repaired_and_focused_feedback_passed",
+  "original_candidate": "38fccf7242bac4c86117982ce03c78dd07302cf2",
+  "original_run": 40216858937,
+  "original_run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40216858937",
+  "original_workflow_status": "failure",
+  "prerequisite_jobs_passed": 5,
+  "failure": "Exact native_layout capability expectation omitted the implemented metal_resistor capability. Both platform core suites have this one failure.",
+  "original_core": {
+    "Linux": {
+      "job": 121245099876,
+      "tests": 3680,
+      "failures": 1,
+      "skips": 37,
+      "seconds": 1063.509
+    },
+    "Windows": {
+      "job": 121245099947,
+      "tests": 3680,
+      "failures": 1,
+      "skips": 40,
+      "seconds": 2104.047
+    }
+  },
+  "installed_gates_reached": false,
+  "repair": {
+    "schema": 1,
+    "status": "PASS",
+    "scope": "Exact capability expectation and fast method selection only; no application implementation change, native rerun, commit or push.",
+    "reproduced_before": {
+      "tests": 1,
+      "failures": 1,
+      "seconds": 0.011,
+      "log": "before-reproduced.log"
+    },
+    "focused_after": {
+      "tests": 9,
+      "skips": 0,
+      "seconds": 0.166,
+      "log": "after-focused.log"
+    },
+    "exact_analog_byte_change": "insert 'metal_resistor' in expected native_layout list; every other byte preserved",
+    "fast_lane_addition": "one capability method plus one selector regression; no full analog suite",
+    "diff_check": 0,
+    "after_files": {
+      "tests/test_analog.py": {
+        "sha256": "cd66566a48bc028647831020fd62485f207d130f9ef1f1e4d7da0c0ed5f82698",
+        "bytes": 10533
+      },
+      "scripts/ci_feedback.py": {
+        "sha256": "ae897ea86b62b85d976387cbb3ca654dabe5aee120905dd2fea84342afc9105e",
+        "bytes": 5949
+      },
+      "tests/test_ci_feedback.py": {
+        "sha256": "8726c0448c152b60314c8989d12bc820cb449d161ce9bcacdbd95811f784b3d5",
+        "bytes": 8456
+      }
+    },
+    "retained_initial_environment_error": "before.log used no tests PYTHONPATH and failed import; before-reproduced.log subsequently reproduced exact hosted assertion without source edits"
+  },
+  "final_source_feedback": {
+    "schema": 1,
+    "status": "PASS",
+    "base_candidate": "38fccf7242bac4c86117982ce03c78dd07302cf2",
+    "source_bindings_match": true,
+    "platforms": [
+      {
+        "platform": "Windows",
+        "status": "PASS",
+        "tests": 506,
+        "skips": 16,
+        "test_seconds": 68.209,
+        "total_seconds": 119.766,
+        "source_bindings": 1377,
+        "report_sha256": "a008e674c73d4fe8f06daa43961b7dd8d96e70a7c0b5fe39bf33e5a9fd84474c",
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 69.046
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 5.657
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 28.265
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 7.375
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 7.453
+          }
+        ]
+      },
+      {
+        "platform": "Linux",
+        "status": "PASS",
+        "tests": 506,
+        "skips": 4,
+        "test_seconds": 17.285,
+        "total_seconds": 50.883,
+        "source_bindings": 1377,
+        "report_sha256": "f32ce92ac2dcb47080ef63ee8ae79df24c801eeacc3328e5ff3a880a0f490b34",
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 18.161
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 1.517
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 21.913
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 3.122
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 4.676
+          }
+        ]
+      }
+    ],
+    "scope": "Verified current source-feedback repair, not full-core or installed reacceptance."
+  },
+  "original_logs": {
+    "linux": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-desktop-repair-20261026-v1\\linux-job.log",
+      "sha256": "2794c3c438c03b05eaee64ddd31f149504e2b7f7c2928af9a2b5cf6b149c6f1c"
+    },
+    "windows": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-desktop-repair-20261026-v1\\windows-job.log",
+      "sha256": "f2bf9e95d374ac8c8d3e091ba96846a586eeca86aac96794a2207eb33cd43a3a"
+    }
+  },
+  "retained_staging_failures": [
+    "First direct focused test lacked tests PYTHONPATH; exact failure was subsequently reproduced before the source edit.",
+    "First WSL launch selected a nonexistent user; no tests started. Existing uid1000 account was resolved as ubuntu.",
+    "Windows-mounted historical-document read failed during snapshot preparation before fixture changes; verified current sources and the actual tracked delta were staged using Windows and read on native Linux."
+  ],
+  "remaining": "Select a new immutable candidate and pass the full desktop workflow, including original core checks and actual installed resistor gates. No source-feedback result supplies installed acceptance."
+}

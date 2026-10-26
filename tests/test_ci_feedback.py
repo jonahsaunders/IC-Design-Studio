@@ -80,6 +80,14 @@ class FeedbackTests(unittest.TestCase):
         self.assertLess(text.index('Check application, runner and test syntax'),
                         text.index('Install pinned Python dependencies'))
 
+    def test_exact_native_capability_contract_runs_without_full_analog_suite(self):
+        selected = 'test_analog.AnalogTests.test_capabilities_do_not_trust_catalog_or_metadata'
+        self.assertIn(selected, UNIT_MODULES)
+        command = dict(stages())['unit-contracts']
+        self.assertEqual(command.count('tests.' + selected), 1)
+        self.assertNotIn('tests.test_analog', command)
+        self.assertNotIn('tests.test_analog.AnalogTests', command)
+
     def test_exhaustive_triggers_require_selected_candidates_and_keep_version_tags(self):
         for name in EXHAUSTIVE:
             with self.subTest(workflow=name):

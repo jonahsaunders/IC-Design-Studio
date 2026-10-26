@@ -1,6 +1,6 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 25, 2026. Chunk 7 is approximately **65% complete**, with low
+Updated October 26, 2026. Chunk 7 is approximately **65% complete**, with low
 confidence (55–75%); this is an engineering estimate, not verified acceptance.
 
 ## Current tracker
@@ -25,6 +25,39 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**October 26 desktop failure review, candidate
+`38fccf7242bac4c86117982ce03c78dd07302cf2`.** GitHub `experimental` still
+matches this commit and draft PR68 remains merge compatible. The
+[full desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40216858937)
+finished with five prerequisite jobs passing and both package jobs failing the
+same core capability test. Each platform ran 3,680 tests; Linux reports one
+failure and 37 skips, Windows one failure and 40 skips. The expected capability
+list in `test_analog` omitted the newly implemented `metal_resistor` capability.
+The selected installed resistor gates were not reached and remain pending.
+The [repair](validation/chunk7-desktop-capability-repair-2026-10-26.json)
+retains the exact capability assertions and adds this single regression to the
+fast lane. Both final source lanes pass 506 tests and all five stages, with
+1,377 matching source bindings. Windows has 16 skips; Linux has four. A new
+immutable desktop candidate still must pass the complete installed workflow.
+
+The [prior automatic merge feedback](validation/chunk7-metal-installed-hosted-feedback-2026-10-25.json)
+passed all five stages on both hosts: 504 tests per host, with four Linux and
+fifteen Windows skips. Both retained artifacts pass readback, and all 1,377
+source identities match that candidate. This was focused source feedback; it
+omitted the capability test that failed full discovery. The complete original
+failure logs are retained separately from the repair and any subsequent run.
+
+**October 25 GF180 discrepancy provenance resolved.** The
+[upstream reference review](validation/gf180-mos-upstream-discrepancy-2026-10-25.json)
+confirms that the two retained fast-corner current overshoots already appear
+in the released model-reference workbook; its values agree with independently
+re-read historical direct-model results at the workbook's displayed precision.
+The latest reviewed upstream MOS model is unchanged. This removes application
+export as the origin of that conflict; the literal specification failures and
+incomplete threshold definition remain open. No new simulation or relaxed limit
+is claimed. The 269 KB source/evidence archive passes complete readback. This
+review and its documentation remain local while the desktop candidate runs.
 
 **October 25 next milestone in progress, based on `489b0ea`: installed resistor
 acceptance.** The new versioned contract fixes 30 actual editor/native inputs

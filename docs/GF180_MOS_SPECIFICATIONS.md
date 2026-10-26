@@ -64,6 +64,31 @@ The 47 affected tests pass on both hosts. The first Windows test attempt hit
 sandbox temporary-file permissions; an ordinary-user retry passes unchanged
 tests without administrator access.
 
+## October 25 upstream discrepancy provenance
+
+The [public-reference review](validation/gf180-mos-upstream-discrepancy-2026-10-25.json)
+finds the same fast-corner overshoot in the released upstream Rev9 workbook.
+At the pinned primitive-library revision, `spec_all_fets.nl_out.xlsx` cells
+X2/X3 report 590.50 and -290.47 uA/um for the standard 10/0.28 um devices;
+G15/G16 repeat those values. The retained direct-default diagnostics agree at
+the workbook's displayed precision. This establishes that the conflict also
+exists in the published model reference outputs. The latest reviewed upstream
+MOS model is byte-identical to the pinned one.
+
+The review re-read two historical raw outputs, covering 1,322 DC samples,
+without running another simulation. Both an independent workbook parser and
+the spreadsheet reader confirm the source cells. The complete 269 KB archive
+retains the original Apache-2.0 sources, exact hashes and raw-member references.
+The existing application values, literal limits, `MISMATCH` and exit 2 remain
+unchanged. Displayed reference precision does not authorize rounding a limit.
+
+The workbook's derivative threshold values support the signed VDS/2 correction
+numerically, but provide no extraction formula, full fixture or acceptance
+policy. This is an inference, not threshold acceptance; the largest selected
+corrected difference is about 0.139 mV. Some published threshold reference
+values also cross the printed EP endpoints. A source-backed reconciliation is
+still needed; choosing another observable cannot close the same requirement.
+
 ## Reproduction
 
 From the repository root with its Python dependencies and a compatible local

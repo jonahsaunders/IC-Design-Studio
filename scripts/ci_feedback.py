@@ -13,6 +13,7 @@ UNIT_MODULES = (
     'test_ci_candidate', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
     'test_core', 'test_lifecycle', 'test_workflows', 'test_project_pdk',
     'test_pdk_templates', 'test_student_physical', 'test_layout_verification',
+    'test_analog.AnalogTests.test_capabilities_do_not_trust_catalog_or_metadata',
     'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_sky130_li_linked',

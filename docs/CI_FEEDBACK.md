@@ -106,3 +106,11 @@ It passes 293 tests per host (15 Windows skips, two Linux skips), release-docume
 checks and both GUI probes in 81.7 seconds on Windows and 39.0 seconds on native
 Linux storage. All 1,340 source bindings match the frozen snapshot. These are
 local timings; hosted queue/setup and installed acceptance remain separate.
+
+The [October 26 capability repair](validation/chunk7-desktop-capability-repair-2026-10-26.json)
+adds the exact native-layout capability test to this lane. It caught an outdated
+expected list in the prior full desktop discovery; the corrected test preserves
+all forged-metadata, layer and source-lock rejection checks. Only that method
+is selected, with an explicit selector regression. The repaired source lane
+passes 506 tests per host and all five stages; installed acceptance remains
+separate.
