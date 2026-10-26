@@ -9,7 +9,7 @@ spec=importlib.util.spec_from_file_location('handoff',HELPER);h=importlib.util.m
 class HandoffTests(unittest.TestCase):
  def setUp(self):
   self.temp=tempfile.TemporaryDirectory(prefix='desktop-handoff-')
-  self.root=Path(self.temp.name)/'root';self.root.mkdir()
+  self.root=Path(self.temp.name).resolve()/'root';self.root.mkdir()
   def write(name,data):
    p=self.root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data if isinstance(data,bytes) else data.encode());return p
   self.write=write
@@ -196,5 +196,26 @@ class HandoffTests(unittest.TestCase):
  def test_linked_archive_input_rejected(self):
   self.prepare_restore();p=self.folder/h.ARCHIVE;target=self.root/'retained-payload.tar';p.rename(target);p.symlink_to(target)
   self.reject()
-if __name__=='__main__':unittest.main()
 
+
+
+class FixturePathTests(unittest.TestCase):
+ def test_aliased_temporary_directory_keeps_canonical_workspace_identity(self):
+  from types import SimpleNamespace
+  from unittest.mock import patch
+  with tempfile.TemporaryDirectory(prefix='handoff-alias-') as tmp:
+   actual=Path(tmp).resolve();alias_parent=actual/'alias';alias_parent.mkdir()
+   lexical=alias_parent/'..'
+   self.assertNotEqual(lexical,actual);self.assertEqual(lexical.resolve(),actual)
+   fixture=HandoffTests()
+   with patch.object(tempfile,'TemporaryDirectory',return_value=SimpleNamespace(name=str(lexical),cleanup=lambda:None)):
+    fixture.setUp()
+   try:
+    self.assertEqual(fixture.root,(actual/'root').resolve())
+    original=fixture.prepare_restore();restored=fixture.restore()
+    self.assertEqual(restored['status'],'PASS')
+    self.assertEqual(original['identity']['workspace'],fixture.root.as_posix())
+    self.assertEqual(h.sha(fixture.root/h.SOURCE),original['source']['sha256'])
+   finally:fixture.tearDown()
+
+if __name__=='__main__':unittest.main()

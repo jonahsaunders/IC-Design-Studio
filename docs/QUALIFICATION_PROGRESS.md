@@ -32,7 +32,18 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
-**Integrated source milestone; ready for publication.**
+The [follow-up desktop fixture repair](validation/desktop-handoff-fixture-repair-2026-10-26.json)
+addresses the Windows temporary-path alias failure found by hosted feedback and
+the new desktop portable lane. Both d9 failures and the passing Linux source
+artifact are retained. The fixture now stores the canonical workspace path;
+a portable alias regression fails before the repair and passes after it.
+Production containment checks, source identity checks and all qualification
+gates are unchanged. Final local feedback passes 682 tests and all six stages
+on both hosts, with identical 1,415 source hashes except the reviewed test delta.
+Fresh hosted feedback and the repaired split desktop candidate remain pending.
+The estimate stays 70% (55–80%, low confidence).
+
+**Published implementation: `d9c0fc3db714891226e0dfbabca044ce38a81f09`; follow-up fixture repair locally verified.**
 The [corrected optional ESD binding](SKY130_ESD_NVT_BINDING.md) uses the official
 public symbol correction and unchanged licensed model. Both Windows and Linux
 pass all 19 selected contexts and 98 native executions; independent readers

@@ -251,6 +251,11 @@
         "tests_per_host": 681,
         "stages_per_host": 6,
         "device_statuses_unchanged": true
+      },
+      "latest_handoff_fixture_repair": {
+        "evidence": "desktop-handoff-fixture-repair-2026-10-26",
+        "status": "local_both_host_feedback_pass_hosted_pending",
+        "device_statuses_unchanged": true
       }
     },
     "8": {
@@ -25597,6 +25602,11 @@
       "path": "docs/validation/chunk7-esd-hierarchy-integration-2026-10-26.json",
       "sha256": "54110b1bbc91c6eeb897c56912171d4bae4a62addbfde8a36cc27d5077d13092",
       "scope_limit": "Integrated source feedback only: corrected optional ESD binding, numeric choices, selected MiM hierarchy electrical tools and authenticated desktop job split. Not fresh installed, full-family or manufacturing acceptance."
+    },
+    "desktop-handoff-fixture-repair-2026-10-26": {
+      "path": "docs/validation/desktop-handoff-fixture-repair-2026-10-26.json",
+      "sha256": "3860f2de8395175058f9c78208a7b5208eea9a61823454132702ac4d5e657a0c",
+      "scope_limit": "Test-fixture canonical-path repair only. Production payload/path/source checks, native tools, operating limits and family gates are unchanged. Local integrated source feedback is not hosted installed acceptance."
     }
   },
   "execution_acceptance": {
