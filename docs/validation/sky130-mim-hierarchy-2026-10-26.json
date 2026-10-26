@@ -1,0 +1,378 @@
+{
+  "schema": 1,
+  "id": "sky130-mim-hierarchy-2026-10-26",
+  "date": "2026-10-26",
+  "chunk": 7,
+  "status": "selected_imported_hierarchy_source_integration_passed",
+  "source_baseline": "f081d172cb7132ca579c0bd3ff3e187ddbd1e35e",
+  "qualified": false,
+  "full_family": false,
+  "installed": false,
+  "signoff": false,
+  "chunk_complete": false,
+  "scope": "Selected imported repeated-cell class for both existing 2x10 um MiM constructions; source/project and stream hierarchy preserved, actual private flattened native extraction and independent ordered four-port connectivity checked.",
+  "contract": {
+    "path": "docs/qualification/sky130-mim-hierarchy-v1.json",
+    "sha256": "7bfb3c4ac6c936e378faab28892e924f46e73295b468a8b45e265c9ef7c823a4"
+  },
+  "source_snapshot": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-mim-hierarchy-20261026-v1/source-manifest-v2.json",
+    "sha256": "6567cba2de151cde640dbdf83ca0bbb516d630fec9f62f9434a4b2ef361523d8",
+    "files": 6566,
+    "candidate": "f081d172cb7132ca579c0bd3ff3e187ddbd1e35e",
+    "historical_fixture_git_metadata": "65614924f125200db068d66669af6fe102c71e45"
+  },
+  "source_hashes": {
+    "scripts/qualify_sky130_mim_hierarchy.py": "deb356409442bfcdf733ba12d100cacc9ab1a3cf25c889fe7749353d54ac36c2",
+    "scripts/audit_sky130_mim_hierarchy.py": "a70f1ea506e8b3edd9a30f2b09cd9acb47f662f5863fabe187e733f1743a9343",
+    "tests/test_sky130_mim_hierarchy.py": "539400c7a9c45bd9a5854b0e66f8221efca51c25ed9eee52744d54d30812cf6c",
+    "tests/test_sky130_mim_hierarchy_audit.py": "cfdcda9c33c666d31920bbc113c2e73122683db59a93c44b7adead602fb75f35",
+    "docs/qualification/sky130-mim-hierarchy-v1.json": "7bfb3c4ac6c936e378faab28892e924f46e73295b468a8b45e265c9ef7c823a4"
+  },
+  "counts": {
+    "models": 2,
+    "clean_layouts": 4,
+    "native_capacitors": 8,
+    "native_faults": 8,
+    "exchange_controls": 10
+  },
+  "native": {
+    "root": "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1",
+    "qualification_sha256": "069db1ff6115e63c3d16925de68f4d01791ae64f57859a1a7625d4831396778a",
+    "manifest_sha256": "088cff5586c95ee808b5b6434bc5d4e9dd56d43e60c90f313e33e464cef66ab6",
+    "guards": {
+      "source": true,
+      "physical_package": true,
+      "runtime": true
+    },
+    "tools": {
+      "magic": {
+        "path": "/opt/icstudio/bin/magic",
+        "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223"
+      },
+      "netgen": {
+        "path": "/opt/icstudio/bin/netgen",
+        "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+      }
+    },
+    "physical_package": {
+      "target": "sky130A",
+      "revision": "9a491f0ebd51a0aa",
+      "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+      "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+    },
+    "physical_files_sha256": "51717cc2b81ae2ad1fe91db5bfc99f39182b8b32b2c0e18e2df18ffec818808d",
+    "runtime_before_sha256": "d726d4b50f9ed83e3243a384359a5fa36256f12caff7f81d215e9c849f213691",
+    "runtime_after_sha256": "d726d4b50f9ed83e3243a384359a5fa36256f12caff7f81d215e9c849f213691"
+  },
+  "native_invocation": {
+    "sha256": "d8cd1edc0d5f16b4246d62338d16f4b84bfe3d2340b8891ac89497a9b4c7a630",
+    "seconds": 20.019007117
+  },
+  "independent_audit": {
+    "schema": 1,
+    "status": "PASS",
+    "suite": "sky130-mim-hierarchy-v1",
+    "execution_id": "9c0805faf8944533882a602c7dca831c",
+    "original_execution_root": "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1",
+    "qualification_sha256": "069db1ff6115e63c3d16925de68f4d01791ae64f57859a1a7625d4831396778a",
+    "manifest_sha256": "088cff5586c95ee808b5b6434bc5d4e9dd56d43e60c90f313e33e464cef66ab6",
+    "source_files_sha256": "b1f79c551554874b647dc54e478d44f570c2d2f28c464d9cfa5e4bde2007cd52",
+    "qualified": false,
+    "full_family": false,
+    "installed": false,
+    "release_ready": false,
+    "signoff": false,
+    "chunk_complete": false,
+    "counts": {
+      "models": 2,
+      "clean_layouts": 4,
+      "native_capacitors": 8,
+      "native_faults": 8,
+      "exchange_controls": 10
+    },
+    "full_selected_models": true,
+    "source_binding": "captured sources matched reviewed files",
+    "scope": "Independent retained-artifact audit of the selected imported MiM hierarchy.\n\nTwo existing capacitor occurrences remain editable hierarchy; native verification\nuses a private flattened stream. No direct hierarchical Magic, RC, electrical,\ninstalled, full-family or foundry qualification is inferred.\n"
+  },
+  "independent_review": {
+    "schema": 1,
+    "status": "PASS",
+    "scope": "Independent source integration readback of the complete selected imported MiM repeated-cell class only.",
+    "counts": {
+      "models": 2,
+      "clean_layouts": 4,
+      "native_capacitors": 8,
+      "native_faults": 8,
+      "exchange_controls": 10
+    },
+    "source_files_verified": 837,
+    "source_files_sha256": "b1f79c551554874b647dc54e478d44f570c2d2f28c464d9cfa5e4bde2007cd52",
+    "source_binding": "Every captured full-run source file matches final reviewed Windows checkout bytes; full original native file inventories also rehashed.",
+    "original_full_qualification_sha256": "069db1ff6115e63c3d16925de68f4d01791ae64f57859a1a7625d4831396778a",
+    "original_full_manifest_sha256": "088cff5586c95ee808b5b6434bc5d4e9dd56d43e60c90f313e33e464cef66ab6",
+    "pilot_readback_sha256": "bd8f76a90838352695cc6d6a7bfbca0091324042d5b2cacec3b13a847e83d48a",
+    "full_readback_sha256": "e5d083e62adafed192f010798076016b4d76545a747472525c49cd659fd99f7c",
+    "reader_source_delta": {
+      "scripts/audit_sky130_mim_hierarchy.py": {
+        "pilot": "d281ee1522548a71ec4283e777529830ff359a248ef81c624aa33651d15b6b26",
+        "full": "a70f1ea506e8b3edd9a30f2b09cd9acb47f662f5863fabe187e733f1743a9343"
+      },
+      "tests/test_sky130_mim_hierarchy_audit.py": {
+        "pilot": "8ecd6a068adb9145eed276dae4e81651c570d4035ec272ce7e68de81b5410a78",
+        "full": "cfdcda9c33c666d31920bbc113c2e73122683db59a93c44b7adead602fb75f35"
+      }
+    },
+    "reader_adaptations_sha256": "53344507f369f2a02fc00b013da122aa83ae32e64256ce121a69988a4501a6ed",
+    "semantic_controls": {
+      "pilot_executions": 12,
+      "full_executions": 14,
+      "distinct_kinds": 14,
+      "rejected": 26,
+      "accepted": 0,
+      "second_plate_specific": [
+        "ordered native electrode polarity",
+        "actual normalized native EXT orientation"
+      ],
+      "rehash_all_dependent_receipts": true
+    },
+    "original_native_inventories_unchanged": true,
+    "no_native_reexecution_for_reader_adaptations": true,
+    "qualified": false,
+    "installed": false,
+    "full_family": false,
+    "release_ready": false,
+    "signoff": false,
+    "chunk_complete": false,
+    "limitations": [
+      "Only two legal 2x10 um unit leaves, each reused twice, and two whole-top orientations.",
+      "Project/GDS/OASIS hierarchy remains; only private native verification input is flattened.",
+      "No direct hierarchical Magic extraction, RC/electrical execution, public KLayout acceptance, installed or foundry claim."
+    ]
+  },
+  "feedback": {
+    "schema": 1,
+    "status": "PASS",
+    "scope": "Final source feedback after the native selected MiM hierarchy and independent checker corrections. No complete-core or installed acceptance is inferred.",
+    "candidate_baseline": "f081d172cb7132ca579c0bd3ff3e187ddbd1e35e",
+    "source_bindings": 1402,
+    "both_maps_identical_and_current": true,
+    "platforms": [
+      {
+        "platform": "Windows",
+        "tests": 601,
+        "skips": 16,
+        "unit_seconds": 89.321,
+        "seconds": 184.765,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 90.219
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 3.485
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 30.687
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 9.344
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 9.344
+          },
+          {
+            "name": "metal-resistor-parallel-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 39.453
+          }
+        ],
+        "report_sha256": "984fcc1ea88a3c9c8d621d778323eccf3c28a624a91df25c9cd99b5f65aabc5c"
+      },
+      {
+        "platform": "Linux",
+        "tests": 601,
+        "skips": 4,
+        "seconds": 80.887,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 23.776
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 1.769
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 24.365
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 3.632
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 5.032
+          },
+          {
+            "name": "metal-resistor-parallel-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 20.632
+          }
+        ],
+        "report_sha256": "2fc8aef46d334c670eb7b0dc32aa3143ea088c0f8c4b3244012f7e8ed9c203b2",
+        "historical_git_metadata": "65614924f125200db068d66669af6fe102c71e45"
+      }
+    ],
+    "source_manifest_sha256": "6567cba2de151cde640dbdf83ca0bbb516d630fec9f62f9434a4b2ef361523d8",
+    "installed_acceptance": false,
+    "chunk_complete": false
+  },
+  "shared_helpers": {
+    "status": "PASS",
+    "moved_helpers": [
+      "texts",
+      "masks",
+      "same_regions"
+    ],
+    "functions_identical": true,
+    "old_runner_sha256": "6001604e59d2d49a8ad7c4e10db31e987ffa5b9821f59ff30648781f2bb56af7",
+    "new_runner_sha256": "6acf824f6118143b0af82138dc9ea88b3199a0dea31458b87adef8775a6e4573",
+    "old_geometry_sha256": "81e9b4253290860f272ee88d0487cb0d53cb40e1df548f34800e483d5e4a1689",
+    "new_geometry_sha256": "13a9b37c65cf708a305a023f662a0b3dbcaf4f779b4d1cd1299cdae24f8b8143",
+    "scope": "Verbatim process-neutral helper extraction; old module re-exports the same public names. Fixed placement transforms remain class-specific."
+  },
+  "archive": {
+    "schema": 1,
+    "status": "PASS",
+    "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-hierarchy-2026-10-26-v1/evidence.zip",
+    "archive_sha256": "0626cb1d07050768911a6056009e99ac9ce3bcf13d0313b6786195879c434caa",
+    "archive_bytes": 19917577,
+    "manifest_sha256": "7a5caf43e2a2c1c41c8e19e1b2c6858498c50eccf1b9b0238a4d63d926291693",
+    "logical_files": 2969,
+    "unique_objects": 1761,
+    "logical_bytes": 391149098,
+    "all_objects_verified": true,
+    "all_source_files_unchanged": true,
+    "physical_dependency": {
+      "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-li-linked-2026-10-23-v1/evidence.zip",
+      "archive_sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49",
+      "archive_manifest_sha256": "4cf6c59df51ce30917fb72731bd962e2750edff4adee8131e6d154efbacbac1b",
+      "archive_prefix": "native/physical-adapter/",
+      "package_manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417"
+    }
+  },
+  "recovery": {
+    "schema": 1,
+    "status": "PASS",
+    "archive_sha256": "0626cb1d07050768911a6056009e99ac9ce3bcf13d0313b6786195879c434caa",
+    "manifest_sha256": "7a5caf43e2a2c1c41c8e19e1b2c6858498c50eccf1b9b0238a4d63d926291693",
+    "restored_files": 1264,
+    "command": [
+      "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+      "-B",
+      "-X",
+      "pycache_prefix=/__icstudio_mim_hierarchy_archive_no_bytecode__",
+      "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1/source/scripts/audit_sky130_mim_hierarchy.py",
+      "--root",
+      "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1",
+      "--reviewed-source",
+      "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1/source"
+    ],
+    "cwd": "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1",
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "HOME": "/__icstudio_archive_readback_no_home__",
+      "LANG": "C",
+      "LC_ALL": "C",
+      "TZ": "UTC",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONNOUSERSITE": "1",
+      "PYTHONHASHSEED": "0"
+    },
+    "seconds": 0.8951423620000014,
+    "audit": {
+      "schema": 1,
+      "status": "PASS",
+      "suite": "sky130-mim-hierarchy-v1",
+      "execution_id": "9c0805faf8944533882a602c7dca831c",
+      "original_execution_root": "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1",
+      "qualification_sha256": "069db1ff6115e63c3d16925de68f4d01791ae64f57859a1a7625d4831396778a",
+      "manifest_sha256": "088cff5586c95ee808b5b6434bc5d4e9dd56d43e60c90f313e33e464cef66ab6",
+      "source_files_sha256": "b1f79c551554874b647dc54e478d44f570c2d2f28c464d9cfa5e4bde2007cd52",
+      "qualified": false,
+      "full_family": false,
+      "installed": false,
+      "release_ready": false,
+      "signoff": false,
+      "chunk_complete": false,
+      "counts": {
+        "models": 2,
+        "clean_layouts": 4,
+        "native_capacitors": 8,
+        "native_faults": 8,
+        "exchange_controls": 10
+      },
+      "full_selected_models": true,
+      "source_binding": "captured sources matched reviewed files",
+      "scope": "Independent retained-artifact audit of the selected imported MiM hierarchy.\n\nTwo existing capacitor occurrences remain editable hierarchy; native verification\nuses a private flattened stream. No direct hierarchical Magic, RC, electrical,\ninstalled, full-family or foundry qualification is inferred.\n"
+    },
+    "preserved_original": "/var/tmp/icstudio-mim-hierarchy-20261026-v1/archive-originals/full-v1",
+    "restored_path": "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1",
+    "original_execution_path_preserved": true,
+    "scope": "Full independent readback of restored raw evidence at its original absolute path. Original bytes remain separately preserved. No Magic/Netgen/GUI execution."
+  },
+  "integrator_archive_verification": {
+    "schema": 1,
+    "status": "PASS",
+    "archive_sha256": "0626cb1d07050768911a6056009e99ac9ce3bcf13d0313b6786195879c434caa",
+    "manifest_sha256": "7a5caf43e2a2c1c41c8e19e1b2c6858498c50eccf1b9b0238a4d63d926291693",
+    "logical_files_verified": 2969,
+    "unique_objects_verified": 1761,
+    "native_source_bindings_verified": 837,
+    "unit_logs": [
+      {
+        "logical_file": "linux-feedback/feedback/unit-contracts.log",
+        "tests": 601,
+        "skips": 4,
+        "seconds": 22.766
+      },
+      {
+        "logical_file": "work/windows-feedback-v1/feedback/unit-contracts.log",
+        "tests": 601,
+        "skips": 16,
+        "seconds": 89.321
+      }
+    ],
+    "recovery_audit_equals_original": true,
+    "recovery_sha256": "2ccbbeccca34ffdc09bba8a9d92fa61a925f6c16b6d582f9075cfcd8b51e814f",
+    "scope": "Integrator independently re-read every archived object, actual unit logs, all native source bindings and exact recovery result. No native execution repeated."
+  },
+  "retained_failures": [
+    "The first pilot completed native checks but the new independent reader assumed an optional empty flat-project field was present. Its original failure and executed source are retained; the corrected reader accepts only the valid empty/default schema.",
+    "The corrected reader then encountered the actual Netgen unique-match/property-error conclusion rather than its assumed symmetry wording. It now accepts the observed conclusion only with the exact selected model, top, W3-versus-W2 property mismatch and correct native graph. Original failure retained.",
+    "Only two checker/test source files changed from pilot to full selection. The pilot raw evidence was re-read with a separately identified later checker; the full two-model selection ran fresh with the final captured source."
+  ],
+  "limits": [
+    "Only two legal 2x10 um unit leaves, each reused twice, and two whole-top orientations.",
+    "Project/GDS/OASIS hierarchy remains; only private native verification input is flattened.",
+    "No direct hierarchical Magic extraction, RC/electrical execution, public KLayout acceptance, installed or foundry claim.",
+    "Other sizes, arrays, stacked/shared electrodes, dummy and contact classes remain open.",
+    "Operating envelopes, statistical/reliability calibration, missing bindings and installed acceptance beyond existing finite recipes remain open. All device statuses and chunk completion gates are unchanged."
+  ]
+}

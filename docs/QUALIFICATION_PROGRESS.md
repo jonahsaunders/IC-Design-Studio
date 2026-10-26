@@ -29,7 +29,39 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
-**Current source candidate: `7a44a9485f83acb7155393bf16b589cdf482b0b9`.**
+**Completed local MiM hierarchy source milestone, based on `f081d172`.**
+The [new imported repeated-cell example](SKY130_MIM_HIERARCHY.md) passes both
+capacitor constructions: four native clean layouts, eight native fault jobs,
+ten stream controls and fourteen distinct rehashed evidence controls. Both
+601-test source lanes and all six stages pass; all 1,402 feedback source hashes
+match, and all 837 captured native source bindings are independently verified.
+The 19.92 MB archive restores all 1,264 full-run files at their original paths
+and reproduces the unchanged independent audit. The original pilot checker
+failures and later corrections remain separately identified. Generic producer
+geometry helpers are shared without changing their function syntax trees.
+This closes one predefined imported class, not a complete capacitor family;
+chunk 7 remains approximately 67% (55–75%, low confidence).
+
+**Published repair baseline: `f081d172cb7132ca579c0bd3ff3e187ddbd1e35e`.**
+The Windows temporary-path fixture repair is pushed to `experimental`.
+[Fresh hosted feedback](validation/sky130-metal-parallel-repair-hosted-feedback-2026-10-26.json)
+passes both 582-test, six-stage lanes and the required aggregate: Windows
+204.5 seconds with fifteen skips, Linux 131.3 seconds with four skips, excluding
+setup/queue time. Both downloaded archives pass complete readback; all 1,398
+source hashes match the candidate and the accepted local repair lanes. Actual
+synthetic-merge parents match the candidate and current `main`. The original
+failed hosted run remains retained separately. The following source/acceptance
+records keep their own immutable identities. This hosted-result record accompanies the next implementation batch above;
+no status-only rerun is needed.
+
+The [bounded public-source recheck](validation/chunk7-public-source-review-2026-10-26.json)
+finds no new exact binding in the inspected maintained SKY130 source paths,
+and no local unit/corner error resolving GF180's published fast-corner mismatch.
+The exact missing generating fixture/threshold definition and model-versus-spec
+reconciliation remain listed. Six real bindings and full device limits remain
+open; no approximate model substitutions or relaxed limits are accepted.
+
+**Installed-array source candidate: `7a44a9485f83acb7155393bf16b589cdf482b0b9`.**
 The complete installed-array source rehearsal and required desktop hooks are
 pushed to `experimental`; all 1,398 feedback and 861 electrical/checker source
 bindings match its Git blobs. Its automatic Linux feedback passes all six
@@ -44,7 +76,7 @@ The repaired fixture now passes both complete 582-test source lanes and all
 six stages, with four Linux skips and sixteen Windows skips. All 1,398
 source hashes agree; only the test fixture differs from the published
 source candidate. The original hosted failure remains retained separately.
-The repair is ready for the next immutable candidate and fresh hosted feedback.
+The subsequent `f081d172` candidate and hosted result above complete this source repair.
 
 **Published hierarchy/array implementation: `79a3fd4803ed0652fc5f3db8b06999186f6fdbb2`.**
 The imported-hierarchy and editable-array work, final source regression and

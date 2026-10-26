@@ -19,6 +19,12 @@ remain open. The installed electrical selection has mismatch disabled; actual
 `_mm` alias integration is covered by the separate source experiment below,
 while empirical statistical calibration remains unresolved.
 
+The [October 26 imported repeated-cell milestone](SKY130_MIM_HIERARCHY.md)
+adds four source layouts across both constructions, with preserved editable
+and stream hierarchy, privately flattened native verification, independent
+ordered terminals and recovered evidence readback. This is a separate finite
+class; it adds no installed, direct hierarchical extraction or RC-accuracy claim.
+
 ## Current requirement disposition
 
 The twelve original requirements retain their original definitions. Later
@@ -36,7 +42,7 @@ requirements open; the immutable planning contract is not rewritten.
 | `MIM-RELIABILITY` | Duty, time, temperature and electrical-stress applicability remain unresolved. |
 | `MIM-SPEC-ACCURACY` | Published limits still need measurement-condition and topology mapping. |
 | `MIM-STATISTICS` | Selected actual alias execution completed; empirical distributions/correlations, process/layout dependence and reliability calibration remain open. |
-| `MIM-PHYSICAL-CLASSES` | Selected isolated rectangles and parallel examples pass; stacked/shared/dummy/imported/hierarchical classes remain partial. |
+| `MIM-PHYSICAL-CLASSES` | Selected rectangles, parallel examples and imported repeated cells pass; stacked/shared/dummy and other hierarchical classes remain partial. |
 | `MIM-WRITTEN-RULES` | Legacy stack terminology and missing numerical/context definitions remain unresolved. |
 | `MIM-EXTRACTED-RC` | Selected mask-derived lumped-model integration passes; distributed/substrate/top-sheet accuracy and direct hierarchy remain open. |
 | `MIM-INSTALLED` | Original configured Windows/Linux recipe completed at `65614924`; no added family-wide prerequisite. |

@@ -10,7 +10,10 @@ native readback and restored evidence checks pass. The separate
 its complete 280-layout, 25-fault and thirty-context DC/AC source selection.
 It adds editable counts 1–16 for all five models, with attached-route and
 single-unit compatibility checks. Exact installed straight-resistor acceptance is running
-on `e3fa0cc` and remains pending.
+on `e3fa0cc` and remains pending. Both MiM constructions also complete the
+selected [imported repeated-cell source class](SKY130_MIM_HIERARCHY.md), with
+four native clean layouts, eight native controls, ten stream controls and
+restored independent readback. Full remaining class/envelope requirements remain.
 The original planning baseline `43a04bb` and the
 [sampled IHP high-voltage MOS acceptance](IHP_HV_MOS_LAYOUTS.md) retain their
 historical scope. New results are linked explicitly below. The authoritative

@@ -29,6 +29,7 @@ from scripts import qualify_sky130_metal_resistor_layouts as straight
 from scripts import sky130_li_resume as identity
 from scripts.qualify_standard_mos import write
 from scripts.qualify_standard_mos_layout import technology
+from scripts.qualification_geometry import masks, same_regions, texts
 
 MODELS = ('l1', 'm1', 'm2', 'm3', 'm4')
 PORTS = ('A1', 'B1', 'A2', 'B2')
@@ -63,32 +64,6 @@ def transforms(angle):
     require(angle in ANGLES, 'Unreviewed top orientation.')
     db = kdb(); whole = db.Trans(angle//90, False, 0, 0)
     return [whole * db.Trans(), whole * db.Trans(1, True, 40000, 0)]
-
-
-def texts(ly, cell):
-    return [(ly.get_info(index).layer, ly.get_info(index).datatype, shape.text)
-            for index in ly.layer_indexes() for shape in cell.shapes(index).each()
-            if shape.is_text()]
-
-
-def masks(ly, cell, recursive=False):
-    db = kdb(); result = {}
-    for index in ly.layer_indexes():
-        info = ly.get_info(index)
-        if recursive:
-            shapes = cell.begin_shapes_rec(index)
-            shapes.shape_flags = db.Shapes.SBoxes | db.Shapes.SPolygons | db.Shapes.SPaths
-            region = db.Region(shapes).merged()
-        else:
-            region = db.Region(cell.shapes(index)).merged()
-        if not region.is_empty():
-            result[info.layer, info.datatype] = region
-    return result
-
-
-def same_regions(a, b):
-    require(set(a) == set(b) and all((a[key] ^ b[key]).is_empty() for key in a),
-            'The hierarchy/exchange changed a physical mask.')
 
 
 def make_stream(leaf_path, target, model, angle):

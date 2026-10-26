@@ -193,6 +193,19 @@
         "archive_restored_readback": "PASS",
         "installed_acceptance": false,
         "device_statuses_unchanged": true
+      },
+      "latest_sky130_mim_hierarchy": {
+        "evidence": "sky130-mim-hierarchy-2026-10-26",
+        "status": "selected_imported_hierarchy_source_integration_passed",
+        "models": 2,
+        "clean_layouts": 4,
+        "native_capacitors": 8,
+        "native_faults": 8,
+        "exchange_controls": 10,
+        "independent_control_kinds": 14,
+        "archive_restored_readback": "PASS",
+        "installed_acceptance": false,
+        "device_statuses_unchanged": true
       }
     },
     "8": {
@@ -25507,6 +25520,11 @@
       "path": "docs/validation/sky130-metal-parallel-installed-source-2026-10-26.json",
       "sha256": "6e887cef2c81be2f282387fd841693bb0df6c165e11ce92858666c3e509ba1f5",
       "scope_limit": "Selected source rehearsal of the new installed parallel-array workflow: 30 actual arrays, 20 routed edits, 43 queued requests, 60 DC/AC analyses, 31 rehashed component controls and restored audits at the original execution paths. Fresh installed Windows/Linux acceptance and full-family qualification remain open."
+    },
+    "sky130-mim-hierarchy-2026-10-26": {
+      "path": "docs/validation/sky130-mim-hierarchy-2026-10-26.json",
+      "sha256": "05241ecbef627a08ac2a1ed0959d07e018f5638e5d352c922d3e5e6100ff4184",
+      "scope_limit": "Selected source imported repeated-cell class for both MiM constructions: four layouts, eight native faults and ten stream controls; preserved project/GDS/OASIS hierarchy with privately flattened native verification. No direct hierarchical native extraction, distributed RC, complete-family, installed or signoff qualification."
     }
   },
   "execution_acceptance": {

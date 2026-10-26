@@ -1,4 +1,4 @@
-"""Process-neutral mask/rotation helpers for flat qualification coupons."""
+"""Process-neutral mask/rotation helpers for flat and hierarchical qualification."""
 from icstudio.layout import kdb,polygon
 from icstudio.model import clone
 
@@ -22,3 +22,34 @@ def rotated(p):
     for t in c.get('layout_texts',[]):t['x'],t['y']=-t['y'],t['x'];t['rotation']=(t.get('rotation',0)+90)%360
     for v in c['layout_ports']:v['point']=[-v['point'][1],v['point'][0]]
     return q
+
+
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
+def texts(ly, cell):
+    return [(ly.get_info(index).layer, ly.get_info(index).datatype, shape.text)
+            for index in ly.layer_indexes() for shape in cell.shapes(index).each()
+            if shape.is_text()]
+
+
+def masks(ly, cell, recursive=False):
+    db = kdb(); result = {}
+    for index in ly.layer_indexes():
+        info = ly.get_info(index)
+        if recursive:
+            shapes = cell.begin_shapes_rec(index)
+            shapes.shape_flags = db.Shapes.SBoxes | db.Shapes.SPolygons | db.Shapes.SPaths
+            region = db.Region(shapes).merged()
+        else:
+            region = db.Region(cell.shapes(index)).merged()
+        if not region.is_empty():
+            result[info.layer, info.datatype] = region
+    return result
+
+
+def same_regions(a, b):
+    require(set(a) == set(b) and all((a[key] ^ b[key]).is_empty() for key in a),
+            'The hierarchy/exchange changed a physical mask.')
