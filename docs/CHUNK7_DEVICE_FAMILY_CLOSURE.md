@@ -1,7 +1,16 @@
 # Chunk 7: close one device family at a time
 
-Execution update: October 25, 2026, based on `6a9980b` plus the new
-[editable resistor and linked M1–M4 milestone](SKY130_METAL_RESISTOR_EDITOR.md).
+Execution update: October 26, 2026. The
+[editable resistor and linked M1–M4 milestone](SKY130_METAL_RESISTOR_EDITOR.md)
+is followed by the selected
+[imported repeated-cell class](SKY130_METAL_RESISTOR_HIERARCHY.md), based on
+`e3fa0cc` plus the separately retained qualification sources. Both independent
+native readback and restored evidence checks pass. The separate
+[physical parallel-array milestone](SKY130_METAL_RESISTOR_PARALLEL.md) now passes
+its complete 280-layout, 25-fault and thirty-context DC/AC source selection.
+It adds editable counts 1–16 for all five models, with attached-route and
+single-unit compatibility checks. Exact installed straight-resistor acceptance is running
+on `e3fa0cc` and remains pending.
 The original planning baseline `43a04bb` and the
 [sampled IHP high-voltage MOS acceptance](IHP_HV_MOS_LAYOUTS.md) retain their
 historical scope. New results are linked explicitly below. The authoritative

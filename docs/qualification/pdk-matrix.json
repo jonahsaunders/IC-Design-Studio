@@ -157,7 +157,30 @@
         "device_statuses_unchanged": true
       },
       "latest_sky130_metal_editor_evidence": "sky130-metal-editor-linked-2026-10-25",
-      "latest_sky130_metal_installed_source": "sky130-metal-installed-source-2026-10-25"
+      "latest_sky130_metal_installed_source": "sky130-metal-installed-source-2026-10-25",
+      "latest_sky130_metal_hierarchy": {
+        "evidence": "sky130-metal-hierarchy-2026-10-26",
+        "status": "selected_imported_hierarchy_source_integration_passed",
+        "models": 5,
+        "clean_layouts": 10,
+        "native_faults": 20,
+        "exchange_controls": 25,
+        "archive_restored_readback": "PASS",
+        "device_statuses_unchanged": true
+      },
+      "latest_sky130_metal_parallel": {
+        "evidence": "sky130-metal-parallel-2026-10-26",
+        "status": "selected_physical_parallel_array_source_integration_passed",
+        "models": 5,
+        "clean_layouts": 280,
+        "native_faults": 25,
+        "electrical_contexts": 30,
+        "simulator_runs": 60,
+        "qt_count_transitions": 20,
+        "single_unit_compatibility_cases": 40,
+        "archive_restored_readback": "PASS",
+        "device_statuses_unchanged": true
+      }
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -25456,6 +25479,16 @@
       "path": "docs/validation/sky130-metal-installed-source-2026-10-25.json",
       "sha256": "b754804ab47f4a3f813e43629ea6291abec2633f646671ca65b0f3d7c3973224",
       "scope_limit": "Source rehearsal of the selected installed resistor workflow: actual Qt exports, fresh queued extraction and received-input electrical checks. Exact Windows/Linux packaged acceptance remains pending; no full family, operating envelope or manufacturing qualification."
+    },
+    "sky130-metal-hierarchy-2026-10-26": {
+      "path": "docs/validation/sky130-metal-hierarchy-2026-10-26.json",
+      "sha256": "1ecfd069b3f5c58fa3e369eada4a0c44c57f7043d07d404b3f1dd7be4f18c4e1",
+      "scope_limit": "Selected source imported repeated-cell class only: five models, ten layouts, twenty native faults and twenty-five exchange controls. No full family, electrical hierarchy, parameterized array, installed or manufacturing qualification."
+    },
+    "sky130-metal-parallel-2026-10-26": {
+      "path": "docs/validation/sky130-metal-parallel-2026-10-26.json",
+      "sha256": "88ba1362d7339c11a264cd475270a9710abed26a5798fc0d092ab09f1bf9830a",
+      "scope_limit": "Selected source physical parallel-array editing and DC/AC integration for five SKY130 resistor models, counts 1–16: 280 clean layouts, 25 native faults, 30 actual-array electrical contexts. No full-family envelope, calibrated accuracy, array transient/noise, installed or signoff qualification."
     }
   },
   "execution_acceptance": {

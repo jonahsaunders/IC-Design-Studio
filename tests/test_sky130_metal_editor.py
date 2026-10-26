@@ -88,7 +88,7 @@ class MetalEditorTests(unittest.TestCase):
     def test_recipe_bounds_and_binding_reject_before_mutation(self):
         for key in LAYERS:
             p, c, d = fixture(key); original = clone(p)
-            for values in ({'w': .495}, {'l': 10.005}, {'w': .501}, {'w': '2u'}, {'mult': 2}, {'mult': .5}):
+            for values in ({'w': .495}, {'l': 10.005}, {'w': .501}, {'w': '2u'}, {'mult': 17}, {'mult': .5}):
                 changed = clone(d); changed['model_params'].update(values)
                 with self.subTest(key=key, values=values), self.assertRaises(ValueError):
                     geometry(p['pdk'], changed)

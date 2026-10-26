@@ -62,7 +62,7 @@ class FeedbackTests(unittest.TestCase):
         commands = stages()
         self.assertEqual([name for name, _ in commands],
                          ['unit-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
-                          'metal-resistor-editor-smoke'])
+                          'metal-resistor-editor-smoke', 'metal-resistor-parallel-smoke'])
         self.assertIn('test_pdk_qualification_matrix', UNIT_MODULES)
         self.assertIn('test_release_acceptance', UNIT_MODULES)
 

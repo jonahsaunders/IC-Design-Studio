@@ -1,5 +1,16 @@
 # PDK qualification in twelve chunks
 
+The October 26 [imported resistor hierarchy milestone](SKY130_METAL_RESISTOR_HIERARCHY.md)
+closes selected repeated-cell connectivity and stream preservation for LI/M1–M4.
+All ten clean layouts, twenty native faults and twenty-five exchange controls
+pass independent readback; restored evidence reproduces the audit. The separate
+[parallel-array implementation](SKY130_METAL_RESISTOR_PARALLEL.md) adds editable
+counts 1–16 to all five models. Its 280 native layouts, 25 fault controls and
+thirty actual-array DC/AC contexts pass the full independent source audit.
+The repaired desktop candidate's hosted fast checks pass on both platforms;
+full installed acceptance is still running. Full device and chunk gates remain
+unchanged.
+
 The October 25 [resistor milestone](SKY130_METAL_RESISTOR_EDITOR.md) delivers
 native editing for straight SKY130 LI and M1–M4 resistors, plus a separate
 source-locked four-model extracted-electrical contract. All selected native

@@ -30,6 +30,8 @@ UNIT_MODULES = (
     'test_metal_resistor_desktop_probe.ProbeBoundaries', 'test_frozen_metal_resistors',
     'test_installed_metal_resistor_inputs', 'test_installed_metal_resistors',
     'test_installed_metal_resistors_audit', 'test_installed_metal_resistors_aggregate',
+    'test_sky130_metal_resistor_hierarchy', 'test_sky130_metal_resistor_hierarchy_audit',
+    'test_sky130_metal_resistor_parallel', 'test_sky130_metal_resistor_parallel_audit',
 )
 
 
@@ -59,6 +61,8 @@ def stages(output=ROOT / 'build/ci-feedback'):
         ('project-hub-smoke', [sys.executable, 'tests/gui_project_hub.py']),
         ('metal-resistor-editor-smoke', [sys.executable, 'tests/gui_sky130_metal_editor.py',
                                       '--out', str(Path(output)/'metal-resistor-editor')]),
+        ('metal-resistor-parallel-smoke', [sys.executable, 'tests/gui_sky130_metal_resistor_parallel.py',
+                                         '--out', str(Path(output)/'metal-resistor-parallel')]),
     ]
 
 

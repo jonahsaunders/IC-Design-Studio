@@ -5,7 +5,8 @@ Linux. The default checkout tests GitHub's synthetic merge commit, preserving
 compatibility with the proposed base. The lane compiles application, script and
 test Python sources before installing dependencies, then runs focused editing,
 PDK, runtime, physical-interface and release-contract tests plus the menu,
-project-hub and five-model SKY130 resistor editor GUI smoke checks. The lane has no path filter, so documentation-only
+project-hub and five-model SKY130 resistor editor and multiplicity GUI smoke
+checks. The lane has no path filter, so documentation-only
 PRs also report its stable aggregate check, **PR feedback**.
 
 After the first hosted run passed on October 23, `main` was configured to require
@@ -114,3 +115,17 @@ all forged-metadata, layer and source-lock rejection checks. Only that method
 is selected, with an explicit selector regression. The repaired source lane
 passes 506 tests per host and all five stages; installed acceptance remains
 separate.
+
+The new repeated-cell and parallel-resistor work adds their focused producer
+and independent-checker tests. A sixth stage exercises actual source Qt
+multiplicity edits, attached routes, review/apply, undo/redo and save/reopen for
+all five models. Native physical/electrical batches and installed delivery
+remain separate acceptance gates. The historical 506-test, five-stage result
+above retains its exact candidate and scope.
+
+The [final October 26 array integration](validation/sky130-metal-parallel-source-feedback-2026-10-26.json)
+passes all six stages on both hosts: 550 tests each, four Linux skips and sixteen
+Windows skips. Source feedback takes 74.9 seconds on native Linux and 161.7
+seconds on Windows, excluding environment preparation. All 1,386 source hashes
+agree. Separate complete Linux discovery passes 3,725 tests with 61
+environment-dependent skips; no installed acceptance is inferred.

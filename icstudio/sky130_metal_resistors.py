@@ -39,8 +39,10 @@ def specification(tech, device):
     key = MODELS[binding['model']]
     layers(tech, key)
     values = parameter_values(binding, device)
-    if values['mult'] != 1:
-        raise ValueError('The straight LI/metal layout recipe supports one resistor; parallel arrays require a separate layout.')
+    multiplicity = values['mult']
+    if (not math.isfinite(multiplicity) or multiplicity != int(multiplicity)
+            or not 1 <= multiplicity <= 16):
+        raise ValueError('Use an integer resistor parallel multiplicity from 1 to 16.')
     size = {}
     for name in ('w', 'l'):
         nm = values[name]*1000
@@ -48,9 +50,13 @@ def specification(tech, device):
                 or round(nm) % 5 or not 500 <= nm <= 10000):
             raise ValueError(name.upper()+': use 0.5–10 µm on the 5 nm grid for this straight resistor recipe.')
         size[name] = round(nm)
-    return dict(api=1, recipe='metal_resistor', model=binding['model'], layer=key,
+    result = dict(api=1, recipe='metal_resistor', model=binding['model'], layer=key,
                 model_ref=clone(device['model_ref']), kind=device['kind'], values=values,
                 dimensions_nm=size, nets=clone(device['nets']))
+    # Preserve the existing single-unit saved specification exactly.
+    if multiplicity > 1:
+        result['multiplicity'] = int(multiplicity)
+    return result
 
 
 def configure_connectivity(tech):
@@ -86,5 +92,29 @@ def geometry(tech, device, x=0, y=0):
     cx = 5*(w//10)
     pins = [dict(id=uid(), device_id=device['id'], pin=name, layer=ls['conductor'],
                  point=[x+cx, y+py]) for name, py in (('m', -end//2), ('p', l+end//2))]
-    return dict(shapes=shapes, pins=pins,
+    data = dict(shapes=shapes, pins=pins,
                 record=dict(device_id=device['id'], spec=spec, origin=[x, y]))
+    count = spec.get('multiplicity', 1)
+    if count == 1:
+        return data
+    # Physical units are distinct; m is not represented by one enlarged marker.
+    # The 3 um gap is a placement policy. Native process checks remain required.
+    pitch = w+3000
+    base = clone(shapes)
+    for index in range(1, count):
+        for original in base:
+            shape = clone(original); shape['id'] = uid()
+            shape['generator_role'] = f'parallel:{index}:'+original['generator_role']
+            shape['points'] = [[px+index*pitch, py] for px, py in original['points']]
+            shapes.append(shape)
+    # Both 0.4 um buses fit wholly within the original 0.5 um unmarked
+    # landings, leaving 50 nm before the marker. Keep the first public pins
+    # stationary so multiplicity ECOs do not detach existing terminal routes.
+    for name, py in (('m', -end//2), ('p', l+end//2)):
+        shape = rect(ls['conductor'], x+cx-200, y+py-200,
+                     (count-1)*pitch+400, 400, device['id'])
+        shape.update(generated_device=device['id'], generator_role='metal_resistor:parallel_bus:'+name)
+        shapes.append(shape)
+    data['record']['parallel_units'] = dict(count=count, pitch_nm=pitch,
+        offsets_nm=[[index*pitch, 0] for index in range(count)])
+    return data

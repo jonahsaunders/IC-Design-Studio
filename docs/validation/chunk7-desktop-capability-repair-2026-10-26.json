@@ -162,5 +162,15 @@
     "First WSL launch selected a nonexistent user; no tests started. Existing uid1000 account was resolved as ubuntu.",
     "Windows-mounted historical-document read failed during snapshot preparation before fixture changes; verified current sources and the actual tracked delta were staged using Windows and read on native Linux."
   ],
-  "remaining": "Select a new immutable candidate and pass the full desktop workflow, including original core checks and actual installed resistor gates. No source-feedback result supplies installed acceptance."
+  "remaining": "Select a new immutable candidate and pass the full desktop workflow, including original core checks and actual installed resistor gates. No source-feedback result supplies installed acceptance.",
+  "original_failure_archive": {
+    "archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/desktop-core-failure-2026-10-26-v1/evidence.zip",
+    "archive_sha256": "09b60b5b19da4282bd17731456c722793101a2b138540427d25de0a7f5084871",
+    "archive_bytes": 826713,
+    "manifest_sha256": "e50d2a0af31a75940668354cf5b246177afa8e444e25fe817099496ad9dcb4dd",
+    "logical_files": 16,
+    "logical_bytes": 5223867,
+    "verification": "Every ZIP entry, including manifest.json, fully decompressed and SHA256/length matched. Every original selected file independently rehashed. Exact locally retained decoded job-log bytes preserved; no remote diagnostic ZIP payload downloaded."
+  },
+  "hosted_repair_feedback": "docs/validation/chunk7-desktop-repair-hosted-feedback-2026-10-26.json"
 }

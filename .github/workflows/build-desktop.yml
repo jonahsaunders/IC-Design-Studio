@@ -191,7 +191,7 @@ jobs:
             libx11-6 libxtst6 libxkbfile1 libnss3 libasound2t64 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
             libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
             libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0 \
-            build-essential cmake libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev
+            build-essential cmake
           echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
           echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
       - name: Restore pinned Windows simulation archive
@@ -261,6 +261,16 @@ jobs:
             build/openems-downloads
           key: openems-${{ runner.os }}-${{ hashFiles('scripts/stage_openems.py', 'icstudio/openems_runtime.py') }}
           restore-keys: openems-${{ runner.os }}-
+      - name: Install Linux openEMS build dependencies only when rebuilding
+        if: runner.os == 'Linux'
+        timeout-minutes: 30
+        run: |
+          if python scripts/stage_openems.py --verify; then
+            echo "Cached openEMS passed file integrity and native execution verification."
+          else
+            sudo apt-get update
+            sudo apt-get install -y libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev
+          fi
       - name: Prepare included open-source openEMS and Python
         timeout-minutes: 30
         run: python scripts/stage_openems.py

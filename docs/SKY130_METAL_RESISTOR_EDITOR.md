@@ -10,11 +10,12 @@ package identity.
 Choose `res_generic_li.sym` or `res_generic_m1.sym` through
 `res_generic_m4.sym`, set W/L, connect the `m` and `p` terminals, and generate
 the linked layout. Route each exposed end on its own drawing layer. The
-recipe supports one straight resistor, W/L 0.5–10 µm on the 5 nm grid, with
-0.5 µm unmarked terminal extensions. These bounds are the editor's supported
-recipe, not claimed process operating limits. Contacts, snakes and physical
-parallel arrays are separate geometry classes. Unsupported multiplicity or
-dimensions are rejected before the design changes.
+unit recipe supports W/L 0.5–10 µm on the 5 nm grid, with 0.5 µm unmarked
+terminal extensions. The separate [physical parallel-array capability](SKY130_METAL_RESISTOR_PARALLEL.md)
+now supports integer `mult` values from 1 through 16, preserving the original
+single-unit geometry. These are the editor's construction bounds, not process
+operating limits. Contacts and snakes remain separate geometry classes.
+Unsupported multiplicity or dimensions are rejected before the design changes.
 
 The marker on datatype 13 sets the primitive width and length. For live
 connectivity, the app subtracts the actual marker polygon from its matching
@@ -61,6 +62,12 @@ density, measured/statistical accuracy, additional geometry classes and exact
 installed acceptance remain separate. Generic-resistor documentation cautions
 against precision analog use. No catalog entry is promoted to fully qualified
 by this feature.
+
+The separate [October 26 hierarchy milestone](SKY130_METAL_RESISTOR_HIERARCHY.md)
+verifies two independent imported instances sharing one child cell. It preserves
+the actual masks, transforms and four terminals through project and stream
+exchange, with native connectivity fault detection. It does not implement
+parameterized parallel multiplicity.
 
 Reproduce the native editor batch with `scripts/qualify_sky130_metal_editor.py`
 and the source Qt workflow with `tests/gui_sky130_metal_editor.py`.

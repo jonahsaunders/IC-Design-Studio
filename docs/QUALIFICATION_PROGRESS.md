@@ -1,7 +1,10 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 26, 2026. Chunk 7 is approximately **65% complete**, with low
+Updated October 26, 2026. Chunk 7 is approximately **67% complete**, with low
 confidence (55–75%); this is an engineering estimate, not verified acceptance.
+The small increase reflects completed imported-hierarchy and editable physical
+parallel-array milestones. Full family statuses and completion gates remain
+unchanged; the estimate is not calculated from passing test counts.
 
 ## Current tracker
 
@@ -26,9 +29,71 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**Selected desktop candidate: `e3fa0cc60da18cee8359817bb5321923587abc50`.**
+The tested capability repair is pushed to `experimental`. All 1,377 source
+identities match the committed Git blobs. One replacement
+[full desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40340500387)
+has been dispatched; its result remains pending. The
+[automatic merge feedback](validation/chunk7-desktop-repair-hosted-feedback-2026-10-26.json)
+passes all five stages on both hosts: 506 tests per host, four Linux and fifteen
+Windows skips. Both downloaded artifacts pass complete readback; all 1,377
+source identities match the exact candidate Git blobs. The full desktop run
+has passed its five prerequisite jobs and both runtime verifications; Windows
+runtime verification took 67 minutes 31 seconds. Linux dependency installation
+passed in 64 minutes 6 seconds, and its full core stage passed at 16:36:26 UTC
+after 18 minutes 41 seconds. At that checkpoint Linux had advanced to GUI
+checks and Windows was still running core tests, without a reported failure.
+Installed resistor acceptance is not inferred from these intermediate steps. Its exact
+candidate and result remain separate from the newer array implementation.
+
+**October 26 imported resistor hierarchy complete within its declared scope.**
+The [new source milestone](SKY130_METAL_RESISTOR_HIERARCHY.md) verifies all five
+LI/M1–M4 models with a reused 2 × 5 µm child, independent top terminals and
+rotated/mirrored placements. Ten clean layouts pass native DRC/strict LVS;
+twenty native connectivity/geometry faults and twenty-five actual exchange
+corruptions are detected. Independent raw readback, twelve rehashed evidence
+controls and restoration of 1,743 full-run files pass. The 8.14 MB permanent
+archive retains all original attempts and the separately identified later
+checker. This closes the selected imported repeated-cell class. Parameterized
+arrays have their own result below; electrical hierarchy response, full ranges
+and installed hierarchy remain open. The full `LI-PHYSICAL-CLASSES` row stays
+partial.
+
+**Physical parallel resistor capability and full source selection pass.** The
+[new generator](SKY130_METAL_RESISTOR_PARALLEL.md) replaces the former
+`mult != 1` rejection with integer counts 1–16 for LI/M1–M4. Single-unit
+geometry remains unchanged. Actual source Qt transitions through 3, 16, 2 and
+1 pass for all five models, preserving both attached wires, terminal identities,
+review/apply, undo/redo and save/reopen. Independent readback verifies all twenty
+transitions and five late layer-lock rejections. All 280 clean native layouts,
+twenty-five faults and thirty actual-array DC/AC contexts pass the frozen
+contract and independent full audit, including GDS and OASIS round trips.
+The sixty electrical runs use actual array extraction; 3,870 path samples pass
+with maximum normalized error 7.51 × 10⁻⁸ against limit one. Forty exact
+serialized comparisons preserve the earlier single-unit implementation.
+The two failed pilots remain retained. The [execution record](validation/sky130-metal-parallel-2026-10-26.json)
+includes complete recovery of 15,103 full-run files and independent raw audit.
+All 9,890 archive objects pass independent readback. The [final combined feedback](validation/sky130-metal-parallel-source-feedback-2026-10-26.json)
+passes all six stages on both hosts: 550 tests each, four Linux and sixteen
+Windows skips. All 1,386 source identities agree. Complete native-Linux unit
+discovery also passes 3,725 tests with 61 skips. Installed array acceptance and
+full family limits remain separate requirements. After verified recovery,
+six exact disposable Linux output directories were removed, totaling
+5,337,865,592 logical bytes; the permanent archives, tools, PDKs and source
+fixture remain. No physical C: reclamation or Windows administrator action is
+claimed.
+
+**Linux setup delay addressed locally.** The earlier package download took
+1 hour 46 minutes 11 seconds. The [dependency change](OPENEMS_BUILD_DEPENDENCIES.md)
+installs five build-only openEMS packages only when the restored runtime fails
+its existing file/native verification. Seven command control-flow checks pass;
+all original preparation, native and release gates remain. A future hosted
+candidate must establish the actual behavior and any speedup. The running
+`e3fa0cc` candidate uses the earlier workflow.
+
 **October 26 desktop failure review, candidate
-`38fccf7242bac4c86117982ce03c78dd07302cf2`.** GitHub `experimental` still
-matches this commit and draft PR68 remains merge compatible. The
+`38fccf7242bac4c86117982ce03c78dd07302cf2`.** This was the previous selected
+candidate, now superseded by the repair above. The
 [full desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40216858937)
 finished with five prerequisite jobs passing and both package jobs failing the
 same core capability test. Each platform ran 3,680 tests; Linux reports one
@@ -57,7 +122,7 @@ The latest reviewed upstream MOS model is unchanged. This removes application
 export as the origin of that conflict; the literal specification failures and
 incomplete threshold definition remain open. No new simulation or relaxed limit
 is claimed. The 269 KB source/evidence archive passes complete readback. This
-review and its documentation remain local while the desktop candidate runs.
+review and its documentation are included in the selected `e3fa0cc` candidate.
 
 **October 25 next milestone in progress, based on `489b0ea`: installed resistor
 acceptance.** The new versioned contract fixes 30 actual editor/native inputs
@@ -1004,9 +1069,9 @@ hosted or installed acceptance results.
 ## How progress is likely to unfold
 
 At the user's request, the **rough engineering estimate for chunk 7 is about
-65% complete**, with a broad planning range of **55–75% and low confidence**
-(October 25, 2026; baseline `6a9980b` plus the native resistor editor and
-independently audited M1–M4 linked integration). This is a judgment about the
+67% complete**, with a broad planning range of **55–75% and low confidence**
+(October 26, 2026; baseline `e3fa0cc` plus the independently audited imported
+hierarchy and editable physical parallel-array milestones). This is a judgment about the
 implemented integration and accumulated verification work relative to the
 remaining gate, not a measured coverage score or a fraction of time remaining.
 Working device interfaces, selected electrical/physical batches and reusable
@@ -1056,6 +1121,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-26 | Completed the selected imported hierarchy class and editable physical parallel arrays for all five LI/M1–M4 models, with independent native/electrical audits, exact single-unit preservation and archive recovery. Both six-stage source lanes and complete 3,725-test Linux discovery pass. Reduced repeated Linux build dependencies while preserving release gates; retained original desktop failure and exact repaired candidate separately. | Concrete hierarchy and physical-array gaps close within their declared scope. Estimate rises to 67%, low confidence (55–75%). Full device envelopes, six bindings and applicable installed acceptance remain open. |
 | 2026-10-25 | Delivered native straight LI/M1–M4 editing and separate M1–M4 extracted-electrical integration across five passive sections and three temperatures; independent native, mask, electrical and fault audits pass. Both final 442-test source lanes and all three GUI probes pass; verified compact retention and GitHub delivery/merge feedback are complete. | Missing editor capability and four-model linkage are closed within the declared scope. Estimate rises to 65%, low confidence (55–75%); full family gates and all catalog statuses remain unchanged. |
 | 2026-10-24 | Verified all seven desktop jobs and completed the defined MiM installed recipe at `65614924`. Added actual five-section mismatch-alias source acceptance: 45 native runs and 399-test feedback per host, independent audits and verified compact recovery. | Concrete installed and alias milestones completed; all family statuses remain partial. Estimate stays 60%, low confidence (50–70%). |
 | 2026-10-23 | Added source-locked GF180 current specifications: ten completed cases and 240 detected faults per host, identical current measurements, independent raw audits and both 47-test passes. Two fast-corner cases retain literal published-bound mismatches, also present with direct public-model defaults. | Stronger independent numerical evidence; full device qualification is still open. Estimate remains 60%, low confidence. |

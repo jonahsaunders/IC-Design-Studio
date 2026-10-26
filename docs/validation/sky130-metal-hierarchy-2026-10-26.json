@@ -1,0 +1,316 @@
+{
+  "schema": 1,
+  "id": "sky130-metal-resistor-hierarchy-2026-10-26",
+  "status": "PASS",
+  "scope": "Selected imported hierarchical LI/M1-M4 straight-resistor class: one 2x5 um child referenced twice, independent top terminals, rotations/mirroring, native verification and exchange.",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "full_family": false,
+  "installed": false,
+  "release_ready": false,
+  "signoff": false,
+  "parent_candidate": "e3fa0cc60da18cee8359817bb5321923587abc50",
+  "source_note": "Parent application source plus four new qualification files; this is a source integration result, not an installed candidate or a claim that the new files are committed.",
+  "accepted_requirement": {
+    "row": "LI-PHYSICAL-CLASSES",
+    "completion": "The explicitly selected imported repeated-child hierarchy subgate is complete.",
+    "unchanged_row_status": "partial",
+    "native_input": "Original hierarchy remains editable and exported. Native tools receive an independently checked exact-mask private flatten with child-local labels removed."
+  },
+  "full_run": {
+    "execution_root": "/var/tmp/icstudio-metal-hierarchy-20261026-v1/full-v1",
+    "execution_id": "1d0493c6d82e4fa7b5ad4d1ff84cc5b5",
+    "qualification_sha256": "baf72d2878edd6952b8a30fbca6f794eca7e7f0b96aad81deee800e1939b07fa",
+    "manifest_sha256": "5da835d7cbd9c09a197fbb7bec002cef0f62ac6cbba543071d9ac5bb2ed25cbe",
+    "contract_sha256": "dbe672e65ee2533e93a37c94366b54332a6c0f4d00754a4b00796a6ebfc97929",
+    "source_files_sha256": "9ef63c9e55941f8b9c60bf60ccf85489d615cab103145921382d0a706d0a3749",
+    "captured_sources": 825,
+    "source_snapshot_sha256": "43ab1fbf2d35a5fb2aa1270b043a0d17c4a6195730653d90d194e2b52b1fe9fb",
+    "source_snapshot_files": 6526,
+    "producer_seconds": 29.391332876,
+    "native_command_seconds": 29.844694614999998,
+    "guards": {
+      "source": true,
+      "physical_package": true,
+      "runtime": true
+    },
+    "tools": {
+      "magic": {
+        "path": "/opt/icstudio/bin/magic",
+        "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223"
+      },
+      "netgen": {
+        "path": "/opt/icstudio/bin/netgen",
+        "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+      }
+    },
+    "runtime_profile": "linux-x86_64-headless-icstudio-v1",
+    "runtime_before_sha256": "465adf4e5f99bdc8a938762a450135e6a1ab805d92a41d1e785a03c0b5914b12",
+    "runtime_after_sha256": "465adf4e5f99bdc8a938762a450135e6a1ab805d92a41d1e785a03c0b5914b12",
+    "physical_package_manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417"
+  },
+  "selection": {
+    "models": [
+      "l1",
+      "m1",
+      "m2",
+      "m3",
+      "m4"
+    ],
+    "width_um": 2,
+    "length_um": 5,
+    "child_instances": 2,
+    "top_rotations": [
+      0,
+      90
+    ],
+    "top_ports": [
+      "A1",
+      "B1",
+      "A2",
+      "B2"
+    ],
+    "child_transforms": [
+      {
+        "rotation": 0,
+        "mirror": false,
+        "x_nm": 0,
+        "y_nm": 0
+      },
+      {
+        "rotation": 90,
+        "mirror": true,
+        "x_nm": 40000,
+        "y_nm": 0
+      }
+    ]
+  },
+  "counts": {
+    "models": 5,
+    "clean_layouts": 10,
+    "clean_extracted_resistors": 20,
+    "native_jobs": 30,
+    "native_faults": 20,
+    "exchange_controls": 25,
+    "fault_categories": {
+      "merged-reference-terminal": 5,
+      "missing-reference-instance": 5,
+      "second-reference-width": 5,
+      "physical-cross-instance-short": 5
+    },
+    "actual_native_stage_outcomes": [
+      {
+        "stages": [
+          "passed",
+          "passed",
+          "passed",
+          "passed",
+          "failed",
+          "passed"
+        ],
+        "count": 15
+      },
+      {
+        "stages": [
+          "passed",
+          "passed",
+          "passed",
+          "failed",
+          "not_run",
+          "not_run"
+        ],
+        "count": 5
+      }
+    ]
+  },
+  "independent": {
+    "full_audit": {
+      "schema": 1,
+      "status": "PASS",
+      "suite": "sky130-metal-resistor-hierarchy-v1",
+      "execution_id": "1d0493c6d82e4fa7b5ad4d1ff84cc5b5",
+      "original_execution_root": "/var/tmp/icstudio-metal-hierarchy-20261026-v1/full-v1",
+      "qualification_sha256": "baf72d2878edd6952b8a30fbca6f794eca7e7f0b96aad81deee800e1939b07fa",
+      "manifest_sha256": "5da835d7cbd9c09a197fbb7bec002cef0f62ac6cbba543071d9ac5bb2ed25cbe",
+      "source_files_sha256": "9ef63c9e55941f8b9c60bf60ccf85489d615cab103145921382d0a706d0a3749",
+      "qualified": false,
+      "full_family": false,
+      "installed": false,
+      "release_ready": false,
+      "signoff": false,
+      "chunk_complete": false,
+      "counts": {
+        "models": 5,
+        "clean_layouts": 10,
+        "native_faults": 20,
+        "exchange_controls": 25
+      },
+      "full_selected_models": true,
+      "source_binding": "captured sources matched reviewed files",
+      "scope": "Independent readback of selected imported SKY130 resistor hierarchy.\n\nReads original stream/project/native artifacts; never imports the producer or\nconstructs a positive device to replace a missing extraction. This finite source\nintegration check is not array, electrical, installed or foundry qualification.\n",
+      "runtime_scope": "Captured before/after reviewed runtime closure; no fresh engine execution or live post-run OS requalification."
+    },
+    "readback_seconds": 1.2289785590000002,
+    "receipt_sha256": "094472a045389259f366d434762bb14abdd480d9185d9f126f73b14e6c5ac680",
+    "original_files_unchanged": true,
+    "rehashed_semantic_controls": 12,
+    "rehashed_control_receipt_sha256": "5316a1eebd9ff5739e4d9015ee6191377b6b70b4bf651e4f84764ff80afb583c",
+    "width_log_actual_positives": 5,
+    "width_log_corruption_rejections": 15,
+    "width_log_controls_sha256": "2de422ab5dbb421cb31c628e5e345188eb3f8171d7592392343e8640b3b90dbd",
+    "original_executed_sources": {
+      "scripts/qualify_sky130_metal_resistor_hierarchy.py": "6001604e59d2d49a8ad7c4e10db31e987ffa5b9821f59ff30648781f2bb56af7",
+      "scripts/audit_sky130_metal_resistor_hierarchy.py": "bb8dc0d39462991da143cbe4d96a9ec307aaab383b3cd7c26cb6c6658996f8c9",
+      "tests/test_sky130_metal_resistor_hierarchy.py": "9ee57eaf50e35cccc0f7c583ec4e0fd2fa6dff07b343111f97783edce7b3e6e9",
+      "tests/test_sky130_metal_resistor_hierarchy_audit.py": "8ab07d8ad1b22e3629cc8b8e7358d042cccc9252c926c05a192402b4db0e11fd"
+    },
+    "later_checker": {
+      "scripts/audit_sky130_metal_resistor_hierarchy.py": "0b775adcdc45dcdd04c8b092da7a673974f932ee4326da95ffcdd85a679dc802",
+      "tests/test_sky130_metal_resistor_hierarchy_audit.py": "7985176378f6aaa7176eb76a8f8166a066a04fbb289a9a90ebef78fb86335336"
+    },
+    "checker_change": "Audit-only explicit parsing of observed Netgen width-fault conclusion; original captured source and native execution unchanged."
+  },
+  "focused_tests": {
+    "producer_windows": 9,
+    "independent_final_windows": 10,
+    "linux_pilot": 18,
+    "note": "Linux pilot used the original 9-test independent reader. The later format-specific reader was tested on Windows and independently reread every Linux native case and archive recovery; no native repeat."
+  },
+  "prior_attempts": [
+    {
+      "name": "pilot-v1",
+      "status": "FAIL",
+      "reason": "Test shorting wire overlapped the second marker; extracted w=2.025/l=4.97 was correctly rejected. Clean r0 and three reference fault checks passed; original source/raw retained."
+    },
+    {
+      "name": "pilot-v2",
+      "status": "PASS",
+      "counts": {
+        "clean_layouts": 2,
+        "native_faults": 4,
+        "exchange_controls": 5
+      }
+    },
+    {
+      "name": "full-v1-first-reader",
+      "status": "FAIL",
+      "reason": "Native producer passed all cases. Original reader expected the extra property-error conclusion sentence used by LI/M1, omitted by M2-M4 despite explicit width 3 vs 2/property errors and failed pin matching."
+    },
+    {
+      "name": "full-v1-later-reader",
+      "status": "PASS",
+      "reason": "Later reader requires the exact model, width 3 vs 2 and either observed native property-error conclusion. No raw result or native source was rewritten."
+    },
+    {
+      "name": "archive-first-attempt",
+      "status": "FAIL_BEFORE_ARCHIVE_CREATION",
+      "reason": "Ordinary Ubuntu could not create a directory beneath root-owned mode 755 Windows-mount parent. Ordinary Windows created only the new target; retry succeeded without admin."
+    }
+  ],
+  "remaining": [
+    "Other contact/via implementations, parameterized arrays/snakes and physical classes remain unqualified.",
+    "This one selected 2x5 um straight leaf does not establish geometry or electrical operating envelopes.",
+    "No linked electrical response through hierarchy, unflattened native hierarchy or installed hierarchy acceptance is claimed.",
+    "Source-defined operating, statistical and reliability requirements remain open; family/matrix statuses stay partial."
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "PASS",
+    "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-hierarchy-2026-10-26-v1/evidence.zip",
+    "archive_sha256": "f160341c8a956a4ee2f6e0a60beaed9b9822fdf6202ce0b4ba7c66ffd7e65fe9",
+    "archive_bytes": 8139653,
+    "manifest_sha256": "df0e39c580c9a4a7995804b6d9e827e6cd334840baf60bac9d134553dfb058d9",
+    "logical_files": 3862,
+    "unique_objects": 1606,
+    "logical_bytes": 217277282,
+    "all_objects_verified": true,
+    "all_source_files_unchanged": true,
+    "source_linkage": {
+      "status": "PASS",
+      "captured_sources": 825,
+      "later_checker": {
+        "scripts/audit_sky130_metal_resistor_hierarchy.py": "0b775adcdc45dcdd04c8b092da7a673974f932ee4326da95ffcdd85a679dc802",
+        "tests/test_sky130_metal_resistor_hierarchy_audit.py": "7985176378f6aaa7176eb76a8f8166a066a04fbb289a9a90ebef78fb86335336"
+      },
+      "native_sources_sha256": "9ef63c9e55941f8b9c60bf60ccf85489d615cab103145921382d0a706d0a3749",
+      "source_snapshot_sha256": "43ab1fbf2d35a5fb2aa1270b043a0d17c4a6195730653d90d194e2b52b1fe9fb",
+      "interpretation": "Every captured native source matches reviewed checkout except the two explicitly retained later audit-only files."
+    },
+    "physical_dependency": {
+      "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-li-linked-2026-10-23-v1/evidence.zip",
+      "archive_sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49",
+      "archive_manifest_sha256": "4cf6c59df51ce30917fb72731bd962e2750edff4adee8131e6d154efbacbac1b",
+      "archive_prefix": "native/physical-adapter/",
+      "package_manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417"
+    },
+    "windows_archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-hierarchy-2026-10-26-v1/evidence.zip"
+  },
+  "recovery": {
+    "schema": 1,
+    "status": "PASS",
+    "archive_sha256": "f160341c8a956a4ee2f6e0a60beaed9b9822fdf6202ce0b4ba7c66ffd7e65fe9",
+    "manifest_sha256": "df0e39c580c9a4a7995804b6d9e827e6cd334840baf60bac9d134553dfb058d9",
+    "command": [
+      "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+      "-B",
+      "-X",
+      "pycache_prefix=/__icstudio_hierarchy_archive_no_bytecode__",
+      "/var/tmp/icstudio-metal-hierarchy-20261026-v1/archive-restored/readback.py"
+    ],
+    "cwd": "/var/tmp/icstudio-metal-hierarchy-20261026-v1/archive-restored",
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "HOME": "/__icstudio_archive_readback_no_home__",
+      "LANG": "C",
+      "LC_ALL": "C",
+      "TZ": "UTC",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONNOUSERSITE": "1",
+      "PYTHONHASHSEED": "0"
+    },
+    "seconds": 0.9596023510000009,
+    "restored_files": 1743,
+    "audit": {
+      "schema": 1,
+      "status": "PASS",
+      "suite": "sky130-metal-resistor-hierarchy-v1",
+      "execution_id": "1d0493c6d82e4fa7b5ad4d1ff84cc5b5",
+      "original_execution_root": "/var/tmp/icstudio-metal-hierarchy-20261026-v1/full-v1",
+      "qualification_sha256": "baf72d2878edd6952b8a30fbca6f794eca7e7f0b96aad81deee800e1939b07fa",
+      "manifest_sha256": "5da835d7cbd9c09a197fbb7bec002cef0f62ac6cbba543071d9ac5bb2ed25cbe",
+      "source_files_sha256": "9ef63c9e55941f8b9c60bf60ccf85489d615cab103145921382d0a706d0a3749",
+      "qualified": false,
+      "full_family": false,
+      "installed": false,
+      "release_ready": false,
+      "signoff": false,
+      "chunk_complete": false,
+      "counts": {
+        "models": 5,
+        "clean_layouts": 10,
+        "native_faults": 20,
+        "exchange_controls": 25
+      },
+      "full_selected_models": true,
+      "source_binding": "captured sources matched reviewed files",
+      "scope": "Independent readback of selected imported SKY130 resistor hierarchy.\n\nReads original stream/project/native artifacts; never imports the producer or\nconstructs a positive device to replace a missing extraction. This finite source\nintegration check is not array, electrical, installed or foundry qualification.\n",
+      "runtime_scope": "Captured before/after reviewed runtime closure; no fresh engine execution or live post-run OS requalification."
+    },
+    "later_checker": {
+      "scripts/audit_sky130_metal_resistor_hierarchy.py": "0b775adcdc45dcdd04c8b092da7a673974f932ee4326da95ffcdd85a679dc802",
+      "tests/test_sky130_metal_resistor_hierarchy_audit.py": "7985176378f6aaa7176eb76a8f8166a066a04fbb289a9a90ebef78fb86335336"
+    },
+    "method_sha256": "93fe27fdb2ae00c28bbe903622c7f134a65f2b924173de204000b6a9ad658947",
+    "scope": "Full portable raw readback from restored archive; No new Magic or Netgen executions."
+  },
+  "engineering_percentage_note": "No estimate changed by this subtask; parent owns the authoritative chunk7 estimate and tracker.",
+  "integrator_verification": {
+    "status": "PASS",
+    "archive_hash": true,
+    "all_zip_crc": true,
+    "manifest_hash": true,
+    "object_hashes": 1606,
+    "scope": "Independent local ZIP/object readback; restored native-artifact audit is separately recorded."
+  }
+}

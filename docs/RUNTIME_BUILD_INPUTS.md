@@ -19,6 +19,11 @@ qualification checks still run after a cache hit. This identifies local recipe
 inputs; it does not make mutable external package repositories reproducible or
 substitute for checks of the installed engines.
 
+The [Linux openEMS dependency change](OPENEMS_BUILD_DEPENDENCIES.md) separately
+avoids reinstalling heavy build prerequisites when the restored openEMS runtime
+passes its existing integrity and native checks. This does not change the
+digital-runtime cache identity or remove native/release acceptance.
+
 The staging refactor preserves every nongenerated staged file, byte and file mode
 on both Windows and Linux. One previously staged Python bytecode cache is omitted.
 The focused packaging/runtime suite passes 48 tests
