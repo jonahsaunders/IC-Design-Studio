@@ -180,6 +180,19 @@
         "single_unit_compatibility_cases": 40,
         "archive_restored_readback": "PASS",
         "device_statuses_unchanged": true
+      },
+      "latest_sky130_metal_parallel_installed_source": {
+        "evidence": "sky130-metal-parallel-installed-source-2026-10-26",
+        "status": "selected_source_gui_native_electrical_workflow_passed",
+        "models": 5,
+        "clean_layouts": 30,
+        "queued_jobs": 43,
+        "electrical_contexts": 30,
+        "electrical_analyses": 60,
+        "eco_transitions": 20,
+        "archive_restored_readback": "PASS",
+        "installed_acceptance": false,
+        "device_statuses_unchanged": true
       }
     },
     "8": {
@@ -25489,6 +25502,11 @@
       "path": "docs/validation/sky130-metal-parallel-2026-10-26.json",
       "sha256": "88ba1362d7339c11a264cd475270a9710abed26a5798fc0d092ab09f1bf9830a",
       "scope_limit": "Selected source physical parallel-array editing and DC/AC integration for five SKY130 resistor models, counts 1–16: 280 clean layouts, 25 native faults, 30 actual-array electrical contexts. No full-family envelope, calibrated accuracy, array transient/noise, installed or signoff qualification."
+    },
+    "sky130-metal-parallel-installed-source-2026-10-26": {
+      "path": "docs/validation/sky130-metal-parallel-installed-source-2026-10-26.json",
+      "sha256": "6e887cef2c81be2f282387fd841693bb0df6c165e11ce92858666c3e509ba1f5",
+      "scope_limit": "Selected source rehearsal of the new installed parallel-array workflow: 30 actual arrays, 20 routed edits, 43 queued requests, 60 DC/AC analyses, 31 rehashed component controls and restored audits at the original execution paths. Fresh installed Windows/Linux acceptance and full-family qualification remain open."
     }
   },
   "execution_acceptance": {

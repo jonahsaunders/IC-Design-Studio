@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_sky130_qualification_package -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
@@ -744,6 +744,21 @@ jobs:
         run: |
           python scripts/qualify_installed_sky130_metal_resistors.py --gui-root build/frozen-metal-resistor-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-resistor-electrical-evidence
           python scripts/verify_installed_metal_resistors.py --gui build/frozen-metal-resistor-evidence --electrical build/frozen-metal-resistor-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-resistor-workflow-evidence/acceptance.json
+      - name: Verify frozen Linux physical resistor arrays and routed editing
+        if: runner.os == 'Linux'
+        timeout-minutes: 45
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_metal_parallel.py --executable dist/ICDesignStudio/ICDesignStudio --physical-pdk build/physical-adapter/sky130A --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 2400 --out build/frozen-metal-parallel-evidence
+      - name: Verify frozen Linux actual-array electrical workflow and independent readback
+        if: runner.os == 'Linux'
+        timeout-minutes: 30
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          python scripts/qualify_installed_metal_parallel.py --gui-root build/frozen-metal-parallel-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-parallel-electrical-evidence
+          python scripts/verify_installed_metal_parallel.py --gui build/frozen-metal-parallel-evidence --electrical build/frozen-metal-parallel-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-parallel-workflow-evidence/acceptance.json
       - name: Assemble and execute release archives
         env:
           QT_QPA_PLATFORM: offscreen
@@ -808,6 +823,9 @@ jobs:
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
+            build/windows-evidence/metal-parallel
+            build/windows-evidence/metal-parallel-electrical
+            build/windows-evidence/metal-parallel-acceptance.json
             build/frozen-physical-evidence
             build/frozen-mim-evidence
             build/frozen-mim-public-drc-evidence
@@ -816,6 +834,9 @@ jobs:
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
+            build/frozen-metal-parallel-evidence
+            build/frozen-metal-parallel-electrical-evidence
+            build/frozen-metal-parallel-workflow-evidence/acceptance.json
             build/digital-first-run-ui
             build/digital-state/checks/**/report.json
             build/digital-state/checks/**/result.json
@@ -847,6 +868,9 @@ jobs:
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
+            build/frozen-metal-parallel-evidence
+            build/frozen-metal-parallel-electrical-evidence
+            build/frozen-metal-parallel-workflow-evidence/acceptance.json
             build/x11-evidence
             build/native-migration-evidence
             build/native-workflow-evidence

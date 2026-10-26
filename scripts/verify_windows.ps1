@@ -54,6 +54,12 @@ python scripts/qualify_installed_sky130_metal_resistors.py --gui-root "$evidence
 if ($LASTEXITCODE -ne 0) { throw 'Installed Windows resistor electrical acceptance failed.' }
 python scripts/verify_installed_metal_resistors.py --gui "$evidence/metal-resistors" --electrical "$evidence/metal-resistors-electrical" --expected-commit "$commit" --out "$evidence/metal-resistors-acceptance.json"
 if ($LASTEXITCODE -ne 0) { throw 'Installed Windows resistor evidence does not describe one complete selected workflow.' }
+python scripts/verify_frozen_metal_parallel.py --executable "$exe" --physical-pdk build/physical-adapter/sky130A --expected-commit "$commit" --timeout 2400 --out "$evidence/metal-parallel"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows physical resistor arrays and routed editing acceptance failed.' }
+python scripts/qualify_installed_metal_parallel.py --gui-root "$evidence/metal-parallel" --expected-commit "$commit" --out "$evidence/metal-parallel-electrical"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows actual-array electrical acceptance failed.' }
+python scripts/verify_installed_metal_parallel.py --gui "$evidence/metal-parallel" --electrical "$evidence/metal-parallel-electrical" --expected-commit "$commit" --out "$evidence/metal-parallel-acceptance.json"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows array evidence does not describe one complete selected workflow.' }
 $shortcut = Join-Path ([Environment]::GetFolderPath('Programs')) 'IC Design Studio\IC Design Studio.lnk'
 if (-not (Test-Path $shortcut)) { throw 'Start menu shortcut is missing.' }
 $shell = New-Object -ComObject WScript.Shell
@@ -66,4 +72,4 @@ Wait-Checked (Join-Path $install 'unins000.exe') "/VERYSILENT /SUPPRESSMSGBOXES 
 if (Test-Path $exe) { throw 'Uninstall left the application executable behind.' }
 if (Test-Path 'HKCU:\Software\Classes\icstudio') { throw 'Uninstall left the invitation protocol registered.' }
 if ((Get-FileHash $setup.FullName -Algorithm SHA256).Hash.ToLowerInvariant() -ne $setupSha256) { throw 'Installer changed during acceptance execution.' }
-@{status='passed';version=$version;commit=$commit;installer=$setup.Name;installer_sha256=$setupSha256;probes=$probes;installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;vga=(Get-Content "$evidence/vga/probe/vga-test.json" -Raw | ConvertFrom-Json);mim=(Get-Content "$evidence/mim-acceptance.json" -Raw | ConvertFrom-Json);metal_resistors=(Get-Content "$evidence/metal-resistors-acceptance.json" -Raw | ConvertFrom-Json);uninstalled=$true;signing='not configured'} | ConvertTo-Json -Depth 30 | Set-Content "$evidence\windows-release.json"
+@{status='passed';version=$version;commit=$commit;installer=$setup.Name;installer_sha256=$setupSha256;probes=$probes;installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;vga=(Get-Content "$evidence/vga/probe/vga-test.json" -Raw | ConvertFrom-Json);mim=(Get-Content "$evidence/mim-acceptance.json" -Raw | ConvertFrom-Json);metal_resistors=(Get-Content "$evidence/metal-resistors-acceptance.json" -Raw | ConvertFrom-Json);metal_parallel=(Get-Content "$evidence/metal-parallel-acceptance.json" -Raw | ConvertFrom-Json);uninstalled=$true;signing='not configured'} | ConvertTo-Json -Depth 30 | Set-Content "$evidence\windows-release.json"

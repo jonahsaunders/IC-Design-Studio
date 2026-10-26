@@ -29,6 +29,22 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**Published hierarchy/array implementation: `79a3fd4803ed0652fc5f3db8b06999186f6fdbb2`.**
+The imported-hierarchy and editable-array work, final source regression and
+67% estimate are pushed to `experimental`. The [hosted merge feedback](validation/sky130-metal-parallel-hosted-feedback-2026-10-26.json)
+passes both 550-test, six-stage lanes and the required aggregate. Linux has
+four skips and Windows fifteen. Downloaded artifacts pass complete readback;
+all 1,386 source hashes match the committed candidate and both accepted local
+lanes. The actual synthetic merge parents are verified against the candidate
+and `main`. The hosted-result record accompanies the subsequent installed-array
+integration below. No installed-array or full-family acceptance is inferred.
+
+After the hosted readback, three additional Windows test-output copies were
+verified file-for-file against their retained archives and removed:
+382,509,653 logical bytes. Their separate cleanup receipt is retained beside
+the permanent source-feedback archive. Source, tools, PDKs and all verified
+archives remain; no administrator operation was used.
+
 **Selected desktop candidate: `e3fa0cc60da18cee8359817bb5321923587abc50`.**
 The tested capability repair is pushed to `experimental`. All 1,377 source
 identities match the committed Git blobs. One replacement
@@ -41,10 +57,42 @@ source identities match the exact candidate Git blobs. The full desktop run
 has passed its five prerequisite jobs and both runtime verifications; Windows
 runtime verification took 67 minutes 31 seconds. Linux dependency installation
 passed in 64 minutes 6 seconds, and its full core stage passed at 16:36:26 UTC
-after 18 minutes 41 seconds. At that checkpoint Linux had advanced to GUI
-checks and Windows was still running core tests, without a reported failure.
-Installed resistor acceptance is not inferred from these intermediate steps. Its exact
-candidate and result remain separate from the newer array implementation.
+after 18 minutes 41 seconds. Windows core also passed at 17:09:01 UTC
+after 42 minutes 37 seconds. Linux installed resistor GUI/native acceptance
+passed in 6 minutes 26 seconds, and installed electrical acceptance with
+independent readback passed in 7 minutes 20 seconds. The entire Linux desktop
+job is successful. Its [retained Linux evidence](validation/sky130-metal-installed-linux-2026-10-26.json)
+passes independent raw readback of all 42 native jobs, 90 electrical contexts,
+7,829,496 samples and 4,680 controls, with all 851 captured sources authenticated
+against `e3fa0cc`. The exact 147.38 MB diagnostic archive and 3.01 MB isolated
+source archive are retained. Two earlier local readback setup failures remain
+separately recorded; the accepted run used unchanged exact-candidate checkers.
+Windows was building its installer at 18:08:49 UTC, so the two-platform installed
+milestone remains pending. This candidate stays separate from the newer arrays.
+
+**Installed-array workflow passes its complete source rehearsal.** The
+[new additive gate](SKY130_METAL_PARALLEL_INSTALLED_ACCEPTANCE.md) now verifies
+30 actual LI/M1–M4 arrays, 20 routed count transitions, five late-lock rejections
+and 43 queued native/fault/repair requests. All 42 native executions pass their
+expected positive or fault outcome. Fresh actual array netlists and extraction
+feed all 60 DC/AC runs and 3,870 application/extracted/analytical path samples;
+neither input is regenerated. Independent full readback and all 31 rehashed
+component corruption controls pass. Both 582-test, six-stage feedback lanes
+pass, with 16 Windows and four Linux skips; all 1,398 source hashes agree.
+The complete Linux suite passes 3,759 tests with 61 skips. The
+[execution record](validation/sky130-metal-parallel-installed-source-2026-10-26.json)
+retains every attempt, source/runtime identity and original result. Its
+44.96 MB archive covers 800.49 MB of logical evidence; all 3,447 objects pass
+independent readback, and restoration of 4,233 actual GUI/electrical files at
+their original paths reproduces both unchanged full audits. Both platform
+workflows now require this gate alongside every existing gate. Fresh packaged
+Windows/Linux array acceptance remains pending. The 67% estimate, all 287
+partial device statuses and six unavailable real bindings are unchanged.
+After successful archive recovery, four byte-verified duplicate Linux output
+directories were removed: 8,466 files totaling 1,040,869,650 logical bytes.
+The permanent archive, source fixture, tools, PDKs and Windows outputs remain;
+this is not a claim that the Linux disk file shrank on C:.
+
 
 **October 26 imported resistor hierarchy complete within its declared scope.**
 The [new source milestone](SKY130_METAL_RESISTOR_HIERARCHY.md) verifies all five
@@ -1121,6 +1169,7 @@ an hours-to-finish claim would hide the largest uncertainties.
 
 | Date | Change | Effect on forecast |
 | --- | --- | --- |
+| 2026-10-26 | Completed the new parallel-array source rehearsal: 30 fresh GUI/native arrays, 20 routed edits, 60 received-input electrical runs, 31 rejected corruptions, both 582-test lanes, 3,759-test Linux discovery and exact-path restored independent audits. Added mandatory Windows/Linux installed gates. Linux earlier straight-resistor desktop and retained raw readback also pass. | Closes the selected source integration; fresh packaged array acceptance and full-family gates remain open. Estimate stays 67%, low confidence (55–75%). |
 | 2026-10-26 | Completed the selected imported hierarchy class and editable physical parallel arrays for all five LI/M1–M4 models, with independent native/electrical audits, exact single-unit preservation and archive recovery. Both six-stage source lanes and complete 3,725-test Linux discovery pass. Reduced repeated Linux build dependencies while preserving release gates; retained original desktop failure and exact repaired candidate separately. | Concrete hierarchy and physical-array gaps close within their declared scope. Estimate rises to 67%, low confidence (55–75%). Full device envelopes, six bindings and applicable installed acceptance remain open. |
 | 2026-10-25 | Delivered native straight LI/M1–M4 editing and separate M1–M4 extracted-electrical integration across five passive sections and three temperatures; independent native, mask, electrical and fault audits pass. Both final 442-test source lanes and all three GUI probes pass; verified compact retention and GitHub delivery/merge feedback are complete. | Missing editor capability and four-model linkage are closed within the declared scope. Estimate rises to 65%, low confidence (55–75%); full family gates and all catalog statuses remain unchanged. |
 | 2026-10-24 | Verified all seven desktop jobs and completed the defined MiM installed recipe at `65614924`. Added actual five-section mismatch-alias source acceptance: 45 native runs and 399-test feedback per host, independent audits and verified compact recovery. | Concrete installed and alias milestones completed; all family statuses remain partial. Estimate stays 60%, low confidence (50–70%). |

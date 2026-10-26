@@ -32,6 +32,9 @@ UNIT_MODULES = (
     'test_installed_metal_resistors_audit', 'test_installed_metal_resistors_aggregate',
     'test_sky130_metal_resistor_hierarchy', 'test_sky130_metal_resistor_hierarchy_audit',
     'test_sky130_metal_resistor_parallel', 'test_sky130_metal_resistor_parallel_audit',
+    'test_metal_resistor_parallel_desktop_probe.ProbeBoundaries', 'test_frozen_metal_parallel',
+    'test_installed_metal_parallel_inputs', 'test_installed_metal_parallel',
+    'test_installed_metal_parallel_audit', 'test_installed_metal_parallel_aggregate',
 )
 
 
