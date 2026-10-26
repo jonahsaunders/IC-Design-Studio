@@ -31,7 +31,11 @@ class InstalledParallelAuditTests(unittest.TestCase):
 
     def test_actual_retained_array_inputs_allow_only_top_token_changes(self):
         with tempfile.TemporaryDirectory() as tmp:
-            root=Path(tmp);original=root/'gui';original.mkdir();out=root/'electrical';out.mkdir();binding={'cases':{}}
+            # Real entry points canonicalize paths before retaining inputs.
+            # Exercise that requirement even where TEMP has no short alias.
+            parent=Path(tmp)/'alias-parent';parent.mkdir();alias=parent/'..'
+            root=alias.resolve();self.assertNotEqual(alias,root)
+            original=root/'gui';original.mkdir();out=root/'electrical';out.mkdir();binding={'cases':{}}
             for key in inputs.CASES:
                 model,n,r=key.split('-');count=int(n[1:]);top='array_'+key.replace('-','_');folder=original/key;folder.mkdir()
                 app=f'.subckt {top} R1 R2\nR_RES R1 R2 sky130_fd_pr__res_generic_{model} w=2 l=5 m={count}\n.ends {top}\n'

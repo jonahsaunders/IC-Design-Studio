@@ -29,6 +29,23 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**Current source candidate: `7a44a9485f83acb7155393bf16b589cdf482b0b9`.**
+The complete installed-array source rehearsal and required desktop hooks are
+pushed to `experimental`; all 1,398 feedback and 861 electrical/checker source
+bindings match its Git blobs. Its automatic Linux feedback passes all six
+stages, but Windows stops on one new direct-helper test fixture. The
+[retained failure and repair](validation/sky130-metal-parallel-temp-alias-fix-2026-10-26.json)
+reproduces the same receipt mismatch under a real Windows abbreviated path.
+The fixture now resolves a deliberate parent-directory alias before calling
+helpers, matching the application's existing entry points. All three path
+variants and four focused tests pass; production checking and native evidence
+are unchanged. The exact original hosted TEMP spelling was not recorded.
+The repaired fixture now passes both complete 582-test source lanes and all
+six stages, with four Linux skips and sixteen Windows skips. All 1,398
+source hashes agree; only the test fixture differs from the published
+source candidate. The original hosted failure remains retained separately.
+The repair is ready for the next immutable candidate and fresh hosted feedback.
+
 **Published hierarchy/array implementation: `79a3fd4803ed0652fc5f3db8b06999186f6fdbb2`.**
 The imported-hierarchy and editable-array work, final source regression and
 67% estimate are pushed to `experimental`. The [hosted merge feedback](validation/sky130-metal-parallel-hosted-feedback-2026-10-26.json)
@@ -67,8 +84,10 @@ passes independent raw readback of all 42 native jobs, 90 electrical contexts,
 against `e3fa0cc`. The exact 147.38 MB diagnostic archive and 3.01 MB isolated
 source archive are retained. Two earlier local readback setup failures remain
 separately recorded; the accepted run used unchanged exact-candidate checkers.
-Windows was building its installer at 18:08:49 UTC, so the two-platform installed
-milestone remains pending. This candidate stays separate from the newer arrays.
+Windows installer construction passed in 56 minutes 7 seconds, and its
+packaged digital-engine verification was running at 18:29:11 UTC. The
+two-platform installed milestone remains pending. This candidate stays
+separate from the newer arrays.
 
 **Installed-array workflow passes its complete source rehearsal.** The
 [new additive gate](SKY130_METAL_PARALLEL_INSTALLED_ACCEPTANCE.md) now verifies
