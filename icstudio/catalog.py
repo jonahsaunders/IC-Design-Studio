@@ -75,7 +75,15 @@ def _check_parameter(key, val, rule):
         if not math.isclose(val,expected,rel_tol=1e-12,abs_tol=0):
             raise ValueError(key+' is fixed at '+str(rule['fixed'])+' by this PDK model; geometry scaling is unsupported.')
         val=expected
-    if rule.get('choices') and val not in rule['choices'].values():raise ValueError(key+' must be one of '+', '.join(rule['choices']))
+    if rule.get('choices') and val not in rule['choices'].values():
+        # Unit conversion can round a numeric choice just as it can a fixed
+        # geometry above. Return the unique canonical choice; never pick an
+        # ambiguous neighbour or allow an absolute tolerance around zero.
+        matches = {choice for choice in rule['choices'].values()
+                   if math.isclose(val, choice, rel_tol=1e-12, abs_tol=0)}
+        if len(matches) != 1:
+            raise ValueError(key+' must be one of '+', '.join(rule['choices']))
+        val = matches.pop()
     if rule.get('positive') and val<=0:raise ValueError(key+' must be positive.')
     if rule.get('integer') and val!=int(val):raise ValueError(key+' must be a whole number.')
     for bound,op in (('minimum',operator.lt),('maximum',operator.gt),('exclusive_minimum',operator.le)):

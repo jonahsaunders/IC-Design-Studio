@@ -94,7 +94,20 @@ def verify_distribution(archive, output):
             'report': report, 'vga': vga, 'display': 'native' if os.name == 'nt' else 'offscreen; VGA uses Xvfb'}
 
 
-def prepare(output):
+def release_source(output, target, source=None):
+    if source is None:
+        original = source_archive(output)
+        return original.rename(output / f'IC-Design-Studio-{__version__}-Source-{target}.zip')
+    from scripts.desktop_acceptance_handoff import verified_source
+    original = verified_source(ROOT, source)
+    expected = checksum(original)
+    copied = Path(shutil.copy2(original, output / f'IC-Design-Studio-{__version__}-Source-{target}.zip'))
+    require(checksum(copied) == expected and checksum(original) == expected, 'Release source copy changed')
+    verified_source(ROOT, original)
+    return copied
+
+
+def prepare(output, source=None):
     output = Path(output).resolve()
     require(not output.exists(), 'Use a new release payload directory')
     output.mkdir(parents=True)
@@ -118,8 +131,7 @@ def prepare(output):
             package.add(bundle, arcname='ICDesignStudio')
         packages = [archive]
         installer = None
-    source = source_archive(output)
-    source = source.rename(output / f'IC-Design-Studio-{__version__}-Source-{target}.zip')
+    source = release_source(output, target, source)
     packages.append(source)
     probe = verify_distribution(archive, ROOT / 'build/distribution-evidence')
     evidence_zip = output / f'IC-Design-Studio-{__version__}-Evidence-{target}.zip'
@@ -147,4 +159,6 @@ def prepare(output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
-    prepare(parser.parse_args().output)
+    parser.add_argument('--source-archive', type=Path, help='Use the exact source ZIP authenticated by this run’s desktop handoff.')
+    args = parser.parse_args()
+    prepare(args.output, args.source_archive)

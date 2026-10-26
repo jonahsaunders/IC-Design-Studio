@@ -1,10 +1,13 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 26, 2026. Chunk 7 is approximately **67% complete**, with low
-confidence (55–75%); this is an engineering estimate, not verified acceptance.
-The small increase reflects completed imported-hierarchy and editable physical
-parallel-array milestones. Full family statuses and completion gates remain
-unchanged; the estimate is not calculated from passing test counts.
+Updated October 26, 2026. Chunk 7 is approximately **70% complete**, with low
+confidence (55–80%); this is an engineering estimate, not verified acceptance.
+The increase from 67% reflects a working optional binding for one previously
+unavailable ESD symbol, selected whole-network capacitor hierarchy electrical
+closure on both hosts, and actual Linux installed parallel-array acceptance.
+Full family statuses and completion gates remain unchanged; this estimate is
+not calculated from passing test counts. Windows installed acceptance and
+the new desktop job split still need their own completed hosted result.
 
 ## Current tracker
 
@@ -29,7 +32,58 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
-**Completed local MiM hierarchy source milestone, based on `f081d172`.**
+**Integrated source milestone; ready for publication.**
+The [corrected optional ESD binding](SKY130_ESD_NVT_BINDING.md) uses the official
+public symbol correction and unchanged licensed model. Both Windows and Linux
+pass all 19 selected contexts and 98 native executions; independent readers
+verify all four terminal currents, original execution identities and the
+deliberately incorrect circuits. Twelve rehashed evidence mutations reject.
+Explicit import/project selection, finite geometry bins, save/reopen and Xschem
+exchange pass. The decimal-size choice repair preserves rejection of ambiguous
+or unsupported values. The optional package does not change the six unavailable
+bindings in the bundled default, saved projects or installed-family input gates.
+
+The [linked capacitor hierarchy electrical milestone](validation/sky130-mim-hierarchy-electrical-2026-10-26.json)
+passes twenty contexts/forty AC runs per host, covering both constructions and
+orientations, all five passive sections, application/reference/extracted whole
+networks and two independent differential excitations. Its explicit version 2
+common-mode offset is 2^-16 V. The original larger-offset profile fails six of
+twenty contexts due to return-current numerical precision and remains
+unqualified; solver/current-sensor diagnostics did not resolve it. Tolerances
+are unchanged. The compact archive restores both final captures and reproduces
+the independent audits. Broader common-mode limits and full families stay open.
+
+The [current 53c17aa7 Linux desktop result](validation/sky130-metal-parallel-hosted-linux-2026-10-26.json)
+passes the complete package job, installed parallel-array gates and executed
+release archives. Independent offline readback authenticates 863 captured
+source files, 42 native jobs and 60 electrical analyses. That reader checks
+receipts and native/raw components; it does not repeat live GUI/engine checks.
+The matching Windows run has passed its full core tests and is continuing
+through interface tests, with no final installed acceptance claimed.
+
+The older e3fa0cc Windows job reached GitHub's six-hour limit after its installed
+step passed. Archive assembly/upload was interrupted, leaving no Windows raw
+artifact. The new workflow separates packaging from fresh installed/release
+acceptance, authenticates transferred bytes and original source identity, and
+retains diagnostics before expensive stages. All original acceptance gates
+remain. Forty-five transfer/source tests per host and workflow checks pass;
+the actual split workflow still needs fresh hosted execution. All 80 new tests
+pass in the integrated Windows checkout. The [complete integrated feedback](validation/chunk 7-esd-hierarchy-integration-2026-10-26.json)
+passes all six stages and 681 tests per host (20 Windows skips, four Linux
+skips), in 211.4 seconds on Windows and 82.1 seconds on native Linux. All
+1,415 source hashes agree. The first Linux copy omitted two committed documents;
+that failed attempt is retained, and the complete snapshot passes unchanged code.
+
+**Next closure order:** verify the split desktop
+candidate; promote the corrected ESD binding only with an explicit preserved-
+revision bridge and fresh affected installed acceptance; then close one family's
+remaining physical classes and source-backed operating conditions. Larger
+common-mode accuracy, the other missing bindings, upstream option coverage and
+complete operating/reliability ranges remain separate engineering work. The
+forecast improves for software delivery after the job split proves itself;
+there is still no defensible completion date for the full chunk 7 gate.
+
+**Published MiM hierarchy source milestone: `53c17aa78eb510715eaa28ed34e4f576a7fe7b40`.**
 The [new imported repeated-cell example](SKY130_MIM_HIERARCHY.md) passes both
 capacitor constructions: four native clean layouts, eight native fault jobs,
 ten stream controls and fourteen distinct rehashed evidence controls. Both
@@ -41,6 +95,25 @@ failures and later corrections remain separately identified. Generic producer
 geometry helpers are shared without changing their function syntax trees.
 This closes one predefined imported class, not a complete capacitor family;
 chunk 7 remains approximately 67% (55–75%, low confidence).
+
+The [hosted candidate feedback](validation/sky130-mim-hierarchy-hosted-feedback-2026-10-26.json)
+also passes both 601-test lanes, all six stages and the required aggregate.
+Windows takes 203.3 seconds with fifteen skips; Linux 120.8 seconds with four
+skips, excluding setup/queue time. Both exact downloaded artifacts and all
+1,402 candidate source bindings pass readback, including verified merge parents.
+The current-candidate [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40387247059)
+was dispatched once at 19:29:47 UTC, with its full immutable `53c17aa7` source
+identity verified. This run includes the new required installed-array gate;
+its exhaustive results remain pending. The older `e3fa0cc` run remains intact
+for its distinct straight-resistor milestone. These hosted/timing updates are
+retained locally for the next implementation push.
+
+After verified recovery, byte-checked duplicate MiM native/Windows GUI outputs
+were removed: 320,369,719 logical bytes. The earlier repaired-array Windows
+GUI duplicates removed another 131,715,550 bytes. Exact cleanup methods and
+receipts remain beside the permanent archives. Source fixtures, tools, PDKs,
+reports and archives remain; WSL logical cleanup is not reported as physical
+C: space reclamation.
 
 **Published repair baseline: `f081d172cb7132ca579c0bd3ff3e187ddbd1e35e`.**
 The Windows temporary-path fixture repair is pushed to `experimental`.
@@ -54,7 +127,7 @@ failed hosted run remains retained separately. The following source/acceptance
 records keep their own immutable identities. This hosted-result record accompanies the next implementation batch above;
 no status-only rerun is needed.
 
-The [bounded public-source recheck](validation/chunk7-public-source-review-2026-10-26.json)
+The [bounded public-source recheck](validation/chunk 7-public-source-review-2026-10-26.json)
 finds no new exact binding in the inspected maintained SKY130 source paths,
 and no local unit/corner error resolving GF180's published fast-corner mismatch.
 The exact missing generating fixture/threshold definition and model-versus-spec
@@ -99,7 +172,7 @@ The tested capability repair is pushed to `experimental`. All 1,377 source
 identities match the committed Git blobs. One replacement
 [full desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40340500387)
 has been dispatched; its result remains pending. The
-[automatic merge feedback](validation/chunk7-desktop-repair-hosted-feedback-2026-10-26.json)
+[automatic merge feedback](validation/chunk 7-desktop-repair-hosted-feedback-2026-10-26.json)
 passes all five stages on both hosts: 506 tests per host, four Linux and fifteen
 Windows skips. Both downloaded artifacts pass complete readback; all 1,377
 source identities match the exact candidate Git blobs. The full desktop run
@@ -116,10 +189,12 @@ passes independent raw readback of all 42 native jobs, 90 electrical contexts,
 against `e3fa0cc`. The exact 147.38 MB diagnostic archive and 3.01 MB isolated
 source archive are retained. Two earlier local readback setup failures remain
 separately recorded; the accepted run used unchanged exact-candidate checkers.
-Windows installer construction passed in 56 minutes 7 seconds, and its
-packaged digital-engine verification was running at 18:29:11 UTC. The
-two-platform installed milestone remains pending. This candidate stays
-separate from the newer arrays.
+Windows installer construction passed in 56 minutes 7 seconds. Its packaged
+digital-engine verification then passed in 66 minutes 52 seconds at 19:21:27
+UTC, and actual installed-application acceptance began. Final Windows installed
+and release-archive results remain pending. This candidate stays separate
+from the newer arrays. This timing checkpoint is retained locally until the
+next appropriate implementation push.
 
 **Installed-array workflow passes its complete source rehearsal.** The
 [new additive gate](SKY130_METAL_PARALLEL_INSTALLED_ACCEPTANCE.md) now verifies
@@ -199,13 +274,13 @@ same core capability test. Each platform ran 3,680 tests; Linux reports one
 failure and 37 skips, Windows one failure and 40 skips. The expected capability
 list in `test_analog` omitted the newly implemented `metal_resistor` capability.
 The selected installed resistor gates were not reached and remain pending.
-The [repair](validation/chunk7-desktop-capability-repair-2026-10-26.json)
+The [repair](validation/chunk 7-desktop-capability-repair-2026-10-26.json)
 retains the exact capability assertions and adds this single regression to the
 fast lane. Both final source lanes pass 506 tests and all five stages, with
 1,377 matching source bindings. Windows has 16 skips; Linux has four. A new
 immutable desktop candidate still must pass the complete installed workflow.
 
-The [prior automatic merge feedback](validation/chunk7-metal-installed-hosted-feedback-2026-10-25.json)
+The [prior automatic merge feedback](validation/chunk 7-metal-installed-hosted-feedback-2026-10-25.json)
 passed all five stages on both hosts: 504 tests per host, with four Linux and
 fifteen Windows skips. Both retained artifacts pass readback, and all 1,377
 source identities match that candidate. This was focused source feedback; it
@@ -255,7 +330,7 @@ candidate deliverables and the existing release gates. This work does not yet
 raise the 65% estimate or change a device status.
 
 **Previous accepted source candidate: `489b0ea0310aea74a7c298b842362e7851f3f868`.**
-The [automatic GitHub merge checks](validation/chunk7-metal-hosted-feedback-2026-10-25.json)
+The [automatic GitHub merge checks](validation/chunk 7-metal-hosted-feedback-2026-10-25.json)
 pass on `e0965a0bcc55ebfd9ad84c7fb257eff9a1f686b9`: both 442-test lanes,
 release contracts and all three GUI workflows, with four Linux and fifteen
 Windows skips. All 1,365 reported source hashes match the exact candidate Git
@@ -310,7 +385,7 @@ source versions without repeatedly copying toolchains. The source milestone is
 pushed and its automatic GitHub merge feedback passes, as recorded above.
 
 **Previous source candidate: `6a9980bc83e7594d86b65034ff5b115b03cc14ef`, pushed
-and verified against GitHub.** The [automatic PR feedback](validation/chunk7-mim-alias-hosted-feedback-2026-10-24.json)
+and verified against GitHub.** The [automatic PR feedback](validation/chunk 7-mim-alias-hosted-feedback-2026-10-24.json)
 passes on actual merge `cdf0b6589aeb0a39ec22765ddc616a1c159abe9c`:
 399 tests per host (15 Windows skips, two Linux skips), release contracts and
 both GUI checks. All 1,356 reported source hashes match the exact Git blobs;
@@ -378,7 +453,7 @@ verified against GitHub.** The guarded rebuild and MiM shape corrections,
 local acceptance records and tracker are committed on `experimental`.
 The [full reference run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40039513837)
 passes all ten jobs for that exact candidate in a 24:21 job span, with one dispatch
-and no retries or cancellations. Its [automatic PR feedback](validation/chunk7-identity-hosted-feedback-2026-10-23.json)
+and no retries or cancellations. Its [automatic PR feedback](validation/chunk 7-identity-hosted-feedback-2026-10-23.json)
 passes in 2:08 overall: 320 tests per host (two Linux skips, 14 Windows skips),
 syntax, release contracts and both GUI probes. All 1,340 source hashes match
 the exact candidate Git blobs, and both full artifact ZIPs are verified.
@@ -416,7 +491,7 @@ cache miss. Corrupt archives and all other identity failures remain errors.
 Freshly built tools must receive their own manifest and probes before the
 unchanged native qualification. Independent review passes 46 Linux tests and
 15 actual CLI fixture cases, including corrupt payloads, drift and incomplete
-builds. The [combined integration](validation/chunk7-identity-integration-2026-10-23.json)
+builds. The [combined integration](validation/chunk 7-identity-integration-2026-10-23.json)
 passes 320 tests per host (15 Windows skips, two Linux skips), release contracts
 and both GUI probes in 77.7 seconds on Windows and 37.2 seconds on Linux. All
 1,340 source bindings match the tested snapshot. Fixture builders are synthetic;
@@ -425,7 +500,7 @@ native acceptance. The earlier scheduling change is verified:
 all five consumers started when the producer was ready while physical checks
 continued. Every physical, five-corner and release gate remains required.
 
-The [automatic PR feedback for `51917f7`](validation/chunk7-scheduling-hosted-feedback-2026-10-23.json)
+The [automatic PR feedback for `51917f7`](validation/chunk 7-scheduling-hosted-feedback-2026-10-23.json)
 passes in 2:22 overall, with 294 tests discovered per host (two Linux skips,
 14 Windows skips), release contracts and both GUI probes. All 1,340 source
 hashes match that exact Git candidate. Separately, the
@@ -487,7 +562,7 @@ The first combined source feedback retains seven failures per host, all from
 the old GF180 gate detecting the changed application entry point. A new
 historical source snapshot preserves the exact original `__main__.py` Git blob
 and acceptance hash without editing the old record or weakening its checker.
-The [final combined feedback](validation/chunk7-mim-installed-integration-2026-10-23.json)
+The [final combined feedback](validation/chunk 7-mim-installed-integration-2026-10-23.json)
 passes 384 tests per host (16 Windows skips, two Linux skips), release contracts
 and both GUI checks: 102.0 seconds on Windows and 42.8 seconds on Linux. All
 1,352 checked source hashes match the retained snapshot. The earlier failure,
@@ -497,7 +572,7 @@ correction. A new selected package build is the next acceptance step; no
 installed result is inferred from this source feedback.
 
 **Prior hosted follow-up: `1260cec`.**
-Its [automatic PR feedback](validation/chunk7-bias-hosted-feedback-2026-10-23.json)
+Its [automatic PR feedback](validation/chunk 7-bias-hosted-feedback-2026-10-23.json)
 passes on actual merge `4c1267ff` in 2:43 overall. Both hosts discover 293 tests
 (two Linux skips, 14 Windows skips), and syntax, release contracts and both
 GUI probes pass. Both artifact ZIPs and all 1,340 source hashes are verified.
@@ -513,7 +588,7 @@ The hosted reference run retains immutable candidate
 This integration includes the subsequent signed-bias implementation, toolchain
 mismatch diagnostics, hosted receipts and cleanup records. Later source
 identities are recorded separately from that hosted candidate.
-The [hosted PR feedback](validation/chunk7-focused-integration-2026-10-23.json)
+The [hosted PR feedback](validation/chunk 7-focused-integration-2026-10-23.json)
 also passes on actual merge commit `a0ea2451`: 260 tests discovered per host
 (two Linux skips, 14 Windows skips), release contracts and both GUI probes.
 The workflow finishes in 2:24 including queue/setup; source feedback itself
@@ -574,13 +649,13 @@ differing field. No successful corner or toolchain producer was restarted. Full
 shared-environment acceptance requires all five corners. Consumer ZIP digests
 are API-reported where only selected report members were downloaded.
 
-The [earlier combined local feedback](validation/chunk7-focused-integration-2026-10-23.json)
+The [earlier combined local feedback](validation/chunk 7-focused-integration-2026-10-23.json)
 passes 260 focused tests per host (15 Windows skips, two Linux skips), release
 document validation and both GUI probes. It takes 72.9 seconds on Windows and
 36.6 seconds on a verified Linux-local source copy, excluding setup. All 1,336
 code/workflow/dependency bindings match the tested sources. That implementation,
 source contracts and those local-test results are pushed. The
-[subsequent local integration](validation/chunk7-bias-integration-2026-10-23.json)
+[subsequent local integration](validation/chunk 7-bias-integration-2026-10-23.json)
 passes 293 tests per host (15 Windows skips, two Linux skips), release-document
 validation and both GUI probes. It takes 81.7 seconds on Windows and 39.0 seconds
 on native Linux storage, with all 1,340 code/workflow/dependency bindings checked.
@@ -600,7 +675,7 @@ was used.
 **Snapshot: October 23, 2026; integration pushed as `43a04bb`.**
 Local `experimental` and GitHub match
 [`43a04bb`](https://github.com/jonahsaunders/IC-Design-Studio/commit/43a04bb00af3118fe97d3d177ec73599056027b6).
-The [first hosted feedback run](validation/chunk7-integration-feedback-2026-10-23.json)
+The [first hosted feedback run](validation/chunk 7-integration-feedback-2026-10-23.json)
 passes on the actual PR merge commit: 211 focused tests per host (13 Windows
 skips, two Linux skips), release-document validation and both GUI probes.
 Including setup, Linux finishes in 1:35 and Windows in 2:29. The final aggregate
@@ -951,7 +1026,7 @@ and remote `experimental` matches. Its hosted snapshot has four successful,
 eight running and four pending workflows; none has reported failure. This is
 not final hosted acceptance.
 
-A [fresh public-source review](validation/chunk7-public-source-review-2026-10-23.json)
+A [fresh public-source review](validation/chunk 7-public-source-review-2026-10-23.json)
 confirms the upstream IHP bondpad is still a placeholder and does not establish
 replacement bindings for the missing SKY130 ESD/VPP or IHP coil models. Existing
 RF candidates retain their separate electrical/isolation limitations. Both
@@ -1138,7 +1213,7 @@ chunk 9 has 30 `not_run`; chunk 10 has 12 `not_run`; chunk 11 has 20 `not_run`;
 chunk 12 has eight `partial` and four `needs_definition`. These are **formal
 coverage rows, not estimates of code written or equal units of effort**.
 
-The [October 22 hosted acceptance record](validation/chunk7-hosted-acceptance-2026-10-22.json)
+The [October 22 hosted acceptance record](validation/chunk 7-hosted-acceptance-2026-10-22.json)
 verifies **all 17 workflows passing at `e29cfd6`**, including desktop verification
 and protected release preparation. Push and pull-request runs are counted
 separately. Draft release `420396486` contains 24 assets; downloaded validation

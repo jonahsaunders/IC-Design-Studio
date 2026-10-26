@@ -206,6 +206,51 @@
         "archive_restored_readback": "PASS",
         "installed_acceptance": false,
         "device_statuses_unchanged": true
+      },
+      "latest_sky130_mim_hierarchy_electrical": {
+        "evidence": "sky130-mim-hierarchy-electrical-2026-10-26",
+        "status": "selected_conditioned_hierarchy_electrical_source_integration_passed",
+        "models": 2,
+        "contexts_per_host": 20,
+        "ac_runs_per_host": 40,
+        "historical_clean_layouts": 4,
+        "historical_native_capacitors": 8,
+        "new_physical_executions": 0,
+        "active_pair_samples_per_host": 960,
+        "inactive_pair_samples_per_host": 960,
+        "network_faults_detected_per_host": 60,
+        "independent_control_kinds": 12,
+        "selected_common_mode_delta_V": 1.52587890625e-05,
+        "original_larger_common_mode": "failed_unqualified",
+        "archive_restored_readback": "PASS",
+        "installed_acceptance": false,
+        "device_statuses_unchanged": true
+      },
+      "latest_sky130_esd_nvt_candidate": {
+        "evidence": "sky130-esd-nvt-source-2026-10-26",
+        "status": "selected_opt_in_source_integration_passed",
+        "default_promoted": false,
+        "contexts_per_host": 19,
+        "device_statuses_unchanged": true
+      },
+      "latest_sky130_parallel_hosted_linux": {
+        "evidence": "sky130-metal-parallel-hosted-linux-2026-10-26",
+        "candidate": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+        "status": "hosted_linux_pass_and_offline_component_readback_pass",
+        "windows_acceptance": false,
+        "device_statuses_unchanged": true
+      },
+      "latest_desktop_job_split": {
+        "evidence": "desktop-job-split-local-2026-10-26",
+        "status": "local_tests_pass_hosted_pending",
+        "device_statuses_unchanged": true
+      },
+      "latest_esd_hierarchy_integration": {
+        "evidence": "chunk7-esd-hierarchy-integration-2026-10-26",
+        "status": "both_host_source_feedback_passed",
+        "tests_per_host": 681,
+        "stages_per_host": 6,
+        "device_statuses_unchanged": true
       }
     },
     "8": {
@@ -20214,7 +20259,8 @@
           "sky130-mim-passive-corners-2026-10-23",
           "sky130-mim-bias-boundaries-2026-10-23",
           "sky130-mim-physical-scope-2026-10-23",
-          "sky130-mim-windows-preflight-2026-10-23"
+          "sky130-mim-windows-preflight-2026-10-23",
+          "sky130-mim-hierarchy-electrical-2026-10-26"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -20236,7 +20282,8 @@
           "sky130-mim-passive-corners-2026-10-23",
           "sky130-mim-bias-boundaries-2026-10-23",
           "sky130-mim-physical-scope-2026-10-23",
-          "sky130-mim-windows-preflight-2026-10-23"
+          "sky130-mim-windows-preflight-2026-10-23",
+          "sky130-mim-hierarchy-electrical-2026-10-26"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -24944,7 +24991,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0Ã¢â‚¬â€œ1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -25514,7 +25561,7 @@
     "sky130-metal-parallel-2026-10-26": {
       "path": "docs/validation/sky130-metal-parallel-2026-10-26.json",
       "sha256": "88ba1362d7339c11a264cd475270a9710abed26a5798fc0d092ab09f1bf9830a",
-      "scope_limit": "Selected source physical parallel-array editing and DC/AC integration for five SKY130 resistor models, counts 1–16: 280 clean layouts, 25 native faults, 30 actual-array electrical contexts. No full-family envelope, calibrated accuracy, array transient/noise, installed or signoff qualification."
+      "scope_limit": "Selected source physical parallel-array editing and DC/AC integration for five SKY130 resistor models, counts 1\u201316: 280 clean layouts, 25 native faults, 30 actual-array electrical contexts. No full-family envelope, calibrated accuracy, array transient/noise, installed or signoff qualification."
     },
     "sky130-metal-parallel-installed-source-2026-10-26": {
       "path": "docs/validation/sky130-metal-parallel-installed-source-2026-10-26.json",
@@ -25525,6 +25572,31 @@
       "path": "docs/validation/sky130-mim-hierarchy-2026-10-26.json",
       "sha256": "05241ecbef627a08ac2a1ed0959d07e018f5638e5d352c922d3e5e6100ff4184",
       "scope_limit": "Selected source imported repeated-cell class for both MiM constructions: four layouts, eight native faults and ten stream controls; preserved project/GDS/OASIS hierarchy with privately flattened native verification. No direct hierarchical native extraction, distributed RC, complete-family, installed or signoff qualification."
+    },
+    "sky130-mim-hierarchy-electrical-2026-10-26": {
+      "path": "docs/validation/sky130-mim-hierarchy-electrical-2026-10-26.json",
+      "sha256": "85da4b49637987a3c893a1c3135a8d113f8137b524c1e56b3fa9c9f855bb0229",
+      "scope_limit": "Selected whole-network source integration for the four original imported MiM layouts: 20 contexts/40 AC runs per host, five passive sections, 27 C, eight frequencies, two independent 1 V differential excitations at delta=2^-16V common modes. Original larger common-mode selection remains failed/unqualified. No new physical run, installed, full-envelope, calibrated-accuracy, family or signoff claim."
+    },
+    "sky130-esd-nvt-source-2026-10-26": {
+      "path": "docs/validation/sky130-esd-nvt-source-2026-10-26.json",
+      "sha256": "407ab7f2dc5ca8c0bdf70cb198652551856addaf6f0cfba26fb8df604f58607a",
+      "scope_limit": "Corrected public Xschem ESD symbol binding in a separately imported package; six finite geometry/multiplicity cases, 15 DC contexts and four nominal AC terminal excitations per host. Source integration only; no ESD protection ratings, continuous envelope, physical layout, measured accuracy or installed acceptance."
+    },
+    "sky130-metal-parallel-hosted-linux-2026-10-26": {
+      "path": "docs/validation/sky130-metal-parallel-hosted-linux-2026-10-26.json",
+      "sha256": "63759dcd22574953e34e4afafa88f2da270da3c151428d1d476126723299fd02",
+      "scope_limit": "Offline readback verifies authenticated receipts, exact captured source and native/raw components. It does not re-exercise GUI lifecycle/ECO or the live runtime and does not rerun the complete live deck auditor. Exact53c17aa7 Linux hosted result only; Windows and changed candidates remain separate."
+    },
+    "desktop-job-split-local-2026-10-26": {
+      "path": "docs/validation/desktop-job-split-local-2026-10-26.json",
+      "sha256": "382c7ccebe5b92c63f000d8527a7c478d8782fc4d3a49ff0e84505f3b9d68a9a",
+      "scope_limit": "Locally tested authenticated build-to-acceptance transfer and unchanged release validators; original six-hour timeout retained. Fresh installed hosted execution is still required."
+    },
+    "chunk7-esd-hierarchy-integration-2026-10-26": {
+      "path": "docs/validation/chunk7-esd-hierarchy-integration-2026-10-26.json",
+      "sha256": "54110b1bbc91c6eeb897c56912171d4bae4a62addbfde8a36cc27d5077d13092",
+      "scope_limit": "Integrated source feedback only: corrected optional ESD binding, numeric choices, selected MiM hierarchy electrical tools and authenticated desktop job split. Not fresh installed, full-family or manufacturing acceptance."
     }
   },
   "execution_acceptance": {

@@ -129,3 +129,28 @@ Windows skips. Source feedback takes 74.9 seconds on native Linux and 161.7
 seconds on Windows, excluding environment preparation. All 1,386 source hashes
 agree. Separate complete Linux discovery passes 3,725 tests with 61
 environment-dependent skips; no installed acceptance is inferred.
+
+
+The [October 26 desktop job split](validation/desktop-job-split-local-2026-10-26.json)
+addresses a Windows job that reached the hosted six-hour limit during release
+archive assembly. Packaging and its original 108 steps now hand the exact build
+to a fresh installed-acceptance job, which preserves all 15 original remaining
+steps, their native/GUI/electrical checks and timeouts. Release preparation still
+requires the complete desktop workflow. Producer diagnostics and an installed
+checkpoint are uploaded under separate names before the expensive later work.
+
+The handoff validates the candidate, workflow run and attempt, host, workspace,
+archive and every member before restoring into fresh destinations. It preserves
+the producer's source ZIP, verifies its candidate Git sources and rejects stale
+runtime readiness or prior installed acceptance. Source archive reuse does not
+replace the extracted-distribution and installed-app checks. A consumer on a
+later workflow attempt cannot reuse a handoff from the earlier attempt.
+
+Local checks pass 45 tests on each host, including execution with site packages
+disabled; four Windows skips cover POSIX-only link and permission controls.
+Ten workflow controls and actionlint also pass. The portable release-tools lane
+includes both handoff test modules without installing GUI or native dependencies.
+These are synthetic archive/Git fixtures. The split still needs a successful
+hosted candidate to establish actual transfer time, fresh host compatibility and
+complete installed/release acceptance. The original timeout and incomplete
+Windows diagnostic upload remain recorded; neither is promoted to a release pass.

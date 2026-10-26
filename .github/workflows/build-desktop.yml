@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
@@ -683,6 +683,196 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: ./scripts/build_windows.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: desktop-source-diagnostics-${{ runner.os }}
+          path: |
+            build/student-usability/*.json
+            build/student-usability/*.png
+            build/audit-regressions/*.json
+            build/menu-audit/*.json
+            build/deep-controls/*.json
+            build/deep-controls/*.png
+            build/pdk-exchange-evidence/report.json
+            build/student-inverter-gui/*.json
+            build/student-inverter-gui/*.png
+            build/analog-closure-evidence/*.json
+            build/analog-closure-evidence/*.png
+            build/analog-reference-evidence/*.json
+            build/analog-reference-evidence/*.png
+            build/sky130-devices-ui-evidence/*.json
+            build/sky130-devices-ui-evidence/*.png
+            build/analog-scale-evidence/report.json
+            build/analog-scale-evidence/**/*.png
+            build/design-automation-evidence/*.json
+            build/design-automation-evidence/*.png
+            build/design-automation-benchmark.json
+            build/engine-setup-ui/report.json
+            build/usability-responsive-evidence/*.json
+            build/usability-responsive-evidence/*.png
+            build/workflow-evidence/*.json
+            build/workflow-evidence/*.png
+            build/analog-experiment-evidence
+            build/optimizer-refinement-evidence
+            build/analog-advanced-evidence
+            build/digital-frozen-evidence
+            build/bundled-corner-ui
+            build/windows-diode-sequences
+            build/windows-capacitor-multipliers
+            build/windows-rf-branches
+            build/windows-rf-bias
+            build/windows-rf-transient
+            build/windows-rf-application
+            build/windows-rf-default
+            build/windows-mos-bias
+            build/macro-integrity-installed
+            build/distribution-evidence/vga
+            build/windows-evidence/vga
+            build/windows-evidence/physical
+            build/windows-evidence/mim
+            build/windows-evidence/mim-public-drc
+            build/windows-evidence/mim-electrical
+            build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/metal-resistors
+            build/windows-evidence/metal-resistors-electrical
+            build/windows-evidence/metal-resistors-acceptance.json
+            build/windows-evidence/metal-parallel
+            build/windows-evidence/metal-parallel-electrical
+            build/windows-evidence/metal-parallel-acceptance.json
+            build/frozen-physical-evidence
+            build/frozen-mim-evidence
+            build/frozen-mim-public-drc-evidence
+            build/frozen-mim-electrical-evidence
+            build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-metal-resistor-evidence
+            build/frozen-metal-resistor-electrical-evidence
+            build/frozen-metal-resistor-workflow-evidence/acceptance.json
+            build/frozen-metal-parallel-evidence
+            build/frozen-metal-parallel-electrical-evidence
+            build/frozen-metal-parallel-workflow-evidence/acceptance.json
+            build/digital-first-run-ui
+            build/digital-state/checks/**/report.json
+            build/digital-state/checks/**/result.json
+            build/digital-state/checks/**/engine.log
+            build/digital-state/checks/**/timing.json
+            build/digital-state/checks/**/physical_metrics.json
+            build/windows-evidence/install.log
+            build/windows-evidence/wsl-install.log
+            build/windows-evidence/uninstall.log
+            build/windows-evidence/windows-release.json
+            build/windows-evidence/dpi-*/*.json
+            build/windows-evidence/dpi-*/experimental/*.png
+            build/native-experimental-evidence/**/*.json
+            build/native-experimental-evidence/**/*.png
+      - name: Seal exact candidate handoff
+        run: python scripts/desktop_acceptance_handoff.py pack --output build/desktop-handoff
+      - name: Retain immutable candidate for fresh acceptance
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-candidate-${{ runner.os }}
+          path: build/desktop-handoff
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+  installed-acceptance:
+    needs: [candidate, package]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
+      - name: Download only this run's matching candidate
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-candidate-${{ runner.os }}
+          path: build/desktop-handoff
+      - name: Verify and restore candidate bytes before execution
+        run: python scripts/desktop_acceptance_handoff.py restore --input build/desktop-handoff
+      - name: Prepare Windows Linux support for the included runtime
+        if: runner.os == 'Windows'
+        timeout-minutes: 10
+        shell: pwsh
+        run: |
+          # WSL opens its first-run welcome window when the runtime is imported.
+          # It can steal native pointer input from the installed-app DPI probe.
+          # Mark onboarding complete for this disposable CI user before any WSL
+          # setup; keep real native input checks enabled at every scale factor.
+          # https://github.com/microsoft/WSL/blob/bc5abef10cc49b8d58c6ee93d8da066f76d225be/src/windows/service/exe/LxssUserSession.cpp
+          $wslKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss'
+          New-Item -Path $wslKey -Force -ErrorAction Stop | Out-Null
+          New-ItemProperty -Path $wslKey -Name OOBEComplete -PropertyType DWord -Value 1 -Force -ErrorAction Stop | Out-Null
+          if ((Get-ItemPropertyValue -Path $wslKey -Name OOBEComplete -ErrorAction Stop) -ne 1) {
+            throw 'Could not suppress WSL onboarding on the CI desktop.'
+          }
+          # Reuse a working runner installation. Updating unconditionally makes
+          # every build depend on the WSL download service (which can return 403).
+          # https://learn.microsoft.com/en-us/windows/wsl/basic-commands
+          wsl --status
+          if ($LASTEXITCODE -ne 0) {
+            wsl --update --web-download
+            if ($LASTEXITCODE -ne 0) {
+              Write-Warning 'WSL web download failed; trying the Microsoft Store update channel.'
+              wsl --update
+              if ($LASTEXITCODE -ne 0) {
+                # Server 2022 images can lack the kernel while BOTH update
+                # channels return HTTP 403. Microsoft's documented offline
+                # install uses the MSI from microsoft/WSL releases instead.
+                # https://learn.microsoft.com/en-us/windows/wsl/install#offline-install
+                Write-Warning 'WSL update channels failed; installing the pinned Microsoft release MSI.'
+                $msi = Join-Path $env:RUNNER_TEMP 'wsl.2.6.3.0.x64.msi'
+                $evidence = New-Item -ItemType Directory -Path 'build/windows-evidence' -Force
+                $installLog = Join-Path $evidence.FullName 'wsl-install.log'
+                Invoke-WebRequest -Uri 'https://github.com/microsoft/WSL/releases/download/2.6.3/wsl.2.6.3.0.x64.msi' -OutFile $msi -MaximumRetryCount 3 -RetryIntervalSec 5
+                $expected = '562c79aba6ce9b6e9170f069d31e3717f10d76dd8bfbee39b07eae0ca4a02ca0'
+                if ((Get-FileHash -LiteralPath $msi -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) {
+                  throw 'WSL installer checksum mismatch.'
+                }
+                $installer = Start-Process msiexec.exe -ArgumentList @('/i', "`"$msi`"", '/quiet', '/norestart', '/l*v', "`"$installLog`"") -Wait -PassThru
+                if ($installer.ExitCode -notin @(0, 3010)) {
+                  Get-Content -LiteralPath $installLog -Tail 80 -ErrorAction SilentlyContinue
+                  throw "WSL MSI installation failed with exit code $($installer.ExitCode)."
+                }
+                if ($installer.ExitCode -eq 3010) {
+                  Write-Warning 'The WSL installer requested a restart; runtime qualification must still pass on this runner.'
+                }
+              }
+            }
+            wsl --status
+            if ($LASTEXITCODE -ne 0) { throw 'WSL is still unavailable after updating.' }
+          }
+          # The mandatory digital-runtime qualification below imports a WSL 2
+          # distribution and runs the included engines before packaging.
+      - name: Configure Windows virtual desktop for native DPI checks
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          # The included toolchain makes compilation long enough to reach the
+          # runner's display idle timeout. Native pointer tests need its display.
+          powercfg /change monitor-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI display available.' }
+          powercfg /change standby-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI runner awake.' }
+          Set-DisplayResolution -Width 1920 -Height 1080 -Force
+          Get-DisplayResolution
+      - name: Install Linux libraries for frozen execution
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
+            libx11-6 libxtst6 libxkbfile1 libnss3 libasound2t64 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
+            libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
+            libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0
       - name: Qualify included digital engines through the frozen desktop
         timeout-minutes: 95
         env:
@@ -759,10 +949,92 @@ jobs:
         run: |
           python scripts/qualify_installed_metal_parallel.py --gui-root build/frozen-metal-parallel-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-parallel-electrical-evidence
           python scripts/verify_installed_metal_parallel.py --gui build/frozen-metal-parallel-evidence --electrical build/frozen-metal-parallel-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-parallel-workflow-evidence/acceptance.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: desktop-installed-checkpoint-${{ runner.os }}
+          path: |
+            build/student-usability/*.json
+            build/student-usability/*.png
+            build/audit-regressions/*.json
+            build/menu-audit/*.json
+            build/deep-controls/*.json
+            build/deep-controls/*.png
+            build/pdk-exchange-evidence/report.json
+            build/student-inverter-gui/*.json
+            build/student-inverter-gui/*.png
+            build/analog-closure-evidence/*.json
+            build/analog-closure-evidence/*.png
+            build/analog-reference-evidence/*.json
+            build/analog-reference-evidence/*.png
+            build/sky130-devices-ui-evidence/*.json
+            build/sky130-devices-ui-evidence/*.png
+            build/analog-scale-evidence/report.json
+            build/analog-scale-evidence/**/*.png
+            build/design-automation-evidence/*.json
+            build/design-automation-evidence/*.png
+            build/design-automation-benchmark.json
+            build/engine-setup-ui/report.json
+            build/usability-responsive-evidence/*.json
+            build/usability-responsive-evidence/*.png
+            build/workflow-evidence/*.json
+            build/workflow-evidence/*.png
+            build/analog-experiment-evidence
+            build/optimizer-refinement-evidence
+            build/analog-advanced-evidence
+            build/digital-frozen-evidence
+            build/bundled-corner-ui
+            build/windows-diode-sequences
+            build/windows-capacitor-multipliers
+            build/windows-rf-branches
+            build/windows-rf-bias
+            build/windows-rf-transient
+            build/windows-rf-application
+            build/windows-rf-default
+            build/windows-mos-bias
+            build/macro-integrity-installed
+            build/distribution-evidence/vga
+            build/windows-evidence/vga
+            build/windows-evidence/physical
+            build/windows-evidence/mim
+            build/windows-evidence/mim-public-drc
+            build/windows-evidence/mim-electrical
+            build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/metal-resistors
+            build/windows-evidence/metal-resistors-electrical
+            build/windows-evidence/metal-resistors-acceptance.json
+            build/windows-evidence/metal-parallel
+            build/windows-evidence/metal-parallel-electrical
+            build/windows-evidence/metal-parallel-acceptance.json
+            build/frozen-physical-evidence
+            build/frozen-mim-evidence
+            build/frozen-mim-public-drc-evidence
+            build/frozen-mim-electrical-evidence
+            build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-metal-resistor-evidence
+            build/frozen-metal-resistor-electrical-evidence
+            build/frozen-metal-resistor-workflow-evidence/acceptance.json
+            build/frozen-metal-parallel-evidence
+            build/frozen-metal-parallel-electrical-evidence
+            build/frozen-metal-parallel-workflow-evidence/acceptance.json
+            build/digital-first-run-ui
+            build/digital-state/checks/**/report.json
+            build/digital-state/checks/**/result.json
+            build/digital-state/checks/**/engine.log
+            build/digital-state/checks/**/timing.json
+            build/digital-state/checks/**/physical_metrics.json
+            build/windows-evidence/install.log
+            build/windows-evidence/wsl-install.log
+            build/windows-evidence/uninstall.log
+            build/windows-evidence/windows-release.json
+            build/windows-evidence/dpi-*/*.json
+            build/windows-evidence/dpi-*/experimental/*.png
+            build/native-experimental-evidence/**/*.json
+            build/native-experimental-evidence/**/*.png
       - name: Assemble and execute release archives
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python scripts/prepare_release_payload.py --output build/release-payload
+        run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip
       - name: Retain release payload
         uses: actions/upload-artifact@v4
         with:

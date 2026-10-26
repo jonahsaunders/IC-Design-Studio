@@ -1,0 +1,169 @@
+{
+  "schema": 1,
+  "as_of": "2026-10-26",
+  "status": "local_tests_passed_hosted_split_pending",
+  "scope": "Separate package construction and fresh installed acceptance into jobs with an exact same-run artifact handoff. No release or device qualification is inferred from local fixtures.",
+  "trigger": {
+    "run_id": 40340500387,
+    "candidate": "e3fa0cc60da18cee8359817bb5321923587abc50",
+    "windows_job_id": 121641478216,
+    "conclusion": "cancelled",
+    "annotation": "The job has exceeded the maximum execution time of 6h0m0s",
+    "producer_through_installer_seconds": 12498,
+    "frozen_runtime_seconds": 4012,
+    "installed_windows_seconds": 4858,
+    "release_archive_step_cancelled_seconds": 299,
+    "windows_raw_readback": "Unavailable: diagnostic upload did not finish and no Windows diagnostic artifact exists. Successful installed-step status is not independent raw acceptance.",
+    "log_limit": "Retained Windows job logs stop during installer compression; run log ZIP omits the Windows job.",
+    "agent_cancelled_or_retried": false
+  },
+  "change": {
+    "original_producer_steps_preserved": 108,
+    "original_consumer_tail_steps_preserved": 15,
+    "consumer_job": "installed-acceptance",
+    "consumer_needs": [
+      "candidate",
+      "package"
+    ],
+    "all_native_gui_electrical_gates_and_timeouts_preserved": true,
+    "all_existing_release_validators_preserved": true,
+    "original_source_zip_carried_and_verified": true,
+    "fresh_acceptance_required": true,
+    "diagnostic_artifacts": [
+      "desktop-source-diagnostics-${runner.os}",
+      "desktop-installed-checkpoint-${runner.os}",
+      "desktop-diagnostics-${runner.os}"
+    ],
+    "release_artifact_names_unchanged": true
+  },
+  "candidate_source_files": {
+    "desktop_acceptance_handoff.py": "df873d2f80ae339a8ba286aea4d2fe400fa4b2d3fc7c451680dfb16833fa9539",
+    "prepare_release_payload.py": "5af090a8e75794ca8a155a8a91a5423de941032d21ae2dd07b45001b533cb233",
+    "test_desktop_acceptance_handoff.py": "0e17ff187ee2b54f4fdb6ffdd4e934487ad27d9a3e20908628ad1b13213ac233",
+    "test_release_source_handoff.py": "6ee0315eb1f94625d82f0c6180c624b0050a128965f43cbdf382e01adcdccf02",
+    "build-desktop.proposed.yml": "f6d354f578e8655a2fcc07a99db18fa798f81c58c30c10942fa3c4e2941dbc8b"
+  },
+  "integration_derivatives": {
+    "scripts/desktop_acceptance_handoff.py": {
+      "candidate_sha256": "df873d2f80ae339a8ba286aea4d2fe400fa4b2d3fc7c451680dfb16833fa9539",
+      "integrated_sha256": "df873d2f80ae339a8ba286aea4d2fe400fa4b2d3fc7c451680dfb16833fa9539",
+      "exact_derivation_verified": true,
+      "operations": [
+        "Byte-identical"
+      ]
+    },
+    "scripts/prepare_release_payload.py": {
+      "candidate_sha256": "5af090a8e75794ca8a155a8a91a5423de941032d21ae2dd07b45001b533cb233",
+      "integrated_sha256": "09ca1c9439ca45dea32410adf85c05852d27c72c06ad63173504945cb65880d5",
+      "exact_derivation_verified": true,
+      "operations": [
+        "CRLF to LF only"
+      ]
+    },
+    "tests/test_desktop_acceptance_handoff.py": {
+      "candidate_sha256": "0e17ff187ee2b54f4fdb6ffdd4e934487ad27d9a3e20908628ad1b13213ac233",
+      "integrated_sha256": "0e17ff187ee2b54f4fdb6ffdd4e934487ad27d9a3e20908628ad1b13213ac233",
+      "exact_derivation_verified": true,
+      "operations": [
+        "Byte-identical"
+      ]
+    },
+    "tests/test_release_source_handoff.py": {
+      "candidate_sha256": "6ee0315eb1f94625d82f0c6180c624b0050a128965f43cbdf382e01adcdccf02",
+      "integrated_sha256": "6ee0315eb1f94625d82f0c6180c624b0050a128965f43cbdf382e01adcdccf02",
+      "exact_derivation_verified": true,
+      "operations": [
+        "Byte-identical"
+      ]
+    },
+    ".github/workflows/build-desktop.yml": {
+      "candidate_sha256": "f6d354f578e8655a2fcc07a99db18fa798f81c58c30c10942fa3c4e2941dbc8b",
+      "integrated_sha256": "fd3c19ba1f082ad60e4fe7221aae6018452241c4ea0a759f5834642c43732d6f",
+      "exact_derivation_verified": true,
+      "operations": [
+        "CRLF to LF only",
+        "Append two portable test modules to release-tools"
+      ]
+    }
+  },
+  "local_validation": {
+    "original_windows": {
+      "tests": 45,
+      "skips": 4
+    },
+    "original_linux": {
+      "tests": 45,
+      "skips": 0
+    },
+    "workflow_controls": {
+      "tests": 10,
+      "status": "PASS"
+    },
+    "actionlint": {
+      "status": "PASS",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-remaining-bindings-20261023-v1\\actionlint\\actionlint.exe",
+      "sha256": "6d470a52039a433bccdf57bd65170885a5b23e511155d0de587c2c3ce0eb1c24",
+      "shellcheck": false,
+      "pyflakes": false
+    },
+    "portable_no_site_packages": {
+      "Windows": {
+        "discovered": 45,
+        "skips": 4,
+        "site_packages_disabled": true,
+        "elapsed_seconds": 14.516,
+        "receipt": "Windows-portable-review.json",
+        "sha256": "6e5fbcc1b4501b64f7b26ef5a95298918fcdb24624e1c96cad0cb857a1898d9f"
+      },
+      "Linux": {
+        "discovered": 45,
+        "skips": 0,
+        "site_packages_disabled": true,
+        "elapsed_seconds": 1.507,
+        "receipt": "Linux-portable-review.json",
+        "sha256": "623f24bf2c5596ecd9340bad3521d8eb66a9cc08046cc7c1448215b23674be08"
+      }
+    },
+    "fixture_scope": "Actual pack/restore CLI, Git/source archive and adversarial byte/path/identity controls using synthetic application/runtime bytes; no EDA or installed application execution.",
+    "integration_review": {
+      "status": "PASS_LOCAL_REVIEW",
+      "receipt_sha256": "eeca183faab4916c4355f11a79bb05af0cd165e0662eac6cc7bc69c0af114d48",
+      "blocking_findings": []
+    }
+  },
+  "retention": {
+    "original_local_archive": {
+      "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\desktop-job-split-local-2026-10-26-v1\\evidence.zip",
+      "sha256": "2f018353bcdea65c99dcde7d4fd1b26d16daf76fca78c8554791ceb265e00daa",
+      "bytes": 61344,
+      "members": 42,
+      "manifest_sha256": "d161cdac550b85bbc3164697f94423eea2a01ba52bf727383af33d09939d37e9",
+      "full_member_readback": true
+    },
+    "supplemental_review": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\desktop-job-split-local-2026-10-26-v1\\integration-review-v1.zip",
+      "sha256": "5ed506a378283cd298a4917d407eeedbf60f0366762f7f84ce814bc03b3efd98",
+      "bytes": 13313,
+      "members": 10,
+      "manifest_sha256": "0fa59939188f480c44093b7850ed3c0bef2d43d126d4c30489d7f32bc0e96742",
+      "full_member_readback": true
+    },
+    "original_timeout_archive": {
+      "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\desktop-resistor-installed-2026-10-26-v1\\old-run-timeout-evidence.zip",
+      "sha256": "d54736bf79e750f551994d5023133a50fb943bc5ab510bd1a5e4ab4f14d65afe",
+      "bytes": 1730374,
+      "members": 18,
+      "manifest_sha256": "570cdf44cc3a77727e0a6dc9165f2fb7e4485d106ee08f592c76fd75889aca97",
+      "full_decompressed_member_bytes_verified": true
+    }
+  },
+  "limitations": [
+    "Split workflow has not completed hosted acceptance.",
+    "Actual transfer size, elapsed time and host/runtime compatibility remain to be measured.",
+    "Same-run, same-attempt identity is strict; a later-attempt consumer cannot reuse the prior attempt artifact.",
+    "Initial syntax and ordinary-account temporary-permission failures are retained separately from final passing local results.",
+    "No native/device/whole-family/chunk completion or manufacturing-signoff claim."
+  ],
+  "release_ready": false,
+  "chunk_complete": false
+}

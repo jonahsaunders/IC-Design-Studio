@@ -487,3 +487,13 @@ GPL-3.0 repository and retain their original headers. The adjacent `SOURCE.json`
 and `LICENSE` identify and license those exact bytes. The project runner creates
 separate derived scripts, records their changes and retains the originals; it
 does not alter the public model parameters or redistribute solver dependencies.
+
+The optional corrected SKY130 ESD binding retains the unmodified public model,
+symbols, example, source identities and both Apache-2.0 license texts under
+`icstudio/assets/qualification/sky130-esd-nvt-source-v1/`. The model is from
+`fossi-foundation/skywater-pdk-libs-sky130_fd_pr` at
+`16f93a795d87ea2b393fe5c74d32674e111e44a2`; the symbol correction and example are
+from `StefanSchippers/xschem_sky130` at
+`08367118f8ad7311b9264b856fb4d5f1f58b45f9`. Original copyright and Apache notices
+remain intact. The separate preparation and qualification adapters are project
+code under GPL-3.0. See `docs/SKY130_ESD_NVT_BINDING.md` for the explicit limits.

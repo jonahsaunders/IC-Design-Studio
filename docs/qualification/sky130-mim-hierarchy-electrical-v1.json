@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "id": "sky130-mim-hierarchy-electrical-v1",
+  "as_of": "2026-10-26",
+  "source_baseline": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+  "chunk": 7,
+  "qualified": false,
+  "installed": false,
+  "full_family": false,
+  "release_ready": false,
+  "signoff": false,
+  "chunk_complete": false,
+  "requirements": [
+    "MIM-EXTRACTED-RC",
+    "MIM-PHYSICAL-CLASSES"
+  ],
+  "scope": "Selected whole-network electrical integration of the four already-accepted imported two-occurrence MiM layouts. Current application schematic counterpart, archived explicit hierarchical verification reference, unchanged complete native extraction and independent source-defined lumped RC. No fresh physical execution, full envelope, distributed RC, measured accuracy or installed acceptance.",
+  "base_contracts": {
+    "electrical": {
+      "path": "docs/qualification/sky130-mim-contract-v1.json",
+      "sha256": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209"
+    },
+    "physical": {
+      "path": "docs/qualification/sky130-mim-hierarchy-v1.json",
+      "sha256": "7bfb3c4ac6c936e378faab28892e924f46e73295b468a8b45e265c9ef7c823a4"
+    }
+  },
+  "physical_dependency": {
+    "archive_sha256": "0626cb1d07050768911a6056009e99ac9ce3bcf13d0313b6786195879c434caa",
+    "manifest_sha256": "7a5caf43e2a2c1c41c8e19e1b2c6858498c50eccf1b9b0238a4d63d926291693",
+    "prefix": "native/full-v1/",
+    "files": 1264,
+    "qualification_sha256": "069db1ff6115e63c3d16925de68f4d01791ae64f57859a1a7625d4831396778a",
+    "native_manifest_sha256": "088cff5586c95ee808b5b6434bc5d4e9dd56d43e60c90f313e33e464cef66ab6",
+    "original_execution_root": "/var/tmp/icstudio-mim-hierarchy-20261026-v1/full-v1",
+    "physical_auditor_sha256": "a70f1ea506e8b3edd9a30f2b09cd9acb47f662f5863fabe187e733f1743a9343"
+  },
+  "simulation_package": {
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "counterpart": {
+    "method": "New current-package actual application schematic with one shared leaf and two genuine X instances; saved/reopened and native_subcircuit invoked once on the complete parent. Historical imported projects are geometry-only; historical schematic.spice is explicit verification reference, never described as an application export.",
+    "old_revision": "9a491f0ebd51a0aa",
+    "new_revision": "b26f7f28e659ddc1",
+    "preserve_old_bindings": true,
+    "selected_model_and_pin_order_unchanged": true,
+    "selected_parameters": {
+      "w": 2,
+      "l": 10,
+      "mf": 1
+    },
+    "old_emit_parameters": {
+      "1": {
+        "l": "l",
+        "m": "mf",
+        "mf": "mf",
+        "w": "w"
+      },
+      "2": {
+        "l": "l",
+        "m": "mf",
+        "vm": "mf",
+        "w": "w"
+      }
+    },
+    "new_emit_parameters": {
+      "l": "l",
+      "m": "mf",
+      "mf": "mf",
+      "w": "w"
+    },
+    "binding_note": "The physical adapter second-plate binding emits legacy vm; new schematic deliberately uses current reviewed mf. Preserve both source bindings and emitted files; no silent migration or assertion that historical symbol bytes are identical."
+  },
+  "selection": {
+    "plates": [
+      1,
+      2
+    ],
+    "rotations": [
+      0,
+      90
+    ],
+    "sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "width_um": 2,
+    "length_um": 10,
+    "unit_multiplicity": 1,
+    "occurrences": 2,
+    "ports": [
+      "P1",
+      "N1",
+      "P2",
+      "N2"
+    ],
+    "contexts": 20,
+    "native_runs": 40,
+    "pilot_contexts": 2,
+    "pilot_runs": 4
+  },
+  "profiles": {
+    "e1": [
+      1.25,
+      0.25,
+      -0.5,
+      -0.5
+    ],
+    "e2": [
+      0.25,
+      0.25,
+      0.5,
+      -0.5
+    ]
+  },
+  "stimulus": {
+    "temperature_c": 27,
+    "tnom_c": 27,
+    "dc_volts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "frequencies_hz": [
+      1000.0,
+      10000.0,
+      100000.0,
+      1000000.0,
+      10000000.0,
+      100000000.0,
+      1000000000.0,
+      10000000000.0
+    ],
+    "mc_mm_switch": 0,
+    "mc_pr_switch": 0,
+    "interpretation": "Independent differential basis(1,0)/(0,1) with distinct terminal common modes; four voltages and four signed input currents saved per whole-network path."
+  },
+  "positive_paths": [
+    "app",
+    "reference",
+    "native"
+  ],
+  "fault_paths": {
+    "cross": "Only native second-occurrence P2 changes to P1; expected summed current atP1, zeroP2 current, unchanged first capacitor.",
+    "missing": "Only second native X line removed; four-port header remains.",
+    "width": "Only second native W2 changes to W3; originalpositive extraction untouched."
+  },
+  "tolerances": {
+    "relative_Y_R_C": 1e-06,
+    "current_absolute_relative_to_1V_admittance": 1e-06,
+    "voltage_absolute": 1e-12,
+    "coefficient_relative": 1e-10,
+    "coefficient_absolute": 1e-24,
+    "frequency_relative": 1e-10
+  },
+  "acceptance": [
+    "All selected complete networks included once perpath, never synthetic separated native two-pin replacements.",
+    "All four terminal voltages/current signs, per-pair and globalKCL, active Y/R/C and inactive/off-diagonal response independently checked.",
+    "Fault responses must match the exact altered graph and deviate from the positivegraph across bothprofiles; a fault inactive ine1 need not failuntil e2.",
+    "Terminal reversal, changed occurrence identity/rotation/native file or graph is a semantic rejection; reciprocalRC response alone does not prove orderedP/N.",
+    "Pinned5section coefficients are observed from actualselected model library, not manually substituted coefficient values.",
+    "Exact source/package/runtime/retainedphysical before-after guards, complete rawdecks/logs and failure preservation."
+  ],
+  "exclusions": [
+    "Othergeometry/temperature/bias/multiplicity classes",
+    "Directnativehierarchical extraction",
+    "Distributed/substrate/top-sheet parasitic or measuredsilicon accuracy",
+    "Statisticalcalibration/reliability",
+    "Installedrelease/fullfamily/foundrysignoff"
+  ],
+  "independent_candidate_files": [
+    "scripts/audit_sky130_mim_hierarchy_electrical.py",
+    "tests/test_sky130_mim_hierarchy_electrical_audit.py"
+  ]
+}

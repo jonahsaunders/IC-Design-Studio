@@ -9,11 +9,14 @@ native readback and restored evidence checks pass. The separate
 [physical parallel-array milestone](SKY130_METAL_RESISTOR_PARALLEL.md) now passes
 its complete 280-layout, 25-fault and thirty-context DC/AC source selection.
 It adds editable counts 1–16 for all five models, with attached-route and
-single-unit compatibility checks. Exact installed straight-resistor acceptance is running
-on `e3fa0cc` and remains pending. Both MiM constructions also complete the
+single-unit compatibility checks. The older `e3fa0cc` Linux installed straight-resistor result passes; its Windows
+job timed out after the installed step and provides no retained Windows raw
+artifact. Exact `53c17aa7` Linux installed parallel-array acceptance and offline
+component readback pass; the corresponding Windows run remains separate. Both MiM constructions also complete the
 selected [imported repeated-cell source class](SKY130_MIM_HIERARCHY.md), with
 four native clean layouts, eight native controls, ten stream controls and
 restored independent readback. Full remaining class/envelope requirements remain.
+The [linked MiM hierarchy electrical record](validation/sky130-mim-hierarchy-electrical-2026-10-26.json) completes a separate selected whole-network source experiment on those same four archived layouts: forty AC runs per host, all five passive sections, independent terminal excitations and fixed analytical limits. Its conditioned ±2⁻¹⁶V common-mode selection passes; the original larger-offset selection remains failed/unqualified. No full family, installed or arbitrary common-mode/geometry envelope is inferred.
 The original planning baseline `43a04bb` and the
 [sampled IHP high-voltage MOS acceptance](IHP_HV_MOS_LAYOUTS.md) retain their
 historical scope. New results are linked explicitly below. The authoritative
@@ -21,6 +24,11 @@ historical scope. New results are linked explicitly below. The authoritative
 entries, six unavailable real-device bindings and nine utilities. Its recorded
 source baseline is `43a04bb`. Historical records retain their own sources and
 package revisions.
+
+A separate [optional ESD package](SKY130_ESD_NVT_BINDING.md) now provides the
+explicit upstream-corrected binding and passes selected electrical integration
+on both hosts. The default six unavailable entries remain unchanged until a
+reviewed package promotion and fresh affected installed acceptance.
 
 The existing chunk gate is unchanged: every supported device must pass its
 terminal, parameter, model, operating-envelope, layout and extracted-connectivity
@@ -94,7 +102,7 @@ adding LI samples and call that progress toward resolving the missing definition
 | Priority | Family and target | Concrete next milestone | What still prevents family closure |
 | --- | --- | --- | --- |
 | 1 | SKY130 LI, then M1–M4 generic resistors | Five native editor recipes and the separate M1–M4 linked source-integration milestone are complete. Reconcile required geometry/envelope limits and qualify the exact installed recipe next. | Full applicable envelope/class reconciliation and exact installed acceptance. Metal layout evidence does not inherit LI electrical coverage. |
-| 2 | SKY130 first and second MiM | [Versioned two-device contract](SKY130_MIM_REQUIREMENTS.md), twenty-context passive-section example and sixty-context selected ±5 V integration checks with actual DC readback are recorded. Reconcile the remaining supported physical classes and source-defined boundaries, retain the completed October 24 installed recipe and qualify added classes separately. | Source-backed operating/statistical/reliability applicability, unsupported physical classes and acceptance beyond the completed selected installed recipe. Fractional electrical multiplicity does not imply fractional physical copies. |
+| 2 | SKY130 first and second MiM | [Versioned two-device contract](SKY130_MIM_REQUIREMENTS.md), twenty-context passive-section example and sixty-context selected ±5 V integration checks with actual DC readback are recorded. Selected imported two-occurrence whole-network electrical linkage now passes under its explicit conditioned-common-mode contract. Retain its original larger-offset numerical limitation, reconcile the remaining supported physical classes and source-defined boundaries, retain the completed October 24 installed recipe and qualify added classes separately. | Source-backed operating/statistical/reliability applicability, unsupported physical classes and acceptance beyond the completed selected installed recipe. Fractional electrical multiplicity does not imply fractional physical copies. |
 | 3 | IHP 1.2 V and 3.3 V MOS, separate standard and RF views | Reconcile the sampled standard LV/HV geometry acceptance with the full model envelopes, then join extracted electrical checks. | HV sampled native geometry passes; unsampled classes and complete envelopes remain open. Public model measurements at 27 C do not establish complete temperature validity. Standard geometry cannot stand in for RF geometry even where compact model names overlap. |
 | 4 | GF180 C and D standard 3.3 V MOS | Resolve the two retained fast-corner specification discrepancies and the incomplete threshold-extraction definition; consolidate finger/multiplicity coverage against the contract. | Literal published current bounds still differ from direct public-model results. Geometry batches and source/reference agreement cannot override those mismatches. C/D physical stacks remain separate. |
 | 5 | IHP straight resistors and taps; GF180 C/D straight resistor families | Join each model's electrical envelope to its existing physical classes and native extraction. For taps include the exact computed-resistance binding and independent body/port check. | Selected geometry/temperature points, body handling, optional via classes, model-specific operating limits and installed acceptance. A disabled optional via stack is not a passed via class. |

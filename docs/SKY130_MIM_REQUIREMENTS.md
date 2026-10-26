@@ -25,6 +25,8 @@ and stream hierarchy, privately flattened native verification, independent
 ordered terminals and recovered evidence readback. This is a separate finite
 class; it adds no installed, direct hierarchical extraction or RC-accuracy claim.
 
+The [selected linked hierarchy electrical experiment](validation/sky130-mim-hierarchy-electrical-2026-10-26.json) adds complete-network application/reference/native comparisons on the same four archived layouts. Windows and Linux each pass twenty contexts and forty AC runs across the five actual passive sections at 27°C, using two independent differential excitations and all four terminal currents. The separate v2 contract limits common modes to ±2⁻¹⁶V; the original +0.25/−0.5V selection remains an observed numerical limitation and is not qualified. This adds selected imported-network lumped-model integration, without a fresh physical run, installed claim, measured-model accuracy or full common-mode envelope.
+
 ## Current requirement disposition
 
 The twelve original requirements retain their original definitions. Later
@@ -44,7 +46,7 @@ requirements open; the immutable planning contract is not rewritten.
 | `MIM-STATISTICS` | Selected actual alias execution completed; empirical distributions/correlations, process/layout dependence and reliability calibration remain open. |
 | `MIM-PHYSICAL-CLASSES` | Selected rectangles, parallel examples and imported repeated cells pass; stacked/shared/dummy and other hierarchical classes remain partial. |
 | `MIM-WRITTEN-RULES` | Legacy stack terminology and missing numerical/context definitions remain unresolved. |
-| `MIM-EXTRACTED-RC` | Selected mask-derived lumped-model integration passes; distributed/substrate/top-sheet accuracy and direct hierarchy remain open. |
+| `MIM-EXTRACTED-RC` | Selected mask-derived and imported two-occurrence whole-network lumped-model integration passes at declared conditions. The original larger-common-mode selection remains unqualified; distributed/substrate/top-sheet accuracy and direct hierarchical native extraction remain open. |
 | `MIM-INSTALLED` | Original configured Windows/Linux recipe completed at `65614924`; no added family-wide prerequisite. |
 
 ## Actual mismatch-library sections
@@ -328,5 +330,5 @@ The contract separates local execution from missing source definitions:
 
 All copied documentation remains unmodified under its original Apache-2.0
 license and pinned public revision. No private resource is required for the
-planned passive-section example. Chunk 7 remains approximately **60% complete**,
-with low confidence (50–70%); this contract does not increase that estimate.
+planned passive-section example. See the [current progress tracker](QUALIFICATION_PROGRESS.md)
+for the chunk7 engineering estimate; this contract alone does not determine it.
