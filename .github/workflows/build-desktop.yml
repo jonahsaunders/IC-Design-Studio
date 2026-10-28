@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
@@ -734,6 +734,7 @@ jobs:
             build/windows-evidence/mim-public-drc
             build/windows-evidence/mim-electrical
             build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/optional-esd
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -745,6 +746,7 @@ jobs:
             build/frozen-mim-public-drc-evidence
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-optional-esd-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -919,6 +921,12 @@ jobs:
           python scripts/qualify_installed_sky130_mim_public_drc.py --gui build/frozen-mim-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-public-drc-evidence
           python scripts/qualify_installed_sky130_mim_electrical.py --gui-root build/frozen-mim-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-electrical-evidence
           python scripts/verify_installed_mim.py --gui build/frozen-mim-evidence --public build/frozen-mim-public-drc-evidence --electrical build/frozen-mim-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-workflow-evidence/acceptance.json
+      - name: Verify frozen Linux optional ESD GUI and native electrical workflow
+        if: runner.os == 'Linux'
+        timeout-minutes: 45
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/qualify_installed_sky130_esd.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 2400 --out build/frozen-optional-esd-evidence
       - name: Verify frozen Linux resistor editor and fresh native layout workflow
         if: runner.os == 'Linux'
         timeout-minutes: 45
@@ -1000,6 +1008,7 @@ jobs:
             build/windows-evidence/mim-public-drc
             build/windows-evidence/mim-electrical
             build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/optional-esd
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -1011,6 +1020,7 @@ jobs:
             build/frozen-mim-public-drc-evidence
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-optional-esd-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -1092,6 +1102,7 @@ jobs:
             build/windows-evidence/mim-public-drc
             build/windows-evidence/mim-electrical
             build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/optional-esd
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -1103,6 +1114,7 @@ jobs:
             build/frozen-mim-public-drc-evidence
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-optional-esd-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -1137,6 +1149,7 @@ jobs:
             build/frozen-mim-public-drc-evidence
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-optional-esd-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json

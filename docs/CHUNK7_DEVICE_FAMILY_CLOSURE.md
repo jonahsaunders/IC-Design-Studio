@@ -1,5 +1,13 @@
 # Chunk 7: close one device family at a time
 
+October 28 follow-through adds a source-defined MOS voltage screen, full finite
+metal hierarchy electrical evidence, an explicitly derived MiM fixture replay,
+and a new optional ESD desktop acceptance path. The
+[combined source checkpoint](validation/chunk7-final-integration-2026-10-28.json)
+passes 795 tests and all six feedback stages on both hosts. The
+[progress tracker](QUALIFICATION_PROGRESS.md) distinguishes their source results
+from pending exact installed acceptance. None promotes a complete device family.
+
 Execution update: October 26, 2026. The
 [editable resistor and linked M1–M4 milestone](SKY130_METAL_RESISTOR_EDITOR.md)
 is followed by the selected

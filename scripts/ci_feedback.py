@@ -22,6 +22,9 @@ UNIT_MODULES = (
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
     'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_contact_topology',
     'test_mim_desktop_probe', 'test_frozen_mim',
+    'test_frozen_esd', 'test_sky130_mos_voltage_contract', 'test_sky130_mos_voltage_source',
+    'test_metal_hierarchy_electrical', 'test_sky130_mim_conditioning',
+    'test_source_mim_fixture_archive', 'test_linux_ngspice_manifest',
     'test_installed_mim_electrical', 'test_installed_mim_public_drc', 'test_installed_mim_aggregate',
     'test_sky130_mim_mismatch_aliases', 'test_sky130_mim_mismatch_alias_audit',
     'test_sky130_metal_editor', 'test_sky130_metal_resistors_linked',
@@ -43,17 +46,29 @@ UNIT_MODULES = (
 )
 
 
+PYTHON_SOURCE_FOLDERS = (
+    'icstudio', 'scripts', 'tests',
+    'scripts/qualification/sky130_mim_conditioning',
+)
+
+
+def python_sources(root):
+    return sorted(path for folder in PYTHON_SOURCE_FOLDERS
+                  for path in (root / folder).glob('*.py'))
+
+
 def check_syntax(root=ROOT):
-    files = sorted(path for folder in ('icstudio', 'scripts', 'tests')
-                   for path in (root / folder).glob('*.py'))
+    files = python_sources(root)
     for path in files:
         compile(path.read_bytes(), str(path), 'exec')
     return len(files)
 
 
 def source_identity(root=ROOT):
-    files = [path for folder in ('icstudio', 'scripts', 'tests')
-             for path in (root / folder).glob('*.py')]
+    files = python_sources(root)
+    fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
+    if fixture.is_file():
+        files.append(fixture)
     files += list((root / '.github/workflows').glob('*.yml'))
     files += list(root.glob('requirements*.txt'))
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()

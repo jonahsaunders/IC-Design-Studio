@@ -56,6 +56,28 @@ class FeedbackTests(unittest.TestCase):
             with self.assertRaises(SyntaxError):
                 check_syntax(root)
 
+    def test_nested_qualification_code_and_fixture_are_bound(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            nested = root / 'scripts/qualification/sky130_mim_conditioning/replay.py'
+            fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
+            nested.parent.mkdir(parents=True)
+            fixture.parent.mkdir(parents=True)
+            nested.write_text('x = 1\n')
+            fixture.write_bytes(b'original fixture')
+            before = source_identity(root)
+            self.assertEqual(set(before), {nested.relative_to(root).as_posix(),
+                                           fixture.relative_to(root).as_posix()})
+            self.assertEqual(check_syntax(root), 1)
+            fixture.write_bytes(b'changed fixture')
+            self.assertNotEqual(source_identity(root), before)
+            nested.write_text('def invalid(:\n')
+            with self.assertRaises(SyntaxError):
+                check_syntax(root)
+            nested.unlink()
+            self.assertNotIn('scripts/qualification/sky130_mim_conditioning/replay.py',
+                             source_identity(root))
+
     def test_focused_modules_exist_and_release_contracts_remain_fast_checks(self):
         for name in UNIT_MODULES:
             self.assertTrue((ROOT / 'tests' / (name.split('.')[0] + '.py')).is_file(), name)

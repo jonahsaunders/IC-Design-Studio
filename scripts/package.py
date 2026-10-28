@@ -26,6 +26,8 @@ else:
  engine=os.environ.get('ICSTUDIO_BUNDLED_NGSPICE') or shutil.which('ngspice')
  if not engine:raise ValueError('Install ngspice or set ICSTUDIO_BUNDLED_NGSPICE before packaging. Runtime-free releases are not supported.')
  check_ngspice(engine)
+ from stage_linux_ngspice_manifest import source_hash
+ linux_engine_sha256=source_hash(engine)
  os.environ['ICSTUDIO_BUNDLED_NGSPICE']=engine
 from icstudio.build_identity import identity
 from icstudio.digital_vga import REVISION as vga_revision
@@ -57,6 +59,10 @@ for name in filter(None,[native_library_name()]):
  if p.exists():args+=['--add-binary',f'{p}{os.pathsep}icstudio']
 if os.name=='nt':args+=['--icon',str(root/'icstudio/assets/app.ico')]
 args.append(str(root/'main.py'));subprocess.run(args,cwd=root,check=True)
+
+if os.name != 'nt':
+ from stage_linux_ngspice_manifest import stage as stage_linux_ngspice_manifest
+ stage_linux_ngspice_manifest(root/'dist/ICDesignStudio/_internal/icstudio/assets/runtime/ngspice', linux_engine_sha256)
 
 # Copy the independent interpreter verbatim after freezing. PyInstaller must
 # not rewrite its libraries or mix them with the application's Python/Qt.

@@ -1,0 +1,281 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "chunk": 7,
+  "id": "sky130-metal-hierarchy-electrical-2026-10-28",
+  "status": "PASS",
+  "qualified": false,
+  "installed": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "release_ready": false,
+  "signoff": false,
+  "scope": "Selected physical-to-electrical source integration of the ten retained imported repeated-cell LI/M1-M4 layouts at five explicit passive sections and 27 C. No geometry/operating/reliability/statistical envelope, distributed RC, family completion, installed delivery, signoff or manufacturing claim.",
+  "mode": "selected source integration",
+  "accepted_requirement": "Finite whole-network electrical response of the retained imported repeated-cell LI/M1-M4 hierarchy at both rotations, five explicit passive sections and 27 C.",
+  "source_snapshot": {
+    "manifest_sha256": "de53c5b24601242e64448a151eb6acf4ed2e57cf2c71d524b207f64f9b74e11b",
+    "files_verified_before_after": 6631,
+    "captured_python_and_contract_files": 846,
+    "source_snapshots_never_modified": true
+  },
+  "original_executed_candidate": {
+    "scripts/audit_sky130_metal_hierarchy_electrical.py": "aab0e2ca21ff33faeba3fc403e30c4ce85a0bb0f3fc0697ca454b958961b0129",
+    "scripts/qualify_sky130_metal_hierarchy_electrical.py": "a37710e15a81246db39416d0436bb96f5fd749388484d464f717044bdbd88796",
+    "tests/test_metal_hierarchy_electrical.py": "1a6e7e5fca1d7f0f2e147c0f1b65549cd950cd6331e6aabd7df187c00210b581",
+    "docs/qualification/sky130-metal-hierarchy-electrical-v1.json": "17447ec7c83259288e730b3f80cd6efdd0088a66f38b315def14d04e6204b20b"
+  },
+  "later_reader": {
+    "path": "later-reader/scripts/audit_sky130_metal_hierarchy_electrical.py",
+    "sha256": "97e01535630070e913e811a7c5896cec3921dea4b19a096525fe5c7443e6fbbf",
+    "executed_reader_sha256": "aab0e2ca21ff33faeba3fc403e30c4ce85a0bb0f3fc0697ca454b958961b0129",
+    "change": "Checker-only separation of producer summary arithmetic using frozen contract literals from independent source-coefficient/incidence-matrix scientific acceptance. Original failed audit and executed reader retained. No tolerance or contract changed."
+  },
+  "focused_tests": {
+    "windows": 17,
+    "linux": 17,
+    "later_checker_windows": 17,
+    "later_checker_linux": 17
+  },
+  "prior_attempts": [
+    {
+      "name": "linux-pilot-v1",
+      "status": "FAIL",
+      "reason": "Candidate incorrectly expected catalog kind R; actual locked model uses PDK kind with R prefix."
+    },
+    {
+      "name": "linux-pilot-v2",
+      "status": "FAIL",
+      "reason": "Candidate occurrence mutation assumed A2/B2 order; retained r90 extraction uses B2/A2. Corrected semantic occurrence selection and regression added."
+    },
+    {
+      "name": "linux-pilot-v3",
+      "status": "PASS",
+      "source_integration_acceptance": false
+    },
+    {
+      "name": "windows-pilot-v1",
+      "status": "FAIL",
+      "reason": "Current tracker differs from exact 6631-file baseline; source guard rejected before native work."
+    },
+    {
+      "name": "windows-full-v1",
+      "status": "FAIL",
+      "reason": "Tracked source snapshot correctly excludes ignored runtime. Explicit actual engine selected in final retry."
+    },
+    {
+      "name": "linux-full-first-reader",
+      "status": "FAIL",
+      "reason": "Independent source-unit float parsing differs last bit from JSON literals in derived maximum error summary. All450 raw electrical comparisons independently pass; later checker verifies summary separately without changing scientific acceptance."
+    },
+    {
+      "name": "windows-mutations-hardlink-copy",
+      "status": "FAIL_BEFORE_MUTATIONS",
+      "reason": "Ordinary Windows hardlinks denied by filesystem permissions. Failure retained; fresh mutations-v2 uses ordinary file copies without administrator access."
+    },
+    {
+      "name": "windows-archive-selected-negative-longpath",
+      "status": "FAIL_BEFORE_NEGATIVE_AUDIT",
+      "reason": "Deep duplicate destination exceeded ordinary Windows filename length for two PDK sources. Corrective helper uses supplied short TEMP only; original archive, failed helper/log and all positive readbacks preserved. Corrective selected-negative readback passes."
+    }
+  ],
+  "limitations": [
+    "Selected two reused 2x5 um straight leaves only; historical native tools use private exact-mask flatten, not unflattened hierarchical extraction.",
+    "Compact resistor models only, not distributed interconnect RC.",
+    "Full geometry/operating/temperature/current-density/reliability/statistical limits remain unresolved.",
+    "Public generic resistor documentation cautions against analog precision use.",
+    "No new installed, full-family, release, signoff or manufacturing acceptance."
+  ],
+  "hosts": {
+    "linux": {
+      "nonce": "a6351f791aec4d238ae1a8764a8f4bda",
+      "qualification_sha256": "459040fc32b5829c68948f80f1f625df4d883b94349682807002576274253345",
+      "manifest_sha256": "ef05749450fe5a9151615705580740c64fbd832db7c63576d138bccbdb00b6a2",
+      "source_files_sha256": "be1cdafe587789b271e04c47be4507426717af2f2fdfb2142f5dcb7620ecd033",
+      "candidate_files_sha256": "ed6a5ac72d952a534c65c5dd90d23a47825b4ca35ee08f51b086fd83c0ff1bec",
+      "runtime_before_sha256": "58923223a3a2871986efe1905b8f2f4e3e80e788dfefab8e78b45f8fd7a343f6",
+      "runtime_after_sha256": "58923223a3a2871986efe1905b8f2f4e3e80e788dfefab8e78b45f8fd7a343f6",
+      "producer_seconds": 466.26062578099663,
+      "audit_sha256": "d0f8eca4a442c21c3eede0a1bf5767668b2e2195aa9feb00208851f5e9cfe51f",
+      "mutation_readback_sha256": "48abdb16fa9fc115adc5034204a49b27e23ac05c8002b5ce1a435c7e8713b210",
+      "counts": {
+        "contexts": 50,
+        "native_runs": 450,
+        "dc_samples": 600,
+        "ac_samples": 2000,
+        "zero_current_samples": 41300,
+        "kcl_samples": 18200,
+        "detected_network_controls": 150,
+        "wrong_section_controls": 50,
+        "historical_clean_layouts": 10,
+        "source_files": 846,
+        "candidate_files": 4
+      },
+      "maximum_normalized_current_error": 6.437947941377894e-10,
+      "guards": {
+        "source": true,
+        "candidate": true,
+        "package": true,
+        "models": true,
+        "runtime": true,
+        "physical": true,
+        "networks": true
+      },
+      "runtime_engine": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45"
+    },
+    "windows": {
+      "nonce": "0fc9aa4fcd804b08b57248b2be5cea15",
+      "qualification_sha256": "fe7a4f670a2ef2afff086d94d96a86b882cb9bc030f932acddbc4598ddf2ed03",
+      "manifest_sha256": "7b6891ce76e03d5f71aabc059fff29bc05c8bc09539d827a4ec4a6ab53dda00f",
+      "source_files_sha256": "b947932955b65d4e35a3ce43dc196c808c1709cb44a7c3f12da15773e439ed21",
+      "candidate_files_sha256": "ed6a5ac72d952a534c65c5dd90d23a47825b4ca35ee08f51b086fd83c0ff1bec",
+      "runtime_before_sha256": "bd626a555a41d1565b165e54b1ddb61778b825a8a4cc30909edb4c19d290e6ee",
+      "runtime_after_sha256": "bd626a555a41d1565b165e54b1ddb61778b825a8a4cc30909edb4c19d290e6ee",
+      "producer_seconds": 1181.4839999999967,
+      "audit_sha256": "7ea818337c62929a8db35dcd56ddef56ebf65e941167dc062ec765f330f1ad3a",
+      "mutation_readback_sha256": "da24c99397345509a88f4d30544d2912b2c2f66f18abe04d233d967fb0bd9671",
+      "counts": {
+        "contexts": 50,
+        "native_runs": 450,
+        "dc_samples": 600,
+        "ac_samples": 2000,
+        "zero_current_samples": 41300,
+        "kcl_samples": 18200,
+        "detected_network_controls": 150,
+        "wrong_section_controls": 50,
+        "historical_clean_layouts": 10,
+        "source_files": 846,
+        "candidate_files": 4
+      },
+      "maximum_normalized_current_error": 6.437947941377894e-10,
+      "guards": {
+        "source": true,
+        "candidate": true,
+        "package": true,
+        "models": true,
+        "runtime": true,
+        "physical": true,
+        "networks": true
+      },
+      "runtime_engine": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453"
+    }
+  },
+  "retained_evidence": {
+    "schema": 1,
+    "status": "PASS",
+    "archive_sha256": "dc431ffdfecda4637747875339fdb722261a6b8a84305b80eaa3b017d9d0f473",
+    "archive_bytes": 48350616,
+    "manifest_sha256": "9699c54a940b37627c7322c62c143aa34dcc64e7a8ed24e3775fd4deaf2da3bc",
+    "logical_files": 7319,
+    "unique_objects": 5671,
+    "stored_logical_bytes": 1004104512,
+    "reconstructable_profile_files": 123855,
+    "recipes": 39,
+    "all_objects_verified": true,
+    "all_positive_sources_unchanged": true,
+    "all_recipe_changed_files_match_declared_hashes": true,
+    "scope": "Selected source-only integration; positives stored once, all negative/profile exact manifest/report and changed-file recipes retained.",
+    "location": "sky130-metal-hierarchy-electrical-2026-10-28-v1/evidence.zip",
+    "final_record_sha256": "8a6ad97108358a85230718cdbca0c8bd0ab132042299f5a6dc8636f08d794d92"
+  },
+  "restored_independent_readback": {
+    "linux": {
+      "status": "PASS",
+      "original_identity_preserved": true,
+      "positive_readbacks": {
+        "linux": {
+          "sha256": "d0f8eca4a442c21c3eede0a1bf5767668b2e2195aa9feb00208851f5e9cfe51f",
+          "nonce": "a6351f791aec4d238ae1a8764a8f4bda",
+          "contexts": 50,
+          "native_runs": 450
+        },
+        "windows": {
+          "sha256": "772e18082db626ca1521697f585b5de3fb26c5c884951db07de40ea8b9d62edd",
+          "nonce": "0fc9aa4fcd804b08b57248b2be5cea15",
+          "contexts": 50,
+          "native_runs": 450
+        }
+      },
+      "selected_negative_readback_sha256": "8ba9f9b9f2d66f0a5954413e022c276fc861551f60c399b3b81e1b287eebf823",
+      "selected_reconstructed_negatives": [
+        {
+          "host": "linux",
+          "control": "raw-leakage",
+          "status": "REJECTED",
+          "error": "Terminal current/conductance matrix differs.",
+          "byte_exact_manifest": true,
+          "target_manifest_sha256": "e9f59f285ee9f28b8cf7314c3588380efd1c2d2715cb6da2d8ddccf03a9fbd71"
+        },
+        {
+          "host": "windows",
+          "control": "false-rounding-summary",
+          "status": "REJECTED",
+          "error": "Saved normalized rounding summary differs.",
+          "byte_exact_manifest": true,
+          "target_manifest_sha256": "388afbd75b0b407e0801ca8c40ae01c4378ef092356a66f9f450a93d304080ea"
+        },
+        {
+          "host": "linux",
+          "control": "dropped-source",
+          "status": "REJECTED",
+          "error": "Captured source name coverage differs.",
+          "byte_exact_manifest": true,
+          "target_manifest_sha256": "5967d19f0ab67c383f3654db939e018464dddb6038645605604a885826d51529"
+        }
+      ]
+    },
+    "windows": {
+      "status": "PASS",
+      "original_identity_preserved": true,
+      "positive_readbacks": {
+        "linux": {
+          "sha256": "0a6e404b6929ea9a799fb39aaae1caf502737c191529c9f7aa033df685060cd2",
+          "nonce": "a6351f791aec4d238ae1a8764a8f4bda",
+          "contexts": 50,
+          "native_runs": 450
+        },
+        "windows": {
+          "sha256": "7ea818337c62929a8db35dcd56ddef56ebf65e941167dc062ec765f330f1ad3a",
+          "nonce": "0fc9aa4fcd804b08b57248b2be5cea15",
+          "contexts": 50,
+          "native_runs": 450
+        }
+      },
+      "selected_negative_readback_sha256": "a2ebf13e4a939a3efd6c2f3a644748cb100d7396fdf4b95de3d69f49642663ea",
+      "selected_reconstructed_negatives": [
+        {
+          "host": "linux",
+          "control": "raw-leakage",
+          "status": "REJECTED",
+          "error": "Terminal current/conductance matrix differs.",
+          "byte_exact_manifest": true,
+          "target_manifest_sha256": "e9f59f285ee9f28b8cf7314c3588380efd1c2d2715cb6da2d8ddccf03a9fbd71"
+        },
+        {
+          "host": "windows",
+          "control": "false-rounding-summary",
+          "status": "REJECTED",
+          "error": "Saved normalized rounding summary differs.",
+          "byte_exact_manifest": true,
+          "target_manifest_sha256": "388afbd75b0b407e0801ca8c40ae01c4378ef092356a66f9f450a93d304080ea"
+        },
+        {
+          "host": "linux",
+          "control": "dropped-source",
+          "status": "REJECTED",
+          "error": "Captured source name coverage differs.",
+          "byte_exact_manifest": true,
+          "target_manifest_sha256": "5967d19f0ab67c383f3654db939e018464dddb6038645605604a885826d51529"
+        }
+      ]
+    }
+  },
+  "root_retention_verification": {
+    "status": "PASS",
+    "unique_object_hashes_verified": 5671,
+    "logical_entries_verified": 7319,
+    "post_archive_sidecars_verified": 18,
+    "original_execution_and_failed_attempts_retained": true,
+    "installed_acceptance": false
+  }
+}

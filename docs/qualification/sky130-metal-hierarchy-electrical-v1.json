@@ -1,0 +1,280 @@
+{
+  "schema": 1,
+  "id": "sky130-metal-hierarchy-electrical-v1",
+  "models": [
+    "l1",
+    "m1",
+    "m2",
+    "m3",
+    "m4"
+  ],
+  "sections": [
+    "tt",
+    "ll",
+    "hh",
+    "hl",
+    "lh"
+  ],
+  "rotations": [
+    0,
+    90
+  ],
+  "ports": [
+    "a1",
+    "b1",
+    "a2",
+    "b2"
+  ],
+  "width_um": 2,
+  "length_um": 5,
+  "multiplicity": 1,
+  "temperature_c": 27,
+  "source_contracts": {
+    "docs/qualification/sky130-metal-resistors-linked-v1.json": "2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612",
+    "docs/qualification/sky130-li-contract-v1.json": "be2c12aa3c80f3a189da0c303d53323ce083982820d0ff101c524b8a8d4e10c6"
+  },
+  "simulation_package": {
+    "path": "icstudio/assets/pdks/sky130A",
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "coefficients": {
+    "l1": {
+      "tt": {
+        "rsh": 12.2,
+        "tol": 0.0,
+        "dw": 1.7e-08,
+        "tc1": 0.0006045,
+        "tc2": -3.693e-07
+      },
+      "ll": {
+        "rsh": 10.31,
+        "tol": 1.4e-08,
+        "dw": 1.7e-08,
+        "tc1": 0.0006045,
+        "tc2": -3.693e-07
+      },
+      "hh": {
+        "rsh": 14.02,
+        "tol": -1.4e-08,
+        "dw": 1.7e-08,
+        "tc1": 0.0006045,
+        "tc2": -3.693e-07
+      },
+      "hl": {
+        "rsh": 14.8,
+        "tol": -2e-08,
+        "dw": 1.7e-08,
+        "tc1": 0.0006045,
+        "tc2": -3.693e-07
+      },
+      "lh": {
+        "rsh": 9.5,
+        "tol": 2e-08,
+        "dw": 1.7e-08,
+        "tc1": 0.0006045,
+        "tc2": -3.693e-07
+      }
+    },
+    "m1": {
+      "tt": {
+        "rsh": 0.125,
+        "tol": 0.0,
+        "dw": -3.9e-08,
+        "tc1": 0.003179,
+        "tc2": 3.094e-07
+      },
+      "ll": {
+        "rsh": 0.111,
+        "tol": 1.75e-08,
+        "dw": -3.9e-08,
+        "tc1": 0.003179,
+        "tc2": 3.094e-07
+      },
+      "hh": {
+        "rsh": 0.139,
+        "tol": -1.75e-08,
+        "dw": -3.9e-08,
+        "tc1": 0.003179,
+        "tc2": 3.094e-07
+      },
+      "hl": {
+        "rsh": 0.145,
+        "tol": -2.5e-08,
+        "dw": -3.9e-08,
+        "tc1": 0.003179,
+        "tc2": 3.094e-07
+      },
+      "lh": {
+        "rsh": 0.105,
+        "tol": 2.5e-08,
+        "dw": -3.9e-08,
+        "tc1": 0.003179,
+        "tc2": 3.094e-07
+      }
+    },
+    "m2": {
+      "tt": {
+        "rsh": 0.125,
+        "tol": 0.0,
+        "dw": -3.9e-08,
+        "tc1": 0.003161,
+        "tc2": -7.272e-07
+      },
+      "ll": {
+        "rsh": 0.111,
+        "tol": 1.75e-08,
+        "dw": -3.9e-08,
+        "tc1": 0.003161,
+        "tc2": -7.272e-07
+      },
+      "hh": {
+        "rsh": 0.139,
+        "tol": -1.75e-08,
+        "dw": -3.9e-08,
+        "tc1": 0.003161,
+        "tc2": -7.272e-07
+      },
+      "hl": {
+        "rsh": 0.145,
+        "tol": -2.5e-08,
+        "dw": -3.9e-08,
+        "tc1": 0.003161,
+        "tc2": -7.272e-07
+      },
+      "lh": {
+        "rsh": 0.105,
+        "tol": 2.5e-08,
+        "dw": -3.9e-08,
+        "tc1": 0.003161,
+        "tc2": -7.272e-07
+      }
+    },
+    "m3": {
+      "tt": {
+        "rsh": 0.047,
+        "tol": 0.0,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      },
+      "ll": {
+        "rsh": 0.0407,
+        "tol": 4.55e-08,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      },
+      "hh": {
+        "rsh": 0.0533,
+        "tol": -4.55e-08,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      },
+      "hl": {
+        "rsh": 0.056,
+        "tol": -6.5e-08,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      },
+      "lh": {
+        "rsh": 0.038,
+        "tol": 6.5e-08,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      }
+    },
+    "m4": {
+      "tt": {
+        "rsh": 0.047,
+        "tol": 0.0,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      },
+      "ll": {
+        "rsh": 0.0407,
+        "tol": 4.55e-08,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      },
+      "hh": {
+        "rsh": 0.0533,
+        "tol": -4.55e-08,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      },
+      "hl": {
+        "rsh": 0.056,
+        "tol": -6.5e-08,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      },
+      "lh": {
+        "rsh": 0.038,
+        "tol": 6.5e-08,
+        "dw": -2.5e-08,
+        "tc1": 0.003424,
+        "tc2": -7.739e-07
+      }
+    }
+  },
+  "tolerances": {
+    "coefficient_relative": 1e-10,
+    "coefficient_absolute": 1e-24,
+    "voltage_absolute": 1e-10,
+    "current_absolute": 1e-12,
+    "current_relative": 1e-06,
+    "fault_min_relative_difference": 0.0001
+  },
+  "excitation": {
+    "ordered_basis": [
+      "a1",
+      "b1",
+      "a2",
+      "b2"
+    ],
+    "dc_volts": [
+      -0.001,
+      0,
+      0.001
+    ],
+    "ac_volts": 0.001,
+    "ac_hz": [
+      1000,
+      10000,
+      100000,
+      1000000,
+      10000000,
+      100000000,
+      1000000000,
+      10000000000
+    ],
+    "other_terminals_volts": 0
+  },
+  "positive_paths": [
+    "current application hierarchy export",
+    "retained historical hierarchical reference",
+    "unchanged native extraction bytes",
+    "independent numeric two-resistor reference"
+  ],
+  "controls": [
+    "second occurrence A2 to A1",
+    "second occurrence missing",
+    "second occurrence width 3 um",
+    "wrong passive section",
+    "rehashed source-binding corruption"
+  ],
+  "acceptance": "All 50 contexts, four independent ordered basis excitations for both DC and AC; all actual V/I checked, zero crosspair current absolute tolerance, whole-network KCL; every actual wrong network is modeled and distinguished from the positive network. Source/contract/runtime/model/physical/network identities checked before and after.",
+  "scope": "Selected physical-to-electrical source integration of the ten retained imported repeated-cell LI/M1-M4 layouts at five explicit passive sections and 27 C. No geometry/operating/reliability/statistical envelope, distributed RC, family completion, installed delivery, signoff or manufacturing claim.",
+  "qualified": false,
+  "full_family": false,
+  "installed": false,
+  "chunk_complete": false
+}

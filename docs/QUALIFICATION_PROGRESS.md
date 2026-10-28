@@ -33,6 +33,67 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**October 28 active follow-through.** Astra reviewed the combined integration.
+The [new source checkpoint](validation/chunk7-final-integration-2026-10-28.json)
+passes all six stages and 795 tests on each host (34 Windows skips, 14 Linux
+skips), including 1,452 identical source and fixture hashes. The ten additional
+MiM retained-evidence tests also passed separately on both hosts; their explicit
+inputs are outside this fast lane. Source feedback takes 219.8 seconds on Windows
+and 83.1 seconds on native Linux, excluding setup and queues.
+
+Both hosts now pass the [finite metal-resistor hierarchy electrical class](SKY130_METAL_HIERARCHY_ELECTRICAL.md):
+50 contexts and 450 native executions per host, independent source-derived
+current checks, all native topology/section controls and 17 rehashed corruption
+checks per host. The original failed reader-summary comparison and its separate
+arithmetic correction remain recorded; scientific criteria are unchanged.
+
+The [optional ESD desktop workflow](SKY130_ESD_INSTALLED.md) now passes all
+19 conditions and 98 native executions per host from actual saved GUI devices,
+including independent readback of the application's displayed vectors. Its
+installed launcher and platform gates are integrated locally; fresh frozen
+acceptance is still required. The [MOS voltage source screen](qualification/sky130-mos-voltage-v1/README.md)
+is integrated and passes 20 tests per host: 17 source models, 16 currently bound
+models and 40 exact catalog views. This establishes source-defined voltage
+relations, not ratings or current-package native operating-range acceptance.
+The separately identified [MiM conditioning replay](SKY130_MIM_CONDITIONING.md)
+also passes its full 40-case matrix on both hosts. Its self-contained public
+fixture, exact Source/GitHub archive inclusion and final integration pass.
+The original untouched-model failure remains separate.
+
+The ESD compact archive has been restored and independently read on Linux for
+both original host data sets, preserving every original execution identity.
+An additional packaging review caught a Linux check using Windows runtime
+metadata; the new post-freeze Linux manifest binds the actual reviewed executable,
+initializer and support files, with unchanged strict engine checks. Actual Linux
+staging and changed-input rejection pass. New frozen acceptance is still required.
+A separate Sol workstream is now implementing IHP resistor via/contact access
+under Astra review; its preliminary results do not enter this frozen checkpoint.
+
+All four scoped milestones preserve the existing family gates. The matrix
+remains 287 partial entries, six unavailable required bindings and nine utilities.
+The estimate remains **70% (55–80%, low confidence)** while required integration
+and installed acceptance remain open. The new changes are local and not yet
+pushed. Candidate `95ab31dd` has passed runtime preparation and Linux packaging;
+Windows packaging is running its core suite. It cannot qualify the newer local
+changes. No repeated full qualification was launched for unchanged sources.
+
+**Published candidate: `95ab31ddf46282cda9aef8a4772de33c86913870`.** The reviewed batch is pushed
+to `experimental`; all 1,430 feedback source hashes match this exact Git
+commit. [Desktop acceptance run 40696505171](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40696505171)
+was dispatched once with that immutable candidate and is still pending.
+Fast PR feedback now passes on both hosts and its required aggregate. This publication/run-status note
+is retained locally for the next implementation push; the implementation,
+source evidence, workstream table and 70% estimate are already published.
+
+The [hosted source readback](validation/chunk7-parallel-hosted-feedback-2026-10-28.json)
+also passes: 722 tests per host, 23 Windows skips and four Linux skips,
+six stages each and the required PR aggregate. The actual tested merge
+`96ad6f64` has the intended candidate and current base as parents. Both
+downloaded archives and all 1,430 source hashes independently match.
+Hosted feedback takes 232.953 seconds on Windows and 102.438 seconds on
+Linux, excluding setup and queues. These hosted status records remain
+local for the next implementation push; desktop acceptance is still open.
+
 **October 28 reviewed integration.** Twenty Sol/Terra assignments ran in waves,
 with root review and correction; the [workstream table](CHUNK7_WORKSTREAMS_20261028.md)
 separates integrated fixes, bounded research and open gates. The
