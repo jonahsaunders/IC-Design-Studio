@@ -25,7 +25,10 @@ def validate(platform):
         return
     definition = GF180_RECIPES.get(platform['name'])
     if (definition is None or recipe != definition[0]
-            or platform.get('orfs', {}).get('variables') != {**GF180_VARIABLES, 'KVALUE': definition[1]}):
+            or platform.get('orfs', {}).get('variables') != {**GF180_VARIABLES, 'KVALUE': definition[1]}
+            or any(any(key in values and values[key] != expected
+                       for key, expected in {**GF180_VARIABLES, 'KVALUE': definition[1]}.items())
+                   for values in platform.get('orfs', {}).get('corners', {}).values())):
         raise ValueError('The selected geometry recipe requires its matching GF180-C 9K or GF180-D 11K, 9t / 5LM / 5 V platform.')
     prefix = platform.get('directory', '.')
     records = {r['path']: r for r in platform.get('files', [])}

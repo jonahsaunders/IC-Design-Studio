@@ -1,13 +1,14 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 26, 2026. Chunk 7 is approximately **70% complete**, with low
+Updated October 28, 2026. Chunk 7 is approximately **70% complete**, with low
 confidence (55–80%); this is an engineering estimate, not verified acceptance.
 The increase from 67% reflects a working optional binding for one previously
 unavailable ESD symbol, selected whole-network capacitor hierarchy electrical
 closure on both hosts, and actual Linux installed parallel-array acceptance.
 Full family statuses and completion gates remain unchanged; this estimate is
-not calculated from passing test counts. Windows installed acceptance and
-the new desktop job split still need their own completed hosted result.
+not calculated from passing test counts. The selected Windows installed-array workflow now also passes at its exact
+historical candidate; the changed desktop job split still needs completed
+hosted transfer and installed acceptance.
 
 ## Current tracker
 
@@ -32,6 +33,65 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**October 28 reviewed integration.** Twenty Sol/Terra assignments ran in waves,
+with root review and correction; the [workstream table](CHUNK7_WORKSTREAMS_20261028.md)
+separates integrated fixes, bounded research and open gates. The
+[final source evidence](validation/chunk7-parallel-integration-2026-10-28.json)
+passes all six stages and 722 tests per host (24 Windows skips, four Linux
+skips), with 1,430 matching feedback source hashes. Windows takes 211.735
+seconds and native Linux 92.935 seconds, excluding setup and queue time.
+The new source-Qt ESD revision/selection/export/staging bridge passes on both
+hosts. The actual one-case development hierarchy run executes two native AC
+analyses; the complete independent auditor rejects four rehashed incomplete or
+overclaimed results. Its development result remains explicitly non-accepting.
+All 846 captured base sources and seven candidate sources independently match
+the frozen 6,631-file snapshot; all 476 current-Qt source identities match too.
+
+The reviewed changes repair Linux handoff names and ambiguous Windows parent
+names, preserve 40 existing SPICE libraries plus the new pad placeholder in
+source archives, preserve/check five IHP RF LVS selectors, and reject GF180
+corner overrides that conflict with the declared process recipe. A selected
+IHP square TM2 bondpad action now has written-mask, real Qt and bounded native
+DRC evidence; its electrical model and full-chip coverage remain unavailable.
+Default twenty-case and two-case-pilot hierarchy runs retain their coverage;
+explicit development selection accelerates focused checks without replacing
+acceptance. No result reuse or ESD default promotion is claimed.
+
+The first full feedback failure exposed changed files referenced by the
+historical chunk 4 gate. Exact original recipe and Xschem Git blobs are now
+captured through the existing historical-source mechanism; all eleven matrix
+checks pass. The old acceptance and checker are unchanged. This preserves its
+old scope and does not qualify the new application's production outputs.
+The failed attempts and final raw/native/source evidence are separately retained
+in verified archives. New exact-candidate hosted desktop acceptance remains
+required; source success is not installed acceptance. The estimate remains
+**70% (55–80%, low confidence)** because no full device-family gate closed.
+
+**Pre-integration checkpoint.** Local `experimental` and GitHub were synchronized
+at `cbde80ed4ce85df9ad800e0b9b0c70e4d68cfd4a` before this batch. The earlier `53c17aa7` desktop
+run 40387247059 has now finished successfully on Windows and Linux, including
+the installed and release-archive gates. Linux array readback was already
+accepted; the [Windows readback](validation/sky130-metal-parallel-hosted-windows-2026-10-28.json)
+now independently passes, with all 863 captured source files matched to exact
+Git blobs, 42 native jobs and 60 electrical analyses. Root reviewed and reran
+the reader. This historical success does not qualify a changed candidate.
+
+The split-workflow candidate cbde80ed passes all preparation and Windows
+packaging. Linux packaging fails at “Seal exact candidate handoff,” which
+prevents installed-acceptance jobs from running. The original failure is retained.
+The repair preserves legitimate Linux case-distinct runtime names; independent
+review also found and corrected ambiguous Windows parent-directory names before
+extraction. Final local integration now passes as recorded above; hosted
+acceptance remains required. The reviewed source-only ESD bridge and finite
+IHP bondpad interface are integrated; no partial family or unknown electrical
+model is promoted.
+The estimate remains 70% (55–80%, low confidence) until further milestones close.
+
+Verified evidence retention also removed about 8.33 GB of redundant Windows
+raw files and 7.24 GB of Linux logical data. Permanent archives, source snapshots
+and recovery receipts remain. No Windows administrator access or VHD compaction
+was used; Linux deletion is not claimed as physical C: reclamation.
+
 The [follow-up desktop fixture repair](validation/desktop-handoff-fixture-repair-2026-10-26.json)
 addresses the Windows temporary-path alias failure found by hosted feedback and
 the new desktop portable lane. Both d9 failures and the passing Linux source
@@ -40,10 +100,18 @@ a portable alias regression fails before the repair and passes after it.
 Production containment checks, source identity checks and all qualification
 gates are unchanged. Final local feedback passes 682 tests and all six stages
 on both hosts, with identical 1,415 source hashes except the reviewed test delta.
-Fresh hosted feedback and the repaired split desktop candidate remain pending.
+The [hosted repaired feedback](validation/desktop-handoff-hosted-feedback-2026-10-26.json)
+now passes on both hosts and the required PR aggregate: 682 tests each (19
+Windows skips, four Linux skips), all six stages, and 1,415 exact candidate/merge
+source bindings independently verified. Windows feedback takes 229.0 seconds
+and Linux 152.3 seconds, excluding setup and queue time. The repaired desktop
+run [40409358187](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40409358187)
+passes both portable release-tool jobs, but Linux handoff sealing failed and
+its dependent installed-acceptance job was skipped. This latest hosted status/receipt is retained locally for the next
+appropriate implementation push; the implementation and 70% estimate are published.
 The estimate stays 70% (55–80%, low confidence).
 
-**Published implementation: `d9c0fc3db714891226e0dfbabca044ce38a81f09`; follow-up fixture repair locally verified.**
+**Published implementation and repair: `cbde80ed4ce85df9ad800e0b9b0c70e4d68cfd4a`.**
 The [corrected optional ESD binding](SKY130_ESD_NVT_BINDING.md) uses the official
 public symbol correction and unchanged licensed model. Both Windows and Linux
 pass all 19 selected contexts and 98 native executions; independent readers
@@ -69,8 +137,9 @@ passes the complete package job, installed parallel-array gates and executed
 release archives. Independent offline readback authenticates 863 captured
 source files, 42 native jobs and 60 electrical analyses. That reader checks
 receipts and native/raw components; it does not repeat live GUI/engine checks.
-The matching Windows run has passed its full core tests and is continuing
-through interface tests, with no final installed acceptance claimed.
+The matching Windows run subsequently passed its installed and release-archive
+gates; the separate October 28 Windows receipt above records exact-source raw
+readback. This does not qualify newer desktop candidates.
 
 The older e3fa0cc Windows job reached GitHub's six-hour limit after its installed
 step passed. Archive assembly/upload was interrupted, leaving no Windows raw
@@ -79,7 +148,7 @@ acceptance, authenticates transferred bytes and original source identity, and
 retains diagnostics before expensive stages. All original acceptance gates
 remain. Forty-five transfer/source tests per host and workflow checks pass;
 the actual split workflow still needs fresh hosted execution. All 80 new tests
-pass in the integrated Windows checkout. The [complete integrated feedback](validation/chunk 7-esd-hierarchy-integration-2026-10-26.json)
+pass in the integrated Windows checkout. The [complete integrated feedback](validation/chunk7-esd-hierarchy-integration-2026-10-26.json)
 passes all six stages and 681 tests per host (20 Windows skips, four Linux
 skips), in 211.4 seconds on Windows and 82.1 seconds on native Linux. All
 1,415 source hashes agree. The first Linux copy omitted two committed documents;

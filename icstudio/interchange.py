@@ -216,6 +216,10 @@ def export_xschem(p,directory):
                 if d['kind'] in ('NMOS','PMOS'):props+=f' model=model_{d["id"]} w={d["params"]["w"]} l={d["params"]["l"]}'
             if d.get('symbol'):
                 symbol=d['symbol']
+                if binding:
+                    from .ihp_rf_mos_exchange import lvs_model
+                    selector=lvs_model(binding,symbol)
+                    if selector is not None:props+=' lvs_model='+quoted(selector)
                 if binding and symbol.get('attributes',{}).get('lvs_format'):
                     # Catalog parameters are normalized (GF180 uses l/w), but
                     # source symbols can still refer to @L/@W in their LVS

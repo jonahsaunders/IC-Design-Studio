@@ -39,6 +39,7 @@ UNIT_MODULES = (
     'test_catalog_numeric_choices', 'test_sky130_esd_nvt', 'test_sky130_esd_nvt_audit',
     'test_sky130_mim_hierarchy_electrical', 'test_sky130_mim_hierarchy_electrical_audit',
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
+    'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
 )
 
 

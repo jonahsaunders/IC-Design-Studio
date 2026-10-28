@@ -17,7 +17,8 @@ class SiliconMixin:
         for menu,entries in {
             'File':[('New PDK inverter…',self.new_silicon_example)],
             'Design':[('Generate PDK device layout…',self.mos_layout_dialog),('Generate inverter layout…',self.inverter_layout_dialog),
-                      ('Generate contacted SKY130 guard…',self.process_guard_dialog),('Add tied SKY130 MOS dummy…',self.process_dummy_dialog)],
+                      ('Generate contacted SKY130 guard…',self.process_guard_dialog),('Add tied SKY130 MOS dummy…',self.process_dummy_dialog),
+                      ('Generate IHP bondpad…',self.ihp_bondpad_dialog)],
             'Analysis':[('Verify custom inverter through silicon',self.run_silicon),('Run layout DRC / LVS only…',self.run_layout_verification),
                         ('Verify IHP layout with KLayout extraction…',lambda:self.run_layout_verification(lvs_extractor='ihp-klayout')),
                         ('Verify IHP layout with public geometry decks…',lambda:self.run_layout_verification(lvs_extractor='ihp-klayout',drc_engine='ihp-public')),
@@ -103,6 +104,10 @@ class SiliconMixin:
     def process_dummy_dialog(self):
         from .sky130_devices_ui import dummy_dialog
         return dummy_dialog(self)
+
+    def ihp_bondpad_dialog(self):
+        from .ihp_bondpad_ui import dialog
+        return dialog(self)
 
     def inverter_layout_dialog(self):
         if not self.idle_edit():return

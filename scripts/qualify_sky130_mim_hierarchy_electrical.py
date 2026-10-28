@@ -75,6 +75,17 @@ def selected(pilot=False):
             for p in (1, 2) for r in rotations for s in sections]
 
 
+def resolve_selection(pilot=False, development=False, names=None):
+    full = selected()
+    require(not (pilot and (development or names is not None)), 'Pilot cannot be combined with development selection.')
+    require(names is None or development, 'Explicit selection requires --development.')
+    require(not development or names is not None, 'Development mode requires an explicit selection.')
+    if names is None: return selected(pilot)
+    valid = {row['name'] for row in full}
+    require(bool(names) and len(names) == len(set(names)) and set(names) <= valid, 'Select distinct, known, nonempty case names.')
+    return [row for row in full if row['name'] in names]
+
+
 def title(execution_root, nonce, case, profile):
     value = dict(execution_root=execution_root, nonce=nonce, case=case, profile=profile, analysis='ac')
     token = hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
@@ -289,7 +300,12 @@ def source_files():
     return {p.relative_to(ROOT).as_posix(): sha(p) for p in sorted(paths)}
 
 
-def run(out, engine, physical, archive, auditor_source, *, pilot=False, workers=2):
+def submit_cases(pool, callback, cases):
+    return [pool.submit(callback, case) for case in cases]
+
+
+def run(out, engine, physical, archive, auditor_source, *, pilot=False, workers=2, development=False, names=None):
+    cases=resolve_selection(pilot, development, names)
     require(workers in (1,2,3,4), 'Select one to four workers.')
     require(sys.dont_write_bytecode and sys.pycache_prefix and not Path(sys.pycache_prefix).exists(),
             'Use -B with a nonexistent pycache prefix.')
@@ -299,7 +315,7 @@ def run(out, engine, physical, archive, auditor_source, *, pilot=False, workers=
     execution_root=out.as_posix(); nonce=uuid.uuid4().hex
     report=dict(schema=1, gate=spec['id'], mode='source-integration', status='RUNNING', execution_root=execution_root,
                 nonce=nonce, qualified=False, installed=False, release_ready=False, signoff=False,
-                chunk_complete=False, full_family=False, cases=[], scope=spec['scope'], pilot=pilot)
+                chunk_complete=False, full_family=False, cases=[], scope=spec['scope'], pilot=pilot, development=development)
     scope_check(report)
     try:
         members=original_members(archive)
@@ -315,7 +331,7 @@ def run(out, engine, physical, archive, auditor_source, *, pilot=False, workers=
         for name,digest in sources.items():
             p=out/'source'/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes((ROOT/name).read_bytes())
             require(sha(p)==digest,'Source changed during capture.')
-        candidate_paths=[Path(__file__), CANDIDATE/SPEC, CANDIDATE/spec['predecessor']['path'], CANDIDATE/'tests/test_sky130_mim_hierarchy_electrical.py']
+        candidate_paths=[Path(__file__), CANDIDATE/SPEC, CANDIDATE/spec['predecessor']['path'], CANDIDATE/'tests/test_sky130_mim_hierarchy_electrical.py', CANDIDATE/'tests/test_sky130_mim_hierarchy_selection.py']
         candidate_paths += [Path(auditor_source)/p for p in
             ('scripts/audit_sky130_mim_hierarchy_electrical.py','tests/test_sky130_mim_hierarchy_electrical_audit.py')]
         candidate_sources={}
@@ -333,7 +349,7 @@ def run(out, engine, physical, archive, auditor_source, *, pilot=False, workers=
         report['simulation_package']=dict(revision=tech['package_lock']['revision'],manifest_sha256=package_files['package.json'])
         report['applications']={}
         for p in (1,2):report['applications'][str(p)]=application(physical/f'p{p}/leaf.icproj',tech,out/f'applications/p{p}')
-        cases=selected(pilot);report['selected_cases']=[c['name'] for c in cases];report['full_declared_cases']=[c['name'] for c in selected()]
+        report['selected_cases']=[c['name'] for c in cases];report['full_declared_cases']=[c['name'] for c in selected()]
         bindings={}
         for case in cases:
             key=f'p{case["plate"]}-r{case["rotation"]}'
@@ -379,7 +395,7 @@ def run(out, engine, physical, archive, auditor_source, *, pilot=False, workers=
             except Exception:row.update(status='FAIL',error=traceback.format_exc())
             write(folder/'record.json',row);return row
         with ThreadPoolExecutor(max_workers=workers) as pool:
-            for task in as_completed([pool.submit(one,c) for c in cases]):
+            for task in as_completed(submit_cases(pool,one,cases)):
                 row=task.result();report['cases'].append(row);write(out/'qualification.json',report);print(row['name'],row['status'],flush=True)
         require(len(report['cases'])==len(cases) and all(c['status']=='PASS' for c in report['cases']),'Native cases failed.')
         after=identity.runtime(binding,engine,env);write(out/'runtime-after.json',after)
@@ -390,7 +406,7 @@ def run(out, engine, physical, archive, auditor_source, *, pilot=False, workers=
         require(all(sha(package/n)==d for n,d in package_files.items()),'Simulation package changed.')
         require(all(sha(out/'shared-models'/n)==d for n,d in model_files.items()),'Staged model changed.')
         require(all(sha(v['path'])==v['sha256'] for b in bindings.values() for v in b.values()),'Positive or fault network changed.')
-        report.update(status='PASS',source_integration_acceptance=True,runtime_after_sha256=sha(out/'runtime-after.json'),
+        report.update(status='PASS',source_integration_acceptance=not development,runtime_after_sha256=sha(out/'runtime-after.json'),
                       guards=dict(source=True,candidate=True,package=True,models=True,runtime=True,physical=True,networks=True))
     except Exception:report.update(status='FAIL',error=traceback.format_exc())
     report['cases'].sort(key=lambda c:c['name']);report['seconds']=time.monotonic()-started
@@ -400,12 +416,22 @@ def run(out, engine, physical, archive, auditor_source, *, pilot=False, workers=
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--source',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
-    p.add_argument('--physical',type=Path,required=True);p.add_argument('--archive',type=Path,required=True)
-    p.add_argument('--auditor-source',type=Path,required=True)
-    p.add_argument('--ngspice',type=Path,required=True);p.add_argument('--pilot',action='store_true');p.add_argument('--workers',type=int,default=2)
-    a=p.parse_args();require(a.source.resolve()==ROOT,'Reviewed source import root differs.')
-    result=run(a.out,a.ngspice,a.physical,a.archive,a.auditor_source,pilot=a.pilot,workers=a.workers)
+    p.add_argument('--source',type=Path);p.add_argument('--out',type=Path)
+    p.add_argument('--physical',type=Path);p.add_argument('--archive',type=Path)
+    p.add_argument('--auditor-source',type=Path)
+    p.add_argument('--ngspice',type=Path);p.add_argument('--pilot',action='store_true');p.add_argument('--workers',type=int,default=2)
+    p.add_argument('--development',action='store_true');p.add_argument('--select',nargs='+')
+    p.add_argument('--list-cases',action='store_true')
+    a=p.parse_args()
+    if a.list_cases:
+        for case in selected(): print(case['name'])
+        return
+    for name in ('source','out','physical','archive','auditor_source','ngspice'):
+        if getattr(a,name) is None: p.error('--'+name.replace('_','-')+' is required')
+    try: resolve_selection(a.pilot,a.development,a.select)
+    except ValueError as error: p.error(str(error))
+    require(a.source.resolve()==ROOT,'Reviewed source import root differs.')
+    result=run(a.out,a.ngspice,a.physical,a.archive,a.auditor_source,pilot=a.pilot,workers=a.workers,development=a.development,names=a.select)
     print(json.dumps(dict(status=result['status'],seconds=result['seconds']),indent=2))
     if result['status']!='PASS':raise SystemExit(1)
 

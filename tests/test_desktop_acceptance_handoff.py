@@ -66,7 +66,7 @@ class HandoffTests(unittest.TestCase):
   self.assertFalse((self.root/h.READY).exists())
  def test_roundtrip_real_git_exact_files_and_source(self):
   old=self.prepare_restore();r=self.restore();self.assertEqual(r['status'],'PASS')
-  self.assertEqual(h.collect(self.root,['dist/ICDesignStudio']),{k:v for k,v in old['files'].items() if k.startswith('dist/ICDesignStudio')})
+  self.assertEqual(h.collect(self.root,['dist/ICDesignStudio'],host=self.ident['os']),{k:v for k,v in old['files'].items() if k.startswith('dist/ICDesignStudio')})
   self.assertEqual(h.verified_source(self.root,self.root/h.SOURCE,identity_fn=self.identity),self.root/h.SOURCE)
   self.assertFalse((self.root/'build/digital-state').exists())
  def test_source_archive_remains_exact(self):
@@ -84,6 +84,8 @@ class HandoffTests(unittest.TestCase):
   self.generated_metadata(wrong=True)
   with self.assertRaises(ValueError):self.pack()
  def test_actual_cli_pack_restore_with_existing_source_generator(self):
+  if os.name!='nt':
+   for name,data in self.case_distinct_runtime().items():self.write(name,data)
   self.write('scripts/desktop_acceptance_handoff.py',HELPER.read_bytes())
   self.write('scripts/release_archives.py',(REPO/'scripts/release_archives.py').read_bytes())
   self.write('icstudio/__init__.py',"__version__='0.0'\n")
@@ -149,8 +151,61 @@ class HandoffTests(unittest.TestCase):
   self.rewrite_tar(mutate);self.reject();self.assertFalse((self.root.parent/'escaped').exists())
  def test_absolute_path_rejected(self):
   self.prepare_restore();r=self.manifest();r['files']['/absolute']=r['files'].pop('dist/ICDesignStudio/_internal/data');self.save(r);self.reject()
- def test_case_collision_rejected(self):
-  self.prepare_restore();r=self.manifest();r['files']['DIST/ICDesignStudio']=r['files']['dist/ICDesignStudio'];self.save(r);self.reject()
+ def test_windows_case_collision_rejected(self):
+  self.prepare_restore();r=self.manifest();r['identity']['os']='Windows';r['files']['dist/ICDesignStudio/_internal/DATA']=r['files']['dist/ICDesignStudio/_internal/data']
+  with self.assertRaisesRegex(ValueError,'Case-colliding payload names'):h.validate_payload(self.folder,r)
+ def case_distinct_runtime(self):
+  # Actual distinct names/sizes in the bundled Linux Python terminfo database.
+  prefix='dist/ICDesignStudio/_internal/icstudio/assets/runtime/openems/python/share/terminfo/'
+  return {prefix+'E/Eterm':b'A'*2224,prefix+'e/eterm':b'B'*908}
+ def test_windows_implicit_parent_collision_rejected_before_extraction(self):
+  self.prepare_restore();record=self.manifest();record['identity']['os']='Windows'
+  for name in ('build/Case/a','build/case/b'):
+   record['files'][name]={'type':'file','mode':0o644,'bytes':1,'sha256':hashlib.sha256(b'x').hexdigest()}
+  with self.assertRaisesRegex(ValueError,'Case-colliding payload names'):h.validate_payload(self.folder,record)
+  self.assertFalse((self.root/'build/Case').exists())
+ def test_same_parent_spelling_and_linux_distinct_parents_allowed(self):
+  h.payload_names(['build/Case/a','build/Case/b'],'Windows')
+  h.payload_names(['build/Case/a','build/case/b'],'Linux')
+ def test_source_zip_implicit_parent_collision_rejected(self):
+  archive=self.root/'aliases.zip'
+  with zipfile.ZipFile(archive,'w') as z:
+   for name in ('main.py','LICENSE','Case/a','case/b'):z.writestr('IC-Design-Studio/'+name,b'x')
+  with self.assertRaisesRegex(ValueError,'Case-colliding payload names'):h.source_zip(archive)
+ def test_source_zip_same_parent_spelling_allowed(self):
+  archive=self.root/'same-parent.zip'
+  with zipfile.ZipFile(archive,'w') as z:
+   for name in ('main.py','LICENSE','Case/a','Case/b'):z.writestr('IC-Design-Studio/'+name,b'x')
+  self.assertEqual(len(h.source_zip(archive)['files']),4)
+ @unittest.skipIf(os.name=='nt','Case-sensitive Linux runtime fixture')
+ def test_linux_case_distinct_runtime_names_roundtrip(self):
+  expected=self.case_distinct_runtime()
+  for name,data in expected.items():self.write(name,data)
+  old=self.prepare_restore();restored=self.restore()
+  self.assertEqual(restored['status'],'PASS')
+  for name,data in expected.items():
+   self.assertIn(name,old['files']);self.assertEqual((self.root/name).read_bytes(),data)
+   self.assertEqual(old['files'][name]['sha256'],hashlib.sha256(data).hexdigest())
+  self.assertEqual(h.verified_source(self.root,self.root/h.SOURCE,identity_fn=self.identity),self.root/h.SOURCE)
+ @unittest.skipIf(os.name=='nt','Case-sensitive Linux fixture checks Windows producer policy')
+ def test_windows_producer_rejects_case_distinct_names(self):
+  for name,data in self.case_distinct_runtime().items():self.write(name,data)
+  with self.assertRaisesRegex(ValueError,'Case-colliding payload names'):
+   h.collect(self.root,['dist/ICDesignStudio'],host='Windows')
+ @unittest.skipIf(os.name=='nt','Case-sensitive Linux fixture checks Windows consumer policy')
+ def test_windows_consumer_rejects_case_distinct_runtime_names(self):
+  for name,data in self.case_distinct_runtime().items():self.write(name,data)
+  self.prepare_restore();r=self.manifest();r['identity']['os']='Windows'
+  with self.assertRaisesRegex(ValueError,'Case-colliding payload names'):h.validate_payload(self.folder,r)
+ @unittest.skipIf(os.name=='nt','Case-sensitive Linux payload tamper fixture')
+ def test_linux_case_distinct_runtime_bytes_cannot_be_swapped(self):
+  for name,data in self.case_distinct_runtime().items():self.write(name,data)
+  self.prepare_restore()
+  def mutate(items):
+   for i,(info,data) in enumerate(items):
+    if info.name.endswith('/E/Eterm'):items[i]=(info,b'X'*len(data))
+   return items
+  self.rewrite_tar(mutate);self.reject()
  def test_special_mode_rejected(self):
   self.prepare_restore();r=self.manifest();r['files']['dist/ICDesignStudio']['mode']=0o4755;self.save(r);self.reject()
  def test_hardlink_rejected(self):

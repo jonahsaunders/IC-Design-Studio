@@ -50,6 +50,9 @@ def source_zip(path):
    require(stat.S_IFMT(mode) in (0,stat.S_IFREG) and not mode&0o7000,'Linked or special source ZIP member')
    with z.open(item) as f:digest=hashlib.file_digest(f,'sha256').hexdigest()
    entries[item.filename]={'sha256':digest,'bytes':item.file_size}
+ # Source archives are portable, including to Windows: implicit directory
+ # prefixes must agree even when the ZIP contains only file entries.
+ payload_names(entries,'Windows')
  require('IC-Design-Studio/main.py' in entries and 'IC-Design-Studio/LICENSE' in entries,'Incomplete source archive')
  return {'sha256':sha(path),'bytes':Path(path).stat().st_size,'files':entries}
 def candidate_source(root,path,candidate):
@@ -57,6 +60,10 @@ def candidate_source(root,path,candidate):
  source_dirs={'icstudio','tests','native','scripts','docs','examples','packaging','plugins','licenses','.github'}
  excluded_dirs={'build','dist','release','__pycache__','.git','.venv','private-live-data','live-sessions'}
  excluded_suffixes={'.pyc','.spec','.so','.dll','.dylib','.pyd','.o','.obj','.lib','.exp','.exe','.sqlite3','.sqlite3-wal','.sqlite3-shm'}
+ # Mirror release_archives' source-only SPICE .lib exceptions; hash every included Git blob.
+ spice_library_dirs={'icstudio/assets/pdks/ihp-sg13g2/libs.tech/ngspice/models'}
+ spice_library_files={'icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-npn-corners.lib',
+                      'icstudio/assets/qualification/ihp-bondpad/sg13g2_bondpad.lib'}
  env={k:v for k,v in os.environ.items() if not k.upper().startswith('GIT_')}
  raw=subprocess.check_output(['git','ls-tree','-rz','--full-tree',candidate],cwd=root,env=env)
  checked={}
@@ -67,7 +74,8 @@ def candidate_source(root,path,candidate):
    meta,name=row.split(b'\t',1);mode,kind,blob=meta.decode().split();name=name.decode();rel=PurePosixPath(name)
    if kind!='blob' or rel.name=='creation-key.txt' or rel.parts[:4]==('icstudio','assets','runtime','ngspice'):continue
    outside=(len(rel.parts)>1 and rel.parts[0] not in source_dirs) or (len(rel.parts)==1 and (rel.name.startswith(('tmp','pip-')) or rel.name=='core' or rel.suffix.lower() in ('.s','.log')))
-   if outside or any(p in excluded_dirs for p in rel.parts) or rel.suffix.lower() in excluded_suffixes:continue
+   spice_source=rel.suffix.lower()=='.lib' and (rel.parent.as_posix() in spice_library_dirs or rel.as_posix() in spice_library_files)
+   if outside or any(p in excluded_dirs for p in rel.parts) or (rel.suffix.lower() in excluded_suffixes and not spice_source):continue
    member='IC-Design-Studio/'+name;require(member in names,'Missing candidate source: '+name)
    data=z.read(member)
    if name=='icstudio/build_info.py':
@@ -124,7 +132,20 @@ def validate_build_inputs(root,host):
   require(len(setups)==1 and setups[0].stat().st_size>0,'Expected one exact installer')
   portable=installers/setups[0].name.replace('Windows-x64-Setup.exe','Windows-x64-Portable.zip')
   require(portable.is_file() and portable.stat().st_size>0,'Matching portable archive missing')
-def collect(root,selected):
+def payload_names(names,host):
+ require(host in ('Windows','Linux'),'Unknown payload host')
+ # Handoffs stay on their authenticated OS. Linux runtime terminfo databases
+ # contain distinct E/Eterm and e/eterm entries; Windows cannot preserve them.
+ if host=='Windows':
+  spelling={}
+  for name in names:
+   parts=PurePosixPath(name).parts
+   for end in range(1,len(parts)+1):
+    prefix='/'.join(parts[:end]);key=prefix.casefold()
+    require(key not in spelling or spelling[key]==prefix,'Case-colliding payload names')
+    spelling[key]=prefix
+
+def collect(root,selected,*,host):
  out={}
  def visit(rel):
   safe(rel);p=root/rel;s=p.lstat();mode=stat.S_IMODE(s.st_mode)
@@ -143,7 +164,7 @@ def collect(root,selected):
  for rel in selected:visit(rel)
  for rel,row in list(out.items()):
   if row['type']=='symlink':require(row['resolved'] in out and out[row['resolved']]['type'] in ('file','directory'),'Link target absent from handoff')
- require(len({x.casefold() for x in out})==len(out),'Case-colliding payload names')
+ payload_names(out,host)
  return dict(sorted(out.items()))
 def write_source(root,destination):
  spec=importlib.util.spec_from_file_location('handoff_source_archive',root/'scripts/release_archives.py')
@@ -159,7 +180,7 @@ def pack(root,output,*,identity_fn=identity,source_writer=write_source):
  source_path.parent.mkdir(parents=True);source_writer(root,source_path);src=source_zip(source_path)
  src['candidate_files']=candidate_source(root,source_path,before['candidate'])
  selected.append(source_path.parent.relative_to(root).as_posix())
- files=collect(root,selected);require(SOURCE in files,'Missing source archive payload')
+ files=collect(root,selected,host=before['os']);require(SOURCE in files,'Missing source archive payload')
  output.mkdir(parents=True)
  with tarfile.open(output/ARCHIVE,'w',format=tarfile.PAX_FORMAT) as tar:
   for rel,row in files.items():
@@ -169,7 +190,7 @@ def pack(root,output,*,identity_fn=identity,source_writer=write_source):
    else:
     info.size=row['bytes']
     with p.open('rb') as f:tar.addfile(info,f)
- require(collect(root,selected)==files and identity_fn(root)==before,'Producer changed during transfer capture')
+ require(collect(root,selected,host=before['os'])==files and identity_fn(root)==before,'Producer changed during transfer capture')
  record=dict(schema=1,identity=before,producer_image=image(),archive=dict(name=ARCHIVE,sha256=sha(output/ARCHIVE),bytes=(output/ARCHIVE).stat().st_size),files=files,source=src)
  (output/MANIFEST).write_text(json.dumps(record,sort_keys=True,indent=2)+'\n',encoding='utf-8')
  return record
@@ -186,7 +207,7 @@ def validate_payload(folder,record):
   require(row['type'] in ('file','directory','symlink') and type(row['mode']) is int and 0<=row['mode']<=0o777,'Invalid payload type/mode')
   fields={'type','mode'}|({'bytes','sha256'} if row['type']=='file' else {'target','resolved'} if row['type']=='symlink' else set())
   require(set(row)==fields,'Unexpected inventory fields')
- require(len({x.casefold() for x in files})==len(files),'Case-colliding payload names')
+ payload_names(files,record['identity']['os'])
  with tarfile.open(p,'r:') as tar:
   members=tar.getmembers();require(len(members)==len(files) and {x.name for x in members}==set(files),'Duplicate/extra/omitted tar members')
   for item in members:
@@ -230,7 +251,7 @@ def restore(root,folder,*,identity_fn=identity):
    if row['type']=='symlink':os.symlink(row['target'],root/rel,target_is_directory=files[row['resolved']]['type']=='directory')
   for rel,row in reversed(list(files.items())):
    if row['type']=='directory':(root/rel).chmod(row['mode'])
- actual=collect(root,[x for x in files if not any(str(q) in files for q in PurePosixPath(x).parents)])
+ actual=collect(root,[x for x in files if not any(str(q) in files for q in PurePosixPath(x).parents)],host=before['os'])
  require(actual==files,'Restored bytes/type/modes differ')
  restored_source=source_zip(root/SOURCE);restored_source['candidate_files']=candidate_source(root,root/SOURCE,before['candidate'])
  require(restored_source==record['source'],'Restored source archive differs')

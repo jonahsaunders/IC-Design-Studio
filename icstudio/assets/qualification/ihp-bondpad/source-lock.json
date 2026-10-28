@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "repository": "IHP-GmbH/IHP-Open-PDK",
+  "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "license": "Apache-2.0",
+  "files": {
+    "bondpad_code.py": {
+      "path": "ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/bondpad_code.py",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/bondpad_code.py",
+      "git_blob_sha1": "a5510b183f8c731b6e212b13256a7ecde8e8ae67",
+      "sha256": "e3924f692e7e1cc7a235d9419badad86bf11a27fc96a97cc137de123c1c56f48",
+      "bytes": 23547
+    },
+    "sg13g2_tech.json": {
+      "path": "ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/sg13g2_tech.json",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/sg13g2_tech.json",
+      "git_blob_sha1": "ccfecf77ccc42185cacc6efd59702cfd21ab3feb",
+      "sha256": "193f2af37d2d80ea28f88052298e91ed7650413dc6ca774cae6f8ed6a95e35ba",
+      "bytes": 26814
+    },
+    "sg13g2.lyp": {
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/sg13g2.lyp",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/sg13g2.lyp",
+      "git_blob_sha1": "029c7c8767b7761312f90fd1fd76de3ab83b7c0c",
+      "sha256": "c9fd698498f3f798c2d3dc40f1aa0e0fcf646bd0a6e9e7522a008200487d5222",
+      "bytes": 224483
+    },
+    "utility_functions.py": {
+      "path": "ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/utility_functions.py",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/utility_functions.py",
+      "git_blob_sha1": "3ff0a5e0b0e548c577cdd9ca199548507ff07d64",
+      "sha256": "499174554b3aa6b8fb030d362ab44647c00a84589b56cc43554c7fc4dcb9b6ab",
+      "bytes": 23276
+    },
+    "sg13g2_bondpad.lib": {
+      "path": "ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib",
+      "git_blob_sha1": "9cf626f18307791aafd63c343e4cb6c177a951a2",
+      "sha256": "19b3edd62d507bfaf03633b3dc3e89b4ab4d43187a309e8fc665cc5af28a0a4f",
+      "bytes": 919
+    },
+    "LICENSE": {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/LICENSE",
+      "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357
+    }
+  }
+}

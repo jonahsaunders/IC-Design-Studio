@@ -497,3 +497,13 @@ from `StefanSchippers/xschem_sky130` at
 `08367118f8ad7311b9264b856fb4d5f1f58b45f9`. Original copyright and Apache notices
 remain intact. The separate preparation and qualification adapters are project
 code under GPL-3.0. See `docs/SKY130_ESD_NVT_BINDING.md` for the explicit limits.
+
+The selected IHP bondpad geometry reference in
+`icstudio/assets/qualification/ihp-bondpad/` retains the unmodified PCell,
+grid utilities, technology/layer definitions, empty electrical placeholder and
+Apache-2.0 license from `IHP-GmbH/IHP-Open-PDK` commit
+`5e6d592e4002946a4616f798c357f0f3c06cf3b6`. Its `source-lock.json` records exact
+public paths, Git blob identities and SHA-256 checksums. Original copyright
+notices remain intact; the separate generator, source-oracle adapter and tests
+are project code under GPL-3.0. The added physical port anchor does not supply an
+electrical bondpad model. See `docs/IHP_BONDPAD_PHYSICAL.md` for the tested scope.

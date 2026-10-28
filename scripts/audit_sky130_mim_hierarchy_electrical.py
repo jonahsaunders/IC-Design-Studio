@@ -294,7 +294,7 @@ def source_binding(root,report,manifest,reviewed_source):
         safe_relative(name)
         if reviewed_source is not None:require(sha(Path(reviewed_source)/name)==digest,'Base source differs from reviewed current source: '+name)
     candidates=load(root/'candidate-files.json')
-    wanted={'scripts/qualify_sky130_mim_hierarchy_electrical.py','tests/test_sky130_mim_hierarchy_electrical.py',CONTRACT_PATH,PREDECESSOR_PATH,
+    wanted={'scripts/qualify_sky130_mim_hierarchy_electrical.py','tests/test_sky130_mim_hierarchy_electrical.py','tests/test_sky130_mim_hierarchy_selection.py',CONTRACT_PATH,PREDECESSOR_PATH,
             'scripts/audit_sky130_mim_hierarchy_electrical.py','tests/test_sky130_mim_hierarchy_electrical_audit.py'}
     require(set(candidates)==wanted and sha(root/'candidate-files.json')==report['candidate_files_sha256'] and
             inventory(root/'candidate')=={n:e['sha256'] for n,e in candidates.items()},'Candidate source closure differs.')
@@ -326,11 +326,35 @@ def check_raw(path,case,profile,coefficients,expected_title,saved):
     return dict(detections=detections,maximum=maximum,active_pair_samples=active,inactive_pair_samples=inactive)
 
 
+def case_inventory(report):
+    require(type(report['pilot']) is bool, 'Selection mode must be explicit.')
+    development = report.get('development', False)
+    require(type(development) is bool and not (development and report['pilot']), 'Invalid selection mode.')
+    full=[dict(name=f'p{p}-r{r}-{s}',plate=p,rotation=r,section=s) for p in (1,2) for r in (0,90) for s in SECTIONS]
+    names=report['selected_cases']; full_names=[c['name'] for c in full]
+    require(report['full_declared_cases']==full_names and isinstance(names,list) and bool(names) and
+            len(names)==len(set(names)) and set(names)<=set(full_names), 'Invalid declared selection.')
+    selected=[c for c in full if c['name'] in names]
+    require(names==[c['name'] for c in selected], 'Noncanonical selection ordering.')
+    if not development:
+        expected=[c for c in full if not report['pilot'] or c['rotation']==0 and c['section']=='tt']
+        require(selected==expected, 'Non-development coverage differs.')
+    require(len(report['cases'])==len(selected) and {r['name'] for r in report['cases']}==set(names), 'Electrical selection incomplete or duplicated.')
+    return full, selected
+
+
+def selection_scope(report):
+    full, selected = case_inventory(report)
+    development = report.get('development', False)
+    return dict(full_declared_selection=len(selected)==len(full),
+                development=development, source_integration_acceptance=not development)
+
+
 def audit(root,physical_root=None,reviewed_source=None):
     root=Path(root).resolve();report=load(root/'qualification.json');manifest=load(root/'manifest.json')
     require(manifest==inventory(root,('manifest.json',)),'Complete electrical evidence inventory differs.')
     require(report['schema']==1 and report['gate']=='sky130-mim-hierarchy-electrical-v2' and report['status']=='PASS' and
-            report['mode']=='source-integration' and report['source_integration_acceptance'] is True and
+            report['mode']=='source-integration' and report['source_integration_acceptance'] is (not report.get('development',False)) and
             all(report.get(k) is False for k in ('qualified','installed','release_ready','signoff','chunk_complete','full_family')) and
             not report.get('error'),'Failed or overclaimed electrical evidence.')
     require(report['guards']==dict(source=True,candidate=True,package=True,models=True,runtime=True,physical=True,networks=True),
@@ -355,11 +379,7 @@ def audit(root,physical_root=None,reviewed_source=None):
     require(before==after and sha(root/'runtime-before.json')==report['runtime_before_sha256'] and
             sha(root/'runtime-after.json')==report['runtime_after_sha256'],'Runtime identity changed.')
     runtime_profile(root,before,dict(root=report['execution_root']))
-    require(type(report['pilot']) is bool,'Selection mode must be explicit.')
-    full=[dict(name=f'p{p}-r{r}-{s}',plate=p,rotation=r,section=s) for p in (1,2) for r in (0,90) for s in SECTIONS]
-    selected=[c for c in full if not report['pilot'] or c['rotation']==0 and c['section']=='tt']
-    require(report['full_declared_cases']==[c['name'] for c in full] and report['selected_cases']==[c['name'] for c in selected] and
-            len(report['cases'])==len(selected) and {r['name'] for r in report['cases']}=={c['name'] for c in selected}, 'Electrical selection incomplete or duplicated.')
+    full, selected = case_inventory(report)
     expected_bindings={}
     for case in selected:
         key=f'p{case["plate"]}-r{case["rotation"]}'
@@ -403,7 +423,7 @@ def audit(root,physical_root=None,reviewed_source=None):
     return dict(schema=1,status='PASS',gate=report['gate'],mode=report['mode'],original_execution_root=report['execution_root'],nonce=report['nonce'],
         qualification_sha256=sha(root/'qualification.json'),manifest_sha256=sha(root/'manifest.json'),historical_qualification_sha256=PHYSICAL_QUALIFICATION,
         qualified=False,installed=False,release_ready=False,signoff=False,chunk_complete=False,full_family=False,
-        full_declared_selection=not report['pilot'],maximum_normalized_current_error=maximum,
+        **selection_scope(report),maximum_normalized_current_error=maximum,
         counts=dict(contexts=len(selected),native_ac_runs=2*len(selected),frequency_points=16*len(selected),
                     positive_active_pair_samples=active,positive_inactive_pair_samples=inactive,detected_network_controls=detected,
                     historical_clean_layouts=4,historical_native_capacitors=8,source_files=source_count,candidate_files=candidate_count),

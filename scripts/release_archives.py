@@ -15,6 +15,13 @@ from icstudio import __version__
 EXCLUDED_DIRS={'build','dist','release','__pycache__','.git','.venv','private-live-data','live-sessions'}
 SOURCE_DIRS={'icstudio','tests','native','scripts','docs','examples','packaging','plugins','licenses','.github'}
 EXCLUDED_SUFFIXES={'.pyc','.spec','.so','.dll','.dylib','.pyd','.o','.obj','.lib','.exp','.exe','.sqlite3','.sqlite3-wal','.sqlite3-shm'}
+# Public text SPICE libraries use .lib too; native import/static libraries stay excluded.
+SPICE_LIBRARY_DIRS={'icstudio/assets/pdks/ihp-sg13g2/libs.tech/ngspice/models'}
+SPICE_LIBRARY_FILES={'icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-npn-corners.lib',
+                     'icstudio/assets/qualification/ihp-bondpad/sg13g2_bondpad.lib'}
+
+def spice_source(rel):
+    return rel.suffix.lower()=='.lib' and (rel.parent.as_posix() in SPICE_LIBRARY_DIRS or rel.as_posix() in SPICE_LIBRARY_FILES)
 
 
 def source_archive(destination,windows_runtime=None,repository=False):
@@ -28,7 +35,7 @@ def source_archive(destination,windows_runtime=None,repository=False):
             if rel.name == 'creation-key.txt':continue
             if rel.parts[:4]==('icstudio','assets','runtime','ngspice'):continue
             if (len(rel.parts)>1 and rel.parts[0] not in SOURCE_DIRS) or (len(rel.parts)==1 and (rel.name.startswith(('tmp','pip-')) or rel.name in ('core',) or rel.suffix.lower() in ('.s','.log'))):continue
-            if file.is_file() and not any(part in EXCLUDED_DIRS for part in rel.parts) and file.suffix.lower() not in EXCLUDED_SUFFIXES:
+            if file.is_file() and not any(part in EXCLUDED_DIRS for part in rel.parts) and (file.suffix.lower() not in EXCLUDED_SUFFIXES or spice_source(rel)):
                 z.write(file,Path('IC-Design-Studio')/rel)
         if windows_runtime:
             runtime=Path(windows_runtime)
