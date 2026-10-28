@@ -78,13 +78,59 @@ class FeedbackTests(unittest.TestCase):
             self.assertNotIn('scripts/qualification/sky130_mim_conditioning/replay.py',
                              source_identity(root))
 
+    def test_ihp_assets_and_post_exit_inventory_are_bound(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            asset = root / 'icstudio/assets/qualification/ihp-resistor-templates/templates.json'
+            asset.parent.mkdir(parents=True)
+            asset.write_bytes(b'original')
+            before = source_identity(root)
+            self.assertIn(asset.relative_to(root).as_posix(), before)
+            asset.write_bytes(b'changed')
+            self.assertNotEqual(source_identity(root), before)
+            output = root / 'probe'
+            output.mkdir()
+            payload = output / 'project.icproj'
+            payload.write_bytes(b'project')
+            inventory = output / 'files.json'
+            inventory.write_text(json.dumps({'project.icproj': hashlib.sha256(payload.read_bytes()).hexdigest()}))
+            report = dict(status='passed', frozen=False, installed_acceptance=False,
+                          native_execution=False, qualified=False, release_ready=False, full_family=False,
+                          lifecycle=[{'case': f'{model}-g{geometry}-v{via}-r{rotation}'}
+                                     for model in ('rsil', 'rppd', 'rhigh') for geometry in range(5)
+                                     for via in (0, 1) for rotation in (0, 90)],
+                          files_sha256=hashlib.sha256(inventory.read_bytes()).hexdigest())
+            (output / 'report.json').write_text(json.dumps(report))
+            ci_feedback.check_ihp_gui_output(output)
+            original_case = report['lifecycle'][0]['case']
+            report['lifecycle'][0]['case'] = report['lifecycle'][1]['case']
+            (output / 'report.json').write_text(json.dumps(report))
+            with self.assertRaises(ValueError):
+                ci_feedback.check_ihp_gui_output(output)
+            report['lifecycle'][0]['case'] = original_case
+            (output / 'report.json').write_text(json.dumps(report))
+            payload.write_bytes(b'changed after child exit')
+            with self.assertRaises(ValueError):
+                ci_feedback.check_ihp_gui_output(output)
+            payload.write_bytes(b'project')
+            (output / 'extra.txt').write_bytes(b'extra')
+            with self.assertRaises(ValueError):
+                ci_feedback.check_ihp_gui_output(output)
+            (output / 'extra.txt').unlink()
+            report['installed_acceptance'] = True
+            (output / 'report.json').write_text(json.dumps(report))
+            with self.assertRaises(ValueError):
+                ci_feedback.check_ihp_gui_output(output)
+
     def test_focused_modules_exist_and_release_contracts_remain_fast_checks(self):
         for name in UNIT_MODULES:
             self.assertTrue((ROOT / 'tests' / (name.split('.')[0] + '.py')).is_file(), name)
         commands = stages()
         self.assertEqual([name for name, _ in commands],
                          ['unit-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
-                          'metal-resistor-editor-smoke', 'metal-resistor-parallel-smoke'])
+                          'metal-resistor-editor-smoke', 'metal-resistor-parallel-smoke',
+                          'ihp-resistor-editor-smoke'])
         self.assertIn('test_pdk_qualification_matrix', UNIT_MODULES)
         self.assertIn('test_release_acceptance', UNIT_MODULES)
 

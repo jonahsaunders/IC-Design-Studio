@@ -1,0 +1,5 @@
+{
+  "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "subset": "ngspice models and Verilog-A sources, symbols, layer map, Magic and Netgen decks"
+}

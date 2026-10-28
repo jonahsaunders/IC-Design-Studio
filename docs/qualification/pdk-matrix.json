@@ -25622,8 +25622,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-28-corner-guard/manifest.json",
-        "sha256": "b9dafe2fe9154fe768f6df1a9ed173d2883c9152fff15e585c6e16f17e681a4a"
+        "path": "docs/validation/gf180-tested-source-2026-10-28-ihp-resistor/manifest.json",
+        "sha256": "7a3315cff850f5c726163d3a9be51fd29a94b25a445ac482489b8c3a4ba3a66f"
       }
     },
     "5": {

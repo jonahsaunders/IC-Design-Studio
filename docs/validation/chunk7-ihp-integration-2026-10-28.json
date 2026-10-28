@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "date": "2026-10-28",
+  "status": "PASS",
+  "scope": "Final combined source integration including complete finite IHP Qt lifecycle on Windows and native Linux. Not frozen/installed or full-family qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "source_manifest_sha256": "64b9a0965b945f27d9b5fd5fea117a8b27e6322de60a402cfd79423506522065",
+  "source_files": 6721,
+  "feedback_identity_files": 1472,
+  "syntax_files": 1448,
+  "hosts": {
+    "Windows": {
+      "tests": 821,
+      "skipped": 34,
+      "unit_seconds": 155.592,
+      "source_seconds": 384.157,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 156.969
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.281
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 30.297
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.015
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.891
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 39.343
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 132.469
+        }
+      ]
+    },
+    "Linux": {
+      "tests": 821,
+      "skipped": 14,
+      "unit_seconds": 38.1,
+      "source_seconds": 190.365,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 39.146
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.718
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.741
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.321
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 5.728
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.752
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 91.843
+        }
+      ]
+    }
+  },
+  "gui": {
+    "Windows": {
+      "cases": 60,
+      "seconds": 126.57799999997951,
+      "execution_id": "c6c6037374d445f4914ed271b7ffccc4",
+      "files_sha256": "571766c9192b2c16043928ff489449d35c3978d742b8e0e6f7351709dfabae09",
+      "installed_acceptance": false
+    },
+    "Linux": {
+      "cases": 60,
+      "seconds": 87.19842448099371,
+      "execution_id": "e75568a31f344b2181d786500f62b429",
+      "files_sha256": "4d15ca58017eda11b34fccd5ced7a0ce0f9b1aabdc581e7702396cd9415da760",
+      "installed_acceptance": false
+    }
+  },
+  "source_metadata_commit": "a5148eca440e04f4c93d1f9400f80d131e211cd0",
+  "archives": {
+    "Windows": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-ihp-final-integration-2026-10-28-v1\\windows-feedback.zip",
+      "sha256": "e0c7bcd223ade91815ad46b1bde52d68bb258ee4bd65e7b66884ea2740045426",
+      "bytes": 16608905,
+      "files": 1101
+    },
+    "Linux": {
+      "status": "PASS",
+      "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-ihp-final-integration-2026-10-28-v1\\linux-feedback.zip",
+      "sha256": "2e6b492ed64a5dcaabbeefe810c639d5e1e5c3777dd75f66e0e9de72fe2c5873",
+      "bytes": 16592709,
+      "uid": 1000,
+      "scope": "Final Linux source feedback with complete finite GUI outputs. Not installed acceptance."
+    }
+  },
+  "prior_failure_manifest_sha256": "501bdd498f0b732aabfdd504c19aa454850690e6c602fc244efb45843affd5a9",
+  "source_unchanged_on_both_hosts": true,
+  "review": "Sol scientific/native and gate work; Terra editor/historical source recovery; independent Astra review plus root cross-host integration and archive readback.",
+  "estimate": {
+    "percent": 70,
+    "range": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "engineering_estimate": true
+  },
+  "line_ending_restoration": {
+    "files": {
+      "icstudio/ihp_layout.py": {
+        "before": "bced8a5ab949a6a5f431b987e733c76e14aab0d2c5e288a63c73aa35921ccb12",
+        "after": "48a7718dae8f828625f4d8cf3e9e9bce87413c29b500639a2eac3a9ab99b7d30",
+        "original_line_ending": "LF",
+        "candidate_line_ending": "CRLF",
+        "final_line_ending": "LF",
+        "ast_unchanged": true
+      },
+      "icstudio/silicon_ui.py": {
+        "before": "4315cb6b1ed346eefe94afa7482254b4d4e59f85beba0b24dd1ba0a48c31481b",
+        "after": "d4ac9c259da2b70c81a83250c43b306345f7bfcccc9ca2ba2b9febc88c8ee166",
+        "original_line_ending": "LF",
+        "candidate_line_ending": "CRLF",
+        "final_line_ending": "LF",
+        "ast_unchanged": true
+      },
+      "icstudio/sky130_devices_ui.py": {
+        "before": "3d6fd7f5840191db69e7400e8f30b1ae5800ef27c6ed4ad7557cc386cd7adbad",
+        "after": "d6734aa8dbe0efaf8d2654bcd657f2c6e0e1330d6e95736e5fc05b7a353f9610",
+        "original_line_ending": "LF",
+        "candidate_line_ending": "CRLF",
+        "final_line_ending": "LF",
+        "ast_unchanged": true
+      }
+    },
+    "scope": "Restore originalLF conventions only; exactCRLF-to-LF byte transformation and identicalASTs. Prior passed CRLF snapshotec6ee520 and all original native/source proofs retain their identities."
+  },
+  "source_snapshot_scope": "All6721 snapshot files stayed unchanged during execution. Later results documentation is identified separately; all1472 tested code/asset/workflow/dependency files must match publishedGitblobs."
+}

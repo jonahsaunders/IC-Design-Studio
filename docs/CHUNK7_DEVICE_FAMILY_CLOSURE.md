@@ -1,5 +1,11 @@
 # Chunk 7: close one device family at a time
 
+The October 28 [IHP resistor editor follow-through](IHP_RESISTOR_EDITOR.md) adds
+finite linked Metal1/Metal2 access for three resistor models, reviewed source
+LVS projection and an independent installed gate. Its original 60-case source
+GUI proof and scientific 60-layout/165-control archive remain separately
+identified. Final combined source and fresh frozen acceptance are pending.
+
 October 28 follow-through adds a source-defined MOS voltage screen, full finite
 metal hierarchy electrical evidence, an explicitly derived MiM fixture replay,
 and a new optional ESD desktop acceptance path. The

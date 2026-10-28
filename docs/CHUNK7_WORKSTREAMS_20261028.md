@@ -1,5 +1,14 @@
 # Chunk 7: October 28 parallel work and review
 
+Subsequent integration uses GPT-6 Astra as the independent advisor, with
+Sol handling scientific/native checks and the frozen parent gate, Terra
+handling the editor and Qt producer, and a separate Sol worker preserving and
+independently reading original evidence. Root owns production integration,
+CI wiring and final cross-host verification. Astra corrections include the
+precise resistor LVS projection, manifest-transfer checks, independent saved
+parameter/port validation, and keeping geometry tests out of the dependency-free
+release-tool lane. See [IHP resistor follow-through](IHP_RESISTOR_EDITOR.md).
+
 Twenty Sol/Terra assignments ran in waves of up to three workers, with root
 reviewing and correcting accepted changes. This is a work inventory, not twenty
 completed qualification gates. The working candidate starts from `cbde80ed`.

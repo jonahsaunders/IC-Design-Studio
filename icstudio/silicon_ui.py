@@ -85,7 +85,9 @@ class SiliconMixin:
                     return p,'Replace the linked footprint of '+d['name']+' using its current W/L, finger count, multiplicity, model, body connection and nets. Manual edits to its generated shapes are replaced. Existing routes and port labels remain at their coordinates. Check connections and rerun DRC/LVS after applying.'
                 from .sky130_devices_ui import apply_candidate
                 self.review_dialog('Regenerate linked device layout',build,apply_candidate=apply_candidate(self,cid))
-            if tie_fields:return self.workflow_form('Regenerate '+d['name'],tie_fields,review,'A source tie adds metal between the existing source and body contacts; both must already have the same schematic net. Placement and orientation are preserved.')
+            if tie_fields:
+                note=('Metal2 adds terminal Via1 and landing metal; the independent body remains on Metal1. Placement and orientation are preserved.' if tie_fields[0][0]=='terminal_access' else 'A source tie adds metal between the existing source and body contacts; both must already have the same schematic net. Placement and orientation are preserved.')
+                return self.workflow_form('Regenerate '+d['name'],tie_fields,review,note)
             review({});return
         def submit(v):
             from .model import scalar
@@ -95,7 +97,8 @@ class SiliconMixin:
                 p=clone(self.project);set_body_tie(p,cid,did,v);install_mos(p,cid,did,x,y);check_layers(self,p,cid)
                 return p,'Generate the linked footprint of '+d['name']+' with its schematic dimensions and model. Review terminal connections, then run process DRC/LVS.'
             self.review_dialog('Generate PDK device layout',build,apply_candidate=apply_candidate(self,cid))
-        return self.workflow_form('Generate linked PDK device',[('x','X (µm)','0'),('y','Y (µm)','0')]+tie_fields,submit,'Generate a footprint using the selected device’s schematic dimensions, model and terminals. SKY130 LI and metal1–metal4 resistors support 1–16 parallel units, each with W/L 0.5–10 µm on a 5 nm grid. Route the two exposed terminals on the same layer. Other supported devices retain their own size and multiplicity limits. Review the connections and run process DRC/LVS after placement or regeneration.')
+        note=('IHP selected straight resistor W/L presets (um): 0.5/0.5, 0.5/20, 20/0.5, 2/7, 7/2; one unit and no bends. Metal1 is the default; Metal2 adds Via1 and landing metal at both terminals. The body stays on Metal1. Review connections and run process DRC/LVS.' if tie_fields and tie_fields[0][0]=='terminal_access' else 'Generate a footprint using the selected device’s schematic dimensions, model and terminals. SKY130 LI and metal1–metal4 resistors support 1–16 parallel units, each with W/L 0.5–10 µm on a 5 nm grid. Route the two exposed terminals on the same layer. Other supported devices retain their own size and multiplicity limits. Review the connections and run process DRC/LVS after placement or regeneration.')
+        return self.workflow_form('Generate linked PDK device',[('x','X (µm)','0'),('y','Y (µm)','0')]+tie_fields,submit,note)
 
     def process_guard_dialog(self):
         from .sky130_devices_ui import guard_dialog

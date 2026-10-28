@@ -6,7 +6,13 @@ compatibility with the proposed base. The lane compiles application, script and
 test Python sources before installing dependencies, then runs focused editing,
 PDK, runtime, physical-interface and release-contract tests plus the menu,
 project-hub and five-model SKY130 resistor editor and multiplicity GUI smoke
-checks. The lane has no path filter, so documentation-only
+checks, plus the complete finite 60-case IHP resistor editor lifecycle. The IHP
+source check includes registry installation, both terminal-access choices,
+rotations, save/reopen, regeneration and legacy recovery. Its complete evidence
+inventory is checked again after the child exits; the template and legacy
+assets are included in the source identity. This is source GUI evidence; the
+separate installed gate requires fresh managed native jobs.
+The lane has no path filter, so documentation-only
 PRs also report its stable aggregate check, **PR feedback**.
 
 After the first hosted run passed on October 23, `main` was configured to require

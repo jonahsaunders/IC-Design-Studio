@@ -1,7 +1,7 @@
 import sys
 
 def main():
-    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server','--campaign','--esd-acceptance'):
+    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server','--campaign','--esd-acceptance','--ihp-resistor-acceptance'):
         from .windows_stdio import connect
         connect()
     if '--digital-setup' in sys.argv:
@@ -31,6 +31,9 @@ def main():
     if '--metal-resistor-acceptance' in sys.argv:
         from .metal_resistor_desktop_probe import main as probe
         return probe(sys.argv[sys.argv.index('--metal-resistor-acceptance')+1:])
+    if '--ihp-resistor-acceptance' in sys.argv:
+        from .ihp_resistor_desktop_probe import main as probe
+        return probe(sys.argv[sys.argv.index('--ihp-resistor-acceptance')+1:])
     if '--mim-acceptance' in sys.argv:
         from .mim_desktop_probe import main as probe
         return probe(sys.argv[sys.argv.index('--mim-acceptance')+1:])

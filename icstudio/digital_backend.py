@@ -83,6 +83,8 @@ def stage_backend(source, destination):
         'assets', '__pycache__', '*.pyc', '*.so', '*.dll', '*.pyd'))
     from .digital_sky130_native import resources
     shutil.copytree(resources(), Path(destination)/'assets/verification/sky130')
+    from .ihp_resistor_assets import copy_assets
+    copy_assets(source,destination)
 
 
 def dispatch(job, directory, progress):

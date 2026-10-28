@@ -68,6 +68,8 @@ def stage(job, work, native_work, native_root):
         target=work/'pdk'/relative;target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copy2(path,target)
         if file_digest(target)!=sha:raise ValueError('PDK asset changed during transfer: '+relative)
+    from .ihp_resistor_assets import copy_linked_manifest
+    copy_linked_manifest(job['project'],source,work/'pdk')
     pdk['package_root']=str(PurePosixPath(native_work)/'pdk')
     settings=native['settings'];settings.pop('physical_runtime',None)
     settings['tools']={name:str(PurePosixPath(native_root)/'opt/icstudio/bin'/name) for name in TOOLS}
@@ -121,6 +123,8 @@ def dispatch(job, directory, progress):
         source=digital_runtime.payload_root()/'backend/icstudio'
         if not source.is_dir():source=Path(__file__).parent
         shutil.copytree(source,backend/'icstudio',ignore=shutil.ignore_patterns('assets','__pycache__','*.pyc','*.so','*.dll'))
+        from .ihp_resistor_assets import copy_assets
+        copy_assets(source,backend/'icstudio')
         if job['settings'].get('lvs_extractor')=='ihp-klayout':
             from .ihp_klayout_lvs import copy_assets
             copy_assets(backend/'icstudio/assets/physical/ihp_klayout_lvs')

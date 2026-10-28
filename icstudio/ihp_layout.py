@@ -44,6 +44,8 @@ def prepare(tech):
 
 
 def specification(tech, d):
+    from .ihp_resistors import supported, specification as resistor_specification
+    if supported(tech,d):return resistor_specification(tech,d)
     layers(tech); b = binding_for(tech,d)
     if not b or b['model'] not in (MODELS.get(d['kind']),HV_MODELS.get(d['kind'])) or set(d['nets']) != {'d','g','s','b'}:
         raise ValueError('Select a standard four-terminal IHP LV or HV NMOS/PMOS.')
@@ -96,6 +98,8 @@ def thick_oxide(data, spec, names):
 
 
 def mos(tech,d,x=0,y=0):
+    from .ihp_resistors import supported, geometry as resistor_geometry
+    if supported(tech,d):return resistor_geometry(tech,d,x,y)
     spec = specification(tech,d); ls = layers(tech); w,l = [spec['dimensions_nm'][k] for k in ('w','l')]
     if any(type(v) is not int or v%5 for v in (x,y)): raise ValueError('Place devices on the 5 nm grid.')
     if spec['values']['ng'] != 1:

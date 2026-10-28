@@ -33,6 +33,37 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**October 28 IHP integration, ready for publication.** The
+[final combined source check](validation/chunk7-ihp-integration-2026-10-28.json)
+passes all seven stages and 821 tests on each host (34 Windows skips, 14 Linux
+skips). All 1,472 checked source and asset hashes match. The complete 60-case
+IHP GUI lifecycle, including final post-exit inventories, passes on both hosts.
+Observed final source-lane totals are 384.2 seconds on Windows and 190.4 seconds on
+native Linux, excluding setup and queues. Three files retain their original LF
+line endings, with exact transformation/AST proof and fresh both-host execution. Both raw archives are retained and
+independently read back.
+
+The [IHP editor milestone](IHP_RESISTOR_EDITOR.md) now links three resistor
+models to editable finite Metal1/Metal2 layouts. All 60 original source GUI
+coupons and 165 deliberate faults pass staged native DRC/extraction/LVS and
+the independent reader. The original statistical-selector mismatch remains
+failed and retained; the exact public LVS-view projection fixes the application
+reference without changing models, decks or numerical criteria. Windows replay
+also detects and verifies the POSIX native-receipt path correction. The initial
+integration failure is retained separately; its exact historical GF180 source
+blob is captured without relabelling old acceptance as the changed application.
+
+Both desktop release paths now require fresh IHP frozen acceptance alongside
+all existing gates. That gate and the new optional ESD installed gate are still
+pending; the 225-job source run does not include managed host-dispatch overhead.
+The final per-job timing boundary remains documented until hosted measurements
+are available. Original GUI/source identities and later reader identities stay
+separate. Chunk 7 remains **70% (55–80%, low confidence)**; no full family or
+unavailable binding is promoted. Publication and desktop-run status will be
+recorded separately after the exact candidate is selected.
+
+**Published follow-through: `a5148eca440e04f4c93d1f9400f80d131e211cd0`.** The reviewed 69-file checkpoint is now on `experimental`; all 1,452 checked source/fixture hashes match its exact Git blobs. [Hosted fast feedback](validation/chunk7-final-hosted-feedback-2026-10-28.json) now passes on both hosts and the required aggregate. All 1,452 hashes match; the actual merge `986278c7` has the selected candidate and current base as parents. Fresh frozen acceptance remains pending. This publication note is local for the next appropriate implementation push.
+
 **October 28 active follow-through.** Astra reviewed the combined integration.
 The [new source checkpoint](validation/chunk7-final-integration-2026-10-28.json)
 passes all six stages and 795 tests on each host (34 Windows skips, 14 Linux
@@ -66,15 +97,29 @@ An additional packaging review caught a Linux check using Windows runtime
 metadata; the new post-freeze Linux manifest binds the actual reviewed executable,
 initializer and support files, with unchanged strict engine checks. Actual Linux
 staging and changed-input rejection pass. New frozen acceptance is still required.
-A separate Sol workstream is now implementing IHP resistor via/contact access
-under Astra review; its preliminary results do not enter this frozen checkpoint.
+The IHP follow-through is integrated locally and awaiting the final combined
+source and installed gates. Its independent scientific archive passes all 60
+selected Metal1/Metal2 layouts and 165 native controls. The actual Qt editor
+passes all 60 finite model/geometry/access/rotation combinations, legacy reopen
+and regeneration. A verified 8.35 MB recoverable archive retains the original
+source GUI proof and all 463 application Python sources; it is not frozen
+application acceptance. Raw narrow-geometry failures remain recorded.
+
+The first managed source worker exposed a statistical `mm_ok` selector present
+in the simulation reference but absent from the pinned public resistor LVS
+format. Astra reviewed a precise application-side projection that preserves the
+original schematic and every geometry/model/body/multiplicity token. Two staged
+native pilots now pass, including all six fault controls each. Sol is checking
+all 60 actual GUI layouts and 165 controls through the final native reader;
+fresh frozen execution remains required. Root is adding the full finite GUI
+lifecycle to source feedback and mandatory IHP native acceptance to both desktop
+release paths, including complete retained evidence and candidate identities.
 
 All four scoped milestones preserve the existing family gates. The matrix
 remains 287 partial entries, six unavailable required bindings and nine utilities.
 The estimate remains **70% (55–80%, low confidence)** while required integration
-and installed acceptance remain open. The new changes are local and not yet
-pushed. Candidate `95ab31dd` has passed runtime preparation and Linux packaging;
-Windows packaging is running its core suite. It cannot qualify the newer local
+and installed acceptance remain open. The new changes are published at `a5148eca`. Candidate `95ab31dd` has passed runtime preparation and Linux packaging;
+Windows source checks have passed and the installer is being built. It cannot qualify the newer local
 changes. No repeated full qualification was launched for unchanged sources.
 
 **Published candidate: `95ab31ddf46282cda9aef8a4772de33c86913870`.** The reviewed batch is pushed

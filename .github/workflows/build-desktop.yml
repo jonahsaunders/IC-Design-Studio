@@ -735,6 +735,7 @@ jobs:
             build/windows-evidence/mim-electrical
             build/windows-evidence/mim-acceptance.json
             build/windows-evidence/optional-esd
+            build/windows-evidence/ihp-resistors
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -747,6 +748,7 @@ jobs:
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
             build/frozen-optional-esd-evidence
+            build/frozen-ihp-resistor-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -927,6 +929,13 @@ jobs:
         env:
           ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
         run: python scripts/qualify_installed_sky130_esd.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 2400 --out build/frozen-optional-esd-evidence
+      - name: Verify frozen Linux IHP resistor editor and managed native layouts
+        if: runner.os == 'Linux'
+        timeout-minutes: 65
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_ihp_resistors.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 3600 --out build/frozen-ihp-resistor-evidence
       - name: Verify frozen Linux resistor editor and fresh native layout workflow
         if: runner.os == 'Linux'
         timeout-minutes: 45
@@ -1009,6 +1018,7 @@ jobs:
             build/windows-evidence/mim-electrical
             build/windows-evidence/mim-acceptance.json
             build/windows-evidence/optional-esd
+            build/windows-evidence/ihp-resistors
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -1021,6 +1031,7 @@ jobs:
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
             build/frozen-optional-esd-evidence
+            build/frozen-ihp-resistor-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -1103,6 +1114,7 @@ jobs:
             build/windows-evidence/mim-electrical
             build/windows-evidence/mim-acceptance.json
             build/windows-evidence/optional-esd
+            build/windows-evidence/ihp-resistors
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -1115,6 +1127,7 @@ jobs:
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
             build/frozen-optional-esd-evidence
+            build/frozen-ihp-resistor-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -1150,6 +1163,7 @@ jobs:
             build/frozen-mim-electrical-evidence
             build/frozen-mim-workflow-evidence/acceptance.json
             build/frozen-optional-esd-evidence
+            build/frozen-ihp-resistor-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json

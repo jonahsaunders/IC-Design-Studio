@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 UNIT_MODULES = (
@@ -17,6 +18,8 @@ UNIT_MODULES = (
     'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_sky130_li_linked',
+    'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
+    'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
@@ -69,10 +72,39 @@ def source_identity(root=ROOT):
     fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
     if fixture.is_file():
         files.append(fixture)
+    for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy'):
+        files += [p for p in (root / 'icstudio/assets/qualification' / folder).glob('*') if p.is_file()]
     files += list((root / '.github/workflows').glob('*.yml'))
     files += list(root.glob('requirements*.txt'))
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in sorted(files)}
+
+
+def check_ihp_gui_output(folder):
+    """Check the source child's complete file inventory after it has exited."""
+    folder = Path(folder)
+    report = json.loads((folder / 'report.json').read_bytes())
+    inventory_file = folder / 'files.json'
+    expected = json.loads(inventory_file.read_bytes())
+    cases = {f'{model}-g{geometry}-v{via}-r{rotation}'
+             for model in ('rsil', 'rppd', 'rhigh') for geometry in range(5)
+             for via in (0, 1) for rotation in (0, 90)}
+    if (report.get('status') != 'passed' or report.get('frozen') is not False
+            or report.get('installed_acceptance') is not False
+            or report.get('native_execution') is not False
+            or any(report.get(key) is not False for key in ('qualified', 'release_ready', 'full_family'))
+            or len(report.get('lifecycle', [])) != 60
+            or {row.get('case') for row in report.get('lifecycle', [])} != cases
+            or hashlib.sha256(inventory_file.read_bytes()).hexdigest() != report.get('files_sha256')):
+        raise ValueError('Incomplete or overclaimed source IHP GUI result.')
+    actual = {}
+    for path in folder.rglob('*'):
+        if path.is_symlink() or (hasattr(path, 'is_junction') and path.is_junction()):
+            raise ValueError('Linked source IHP GUI evidence.')
+        if path.is_file() and path not in (folder / 'report.json', folder / 'files.json'):
+            actual[path.relative_to(folder).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    if actual != expected:
+        raise ValueError('Source IHP GUI evidence changed after the child inventory.')
 
 
 def stages(output=ROOT / 'build/ci-feedback'):
@@ -86,6 +118,9 @@ def stages(output=ROOT / 'build/ci-feedback'):
                                       '--out', str(Path(output)/'metal-resistor-editor')]),
         ('metal-resistor-parallel-smoke', [sys.executable, 'tests/gui_sky130_metal_resistor_parallel.py',
                                          '--out', str(Path(output)/'metal-resistor-parallel')]),
+        ('ihp-resistor-editor-smoke', [sys.executable, 'tests/gui_ihp_resistor_editor.py',
+                                       '--out', str(Path(output)/'ihp-resistor-editor'),
+                                       '--execution-id', uuid.uuid4().hex]),
     ]
 
 
@@ -125,6 +160,8 @@ def main():
             if returncode:
                 print((args.output / (name + '.log')).read_text(encoding='utf-8'), flush=True)
                 raise RuntimeError(f'{name} failed with exit code {returncode}; see the retained log.')
+            if name == 'ihp-resistor-editor-smoke':
+                check_ihp_gui_output(args.output / 'ihp-resistor-editor')
         if source_identity() != report['source_files_sha256']:
             raise RuntimeError('Source files changed during feedback; keep this run as invalid and run the final sources again.')
         report['status'] = 'passed'
