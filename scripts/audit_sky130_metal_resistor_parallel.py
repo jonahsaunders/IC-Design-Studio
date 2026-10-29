@@ -28,9 +28,13 @@ BOUNDARIES=((.5,.5),(.5,10.),(10.,.5),(10.,10.))
 ELECTRICAL_COUNTS=(2,3,16)
 PORTS=('R1','R2')
 STAGES=('preflight','layout_export','drc','lvs_extraction','lvs','integrity')
-SIMULATION_SHA='840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'
-CONTRACT='docs/qualification/sky130-metal-resistor-parallel-v1.json'
-CONTRACT_SHA='66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472'
+HISTORICAL_SIMULATION_SHA='840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'
+HISTORICAL_CONTRACT='docs/qualification/sky130-metal-resistor-parallel-v1.json'
+HISTORICAL_CONTRACT_SHA='66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472'
+from scripts import sky130_contract_versions as versions
+CURRENT_CONTRACT=versions.selected('parallel')
+CONTRACT,CONTRACT_SHA=CURRENT_CONTRACT['path'],CURRENT_CONTRACT['sha256']
+SIMULATION_SHA=CURRENT_CONTRACT['package_sha256']
 FAULTS=('missing-unit','broken-branch','bus-short','one-unit-width','reference-count')
 FIXED={
     'l1':dict(rsh=12.2,tol=0.,dw=17e-9,tc1=6.045e-4,tc2=-3.693e-7,tnom=30.),
@@ -47,10 +51,10 @@ for _model,_fixed in FIXED.items():
 COEFFICIENTS.update(mc_mm_switch=0.,mc_pr_switch=0.)
 
 
-def model_closure(root,manifest):
+def model_closure(root,manifest,simulation_sha=SIMULATION_SHA):
     """Only relative include rewrites are permitted in the exact public models."""
-    package_root=root/'original-package';require(sha(package_root/'package.json')==SIMULATION_SHA,'Array simulation package differs.')
-    package=load(package_root/'package.json');files={'package.json':SIMULATION_SHA,**package['files']}
+    package_root=root/'original-package';require(sha(package_root/'package.json')==simulation_sha,'Array simulation package differs.')
+    package=load(package_root/'package.json');files={'package.json':simulation_sha,**package['files']}
     require(load(root/'package-files.json')==files and inventory(package_root)==files,'Array original simulation closure differs.')
     mapping=load(root/'pdk-model-files.json');require(mapping and len(set(mapping.values()))==len(mapping),'Duplicate staged model mapping.')
     reverse={v:k for k,v in mapping.items()}
@@ -435,16 +439,16 @@ def editor_project(project,package,row,angle=0,routes=None):
     return cell
 
 
-def audit_qt(root):
+def audit_qt(root,contract_sha256=None):
     """Separate source-Qt lifecycle readback; does not claim native/installed execution."""
     import copy
-    root=Path(root);record=load(root/'report.json')
+    root=Path(root);record=load(root/'report.json');review=versions.selected('parallel',contract_sha256)
     require(load(root/'files.json')==inventory(root,('files.json',)),'Qt evidence inventory differs.')
     require(record['schema']==1 and record['status']=='PASS' and record['mode']=='source-qt' and
             record['installed_acceptance'] is record['qualified'] is False and record['late_lock_rejections']==5 and
             [v['model'] for v in record['models']]==list(MODELS),'Qt lifecycle scope/outcome differs.')
     package_path=ROOT/'icstudio/assets/pdks/sky130A/package.json'
-    require(sha(package_path)==record['simulation_manifest_sha256']==SIMULATION_SHA,'Qt simulation manifest differs.')
+    require(sha(package_path)==record['simulation_manifest_sha256']==review['package_sha256'],'Qt simulation manifest differs.')
     package=load(package_path);events=0
     def content(value):
         result=copy.deepcopy({k:v for k,v in value.items() if k not in ('revision','modified')})
@@ -484,9 +488,9 @@ def audit_qt(root):
 
 
 def audit(root,reviewed_source=None):
-    root=Path(root).resolve();report=load(root/'qualification.json');manifest=load(root/'manifest.json')
+    root=Path(root).resolve();report=load(root/'qualification.json');manifest=load(root/'manifest.json');review=versions.selected('parallel',report['contract_sha256'],sha(root/'original-package/package.json'))
     require(manifest==inventory(root,('manifest.json','audit.json')),'Parallel evidence inventory differs.')
-    require(report.get('schema')==1 and report.get('gate')=='sky130-metal-resistor-parallel-v1' and report.get('status')=='PASS' and
+    require(report.get('schema')==1 and report.get('gate')==review['id'] and report.get('status')=='PASS' and
             report.get('mode')=='source-integration' and all(report.get(k) is False for k in
             ('qualified','installed_acceptance','full_family','chunk_complete','release_ready','signoff')) and not report.get('error'),
             'Incomplete or overclaimed array qualification.')
@@ -495,13 +499,14 @@ def audit(root,reviewed_source=None):
             not any(c.isspace() for c in str(origin)) and re.fullmatch('[0-9a-f]{32}',execution['nonce']),
             'Invalid original array execution identity.')
     require(type(report['pilot']) is bool,'Ambiguous pilot selection.')
-    spec=load(root/'contract.json');require(sha(root/'contract.json')==report['contract_sha256']==CONTRACT_SHA,'Changed array acceptance contract.')
+    spec=load(root/'contract.json');require(sha(root/'contract.json')==report['contract_sha256']==review['sha256'] and spec['package']['manifest_sha256']==review['package_sha256'],'Changed array acceptance contract/package pair.')
     sources=load(root/'source-files.json');require(inventory(root/'source')==sources and sha(root/'source-files.json')==report['source_files_sha256'],
             'Captured array source inventory differs.')
-    required={CONTRACT,'scripts/qualify_sky130_metal_resistor_parallel.py','scripts/audit_sky130_metal_resistor_parallel.py',
+    required={review['path'],'scripts/qualify_sky130_metal_resistor_parallel.py','scripts/audit_sky130_metal_resistor_parallel.py',
               'tests/test_sky130_metal_resistor_parallel.py','tests/test_sky130_metal_resistor_parallel_audit.py',
               'tests/gui_sky130_metal_resistor_parallel.py','icstudio/sky130_metal_resistors.py','examples/sky130-qualification-lock.json'}
-    require(required<=sources.keys() and sources[CONTRACT]==CONTRACT_SHA,'Missing required array source identity.')
+    if review['sha256']==CURRENT_CONTRACT['sha256']:required.add('scripts/sky130_contract_versions.py')
+    require(required<=sources.keys() and sources[review['path']]==review['sha256'],'Missing required array source identity.')
     for name,value in spec['sources'].items():require(sources.get(name)==value['sha256'],'Changed public array reference.')
     for name,value in spec['engine_sources'].items():
         path=root/'engine-reference'/relative(name)
@@ -510,7 +515,7 @@ def audit(root,reviewed_source=None):
         require(all(sha(Path(reviewed_source)/relative(n))==d for n,d in sources.items()),'Captured array source differs from reviewed files.')
     require(report['guards']==dict(source=True,simulation_package=True,staged_models=True,physical_package=True,runtime=True),
             'Missing final native array input guards.')
-    package,selected=model_closure(root,manifest);context=physical_context(root,report);runtime=electrical_runtime(root,report)
+    package,selected=model_closure(root,manifest,review['package_sha256']);context=physical_context(root,report);runtime=electrical_runtime(root,report)
     require(report['simulation_package']==spec['package'] and report['tools']=={k:v['path'] for k,v in context['tools'].items()},
             'Declared selected array inputs differ.')
     physical_package=load(root/'original-physical-package/package.json')

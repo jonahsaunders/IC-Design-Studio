@@ -28,6 +28,7 @@ from scripts import installed_mim_inputs as runtime_inputs
 
 BASE = '840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'
 OPTIONAL = raw_audit.PACKAGE
+DEFAULT = '125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
 KEY = 'sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym'
 CONDITIONS = tuple((c,t,'dc') for c in ('nominal','ss','ff','sf','fs') for t in (0,27,85)) + tuple(('nominal',27,p) for p in 'dgsb')
 require = raw_audit.require
@@ -123,6 +124,39 @@ def runtime_equivalent(first, second):
             {k:v for k,v in second.items() if k != 'environment'},'Reference runtime differs from reviewed producer runtime.')
 
 
+def selection(expected, report=None):
+    """The independent caller selects the gate; a producer cannot promote itself."""
+    mode = expected.get('selection', 'optional')
+    require(mode in ('optional', 'bundled-default'), 'Unknown ESD selection contract.')
+    if report is not None:
+        require(report.get('selection', 'optional') == mode, 'ESD selection differs from the trusted gate.')
+    return mode, DEFAULT if mode == 'bundled-default' else OPTIONAL
+
+
+def default_discovery(root, report, package, expected):
+    mode, package_hash = selection(expected, report)
+    if mode != 'bundled-default':
+        require('default_discovery' not in report, 'Optional selection cannot claim bundled discovery.')
+        return
+    capture = root/'bundled-collection.json'
+    require(sha(capture) == expected['collection_sha256'], 'Captured collection changed.')
+    entries = [v for v in load(capture)['packages'] if v['variant'] == 'sky130A']
+    require(len(entries) == 1 and entries[0]['revision'] == package['revision'] and
+            entries[0]['manifest_sha256'] == package_hash and entries[0]['assets'] == len(package['files']),
+            'Bundled collection does not declare the selected default.')
+    discovery = report['default_discovery']
+    require(set(discovery) == {'source_of_selection','hub_selected','source_path','manifest_sha256','hub_project'} and
+            discovery['source_of_selection'] == 'project-hub-bundled' and
+            discovery['hub_selected'] == report['registry']['current_key'] == package['id']+'@'+package['revision'] and
+            discovery['manifest_sha256'] == package_hash and
+            raw_audit.native_path(discovery['source_path']) == raw_audit.native_path(report['resource_root'])/'icstudio/assets/pdks/sky130A',
+            'Default discovery differs from the actual shipped package.')
+    hub = load(project_file(root, discovery['hub_project'], origin=report['execution_root']))
+    require(technology(hub, package) == raw_audit.native_path(report['registry']['current_root']),
+            'Project Hub created a project with a different package.')
+    require(len(hub['cells']) == 1 and not hub['cells'][0]['devices'], 'Hub baseline is not a new empty project.')
+
+
 def header(root, expected):
     producer_inventory(root,expected)
     report = load(inside(root,'report.json')); finite(report)
@@ -133,7 +167,8 @@ def header(root, expected):
             not report.get('error') and not report.get('source_error') and not report['errors'],'Probe failed.')
     require(all(report[k] is False for k in ('qualified','default_promoted','chunk_complete','installed_acceptance')),
             'Probe overstates acceptance.')
-    require(report['package_sha256'] == OPTIONAL and report['base_sha256'] == BASE,'Wrong package selection.')
+    mode, selected_hash = selection(expected, report)
+    require(report['package_sha256'] == selected_hash and report['base_sha256'] == BASE,'Wrong package selection.')
     for key in ('executable','executable_sha256','engine','engine_sha256','resource_root','runtime'):
         require(report[key] == expected[key],'Externally selected input differs: '+key)
     require(report['engine_sha256'] in raw_audit.ENGINES,'Unreviewed engine profile.')
@@ -154,6 +189,10 @@ def header(root, expected):
     resource = raw_audit.native_path(report['resource_root'])
     collection = str(resource/'icstudio/assets/pdks/collection.json')
     require(report['collection_sha256'] == sha(external_file(collection,expected)) == expected['collection_sha256'], 'Bundled collection changed.')
+    if mode == 'bundled-default':
+        bundled_manifest = str(resource/'icstudio/assets/pdks/sky130A/package.json')
+        require(sha(external_file(bundled_manifest,expected)) == DEFAULT,
+                'Actual shipped default manifest differs from the selected contract.')
     if expected['mode'] == 'installed':
         require(report['frozen'] is True and report['source_files'] == {} and report['build']['frozen'] is True and
                 report['build']['dirty'] is False and re.fullmatch('[0-9a-f]{40}',expected['commit']) and
@@ -247,11 +286,14 @@ def exports(root, report, row, project, package, esd=False):
     devices(schematic[len(includes):-3])
 
 
-def lifecycle(root, report, optional):
+def lifecycle(root, report, optional, expected=None):
     origin = report['execution_root']
+    mode, selected_hash = selection(expected or {}, report)
+    selected_manifest = root/('selected-package.json' if mode == 'bundled-default' else 'optional-package.json')
     base = load(root/'base-package.json')
-    require(sha(root/'base-package.json') == BASE and sha(root/'optional-package.json') == OPTIONAL,'Captured package identities differ.')
-    require(load(root/'optional-package.json') == optional and load(root/'registry-package.json') == optional,'Registry semantic identity differs.')
+    require(sha(root/'base-package.json') == BASE and sha(selected_manifest) == selected_hash,'Captured package identities differ.')
+    require(load(selected_manifest) == optional and load(root/'registry-package.json') == optional,'Registry semantic identity differs.')
+    default_discovery(root, report, optional, expected or {})
     old = []
     for field in ('old_before','old_after'):
         project = load(project_file(root,report[field],origin=origin))
@@ -377,7 +419,7 @@ def references(root, package_path, reference_out, expected):
     report = header(root,expected)
     engine = unlinked(report['engine']).resolve()
     require(sha(engine) == report['engine_sha256'],'Captured engine changed before reference execution.')
-    files = package_at(package_path,OPTIONAL)['files']
+    files = package_at(package_path,selection(expected, report)[1])['files']
     reference_out.mkdir(parents=True)
     binding = dict(mode='installed' if expected['mode'] == 'installed' else 'source-pilot',resource_root=expected['resource_root'])
     env = runtime_inputs.native_environment(binding,engine,reference_out)
@@ -528,8 +570,8 @@ def audit(root, package_path, reference_root, expected, reference_manifest_sha25
     require(not reference_root.is_relative_to(root) and not root.is_relative_to(reference_root),'Reference and producer roots overlap.')
     report = header(root,expected)
     reference_report = check_reference(reference_root,expected,reference_manifest_sha256)
-    package = package_at(package_path,OPTIONAL)
-    selected = lifecycle(root,report,package)
+    package = package_at(package_path,selection(expected, report)[1])
+    selected = lifecycle(root,report,package,expected)
     worst = 0.
     require(len(report['cases']) == len(CONDITIONS),'Missing native cases.')
     for index,(corner,temp,drive) in enumerate(CONDITIONS):
@@ -553,7 +595,7 @@ def audit(root, package_path, reference_root, expected, reference_manifest_sha25
         worst = max(worst,*raw_audit.compare(data['application'],data['independent'],domain,drive,True))
         for role in roles[1:]: raw_audit.compare(data[role],data['independent'],domain,drive,False)
     producer_inventory(root,expected)
-    return dict(status='PASS',mode=expected['mode'],installed_acceptance=expected['mode'] == 'installed',
+    return dict(status='PASS',mode=expected['mode'],selection=selection(expected, report)[0],installed_acceptance=expected['mode'] == 'installed',
                 cases=19,native_executions=98,devices=6,fault_device_instances=360,maximum_normalized_error=worst,
                 qualified=False,default_promoted=False,chunk_complete=False,report_sha256=expected['report_sha256'],
                 producer_manifest_sha256=expected['producer_manifest_sha256'],reference_manifest_sha256=reference_manifest_sha256,

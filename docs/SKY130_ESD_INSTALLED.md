@@ -1,5 +1,10 @@
 # Optional SKY130 ESD desktop workflow
 
+The October 29 [default-path gate](SKY130_ESD_DEFAULT.md) is additional to this
+optional workflow. The exact October 28 candidate passes this optional gate on
+both installed platforms; the later IHP deadline failure still prevents complete
+Windows acceptance. The changed default candidate requires its own fresh gates.
+
 The corrected `nfet_g5v0d10v5_nvt_esd.sym` binding now has a desktop acceptance
 probe and an independent electrical reader. The [retained source experiment](validation/sky130-esd-gui-electrical-2026-10-28.json)
 passes on Windows and native Linux. Fresh acceptance of a packaged candidate

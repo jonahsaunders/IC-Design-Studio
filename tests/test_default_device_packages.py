@@ -5,7 +5,7 @@ from icstudio.model import clone,file_digest,save_project,load_project
 from icstudio.pdks import PDKRegistry,model_lines
 from icstudio.project_hub import inventory,build_project
 from scripts.prepare_default_device_packages import prepare
-from scripts.device_qualification_source import PROMOTED,PREVIOUS,REVISIONS,previous_devices
+from scripts.device_qualification_source import PROMOTED,HISTORICAL_PROMOTED,PREVIOUS,REVISIONS,previous_devices
 from scripts.sky130_qualification_source import original_package,BASE,BASE_MANIFEST,DEFAULT_MANIFEST
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -118,4 +118,26 @@ class DefaultDevicePackageTests(unittest.TestCase):
             self.assertTrue(model_lines(tech,corner)[0].endswith(' '+section),corner)
 
 
+    def test_exact_rf_predecessor_still_reconstructs_and_rebuilds_the_current_default(self):
+        from scripts.prepare_sky130_esd_nvt import predecessor
+        current=ROOT/'icstudio/assets/pdks/sky130A'
+        with predecessor(current) as rf,tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(file_digest(rf/'package.json'),HISTORICAL_PROMOTED['sky130A'])
+            with previous_devices(rf) as older:self.assertEqual(file_digest(older/'package.json'),PREVIOUS['sky130A'])
+            out=Path(tmp)/'current';record=prepare(rf,out,'sky130A')
+            self.assertEqual(record['manifest_sha256'],PROMOTED['sky130A'])
+            self.assertEqual((out/'package.json').read_bytes(),(current/'package.json').read_bytes())
+
+    def test_changed_current_asset_cannot_be_hidden_by_predecessor_reconstruction(self):
+        import shutil
+        source=ROOT/'icstudio/assets/pdks/sky130A'
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);copy=root/'copy';shutil.copytree(source,copy)
+            rel='libs.tech/ngspice/sky130.lib.spice';(copy/rel).write_bytes((copy/rel).read_bytes()+b'\n* changed\n')
+            with self.assertRaisesRegex(ValueError,'Changed current device asset'):
+                with previous_devices(copy):pass
+            with self.assertRaisesRegex(ValueError,'Changed current device asset'):prepare(copy,root/'rebuilt','sky130A')
+            self.assertFalse((root/'rebuilt').exists())
+
 if __name__=='__main__':unittest.main()
+

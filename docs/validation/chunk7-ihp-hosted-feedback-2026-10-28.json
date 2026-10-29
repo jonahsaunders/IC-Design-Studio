@@ -1,0 +1,264 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "chunk": 7,
+  "status": "PASS",
+  "candidate": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+  "run_id": 40730784620,
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40730784620",
+  "jobs": [
+    {
+      "id": 122966196182,
+      "name": "source feedback (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40730784620,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Check application, runner and test syntax before installing dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Install desktop libraries",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Install pinned Python dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run focused contracts and GUI smoke checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        }
+      ]
+    },
+    {
+      "id": 122966196717,
+      "name": "source feedback (windows-2022)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40730784620,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Check application, runner and test syntax before installing dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Install desktop libraries",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 5
+        },
+        {
+          "name": "Install pinned Python dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run focused contracts and GUI smoke checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        }
+      ]
+    },
+    {
+      "id": 122970528393,
+      "name": "PR feedback",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40730784620,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Require both source feedback platforms",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        }
+      ]
+    }
+  ],
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "host": "Windows",
+      "run_id": 40730784620,
+      "candidate": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+      "tested_merge": "3cc5f2f69894196206159c7c6a72ae45bf0ff80e",
+      "merge_parents": [
+        "49c79957b4d6f4978127da612e167e5c75cda6b3",
+        "bd6449ebaa2fb3f3823a630f29989bae44789cb6"
+      ],
+      "tests": 821,
+      "skips": 33,
+      "stages": 7,
+      "feedback_seconds": 395.891,
+      "source_files": 1472,
+      "source_binding": "All1472 hashes match final local source hashes already verified to selected commit Git blobs.",
+      "gui": {
+        "cases": 60,
+        "execution_id": "d2876a7f23074b08a0445908f7ddc1a7",
+        "seconds": 143.14099999999985,
+        "raw_inventory_files": 895,
+        "all_raw_hashes_verified": true,
+        "report_sha256": "c347d25f15d192e0b558bffc5639de05a90b296e179e94d6133731276e519850"
+      },
+      "archive": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-ihp-final-integration-2026-10-28-v1\\hosted-Windows.zip",
+        "sha256": "3050aba9c2c653b154d8a90877d5249c2c3c953d312ec1667d18b9f3a56dd682",
+        "bytes": 16501503,
+        "members": 1116,
+        "all_members_read": true
+      },
+      "report_sha256": "4087ea12e2a9b2037c159b1e45accb02407f2a0a4b5c5c5ed7864d4eb985c6b7",
+      "installed_acceptance": false
+    },
+    "Linux": {
+      "status": "PASS",
+      "host": "Linux",
+      "run_id": 40730784620,
+      "candidate": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+      "tested_merge": "3cc5f2f69894196206159c7c6a72ae45bf0ff80e",
+      "merge_parents": [
+        "49c79957b4d6f4978127da612e167e5c75cda6b3",
+        "bd6449ebaa2fb3f3823a630f29989bae44789cb6"
+      ],
+      "tests": 821,
+      "skips": 14,
+      "stages": 7,
+      "feedback_seconds": 294.536,
+      "source_files": 1472,
+      "source_binding": "All1472 hashes match final local source hashes already verified to selected commit Git blobs.",
+      "gui": {
+        "cases": 60,
+        "execution_id": "29c71eb961ef4dbbae3a6bed344448a3",
+        "seconds": 133.43630762200002,
+        "raw_inventory_files": 896,
+        "all_raw_hashes_verified": true,
+        "report_sha256": "7e2b05906966911e3d400c11431286c67214f1728e6eef2cf493ee6838edc969"
+      },
+      "archive": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-ihp-final-integration-2026-10-28-v1\\hosted-Linux.zip",
+        "sha256": "ecbdfa898e9d736393df356587317eeb4bed86f709d0382016016ee951250085",
+        "bytes": 16844123,
+        "members": 1159,
+        "all_members_read": true
+      },
+      "report_sha256": "ebe5db3933667b22227169a8b7187b506f6eed1917994534dc9162327b7935ab",
+      "installed_acceptance": false
+    }
+  },
+  "scope": "Both hosted seven-stage source lanes and required aggregate; actual synthetic merge ancestry, all1472 source hashes and every raw member of each60-case IHP sourceGUI inventory verified. Not installed/family acceptance.",
+  "installed_acceptance": false,
+  "chunk_complete": false
+}

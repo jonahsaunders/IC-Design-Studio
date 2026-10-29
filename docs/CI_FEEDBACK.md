@@ -160,3 +160,9 @@ These are synthetic archive/Git fixtures. The split still needs a successful
 hosted candidate to establish actual transfer time, fresh host compatibility and
 complete installed/release acceptance. The original timeout and incomplete
 Windows diagnostic upload remain recorded; neither is promoted to a release pass.
+
+The current package-reconstruction checks run in a separate required
+`package-contracts` stage. All eight added checks are preserved, with the same
+300-second per-stage deadline and failure propagation. This prevents verified
+package copying on Windows from exhausting the original unit stage's budget;
+all seven existing stages and the release gates remain required.

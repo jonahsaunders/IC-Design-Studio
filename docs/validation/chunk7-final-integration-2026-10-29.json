@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "chunk": 7,
+  "status": "PASS",
+  "scope": "Final source integration of default ESD candidate, versioned contracts and bounded IHP scheduling. Not installed or full-family qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "source_manifest_sha256": "f12b67ba604f92286cf45c892354af98dad308291876bb91bdffa59b3f567962",
+  "source_files": 6767,
+  "feedback_identity_files": 1490,
+  "syntax_files": 1454,
+  "hosts": {
+    "Windows": {
+      "tests": 848,
+      "skipped": 34,
+      "unit_seconds": 230.353,
+      "source_seconds": 444.719,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 232.282
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.765
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.516
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 10.797
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.235
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 39.156
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 109.562
+        }
+      ]
+    },
+    "Linux": {
+      "tests": 848,
+      "skipped": 14,
+      "unit_seconds": 51.786,
+      "source_seconds": 191.661,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 52.901
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.568
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.528
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.274
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.879
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 21.474
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 82.314
+        }
+      ]
+    }
+  },
+  "gui": {
+    "Windows": {
+      "cases": 60,
+      "seconds": 104.84300000000803,
+      "execution_id": "aea51933e488428380666c32999205fa",
+      "files_sha256": "ef5a5032f896ac53df83b404851bed49d3abfbe9cba6932fe254c0457f205d8f",
+      "installed_acceptance": false
+    },
+    "Linux": {
+      "cases": 60,
+      "seconds": 78.02419662600005,
+      "execution_id": "fd69702c1009452283f3132c0afc0f13",
+      "files_sha256": "4333e4dd2fa915a5bb6177364292e92db78d609e51f8788020ba71100e0b296e",
+      "installed_acceptance": false
+    }
+  },
+  "source_metadata_commit": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+  "archives": {
+    "Windows": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-final-integration-2026-10-29-v1\\windows-feedback.zip",
+      "sha256": "8a7bb8b9358218ab13e1a8d5082f7b72275432c4c22dd9f3b036a8aaecfbf4c3",
+      "bytes": 16748476,
+      "files": 1101
+    },
+    "Linux": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-final-integration-2026-10-29-v1\\linux-feedback.zip",
+      "sha256": "6eb1aaa2b880c631feb59ca9ef38f38ec05785d12a97cb680e00bd01716976da",
+      "bytes": 16733463,
+      "files": 1100
+    }
+  },
+  "source_unchanged_on_both_hosts": true,
+  "review": "Sol and Terra isolated implementations; independent GPT-6 Astra review; root combined execution and complete raw archive hash readback.",
+  "estimate": {
+    "percent": 70,
+    "range": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "engineering_estimate": true
+  }
+}

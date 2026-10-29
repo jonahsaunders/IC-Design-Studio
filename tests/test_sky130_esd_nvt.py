@@ -13,7 +13,7 @@ from icstudio.model import clone, example, file_digest, load_project, save_proje
 from icstudio.pdks import PDKRegistry
 from icstudio.project_hub import build_project, inventory
 from icstudio.xschem_io import import_package
-from scripts.prepare_sky130_esd_nvt import prepare, BASE, KEY, MODEL, PREFIX, SOURCES
+from scripts.prepare_sky130_esd_nvt import prepare, predecessor, BASE, KEY, MODEL, PREFIX, SOURCES
 
 ROOT = Path(icstudio.__file__).resolve().parents[1]
 EXPECTED = '5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a'
@@ -24,7 +24,9 @@ class CorrectedESDTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory(prefix='esd-binding-')
         cls.folder = Path(cls.tmp.name)
-        cls.source = ROOT / 'icstudio/assets/pdks/sky130A'
+        cls.previous = predecessor(ROOT / 'icstudio/assets/pdks/sky130A')
+        cls.source = cls.previous.__enter__()
+        cls.addClassCleanup(cls.previous.__exit__, None, None, None)
         cls.package = cls.folder / 'candidate'
         cls.result = prepare(cls.source, cls.package)
         cls.old = json.loads((cls.source/'package.json').read_bytes())

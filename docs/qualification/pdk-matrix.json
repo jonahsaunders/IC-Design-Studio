@@ -256,6 +256,21 @@
         "evidence": "desktop-handoff-fixture-repair-2026-10-26",
         "status": "local_both_host_feedback_pass_hosted_pending",
         "device_statuses_unchanged": true
+      },
+      "candidate_esd_default": {
+        "status": "source_candidate_not_accepted",
+        "revision": "5dda725c94efe3c2",
+        "manifest_sha256": "125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b",
+        "partial_device_entries": 288,
+        "unavailable_real_bindings": 5,
+        "utilities": 9,
+        "accepted_predecessor": {
+          "revision": "b26f7f28e659ddc1",
+          "partial_device_entries": 287,
+          "unavailable_real_bindings": 6,
+          "utilities": 9
+        },
+        "remaining": "Fresh exact default-path installed acceptance on Windows and Linux, broader device requirements and all family gates remain open. This is a source candidate, not accepted production promotion."
       }
     },
     "8": {
@@ -281,11 +296,11 @@
   },
   "inventory": {
     "sky130A": {
-      "revision": "b26f7f28e659ddc1",
-      "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
-      "asset_count": 420,
+      "revision": "5dda725c94efe3c2",
+      "manifest_sha256": "125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b",
+      "asset_count": 426,
       "indexed_count": 99,
-      "placeable_count": 95,
+      "placeable_count": 96,
       "source_locks": {
         "UPSTREAM-LOCK.json": {
           "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c",
@@ -326,6 +341,9 @@
         },
         {
           "path": "libs.tech/ngspice/icstudio-rf-ps2nw/library.spice"
+        },
+        {
+          "path": "libs.tech/ngspice/icstudio-esd-nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice"
         }
       ],
       "requires_osdi": false,
@@ -3388,15 +3406,126 @@
           "rf_batch": false
         },
         "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym": {
-          "category": "Other",
-          "model": "sky130_fd_pr__esd_nfet_g5v0d10v5_nvt",
-          "model_source": null,
-          "source": "libs.tech/xschem/sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym",
-          "pin_order": null,
-          "parameters": null,
-          "emit_parameters": null,
-          "parameter_scale": null,
-          "unavailable": "Model is absent from the selected ngspice library closure.",
+          "category": "NMOS",
+          "model": "sky130_fd_pr__esd_nfet_05v0_nvt",
+          "model_source": "libs.tech/ngspice/icstudio-esd-nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice",
+          "source": "libs.tech/ngspice/icstudio-esd-nvt/nfet_g5v0d10v5_nvt_esd.sym",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.29",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.29",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "l": {
+              "choices": {
+                "0.9": 0.9,
+                "2": 2.0,
+                "4": 4.0
+              },
+              "default": "2",
+              "derived": false,
+              "integer": false,
+              "positive": true,
+              "unit": "um"
+            },
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "nf": {
+              "default": "1",
+              "derived": false,
+              "fixed": "1",
+              "integer": true,
+              "positive": true
+            },
+            "nrd": {
+              "default": "0.29 / w",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "nrs": {
+              "default": "0.29 / w",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.29)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.29)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sa": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sb": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "w": {
+              "default": "10",
+              "derived": false,
+              "fixed": "10",
+              "integer": false,
+              "positive": true,
+              "unit": "um"
+            }
+          },
+          "emit_parameters": {
+            "ad": "ad",
+            "as": "as",
+            "l": "l",
+            "m": "mult",
+            "mult": "mult",
+            "nf": "nf",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "pd": "pd",
+            "ps": "ps",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "w": "w"
+          },
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "unavailable": "",
           "family": "mos",
           "rf_batch": false
         },
@@ -20763,8 +20892,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "unsupported",
-        "remaining": "Model is absent from the selected ngspice library closure."
+        "status": "partial",
+        "remaining": "Candidate source package contains the public corrected finite-bin electrical binding; selected optional-package source and Linux installed evidence retain their own package identities. Fresh installed default-path acceptance on both hosts, full operating and geometry envelopes, physical/extracted connectivity, ESD robustness and reliability remain open.",
+        "historical_evidence": [
+          "sky130-esd-nvt-source-2026-10-26"
+        ]
       },
       "sky130_fd_pr/nfet_g5v0d16v0.sym": {
         "tests": [

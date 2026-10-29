@@ -3,12 +3,13 @@ from pathlib import Path
 import json
 import os
 import re
+import subprocess
 import tempfile
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 from scripts import ci_feedback
-from scripts.ci_feedback import ROOT, UNIT_MODULES, check_syntax, source_identity, stages
+from scripts.ci_feedback import ROOT, UNIT_MODULES, PACKAGE_MODULES, check_syntax, source_identity, stages
 
 EXHAUSTIVE = (
     'build-desktop', 'digital-runtime', 'physical-qualification', 'interoperability',
@@ -23,11 +24,12 @@ def workflow(name):
 
 class FeedbackTests(unittest.TestCase):
     def test_failed_stage_and_source_mutation_retain_failed_evidence(self):
-        for failure in ('stage', 'source'):
+        for failure in ('stage', 'package', 'source'):
             with self.subTest(failure=failure), tempfile.TemporaryDirectory() as folder:
                 output = Path(folder) / 'evidence'
                 identities = [{'scripts/runner.py': 'a' * 64}, {'scripts/runner.py': 'b' * 64}]
-                commands = [('controlled-failure', ['unused'])] if failure == 'stage' else []
+                commands = [] if failure == 'source' else [(
+                    'package-contracts' if failure == 'package' else 'controlled-failure', ['unused'])]
                 with patch.dict(os.environ, {'GITHUB_SHA': 'a' * 40}, clear=True), \
                      patch('sys.argv', ['ci_feedback.py', '--output', str(output)]), \
                      patch.object(ci_feedback.subprocess, 'check_output', return_value='a' * 40), \
@@ -124,15 +126,42 @@ class FeedbackTests(unittest.TestCase):
                 ci_feedback.check_ihp_gui_output(output)
 
     def test_focused_modules_exist_and_release_contracts_remain_fast_checks(self):
-        for name in UNIT_MODULES:
+        for name in (*UNIT_MODULES, *PACKAGE_MODULES):
             self.assertTrue((ROOT / 'tests' / (name.split('.')[0] + '.py')).is_file(), name)
         commands = stages()
         self.assertEqual([name for name, _ in commands],
-                         ['unit-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
+                         ['unit-contracts', 'package-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
                           'metal-resistor-editor-smoke', 'metal-resistor-parallel-smoke',
                           'ihp-resistor-editor-smoke'])
         self.assertIn('test_pdk_qualification_matrix', UNIT_MODULES)
         self.assertIn('test_release_acceptance', UNIT_MODULES)
+
+    def test_required_package_checks_are_separate_complete_and_nonoverlapping(self):
+        self.assertFalse(set(UNIT_MODULES) & set(PACKAGE_MODULES))
+        command = dict(stages())['package-contracts']
+        self.assertEqual(command[3:-1], ['tests.' + name for name in PACKAGE_MODULES])
+        tests = unittest.defaultTestLoader.loadTestsFromNames(command[3:-1])
+        self.assertEqual(tests.countTestCases(), 8)
+        self.assertEqual(len(command[3:-1]), len(set(command[3:-1])))
+        self.assertNotIn('test_default_device_packages', UNIT_MODULES)
+
+    def test_package_timeout_remains_a_required_failure(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / 'evidence'
+            with patch.dict(os.environ, {'GITHUB_SHA': 'a' * 40}, clear=True), \
+                 patch('sys.argv', ['ci_feedback.py', '--output', str(output)]), \
+                 patch.object(ci_feedback.subprocess, 'check_output', return_value='a' * 40), \
+                 patch.object(ci_feedback.subprocess, 'run', side_effect=subprocess.TimeoutExpired(['unused'], 300)) as run, \
+                 patch.object(ci_feedback, 'source_identity', return_value={'scripts/runner.py': 'a' * 64}), \
+                 patch.object(ci_feedback, 'check_syntax', return_value=1), \
+                 patch.object(ci_feedback, 'stages', return_value=[('package-contracts', ['unused'])]), patch('builtins.print'):
+                with self.assertRaisesRegex(RuntimeError, 'package-contracts failed with exit code 124'):
+                    ci_feedback.main()
+            self.assertEqual(run.call_args.kwargs['timeout'], 300)
+            report = json.loads((output / 'report.json').read_bytes())
+            self.assertEqual(report['status'], 'failed')
+            self.assertEqual(report['stages'][0]['returncode'], 124)
+            self.assertFalse(report['release_acceptance'])
 
     def test_pr_and_merge_queue_use_default_synthetic_merge_checkout(self):
         text = workflow('pr-feedback')

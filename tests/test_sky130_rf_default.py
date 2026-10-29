@@ -12,12 +12,13 @@ from icstudio.project_hub import inventory, build_project
 from scripts.prepare_sky130_rf_default import prepare, KEY, PREFIX, MODEL, PRIMITIVE, ROOT
 from scripts.prepare_sky130_rf_qualification import prepare as candidate, public_sources, derivative
 from scripts.sky130_rf_source import BASE, PROMOTED, REVISION, previous_rf
+from scripts.prepare_sky130_esd_nvt import predecessor
 
 
 class RFDefaultTests(unittest.TestCase):
     def test_only_reviewed_binding_changes_and_previous_candidate_rebuilds_identically(self):
         source=ROOT/'icstudio/assets/pdks/sky130A'
-        with previous_rf(source) as old, tempfile.TemporaryDirectory() as tmp:
+        with predecessor(source) as source, previous_rf(source) as old, tempfile.TemporaryDirectory() as tmp:
             folder=Path(tmp);before=json.loads((old/'package.json').read_bytes())
             self.assertEqual(file_digest(old/'package.json'),BASE)
             result=prepare(source,folder/'rebuilt')
@@ -46,7 +47,7 @@ class RFDefaultTests(unittest.TestCase):
             saved=build_project(registry,next(r for r in rows if r['key']==key),'Existing','empty')['project']
             save_project(saved,folder/'old.icproj')
             p=build_project(registry,next(r for r in rows if r['id']=='sky130A' and r['status']=='Available offline'),'New','empty')['project']
-            self.assertEqual(p['pdk']['revision'],REVISION)
+            self.assertEqual(p['pdk']['revision'],'5dda725c94efe3c2')
             entry=p['pdk']['simulation']['catalog'][KEY];d=create_device(p['pdk'],KEY,'D1')
             d['model_params'].update(w=4,l=2);d['nets']={'d0':'A','d1':'K'};p['cells'][0]['devices']=[d]
             self.assertEqual(parameter_values(entry,d),dict(w=4,l=2,area=8,perim=12))
@@ -65,7 +66,7 @@ class RFDefaultTests(unittest.TestCase):
             self.assertFalse((folder/'out').exists())
             source=ROOT/'icstudio/assets/pdks/sky130A';changed=folder/'changed';shutil.copytree(source,changed)
             path=changed/(PREFIX+MODEL);path.write_bytes(path.read_bytes()+b'\n')
-            with self.assertRaisesRegex(ValueError,'Changed current SKY130 RF asset'):prepare(changed,folder/'out')
+            with self.assertRaisesRegex(ValueError,'Changed predecessor asset'):prepare(changed,folder/'out')
             self.assertFalse((folder/'out').exists())
             before=(source/'package.json').read_bytes()
             with self.assertRaisesRegex(ValueError,'new'):prepare(source,source)

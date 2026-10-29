@@ -39,8 +39,11 @@ from scripts import qualify_sky130_metal_resistors_linked as linked
 from scripts.qualification_geometry import regions,same_masks
 from scripts.qualify_standard_mos_layout import technology
 
-CONTRACT='docs/qualification/sky130-metal-resistor-parallel-v1.json'
-CONTRACT_SHA='66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472'
+HISTORICAL_CONTRACT='docs/qualification/sky130-metal-resistor-parallel-v1.json'
+HISTORICAL_CONTRACT_SHA='66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472'
+from scripts import sky130_contract_versions as versions
+CURRENT_CONTRACT=versions.selected('parallel')
+CONTRACT,CONTRACT_SHA=CURRENT_CONTRACT['path'],CURRENT_CONTRACT['sha256']
 sha,write,require=identity.sha,identity.write,identity.require
 
 

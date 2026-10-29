@@ -1,9 +1,9 @@
-"""Rebuild the exact tested default revisions from retained source packages."""
+"""Rebuild the exact bundled default revisions from retained source packages."""
 import argparse,sys,tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import file_digest
-from scripts.device_qualification_source import PROMOTED,PREVIOUS,INTERMEDIATE,previous_devices
+from scripts.device_qualification_source import PROMOTED,HISTORICAL_PROMOTED,PREVIOUS,INTERMEDIATE,previous_devices
 from scripts.prepare_alternate_models import BASE as ALTERNATE_BASE,prepare as alternate_package
 from scripts.sky130_li_source import BASE as LI_BASE
 from scripts.sky130_mim_source import BASE as MIM_BASE
@@ -14,7 +14,7 @@ from scripts.ihp_npn_source import BASE as NPN_BASE
 
 def prepare(source,output,target):
     if target not in PROMOTED:raise ValueError('Unknown device package target.')
-    if file_digest(Path(source)/'package.json') not in (PROMOTED[target],PREVIOUS[target],INTERMEDIATE.get(target),ALTERNATE_BASE.get(target),HV_BASE.get(target),LI_BASE if target=='sky130A' else None,MIM_BASE if target=='sky130A' else None,RF_BASE if target=='sky130A' else None,NPN_BASE if target=='ihp-sg13g2' else None):
+    if file_digest(Path(source)/'package.json') not in (PROMOTED[target],HISTORICAL_PROMOTED.get(target),PREVIOUS[target],INTERMEDIATE.get(target),ALTERNATE_BASE.get(target),HV_BASE.get(target),LI_BASE if target=='sky130A' else None,MIM_BASE if target=='sky130A' else None,RF_BASE if target=='sky130A' else None,NPN_BASE if target=='ihp-sg13g2' else None):
         raise ValueError('Input is not an exact reviewed package for '+target+'.')
     if target=='sky130A':
         from scripts.prepare_sky130_fixed_geometry import prepare as build
@@ -31,7 +31,9 @@ def prepare(source,output,target):
                     li=Path(tmp)/'li';li_package(alternate,li)
                     mim=Path(tmp)/'mim';mim_package(li,mim)
                     from scripts.prepare_sky130_rf_default import prepare as rf_package
-                    record=rf_package(mim,output)
+                    rf=Path(tmp)/'rf';rf_package(mim,rf)
+                    from scripts.promote_sky130_esd_default import prepare as esd_package
+                    record=esd_package(rf,output)
                 else:
                     from scripts.prepare_gf180_hv import prepare as hv_package
                     alternate=Path(tmp)/'alternate';alternate_package(base,alternate)

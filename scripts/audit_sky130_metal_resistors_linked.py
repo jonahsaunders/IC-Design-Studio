@@ -19,8 +19,11 @@ from scripts.audit_sky130_mim_mismatch_aliases import load, inventory, relative,
 MODELS = ('m1', 'm2', 'm3', 'm4')
 SECTIONS = ('tt', 'll', 'hh', 'hl', 'lh')
 KINDS = ('application', 'native', 'analytic')
-CONTRACT = 'docs/qualification/sky130-metal-resistors-linked-v1.json'
-CONTRACT_SHA = '2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612'
+HISTORICAL_CONTRACT='docs/qualification/sky130-metal-resistors-linked-v1.json'
+HISTORICAL_CONTRACT_SHA='2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612'
+from scripts import sky130_contract_versions as versions
+CURRENT_CONTRACT=versions.selected('metal')
+CONTRACT,CONTRACT_SHA=CURRENT_CONTRACT['path'],CURRENT_CONTRACT['sha256']
 
 
 def read_raw(path, title, plot, *, complex_values=False):
@@ -538,16 +541,18 @@ def audit(root,reviewed_source=None):
     from scripts.audit_sky130_mim_mismatch_aliases import runtime
     root=Path(root);actual_manifest=inventory(root);actual_manifest.pop('manifest.json');require(load(root/'manifest.json')==actual_manifest,'Complete evidence inventory differs.')
     report=load(root/'qualification.json');spec=load(root/'contract.json')
-    require(sha(root/'contract.json')==CONTRACT_SHA==report['contract_sha256'],'Acceptance contract differs.')
-    require(report['schema']==1 and report['gate']=='sky130-metal-resistors-linked-v1' and report['status']=='PASS' and report['mode']=='source-integration' and
+    review=versions.selected('metal',report['contract_sha256'],sha(root/'original-package/package.json'))
+    require(sha(root/'contract.json')==review['sha256'] and spec['package']['manifest_sha256']==review['package_sha256'],'Acceptance contract/package pair differs.')
+    require(report['schema']==1 and report['gate']==review['id'] and report['status']=='PASS' and report['mode']=='source-integration' and
             all(report[n] is False for n in ('qualified','installed_acceptance','full_family','chunk_complete','release_ready','signoff')),'Invalid completion or scope claim.')
     require(report['guards']==dict(source=True,simulation_package=True,staged_models=True,physical_package=True,runtime=True),'Missing final input guards.')
     source=load(root/'source-files.json');require(sha(root/'source-files.json')==report['source_files_sha256'] and inventory(root/'source')==source,'Source closure differs.')
-    required={CONTRACT,'scripts/qualify_sky130_metal_resistors_linked.py','scripts/audit_sky130_metal_resistors_linked.py',
+    required={review['path'],'scripts/qualify_sky130_metal_resistors_linked.py','scripts/audit_sky130_metal_resistors_linked.py',
               'tests/test_sky130_metal_resistors_linked.py','tests/test_sky130_metal_resistors_linked_audit.py','examples/sky130-qualification-lock.json',*spec['sources']}
+    if review['sha256']==CURRENT_CONTRACT['sha256']:required.add('scripts/sky130_contract_versions.py')
     require(required<=set(source),'Required source snapshot member missing.')
     for name,row in spec['sources'].items():require(source[name]==row['sha256'],'Primary source binding differs.')
-    require(source[CONTRACT]==CONTRACT_SHA,'Captured source contract differs.')
+    require(source[review['path']]==review['sha256'],'Captured source contract differs.')
     if reviewed_source is not None:
         for name,digest in source.items():require(sha(Path(reviewed_source)/relative(name))==digest,'Captured source differs from independently reviewed source.')
     for name,row in spec['engine_sources'].items():require(sha(root/'engine-reference'/relative(name))==row['sha256'],'Primitive source/reference differs.')

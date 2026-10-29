@@ -5,6 +5,8 @@ Finite physical recipes only; no operating envelope or complete family claim.
 """
 import argparse,ast,copy,hashlib,json,math,os,re,subprocess,sys,time,uuid
 from pathlib import Path,PurePosixPath
+from concurrent.futures import ThreadPoolExecutor,wait,FIRST_COMPLETED
+from threading import Event
 
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.verify_frozen_mim import require,sha,digest,load,relative,unlinked,confined,inventory,file_map,git_environment,git_blob,backend_binding,design_hash,content_hash,check_runtime
@@ -322,7 +324,7 @@ def native_result(folder,item,expected_stream,physical,runtime,records,fault=Non
     require(received==actual_inventory,'Native transfer artifact inventory incomplete.')
     return report
 
-def run_job(executable,project,row,folder,env,runtime,inputs,physical,records,fault=None):
+def prepare_job(executable,project,row,folder,runtime,inputs,physical,fault=None):
     folder.mkdir(parents=True,exist_ok=False);job_project=copy.deepcopy(project)
     reference=Path(row['reference']).read_text()
     if fault=='reference-width':
@@ -336,11 +338,69 @@ def run_job(executable,project,row,folder,env,runtime,inputs,physical,records,fa
     write(folder/'input.json',job)
     command=[str(executable),'--worker',str(folder/'input.json'),str(folder/'result.json')];tick=time.monotonic();attempt=dict(command=command,started_unix=time.time(),executable_sha256=sha(executable),input_sha256=sha(folder/'input.json'),status='RUNNING')
     write(folder/'invocation.json',attempt)
-    try:
-        with (folder/'worker.log').open('wb') as log:completed=subprocess.run(command,env=env,cwd=folder,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=300)
-        attempt.update(status='complete',returncode=completed.returncode,seconds=time.monotonic()-tick,log_sha256=sha(folder/'worker.log'));write(folder/'invocation.json',attempt)
-    except BaseException as error:
-        (folder/'digital-cancel').write_text('cancel\n');attempt.update(status='failed',error=str(error),returncode=getattr(error,'returncode',None),seconds=time.monotonic()-tick,log_sha256=sha(folder/'worker.log'));write(folder/'invocation.json',attempt);raise
+    return job,job_project,ref,command,attempt,tick
+
+
+def signal_cancel(folder):
+    try:(folder/'digital-cancel').write_text('cancel\n')
+    except OSError as error:return str(error)
+    return None
+
+
+def native_shutdown(folder,runtime):
+    """Read back supervisor exit after cancellation; never claim unknown cleanup."""
+    metadata=folder/'physical-backend.json'
+    if not metadata.is_file():return dict(status='not-recorded')
+    receipt=load(metadata);require(runtime is not None and receipt.get('runtime')==runtime,'Cancellation runtime receipt differs.')
+    native=PurePosixPath(receipt['native_directory'])
+    if runtime['kind']=='wsl':
+        require(native.parent==PurePosixPath('/var/tmp/icstudio-physical') and re.fullmatch('[0-9a-f]{32}',native.name),'Cancellation native directory differs.')
+        work=Path(runtime['root'])/native.relative_to('/')
+    else:
+        require(runtime['kind']=='linux' and native.is_absolute() and native.parent in (PurePosixPath('/tmp'),PurePosixPath('/var/tmp')) and native.name.startswith('icstudio-physical-'),'Cancellation native directory differs.')
+        work=Path(native)
+    proof=work/'supervisor-exit.json';deadline=time.monotonic()+5
+    while work.exists() and not proof.is_file() and time.monotonic()<deadline:time.sleep(.1)
+    if proof.is_file():
+        data=load(unlinked(proof));require(set(data)=={'returncode'} and type(data['returncode']) is int,'Cancellation supervisor receipt differs.')
+        return dict(status='supervisor-exited',returncode=data['returncode'],receipt_sha256=sha(proof))
+    return dict(status='removed' if not work.exists() else 'unconfirmed')
+
+
+def execute_job(folder,command,attempt,tick,env,deadline=None,stopped=None,runtime=None):
+    """Only process I/O runs off-thread; KLayout objects stay on the parent."""
+    process=None
+    with (folder/'worker.log').open('wb') as log:
+        try:
+            require(stopped is None or not stopped.is_set(),'Parent native execution cancelled.')
+            remaining=300 if deadline is None else min(300,deadline-time.monotonic())
+            require(remaining>0,'Parent physical deadline exceeded.')
+            process=subprocess.Popen(command,env=env,cwd=folder,stdout=log,stderr=subprocess.STDOUT)
+            expires=time.monotonic()+remaining
+            while process.poll() is None:
+                require(stopped is None or not stopped.is_set(),'Parent native execution cancelled.')
+                left=expires-time.monotonic()
+                if left<=0:raise subprocess.TimeoutExpired(command,remaining)
+                try:process.wait(timeout=min(.1,left))
+                except subprocess.TimeoutExpired:pass
+            if process.returncode:raise subprocess.CalledProcessError(process.returncode,command)
+            attempt.update(status='complete',returncode=process.returncode,seconds=time.monotonic()-tick)
+        except BaseException as error:
+            attempt['cancellation_error']=signal_cancel(folder)
+            if process is not None and process.poll() is None:
+                try:process.wait(timeout=3)
+                except subprocess.TimeoutExpired:process.kill();process.wait()
+                # Staging may have cleared an early marker before termination.
+                attempt['cancellation_error']=signal_cancel(folder) or attempt['cancellation_error']
+            try:attempt['native_shutdown']=native_shutdown(folder,runtime)
+            except Exception as cleanup_error:attempt['native_shutdown']=dict(status='unconfirmed',error=str(cleanup_error))
+            attempt.update(status='failed',error=str(error),returncode=None if process is None else process.returncode,seconds=time.monotonic()-tick)
+            raise
+        finally:
+            log.flush();attempt['log_sha256']=sha(folder/'worker.log');write(folder/'invocation.json',attempt)
+
+
+def audit_job(folder,row,job,job_project,ref,runtime,physical,records,fault=None):
     require(load(folder/'input.json')==job,'Frozen worker changed captured job input.')
     result=load(folder/'result.json');execution=result['silicon_report']['execution'];require(execution['runtime']==runtime and execution['native_input_sha256']==sha(folder/'physical-backend-input.json'),'Managed runtime/input receipt differs.')
     backend_input=load(folder/'physical-backend-input.json');expected=copy.deepcopy(job);expected['project']['pdk']['package_root']=execution['native_directory']+'/pdk';expected.pop('environment')
@@ -348,8 +408,62 @@ def run_job(executable,project,row,folder,env,runtime,inputs,physical,records,fa
     require(backend_input==expected and result['settings']==job['settings'],'Managed dispatch changed captured project/settings/reference/environment translation.')
     require(execution['received_files']==load(folder/'physical-artifacts.json') and load(folder/'physical-backend-result.json')['silicon_report']==load(folder/'physical-flow/report.json'),'Managed receipt/report differs.')
     report=native_result(folder,row,project_stream(job_project),physical['package'],runtime,records,fault)
-    require(report['reference']=={k:v for k,v in ref.items() if k!='text'} and (folder/'physical-flow/schematic.spice').read_text()==reference,'Native schematic reference substituted.')
+    require(report['reference']=={k:v for k,v in ref.items() if k!='text'} and (folder/'physical-flow/schematic.spice').read_text()==ref['text'],'Native schematic reference substituted.')
     return dict(case=row['case'],fault=fault,input_sha256=sha(folder/'input.json'),result_sha256=sha(folder/'result.json'),native_report_sha256=sha(folder/'physical-flow/report.json'),execution=execution)
+
+def run_job(executable,project,row,folder,env,runtime,inputs,physical,records,fault=None):
+    job,job_project,ref,command,attempt,tick=prepare_job(executable,project,row,folder,runtime,inputs,physical,fault)
+    execute_job(folder,command,attempt,tick,env,runtime=runtime)
+    return audit_job(folder,row,job,job_project,ref,runtime,physical,records,fault)
+
+
+def native_jobs(rows,out):
+    """Keep the finite original case/control order independently of completion."""
+    for row,project,_ in rows:
+        yield row,project,out/'native'/row['case']/'positive',None
+        if row['rotation']==0:
+            for fault in FAULTS+(('missing-via',) if row['terminal_vias'] else ()):
+                yield row,project,out/'native'/row['case']/fault,fault
+
+
+def run_jobs(executable,rows,out,env,runtime,inputs,physical,records,nonce,deadline):
+    """Overlap two fresh workers after serial setup, preserving every audit.
+
+    Geometry preparation and independent checks remain on the parent thread.
+    Each worker owns a separate evidence directory and native UUID directory.
+    Never queue the matrix: stop new launches on failure/deadline, cancel active
+    work, then join/reap every worker before the final evidence inventory.
+    """
+    selected=iter(enumerate(native_jobs(rows,out)));pending={};finished={};stopped=Event()
+    pool=ThreadPoolExecutor(max_workers=2)
+    try:
+        exhausted=False
+        while pending or not exhausted:
+            while len(pending)<2 and not exhausted:
+                require(time.monotonic()<deadline,'Parent physical deadline exceeded.')
+                item=next(selected,None)
+                if item is None:exhausted=True;break
+                index,(row,project,folder,fault)=item
+                prepared=prepare_job(executable,project,row,folder,runtime,inputs,physical,fault)
+                job,job_project,ref,command,attempt,tick=prepared
+                future=pool.submit(execute_job,folder,command,attempt,tick,env,deadline,stopped,runtime)
+                pending[future]=(index,row,folder,fault,job,job_project,ref)
+            if not pending:break
+            done,_=wait(pending,timeout=max(0,deadline-time.monotonic()),return_when=FIRST_COMPLETED)
+            require(done and time.monotonic()<deadline,'Parent physical deadline exceeded.')
+            for future in sorted(done,key=lambda f:pending[f][0]):
+                index,row,folder,fault,job,job_project,ref=pending.pop(future);future.result()
+                finished[index]=audit_job(folder,row,job,job_project,ref,runtime,physical,records,fault)
+                require(time.monotonic()<deadline,'Parent physical deadline exceeded.')
+            write(out/'native-progress.json',dict(execution_id=nonce,jobs=[finished[k] for k in sorted(finished)]))
+        return [finished[k] for k in sorted(finished)]
+    finally:
+        stopped.set()
+        for future,(_,_,folder,*_) in pending.items():
+            future.cancel()
+            if not future.done():signal_cancel(folder)
+        pool.shutdown(wait=True,cancel_futures=True)
+
 
 def verify(executable,out,commit,timeout=3600):
     executable=unlinked(executable).resolve();out=unlinked(out).resolve();require(re.fullmatch('[0-9a-f]{40}',commit) and math.isfinite(timeout) and timeout>0,'Exact candidate and finite deadline required.')
@@ -383,14 +497,7 @@ def verify(executable,out,commit,timeout=3600):
         before=runtime_files(runtime,records);uid_before=runtime_uid(runtime,env);write(out/'runtime-before.json',dict(files=before,native=uid_before))
         rows=lifecycle(producer,report,lock,load(bundle/ASSETS/'templates.json'));producer_controls(producer,report,bundle,inputs);jobs=[]
         physical=dict(root=bundle/PDK,package=lock)
-        for row,project,_ in rows:
-            require(time.monotonic()-started<timeout,'Parent physical deadline exceeded.')
-            jobs.append(run_job(executable,project,row,out/'native'/row['case']/'positive',env,runtime,inputs,physical,records))
-            if row['rotation']==0:
-                for fault in FAULTS+(('missing-via',) if row['terminal_vias'] else ()):
-                    require(time.monotonic()-started<timeout,'Parent control deadline exceeded.')
-                    jobs.append(run_job(executable,project,row,out/'native'/row['case']/fault,env,runtime,inputs,physical,records,fault))
-            write(out/'native-progress.json',dict(execution_id=nonce,jobs=jobs))
+        jobs=run_jobs(executable,rows,out,env,runtime,inputs,physical,records,nonce,started+timeout)
         require(len(jobs)==225 and sum(v['fault'] is None for v in jobs)==60 and len({v['execution']['native_directory'] for v in jobs})==225,'Native job selection incomplete or reused a native directory.')
         after=runtime_files(runtime,records);uid_after=runtime_uid(runtime,env);write(out/'runtime-after.json',dict(files=after,native=uid_after));require(before==after and uid_before==uid_after and inventory(producer)==producer_inventory,'Runtime/UID or immutable GUI evidence changed during native execution.')
         require(sha(executable)==exe_hash and sha(payload/'manifest.json')==payload_hash and backend_binding(payload/'backend/icstudio',commit)==backend,'Frozen executable/backend changed.');assets_binding(bundle,inputs);package(bundle/PDK,inputs['package_sha256'])

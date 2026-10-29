@@ -1,14 +1,14 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 28, 2026. Chunk 7 is approximately **70% complete**, with low
+Updated October 29, 2026. Chunk 7 is approximately **70% complete**, with low
 confidence (55–80%); this is an engineering estimate, not verified acceptance.
 The increase from 67% reflects a working optional binding for one previously
 unavailable ESD symbol, selected whole-network capacitor hierarchy electrical
 closure on both hosts, and actual Linux installed parallel-array acceptance.
 Full family statuses and completion gates remain unchanged; this estimate is
-not calculated from passing test counts. The selected Windows installed-array workflow now also passes at its exact
-historical candidate; the changed desktop job split still needs completed
-hosted transfer and installed acceptance.
+not calculated from passing test counts. Both desktop package handoffs and the
+previous candidate's Linux installed gate pass. Its Windows IHP gate exceeded
+the parent deadline; the reviewed repair still needs fresh installed acceptance.
 
 ## Current tracker
 
@@ -20,7 +20,7 @@ hosted transfer and installed acceptance.
 | 4 | GF180 density | **Reference gate closed.** [Acceptance](validation/gf180-fill-closure-2026-10-09.json). | Preserve the six reference layouts' fill, exclusions and post-fill checks. | Mostly regression work; different floorplans need new evidence. |
 | 5 | IHP geometry and fill | **Reference gate closed.** [Acceptance](validation/ihp-fill-closure-2026-10-11.json). | Preserve the declared counter/UART/APB geometry, connectivity and extracted-performance coverage. | Mostly regression work; device and full-chip coverage remain separate. |
 | 6 | SKY130 public physical checks | **Approved public-baseline gate closed.** [Acceptance](validation/sky130-public-baseline-2026-10-16.json). | Maintain local DRC, antenna, LVS, density/fill and generic export for the versioned baseline and its exclusions. Full foundry signoff remains excluded. | Stable baseline with regression work. The user-approved narrower boundary applies only to this chunk. |
-| 7 | Device families | **In progress.** 287 catalog entries remain partial; six real device bindings remain unavailable, alongside nine utility entries. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
+| 7 | Device families | **In progress.** Current source candidate: 288 partial entries, five unavailable bindings and nine utilities. Accepted predecessor inventory remains 287 partial / six unavailable / nine utilities; default-candidate installed acceptance is pending. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
 | 8 | Extraction and corners | **Pending formal qualification.** Coupon, extraction and corner tooling already exists. | Cover required routing layers/vias/device parasitics, coupling/fill and independent RC corners against source-backed references; execute the complete required condition pairs. | More structured once device and corner inputs are settled. **Medium-to-high uncertainty:** GF180/IHP additional independent RC data is an explicit gap. |
 | 9 | Analog blocks | **Pending formal qualification.** Amplifier, reference and other example workflows provide a starting point. | Freeze per-process numerical specifications, then qualify mirror, differential pair, amplifier, reference, oscillator, noise/statistics and relevant IHP bipolar/RF cases before and after extraction. | Substantial design-and-verification iteration. **Medium-to-high uncertainty** from corner failures, startup, stability and parasitics. |
 | 10 | Larger digital and mixed-signal designs | **Pending formal qualification.** Counter/UART/APB and teaching mixed-signal flows provide groundwork. | Lock a larger controller and per-target mixed-signal demonstrator; cover functionality, clock/reset crossings, actual interfaces, all-mode timing and final physical checks. | Existing flows should help. Planning can overlap chunk 9 once device/RC inputs are usable. **Medium-to-high uncertainty** at scale and at analog/digital boundaries. |
@@ -33,7 +33,87 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
-**October 28 IHP integration, ready for publication.** The
+**October 29 final reviewed source candidate.** The
+[final source check](validation/chunk7-reviewed-integration-2026-10-29.json)
+passes all eight required stages on Windows and native Linux: 850 unit tests
+plus eight package checks per host, with the original five-minute limit for
+each stage. Complete Linux discovery separately passes 4,027 tests with 71
+environment-dependent skips before the runner-only stage split; all application
+and qualification inputs remain unchanged, and the revised runner has twelve
+passing regression tests. Both complete 60-case IHP GUI inventories are verified.
+The Windows unsplit-stage timeout and earlier failures remain retained.
+
+The candidate repairs the Windows IHP scheduling bottleneck, adds the reviewed
+ESD default selection with separate mandatory installed acceptance, and fixes
+exact historical-package reconstruction and GUI test isolation. Existing model
+equations, numerical criteria, historical records and release gates remain
+intact. Fresh exact-candidate desktop acceptance is the next required check.
+
+The [current-package hierarchical-export companion](SKY130_CURRENT_HIERARCHICAL_EXPORT.md)
+adds direct execution of the emitted child hierarchy. October 28 already had
+broader, stricter electrical acceptance; the new experiment is additional
+evidence with explicitly different conditions. Its initial new-gap claim was
+corrected, and its colliding tools were kept out of the repository. No family
+gate or completion estimate is advanced. Chunk 7 remains **70% (55–80%, low
+confidence)**. This source publication note precedes the new desktop run.
+
+
+**October 29 reviewed candidate integration.** The corrected ESD model now has
+an actual bundled Project Hub selection path, preserved predecessor projects,
+strict source identities and separate mandatory default acceptance on both
+platforms. Its [candidate inventory](SKY130_ESD_DEFAULT.md) is 288 partial / five
+unavailable / nine utility entries; this is not acceptance of the new default.
+Source execution and independent raw readback pass on Windows and Linux: all
+nineteen conditions, 98 native executions and 360 faulted instances per host.
+The [complete source evidence](validation/sky130-esd-default-source-2026-10-29.json)
+is retained with both upstream license texts and exact model/source identities.
+
+The IHP Windows failure is diagnosed from retained evidence: 198 completed
+workers (53 positives and 145 controls) reached the parent deadline without a
+device-check mismatch. A reviewed two-worker scheduler retains every one of the
+225 checks, serial geometry auditing, both deadlines and cancellation cleanup.
+All fourteen scheduling regressions pass on both hosts; 225 actual Linux native
+jobs pass in 122.8 seconds in a separate source experiment. That timing excludes
+frozen managed-dispatch costs and does not replace installed acceptance.
+
+Initial combined feedback found nine stale historical-package contract errors
+and one current-revision expectation. Versioned replacement contracts now pass
+141 focused Linux tests and independent Astra review; original contracts, model
+equations, numerical criteria and historical acceptance identities remain intact.
+The [combined source lane](validation/chunk7-final-integration-2026-10-29.json)
+passes all seven stages and 848 tests on each host (34 Windows skips, 14 Linux
+skips), including every one of the 60 IHP GUI cases. All 1,490 checked source
+hashes agree. Observed source times are 444.7 seconds on Windows and 191.7
+seconds on native Linux, excluding environment setup and queues.
+
+Broader discovery found a shared SKY130 package-reconstruction defect and a
+GUI test that reused another test's non-GUI application. The
+[package repair](validation/chunk7-default-reconstruction-repair-2026-10-29.json)
+passes 31 focused tests on each host without altering model or multiplicity
+logic; original and current package identities remain separate. The GUI
+assertions now run in a bounded independent process and pass with conflicting
+Qt state deliberately present. Complete combined discovery is being repeated
+after integration; original failures remain retained. Fresh installed
+acceptance remains pending.
+The engineering estimate remains **70% (55–80%, low confidence)**.
+
+**October 29 desktop follow-through.** The exact `bd6449eb` candidate now passes
+all Linux installed acceptance, including the optional ESD and IHP resistor
+gates. Windows passes the preceding stages and optional ESD acceptance, then
+fails the IHP parent checker at its existing 3,600-second deadline. That failed
+result is retained; it is not a Windows acceptance pass. Sol is measuring the
+retained worker timings and preparing a bounded scheduling repair; Astra is
+independently reviewing the complete Linux checkpoint. Terra is implementing
+the corrected ESD default-package path with explicit predecessor preservation;
+optional-package results do not qualify that future default. The older
+`95ab31dd` desktop run now passes all nine jobs, including both installed
+platforms, and retains only its historical scope. See the
+[current status record](validation/chunk7-desktop-status-2026-10-29.json).
+Chunk 7 remains **70% (55–80%, low confidence)** until these required gates
+and the broader family requirements close. This status is local pending the
+next reviewed implementation checkpoint.
+
+**Published IHP checkpoint: `bd6449ebaa2fb3f3823a630f29989bae44789cb6`.** The
 [final combined source check](validation/chunk7-ihp-integration-2026-10-28.json)
 passes all seven stages and 821 tests on each host (34 Windows skips, 14 Linux
 skips). All 1,472 checked source and asset hashes match. The complete 60-case
@@ -59,8 +139,17 @@ pending; the 225-job source run does not include managed host-dispatch overhead.
 The final per-job timing boundary remains documented until hosted measurements
 are available. Original GUI/source identities and later reader identities stay
 separate. Chunk 7 remains **70% (55–80%, low confidence)**; no full family or
-unavailable binding is promoted. Publication and desktop-run status will be
-recorded separately after the exact candidate is selected.
+unavailable binding is promoted. All 45 implementation/evidence files are published on `experimental`; all
+1,472 tested Git blobs match. [Desktop run 40730809639](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40730809639)
+was dispatched once and its exact candidate was read back. At 17:14 UTC, candidate/release-tool checks and runtime construction pass; clean native installation is running. No new failure is reported. [Hosted source feedback](validation/chunk7-ihp-hosted-feedback-2026-10-28.json)
+now passes on both hosts and its required aggregate: 821 tests per host, 33
+Windows skips and 14 Linux skips, all seven stages and all 1,472 matching source
+hashes. Both complete 60-case GUI evidence inventories pass independent download
+readback. The actual tested merge `3cc5f2f6` has the selected candidate and base
+as its parents. Hosted source commands take 395.9 seconds on Windows and 294.5
+seconds on Linux, excluding setup and queues. The older `95ab31dd` run has passed both packages
+and entered installed acceptance; it cannot qualify the new candidate. This
+publication/status note is local for the next implementation push.
 
 **Published follow-through: `a5148eca440e04f4c93d1f9400f80d131e211cd0`.** The reviewed 69-file checkpoint is now on `experimental`; all 1,452 checked source/fixture hashes match its exact Git blobs. [Hosted fast feedback](validation/chunk7-final-hosted-feedback-2026-10-28.json) now passes on both hosts and the required aggregate. All 1,452 hashes match; the actual merge `986278c7` has the selected candidate and current base as parents. Fresh frozen acceptance remains pending. This publication note is local for the next appropriate implementation push.
 

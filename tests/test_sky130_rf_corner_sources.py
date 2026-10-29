@@ -8,7 +8,7 @@ import unittest
 
 from scripts.prepare_sky130_rf_qualification import BASE, ROOT, corner_sources
 from scripts.sky130_mim_source import previous_mim
-from scripts.sky130_rf_source import PROMOTED
+from scripts.prepare_sky130_esd_nvt import DEFAULT_CANDIDATE
 
 
 class RFCornerSourceTests(unittest.TestCase):
@@ -26,7 +26,7 @@ class RFCornerSourceTests(unittest.TestCase):
                 self.assertEqual(row['sha256'], manifest['files'][row['path']])
         # The original temporary source is gone; captured data remains usable.
         self.assertEqual(current, original)
-        self.assertEqual(proof['selected_manifest_sha256'], PROMOTED)
+        self.assertEqual(proof['selected_manifest_sha256'], DEFAULT_CANDIDATE)
         self.assertEqual(old_proof['selected_manifest_sha256'], BASE)
         self.assertEqual(proof['historical_manifest_sha256'], BASE)
         self.assertEqual(proof['files'], old_proof['files'])

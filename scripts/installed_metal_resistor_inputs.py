@@ -18,8 +18,11 @@ from scripts import installed_mim_inputs as common
 require, sha, load, inventory, write = common.require, common.sha, common.load, common.inventory, common.write
 checked_path, native_environment, runtime = common.checked_path, common.native_environment, common.runtime
 candidate_sources = common.candidate_sources
-CONTRACT = 'docs/qualification/sky130-metal-installed-v1.json'
-CONTRACT_SHA = '9245943194baf0fca698b9487b962390d2dc2af07983e19d0b493ae21f952fa2'
+HISTORICAL_CONTRACT='docs/qualification/sky130-metal-installed-v1.json'
+HISTORICAL_CONTRACT_SHA='9245943194baf0fca698b9487b962390d2dc2af07983e19d0b493ae21f952fa2'
+from scripts import sky130_contract_versions as versions
+CURRENT_CONTRACT=versions.selected('installed_metal')
+CONTRACT,CONTRACT_SHA=CURRENT_CONTRACT['path'],CURRENT_CONTRACT['sha256']
 
 
 def contracts(binding=None):

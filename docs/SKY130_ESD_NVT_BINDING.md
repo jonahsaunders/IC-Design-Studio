@@ -1,5 +1,10 @@
 # Corrected SKY130 native ESD simulation binding
 
+The October 29 [bundled default candidate](SKY130_ESD_DEFAULT.md) adds a separate
+normal-library selection path. Its source inventory is updated, but fresh
+Windows/Linux default-path installed acceptance remains required. The optional
+package and historical results described below retain their original identities.
+
 The public Xschem [correction at 08367118](https://github.com/StefanSchippers/xschem_sky130/commit/08367118f8ad7311b9264b856fb4d5f1f58b45f9)
 changes `nfet_g5v0d10v5_nvt_esd.sym` to the published
 `sky130_fd_pr__esd_nfet_05v0_nvt` model, with default W=10 µm and L=2 µm.

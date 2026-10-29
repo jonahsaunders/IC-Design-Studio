@@ -25,20 +25,25 @@ PREVIOUS={
     'gf180mcuD':'b4200b48f3fe59e961a4f514cdcb7166d21c231bccef586f01a7fa6b5f2ed738',
     'ihp-sg13g2':'63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c',
 }
-PROMOTED={
+HISTORICAL_PROMOTED={
     **ALTERNATE_DEFAULTS,
     **HV_DEFAULTS,
     'sky130A':RF_DEFAULT,
     'ihp-sg13g2':NPN_DEFAULT,
 }
 INTERMEDIATE={'sky130A':'7f07476f0bdd530ec3060e3f7e74103e8d3f7b70ff61298af7295cb21a096ae5','ihp-sg13g2':TAP_BASE}
-REVISIONS={'sky130A':RF_REVISION,**HV_REVISIONS,'ihp-sg13g2':NPN_REVISION}
+HISTORICAL_REVISIONS={'sky130A':RF_REVISION,**HV_REVISIONS,'ihp-sg13g2':NPN_REVISION}
+# Exact current bundle identity; qualification and historical gates stay separate.
+SKY130_ESD_DEFAULT='125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
+SKY130_ESD_REVISION='5dda725c94efe3c2'
+PROMOTED={**HISTORICAL_PROMOTED,'sky130A':SKY130_ESD_DEFAULT}
+REVISIONS={**HISTORICAL_REVISIONS,'sky130A':SKY130_ESD_REVISION}
 
 
 @contextmanager
 def previous_devices(source):
     source=Path(source).resolve();h=file_digest(source/'package.json')
-    target=next((t for t,expected in [*PROMOTED.items(),*ALTERNATE_DEFAULTS.items(),*INTERMEDIATE.items(),*ALTERNATE_BASE.items(),('sky130A',LI_DEFAULT),('sky130A',MIM_DEFAULT),('ihp-sg13g2',TAP_DEFAULT)] if h==expected),None)
+    target=next((t for t,expected in [*PROMOTED.items(),*HISTORICAL_PROMOTED.items(),*ALTERNATE_DEFAULTS.items(),*INTERMEDIATE.items(),*ALTERNATE_BASE.items(),('sky130A',LI_DEFAULT),('sky130A',MIM_DEFAULT),('ihp-sg13g2',TAP_DEFAULT)] if h==expected),None)
     if target is None:
         # The original recipe still applies its own strict input/hash checks.
         yield source

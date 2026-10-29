@@ -14,6 +14,21 @@ REVISION = 'b26f7f28e659ddc1'
 
 @contextmanager
 def previous_rf(source):
+    # The new ESD default retains the exact RF predecessor. Recover that
+    # identity before following the existing RF/MiM historical chain.
+    from scripts.prepare_sky130_esd_nvt import DEFAULT_CANDIDATE, predecessor
+    source = Path(source).resolve()
+    if file_digest(source/'package.json') == DEFAULT_CANDIDATE:
+        with predecessor(source) as old:
+            with _previous_rf(old) as before:
+                yield before
+    else:
+        with _previous_rf(source) as before:
+            yield before
+
+
+@contextmanager
+def _previous_rf(source):
     source = Path(source).resolve()
     if file_digest(source/'package.json') != PROMOTED:
         yield source

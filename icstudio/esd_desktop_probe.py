@@ -22,6 +22,8 @@ from .acceptance_runtime import native_environment, runtime
 
 BASE = '840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'
 OPTIONAL = '5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a'
+DEFAULT_CANDIDATE = '125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
+DEFAULT_REVISION = '5dda725c94efe3c2'
 KEY = 'sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym'
 MODEL = 'sky130_fd_pr__esd_nfet_05v0_nvt'
 FAULTS = ('wrong-multiplicity', 'wrong-gate', 'wrong-body', 'wrong-length')
@@ -243,11 +245,16 @@ def electrical(selected, out, engine, execution_id, native_env):
 def main(arguments=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out',type=Path,required=True)
-    parser.add_argument('--package',type=Path,required=True)
+    parser.add_argument('--package',type=Path)
+    parser.add_argument('--bundled-default',action='store_true')
+    parser.add_argument('--predecessor',type=Path)
     parser.add_argument('--execution-id',required=True)
     parser.add_argument('--development',action='store_true')
     parser.add_argument('--ngspice',default='')
     a = parser.parse_args(arguments)
+    require((a.bundled_default and a.predecessor is not None and a.package is None) or
+            (not a.bundled_default and a.package is not None),
+            'Choose the bundled-default with its exact predecessor, or the optional package.')
     require(re.fullmatch('[0-9a-f]{32}',a.execution_id), 'Invalid execution identity.')
     frozen = bool(getattr(sys,'frozen',False))
     require(a.development != frozen, 'Source runs require --development; frozen runs reject it.')
@@ -260,8 +267,11 @@ def main(arguments=None):
     resources = bundle_root().parents[2]
     root = bundle_root()/'sky130A'
     initial_sources = source_identity()
-    package = verified_package(a.package,OPTIONAL)
-    base = verified_package(root,BASE)
+    selected_sha = DEFAULT_CANDIDATE if a.bundled_default else OPTIONAL
+    selected_path = root if a.bundled_default else a.package
+    old_path = a.predecessor if a.predecessor is not None else root
+    package = verified_package(selected_path,selected_sha)
+    base = verified_package(old_path,BASE)
     engine = find_ngspice(a.ngspice)
     require(engine is not None, 'Selected ngspice is unavailable.')
     if frozen:
@@ -270,9 +280,10 @@ def main(arguments=None):
     report = dict(schema='esd-desktop-probe-v1',status='FAIL',execution_id=a.execution_id,
                   execution_root=str(a.out),frozen=frozen,build=identity(),source_files=initial_sources,
                   executable=str(Path(sys.executable).resolve()),executable_sha256=file_digest(sys.executable),
-                  engine=engine,engine_sha256=file_digest(engine),package_sha256=OPTIONAL,base_sha256=BASE,
+                  engine=engine,engine_sha256=file_digest(engine),package_sha256=selected_sha,base_sha256=BASE,
                   resource_root=str(resources),qualified=False,default_promoted=False,chunk_complete=False,
                   installed_acceptance=False,conditions=list(CONDITIONS))
+    if a.bundled_default: report['selection'] = 'bundled-default'
     report['runtime'] = runtime_identity(engine,a.out/'ngspice-runtime-manifest.json',frozen)
     environment_root = a.out/'native-environment'
     environment_root.mkdir()
@@ -304,11 +315,31 @@ def main(arguments=None):
         studio.live_check.setChecked(False)
         studio.show()
         registry = studio.pdk_registry
-        oldkey = install_gui(app,studio,root/'package.json')
+        oldkey = install_gui(app,studio,old_path/'package.json')
         require(registry.technology(oldkey)['simulation']['catalog'][KEY]['unavailable'], 'Baseline ESD availability changed.')
         prior_mim(app,studio,registry.technology(oldkey))
         report['old_before'] = save_reopen(app,studio,a.out/'old-before')
-        key = install_gui(app,studio,a.package/'package.json')
+        if a.bundled_default:
+            from .bundled_pdks import packages
+            rows = [row for row in packages(verify=True) if row['name'] == 'sky130A']
+            require(len(rows)==1 and Path(rows[0]['path']).resolve()==root.resolve() and
+                    rows[0]['revision']==DEFAULT_REVISION,'Bundled default discovery differs.')
+            hub = studio.project_hub(); app.processEvents()
+            key = 'sky130A@'+DEFAULT_REVISION
+            require(hub.select_pdk(key) and hub.current_pdk()['status']=='Available offline',
+                    'Hub did not select the bundled default.')
+            hub.show_page('new'); hub.name.setText('ESD default acceptance'); hub.create_button.click()
+            deadline = time.monotonic()+120
+            while hub.busy() and time.monotonic()<deadline:
+                app.processEvents(); time.sleep(.02)
+            app.processEvents()
+            require(not hub.busy() and studio.project['pdk']['revision']==DEFAULT_REVISION,
+                    'Hub did not create a project with the selected default.')
+            report['default_discovery'] = dict(source_of_selection='project-hub-bundled',
+                hub_selected=key, source_path=str(root.resolve()), manifest_sha256=selected_sha,
+                hub_project=save_reopen(app,studio,a.out/'hub-project'))
+        else:
+            key = install_gui(app,studio,selected_path/'package.json')
         require(key != oldkey,'Optional revision did not remain separate.')
         current = registry.technology(key)
         with selected_file('getOpenFileName',report['old_before']['project']): studio.open_project()
@@ -321,11 +352,11 @@ def main(arguments=None):
         report['registry'] = dict(old_key=oldkey,current_key=key,current_root=current['package_root'])
         registry.verify(oldkey)
         registry.verify(key)
-        shutil.copyfile(root/'package.json',a.out/'base-package.json')
-        shutil.copyfile(a.package/'package.json',a.out/'optional-package.json')
+        shutil.copyfile(old_path/'package.json',a.out/'base-package.json')
+        shutil.copyfile(selected_path/'package.json',a.out/('selected-package.json' if a.bundled_default else 'optional-package.json'))
         shutil.copyfile(Path(current['package_root'])/'package.json',a.out/'registry-package.json')
-        verified_package(a.package,OPTIONAL)
-        verified_package(root,BASE)
+        verified_package(selected_path,selected_sha)
+        verified_package(old_path,BASE)
         require(file_digest(engine) == report['engine_sha256'] and file_digest(sys.executable) == report['executable_sha256'],
                 'Selected executable changed.')
         require(runtime_identity(engine,None,frozen) == report['runtime'],'Runtime support files changed.')

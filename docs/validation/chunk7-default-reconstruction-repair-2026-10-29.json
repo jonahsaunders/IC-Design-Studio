@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "status": "BOTH_HOSTS_SOURCE_PASS",
+  "scope": "Exact bundled-default/predecessor compatibility repair; package/model assets and numerical criteria unchanged; no installed qualification.",
+  "tests": {
+    "initial_linux": {
+      "tests": 16,
+      "failures": 4,
+      "errors": 4
+    },
+    "windows": {
+      "main_tests": 26,
+      "main_seconds": 215.807,
+      "tail_tests": 5,
+      "tail_seconds": 17.109,
+      "status": "PASS"
+    },
+    "linux": {
+      "main_tests": 26,
+      "main_seconds": 37.715,
+      "tail_tests": 5,
+      "tail_seconds": 1.349,
+      "status": "PASS"
+    },
+    "final_selector": {
+      "selected_tests": 8,
+      "compiled_files": 1454,
+      "status": "PASS",
+      "note": "Only selector narrowing followed the26-test Linux run; final native source reverified. Functional helpers/tests retain their tested hashes."
+    }
+  },
+  "evidence": {
+    "final-selector-verification.log": {
+      "bytes": 525,
+      "sha256": "728c308edd0f7d30316a679e4a0de49044068d5412c15d1fe71462ddab10978c"
+    },
+    "initial-linux-tests.log": {
+      "bytes": 14602,
+      "sha256": "3cab7a6d2722d052b015851198d58f81f41b7871da9c9b3b067331b6d84292c3"
+    },
+    "linux-package-regressions.log": {
+      "bytes": 5395,
+      "sha256": "8a818bdcab6fd16ee0ce018bc90858a182afa5a3a12bba90f58be22a370a9fef"
+    },
+    "linux-package-tail.log": {
+      "bytes": 1089,
+      "sha256": "ac76435626b2ee0818b6376291e80dcf6dc511778c14f2ebe01ba4c9a6aa5599"
+    },
+    "windows-package-regressions.log": {
+      "bytes": 5271,
+      "sha256": "df920b0f25b2c90f847d894a44795f6515b15c2340f22bf0996ab72755aa02a1"
+    },
+    "windows-package-tail.log": {
+      "bytes": 1070,
+      "sha256": "57200c4b37512fa8c118a927e505621a977e334a569c1957fe0c229b10dbb7a9"
+    },
+    "base-source-bindings.json": {
+      "bytes": 396285,
+      "sha256": "0292a011c7e1ce5d5babbebddc3696955c27515959cbadedb3bd0e7f027dec01"
+    },
+    "candidate-source-bindings.json": {
+      "bytes": 396285,
+      "sha256": "9815e47765ab610a594b6e141bf3f355b5804636bf396eb50fabc076c65e62db"
+    },
+    "linux-package-regressions-result.json": {
+      "bytes": 708,
+      "sha256": "41b9100b0ab3c0dad8ae48fe058267baf578312c69e23485a1f5dbf4090495fb"
+    },
+    "final-native-source-verification.json": {
+      "bytes": 693,
+      "sha256": "e4ba77065f00f62b151d5b507a087be861d64e2c826ce43d625cd1bb3d042078"
+    }
+  },
+  "candidate_files": [
+    {
+      "path": "scripts/ci_feedback.py",
+      "base_sha256": "d982b19af220004520c8e6867e862280939e0e7a0eee43333e0018cbee996d5e",
+      "candidate_sha256": "33f5771b33fb39a7b4d4384df183fc7ba44dfedf93184113f1192acf1da6fc9a",
+      "bytes": 10808,
+      "newline": "LF"
+    },
+    {
+      "path": "scripts/device_qualification_source.py",
+      "base_sha256": "7b624fcef323a2c61e70d5c0f55a27e4c7e0d361d9de98e929695e87ee4f1f42",
+      "candidate_sha256": "4d56d769953f147c6de009ea1022f3f6193d3f3376c3a2e39f1411e935a36987",
+      "bytes": 4363,
+      "newline": "LF"
+    },
+    {
+      "path": "scripts/prepare_default_device_packages.py",
+      "base_sha256": "f456a87baaf616121d5daed431e4ee53422effd183bd489acc41af23419e456c",
+      "candidate_sha256": "61b2ff65447e08db535255dd5cad18b2798abf27b9cc6bd919e24a8c695b429e",
+      "bytes": 3771,
+      "newline": "LF"
+    },
+    {
+      "path": "tests/test_catalog_multiplicity.py",
+      "base_sha256": "e3408d1ebd2d983f1d85c524124d871c79330f94330ccf13647d1a759a4a2876",
+      "candidate_sha256": "b7e426010e99c68195426e03f53c6c3aae1a2c4072bd0bc69a827da14a9e5f40",
+      "bytes": 5426,
+      "newline": "LF"
+    },
+    {
+      "path": "tests/test_default_device_packages.py",
+      "base_sha256": "483d0b5c6e0695b5768e54acc62460f9aa19d410426029c287369c6d941afa29",
+      "candidate_sha256": "810ca9b3577e735619b77a2bfdce62799661c615fefacaea0dd8e28df8f67a2f",
+      "bytes": 10030,
+      "newline": "LF"
+    }
+  ],
+  "review": {
+    "status": "PASS",
+    "reviewer": "chunk7_astra_review",
+    "receipt_sha256": "6e5f1be3efb675075b0af8796e6bffac5f29312d2fcc3b119ef5eab96ad94cc0"
+  },
+  "source_snapshot": "/var/tmp/icstudio-integration-feedback-20261029-v2b/source",
+  "installed_acceptance": false,
+  "qualified": false,
+  "chunk_complete": false
+}

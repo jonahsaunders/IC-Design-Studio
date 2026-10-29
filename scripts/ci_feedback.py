@@ -25,7 +25,7 @@ UNIT_MODULES = (
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
     'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_contact_topology',
     'test_mim_desktop_probe', 'test_frozen_mim',
-    'test_frozen_esd', 'test_sky130_mos_voltage_contract', 'test_sky130_mos_voltage_source',
+    'test_frozen_esd', 'test_frozen_esd_default', 'test_sky130_esd_default_candidate', 'test_sky130_mos_voltage_contract', 'test_sky130_mos_voltage_source', 'test_sky130_contract_versions',
     'test_metal_hierarchy_electrical', 'test_sky130_mim_conditioning',
     'test_source_mim_fixture_archive', 'test_linux_ngspice_manifest',
     'test_installed_mim_electrical', 'test_installed_mim_public_drc', 'test_installed_mim_aggregate',
@@ -42,10 +42,22 @@ UNIT_MODULES = (
     'test_metal_resistor_parallel_desktop_probe.ProbeBoundaries', 'test_frozen_metal_parallel',
     'test_installed_metal_parallel_inputs', 'test_installed_metal_parallel',
     'test_installed_metal_parallel_audit', 'test_installed_metal_parallel_aggregate',
-    'test_catalog_numeric_choices', 'test_sky130_esd_nvt', 'test_sky130_esd_nvt_audit',
+    'test_catalog_numeric_choices',
+    'test_sky130_esd_nvt', 'test_sky130_esd_nvt_audit',
+    'test_sky130_rf_default', 'test_sky130_rf_corner_sources',
     'test_sky130_mim_hierarchy_electrical', 'test_sky130_mim_hierarchy_electrical_audit',
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
+)
+
+
+# Package reconstruction performs many verified file copies on Windows. Keep
+# these additional checks required without crowding the existing unit budget.
+PACKAGE_MODULES = (
+    'test_catalog_multiplicity',
+    'test_default_device_packages.DefaultDevicePackageTests.test_rebuild_matches_the_bundled_package_and_original_assets_remain_recoverable',
+    'test_default_device_packages.DefaultDevicePackageTests.test_exact_rf_predecessor_still_reconstructs_and_rebuilds_the_current_default',
+    'test_default_device_packages.DefaultDevicePackageTests.test_changed_current_asset_cannot_be_hidden_by_predecessor_reconstruction',
 )
 
 
@@ -72,8 +84,12 @@ def source_identity(root=ROOT):
     fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
     if fixture.is_file():
         files.append(fixture)
-    for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy'):
+    for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy',
+                   'sky130-esd-nvt-source-v1', 'sky130-esd-predecessor-v1'):
         files += [p for p in (root / 'icstudio/assets/qualification' / folder).glob('*') if p.is_file()]
+    for name in ('collection.json','sky130A/package.json'):
+        manifest = root / 'icstudio/assets/pdks' / name
+        if manifest.is_file(): files.append(manifest)
     files += list((root / '.github/workflows').glob('*.yml'))
     files += list(root.glob('requirements*.txt'))
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
@@ -111,6 +127,8 @@ def stages(output=ROOT / 'build/ci-feedback'):
     return [
         ('unit-contracts', [sys.executable, '-m', 'unittest',
                             *('tests.' + name for name in UNIT_MODULES), '-v']),
+        ('package-contracts', [sys.executable, '-m', 'unittest',
+                               *('tests.' + name for name in PACKAGE_MODULES), '-v']),
         ('release-contracts', [sys.executable, 'scripts/check_release.py']),
         ('menu-smoke', [sys.executable, 'tests/gui_menu_audit.py']),
         ('project-hub-smoke', [sys.executable, 'tests/gui_project_hub.py']),

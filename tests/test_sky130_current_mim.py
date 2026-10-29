@@ -15,7 +15,10 @@ class CurrentQtTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp=tempfile.TemporaryDirectory(prefix='current-mim-test-')
         cls.addClassCleanup(cls.tmp.cleanup)
-        cls.base=Path(cls.tmp.name); cls.source=ROOT/'icstudio/assets/pdks/sky130A'
+        cls.base=Path(cls.tmp.name)
+        from scripts.prepare_sky130_esd_nvt import predecessor
+        cls.previous=predecessor(ROOT/'icstudio/assets/pdks/sky130A'); cls.source=cls.previous.__enter__()
+        cls.addClassCleanup(cls.previous.__exit__,None,None,None)
         cls.contract=ROOT/'docs/qualification/sky130-mim-contract-v1.json'
         cls.candidate=cls.base/'candidate'; bridge.prepare(cls.source,cls.candidate)
         cls.root=cls.base/'evidence'

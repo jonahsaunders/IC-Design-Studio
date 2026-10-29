@@ -3,6 +3,7 @@
   "files": {
     "ICSTUDIO-ALTERNATE-MODELS.json": "effa235389dc83c5fd46c670bf7ce18a8b99f50ba1e238cc7c87f10a0068cbcc",
     "ICSTUDIO-DEVICE-PACKAGE.json": "0cf702db83fe3e2b6a571a3dff04a9a650d36027c303931f58b868b92c13d8ec",
+    "ICSTUDIO-ESD-NVT-DEFAULT.json": "806eb823c0470bb7fa2e2f36fd71ec95dc6ceaf97e61484cd920610af61393cb",
     "ICSTUDIO-FIXED-GEOMETRY.json": "880f6995a317c1b3e11331974b6cb4030388aab3d3e5433dc4d0bfcd25189a86",
     "ICSTUDIO-LI-BINDING.json": "a1636b45fc53aae078298fe591c68e68d3738fc8fe79542cd5fe3bf1944582fe",
     "ICSTUDIO-MIM2-BINDING.json": "f78e7b00689291dd41e02dee65819b24fef1e13b546cdb3953e26242875f9d79",
@@ -300,6 +301,11 @@
     "libs.tech/ngspice/corners/tt/rf.spice": "9bba9a4521426fb265d6f403e8c2ac8afd0673ffbcbde66003d19679f3f589e0",
     "libs.tech/ngspice/corners/tt/specialized_cells.spice": "d05daea0ab4040860de53628efdfae191fb156dea60fa28c36ed75153a3931ac",
     "libs.tech/ngspice/head.spice": "0c2499173f578cf0084df58a03872072e76f34c25a085cfbd24cca8c23bcb1ef",
+    "libs.tech/ngspice/icstudio-esd-nvt/LICENSE.skywater": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "libs.tech/ngspice/icstudio-esd-nvt/LICENSE.xschem": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141",
+    "libs.tech/ngspice/icstudio-esd-nvt/nfet_g5v0d10v5_nvt_esd.sym": "71b1095bfeae82ad432fd32e530835352db14dbfbd8cf56cc864da74f6c12694",
+    "libs.tech/ngspice/icstudio-esd-nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice": "e2d6f3d08fa664eb5e6f875ea0c02e207b31fbbc29e65c1a522a29eb32412b25",
+    "libs.tech/ngspice/icstudio-esd-nvt/source-lock.json": "1dc1dbce469ad0fb3eb614983b0cef46da1732ad3f80efe80546597a8572126d",
     "libs.tech/ngspice/icstudio-npn-corners.lib": "2854e72fe39e98041ed95fe248dc351adbbf6c4107edd0d0f6aa34811e2ddaf0",
     "libs.tech/ngspice/icstudio-parallel-varactors.spice": "661303a3bee98e9aab0e6e5928ca46d8b0ad9607d3c0fe7bd0af497f42c3a34a",
     "libs.tech/ngspice/icstudio-rf-ps2nw/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
@@ -423,7 +429,7 @@
     "qualification-sources/bipolar/sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0"
   },
   "id": "sky130A",
-  "revision": "b26f7f28e659ddc1",
+  "revision": "5dda725c94efe3c2",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3745,7 +3751,7 @@
       ],
       "netgen_setup": ""
     },
-    "revision": "b26f7f28e659ddc1",
+    "revision": "5dda725c94efe3c2",
     "simulation": {
       "catalog": {
         "sky130_fd_pr/cap_mim_m3_1.sym": {
@@ -17473,12 +17479,553 @@
           "unavailable": ""
         },
         "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym": {
-          "category": "Other",
-          "kind": "PDK",
-          "label": "nfet_g5v0d10v5_nvt_esd",
-          "model": "sky130_fd_pr__esd_nfet_g5v0d10v5_nvt",
-          "source": "libs.tech/xschem/sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym",
-          "unavailable": "Model is absent from the selected ngspice library closure."
+          "category": "NMOS",
+          "emit_parameters": {
+            "ad": "ad",
+            "as": "as",
+            "l": "l",
+            "m": "mult",
+            "mult": "mult",
+            "nf": "nf",
+            "nrd": "nrd",
+            "nrs": "nrs",
+            "pd": "pd",
+            "ps": "ps",
+            "sa": "sa",
+            "sb": "sb",
+            "sd": "sd",
+            "w": "w"
+          },
+          "kind": "NMOS",
+          "label": "esd_nfet_05v0_nvt (corrected native ESD symbol)",
+          "model": "sky130_fd_pr__esd_nfet_05v0_nvt",
+          "model_source": "libs.tech/ngspice/icstudio-esd-nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice",
+          "notes": [
+            "Official Xschem correction08367118 changes this symbol to esd_nfet_05v0_nvt with default W10/L2. Three explicit public model-bin centers W10/L0.9,2,4 and nf1 only. Electrical simulation binding; not ESD protection, reliability, layout or whole-family qualification. Historical unavailable models/revisions are unchanged."
+          ],
+          "parameter_scale": {
+            "l": 1000000.0,
+            "w": 1000000.0
+          },
+          "parameters": {
+            "ad": {
+              "default": "int((nf+1)/2) * w/nf * 0.29",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "as": {
+              "default": "int((nf+2)/2) * w/nf * 0.29",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "l": {
+              "choices": {
+                "0.9": 0.9,
+                "2": 2.0,
+                "4": 4.0
+              },
+              "default": "2",
+              "derived": false,
+              "integer": false,
+              "positive": true,
+              "unit": "um"
+            },
+            "mult": {
+              "default": "1",
+              "derived": false,
+              "integer": false,
+              "positive": true
+            },
+            "nf": {
+              "default": "1",
+              "derived": false,
+              "fixed": "1",
+              "integer": true,
+              "positive": true
+            },
+            "nrd": {
+              "default": "0.29 / w",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "nrs": {
+              "default": "0.29 / w",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "pd": {
+              "default": "2*int((nf+1)/2) * (w/nf + 0.29)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "ps": {
+              "default": "2*int((nf+2)/2) * (w/nf + 0.29)",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sa": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sb": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "sd": {
+              "default": "0",
+              "derived": false,
+              "integer": false,
+              "positive": false
+            },
+            "w": {
+              "default": "10",
+              "derived": false,
+              "fixed": "10",
+              "integer": false,
+              "positive": true,
+              "unit": "um"
+            }
+          },
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "prefix": "X",
+          "source": "libs.tech/ngspice/icstudio-esd-nvt/nfet_g5v0d10v5_nvt_esd.sym",
+          "symbol": {
+            "attributes": {
+              "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd \n+ mult=@mult m=@mult",
+              "lvs_format": "@spiceprefix@name @pinlist sky130_fd_pr__@model L=@L W=@W nf=@nf m=@mult",
+              "template": "name=M1\nW=10\nL=2\nnf=1\nmult=1\nad=\\int((nf+1)/2) * W/nf * 0.29\\ \npd=\\2*int((nf+1)/2) * (W/nf + 0.29)\\\nas=\\int((nf+2)/2) * W/nf * 0.29\\ \nps=\\2*int((nf+2)/2) * (W/nf + 0.29)\\\nnrd=\\0.29 / W\\ nrs=\\0.29 / W\\\nsa=0 sb=0 sd=0\nmodel=esd_nfet_05v0_nvt\nspiceprefix=X\n",
+              "type": "nmos"
+            },
+            "pin_meta": {
+              "b": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "d": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "g": {
+                "bus": "",
+                "direction": "in",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              },
+              "s": {
+                "bus": "",
+                "direction": "inout",
+                "label_visible": true,
+                "required": true,
+                "role": "signal"
+              }
+            },
+            "pin_order": [
+              "d",
+              "g",
+              "s",
+              "b"
+            ],
+            "pins": {
+              "b": [
+                20.0,
+                0.0
+              ],
+              "d": [
+                20.0,
+                -30.0
+              ],
+              "g": [
+                -20.0,
+                0.0
+              ],
+              "s": [
+                20.0,
+                30.0
+              ]
+            },
+            "primitives": [
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    20.0,
+                    -30.0
+                  ],
+                  [
+                    20.0,
+                    -17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    20.0,
+                    17.5
+                  ],
+                  [
+                    20.0,
+                    30.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    -17.5
+                  ],
+                  [
+                    20.0,
+                    -17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    17.5
+                  ],
+                  [
+                    15.0,
+                    17.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    -20.0,
+                    -0.0
+                  ],
+                  [
+                    -2.5,
+                    0.0
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    -22.5
+                  ],
+                  [
+                    7.5,
+                    -12.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    12.5
+                  ],
+                  [
+                    7.5,
+                    22.5
+                  ]
+                ]
+              },
+              {
+                "kind": "line",
+                "points": [
+                  [
+                    7.5,
+                    -5.0
+                  ],
+                  [
+                    7.5,
+                    5.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    15.0,
+                    15.0
+                  ],
+                  [
+                    20.0,
+                    17.5
+                  ],
+                  [
+                    15.0,
+                    20.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    -2.5,
+                    15.0
+                  ],
+                  [
+                    -2.5,
+                    -15.0
+                  ],
+                  [
+                    2.5,
+                    -15.0
+                  ],
+                  [
+                    2.5,
+                    15.0
+                  ]
+                ]
+              },
+              {
+                "kind": "polygon",
+                "points": [
+                  [
+                    20.0,
+                    -2.5
+                  ],
+                  [
+                    15.0,
+                    0.0
+                  ],
+                  [
+                    20.0,
+                    2.5
+                  ]
+                ]
+              },
+              {
+                "bold": false,
+                "font_size": 6.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    5.0,
+                    17.5
+                  ],
+                  [
+                    25.0,
+                    27.5
+                  ]
+                ],
+                "rotation": 0,
+                "text": "ESD",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    5.0,
+                    -30.0
+                  ],
+                  [
+                    25.0,
+                    -20.0
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@name",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 6.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    22.5,
+                    17.5
+                  ],
+                  [
+                    42.5,
+                    27.5
+                  ]
+                ],
+                "rotation": 0,
+                "text": "S",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 6.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    22.5,
+                    -17.5
+                  ],
+                  [
+                    42.5,
+                    -7.5
+                  ]
+                ],
+                "rotation": 180,
+                "text": "D",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 6.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    20.0,
+                    -10.0
+                  ],
+                  [
+                    40.0,
+                    0.0
+                  ]
+                ],
+                "rotation": 0,
+                "text": "B",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 6.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    -10.0,
+                    -10.0
+                  ],
+                  [
+                    10.0,
+                    0.0
+                  ]
+                ],
+                "rotation": 0,
+                "text": "G",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": true,
+                "points": [
+                  [
+                    30.0,
+                    -8.75
+                  ],
+                  [
+                    50.0,
+                    1.25
+                  ]
+                ],
+                "rotation": 180,
+                "text": "@model",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    31.25,
+                    13.75
+                  ],
+                  [
+                    51.25,
+                    23.75
+                  ]
+                ],
+                "rotation": 0,
+                "text": "@mult x @W / @L",
+                "text_anchor": "corner",
+                "vcenter": false
+              },
+              {
+                "bold": false,
+                "font_size": 8.0,
+                "hcenter": false,
+                "hidden": false,
+                "kind": "text",
+                "mirror": false,
+                "points": [
+                  [
+                    31.25,
+                    1.25
+                  ],
+                  [
+                    51.25,
+                    11.25
+                  ]
+                ],
+                "rotation": 0,
+                "text": "nf=@nf",
+                "text_anchor": "corner",
+                "vcenter": false
+              }
+            ]
+          },
+          "unavailable": ""
         },
         "sky130_fd_pr/nfet_g5v0d16v0.sym": {
           "category": "NMOS",
@@ -34297,6 +34844,9 @@
         },
         {
           "path": "libs.tech/ngspice/icstudio-rf-ps2nw/library.spice"
+        },
+        {
+          "path": "libs.tech/ngspice/icstudio-esd-nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice"
         }
       ],
       "ngspice_compatibility": "hsa"

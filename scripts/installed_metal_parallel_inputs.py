@@ -18,9 +18,13 @@ from scripts.installed_metal_resistor_inputs import normalize_top
 
 require,sha,load,inventory,write=common.require,common.sha,common.load,common.inventory,common.write
 checked_path,native_environment,runtime=common.checked_path,common.native_environment,common.runtime
-CONTRACT='docs/qualification/sky130-metal-parallel-installed-v1.json'
-CONTRACT_SHA='f2cf30ea793449d541305b2c10a57c8bbdf5cfadf2ab7b24bb9e99848e309ce9'
-SOURCE_SHA='66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472'
+HISTORICAL_CONTRACT='docs/qualification/sky130-metal-parallel-installed-v1.json'
+HISTORICAL_CONTRACT_SHA='f2cf30ea793449d541305b2c10a57c8bbdf5cfadf2ab7b24bb9e99848e309ce9'
+from scripts import sky130_contract_versions as versions
+CURRENT_CONTRACT=versions.selected('installed_parallel')
+CONTRACT,CONTRACT_SHA=CURRENT_CONTRACT['path'],CURRENT_CONTRACT['sha256']
+HISTORICAL_SOURCE_SHA='66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472'
+SOURCE_SHA='ede9b483fbbb35b6072fff3526750dc86bf81ced805dcf48cad3df486d175363'
 MODELS=('l1','m1','m2','m3','m4')
 COUNTS=(2,3,16)
 CASES=tuple(f'{model}-m{count}-r{angle}' for model in MODELS for count in COUNTS for angle in (0,90))

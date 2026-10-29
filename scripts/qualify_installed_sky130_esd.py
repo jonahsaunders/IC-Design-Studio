@@ -11,6 +11,7 @@ import math
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -20,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if (ROOT/'icstudio').is_dir(): sys.path.insert(0,str(ROOT))
 from scripts import installed_mim_inputs as runtime_inputs
 from scripts import verify_frozen_esd as reader
-from scripts.prepare_sky130_esd_nvt import prepare
+from scripts.prepare_sky130_esd_nvt import prepare, predecessor
 from scripts.verify_frozen_mim import expected_inputs, git_environment, unlinked
 
 
@@ -35,6 +36,11 @@ def candidate_files(root, commit):
     files += [root/'scripts'/name for name in (
         'qualify_installed_sky130_esd.py','verify_frozen_esd.py','audit_sky130_esd_nvt.py',
         'prepare_sky130_esd_nvt.py','installed_mim_inputs.py','verify_frozen_mim.py')]
+    # Bind the actual selected manifests and public correction/predecessor assets.
+    for raw_name in listing.split(b'\0'):
+        name = raw_name.decode('utf-8')
+        if name in ('icstudio/assets/pdks/collection.json','icstudio/assets/pdks/sky130A/package.json') or name.startswith(('icstudio/assets/qualification/sky130-esd-nvt-source-v1/','icstudio/assets/qualification/sky130-esd-predecessor-v1/')):
+            files.append(root/name)
     return {p.relative_to(root).as_posix():reader.sha(unlinked(p)) for p in sorted(files)}
 
 
@@ -58,7 +64,7 @@ def run_probe(command, out, env, timeout, invocation):
         reader.write(out/'invocation.json',invocation)
 
 
-def verify(executable, out, commit, timeout=2400):
+def verify(executable, out, commit, timeout=2400, bundled_default=False):
     executable = unlinked(executable).resolve()
     out = unlinked(out).resolve()
     reader.require(re.fullmatch('[0-9a-f]{40}',commit or '') and math.isfinite(timeout) and timeout > 0,
@@ -74,13 +80,24 @@ def verify(executable, out, commit, timeout=2400):
         inputs = expected_inputs(commit)
         resource = executable.parent/'_internal'
         base = resource/'icstudio/assets/pdks/sky130A'
-        reader.require(inputs['package_sha256'] == reader.BASE,'Candidate uses a different base package.')
-        reader.package_at(base,reader.BASE)
+        reader.require(inputs['package_sha256'] in (reader.BASE,reader.DEFAULT),'Candidate uses an unreviewed bundled package.')
+        reader.package_at(base,inputs['package_sha256'])
         collection = resource/'icstudio/assets/pdks/collection.json'
         reader.require(reader.sha(collection) == inputs['collection_sha256'],'Installed collection differs from candidate.')
-        package = out/'optional-package'
-        prepare(base,package,resource/'icstudio/assets/qualification/sky130-esd-nvt-source-v1')
-        reader.package_at(package,reader.OPTIONAL)
+        previous = None
+        if inputs['package_sha256'] == reader.DEFAULT:
+            previous = out/'predecessor-package'
+            old_manifest = unlinked(resource/'icstudio/assets/qualification/sky130-esd-predecessor-v1/package.json')
+            with predecessor(base, manifest=old_manifest) as original:
+                shutil.copytree(original,previous)
+            reader.package_at(previous,reader.BASE)
+        if bundled_default:
+            reader.require(previous is not None,'Default gate requires the corrected shipped package.')
+            package = base
+        else:
+            package = out/'optional-package'
+            prepare(previous or base,package,resource/'icstudio/assets/qualification/sky130-esd-nvt-source-v1')
+            reader.package_at(package,reader.OPTIONAL)
         engine = unlinked(resource/'icstudio/assets/runtime/ngspice'/('ngspice.exe' if os.name == 'nt' else 'ngspice')).resolve()
         engine_hash = reader.sha(engine)
         reader.require(engine_hash in reader.raw_audit.ENGINES,'Installed engine requires an explicit reviewed raw profile.')
@@ -102,7 +119,7 @@ def verify(executable, out, commit, timeout=2400):
                         ROOT/'scripts/installed_mim_inputs.py',ROOT/'scripts/verify_frozen_mim.py',
                         ROOT/'scripts/prepare_sky130_esd_nvt.py',ROOT/'scripts/qualify_installed_sky130_esd.py',
                         ROOT/'icstudio/runtime_setup.py',ROOT/'icstudio/model.py']
-        expected = dict(mode='installed',commit=commit,execution_id=execution_id,
+        expected = dict(mode='installed',selection='bundled-default' if bundled_default else 'optional',commit=commit,execution_id=execution_id,
                         executable=str(executable),executable_sha256=reader.sha(executable),
                         resource_root=str(resource),engine=str(engine),engine_sha256=engine_hash,
                         runtime=runtime_data,native_environment=env_native,native_runtime=native_runtime,
@@ -115,8 +132,9 @@ def verify(executable, out, commit, timeout=2400):
                     'LD_LIBRARY_PATH','LD_PRELOAD','ICSTUDIO_DIGITAL_PAYLOAD','ICSTUDIO_DIGITAL_NATIVE'):
                 env.pop(key)
         env['QT_QPA_PLATFORM'] = 'offscreen'
-        command = [str(executable),'--esd-acceptance','--package',str(package),'--out',str(probe),
-                   '--execution-id',execution_id]
+        command = [str(executable),'--esd-acceptance','--out',str(probe),'--execution-id',execution_id]
+        command += ['--bundled-default'] if bundled_default else ['--package',str(package)]
+        if previous is not None: command += ['--predecessor',str(previous)]
         run_probe(command,out,env,timeout,dict(command=command,execution_id=execution_id,commit=commit,
                   timeout_seconds=timeout,prelaunch_inputs_sha256=reader.sha(out/'prelaunch-inputs.json')))
         reader.require(reader.sha(executable) == expected['executable_sha256'],'Installed executable changed during probe.')
@@ -132,7 +150,7 @@ def verify(executable, out, commit, timeout=2400):
                       prelaunch_inputs_sha256=reader.sha(out/'prelaunch-inputs.json'),
                       invocation_sha256=reader.sha(out/'invocation.json'),
                       launcher_log_sha256=reader.sha(out/'launcher.log'),
-                      scope='Selected frozen optional ESD GUI/native integration; installation provenance is supplied by the enclosing platform installation gate.')
+                      scope='Selected frozen '+('bundled default' if bundled_default else 'optional')+' ESD GUI/native integration; installation provenance is supplied by the enclosing platform installation gate.')
         reader.write(out/'acceptance.json',result)
         return result
     except Exception as exc:
@@ -148,8 +166,9 @@ def main():
     parser.add_argument('--expected-commit',required=True)
     parser.add_argument('--timeout',type=float,default=2400,
                         help='Desktop probe deadline in seconds; each independent reference has a separate 180-second deadline.')
+    parser.add_argument('--bundled-default',action='store_true',help='Require actual Project Hub selection of the shipped corrected default.')
     args = parser.parse_args()
-    print(json.dumps(verify(args.executable,args.out,args.expected_commit,args.timeout),indent=2))
+    print(json.dumps(verify(args.executable,args.out,args.expected_commit,args.timeout,args.bundled_default),indent=2))
 
 
 if __name__ == '__main__': main()

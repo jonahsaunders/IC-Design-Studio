@@ -52,7 +52,36 @@ class CatalogMultiplicityTests(unittest.TestCase):
                     if emitted.casefold() == 'm': self.assertGreater(values[source], 0, (target, key))
                 count += 1
             counts[target] = count
-        self.assertEqual(counts, {'sky130A': 95, 'gf180mcuC': 77, 'gf180mcuD': 77, 'ihp-sg13g2': 38})
+        self.assertEqual(counts, {'sky130A': 96, 'gf180mcuC': 77, 'gf180mcuD': 77, 'ihp-sg13g2': 38})
 
+
+    def test_current_esd_default_keeps_source_multiplier_one_and_rejects_nonpositive_values(self):
+        from scripts.prepare_sky130_esd_nvt import KEY,MODEL
+        package=json.loads((ROOT/'icstudio/assets/pdks/sky130A/package.json').read_bytes())
+        tech=clone(package['technology']);tech['package_lock']={k:package[k] for k in ('id','revision','files')}
+        entry=tech['simulation']['catalog'][KEY];d=create_device(tech,KEY,'ESD')
+        self.assertFalse(entry['unavailable']);self.assertEqual(entry['model'],MODEL)
+        self.assertEqual(entry['emit_parameters']['m'],'mult');self.assertEqual(parameter_values(entry,d)['mult'],1)
+        for value in ('.5','1','3'):
+            d['model_params']['mult']=value;self.assertEqual(parameter_values(entry,d)['mult'],float(value))
+        for value in ('0','-1','-2*3'):
+            d['model_params']['mult']=value
+            with self.subTest(value=value),self.assertRaisesRegex(ValueError,'mult must be positive'):parameter_values(entry,d)
+
+    def test_historical_rf_default_retains_95_available_bindings_and_original_multiplicity(self):
+        from scripts.prepare_sky130_esd_nvt import predecessor,BASE,KEY
+        from icstudio.model import file_digest
+        with predecessor(ROOT/'icstudio/assets/pdks/sky130A') as source:
+            self.assertEqual(file_digest(source/'package.json'),BASE)
+            package=json.loads((source/'package.json').read_bytes());tech=clone(package['technology'])
+            tech['package_lock']={k:package[k] for k in ('id','revision','files')}
+            self.assertTrue(tech['simulation']['catalog'][KEY]['unavailable'])
+            available=[(key,entry) for key,entry in tech['simulation']['catalog'].items() if not entry.get('unavailable')]
+            self.assertEqual(len(available),95)
+            for key,entry in available:
+                values=parameter_values(entry,create_device(tech,key,'DUT'))
+                for emitted,name in entry.get('emit_parameters',{}).items():
+                    if emitted.casefold()=='m':self.assertGreater(values[name],0,(key,name))
 
 if __name__ == '__main__': unittest.main()
+

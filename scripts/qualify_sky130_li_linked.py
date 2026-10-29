@@ -26,8 +26,11 @@ from scripts.qualify_standard_mos import load_technology,write
 from scripts.qualify_standard_mos_layout import technology
 from scripts import qualify_sky130_metal_resistor_layouts as physical
 
-CONTRACT='docs/qualification/sky130-li-contract-v1.json'
-CONTRACT_SHA='be2c12aa3c80f3a189da0c303d53323ce083982820d0ff101c524b8a8d4e10c6'
+HISTORICAL_CONTRACT='docs/qualification/sky130-li-contract-v1.json'
+HISTORICAL_CONTRACT_SHA='be2c12aa3c80f3a189da0c303d53323ce083982820d0ff101c524b8a8d4e10c6'
+from scripts import sky130_contract_versions as versions
+CURRENT_CONTRACT=versions.selected('li')
+CONTRACT,CONTRACT_SHA=CURRENT_CONTRACT['path'],CURRENT_CONTRACT['sha256']
 KEY='sky130_fd_pr/res_generic_li.sym'
 MODEL='sky130_fd_pr__res_generic_l1'
 SECTIONS=('tt','ll','hh','hl','lh')

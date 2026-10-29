@@ -3,7 +3,8 @@
 This does not replace the bundled default or rewrite existing project revisions.
 The finite source-bin centers are simulation bindings, not ESD protection ratings.
 """
-import argparse, hashlib, json, re, shutil, sys
+import argparse, hashlib, json, re, shutil, sys, tempfile
+from contextlib import contextmanager
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
@@ -11,6 +12,7 @@ from icstudio.model import clone,digest,file_digest
 from icstudio.catalog import validate_catalog,create_device,parameter_values
 from icstudio.symbol_io import import_symbol
 from icstudio.pdk_import import template_values
+from scripts.verify_frozen_mim import unlinked
 SOURCES=ROOT/'icstudio/assets/qualification/sky130-esd-nvt-source-v1'
 SOURCE_FILES = {
     "LICENSE.skywater": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
@@ -27,8 +29,42 @@ BASE='840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'
 KEY='sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym'
 MODEL='sky130_fd_pr__esd_nfet_05v0_nvt'
 PREFIX='libs.tech/ngspice/icstudio-esd-nvt/'
+DEFAULT_CANDIDATE='125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
+PREDECESSOR=ROOT/'icstudio/assets/qualification/sky130-esd-predecessor-v1/package.json'
+
+@contextmanager
+def predecessor(source, manifest=None):
+    """Recover the reviewed predecessor only from the exact promoted candidate."""
+    source=unlinked(source).resolve()
+    unlinked(source/'package.json')
+    if manifest is not None and file_digest(unlinked(manifest))!=BASE:
+        raise ValueError('Wrong predecessor manifest identity.')
+    if file_digest(source/'package.json')==BASE:
+        yield source
+        return
+    manifest=unlinked(manifest or PREDECESSOR).resolve()
+    if file_digest(source/'package.json')!=DEFAULT_CANDIDATE or file_digest(manifest)!=BASE:
+        raise ValueError('Input is not the exact reviewed SKY130 default or candidate.')
+    current=json.loads((source/'package.json').read_bytes())
+    old=json.loads(manifest.read_bytes())
+    with tempfile.TemporaryDirectory(prefix='esd-predecessor-') as tmp:
+        out=Path(tmp)
+        for name,sha in old['files'].items():
+            path=unlinked(source/name).resolve()
+            if not path.is_relative_to(source) or current['files'].get(name)!=sha or file_digest(path)!=sha:
+                raise ValueError('Changed predecessor asset: '+name)
+            dest=out/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(path,dest)
+        shutil.copyfile(manifest,out/'package.json')
+        yield out
 
 def prepare(source, output, sources=None):
+    source=Path(source).resolve(); output=Path(output).resolve()
+    if output.is_relative_to(source) or source.is_relative_to(output):
+        raise ValueError('Output must be separate from the source package.')
+    with predecessor(source) as original:
+        return _prepare(original, output, sources)
+
+def _prepare(source, output, sources=None):
     source=Path(source).resolve(); output=Path(output).resolve()
     if output.is_relative_to(source) or source.is_relative_to(output):
         raise ValueError('Output must be separate from the source package.')

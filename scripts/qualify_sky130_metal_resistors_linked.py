@@ -28,8 +28,11 @@ from scripts import qualify_sky130_metal_resistor_layouts as physical
 from scripts import sky130_li_resume as physical_identity
 from scripts.qualify_standard_mos_layout import technology
 
-CONTRACT = 'docs/qualification/sky130-metal-resistors-linked-v1.json'
-CONTRACT_SHA = '2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612'
+HISTORICAL_CONTRACT='docs/qualification/sky130-metal-resistors-linked-v1.json'
+HISTORICAL_CONTRACT_SHA='2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612'
+from scripts import sky130_contract_versions as versions
+CURRENT_CONTRACT=versions.selected('metal')
+CONTRACT,CONTRACT_SHA=CURRENT_CONTRACT['path'],CURRENT_CONTRACT['sha256']
 KINDS = ('application', 'native', 'analytic')
 PREFIX = dict(application='a', native='n', analytic='c')
 ANALYSES = ('dc', 'ac', 'tran', 'noise')
