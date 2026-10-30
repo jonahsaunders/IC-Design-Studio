@@ -5,6 +5,7 @@ explicitly distinct from frozen GUI acceptance; no historical runtime is reused.
 """
 import hashlib
 import json
+import copy
 import os
 from pathlib import Path
 import platform
@@ -21,6 +22,12 @@ CONTRACT_PATH = 'docs/qualification/sky130-mim-contract-v1.json'
 CONTRACT_SHA = 'b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209'
 MAP_PATH = 'docs/qualification/sky130-mim-bias-source-map-v1.json'
 MAP_SHA = '549bb89580245515b5a7e2b43eb784fcfd3d621a57ff3141c10183da42c87830'
+CURRENT_PACKAGE = '125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
+PREVIOUS_PACKAGE = '840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'
+CURRENT_CONTRACT_PATH = 'docs/qualification/sky130-mim-contract-v2.json'
+CURRENT_CONTRACT_SHA = '81ab3c10b2b12aa89c0b69cc92787a4ea4144215a6f0875ffca2c18aa39b4454'
+CURRENT_MAP_PATH = 'docs/qualification/sky130-mim-bias-source-map-v2.json'
+CURRENT_MAP_SHA = '188ca9fe7dd57bf823ded56910a0b840f6ab239f6c7f1070703329fe3cb2e6d3'
 
 
 def write(path, value):
@@ -114,10 +121,40 @@ def bind_gui(path, expected_commit=None, *, source_pilot=False):
         engine_discovery=report['simulation_engine_discovery'], cases=records)
 
 
+def selected_contracts(binding):
+    """Select only an explicit reviewed package/contract tuple."""
+    selected=binding['simulation_package']['manifest_sha256']
+    if selected==PREVIOUS_PACKAGE:return CONTRACT_PATH,CONTRACT_SHA,MAP_PATH,MAP_SHA
+    if selected==CURRENT_PACKAGE:return CURRENT_CONTRACT_PATH,CURRENT_CONTRACT_SHA,CURRENT_MAP_PATH,CURRENT_MAP_SHA
+    raise ValueError('Installed package is outside the reviewed electrical contract.')
+
+
+def current_derivation(contract,mapping,package_root):
+    """Prove v2 changes only package provenance, preserving all v1 criteria."""
+    require(sha(ROOT/CONTRACT_PATH)==CONTRACT_SHA and sha(ROOT/MAP_PATH)==MAP_SHA,'Historical MiM contracts changed.')
+    original,old_map=load(ROOT/CONTRACT_PATH),load(ROOT/MAP_PATH)
+    package=checked_path(package_root/'package.json');manifest=load(package)
+    require(sha(package)==CURRENT_PACKAGE and manifest['revision']=='5dda725c94efe3c2','Current MiM package identity differs.')
+    require(contract['id']=='sky130-mim-contract-v2' and contract['package']=={'revision':'5dda725c94efe3c2','manifest_sha256':CURRENT_PACKAGE},'Current contract package differs.')
+    require(contract['derivation']=={'predecessor_contract':CONTRACT_PATH,'predecessor_contract_sha256':CONTRACT_SHA,'change':'Only selected package identity and manifest byte count change; MiM catalog entries and mapped package assets remain byte-identical. Historical source baseline and scientific criteria are unchanged.','new_execution':False,'qualified':False},'Current contract provenance differs.')
+    expected_package=copy.deepcopy(original['sources']['package']);expected_package.update(sha256=CURRENT_PACKAGE,bytes=package.stat().st_size)
+    require(contract['sources']['package']==expected_package,'Current contract package source differs.')
+    c=copy.deepcopy(contract);c.pop('derivation');c['id']=original['id'];c['package']=original['package'];c['sources']['package']=original['sources']['package']
+    require(c==original,'Current MiM scientific contract differs from history.')
+    require(mapping['id']=='sky130-mim-voltage-source-review-20261029-v2' and mapping['immutable_contract']=={'path':CURRENT_CONTRACT_PATH,'sha256':CURRENT_CONTRACT_SHA,'unchanged':True},'Current source-map contract differs.')
+    require(mapping['derivation']=={'predecessor_map':MAP_PATH,'predecessor_map_sha256':MAP_SHA,'change':'Update only selected contract, exact package metadata, and manifest line coordinates; original source evidence and scientific criteria remain unchanged.','new_execution':False,'qualified':False},'Current source-map provenance differs.')
+    expected_row=copy.deepcopy(old_map['sources']['package']);expected_row.update(sha256=CURRENT_PACKAGE,bytes=package.stat().st_size,lines=[[3757,3801],[3961,4006]])
+    require(mapping['sources']['package']==expected_row,'Current source-map package differs.')
+    m=copy.deepcopy(mapping);m.pop('derivation');m['id']=old_map['id'];m['immutable_contract']=old_map['immutable_contract'];m['sources']['package']=old_map['sources']['package']
+    require(m==old_map,'Current MiM source map differs from history.')
+
+
 def contracts(binding):
-    require(sha(ROOT/CONTRACT_PATH) == CONTRACT_SHA and sha(ROOT/MAP_PATH) == MAP_SHA, 'Reviewed MiM contracts changed.')
-    contract, mapping = load(ROOT/CONTRACT_PATH), load(ROOT/MAP_PATH)
+    contract_path,contract_sha,map_path,map_sha=selected_contracts(binding)
+    require(sha(ROOT/contract_path) == contract_sha and sha(ROOT/map_path) == map_sha, 'Reviewed MiM contracts changed.')
+    contract, mapping = load(ROOT/contract_path), load(ROOT/map_path)
     resources = Path(binding['resource_root']); package_root = Path(binding['simulation_package']['path'])
+    if contract_path==CURRENT_CONTRACT_PATH:current_derivation(contract,mapping,package_root)
     prefix = 'icstudio/assets/pdks/sky130A/'
     checked = {}
     for name, item in mapping['sources'].items():
@@ -226,7 +263,7 @@ def runtime(binding, engine, env):
         dependency_listing=ldd_output, scope='Engine, adjacent packaged runtime/configuration and resolved ELF dependencies when Linux; not a hermetic full-OS closure.')
 
 
-def source_files():
+def source_files(binding=None):
     scripts = ('installed_mim_inputs.py', 'qualify_installed_sky130_mim_electrical.py',
         'audit_installed_sky130_mim_electrical.py', 'verify_frozen_mim.py', 'qualify_standard_mos.py',
         'qualify_standard_mos_layout.py', 'qualify_sky130_mim2.py', 'qualify_sky130_mim_orientation.py',
@@ -235,6 +272,8 @@ def source_files():
         'audit_sky130_mim_orientation.py', 'audit_sky130_mim_physical_case.py')
     paths = [p for p in (ROOT/'icstudio').glob('*.py') if p.name != 'build_info.py']
     paths += [ROOT/'scripts'/name for name in scripts]
+    if binding is not None and selected_contracts(binding)[0] == CURRENT_CONTRACT_PATH:
+        paths += [ROOT/CONTRACT_PATH,ROOT/MAP_PATH,ROOT/CURRENT_CONTRACT_PATH,ROOT/CURRENT_MAP_PATH]
     return {p.relative_to(ROOT).as_posix(): sha(p) for p in sorted(paths)}
 
 

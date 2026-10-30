@@ -22,7 +22,15 @@ from .metal_resistor_desktop_probe import place_edit,content
 MODELS=('l1','m1','m2','m3','m4')
 COUNTS=(2,3,16)
 CASES=tuple((model,count,angle) for model in MODELS for count in COUNTS for angle in (0,90))
-CONTRACT_SHA='f2cf30ea793449d541305b2c10a57c8bbdf5cfadf2ab7b24bb9e99848e309ce9'
+HISTORICAL_CONTRACT_SHA='f2cf30ea793449d541305b2c10a57c8bbdf5cfadf2ab7b24bb9e99848e309ce9'
+CURRENT_PACKAGE_SHA='125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
+CONTRACT_SHA='14b37da535c79fd2a3f8571772589590e8768b520571edd027b245278481f5d0'
+
+
+def acceptance_contract(package_sha256):
+    """Bind this current probe to the exact reviewed package/contract pair."""
+    require(package_sha256==CURRENT_PACKAGE_SHA,'Unreviewed parallel acceptance package.')
+    return CONTRACT_SHA
 
 
 def edit_count(app,studio,count):
@@ -254,7 +262,7 @@ def main(arguments=None):
         build=identity(),frozen=bool(getattr(sys,'frozen',False)),execution_root=str(arguments.out),
         executable=str(Path(sys.executable).resolve()),executable_sha256=file_digest(sys.executable),resource_root=str(resources),
         qualified=False,release_ready=False,installed_acceptance=False,full_family=False,native_execution=False,
-        acceptance_contract_sha256=CONTRACT_SHA,lifecycle=[],binding_lifecycle=[],eco_lifecycle=[],physical=[],controls=[],
+        acceptance_contract_sha256=None,lifecycle=[],binding_lifecycle=[],eco_lifecycle=[],physical=[],controls=[],
         scope='Additive five-model parallel-array GUI lifecycle and 30 fresh native inputs. '
               'Separate attached-route count edits, five width faults and repairs, DRC fault/repair and missing-engine block. '
               'Historical binding acceptance remains in the unchanged existing gate. '
@@ -276,7 +284,9 @@ def main(arguments=None):
         studio.live_check.setChecked(False);studio.resize(1400,960);studio.show()
         root=bundle_root()/'sky130A';collection=bundle_root()/'collection.json'
         entry=next(row for row in json.loads(collection.read_bytes())['packages'] if row['variant']=='sky130A')
-        package=verified_package(root,entry['manifest_sha256']);registry=studio.pdk_registry;current_key=registry.install(root/'package.json')
+        package=verified_package(root,entry['manifest_sha256'])
+        result['acceptance_contract_sha256']=acceptance_contract(file_digest(root/'package.json'))
+        registry=studio.pdk_registry;current_key=registry.install(root/'package.json')
         current=registry.technology(current_key);registry_manifests={current_key:file_digest(registry.root/current_key/'package.json')}
         for model,count,angle in CASES:
             case=f'{model}-m{count}-r{angle}'

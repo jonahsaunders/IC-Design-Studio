@@ -13,6 +13,37 @@ def native(model='l1',count=3,top='actual_nonce_top'):
 
 
 class FrozenParallelTests(unittest.TestCase):
+    def test_actual_current_probe_and_reader_bind_same_exact_contract(self):
+        from icstudio import metal_resistor_parallel_desktop_probe as producer
+        from scripts import sky130_contract_versions as versions
+        package=check.ROOT/'icstudio/assets/pdks/sky130A/package.json'
+        actual=check.sha(package)
+        selected=versions.selected('installed_parallel',package_sha256=actual)
+        self.assertEqual(producer.acceptance_contract(actual),check.sha(check.ROOT/selected['path']))
+        self.assertEqual(producer.acceptance_contract(actual),check.inputs.CONTRACT_SHA)
+        self.assertNotEqual(producer.HISTORICAL_CONTRACT_SHA,check.inputs.CONTRACT_SHA)
+        for wrong in ('840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe','0'*64):
+            with self.assertRaisesRegex(ValueError,'Unreviewed parallel acceptance package'):
+                producer.acceptance_contract(wrong)
+
+    def test_reader_rejects_stale_probe_contract_before_lifecycle_audit(self):
+        import json
+        from icstudio import metal_resistor_parallel_desktop_probe as producer
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);(root/'files.json').write_text(json.dumps({}))
+            report=dict(acceptance_contract_sha256=producer.acceptance_contract(producer.CURRENT_PACKAGE_SHA),
+                input_guards=dict(bundled_package_unchanged=True,registry_assets_unchanged=True,
+                    executable_unchanged=True,physical_package_unchanged=True),
+                files_sha256=check.sha(root/'files.json'))
+            with patch.object(check,'lifecycle') as life,patch.object(check,'eco_lifecycle') as eco:
+                check.envelope(root,report,{})
+                life.assert_called_once();eco.assert_called_once()
+                for wrong in (producer.HISTORICAL_CONTRACT_SHA,'0'*64,None):
+                    bad=copy.deepcopy(report);bad['acceptance_contract_sha256']=wrong
+                    with self.assertRaisesRegex(ValueError,'Missing exact installed-array contract'):
+                        check.envelope(root,bad,{})
+                self.assertEqual(life.call_count,1);self.assertEqual(eco.call_count,1)
+
     def test_raw_gui_numeric_strings_are_validated_before_literal_geometry_adapter(self):
         binding=dict(model='sky130_fd_pr__res_generic_m1',prefix='R',emit_parameters=dict(w='w',l='l',m='mult'),
             parameter_scale=dict(w=1e6,l=1e6),pin_order=['m','p'])

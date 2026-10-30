@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from icstudio.metal_resistor_parallel_desktop_probe import CASES,MODELS,CONTRACT_SHA,main,native_array,widened_vertices
+from icstudio.metal_resistor_parallel_desktop_probe import CASES,MODELS,CONTRACT_SHA,HISTORICAL_CONTRACT_SHA,main,native_array,widened_vertices
 from icstudio.model import file_digest,load_project
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -22,8 +22,11 @@ def environment():
 
 class ProbeBoundaries(unittest.TestCase):
     def test_frozen_contract_scope_and_exact_last_unit_edit(self):
-        path=ROOT/'docs/qualification/sky130-metal-parallel-installed-v1.json'
+        historical=ROOT/'docs/qualification/sky130-metal-parallel-installed-v1.json'
+        self.assertEqual(file_digest(historical),HISTORICAL_CONTRACT_SHA)
+        path=ROOT/'docs/qualification/sky130-metal-parallel-installed-v2.json'
         self.assertEqual(file_digest(path),CONTRACT_SHA);spec=json.loads(path.read_bytes())
+        self.assertEqual(spec['gui'],json.loads(historical.read_bytes())['gui'])
         self.assertEqual(len(CASES),spec['gui']['clean_native_layouts'])
         self.assertEqual(spec['gui']['queued_jobs'],43)
         for points in ([[10000,-500],[12000,5500]],[[10000,0],[10000,5000],[12000,5000],[12000,0]]):

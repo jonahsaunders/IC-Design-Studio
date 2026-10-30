@@ -28,7 +28,7 @@ UNIT_MODULES = (
     'test_frozen_esd', 'test_frozen_esd_default', 'test_sky130_esd_default_candidate', 'test_sky130_mos_voltage_contract', 'test_sky130_mos_voltage_source', 'test_sky130_contract_versions',
     'test_metal_hierarchy_electrical', 'test_sky130_mim_conditioning',
     'test_source_mim_fixture_archive', 'test_linux_ngspice_manifest',
-    'test_installed_mim_electrical', 'test_installed_mim_public_drc', 'test_installed_mim_aggregate',
+    'test_installed_mim_contract_versions', 'test_installed_mim_electrical', 'test_installed_mim_public_drc', 'test_installed_mim_aggregate',
     'test_sky130_mim_mismatch_aliases', 'test_sky130_mim_mismatch_alias_audit',
     'test_sky130_metal_editor', 'test_sky130_metal_resistors_linked',
     'test_sky130_metal_resistors_linked_audit', 'test_pdks_publication',
@@ -44,6 +44,7 @@ UNIT_MODULES = (
     'test_installed_metal_parallel_audit', 'test_installed_metal_parallel_aggregate',
     'test_catalog_numeric_choices',
     'test_sky130_esd_nvt', 'test_sky130_esd_nvt_audit',
+    'test_sky130_rf_default_acceptance', 'test_project_hub_completion',
     'test_sky130_rf_default', 'test_sky130_rf_corner_sources',
     'test_sky130_mim_hierarchy_electrical', 'test_sky130_mim_hierarchy_electrical_audit',
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
@@ -90,6 +91,10 @@ def source_identity(root=ROOT):
     for name in ('collection.json','sky130A/package.json'):
         manifest = root / 'icstudio/assets/pdks' / name
         if manifest.is_file(): files.append(manifest)
+    for name in ('sky130-mim-contract-v1.json', 'sky130-mim-contract-v2.json',
+                 'sky130-mim-bias-source-map-v1.json', 'sky130-mim-bias-source-map-v2.json'):
+        contract = root / 'docs/qualification' / name
+        if contract.is_file(): files.append(contract)
     files += list((root / '.github/workflows').glob('*.yml'))
     files += list(root.glob('requirements*.txt'))
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()

@@ -119,9 +119,10 @@ def run(gui_root, out, expected_commit=None, *, source_pilot=False, source_engin
         binding = inputs.bind_gui(gui_root, expected_commit, source_pilot=source_pilot)
         write(out/'inputs.json', binding)
         contract, mapped = inputs.contracts(binding); write(out/'mapped-sources.json', mapped)
-        for name, path in (('contract.json', inputs.CONTRACT_PATH), ('bias-contract.json', inputs.MAP_PATH)):
+        contract_path,contract_sha,map_path,map_sha=inputs.selected_contracts(binding)
+        for name, path in (('contract.json', contract_path), ('bias-contract.json', map_path)):
             (out/name).write_bytes((ROOT/path).read_bytes())
-        sources = inputs.source_files()
+        sources = inputs.source_files(binding)
         if not source_pilot:
             inputs.candidate_sources(sources, expected_commit)
         write(out/'source-files.json', sources)
@@ -148,7 +149,7 @@ def run(gui_root, out, expected_commit=None, *, source_pilot=False, source_engin
                         inputs_sha256=sha(out/'inputs.json'), engine_sha256=sha(engine))
         report.update(inputs_sha256=sha(out/'inputs.json'), expected_commit=expected_commit, context_identity=identity,
             selected_cases=[case_name(*v) for v in contexts], simulation_package=binding['simulation_package'],
-            domain_controls=domain_controls(), contract_sha256=inputs.CONTRACT_SHA, source_map_sha256=inputs.MAP_SHA,
+            domain_controls=domain_controls(), contract_sha256=contract_sha, source_map_sha256=map_sha,
             source_files_sha256=sha(out/'source-files.json'), runtime_before_sha256=sha(out/'runtime-before.json'))
         write(out/'qualification.json', report)
         with ThreadPoolExecutor(max_workers=workers) as pool:
@@ -158,7 +159,7 @@ def run(gui_root, out, expected_commit=None, *, source_pilot=False, source_engin
                 print(row['name'], row['status'], row.get('error', ''), flush=True)
         after = inputs.runtime(binding, engine, env); write(out/'runtime-after.json', after)
         require(before == after, 'Simulator runtime changed during execution.')
-        require(sources == inputs.source_files(), 'Qualification source changed during execution.')
+        require(sources == inputs.source_files(binding), 'Qualification source changed during execution.')
         require(binding == inputs.bind_gui(gui_root, expected_commit, source_pilot=source_pilot), 'GUI/native/package prerequisite changed.')
         require(mapped == inputs.contracts(binding)[1], 'Reviewed public inputs changed.')
         require(model_files == inputs.inventory(out/'shared-models', ('source-identity.json',)), 'Staged models changed.')

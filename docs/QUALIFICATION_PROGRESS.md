@@ -1,6 +1,6 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 29, 2026. Chunk 7 is approximately **70% complete**, with low
+Updated October 30, 2026. Chunk 7 is approximately **70% complete**, with low
 confidence (55–80%); this is an engineering estimate, not verified acceptance.
 The increase from 67% reflects a working optional binding for one previously
 unavailable ESD symbol, selected whole-network capacitor hierarchy electrical
@@ -32,6 +32,73 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**October 29 desktop blockers and repairs.** The
+[completed run readback](validation/chunk7-desktop-followup-2026-10-29.json)
+retains the Windows failure and every downloaded diagnostic file. Its RF
+branch, bias, transient and automatic-runtime checks passed before the stale
+default selector stopped packaging. The repaired selector checks the exact
+current package while keeping the historical identity separate. It also
+verifies the installed assets. A Project Hub repair keeps an operation busy
+until its queued result is applied, preventing premature close or replacement.
+All 24 focused checks and the real Hub GUI pass on both hosts. The complete
+current-default Windows RF check also passes: nine conditions, eighteen
+independent references and 54 faulted instances, with the original runtime
+guards intact. Its exact raw results and source bytes are retained.
+
+The installed MiM contract now selects explicit historical and current package
+pairs; its new current contract preserves the old scientific requirements. The
+parallel-array producer likewise emits the exact current contract. Combined
+feedback caught a stale test expectation and a missing historical Hub capture.
+Both are repaired; the additive capture preserves the exact originally tested
+GF180 bytes without changing historical acceptance or its validator. Independent
+review and [combined feedback](validation/chunk7-desktop-repair-feedback-2026-10-29.json)
+pass: all eight stages and 874 tests per host, including both complete 60-case
+IHP editor inventories. The first Linux snapshot omitted a recently committed
+evidence document; the corrected complete snapshot passes without an application
+change. The exact tested repair is ready for a fresh desktop acceptance run.
+
+The isolated [two-terminal pw2dn source candidate](SKY130_PW2DN_SOURCE_CANDIDATE.md)
+passes independent Windows and Linux raw readback: nine conditions, three
+geometries, 45 application runs and eighteen independent references per host.
+Original failed captures remain rejected and retained. It is not yet bundled
+or accepted as an installed application. The shipped Linux simulator fails the
+RF guard; a retained corrected simulator passes native analytical RF and
+capacitor checks and its proposed staging tests, but packaging, dependencies
+and all installed gates still need acceptance. No family is promoted.
+
+The source feedback completed October 30. Windows timestamps and monotonic
+elapsed time cross a long host interruption; the retained total is not a
+normal performance benchmark. No test deadline or numerical threshold changed.
+
+The corrected simulator staging boundary also passes eight tests on native
+Linux and seven on Windows with one POSIX-only skip; this is proposed packaging
+evidence, not installed acceptance. Verified recovery archives retain every
+byte of 21 redundant generated fault-control copies. Removing those copies
+returned about 34 GB for Linux reuse without Windows administrator access or
+disk compaction; primary runs and source snapshots remain preserved.
+
+Chunk 7 remains **70% (55–80%, low confidence)**. This note is local pending
+the next reviewed implementation push.
+
+**Published reviewed candidate: `f67b8ff6377c96816392a0a91bcc2063fddd54ab`.**
+All 89 reviewed files are on `experimental`; all 2,940 checked source,
+qualification and requirements Git blobs match the tested bytes. The
+[publication record](validation/chunk7-reviewed-publication-2026-10-29.json)
+retains exact identities. [Desktop run 40931627021](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40931627021)
+was dispatched once and its exact candidate read back. Candidate and both
+release-tool checks, runtime construction and clean runtime installation pass. Linux packaging passes; Windows stopped at a stale RF default-revision expectation. Fresh installed acceptance was skipped because the Windows package did not finish. The
+[hosted source lane](validation/chunk7-reviewed-hosted-feedback-2026-10-29.json)
+passes both hosts and its required aggregate: all eight stages and 858 tests
+per host, with 33 Windows skips and 14 Linux skips. Independent archive readback
+matches all 1,490 source hashes and both complete 60-case IHP GUI inventories.
+The actual merge `88a83c04` has the candidate and base as its verified parents.
+Observed source times are 547.4 seconds on Windows and 298.6 seconds on Linux,
+excluding setup and queueing. The new default ESD and repaired IHP installed
+gates remain pending.
+This publication/status note is local for the next appropriate implementation
+push. Chunk 7 remains **70% (55–80%, low confidence)**; no full family status
+or completion gate is advanced.
 
 **October 29 final reviewed source candidate.** The
 [final source check](validation/chunk7-reviewed-integration-2026-10-29.json)

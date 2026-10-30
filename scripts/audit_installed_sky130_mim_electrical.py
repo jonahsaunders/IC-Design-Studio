@@ -156,6 +156,15 @@ def staged_models(root, report, manifest):
     return verify_models(root,{**report,'execution_root':root.as_posix()},manifest)
 
 
+def contract_receipt(root,binding,report):
+    """Check the exact selected copied contract pair and mapped sources."""
+    contract,mapped=inputs.contracts(binding)
+    _,contract_sha,_,map_sha=inputs.selected_contracts(binding)
+    require(mapped==load(root/'mapped-sources.json') and sha(root/'contract.json')==report['contract_sha256']==contract_sha and
+            sha(root/'bias-contract.json')==report['source_map_sha256']==map_sha,'Reviewed source contracts differ.')
+    return contract
+
+
 def audit(root):
     root = inputs.gui.unlinked(root).resolve(); manifest = load(root/'manifest.json')
     require(manifest == inputs.inventory(root, ('manifest.json','audit.json')), 'Evidence inventory changed or is incomplete.')
@@ -171,11 +180,9 @@ def audit(root):
             binding['expected_commit'] == report['expected_commit'], 'Input receipt differs.')
     actual = inputs.bind_gui(binding['supplied_root'],binding['expected_commit'],source_pilot=binding['mode']=='source-pilot')
     require(actual == binding, 'Original GUI/native/bundle prerequisites no longer re-audit.')
-    contract,mapped = inputs.contracts(binding)
-    require(mapped == load(root/'mapped-sources.json') and sha(root/'contract.json') == report['contract_sha256'] == inputs.CONTRACT_SHA and
-            sha(root/'bias-contract.json') == report['source_map_sha256'] == inputs.MAP_SHA, 'Reviewed source contracts differ.')
+    contract=contract_receipt(root,binding,report)
     source_files = load(root/'source-files.json')
-    require(sha(root/'source-files.json') == report['source_files_sha256'] and source_files == inputs.source_files(), 'Electrical producer/checker source changed.')
+    require(sha(root/'source-files.json') == report['source_files_sha256'] and source_files == inputs.source_files(binding), 'Electrical producer/checker source changed.')
     for name,digest in source_files.items():
         require(sha(inputs.gui.confined(root/'source',name)) == digest, 'Retained checker source differs.')
     if binding['mode']=='installed':
