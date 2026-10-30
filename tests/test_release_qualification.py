@@ -82,6 +82,9 @@ class ReleaseQualificationTests(unittest.TestCase):
             check_analytic({'op': plot}, (1000, 3000))
 
     def payloads(self):
+        from tests.test_release_pw2dn_evidence import fixture, distribution
+        from scripts.release_pw2dn_evidence import validate as validate_pw2dn
+        import zipfile
         inputs = self.root / 'inputs'
         for platform in ('Windows', 'Linux'):
             directory = inputs / platform
@@ -91,6 +94,11 @@ class ReleaseQualificationTests(unittest.TestCase):
             names = [archive.name, prefix + f'Source-{platform}.zip', prefix + f'Evidence-{platform}.zip']
             if platform == 'Windows': names.append(prefix + 'Windows-x64-Setup.exe')
             for name in names: (directory / name).write_bytes(('Synthetic assembly fixture: ' + name).encode())
+            distribution(archive, platform)
+            pw_files = fixture(platform)
+            pw_prefix = 'windows-evidence/pw2dn' if platform == 'Windows' else 'frozen-pw2dn-evidence'
+            with zipfile.ZipFile(directory / (prefix + f'Evidence-{platform}.zip'), 'w') as evidence:
+                for name, content in pw_files.items(): evidence.writestr(pw_prefix + '/' + name, content)
             vga = {'status': 'passed', 'version': __version__, 'frozen': True,
                    'build': {'commit': 'a' * 40, 'dirty': False},
                    'presets': [{'id': name, 'status': 'passed'} for name in PRESET_IDS]}
@@ -98,13 +106,25 @@ class ReleaseQualificationTests(unittest.TestCase):
                      'build': {'commit': 'a' * 40, 'dirty': False}}
             installer = {'status': 'passed', 'version': __version__, 'commit': 'a' * 40,
                          'installer': names[-1], 'installer_sha256': checksum(directory / names[-1]),
-                         'probes': [dict(probe, scale=scale) for scale in ('1', '1.5', '2')], 'vga': vga}
+                         'probes': [dict(probe, scale=scale) for scale in ('1', '1.5', '2')], 'vga': vga,
+                         'pw2dn': json.loads(pw_files['verification.json'])}
             data = {'schema': 1, 'status': 'passed', 'version': __version__, 'commit': 'a' * 40,
                     'platform': platform, 'assets': {name: checksum(directory / name) for name in names},
                     'distribution': {'status': 'passed', 'archive': archive.name, 'archive_sha256': checksum(archive), 'vga': vga, 'report': probe},
-                    'installer': installer if platform == 'Windows' else None}
+                    'installer': installer if platform == 'Windows' else None,
+                    'pw2dn': validate_pw2dn(pw_files, 'a' * 40)}
             (directory / f'IC-Design-Studio-{__version__}-Validation-{platform}.json').write_text(json.dumps(data))
         return inputs
+
+    def test_assembly_requires_platform_pw2dn_receipt(self):
+        inputs = self.payloads()
+        for platform in ('Windows', 'Linux'):
+            record = inputs / platform / f'IC-Design-Studio-{__version__}-Validation-{platform}.json'
+            original = record.read_text(); data = json.loads(original); data.pop('pw2dn')
+            record.write_text(json.dumps(data))
+            with self.subTest(platform=platform), self.assertRaisesRegex(ValueError, 'pw2dn'):
+                assemble(inputs, self.root / 'release', 'a' * 40)
+            self.assertFalse((self.root / 'release').exists()); record.write_text(original)
 
     def test_release_checksums_cover_the_exact_qualified_payloads(self):
         output = self.root / 'release'

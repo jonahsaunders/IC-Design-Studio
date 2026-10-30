@@ -1,7 +1,7 @@
 import sys
 
 def main():
-    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server','--campaign','--esd-acceptance','--ihp-resistor-acceptance'):
+    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server','--campaign','--esd-acceptance','--ihp-resistor-acceptance','--pw2dn-acceptance'):
         from .windows_stdio import connect
         connect()
     if '--digital-setup' in sys.argv:
@@ -40,6 +40,9 @@ def main():
     if '--esd-acceptance' in sys.argv:
         from .esd_desktop_probe import main as probe
         return probe(sys.argv[sys.argv.index('--esd-acceptance')+1:])
+    if '--pw2dn-acceptance' in sys.argv:
+        from .pw2dn_desktop_probe import main as probe
+        return probe(sys.argv[sys.argv.index('--pw2dn-acceptance')+1:])
     if '--vga-test' in sys.argv:
         from .vga_probe import main as probe
         return probe(sys.argv[sys.argv.index('--vga-test')+1])

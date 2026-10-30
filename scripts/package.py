@@ -23,12 +23,23 @@ if os.name=='nt':
  from stage_windows_ngspice import ensure
  ensure()
 else:
- engine=os.environ.get('ICSTUDIO_BUNDLED_NGSPICE') or shutil.which('ngspice')
- if not engine:raise ValueError('Install ngspice or set ICSTUDIO_BUNDLED_NGSPICE before packaging. Runtime-free releases are not supported.')
+ from stage_linux_ngspice import stage as stage_corrected_ngspice, deployment_files
+ engine=str(stage_corrected_ngspice())
+ linux_runtime_root=Path(engine).parent.parent
  check_ngspice(engine)
  from stage_linux_ngspice_manifest import source_hash
  linux_engine_sha256=source_hash(engine)
  os.environ['ICSTUDIO_BUNDLED_NGSPICE']=engine
+ from scripts import linux_ngspice_dependencies as dependency_provenance
+ from scripts.fetch_linux_ngspice_sources import fetch as fetch_dependency_sources
+ import uuid
+ dependency_work=root/'build'/('ngspice-dependencies-'+uuid.uuid4().hex)
+ dependency_work.mkdir()
+ dependency_provenance.capture(engine,dependency_work/'discovery')
+ dependency_source_inputs=fetch_dependency_sources(dependency_work/'discovery',
+     dependency_provenance.sha(dependency_work/'discovery/report.json'),dependency_work/'source-cache')
+ dependency_provenance.capture(engine,dependency_work/'build-capture',source_index=dependency_source_inputs)
+ dependency_build_sha=dependency_provenance.sha(dependency_work/'build-capture/report.json')
 from icstudio.build_identity import identity
 from icstudio.digital_vga import REVISION as vga_revision
 vga_assets=root/'build/vga-playground/dist'
@@ -52,6 +63,11 @@ if engine:
  if not Path(engine).is_file():raise ValueError('ICSTUDIO_BUNDLED_NGSPICE must name the engine binary for this build platform.')
  args+=['--add-binary',f'{Path(engine).resolve()}{os.pathsep}icstudio/assets/runtime/ngspice']
  args+=['--add-data',f'{root/"icstudio/assets/ngspice/spinit"}{os.pathsep}icstudio/assets/runtime/ngspice']
+if os.name!='nt':
+ for relative,source in deployment_files(linux_runtime_root).items():
+  if relative in ('ngspice','spinit'):continue
+  destination=Path('icstudio/assets/runtime/ngspice')/Path(relative).parent
+  args+=['--add-data',f'{source}{os.pathsep}{destination.as_posix()}']
 sys.path.insert(0,str(root))
 from icstudio.native_core import native_library_name
 for name in filter(None,[native_library_name()]):
@@ -61,8 +77,20 @@ if os.name=='nt':args+=['--icon',str(root/'icstudio/assets/app.ico')]
 args.append(str(root/'main.py'));subprocess.run(args,cwd=root,check=True)
 
 if os.name != 'nt':
+ from stage_linux_ngspice import finalize_deployed
+ finalize_deployed(root/'dist/ICDesignStudio/_internal/icstudio/assets/runtime/ngspice')
  from stage_linux_ngspice_manifest import stage as stage_linux_ngspice_manifest
  stage_linux_ngspice_manifest(root/'dist/ICDesignStudio/_internal/icstudio/assets/runtime/ngspice', linux_engine_sha256)
+ dependency_resource=root/'dist/ICDesignStudio/_internal'
+ dependency_provenance.capture(dependency_resource/'icstudio/assets/runtime/ngspice/ngspice',
+     dependency_work/'deployment-capture',resource_root=dependency_resource,
+     predecessor=dependency_work/'build-capture',predecessor_sha256=dependency_build_sha,
+     source_index=dependency_source_inputs)
+ dependency_report_sha=dependency_provenance.sha(dependency_work/'deployment-capture/report.json')
+ dependency_provenance.verify(dependency_work/'deployment-capture',dependency_report_sha,release=True)
+ dependency_destination=dependency_resource/'licenses/ngspice-linux-dependencies'
+ shutil.copytree(dependency_work/'deployment-capture',dependency_destination)
+ dependency_provenance.verify(dependency_destination,dependency_report_sha,release=True)
 
 # Copy the independent interpreter verbatim after freezing. PyInstaller must
 # not rewrite its libraries or mix them with the application's Python/Qt.

@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "date": "2026-10-30",
+  "status": "PASS_SOURCE_NATIVE_FINITE_CHECKS_ONLY",
+  "source_base_commit": "f67b8ff6377c96816392a0a91bcc2063fddd54ab",
+  "integration_base_commit": "52049be725eda34922bc921dfdea6cbf14da0952",
+  "candidate_package_manifest_sha256": "0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4",
+  "engine_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+  "raw_command": "ngspice-47, Build Sat Oct 17 12:12:53 UTC 2026",
+  "initializer_sha256": "cef1e2ffa61cf0fae3afe80afa94800df8fadc67df3178aa7f1e3216ccfb0e91",
+  "esd": {
+    "conditions": 19,
+    "native_runs": 98,
+    "devices_per_context": 6,
+    "faulted_devices_detected": 360,
+    "dc_corners": [
+      "nominal",
+      "ss",
+      "ff",
+      "sf",
+      "fs"
+    ],
+    "dc_temperature_c": [
+      0,
+      27,
+      85
+    ],
+    "ac_terminal_drives": [
+      "d",
+      "g",
+      "s",
+      "b"
+    ],
+    "ac_corner": "nominal",
+    "ac_temperature_c": 27,
+    "maximum_positive_normalized_error": 0.0,
+    "minimum_fault_normalized_error": 433083.3384893274,
+    "readback_sha256": "529137e7f4fd6d8aa38c55e50eae9a7b81069fe54c8b71fc21a7c48e7348ee52",
+    "raw_manifest_sha256": "04c070a2268e858b1f72de60582b5b7319e7055cbb78be2fb630524fe0dfed4c",
+    "controls": {
+      "positive": 1,
+      "rejected": 11,
+      "sha256": "4fb346e2cbbe20cb7bf2ee6a616b3bdd69fd6ec7e6f88076c22b64c0d738b6ec"
+    },
+    "portable_tests": {
+      "windows": 10,
+      "linux": 10
+    }
+  },
+  "metal": {
+    "native_processes": 6,
+    "engines": [
+      "42",
+      "47-corrected"
+    ],
+    "global_temperature_c": [
+      -40,
+      27,
+      125
+    ],
+    "models": [
+      "LI",
+      "M1",
+      "M2",
+      "M3",
+      "M4"
+    ],
+    "parallel_counts_at_27c": [
+      1,
+      2,
+      3,
+      16
+    ],
+    "transient_noise_scope": "Straight M1-M4 only, m1/m3, at the three selected global temperatures.",
+    "maximum_normalized_error": 0.15768567056075197,
+    "bare_zero_resistance_diagnostic_ohm": {
+      "42": 0.001,
+      "47-corrected": 1e-12
+    },
+    "report_sha256": "bb513d55f381990aedca83ac37bb09aeb35d990f61a3ed9a9a62ed7e11fb3bc9",
+    "source_comparison_sha256": "dc7839bb9d4dd61fbce37d97efdfea16519e90ced7fea00e6c9e562a684537b1"
+  },
+  "independent_review_sha256": "cb7c9ff7f45a3aa5378ade4be09898f3f4c6f16531f7317a9e2e89a4869a4222",
+  "changes": [
+    "Exact corrected47 ELF and raw build profile; prior42/46 profiles retained.",
+    "Externally selected package hash chooses the exact four/five model-header list; no deck inference.",
+    "Unpublished installed-v3 Linux runtime identity and linked contract hashes updated; historical v1/v2 retained."
+  ],
+  "semantics": "Selected laws pass their original numerical criteria. Zero/tiny resistance floor and explicit instance-temperature/noise behavior differ between 42 and 47; no universal equation equivalence is claimed.",
+  "retention": {
+    "directory": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/chunk7-corrected47-esd-metal-source-2026-10-30-v1",
+    "archive": "corrected47-source-evidence-v2.zip",
+    "receipt": "retention-receipt.json",
+    "format": "Content-addressed ZIP: manifest.json maps every original logical file to objects/<sha256>; every object independently reread.",
+    "archive_sha256": "edfd6740de0c969da6f3f62f4f9a96b9b576a76a5a9899c909ddb5d689eb7c7b",
+    "archive_bytes": 40664959,
+    "manifest_sha256": "d60ec8b643667f31b9507e837cbedb9605f08f921d1a008eb2d199b518bd6aeb",
+    "receipt_sha256": "28a630a1355e64a0599c8bf3fbf31278a79f70957d8e05ee5ff1ce3fa59fc91f",
+    "logical_files": 38445,
+    "unique_objects": 2822
+  },
+  "limitations": [
+    "Source/native compact-model integration and selected metal-law diagnostics only.",
+    "No frozen/installed, actual-default-GUI, physical geometry, array transient/noise or entire-family acceptance.",
+    "All existing full frozen/installed acceptance and release gates remain required."
+  ],
+  "chunk7_engineering_estimate_percent": 70,
+  "estimate_uncertainty": "Approximate engineering estimate; acceptance remains incomplete."
+}

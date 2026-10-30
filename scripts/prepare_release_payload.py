@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT))
 from icstudio import __version__
 from scripts.release_archives import source_archive
 from scripts.verify_packaged_vga import verify as verify_vga
+from scripts.release_pw2dn_evidence import from_directory as validate_pw2dn_directory, from_zip as validate_pw2dn_zip, check_distribution as check_pw2dn_distribution
 
 
 def checksum(path):
@@ -107,13 +108,15 @@ def release_source(output, target, source=None):
     return copied
 
 
-def prepare(output, source=None):
+def prepare(output, source=None, pw2dn_evidence=None):
     output = Path(output).resolve()
     require(not output.exists(), 'Use a new release payload directory')
     output.mkdir(parents=True)
     target = 'Windows' if os.name == 'nt' else 'Linux'
     require(target == 'Windows' or sys.platform.startswith('linux'), 'Unqualified build platform')
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    require(pw2dn_evidence is not None, 'Frozen pw2dn evidence directory is required')
+    pw2dn = validate_pw2dn_directory(pw2dn_evidence, commit)
     if target == 'Windows':
         packages = []
         for suffix in ('Windows-x64-Setup.exe', 'Windows-x64-Portable.zip'):
@@ -122,6 +125,8 @@ def prepare(output, source=None):
             packages.append(Path(shutil.copy2(original, output / original.name)))
         installer = json.loads((ROOT / 'build/windows-evidence/windows-release.json').read_text())
         validate_installer(installer, commit, packages[0].name, checksum(packages[0]))
+        require(installer.get('pw2dn') == json.loads((Path(pw2dn_evidence) / 'verification.json').read_bytes()),
+                'Windows installer and selected pw2dn receipts differ')
         archive = packages[1]
     else:
         bundle = ROOT / 'dist/ICDesignStudio'
@@ -131,6 +136,7 @@ def prepare(output, source=None):
             package.add(bundle, arcname='ICDesignStudio')
         packages = [archive]
         installer = None
+    check_pw2dn_distribution(archive, target, pw2dn)
     source = release_source(output, target, source)
     packages.append(source)
     probe = verify_distribution(archive, ROOT / 'build/distribution-evidence')
@@ -140,12 +146,16 @@ def prepare(output, source=None):
             for file in sorted(directory.rglob('*')):
                 if file.is_file() and 'Extracted app with spaces' not in file.parts:
                     evidence.write(file, file.relative_to(ROOT / 'build'))
+    prefix = 'windows-evidence/pw2dn' if target == 'Windows' else 'frozen-pw2dn-evidence'
+    with zipfile.ZipFile(evidence_zip) as evidence:
+        require(validate_pw2dn_zip(evidence, prefix, commit) == pw2dn,
+                'Archived pw2dn evidence differs from selected receipts')
     packages.append(evidence_zip)
     validation = {'schema': 1, 'status': 'passed', 'version': __version__, 'commit': commit,
                   'platform': target, 'host': platform.platform(),
                   'workflow_run': os.environ.get('GITHUB_RUN_ID'),
                   'workflow_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
-                  'distribution': probe, 'installer': installer,
+                  'distribution': probe, 'installer': installer, 'pw2dn': pw2dn,
                   'assets': {f.name: checksum(f) for f in packages},
                   'limitations': ['Engineering preview; no foundry signoff.',
                                   'Windows signing is not configured.',
@@ -160,5 +170,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--source-archive', type=Path, help='Use the exact source ZIP authenticated by this run’s desktop handoff.')
+    parser.add_argument('--pw2dn-evidence', type=Path, required=True, help='Full frozen pw2dn acceptance evidence for this platform.')
     args = parser.parse_args()
-    prepare(args.output, args.source_archive)
+    prepare(args.output, args.source_archive, args.pw2dn_evidence)

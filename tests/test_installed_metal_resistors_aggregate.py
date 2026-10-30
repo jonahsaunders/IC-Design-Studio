@@ -112,15 +112,22 @@ class ReleaseRoutingTests(unittest.TestCase):
     def test_both_hosts_run_selected_acceptance_before_release_completion(self):
         workflow = (check.ROOT/'.github/workflows/build-desktop.yml').read_text()
         windows = (check.ROOT/'scripts/verify_windows.ps1').read_text()
-        for text, completion in ((workflow, '      - name: Assemble and execute release archives'),
-                                 (windows, "Wait-Checked (Join-Path $install 'unins000.exe')")):
+        for text, completions in ((workflow, ('      - name: Assemble and execute Windows release archives',
+                                             '      - name: Assemble and execute Linux release archives')),
+                                  (windows, ("Wait-Checked (Join-Path $install 'unins000.exe')",))):
             ordered = [text.index('scripts/'+name) for name in (
                 'verify_frozen_mim.py', 'verify_installed_mim.py',
                 'verify_frozen_metal_resistors.py', 'qualify_installed_sky130_metal_resistors.py',
                 'verify_installed_metal_resistors.py')]
             self.assertEqual(ordered, sorted(ordered))
-            self.assertLess(ordered[-1], text.index(completion))
+            for completion in completions:
+                self.assertLess(ordered[-1], text.index(completion))
             self.assertNotIn('continue-on-error:', text)
+        windows_release=workflow.index('      - name: Assemble and execute Windows release archives')
+        linux_release=workflow.index('      - name: Assemble and execute Linux release archives')
+        self.assertLess(workflow.index('run: ./scripts/verify_windows.ps1'), windows_release)
+        self.assertIn("if: runner.os == 'Windows'", workflow[windows_release:linux_release])
+        self.assertIn("if: runner.os == 'Linux'", workflow[linux_release:workflow.index('\n      - ', linux_release+1)])
         self.assertIn('metal_resistors=(Get-Content', windows)
         for path in ('build/frozen-metal-resistor-evidence', 'build/frozen-metal-resistor-electrical-evidence',
                      'build/frozen-metal-resistor-workflow-evidence/acceptance.json',

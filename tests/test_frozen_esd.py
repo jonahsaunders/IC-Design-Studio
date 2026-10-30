@@ -158,7 +158,7 @@ class FrozenEsdLauncherTests(unittest.TestCase):
             paths = ['icstudio/__init__.py', 'icstudio/device.py', 'icstudio/build_info.py']
             paths += ['scripts/'+name for name in (
                 'qualify_installed_sky130_esd.py', 'verify_frozen_esd.py',
-                'audit_sky130_esd_nvt.py', 'prepare_sky130_esd_nvt.py',
+                'audit_sky130_esd_nvt.py', 'prepare_sky130_esd_nvt.py', 'sky130_pw2dn_source.py',
                 'installed_mim_inputs.py', 'verify_frozen_mim.py')]
             for name in paths:
                 (root/name).write_text('# '+name+'\n', encoding='utf-8', newline='\n')

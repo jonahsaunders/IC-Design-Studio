@@ -505,7 +505,7 @@ def audit(root,reviewed_source=None):
     required={review['path'],'scripts/qualify_sky130_metal_resistor_parallel.py','scripts/audit_sky130_metal_resistor_parallel.py',
               'tests/test_sky130_metal_resistor_parallel.py','tests/test_sky130_metal_resistor_parallel_audit.py',
               'tests/gui_sky130_metal_resistor_parallel.py','icstudio/sky130_metal_resistors.py','examples/sky130-qualification-lock.json'}
-    if review['sha256']==CURRENT_CONTRACT['sha256']:required.add('scripts/sky130_contract_versions.py')
+    if review['sha256']!=versions.VERSIONS['parallel']['v1']['sha256']:required.add('scripts/sky130_contract_versions.py')
     require(required<=sources.keys() and sources[review['path']]==review['sha256'],'Missing required array source identity.')
     for name,value in spec['sources'].items():require(sources.get(name)==value['sha256'],'Changed public array reference.')
     for name,value in spec['engine_sources'].items():

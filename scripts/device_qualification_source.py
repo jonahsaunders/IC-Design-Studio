@@ -36,14 +36,15 @@ HISTORICAL_REVISIONS={'sky130A':RF_REVISION,**HV_REVISIONS,'ihp-sg13g2':NPN_REVI
 # Exact current bundle identity; qualification and historical gates stay separate.
 SKY130_ESD_DEFAULT='125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
 SKY130_ESD_REVISION='5dda725c94efe3c2'
-PROMOTED={**HISTORICAL_PROMOTED,'sky130A':SKY130_ESD_DEFAULT}
-REVISIONS={**HISTORICAL_REVISIONS,'sky130A':SKY130_ESD_REVISION}
+from scripts.sky130_pw2dn_source import CURRENT as SKY130_PW2DN_DEFAULT, REVISION as SKY130_PW2DN_REVISION
+PROMOTED={**HISTORICAL_PROMOTED,'sky130A':SKY130_PW2DN_DEFAULT}
+REVISIONS={**HISTORICAL_REVISIONS,'sky130A':SKY130_PW2DN_REVISION}
 
 
 @contextmanager
 def previous_devices(source):
     source=Path(source).resolve();h=file_digest(source/'package.json')
-    target=next((t for t,expected in [*PROMOTED.items(),*HISTORICAL_PROMOTED.items(),*ALTERNATE_DEFAULTS.items(),*INTERMEDIATE.items(),*ALTERNATE_BASE.items(),('sky130A',LI_DEFAULT),('sky130A',MIM_DEFAULT),('ihp-sg13g2',TAP_DEFAULT)] if h==expected),None)
+    target=next((t for t,expected in [*PROMOTED.items(),*HISTORICAL_PROMOTED.items(),*ALTERNATE_DEFAULTS.items(),*INTERMEDIATE.items(),*ALTERNATE_BASE.items(),('sky130A',SKY130_ESD_DEFAULT),('sky130A',LI_DEFAULT),('sky130A',MIM_DEFAULT),('ihp-sg13g2',TAP_DEFAULT)] if h==expected),None)
     if target is None:
         # The original recipe still applies its own strict input/hash checks.
         yield source

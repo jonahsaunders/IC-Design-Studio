@@ -7,11 +7,89 @@ from scripts import installed_mim_inputs as inputs
 from scripts import qualify_installed_sky130_mim_electrical as producer
 from scripts import audit_installed_sky130_mim_electrical as auditor
 from scripts.prepare_sky130_esd_nvt import predecessor
+from scripts.sky130_pw2dn_source import predecessor as pw2dn_predecessor
+from scripts.prepare_sky130_pw2dn_default import prepare as prepare_pw2dn
 
 ROOT=Path(__file__).resolve().parents[1]
 PACKAGE=ROOT/'icstudio/assets/pdks/sky130A'
+PW_PACKAGE=PACKAGE
 def binding(path,sha):return {'mode':'source-pilot','resource_root':str(ROOT),'simulation_package':{'path':str(path),'manifest_sha256':sha}}
 class MiMContractVersionTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        global PACKAGE,PW_PACKAGE
+        sha=inputs.sha(PACKAGE/'package.json');cls.previous=cls.temporary=None
+        if sha==inputs.CURRENT_PACKAGE:
+            cls.temporary=tempfile.TemporaryDirectory();PW_PACKAGE=Path(cls.temporary.name)/'candidate'
+            prepare_pw2dn(PACKAGE,PW_PACKAGE)
+        elif sha==inputs.PW2DN_PACKAGE:
+            cls.previous=pw2dn_predecessor(PW_PACKAGE);PACKAGE=cls.previous.__enter__()
+        else:raise ValueError('Tests require the exact 5dda or pw2dn package.')
+
+    @classmethod
+    def tearDownClass(cls):
+        global PACKAGE,PW_PACKAGE
+        if cls.previous:cls.previous.__exit__(None,None,None)
+        if cls.temporary:cls.temporary.cleanup()
+        PACKAGE=ROOT/'icstudio/assets/pdks/sky130A';PW_PACKAGE=PACKAGE
+
+    def test_explicit_pw2dn_v3_preserves_current_science(self):
+        candidate=binding(PW_PACKAGE,inputs.PW2DN_PACKAGE);v3,mapped=inputs.contracts(candidate)
+        current,_=inputs.contracts(binding(PACKAGE,inputs.CURRENT_PACKAGE))
+        self.assertEqual(v3['id'],'sky130-mim-contract-v3')
+        self.assertEqual(mapped['package']['sha256'],inputs.PW2DN_PACKAGE)
+        for key in ('catalog_entries','next_acceptance','passive_sections'):
+            self.assertEqual(v3[key],current[key],key)
+        captured=inputs.source_files(candidate)
+        for path in (inputs.CONTRACT_PATH,inputs.MAP_PATH,inputs.CURRENT_CONTRACT_PATH,inputs.CURRENT_MAP_PATH,inputs.PW2DN_CONTRACT_PATH,inputs.PW2DN_MAP_PATH):self.assertIn(path,captured)
+        with patch.object(inputs,'PW2DN_MAP_PATH',inputs.CURRENT_MAP_PATH),patch.object(inputs,'PW2DN_MAP_SHA',inputs.CURRENT_MAP_SHA):
+            with self.assertRaises(ValueError):inputs.contracts(candidate)
+
+    def test_pw2dn_v3_rehashed_science_and_asset_tamper_rejected(self):
+        candidate=binding(PW_PACKAGE,inputs.PW2DN_PACKAGE)
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);folder=root/'docs/qualification';folder.mkdir(parents=True)
+            for name in (inputs.CURRENT_CONTRACT_PATH,inputs.CURRENT_MAP_PATH,inputs.PW2DN_CONTRACT_PATH,inputs.PW2DN_MAP_PATH):
+                shutil.copyfile(ROOT/name,root/name)
+            path=root/inputs.PW2DN_CONTRACT_PATH;contract=json.loads(path.read_bytes());contract['next_acceptance']['tampered_test_condition']=True
+            path.write_text(json.dumps(contract,indent=2)+'\n',encoding='utf-8');changed_sha=inputs.sha(path)
+            path=root/inputs.PW2DN_MAP_PATH;mapping=json.loads(path.read_bytes());mapping['immutable_contract']['sha256']=changed_sha
+            path.write_text(json.dumps(mapping,indent=2)+'\n',encoding='utf-8')
+            with patch.object(inputs,'ROOT',root),patch.object(inputs,'PW2DN_CONTRACT_SHA',changed_sha),patch.object(inputs,'PW2DN_MAP_SHA',inputs.sha(path)):
+                with self.assertRaisesRegex(ValueError,'scientific contract'):inputs.contracts(candidate)
+        with tempfile.TemporaryDirectory() as tmp:
+            changed=Path(tmp)/'package';shutil.copytree(PW_PACKAGE,changed)
+            model=changed/'libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_1.model.spice'
+            model.write_bytes(model.read_bytes()+b'\n')
+            with self.assertRaises(ValueError):inputs.contracts(binding(changed,inputs.PW2DN_PACKAGE))
+
+    def test_pw2dn_v3_producer_completion_and_auditor_receipt(self):
+        candidate=binding(PW_PACKAGE,inputs.PW2DN_PACKAGE);candidate.update(cases={},execution_id='e'*32,expected_commit=None)
+        def stage(tech,out):(out/'shared-models').mkdir();return {},{}
+        def case(context,*args):return {'name':producer.case_name(*context),'status':'PASS'}
+        with tempfile.TemporaryDirectory() as tmp, ExitStack() as stack:
+            out=Path(tmp)/'run';spy=stack.enter_context(patch.object(inputs,'source_files',wraps=inputs.source_files))
+            stack.enter_context(patch.object(inputs,'bind_gui',return_value=candidate))
+            stack.enter_context(patch.object(inputs,'technology',return_value={'simulation':{'ngspice_compatibility':'hsa'},'package_root':str(PW_PACKAGE)}))
+            stack.enter_context(patch.object(inputs,'select_engine',return_value=Path(sys.executable)))
+            stack.enter_context(patch.object(inputs,'native_environment',return_value={}))
+            stack.enter_context(patch.object(inputs,'runtime',return_value={'test_runtime':'stable'}))
+            stack.enter_context(patch.object(producer,'stage_models',side_effect=stage))
+            stack.enter_context(patch.object(producer,'execute_case',side_effect=case))
+            stack.enter_context(patch.object(auditor,'audit',return_value={'status':'MOCKED_TEST_ONLY'}))
+            report=producer.run('unused',out,source_pilot=True,pilot=True)
+            self.assertEqual(report['status'],'PASS');self.assertFalse(report['installed_electrical_acceptance'])
+            self.assertEqual(spy.call_count,2);self.assertTrue(all(call.args==(candidate,) for call in spy.call_args_list))
+            self.assertEqual(report['contract_sha256'],inputs.PW2DN_CONTRACT_SHA);self.assertEqual(report['source_map_sha256'],inputs.PW2DN_MAP_SHA)
+        # Exercise the actual receipt checker separately, with unmocked audit code.
+        with tempfile.TemporaryDirectory() as tmp:
+            out=Path(tmp);_,mapped=inputs.contracts(candidate)
+            shutil.copyfile(ROOT/inputs.PW2DN_CONTRACT_PATH,out/'contract.json');shutil.copyfile(ROOT/inputs.PW2DN_MAP_PATH,out/'bias-contract.json')
+            (out/'mapped-sources.json').write_text(json.dumps(mapped),encoding='utf-8')
+            check={'contract_sha256':inputs.PW2DN_CONTRACT_SHA,'source_map_sha256':inputs.PW2DN_MAP_SHA}
+            self.assertEqual(auditor.contract_receipt(out,candidate,check)['id'],'sky130-mim-contract-v3')
+            shutil.copyfile(ROOT/inputs.CURRENT_MAP_PATH,out/'bias-contract.json')
+            with self.assertRaises(ValueError):auditor.contract_receipt(out,candidate,check)
     def test_exact_current_and_historical_package_mapping(self):
         current=binding(PACKAGE,inputs.CURRENT_PACKAGE)
         contract,mapped=inputs.contracts(current)

@@ -17,7 +17,14 @@ def previous_rf(source):
     # The new ESD default retains the exact RF predecessor. Recover that
     # identity before following the existing RF/MiM historical chain.
     from scripts.prepare_sky130_esd_nvt import DEFAULT_CANDIDATE, predecessor
-    source = Path(source).resolve()
+    from scripts.sky130_pw2dn_source import CURRENT as PW2DN_CURRENT, predecessor as pw2dn_predecessor
+    source = Path(source)
+    if file_digest(source/'package.json') == PW2DN_CURRENT:
+        with pw2dn_predecessor(source) as previous:
+            with previous_rf(previous) as before:
+                yield before
+        return
+    source = source.resolve()
     if file_digest(source/'package.json') == DEFAULT_CANDIDATE:
         with predecessor(source) as old:
             with _previous_rf(old) as before:

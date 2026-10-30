@@ -28,7 +28,7 @@ from scripts import installed_mim_inputs as runtime_inputs
 
 BASE = '840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'
 OPTIONAL = raw_audit.PACKAGE
-DEFAULT = '125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
+DEFAULT = '0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4'
 KEY = 'sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym'
 CONDITIONS = tuple((c,t,'dc') for c in ('nominal','ss','ff','sf','fs') for t in (0,27,85)) + tuple(('nominal',27,p) for p in 'dgsb')
 require = raw_audit.require

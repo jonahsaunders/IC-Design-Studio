@@ -74,6 +74,8 @@ def render_release_notes(notes, repository, commit, *, root=ROOT):
 def validate_public_assets(directory, assets, version, commit):
     """Require complete, unchanged desktop payloads from the selected source."""
     from scripts.release_evidence import checksum, EVIDENCE_KINDS, _validate_record, BUFFER_BYTES
+    from scripts.release_pw2dn_evidence import from_zip as validate_pw2dn_zip, check_distribution as check_pw2dn_distribution
+    import zipfile
     directory = Path(directory)
     files = {path.name: path for path in assets}
     prefix = f'IC-Design-Studio-{version}-'
@@ -138,6 +140,15 @@ def validate_public_assets(directory, assets, version, commit):
         if (not isinstance(distribution, dict) or distribution.get('status') != 'passed' or distribution.get('archive') != archive
                 or distribution.get('archive_sha256') != hashes[archive] or not desktop(distribution.get('report', {}))):
             raise ValueError('Public release archive execution must match the exact clean packaged source.')
+        evidence_name = prefix + 'Evidence-' + platform + '.zip'
+        evidence_prefix = 'windows-evidence/pw2dn' if platform == 'Windows' else 'frozen-pw2dn-evidence'
+        with zipfile.ZipFile(files[evidence_name]) as evidence:
+            if validate_pw2dn_zip(evidence, evidence_prefix, commit) != record.get('pw2dn'):
+                raise ValueError('Public release pw2dn evidence differs from its validation.')
+            installer_receipt = record.get('installer')
+            if platform == 'Windows' and (not isinstance(installer_receipt, dict) or json.loads(evidence.read(evidence_prefix + '/verification.json')) != installer_receipt.get('pw2dn')):
+                raise ValueError('Public Windows installer pw2dn receipt differs from the evidence.')
+        check_pw2dn_distribution(files[archive], platform, record['pw2dn'])
         if platform == 'Windows':
             installer = record.get('installer', {}); setup = prefix + 'Windows-x64-Setup.exe'
             probes = installer.get('probes', []) if isinstance(installer, dict) else []

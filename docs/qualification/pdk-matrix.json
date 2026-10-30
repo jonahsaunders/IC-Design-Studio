@@ -1,7 +1,7 @@
 {
   "schema": 6,
-  "as_of": "2026-10-25",
-  "source_baseline": "43a04bb00af3118fe97d3d177ec73599056027b6",
+  "as_of": "2026-10-30",
+  "source_baseline": "52049be725eda34922bc921dfdea6cbf14da0952",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
     "1": {
@@ -271,6 +271,30 @@
           "utilities": 9
         },
         "remaining": "Fresh exact default-path installed acceptance on Windows and Linux, broader device requirements and all family gates remain open. This is a source candidate, not accepted production promotion."
+      },
+      "candidate_pw2dn_default": {
+        "status": "source_candidate_not_accepted",
+        "revision": "47dbd4fe43bfa7e4",
+        "manifest_sha256": "0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4",
+        "partial_device_entries": 289,
+        "unavailable_real_bindings": 4,
+        "utilities": 9,
+        "previous_source_candidate": {
+          "status": "source_candidate_not_accepted",
+          "revision": "5dda725c94efe3c2",
+          "manifest_sha256": "125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b",
+          "partial_device_entries": 288,
+          "unavailable_real_bindings": 5,
+          "utilities": 9,
+          "accepted_predecessor": {
+            "revision": "b26f7f28e659ddc1",
+            "partial_device_entries": 287,
+            "unavailable_real_bindings": 6,
+            "utilities": 9
+          },
+          "remaining": "Fresh exact default-path installed acceptance on Windows and Linux, broader device requirements and all family gates remain open. This is a source candidate, not accepted production promotion."
+        },
+        "remaining": "Fresh exact frozen Windows/Linux acceptance and preserved earlier release gates are required. Current installed predecessor acceptance and all full-family requirements remain separate; no completed gate is advanced."
       }
     },
     "8": {
@@ -296,11 +320,11 @@
   },
   "inventory": {
     "sky130A": {
-      "revision": "5dda725c94efe3c2",
-      "manifest_sha256": "125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b",
-      "asset_count": 426,
+      "revision": "47dbd4fe43bfa7e4",
+      "manifest_sha256": "0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4",
+      "asset_count": 433,
       "indexed_count": 99,
-      "placeable_count": 96,
+      "placeable_count": 97,
       "source_locks": {
         "UPSTREAM-LOCK.json": {
           "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c",
@@ -344,6 +368,9 @@
         },
         {
           "path": "libs.tech/ngspice/icstudio-esd-nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice"
+        },
+        {
+          "path": "libs.tech/ngspice/icstudio-rf-pw2dn/library.spice"
         }
       ],
       "requires_osdi": false,
@@ -899,7 +926,7 @@
         "sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_pw2dn.sym": {
           "category": "Diodes",
           "model": "sky130_fd_pr__model__parasitic__rf_diode_pw2dn",
-          "model_source": null,
+          "model_source": "libs.tech/ngspice/icstudio-rf-pw2dn/sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice",
           "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
           "pin_order": [
             "d0",
@@ -907,20 +934,39 @@
           ],
           "parameters": {
             "area": {
-              "default": "1e12",
-              "derived": false,
-              "integer": false,
-              "positive": false
+              "computed": true,
+              "default": "w*l",
+              "derived": true,
+              "positive": true,
+              "unit": "um^2"
+            },
+            "l": {
+              "default": "2",
+              "positive": true,
+              "unit": "um"
+            },
+            "perim": {
+              "computed": true,
+              "default": "2*(w+l)",
+              "derived": true,
+              "positive": true,
+              "unit": "um"
+            },
+            "w": {
+              "default": "2",
+              "positive": true,
+              "unit": "um"
             }
           },
           "emit_parameters": {
-            "area": "area"
+            "area": "area",
+            "perim": "perim"
           },
           "parameter_scale": {
             "l": 1000000.0,
             "w": 1000000.0
           },
-          "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected.",
+          "unavailable": "",
           "family": "diode",
           "rf_batch": true
         },
@@ -21701,10 +21747,11 @@
           "device-simulation",
           "device-physical"
         ],
-        "status": "unsupported",
-        "remaining": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected.",
+        "status": "partial",
+        "remaining": "Public two-terminal d0/d1 to c0/c1 binding and finite source GUI/native comparisons pass across nine declared conditions and three geometries. Exact frozen default-path acceptance on both hosts, complete operating/statistical/reliability limits and physical/extracted applicability remain open. This binding does not qualify the separate three-terminal isolation model or any complete family.",
         "historical_evidence": [
-          "alternate-models-2026-10-17"
+          "alternate-models-2026-10-17",
+          "sky130-pw2dn-source-candidate-2026-10-29"
         ]
       },
       "sky130_fd_pr/lvsdiode__sky130_fd_pr__diode_pd2nw_05v5.sym": {
@@ -25128,7 +25175,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0Ã¢â‚¬â€œ1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -25698,7 +25745,7 @@
     "sky130-metal-parallel-2026-10-26": {
       "path": "docs/validation/sky130-metal-parallel-2026-10-26.json",
       "sha256": "88ba1362d7339c11a264cd475270a9710abed26a5798fc0d092ab09f1bf9830a",
-      "scope_limit": "Selected source physical parallel-array editing and DC/AC integration for five SKY130 resistor models, counts 1\u201316: 280 clean layouts, 25 native faults, 30 actual-array electrical contexts. No full-family envelope, calibrated accuracy, array transient/noise, installed or signoff qualification."
+      "scope_limit": "Selected source physical parallel-array editing and DC/AC integration for five SKY130 resistor models, counts 1–16: 280 clean layouts, 25 native faults, 30 actual-array electrical contexts. No full-family envelope, calibrated accuracy, array transient/noise, installed or signoff qualification."
     },
     "sky130-metal-parallel-installed-source-2026-10-26": {
       "path": "docs/validation/sky130-metal-parallel-installed-source-2026-10-26.json",
@@ -25739,6 +25786,11 @@
       "path": "docs/validation/desktop-handoff-fixture-repair-2026-10-26.json",
       "sha256": "3860f2de8395175058f9c78208a7b5208eea9a61823454132702ac4d5e657a0c",
       "scope_limit": "Test-fixture canonical-path repair only. Production payload/path/source checks, native tools, operating limits and family gates are unchanged. Local integrated source feedback is not hosted installed acceptance."
+    },
+    "sky130-pw2dn-source-candidate-2026-10-29": {
+      "path": "docs/validation/sky130-pw2dn-source-candidate-2026-10-29.json",
+      "sha256": "b6e9abea83511a1dae450391f34c8f071ab39938868c45c914faf7a82fc627f6",
+      "scope_limit": "Isolated source candidate only: actual GUI path and finite two-terminal native/reference/fault comparisons on Windows and Linux. Not bundled default, frozen application, three-terminal isolation, continuous envelope, whole-family or tapeout acceptance."
     }
   },
   "execution_acceptance": {

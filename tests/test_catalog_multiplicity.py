@@ -11,6 +11,18 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CatalogMultiplicityTests(unittest.TestCase):
+    def test_pre_pw2dn_default_retains96_bindings_and_new_candidate97(self):
+        from scripts.sky130_pw2dn_source import predecessor,BASE
+        from icstudio.model import file_digest
+        with predecessor(ROOT/'icstudio/assets/pdks/sky130A') as source:
+            self.assertEqual(file_digest(source/'package.json'),BASE)
+            old=json.loads((source/'package.json').read_bytes())['technology']['simulation']['catalog']
+            available=[entry for entry in old.values() if not entry.get('unavailable') and not entry.get('utility')]
+            self.assertEqual(len(available),96)
+            self.assertFalse(old['sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym']['unavailable'])
+            key='sky130_fd_pr/diode__sky130_fd_pr__model__parasitic__rf_diode_pw2dn.sym'
+            self.assertTrue(old[key]['unavailable'])
+
     def test_alias_cannot_bypass_multiplicity_checks_but_other_signed_values_remain_valid(self):
         for emitted in ('m', 'M'):
             binding = dict(parameters={'copies': {'default': '1'}, 'offset': {'default': '-2'}},
@@ -52,7 +64,7 @@ class CatalogMultiplicityTests(unittest.TestCase):
                     if emitted.casefold() == 'm': self.assertGreater(values[source], 0, (target, key))
                 count += 1
             counts[target] = count
-        self.assertEqual(counts, {'sky130A': 96, 'gf180mcuC': 77, 'gf180mcuD': 77, 'ihp-sg13g2': 38})
+        self.assertEqual(counts, {'sky130A': 97, 'gf180mcuC': 77, 'gf180mcuD': 77, 'ihp-sg13g2': 38})
 
 
     def test_current_esd_default_keeps_source_multiplier_one_and_rejects_nonpositive_values(self):

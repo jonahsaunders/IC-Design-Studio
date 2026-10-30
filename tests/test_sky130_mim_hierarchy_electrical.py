@@ -140,7 +140,7 @@ class HierarchyElectricalTests(unittest.TestCase):
                 self.assertIn('P1 N1',exported);self.assertIn('P2 N2',exported)
                 self.assertNotIn('vm=',exported);self.assertEqual(exported.count('mf=1'),2)
                 self.assertEqual(result['old_model_ref']['revision'],'9a491f0ebd51a0aa')
-                self.assertEqual(result['new_model_ref']['revision'],'5dda725c94efe3c2')
+                self.assertEqual(result['new_model_ref']['revision'],'47dbd4fe43bfa7e4')
                 self.assertEqual(leaf.read_bytes(),data)
 
 

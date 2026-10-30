@@ -24,7 +24,7 @@ from scripts import sky130_contract_versions as versions
 CURRENT_CONTRACT=versions.selected('installed_parallel')
 CONTRACT,CONTRACT_SHA=CURRENT_CONTRACT['path'],CURRENT_CONTRACT['sha256']
 HISTORICAL_SOURCE_SHA='66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472'
-SOURCE_SHA='ede9b483fbbb35b6072fff3526750dc86bf81ced805dcf48cad3df486d175363'
+SOURCE_SHA=versions.package_version('parallel',CURRENT_CONTRACT['package_sha256'])['sha256']
 MODELS=('l1','m1','m2','m3','m4')
 COUNTS=(2,3,16)
 CASES=tuple(f'{model}-m{count}-r{angle}' for model in MODELS for count in COUNTS for angle in (0,90))

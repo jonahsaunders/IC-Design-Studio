@@ -3,7 +3,7 @@ import argparse
 import hashlib
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import subprocess
 import sys
 import time
@@ -24,7 +24,7 @@ UNIT_MODULES = (
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
     'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_contact_topology',
-    'test_mim_desktop_probe', 'test_frozen_mim',
+    'test_mim_desktop_probe', 'test_frozen_mim', 'test_sky130_pw2dn_native_probe',
     'test_frozen_esd', 'test_frozen_esd_default', 'test_sky130_esd_default_candidate', 'test_sky130_mos_voltage_contract', 'test_sky130_mos_voltage_source', 'test_sky130_contract_versions',
     'test_metal_hierarchy_electrical', 'test_sky130_mim_conditioning',
     'test_source_mim_fixture_archive', 'test_linux_ngspice_manifest',
@@ -55,10 +55,18 @@ UNIT_MODULES = (
 # Package reconstruction performs many verified file copies on Windows. Keep
 # these additional checks required without crowding the existing unit budget.
 PACKAGE_MODULES = (
-    'test_catalog_multiplicity',
+    'test_sky130_pw2dn_default', 'test_catalog_multiplicity',
     'test_default_device_packages.DefaultDevicePackageTests.test_rebuild_matches_the_bundled_package_and_original_assets_remain_recoverable',
     'test_default_device_packages.DefaultDevicePackageTests.test_exact_rf_predecessor_still_reconstructs_and_rebuilds_the_current_default',
     'test_default_device_packages.DefaultDevicePackageTests.test_changed_current_asset_cannot_be_hidden_by_predecessor_reconstruction',
+)
+
+# Independent bounded stage avoids adding new portable release and runtime
+# checks to the already substantial unit/package stages.
+RUNTIME_RELEASE_MODULES = (
+    'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
+    'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
+    'test_release_qualification', 'test_publish_prerelease',
 )
 
 
@@ -86,15 +94,48 @@ def source_identity(root=ROOT):
     if fixture.is_file():
         files.append(fixture)
     for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy',
-                   'sky130-esd-nvt-source-v1', 'sky130-esd-predecessor-v1'):
+                   'sky130-esd-nvt-source-v1', 'sky130-esd-predecessor-v1', 'sky130-pw2dn-predecessor-v1'):
         files += [p for p in (root / 'icstudio/assets/qualification' / folder).glob('*') if p.is_file()]
     for name in ('collection.json','sky130A/package.json'):
         manifest = root / 'icstudio/assets/pdks' / name
         if manifest.is_file(): files.append(manifest)
     for name in ('sky130-mim-contract-v1.json', 'sky130-mim-contract-v2.json',
-                 'sky130-mim-bias-source-map-v1.json', 'sky130-mim-bias-source-map-v2.json'):
+                 'sky130-mim-bias-source-map-v1.json', 'sky130-mim-bias-source-map-v2.json',
+                 'sky130-mim-contract-v3.json', 'sky130-mim-bias-source-map-v3.json'):
         contract = root / 'docs/qualification' / name
         if contract.is_file(): files.append(contract)
+    for prefix in ('sky130-li-contract', 'sky130-metal-installed',
+                   'sky130-metal-parallel-installed', 'sky130-metal-resistor-parallel',
+                   'sky130-metal-resistors-linked'):
+        for version in ('v1', 'v2', 'v3'):
+            contract = root / 'docs/qualification' / (prefix + '-' + version + '.json')
+            if contract.is_file(): files.append(contract)
+    for version in ('v1', 'v2', 'v3'):
+        folder = root / 'docs/qualification' / ('sky130-mos-voltage-' + version)
+        files += [p for p in folder.glob('*') if p.is_file()]
+        files += [p for p in (folder / 'sources').glob('*') if p.is_file()]
+    archive = root / 'packaging/ngspice/ngspice-linux47-corrected-v1.zip'
+    if archive.is_file(): files.append(archive)
+    package = root / 'icstudio/assets/pdks/sky130A/package.json'
+    if package.is_file():
+        for current in (package, package.parent):
+            if current.is_symlink() or (hasattr(current, 'is_junction') and current.is_junction()):
+                raise ValueError('Linked selected SKY130 package path: ' + str(current))
+        for name in json.loads(package.read_bytes())['files']:
+            path = PurePosixPath(name)
+            if (path.is_absolute() or any(part in ('', '.', '..') for part in name.split('/'))
+                    or '\\' in name or ':' in name):
+                raise ValueError('Unsafe selected SKY130 package member: ' + name)
+            asset = package.parent.joinpath(*path.parts)
+            current = package.parent
+            for part in path.parts:
+                current = current / part
+                if current.is_symlink() or (hasattr(current, 'is_junction') and current.is_junction()):
+                    raise ValueError('Linked selected SKY130 package member: ' + name)
+            if not asset.resolve().is_relative_to(package.parent.resolve()):
+                raise ValueError('Escaped selected SKY130 package member: ' + name)
+            if not asset.is_file(): raise ValueError('Missing selected SKY130 package member: ' + name)
+            files.append(asset)
     files += list((root / '.github/workflows').glob('*.yml'))
     files += list(root.glob('requirements*.txt'))
     return {path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
@@ -134,6 +175,8 @@ def stages(output=ROOT / 'build/ci-feedback'):
                             *('tests.' + name for name in UNIT_MODULES), '-v']),
         ('package-contracts', [sys.executable, '-m', 'unittest',
                                *('tests.' + name for name in PACKAGE_MODULES), '-v']),
+        ('runtime-release-contracts', [sys.executable, '-m', 'unittest',
+                                      *('tests.' + name for name in RUNTIME_RELEASE_MODULES), '-v']),
         ('release-contracts', [sys.executable, 'scripts/check_release.py']),
         ('menu-smoke', [sys.executable, 'tests/gui_menu_audit.py']),
         ('project-hub-smoke', [sys.executable, 'tests/gui_project_hub.py']),

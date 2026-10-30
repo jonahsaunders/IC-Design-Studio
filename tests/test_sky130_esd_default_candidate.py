@@ -22,8 +22,8 @@ from scripts import sky130_esd_revision_bridge as bridge
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT/'icstudio/assets/pdks/sky130A'
 PREDECESSOR = ROOT/'icstudio/assets/qualification/sky130-esd-predecessor-v1/package.json'
-CURRENT = '125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
-REVISION = '5dda725c94efe3c2'
+CURRENT = '0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4'
+REVISION = '47dbd4fe43bfa7e4'
 
 
 class DefaultCandidateTests(unittest.TestCase):

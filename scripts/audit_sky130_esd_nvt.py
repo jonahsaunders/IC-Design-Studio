@@ -15,7 +15,8 @@ from datetime import datetime, timezone
 PACKAGE = '5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a'
 MODEL = 'sky130_fd_pr__esd_nfet_05v0_nvt'
 ENGINES = {'86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453': '46',
-           '820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45': '42'}
+           '820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45': '42',
+           '67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25': '47-linux-corrected'}
 FAULTS = ('wrong-multiplicity', 'wrong-gate', 'wrong-body', 'wrong-length')
 
 
@@ -41,15 +42,18 @@ def raw(path, drive, engine, expected_title):
         require(len(found) == 1, 'Missing or duplicate raw header: '+name)
         return found[0].strip()
     require(field('Title') == expected_title.lower(), 'Raw execution/case/role title')
-    # These are two exact, externally pinned engine profiles. The verified
+    # These are three exact, externally pinned engine profiles. The verified
     # Ubuntu 42 build emits no Command field; 46 emits exactly one. The caller
     # has already bound the actual engine hash, command, timing, deck, raw and
     # console bytes through the execution receipt and trusted full manifest.
     commands = re.findall(r'^Command:[ \t]*(.*)$',header,re.M)
-    require(engine in ('42','46'), 'Unreviewed raw engine profile')
+    require(engine in ('42','46','47-linux-corrected'), 'Unreviewed raw engine profile')
     if engine == '46':
         require(len(commands) == 1 and re.fullmatch(r'ngspice-46, Build [^\r\n]+',commands[0].strip()),
                 'Raw Windows46 engine identity')
+    elif engine == '47-linux-corrected':
+        require([v.strip() for v in commands] == ['ngspice-47, Build Sat Oct 17 12:12:53 UTC 2026'],
+                'Raw corrected Linux47 engine identity')
     else:
         require(not commands, 'Raw Linux42 must use its reviewed absent-Command profile')
     require(field('Plotname') == ('DC transfer characteristic' if drive == 'dc' else 'AC Analysis'), 'Raw plot identity')
@@ -114,15 +118,30 @@ def analysis_directive(tokens, drive, role):
         require(tokens == ['.ac','dec','5',*limits], 'AC analysis')
 
 
+def model_header_paths(package_sha256):
+    """Exact selected package determines headers, never the submitted deck."""
+    base = ('libs.tech/ngspice/sky130.lib.spice',
+            'libs.tech/ngspice/icstudio-parallel-varactors.spice',
+            'libs.tech/ngspice/icstudio-rf-ps2nw/library.spice',
+            'libs.tech/ngspice/icstudio-esd-nvt/' + MODEL + '.pm3.spice')
+    profiles = {
+        PACKAGE: base,
+        '125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b': base,
+        '0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4':
+            base + ('libs.tech/ngspice/icstudio-rf-pw2dn/library.spice',),
+    }
+    require(package_sha256 in profiles, 'Unreviewed ESD package/header profile')
+    return profiles[package_sha256]
+
+
 def deck(folder, package, files, corner, temp, drive, role):
     inverse = staged_models(folder, package, files)
     path = folder / ('reference.cir' if role == 'independent' else 'input.cir')
     lines = [line.lower().split() for line in path.read_text().splitlines() if line.strip() and not line.lstrip().startswith('*')]
     section = 'tt' if corner == 'nominal' else corner
-    expected_headers = [ ['.lib', inverse['libs.tech/ngspice/sky130.lib.spice'], section] ]
-    for rel in ('libs.tech/ngspice/icstudio-parallel-varactors.spice',
-                'libs.tech/ngspice/icstudio-rf-ps2nw/library.spice',
-                'libs.tech/ngspice/icstudio-esd-nvt/' + MODEL + '.pm3.spice'):
+    paths = model_header_paths(sha(package/'package.json'))
+    expected_headers = [ ['.lib', inverse[paths[0]], section] ]
+    for rel in paths[1:]:
         expected_headers.append(['.include', inverse[rel]])
     require(lines[:len(expected_headers)] == expected_headers, 'Model selection or ordering')
     actual = lines[len(expected_headers):]

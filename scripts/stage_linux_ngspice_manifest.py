@@ -14,6 +14,12 @@ def sha(path):
 
 def source_hash(engine):
     engine = Path(engine)
+    from scripts import stage_linux_ngspice as corrected
+    if engine.is_file() and sha(engine) == corrected.ENGINE_SHA256:
+        corrected.verify(engine.parent.parent)
+        if engine != engine.parent.parent/'runtime/ngspice':
+            raise ValueError('Corrected engine is outside its verified input layout.')
+        return corrected.ENGINE_SHA256
     if (engine.is_symlink() or engine.is_junction() or not engine.is_file() or
             engine.read_bytes()[:4] != b'\x7fELF' or sha(engine) != ENGINE_SHA256):
         raise ValueError('Unreviewed Linux ngspice source executable.')
@@ -25,6 +31,15 @@ def stage(folder, source_sha256):
     folder = Path(folder)
     if any(path.is_symlink() or path.is_junction() for path in (folder, *folder.parents)):
         raise ValueError('Linked Linux runtime directory.')
+    from scripts import stage_linux_ngspice as corrected
+    if source_sha256 == corrected.ENGINE_SHA256:
+        files = corrected.verify_deployed(folder)
+        record = dict(schema=2, platform='linux', source_engine_sha256=source_sha256,
+                      final_engine_sha256=files['ngspice'], files=files,
+                      source_archive_sha256=corrected.ARCHIVE_SHA256,
+                      source_manifest_sha256=corrected.MANIFEST_SHA256)
+        (folder/'runtime-manifest.json').write_bytes(json.dumps(record, indent=2).encode())
+        return record
     if source_sha256 != ENGINE_SHA256:
         raise ValueError('Unreviewed Linux ngspice source identity.')
     files = {}

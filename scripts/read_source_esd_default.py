@@ -30,7 +30,9 @@ def prepare(root, engine, execution_id, output):
     runtime = inputs.runtime(binding, engine, environment)
     executable = Path(sys.executable).resolve()
     helpers = [Path(reader.__file__).resolve(), Path(raw_audit.__file__).resolve(),
-               Path(inputs.__file__).resolve(), Path(verify_frozen_mim.__file__).resolve()]
+               Path(inputs.__file__).resolve(), Path(verify_frozen_mim.__file__).resolve(),
+               ROOT/'scripts/prepare_sky130_esd_nvt.py', ROOT/'scripts/sky130_pw2dn_source.py',
+               ROOT/'icstudio/assets/qualification/sky130-pw2dn-predecessor-v1/package.json']
     expected = dict(mode='source', selection='bundled-default', execution_id=execution_id,
         executable=str(executable), executable_sha256=file_digest(executable),
         engine=str(engine), engine_sha256=file_digest(engine), resource_root=str(ROOT),

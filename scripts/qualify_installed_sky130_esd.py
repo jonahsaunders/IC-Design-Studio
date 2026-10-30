@@ -35,11 +35,11 @@ def candidate_files(root, commit):
                    'Application source inventory differs from the selected candidate.')
     files += [root/'scripts'/name for name in (
         'qualify_installed_sky130_esd.py','verify_frozen_esd.py','audit_sky130_esd_nvt.py',
-        'prepare_sky130_esd_nvt.py','installed_mim_inputs.py','verify_frozen_mim.py')]
+        'prepare_sky130_esd_nvt.py','sky130_pw2dn_source.py','installed_mim_inputs.py','verify_frozen_mim.py')]
     # Bind the actual selected manifests and public correction/predecessor assets.
     for raw_name in listing.split(b'\0'):
         name = raw_name.decode('utf-8')
-        if name in ('icstudio/assets/pdks/collection.json','icstudio/assets/pdks/sky130A/package.json') or name.startswith(('icstudio/assets/qualification/sky130-esd-nvt-source-v1/','icstudio/assets/qualification/sky130-esd-predecessor-v1/')):
+        if name in ('icstudio/assets/pdks/collection.json','icstudio/assets/pdks/sky130A/package.json') or name.startswith(('icstudio/assets/qualification/sky130-esd-nvt-source-v1/','icstudio/assets/qualification/sky130-esd-predecessor-v1/','icstudio/assets/qualification/sky130-pw2dn-predecessor-v1/')):
             files.append(root/name)
     return {p.relative_to(root).as_posix():reader.sha(unlinked(p)) for p in sorted(files)}
 
@@ -117,7 +117,9 @@ def verify(executable, out, commit, timeout=2400, bundled_default=False):
         native_runtime = runtime_inputs.runtime(binding,engine,env_native)
         helper_paths = [Path(reader.__file__).resolve(),ROOT/'scripts/audit_sky130_esd_nvt.py',
                         ROOT/'scripts/installed_mim_inputs.py',ROOT/'scripts/verify_frozen_mim.py',
-                        ROOT/'scripts/prepare_sky130_esd_nvt.py',ROOT/'scripts/qualify_installed_sky130_esd.py',
+                        ROOT/'scripts/prepare_sky130_esd_nvt.py',ROOT/'scripts/sky130_pw2dn_source.py',
+                        ROOT/'icstudio/assets/qualification/sky130-pw2dn-predecessor-v1/package.json',
+                        ROOT/'scripts/qualify_installed_sky130_esd.py',
                         ROOT/'icstudio/runtime_setup.py',ROOT/'icstudio/model.py']
         expected = dict(mode='installed',selection='bundled-default' if bundled_default else 'optional',commit=commit,execution_id=execution_id,
                         executable=str(executable),executable_sha256=reader.sha(executable),

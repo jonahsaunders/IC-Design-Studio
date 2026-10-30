@@ -1,6 +1,6 @@
 # Third-party notices and corresponding source
 
-The application code is GPL-3.0-or-later. Do not remove this source package, its build instructions, or these notices when distributing the application bundle. Complete desktop builds include ngspice, standard Xschem symbols, SKY130/GF180MCU/IHP primitive simulation subsets and the runtimes described below. The managed Linux/private WSL runtime includes Magic and Netgen for Studio's physical verification jobs and compiled IHP OSDI models. GF180 C/D and IHP packages include matching analog physical rule decks; SKY130 analog physical assets remain separate. The source checkout does not include the generated runtime binaries.
+The application code is GPL-3.0-or-later. Do not remove this source package, its build instructions, or these notices when distributing the application bundle. Complete desktop builds include ngspice, standard Xschem symbols, SKY130/GF180MCU/IHP primitive simulation subsets and the runtimes described below. The managed Linux/private WSL runtime includes Magic and Netgen for Studio's physical verification jobs and compiled IHP OSDI models. GF180 C/D and IHP packages include matching analog physical rule decks; SKY130 analog physical assets remain separate. Most generated runtime binaries are not included in the source checkout. The versioned Linux ngspice scalar packaging input described below is retained with its corresponding source and notices.
 
 | Component | Version | License / corresponding source |
 |---|---|---|
@@ -158,6 +158,50 @@ Standard Xschem symbols: Ubuntu 3.4.4-1build1, GPL-2.0-or-later. Original copyri
 GF180MCU primitive symbols and ngspice model files: Apache-2.0, upstream commit 4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c. Source: https://github.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr/tree/4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c. Original files and license accompany the application; assets/exchange/index.json records individual hashes and source paths. These are schematic and simulation assets, not physical signoff decks.
 
 ngspice: BSD-style and component-specific licenses retained in the runtime COPYING/copyright files. The Windows console runtime is the unmodified official version 46 distribution: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/46/ngspice-46_64.7z/download; corresponding source: https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/46/. Its COPYING document retains its CC-BY-SA 4.0 notice, and the executable retains its upstream component terms. Historical Windows evidence used version 42 and keeps that identity. The Linux host-tools reference is Ubuntu 42+ds-3build1; corresponding source: https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/. The managed Linux/WSL runtime is separately described below.
+
+The Linux desktop packaging input is the exact corrected ngspice 47 scalar
+runtime in `packaging/ngspice/ngspice-linux47-corrected-v1.zip` (SHA-256
+`e74736fd70b2fa6972bb0e0ab77cf87fff38f5926a7cb19d03431c2663e2b714`).
+Its ELF SHA-256 is
+`67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25`;
+the application scalar initializer is
+`cef1e2ffa61cf0fae3afe80afa94800df8fadc67df3178aa7f1e3216ccfb0e91`.
+The archive retains the complete original ngspice 47 source archive, original
+changed C file, exact capacitor-multiplicity parser patch, modification notice,
+build instructions and logs, source lock, and upstream COPYING. Original
+component notices remain in the complete source archive. The COPYING document's
+CC-BY-SA 4.0 attribution is retained. The application initializer retains the
+application's GPL-3.0-or-later terms. Both this input and these source/notice files
+are copied into the frozen desktop distribution; the archive manifest identifies
+every retained byte. This scalar deployment does not include the optional code
+model libraries or launcher of the separately described managed Linux runtime.
+Historical results retain their original engine identities, including Ubuntu 42.
+
+The input archive does not contain glibc, its loader, GNU Readline, GCC runtime,
+or ncurses shared libraries. Its `licenses/system-reference` notices describe
+the observed build host and are not a substitute for the exact notices and
+corresponding-source provision of any libraries collected during desktop
+packaging. Distribution must retain the actual collected libraries' resolved
+package/source versions, hashes, copyright and license notices, including
+Readline's terms and applicable GCC runtime exceptions. The final runtime
+provenance must distinguish bundled libraries from system-provided glibc and
+loader; glibc and the loader are not included in the desktop bundle. Source
+availability and notices are verified against the actual distribution before
+release. No new numerical or installed qualification is implied by retaining
+this packaging input.
+
+The Linux packager retains the actual deployment dependency report, notices,
+complete corresponding source packages and their authentication records under
+`_internal/licenses/ngspice-linux-dependencies`. Before freezing, it records
+the resolved library bytes and the installed Ubuntu binary/source package
+versions. After freezing, it checks that the five redistributed libraries
+resolve within the bundle with those same bytes, while glibc, libm and the
+loader remain system provided. Each retained source descriptor and all its
+members are checked against a complete source index authenticated by Ubuntu's
+signed release metadata and the pinned archive keyring. Missing exact source
+packages block packaging. The library-to-source association uses observed local
+package ownership metadata; this does not claim a reproducible rebuild of
+Ubuntu binaries or of the corrected ngspice executable.
 
 The selected resistor qualification references in
 `docs/qualification/ngspice42-metal-reference` retain six unchanged ngspice 42

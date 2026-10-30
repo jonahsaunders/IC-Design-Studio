@@ -22,8 +22,8 @@ from .acceptance_runtime import native_environment, runtime
 
 BASE = '840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'
 OPTIONAL = '5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a'
-DEFAULT_CANDIDATE = '125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
-DEFAULT_REVISION = '5dda725c94efe3c2'
+DEFAULT_CANDIDATE = '0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4'
+DEFAULT_REVISION = '47dbd4fe43bfa7e4'
 KEY = 'sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym'
 MODEL = 'sky130_fd_pr__esd_nfet_05v0_nvt'
 FAULTS = ('wrong-multiplicity', 'wrong-gate', 'wrong-body', 'wrong-length')

@@ -15,15 +15,20 @@ class DefaultEsdBoundaryTests(unittest.TestCase):
             root=Path(temporary)
             names=('icstudio/assets/pdks/collection.json','icstudio/assets/pdks/sky130A/package.json',
                    'icstudio/assets/qualification/sky130-esd-predecessor-v1/package.json',
-                   'icstudio/assets/qualification/sky130-esd-nvt-source-v1/corrected.sym')
+                   'icstudio/assets/qualification/sky130-pw2dn-predecessor-v1/package.json',
+                   'icstudio/assets/qualification/sky130-esd-nvt-source-v1/corrected.sym',
+                   'icstudio/assets/pdks/sky130A/models/test.spice')
             for name in names:
                 path=root/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(b'original')
+            package=root/'icstudio/assets/pdks/sky130A/package.json'
+            package.write_text(json.dumps({'files':{'models/test.spice':'a'*64}}))
             before=ci_feedback.source_identity(root)
             self.assertEqual(set(before),set(names))
             for name in names:
-                path=root/name;path.write_bytes(b'changed')
+                path=root/name;original=path.read_bytes()
+                path.write_bytes(b'{"files":{"models/test.spice":"changed"}}' if path==package else b'changed')
                 self.assertNotEqual(before[name],ci_feedback.source_identity(root)[name])
-                path.write_bytes(b'original')
+                path.write_bytes(original)
 
     def test_both_platforms_keep_optional_and_require_default_gate(self):
         root=Path(reader.__file__).resolve().parents[1]

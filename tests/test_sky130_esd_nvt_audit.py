@@ -103,4 +103,46 @@ class IndependentESDIdentityTests(unittest.TestCase):
             self.assertEqual(set(a.inventory(root)),{'nested/evidence-manifest.json'})
 
 
+
+class CorrectedLinux47ProfileTests(unittest.TestCase):
+    def test_exact_package_selects_complete_header_profile(self):
+        old=a.model_header_paths('5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a')
+        self.assertEqual(len(old),4)
+        self.assertEqual(a.model_header_paths('125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'),old)
+        self.assertEqual(a.model_header_paths('0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4'),
+                         old+('libs.tech/ngspice/icstudio-rf-pw2dn/library.spice',))
+        with self.assertRaisesRegex(ValueError,'package/header'):a.model_header_paths('0'*64)
+
+    def test_exact_corrected_binary_has_distinct_closed_profile(self):
+        self.assertEqual(a.ENGINES['67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25'],'47-linux-corrected')
+        self.assertEqual(a.ENGINES['820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45'],'42')
+        self.assertEqual(a.ENGINES['86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453'],'46')
+
+    def test_corrected_linux47_exact_header_and_legacy_separation(self):
+        title='* icstudio-esd-nvt-v2 '+ID+' nominal-27-dc independent'
+        old='Command: ngspice-46, Build Mar 29 2026'
+        new='Command: ngspice-47, Build Sat Oct 17 12:12:53 UTC 2026'
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/'raw'
+            for drive in ('dc','g'):
+                text=raw_text(drive,title).replace(old,new)
+                path.write_text(text);a.raw(path,drive,'47-linux-corrected',title)
+                for profile in ('42','46','47'):
+                    with self.assertRaises(ValueError):a.raw(path,drive,profile,title)
+                for bad in (text.replace(new+'\n',''),text.replace(new,new+'\n'+new),
+                            text.replace(new,new.replace('Oct 17','Oct 18')),
+                            text.replace(new,old),text.replace(new,'Command: ngspice-47, Build unknown')):
+                    path.write_text(bad)
+                    with self.assertRaisesRegex(ValueError,'corrected Linux47'):a.raw(path,drive,'47-linux-corrected',title)
+
+    def test_corrected_profile_preserves_current_finiteness_and_domain(self):
+        title='* icstudio-esd-nvt-v2 '+ID+' nominal-27-g independent'
+        text=raw_text('g',title).replace('Command: ngspice-46, Build Mar 29 2026','Command: ngspice-47, Build Sat Oct 17 12:12:53 UTC 2026')
+        with tempfile.TemporaryDirectory() as temp:
+            path=Path(temp)/'raw'
+            for bad in (text.replace('0,0','nan,0',1),text.replace('0 1000,','0 1001,',1)):
+                self.assertNotEqual(bad,text)
+                path.write_text(bad)
+                with self.assertRaises(ValueError):a.raw(path,'g','47-linux-corrected',title)
+
 if __name__=='__main__':unittest.main()

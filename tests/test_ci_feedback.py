@@ -9,7 +9,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 from scripts import ci_feedback
-from scripts.ci_feedback import ROOT, UNIT_MODULES, PACKAGE_MODULES, check_syntax, source_identity, stages
+from scripts.ci_feedback import ROOT, UNIT_MODULES, PACKAGE_MODULES, RUNTIME_RELEASE_MODULES, check_syntax, source_identity, stages
 
 EXHAUSTIVE = (
     'build-desktop', 'digital-runtime', 'physical-qualification', 'interoperability',
@@ -126,11 +126,11 @@ class FeedbackTests(unittest.TestCase):
                 ci_feedback.check_ihp_gui_output(output)
 
     def test_focused_modules_exist_and_release_contracts_remain_fast_checks(self):
-        for name in (*UNIT_MODULES, *PACKAGE_MODULES):
+        for name in (*UNIT_MODULES, *PACKAGE_MODULES, *RUNTIME_RELEASE_MODULES):
             self.assertTrue((ROOT / 'tests' / (name.split('.')[0] + '.py')).is_file(), name)
         commands = stages()
         self.assertEqual([name for name, _ in commands],
-                         ['unit-contracts', 'package-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
+                         ['unit-contracts', 'package-contracts', 'runtime-release-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
                           'metal-resistor-editor-smoke', 'metal-resistor-parallel-smoke',
                           'ihp-resistor-editor-smoke'])
         self.assertIn('test_pdk_qualification_matrix', UNIT_MODULES)
@@ -141,9 +141,73 @@ class FeedbackTests(unittest.TestCase):
         command = dict(stages())['package-contracts']
         self.assertEqual(command[3:-1], ['tests.' + name for name in PACKAGE_MODULES])
         tests = unittest.defaultTestLoader.loadTestsFromNames(command[3:-1])
-        self.assertEqual(tests.countTestCases(), 8)
+        self.assertEqual(tests.countTestCases(), 11)
         self.assertEqual(len(command[3:-1]), len(set(command[3:-1])))
         self.assertNotIn('test_default_device_packages', UNIT_MODULES)
+
+    def test_runtime_release_checks_remain_required_separate_and_unique(self):
+        expected = {'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
+                    'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
+                    'test_release_qualification', 'test_publish_prerelease'}
+        self.assertEqual(set(RUNTIME_RELEASE_MODULES), expected)
+        self.assertEqual(len(RUNTIME_RELEASE_MODULES), len(expected))
+        self.assertFalse(set(RUNTIME_RELEASE_MODULES) & (set(UNIT_MODULES) | set(PACKAGE_MODULES)))
+        self.assertEqual(dict(stages())['runtime-release-contracts'][3:-1],
+                         ['tests.' + name for name in RUNTIME_RELEASE_MODULES])
+        self.assertIn('test_sky130_esd_nvt_audit', UNIT_MODULES)
+
+    def test_desktop_payload_gate_runs_for_both_platforms_and_retains_failure_receipts(self):
+        text = workflow('build-desktop')
+        for platform, output in (('Windows', 'build/windows-evidence/pw2dn'),
+                                 ('Linux', 'build/frozen-pw2dn-evidence')):
+            self.assertIn('Assemble and execute ' + platform + ' release archives', text)
+            self.assertIn('--source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence ' + output, text)
+        for module in ('test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
+                       'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
+                       'test_release_qualification', 'test_sky130_esd_nvt_audit'):
+            self.assertIn('tests.' + module, text)
+        for path in ('**/report.json', '**/files.json', '**/ldd.txt', 'source-cache/apt*.log',
+                     'source-cache/invocations.json', 'source-cache/fetch-report.json',
+                     'source-cache/source-inputs.json'):
+            self.assertEqual(text.count('build/ngspice-dependencies-*/' + path), 3)
+        self.assertNotIn('build/linux-runtime-dependency-provenance', text)
+
+    def test_runtime_archive_and_selected_models_and_contracts_are_bound(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            archive = root / 'packaging/ngspice/ngspice-linux47-corrected-v1.zip'
+            contract = root / 'docs/qualification/sky130-li-contract-v3.json'
+            package = root / 'icstudio/assets/pdks/sky130A/package.json'
+            asset = package.parent / 'libs/models/pw2dn.spice'
+            for path in (archive, contract, asset): path.parent.mkdir(parents=True, exist_ok=True)
+            archive.write_bytes(b'runtime'); contract.write_bytes(b'contract'); asset.write_bytes(b'model')
+            package.write_text(json.dumps({'files': {'libs/models/pw2dn.spice': 'a' * 64}}))
+            before = source_identity(root)
+            for path in (archive, contract, asset, package):
+                name = path.relative_to(root).as_posix()
+                self.assertIn(name, before)
+                original = path.read_bytes(); path.write_bytes(original + b' ')
+                self.assertNotEqual(source_identity(root), before, name)
+                path.write_bytes(original)
+            asset.unlink()
+            with self.assertRaisesRegex(ValueError, 'Missing selected SKY130 package member'):
+                source_identity(root)
+            for name in ('libs/./model', 'libs//model', '../outside', 'C:/outside', 'libs\\model', '/absolute'):
+                with self.subTest(name=name):
+                    package.write_text(json.dumps({'files': {name: 'a' * 64}}))
+                    with self.assertRaisesRegex(ValueError, 'Unsafe selected SKY130 package member'):
+                        source_identity(root)
+
+    @unittest.skipIf(os.name == 'nt', 'Directory symlink creation is not assumed on Windows.')
+    def test_selected_model_link_is_rejected(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); package = root / 'icstudio/assets/pdks/sky130A/package.json'
+            package.parent.mkdir(parents=True)
+            outside = root / 'outside'; outside.mkdir(); (outside / 'model').write_bytes(b'model')
+            (package.parent / 'libs').symlink_to(outside, target_is_directory=True)
+            package.write_text(json.dumps({'files': {'libs/model': 'a' * 64}}))
+            with self.assertRaisesRegex(ValueError, 'Linked selected SKY130 package member'):
+                source_identity(root)
 
     def test_package_timeout_remains_a_required_failure(self):
         with tempfile.TemporaryDirectory() as folder:

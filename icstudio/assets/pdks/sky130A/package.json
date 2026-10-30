@@ -11,6 +11,7 @@
     "ICSTUDIO-PARALLEL-VARACTORS.json": "21230bfb2d6c27c9607421cd2acbd13516ccccca18a5c64d82e1f3885b28a507",
     "ICSTUDIO-RESISTOR-CORRECTION.json": "9854229dbcc793b644a10f3612445204248cce94bbe9fcaf56c443b870fb6c7b",
     "ICSTUDIO-RF-PS2NW-BINDING.json": "59f92481f77b895e95b093f815b2852ad605c4b053c6536b956eb843545d7428",
+    "ICSTUDIO-RF-PW2DN-CANDIDATE.json": "6f5f217291fb828a3b6cf4dc7371eb11f210e5b2328450b52ca4fd86a361552c",
     "ICSTUDIO-VPP-BINDING.json": "ec8fcdc12e19dac30389ae1dd72fef434451c9eb8ffb4552baeb71547fc89561",
     "LICENSE-models.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "LICENSE-symbols.txt": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141",
@@ -314,6 +315,12 @@
     "libs.tech/ngspice/icstudio-rf-ps2nw/original/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice": "9162840af01b56ca3b36556ee7a5d996cf41f0ec63e65430337f624d7dfa358c",
     "libs.tech/ngspice/icstudio-rf-ps2nw/sky130_fd_pr__model__parasitic__rf_diode_ps2nw.model.spice": "b3ccc79e2354c6630d0dafc3d2feced19968e70c9010dcbd8e441136b8d3d59a",
     "libs.tech/ngspice/icstudio-rf-ps2nw/source-lock.json": "9bbc32cb158ae7f842aee085abaa834df9576eb2a5fad0c00f81eeb07607b570",
+    "libs.tech/ngspice/icstudio-rf-pw2dn/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "libs.tech/ngspice/icstudio-rf-pw2dn/library.spice": "1f5aab0cf71b55772e123f078019f525676dee8fe6762ecee4c50510bd827bfc",
+    "libs.tech/ngspice/icstudio-rf-pw2dn/original/sky130_fd_pr__model__parasitic__diode_pw2dn_noresistor.model.spice": "dde8dc3c9d8a8e38734d0fd9c8305f9f8e4be3af3a0373f23012d76202b1b303",
+    "libs.tech/ngspice/icstudio-rf-pw2dn/original/sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice": "e50e34a0a7fc44b30095258717e2ed394e7dc614af2d18402c0765d196ef3906",
+    "libs.tech/ngspice/icstudio-rf-pw2dn/sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice": "335a3b6b224e124032a6f5330ddf600e7299ecf88249e1ac67b94ca5200c0665",
+    "libs.tech/ngspice/icstudio-rf-pw2dn/source-lock.json": "9bbc32cb158ae7f842aee085abaa834df9576eb2a5fad0c00f81eeb07607b570",
     "libs.tech/ngspice/parameters/critical.spice": "94ba392849ae3466798d7cfd29d53a31336204730e895dabfbc0c39ade8d6a28",
     "libs.tech/ngspice/parameters/fast.spice": "283dd86a353fc872c3bbfe7c276d959faa11f91450103185af7407d1017f93c9",
     "libs.tech/ngspice/parameters/fast_70p.spice": "6eb7f5e84f7d0676e2a4b35decd2ce27fa98bb54e5ee71544a4992a5068ada5c",
@@ -429,7 +436,7 @@
     "qualification-sources/bipolar/sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0"
   },
   "id": "sky130A",
-  "revision": "5dda725c94efe3c2",
+  "revision": "47dbd4fe43bfa7e4",
   "schema": 1,
   "technology": {
     "dbu_um": 0.001,
@@ -3751,7 +3758,7 @@
       ],
       "netgen_setup": ""
     },
-    "revision": "5dda725c94efe3c2",
+    "revision": "47dbd4fe43bfa7e4",
     "simulation": {
       "catalog": {
         "sky130_fd_pr/cap_mim_m3_1.sym": {
@@ -6851,13 +6858,16 @@
           "alternate_of": "sky130_fd_pr/diode.sym",
           "category": "Diodes",
           "emit_parameters": {
-            "area": "area"
+            "area": "area",
+            "perim": "perim"
           },
           "kind": "PDK",
           "label": "model__parasitic__rf_diode_pw2dn (diode)",
           "model": "sky130_fd_pr__model__parasitic__rf_diode_pw2dn",
+          "model_source": "libs.tech/ngspice/icstudio-rf-pw2dn/sky130_fd_pr__model__parasitic__rf_diode_pw2dn.model.spice",
           "notes": [
-            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding."
+            "Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.",
+            "Two-terminal rectangular pw2dn simulation candidate, d0 anode/d1 cathode, W/L in micrometres. Public wrapper derivative explicitly adds PJ={perim}; engine geometry/history guard required. Positive dimensions are not process limits. Three-terminal isolation and substrate parasitics, full operating envelope, measured accuracy and installed acceptance are unqualified."
           ],
           "parameter_scale": {
             "l": 1000000.0,
@@ -6865,17 +6875,35 @@
           },
           "parameters": {
             "area": {
-              "default": "1e12",
-              "derived": false,
-              "integer": false,
-              "positive": false
+              "computed": true,
+              "default": "w*l",
+              "derived": true,
+              "positive": true,
+              "unit": "um^2"
+            },
+            "l": {
+              "default": "2",
+              "positive": true,
+              "unit": "um"
+            },
+            "perim": {
+              "computed": true,
+              "default": "2*(w+l)",
+              "derived": true,
+              "positive": true,
+              "unit": "um"
+            },
+            "w": {
+              "default": "2",
+              "positive": true,
+              "unit": "um"
             }
           },
           "pin_order": [
             "d0",
             "d1"
           ],
-          "prefix": "D",
+          "prefix": "X",
           "source": "libs.tech/xschem/sky130_fd_pr/diode.sym",
           "symbol": {
             "attributes": {
@@ -7020,7 +7048,7 @@
               }
             ]
           },
-          "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected."
+          "unavailable": ""
         },
         "sky130_fd_pr/lvsdiode.sym": {
           "category": "Diodes",
@@ -34847,6 +34875,9 @@
         },
         {
           "path": "libs.tech/ngspice/icstudio-esd-nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice"
+        },
+        {
+          "path": "libs.tech/ngspice/icstudio-rf-pw2dn/library.spice"
         }
       ],
       "ngspice_compatibility": "hsa"

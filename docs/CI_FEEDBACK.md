@@ -161,8 +161,12 @@ hosted candidate to establish actual transfer time, fresh host compatibility and
 complete installed/release acceptance. The original timeout and incomplete
 Windows diagnostic upload remain recorded; neither is promoted to a release pass.
 
-The current package-reconstruction checks run in a separate required
-`package-contracts` stage. All eight added checks are preserved, with the same
-300-second per-stage deadline and failure propagation. This prevents verified
-package copying on Windows from exhausting the original unit stage's budget;
-all seven existing stages and the release gates remain required.
+The package-reconstruction checks run in a separate required
+`package-contracts` stage. The eleven selected checks include the prior package
+checks and the current pw2dn predecessor and reconstruction checks. A separate
+required `runtime-release-contracts` stage adds the pinned Linux runtime and
+release-receipt tests; the eight preceding stages remain required. Each of the
+nine stages retains the 300-second deadline and failure propagation. The source
+identity also covers the selected SKY130 package assets, versioned contracts and
+the retained Linux runtime archive. These checks do not replace installed
+acceptance or the release gates.

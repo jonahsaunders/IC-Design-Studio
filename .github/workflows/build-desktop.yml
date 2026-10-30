@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
@@ -183,17 +183,38 @@ jobs:
           node-version: '24'
       - name: Build pinned offline VGA Playground
         run: python scripts/build_vga_playground.py --test
-      - name: Install Linux simulation engine and desktop runtime
+      - name: Install Linux desktop and simulator dependency libraries
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y ngspice xschem libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
+          sudo apt-get install -y xschem libreadline8t64 libgomp1 libstdc++6 libgcc-s1 libtinfo6 \
+            libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
             libx11-6 libxtst6 libxkbfile1 libnss3 libasound2t64 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
             libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
             libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0 \
             build-essential cmake
-          echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
-          echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
+      - name: Stage exact corrected Linux simulation input
+        if: runner.os == 'Linux'
+        run: |
+          engine="$(python scripts/stage_linux_ngspice.py)"
+          test -x "$engine"
+          echo "ICSTUDIO_TEST_NGSPICE=$engine" >> "$GITHUB_ENV"
+          echo "ICSTUDIO_BUNDLED_NGSPICE=$engine" >> "$GITHUB_ENV"
+          dirname "$engine" >> "$GITHUB_PATH"
+      - name: Verify Linux diode history and capacitor multipliers
+        if: runner.os == 'Linux'
+        run: |
+          python scripts/verify_ngspice_diode_sequences.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-diode-sequences
+          SPICE_SCRIPTS="$(dirname "$ICSTUDIO_TEST_NGSPICE")" python scripts/verify_ngspice_capacitors.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-capacitor-multipliers
+      - name: Verify public SKY130 RF candidate with the pinned Linux engine
+        if: runner.os == 'Linux'
+        run: |
+          python scripts/prepare_sky130_rf_qualification.py --output build/sky130-rf-candidate
+          python scripts/qualify_sky130_rf_branches.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-branches
+          python scripts/qualify_sky130_rf_bias.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-bias
+          python scripts/qualify_sky130_rf_transient.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-transient
+          python scripts/qualify_sky130_rf_application.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --package build/sky130-rf-candidate --output build/linux-rf-application
+          python scripts/qualify_sky130_rf_default.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-default
       - name: Restore pinned Windows simulation archive
         if: runner.os == 'Windows'
         id: ngspice-cache
@@ -718,6 +739,20 @@ jobs:
             build/analog-advanced-evidence
             build/digital-frozen-evidence
             build/bundled-corner-ui
+            build/linux-diode-sequences
+            build/linux-capacitor-multipliers
+            build/linux-rf-branches
+            build/linux-rf-bias
+            build/linux-rf-transient
+            build/linux-rf-application
+            build/linux-rf-default
+            build/ngspice-dependencies-*/**/report.json
+            build/ngspice-dependencies-*/**/files.json
+            build/ngspice-dependencies-*/**/ldd.txt
+            build/ngspice-dependencies-*/source-cache/apt*.log
+            build/ngspice-dependencies-*/source-cache/invocations.json
+            build/ngspice-dependencies-*/source-cache/fetch-report.json
+            build/ngspice-dependencies-*/source-cache/source-inputs.json
             build/windows-diode-sequences
             build/windows-capacitor-multipliers
             build/windows-rf-branches
@@ -736,6 +771,7 @@ jobs:
             build/windows-evidence/mim-acceptance.json
             build/windows-evidence/optional-esd
             build/windows-evidence/default-esd
+            build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
@@ -750,6 +786,7 @@ jobs:
             build/frozen-mim-workflow-evidence/acceptance.json
             build/frozen-optional-esd-evidence
             build/frozen-default-esd-evidence
+            build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
@@ -937,6 +974,16 @@ jobs:
         env:
           ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
         run: python scripts/qualify_installed_sky130_esd.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --bundled-default --timeout 2400 --out build/frozen-default-esd-evidence
+      - name: Verify frozen Linux pw2dn GUI, predecessor and native electrical workflow
+        if: runner.os == 'Linux'
+        timeout-minutes: 35
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          executable=dist/ICDesignStudio/ICDesignStudio
+          engine=dist/ICDesignStudio/_internal/icstudio/assets/runtime/ngspice/ngspice
+          executable_sha256=$(sha256sum "$executable" | cut -d ' ' -f 1)
+          python scripts/qualify_installed_sky130_pw2dn.py --executable "$executable" --executable-sha256 "$executable_sha256" --engine "$engine" --engine-sha256 67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25 --commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 900 --out build/frozen-pw2dn-evidence
       - name: Verify frozen Linux IHP resistor editor and managed native layouts
         if: runner.os == 'Linux'
         timeout-minutes: 65
@@ -1009,6 +1056,20 @@ jobs:
             build/analog-advanced-evidence
             build/digital-frozen-evidence
             build/bundled-corner-ui
+            build/linux-diode-sequences
+            build/linux-capacitor-multipliers
+            build/linux-rf-branches
+            build/linux-rf-bias
+            build/linux-rf-transient
+            build/linux-rf-application
+            build/linux-rf-default
+            build/ngspice-dependencies-*/**/report.json
+            build/ngspice-dependencies-*/**/files.json
+            build/ngspice-dependencies-*/**/ldd.txt
+            build/ngspice-dependencies-*/source-cache/apt*.log
+            build/ngspice-dependencies-*/source-cache/invocations.json
+            build/ngspice-dependencies-*/source-cache/fetch-report.json
+            build/ngspice-dependencies-*/source-cache/source-inputs.json
             build/windows-diode-sequences
             build/windows-capacitor-multipliers
             build/windows-rf-branches
@@ -1027,6 +1088,7 @@ jobs:
             build/windows-evidence/mim-acceptance.json
             build/windows-evidence/optional-esd
             build/windows-evidence/default-esd
+            build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
@@ -1041,6 +1103,7 @@ jobs:
             build/frozen-mim-workflow-evidence/acceptance.json
             build/frozen-optional-esd-evidence
             build/frozen-default-esd-evidence
+            build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
@@ -1062,10 +1125,16 @@ jobs:
             build/windows-evidence/dpi-*/experimental/*.png
             build/native-experimental-evidence/**/*.json
             build/native-experimental-evidence/**/*.png
-      - name: Assemble and execute release archives
+      - name: Assemble and execute Windows release archives
+        if: runner.os == 'Windows'
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip
+        run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence build/windows-evidence/pw2dn
+      - name: Assemble and execute Linux release archives
+        if: runner.os == 'Linux'
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence build/frozen-pw2dn-evidence
       - name: Retain release payload
         uses: actions/upload-artifact@v4
         with:
@@ -1107,6 +1176,20 @@ jobs:
             build/analog-advanced-evidence
             build/digital-frozen-evidence
             build/bundled-corner-ui
+            build/linux-diode-sequences
+            build/linux-capacitor-multipliers
+            build/linux-rf-branches
+            build/linux-rf-bias
+            build/linux-rf-transient
+            build/linux-rf-application
+            build/linux-rf-default
+            build/ngspice-dependencies-*/**/report.json
+            build/ngspice-dependencies-*/**/files.json
+            build/ngspice-dependencies-*/**/ldd.txt
+            build/ngspice-dependencies-*/source-cache/apt*.log
+            build/ngspice-dependencies-*/source-cache/invocations.json
+            build/ngspice-dependencies-*/source-cache/fetch-report.json
+            build/ngspice-dependencies-*/source-cache/source-inputs.json
             build/windows-diode-sequences
             build/windows-capacitor-multipliers
             build/windows-rf-branches
@@ -1125,6 +1208,7 @@ jobs:
             build/windows-evidence/mim-acceptance.json
             build/windows-evidence/optional-esd
             build/windows-evidence/default-esd
+            build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
@@ -1139,6 +1223,7 @@ jobs:
             build/frozen-mim-workflow-evidence/acceptance.json
             build/frozen-optional-esd-evidence
             build/frozen-default-esd-evidence
+            build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
@@ -1176,6 +1261,7 @@ jobs:
             build/frozen-mim-workflow-evidence/acceptance.json
             build/frozen-optional-esd-evidence
             build/frozen-default-esd-evidence
+            build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence

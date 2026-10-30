@@ -37,6 +37,12 @@ def predecessor(source, manifest=None):
     """Recover the reviewed predecessor only from the exact promoted candidate."""
     source=unlinked(source).resolve()
     unlinked(source/'package.json')
+    from scripts.sky130_pw2dn_source import CURRENT as PW2DN_CURRENT, predecessor as pw2dn_predecessor
+    if file_digest(source/'package.json') == PW2DN_CURRENT:
+        with pw2dn_predecessor(source) as previous:
+            with predecessor(previous, manifest) as original:
+                yield original
+        return
     if manifest is not None and file_digest(unlinked(manifest))!=BASE:
         raise ValueError('Wrong predecessor manifest identity.')
     if file_digest(source/'package.json')==BASE:

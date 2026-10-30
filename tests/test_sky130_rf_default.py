@@ -47,7 +47,7 @@ class RFDefaultTests(unittest.TestCase):
             saved=build_project(registry,next(r for r in rows if r['key']==key),'Existing','empty')['project']
             save_project(saved,folder/'old.icproj')
             p=build_project(registry,next(r for r in rows if r['id']=='sky130A' and r['status']=='Available offline'),'New','empty')['project']
-            self.assertEqual(p['pdk']['revision'],'5dda725c94efe3c2')
+            self.assertEqual(p['pdk']['revision'],'47dbd4fe43bfa7e4')
             entry=p['pdk']['simulation']['catalog'][KEY];d=create_device(p['pdk'],KEY,'D1')
             d['model_params'].update(w=4,l=2);d['nets']={'d0':'A','d1':'K'};p['cells'][0]['devices']=[d]
             self.assertEqual(parameter_values(entry,d),dict(w=4,l=2,area=8,perim=12))
@@ -56,7 +56,12 @@ class RFDefaultTests(unittest.TestCase):
                 bad=clone(d);bad['model_params'].update(change)
                 with self.assertRaises(ValueError):parameter_values(entry,bad)
             with self.assertRaises(ValueError):create_device(saved['pdk'],KEY,'D1')
-            with self.assertRaises(ValueError):create_device(p['pdk'],KEY.replace('ps2nw','pw2dn'),'D2')
+            pwkey=KEY.replace('ps2nw','pw2dn')
+            pw=create_device(p['pdk'],pwkey,'D2')
+            self.assertEqual(parameter_values(p['pdk']['simulation']['catalog'][pwkey],pw),dict(w=2,l=2,area=4,perim=8))
+            from scripts.sky130_pw2dn_source import predecessor as before_pw2dn
+            with before_pw2dn(source) as esd:
+                self.assertTrue(json.loads((esd/'package.json').read_bytes())['technology']['simulation']['catalog'][pwkey]['unavailable'])
             self.assertEqual(load_project(folder/'old.icproj')['pdk'],saved['pdk']);registry.verify(key)
 
     def test_unknown_and_changed_assets_cannot_be_published_or_reconstructed(self):
@@ -66,7 +71,7 @@ class RFDefaultTests(unittest.TestCase):
             self.assertFalse((folder/'out').exists())
             source=ROOT/'icstudio/assets/pdks/sky130A';changed=folder/'changed';shutil.copytree(source,changed)
             path=changed/(PREFIX+MODEL);path.write_bytes(path.read_bytes()+b'\n')
-            with self.assertRaisesRegex(ValueError,'Changed predecessor asset'):prepare(changed,folder/'out')
+            with self.assertRaisesRegex(ValueError,'Changed current asset'):prepare(changed,folder/'out')
             self.assertFalse((folder/'out').exists())
             before=(source/'package.json').read_bytes()
             with self.assertRaisesRegex(ValueError,'new'):prepare(source,source)

@@ -20,7 +20,7 @@ the parent deadline; the reviewed repair still needs fresh installed acceptance.
 | 4 | GF180 density | **Reference gate closed.** [Acceptance](validation/gf180-fill-closure-2026-10-09.json). | Preserve the six reference layouts' fill, exclusions and post-fill checks. | Mostly regression work; different floorplans need new evidence. |
 | 5 | IHP geometry and fill | **Reference gate closed.** [Acceptance](validation/ihp-fill-closure-2026-10-11.json). | Preserve the declared counter/UART/APB geometry, connectivity and extracted-performance coverage. | Mostly regression work; device and full-chip coverage remain separate. |
 | 6 | SKY130 public physical checks | **Approved public-baseline gate closed.** [Acceptance](validation/sky130-public-baseline-2026-10-16.json). | Maintain local DRC, antenna, LVS, density/fill and generic export for the versioned baseline and its exclusions. Full foundry signoff remains excluded. | Stable baseline with regression work. The user-approved narrower boundary applies only to this chunk. |
-| 7 | Device families | **In progress.** Current source candidate: 288 partial entries, five unavailable bindings and nine utilities. Accepted predecessor inventory remains 287 partial / six unavailable / nine utilities; default-candidate installed acceptance is pending. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
+| 7 | Device families | **In progress.** Current source candidate: 289 partial entries, four unavailable bindings and nine utilities. Accepted predecessor inventory remains 287 partial / six unavailable / nine utilities; default-candidate installed acceptance is pending. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
 | 8 | Extraction and corners | **Pending formal qualification.** Coupon, extraction and corner tooling already exists. | Cover required routing layers/vias/device parasitics, coupling/fill and independent RC corners against source-backed references; execute the complete required condition pairs. | More structured once device and corner inputs are settled. **Medium-to-high uncertainty:** GF180/IHP additional independent RC data is an explicit gap. |
 | 9 | Analog blocks | **Pending formal qualification.** Amplifier, reference and other example workflows provide a starting point. | Freeze per-process numerical specifications, then qualify mirror, differential pair, amplifier, reference, oscillator, noise/statistics and relevant IHP bipolar/RF cases before and after extraction. | Substantial design-and-verification iteration. **Medium-to-high uncertainty** from corner failures, startup, stability and parasitics. |
 | 10 | Larger digital and mixed-signal designs | **Pending formal qualification.** Counter/UART/APB and teaching mixed-signal flows provide groundwork. | Lock a larger controller and per-target mixed-signal demonstrator; cover functionality, clock/reset crossings, actual interfaces, all-mode timing and final physical checks. | Existing flows should help. Planning can overlap chunk 9 once device/RC inputs are usable. **Medium-to-high uncertainty** at scale and at analog/digital boundaries. |
@@ -32,6 +32,42 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**October 30 combined candidate integrated locally; publication pending.**
+The reviewed two-terminal SKY130 pw2dn binding, corrected Linux simulator,
+versioned contracts and required Windows/Linux installed checks are now combined
+on `experimental`. [Fresh source feedback](validation/chunk7-combined-pw2dn-feedback-2026-10-30.json)
+passes all nine stages and 978 tests per host; complete raw inventories and both
+60-case IHP editor outputs are retained. All 6,849 candidate source files are
+verified. The initial five stale test fixtures and the Windows file-lock failure
+remain recorded; their corrections preserve numerical limits and all prior gates.
+
+The corrected simulator passes the [finite ESD and resistor source checks](CORRECTED47_ESD_METAL_SOURCE.md).
+Packaging now retains authenticated corresponding sources and notices for its
+actual collected libraries. Release consumers compare every accepted simulator
+file and bundled library with the final archive. A stale parallel-resistor
+desktop selector is fixed. Full frozen/installed acceptance for this exact
+candidate is still required. Source inventory is 289 partial entries, four
+unavailable bindings and nine utilities; accepted predecessor scope and full
+family statuses remain unchanged. Chunk 7 stays **70% (55–80%, low confidence)**.
+
+**October 30 repair published: `52049be725eda34922bc921dfdea6cbf14da0952`.**
+All 24 reviewed repair and evidence files are on `experimental`; all 2,945
+checked source/contract/requirements Git blobs match the tested bytes. The
+[publication record](validation/chunk7-repair-publication-2026-10-30.json)
+binds the exact commit to one fresh
+[desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41081330733)
+and its separate
+[required source-feedback run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41081347853).
+[Hosted source feedback](validation/chunk7-repair-hosted-feedback-2026-10-30.json)
+passes on both hosts and its required aggregate: all eight stages and 874 tests
+per host. Complete archive readback matches all 1,497 source identities and both
+60-case IHP GUI inventories. The tested merge `d1ae506a` has the exact candidate
+and base as its verified parents. Observed feedback time is 237.2 seconds on
+Linux and 428.8 seconds on Windows, excluding setup/queueing. Desktop acceptance
+is still running; candidate and both release-tool checks pass. This status update remains local for the next
+appropriate implementation push. No installed or full-family acceptance is
+inferred. Chunk 7 remains **70% (55–80%, low confidence)**.
 
 **October 29 desktop blockers and repairs.** The
 [completed run readback](validation/chunk7-desktop-followup-2026-10-29.json)

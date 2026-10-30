@@ -28,6 +28,11 @@ CURRENT_CONTRACT_PATH = 'docs/qualification/sky130-mim-contract-v2.json'
 CURRENT_CONTRACT_SHA = '81ab3c10b2b12aa89c0b69cc92787a4ea4144215a6f0875ffca2c18aa39b4454'
 CURRENT_MAP_PATH = 'docs/qualification/sky130-mim-bias-source-map-v2.json'
 CURRENT_MAP_SHA = '188ca9fe7dd57bf823ded56910a0b840f6ab239f6c7f1070703329fe3cb2e6d3'
+PW2DN_PACKAGE = '0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4'
+PW2DN_CONTRACT_PATH = 'docs/qualification/sky130-mim-contract-v3.json'
+PW2DN_CONTRACT_SHA = 'a9edc70a0ea3bfb60355e572c98941450ffa97b7acb25dc67a5cabcfa909a689'
+PW2DN_MAP_PATH = 'docs/qualification/sky130-mim-bias-source-map-v3.json'
+PW2DN_MAP_SHA = '10fa01db785148a6a36e0c31d8a4796b6ae679ec4131c6644df350506d7b3dee'
 
 
 def write(path, value):
@@ -126,6 +131,7 @@ def selected_contracts(binding):
     selected=binding['simulation_package']['manifest_sha256']
     if selected==PREVIOUS_PACKAGE:return CONTRACT_PATH,CONTRACT_SHA,MAP_PATH,MAP_SHA
     if selected==CURRENT_PACKAGE:return CURRENT_CONTRACT_PATH,CURRENT_CONTRACT_SHA,CURRENT_MAP_PATH,CURRENT_MAP_SHA
+    if selected==PW2DN_PACKAGE:return PW2DN_CONTRACT_PATH,PW2DN_CONTRACT_SHA,PW2DN_MAP_PATH,PW2DN_MAP_SHA
     raise ValueError('Installed package is outside the reviewed electrical contract.')
 
 
@@ -149,12 +155,33 @@ def current_derivation(contract,mapping,package_root):
     require(m==old_map,'Current MiM source map differs from history.')
 
 
+def pw2dn_derivation(contract,mapping,package_root):
+    """Prove v3 changes only reviewed v2 package provenance."""
+    require(sha(ROOT/CURRENT_CONTRACT_PATH)==CURRENT_CONTRACT_SHA and sha(ROOT/CURRENT_MAP_PATH)==CURRENT_MAP_SHA,'Prior MiM v2 contracts changed.')
+    prior,prior_map=load(ROOT/CURRENT_CONTRACT_PATH),load(ROOT/CURRENT_MAP_PATH)
+    package=checked_path(package_root/'package.json');manifest=load(package)
+    require(sha(package)==PW2DN_PACKAGE and manifest['revision']=='47dbd4fe43bfa7e4','Pw2dn MiM package identity differs.')
+    require(contract['id']=='sky130-mim-contract-v3' and contract['package']=={'revision':'47dbd4fe43bfa7e4','manifest_sha256':PW2DN_PACKAGE},'Pw2dn contract package differs.')
+    require(contract['derivation']=={'predecessor_contract':CURRENT_CONTRACT_PATH,'predecessor_contract_sha256':CURRENT_CONTRACT_SHA,'change':'Only selected package identity and manifest byte count change; MiM catalog entries and mapped package assets remain byte-identical. Historical source baseline and scientific criteria are unchanged.','new_execution':False,'qualified':False},'Pw2dn contract provenance differs.')
+    expected=copy.deepcopy(prior['sources']['package']);expected.update(sha256=PW2DN_PACKAGE,bytes=package.stat().st_size)
+    require(contract['sources']['package']==expected,'Pw2dn contract package source differs.')
+    c=copy.deepcopy(contract);c['derivation']=prior['derivation'];c['id']=prior['id'];c['package']=prior['package'];c['sources']['package']=prior['sources']['package']
+    require(c==prior,'Pw2dn MiM scientific contract differs from v2.')
+    require(mapping['id']=='sky130-mim-voltage-source-review-20261029-v3' and mapping['immutable_contract']=={'path':PW2DN_CONTRACT_PATH,'sha256':PW2DN_CONTRACT_SHA,'unchanged':True},'Pw2dn source-map contract differs.')
+    require(mapping['derivation']=={'predecessor_map':CURRENT_MAP_PATH,'predecessor_map_sha256':CURRENT_MAP_SHA,'change':'Update only selected contract, exact package metadata, and manifest line coordinates; original source evidence and scientific criteria remain unchanged.','new_execution':False,'qualified':False},'Pw2dn source-map provenance differs.')
+    row=copy.deepcopy(prior_map['sources']['package']);row.update(sha256=PW2DN_PACKAGE,bytes=package.stat().st_size,lines=[[3764,3808],[3968,4013]])
+    require(mapping['sources']['package']==row,'Pw2dn source-map package differs.')
+    m=copy.deepcopy(mapping);m['derivation']=prior_map['derivation'];m['id']=prior_map['id'];m['immutable_contract']=prior_map['immutable_contract'];m['sources']['package']=prior_map['sources']['package']
+    require(m==prior_map,'Pw2dn MiM source map differs from v2.')
+
+
 def contracts(binding):
     contract_path,contract_sha,map_path,map_sha=selected_contracts(binding)
     require(sha(ROOT/contract_path) == contract_sha and sha(ROOT/map_path) == map_sha, 'Reviewed MiM contracts changed.')
     contract, mapping = load(ROOT/contract_path), load(ROOT/map_path)
     resources = Path(binding['resource_root']); package_root = Path(binding['simulation_package']['path'])
     if contract_path==CURRENT_CONTRACT_PATH:current_derivation(contract,mapping,package_root)
+    if contract_path==PW2DN_CONTRACT_PATH:pw2dn_derivation(contract,mapping,package_root)
     prefix = 'icstudio/assets/pdks/sky130A/'
     checked = {}
     for name, item in mapping['sources'].items():
@@ -274,6 +301,8 @@ def source_files(binding=None):
     paths += [ROOT/'scripts'/name for name in scripts]
     if binding is not None and selected_contracts(binding)[0] == CURRENT_CONTRACT_PATH:
         paths += [ROOT/CONTRACT_PATH,ROOT/MAP_PATH,ROOT/CURRENT_CONTRACT_PATH,ROOT/CURRENT_MAP_PATH]
+    if binding is not None and selected_contracts(binding)[0] == PW2DN_CONTRACT_PATH:
+        paths += [ROOT/CONTRACT_PATH,ROOT/MAP_PATH,ROOT/CURRENT_CONTRACT_PATH,ROOT/CURRENT_MAP_PATH,ROOT/PW2DN_CONTRACT_PATH,ROOT/PW2DN_MAP_PATH]
     return {p.relative_to(ROOT).as_posix(): sha(p) for p in sorted(paths)}
 
 

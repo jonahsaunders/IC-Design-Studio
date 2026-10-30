@@ -549,7 +549,7 @@ def audit(root,reviewed_source=None):
     source=load(root/'source-files.json');require(sha(root/'source-files.json')==report['source_files_sha256'] and inventory(root/'source')==source,'Source closure differs.')
     required={review['path'],'scripts/qualify_sky130_metal_resistors_linked.py','scripts/audit_sky130_metal_resistors_linked.py',
               'tests/test_sky130_metal_resistors_linked.py','tests/test_sky130_metal_resistors_linked_audit.py','examples/sky130-qualification-lock.json',*spec['sources']}
-    if review['sha256']==CURRENT_CONTRACT['sha256']:required.add('scripts/sky130_contract_versions.py')
+    if review['sha256']!=versions.VERSIONS['metal']['v1']['sha256']:required.add('scripts/sky130_contract_versions.py')
     require(required<=set(source),'Required source snapshot member missing.')
     for name,row in spec['sources'].items():require(source[name]==row['sha256'],'Primary source binding differs.')
     require(source[review['path']]==review['sha256'],'Captured source contract differs.')

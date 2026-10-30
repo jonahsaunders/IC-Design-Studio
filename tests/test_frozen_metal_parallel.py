@@ -26,12 +26,36 @@ class FrozenParallelTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Unreviewed parallel acceptance package'):
                 producer.acceptance_contract(wrong)
 
+    def test_retained_package_contract_pairs_match_independent_contract_documents(self):
+        from icstudio import metal_resistor_parallel_desktop_probe as producer
+        from scripts import sky130_contract_versions as versions
+        for package,contract in ((producer.CURRENT_PACKAGE_SHA,producer.CONTRACT_SHA),
+                                 (producer.PW2DN_PACKAGE_SHA,producer.PW2DN_CONTRACT_SHA)):
+            selected=versions.package_version('installed_parallel',package)
+            self.assertEqual(selected['sha256'],contract)
+            self.assertEqual(check.sha(check.ROOT/selected['path']),contract)
+            self.assertEqual(producer.acceptance_contract(package),contract)
+            self.assertEqual(producer.acceptance_contract(package,contract),contract)
+
+    def test_crossed_unknown_and_original_historical_pairs_reject(self):
+        from icstudio import metal_resistor_parallel_desktop_probe as producer
+        for package,wrong in ((producer.CURRENT_PACKAGE_SHA,producer.PW2DN_CONTRACT_SHA),
+                              (producer.PW2DN_PACKAGE_SHA,producer.CONTRACT_SHA),
+                              (producer.PW2DN_PACKAGE_SHA,producer.HISTORICAL_CONTRACT_SHA),
+                              (producer.PW2DN_PACKAGE_SHA,'0'*64)):
+            with self.assertRaisesRegex(ValueError,'package/contract pair differs'):
+                producer.acceptance_contract(package,wrong)
+        for package in ('0'*64,'840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe'):
+            with self.assertRaisesRegex(ValueError,'Unreviewed parallel acceptance package'):
+                producer.acceptance_contract(package)
+
     def test_reader_rejects_stale_probe_contract_before_lifecycle_audit(self):
         import json
         from icstudio import metal_resistor_parallel_desktop_probe as producer
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);(root/'files.json').write_text(json.dumps({}))
-            report=dict(acceptance_contract_sha256=producer.acceptance_contract(producer.CURRENT_PACKAGE_SHA),
+            package=check.ROOT/'icstudio/assets/pdks/sky130A/package.json'
+            report=dict(acceptance_contract_sha256=producer.acceptance_contract(check.sha(package)),
                 input_guards=dict(bundled_package_unchanged=True,registry_assets_unchanged=True,
                     executable_unchanged=True,physical_package_unchanged=True),
                 files_sha256=check.sha(root/'files.json'))

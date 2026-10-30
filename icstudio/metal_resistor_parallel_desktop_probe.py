@@ -25,12 +25,18 @@ CASES=tuple((model,count,angle) for model in MODELS for count in COUNTS for angl
 HISTORICAL_CONTRACT_SHA='f2cf30ea793449d541305b2c10a57c8bbdf5cfadf2ab7b24bb9e99848e309ce9'
 CURRENT_PACKAGE_SHA='125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'
 CONTRACT_SHA='14b37da535c79fd2a3f8571772589590e8768b520571edd027b245278481f5d0'
+PW2DN_PACKAGE_SHA='0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4'
+PW2DN_CONTRACT_SHA='67d26362a72771d32418ce21abfcecdf40c5146913b960abc8a64a1d77a89a17'
 
 
-def acceptance_contract(package_sha256):
-    """Bind this current probe to the exact reviewed package/contract pair."""
-    require(package_sha256==CURRENT_PACKAGE_SHA,'Unreviewed parallel acceptance package.')
-    return CONTRACT_SHA
+def acceptance_contract(package_sha256, contract_sha256=None):
+    """Bind the frozen probe to one exact retained package/contract pair."""
+    pairs={CURRENT_PACKAGE_SHA:CONTRACT_SHA,PW2DN_PACKAGE_SHA:PW2DN_CONTRACT_SHA}
+    require(package_sha256 in pairs,'Unreviewed parallel acceptance package.')
+    selected=pairs[package_sha256]
+    require(contract_sha256 is None or contract_sha256==selected,
+            'Parallel acceptance package/contract pair differs.')
+    return selected
 
 
 def edit_count(app,studio,count):
