@@ -1,14 +1,17 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 30, 2026. Chunk 7 is approximately **70% complete**, with low
+Updated October 31, 2026. Chunk 7 is approximately **70% complete**, with low
 confidence (55–80%); this is an engineering estimate, not verified acceptance.
 The increase from 67% reflects a working optional binding for one previously
 unavailable ESD symbol, selected whole-network capacitor hierarchy electrical
 closure on both hosts, and actual Linux installed parallel-array acceptance.
 Full family statuses and completion gates remain unchanged; this estimate is
-not calculated from passing test counts. The combined candidate `f633d2c` passes fresh Windows/Linux source checks
-and is published on `experimental`. Full packaged acceptance is running;
-source results do not substitute for that gate.
+not calculated from passing test counts. The published `461a9b2` source candidate
+passes hosted feedback on both hosts. The preceding `f633d2c` desktop candidate
+packages successfully on both hosts but fails both installed bundled-default ESD
+checks; the shared independent-reader header mismatch now has a reviewed,
+tested source repair awaiting fresh installed acceptance.
+Source results do not substitute for the installed gate.
 
 ## Current tracker
 
@@ -33,6 +36,39 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**October 31 installed failure and source publication.** Commit `461a9b2` is
+published on `experimental`; its [hosted source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41151108281)
+passes on Windows and Linux. The preceding [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030)
+has finished: both packaging jobs pass, and both installed jobs fail with
+`Model selection or ordering` in the bundled-default ESD reader. The current
+application emits five pinned headers, while the independently constructed
+literal reference deliberately emits four. The [reviewed repair](validation/esd-installed-header-repair-2026-10-31.json) binds the
+exact list to both package and execution role; it does not accept either list
+interchangeably or change numerical requirements. Sixteen authentic saved
+Windows/Linux decks reproduce the original reference-only error and pass the
+corrected complete parser. Each host's 2,608 staged-model hashes match the pinned
+package and archived manifests; the full downloaded ZIP digest is explicitly
+unverified because only authenticated selected byte ranges were retained.
+All 304 selected release and regression tests pass on both hosts (12 Windows
+and one Linux environment-dependent skips). The first local wrapper omitted
+CI's test import path; both failures are retained and unchanged sources pass
+with that existing import configuration. Fresh installed acceptance remains
+required; the original failed jobs remain failed. Temporary-build cleanup is being checked against
+retained archives and active runtime/source dependencies before deletion;
+no reclaimed-space result is claimed yet.
+
+**October 31 Windows capacitor source route closed for its finite scope.** The
+[reviewed Windows CMIM milestone](IHP_CMIM_WINDOWS_MANAGED_SOURCE.md) now covers
+the actual source application's queued managed-Linux backend: one preserved
+pilot plus five new jobs, both terminal drives, `cap_typ` and 27 °C. Both healthy
+responses pass analytic current and conservation checks; all four deliberate
+simulation-fault fixtures are detected. Twelve rehashed copied-evidence controls
+are rejected. Astra independently replayed the results and verified the compact
+322-object archive. Native solver command/environment details are reconstructed
+from pinned source and returned inputs, rather than directly captured receipts.
+This closes the selected Windows source-route gap; installed acceptance, other
+conditions, extraction and the full family's operating requirements remain open.
+
 **October 30 IHP capacitor requirements and existing-rule boundary.** The
 [CMIM source checklist](IHP_CMIM_REQUIREMENTS.md) now ties the existing family
 requirements to versioned public process tables, measurement conditions and
@@ -48,7 +84,7 @@ because it misread quoted category paths; the corrected independent readback
 has a separate acceptance record. The bare polygons retain unrelated violations
 and do not establish legal complete capacitors or installed acceptance.
 
-**October 30 local product follow-through, not yet published.** The analysis
+**October 30 product follow-through, published October 31 as `461a9b2`.** The analysis
 panel now has an opt-in IHP capacitor-only corner action. It preserves the linked
 package, pre-existing global corners and other families' nominal sections;
 the explicit choices survive undo/redo and reopening a saved project. Astra
@@ -68,10 +104,9 @@ is now divided into two required stages, with exact expanded-test coverage and
 failure/timeout controls. A subsequent restricted-launcher run retained two
 junction-creation errors. Actual ordinary-user preflight and the final unchanged
 source replay pass with all protections required and no administrator access.
-Both earlier failures are retained separately from the successful result. The published
-`f633d2c` Linux packaging job passes; Windows has passed core and pre-package
-workflow checks and is building its installer. Neither is a completed installed
-gate for this local change.
+Both earlier failures are retained separately from the successful result. Both
+`f633d2c` packaging jobs now pass; their installed bundled-default ESD checks
+fail as recorded above. Neither establishes installed acceptance for `461a9b2`.
 The first local managed-runtime setup used the changing development checkout;
 it is retained as nonaccepting diagnostic evidence. Its replacement passes
 genuine all-platform runtime setup from the immutable published-source snapshot

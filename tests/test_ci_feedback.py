@@ -174,6 +174,7 @@ class FeedbackTests(unittest.TestCase):
         self.assertEqual(dict(stages())['runtime-release-contracts'][3:-1],
                          ['tests.' + name for name in RUNTIME_RELEASE_MODULES])
         self.assertIn('test_sky130_esd_nvt_audit', UNIT_MODULES)
+        self.assertIn('test_esd_installed_header_regression', UNIT_MODULES)
 
     def test_desktop_payload_gate_runs_for_both_platforms_and_retains_failure_receipts(self):
         text = workflow('build-desktop')
@@ -183,7 +184,8 @@ class FeedbackTests(unittest.TestCase):
             self.assertIn('--source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence ' + output, text)
         for module in ('test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
                        'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
-                       'test_release_qualification', 'test_sky130_esd_nvt_audit'):
+                       'test_release_qualification', 'test_sky130_esd_nvt_audit',
+                       'test_esd_installed_header_regression'):
             self.assertIn('tests.' + module, text)
         for path in ('**/report.json', '**/files.json', '**/ldd.txt', 'source-cache/apt*.log',
                      'source-cache/invocations.json', 'source-cache/fetch-report.json',

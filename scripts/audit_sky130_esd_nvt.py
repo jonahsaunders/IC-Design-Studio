@@ -118,8 +118,9 @@ def analysis_directive(tokens, drive, role):
         require(tokens == ['.ac','dec','5',*limits], 'AC analysis')
 
 
-def model_header_paths(package_sha256):
-    """Exact selected package determines headers, never the submitted deck."""
+def model_header_paths(package_sha256, role):
+    """Exact package and execution role determine headers, never the deck."""
+    require(role in ('application', 'independent', *FAULTS), 'Unreviewed ESD deck role')
     base = ('libs.tech/ngspice/sky130.lib.spice',
             'libs.tech/ngspice/icstudio-parallel-varactors.spice',
             'libs.tech/ngspice/icstudio-rf-ps2nw/library.spice',
@@ -131,7 +132,11 @@ def model_header_paths(package_sha256):
             base + ('libs.tech/ngspice/icstudio-rf-pw2dn/library.spice',),
     }
     require(package_sha256 in profiles, 'Unreviewed ESD package/header profile')
-    return profiles[package_sha256]
+    # The literal reference deliberately selects only the ESD dependencies.
+    # The current application also emits its package's pw2dn RF header. Keep
+    # both contracts exact: permitting either list would hide missing headers
+    # in application/fault decks or an unexpected dependency in the reference.
+    return base if role == 'independent' else profiles[package_sha256]
 
 
 def deck(folder, package, files, corner, temp, drive, role):
@@ -139,7 +144,7 @@ def deck(folder, package, files, corner, temp, drive, role):
     path = folder / ('reference.cir' if role == 'independent' else 'input.cir')
     lines = [line.lower().split() for line in path.read_text().splitlines() if line.strip() and not line.lstrip().startswith('*')]
     section = 'tt' if corner == 'nominal' else corner
-    paths = model_header_paths(sha(package/'package.json'))
+    paths = model_header_paths(sha(package/'package.json'), role)
     expected_headers = [ ['.lib', inverse[paths[0]], section] ]
     for rel in paths[1:]:
         expected_headers.append(['.include', inverse[rel]])

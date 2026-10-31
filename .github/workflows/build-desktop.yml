@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_esd_installed_header_regression tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml

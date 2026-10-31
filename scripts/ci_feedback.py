@@ -44,7 +44,7 @@ UNIT_MODULES = (
     'test_installed_metal_parallel_inputs', 'test_installed_metal_parallel',
     'test_installed_metal_parallel_audit', 'test_installed_metal_parallel_aggregate',
     'test_catalog_numeric_choices',
-    'test_sky130_esd_nvt', 'test_sky130_esd_nvt_audit',
+    'test_sky130_esd_nvt', 'test_sky130_esd_nvt_audit', 'test_esd_installed_header_regression',
     'test_sky130_rf_default_acceptance', 'test_project_hub_completion',
     'test_sky130_rf_default', 'test_sky130_rf_corner_sources',
     'test_sky130_mim_hierarchy_electrical', 'test_sky130_mim_hierarchy_electrical_audit',
@@ -99,6 +99,9 @@ def check_syntax(root=ROOT):
 def source_identity(root=ROOT):
     files = python_sources(root)
     fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
+    if fixture.is_file():
+        files.append(fixture)
+    fixture = root / 'tests/fixtures/esd-installed-headers-v1.json'
     if fixture.is_file():
         files.append(fixture)
     for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy',

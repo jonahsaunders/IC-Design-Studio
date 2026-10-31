@@ -106,12 +106,17 @@ class IndependentESDIdentityTests(unittest.TestCase):
 
 class CorrectedLinux47ProfileTests(unittest.TestCase):
     def test_exact_package_selects_complete_header_profile(self):
-        old=a.model_header_paths('5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a')
+        old=a.model_header_paths('5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a','application')
         self.assertEqual(len(old),4)
-        self.assertEqual(a.model_header_paths('125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'),old)
-        self.assertEqual(a.model_header_paths('0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4'),
-                         old+('libs.tech/ngspice/icstudio-rf-pw2dn/library.spice',))
-        with self.assertRaisesRegex(ValueError,'package/header'):a.model_header_paths('0'*64)
+        for role in ('application','independent',*a.FAULTS):
+            with self.subTest(role=role):
+                for package in (a.PACKAGE,'125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b'):
+                    self.assertEqual(a.model_header_paths(package,role),old)
+                self.assertEqual(a.model_header_paths('0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4',role),
+                                 old if role=='independent' else old+('libs.tech/ngspice/icstudio-rf-pw2dn/library.spice',))
+                with self.assertRaisesRegex(ValueError,'package/header'):a.model_header_paths('0'*64,role)
+        for role in ('reference','unknown','',None):
+            with self.assertRaisesRegex(ValueError,'deck role'):a.model_header_paths(a.PACKAGE,role)
 
     def test_exact_corrected_binary_has_distinct_closed_profile(self):
         self.assertEqual(a.ENGINES['67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25'],'47-linux-corrected')
