@@ -1,5 +1,23 @@
 # Chunk 7: close one device family at a time
 
+**October 30 current source checkpoint:** `f633d2c` adds the reviewed
+two-terminal SKY130 pw2dn binding and corrected Linux simulator. The current
+inventory is 289 partial entries, four unavailable bindings and nine utilities.
+The earlier accepted inventory remains 287 partial / six unavailable / nine
+utilities; full frozen acceptance of the current candidate is running.
+The [current tracker](QUALIFICATION_PROGRESS.md) and
+[combined source evidence](validation/chunk7-combined-pw2dn-feedback-2026-10-30.json)
+separate these scopes. None of these binding changes qualifies a full family.
+
+The October 30 [IHP CMIM source checklist](IHP_CMIM_REQUIREMENTS.md) now pins
+the available process-control and physical-rule definitions and identifies the
+remaining applicability gaps. The [existing MIM.g checker boundary](IHP_MIM_G_BOUNDARY.md)
+is independently verified at below/equal/above-limit mask areas, with its failed
+producer and separate recovered readback preserved. The new
+[capacitor-only model controls](IHP_CAPACITOR_MODEL_SECTIONS.md) pass combined
+source feedback on both hosts. These are finite source milestones; complete
+device classes, operating envelopes and exact installed behavior remain open.
+
 The October 28 [IHP resistor editor follow-through](IHP_RESISTOR_EDITOR.md) adds
 finite linked Metal1/Metal2 access for three resistor models, reviewed source
 LVS projection and an independent installed gate. Its original 60-case source
@@ -34,15 +52,16 @@ The [linked MiM hierarchy electrical record](validation/sky130-mim-hierarchy-ele
 The original planning baseline `43a04bb` and the
 [sampled IHP high-voltage MOS acceptance](IHP_HV_MOS_LAYOUTS.md) retain their
 historical scope. New results are linked explicitly below. The authoritative
-[matrix](qualification/pdk-matrix.json) still contains 287 partial device
-entries, six unavailable real-device bindings and nine utilities. Its recorded
-source baseline is `43a04bb`. Historical records retain their own sources and
+[matrix](qualification/pdk-matrix.json) at that historical checkpoint contained
+287 partial device entries, six unavailable real-device bindings and nine
+utilities, with source baseline `43a04bb`. The current source inventory is
+listed at the top of this document. Historical records retain their own sources and
 package revisions.
 
 A separate [optional ESD package](SKY130_ESD_NVT_BINDING.md) now provides the
 explicit upstream-corrected binding and passes selected electrical integration
-on both hosts. The default six unavailable entries remain unchanged until a
-reviewed package promotion and fresh affected installed acceptance.
+on both hosts. That record retains its original six-unavailable default scope;
+the current source promotion and pending installed acceptance are recorded above.
 
 The existing chunk gate is unchanged: every supported device must pass its
 terminal, parameter, model, operating-envelope, layout and extracted-connectivity
@@ -148,8 +167,11 @@ links to earlier batches do not transfer a pass to today's source revision.
 | Source/model definition or discrepancy | Unspecified complete temperature/SOA definitions; missing models; GF180 ff currents disagree with literal published limits even for independent direct calls. | Pin and reconcile public sources, versions, units and extraction equations. Keep an unresolved requirement if evidence is insufficient. Do not invent a limit, round a failure into a pass, or reclassify a model discrepancy as an app fix. |
 | Acceptance execution | Required installed workflow not yet run for the exact candidate; upstream tool-view enumeration has no semantic execution evidence. | Freeze inputs and run the defined acceptance once; retain complete success/failure evidence. An old installer, source-desktop pass or queued CI job does not satisfy it. |
 
-The six unavailable real-device bindings are exact catalog entries, not six
-arbitrary test cases:
+The earlier accepted checkpoint has the following six unavailable real-device
+bindings. They are exact catalog entries, not six arbitrary test cases. Current
+source candidates resolve the first two electrical bindings; their complete
+operating envelopes and exact installed workflows remain separately required.
+The other four remain unavailable in the current source inventory.
 
 | Target | Required catalog entry | Input that must be resolved |
 | --- | --- | --- |

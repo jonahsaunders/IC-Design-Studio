@@ -20,6 +20,7 @@ UNIT_MODULES = (
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_sky130_li_linked',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
     'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
+    'test_ihp_capacitor_corners',
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
@@ -50,6 +51,13 @@ UNIT_MODULES = (
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
 )
+
+
+# Keep the complete selection above auditable while bounding each subprocess.
+# The former single unit stage exceeded 300 seconds on ordinary Windows.
+_DEVICE_STAGE_START = UNIT_MODULES.index('test_sky130_metal_editor')
+UNIT_STAGE_MODULES = UNIT_MODULES[:_DEVICE_STAGE_START]
+DEVICE_STAGE_MODULES = UNIT_MODULES[_DEVICE_STAGE_START:]
 
 
 # Package reconstruction performs many verified file copies on Windows. Keep
@@ -116,25 +124,28 @@ def source_identity(root=ROOT):
         files += [p for p in (folder / 'sources').glob('*') if p.is_file()]
     archive = root / 'packaging/ngspice/ngspice-linux47-corrected-v1.zip'
     if archive.is_file(): files.append(archive)
-    package = root / 'icstudio/assets/pdks/sky130A/package.json'
-    if package.is_file():
+    for package_name, label in (('sky130A', 'SKY130'), ('ihp-sg13g2', 'IHP')):
+        package = root / 'icstudio/assets/pdks' / package_name / 'package.json'
+        if not package.is_file():
+            continue
+        files.append(package)
         for current in (package, package.parent):
             if current.is_symlink() or (hasattr(current, 'is_junction') and current.is_junction()):
-                raise ValueError('Linked selected SKY130 package path: ' + str(current))
+                raise ValueError('Linked selected '+label+' package path: ' + str(current))
         for name in json.loads(package.read_bytes())['files']:
             path = PurePosixPath(name)
             if (path.is_absolute() or any(part in ('', '.', '..') for part in name.split('/'))
                     or '\\' in name or ':' in name):
-                raise ValueError('Unsafe selected SKY130 package member: ' + name)
+                raise ValueError('Unsafe selected '+label+' package member: ' + name)
             asset = package.parent.joinpath(*path.parts)
             current = package.parent
             for part in path.parts:
                 current = current / part
                 if current.is_symlink() or (hasattr(current, 'is_junction') and current.is_junction()):
-                    raise ValueError('Linked selected SKY130 package member: ' + name)
+                    raise ValueError('Linked selected '+label+' package member: ' + name)
             if not asset.resolve().is_relative_to(package.parent.resolve()):
-                raise ValueError('Escaped selected SKY130 package member: ' + name)
-            if not asset.is_file(): raise ValueError('Missing selected SKY130 package member: ' + name)
+                raise ValueError('Escaped selected '+label+' package member: ' + name)
+            if not asset.is_file(): raise ValueError('Missing selected '+label+' package member: ' + name)
             files.append(asset)
     files += list((root / '.github/workflows').glob('*.yml'))
     files += list(root.glob('requirements*.txt'))
@@ -172,7 +183,9 @@ def check_ihp_gui_output(folder):
 def stages(output=ROOT / 'build/ci-feedback'):
     return [
         ('unit-contracts', [sys.executable, '-m', 'unittest',
-                            *('tests.' + name for name in UNIT_MODULES), '-v']),
+                            *('tests.' + name for name in UNIT_STAGE_MODULES), '-v']),
+        ('device-contracts', [sys.executable, '-m', 'unittest',
+                              *('tests.' + name for name in DEVICE_STAGE_MODULES), '-v']),
         ('package-contracts', [sys.executable, '-m', 'unittest',
                                *('tests.' + name for name in PACKAGE_MODULES), '-v']),
         ('runtime-release-contracts', [sys.executable, '-m', 'unittest',
@@ -187,6 +200,8 @@ def stages(output=ROOT / 'build/ci-feedback'):
         ('ihp-resistor-editor-smoke', [sys.executable, 'tests/gui_ihp_resistor_editor.py',
                                        '--out', str(Path(output)/'ihp-resistor-editor'),
                                        '--execution-id', uuid.uuid4().hex]),
+        ('ihp-capacitor-corner-smoke', [sys.executable, 'tests/gui_ihp_capacitor_corners.py',
+                                      str(Path(output)/'ihp-capacitor-corners')]),
     ]
 
 

@@ -19,7 +19,17 @@ class PDKScanThread(QThread):
 
 class ProjectMixin:
     def make_analysis_panel(self):
-        page=super().make_analysis_panel();self.corner_combo=QComboBox();self.corner_combo.setAccessibleName('PDK model corner');page.widget().layout().insertWidget(1,QLabel('PDK model corner'));page.widget().layout().insertWidget(2,self.corner_combo);self.corner_combo.activated.connect(self.select_corner);return page
+        page=super().make_analysis_panel();self.corner_combo=QComboBox();self.corner_combo.setAccessibleName('PDK model corner');page.widget().layout().insertWidget(1,QLabel('PDK model corner'));page.widget().layout().insertWidget(2,self.corner_combo);self.corner_combo.activated.connect(self.select_corner)
+        self.ihp_cap_corner_button=QPushButton('Enable IHP capacitor-only corners');self.ihp_cap_corner_button.setToolTip('Adds project-local capacitor selections; other model libraries use nominal sections.');self.ihp_cap_corner_button.clicked.connect(self.enable_ihp_capacitor_corners);page.widget().layout().insertWidget(3,self.ihp_cap_corner_button);return page
+    def enable_ihp_capacitor_corners(self):
+        if not self.flush_inspector():return
+        try:
+            from .native_spice import native
+            if native(self.project):raise ValueError('Capacitor-only corners require a catalog-backed schematic.')
+            from .ihp_capacitor_corners import add_profiles
+            technology=add_profiles(self.project['pdk'])
+            if technology!=self.project['pdk']:self.commit(lambda p:p.update(pdk=technology),'Enable project-local capacitor corners')
+        except (OSError,ValueError,KeyError) as exc:self.error(str(exc))
     def select_corner(self,index):
         value=self.corner_combo.itemData(index)
         if value and self.flush_inspector():self.commit(lambda p:p['analysis'].update(corner=value),'Model corner')
@@ -59,8 +69,13 @@ class ProjectMixin:
         if hasattr(self,'corner_combo'):
             self.corner_combo.setEnabled(True)
             sets=[set(i['sections']) for i in self.project['pdk'].get('simulation',{}).get('includes',[]) if i.get('sections')];corners=sorted(set.intersection(*sets)) if sets else ['nominal'];self.corner_combo.blockSignals(True);self.corner_combo.clear()
-            for corner in corners:self.corner_combo.addItem(corner,corner)
+            from .ihp_capacitor_corners import labels
+            local_labels=labels(self.project['pdk'])
+            for corner in corners:self.corner_combo.addItem(local_labels.get(corner,corner),corner)
             self.corner_combo.setCurrentIndex(max(0,self.corner_combo.findData(self.project['analysis'].get('corner','nominal'))));self.corner_combo.blockSignals(False)
+        if hasattr(self,'ihp_cap_corner_button'):
+            from .native_spice import native
+            self.ihp_cap_corner_button.setVisible(not native(self.project) and self.project['pdk'].get('package_lock',{}).get('id')=='ihp-sg13g2')
         if hasattr(self,'analysis_caption'):
             self.analysis_caption.setText('Linked PDK models require ngspice. Select a model corner above.' if self.project['pdk'].get('package_lock') else 'Generic circuit models. Configure external engines in Tools → Engine diagnostics.')
     def tree_clicked(self,item,col=0):

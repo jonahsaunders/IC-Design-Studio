@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "status": "PASS_INDEPENDENT_BARE_MIM_G_SOURCE_READBACK",
+  "producer_status": "FAILED: quoted KLayout RDB category path was compared as an unquoted name",
+  "scope": "Bare mask MIM.g threshold through existing application KLayout checker API; not complete legal-device DRC, installed, PEX, full family, operating envelope or foundry qualification",
+  "source_commit": "f633d2c875669634173936e57285860b62ff08c9",
+  "source_manifest_sha256": "780462606a2ef523f96c261161fbbe680bf1589449cb34367d6b9f1f1a0e2f1f",
+  "public_drc_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "public_drc_lock_sha256": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863",
+  "engine": "KLayout 0.30.5; existing main and maximal public decks",
+  "manufacturing_grid_nm": 5,
+  "cases": [
+    {"area_um2": 5624.625, "mim_g_findings": 0, "all_main_findings": 1, "all_maximal_findings": 1},
+    {"area_um2": 5625.0, "mim_g_findings": 0, "all_main_findings": 1, "all_maximal_findings": 1},
+    {"area_um2": 5625.375, "mim_g_findings": 1, "all_main_findings": 1, "all_maximal_findings": 2}
+  ],
+  "native_deck_executions": 6,
+  "prelaunch_sha256": "5603871d397c825e34d9ea673881e71cdc627b7d7115212b834aa924f36e8f6e",
+  "captured_output_inventory_sha256": "8a407fed744cd48c2a7aa7cec40bb0ed5b3e6cdc5d201e4674bfed02b5bde364",
+  "independent_recovery_reader_sha256": "cd8e7ed9c4ced60efac83aa0654383f5b8d157e6cc4bc05f420624885d5182bd",
+  "complete_copy_negative_controls_rejected": 9,
+  "independent_review_sha256": "d883e49fbd635a1ba47e0c16c34c476b8028325f5d291d9528bba1dea357a880",
+  "archive": "IC-Design-Studio-evidence/ihp-cmim-project-local-source-2026-10-30-v1/mim-g-source-evidence-v2.zip",
+  "archive_sha256": "06fe432399ea0edd3a5e75e776a558f3930fa948f43e43295ce3ff67263e06c7",
+  "archive_manifest_sha256": "cdfc226fc28a66a5aa30f75d2f4f1d8a0453df0fe9961c2eb6c8be119937a7fb",
+  "archive_logical_files": 2072,
+  "archive_objects": 131,
+  "runtime_retention_limit": "115 runtime/dependency file identities are pinned; the wrapper, executable and selected frontend binaries are retained, but not all dependency library bytes are copied."
+}

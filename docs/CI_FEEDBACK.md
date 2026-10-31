@@ -166,7 +166,16 @@ The package-reconstruction checks run in a separate required
 checks and the current pw2dn predecessor and reconstruction checks. A separate
 required `runtime-release-contracts` stage adds the pinned Linux runtime and
 release-receipt tests; the eight preceding stages remain required. Each of the
-nine stages retains the 300-second deadline and failure propagation. The source
+nine original stages retains the 300-second deadline and failure propagation. The source
 identity also covers the selected SKY130 package assets, versioned contracts and
 the retained Linux runtime archive. These checks do not replace installed
 acceptance or the release gates.
+
+The IHP capacitor-only corner action adds a required GUI stage and focused
+save/reopen, mixed-device mapping and source-lock checks. The source identity
+also includes the complete declared IHP package. A subsequent local Windows
+run exceeded the existing five-minute unit-stage limit before finishing. The
+same complete unit selection is now divided into required `unit-contracts` and
+`device-contracts` stages. A control expands both selections and verifies every
+original test appears exactly once; either stage's failure or timeout still
+fails the lane. All eleven stages retain the 300-second per-process limit.

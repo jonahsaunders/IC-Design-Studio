@@ -1,5 +1,13 @@
 # PDK qualification in twelve chunks
 
+The October 30 [IHP capacitor requirements](IHP_CMIM_REQUIREMENTS.md) separate
+the reviewed public measurements and rule definitions from unresolved operating
+and model-applicability requirements. Its [MIM.g boundary](IHP_MIM_G_BOUNDARY.md)
+and [capacitor-only source desktop controls](IHP_CAPACITOR_MODEL_SECTIONS.md)
+have finite retained evidence. The [current tracker](QUALIFICATION_PROGRESS.md)
+records the remaining full-family and installed gates; these additions do not
+promote chunk 7 to complete.
+
 The October 26 [imported resistor hierarchy milestone](SKY130_METAL_RESISTOR_HIERARCHY.md)
 closes selected repeated-cell connectivity and stream preservation for LI/M1–M4.
 All ten clean layouts, twenty native faults and twenty-five exchange controls

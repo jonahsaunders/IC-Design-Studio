@@ -6,9 +6,9 @@ The increase from 67% reflects a working optional binding for one previously
 unavailable ESD symbol, selected whole-network capacitor hierarchy electrical
 closure on both hosts, and actual Linux installed parallel-array acceptance.
 Full family statuses and completion gates remain unchanged; this estimate is
-not calculated from passing test counts. Both desktop package handoffs and the
-previous candidate's Linux installed gate pass. Its Windows IHP gate exceeded
-the parent deadline; the reviewed repair still needs fresh installed acceptance.
+not calculated from passing test counts. The combined candidate `f633d2c` passes fresh Windows/Linux source checks
+and is published on `experimental`. Full packaged acceptance is running;
+source results do not substitute for that gate.
 
 ## Current tracker
 
@@ -33,7 +33,102 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
-**October 30 combined candidate integrated locally; publication pending.**
+**October 30 IHP capacitor requirements and existing-rule boundary.** The
+[CMIM source checklist](IHP_CMIM_REQUIREMENTS.md) now ties the existing family
+requirements to versioned public process tables, measurement conditions and
+physical rules, with the original Apache license and attribution retained.
+It distinguishes process-control measurements from operating ratings and
+records the bias-independent model's missing voltage-coefficient behavior as
+an applicability discrepancy against target-only source data. The
+[MIM.g source boundary](IHP_MIM_G_BOUNDARY.md) exercises the existing application
+KLayout checker at 5,624.625, 5,625.000 and 5,625.375 µm² and independently
+confirms maximum-area findings of 0, 0 and 1. Six native deck runs and nine
+corrupted-evidence controls are retained. The original producer remains failed
+because it misread quoted category paths; the corrected independent readback
+has a separate acceptance record. The bare polygons retain unrelated violations
+and do not establish legal complete capacitors or installed acceptance.
+
+**October 30 local product follow-through, not yet published.** The analysis
+panel now has an opt-in IHP capacitor-only corner action. It preserves the linked
+package, pre-existing global corners and other families' nominal sections;
+the explicit choices survive undo/redo and reopening a saved project. Astra
+reviewed the isolated candidate and both hosts' actual GUI and staged mixed-device
+decks. The integrated source-feedback lane now requires its focused tests and
+GUI check and hashes the complete selected IHP package. Final combined
+[source feedback](validation/ihp-capacitor-ui-feedback-2026-10-30.json) passes all
+eleven required stages on both hosts: 985 selected tests each (15 Linux and 37
+Windows environment-dependent skips), the complete 60-case IHP
+resistor GUI lifecycle and all three saved/staged capacitor choices. Observed
+source times are 236.3 seconds on native Linux and 692.0 seconds on Windows;
+setup and hosted queueing are excluded. The independently retained archives bind
+all 2,205 selected source identities to the 6,860-file pre-publication snapshot.
+The first Windows run exceeded the 300-second unit-stage deadline and its full
+log also contains directory-junction fixture failures. The complete selection
+is now divided into two required stages, with exact expanded-test coverage and
+failure/timeout controls. A subsequent restricted-launcher run retained two
+junction-creation errors. Actual ordinary-user preflight and the final unchanged
+source replay pass with all protections required and no administrator access.
+Both earlier failures are retained separately from the successful result. The published
+`f633d2c` Linux packaging job passes; Windows has passed core and pre-package
+workflow checks and is building its installer. Neither is a completed installed
+gate for this local change.
+The first local managed-runtime setup used the changing development checkout;
+it is retained as nonaccepting diagnostic evidence. Its replacement passes
+genuine all-platform runtime setup from the immutable published-source snapshot
+with all 6,850 source files and the backend identity unchanged before and after.
+The actual Windows IHP simulation jobs follow this authentic readiness result.
+
+**October 30 selected IHP source linkage passes; Windows follow-through pending.** Two isolated source
+experiments address missing physical-to-electrical linkage. The standard LV MOS
+adapter preserves the native extractor's per-channel junction areas, perimeters
+and terminal order in an explicit saved/reloaded native-SPICE view; the original
+catalog's different junction geometry remains a separate diagnostic. The CMIM
+experiment uses retained positive 7 µm layouts, explicit project-local capacitor
+sections and an independently calculated linear admittance reference. Astra
+review caught and corrected input, model-selection and post-save validation gaps
+before execution. Both use the exact published `f633d2c` source snapshot and
+checksummed local IHP compiled models. The selected
+[CMIM source milestone](IHP_CMIM_PROJECT_LOCAL_SOURCE.md) now passes all twelve
+contexts and sixty actual processes: two rotations, three explicit capacitor
+sections and both terminal drives. Astra independently reproduced the full
+readback; all 24 width/disconnect fault instances are detected. The independent
+admittance comparison passes with maximum normalized error 0.00920006.
+Twenty-four rehashed corruptions of the one-context pilot are rejected by the
+same reader. Its [retained record](validation/ihp-cmim-project-local-source-2026-10-30.json)
+binds the verified 442-object archive; this does not qualify a shipped global
+corner selector, Windows execution or parasitic extraction.
+The [LV source experiment](IHP_LV_EXTRACTED_LINKAGE.md) has executed exactly eleven
+native processes at the separately frozen input identity. Independent readback
+passes: the saved physical view and retained native extraction exactly match
+the literal reference's four DC/AC terminal currents for the selected asymmetric
+two-finger NMOS coupon. Width, junction-area and perimeter faults are observable;
+29 rehashed corruptions of copied evidence are rejected, including stale raw
+data after aborted execution. The original catalog's different geometry remains
+a separate diagnostic, with its actual current differences retained. Astra has
+independently reproduced the complete result. Its
+[retained record](validation/ihp-lv-extracted-linkage-source-2026-10-30.json) binds
+the verified 1,245-object archive and an archive-only replay using restored
+sources. Actual Windows application-to-managed-backend execution is next. The initial
+reader correction from the proposed `v-sweep` label to the engine's actual
+`v(v-sweep)` label changes no numerical requirement or native result. These
+experiments do not change default catalog parameters, full-family statuses or
+installed acceptance.
+
+**October 30 combined candidate published: `f633d2c875669634173936e57285860b62ff08c9`.**
+All 108 reviewed files are on `experimental`; all 3,019 checked source,
+contract, runtime and requirements Git blobs match the tested bytes.
+The [publication record](validation/chunk7-combined-publication-2026-10-30.json)
+binds this commit to one fresh [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030)
+and the automatic [required source-feedback run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096477635).
+[Hosted source feedback](validation/chunk7-combined-hosted-feedback-2026-10-30.json)
+passes on both hosts and its required aggregate: all nine stages and 978 tests
+per host. Complete archive readback matches all 2,038 source identities and both
+60-case IHP GUI inventories. The tested merge `8d4e84f4` has the exact candidate
+and base as its independently verified parents. Observed feedback time is 392.0
+seconds on Linux and 631.5 seconds on Windows, excluding setup and queueing.
+Full desktop acceptance remains running. This post-publication status is
+retained locally for the next implementation push so it does not restart acceptance.
+
 The reviewed two-terminal SKY130 pw2dn binding, corrected Linux simulator,
 versioned contracts and required Windows/Linux installed checks are now combined
 on `experimental`. [Fresh source feedback](validation/chunk7-combined-pw2dn-feedback-2026-10-30.json)

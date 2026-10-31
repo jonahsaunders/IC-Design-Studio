@@ -24,12 +24,12 @@ def workflow(name):
 
 class FeedbackTests(unittest.TestCase):
     def test_failed_stage_and_source_mutation_retain_failed_evidence(self):
-        for failure in ('stage', 'package', 'source'):
+        for failure in ('stage', 'package', 'device', 'source'):
             with self.subTest(failure=failure), tempfile.TemporaryDirectory() as folder:
                 output = Path(folder) / 'evidence'
                 identities = [{'scripts/runner.py': 'a' * 64}, {'scripts/runner.py': 'b' * 64}]
                 commands = [] if failure == 'source' else [(
-                    'package-contracts' if failure == 'package' else 'controlled-failure', ['unused'])]
+                    failure+'-contracts' if failure in ('package', 'device') else 'controlled-failure', ['unused'])]
                 with patch.dict(os.environ, {'GITHUB_SHA': 'a' * 40}, clear=True), \
                      patch('sys.argv', ['ci_feedback.py', '--output', str(output)]), \
                      patch.object(ci_feedback.subprocess, 'check_output', return_value='a' * 40), \
@@ -130,11 +130,30 @@ class FeedbackTests(unittest.TestCase):
             self.assertTrue((ROOT / 'tests' / (name.split('.')[0] + '.py')).is_file(), name)
         commands = stages()
         self.assertEqual([name for name, _ in commands],
-                         ['unit-contracts', 'package-contracts', 'runtime-release-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
+                         ['unit-contracts', 'device-contracts', 'package-contracts', 'runtime-release-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
                           'metal-resistor-editor-smoke', 'metal-resistor-parallel-smoke',
-                          'ihp-resistor-editor-smoke'])
+                          'ihp-resistor-editor-smoke', 'ihp-capacitor-corner-smoke'])
+        self.assertIn('test_ihp_capacitor_corners', UNIT_MODULES)
         self.assertIn('test_pdk_qualification_matrix', UNIT_MODULES)
         self.assertIn('test_release_acceptance', UNIT_MODULES)
+
+    def test_unit_split_preserves_each_expanded_test_exactly_once(self):
+        commands=dict(stages())
+        before=['tests.'+name for name in UNIT_MODULES]
+        first=commands['unit-contracts'][3:-1];second=commands['device-contracts'][3:-1]
+        self.assertTrue(first);self.assertTrue(second)
+        self.assertEqual(first+second,before)
+        def ids(suite):
+            for item in suite:
+                if isinstance(item,unittest.TestSuite):yield from ids(item)
+                else:yield item.id()
+        original=list(ids(unittest.defaultTestLoader.loadTestsFromNames(before)))
+        one=list(ids(unittest.defaultTestLoader.loadTestsFromNames(first)))
+        two=list(ids(unittest.defaultTestLoader.loadTestsFromNames(second)))
+        self.assertEqual(one+two,original)
+        self.assertFalse(set(one)&set(two))
+        self.assertEqual(len(original),len(set(original)))
+        self.assertFalse(any('_FailedTest' in name for name in original))
 
     def test_required_package_checks_are_separate_complete_and_nonoverlapping(self):
         self.assertFalse(set(UNIT_MODULES) & set(PACKAGE_MODULES))
@@ -198,6 +217,21 @@ class FeedbackTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, 'Unsafe selected SKY130 package member'):
                         source_identity(root)
 
+    def test_ihp_capacitor_choice_inputs_remain_bound_after_child_exit(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);package=root/'icstudio/assets/pdks/ihp-sg13g2/package.json'
+            asset=package.parent/'libs.tech/ngspice/models/cornerCAP.lib'
+            asset.parent.mkdir(parents=True);asset.write_bytes(b'original source')
+            package.write_text(json.dumps({'files':{'libs.tech/ngspice/models/cornerCAP.lib':'a'*64}}))
+            before=source_identity(root)
+            self.assertIn(package.relative_to(root).as_posix(),before)
+            self.assertIn(asset.relative_to(root).as_posix(),before)
+            asset.write_bytes(b'changed after GUI verification')
+            self.assertNotEqual(source_identity(root),before)
+            asset.unlink()
+            with self.assertRaisesRegex(ValueError,'Missing selected IHP package member'):
+                source_identity(root)
+
     @unittest.skipIf(os.name == 'nt', 'Directory symlink creation is not assumed on Windows.')
     def test_selected_model_link_is_rejected(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -225,6 +259,24 @@ class FeedbackTests(unittest.TestCase):
             report = json.loads((output / 'report.json').read_bytes())
             self.assertEqual(report['status'], 'failed')
             self.assertEqual(report['stages'][0]['returncode'], 124)
+            self.assertFalse(report['release_acceptance'])
+
+    def test_device_timeout_remains_a_required_failure(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output=Path(folder)/'evidence'
+            with patch.dict(os.environ,{'GITHUB_SHA':'a'*40},clear=True), \
+                 patch('sys.argv',['ci_feedback.py','--output',str(output)]), \
+                 patch.object(ci_feedback.subprocess,'check_output',return_value='a'*40), \
+                 patch.object(ci_feedback.subprocess,'run',side_effect=subprocess.TimeoutExpired(['unused'],300)) as run, \
+                 patch.object(ci_feedback,'source_identity',return_value={'scripts/runner.py':'a'*64}), \
+                 patch.object(ci_feedback,'check_syntax',return_value=1), \
+                 patch.object(ci_feedback,'stages',return_value=[('device-contracts',['unused'])]),patch('builtins.print'):
+                with self.assertRaisesRegex(RuntimeError,'device-contracts failed with exit code 124'):
+                    ci_feedback.main()
+            self.assertEqual(run.call_args.kwargs['timeout'],300)
+            report=json.loads((output/'report.json').read_bytes())
+            self.assertEqual(report['status'],'failed')
+            self.assertEqual(report['stages'][0]['returncode'],124)
             self.assertFalse(report['release_acceptance'])
 
     def test_pr_and_merge_queue_use_default_synthetic_merge_checkout(self):
