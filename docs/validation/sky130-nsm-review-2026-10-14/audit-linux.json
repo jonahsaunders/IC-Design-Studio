@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "status": "partial-review-reproduced",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "python": "3.12.3",
+  "klayout": "0.30.5",
+  "tests": 10,
+  "skipped": 0,
+  "tests_sha256": "bde9b262179992edead3128a1fe36c6994a975edbd47f57e19004548e484201a",
+  "data_sha256": "24217feeb0fe116057334fd41fce3696e88441b76a6935a0d82031da87e63ca0",
+  "driver_sha256": "ba87ef0024edf826b571dc879aeb522bae2b0abc9f4c777e1a4a627a16d31cbb",
+  "source_files": {
+    "scripts/sky130_nsm_reconciliation.py": "cb4f837576497e8bc7578c61f328900b1bda8f49491eed60fd72631bf79834b2",
+    "tests/test_sky130_nsm_reconciliation.py": "45fbd65d612a11327b0792e7814c539814cd41f7bc654192cb185bcd44e824ea"
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "counts": {
+        "unreviewed": 1123,
+        "executed-reviewed": 356,
+        "absent-operand": 77
+      },
+      "measurement": {
+        "top": "counter",
+        "shape_counts": {
+          "(61, 20)": 0,
+          "(22, 0)": 0
+        },
+        "measurement": "all recursively referenced shapes, including texts and paths",
+        "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+        "checker_sha256": "cb4f837576497e8bc7578c61f328900b1bda8f49491eed60fd72631bf79834b2"
+      }
+    },
+    {
+      "case": "uart",
+      "counts": {
+        "unreviewed": 1123,
+        "executed-reviewed": 356,
+        "absent-operand": 77
+      },
+      "measurement": {
+        "top": "uart_tx",
+        "shape_counts": {
+          "(61, 20)": 0,
+          "(22, 0)": 0
+        },
+        "measurement": "all recursively referenced shapes, including texts and paths",
+        "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+        "checker_sha256": "cb4f837576497e8bc7578c61f328900b1bda8f49491eed60fd72631bf79834b2"
+      }
+    },
+    {
+      "case": "apb",
+      "counts": {
+        "unreviewed": 1123,
+        "executed-reviewed": 356,
+        "absent-operand": 77
+      },
+      "measurement": {
+        "top": "apb_fifo",
+        "shape_counts": {
+          "(61, 20)": 0,
+          "(22, 0)": 0
+        },
+        "measurement": "all recursively referenced shapes, including texts and paths",
+        "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+        "checker_sha256": "cb4f837576497e8bc7578c61f328900b1bda8f49491eed60fd72631bf79834b2"
+      }
+    }
+  ]
+}

@@ -77,6 +77,16 @@ def restore_flow_permissions(job):
         if script: path.chmod(path.stat().st_mode | 0o100)
 
 
+def stage_backend(source, destination):
+    """Stage Python sources and the small, pinned native verification resources."""
+    shutil.copytree(source, destination, ignore=shutil.ignore_patterns(
+        'assets', '__pycache__', '*.pyc', '*.so', '*.dll', '*.pyd'))
+    from .digital_sky130_native import resources
+    shutil.copytree(resources(), Path(destination)/'assets/verification/sky130')
+    from .ihp_resistor_assets import copy_assets
+    copy_assets(source,destination)
+
+
 def dispatch(job, directory, progress):
     from . import digital_flow, digital_runtime
     from .engines import execute
@@ -101,7 +111,7 @@ def dispatch(job, directory, progress):
         backend = work/'backend'; backend.mkdir()
         source = digital_runtime.payload_root()/'backend/icstudio'
         if not source.is_dir(): source = Path(__file__).parent
-        shutil.copytree(source,backend/'icstudio',ignore=shutil.ignore_patterns('assets','__pycache__','*.pyc','*.so','*.dll'))
+        stage_backend(source, backend/'icstudio')
         atomic_write(backend/'entry.py','from icstudio.digital_backend import supervise\nraise SystemExit(supervise())\n')
         native = translate(job,native_root,native_work)
         atomic_write(work/'native-input.json',json.dumps(native))

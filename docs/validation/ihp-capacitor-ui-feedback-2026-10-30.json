@@ -1,0 +1,255 @@
+{
+  "schema": 1,
+  "date": "2026-10-30",
+  "status": "PASS_SOURCE_FEEDBACK",
+  "scope": "Opt-in source desktop IHP capacitor-only corner selection and bounded eleven-stage feedback; not installed or full-family acceptance.",
+  "tested_base_commit": "f633d2c875669634173936e57285860b62ff08c9",
+  "tested_source_manifest_sha256": "8e1eeef999c1f4af300b6664bcb37c15459a8eedd19f2ee93e262b723cb21748",
+  "source_files": 6860,
+  "source_delta_sha256": "e8912af5b7aab62bc5671ae7c1bb239c3bb32a3279ca9d11e6b46a28fa5d5399",
+  "changed_files": {
+    "docs/CHUNK7_DEVICE_FAMILY_CLOSURE.md": "5175b89457c52cf9418293b03a468960721b41754aa8069ac38adca0600180db",
+    "docs/CI_FEEDBACK.md": "75f164a6b08ad32ff337b4d297a7e900545b4299684be2424c62ee1a27383089",
+    "docs/IHP_CAPACITOR_MODEL_SECTIONS.md": "5a8a9a4707643f45293ae183fc85f7f75521fcd58feff81a51209a1f7b766619",
+    "docs/IHP_CMIM_PROJECT_LOCAL_SOURCE.md": "8e5545394f1dd90978ace2a40f2244b0da225c9e247f87a151d650e7876c03a8",
+    "docs/IHP_LV_EXTRACTED_LINKAGE.md": "bfe2cba2157c4cb2aa0da3ec1be29a788ab2be32f1497546b22edec1cfd0c626",
+    "docs/QUALIFICATION_PROGRESS.md": "a65e99eca728a3b2499bf890b8bdaf7d63059ae7ea506e3da19e815446e28872",
+    "docs/validation/chunk7-combined-hosted-feedback-2026-10-30.json": "d093a01f831e0c97839a9f151c0afe09544007b2b885e94aca395fafd18c30d0",
+    "docs/validation/chunk7-combined-publication-2026-10-30.json": "de3a33e8593b5a1e9e570bd9f9a443ac1b6f3a7dd84d68b6363dad9a47df451a",
+    "docs/validation/ihp-cmim-project-local-source-2026-10-30.json": "33309cef1e517d0c6a09acbd906a0ce2c995351ac227a7f677462736214e023c",
+    "docs/validation/ihp-lv-extracted-linkage-source-2026-10-30.json": "62106a0c16f9b7ede10bb113f4c400962b99dd871f5d7a1856ea39057d3dc0ff",
+    "icstudio/ihp_capacitor_corners.py": "f0d630f42192adb3c58dc51700b1621ed783209e8b3689c2a1f708198c1ec83f",
+    "icstudio/project_ui.py": "afeaf7327fc7dfeeb7de232cf857543e44906f535232398ff1adc843605d0fa5",
+    "scripts/ci_feedback.py": "c3d9f927b0766477c2a3e45a4877e0b9a9686c1fcfbf92fd77fef603a33c5980",
+    "tests/gui_ihp_capacitor_corners.py": "bd7d176fb87dbfb9d9c066c663013d387bf7f63fddd60797c89fb1bc6c575ce5",
+    "tests/test_ci_feedback.py": "0ce862fb2f5531232c6b6a48f9d87e348e4356cf3c888e9a43cd6783b64fc07f",
+    "tests/test_ihp_capacitor_corners.py": "322288a38e44c767d9a1ab4106cc4a00076e0ad31c9c37bdac764976ac668dc6"
+  },
+  "hosts": {
+    "Windows": {
+      "schema": 1,
+      "status": "PASS",
+      "host": "Windows",
+      "metadata_commit": "f633d2c875669634173936e57285860b62ff08c9",
+      "scope": "f633d2c source plus explicitly hashed local capacitor-only UI, CI coverage, and finite source-evidence documents. Not a published commit or installed qualification.",
+      "source_manifest_sha256": "8e1eeef999c1f4af300b6664bcb37c15459a8eedd19f2ee93e262b723cb21748",
+      "archive_sha256": "d90a055caef4ea9a2951bf8377a29b4f4f7a5d4d79754070bcc099ffb58a7c65",
+      "archive_bytes": 17584053,
+      "feedback_report_sha256": "9a6c555be1fcab41ae84abe7a23baf5ecf2a8f8e2353365117ffe2c5775f8dc2",
+      "source_identity_files": 2205,
+      "source_files": 6860,
+      "source_seconds": 691.953,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 163.704
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 152.0
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 143.688
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 13.812
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 8.765
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.86
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.437
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.407
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 35.281
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 115.437
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.422
+        }
+      ],
+      "tests": {
+        "unit-contracts": {
+          "tests": 550,
+          "seconds": 162.704,
+          "skipped": 26
+        },
+        "device-contracts": {
+          "tests": 342,
+          "seconds": 150.947,
+          "skipped": 9
+        },
+        "package-contracts": {
+          "tests": 11,
+          "seconds": 143.469,
+          "skipped": 0
+        },
+        "runtime-release-contracts": {
+          "tests": 82,
+          "seconds": 13.416,
+          "skipped": 2
+        }
+      },
+      "ihp_resistor_gui_cases": 60,
+      "ihp_capacitor_gui_choices": 3,
+      "release_acceptance": false,
+      "installed_acceptance": false,
+      "full_family": false,
+      "chunk_complete": false,
+      "archive_relative": "chunk7-capacitor-ui-feedback-2026-10-30-v2/Windows.zip"
+    },
+    "Linux": {
+      "schema": 1,
+      "status": "PASS",
+      "host": "Linux",
+      "metadata_commit": "f633d2c875669634173936e57285860b62ff08c9",
+      "scope": "f633d2c source plus explicitly hashed local capacitor-only UI, CI coverage, and finite source-evidence documents. Not a published commit or installed qualification.",
+      "source_manifest_sha256": "8e1eeef999c1f4af300b6664bcb37c15459a8eedd19f2ee93e262b723cb21748",
+      "archive_sha256": "a24738bbf723e87ec8b17b401d70d44fe1f69ced2e2cbb943ebbb2d42078967c",
+      "archive_bytes": 17570865,
+      "feedback_report_sha256": "dbaa62609f6d20e7386f67418b61fb97c09ee0649e6cc73cd12e453dcf8938b2",
+      "source_identity_files": 2205,
+      "source_files": 6860,
+      "source_seconds": 236.265,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 39.857
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 19.963
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 30.343
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.878
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.718
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.773
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.774
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 5.628
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.369
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 80.246
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 1.667
+        }
+      ],
+      "tests": {
+        "unit-contracts": {
+          "tests": 550,
+          "seconds": 39.213,
+          "skipped": 12
+        },
+        "device-contracts": {
+          "tests": 342,
+          "seconds": 19.396,
+          "skipped": 2
+        },
+        "package-contracts": {
+          "tests": 11,
+          "seconds": 30.239,
+          "skipped": 0
+        },
+        "runtime-release-contracts": {
+          "tests": 82,
+          "seconds": 4.685,
+          "skipped": 1
+        }
+      },
+      "ihp_resistor_gui_cases": 60,
+      "ihp_capacitor_gui_choices": 3,
+      "release_acceptance": false,
+      "installed_acceptance": false,
+      "full_family": false,
+      "chunk_complete": false,
+      "archive_relative": "chunk7-capacitor-ui-feedback-2026-10-30-v2/Linux.zip"
+    }
+  },
+  "prior_failures": [
+    {
+      "scope": "unsplit source lane",
+      "archive_relative": "chunk7-capacitor-ui-feedback-2026-10-30-v1/Windows-timeout-v1.zip",
+      "archive_sha256": "23f27dd6ae667e88bc64debb5cf76f5ac83813cd2ca9316c453fee182d3b1ff8",
+      "result": "Required unit-stage timeout; full log also contains two junction setup errors and one junction publication fixture failure."
+    },
+    {
+      "scope": "same split source candidate under restricted launcher",
+      "archive_relative": "chunk7-capacitor-ui-feedback-2026-10-30-v2/Windows-restricted-v1.zip",
+      "archive_sha256": "dccba467e28c59f957b4126aacaea9884b7a1fbb26894d9108b2dd1a76a1390a",
+      "result": "Two junction fixture creation errors. All three affected protection fixtures passed ordinary-user preflight; no skip or administrator access."
+    }
+  ],
+  "release_acceptance": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "independent_review": {
+    "reviewer": "Astra",
+    "status": "PASS",
+    "artifact_relative": "chunk7-capacitor-ui-feedback-2026-10-30-v2/astra-combined-feedback-review-v2.json",
+    "sha256": "794c2d9a5cc03fa9e932ada51ccf98d37dd2caa705e499081bb4161a48dd1a37",
+    "scope": "Complete both-host archives, source identities, stage results, and saved/staged GUI evidence."
+  }
+}

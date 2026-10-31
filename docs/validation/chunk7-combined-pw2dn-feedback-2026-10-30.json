@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "date": "2026-10-30",
+  "chunk": 7,
+  "status": "PASS_SOURCE_FEEDBACK",
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "source_metadata_commit": "52049be725eda34922bc921dfdea6cbf14da0952",
+  "source_manifest_sha256": "3b9cbbfbbc25c1064be17241d566c50c0faa8fdf5ec88ada50b8cc5960ce1694",
+  "source_files": 6849,
+  "feedback_identity_files": 2038,
+  "hosts": {
+    "Windows": {
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 256.312
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 105.688
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 10.968
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.75
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.86
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.562
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.469
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 29.469
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 86.39
+        }
+      ],
+      "source_seconds": 539.516,
+      "unit-contracts": {
+        "tests": 885,
+        "seconds": 254.44,
+        "skipped": 35
+      },
+      "package-contracts": {
+        "tests": 11,
+        "seconds": 105.523,
+        "skipped": 0
+      },
+      "runtime-release-contracts": {
+        "tests": 82,
+        "seconds": 10.684,
+        "skipped": 2
+      },
+      "total_tests": 978
+    },
+    "Linux": {
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 60.538
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 27.596
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.427
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.669
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.735
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.424
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 5.029
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 19.065
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 70.009
+        }
+      ],
+      "source_seconds": 217.657,
+      "unit-contracts": {
+        "tests": 885,
+        "seconds": 59.335,
+        "skipped": 14
+      },
+      "package-contracts": {
+        "tests": 11,
+        "seconds": 27.483,
+        "skipped": 0
+      },
+      "runtime-release-contracts": {
+        "tests": 82,
+        "seconds": 4.272,
+        "skipped": 1
+      },
+      "total_tests": 978
+    }
+  },
+  "gui": {
+    "Windows": {
+      "cases": 60,
+      "files": 895,
+      "execution_id": "508aee61b1664b048fc3f0e9d696210a",
+      "inventory_sha256": "cac75c40c635e8b1c2c5cbb21e5cf3a86ff982cf1af18d48d56e7df385452378",
+      "installed_acceptance": false
+    },
+    "Linux": {
+      "cases": 60,
+      "files": 896,
+      "execution_id": "212cbb45cea845eabf1a98458612dfd3",
+      "inventory_sha256": "6540daf8f450291c5be0a13baf5cb066cdf3b7452e657348aa51318b6ad40e44",
+      "installed_acceptance": false
+    }
+  },
+  "archives": {
+    "Windows": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-combined-pw2dn-feedback-2026-10-30-v1\\windows-feedback.zip",
+      "sha256": "cf66096eb77b94a0bd3b01fc5386e85d34786abe167be24b917fbc72ea2b5517",
+      "bytes": 16828517,
+      "files": 1103
+    },
+    "Linux": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-combined-pw2dn-feedback-2026-10-30-v1\\linux-feedback.zip",
+      "sha256": "3cbcb94021df6798fccc83ff2703e1845b1f1c28d33a58a44a00897b38e9a777",
+      "bytes": 16811000,
+      "files": 1102
+    }
+  },
+  "scope": "Combined pw2dn0c19 package, corrected Linux47 runtime, retained dependency sources/licenses, exact versioned contract selection and mandatory release-runtime receipt continuity. Source feedback only; full frozen/installed acceptance pending.",
+  "preserved_failures": [
+    "Initial combined runs on both hosts rejected five stale fixtures/expectations. Five reviewed test-only corrections preserve source identity, historical comparisons, exact runtime tuples, numerical criteria and every existing release gate.",
+    "Second Linux run passed all nine stages. Windows passed unit/package stages, then retained WinError5 during runtime-directory publication. Windows-only bounded retries preserve source/parent identities, linked-path checks, full file validation and absent-destination protection; all deadlines remain unchanged."
+  ],
+  "reviews": "Independent GPT-6 Astra, Sol and Terra reviews; root integration and complete archive/source readback.",
+  "estimate": {
+    "percent": 70,
+    "range": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "engineering_estimate": true
+  },
+  "source_unchanged_on_both_hosts": true
+}

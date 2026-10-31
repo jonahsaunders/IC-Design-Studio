@@ -1,0 +1,892 @@
+{
+  "date": "2026-10-06",
+  "status": "Bundled-platform integration passed; full release and tapeout remain unqualified",
+  "source_commit": "33cdcedb6ca66fcdc3ca9643938b4ccb20eb159b",
+  "backend_sha256": "87d22cf86a9ebcf7f037845df0d1000d301fd8944126d924f8581dceaae69741",
+  "runtime_manifest": {
+    "schema": 1,
+    "system": "ubuntu-24.04-x86_64",
+    "tools": [
+      "iverilog",
+      "vvp",
+      "verilator",
+      "verilator_coverage",
+      "yosys",
+      "yosys-abc",
+      "eqy",
+      "sby",
+      "bitwuzla",
+      "openroad",
+      "sta",
+      "klayout",
+      "make",
+      "perl",
+      "python3",
+      "gcc",
+      "g++",
+      "cc",
+      "c++",
+      "as",
+      "ld",
+      "ar",
+      "ranlib",
+      "magic",
+      "netgen",
+      "ngspice"
+    ],
+    "oss_cad_suite": "2026-09-13",
+    "openroad": "26Q2-1164-g08f67ee5ec",
+    "orfs": "eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+    "files_sha256": "f3ac3e430ff37f3728605e09b62381e99805e341859a1729bab7fa32c318ce84",
+    "platforms": [
+      "sky130hd",
+      "gf180",
+      "ihp-sg13g2"
+    ],
+    "default_platform": "sky130hd",
+    "licenses": [
+      "usr/share/doc/*/copyright",
+      "opt/icstudio/oss-cad-suite/license",
+      "opt/icstudio/orfs/LICENSE_BUILD_RUN_SCRIPTS",
+      "opt/icstudio/licenses",
+      "opt/icstudio/physical/licenses"
+    ],
+    "physical_source_lock": {
+      "magic": {
+        "repository": "https://github.com/RTimothyEdwards/magic.git",
+        "version": "8.3.684",
+        "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84"
+      },
+      "netgen": {
+        "repository": "https://github.com/RTimothyEdwards/netgen.git",
+        "version": "1.5.300",
+        "commit": "1de6f88f1eebb786efadecc28e9e0dde37e8c433"
+      }
+    },
+    "osdi": {
+      "ihp-sg13g2": {
+        "system": "Linux",
+        "machine": "x86_64",
+        "cpu_target": "generic",
+        "compiler_sha256": "b53d76763c04e4af9f392c5503979cd526deb30c2dbd82fedbd54af54cd99074",
+        "models": [
+          {
+            "source": "psp103/psp103.va",
+            "dependencies": {
+              "psp103/JUNCAP200_parlist.include": "d4350de852c966098f74adbd24f70b3e2ed8fec87c7f7d3569ee18168ece5901",
+              "psp103/PSP103_module.include": "cc9f02e72fda8c907f9e6befe0dcdc2ff1dc13e45fb2f48263935c06317d3197",
+              "psp103/releasenotesPSP103.8.2.txt": "64cd7bc8090e4a2aaa495918f8f9ae44424205934edfd96dde96683135a872be",
+              "psp103/Common103_macrodefs.include": "14fb6781da0b440a7627aa605c3c59fbf9f755c8eca2b641765bb8d6248029e7",
+              "psp103/PSP103_scaling.include": "1a560ceffd722940f3aa67d64bcfc8f7925d4aa55a0c2caf0c933cf7a47dd54b",
+              "psp103/psp103.va": "9bab5086f8e203a820043538ede898d0812d07371b1aa6f081d806aaad95cd50",
+              "psp103/PSP103_parlist.include": "7adbc8e7010fdc6b9c906dace441f2a443c4079693733387dad0d3e3a737ec6f",
+              "psp103/PSP103_macrodefs.include": "fcb3d0830353c28710645cd28c9caf7610ebc0a05ed1ef89e0ef3e0799581d2b",
+              "psp103/PSP103_nqs_macrodefs.include": "d4e44d3c8634ce08502f9b25b4f6a56fbe75ce5b8a7d7be987af535b83f16746",
+              "psp103/JUNCAP200_macrodefs.include": "00d5153fe0a5f1da6523e67354e05c1ae08db2196bf711534fe44b65fb907b65",
+              "psp103/juncap200.va": "4833ba0c95cd9922d2277fe41ba7aa81028866b1850357273c4f62cd635d96e0",
+              "psp103/README.md": "b5301fb60c1f92250c4f1a08c637e25b5ecf6c08ba9647aea3d773cb24c7cf39",
+              "psp103/psp103_nqs.va": "084ca6b4932a7db2717e7143345c9a9ff1bd62a1fb0db9af3100f7428aba91dd",
+              "psp103/Changelog": "a060a06ce5eca1b6c88a62168e5d108181715ab903ebafa1e462d8288ec5c4aa",
+              "psp103/psp103t.va": "856166de39aaa247204763e8e347c912fde8f27312f6a34e4cac975389810fd2",
+              "psp103/JUNCAP200_varlist.include": "ee30317a2f4a03bfb6bdca471d72feacfa02d5f7cce664fe6ede99482fed37e7",
+              "psp103/JUNCAP200_InitModel.include": "335c2b2e8d1ffc9a9c7d820cbe82308e4a91894455f6bbae0e62cdfa9049c690"
+            },
+            "output": "psp103.osdi",
+            "sha256": "24c016572d59fb079fda4f3a1c0aa4c8999d931e8ee335f180066f13ddd70ff4"
+          },
+          {
+            "source": "psp103/psp103_nqs.va",
+            "dependencies": {
+              "psp103/JUNCAP200_parlist.include": "d4350de852c966098f74adbd24f70b3e2ed8fec87c7f7d3569ee18168ece5901",
+              "psp103/PSP103_module.include": "cc9f02e72fda8c907f9e6befe0dcdc2ff1dc13e45fb2f48263935c06317d3197",
+              "psp103/releasenotesPSP103.8.2.txt": "64cd7bc8090e4a2aaa495918f8f9ae44424205934edfd96dde96683135a872be",
+              "psp103/Common103_macrodefs.include": "14fb6781da0b440a7627aa605c3c59fbf9f755c8eca2b641765bb8d6248029e7",
+              "psp103/PSP103_scaling.include": "1a560ceffd722940f3aa67d64bcfc8f7925d4aa55a0c2caf0c933cf7a47dd54b",
+              "psp103/psp103.va": "9bab5086f8e203a820043538ede898d0812d07371b1aa6f081d806aaad95cd50",
+              "psp103/PSP103_parlist.include": "7adbc8e7010fdc6b9c906dace441f2a443c4079693733387dad0d3e3a737ec6f",
+              "psp103/PSP103_macrodefs.include": "fcb3d0830353c28710645cd28c9caf7610ebc0a05ed1ef89e0ef3e0799581d2b",
+              "psp103/PSP103_nqs_macrodefs.include": "d4e44d3c8634ce08502f9b25b4f6a56fbe75ce5b8a7d7be987af535b83f16746",
+              "psp103/JUNCAP200_macrodefs.include": "00d5153fe0a5f1da6523e67354e05c1ae08db2196bf711534fe44b65fb907b65",
+              "psp103/juncap200.va": "4833ba0c95cd9922d2277fe41ba7aa81028866b1850357273c4f62cd635d96e0",
+              "psp103/README.md": "b5301fb60c1f92250c4f1a08c637e25b5ecf6c08ba9647aea3d773cb24c7cf39",
+              "psp103/psp103_nqs.va": "084ca6b4932a7db2717e7143345c9a9ff1bd62a1fb0db9af3100f7428aba91dd",
+              "psp103/Changelog": "a060a06ce5eca1b6c88a62168e5d108181715ab903ebafa1e462d8288ec5c4aa",
+              "psp103/psp103t.va": "856166de39aaa247204763e8e347c912fde8f27312f6a34e4cac975389810fd2",
+              "psp103/JUNCAP200_varlist.include": "ee30317a2f4a03bfb6bdca471d72feacfa02d5f7cce664fe6ede99482fed37e7",
+              "psp103/JUNCAP200_InitModel.include": "335c2b2e8d1ffc9a9c7d820cbe82308e4a91894455f6bbae0e62cdfa9049c690"
+            },
+            "output": "psp103_nqs.osdi",
+            "sha256": "33dc9a8caa13977cdd77eb76b00c76200d8897f873d2497894dabfd327318fd6"
+          },
+          {
+            "source": "r3_cmc/r3_cmc.va",
+            "dependencies": {
+              "r3_cmc/NOTICE.txt": "fa3dc18885dd09baaffbf02fda561438df81787d1dd255f6218bcc2764f34132",
+              "r3_cmc/r3_cmc_macros.include": "66e1bf0b43495a9c17454a1ac203171db5488edc7e19563f4f645389ba7eebb4",
+              "r3_cmc/LICENSE.txt": "60436a82eb1cff9e3e7fb4ba8c913b8adf72ff8578836d5134e376088a2bc698",
+              "r3_cmc/Changelog": "14e460005858ebdbdd21f83d9c7a3176e761825e86bfb82723a9bcd8d0e3bbf3",
+              "r3_cmc/r3_cmc.va": "398746f45048a9e075913e85a982258b929c9042257339bf1fc47d7e25303551"
+            },
+            "output": "r3_cmc.osdi",
+            "sha256": "3ecc382b6804bd50c178ca5a8e4fbe6c0158c4454f2003a544a19326d26a695d"
+          },
+          {
+            "source": "mosvar/mosvar.va",
+            "dependencies": {
+              "mosvar/discipline.h": "c57d71f2da4fe1dcd8212259cdfed8d5ec9846db93b9cc83ab3f5ca64cfda330",
+              "mosvar/macrosAndDefines_cmc.va": "dda168152714f25ec1c92f75166f22627ff568a3aebe73581c95cef3caaf655a",
+              "mosvar/mosvar.va": "146eec0c2a9c3c437c53109f8ec42af68f75bd9d341e79797d2feda0340a19f6",
+              "mosvar/Changelog": "6fad40a4f10a5e41ac761973ab47afa316dd057e37d7f802986132c70547526f",
+              "mosvar/mosvarpspMacros.va": "c981ee834d00424c43fef2638b6e924d412f29115d2c8f40f8854efafe154cf5"
+            },
+            "output": "mosvar.osdi",
+            "sha256": "c3ea91ef33db66959cbd81b370d37aa1c70b9b36fbd6cef83c768c505e9b88a5"
+          },
+          {
+            "source": "cap_cmomi/cap_cmomi.va",
+            "dependencies": {
+              "cap_cmomi/cap_cmomi.va": "f8618465b9aa74d596983ded0e10780a9bccba3103b3a2daf58a44243ab5c210"
+            },
+            "output": "cap_cmomi.osdi",
+            "sha256": "8179caebc4f384cd1d00dd12b9e8893716d5ee9e8f517b5ca72c4cec85172567"
+          },
+          {
+            "source": "cap_cmomf/cap_cmomf.va",
+            "dependencies": {
+              "cap_cmomf/cap_cmomf.va": "f0f8c3c3c31a6b553c365f36ec04e6f1a5870d3ff06b6eba90ddefbc2f48cc6e"
+            },
+            "output": "cap_cmomf.osdi",
+            "sha256": "fdbd14050be21abcfc771757ba55cb3fbc5e23437d5ed2b4e45366a9bb3a05d3"
+          }
+        ]
+      }
+    },
+    "sources": [
+      "https://github.com/YosysHQ/oss-cad-suite-build/releases/tag/2026-09-13",
+      "https://github.com/The-OpenROAD-Project/OpenROAD/tree/08f67ee5ec",
+      "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+      "https://github.com/RTimothyEdwards/magic",
+      "https://github.com/RTimothyEdwards/netgen",
+      "https://archive.ubuntu.com/ubuntu/"
+    ],
+    "archive": "runtime.tar.gz",
+    "sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563",
+    "bytes": 1489103837,
+    "image_id": "sha256:9981c1be75c39dfaa2c4d8669575795d170c5337ae7b42806a6f82bb0ac51978"
+  },
+  "scope": "Fresh runtime installations driven by the source application on native Linux and Windows/WSL; not final frozen-desktop acceptance or foundry signoff",
+  "conditions": {
+    "design": "four-bit counter",
+    "clock_period_ns": 50,
+    "clock_uncertainty_ns": 0.1,
+    "output_load_pf": 0.01,
+    "die_area_um": [
+      0,
+      0,
+      200,
+      200
+    ],
+    "core_area_um": [
+      20,
+      20,
+      180,
+      180
+    ],
+    "rc_scope": "One extracted RC condition per profile; all captured Liberty corners"
+  },
+  "operating_systems": {
+    "Linux": {
+      "status": "passed",
+      "digital_checks": 26,
+      "acceptance_time": "2026-10-06T23:07:02+00:00",
+      "platforms": [
+        {
+          "name": "sky130hd",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "physical_checkpoint_resumed": true,
+          "pre_layout_verdict": "FAIL",
+          "deliberate_fault_verdict": "FAIL",
+          "mapped_equivalence": "PASS",
+          "physical_equivalence": "PASS",
+          "extracted_timing": {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical \u00b7 extracted SPEF",
+            "result_sha256": "c9ac903df13d615a7ce29951bf4ef81504a1beb51c3f20e90c35d7931930a7f9",
+            "versions": {
+              "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+              "sta": "3.1.0"
+            },
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.654427,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.29123,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "physical_artifacts": {
+            "gds": {
+              "path": "physical/results/sky130hd/counter/base/6_final.gds",
+              "sha256": "ce258b9eac59d47c1495ef846d213bedb5af160cafb539a4e56688d24e2e76ee",
+              "bytes": 453974
+            },
+            "spef": {
+              "path": "physical/results/sky130hd/counter/base/6_final.spef",
+              "sha256": "afff3f213a6812bedd91cf9a86d2137d8c3604c3dc61985a9e574c7996c4e1dc",
+              "bytes": 79119
+            },
+            "netlist": {
+              "path": "netlist.v",
+              "sha256": "7ed56cc35e87eb566bc5138a083838495042fbb30e72bda6aabd06f01ee2080f",
+              "bytes": 2023
+            },
+            "physical_metrics": {
+              "path": "physical_metrics.json",
+              "sha256": "4841d589c226b9eee7820f02ac6e7a5b0698be9cec2823a468746901c57ecb36",
+              "bytes": 21097
+            }
+          }
+        },
+        {
+          "name": "gf180",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "physical_checkpoint_resumed": true,
+          "pre_layout_verdict": "FAIL",
+          "deliberate_fault_verdict": "FAIL",
+          "mapped_equivalence": "PASS",
+          "physical_equivalence": "PASS",
+          "extracted_timing": {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+            "result_sha256": "8920d52f15bf55bd474398334c0464f843a25c25971aac7bb934ae15e4e0053c",
+            "versions": {
+              "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+              "sta": "3.1.0"
+            },
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.488331,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.516922,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 44.443768,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 1.135645,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.397301,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.246833,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "physical_artifacts": {
+            "gds": {
+              "path": "physical/results/gf180/counter/base/6_final.gds",
+              "sha256": "ed648fb5f2f715f9ff72a545d00879b79bcafa77a40165b8344dfae944c8f2e8",
+              "bytes": 556632
+            },
+            "spef": {
+              "path": "physical/results/gf180/counter/base/6_final.spef",
+              "sha256": "7fb45351e71eda2442852ec6f277d687d4dd0c02fd36ee13aae0be67da1906a0",
+              "bytes": 19789
+            },
+            "netlist": {
+              "path": "netlist.v",
+              "sha256": "7afea770fc5dd54513336f586c0ab46479f315769aeda422af91c0c14ffaebee",
+              "bytes": 2159
+            },
+            "physical_metrics": {
+              "path": "physical_metrics.json",
+              "sha256": "31ed36d4b7fb9656fa2fc20b227061ea5f1e08b2771326d7b85148e0b090bcef",
+              "bytes": 21351
+            }
+          }
+        },
+        {
+          "name": "ihp-sg13g2",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "physical_checkpoint_resumed": true,
+          "pre_layout_verdict": "FAIL",
+          "deliberate_fault_verdict": "FAIL",
+          "mapped_equivalence": "PASS",
+          "physical_equivalence": "PASS",
+          "extracted_timing": {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+            "result_sha256": "e2860623b48ab0d9443f7606ae31fd714e4af524f93ea8cd029102dee6bd6455",
+            "versions": {
+              "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+              "sta": "3.1.0"
+            },
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.260189,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.195837,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.852211,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.370399,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.477261,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.096999,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "physical_artifacts": {
+            "gds": {
+              "path": "physical/results/ihp-sg13g2/counter/base/6_final.gds",
+              "sha256": "4b696868a29bc7bf46b2377597854dfcf6cc3fd78a0959b4f514cabd43f40b3a",
+              "bytes": 294252
+            },
+            "spef": {
+              "path": "physical/results/ihp-sg13g2/counter/base/6_final.spef",
+              "sha256": "88076cc40b412c4b1ac8e3ba9c68b40803e8cea852073a572532b5d5a76a42b5",
+              "bytes": 49654
+            },
+            "netlist": {
+              "path": "netlist.v",
+              "sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+              "bytes": 2091
+            },
+            "physical_metrics": {
+              "path": "physical_metrics.json",
+              "sha256": "8d5f7ee7c5668e0d4b6223144eee6502bdf7d79379e7e2315e33cdaab62cddfb",
+              "bytes": 21040
+            }
+          }
+        }
+      ],
+      "physical_tool_checks": {
+        "status": "passed",
+        "design_hash": "4a27c368f9bfa376a3e07ad8a09ab7f9c64d43c7a7f4cd231691d5e94ac06d73",
+        "qualification": "Runtime tool smoke tests only; no process or design qualification.",
+        "stages": [
+          {
+            "name": "drc-legal",
+            "status": "passed",
+            "count": 0
+          },
+          {
+            "name": "drc-narrow",
+            "status": "passed",
+            "count": 1
+          },
+          {
+            "name": "lvs-equal",
+            "status": "passed"
+          },
+          {
+            "name": "lvs-wrong",
+            "status": "passed"
+          },
+          {
+            "name": "ngspice",
+            "status": "passed"
+          }
+        ],
+        "klayout": "0.30.5",
+        "native_design_hash": "f2f096aab87503ad823fa4299f5859a7d16fd1f4cdfa1bf9e3e7a615eedc589c",
+        "execution": {
+          "runtime": {
+            "kind": "linux",
+            "root": "/state/runtimes/479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563",
+            "sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563"
+          },
+          "native_directory": "/tmp/icstudio-physical-mrac4ycx",
+          "native_input_sha256": "70f04844ae78992a1df8600fcb54dce7a77968069d10718ad84f985ef386fb66",
+          "received_files": {
+            "physical-backend-result.json": "9429a4f3a5baefd53f54249447dac7512bec267fd1a80dbd5eab397f4adca5d6",
+            "physical-flow/legal.log": "8197c515b2eb8777f4f39f54ac8aba4bb0c1d68b0b7c8a010de345139257025b",
+            "physical-flow/narrow.tcl": "ce0385ae715968111aa70008c899f368f8b4975042ecf75fcdaa7a5a335928d7",
+            "physical-flow/legal.tcl": "ee090d774cf3ce61fda80fe40ebc3caf9ed620e6e3c5cfc860c4ac40f8b6775c",
+            "physical-flow/setup.tcl": "066b62eb66b2428b270d410a77dae833a0f3d6dde7244cb8d0402701d5e07390",
+            "physical-flow/report.json": "28161f9588ff6847bc85ed692064a0f4ad55708aedea92dab62f8f20fccb8f6b",
+            "physical-flow/narrow.log": "42da79bd6c39b848df5e76004c0cd45cca3913354ba26d524beb5a176fe18283",
+            "physical-flow/equal.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/reference.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/startup.tcl": "9d2c880b38760e5dc63af187917ace169db8eae98fc5d9a7ec2b7b25875adda0",
+            "physical-flow/wrong.spice": "6a51082e74a23ad0503569f6632d9df462a10ee14adf37ed2727bd3eab37f6b3",
+            "physical-flow/wrong/lvs.log": "c876f9eb14e79734f988f302447f3a1f7fcf2d4958207c067099c7132c4b9bb8",
+            "physical-flow/wrong/lvs.json": "503ebaccddf32815e37daf760f69b7ec19a1c671783cc0ca6e82f6fc40543e95",
+            "physical-flow/wrong/console.log": "3d54aa33d1fb039042129b3c04d9fc3f41c5d61f6d6e57410b53e3505de29221",
+            "physical-flow/equal/lvs.log": "3bd2772702557fca047a8a35df14610d511240b685b1d2af9dd787cf3ea2f2b9",
+            "physical-flow/equal/lvs.json": "41e6c9c74ec7212b7f4bd03b98dfa7310cb9f0ba26e904e2864bd973b2dcffc8",
+            "physical-flow/equal/console.log": "277f4329b74a648df723f5e2eec26024395d2aa6bf6b3fbd8d906af17cd6b636"
+          }
+        }
+      },
+      "evidence": {
+        "name": "bundled-runtime-Linux-evidence.tar.gz",
+        "sha256": "7c74701a95f0964e2bbe226c873de6bcbd3df135fbdaf5f1923569c9fcb26496",
+        "bytes": 28668077,
+        "scope": "Inputs, results, engine/proof logs, timing and physical outputs; repeated platform/ORFS/liberty trees and simulator objects omitted."
+      }
+    },
+    "Windows": {
+      "status": "passed",
+      "digital_checks": 26,
+      "acceptance_time": "2026-10-06T23:15:47+00:00",
+      "platforms": [
+        {
+          "name": "sky130hd",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "physical_checkpoint_resumed": true,
+          "pre_layout_verdict": "FAIL",
+          "deliberate_fault_verdict": "FAIL",
+          "mapped_equivalence": "PASS",
+          "physical_equivalence": "PASS",
+          "extracted_timing": {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical \u00b7 extracted SPEF",
+            "result_sha256": "715e39bae25736f1946b5bb9e69fcaef55a4d9ca38e3dfefe0fa9f01e85dbeac",
+            "versions": {
+              "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+              "sta": "3.1.0"
+            },
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.654427,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.29123,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "physical_artifacts": {
+            "gds": {
+              "path": "physical/results/sky130hd/counter/base/6_final.gds",
+              "sha256": "0eacf6fe31c6bc52de8e9f5f7ac4a0ff26081f050a59840a7ccb8b6907e2267e",
+              "bytes": 453974
+            },
+            "spef": {
+              "path": "physical/results/sky130hd/counter/base/6_final.spef",
+              "sha256": "8d8ab3f6eefbd34a30a69b66d5fda23fbdd494efcb1f108d8e7451f2310af35a",
+              "bytes": 79119
+            },
+            "netlist": {
+              "path": "netlist.v",
+              "sha256": "7ed56cc35e87eb566bc5138a083838495042fbb30e72bda6aabd06f01ee2080f",
+              "bytes": 2023
+            },
+            "physical_metrics": {
+              "path": "physical_metrics.json",
+              "sha256": "d00d5ccc22f21fc795a314b5080e30bee22d5c8ad7f3c9d964cfe3c798a83f44",
+              "bytes": 21096
+            }
+          }
+        },
+        {
+          "name": "gf180",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "physical_checkpoint_resumed": true,
+          "pre_layout_verdict": "FAIL",
+          "deliberate_fault_verdict": "FAIL",
+          "mapped_equivalence": "PASS",
+          "physical_equivalence": "PASS",
+          "extracted_timing": {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+            "result_sha256": "3b56e75186b0198a1b06274aa9b48ba0a45d0c20a0036e45c75088fb5d163cf9",
+            "versions": {
+              "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+              "sta": "3.1.0"
+            },
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 46.488331,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.516922,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 44.443768,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 1.135645,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.397301,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.246833,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "physical_artifacts": {
+            "gds": {
+              "path": "physical/results/gf180/counter/base/6_final.gds",
+              "sha256": "3795be3819af57ad2b811aee04188b51c93cd361b480f259e4e329a6804960c3",
+              "bytes": 556632
+            },
+            "spef": {
+              "path": "physical/results/gf180/counter/base/6_final.spef",
+              "sha256": "3214c156fe90ff58ef14acb962b7261c251f331654ebe3d8bf279c013d76fdfd",
+              "bytes": 19789
+            },
+            "netlist": {
+              "path": "netlist.v",
+              "sha256": "7afea770fc5dd54513336f586c0ab46479f315769aeda422af91c0c14ffaebee",
+              "bytes": 2159
+            },
+            "physical_metrics": {
+              "path": "physical_metrics.json",
+              "sha256": "0bc8ea5f98cd6f4d2234e4f3779ed8a067797e8d3b909aa0c8cef6886e282f8d",
+              "bytes": 21347
+            }
+          }
+        },
+        {
+          "name": "ihp-sg13g2",
+          "constraint_sha256": "af89b7d6fc88f4261462a8978f9c931f709ad3499557b0d83611bbf51494db16",
+          "router_checks": {
+            "detailed_route_drc_errors": [
+              0
+            ],
+            "scope": "Router rule checks; not foundry DRC/LVS"
+          },
+          "physical_checkpoint_resumed": true,
+          "pre_layout_verdict": "FAIL",
+          "deliberate_fault_verdict": "FAIL",
+          "mapped_equivalence": "PASS",
+          "physical_equivalence": "PASS",
+          "extracted_timing": {
+            "name": "extracted-timing",
+            "verdict": "PASS",
+            "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+            "result_sha256": "2b9d8a22c1b13855c9a6a2f2707d2a8ab37a4698a118c7ecd564926351661b51",
+            "versions": {
+              "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+              "sta": "3.1.0"
+            },
+            "corners": [
+              {
+                "corner": "typical",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.260189,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.195837,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "slow",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 47.852211,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.370399,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              },
+              {
+                "corner": "fast",
+                "status": "PASS",
+                "summary": {
+                  "setup_worst_slack_ns": 48.477261,
+                  "setup_reported_violations": 0,
+                  "setup_total_negative_slack_ns": 0.0,
+                  "hold_worst_slack_ns": 0.096999,
+                  "hold_reported_violations": 0,
+                  "hold_total_negative_slack_ns": 0.0
+                },
+                "electrical_status": "No reported violations",
+                "incomplete_reasons": []
+              }
+            ]
+          },
+          "physical_artifacts": {
+            "gds": {
+              "path": "physical/results/ihp-sg13g2/counter/base/6_final.gds",
+              "sha256": "948fd28f8f5c5445b6371fdd9705f37bb9670520c671936bef86c3470de9e828",
+              "bytes": 294252
+            },
+            "spef": {
+              "path": "physical/results/ihp-sg13g2/counter/base/6_final.spef",
+              "sha256": "66d1ebf3eaa185a690c0f3b2c8f74a55d0497f2b74a81679e77fd5c588b5cc74",
+              "bytes": 49654
+            },
+            "netlist": {
+              "path": "netlist.v",
+              "sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+              "bytes": 2091
+            },
+            "physical_metrics": {
+              "path": "physical_metrics.json",
+              "sha256": "7881f6dc075dfb2ce7e332aec4669c6fa12b8d51a0b6ebf8c6c6e89d91f57eb0",
+              "bytes": 21037
+            }
+          }
+        }
+      ],
+      "physical_tool_checks": {
+        "status": "passed",
+        "design_hash": "a5e3bd80b487848379a0a5cfc115df50c829434877a488ee6cf091ccd2509bed",
+        "qualification": "Runtime tool smoke tests only; no process or design qualification.",
+        "stages": [
+          {
+            "name": "drc-legal",
+            "status": "passed",
+            "count": 0
+          },
+          {
+            "name": "drc-narrow",
+            "status": "passed",
+            "count": 1
+          },
+          {
+            "name": "lvs-equal",
+            "status": "passed"
+          },
+          {
+            "name": "lvs-wrong",
+            "status": "passed"
+          },
+          {
+            "name": "ngspice",
+            "status": "passed"
+          }
+        ],
+        "klayout": "0.30.5",
+        "native_design_hash": "041006974bf48054a1c05c032581b4aeb7d4bcc492c39592f1055bddc1b1b4ad",
+        "execution": {
+          "runtime": {
+            "kind": "wsl",
+            "distro": "ICStudio-Digital-479ab2d7898f92fa-55f1d1d7",
+            "root": "\\\\wsl.localhost\\ICStudio-Digital-479ab2d7898f92fa-55f1d1d7",
+            "sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563"
+          },
+          "native_directory": "/var/tmp/icstudio-physical/13863bb33c754e7194578e7a38bac68e",
+          "native_input_sha256": "c7f179ab08d982e15ccd652fc1159f842db1b624b895c7d656f9e7438fdb781f",
+          "received_files": {
+            "physical-backend-result.json": "fd58cb273b937cbdca342a9913dece6d08b8a40856ceee9ebde016721a01c215",
+            "physical-flow/startup.tcl": "0e38d2e207c69738e17dc4663652e0b039d00e17d573046d20c5c6fd3d1579f8",
+            "physical-flow/reference.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/report.json": "e634cc38dea9597c6ecc208dad18c4025555e2d1c0c48c7ebbc6796ba46019cc",
+            "physical-flow/setup.tcl": "066b62eb66b2428b270d410a77dae833a0f3d6dde7244cb8d0402701d5e07390",
+            "physical-flow/equal.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/legal.tcl": "ee090d774cf3ce61fda80fe40ebc3caf9ed620e6e3c5cfc860c4ac40f8b6775c",
+            "physical-flow/narrow.log": "46a4859dfc40c6d2ac0e9fc4b69e20b85b91a5568cf6d31ca8cd3b6228c3473b",
+            "physical-flow/legal.log": "c6c2c95031b51f99b9ba7d2bf56346669a5a4b8a54ca192b04ef74a4a1a23804",
+            "physical-flow/narrow.tcl": "ce0385ae715968111aa70008c899f368f8b4975042ecf75fcdaa7a5a335928d7",
+            "physical-flow/wrong.spice": "6a51082e74a23ad0503569f6632d9df462a10ee14adf37ed2727bd3eab37f6b3",
+            "physical-flow/wrong/lvs.json": "503ebaccddf32815e37daf760f69b7ec19a1c671783cc0ca6e82f6fc40543e95",
+            "physical-flow/wrong/lvs.log": "c876f9eb14e79734f988f302447f3a1f7fcf2d4958207c067099c7132c4b9bb8",
+            "physical-flow/wrong/console.log": "828280fbe736731f11eb9aa73b8c4b72a899bb3c896b4745fb75be33dfe9ba5f",
+            "physical-flow/equal/lvs.json": "41e6c9c74ec7212b7f4bd03b98dfa7310cb9f0ba26e904e2864bd973b2dcffc8",
+            "physical-flow/equal/lvs.log": "3bd2772702557fca047a8a35df14610d511240b685b1d2af9dd787cf3ea2f2b9",
+            "physical-flow/equal/console.log": "cb0adc6ea300d9bb9f6c82737a17e95889068002d34450a9da254bd9f8c47439"
+          }
+        }
+      },
+      "evidence": {
+        "name": "bundled-runtime-Windows-evidence.tar.gz",
+        "sha256": "76ce9644f3be3c3aeff4b928557c22f72b9a4f938f154669cdd46fef5235df92",
+        "bytes": 28664310,
+        "scope": "Inputs, results, engine/proof logs, timing and physical outputs; repeated platform/ORFS/liberty trees and simulator objects omitted."
+      }
+    }
+  },
+  "local_validation": {
+    "full_suite": {
+      "tests": 1364,
+      "skips": 63,
+      "failures": 0,
+      "seconds": 268.137,
+      "scope": "Windows Python 3.12.14; before two additional packaging-gate tests were added"
+    },
+    "final_focused": {
+      "tests": 46,
+      "skips": 9,
+      "failures": 0,
+      "includes_added_packaging_gate_tests": true
+    },
+    "linux_packaging_tests": {
+      "tests": 5,
+      "skips": 0,
+      "failures": 0,
+      "real_symlinks": true
+    },
+    "gui": {
+      "status": "passed",
+      "checks": [
+        "Included selection and every corner",
+        "Save/reopen and undo",
+        "First-run continuation",
+        "Damaged package rejection and cancellation",
+        "Existing workspace regression"
+      ],
+      "scope": "Offscreen Qt 6.8.3, isolated settings and system Segoe UI/Arial fonts; not consumer desktop qualification"
+    },
+    "installed_platform_ui": {
+      "status": "passed",
+      "image": "docs/images/digital-included-platform.png",
+      "scope": "Real Windows installed catalog after setup passed; offscreen capture at 1440 x 900"
+    },
+    "documentation": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 120,
+      "local_links": 1153,
+      "gallery_examples": 13
+    },
+    "cli": {
+      "status": "passed",
+      "platforms": [
+        "gf180",
+        "ihp-sg13g2"
+      ],
+      "scope": "Public CLI selection and mapped synthesis from the installed Linux runtime, container network disabled"
+    }
+  },
+  "remaining": [
+    "Final frozen desktop package qualification on both operating systems",
+    "Broader analog/digital workloads and device/process variants",
+    "SKY130 additional PVT libraries and independently extracted RC corners",
+    "Matched foundry DRC/LVS, chip-level and process-owner/shuttle tapeout acceptance"
+  ]
+}

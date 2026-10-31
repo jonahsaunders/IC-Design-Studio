@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "status": "native-fill-generated",
+  "qualified": false,
+  "case": "counter",
+  "source_gds_sha256": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+  "deck_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "executable_sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+  "driver_sha256": "b3d0a187a49cdc452bc7bcd86bb525a274fbd2b13148b5fe43f6f400747fd9e1",
+  "die_area_um": [
+    0,
+    0,
+    200,
+    200
+  ],
+  "scope": "Pinned native fill experiment. Required manual-rule coverage, connectivity and electrical effects remain unqualified.",
+  "filled_gds_sha256": "ba5b8b4e9a74e98e03bf8729c9ac3f2392e3800b5d99b8f86eaffae300e88655",
+  "layers": {
+    "(23, 28)": {
+      "polygons": 816,
+      "area_um2": 5565.532799999997
+    },
+    "(28, 28)": {
+      "polygons": 22539,
+      "area_um2": 11280.005999999994
+    },
+    "(56, 28)": {
+      "polygons": 9779,
+      "area_um2": 8900.630299999995
+    },
+    "(36, 28)": {
+      "polygons": 33395,
+      "area_um2": 11681.031999999994
+    },
+    "(41, 28)": {
+      "polygons": 34233,
+      "area_um2": 19222.726099999993
+    },
+    "(34, 28)": {
+      "polygons": 20840,
+      "area_um2": 16864.35159999999
+    },
+    "(51, 28)": {
+      "polygons": 15131,
+      "area_um2": 15268.962799999992
+    },
+    "(59, 28)": {
+      "polygons": 549,
+      "area_um2": 10188.999999999995
+    }
+  },
+  "density": {
+    "fom_all": 0.1438950002193451,
+    "poly_all": 0.28402361273765564,
+    "li_all": 0.2699151635169983,
+    "m1_all": 0.40622207522392273,
+    "m2_all": 0.48632654547691345,
+    "m3_all": 0.42633873224258423,
+    "m4_all": 0.4502616822719574,
+    "m5_all": 0.32495778799057007
+  },
+  "seconds": 9.424012964002031,
+  "files": {
+    "startup.tcl": "6023a85dbdc353855be0f585c9d3bb1b9e99d5aee3ee79a588b85ffb463b05eb",
+    "input.gds": "b4d9cd5b6889e9461fcd275a5422019302fd8b9ff1fd6087d22803d0098ea69c",
+    "generate.tcl": "98343bd04cccd8fa7578b55982709c40e6c8675ec3bcda4f952e99a34a5a68ae",
+    "generate.log": "ea4006ffbc3c90378812f8cd6369722b88d8d620c13f47368c90783722503a28",
+    "density.tcl": "607791ca8c3cebf0f5501abe1cde040c2bd230f8f9eec5ad542457aefad476e2",
+    "fill-only.gds": "5cd686a86b0034245eccb762487d4657ef682f831998875e1a62c25f0ac5fc03",
+    "filled.gds": "ba5b8b4e9a74e98e03bf8729c9ac3f2392e3800b5d99b8f86eaffae300e88655",
+    "sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+    "density.log": "c4a02ea1999814b95c72e847416ca52e214e71ce41df35edcdac531b963f0607"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "status": "additional-upstream-source-capture",
+  "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+  "files": {
+    "docs/rules/layers/table-f2a-lvs.tsv": {
+      "sha256": "c19398018c0f45674c7162077af48c57f5113617691cb985b7985f7e362de3e3",
+      "git_blob_sha1": "6c503bde9e731468ac87e8c4f5c3ee2f6afe70ae",
+      "bytes": 47387,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/layers/table-f2a-lvs.tsv"
+    },
+    "docs/rules/layers/table-f2b-mask.tsv": {
+      "sha256": "7db89f09785ab8508ec0cef35cb0ce2a97a18241a3e54294a49c489c2cbaf47a",
+      "git_blob_sha1": "831cc0e171f777286523091e909e46689200d73c",
+      "bytes": 14147,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/layers/table-f2b-mask.tsv"
+    },
+    "docs/rules/rcx/capacitance-fringe-downward.tsv": {
+      "sha256": "420b00a9516b460924b2500f305ebcc9318271bca242ddc51707b222d614cc49",
+      "git_blob_sha1": "8497b336d2c2043259f0575f655c1d4cf9e3ca5f",
+      "bytes": 327,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/rcx/capacitance-fringe-downward.tsv"
+    },
+    "docs/rules/rcx/capacitance-fringe-upward.tsv": {
+      "sha256": "74826cbd1d41fbf81667a5b5d062b041db558429f6de2b8197c455a94c2f719e",
+      "git_blob_sha1": "c3a69510878702fd2d89972b6f2a19f0b8d7b645",
+      "bytes": 321,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/rcx/capacitance-fringe-upward.tsv"
+    },
+    "docs/rules/rcx/capacitance-parallel.tsv": {
+      "sha256": "3a89a1081802e5080a8959e6eaa0d1bb0ccdc315a162843e6e3fdbd0d733a4b0",
+      "git_blob_sha1": "9e9e99080c3a147425634318df7a8fd5f69d4893",
+      "bytes": 336,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/rcx/capacitance-parallel.tsv"
+    },
+    "docs/rules/rcx/rcx-all.tsv": {
+      "sha256": "d95a5ea5f276ccfe624c9d112e1336f861ec442e1583c33beff9e37a79570e77",
+      "git_blob_sha1": "da5c7d9e657c4d7f7d17d807ea2ffdbc0de5ea79",
+      "bytes": 4582,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/rcx/rcx-all.tsv"
+    },
+    "docs/rules/rcx/resistance-values.tsv": {
+      "sha256": "02426104d3a472dd40ecc974bb4421d92096f1a4dc26c9b64d6324eb6d84dbc3",
+      "git_blob_sha1": "2f0b36127ee138829e91f3b325863ce850d1c730",
+      "bytes": 391,
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/rcx/resistance-values.tsv"
+    }
+  },
+  "original_lock_sha256": "8025621eeab07f39b23c80e74096ff56281a883b299b1141ab6431ec98b2fab7"
+}

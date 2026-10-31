@@ -1,0 +1,512 @@
+{
+  "schema": 1,
+  "chunk": 5,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "observed_at": "2026-10-10T18:18:19.636548+00:00",
+  "source_baseline": "f42ce7a9cf6b1dfb78ccf5d8f43cc7c52cdc4745",
+  "source_files": {
+    "docs/IHP_FILL_QUALIFICATION.md": "1321cb5166bb254fc8b8c8e7c7b13968f18b8befe0006c0c115e5a69cf79d3b9",
+    "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+    "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2",
+    "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+    "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+    "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+    "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+    "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+    "scripts/check_ihp_waveform.py": "d757f9060ac7ec85cf0fb274f7bccd8312c6fd66f678e22bbe3934e0f90143cc",
+    "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+    "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+    "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+    "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+    "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+    "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+    "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+    "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+    "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+    "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+    "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+    "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+    "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+    "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+    "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+    "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+    "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+    "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+    "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+    "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+    "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+    "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+    "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+    "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+    "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+    "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+    "tests/test_ihp_waveform.py": "02670d5c1539783e517e4746104bd54d5424c8d3025c2d1d24b662152b37015d"
+  },
+  "scope": "Complete-waveform guards, matched counter RC function, verified floating-poly reduction and bounded APB reset progress. Full matched larger workloads and production integration remain incomplete.",
+  "previous_checkpoint": {
+    "path": "docs/validation/ihp-native-export-2026-10-10.json",
+    "sha256": "737c2c14243a53bbd9ebe4c21e6d0550c9bcc143c3205c22e2c3485372d1fc85"
+  },
+  "tests": {
+    "win32": {
+      "schema": 1,
+      "status": "pass",
+      "tests": 85,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "1281413f3207d6ebf95847e206c27819466463fc877b4d1d3198305d0e80a419",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/check_ihp_waveform.py": "d757f9060ac7ec85cf0fb274f7bccd8312c6fd66f678e22bbe3934e0f90143cc",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+        "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+        "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+        "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+        "tests/test_ihp_waveform.py": "02670d5c1539783e517e4746104bd54d5424c8d3025c2d1d24b662152b37015d"
+      }
+    },
+    "linux": {
+      "schema": 1,
+      "status": "pass",
+      "tests": 85,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "006713657b3b89c081fd8ac0ff1d083bda4b67aecbe8a49a9b85b58273c05598",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/check_ihp_waveform.py": "d757f9060ac7ec85cf0fb274f7bccd8312c6fd66f678e22bbe3934e0f90143cc",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+        "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+        "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+        "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+        "tests/test_ihp_waveform.py": "02670d5c1539783e517e4746104bd54d5424c8d3025c2d1d24b662152b37015d"
+      }
+    }
+  },
+  "counter_full_rc_function": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "cases": [
+      {
+        "corner": "typ",
+        "voltage": 1.2,
+        "initial_state": "zero-charge power-up",
+        "results": [
+          {
+            "state": "original",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "451119c7ee19fde9e96faf302822980e16c4b1a87ad76568fc49f2c6e2138614"
+          },
+          {
+            "state": "filled",
+            "passed": true,
+            "checked_bits": 72,
+            "failures": [],
+            "waveform_sha256": "e11a755222b37b88b1d2ff63d295e8b07080bf735b56198b4019dafadcaf6611"
+          }
+        ],
+        "matched_output_edges": 31,
+        "maximum_edge_change_ps": 16.30867771701401
+      }
+    ],
+    "scope": "Matched counter full RC transistor simulations, nominal interconnect, ideal rails and 50 ns clock; 1e-5 charge-row reduction. This is a reference waveform check, not field or foundry qualification."
+  },
+  "counter_charge_convergence": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "interval_ns": [
+      60,
+      180
+    ],
+    "results": {
+      "native_spice_charge_1e_4": {
+        "passed": true,
+        "matched_edges": 4,
+        "maximum_threshold_crossing_error_ps": 0.04534292478712535,
+        "fixed_tolerance_ps": 1.0
+      }
+    },
+    "deliberate_2ns_fault": {
+      "passed": false,
+      "matched_edges": 4,
+      "maximum_threshold_crossing_error_ps": 2000.0334489493578,
+      "fixed_tolerance_ps": 1.0
+    },
+    "files": {
+      "full": {
+        "path": "outputs/ihp-counter-cap-spice-v23-full-precision/filled/waveform.txt",
+        "sha256": "d7bf6022647c93c6905daa35c3009f00d3bb0a8669a26a71e9c048f2c89ccb92"
+      },
+      "native_spice_charge_1e_4": {
+        "path": "outputs/ihp-counter-cap-spice-v25-tighter/filled/waveform.txt",
+        "sha256": "42437392b1d15ab491369323ef45922e65084dda7fa0c72e4078ae27eb60d396"
+      }
+    },
+    "scope": "Counter threshold-crossing convergence only; does not validate other circuits or distributed metal resistance."
+  },
+  "waveform_completion_controls": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "scope": "Auditor accepts complete known-good traces and rejects native zero-exit aborted traces.",
+    "cases": [
+      {
+        "case": "uart",
+        "kind": "lumped",
+        "folder": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-functional-cap-v5\\uart-original-typ-m3",
+        "result": {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 254,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 1290,
+          "waveform_sha256": "be1f6955d7bef6ba6916dc551897982ab502078bf7848d5ea97b71670e3e6154",
+          "expectations_sha256": "001e0d483bbbc459f264cb7ed61f58e8184927e3b3d9566424ddc023d6591e20",
+          "engine_log_sha256": "40aacc398cf88ab68fa23bd93a8bdbe3556ddb8522b5844ef50adee0ed691528",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        }
+      },
+      {
+        "case": "uart",
+        "kind": "full-rc",
+        "folder": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-full-rc-workloads-v1\\uart-original",
+        "result": {
+          "status": "rejected",
+          "reason": "The native simulator reported an incomplete analysis.",
+          "waveform_sha256": "a115dc5bef5631e916d295899c091b44ab7669a4b58759f61e2c96733e00e7c4",
+          "engine_log_sha256": "12d227a72651dc3d82154e2e7832286e02ba402ab1178825bf8433f4450350f8"
+        }
+      },
+      {
+        "case": "apb",
+        "kind": "lumped",
+        "folder": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-functional-cap-v5\\apb-original-typ-m3",
+        "result": {
+          "schema": 1,
+          "status": "pass",
+          "qualified": false,
+          "complete_waveform": true,
+          "tested_bits": 869,
+          "failed_bits": 0,
+          "failures": [],
+          "duration_ns": 1610,
+          "waveform_sha256": "fee7a85f640b399ffaeb1c6408fbae9f169744bf4822486e10214970a702b45f",
+          "expectations_sha256": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+          "engine_log_sha256": "88fb4b4f445f6eec65934d380c6e62886dae257eefa5ae0a9193f9783d3c66dc",
+          "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+        }
+      },
+      {
+        "case": "apb",
+        "kind": "full-rc",
+        "folder": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\ihp-full-rc-workloads-v1\\apb-original",
+        "result": {
+          "status": "rejected",
+          "reason": "The native simulator reported an incomplete analysis.",
+          "waveform_sha256": "8fa6ab07e4798912ae1fb9406e755e7785547182651a1050891c93d3c8c960f5",
+          "engine_log_sha256": "faaa8091e8d98cd31db0605f8be62c8e8df51ccfbc14cc58cb5bddbd55f914c7"
+        }
+      }
+    ]
+  },
+  "capacitor_only_poly_matrix_equivalence": {
+    "schema": 1,
+    "status": "pass",
+    "qualified": false,
+    "relative_charge_error": 0,
+    "cases": [
+      {
+        "state": "original",
+        "status": "pass",
+        "capacitor_only_poly_nodes": [
+          "a_18560_30486#",
+          "a_18848_28974#",
+          "a_18848_34226#",
+          "a_18856_14570#",
+          "a_18856_29690#",
+          "a_18856_31998#",
+          "a_19040_30486#",
+          "a_19232_32714#",
+          "a_19232_33510#",
+          "a_20096_32714#",
+          "a_20968_35022#",
+          "a_35752_31998#",
+          "a_35848_30486#",
+          "a_35848_33510#",
+          "a_35848_34226#",
+          "a_35936_28974#",
+          "a_35936_29690#",
+          "a_35936_31202#",
+          "a_35936_31998#",
+          "a_35936_32714#",
+          "a_35936_35022#"
+        ],
+        "native_matrix": {
+          "status": "passed",
+          "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+          "matrix_entries": 93991,
+          "maximum_error_af": 4.656612873077393e-10,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance_af": 1e-12
+        },
+        "missing_correction_fault_rejected": null,
+        "source_ext_sha256": "077ccf3214b7c47889286f3fb3c4978c70549e98ab2b590367fa3d37b0ca2227",
+        "correction_capacitors": 808
+      },
+      {
+        "state": "active",
+        "status": "pass",
+        "capacitor_only_poly_nodes": [
+          "a_18560_30486#",
+          "a_18848_28974#",
+          "a_18848_34226#",
+          "a_18856_14570#",
+          "a_18856_29690#",
+          "a_18856_31998#",
+          "a_19040_30486#",
+          "a_19232_32714#",
+          "a_19232_33510#",
+          "a_20096_32714#",
+          "a_20968_35022#",
+          "a_35752_31998#",
+          "a_35848_30486#",
+          "a_35848_33510#",
+          "a_35848_34226#",
+          "a_35936_28974#",
+          "a_35936_29690#",
+          "a_35936_31202#",
+          "a_35936_31998#",
+          "a_35936_32714#",
+          "a_35936_35022#"
+        ],
+        "native_matrix": {
+          "status": "passed",
+          "method": "independent-serialized-linear-equations-and-capacitor-stamps",
+          "matrix_entries": 1044515,
+          "maximum_error_af": 4.656612873077393e-10,
+          "relative_tolerance": 1e-12,
+          "absolute_tolerance_af": 1e-12
+        },
+        "missing_correction_fault_rejected": true,
+        "source_ext_sha256": "3e55243644f5bfc00409c4a911c782b1977dde928af9dfb8b8552f181951a1af",
+        "correction_capacitors": 1636
+      }
+    ],
+    "scope": "Native counter physical-endpoint matrix equivalence, not just collapsed net charge. Field accuracy and waveform acceptance are separate."
+  },
+  "model_reproduction": [
+    {
+      "case": "counter",
+      "state": "original",
+      "old_record_sha256": "cc9258b9cb0befa7a58ce307e36a5e7224fcf54967e90fc9fb9617cbaa9e1392",
+      "new_record_sha256": "0caa9ba6f4e0a6f231f61a812b4bf7541240c9523d08319c7202bb6f148464fc",
+      "capacitor_only_poly_nodes": 21,
+      "source_files": {
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+        "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+      },
+      "capacitance_sha256": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+      "circuit_sha256": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+      "status": "identical"
+    },
+    {
+      "case": "counter",
+      "state": "active",
+      "old_record_sha256": "7f98fb252a99a25c00e53da0c3861f41d7421c11ad903b2d908b25b38cab37b0",
+      "new_record_sha256": "9b5a26711a13383a9e16624766642e4aef966f60b918ec4e30e209d34e388bad",
+      "capacitor_only_poly_nodes": 21,
+      "source_files": {
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+        "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+      },
+      "capacitance_sha256": "7d478cb3390477dab0000ccbce3d2bc134d8fa0cd4fa49ddaa4fefa7ee177f84",
+      "circuit_sha256": "df931ee1fbebebe2b1793276ab818db11f833db92335b93815177f48f82dd8be",
+      "status": "identical"
+    },
+    {
+      "case": "uart",
+      "state": "original",
+      "old_record_sha256": "21c0932ad813001288236e0f1b3b1304ad65631b71ad0dc6ee0934ba864ee17d",
+      "new_record_sha256": "d28c582f9693a3937aa61cda82ad0c2368309a089b1b94522030e52b6a4ae9cb",
+      "capacitor_only_poly_nodes": 208,
+      "source_files": {
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+        "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+      },
+      "capacitance_sha256": "aa467a620f8151a95afc4589519f82919d898174bac38a091cdd5e83cc6c3355",
+      "circuit_sha256": "508d76d81acd2f631d97b47b24052f93ff0db193380bb03b65b7125cdc4bc508",
+      "status": "identical"
+    },
+    {
+      "case": "uart",
+      "state": "active",
+      "old_record_sha256": "afdf017569fac2251a93b7adeede724bacde227e79e171c1e5ad8c7a2c47d925",
+      "new_record_sha256": "36a9ef606950eddfba1b656d6d1d3c2688cc2850bb4857d55aaba2a0fd7e4da6",
+      "capacitor_only_poly_nodes": 208,
+      "source_files": {
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+        "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+      },
+      "capacitance_sha256": "dab11ef06e0258ca1423c1da0f3ac593fb4162a30d78d94af1cf2017950a76b6",
+      "circuit_sha256": "a87a7a65795c64155ae0010e628fa37d4777c75103a41659fdc09be36d717698",
+      "status": "identical"
+    },
+    {
+      "case": "apb",
+      "state": "original",
+      "old_record_sha256": "8ecbd5f1c30fe75cebdb9e06d245ce09ffb02b54f810288e27eddcd57f8cdcab",
+      "new_record_sha256": "20543e87f9a66cc80a14a1b67c1c2a4242cb4d91b9f51b105ccae8e7927a2f46",
+      "capacitor_only_poly_nodes": 152,
+      "source_files": {
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+        "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+      },
+      "capacitance_sha256": "bc68836951e50b62b7f9757ab8f1d5d34239c55ac178f0588800fa01f011f11a",
+      "circuit_sha256": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f",
+      "status": "identical"
+    },
+    {
+      "case": "apb",
+      "state": "active",
+      "old_record_sha256": "f44ac1a2789567f0aad4141f09e66644a9d178a2e9cb0e4ff5f4fba1e561930d",
+      "new_record_sha256": "9d3e2efba527efe444dfe001c31a9035a46c88a379c0389b6938b814955e2156",
+      "capacitor_only_poly_nodes": 152,
+      "source_files": {
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "icstudio/compact_rc.py": "313787118aea63d5ac19a5f9d8c269d73e37111c4b835ad2bcb1a1de1ab15945",
+        "icstudio/magic_rc.py": "8f0f6f29307a7a740321ad556ef29184960c15c74b60cd6f10b3c587d6ddc8d2"
+      },
+      "capacitance_sha256": "0968d75d05786c1309a080ad8c76dd96eb8e9ed7367731da684e8c2f9c185cec",
+      "circuit_sha256": "e8fa5ea4f3e121ad012fb851ae50410db87b19eb84b5af73916ca62413836356",
+      "status": "identical"
+    }
+  ],
+  "apb_original_100ns_probe": {
+    "schema": 1,
+    "status": "probe-pass",
+    "qualified": false,
+    "case": "apb",
+    "state": "original",
+    "source_record_sha256": "8ecbd5f1c30fe75cebdb9e06d245ce09ffb02b54f810288e27eddcd57f8cdcab",
+    "expected_end_ns": 100,
+    "scope": "Powered steady-state reset, ideal supplies, distributed RC and explicit active-fill junctions. Cold zero-charge startup is excluded.",
+    "tested_bits": 44,
+    "failures": [],
+    "failed_bits": 0,
+    "complete_waveform": true,
+    "elapsed_seconds": 438.2535572052002,
+    "files": {
+      ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+      "bench.spice": "96f45cb5032e5d96d748b6bf5dbd5676a008d621eb960bb4df25431876e9af51",
+      "capacitance.spice": "bc68836951e50b62b7f9757ab8f1d5d34239c55ac178f0588800fa01f011f11a",
+      "circuit.spice": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f",
+      "engine.log": "ca7ab9b6d2f85c682ce182814f839ce7182e8cff4909db7d926e72301df19415",
+      "expectations.json": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+      "record.json": "8ecbd5f1c30fe75cebdb9e06d245ce09ffb02b54f810288e27eddcd57f8cdcab",
+      "waveform.txt": "e52249453727d456388a1f2226f6de0638bab8a8268f63660835a8d908f98856"
+    }
+  },
+  "chunk_4_rechecked": {
+    "status": "reference_gate_complete",
+    "chunk": 4,
+    "chunk_complete": true,
+    "references": 6,
+    "process_qualification": "unqualified"
+  },
+  "remaining": [
+    "Complete matched full-duration UART/APB performance, including numerical convergence and declared startup scope.",
+    "Finish finite-resistance floating-fill and fill-width model coverage review.",
+    "Integrate the accepted recipe into the production flow, bind final exports and rerun affected regression/package checks."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-waveform-progress-2026-10-10-v1\\evidence.tar.gz",
+    "sha256": "418aaa93b127b4f26845661e51f434d6b10e02c3c0b8190a67cc73fc27254ee4",
+    "bytes": 74513287,
+    "logical_files": 297,
+    "unique_blobs": 210,
+    "verified": true,
+    "manifest_sha256": "4d1de18bc58b8aa99b125de2db194b34799c315f6da4da8a1f1e6f843b0921c8",
+    "format": "content-addressed-tar-v1",
+    "restore": "The included file-manifest.json maps each logical path to a sha256/<digest> member."
+  }
+}

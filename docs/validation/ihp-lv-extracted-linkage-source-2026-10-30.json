@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "status": "PASS_FINITE_NATIVE_LINKAGE",
+  "source_commit": "f633d2c875669634173936e57285860b62ff08c9",
+  "source_manifest_sha256": "780462606a2ef523f96c261161fbbe680bf1589449cb34367d6b9f1f1a0e2f1f",
+  "scope": "Source-only finite asymmetric IHP LV linkage diagnostic; not frozen/installed or full family acceptance.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "model": "sg13_lv_nmos",
+  "physical_case": "finger2-n",
+  "model_section": "mos_tt",
+  "temperature_c": 27,
+  "native_channels": 2,
+  "channel_width_um": 0.15,
+  "channel_length_um": 0.13,
+  "native_extraction": "Original asymmetric terminal incidence and per-channel W/L/AD/AS/PD/PS retained, with explicit ng=1/m=1/mm_ok=0/rfmode=0/pre_layout=1.",
+  "dc": {
+    "gate_sweep_v": [
+      0,
+      1.2
+    ],
+    "step_v": 0.03,
+    "points": 41,
+    "drain_v": 1.2,
+    "source_v": 0,
+    "body_v": 0
+  },
+  "ac": {
+    "frequency_hz": [
+      1000,
+      1000000000.0
+    ],
+    "points": 31,
+    "gate_dc_v": 0.6,
+    "drain_dc_v": 0.6,
+    "drain_ac_v": 1,
+    "other_terminal_ac_v": 0
+  },
+  "simulator_processes": 11,
+  "current_absolute_tolerance_a": 1e-12,
+  "relative_tolerance": 1e-06,
+  "voltage_absolute_tolerance_v": 1e-09,
+  "reference_endpoint_current_floor_a": 1e-12,
+  "comparison_metrics": "Normalized error, not current: positive agreement <= 1; each injected fault must exceed 1 in a declared current; catalog values are diagnostic only.",
+  "agreement": {
+    "application-dc": {
+      "i(vd)": 0.0,
+      "i(vg)": 0.0,
+      "i(vs)": 0.0,
+      "i(vb)": 0.0
+    },
+    "native-dc": {
+      "i(vd)": 0.0,
+      "i(vg)": 0.0,
+      "i(vs)": 0.0,
+      "i(vb)": 0.0
+    },
+    "application-ac": {
+      "i(vd)": 0.0,
+      "i(vg)": 0.0,
+      "i(vs)": 0.0,
+      "i(vb)": 0.0
+    },
+    "native-ac": {
+      "i(vd)": 0.0,
+      "i(vg)": 0.0,
+      "i(vs)": 0.0,
+      "i(vb)": 0.0
+    }
+  },
+  "faults": {
+    "fault-width-dc": {
+      "i(vd)": 210141.59211961646,
+      "i(vg)": 1.750447082603647,
+      "i(vs)": 210141.70597260832,
+      "i(vb)": 27.88500097472695
+    },
+    "fault-area-ac": {
+      "i(vd)": 148337.48236634646,
+      "i(vg)": 0.0,
+      "i(vs)": 0.0,
+      "i(vb)": 314675.1922239535
+    },
+    "fault-perimeter-ac": {
+      "i(vd)": 29717.948064986413,
+      "i(vg)": 0.0,
+      "i(vs)": 0.0,
+      "i(vb)": 63042.0637499822
+    }
+  },
+  "catalog_diagnostic": {
+    "catalog-dc": {
+      "i(vd)": 1.2002047664041509,
+      "i(vg)": 0.05012695565764904,
+      "i(vs)": 0.00015429854997141369,
+      "i(vb)": 1.2002130565037488
+    },
+    "catalog-ac": {
+      "i(vd)": 327117.8982819736,
+      "i(vg)": 80065.64683150091,
+      "i(vs)": 849.7008778859872,
+      "i(vb)": 649924.5182911183
+    }
+  },
+  "maximum_kcl_normalized_error": 3.0377702159972196e-07,
+  "copied_evidence_controls_rejected": 29,
+  "actual_engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+  "actual_engine": "Managed Linux ngspice42; not Windows-native OSDI.",
+  "prelaunch_expected_sha256": "293393072d2bf405ec8ce07d6a4e6c56f8a236258abf4608bf7b2a7cac70010f",
+  "reader_sha256": "2c85c337bd5f50434c04b54b48bdca102ed3f0ef2a98c36989754148941ca6f1",
+  "readback_sha256": "c79addf14ba65354609ec37832243f8534504bb9ad1385a1114cf3c00e448f1c",
+  "independent_review_sha256": "c64586b326a5f93172f90f6eb986d452b9282cef811c2fc6e3f7c8ebde8cf733",
+  "independent_retention_review_sha256": "5217a4571f5bf0d4f7ead202cf77faaa3c64436975f759e7f5c4b0e7dbb89f22",
+  "archive": "IC-Design-Studio-evidence/ihp-lv-extracted-linkage-linux-2026-10-30-v1/ihp-lv-linux-source-evidence-v1.zip",
+  "archive_sha256": "ff6b4ba2b07182fce046afb2900000486b39048d8021aff25c642f8551f8afdf",
+  "archive_bytes": 17155224,
+  "archive_manifest_sha256": "63c296ac75a1a8cab4e407b21bea0ef0b85d8bae484324cde1164c60ecc21150",
+  "archive_logical_files": 2664,
+  "archive_unique_objects": 1245,
+  "archive_replay_sha256": "41ae1818eff5464a7dd102ab22d7223a397a617e86d5cdb8f9a63d48934e230d",
+  "remaining": [
+    "Actual Windows application-to-managed-backend execution",
+    "Opposite polarity and other geometry/condition coverage",
+    "Full source-backed operating, statistical and reliability limits",
+    "Installed acceptance and full-family gate"
+  ],
+  "preserved_diagnostics": [
+    "First preparation stopped before any solver; second preparation was not executed.",
+    "First reader expected v-sweep; corrected to the observed exact ngspice42 v(v-sweep) spelling without changing results or numerical criteria."
+  ]
+}

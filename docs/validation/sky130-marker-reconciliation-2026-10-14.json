@@ -1,0 +1,4466 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "partial-marker-operand-review",
+  "qualified": false,
+  "chunk_complete": false,
+  "execution_mode": "fresh-recursive-raw-and-nwell-hole-measurement-and-source-reconciliation",
+  "bundle": {
+    "path": "tests/fixtures/sky130-filled-references-v1.zip",
+    "sha256": "8db9401bc73e117db9d72dcccb03ac7700016b5a5c61e518c14cb5a0ec3542fa"
+  },
+  "inputs": {
+    "docs/validation/sky130-nsm-reconciliation-2026-10-14.json": "24217feeb0fe116057334fd41fce3696e88441b76a6935a0d82031da87e63ca0",
+    "docs/validation/sky130-geometry-reconciliation-2026-10-14.json": "6a61be0415cc68efd4e591428c1ac7e2531cac731e6396da953f4485104608d3",
+    "docs/validation/sky130-scope-corrections-2026-10-14.json": "15ce1eb3ca0237adfec577d2bb53de5761ea34dd63c1840256dd4ac9e4576465",
+    "docs/qualification/sky130-error-rule-inventory.json": "9b8ac023b0b0045639bf586e77b9540b51816be448d801f2a8b922c0af9524c9",
+    "docs/qualification/sky130-rule-inventory.json": "470a056e6ef613b60d4082c575f70f097ddb0d5b340a6dda0d6620eb20edb58f",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb"
+  },
+  "source_files": {
+    "scripts/sky130_marker_reconciliation.py": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622",
+    "tests/test_sky130_marker_reconciliation.py": "2cb1393e1ad84650eb0701267c5ac88793cf6cafaed53f7c8a2620b3d8d3498b"
+  },
+  "proof": {
+    "files": {
+      "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+      "docs/rules/periphery/p020-dnwell_dotdash.csv": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+      "docs/rules/periphery/p021-nwell_dotdash.csv": "15d7db99269a7861d4c0919874ed34cf19094e48f77e0143f42331d488b5223c",
+      "docs/rules/periphery/p024-hvtr_dotdash.csv": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+      "docs/rules/periphery/p024-lvtn_dotdash.csv": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+      "docs/rules/periphery/p025-ncm_dotdash.csv": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+      "docs/rules/periphery/p027-tunm_dotdash.csv": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+      "docs/rules/periphery/p029-rpm_dotdash.csv": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+      "docs/rules/periphery/p045-rdl_dotdash.csv": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+      "docs/rules/periphery/p047-hvi_dotdash.csv": "7bfbc72f95634d4a32056d8e59997d3c4195d709b7b50245dfc38d152338402a",
+      "docs/rules/periphery/p049-hvntm_dotdash.csv": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+      "docs/rules/periphery/p050-denmos_dotdash.csv": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+      "docs/rules/periphery/p051-depmos_dotdash.csv": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+      "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a"
+    },
+    "definitions": {
+      "prec_resistor": "rpm AND (poly overlapping poly.rs) AND psdm",
+      "de_nFet_drain": "((isolated tap) AND areaid.en) overlapping nwell",
+      "de_nFET_gate": "deFET_gate overlapping (diff NOT dnwell)",
+      "de_nFet_source": "(diff AND areaid.en) overlapping de_nFET_gate",
+      "de_pFet_drain": "((isolated tap) AND areaid.en) not overlapping nwell",
+      "de_pFET_gate": "deFET_gate overlapping (diff AND dnwell)",
+      "de_pFet_source": "(diff AND areaid.en) overlapping de_pFET_gate",
+      "deFET_gate": "(poly AND areaid.en) not overlapping pwm ; For CAD flows that do not have pwm layer, it is (poly AND areaid.en)",
+      "VHVGate": "VHVPoly AND diff",
+      "VHVPoly": "Poly OVERLAP vhvi:dg",
+      "VHVSourceDrain": "(Diff AND tap) And vhvi NOT poly NOT diff:rs"
+    },
+    "aliases": {
+      "dnwell": {
+        "pair": [
+          64,
+          18
+        ],
+        "name": "dnwell",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "lvtn": {
+        "pair": [
+          125,
+          44
+        ],
+        "name": "lvtn",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "hvtr": {
+        "pair": [
+          18,
+          20
+        ],
+        "name": "hvtr",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "hvi": {
+        "pair": [
+          75,
+          20
+        ],
+        "name": "hvi",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "rdl": {
+        "pair": [
+          74,
+          20
+        ],
+        "name": "rdl",
+        "purpose": "drawing",
+        "source": "installed"
+      },
+      "pad": {
+        "pair": [
+          76,
+          20
+        ],
+        "name": "pad",
+        "purpose": "drawing, text",
+        "source": "published"
+      },
+      "ccu1m": {
+        "pair": [
+          93,
+          0
+        ],
+        "name": "ccu1m",
+        "purpose": "mask",
+        "source": "installed"
+      },
+      "rpm": {
+        "pair": [
+          86,
+          20
+        ],
+        "name": "rpm",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "tunm": {
+        "pair": [
+          80,
+          20
+        ],
+        "name": "tunm",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "hvntm": {
+        "pair": [
+          125,
+          20
+        ],
+        "name": "hvntm",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "vhvi": {
+        "pair": [
+          74,
+          21
+        ],
+        "name": "vhvi",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "areaid.en": {
+        "pair": [
+          81,
+          57
+        ],
+        "name": "areaid.en",
+        "purpose": "identifier",
+        "source": "published"
+      },
+      "ncm": {
+        "pair": [
+          92,
+          44
+        ],
+        "name": "ncm",
+        "purpose": "drawing",
+        "source": "published"
+      },
+      "nwell": {
+        "pair": [
+          64,
+          20
+        ],
+        "name": "nwell",
+        "purpose": "drawing",
+        "source": "published"
+      }
+    },
+    "layer_map_sha256": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "conditions": {
+      "dnwell": {
+        "empty": [
+          "dnwell"
+        ],
+        "reason": "Every selected deep-well subject is the raw deep well or a subset of it. Empty deep well also has no separate-net spacing or straddle interactions."
+      },
+      "nwell_holes": {
+        "empty": [
+          "nwell_holes"
+        ],
+        "reason": "The required enclosed target is the hole of the merged drawn nwell. It is measured directly; empty dnwell alone is insufficient."
+      },
+      "lvtn": {
+        "empty": [
+          "lvtn"
+        ],
+        "reason": "The selected subjects contain drawn LVTN or its holes; the entire raw layer is empty. The separate gate-enclosure obligation lvtn.4b is not included."
+      },
+      "hvtr": {
+        "empty": [
+          "hvtr"
+        ],
+        "reason": "Width, spacing and no-overlap require HVTR geometry. The separate PFET-enclosure obligation hvtr.3 is not included."
+      },
+      "hvi": {
+        "empty": [
+          "hvi"
+        ],
+        "reason": "Width, spacing and no-overlap use HVI or a subset; HVI is empty. This does not establish correct voltage identification."
+      },
+      "rdl": {
+        "empty": [
+          "rdl",
+          "pad",
+          "ccu1m"
+        ],
+        "reason": "All RDL, PAD and CCU1M mask shapes are empty. PAD is explicitly required absent for pad-enclosure; RDL absence alone cannot discharge that target."
+      },
+      "rpm": {
+        "empty": [
+          "rpm"
+        ],
+        "reason": "Raw RPM is empty. C3 defines prec_resistor through intersection with RPM, so the resistor target is also empty. No non-empty resistor or terminal geometry is qualified."
+      },
+      "tunm": {
+        "empty": [
+          "tunm"
+        ],
+        "reason": "The selected TUNM width/spacing/area/containment/straddle subjects require TUNM. The tunm.3 gate-extension record is deliberately excluded pending target interpretation."
+      },
+      "hvntm": {
+        "empty": [
+          "hvntm",
+          "hvi"
+        ],
+        "reason": "Both HVNTM and HVI are empty. HVI emptiness discharges the explicitly HVI-selected diffusion and ESD-tap enclosure targets; HVNTM emptiness alone would not."
+      },
+      "vhvi": {
+        "empty": [
+          "vhvi"
+        ],
+        "reason": "C3 VHVGate, VHVPoly and VHVSourceDrain require VHVI. With no such geometry there is no selected root for the listed connectivity propagation. Independent voltage/tagging intent remains unproved."
+      },
+      "extended_drain": {
+        "empty": [
+          "areaid.en"
+        ],
+        "reason": "C3 drain-extended gates, sources and drains require areaid.en; its absence discharges only the explicitly selected subjects. The ambiguous angle records and extd.3 catalog target are excluded."
+      },
+      "ncm": {
+        "empty": [
+          "ncm"
+        ],
+        "reason": "The selected width/spacing/area subjects are NCM or its holes. The separate P+ diffusion enclosure obligations ncm.3 and ncm.4 are not included."
+      }
+    },
+    "bindings": {
+      "r393": {
+        "rule": "dnwell.2",
+        "description": "3 min. width of dnwell",
+        "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#1",
+        "parent_rule": "dnwell.2",
+        "source_sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+        "proof": "dnwell",
+        "parent_witnesses": [
+          "(64, 18)"
+        ]
+      },
+      "r394": {
+        "rule": "dnwell.3",
+        "description": "6.3 min. spacing/notch of dnwellNotPhotoNotUHVI",
+        "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#2",
+        "parent_rule": "dnwell.3",
+        "source_sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+        "proof": "dnwell",
+        "parent_witnesses": [
+          "(64, 18)"
+        ]
+      },
+      "r395": {
+        "rule": "dnwell.4",
+        "description": "dnwell must not overlap pnp",
+        "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#7",
+        "parent_rule": "dnwell.4",
+        "source_sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+        "proof": "dnwell",
+        "parent_witnesses": [
+          "(64, 18)"
+        ]
+      },
+      "r397": {
+        "rule": "dnwell.7",
+        "description": "dnwell cannot straddle localSub",
+        "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#10",
+        "parent_rule": "dnwell.7",
+        "source_sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+        "proof": "dnwell",
+        "parent_witnesses": [
+          "(64, 18)"
+        ]
+      },
+      "r401": {
+        "rule": "nwell.5",
+        "description": "0.4 min. enclosure of dnwellNotTechCDLOWVTID by filledNwell",
+        "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#5",
+        "parent_rule": "nwell.5",
+        "source_sha256": "15d7db99269a7861d4c0919874ed34cf19094e48f77e0143f42331d488b5223c",
+        "proof": "dnwell",
+        "parent_witnesses": [
+          "(64, 18)"
+        ]
+      },
+      "r402": {
+        "rule": "nwell.5",
+        "description": "dnwellNotTechCDLOWVTID must be enclosed by filledNwell",
+        "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#5",
+        "parent_rule": "nwell.5",
+        "source_sha256": "15d7db99269a7861d4c0919874ed34cf19094e48f77e0143f42331d488b5223c",
+        "proof": "dnwell",
+        "parent_witnesses": [
+          "(64, 18)"
+        ]
+      },
+      "r404": {
+        "rule": "nwell.7",
+        "description": "4.5 min spacing between nwell and dnwell on separate nets",
+        "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#9",
+        "parent_rule": "nwell.7",
+        "source_sha256": "15d7db99269a7861d4c0919874ed34cf19094e48f77e0143f42331d488b5223c",
+        "proof": "dnwell",
+        "parent_witnesses": [
+          "(64, 18)"
+        ]
+      },
+      "r412": {
+        "rule": "lvtn.1a",
+        "description": "0.38 min. width of lvtn",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#1",
+        "parent_rule": "lvtn.1a",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r413": {
+        "rule": "lvtn.2",
+        "description": "0.38 min. spacing/notch of lvtn",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#2",
+        "parent_rule": "lvtn.2",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r414": {
+        "rule": "lvtn.3a",
+        "description": "0.18 min. spacing of Gate in Periphery outside UHVI layer & \"lvtn\" in periphery",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#3",
+        "parent_rule": "lvtn.3a",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r415": {
+        "rule": "lvtn.3b",
+        "description": "0.19 min spacing of lvtn(peri) to pfet along S/D direction",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#4",
+        "parent_rule": "lvtn.3b",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r417": {
+        "rule": "lvtn.9",
+        "description": "0.38 min. spacing of lvtn & hvtp",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#6",
+        "parent_rule": "lvtn.9",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r418": {
+        "rule": "lvtn.9",
+        "description": "lvtn must not overlap hvtp",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#6",
+        "parent_rule": "lvtn.9",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r419": {
+        "rule": "lvtn.10",
+        "description": "0.38 min enclosure of lvtn by (nwell not overlapping Varactor Channel)",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#7",
+        "parent_rule": "lvtn.10",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r420": {
+        "rule": "lvtn.12",
+        "description": "0.38 min. spacing of lvtn & coreNwell",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#8",
+        "parent_rule": "lvtn.12",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r421": {
+        "rule": "lvtn.13",
+        "description": "0.265 min. area of lvtn",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#9",
+        "parent_rule": "lvtn.13",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r422": {
+        "rule": "lvtn.14",
+        "description": "0.265 min. area of lvtnHoles",
+        "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#10",
+        "parent_rule": "lvtn.14",
+        "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+        "proof": "lvtn",
+        "parent_witnesses": [
+          "(125, 44)"
+        ]
+      },
+      "r423": {
+        "rule": "hvtr.1",
+        "description": "0.38 min. width of hvtr",
+        "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#1",
+        "parent_rule": "hvtr.1",
+        "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+        "proof": "hvtr",
+        "parent_witnesses": [
+          "(18, 20)"
+        ]
+      },
+      "r424": {
+        "rule": "hvtr.2",
+        "description": "0.38 min. spacing of hvtr & hvtp",
+        "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#2",
+        "parent_rule": "hvtr.2",
+        "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+        "proof": "hvtr",
+        "parent_witnesses": [
+          "(18, 20)"
+        ]
+      },
+      "r425": {
+        "rule": "hvtr.2",
+        "description": "hvtr must not overlap hvtp",
+        "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#2",
+        "parent_rule": "hvtr.2",
+        "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+        "proof": "hvtr",
+        "parent_witnesses": [
+          "(18, 20)"
+        ]
+      },
+      "r491": {
+        "rule": "hvi.1",
+        "description": "0.6 min. width of hvi_peri",
+        "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#1",
+        "parent_rule": "hvi.1",
+        "source_sha256": "7bfbc72f95634d4a32056d8e59997d3c4195d709b7b50245dfc38d152338402a",
+        "proof": "hvi",
+        "parent_witnesses": [
+          "(75, 20)"
+        ]
+      },
+      "r492": {
+        "rule": "hvi.2a",
+        "description": "0.7 min. spacing/notch of hvi_peri",
+        "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#2",
+        "parent_rule": "hvi.2a",
+        "source_sha256": "7bfbc72f95634d4a32056d8e59997d3c4195d709b7b50245dfc38d152338402a",
+        "proof": "hvi",
+        "parent_witnesses": [
+          "(75, 20)"
+        ]
+      },
+      "r493": {
+        "rule": "hvi.4",
+        "description": "hvi must not overlap tunm",
+        "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#4",
+        "parent_rule": "hvi.4",
+        "source_sha256": "7bfbc72f95634d4a32056d8e59997d3c4195d709b7b50245dfc38d152338402a",
+        "proof": "hvi",
+        "parent_witnesses": [
+          "(75, 20)"
+        ]
+      },
+      "r494": {
+        "rule": "hvi.5",
+        "description": "0.7 min. spacing between non-butting hvi and nwell",
+        "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#5",
+        "parent_rule": "hvi.5",
+        "source_sha256": "7bfbc72f95634d4a32056d8e59997d3c4195d709b7b50245dfc38d152338402a",
+        "proof": "hvi",
+        "parent_witnesses": [
+          "(75, 20)"
+        ]
+      },
+      "r1273": {
+        "rule": "rdl.1",
+        "description": "10 min. width of rdl",
+        "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#1",
+        "parent_rule": "rdl.1",
+        "source_sha256": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+        "proof": "rdl",
+        "parent_witnesses": [
+          "(74, 20)"
+        ]
+      },
+      "r1274": {
+        "rule": "rdl.2",
+        "description": "10 min. spacing/notch of rdl",
+        "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#2",
+        "parent_rule": "rdl.2",
+        "source_sha256": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+        "proof": "rdl",
+        "parent_witnesses": [
+          "(74, 20)"
+        ]
+      },
+      "r1275": {
+        "rule": "rdl.2",
+        "description": "10 min. spacing/notch of rdl",
+        "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#2",
+        "parent_rule": "rdl.2",
+        "source_sha256": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+        "proof": "rdl",
+        "parent_witnesses": [
+          "(74, 20)"
+        ]
+      },
+      "r1276": {
+        "rule": "rdl.3",
+        "description": "10.75 min. enclosure of pad by nonCSPRDL",
+        "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#3",
+        "parent_rule": "rdl.3",
+        "source_sha256": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+        "proof": "rdl",
+        "parent_witnesses": [
+          "(74, 20)",
+          "(76, 20)"
+        ]
+      },
+      "r1277": {
+        "rule": "rdl.4",
+        "description": "15 min. enclosure of rdl by SEALnoHoles_ORIGIN",
+        "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#4",
+        "parent_rule": "rdl.4",
+        "source_sha256": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+        "proof": "rdl",
+        "parent_witnesses": [
+          "(74, 20)"
+        ]
+      },
+      "r1278": {
+        "rule": "rdl.5",
+        "description": "(rdl OR ccu1m.mk) in scribe must not overlap areaid.ft.",
+        "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#5",
+        "parent_rule": "rdl.5",
+        "source_sha256": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+        "proof": "rdl",
+        "parent_witnesses": [
+          "(74, 20)",
+          "(93, 0)"
+        ]
+      },
+      "r1279": {
+        "rule": "rdl.6",
+        "description": "19.66 min. spacing of nonCSPRDL & pad",
+        "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#6",
+        "parent_rule": "rdl.6",
+        "source_sha256": "690f33468c5950c9e0b90ce70ba797008c472eecf5d735e3486854456bbfd29c",
+        "proof": "rdl",
+        "parent_witnesses": [
+          "(74, 20)"
+        ]
+      },
+      "r1048": {
+        "rule": "rpm.3",
+        "description": "precResistor must be enclosed by rpm",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#13",
+        "parent_rule": "rpm.3",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "prec_resistor"
+        ]
+      },
+      "r1049": {
+        "rule": "rpm.4",
+        "description": "0.11 min. enclosure of precResistor by psdm",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#14",
+        "parent_rule": "rpm.4",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "prec_resistor"
+        ]
+      },
+      "r1050": {
+        "rule": "rpm.4",
+        "description": "precResistor must be enclosed by psdm",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#14",
+        "parent_rule": "rpm.4",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "prec_resistor"
+        ]
+      },
+      "r1051": {
+        "rule": "rpm.5",
+        "description": "0.095 min. enclosure of precResistor by npc",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#15",
+        "parent_rule": "rpm.5",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "prec_resistor"
+        ]
+      },
+      "r1052": {
+        "rule": "rpm.5",
+        "description": "precResistor must be enclosed by npc",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#15",
+        "parent_rule": "rpm.5",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "prec_resistor"
+        ]
+      },
+      "r1053": {
+        "rule": "rpm.6",
+        "description": "0.2 min. spacing of rpm & nsdm",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#16",
+        "parent_rule": "rpm.6",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "(86, 20)"
+        ]
+      },
+      "r1054": {
+        "rule": "rpm.6",
+        "description": "rpm must not overlap nsdm",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#16",
+        "parent_rule": "rpm.6",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "(86, 20)"
+        ]
+      },
+      "r1055": {
+        "rule": "rpm.7",
+        "description": "0.2 min. spacing of rpm & poly",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#17",
+        "parent_rule": "rpm.7",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "(86, 20)"
+        ]
+      },
+      "r1056": {
+        "rule": "rpm.8",
+        "description": "poly must not straddle rpm",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#18",
+        "parent_rule": "rpm.8",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "(86, 20)"
+        ]
+      },
+      "r1057": {
+        "rule": "rpm.9",
+        "description": "0.185 min. spacing of precResistor & hvntm",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#19",
+        "parent_rule": "rpm.9",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "prec_resistor"
+        ]
+      },
+      "r1058": {
+        "rule": "rpm.9",
+        "description": "precResistor must not overlap hvntm",
+        "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#19",
+        "parent_rule": "rpm.9",
+        "source_sha256": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+        "proof": "rpm",
+        "parent_witnesses": [
+          "prec_resistor"
+        ]
+      },
+      "r451": {
+        "rule": "tunm.1",
+        "description": "0.41 min. width of tunm",
+        "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#1",
+        "parent_rule": "tunm.1",
+        "source_sha256": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+        "proof": "tunm",
+        "parent_witnesses": [
+          "(80, 20)"
+        ]
+      },
+      "r452": {
+        "rule": "tunm.2",
+        "description": "0.5 min. spacing/notch of tunm",
+        "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#2",
+        "parent_rule": "tunm.2",
+        "source_sha256": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+        "proof": "tunm",
+        "parent_witnesses": [
+          "(80, 20)"
+        ]
+      },
+      "r454": {
+        "rule": "tunm.4",
+        "description": "0.095 min. spacing of GATE_outsidetunm & tunm",
+        "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#4",
+        "parent_rule": "tunm.4",
+        "source_sha256": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+        "proof": "tunm",
+        "parent_witnesses": [
+          "(80, 20)"
+        ]
+      },
+      "r455": {
+        "rule": "tunm.5",
+        "description": "gate must not straddle tunm",
+        "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#5",
+        "parent_rule": "tunm.5",
+        "source_sha256": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+        "proof": "tunm",
+        "parent_witnesses": [
+          "(80, 20)"
+        ]
+      },
+      "r456": {
+        "rule": "tunm.6a",
+        "description": "tunm outside deep nwell is not allowed",
+        "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#6",
+        "parent_rule": "tunm.6a",
+        "source_sha256": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+        "proof": "tunm",
+        "parent_witnesses": [
+          "(80, 20)"
+        ]
+      },
+      "r457": {
+        "rule": "tunm.7",
+        "description": "0.672 min. area of tunm",
+        "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#7",
+        "parent_rule": "tunm.7",
+        "source_sha256": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+        "proof": "tunm",
+        "parent_witnesses": [
+          "(80, 20)"
+        ]
+      },
+      "r458": {
+        "rule": "tunm.8",
+        "description": "tunm must be enclosed by COREID",
+        "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#8",
+        "parent_rule": "tunm.8",
+        "source_sha256": "2688b772386cbcbbadab4cfee5d63dc3332f5a8cb1db3f5ce34c4f8ddc9791e1",
+        "proof": "tunm",
+        "parent_witnesses": [
+          "(80, 20)"
+        ]
+      },
+      "r1062": {
+        "rule": "hvntm.1",
+        "description": "0.7 min. width of hvntm_peri",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#2",
+        "parent_rule": "hvntm.1",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1063": {
+        "rule": "hvntm.2",
+        "description": "0.7 min. spacing/notch of hvntm_peri",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#3",
+        "parent_rule": "hvntm.2",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1064": {
+        "rule": "hvntm.3",
+        "description": "0.185 min. enclosure of ndiffInHviPeri by hvntm_peri",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#4",
+        "parent_rule": "hvntm.3",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(75, 20)"
+        ]
+      },
+      "r1065": {
+        "rule": "hvntm.4",
+        "description": "0.185 min. spacing of hvntm_peri & ndiffOutsideHvi",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#5",
+        "parent_rule": "hvntm.4",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1066": {
+        "rule": "hvntm.4",
+        "description": "hvntm_peri must not overlap ndiffOutsideHvi",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#5",
+        "parent_rule": "hvntm.4",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1067": {
+        "rule": "hvntm.5",
+        "description": "0.185 min. spacing of hvntm_peri & PDIFF_notENID",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#6",
+        "parent_rule": "hvntm.5",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1068": {
+        "rule": "hvntm.5",
+        "description": "hvntm_peri must not overlap PDIFF_notENID",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#6",
+        "parent_rule": "hvntm.5",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1069": {
+        "rule": "hvntm.6a",
+        "description": "0.185 min. spacing of hvntm_peri & PTAPnoButtDiff",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#7",
+        "parent_rule": "hvntm.6a",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1070": {
+        "rule": "hvntm.6a",
+        "description": "hvntm_peri must not overlap ptap",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#7",
+        "parent_rule": "hvntm.6a",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1071": {
+        "rule": "hvntm.6b",
+        "description": "hvntm_peri must not overlap diffpTapButtEdge_sz",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#8",
+        "parent_rule": "hvntm.6b",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1072": {
+        "rule": "hvntm.7",
+        "description": "0 min. enclosure of ESD_nwell_tap_hvi by hvntm_peri",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#9",
+        "parent_rule": "hvntm.7",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(75, 20)"
+        ]
+      },
+      "r1073": {
+        "rule": "hvntm.7",
+        "description": "ESD_nwell_tap_hvi must be enclosed by hvntm_peri",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#9",
+        "parent_rule": "hvntm.7",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(75, 20)"
+        ]
+      },
+      "r1074": {
+        "rule": "hvntm.9",
+        "description": "hvntm must not overlap COREID",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#10",
+        "parent_rule": "hvntm.9",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1075": {
+        "rule": "hvntm.10",
+        "description": "hvntm must overlap hvi",
+        "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#11",
+        "parent_rule": "hvntm.10",
+        "source_sha256": "90cf8049337b0f707283e37dfd83fe6c0e9918d561f2ae6b04389cf037bdd6f6",
+        "proof": "hvntm",
+        "parent_witnesses": [
+          "(125, 20)"
+        ]
+      },
+      "r1155": {
+        "rule": "vhvi.vhv.5",
+        "description": "diffusion not in drain-extended devices must not be connected to VHVSrcDrn",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#5",
+        "parent_rule": "vhvi.vhv.5",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r1156": {
+        "rule": "vhvi.1",
+        "description": "0.02 min. width of vhvi",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#7",
+        "parent_rule": "vhvi.1.-",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r1157": {
+        "rule": "vhvi.2",
+        "description": "vhvi must not overlap areaid.ce",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#8",
+        "parent_rule": "vhvi.2.-",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r1158": {
+        "rule": "vhvi.3",
+        "description": "VHVGate must overlap hvi",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#9",
+        "parent_rule": "vhvi.3.-",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r1159": {
+        "rule": "vhvi.4",
+        "description": "poly connected to same net as VHVsourcedrain must be tagged by vhvi",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#10",
+        "parent_rule": "vhvi.4.-",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r1160": {
+        "rule": "vhvi.5",
+        "description": "vhvi must not straddle VHVSrcDrn",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#11",
+        "parent_rule": "vhvi.5.-",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r1161": {
+        "rule": "vhvi.6",
+        "description": "vhvi overlapping VHVSrcDrn must not overlap poly",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#12",
+        "parent_rule": "vhvi.6.-",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r1162": {
+        "rule": "vhvi.7",
+        "description": "vhvi must not straddle VHVPoly",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#13",
+        "parent_rule": "vhvi.7.-",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r1163": {
+        "rule": "vhvi.8",
+        "description": "11.24 min. spacing of VHVnwell & VHVnwellNoConn",
+        "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#14",
+        "parent_rule": "vhvi.8.-",
+        "source_sha256": "cb65108c65ffb093ac459b03f162a2ea437c8ce63d53ee7865a46f898606259a",
+        "proof": "vhvi",
+        "parent_witnesses": [
+          "(74, 21)"
+        ]
+      },
+      "r901": {
+        "rule": "denmos.1",
+        "description": "1.055 min. width of gate of Drain Extended nFET",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#1",
+        "parent_rule": "denmos.1",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r902": {
+        "rule": "denmos.2",
+        "description": "0.28 min. width of deNFetSource not overlapping poly",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#2",
+        "parent_rule": "denmos.2",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r903": {
+        "rule": "denmos.3",
+        "description": "0.925 min. width of deNFetSource overlapping poly",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#3",
+        "parent_rule": "denmos.3",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r904": {
+        "rule": "denmos.4",
+        "description": "0.17 min. width of drain  of Drain Extended nFET",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#4",
+        "parent_rule": "denmos.4",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r905": {
+        "rule": "denmos.5",
+        "description": "min/max extension between de_nFET_source over nwell 0.225",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#5",
+        "parent_rule": "denmos.5",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r906": {
+        "rule": "denmos.6",
+        "description": "min/max spacing  between de_nFET_source and de_nFET_drain 1.585",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#6",
+        "parent_rule": "denmos.6",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r907": {
+        "rule": "denmos.7",
+        "description": "min channel width 5.000",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#7",
+        "parent_rule": "denmos.7",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r909": {
+        "rule": "denmos.10",
+        "description": "0.66 min. enclosure of drain  of Drain Extended nFET by nwell",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#11",
+        "parent_rule": "denmos.10",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r910": {
+        "rule": "denmos.11",
+        "description": "0.86 min. spacing of ptap & nwellOVRdeNFetDrain",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#12",
+        "parent_rule": "denmos.11",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r911": {
+        "rule": "denmos.12",
+        "description": "2.4 min. spacing of nwellOVRdeNFetDrain",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#13",
+        "parent_rule": "denmos.12",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r912": {
+        "rule": "denmos.13",
+        "description": "0.13 min. enclosure of source of Drain Extended nFET by nsdm",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#14",
+        "parent_rule": "denmos.13",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r913": {
+        "rule": "denmos.13",
+        "description": "source of Drain Extended nFET must be enclosed by nsdm",
+        "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#14",
+        "parent_rule": "denmos.13",
+        "source_sha256": "b9193ec7ba88bec32605d6da67983326ce8bb6d0eb43f40c87acd88ceb32b7f3",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r915": {
+        "rule": "depmos.1",
+        "description": "1.05 min. width of gate of Drain Extended pFET",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#1",
+        "parent_rule": "depmos.1",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r916": {
+        "rule": "depmos.2",
+        "description": "0.28 min. width of dePFetSourceNotpoly",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#2",
+        "parent_rule": "depmos.2",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r917": {
+        "rule": "depmos.3",
+        "description": "0.92 min. width of dePFetSource  overlapping poly",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#3",
+        "parent_rule": "depmos.3",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r918": {
+        "rule": "depmos.4",
+        "description": "0.17 min. width of drain of Drain Extended pFET",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#4",
+        "parent_rule": "depmos.4",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r919": {
+        "rule": "depmos.5",
+        "description": "min/max extension between de_pFET_source beyond nwell 0.260",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#5",
+        "parent_rule": "depmos.5",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r920": {
+        "rule": "depmos.6",
+        "description": "min/max spacing  between de_pFET_source and de_pFET_drain 1.190",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#6",
+        "parent_rule": "depmos.6",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r921": {
+        "rule": "depmos.7",
+        "description": "min channel width 5.000",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#7",
+        "parent_rule": "depmos.7",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r925": {
+        "rule": "depmos.12",
+        "description": "0.13 min. enclosure of source of Drain Extended pFET by psdm",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#13",
+        "parent_rule": "depmos.12",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r926": {
+        "rule": "depmos.12",
+        "description": "source of Drain Extended pFET must be enclosed by psdm",
+        "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#13",
+        "parent_rule": "depmos.12",
+        "source_sha256": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc",
+        "proof": "extended_drain",
+        "parent_witnesses": [
+          "(81, 57)"
+        ]
+      },
+      "r1025": {
+        "rule": "ncm.1",
+        "description": "0.38 min. width of ncmPeri",
+        "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#3",
+        "parent_rule": "ncm.1",
+        "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+        "proof": "ncm",
+        "parent_witnesses": [
+          "(92, 44)"
+        ]
+      },
+      "r1026": {
+        "rule": "ncm.2a",
+        "description": "0.38 min. spacing/notch of ncmPeri",
+        "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#4",
+        "parent_rule": "ncm.2a",
+        "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+        "proof": "ncm",
+        "parent_witnesses": [
+          "(92, 44)"
+        ]
+      },
+      "r1027": {
+        "rule": "ncm.7",
+        "description": "0.265 min. area of ncm",
+        "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#10",
+        "parent_rule": "ncm.7",
+        "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+        "proof": "ncm",
+        "parent_witnesses": [
+          "(92, 44)"
+        ]
+      },
+      "r1028": {
+        "rule": "ncm.8",
+        "description": "0.265 min. area of ncmHoles",
+        "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#11",
+        "parent_rule": "ncm.8",
+        "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+        "proof": "ncm",
+        "parent_witnesses": [
+          "(92, 44)"
+        ]
+      },
+      "r403": {
+        "rule": "nwell.6",
+        "description": "1.03 min enclosure of nwellHole by dnwell",
+        "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#8",
+        "parent_rule": "nwell.6",
+        "source_sha256": "15d7db99269a7861d4c0919874ed34cf19094e48f77e0143f42331d488b5223c",
+        "proof": "nwell_holes",
+        "parent_witnesses": [
+          "nwell_holes"
+        ]
+      }
+    },
+    "discrepancies": [
+      {
+        "id": "r415",
+        "catalog_value_um": "0.19",
+        "periphery_value_um": "0.235",
+        "status": "numeric-disagreement-unresolved",
+        "scope": "Empty LVTN proves absence under either threshold. No numeric checker or non-empty acceptance is claimed."
+      }
+    ],
+    "exclusions": [
+      "r416",
+      "r426",
+      "r453",
+      "r908",
+      "r922",
+      "r930",
+      "r1047",
+      "r988",
+      "r989",
+      "r990",
+      "r991",
+      "r992",
+      "r993",
+      "r994",
+      "r995",
+      "r996",
+      "r997",
+      "r998",
+      "r999",
+      "r1000",
+      "r1001",
+      "r1002",
+      "r1003",
+      "r1004",
+      "r1005",
+      "r1006",
+      "r1007",
+      "r1008",
+      "r1009",
+      "r1010",
+      "r1011",
+      "r1012",
+      "r1013",
+      "r1014",
+      "r1015",
+      "r1016",
+      "r1017",
+      "r1018",
+      "r1019",
+      "r1020",
+      "r1021",
+      "r1022",
+      "r1023"
+    ]
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "measurement": {
+        "top": "counter",
+        "counts": {
+          "dnwell": 0,
+          "lvtn": 0,
+          "hvtr": 0,
+          "hvi": 0,
+          "rdl": 0,
+          "pad": 0,
+          "ccu1m": 0,
+          "rpm": 0,
+          "tunm": 0,
+          "hvntm": 0,
+          "vhvi": 0,
+          "areaid.en": 0,
+          "ncm": 0,
+          "nwell": 3330,
+          "nwell_holes": 0
+        },
+        "measurement": "All recursively referenced shapes per raw operand, including texts/paths. Nwell holes are measured in the exact merged polygon union; only unit orthogonal transforms and box/polygon nwell geometry are admitted.",
+        "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+        "checker_sha256": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622"
+      },
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "new_error_decisions": [
+        {
+          "id": "r393",
+          "record": 394,
+          "rule": "dnwell.2",
+          "disposition": "absent-operand",
+          "binding": "r393",
+          "description": "3 min. width of dnwell",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#1",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r394",
+          "record": 395,
+          "rule": "dnwell.3",
+          "disposition": "absent-operand",
+          "binding": "r394",
+          "description": "6.3 min. spacing/notch of dnwellNotPhotoNotUHVI",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#2",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r395",
+          "record": 396,
+          "rule": "dnwell.4",
+          "disposition": "absent-operand",
+          "binding": "r395",
+          "description": "dnwell must not overlap pnp",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#7",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r397",
+          "record": 398,
+          "rule": "dnwell.7",
+          "disposition": "absent-operand",
+          "binding": "r397",
+          "description": "dnwell cannot straddle localSub",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#10",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r401",
+          "record": 402,
+          "rule": "nwell.5",
+          "disposition": "absent-operand",
+          "binding": "r401",
+          "description": "0.4 min. enclosure of dnwellNotTechCDLOWVTID by filledNwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#5",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r402",
+          "record": 403,
+          "rule": "nwell.5",
+          "disposition": "absent-operand",
+          "binding": "r402",
+          "description": "dnwellNotTechCDLOWVTID must be enclosed by filledNwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#5",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r403",
+          "record": 404,
+          "rule": "nwell.6",
+          "disposition": "absent-operand",
+          "binding": "r403",
+          "description": "1.03 min enclosure of nwellHole by dnwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#8",
+          "absence_proof": "nwell_holes"
+        },
+        {
+          "id": "r404",
+          "record": 405,
+          "rule": "nwell.7",
+          "disposition": "absent-operand",
+          "binding": "r404",
+          "description": "4.5 min spacing between nwell and dnwell on separate nets",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#9",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r412",
+          "record": 413,
+          "rule": "lvtn.1a",
+          "disposition": "absent-operand",
+          "binding": "r412",
+          "description": "0.38 min. width of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#1",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r413",
+          "record": 414,
+          "rule": "lvtn.2",
+          "disposition": "absent-operand",
+          "binding": "r413",
+          "description": "0.38 min. spacing/notch of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#2",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r414",
+          "record": 415,
+          "rule": "lvtn.3a",
+          "disposition": "absent-operand",
+          "binding": "r414",
+          "description": "0.18 min. spacing of Gate in Periphery outside UHVI layer & \"lvtn\" in periphery",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#3",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r415",
+          "record": 416,
+          "rule": "lvtn.3b",
+          "disposition": "absent-operand",
+          "binding": "r415",
+          "description": "0.19 min spacing of lvtn(peri) to pfet along S/D direction",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#4",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r417",
+          "record": 418,
+          "rule": "lvtn.9",
+          "disposition": "absent-operand",
+          "binding": "r417",
+          "description": "0.38 min. spacing of lvtn & hvtp",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#6",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r418",
+          "record": 419,
+          "rule": "lvtn.9",
+          "disposition": "absent-operand",
+          "binding": "r418",
+          "description": "lvtn must not overlap hvtp",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#6",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r419",
+          "record": 420,
+          "rule": "lvtn.10",
+          "disposition": "absent-operand",
+          "binding": "r419",
+          "description": "0.38 min enclosure of lvtn by (nwell not overlapping Varactor Channel)",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#7",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r420",
+          "record": 421,
+          "rule": "lvtn.12",
+          "disposition": "absent-operand",
+          "binding": "r420",
+          "description": "0.38 min. spacing of lvtn & coreNwell",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#8",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r421",
+          "record": 422,
+          "rule": "lvtn.13",
+          "disposition": "absent-operand",
+          "binding": "r421",
+          "description": "0.265 min. area of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#9",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r422",
+          "record": 423,
+          "rule": "lvtn.14",
+          "disposition": "absent-operand",
+          "binding": "r422",
+          "description": "0.265 min. area of lvtnHoles",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#10",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r423",
+          "record": 424,
+          "rule": "hvtr.1",
+          "disposition": "absent-operand",
+          "binding": "r423",
+          "description": "0.38 min. width of hvtr",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#1",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r424",
+          "record": 425,
+          "rule": "hvtr.2",
+          "disposition": "absent-operand",
+          "binding": "r424",
+          "description": "0.38 min. spacing of hvtr & hvtp",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#2",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r425",
+          "record": 426,
+          "rule": "hvtr.2",
+          "disposition": "absent-operand",
+          "binding": "r425",
+          "description": "hvtr must not overlap hvtp",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#2",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r451",
+          "record": 452,
+          "rule": "tunm.1",
+          "disposition": "absent-operand",
+          "binding": "r451",
+          "description": "0.41 min. width of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#1",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r452",
+          "record": 453,
+          "rule": "tunm.2",
+          "disposition": "absent-operand",
+          "binding": "r452",
+          "description": "0.5 min. spacing/notch of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#2",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r454",
+          "record": 455,
+          "rule": "tunm.4",
+          "disposition": "absent-operand",
+          "binding": "r454",
+          "description": "0.095 min. spacing of GATE_outsidetunm & tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#4",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r455",
+          "record": 456,
+          "rule": "tunm.5",
+          "disposition": "absent-operand",
+          "binding": "r455",
+          "description": "gate must not straddle tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#5",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r456",
+          "record": 457,
+          "rule": "tunm.6a",
+          "disposition": "absent-operand",
+          "binding": "r456",
+          "description": "tunm outside deep nwell is not allowed",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#6",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r457",
+          "record": 458,
+          "rule": "tunm.7",
+          "disposition": "absent-operand",
+          "binding": "r457",
+          "description": "0.672 min. area of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#7",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r458",
+          "record": 459,
+          "rule": "tunm.8",
+          "disposition": "absent-operand",
+          "binding": "r458",
+          "description": "tunm must be enclosed by COREID",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#8",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r491",
+          "record": 492,
+          "rule": "hvi.1",
+          "disposition": "absent-operand",
+          "binding": "r491",
+          "description": "0.6 min. width of hvi_peri",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#1",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r492",
+          "record": 493,
+          "rule": "hvi.2a",
+          "disposition": "absent-operand",
+          "binding": "r492",
+          "description": "0.7 min. spacing/notch of hvi_peri",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#2",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r493",
+          "record": 494,
+          "rule": "hvi.4",
+          "disposition": "absent-operand",
+          "binding": "r493",
+          "description": "hvi must not overlap tunm",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#4",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r494",
+          "record": 495,
+          "rule": "hvi.5",
+          "disposition": "absent-operand",
+          "binding": "r494",
+          "description": "0.7 min. spacing between non-butting hvi and nwell",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#5",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r901",
+          "record": 893,
+          "rule": "denmos.1",
+          "disposition": "absent-operand",
+          "binding": "r901",
+          "description": "1.055 min. width of gate of Drain Extended nFET",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#1",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r902",
+          "record": 894,
+          "rule": "denmos.2",
+          "disposition": "absent-operand",
+          "binding": "r902",
+          "description": "0.28 min. width of deNFetSource not overlapping poly",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#2",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r903",
+          "record": 895,
+          "rule": "denmos.3",
+          "disposition": "absent-operand",
+          "binding": "r903",
+          "description": "0.925 min. width of deNFetSource overlapping poly",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#3",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r904",
+          "record": 896,
+          "rule": "denmos.4",
+          "disposition": "absent-operand",
+          "binding": "r904",
+          "description": "0.17 min. width of drain  of Drain Extended nFET",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#4",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r905",
+          "record": 897,
+          "rule": "denmos.5",
+          "disposition": "absent-operand",
+          "binding": "r905",
+          "description": "min/max extension between de_nFET_source over nwell 0.225",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#5",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r906",
+          "record": 898,
+          "rule": "denmos.6",
+          "disposition": "absent-operand",
+          "binding": "r906",
+          "description": "min/max spacing  between de_nFET_source and de_nFET_drain 1.585",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#6",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r907",
+          "record": 899,
+          "rule": "denmos.7",
+          "disposition": "absent-operand",
+          "binding": "r907",
+          "description": "min channel width 5.000",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#7",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r909",
+          "record": 901,
+          "rule": "denmos.10",
+          "disposition": "absent-operand",
+          "binding": "r909",
+          "description": "0.66 min. enclosure of drain  of Drain Extended nFET by nwell",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#11",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r910",
+          "record": 902,
+          "rule": "denmos.11",
+          "disposition": "absent-operand",
+          "binding": "r910",
+          "description": "0.86 min. spacing of ptap & nwellOVRdeNFetDrain",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#12",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r911",
+          "record": 903,
+          "rule": "denmos.12",
+          "disposition": "absent-operand",
+          "binding": "r911",
+          "description": "2.4 min. spacing of nwellOVRdeNFetDrain",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r912",
+          "record": 904,
+          "rule": "denmos.13",
+          "disposition": "absent-operand",
+          "binding": "r912",
+          "description": "0.13 min. enclosure of source of Drain Extended nFET by nsdm",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#14",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r913",
+          "record": 905,
+          "rule": "denmos.13",
+          "disposition": "absent-operand",
+          "binding": "r913",
+          "description": "source of Drain Extended nFET must be enclosed by nsdm",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#14",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r915",
+          "record": 906,
+          "rule": "depmos.1",
+          "disposition": "absent-operand",
+          "binding": "r915",
+          "description": "1.05 min. width of gate of Drain Extended pFET",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#1",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r916",
+          "record": 907,
+          "rule": "depmos.2",
+          "disposition": "absent-operand",
+          "binding": "r916",
+          "description": "0.28 min. width of dePFetSourceNotpoly",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#2",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r917",
+          "record": 908,
+          "rule": "depmos.3",
+          "disposition": "absent-operand",
+          "binding": "r917",
+          "description": "0.92 min. width of dePFetSource  overlapping poly",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#3",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r918",
+          "record": 909,
+          "rule": "depmos.4",
+          "disposition": "absent-operand",
+          "binding": "r918",
+          "description": "0.17 min. width of drain of Drain Extended pFET",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#4",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r919",
+          "record": 910,
+          "rule": "depmos.5",
+          "disposition": "absent-operand",
+          "binding": "r919",
+          "description": "min/max extension between de_pFET_source beyond nwell 0.260",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#5",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r920",
+          "record": 911,
+          "rule": "depmos.6",
+          "disposition": "absent-operand",
+          "binding": "r920",
+          "description": "min/max spacing  between de_pFET_source and de_pFET_drain 1.190",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#6",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r921",
+          "record": 912,
+          "rule": "depmos.7",
+          "disposition": "absent-operand",
+          "binding": "r921",
+          "description": "min channel width 5.000",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#7",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r925",
+          "record": 916,
+          "rule": "depmos.12",
+          "disposition": "absent-operand",
+          "binding": "r925",
+          "description": "0.13 min. enclosure of source of Drain Extended pFET by psdm",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r926",
+          "record": 917,
+          "rule": "depmos.12",
+          "disposition": "absent-operand",
+          "binding": "r926",
+          "description": "source of Drain Extended pFET must be enclosed by psdm",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r1025",
+          "record": 1016,
+          "rule": "ncm.1",
+          "disposition": "absent-operand",
+          "binding": "r1025",
+          "description": "0.38 min. width of ncmPeri",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#3",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1026",
+          "record": 1017,
+          "rule": "ncm.2a",
+          "disposition": "absent-operand",
+          "binding": "r1026",
+          "description": "0.38 min. spacing/notch of ncmPeri",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#4",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1027",
+          "record": 1018,
+          "rule": "ncm.7",
+          "disposition": "absent-operand",
+          "binding": "r1027",
+          "description": "0.265 min. area of ncm",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#10",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1028",
+          "record": 1019,
+          "rule": "ncm.8",
+          "disposition": "absent-operand",
+          "binding": "r1028",
+          "description": "0.265 min. area of ncmHoles",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#11",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1048",
+          "record": 1033,
+          "rule": "rpm.3",
+          "disposition": "absent-operand",
+          "binding": "r1048",
+          "description": "precResistor must be enclosed by rpm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#13",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1049",
+          "record": 1034,
+          "rule": "rpm.4",
+          "disposition": "absent-operand",
+          "binding": "r1049",
+          "description": "0.11 min. enclosure of precResistor by psdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#14",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1050",
+          "record": 1035,
+          "rule": "rpm.4",
+          "disposition": "absent-operand",
+          "binding": "r1050",
+          "description": "precResistor must be enclosed by psdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#14",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1051",
+          "record": 1036,
+          "rule": "rpm.5",
+          "disposition": "absent-operand",
+          "binding": "r1051",
+          "description": "0.095 min. enclosure of precResistor by npc",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#15",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1052",
+          "record": 1037,
+          "rule": "rpm.5",
+          "disposition": "absent-operand",
+          "binding": "r1052",
+          "description": "precResistor must be enclosed by npc",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#15",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1053",
+          "record": 1038,
+          "rule": "rpm.6",
+          "disposition": "absent-operand",
+          "binding": "r1053",
+          "description": "0.2 min. spacing of rpm & nsdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#16",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1054",
+          "record": 1039,
+          "rule": "rpm.6",
+          "disposition": "absent-operand",
+          "binding": "r1054",
+          "description": "rpm must not overlap nsdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#16",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1055",
+          "record": 1040,
+          "rule": "rpm.7",
+          "disposition": "absent-operand",
+          "binding": "r1055",
+          "description": "0.2 min. spacing of rpm & poly",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#17",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1056",
+          "record": 1041,
+          "rule": "rpm.8",
+          "disposition": "absent-operand",
+          "binding": "r1056",
+          "description": "poly must not straddle rpm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#18",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1057",
+          "record": 1042,
+          "rule": "rpm.9",
+          "disposition": "absent-operand",
+          "binding": "r1057",
+          "description": "0.185 min. spacing of precResistor & hvntm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#19",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1058",
+          "record": 1043,
+          "rule": "rpm.9",
+          "disposition": "absent-operand",
+          "binding": "r1058",
+          "description": "precResistor must not overlap hvntm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#19",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1062",
+          "record": 1047,
+          "rule": "hvntm.1",
+          "disposition": "absent-operand",
+          "binding": "r1062",
+          "description": "0.7 min. width of hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#2",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1063",
+          "record": 1048,
+          "rule": "hvntm.2",
+          "disposition": "absent-operand",
+          "binding": "r1063",
+          "description": "0.7 min. spacing/notch of hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#3",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1064",
+          "record": 1049,
+          "rule": "hvntm.3",
+          "disposition": "absent-operand",
+          "binding": "r1064",
+          "description": "0.185 min. enclosure of ndiffInHviPeri by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#4",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1065",
+          "record": 1050,
+          "rule": "hvntm.4",
+          "disposition": "absent-operand",
+          "binding": "r1065",
+          "description": "0.185 min. spacing of hvntm_peri & ndiffOutsideHvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#5",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1066",
+          "record": 1051,
+          "rule": "hvntm.4",
+          "disposition": "absent-operand",
+          "binding": "r1066",
+          "description": "hvntm_peri must not overlap ndiffOutsideHvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#5",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1067",
+          "record": 1052,
+          "rule": "hvntm.5",
+          "disposition": "absent-operand",
+          "binding": "r1067",
+          "description": "0.185 min. spacing of hvntm_peri & PDIFF_notENID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#6",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1068",
+          "record": 1053,
+          "rule": "hvntm.5",
+          "disposition": "absent-operand",
+          "binding": "r1068",
+          "description": "hvntm_peri must not overlap PDIFF_notENID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#6",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1069",
+          "record": 1054,
+          "rule": "hvntm.6a",
+          "disposition": "absent-operand",
+          "binding": "r1069",
+          "description": "0.185 min. spacing of hvntm_peri & PTAPnoButtDiff",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#7",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1070",
+          "record": 1055,
+          "rule": "hvntm.6a",
+          "disposition": "absent-operand",
+          "binding": "r1070",
+          "description": "hvntm_peri must not overlap ptap",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#7",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1071",
+          "record": 1056,
+          "rule": "hvntm.6b",
+          "disposition": "absent-operand",
+          "binding": "r1071",
+          "description": "hvntm_peri must not overlap diffpTapButtEdge_sz",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#8",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1072",
+          "record": 1057,
+          "rule": "hvntm.7",
+          "disposition": "absent-operand",
+          "binding": "r1072",
+          "description": "0 min. enclosure of ESD_nwell_tap_hvi by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#9",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1073",
+          "record": 1058,
+          "rule": "hvntm.7",
+          "disposition": "absent-operand",
+          "binding": "r1073",
+          "description": "ESD_nwell_tap_hvi must be enclosed by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#9",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1074",
+          "record": 1059,
+          "rule": "hvntm.9",
+          "disposition": "absent-operand",
+          "binding": "r1074",
+          "description": "hvntm must not overlap COREID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#10",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1075",
+          "record": 1060,
+          "rule": "hvntm.10",
+          "disposition": "absent-operand",
+          "binding": "r1075",
+          "description": "hvntm must overlap hvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#11",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1155",
+          "record": 1140,
+          "rule": "vhvi.vhv.5",
+          "disposition": "absent-operand",
+          "binding": "r1155",
+          "description": "diffusion not in drain-extended devices must not be connected to VHVSrcDrn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#5",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1156",
+          "record": 1141,
+          "rule": "vhvi.1",
+          "disposition": "absent-operand",
+          "binding": "r1156",
+          "description": "0.02 min. width of vhvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#7",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1157",
+          "record": 1142,
+          "rule": "vhvi.2",
+          "disposition": "absent-operand",
+          "binding": "r1157",
+          "description": "vhvi must not overlap areaid.ce",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#8",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1158",
+          "record": 1143,
+          "rule": "vhvi.3",
+          "disposition": "absent-operand",
+          "binding": "r1158",
+          "description": "VHVGate must overlap hvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#9",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1159",
+          "record": 1144,
+          "rule": "vhvi.4",
+          "disposition": "absent-operand",
+          "binding": "r1159",
+          "description": "poly connected to same net as VHVsourcedrain must be tagged by vhvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#10",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1160",
+          "record": 1145,
+          "rule": "vhvi.5",
+          "disposition": "absent-operand",
+          "binding": "r1160",
+          "description": "vhvi must not straddle VHVSrcDrn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#11",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1161",
+          "record": 1146,
+          "rule": "vhvi.6",
+          "disposition": "absent-operand",
+          "binding": "r1161",
+          "description": "vhvi overlapping VHVSrcDrn must not overlap poly",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#12",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1162",
+          "record": 1147,
+          "rule": "vhvi.7",
+          "disposition": "absent-operand",
+          "binding": "r1162",
+          "description": "vhvi must not straddle VHVPoly",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#13",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1163",
+          "record": 1148,
+          "rule": "vhvi.8",
+          "disposition": "absent-operand",
+          "binding": "r1163",
+          "description": "11.24 min. spacing of VHVnwell & VHVnwellNoConn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#14",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1273",
+          "record": 1258,
+          "rule": "rdl.1",
+          "disposition": "absent-operand",
+          "binding": "r1273",
+          "description": "10 min. width of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#1",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1274",
+          "record": 1259,
+          "rule": "rdl.2",
+          "disposition": "absent-operand",
+          "binding": "r1274",
+          "description": "10 min. spacing/notch of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#2",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1275",
+          "record": 1260,
+          "rule": "rdl.2",
+          "disposition": "absent-operand",
+          "binding": "r1275",
+          "description": "10 min. spacing/notch of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#2",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1276",
+          "record": 1261,
+          "rule": "rdl.3",
+          "disposition": "absent-operand",
+          "binding": "r1276",
+          "description": "10.75 min. enclosure of pad by nonCSPRDL",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#3",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1277",
+          "record": 1262,
+          "rule": "rdl.4",
+          "disposition": "absent-operand",
+          "binding": "r1277",
+          "description": "15 min. enclosure of rdl by SEALnoHoles_ORIGIN",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#4",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1278",
+          "record": 1263,
+          "rule": "rdl.5",
+          "disposition": "absent-operand",
+          "binding": "r1278",
+          "description": "(rdl OR ccu1m.mk) in scribe must not overlap areaid.ft.",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#5",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1279",
+          "record": 1264,
+          "rule": "rdl.6",
+          "disposition": "absent-operand",
+          "binding": "r1279",
+          "description": "19.66 min. spacing of nonCSPRDL & pad",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#6",
+          "absence_proof": "rdl"
+        }
+      ]
+    },
+    {
+      "case": "uart",
+      "measurement": {
+        "top": "uart_tx",
+        "counts": {
+          "dnwell": 0,
+          "lvtn": 0,
+          "hvtr": 0,
+          "hvi": 0,
+          "rdl": 0,
+          "pad": 0,
+          "ccu1m": 0,
+          "rpm": 0,
+          "tunm": 0,
+          "hvntm": 0,
+          "vhvi": 0,
+          "areaid.en": 0,
+          "ncm": 0,
+          "nwell": 17357,
+          "nwell_holes": 0
+        },
+        "measurement": "All recursively referenced shapes per raw operand, including texts/paths. Nwell holes are measured in the exact merged polygon union; only unit orthogonal transforms and box/polygon nwell geometry are admitted.",
+        "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+        "checker_sha256": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622"
+      },
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "new_error_decisions": [
+        {
+          "id": "r393",
+          "record": 394,
+          "rule": "dnwell.2",
+          "disposition": "absent-operand",
+          "binding": "r393",
+          "description": "3 min. width of dnwell",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#1",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r394",
+          "record": 395,
+          "rule": "dnwell.3",
+          "disposition": "absent-operand",
+          "binding": "r394",
+          "description": "6.3 min. spacing/notch of dnwellNotPhotoNotUHVI",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#2",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r395",
+          "record": 396,
+          "rule": "dnwell.4",
+          "disposition": "absent-operand",
+          "binding": "r395",
+          "description": "dnwell must not overlap pnp",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#7",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r397",
+          "record": 398,
+          "rule": "dnwell.7",
+          "disposition": "absent-operand",
+          "binding": "r397",
+          "description": "dnwell cannot straddle localSub",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#10",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r401",
+          "record": 402,
+          "rule": "nwell.5",
+          "disposition": "absent-operand",
+          "binding": "r401",
+          "description": "0.4 min. enclosure of dnwellNotTechCDLOWVTID by filledNwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#5",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r402",
+          "record": 403,
+          "rule": "nwell.5",
+          "disposition": "absent-operand",
+          "binding": "r402",
+          "description": "dnwellNotTechCDLOWVTID must be enclosed by filledNwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#5",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r403",
+          "record": 404,
+          "rule": "nwell.6",
+          "disposition": "absent-operand",
+          "binding": "r403",
+          "description": "1.03 min enclosure of nwellHole by dnwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#8",
+          "absence_proof": "nwell_holes"
+        },
+        {
+          "id": "r404",
+          "record": 405,
+          "rule": "nwell.7",
+          "disposition": "absent-operand",
+          "binding": "r404",
+          "description": "4.5 min spacing between nwell and dnwell on separate nets",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#9",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r412",
+          "record": 413,
+          "rule": "lvtn.1a",
+          "disposition": "absent-operand",
+          "binding": "r412",
+          "description": "0.38 min. width of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#1",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r413",
+          "record": 414,
+          "rule": "lvtn.2",
+          "disposition": "absent-operand",
+          "binding": "r413",
+          "description": "0.38 min. spacing/notch of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#2",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r414",
+          "record": 415,
+          "rule": "lvtn.3a",
+          "disposition": "absent-operand",
+          "binding": "r414",
+          "description": "0.18 min. spacing of Gate in Periphery outside UHVI layer & \"lvtn\" in periphery",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#3",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r415",
+          "record": 416,
+          "rule": "lvtn.3b",
+          "disposition": "absent-operand",
+          "binding": "r415",
+          "description": "0.19 min spacing of lvtn(peri) to pfet along S/D direction",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#4",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r417",
+          "record": 418,
+          "rule": "lvtn.9",
+          "disposition": "absent-operand",
+          "binding": "r417",
+          "description": "0.38 min. spacing of lvtn & hvtp",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#6",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r418",
+          "record": 419,
+          "rule": "lvtn.9",
+          "disposition": "absent-operand",
+          "binding": "r418",
+          "description": "lvtn must not overlap hvtp",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#6",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r419",
+          "record": 420,
+          "rule": "lvtn.10",
+          "disposition": "absent-operand",
+          "binding": "r419",
+          "description": "0.38 min enclosure of lvtn by (nwell not overlapping Varactor Channel)",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#7",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r420",
+          "record": 421,
+          "rule": "lvtn.12",
+          "disposition": "absent-operand",
+          "binding": "r420",
+          "description": "0.38 min. spacing of lvtn & coreNwell",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#8",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r421",
+          "record": 422,
+          "rule": "lvtn.13",
+          "disposition": "absent-operand",
+          "binding": "r421",
+          "description": "0.265 min. area of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#9",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r422",
+          "record": 423,
+          "rule": "lvtn.14",
+          "disposition": "absent-operand",
+          "binding": "r422",
+          "description": "0.265 min. area of lvtnHoles",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#10",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r423",
+          "record": 424,
+          "rule": "hvtr.1",
+          "disposition": "absent-operand",
+          "binding": "r423",
+          "description": "0.38 min. width of hvtr",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#1",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r424",
+          "record": 425,
+          "rule": "hvtr.2",
+          "disposition": "absent-operand",
+          "binding": "r424",
+          "description": "0.38 min. spacing of hvtr & hvtp",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#2",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r425",
+          "record": 426,
+          "rule": "hvtr.2",
+          "disposition": "absent-operand",
+          "binding": "r425",
+          "description": "hvtr must not overlap hvtp",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#2",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r451",
+          "record": 452,
+          "rule": "tunm.1",
+          "disposition": "absent-operand",
+          "binding": "r451",
+          "description": "0.41 min. width of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#1",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r452",
+          "record": 453,
+          "rule": "tunm.2",
+          "disposition": "absent-operand",
+          "binding": "r452",
+          "description": "0.5 min. spacing/notch of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#2",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r454",
+          "record": 455,
+          "rule": "tunm.4",
+          "disposition": "absent-operand",
+          "binding": "r454",
+          "description": "0.095 min. spacing of GATE_outsidetunm & tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#4",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r455",
+          "record": 456,
+          "rule": "tunm.5",
+          "disposition": "absent-operand",
+          "binding": "r455",
+          "description": "gate must not straddle tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#5",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r456",
+          "record": 457,
+          "rule": "tunm.6a",
+          "disposition": "absent-operand",
+          "binding": "r456",
+          "description": "tunm outside deep nwell is not allowed",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#6",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r457",
+          "record": 458,
+          "rule": "tunm.7",
+          "disposition": "absent-operand",
+          "binding": "r457",
+          "description": "0.672 min. area of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#7",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r458",
+          "record": 459,
+          "rule": "tunm.8",
+          "disposition": "absent-operand",
+          "binding": "r458",
+          "description": "tunm must be enclosed by COREID",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#8",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r491",
+          "record": 492,
+          "rule": "hvi.1",
+          "disposition": "absent-operand",
+          "binding": "r491",
+          "description": "0.6 min. width of hvi_peri",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#1",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r492",
+          "record": 493,
+          "rule": "hvi.2a",
+          "disposition": "absent-operand",
+          "binding": "r492",
+          "description": "0.7 min. spacing/notch of hvi_peri",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#2",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r493",
+          "record": 494,
+          "rule": "hvi.4",
+          "disposition": "absent-operand",
+          "binding": "r493",
+          "description": "hvi must not overlap tunm",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#4",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r494",
+          "record": 495,
+          "rule": "hvi.5",
+          "disposition": "absent-operand",
+          "binding": "r494",
+          "description": "0.7 min. spacing between non-butting hvi and nwell",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#5",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r901",
+          "record": 893,
+          "rule": "denmos.1",
+          "disposition": "absent-operand",
+          "binding": "r901",
+          "description": "1.055 min. width of gate of Drain Extended nFET",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#1",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r902",
+          "record": 894,
+          "rule": "denmos.2",
+          "disposition": "absent-operand",
+          "binding": "r902",
+          "description": "0.28 min. width of deNFetSource not overlapping poly",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#2",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r903",
+          "record": 895,
+          "rule": "denmos.3",
+          "disposition": "absent-operand",
+          "binding": "r903",
+          "description": "0.925 min. width of deNFetSource overlapping poly",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#3",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r904",
+          "record": 896,
+          "rule": "denmos.4",
+          "disposition": "absent-operand",
+          "binding": "r904",
+          "description": "0.17 min. width of drain  of Drain Extended nFET",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#4",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r905",
+          "record": 897,
+          "rule": "denmos.5",
+          "disposition": "absent-operand",
+          "binding": "r905",
+          "description": "min/max extension between de_nFET_source over nwell 0.225",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#5",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r906",
+          "record": 898,
+          "rule": "denmos.6",
+          "disposition": "absent-operand",
+          "binding": "r906",
+          "description": "min/max spacing  between de_nFET_source and de_nFET_drain 1.585",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#6",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r907",
+          "record": 899,
+          "rule": "denmos.7",
+          "disposition": "absent-operand",
+          "binding": "r907",
+          "description": "min channel width 5.000",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#7",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r909",
+          "record": 901,
+          "rule": "denmos.10",
+          "disposition": "absent-operand",
+          "binding": "r909",
+          "description": "0.66 min. enclosure of drain  of Drain Extended nFET by nwell",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#11",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r910",
+          "record": 902,
+          "rule": "denmos.11",
+          "disposition": "absent-operand",
+          "binding": "r910",
+          "description": "0.86 min. spacing of ptap & nwellOVRdeNFetDrain",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#12",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r911",
+          "record": 903,
+          "rule": "denmos.12",
+          "disposition": "absent-operand",
+          "binding": "r911",
+          "description": "2.4 min. spacing of nwellOVRdeNFetDrain",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r912",
+          "record": 904,
+          "rule": "denmos.13",
+          "disposition": "absent-operand",
+          "binding": "r912",
+          "description": "0.13 min. enclosure of source of Drain Extended nFET by nsdm",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#14",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r913",
+          "record": 905,
+          "rule": "denmos.13",
+          "disposition": "absent-operand",
+          "binding": "r913",
+          "description": "source of Drain Extended nFET must be enclosed by nsdm",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#14",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r915",
+          "record": 906,
+          "rule": "depmos.1",
+          "disposition": "absent-operand",
+          "binding": "r915",
+          "description": "1.05 min. width of gate of Drain Extended pFET",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#1",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r916",
+          "record": 907,
+          "rule": "depmos.2",
+          "disposition": "absent-operand",
+          "binding": "r916",
+          "description": "0.28 min. width of dePFetSourceNotpoly",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#2",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r917",
+          "record": 908,
+          "rule": "depmos.3",
+          "disposition": "absent-operand",
+          "binding": "r917",
+          "description": "0.92 min. width of dePFetSource  overlapping poly",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#3",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r918",
+          "record": 909,
+          "rule": "depmos.4",
+          "disposition": "absent-operand",
+          "binding": "r918",
+          "description": "0.17 min. width of drain of Drain Extended pFET",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#4",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r919",
+          "record": 910,
+          "rule": "depmos.5",
+          "disposition": "absent-operand",
+          "binding": "r919",
+          "description": "min/max extension between de_pFET_source beyond nwell 0.260",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#5",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r920",
+          "record": 911,
+          "rule": "depmos.6",
+          "disposition": "absent-operand",
+          "binding": "r920",
+          "description": "min/max spacing  between de_pFET_source and de_pFET_drain 1.190",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#6",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r921",
+          "record": 912,
+          "rule": "depmos.7",
+          "disposition": "absent-operand",
+          "binding": "r921",
+          "description": "min channel width 5.000",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#7",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r925",
+          "record": 916,
+          "rule": "depmos.12",
+          "disposition": "absent-operand",
+          "binding": "r925",
+          "description": "0.13 min. enclosure of source of Drain Extended pFET by psdm",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r926",
+          "record": 917,
+          "rule": "depmos.12",
+          "disposition": "absent-operand",
+          "binding": "r926",
+          "description": "source of Drain Extended pFET must be enclosed by psdm",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r1025",
+          "record": 1016,
+          "rule": "ncm.1",
+          "disposition": "absent-operand",
+          "binding": "r1025",
+          "description": "0.38 min. width of ncmPeri",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#3",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1026",
+          "record": 1017,
+          "rule": "ncm.2a",
+          "disposition": "absent-operand",
+          "binding": "r1026",
+          "description": "0.38 min. spacing/notch of ncmPeri",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#4",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1027",
+          "record": 1018,
+          "rule": "ncm.7",
+          "disposition": "absent-operand",
+          "binding": "r1027",
+          "description": "0.265 min. area of ncm",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#10",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1028",
+          "record": 1019,
+          "rule": "ncm.8",
+          "disposition": "absent-operand",
+          "binding": "r1028",
+          "description": "0.265 min. area of ncmHoles",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#11",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1048",
+          "record": 1033,
+          "rule": "rpm.3",
+          "disposition": "absent-operand",
+          "binding": "r1048",
+          "description": "precResistor must be enclosed by rpm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#13",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1049",
+          "record": 1034,
+          "rule": "rpm.4",
+          "disposition": "absent-operand",
+          "binding": "r1049",
+          "description": "0.11 min. enclosure of precResistor by psdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#14",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1050",
+          "record": 1035,
+          "rule": "rpm.4",
+          "disposition": "absent-operand",
+          "binding": "r1050",
+          "description": "precResistor must be enclosed by psdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#14",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1051",
+          "record": 1036,
+          "rule": "rpm.5",
+          "disposition": "absent-operand",
+          "binding": "r1051",
+          "description": "0.095 min. enclosure of precResistor by npc",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#15",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1052",
+          "record": 1037,
+          "rule": "rpm.5",
+          "disposition": "absent-operand",
+          "binding": "r1052",
+          "description": "precResistor must be enclosed by npc",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#15",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1053",
+          "record": 1038,
+          "rule": "rpm.6",
+          "disposition": "absent-operand",
+          "binding": "r1053",
+          "description": "0.2 min. spacing of rpm & nsdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#16",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1054",
+          "record": 1039,
+          "rule": "rpm.6",
+          "disposition": "absent-operand",
+          "binding": "r1054",
+          "description": "rpm must not overlap nsdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#16",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1055",
+          "record": 1040,
+          "rule": "rpm.7",
+          "disposition": "absent-operand",
+          "binding": "r1055",
+          "description": "0.2 min. spacing of rpm & poly",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#17",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1056",
+          "record": 1041,
+          "rule": "rpm.8",
+          "disposition": "absent-operand",
+          "binding": "r1056",
+          "description": "poly must not straddle rpm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#18",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1057",
+          "record": 1042,
+          "rule": "rpm.9",
+          "disposition": "absent-operand",
+          "binding": "r1057",
+          "description": "0.185 min. spacing of precResistor & hvntm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#19",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1058",
+          "record": 1043,
+          "rule": "rpm.9",
+          "disposition": "absent-operand",
+          "binding": "r1058",
+          "description": "precResistor must not overlap hvntm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#19",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1062",
+          "record": 1047,
+          "rule": "hvntm.1",
+          "disposition": "absent-operand",
+          "binding": "r1062",
+          "description": "0.7 min. width of hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#2",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1063",
+          "record": 1048,
+          "rule": "hvntm.2",
+          "disposition": "absent-operand",
+          "binding": "r1063",
+          "description": "0.7 min. spacing/notch of hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#3",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1064",
+          "record": 1049,
+          "rule": "hvntm.3",
+          "disposition": "absent-operand",
+          "binding": "r1064",
+          "description": "0.185 min. enclosure of ndiffInHviPeri by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#4",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1065",
+          "record": 1050,
+          "rule": "hvntm.4",
+          "disposition": "absent-operand",
+          "binding": "r1065",
+          "description": "0.185 min. spacing of hvntm_peri & ndiffOutsideHvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#5",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1066",
+          "record": 1051,
+          "rule": "hvntm.4",
+          "disposition": "absent-operand",
+          "binding": "r1066",
+          "description": "hvntm_peri must not overlap ndiffOutsideHvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#5",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1067",
+          "record": 1052,
+          "rule": "hvntm.5",
+          "disposition": "absent-operand",
+          "binding": "r1067",
+          "description": "0.185 min. spacing of hvntm_peri & PDIFF_notENID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#6",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1068",
+          "record": 1053,
+          "rule": "hvntm.5",
+          "disposition": "absent-operand",
+          "binding": "r1068",
+          "description": "hvntm_peri must not overlap PDIFF_notENID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#6",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1069",
+          "record": 1054,
+          "rule": "hvntm.6a",
+          "disposition": "absent-operand",
+          "binding": "r1069",
+          "description": "0.185 min. spacing of hvntm_peri & PTAPnoButtDiff",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#7",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1070",
+          "record": 1055,
+          "rule": "hvntm.6a",
+          "disposition": "absent-operand",
+          "binding": "r1070",
+          "description": "hvntm_peri must not overlap ptap",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#7",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1071",
+          "record": 1056,
+          "rule": "hvntm.6b",
+          "disposition": "absent-operand",
+          "binding": "r1071",
+          "description": "hvntm_peri must not overlap diffpTapButtEdge_sz",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#8",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1072",
+          "record": 1057,
+          "rule": "hvntm.7",
+          "disposition": "absent-operand",
+          "binding": "r1072",
+          "description": "0 min. enclosure of ESD_nwell_tap_hvi by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#9",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1073",
+          "record": 1058,
+          "rule": "hvntm.7",
+          "disposition": "absent-operand",
+          "binding": "r1073",
+          "description": "ESD_nwell_tap_hvi must be enclosed by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#9",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1074",
+          "record": 1059,
+          "rule": "hvntm.9",
+          "disposition": "absent-operand",
+          "binding": "r1074",
+          "description": "hvntm must not overlap COREID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#10",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1075",
+          "record": 1060,
+          "rule": "hvntm.10",
+          "disposition": "absent-operand",
+          "binding": "r1075",
+          "description": "hvntm must overlap hvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#11",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1155",
+          "record": 1140,
+          "rule": "vhvi.vhv.5",
+          "disposition": "absent-operand",
+          "binding": "r1155",
+          "description": "diffusion not in drain-extended devices must not be connected to VHVSrcDrn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#5",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1156",
+          "record": 1141,
+          "rule": "vhvi.1",
+          "disposition": "absent-operand",
+          "binding": "r1156",
+          "description": "0.02 min. width of vhvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#7",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1157",
+          "record": 1142,
+          "rule": "vhvi.2",
+          "disposition": "absent-operand",
+          "binding": "r1157",
+          "description": "vhvi must not overlap areaid.ce",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#8",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1158",
+          "record": 1143,
+          "rule": "vhvi.3",
+          "disposition": "absent-operand",
+          "binding": "r1158",
+          "description": "VHVGate must overlap hvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#9",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1159",
+          "record": 1144,
+          "rule": "vhvi.4",
+          "disposition": "absent-operand",
+          "binding": "r1159",
+          "description": "poly connected to same net as VHVsourcedrain must be tagged by vhvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#10",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1160",
+          "record": 1145,
+          "rule": "vhvi.5",
+          "disposition": "absent-operand",
+          "binding": "r1160",
+          "description": "vhvi must not straddle VHVSrcDrn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#11",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1161",
+          "record": 1146,
+          "rule": "vhvi.6",
+          "disposition": "absent-operand",
+          "binding": "r1161",
+          "description": "vhvi overlapping VHVSrcDrn must not overlap poly",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#12",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1162",
+          "record": 1147,
+          "rule": "vhvi.7",
+          "disposition": "absent-operand",
+          "binding": "r1162",
+          "description": "vhvi must not straddle VHVPoly",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#13",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1163",
+          "record": 1148,
+          "rule": "vhvi.8",
+          "disposition": "absent-operand",
+          "binding": "r1163",
+          "description": "11.24 min. spacing of VHVnwell & VHVnwellNoConn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#14",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1273",
+          "record": 1258,
+          "rule": "rdl.1",
+          "disposition": "absent-operand",
+          "binding": "r1273",
+          "description": "10 min. width of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#1",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1274",
+          "record": 1259,
+          "rule": "rdl.2",
+          "disposition": "absent-operand",
+          "binding": "r1274",
+          "description": "10 min. spacing/notch of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#2",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1275",
+          "record": 1260,
+          "rule": "rdl.2",
+          "disposition": "absent-operand",
+          "binding": "r1275",
+          "description": "10 min. spacing/notch of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#2",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1276",
+          "record": 1261,
+          "rule": "rdl.3",
+          "disposition": "absent-operand",
+          "binding": "r1276",
+          "description": "10.75 min. enclosure of pad by nonCSPRDL",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#3",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1277",
+          "record": 1262,
+          "rule": "rdl.4",
+          "disposition": "absent-operand",
+          "binding": "r1277",
+          "description": "15 min. enclosure of rdl by SEALnoHoles_ORIGIN",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#4",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1278",
+          "record": 1263,
+          "rule": "rdl.5",
+          "disposition": "absent-operand",
+          "binding": "r1278",
+          "description": "(rdl OR ccu1m.mk) in scribe must not overlap areaid.ft.",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#5",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1279",
+          "record": 1264,
+          "rule": "rdl.6",
+          "disposition": "absent-operand",
+          "binding": "r1279",
+          "description": "19.66 min. spacing of nonCSPRDL & pad",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#6",
+          "absence_proof": "rdl"
+        }
+      ]
+    },
+    {
+      "case": "apb",
+      "measurement": {
+        "top": "apb_fifo",
+        "counts": {
+          "dnwell": 0,
+          "lvtn": 0,
+          "hvtr": 0,
+          "hvi": 0,
+          "rdl": 0,
+          "pad": 0,
+          "ccu1m": 0,
+          "rpm": 0,
+          "tunm": 0,
+          "hvntm": 0,
+          "vhvi": 0,
+          "areaid.en": 0,
+          "ncm": 0,
+          "nwell": 17190,
+          "nwell_holes": 0
+        },
+        "measurement": "All recursively referenced shapes per raw operand, including texts/paths. Nwell holes are measured in the exact merged polygon union; only unit orthogonal transforms and box/polygon nwell geometry are admitted.",
+        "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+        "checker_sha256": "9b03452253070cfa773c51c5579794317016d7ff7fd4d27412c3dc578ff78622"
+      },
+      "counts": {
+        "unreviewed": 1025,
+        "executed-reviewed": 356,
+        "absent-operand": 175
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "new_error_decisions": [
+        {
+          "id": "r393",
+          "record": 394,
+          "rule": "dnwell.2",
+          "disposition": "absent-operand",
+          "binding": "r393",
+          "description": "3 min. width of dnwell",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#1",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r394",
+          "record": 395,
+          "rule": "dnwell.3",
+          "disposition": "absent-operand",
+          "binding": "r394",
+          "description": "6.3 min. spacing/notch of dnwellNotPhotoNotUHVI",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#2",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r395",
+          "record": 396,
+          "rule": "dnwell.4",
+          "disposition": "absent-operand",
+          "binding": "r395",
+          "description": "dnwell must not overlap pnp",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#7",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r397",
+          "record": 398,
+          "rule": "dnwell.7",
+          "disposition": "absent-operand",
+          "binding": "r397",
+          "description": "dnwell cannot straddle localSub",
+          "parent": "docs/rules/periphery/p020-dnwell_dotdash.csv#10",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r401",
+          "record": 402,
+          "rule": "nwell.5",
+          "disposition": "absent-operand",
+          "binding": "r401",
+          "description": "0.4 min. enclosure of dnwellNotTechCDLOWVTID by filledNwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#5",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r402",
+          "record": 403,
+          "rule": "nwell.5",
+          "disposition": "absent-operand",
+          "binding": "r402",
+          "description": "dnwellNotTechCDLOWVTID must be enclosed by filledNwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#5",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r403",
+          "record": 404,
+          "rule": "nwell.6",
+          "disposition": "absent-operand",
+          "binding": "r403",
+          "description": "1.03 min enclosure of nwellHole by dnwell",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#8",
+          "absence_proof": "nwell_holes"
+        },
+        {
+          "id": "r404",
+          "record": 405,
+          "rule": "nwell.7",
+          "disposition": "absent-operand",
+          "binding": "r404",
+          "description": "4.5 min spacing between nwell and dnwell on separate nets",
+          "parent": "docs/rules/periphery/p021-nwell_dotdash.csv#9",
+          "absence_proof": "dnwell"
+        },
+        {
+          "id": "r412",
+          "record": 413,
+          "rule": "lvtn.1a",
+          "disposition": "absent-operand",
+          "binding": "r412",
+          "description": "0.38 min. width of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#1",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r413",
+          "record": 414,
+          "rule": "lvtn.2",
+          "disposition": "absent-operand",
+          "binding": "r413",
+          "description": "0.38 min. spacing/notch of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#2",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r414",
+          "record": 415,
+          "rule": "lvtn.3a",
+          "disposition": "absent-operand",
+          "binding": "r414",
+          "description": "0.18 min. spacing of Gate in Periphery outside UHVI layer & \"lvtn\" in periphery",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#3",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r415",
+          "record": 416,
+          "rule": "lvtn.3b",
+          "disposition": "absent-operand",
+          "binding": "r415",
+          "description": "0.19 min spacing of lvtn(peri) to pfet along S/D direction",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#4",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r417",
+          "record": 418,
+          "rule": "lvtn.9",
+          "disposition": "absent-operand",
+          "binding": "r417",
+          "description": "0.38 min. spacing of lvtn & hvtp",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#6",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r418",
+          "record": 419,
+          "rule": "lvtn.9",
+          "disposition": "absent-operand",
+          "binding": "r418",
+          "description": "lvtn must not overlap hvtp",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#6",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r419",
+          "record": 420,
+          "rule": "lvtn.10",
+          "disposition": "absent-operand",
+          "binding": "r419",
+          "description": "0.38 min enclosure of lvtn by (nwell not overlapping Varactor Channel)",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#7",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r420",
+          "record": 421,
+          "rule": "lvtn.12",
+          "disposition": "absent-operand",
+          "binding": "r420",
+          "description": "0.38 min. spacing of lvtn & coreNwell",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#8",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r421",
+          "record": 422,
+          "rule": "lvtn.13",
+          "disposition": "absent-operand",
+          "binding": "r421",
+          "description": "0.265 min. area of lvtn",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#9",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r422",
+          "record": 423,
+          "rule": "lvtn.14",
+          "disposition": "absent-operand",
+          "binding": "r422",
+          "description": "0.265 min. area of lvtnHoles",
+          "parent": "docs/rules/periphery/p024-lvtn_dotdash.csv#10",
+          "absence_proof": "lvtn"
+        },
+        {
+          "id": "r423",
+          "record": 424,
+          "rule": "hvtr.1",
+          "disposition": "absent-operand",
+          "binding": "r423",
+          "description": "0.38 min. width of hvtr",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#1",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r424",
+          "record": 425,
+          "rule": "hvtr.2",
+          "disposition": "absent-operand",
+          "binding": "r424",
+          "description": "0.38 min. spacing of hvtr & hvtp",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#2",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r425",
+          "record": 426,
+          "rule": "hvtr.2",
+          "disposition": "absent-operand",
+          "binding": "r425",
+          "description": "hvtr must not overlap hvtp",
+          "parent": "docs/rules/periphery/p024-hvtr_dotdash.csv#2",
+          "absence_proof": "hvtr"
+        },
+        {
+          "id": "r451",
+          "record": 452,
+          "rule": "tunm.1",
+          "disposition": "absent-operand",
+          "binding": "r451",
+          "description": "0.41 min. width of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#1",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r452",
+          "record": 453,
+          "rule": "tunm.2",
+          "disposition": "absent-operand",
+          "binding": "r452",
+          "description": "0.5 min. spacing/notch of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#2",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r454",
+          "record": 455,
+          "rule": "tunm.4",
+          "disposition": "absent-operand",
+          "binding": "r454",
+          "description": "0.095 min. spacing of GATE_outsidetunm & tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#4",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r455",
+          "record": 456,
+          "rule": "tunm.5",
+          "disposition": "absent-operand",
+          "binding": "r455",
+          "description": "gate must not straddle tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#5",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r456",
+          "record": 457,
+          "rule": "tunm.6a",
+          "disposition": "absent-operand",
+          "binding": "r456",
+          "description": "tunm outside deep nwell is not allowed",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#6",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r457",
+          "record": 458,
+          "rule": "tunm.7",
+          "disposition": "absent-operand",
+          "binding": "r457",
+          "description": "0.672 min. area of tunm",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#7",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r458",
+          "record": 459,
+          "rule": "tunm.8",
+          "disposition": "absent-operand",
+          "binding": "r458",
+          "description": "tunm must be enclosed by COREID",
+          "parent": "docs/rules/periphery/p027-tunm_dotdash.csv#8",
+          "absence_proof": "tunm"
+        },
+        {
+          "id": "r491",
+          "record": 492,
+          "rule": "hvi.1",
+          "disposition": "absent-operand",
+          "binding": "r491",
+          "description": "0.6 min. width of hvi_peri",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#1",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r492",
+          "record": 493,
+          "rule": "hvi.2a",
+          "disposition": "absent-operand",
+          "binding": "r492",
+          "description": "0.7 min. spacing/notch of hvi_peri",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#2",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r493",
+          "record": 494,
+          "rule": "hvi.4",
+          "disposition": "absent-operand",
+          "binding": "r493",
+          "description": "hvi must not overlap tunm",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#4",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r494",
+          "record": 495,
+          "rule": "hvi.5",
+          "disposition": "absent-operand",
+          "binding": "r494",
+          "description": "0.7 min. spacing between non-butting hvi and nwell",
+          "parent": "docs/rules/periphery/p047-hvi_dotdash.csv#5",
+          "absence_proof": "hvi"
+        },
+        {
+          "id": "r901",
+          "record": 893,
+          "rule": "denmos.1",
+          "disposition": "absent-operand",
+          "binding": "r901",
+          "description": "1.055 min. width of gate of Drain Extended nFET",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#1",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r902",
+          "record": 894,
+          "rule": "denmos.2",
+          "disposition": "absent-operand",
+          "binding": "r902",
+          "description": "0.28 min. width of deNFetSource not overlapping poly",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#2",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r903",
+          "record": 895,
+          "rule": "denmos.3",
+          "disposition": "absent-operand",
+          "binding": "r903",
+          "description": "0.925 min. width of deNFetSource overlapping poly",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#3",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r904",
+          "record": 896,
+          "rule": "denmos.4",
+          "disposition": "absent-operand",
+          "binding": "r904",
+          "description": "0.17 min. width of drain  of Drain Extended nFET",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#4",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r905",
+          "record": 897,
+          "rule": "denmos.5",
+          "disposition": "absent-operand",
+          "binding": "r905",
+          "description": "min/max extension between de_nFET_source over nwell 0.225",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#5",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r906",
+          "record": 898,
+          "rule": "denmos.6",
+          "disposition": "absent-operand",
+          "binding": "r906",
+          "description": "min/max spacing  between de_nFET_source and de_nFET_drain 1.585",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#6",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r907",
+          "record": 899,
+          "rule": "denmos.7",
+          "disposition": "absent-operand",
+          "binding": "r907",
+          "description": "min channel width 5.000",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#7",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r909",
+          "record": 901,
+          "rule": "denmos.10",
+          "disposition": "absent-operand",
+          "binding": "r909",
+          "description": "0.66 min. enclosure of drain  of Drain Extended nFET by nwell",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#11",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r910",
+          "record": 902,
+          "rule": "denmos.11",
+          "disposition": "absent-operand",
+          "binding": "r910",
+          "description": "0.86 min. spacing of ptap & nwellOVRdeNFetDrain",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#12",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r911",
+          "record": 903,
+          "rule": "denmos.12",
+          "disposition": "absent-operand",
+          "binding": "r911",
+          "description": "2.4 min. spacing of nwellOVRdeNFetDrain",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r912",
+          "record": 904,
+          "rule": "denmos.13",
+          "disposition": "absent-operand",
+          "binding": "r912",
+          "description": "0.13 min. enclosure of source of Drain Extended nFET by nsdm",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#14",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r913",
+          "record": 905,
+          "rule": "denmos.13",
+          "disposition": "absent-operand",
+          "binding": "r913",
+          "description": "source of Drain Extended nFET must be enclosed by nsdm",
+          "parent": "docs/rules/periphery/p050-denmos_dotdash.csv#14",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r915",
+          "record": 906,
+          "rule": "depmos.1",
+          "disposition": "absent-operand",
+          "binding": "r915",
+          "description": "1.05 min. width of gate of Drain Extended pFET",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#1",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r916",
+          "record": 907,
+          "rule": "depmos.2",
+          "disposition": "absent-operand",
+          "binding": "r916",
+          "description": "0.28 min. width of dePFetSourceNotpoly",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#2",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r917",
+          "record": 908,
+          "rule": "depmos.3",
+          "disposition": "absent-operand",
+          "binding": "r917",
+          "description": "0.92 min. width of dePFetSource  overlapping poly",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#3",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r918",
+          "record": 909,
+          "rule": "depmos.4",
+          "disposition": "absent-operand",
+          "binding": "r918",
+          "description": "0.17 min. width of drain of Drain Extended pFET",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#4",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r919",
+          "record": 910,
+          "rule": "depmos.5",
+          "disposition": "absent-operand",
+          "binding": "r919",
+          "description": "min/max extension between de_pFET_source beyond nwell 0.260",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#5",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r920",
+          "record": 911,
+          "rule": "depmos.6",
+          "disposition": "absent-operand",
+          "binding": "r920",
+          "description": "min/max spacing  between de_pFET_source and de_pFET_drain 1.190",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#6",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r921",
+          "record": 912,
+          "rule": "depmos.7",
+          "disposition": "absent-operand",
+          "binding": "r921",
+          "description": "min channel width 5.000",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#7",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r925",
+          "record": 916,
+          "rule": "depmos.12",
+          "disposition": "absent-operand",
+          "binding": "r925",
+          "description": "0.13 min. enclosure of source of Drain Extended pFET by psdm",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r926",
+          "record": 917,
+          "rule": "depmos.12",
+          "disposition": "absent-operand",
+          "binding": "r926",
+          "description": "source of Drain Extended pFET must be enclosed by psdm",
+          "parent": "docs/rules/periphery/p051-depmos_dotdash.csv#13",
+          "absence_proof": "extended_drain"
+        },
+        {
+          "id": "r1025",
+          "record": 1016,
+          "rule": "ncm.1",
+          "disposition": "absent-operand",
+          "binding": "r1025",
+          "description": "0.38 min. width of ncmPeri",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#3",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1026",
+          "record": 1017,
+          "rule": "ncm.2a",
+          "disposition": "absent-operand",
+          "binding": "r1026",
+          "description": "0.38 min. spacing/notch of ncmPeri",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#4",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1027",
+          "record": 1018,
+          "rule": "ncm.7",
+          "disposition": "absent-operand",
+          "binding": "r1027",
+          "description": "0.265 min. area of ncm",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#10",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1028",
+          "record": 1019,
+          "rule": "ncm.8",
+          "disposition": "absent-operand",
+          "binding": "r1028",
+          "description": "0.265 min. area of ncmHoles",
+          "parent": "docs/rules/periphery/p025-ncm_dotdash.csv#11",
+          "absence_proof": "ncm"
+        },
+        {
+          "id": "r1048",
+          "record": 1033,
+          "rule": "rpm.3",
+          "disposition": "absent-operand",
+          "binding": "r1048",
+          "description": "precResistor must be enclosed by rpm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#13",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1049",
+          "record": 1034,
+          "rule": "rpm.4",
+          "disposition": "absent-operand",
+          "binding": "r1049",
+          "description": "0.11 min. enclosure of precResistor by psdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#14",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1050",
+          "record": 1035,
+          "rule": "rpm.4",
+          "disposition": "absent-operand",
+          "binding": "r1050",
+          "description": "precResistor must be enclosed by psdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#14",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1051",
+          "record": 1036,
+          "rule": "rpm.5",
+          "disposition": "absent-operand",
+          "binding": "r1051",
+          "description": "0.095 min. enclosure of precResistor by npc",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#15",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1052",
+          "record": 1037,
+          "rule": "rpm.5",
+          "disposition": "absent-operand",
+          "binding": "r1052",
+          "description": "precResistor must be enclosed by npc",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#15",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1053",
+          "record": 1038,
+          "rule": "rpm.6",
+          "disposition": "absent-operand",
+          "binding": "r1053",
+          "description": "0.2 min. spacing of rpm & nsdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#16",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1054",
+          "record": 1039,
+          "rule": "rpm.6",
+          "disposition": "absent-operand",
+          "binding": "r1054",
+          "description": "rpm must not overlap nsdm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#16",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1055",
+          "record": 1040,
+          "rule": "rpm.7",
+          "disposition": "absent-operand",
+          "binding": "r1055",
+          "description": "0.2 min. spacing of rpm & poly",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#17",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1056",
+          "record": 1041,
+          "rule": "rpm.8",
+          "disposition": "absent-operand",
+          "binding": "r1056",
+          "description": "poly must not straddle rpm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#18",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1057",
+          "record": 1042,
+          "rule": "rpm.9",
+          "disposition": "absent-operand",
+          "binding": "r1057",
+          "description": "0.185 min. spacing of precResistor & hvntm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#19",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1058",
+          "record": 1043,
+          "rule": "rpm.9",
+          "disposition": "absent-operand",
+          "binding": "r1058",
+          "description": "precResistor must not overlap hvntm",
+          "parent": "docs/rules/periphery/p029-rpm_dotdash.csv#19",
+          "absence_proof": "rpm"
+        },
+        {
+          "id": "r1062",
+          "record": 1047,
+          "rule": "hvntm.1",
+          "disposition": "absent-operand",
+          "binding": "r1062",
+          "description": "0.7 min. width of hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#2",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1063",
+          "record": 1048,
+          "rule": "hvntm.2",
+          "disposition": "absent-operand",
+          "binding": "r1063",
+          "description": "0.7 min. spacing/notch of hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#3",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1064",
+          "record": 1049,
+          "rule": "hvntm.3",
+          "disposition": "absent-operand",
+          "binding": "r1064",
+          "description": "0.185 min. enclosure of ndiffInHviPeri by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#4",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1065",
+          "record": 1050,
+          "rule": "hvntm.4",
+          "disposition": "absent-operand",
+          "binding": "r1065",
+          "description": "0.185 min. spacing of hvntm_peri & ndiffOutsideHvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#5",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1066",
+          "record": 1051,
+          "rule": "hvntm.4",
+          "disposition": "absent-operand",
+          "binding": "r1066",
+          "description": "hvntm_peri must not overlap ndiffOutsideHvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#5",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1067",
+          "record": 1052,
+          "rule": "hvntm.5",
+          "disposition": "absent-operand",
+          "binding": "r1067",
+          "description": "0.185 min. spacing of hvntm_peri & PDIFF_notENID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#6",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1068",
+          "record": 1053,
+          "rule": "hvntm.5",
+          "disposition": "absent-operand",
+          "binding": "r1068",
+          "description": "hvntm_peri must not overlap PDIFF_notENID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#6",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1069",
+          "record": 1054,
+          "rule": "hvntm.6a",
+          "disposition": "absent-operand",
+          "binding": "r1069",
+          "description": "0.185 min. spacing of hvntm_peri & PTAPnoButtDiff",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#7",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1070",
+          "record": 1055,
+          "rule": "hvntm.6a",
+          "disposition": "absent-operand",
+          "binding": "r1070",
+          "description": "hvntm_peri must not overlap ptap",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#7",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1071",
+          "record": 1056,
+          "rule": "hvntm.6b",
+          "disposition": "absent-operand",
+          "binding": "r1071",
+          "description": "hvntm_peri must not overlap diffpTapButtEdge_sz",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#8",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1072",
+          "record": 1057,
+          "rule": "hvntm.7",
+          "disposition": "absent-operand",
+          "binding": "r1072",
+          "description": "0 min. enclosure of ESD_nwell_tap_hvi by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#9",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1073",
+          "record": 1058,
+          "rule": "hvntm.7",
+          "disposition": "absent-operand",
+          "binding": "r1073",
+          "description": "ESD_nwell_tap_hvi must be enclosed by hvntm_peri",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#9",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1074",
+          "record": 1059,
+          "rule": "hvntm.9",
+          "disposition": "absent-operand",
+          "binding": "r1074",
+          "description": "hvntm must not overlap COREID",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#10",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1075",
+          "record": 1060,
+          "rule": "hvntm.10",
+          "disposition": "absent-operand",
+          "binding": "r1075",
+          "description": "hvntm must overlap hvi",
+          "parent": "docs/rules/periphery/p049-hvntm_dotdash.csv#11",
+          "absence_proof": "hvntm"
+        },
+        {
+          "id": "r1155",
+          "record": 1140,
+          "rule": "vhvi.vhv.5",
+          "disposition": "absent-operand",
+          "binding": "r1155",
+          "description": "diffusion not in drain-extended devices must not be connected to VHVSrcDrn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#5",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1156",
+          "record": 1141,
+          "rule": "vhvi.1",
+          "disposition": "absent-operand",
+          "binding": "r1156",
+          "description": "0.02 min. width of vhvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#7",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1157",
+          "record": 1142,
+          "rule": "vhvi.2",
+          "disposition": "absent-operand",
+          "binding": "r1157",
+          "description": "vhvi must not overlap areaid.ce",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#8",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1158",
+          "record": 1143,
+          "rule": "vhvi.3",
+          "disposition": "absent-operand",
+          "binding": "r1158",
+          "description": "VHVGate must overlap hvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#9",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1159",
+          "record": 1144,
+          "rule": "vhvi.4",
+          "disposition": "absent-operand",
+          "binding": "r1159",
+          "description": "poly connected to same net as VHVsourcedrain must be tagged by vhvi",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#10",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1160",
+          "record": 1145,
+          "rule": "vhvi.5",
+          "disposition": "absent-operand",
+          "binding": "r1160",
+          "description": "vhvi must not straddle VHVSrcDrn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#11",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1161",
+          "record": 1146,
+          "rule": "vhvi.6",
+          "disposition": "absent-operand",
+          "binding": "r1161",
+          "description": "vhvi overlapping VHVSrcDrn must not overlap poly",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#12",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1162",
+          "record": 1147,
+          "rule": "vhvi.7",
+          "disposition": "absent-operand",
+          "binding": "r1162",
+          "description": "vhvi must not straddle VHVPoly",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#13",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1163",
+          "record": 1148,
+          "rule": "vhvi.8",
+          "disposition": "absent-operand",
+          "binding": "r1163",
+          "description": "11.24 min. spacing of VHVnwell & VHVnwellNoConn",
+          "parent": "docs/rules/periphery/p055-vhvi_dotdash_dotdash.csv#14",
+          "absence_proof": "vhvi"
+        },
+        {
+          "id": "r1273",
+          "record": 1258,
+          "rule": "rdl.1",
+          "disposition": "absent-operand",
+          "binding": "r1273",
+          "description": "10 min. width of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#1",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1274",
+          "record": 1259,
+          "rule": "rdl.2",
+          "disposition": "absent-operand",
+          "binding": "r1274",
+          "description": "10 min. spacing/notch of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#2",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1275",
+          "record": 1260,
+          "rule": "rdl.2",
+          "disposition": "absent-operand",
+          "binding": "r1275",
+          "description": "10 min. spacing/notch of rdl",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#2",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1276",
+          "record": 1261,
+          "rule": "rdl.3",
+          "disposition": "absent-operand",
+          "binding": "r1276",
+          "description": "10.75 min. enclosure of pad by nonCSPRDL",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#3",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1277",
+          "record": 1262,
+          "rule": "rdl.4",
+          "disposition": "absent-operand",
+          "binding": "r1277",
+          "description": "15 min. enclosure of rdl by SEALnoHoles_ORIGIN",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#4",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1278",
+          "record": 1263,
+          "rule": "rdl.5",
+          "disposition": "absent-operand",
+          "binding": "r1278",
+          "description": "(rdl OR ccu1m.mk) in scribe must not overlap areaid.ft.",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#5",
+          "absence_proof": "rdl"
+        },
+        {
+          "id": "r1279",
+          "record": 1264,
+          "rule": "rdl.6",
+          "disposition": "absent-operand",
+          "binding": "r1279",
+          "description": "19.66 min. spacing of nonCSPRDL & pad",
+          "parent": "docs/rules/periphery/p045-rdl_dotdash.csv#6",
+          "absence_proof": "rdl"
+        }
+      ]
+    }
+  ],
+  "scope": "Exactly 98 explicit catalog records gain measured absent-subject decisions. All other records, periphery states and application policies remain unchanged. No non-empty device qualification, numeric-discrepancy resolution, voltage-intent acceptance, fresh native/full-profile run, final electrical acceptance or chunk completion is claimed."
+}

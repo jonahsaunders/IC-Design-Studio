@@ -1,0 +1,1403 @@
+{
+  "historical_bias_record": "docs/validation/sky130-mos-bias-2026-10-21.json",
+  "historical_revision": "1901822ae8f81ae1",
+  "limitations": [
+    "These are source-derived model validity intervals, not absolute maximum ratings, operating ratings or PCell bounds.",
+    "Historical native samples are sparse and apply to an older package revision; no current-package electrical coverage is inferred.",
+    "Source file identities describe package resources, not a complete staged runtime model-deck closure."
+  ],
+  "models": {
+    "sky130_fd_pr__esd_pfet_g5v0d10v5": {
+      "aliases": {},
+      "catalog_status": "public_source_only",
+      "historical_native_bias": {
+        "axis_spans_v": null,
+        "condition": "No coverage asserted from this particular bias record; other records may have separate evidence.",
+        "corners": [],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": null,
+        "status": "not_in_this_bias_record",
+        "temperatures_c": [],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__esd_pfet_g5v0d10v5.pm3.spice": "a1dfbac415cd5b8f0a69f0de4a9bf53b8920e264d3a07783b8d9dd2bf511072f",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__esd_pfet_g5v0d10v5__ff.corner.spice": "5a21d27681490ef97667eb3210d1258853f4d8246ef0564c50064a05f916feb2",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__esd_pfet_g5v0d10v5__fs.corner.spice": "386d64641dcc97da2968ddd5cd19b532858807ed9fbc301fdc22890d76c6f43b",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__esd_pfet_g5v0d10v5__sf.corner.spice": "4fd874922e81055ea5a2508e97fe35ccfa90d5eefa1820368a6189916486141e",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__esd_pfet_g5v0d10v5__ss.corner.spice": "5913c622d254d677a437ec13d8c850445a1cc842b614eb4d65e38a0d3ade96d7",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__esd_pfet_g5v0d10v5__tt.corner.spice": "ceed8cc24d9ec0291dbdd74adad28178b2e5c1730021ae6757354b71d1f70683"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          389,
+          396
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "942e49a3182f0dfa782e9d30d028b24b258cadbbe48e28f3d442305f9ac140c8",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L389-L396"
+      }
+    },
+    "sky130_fd_pr__nfet_01v8": {
+      "aliases": {
+        "sky130_fd_pr/nfet3_01v8.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__sf.pm3.spice",
+          "model_source_sha256": "84a21fb8e24df7207d69d5c3f953914f5935fad5434aecab5eda276672a87702",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "60e6d35cff6a2dc00e75ea55ba2b93bb5e5d98738581f63de55163e4042022d0",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet3_01v8.sym"
+        },
+        "sky130_fd_pr/nfet_01v8.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__sf.pm3.spice",
+          "model_source_sha256": "84a21fb8e24df7207d69d5c3f953914f5935fad5434aecab5eda276672a87702",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "f5674efea6314a6db2c123530af9850dfcfc5b02b78d3c69f5ecf45541a179ca",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_01v8.sym"
+        },
+        "sky130_fd_pr/nfet_01v8_nf.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__sf.pm3.spice",
+          "model_source_sha256": "84a21fb8e24df7207d69d5c3f953914f5935fad5434aecab5eda276672a87702",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "4f773926b98354fb4839f093aa520687bd509d214795eb3c47cf3d4b184346c0",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_01v8_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -1.95,
+            0.3
+          ],
+          "vds": [
+            0,
+            1.95
+          ],
+          "vgs": [
+            0,
+            1.95
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8.pm3.spice": "ac079da21b911049c48b1ff38690454be9fa251d6f718ce5f02675373e3c7428",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__ff.pm3.spice": "38ece51086f7740ee8cdbab29e10887b6fa9e1d3f97732623e6e720ac771aca8",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__fs.pm3.spice": "7b5547207fd9dd6176860a162af7061704e0b8a786fa0884965ec3a532e451c0",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__mismatch.corner.spice": "24a3b29d7d7f26f99098811c31eb5497950a3aed520ab83768a96f35467fe818",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__sf.pm3.spice": "84a21fb8e24df7207d69d5c3f953914f5935fad5434aecab5eda276672a87702",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__ss.pm3.spice": "cca2afb8f98b6ae2d0e1d40a8cf7528ddda1f35de0ee25604572626b76af2034",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__tt.pm3.spice": "fda72fe5717ce354d61887bef1432478be431121f70896b39f653eacc6f8eafa"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          9,
+          17
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "700206d2e2a6f078225ef46b13a78bb38370e83097e62add14c257a70173e41d",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L9-L17"
+      }
+    },
+    "sky130_fd_pr__nfet_01v8_lvt": {
+      "aliases": {
+        "sky130_fd_pr/nfet3_01v8_lvt.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__sf.pm3.spice",
+          "model_source_sha256": "c877b6983f1f6e0149aedcdec42c5bf5ba251d0696b13978715949d3e25a7871",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "1a8a9b28a29a2d6eb597dd6bb48e2f6ed8f4c7956b1e608d0e3e02f37b6965a5",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet3_01v8_lvt.sym"
+        },
+        "sky130_fd_pr/nfet_01v8_lvt.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__sf.pm3.spice",
+          "model_source_sha256": "c877b6983f1f6e0149aedcdec42c5bf5ba251d0696b13978715949d3e25a7871",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "742a5ec65d7b92fbd7cd37f9452ab84a08d9ff12a249428ed01b73133519bdc8",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_01v8_lvt.sym"
+        },
+        "sky130_fd_pr/nfet_01v8_lvt_nf.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__sf.pm3.spice",
+          "model_source_sha256": "c877b6983f1f6e0149aedcdec42c5bf5ba251d0696b13978715949d3e25a7871",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "7901d0a1197ca76224c0a6409c9000f5cc9d4e532f3bf80d255a680efe275a39",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_01v8_lvt_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -1.95,
+            0.3
+          ],
+          "vds": [
+            0,
+            1.95
+          ],
+          "vgs": [
+            0,
+            1.95
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt.pm3.spice": "7d55d41a6c781626c2cd4ef116ec3e26c71ef1dd06a0862ec57c8922b8291028",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__ff.corner.spice": "e84da569821a546bb7d59834543d680b1bd09523f5951ff5be0c67ff32370601",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__ff.pm3.spice": "23fff2dcbf88bad2740409a1c9ab9fffa19f88bdc05a6c813ded73be1d834357",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__fs.corner.spice": "b44b14281fb42ca617e81d2f7c4c837e4cfddc6ec6a340871029a253860640d6",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__fs.pm3.spice": "671691652d6bc66bd3a98a0177ba8eadb95c70b5ccbb732b529ff9f69fac4f05",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__mismatch.corner.spice": "1855038a2ad2fe3989b64a17128d47daaa3dbc15d0f4db2c4526988923daa311",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__sf.corner.spice": "5e4122da6a18aca51d6158fb326c2e27238564bdbc4d23da4cff66e22633603f",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__sf.pm3.spice": "c877b6983f1f6e0149aedcdec42c5bf5ba251d0696b13978715949d3e25a7871",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__ss.corner.spice": "23eb2d35ada169b393a334d4ada4dcb587f074f993315b8f23ccd241429819aa",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__ss.pm3.spice": "ceae7955d0f9109c781c895be24314e10d2dc53d0a72cdb1c45f7befb24483aa",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__tt.corner.spice": "716b48c11275bb1edbb228807f1b8849453884adf498ac7c57a31b9295335f2b",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__tt.pm3.spice": "848471966a7f41daaa44b2f03636d0652136714e0b9a365bb0e537651640ddcf"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          48,
+          56
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "819eea9ea1e58f76019d8fa07139b45640078492822649848d786865230ed1b3",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L48-L56"
+      }
+    },
+    "sky130_fd_pr__nfet_03v3_nvt": {
+      "aliases": {
+        "sky130_fd_pr/nfet3_03v3_nvt.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt.pm3.spice",
+          "model_source_sha256": "042730a5b254b5508e4ef366784d972a8e10ed133f23ec7fdfc4ef9b3e545932",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "f61f5e571a328ef4aa18f84de25e11df388dcf815637e14246d14c8ef99f219e",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet3_03v3_nvt.sym"
+        },
+        "sky130_fd_pr/nfet_03v3_nvt.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt.pm3.spice",
+          "model_source_sha256": "042730a5b254b5508e4ef366784d972a8e10ed133f23ec7fdfc4ef9b3e545932",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "7096f28bc53b3a052e34d828bf11d48d28b50745074842ebb1d4cf4635450471",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_03v3_nvt.sym"
+        },
+        "sky130_fd_pr/nfet_03v3_nvt_nf.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt.pm3.spice",
+          "model_source_sha256": "042730a5b254b5508e4ef366784d972a8e10ed133f23ec7fdfc4ef9b3e545932",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "2eb7f356df9563b2b55a9753ad792a749ee3217ac42d1318df6856ef17b828bb",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_03v3_nvt_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -3.3,
+            0
+          ],
+          "vds": [
+            0,
+            3.3
+          ],
+          "vgs": [
+            0,
+            3.3
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt.pm3.spice": "042730a5b254b5508e4ef366784d972a8e10ed133f23ec7fdfc4ef9b3e545932",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt__ff.corner.spice": "0fdaf141f890121d6f67e9dfdd942d1afd8d97065b30405c803712168c308e73",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt__fs.corner.spice": "8925259365575206f468e2288924aae14e4e72484b484b248cc11ae3f628c7c7",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt__mismatch.corner.spice": "fd3813731a14eb0c987b0ce58a3ed26c0a76a8a4eb152ecd7260ba15d34936c2",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt__sf.corner.spice": "cd6e52b931d54b3dde4c89b7825ccf82c683612aac0b74a11881c3fd82ce28e2",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt__ss.corner.spice": "a7e9ecf9dad2a681c9a11ee6d46812261836121b6d09e7d4a4dc6f99724cf59c",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt__tt.corner.spice": "6ac550dbda38845d879cb665dbbf3a2acc874e833fa53abf1e2d3b8bb7d331b4"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          268,
+          276
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "1112fca33baad802c571b70397e291314183765e5db6422a07b4bd96857f50c5",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L268-L276"
+      }
+    },
+    "sky130_fd_pr__nfet_05v0_nvt": {
+      "aliases": {
+        "sky130_fd_pr/nfet3_05v0_nvt.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt.pm3.spice",
+          "model_source_sha256": "c023cbfd9a518a3f9f87c45f85f7690324e23e5d1125bce37c84d2e3f9cc164c",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "a059deec8a913c61a76b6a7778411cf12c71dbd2a5232999e4ede11afcaf79d2",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet3_05v0_nvt.sym"
+        },
+        "sky130_fd_pr/nfet_05v0_nvt.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt.pm3.spice",
+          "model_source_sha256": "c023cbfd9a518a3f9f87c45f85f7690324e23e5d1125bce37c84d2e3f9cc164c",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "bbd24024fbfcae20dec3995a1015c849421a65acba164a193c53c519de686d02",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_05v0_nvt.sym"
+        },
+        "sky130_fd_pr/nfet_05v0_nvt_nf.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt.pm3.spice",
+          "model_source_sha256": "c023cbfd9a518a3f9f87c45f85f7690324e23e5d1125bce37c84d2e3f9cc164c",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "0380d0884fe69a3482e66546a5e45ef3b8731b7ffaa29224ab96fa13b0dccd41",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_05v0_nvt_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -5.5,
+            0.3
+          ],
+          "vds": [
+            0,
+            5.5
+          ],
+          "vgs": [
+            0,
+            5.5
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt.pm3.spice": "c023cbfd9a518a3f9f87c45f85f7690324e23e5d1125bce37c84d2e3f9cc164c",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt__ff.corner.spice": "2adc32d1c5f38df8dd6ba496d5aa92cd2e0b573bc59ea837819d1f43e5e5e131",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt__fs.corner.spice": "e5d71444f619711837f9334dc49cbde9ca840dc3b7a9bfe136975e6f4c3b5dcd",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt__mismatch.corner.spice": "4c1ce4d79656afd5087dc73417740c506c8465bb361ece5db8835ad3d9b362df",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt__sf.corner.spice": "070556259bde129f85b5520d1962c50593ac884b8a04a40dac4badd76fdecbb2",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt__ss.corner.spice": "47dcdf2c517f75df8a76b7b292f1a4f31276262058d4b20a3028b14a14d950e1",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt__tt.corner.spice": "ad6f98b01ba312f9817a9154d12bb73bcf1e323c2a8a599fd26bafda54397b28"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          309,
+          317
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "dc59ec6f9eb3f0fa33b8328eb52c735c0a0b929815dfcd67e98c6006493932f2",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L309-L317"
+      }
+    },
+    "sky130_fd_pr__nfet_20v0": {
+      "aliases": {
+        "sky130_fd_pr/nfet3_20v0.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
+          "model_source_sha256": "64b63a8bd76ca1a5f7f14849d80399e99dd85ed39534c452ae65c4a3fa19e270",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "14795ae34294dd7705675fab5dfcbd9939e5caf09d62c7ab7cab353494ea5bac",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet3_20v0.sym"
+        },
+        "sky130_fd_pr/nfet_20v0.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
+          "model_source_sha256": "64b63a8bd76ca1a5f7f14849d80399e99dd85ed39534c452ae65c4a3fa19e270",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "a810b85befd507edd6354be5aa8e034e0e5658ceddb08a6cb9c38602133e229e",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_20v0.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": null,
+        "condition": "No coverage asserted from this particular bias record; other records may have separate evidence.",
+        "corners": [],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": null,
+        "status": "not_in_this_bias_record",
+        "temperatures_c": [],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__fs_discrete.corner.spice": "6f8acc38821304a85341972c34a5d6bd5599228c502c491301172cc80008cf50",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__sf_discrete.corner.spice": "86c6b605f6748542400029ac41b264c929e973ea4fb277b634aadfbafc7dc932",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice": "64b63a8bd76ca1a5f7f14849d80399e99dd85ed39534c452ae65c4a3fa19e270",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__tt_discrete.corner.spice": "437039ebf2762d9f1124f05c68743a9dde63c58e541666913ce0931faf900a24"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          509,
+          517
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "eb19c4ca932c986dee368ed554753601cae9853c14bf088e095a1e26c679f49e",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L509-L517"
+      }
+    },
+    "sky130_fd_pr__nfet_20v0_iso": {
+      "aliases": {
+        "sky130_fd_pr/nfet_20v0_iso.sym": {
+          "kind": "PDK",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_iso__subcircuit.pm3.spice",
+          "model_source_sha256": "0ba6101d75c9ca9271c9e0254901804a33f2981d6a7b60e35d3a71e311e9fc56",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b",
+            "sub"
+          ],
+          "symbol_sha256": "ad67b6f25b3cab3e01b4d96859462562cd0870d9f18190c0cd72cf5835c52c11",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_20v0_iso.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": null,
+        "condition": "No coverage asserted from this particular bias record; other records may have separate evidence.",
+        "corners": [],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": null,
+        "status": "not_in_this_bias_record",
+        "temperatures_c": [],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_iso__subcircuit.pm3.spice": "0ba6101d75c9ca9271c9e0254901804a33f2981d6a7b60e35d3a71e311e9fc56"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          628,
+          636
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "4c82330c47ef130bdcce5647ed435f23ba3626f955df649ba282401c3301ac67",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L628-L636"
+      }
+    },
+    "sky130_fd_pr__nfet_20v0_nvt": {
+      "aliases": {
+        "sky130_fd_pr/nfet_20v0_nvt.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice",
+          "model_source_sha256": "1b3c68a09794e92515d24ff596f92e087b527f68eb696df63dfadb3a78cb9c04",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "db610b0ce8a0e1a51b829708c419d99ca9a43e2b524486eb8c57b29d1b01a9a7",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_20v0_nvt.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": null,
+        "condition": "No coverage asserted from this particular bias record; other records may have separate evidence.",
+        "corners": [],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": null,
+        "status": "not_in_this_bias_record",
+        "temperatures_c": [],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__fs_discrete.corner.spice": "23e9c408698a7632746b668a5016529e36abb15d92485ab467bcba6535fce5bb",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__parasitic__diode_ps2dn.model.spice": "51d9ab53a7dc1e1d8ca0e500a5e2ca72f3c74c1cf712d833e7b4b73daa48dcf2",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__sf_discrete.corner.spice": "9a7208e7fcba94cd06dcc7d9a50c93a709ee5679f0d35f25fb9dfbff3364faaa",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice": "1b3c68a09794e92515d24ff596f92e087b527f68eb696df63dfadb3a78cb9c04",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__tt_discrete.corner.spice": "8a4e88bcbce811f316a21c21842fe87afdd2d7abf82a26449082652a536adfaf"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          553,
+          561
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "6f3be7b76c06a81b003a3a00b566125522e2f2d8fe1336572dddd12524f8bbdd",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L553-L561"
+      }
+    },
+    "sky130_fd_pr__nfet_20v0_zvt": {
+      "aliases": {
+        "sky130_fd_pr/nfet_20v0_zvt.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice",
+          "model_source_sha256": "a2173e3b3d601fc070e8c2babad25c01f6d0c61df8b3432d25245c800d51389d",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "f9a3a241f3d0227825b4f95713319b6f3c59d4da6913b3cd5f2e70def36bcf36",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_20v0_zvt.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": null,
+        "condition": "No coverage asserted from this particular bias record; other records may have separate evidence.",
+        "corners": [],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": null,
+        "status": "not_in_this_bias_record",
+        "temperatures_c": [],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__fs_discrete.corner.spice": "d9e116bbf8c2ff0db28fa472e33f7130c54c5bd5841317b4059fef45ecc5e1c3",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__parasitic__diode_ps2dn__extended_drain.model.spice": "aeb7644d07be39d330e9aa8af89827ffcf1d1b43f964d7770ce432437b02c0ac",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__sf_discrete.corner.spice": "2366432b5213e267e85cb63b0d3444ef89985955763a5a54e5eba70ff9be1c1c",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice": "a2173e3b3d601fc070e8c2babad25c01f6d0c61df8b3432d25245c800d51389d",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__tt_discrete.corner.spice": "c7d5cfef6e9cd1e742e9e97da0e823ee81f2fa087a1ba8d1e9517f70335167f5"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          592,
+          600
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "19419c745e5e80bf8154feaf7030509a99a512f7c572b0d80e9c13368e4aa464",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L592-L600"
+      }
+    },
+    "sky130_fd_pr__nfet_g5v0d10v5": {
+      "aliases": {
+        "sky130_fd_pr/nfet3_g5v0d10v5.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__sf.pm3.spice",
+          "model_source_sha256": "4f9379cc54afbac5497e7c808a7abb853a27281c297359e15b35e6c659d0ebb5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "3c6d39ccd699535148423e16a1a209f3cd5ba2de420bdfca5559684a2a88b8c9",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet3_g5v0d10v5.sym"
+        },
+        "sky130_fd_pr/nfet_g5v0d10v5.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__sf.pm3.spice",
+          "model_source_sha256": "4f9379cc54afbac5497e7c808a7abb853a27281c297359e15b35e6c659d0ebb5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "63af67e853a09174db71fdaa685ff69fdb68552802222ffea0ac1f24680370aa",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_g5v0d10v5.sym"
+        },
+        "sky130_fd_pr/nfet_g5v0d10v5_nf.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__sf.pm3.spice",
+          "model_source_sha256": "4f9379cc54afbac5497e7c808a7abb853a27281c297359e15b35e6c659d0ebb5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "ece33ed2859c12c5cd697b5174b23b6bc4e628f5256609a212e1f7856da45886",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_g5v0d10v5_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -5.5,
+            0
+          ],
+          "vds": [
+            0,
+            11
+          ],
+          "vgs": [
+            0,
+            5.5
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5.pm3.spice": "ea52c1dd85e6085994e7b6546b9b6616a3d8009f9b3294219c1018807f462257",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__ff.corner.spice": "23e17fb740ff03ff47f0c5cddfbcfa3af5c16465f388d521520d7ea057935bc2",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__ff.pm3.spice": "428586d705476db3ea171657814cfa8bfcfde4368f4c8b89dd1929c65a2be1a4",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__fs.corner.spice": "00c599d50c81e8a5c8c6423ebcd22c07f714a119c867d1465eb39664ee4f1e8a",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__fs.pm3.spice": "38e02576099d9d0461fed0edfab06672c69df1e8cf4ef0657b9c84b131523347",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__mismatch.corner.spice": "e4124d91feee11f97c53b40752c711bb4293d94cd22c2778291a163c8abf3e9c",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__sf.corner.spice": "93fdae80469c761f3bd3bfbaa8f2d5bf091d035e004ebdb5a947a51f292f15c1",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__sf.pm3.spice": "4f9379cc54afbac5497e7c808a7abb853a27281c297359e15b35e6c659d0ebb5",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__ss.corner.spice": "5b2ef445a9fa6f8686eba7a2bfcbca327c35fde17ae8a8f60eb4f4b9f03942ab",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__ss.pm3.spice": "d485bb13757a5ce2888bc11eed0bd8ba1c03e993004a6080926f54923866c966",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__tt.corner.spice": "c6220fd1b3ed009078cc3bfe66f6fabccddd5b33653c8efd8c9c4b344253cd25",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__tt.pm3.spice": "c685365ea7b4678a05ea2eb70d4ba6081a507b6337279f58301e846a39d80ef4"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          351,
+          359
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "eb3dd4f3fd9498be8d873d3d7d1c115e90ba1451a2b3735b2d977ee26049c10c",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L351-L359"
+      }
+    },
+    "sky130_fd_pr__nfet_g5v0d16v0": {
+      "aliases": {
+        "sky130_fd_pr/nfet3_g5v0d16v0.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__subcircuit.pm3.spice",
+          "model_source_sha256": "8da026795a287790d5ad324f90ceae2130eaf2fe38ce4f70648c984141fa5f63",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "b8f42b472250e8f79da6a8a91574f680930962df7d353b2e4d71d1889c93dd93",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet3_g5v0d16v0.sym"
+        },
+        "sky130_fd_pr/nfet_g5v0d16v0.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__subcircuit.pm3.spice",
+          "model_source_sha256": "8da026795a287790d5ad324f90ceae2130eaf2fe38ce4f70648c984141fa5f63",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "2b142a521b3904d35da08b945398a3a189975518c17508b80d3fd417d17617ee",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_g5v0d16v0.sym"
+        },
+        "sky130_fd_pr/nfet_g5v0d16v0_nf.sym": {
+          "kind": "NMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__subcircuit.pm3.spice",
+          "model_source_sha256": "8da026795a287790d5ad324f90ceae2130eaf2fe38ce4f70648c984141fa5f63",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "7134f5b0a4e73344693f1c9a99d7485e92da0bf934407b81bbf5601ab2343807",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/nfet_g5v0d16v0_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -2,
+            0
+          ],
+          "vds": [
+            0,
+            11
+          ],
+          "vgs": [
+            0,
+            5.5
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": [
+          0,
+          16
+        ]
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0.pm3.spice": "cc1977b2ce418e5a3df9a2e0ee328c0ea61c074d7489dbfa89206fca25c01169",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__ff_discrete.corner.spice": "7e258c446bbdcac9021b7500b0eafc5a5e5f4fa06dd50962b02097a0e2d55361",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__fs_discrete.corner.spice": "6ded3c7b9b92e8d8bca353e8a71b454ef7bcaf038fb0c69090b24ad22b4fec31",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__sf_discrete.corner.spice": "40d2f37f470698e01fce033dfec45943ec4924e772e629ddc3edb19bc5d709b7",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__ss_discrete.corner.spice": "d17242811260b674e7234eaef341e92a4f6c21e2bc090176f8f671e45eb52192",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__subcircuit.pm3.spice": "8da026795a287790d5ad324f90ceae2130eaf2fe38ce4f70648c984141fa5f63",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d16v0__tt_discrete.corner.spice": "4345c8cad35b7e1b703d73db2d727a5c490ca60c9082546224a304f7cfd6a646"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          471,
+          480
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "f139222cb2c1d85be2043fcd885037db3f2cc3db3b22deafc606a562c06bff7c",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L471-L480"
+      }
+    },
+    "sky130_fd_pr__pfet_01v8": {
+      "aliases": {
+        "sky130_fd_pr/pfet3_01v8.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__sf.pm3.spice",
+          "model_source_sha256": "28338a867b726f33de5c8ebc22fd5a6eb2b445c9e290ac5b14a18a0cd2bcdbe0",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "1064d04aa40bc5deab12bd42e1a6f08290a88a301126992bebd59ebb5b00acb9",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet3_01v8.sym"
+        },
+        "sky130_fd_pr/pfet_01v8.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__sf.pm3.spice",
+          "model_source_sha256": "28338a867b726f33de5c8ebc22fd5a6eb2b445c9e290ac5b14a18a0cd2bcdbe0",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "d170f20e224b5b2530b986cb07b6a16101d3e07981eae1eb45a190da7ca4498b",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_01v8.sym"
+        },
+        "sky130_fd_pr/pfet_01v8_nf.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__sf.pm3.spice",
+          "model_source_sha256": "28338a867b726f33de5c8ebc22fd5a6eb2b445c9e290ac5b14a18a0cd2bcdbe0",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "152fb11a0480cd979015092827826e525bf81c55eebe064cf3ce091b589a7c57",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_01v8_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -0.1,
+            1.95
+          ],
+          "vds": [
+            -1.95,
+            0
+          ],
+          "vgs": [
+            -1.95,
+            0
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8.pm3.spice": "35f42b163d113582dcc14b8a1448dca92a492c6c1993180f3000f53bd917832b",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__ff.corner.spice": "30ba71bde4024ff291a68352930bf2fc3e07f627efb090e1575b9dbd7b6e75da",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__ff.pm3.spice": "d0ca6799661ef2aa45947a03ece0e696f0fdb5017903c0014e2ed827c207554b",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__fs.corner.spice": "b3dc4e47f87a780ed7de8126839ca4620454b6de85307341672c903b0c164d01",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__fs.pm3.spice": "a28c02dff415e3b237bf64b6a197a6c9a3847916fad83dbaa370aebd3c173ced",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__mismatch.corner.spice": "f4d560668712678ea60641de923fce7691e64acda951949f840986837c31741a",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__sf.corner.spice": "857ce650534be04b5663787f03302f580624d6a6a477d27e293cf6ae93fc7d2f",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__sf.pm3.spice": "28338a867b726f33de5c8ebc22fd5a6eb2b445c9e290ac5b14a18a0cd2bcdbe0",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__ss.corner.spice": "8d8b59726b48aa7a435b8f9bf0d0ecce0cef9f6359d4bb206f0a31306712e310",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__ss.pm3.spice": "097313db47f3d46a4fb4ed4bf810c6b530a16af5c3e2308284061caa60365fd2",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__tt.corner.spice": "641d251a08bf9ddcfc67ba4bd4698ae1978d09447eb6ebf90055fdf3d21917ab",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__tt.pm3.spice": "06b8e3f4b3d8a40c248adae022a4d8ebdd3c6499633deab6615b9794878f997f"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          92,
+          100
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "2ebcbba24ae59d7e239c7af847dc0b951f790a9005c6f3bc1c2ad4eb14cf75b6",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L92-L100"
+      }
+    },
+    "sky130_fd_pr__pfet_01v8_hvt": {
+      "aliases": {
+        "sky130_fd_pr/pfet3_01v8_hvt.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__sf.pm3.spice",
+          "model_source_sha256": "8873002beecd4e6ca6987bf05134c8209570ab8b3b4ba8fe4198c870b0f089db",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "38f71752bf8d5e76149074500d46bed20fc9d18aa9b48f01678d60d1343019e8",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet3_01v8_hvt.sym"
+        },
+        "sky130_fd_pr/pfet_01v8_hvt.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__sf.pm3.spice",
+          "model_source_sha256": "8873002beecd4e6ca6987bf05134c8209570ab8b3b4ba8fe4198c870b0f089db",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "5c67e2b4a4893067035f0ae24b5af969646a08b97af5068b17c08694a3ae8d28",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_01v8_hvt.sym"
+        },
+        "sky130_fd_pr/pfet_01v8_hvt_nf.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__sf.pm3.spice",
+          "model_source_sha256": "8873002beecd4e6ca6987bf05134c8209570ab8b3b4ba8fe4198c870b0f089db",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "6f6b3ced4cfb8a72c699e5acd55e9b3118c6751cd0f49e5d111690efbd950fe6",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_01v8_hvt_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -0.1,
+            1.95
+          ],
+          "vds": [
+            -1.95,
+            0
+          ],
+          "vgs": [
+            -1.95,
+            0
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt.pm3.spice": "22050fa2cc2f573ff2f390878bcecac2849e5f6ba1f3e2d8de70658c939dcffd",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__ff.pm3.spice": "a121bff44b57e86fdd0004b2fc1c6ed301dd9c232571a2f3b20c2ddba1ebc616",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__fs.pm3.spice": "ed230da1309928328d6bf2813776afed315b398dca9793237a29454b6b3e812f",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__mismatch.corner.spice": "05e258ab6724c8276cc058f6dba732e8024c5f0bb79ff3131ca219143491d631",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__sf.pm3.spice": "8873002beecd4e6ca6987bf05134c8209570ab8b3b4ba8fe4198c870b0f089db",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__ss.pm3.spice": "b209f4b8e77be0f4ce8a095247aff6ff21e073bb5528935b0f68367d77b13d25",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__tt.pm3.spice": "9ee2827efa84cdb6d3c8c2110b0b8b3665973d4da5032b63bb78e0a1ee20d983"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          180,
+          188
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "42d647594015ade86c653ecc37c5ddb63e7d0c70621f2f79b9e7ab4375df3621",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L180-L188"
+      }
+    },
+    "sky130_fd_pr__pfet_01v8_lvt": {
+      "aliases": {
+        "sky130_fd_pr/pfet3_01v8_lvt.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__sf.pm3.spice",
+          "model_source_sha256": "43d05b6d9b35e2e3970baafe371028678863c4ce8c3df6cc7a02e2b92def8450",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "612ea873e9ebee165e39ced707af6ae8fe16f266870b961875c16a9b19fd233b",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet3_01v8_lvt.sym"
+        },
+        "sky130_fd_pr/pfet_01v8_lvt.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__sf.pm3.spice",
+          "model_source_sha256": "43d05b6d9b35e2e3970baafe371028678863c4ce8c3df6cc7a02e2b92def8450",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "926f35222e53f1c21ce149262fa2011975b9074fe58da505cad8f1eccf9605a8",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_01v8_lvt.sym"
+        },
+        "sky130_fd_pr/pfet_01v8_lvt_nf.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__sf.pm3.spice",
+          "model_source_sha256": "43d05b6d9b35e2e3970baafe371028678863c4ce8c3df6cc7a02e2b92def8450",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "192fbb9d4a9d8cbab1e52e06c508ec25661c728974ee9050825f6130e2ab4a87",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_01v8_lvt_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            -0.1,
+            1.95
+          ],
+          "vds": [
+            -1.95,
+            0
+          ],
+          "vgs": [
+            -1.95,
+            0
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt.pm3.spice": "26d67431c929be2c03cb1c31567251c5aa11107f14a7b7b5a945a5756b44d293",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__ff.corner.spice": "4be6d4c6ee9e4ffcef6f438bbd1b83a1436b896c33a4061b9563500943eeb3d7",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__ff.pm3.spice": "2ec379937bbb6c2f0aeec4deef3a433272c631afc4ab01c772cc3c626b7c1e40",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__fs.corner.spice": "53eefa3929c612891ceb52c7bf3f7e3214611f899b2a2c629df823cbbdc6439b",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__fs.pm3.spice": "5ac54504eb0eb4b9832a7a0e09430b9e27f5bf4ca7cde3675b6a699a23fcdbfa",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__mismatch.corner.spice": "6fa9be51a32f2f66d8d0858159e1db7b72e37adca31020af8b1a0c2df6e72cb9",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__sf.corner.spice": "96f4ed1667765219d2c07434f9d87b76f63f02c4fbe11596bb3cc3d6e759c06a",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__sf.pm3.spice": "43d05b6d9b35e2e3970baafe371028678863c4ce8c3df6cc7a02e2b92def8450",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__ss.corner.spice": "838e42d3bd0394b05f248b53c2a54a6a3012c897aafaa730faf35d665b9cd14a",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__ss.pm3.spice": "d4ac6476c3c3012bd2e84f17a558392099a5e9fa5f79cffbd6e88508dbc3255a",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__tt.corner.spice": "ddb3ddcd4ccb85c1f68c51e41fd1d999d04de5d2836b43217841efd79912888a",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__tt.pm3.spice": "3148bdcac99f8f4efefb49882ac81fab817a581c3e0b54df09ee14f0482f6e71"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          136,
+          144
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "393c4abccff3037324c0941226e6ba01ee906b3dc63040f5f9b162b6083afe77",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L136-L144"
+      }
+    },
+    "sky130_fd_pr__pfet_20v0": {
+      "aliases": {
+        "sky130_fd_pr/pfet3_20v0.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+          "model_source_sha256": "5ac0449e927e098e43b89b7ad84c506e59aca864fd8d1dae8e1f15b1dece9660",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "4fbe379d8e58b15301814876f1fba80bedcaf718e7a328e239e1f93e4abb36d8",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet3_20v0.sym"
+        },
+        "sky130_fd_pr/pfet_20v0.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+          "model_source_sha256": "5ac0449e927e098e43b89b7ad84c506e59aca864fd8d1dae8e1f15b1dece9660",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "05f55216df7f483337aace55b0bf1cffeff4d9fabaec29f924bbd64406c1a5c2",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_20v0.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": null,
+        "condition": "No coverage asserted from this particular bias record; other records may have separate evidence.",
+        "corners": [],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": null,
+        "status": "not_in_this_bias_record",
+        "temperatures_c": [],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__fs_discrete.corner.spice": "835aa506b3d5e671fd73742472ac4157bf6c923d896f478349a88246ea41bb07",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__parasitic__diode_pw2dn.model.spice": "f7b859e1776ead72594b227dc4677cde974e448c7e652cf13c3b7a6a20f0719e",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__sf_discrete.corner.spice": "c22b2c86558d22e75a6d3844c2e25b7af2cbc86cbbcad03f5e94202242a6a57a",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice": "5ac0449e927e098e43b89b7ad84c506e59aca864fd8d1dae8e1f15b1dece9660",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__tt_discrete.corner.spice": "3027fce9091c0cdd8f097dabe70a7bad076e991054ad746de49831ae7cc798eb"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          667,
+          675
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "6766deacdba32af84d7122b18032997d22b868e35fd9368cd0d842f675c48d0f",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L667-L675"
+      }
+    },
+    "sky130_fd_pr__pfet_g5v0d10v5": {
+      "aliases": {
+        "sky130_fd_pr/pfet3_g5v0d10v5.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__sf.pm3.spice",
+          "model_source_sha256": "dc334fd64ddddc0d0a14a86203cc62a4419a473700750e7e8e794a59ea0bd1e5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "658de76e72c30270c6f3c617ea08dcdcff5e48d25bbfb15d206a442e6156b123",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet3_g5v0d10v5.sym"
+        },
+        "sky130_fd_pr/pfet_g5v0d10v5.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__sf.pm3.spice",
+          "model_source_sha256": "dc334fd64ddddc0d0a14a86203cc62a4419a473700750e7e8e794a59ea0bd1e5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "68605e1a388175e9cbf74b72df6ea2fe2c100bb7bd4b8f333e7785be9d693739",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_g5v0d10v5.sym"
+        },
+        "sky130_fd_pr/pfet_g5v0d10v5_nf.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__sf.pm3.spice",
+          "model_source_sha256": "dc334fd64ddddc0d0a14a86203cc62a4419a473700750e7e8e794a59ea0bd1e5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "284dde062a4ca647934fd889c59a0e8ed3a48556b32a73d200629d3341c82670",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_g5v0d10v5_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            0,
+            5.5
+          ],
+          "vds": [
+            -11,
+            0
+          ],
+          "vgs": [
+            -5.5,
+            0
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": null
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5.pm3.spice": "54798d6479ca546fb10a3e004e017e30e5cb46a70f53c37988e5705846e80f9a",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__ff.corner.spice": "70c2630c319f9856b6ef8bdf671d7ed0813ee3d07bcc4734dff5ec3beef4dfe8",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__ff.pm3.spice": "a646aa9c8ca36c44a3168b0cd4263ccc740aeb28224d79d09d9a2c88a92b256b",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__fs.corner.spice": "914a77dd766de318c7c6ca08f72c2dd730433f52021507310b1456e8dcf84cae",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__fs.pm3.spice": "0c4b61239fd0feb3b55dfc1253b10440ca1c6cca9daa59ddde6e4c8056465da9",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__mismatch.corner.spice": "7564bd6e8ba2e7a19d594970b1db2b37202a8117cb49fc22861d2579d77d0339",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__sf.corner.spice": "64d84750c79144bc455621c536d6eaba5e6dd4569202a2229fd02949f1a8107e",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__sf.pm3.spice": "dc334fd64ddddc0d0a14a86203cc62a4419a473700750e7e8e794a59ea0bd1e5",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__ss.corner.spice": "171fe57846f7562cde7f32ef5012a7a21ec20c2e843f80bbfcbf91a1a13184a8",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__ss.pm3.spice": "c50b45b542209f65ceec8fec06fe3acc180da4cfc4dcd892e8ee78222e9ab54d",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__tt.corner.spice": "52707b93246551402e9467132ce3d9cb4939d810cd910aa9968dbd534e3f7907",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__tt.pm3.spice": "48512e0cc4ae95fc8030db3c86d2e33cd27db5d392aa5e09627368a9684e24be"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          389,
+          396
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "942e49a3182f0dfa782e9d30d028b24b258cadbbe48e28f3d442305f9ac140c8",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L389-L396"
+      }
+    },
+    "sky130_fd_pr__pfet_g5v0d16v0": {
+      "aliases": {
+        "sky130_fd_pr/pfet3_g5v0d16v0.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__subcircuit.pm3.spice",
+          "model_source_sha256": "1e0c19100db1bb3f78b2faf59d8e5a12d890fba53866da570302f7cc4605c9f5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "b47f61f094f2d93dd7e9d659f9a0529c9f23dd7699712424d9369ab8e55cd71e",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet3_g5v0d16v0.sym"
+        },
+        "sky130_fd_pr/pfet_g5v0d16v0.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__subcircuit.pm3.spice",
+          "model_source_sha256": "1e0c19100db1bb3f78b2faf59d8e5a12d890fba53866da570302f7cc4605c9f5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "d7c8a6b208717d5a7fcc9406c6e96ea9a91266d86d3937659a284d9fe5827c8e",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_g5v0d16v0.sym"
+        },
+        "sky130_fd_pr/pfet_g5v0d16v0_nf.sym": {
+          "kind": "PMOS",
+          "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__subcircuit.pm3.spice",
+          "model_source_sha256": "1e0c19100db1bb3f78b2faf59d8e5a12d890fba53866da570302f7cc4605c9f5",
+          "pin_order": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ],
+          "symbol_sha256": "579729773395996e85a8da37dc008f9faa54e2489079c28108ffbb930696e30c",
+          "symbol_source": "libs.tech/xschem/sky130_fd_pr/pfet_g5v0d16v0_nf.sym"
+        }
+      },
+      "catalog_status": "bound",
+      "historical_native_bias": {
+        "axis_spans_v": {
+          "vbs": [
+            0,
+            2
+          ],
+          "vds": [
+            -10,
+            0
+          ],
+          "vgs": [
+            -5.5,
+            0
+          ]
+        },
+        "condition": "Two geometry points and two bias contexts per symbol, not all cross-products or a continuous range; 16V drain extension only at exact VGS=0",
+        "corners": [
+          "nominal",
+          "ss",
+          "ff",
+          "sf",
+          "fs"
+        ],
+        "record_sha256": "ee876484c29c2aa31e651462d528613f9ae7b014ff7494b9a6f19c212a408047",
+        "revision": "1901822ae8f81ae1",
+        "samples_per_axis_context": 41,
+        "status": "discrete_samples",
+        "temperatures_c": [
+          0,
+          27,
+          85
+        ],
+        "zero_gate_off_drain_span_v": [
+          -16,
+          0
+        ]
+      },
+      "package_model_files": {
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0.pm3.spice": "e0bf3e15caf27abddd5980aba2d2f0152579307d5e966ed8c75a0fc9a82bfd8e",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__ff.corner.spice": "be86f65df228255832bddeb9d9527d019f729691cac383fcc16c59880bcd96c3",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__fs.corner.spice": "79c2d084e6cc9db66b680355274a4a8e63548e089b4a5a63c76969a4a6bef9fa",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__parasitic__diode_pw2dn.model.spice": "620dad5d04f140231377c637b156a5ecde0ee9b16c62f12ca425752d6a6f8236",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__sf.corner.spice": "5f7ce22905a1aff0143821c7b54f84d3897959d32b411d1272f1f6a96b598e1b",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__ss.corner.spice": "7ae02c1c3aaf0c09ebf112d7e7465df3a749b2ef1f74e0f3f744670f8b2954ee",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__subcircuit.pm3.spice": "1e0c19100db1bb3f78b2faf59d8e5a12d890fba53866da570302f7cc4605c9f5",
+        "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d16v0__tt.corner.spice": "a4d9c6839b8668a058a325a8c6f510d8c041396a8500295dd1febbcd61bc99c0"
+      },
+      "source_anchor": {
+        "file": "sources/device-details.rst",
+        "lines": [
+          433,
+          442
+        ],
+        "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+        "slice_sha256": "0613c9fe5473a5c204f9bf9f36b610332aa43960f921403dea9848d5e619787f",
+        "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst#L433-L442"
+      }
+    }
+  },
+  "package_manifest_sha256": "0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4",
+  "package_revision": "47dbd4fe43bfa7e4",
+  "schema": 1,
+  "package_rebinding": {
+    "previous_catalog_lock_sha256": "1649263eedc3fcbf60b11c7dee78aaf0b4e86e421ca7d0db45dea8b4a6c1eac2",
+    "previous_package_manifest_sha256": "125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b",
+    "coverage": "Same17 reviewed model definitions and40 exact aliases; no ESD voltage envelope or new native coverage is added."
+  }
+}

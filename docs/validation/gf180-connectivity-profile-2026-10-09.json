@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "status": "complete-connectivity-profile-preparation-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T16:59:31.734021+00:00",
+  "source_status": "Uncommitted preparation candidate; full application regression after pending combined-check promotion remains required.",
+  "capture": {
+    "path": "outputs/gf180-complete-connectivity-library-v2/record.json",
+    "sha256": "3ab273d5853d70c20a9ffcdbac161dd87ad9fa502f00e7feef77eeb278b2eb0c"
+  },
+  "independent_inventory": {
+    "path": "outputs/gf180-complete-library-platform-match-v1/record.json",
+    "sha256": "ab18dacad8323bbe7539bcfb4aff64244d74039ec058eba1f92fb1239aa2482f"
+  },
+  "preparations": {
+    "windows": {
+      "record": {
+        "path": "outputs/gf180-complete-platform-preparation-windows-v1/record.json",
+        "sha256": "0773ac8e1f511c569bd47d9de00e2a2227bda952bc7bfa4c4b52e5f271cef1c4"
+      },
+      "cases": [
+        {
+          "variant": "C",
+          "masters": 229,
+          "original_files": 606,
+          "captured_files": 1101,
+          "fingerprint": "6b4e715531ed046e7f3c2ba1138ee1246fdbdfe00678b7a3d1ed198c8f52d66e",
+          "platform": {
+            "path": "outputs/gf180-complete-platform-preparation-windows-v1/c-platform.json",
+            "sha256": "1893fb7a859f496cfa619984f92109ee2b18246d65d5cc6aa534c3e3b7010afc"
+          },
+          "preparation": {
+            "path": "outputs/gf180-connectivity-platform-sources-v1/c/gf180/verification/preparation.json",
+            "sha256": "8f41cafc33fac8bcc3809375c2287164499e359aeb734da43770cf39a0fe0520"
+          },
+          "collateral_directory": "outputs/gf180-connectivity-platform-sources-v1/c/gf180/verification",
+          "source_directory": "outputs/gf180-connectivity-platform-sources-v1/c"
+        },
+        {
+          "variant": "D",
+          "masters": 229,
+          "original_files": 606,
+          "captured_files": 1101,
+          "fingerprint": "6b4e715531ed046e7f3c2ba1138ee1246fdbdfe00678b7a3d1ed198c8f52d66e",
+          "platform": {
+            "path": "outputs/gf180-complete-platform-preparation-windows-v1/d-platform.json",
+            "sha256": "22153cf4e3754d4eca43c7cfdcbd8416d0cd9568238baa62ae7d6a2ca69d4b5c"
+          },
+          "preparation": {
+            "path": "outputs/gf180-connectivity-platform-sources-v1/d/gf180/verification/preparation.json",
+            "sha256": "8f41cafc33fac8bcc3809375c2287164499e359aeb734da43770cf39a0fe0520"
+          },
+          "collateral_directory": "outputs/gf180-connectivity-platform-sources-v1/d/gf180/verification",
+          "source_directory": "outputs/gf180-connectivity-platform-sources-v1/d"
+        }
+      ]
+    },
+    "linux": {
+      "record": {
+        "path": "outputs/gf180-complete-platform-preparation-linux-v1/record.json",
+        "sha256": "2d2b55cbe97143041db9c6397394dc0bd54c56d6d7c2bb43967bc26a69f80a7d"
+      },
+      "cases": [
+        {
+          "variant": "C",
+          "masters": 229,
+          "original_files": 606,
+          "captured_files": 1101,
+          "fingerprint": "6b4e715531ed046e7f3c2ba1138ee1246fdbdfe00678b7a3d1ed198c8f52d66e",
+          "platform": {
+            "path": "outputs/gf180-complete-platform-preparation-linux-v1/c-platform.json",
+            "sha256": "1893fb7a859f496cfa619984f92109ee2b18246d65d5cc6aa534c3e3b7010afc"
+          },
+          "preparation": {
+            "path": "outputs/gf180-complete-platform-preparation-linux-v1/c-fresh-collateral/preparation.json",
+            "sha256": "8f41cafc33fac8bcc3809375c2287164499e359aeb734da43770cf39a0fe0520"
+          },
+          "collateral_directory": "outputs/gf180-connectivity-platform-sources-v1/c/gf180/verification",
+          "source_directory": "outputs/gf180-connectivity-platform-sources-v1/c"
+        },
+        {
+          "variant": "D",
+          "masters": 229,
+          "original_files": 606,
+          "captured_files": 1101,
+          "fingerprint": "6b4e715531ed046e7f3c2ba1138ee1246fdbdfe00678b7a3d1ed198c8f52d66e",
+          "platform": {
+            "path": "outputs/gf180-complete-platform-preparation-linux-v1/d-platform.json",
+            "sha256": "22153cf4e3754d4eca43c7cfdcbd8416d0cd9568238baa62ae7d6a2ca69d4b5c"
+          },
+          "preparation": {
+            "path": "outputs/gf180-complete-platform-preparation-linux-v1/d-fresh-collateral/preparation.json",
+            "sha256": "8f41cafc33fac8bcc3809375c2287164499e359aeb734da43770cf39a0fe0520"
+          },
+          "collateral_directory": "outputs/gf180-connectivity-platform-sources-v1/d/gf180/verification",
+          "source_directory": "outputs/gf180-connectivity-platform-sources-v1/d"
+        }
+      ]
+    }
+  },
+  "tests": {
+    "windows": {
+      "tests": 31,
+      "skipped": 0,
+      "log": {
+        "path": "outputs/gf180-connectivity-preparation-windows-tests-v1.log",
+        "sha256": "e99de0c0801716d306ea304acb6ac07b6437c9b21a450f2b5a89bd3750e35584"
+      }
+    },
+    "linux": {
+      "tests": 31,
+      "skipped": 0,
+      "log": {
+        "path": "outputs/gf180-connectivity-preparation-linux-tests-v1.log",
+        "sha256": "d82e9e54227097a2fc12cc8edb93499bb13029e16f5777497905ea83953c9e2e"
+      }
+    }
+  },
+  "masters": 229,
+  "source_files": 460,
+  "library_revision": "3781fd2951da6e3dc4600e52d997398a9463caeb",
+  "scope": "Complete pinned cell CDL/GDS and native rules prepared on both OSes with identical C/D profile records. All 229 GDS views and all declared LEF/CDL interfaces independently match the actual production platform. No per-cell electrical, full-flow, installed runtime, fill, timing or PDK qualification is implied.",
+  "remaining": [
+    "Finish native combined controls and promote the tested saved-result portability fix.",
+    "Run full current-source regression and complete configured finish/macro acceptance.",
+    "Enable full collateral in runtime packaging and pass fresh installations on both OSes.",
+    "Complete fill coverage, before/filled full-RC programs, timing and all remaining qualification chunks."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-connectivity-profile-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "7b560397c907182515e48de8fbd0aa379b7d4b22a13ac7112963552b763efc19",
+    "bytes": 93882529,
+    "logical_files": 4060,
+    "unique_objects": 1248,
+    "verified": true
+  }
+}

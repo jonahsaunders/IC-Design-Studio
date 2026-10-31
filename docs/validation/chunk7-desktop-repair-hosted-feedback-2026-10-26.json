@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "status": "success",
+  "date": "2026-10-26",
+  "run": 40340390536,
+  "candidate": "e3fa0cc60da18cee8359817bb5321923587abc50",
+  "base": "49c79957b4d6f4978127da612e167e5c75cda6b3",
+  "merge": "0eb0dfd7e0bcd9084442331d0eea5d9233f31bba",
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40340390536",
+  "required_feedback": "success",
+  "platforms": [
+    {
+      "platform": "Windows",
+      "status": "PASS",
+      "tests": 506,
+      "skips": 15,
+      "seconds": 108.969,
+      "source_bindings": 1377,
+      "artifact_id": 12658148884,
+      "artifact_sha256": "ac791cbe2ce419b5dac80504a9acaeda07ece895e6b69832c0b7792f72a045ca",
+      "artifact_bytes": 562933,
+      "report_sha256": "dc2e0fe592d7be8ad0a44d801a16d5d534266fef50b711310429e82579fae138",
+      "members": 35,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 60.781
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.297
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.859
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 6.5
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.094
+        }
+      ],
+      "archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/desktop-repair-hosted-2026-10-26-v1/source-feedback-Windows.zip"
+    },
+    {
+      "platform": "Linux",
+      "status": "PASS",
+      "tests": 506,
+      "skips": 4,
+      "seconds": 92.854,
+      "source_bindings": 1377,
+      "artifact_id": 12657759384,
+      "artifact_sha256": "92d9f5a3861682fdede989cb0b3547eff59f7b2d3721f854e649e57ad45d1d78",
+      "artifact_bytes": 1086482,
+      "report_sha256": "a0f8fc1b40e985a1caaa9606b1e9c0b6bc16474531d0d0ee0856088b7cb333fa",
+      "members": 87,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 42.335
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.425
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.943
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 5.078
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.743
+        }
+      ],
+      "archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/desktop-repair-hosted-2026-10-26-v1/source-feedback-Linux.zip"
+    }
+  ],
+  "all_candidate_source_bindings_verified": true,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "member_manifest_sha256": "059aba7c69eef0ffda9df152c8459dbe5d409f46e6d09c859240fe43376d3ffc",
+  "scope": "Hosted automatic synthetic-merge source feedback. All five stages and exact candidate source identities pass. This is not installed acceptance."
+}

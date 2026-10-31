@@ -1,0 +1,481 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "public_ihp_profile_and_sampled_mixed_geometry_verified",
+  "baseline": "6d9bfb579ea24aeb9c1a731d0c91094b6c6b2cf1",
+  "scope": "Source-locked public top-metal EM profile integration, sampled native via and mixed NPN/small-varactor geometry/connectivity, and source regression checks. No complete device envelope, EM accuracy, unavailable model, installed release or tapeout qualification.",
+  "source_files": {
+    "icstudio/ihp_em_profile.py": "7b1d1ae975bcd76168305cd64fdf8f22dcd2a5576bf5221f6c9ea4d24e514092",
+    "icstudio/em_profile_ui.py": "329301db5feff440b71cf0abe529b9ed83a1dcfbf923b3dc805df5a9174b0be3",
+    "icstudio/layout_edit.py": "ce22c5b753373de7ade055da4e5d98b1d0933de8fb78a0c1c476a3d1468c5de7",
+    "icstudio/openems_backend.py": "0c81ccf924935ad025556353a70b0e7374a5ec4a3153cff8374becd26a7fefef",
+    "icstudio/openems_ui.py": "9e1a9a9e7b241b1b8258f9c5cea01fc78ad0849b29738e2723dfae9ad846eda9",
+    "icstudio/assets/openems/driver.py": "bbd1bb46e59294df34afdf9d217f013cca17fe09aa4f62feb8c42be418e169c9",
+    "scripts/qualify_ihp_em_profile.py": "267b3219e2a426c8cf0b48eaa95f0db9910240dc466ea11cc00ba604882126f5",
+    "scripts/qualify_ihp_topvia.py": "dd775f466065588312e359ef17ccc511257e8c412801abca859ac70e5303688a",
+    "scripts/qualify_ihp_mixed_layouts.py": "2fe0d28ba26f9cfc0aa52d4784e7e47d93dc300671e8e54a1d9054a0fff6c624",
+    "tests/test_ihp_em_profile.py": "5526d0b44f7e0641e9f42a326b38a20a0d152315027b71a8cfab6e8041c92cc2",
+    "tests/test_ihp_mixed_layouts.py": "c22a37f6f0b4011e172181d95c4c8ea0031c26b3b53d3f7eeb014a11412f9cbc",
+    "tests/test_openems.py": "8b4d98b351de45c404a10651c90302c0af9baa85683f50b9d91005976ecf3ad8",
+    "tests/gui_openems.py": "686ce10a529169de44ef63cfbf6439f46118e337be336860e8f47306158fb97a",
+    "tests/gui_ihp_em_profile.py": "215aa8b4cc5baea59b804d1e8a5145fc0dc965212544799575a59421a493f4ac",
+    "tests/fixtures/openems_fake_driver.py": "86cb833fc6d3deb3d7f138b8f5ef74629470494cc06d2dd905521947b3849121",
+    ".github/workflows/build-desktop.yml": "dabb6b18212e57aa7a58d54a41ebd2e454891cc629f0e96faab8bfd473494c74",
+    ".github/workflows/ihp-inductor-qualification.yml": "d3418060f073da9effce998322e6a28ba4d6ce4337f797e5a44e4db984b9f05c",
+    "icstudio/assets/physical/ihp_em/LICENSE": "50e6751797c50dedd75ef1b8a0d9e42f5f8472e9fbce91f34718e9f97b0c780a",
+    "icstudio/assets/physical/ihp_em/SG13G2.xml": "c610fd87231debde837e8ab3c66842b407e4c274387d5fb594b32171bd695cd0",
+    "icstudio/assets/physical/ihp_em/SG13G2_200um.xml": "5d4529432b38d7996814f5096af2173d96e8ad5ff84c73ebb57904f1faf03bdf",
+    "icstudio/assets/physical/ihp_em/SOURCE.json": "af8ea757aad1733ce7d73359761453dd4f76f84c2824218df84d6dd9628e3c32",
+    "icstudio/assets/physical/ihp_em/UPSTREAM-README.md": "f35af0c30cc6046bf5575688ba00408f251c7955cf7dff04ab7899cd249a6db7"
+  },
+  "public_materials": {
+    "repository": "https://github.com/VolkerMuehlhaus/openems_ihp_sg13g2",
+    "commit": "e29417aa1e5fb97b4ebd27dd1e4fcf043f97ef63",
+    "ihp_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "license": "Apache-2.0",
+    "source_lock": "icstudio/assets/physical/ihp_em/SOURCE.json",
+    "source_lock_sha256": "af8ea757aad1733ce7d73359761453dd4f76f84c2824218df84d6dd9628e3c32",
+    "bulk_substrate_um": [
+      280,
+      180
+    ],
+    "drawing_layers": {
+      "TopMetal1": [
+        126,
+        0
+      ],
+      "TopVia2": [
+        133,
+        0
+      ],
+      "TopMetal2": [
+        134,
+        0
+      ]
+    },
+    "environment_slabs": [
+      "Substrate",
+      "EPI",
+      "SiO2",
+      "Passive",
+      "AIR"
+    ],
+    "other_layers": "Unmapped and blocked unless explicitly modelled; no automatic exclusions."
+  },
+  "topvia": {
+    "positive_layouts": 2,
+    "detected_faults": 5,
+    "native_reports": 14,
+    "recipe_nm": {
+      "cut": 900,
+      "spacing": 1060,
+      "pad": 2000,
+      "enclosure": 550
+    },
+    "qualification_sha256": "4d787cb05259fab73f07ceed3e6b903ac872597c60173441028d223025c58e01",
+    "windows_readback": {
+      "status": "PASS",
+      "scope": "Windows independent native report and mask readback of Linux geometry results; no Windows DRC execution.",
+      "cases": [
+        {
+          "name": "single",
+          "gds_sha256": "f6ea1ab41dc05e256ad9d243e7634ae38bb11fffac9dc09889aa7b5936fcef43",
+          "violations": 0
+        },
+        {
+          "name": "array",
+          "gds_sha256": "88661ec8c45e3bea7cca11160d0c8276e16f123a9c806c06df80e0a36d91d53c",
+          "violations": 0
+        },
+        {
+          "name": "cut-width",
+          "gds_sha256": "fc0f774b43e553c2314553384549eed5053bb29c59a1c5c79d9d3a859ca86224",
+          "violations": 2
+        },
+        {
+          "name": "cut-spacing",
+          "gds_sha256": "6d71f1caa984aeb357760b3b9495ff13afd20731f748851a277906754d9d72f1",
+          "violations": 4
+        },
+        {
+          "name": "lower-enclosure",
+          "gds_sha256": "0ea786aebb0bb92b7eb39e5241fb9ac1e85db79ed549dca71c7667cd0085d111",
+          "violations": 4
+        },
+        {
+          "name": "upper-enclosure",
+          "gds_sha256": "9d9abdd695c7fc94aa79aae6eabd252e79a14ca3b30b39cc25a8914efd05c081",
+          "violations": 6
+        },
+        {
+          "name": "upper-width",
+          "gds_sha256": "7b9f71f249e7d0204ef8ffdde800b6b494b3c5b537b9788f139c88234381f240",
+          "violations": 2
+        }
+      ],
+      "native_reports": 14
+    }
+  },
+  "mixed": {
+    "positive_layouts": 12,
+    "detected_faults": 21,
+    "pairs": [
+      [
+        [
+          "npn13G2L",
+          0.07,
+          1,
+          1
+        ],
+        "small",
+        1
+      ],
+      [
+        [
+          "npn13G2V$2",
+          0.12,
+          5,
+          4
+        ],
+        "small",
+        4
+      ],
+      [
+        [
+          "npn13G2$4",
+          0.07,
+          0.9,
+          10
+        ],
+        "small",
+        1
+      ]
+    ],
+    "rotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "source_unchanged": true,
+    "qualification_sha256": "a908f0caf88caa121c656e2d1a7a7c30bef8a820fff193bf85b756462c8f3cfd",
+    "windows_readback": {
+      "status": "PASS",
+      "scope": "Windows receipt, mask, netlist and fault-evidence readback; no native Windows geometry execution.",
+      "counts": {
+        "layouts": 12,
+        "netlists": 24,
+        "native_geometry_reports": 24,
+        "faults": 21
+      }
+    },
+    "native_policy": "Both complete public geometry decks, full unfiltered native Magic NPN supplement and strict Netgen LVS. Only the source-declared varactor gate-pin 1/3 permutation is allowed; W/S and NPN terminal roles remain strict."
+  },
+  "solver_fixture_geometry": {
+    "status": "PASS",
+    "exchange_sha256": "12239b5f4e2ff92f7c0c076e8fddc7f714329248efd10fb1ef62ee08715a5a59",
+    "geometry_sha256": "9afcd14013859eb3c3b9572a5924cbf1cacc80106d545d6ae5fac3ec5c071381",
+    "native": {
+      "schema": 1,
+      "engine": "KLayout 0.30.5",
+      "source_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "source_lock_sha256": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863",
+      "input_sha256": "9afcd14013859eb3c3b9572a5924cbf1cacc80106d545d6ae5fac3ec5c071381",
+      "top": "INDUCTOR",
+      "violations": 0,
+      "decks": [
+        {
+          "name": "main",
+          "entry": "ihp-sg13g2.drc",
+          "violations": 0,
+          "report": "main/findings.lyrdb",
+          "report_sha256": "18149000027c406d2055e26b4bfaf211b758fc3128b4209c061c884838bae91e",
+          "categories": []
+        },
+        {
+          "name": "maximal",
+          "entry": "rule_decks/sg13g2_maximal.drc",
+          "violations": 0,
+          "report": "maximal/findings.lyrdb",
+          "report_sha256": "edff18ee09d1bfa622cd07208e7aadbfa68a4d51fa04a6dd6fcb1b5e52ccf2d1",
+          "categories": []
+        }
+      ],
+      "scope": "Complete unmodified public main and maximal geometry decks, default rule switches. Antenna, density and fabrication qualification are separate."
+    },
+    "scope": "Geometry of the actual generated solver fixture, not EM accuracy, current density or tapeout qualification."
+  },
+  "desktop": {
+    "Windows": {
+      "status": "PASS",
+      "scope": "Source desktop profile selection, review, apply, undo/redo, save/reopen and stale-project rejection. No installed or solver accuracy qualification.",
+      "checks": [
+        {
+          "bulk_substrate_um": 280,
+          "layers": 8,
+          "mapping": {
+            "TopMetal1.drawing": "TopMetal1",
+            "TopVia2.drawing": "TopVia2",
+            "TopMetal2.drawing": "TopMetal2"
+          },
+          "undo_redo": true
+        },
+        {
+          "bulk_substrate_um": 180,
+          "layers": 8,
+          "mapping": {
+            "TopMetal1.drawing": "TopMetal1",
+            "TopVia2.drawing": "TopVia2",
+            "TopMetal2.drawing": "TopMetal2"
+          },
+          "undo_redo": true
+        }
+      ],
+      "report_sha256": "a431a6f40ad1a8249afb16416287d523294b58b1a0e6a395cb29499bad300f27"
+    },
+    "Linux": {
+      "status": "PASS",
+      "scope": "Source desktop profile selection, review, apply, undo/redo, save/reopen and stale-project rejection. No installed or solver accuracy qualification.",
+      "checks": [
+        {
+          "bulk_substrate_um": 280,
+          "layers": 8,
+          "mapping": {
+            "TopMetal1.drawing": "TopMetal1",
+            "TopVia2.drawing": "TopVia2",
+            "TopMetal2.drawing": "TopMetal2"
+          },
+          "undo_redo": true
+        },
+        {
+          "bulk_substrate_um": 180,
+          "layers": 8,
+          "mapping": {
+            "TopMetal1.drawing": "TopMetal1",
+            "TopVia2.drawing": "TopVia2",
+            "TopMetal2.drawing": "TopMetal2"
+          },
+          "undo_redo": true
+        }
+      ],
+      "report_sha256": "4e8b76dcd90e0b452a76aaf39133bb8eef0afa9e8a19f238f009b46829dcffa6"
+    }
+  },
+  "regression": {
+    "Windows": {
+      "full": {
+        "status": "PASS",
+        "discovered": 3198,
+        "seconds": 1676.654,
+        "skipped": 63,
+        "log": "full-Windows-final.log",
+        "sha256": "42714d69281f55f999ca62c60d379d0baa70c82516caacc64fb61368184ec7b2"
+      },
+      "focused": {
+        "status": "PASS",
+        "discovered": 66,
+        "seconds": 41.777,
+        "skipped": 0,
+        "log": "final-focused-Windows.log",
+        "sha256": "85dd8106753a8da4e1f167da2bdeaa3770c2abe866aba3b006c519fedc07f15e"
+      },
+      "profile_final": {
+        "status": "PASS",
+        "discovered": 8,
+        "seconds": 2.751,
+        "skipped": 0,
+        "log": "profile-final-Windows.log",
+        "sha256": "087b59d69479ab0265d0ab82c1f96aa8b8b3bc62876940830aa1f8c5cfe094b5"
+      },
+      "mixed_final": {
+        "status": "PASS",
+        "discovered": 3,
+        "seconds": 1.286,
+        "skipped": 0,
+        "log": "mixed-final-Windows.log",
+        "sha256": "99ac36d4f82e2cc715f7c0646c728c318b4ecc873630f70cfb0e3dcf0f21d520"
+      },
+      "gui_process_lifecycle": {
+        "status": "PASS",
+        "discovered": 8,
+        "seconds": 21.164,
+        "skipped": 0,
+        "log": "gui-openems-Windows-final.log",
+        "sha256": "fd69dec54db6ecf976dfe1b91291dfcaa8c75173c83edef3be3700c028565377"
+      }
+    },
+    "Linux": {
+      "full": {
+        "status": "PASS",
+        "discovered": 3198,
+        "seconds": 796.779,
+        "skipped": 55,
+        "log": "full-Linux-final.log",
+        "sha256": "0aed1b5b8d44e04c6b8664bbd530770b26a42896e06279e0c840c5e3c3926a8a"
+      },
+      "focused": {
+        "status": "PASS",
+        "discovered": 66,
+        "seconds": 73.39,
+        "skipped": 0,
+        "log": "final-focused-Linux.log",
+        "sha256": "9e3999e3501be058fc95659aa1ecabdf23d2c7e2aad198fbebbb7952819c0a45"
+      },
+      "profile_final": {
+        "status": "PASS",
+        "discovered": 8,
+        "seconds": 45.875,
+        "skipped": 0,
+        "log": "profile-final-Linux.log",
+        "sha256": "85d955b173748bd501269f3ee6c3a4be39e4b0fbc52af35c562b05e1f2c52ff6"
+      },
+      "mixed_final": {
+        "status": "PASS",
+        "discovered": 3,
+        "seconds": 0.717,
+        "skipped": 0,
+        "log": "mixed-final-Linux.log",
+        "sha256": "bcf49438fdd562aebbe518cab067a8be14c1817f45bfbfb4cf623309f8551151"
+      },
+      "gui_process_lifecycle": {
+        "status": "PASS",
+        "discovered": 8,
+        "seconds": 6.195,
+        "skipped": 0,
+        "log": "gui-openems-Linux-final.log",
+        "sha256": "6844a40fc804fd858ac837729d0dc0da08ab05223d81033759de44816eb476c7"
+      }
+    }
+  },
+  "linux_execution": {
+    "returncode": 0,
+    "root": "/var/tmp/icstudio-tests-20261021-em-v1",
+    "verified_source_files": 6156,
+    "source_manifest_sha256": "24b17814bb83de662ea28b0b3f75ded5eb8732c53b237ef3b6d86a9b8c67d6b0"
+  },
+  "historical_source_repair": {
+    "original_windows_discovered": 3195,
+    "failures": 6,
+    "errors": 2,
+    "skips": 63,
+    "cause": "Four edited application modules invalidated exact historical GF180 source bindings.",
+    "repair": "Preserve the four exact original Git blobs from the previously tested source commit in a new historical snapshot; keep original native acceptance and source hashes unchanged.",
+    "manifest": "docs/validation/gf180-tested-source-2026-10-21-em.json",
+    "manifest_sha256": "0d294ca680e426708a68c69ded55aa9a00fca9ce529babf5870e3d9b551f66f4",
+    "focused_recheck": {
+      "status": "PASS",
+      "discovered": 69,
+      "seconds": 43.172,
+      "skipped": 0,
+      "log": "recheck-Windows.log",
+      "sha256": "af8b15db10ca2cf6270951b02cd9ecacbd26ac0f6750338ac8baaf0f2b09e78b"
+    }
+  },
+  "hosted": {
+    "commit": "6d9bfb579ea24aeb9c1a731d0c91094b6c6b2cf1",
+    "pr_runs_success": 7,
+    "pr_runs_failure": 1,
+    "failed_run": 39525709861,
+    "failed_job": 118979737651,
+    "cause": "IHP NPN step reached all nine per-case PASS messages at 15m05s, then timed out before final integrity checks.",
+    "repair": "NPN timeout 15 to 25 minutes; whole job 45 to 60 minutes. Retain every gate and add native via and mixed-layout controls.",
+    "new_head_acceptance": "pending",
+    "evidence_sha256": "982ecd6d9aa09a446bb144e9a3fdaff8e426c612fe7290f092570f8656cb8a6d"
+  },
+  "retained_failures": [
+    {
+      "path": "mixed-native/pair-2",
+      "case": "Large Nx10 varactor paired with Nx10 NPN",
+      "native_findings": 58,
+      "rules": [
+        "NW.f",
+        "NBL.f",
+        "NW.c1"
+      ],
+      "resolution": "Unresolved; full native findings retained. Public-deck zero count does not waive them."
+    },
+    {
+      "path": "native-Windows-280",
+      "case": "1-5 GHz native pilot",
+      "resolution": "Truncated Gaussian excitation; aborted and rejected. No characterized result attached."
+    },
+    {
+      "path": "native-Windows-280-highband",
+      "case": "100-300 GHz two-thread pilot",
+      "resolution": "Base stages finished; fine stage deliberately aborted to review runtime. No convergence or accuracy pass."
+    },
+    {
+      "path": "full-Windows.log",
+      "case": "First full regression run",
+      "resolution": "Six failures and two errors retained; historical source binding repaired and final full suite re-run."
+    }
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-em-mixed-2026-10-21-v1\\evidence.zip",
+    "sha256": "91012345bff9e4c8a4a0def706c7998a587cfd949374b5a0b20dc0d93e2f76fa",
+    "bytes": 9467482,
+    "files": 8426,
+    "unique_objects": 1709,
+    "all_objects_verified": true
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "91012345bff9e4c8a4a0def706c7998a587cfd949374b5a0b20dc0d93e2f76fa",
+    "runner_sha256": "b21b5dabc2afe468b3fc243592124f1e202c412de301791cb5ce7a96a9a6d397",
+    "cases": [
+      {
+        "case": "topvia-single",
+        "status": "PASS",
+        "input_sha256": "f6ea1ab41dc05e256ad9d243e7634ae38bb11fffac9dc09889aa7b5936fcef43",
+        "violations": 0
+      },
+      {
+        "case": "topvia-upper-width",
+        "status": "PASS",
+        "input_sha256": "7b9f71f249e7d0204ef8ffdde800b6b494b3c5b537b9788f139c88234381f240",
+        "violations": 2
+      },
+      {
+        "case": "mixed-rotation-0",
+        "status": "PASS",
+        "native_status": "passed",
+        "input_sha256": "7446f6c3e001e128d855aef3dcc4ebde8fea9299c6749520700860057594e243",
+        "report_sha256": "7f005e0330efb2613f8263dad9beaa43de70583d00ccfd3a7c3a704edb430736"
+      },
+      {
+        "case": "mixed-var-oxide-gap",
+        "status": "PASS",
+        "native_status": "failed",
+        "input_sha256": "966eddd58ff15401b133abafe4e8018c9f4553318fbade4f6d757138c7acacbe",
+        "report_sha256": "e788a0ae2b6b98e3b993a4b093a84129b7e370d22cdfd4dd76d358d4d6f15aba"
+      },
+      {
+        "case": "mixed-npn-reference-count",
+        "status": "PASS",
+        "native_status": "failed",
+        "input_sha256": "7446f6c3e001e128d855aef3dcc4ebde8fea9299c6749520700860057594e243",
+        "report_sha256": "c765d7f9ec33c78f7305aa64fa601cef8ce2de4911d4aeda6d214e0cfaba35b3"
+      }
+    ],
+    "scope": "Five freshly executed native controls restored by hash from the compact evidence archive."
+  },
+  "replay_archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-em-mixed-2026-10-21-v1\\replay.zip",
+    "sha256": "252e361484c424397ff20f53a76fcb0ecc14ff7b27b14bac3394353f5bfdf627",
+    "bytes": 824841,
+    "files": 674,
+    "unique_objects": 258,
+    "all_objects_verified": true
+  },
+  "native_em_acceptance": "The two final 100-300 GHz real-solver runs are separate evidence. This record makes no solver-convergence or accuracy claim.",
+  "remaining": [
+    "Full per-device operating envelopes and statistical/RF accuracy",
+    "Large-varactor mixed native well findings and other device combinations",
+    "Required unavailable device models and semantic upstream/process-option completeness",
+    "Exact installed-release and complete-chip acceptance"
+  ]
+}

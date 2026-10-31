@@ -12,6 +12,16 @@ The generic teaching technology supports metal1/via1/metal2. A mapped SKY130A te
 
 Older attached native projects, including the dev20 overvoltage bench, can retain a generic technology name even though their schematic library identifies SKY130. Via tools recover the family from the saved library variant and use the imported GDS mask mappings. The recovered definitions persist with the first via edit; they do not create a physical PDK lock or change qualification status. Explicit `routing_vias` definitions take precedence. Layer numbers alone never select a process.
 
+Mapped IHP SG13G2 includes M1/M2 and **TopMetal1 to TopMetal2**. The top-metal
+recipe uses a 900 nm cut, 1,060 nm cut spacing and 2,000 nm conductor pads,
+providing 550 nm enclosure while satisfying the upper metal's minimum width.
+Both public geometry decks check the single via and 2×2 array; five deliberate
+width, spacing and enclosure faults are detected. This is a local geometry
+reference, not density, reliability or complete-chip qualification. Explicit
+project via definitions still take precedence. Existing saved inductor geometry
+is unchanged; if its derived rule signature is stale, review and regenerate it
+before attaching new characterization.
+
 ## Fill an overlap automatically
 
 1. Select two or more overlapping conductor shapes in the active cell. Use **Shift-click** to add to the selection, or box-select the conductors. Exclude existing cuts and physical instances.

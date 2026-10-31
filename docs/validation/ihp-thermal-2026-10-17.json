@@ -1,0 +1,379 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "77d601fc1bd2cdd0e7cd570fee13e57d28f5282e",
+  "scope": "Finite IHP thermal integration, current-source terminal labels and parameter artwork; no complete device qualification.",
+  "process": {
+    "revision": "1e24ec25b491028b",
+    "manifest_sha256": "ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab"
+  },
+  "accepted": [
+    {
+      "root": "icstudio-ihp-thermal-20261017-v4",
+      "report_sha256": "014e003b9e02a308e3f3b22ae794fb6502640fa0c890ca43996a8b23fecaea64",
+      "audit_sha256": "69ef29090df923c941fe007492bbe581704d501acaabe19d59184ee1ddea79ed",
+      "source_files_sha256": "307e473ac524ead5e86d54622492a1aa9671c9dbc10b42bcb010a775f11c6fb7",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "cases": 9,
+      "purpose": "Nine-condition ngspice 47 batch before display-only fixes."
+    },
+    {
+      "root": "icstudio-ihp-thermal-20261017-v5",
+      "report_sha256": "aa4bb50a509de977e052b224f26d5f507f860577c75090072788340eb6f2efac",
+      "audit_sha256": "bdc3ec10b8d4721e302e1154e7c1ae437de3ab06d1ea7eba83215e817eed5a8e",
+      "source_files_sha256": "f2027665346eb75c401cbdc8f7b741c643475807ddd0724eeac914a73b570a7b",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "cases": 1,
+      "purpose": "Final-source ngspice 47 nominal regression."
+    },
+    {
+      "root": "icstudio-ihp-thermal-20261017-v6",
+      "report_sha256": "2ef0aa6aaaa55101f0c759bf9b04dccd7c4959e8ea9f8a6d4978fc646fe6146e",
+      "audit_sha256": "c8db0c8b26844bc12ce2e1243efca7feef1b7aafdd78a204532f582227148faf",
+      "source_files_sha256": "f2027665346eb75c401cbdc8f7b741c643475807ddd0724eeac914a73b570a7b",
+      "engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7",
+      "cases": 1,
+      "purpose": "Managed ngspice 42 nominal qualification."
+    }
+  ],
+  "totals": {
+    "cases": 11,
+    "comparisons": 66,
+    "vectors": 2970,
+    "samples": 656370,
+    "faulted_devices": 220,
+    "raw_files": 121
+  },
+  "source_desktop": {
+    "Windows": {
+      "status": "PASS",
+      "scope": "Current-source desktop placement, parameter editing and saved five-terminal netlist. Not an installed release or numerical simulation.",
+      "revision": "1e24ec25b491028b",
+      "checks": [
+        {
+          "model": "npn13G2_5t",
+          "thermal_node": "N_821fc473d2564399_t",
+          "parameters": {
+            "mm_ok": "1",
+            "nx": "4"
+          }
+        },
+        {
+          "model": "npn13G2l_5t",
+          "thermal_node": "N_97e68004e5b9453d_t",
+          "parameters": {
+            "el": "2.5",
+            "mm_ok": "1",
+            "nx": "4"
+          }
+        },
+        {
+          "model": "npn13G2v_5t",
+          "thermal_node": "N_f77ddf6c199344b8_t",
+          "parameters": {
+            "el": "2.5",
+            "mm_ok": "1",
+            "nx": "4"
+          }
+        }
+      ],
+      "source_sha256": "e5d37ef3b8ce52198636fc9cbd49754c7626c703b17d78d01352c848faf95084",
+      "saved_sha256": "144c40e4c7997b80959858ca6a507132fbc757d3efcd586eba9934dc03ba86a9"
+    },
+    "Linux": {
+      "status": "PASS",
+      "scope": "Current-source desktop placement, parameter editing and saved five-terminal netlist. Not an installed release or numerical simulation.",
+      "revision": "1e24ec25b491028b",
+      "checks": [
+        {
+          "model": "npn13G2_5t",
+          "thermal_node": "N_2c815e6df7fb49a5_t",
+          "parameters": {
+            "mm_ok": "1",
+            "nx": "4"
+          }
+        },
+        {
+          "model": "npn13G2l_5t",
+          "thermal_node": "N_c18fa917e0854627_t",
+          "parameters": {
+            "el": "2.5",
+            "mm_ok": "1",
+            "nx": "4"
+          }
+        },
+        {
+          "model": "npn13G2v_5t",
+          "thermal_node": "N_1876783bd6f34636_t",
+          "parameters": {
+            "el": "2.5",
+            "mm_ok": "1",
+            "nx": "4"
+          }
+        }
+      ],
+      "source_sha256": "e5d37ef3b8ce52198636fc9cbd49754c7626c703b17d78d01352c848faf95084",
+      "saved_sha256": "d18fb6ae6ef637da0d980110e6b3e7ab65a102673416f864453f38a775006a73"
+    }
+  },
+  "windows_backend": {
+    "status": "PASS",
+    "process": {
+      "target": "ihp-sg13g2",
+      "revision": "1e24ec25b491028b",
+      "manifest_sha256": "ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab"
+    },
+    "scope": "Windows staging, actual source backend on local Linux ngspice 42, and verified artifact receipt. No installed-desktop acceptance.",
+    "cases": [
+      {
+        "analysis": "dc",
+        "comparison": {
+          "status": "PASS",
+          "maximum_normalized_error": 0.0,
+          "channel_errors": {
+            "vqn1l0c": 0.0,
+            "vqn1l0b": 0.0,
+            "vqn1l0e": 0.0,
+            "vqn1l0s": 0.0,
+            "qn1l0t": 0.0,
+            "vqn4l0c": 0.0,
+            "vqn4l0b": 0.0,
+            "vqn4l0e": 0.0,
+            "vqn4l0s": 0.0,
+            "qn4l0t": 0.0,
+            "vqln1l1c": 0.0,
+            "vqln1l1b": 0.0,
+            "vqln1l1e": 0.0,
+            "vqln1l1s": 0.0,
+            "qln1l1t": 0.0,
+            "vqln1l2p5c": 0.0,
+            "vqln1l2p5b": 0.0,
+            "vqln1l2p5e": 0.0,
+            "vqln1l2p5s": 0.0,
+            "qln1l2p5t": 0.0,
+            "vqln4l1c": 0.0,
+            "vqln4l1b": 0.0,
+            "vqln4l1e": 0.0,
+            "vqln4l1s": 0.0,
+            "qln4l1t": 0.0,
+            "vqln4l2p5c": 0.0,
+            "vqln4l2p5b": 0.0,
+            "vqln4l2p5e": 0.0,
+            "vqln4l2p5s": 0.0,
+            "qln4l2p5t": 0.0,
+            "vqvn1l1c": 0.0,
+            "vqvn1l1b": 0.0,
+            "vqvn1l1e": 0.0,
+            "vqvn1l1s": 0.0,
+            "qvn1l1t": 0.0,
+            "vqvn1l2p5c": 0.0,
+            "vqvn1l2p5b": 0.0,
+            "vqvn1l2p5e": 0.0,
+            "vqvn1l2p5s": 0.0,
+            "qvn1l2p5t": 0.0,
+            "vqvn4l1c": 0.0,
+            "vqvn4l1b": 0.0,
+            "vqvn4l1e": 0.0,
+            "vqvn4l1s": 0.0,
+            "qvn4l1t": 0.0,
+            "vqvn4l2p5c": 0.0,
+            "vqvn4l2p5b": 0.0,
+            "vqvn4l2p5e": 0.0,
+            "vqvn4l2p5s": 0.0,
+            "qvn4l2p5t": 0.0
+          },
+          "vectors": 50,
+          "samples": 34
+        },
+        "stimulus": {
+          "samples": 34,
+          "maximum_voltage_error": 0.0
+        },
+        "received_files": 51,
+        "result_sha256": "74342375f36b48f99b94be50511320a6fdb37be96cb4e7079160424426e6fe20",
+        "input_sha256": "6dbe687e9d3b1b9720e923c1e348963f6ee580d2b714b76899a3ba138940a657"
+      },
+      {
+        "analysis": "ac",
+        "comparison": {
+          "status": "PASS",
+          "maximum_normalized_error": 0.0,
+          "channel_errors": {
+            "vqn1l0c": 0.0,
+            "vqn1l0b": 0.0,
+            "vqn1l0e": 0.0,
+            "vqn1l0s": 0.0,
+            "qn1l0t": 0.0,
+            "vqn4l0c": 0.0,
+            "vqn4l0b": 0.0,
+            "vqn4l0e": 0.0,
+            "vqn4l0s": 0.0,
+            "qn4l0t": 0.0,
+            "vqln1l1c": 0.0,
+            "vqln1l1b": 0.0,
+            "vqln1l1e": 0.0,
+            "vqln1l1s": 0.0,
+            "qln1l1t": 0.0,
+            "vqln1l2p5c": 0.0,
+            "vqln1l2p5b": 0.0,
+            "vqln1l2p5e": 0.0,
+            "vqln1l2p5s": 0.0,
+            "qln1l2p5t": 0.0,
+            "vqln4l1c": 0.0,
+            "vqln4l1b": 0.0,
+            "vqln4l1e": 0.0,
+            "vqln4l1s": 0.0,
+            "qln4l1t": 0.0,
+            "vqln4l2p5c": 0.0,
+            "vqln4l2p5b": 0.0,
+            "vqln4l2p5e": 0.0,
+            "vqln4l2p5s": 0.0,
+            "qln4l2p5t": 0.0,
+            "vqvn1l1c": 0.0,
+            "vqvn1l1b": 0.0,
+            "vqvn1l1e": 0.0,
+            "vqvn1l1s": 0.0,
+            "qvn1l1t": 0.0,
+            "vqvn1l2p5c": 0.0,
+            "vqvn1l2p5b": 0.0,
+            "vqvn1l2p5e": 0.0,
+            "vqvn1l2p5s": 0.0,
+            "qvn1l2p5t": 0.0,
+            "vqvn4l1c": 0.0,
+            "vqvn4l1b": 0.0,
+            "vqvn4l1e": 0.0,
+            "vqvn4l1s": 0.0,
+            "qvn4l1t": 0.0,
+            "vqvn4l2p5c": 0.0,
+            "vqvn4l2p5b": 0.0,
+            "vqvn4l2p5e": 0.0,
+            "vqvn4l2p5s": 0.0,
+            "qvn4l2p5t": 0.0
+          },
+          "vectors": 50,
+          "samples": 21
+        },
+        "stimulus": {
+          "samples": 21,
+          "maximum_voltage_error": 0.0
+        },
+        "received_files": 51,
+        "result_sha256": "c638daf2ac10859cd4fceb644cc40ee272dc2dfc35bb47eaa4d2cd256b768cf1",
+        "input_sha256": "fe5428aa465332e2eeab7aa494e656707c3fb4cd1d8b195bafd0898e3f459140"
+      },
+      {
+        "analysis": "tran",
+        "comparison": {
+          "status": "PASS",
+          "maximum_normalized_error": 1.0636727860383932e-08,
+          "channel_errors": {
+            "vqn1l0c": 3.8977543035173004e-13,
+            "vqn1l0b": 3.4674658344233516e-10,
+            "vqn1l0e": 9.478736598268515e-14,
+            "vqn1l0s": 7.589342855030089e-15,
+            "qn1l0t": 1.4799594881342618e-13,
+            "vqn4l0c": 1.5358376778186023e-12,
+            "vqn4l0b": 4.159004865417962e-09,
+            "vqn4l0e": 1.0367641487234441e-12,
+            "vqn4l0s": 2.7631577270585e-13,
+            "qn4l0t": 2.5002005838935105e-13,
+            "vqln1l1c": 1.0360027981404157e-09,
+            "vqln1l1b": 6.938384693385155e-10,
+            "vqln1l1e": 5.265852403817271e-13,
+            "vqln1l1s": 1.58269377367174e-13,
+            "qln1l1t": 1.4816205859423192e-13,
+            "vqln1l2p5c": 8.587548982597888e-13,
+            "vqln1l2p5b": 2.942957648729776e-13,
+            "vqln1l2p5e": 4.08178890690658e-13,
+            "vqln1l2p5s": 1.4732914517744333e-13,
+            "qln1l2p5t": 1.6842830511981113e-13,
+            "vqln4l1c": 1.3587035342400107e-09,
+            "vqln4l1b": 2.7721162014143475e-09,
+            "vqln4l1e": 8.915722421473849e-13,
+            "vqln4l1s": 2.661811589577639e-13,
+            "qln4l1t": 2.505080316044744e-13,
+            "vqln4l2p5c": 1.0636727860383932e-08,
+            "vqln4l2p5b": 8.308574469389063e-09,
+            "vqln4l2p5e": 2.3069307001586847e-12,
+            "vqln4l2p5s": 4.278045370122339e-13,
+            "qln4l2p5t": 3.337560397612142e-13,
+            "vqvn1l1c": 4.57600221788394e-13,
+            "vqvn1l1b": 1.296655744235887e-13,
+            "vqvn1l1e": 1.5774770534692556e-13,
+            "vqvn1l1s": 5.397300361571806e-15,
+            "qvn1l1t": 3.5521115661909216e-13,
+            "vqvn1l2p5c": 3.413543288689911e-10,
+            "vqvn1l2p5b": 2.823785730580826e-13,
+            "vqvn1l2p5e": 2.0879337319392531e-13,
+            "vqvn1l2p5s": 3.652561684695811e-13,
+            "qvn1l2p5t": 2.0907140655804381e-13,
+            "vqvn4l1c": 6.744756548527237e-10,
+            "vqvn4l1b": 4.865279245370809e-13,
+            "vqvn4l1e": 3.113177727742453e-12,
+            "vqvn4l1s": 1.7345626452428503e-13,
+            "qvn4l1t": 3.6983724056695866e-13,
+            "vqvn4l2p5c": 3.696221293759763e-12,
+            "vqvn4l2p5b": 5.538396158169435e-09,
+            "vqvn4l2p5e": 4.008053903510169e-13,
+            "vqvn4l2p5s": 4.261922511143171e-14,
+            "qvn4l2p5t": 3.316552599338871e-13
+          },
+          "vectors": 50,
+          "samples": 608
+        },
+        "stimulus": {
+          "samples": 608,
+          "maximum_voltage_error": 4.440892098500626e-16
+        },
+        "received_files": 51,
+        "result_sha256": "9edb8f93614a134d01a976566d3d1a226541de6021b27d6e938ff5978c379164",
+        "input_sha256": "28649489c329d06ede79b506b64943d0422b8b15b110889dddebf6ca69f52899"
+      }
+    ]
+  },
+  "focused_tests_per_host": 16,
+  "logs": {
+    "ihp-thermal-tests-Linux-20261017-v1.log": "b43f69ae7ff629114c925f6c90f7562617dc2b6ffe27dc3eaa3859cdb542c64d",
+    "ihp-thermal-tests-Linux-20261017-v2.log": "b003c2dd869f99d79e94cf2e46ef6cb367d2910c90707a3248f530b7d37c90ea",
+    "ihp-thermal-tests-Linux-20261017-v3.log": "5f5d9247338a2296157a7dd7a2991518cb5264ff33b63ffba287258ad7444536",
+    "ihp-thermal-tests-Windows-20261017-v1.log": "e1a5000622083b933cab7b5da7c8eead7fa539fbacf4f8748f596b45399c5493",
+    "ihp-thermal-tests-Windows-20261017-v2.log": "e863e8868a65c5984790dce2fde51b89503e7cd71871f8187664cf7fc4c9b16f",
+    "ihp-thermal-tests-Windows-20261017-v3.log": "018a71b9e056dac2e7b594238789d26817930a862742cf888cf2fdf1a67bff86"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-thermal-2026-10-17/evidence.zip",
+    "sha256": "f757b1ea639b42c2b3f2b971f08603ca534fdad653fae03da3a6b02c8a1ffb29",
+    "bytes": 62359271,
+    "files": 13823,
+    "unique_contents": 2098,
+    "all_objects_verified": true
+  },
+  "retained_failures": [
+    "Original pulse reference had mismatched edges.",
+    "Corrected 2 ps pulse inputs still failed waveform comparison; smooth cycles do not qualify sharp edges.",
+    "Managed ngspice 42 and ngspice 47 fail the same-engine comparison bound; independent references remain engine-specific."
+  ],
+  "limitations": [
+    "Finite integration cases, not continuous geometry/bias or a reliability envelope.",
+    "No measured thermal calibration, arbitrary thermal networks, mutual heating, sharp-edge, statistical/noise/RF or complete physical qualification.",
+    "Windows source staging and source desktops are not final installed-executable acceptance.",
+    "Missing required models, wider device families, full upstream coverage and final release remain open; chunk 7 incomplete."
+  ],
+  "storage_cleanup": {
+    "Linux": {
+      "deleted_files": 10636,
+      "logical_bytes": 652129797,
+      "restore_verified_files": 567,
+      "note": "Exact redundant Linux thermal test roots only; runtime retained. No C: disk-compaction claim."
+    },
+    "Windows": {
+      "deleted_files": 541,
+      "logical_bytes": 20334846,
+      "restore_verified_files": 567,
+      "note": "Only hash-verified redundant Windows thermal test directories removed; no administrator access or runtime deletion."
+    }
+  }
+}

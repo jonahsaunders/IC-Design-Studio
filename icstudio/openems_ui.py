@@ -111,6 +111,8 @@ class OpenEMSJob(QObject):
         self.line_buffer += text
         while '\n' in self.line_buffer:
             line, self.line_buffer = self.line_buffer.split('\n', 1)
+            if not self.cancelled.is_set() and (error := backend.excitation_error(line)):
+                self.cancel(error); return
             if line.startswith('ICSTUDIO_EM:'):
                 try: event = json.loads(line[len('ICSTUDIO_EM:'):])
                 except (ValueError, TypeError): continue
@@ -139,6 +141,8 @@ class OpenEMSJob(QObject):
             try:
                 scale, port = self.current
                 self.columns[self.mode] = backend.check_completion(self.log, self.directory, self.prepared, scale, port)
+                if self.mode == 'base-2':
+                    backend.check_base_feasibility(self.directory, self.prepared, self.columns)
             except (ValueError, OSError, KeyError, TypeError) as exc:
                 self.finish(None, str(exc)); return
         if self.pending:

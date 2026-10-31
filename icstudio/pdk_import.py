@@ -78,7 +78,9 @@ def scan_local(path, progress=lambda message: None):
     root,family=detect_root(path);progress('Reading technology and model libraries…')
     ng=root/'libs.tech/ngspice';includes=[]
     if family=='sky130': masters=[ng/'sky130.lib.spice'];nominal='tt'
-    elif family=='gf180mcu': masters=[ng/'sm141064.ngspice'];nominal='typical'
+    elif family=='gf180mcu':
+        masters=[ng/'sm141064.ngspice'];nominal='typical'
+        if (ng/'smbb000149.spice').is_file():masters.append(ng/'smbb000149.spice')
     else:
         masters=sorted((ng/'models').glob('corner*.lib'));nominal='typ'
         if not masters:raise ValueError('No IHP corner model libraries found.')
@@ -97,12 +99,26 @@ def scan_local(path, progress=lambda message: None):
         available=set(master['sections'].values())
         corners={'nominal':'typical','typical':'typical','ff':'ff','ss':'ss','fs':'fs','sf':'sf'}
         master['sections']={k:v for k,v in corners.items() if v in available}
+        for item in includes:
+            if item['path'].endswith('/smbb000149.spice'):
+                if not set(corners.values())<=set(item.get('sections',{}).values()):
+                    raise ValueError('Missing GF180 high-voltage corner section.')
+                item['sections']=dict(corners)
         # The MOS sections do not include the other device families. Load a
         # consistent combination; mixed MOS corners use nominal passives/BJTs.
         for group in ('bjt','diode','res','mimcap','moscap'):
             sections={k:group+'_'+(v if v in ('ff','ss') else 'typical') for k,v in master['sections'].items()}
             if any(v not in available for v in sections.values()):raise ValueError('Missing GF180 '+group+' corner section.')
             includes.append({'path':master['path'],'sections':sections})
+        # Current MIM corner sections select the metal-stack-specific models
+        # from sm141064_mim.spice. The retained legacy symbols instead call
+        # cap_mim_1f0ff/1f5ff/2f0ff, defined only in this separate section.
+        # Keep both sets; the corner section above supplies their parameters.
+        if 'cap_mim' in available:
+            includes.append({'path':master['path'],'section':'cap_mim'})
+        # Match the versioned package: keep its original complete include
+        # order, then append the optional independent high-voltage library.
+        includes.sort(key=lambda item:item['path'].endswith('/smbb000149.spice'))
     if family=='ihp-sg13g2':
         for item in includes:
             sections=item.get('sections',{})
@@ -169,6 +185,20 @@ def scan_local(path, progress=lambda message: None):
             model=match[2]
             for param in re.findall(r'@(\w+)',model):model=model.replace('@'+param,defaults.get(param.lower(),''))
             if not re.fullmatch('[A-Za-z_][A-Za-z0-9_.$-]*',model):raise ValueError('Dynamic model selection requires an explicit adapter.')
+            if family=='gf180mcu' and key=='symbols/nfet_06v0_nvt.sym' and model=='nfet_06v0':
+                from .gf180_native_binding import reviewed_model
+                native=models.get('nfet_06v0_nvt')
+                if native is None:raise ValueError('Native-threshold model is absent from the selected library closure.')
+                model=reviewed_model(sym.read_bytes(),(root/native['file']).read_bytes())
+                symbol['attributes']['template']=symbol['attributes']['template'].replace('model=nfet_06v0\n','model=nfet_06v0_nvt\n')
+                notes.append('Reviewed public native-threshold symbol correction: select nfet_06v0_nvt; upstream model equations are unchanged.')
+            if family=='sky130' and key=='sky130_fd_pr/res_generic_li.sym' and model=='sky130_fd_pr__res_generic_li':
+                from .sky130_li_binding import MODEL,reviewed_model
+                canonical=primitives.get((MODEL,'R'))
+                if canonical is None:raise ValueError('Local-interconnect resistor model is absent from the selected library closure.')
+                model=reviewed_model(sym.read_bytes(),(root/canonical['file']).read_bytes())
+                symbol['attributes']['template']=symbol['attributes']['template'].replace('model=res_generic_li\n','model=res_generic_l1\n')
+                notes.append('Reviewed public local-interconnect spelling correction: res_generic_li symbol selects res_generic_l1. Original model equations retained.')
             entry['model']=model
             definition=models.get(model.lower())
             if definition is None:raise ValueError('Model is absent from the selected ngspice library closure.')
@@ -195,8 +225,14 @@ def scan_local(path, progress=lambda message: None):
                     emitted[target]=computed_key
                 remaining=remaining.replace(m[0],'',1)
             if remaining.strip():raise ValueError('Netlist format contains unsupported literal or computed terms.')
+            if family=='sky130' and key=='sky130_fd_pr/cap_mim_m3_2.sym' and model=='sky130_fd_pr__cap_mim_m3_2':
+                from .sky130_mim_binding import reviewed_parameters
+                emitted=reviewed_parameters(sym.read_bytes(),(root/definition['file']).read_bytes(),emitted)
+                notes.append('Reviewed public second MiM correction: MF feeds model mf and simulator m. Upstream VM is unused; model equations retained.')
             kind=meta.get('type','').lower();kind='NMOS' if kind=='nmos' and set(symbol['pins'])==set('dgsb') else 'PMOS' if kind=='pmos' and set(symbol['pins'])==set('dgsb') else 'PDK'
             category=kind if kind!='PDK' else ('Resistors' if 'resistor' in meta.get('type','') else 'Capacitors' if 'cap' in meta.get('type','') else 'Bipolar' if 'npn' in meta.get('type','') or 'pnp' in meta.get('type','') else 'Diodes' if 'diode' in meta.get('type','') else 'Other')
+            if family=='ihp-sg13g2' and model in ('ntap1','ptap1'):
+                category='Resistors'
             params={}
             defaults.update(computed)
             needed=set(emitted.values())
@@ -212,8 +248,23 @@ def scan_local(path, progress=lambda message: None):
             if family=='ihp-sg13g2' and model=='cap_cmomi' and 'feed' in params:
                 if not re.search(r'(?im)^\.param\s+none=0\s+same=1\s+double=2\s*$',texts[definition['file']]):raise ValueError('Unrecognized capacitor feed encoding.')
                 params['feed']['choices']={'none':0,'same':1,'double':2}
+            if family=='ihp-sg13g2' and model=='isolbox':
+                from .ihp_isolation import constrain
+                constrain(params,(root/definition['file']).read_bytes())
+            if family=='gf180mcu' and model in ('nfet_10v0_asym','pfet_10v0_asym'):
+                from .gf180_hv import constrain,NOTE
+                constrain(model,params,(root/definition['file']).read_bytes())
+                notes.append(NOTE)
+            if family=='ihp-sg13g2' and model in ('ntap1','ptap1'):
+                from .ihp_taps import constrain
+                constrain(model,params,(root/definition['file']).read_bytes())
+            if family=='sky130':
+                from .sky130_fixed_geometry import CONTRACTS,NOTE,constrain
+                if model in CONTRACTS:
+                    constrain(model,params,(root/definition['file']).read_bytes())
+                    notes.append(NOTE)
             scale={k:1e6 if family=='sky130' else 1 for k in ('w','l')}
-            entry.update(kind=kind,category=category,pin_order=list(symbol['pins']),prefix=prefix,parameters=params,emit_parameters=emitted,parameter_scale=scale,symbol=symbol,model_source=definition['file'],notes=notes)
+            entry.update(kind=kind,category=category,pin_order=list(symbol['pin_order']),prefix=prefix,parameters=params,emit_parameters=emitted,parameter_scale=scale,symbol=symbol,model_source=definition['file'],notes=notes)
             if kind in ('NMOS','PMOS') and not {'w','l'}<=params.keys():raise ValueError('MOS symbol does not declare width and length.')
             # Includes formula evaluation and catches unsupported parameter defaults.
             catalog[key]=entry;tech['package_lock']={'id':root.name,'revision':'scan'}

@@ -1,0 +1,3615 @@
+{
+  "schema": 1,
+  "documentation_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+  "license": "Apache-2.0",
+  "retained_model_package_provenance": {
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+    "source_release": "open_pdks fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+    "note": "Nominal examples are exact retained package bytes. Only cards with public_tree_exact_byte_match=true are asserted byte-identical to the reviewed public source tree; other transformed package bytes are not asserted upstream-byte-identical."
+  },
+  "files": {
+    "device-details.rst": {
+      "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+      "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst"
+    },
+    "LICENSE": {
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/LICENSE"
+    },
+    "hv.rst": {
+      "sha256": "f355ddf478c129661e96b44d4c4509a124e85e2e44d51bd3b072b43aee7e1f98",
+      "url": "https://github.com/google/skywater-pdk/blob/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/hv.rst"
+    }
+  },
+  "model_nominal_examples": [
+    {
+      "file": "sources/sky130_fd_pr__esd_nfet_01v8.pm3.spice",
+      "sha256": "b00978da581468871971827a5d635440c7df9b7648ee52ba3dd8b8f26da64d80",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__esd_nfet_01v8.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "a86ea4d7895cf89a04211998921e62c725589fd4",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 24,
+          "value_c": 30.0
+        },
+        {
+          "line": 275,
+          "value_c": 30.0
+        },
+        {
+          "line": 526,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__esd_nfet_g5v0d10v5.pm3.spice",
+      "sha256": "167d3a824f9402a1c75ce96b2e393d7e044578a488fcd5e5155b59ddeabace04",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__esd_nfet_g5v0d10v5.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "c9c433599b804999e7589c0a72484ef98817c8bf",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 24,
+          "value_c": 30.0
+        },
+        {
+          "line": 276,
+          "value_c": 30.0
+        },
+        {
+          "line": 528,
+          "value_c": 30.0
+        },
+        {
+          "line": 780,
+          "value_c": 30.0
+        },
+        {
+          "line": 1032,
+          "value_c": 30.0
+        },
+        {
+          "line": 1284,
+          "value_c": 30.0
+        },
+        {
+          "line": 1536,
+          "value_c": 30.0
+        },
+        {
+          "line": 1788,
+          "value_c": 30.0
+        },
+        {
+          "line": 2040,
+          "value_c": 30.0
+        },
+        {
+          "line": 2292,
+          "value_c": 30.0
+        },
+        {
+          "line": 2544,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_01v8__tt.pm3.spice",
+      "sha256": "fda72fe5717ce354d61887bef1432478be431121f70896b39f653eacc6f8eafa",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8__tt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "547f2d3092fef18eb61e9a354277a2327ae589e8",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 240,
+          "value_c": 30.0
+        },
+        {
+          "line": 508,
+          "value_c": 30.0
+        },
+        {
+          "line": 776,
+          "value_c": 30.0
+        },
+        {
+          "line": 1044,
+          "value_c": 30.0
+        },
+        {
+          "line": 1312,
+          "value_c": 30.0
+        },
+        {
+          "line": 1580,
+          "value_c": 30.0
+        },
+        {
+          "line": 1848,
+          "value_c": 30.0
+        },
+        {
+          "line": 2116,
+          "value_c": 30.0
+        },
+        {
+          "line": 2384,
+          "value_c": 30.0
+        },
+        {
+          "line": 2652,
+          "value_c": 30.0
+        },
+        {
+          "line": 2920,
+          "value_c": 30.0
+        },
+        {
+          "line": 3188,
+          "value_c": 30.0
+        },
+        {
+          "line": 3456,
+          "value_c": 30.0
+        },
+        {
+          "line": 3724,
+          "value_c": 30.0
+        },
+        {
+          "line": 3992,
+          "value_c": 30.0
+        },
+        {
+          "line": 4260,
+          "value_c": 30.0
+        },
+        {
+          "line": 4528,
+          "value_c": 30.0
+        },
+        {
+          "line": 4796,
+          "value_c": 30.0
+        },
+        {
+          "line": 5064,
+          "value_c": 30.0
+        },
+        {
+          "line": 5332,
+          "value_c": 30.0
+        },
+        {
+          "line": 5600,
+          "value_c": 30.0
+        },
+        {
+          "line": 5868,
+          "value_c": 30.0
+        },
+        {
+          "line": 6136,
+          "value_c": 30.0
+        },
+        {
+          "line": 6404,
+          "value_c": 30.0
+        },
+        {
+          "line": 6672,
+          "value_c": 30.0
+        },
+        {
+          "line": 6940,
+          "value_c": 30.0
+        },
+        {
+          "line": 7208,
+          "value_c": 30.0
+        },
+        {
+          "line": 7476,
+          "value_c": 30.0
+        },
+        {
+          "line": 7744,
+          "value_c": 30.0
+        },
+        {
+          "line": 8012,
+          "value_c": 30.0
+        },
+        {
+          "line": 8280,
+          "value_c": 30.0
+        },
+        {
+          "line": 8548,
+          "value_c": 30.0
+        },
+        {
+          "line": 8816,
+          "value_c": 30.0
+        },
+        {
+          "line": 9084,
+          "value_c": 30.0
+        },
+        {
+          "line": 9352,
+          "value_c": 30.0
+        },
+        {
+          "line": 9620,
+          "value_c": 30.0
+        },
+        {
+          "line": 9888,
+          "value_c": 30.0
+        },
+        {
+          "line": 10156,
+          "value_c": 30.0
+        },
+        {
+          "line": 10424,
+          "value_c": 30.0
+        },
+        {
+          "line": 10692,
+          "value_c": 30.0
+        },
+        {
+          "line": 10960,
+          "value_c": 30.0
+        },
+        {
+          "line": 11228,
+          "value_c": 30.0
+        },
+        {
+          "line": 11496,
+          "value_c": 30.0
+        },
+        {
+          "line": 11764,
+          "value_c": 30.0
+        },
+        {
+          "line": 12032,
+          "value_c": 30.0
+        },
+        {
+          "line": 12300,
+          "value_c": 30.0
+        },
+        {
+          "line": 12568,
+          "value_c": 30.0
+        },
+        {
+          "line": 12836,
+          "value_c": 30.0
+        },
+        {
+          "line": 13104,
+          "value_c": 30.0
+        },
+        {
+          "line": 13372,
+          "value_c": 30.0
+        },
+        {
+          "line": 13640,
+          "value_c": 30.0
+        },
+        {
+          "line": 13908,
+          "value_c": 30.0
+        },
+        {
+          "line": 14176,
+          "value_c": 30.0
+        },
+        {
+          "line": 14444,
+          "value_c": 30.0
+        },
+        {
+          "line": 14712,
+          "value_c": 30.0
+        },
+        {
+          "line": 14980,
+          "value_c": 30.0
+        },
+        {
+          "line": 15248,
+          "value_c": 30.0
+        },
+        {
+          "line": 15516,
+          "value_c": 30.0
+        },
+        {
+          "line": 15784,
+          "value_c": 30.0
+        },
+        {
+          "line": 16052,
+          "value_c": 30.0
+        },
+        {
+          "line": 16320,
+          "value_c": 30.0
+        },
+        {
+          "line": 16588,
+          "value_c": 30.0
+        },
+        {
+          "line": 16856,
+          "value_c": 30.0
+        },
+        {
+          "line": 17124,
+          "value_c": 30.0
+        },
+        {
+          "line": 17392,
+          "value_c": 30.0
+        },
+        {
+          "line": 17660,
+          "value_c": 30.0
+        },
+        {
+          "line": 17928,
+          "value_c": 30.0
+        },
+        {
+          "line": 18196,
+          "value_c": 30.0
+        },
+        {
+          "line": 18464,
+          "value_c": 30.0
+        },
+        {
+          "line": 18732,
+          "value_c": 30.0
+        },
+        {
+          "line": 19000,
+          "value_c": 30.0
+        },
+        {
+          "line": 19268,
+          "value_c": 30.0
+        },
+        {
+          "line": 19536,
+          "value_c": 30.0
+        },
+        {
+          "line": 19804,
+          "value_c": 30.0
+        },
+        {
+          "line": 20072,
+          "value_c": 30.0
+        },
+        {
+          "line": 20340,
+          "value_c": 30.0
+        },
+        {
+          "line": 20608,
+          "value_c": 30.0
+        },
+        {
+          "line": 20876,
+          "value_c": 30.0
+        },
+        {
+          "line": 21144,
+          "value_c": 30.0
+        },
+        {
+          "line": 21412,
+          "value_c": 30.0
+        },
+        {
+          "line": 21680,
+          "value_c": 30.0
+        },
+        {
+          "line": 21948,
+          "value_c": 30.0
+        },
+        {
+          "line": 22216,
+          "value_c": 30.0
+        },
+        {
+          "line": 22484,
+          "value_c": 30.0
+        },
+        {
+          "line": 22752,
+          "value_c": 30.0
+        },
+        {
+          "line": 23020,
+          "value_c": 30.0
+        },
+        {
+          "line": 23288,
+          "value_c": 30.0
+        },
+        {
+          "line": 23556,
+          "value_c": 30.0
+        },
+        {
+          "line": 23824,
+          "value_c": 30.0
+        },
+        {
+          "line": 24092,
+          "value_c": 30.0
+        },
+        {
+          "line": 24360,
+          "value_c": 30.0
+        },
+        {
+          "line": 24628,
+          "value_c": 30.0
+        },
+        {
+          "line": 24896,
+          "value_c": 30.0
+        },
+        {
+          "line": 25164,
+          "value_c": 30.0
+        },
+        {
+          "line": 25432,
+          "value_c": 30.0
+        },
+        {
+          "line": 25700,
+          "value_c": 30.0
+        },
+        {
+          "line": 25968,
+          "value_c": 30.0
+        },
+        {
+          "line": 26236,
+          "value_c": 30.0
+        },
+        {
+          "line": 26504,
+          "value_c": 30.0
+        },
+        {
+          "line": 26772,
+          "value_c": 30.0
+        },
+        {
+          "line": 27040,
+          "value_c": 30.0
+        },
+        {
+          "line": 27308,
+          "value_c": 30.0
+        },
+        {
+          "line": 27576,
+          "value_c": 30.0
+        },
+        {
+          "line": 27844,
+          "value_c": 30.0
+        },
+        {
+          "line": 28112,
+          "value_c": 30.0
+        },
+        {
+          "line": 28380,
+          "value_c": 30.0
+        },
+        {
+          "line": 28648,
+          "value_c": 30.0
+        },
+        {
+          "line": 28916,
+          "value_c": 30.0
+        },
+        {
+          "line": 29184,
+          "value_c": 30.0
+        },
+        {
+          "line": 29452,
+          "value_c": 30.0
+        },
+        {
+          "line": 29720,
+          "value_c": 30.0
+        },
+        {
+          "line": 29988,
+          "value_c": 30.0
+        },
+        {
+          "line": 30256,
+          "value_c": 30.0
+        },
+        {
+          "line": 30524,
+          "value_c": 30.0
+        },
+        {
+          "line": 30792,
+          "value_c": 30.0
+        },
+        {
+          "line": 31060,
+          "value_c": 30.0
+        },
+        {
+          "line": 31328,
+          "value_c": 30.0
+        },
+        {
+          "line": 31596,
+          "value_c": 30.0
+        },
+        {
+          "line": 31864,
+          "value_c": 30.0
+        },
+        {
+          "line": 32132,
+          "value_c": 30.0
+        },
+        {
+          "line": 32400,
+          "value_c": 30.0
+        },
+        {
+          "line": 32668,
+          "value_c": 30.0
+        },
+        {
+          "line": 32936,
+          "value_c": 30.0
+        },
+        {
+          "line": 33204,
+          "value_c": 30.0
+        },
+        {
+          "line": 33472,
+          "value_c": 30.0
+        },
+        {
+          "line": 33740,
+          "value_c": 30.0
+        },
+        {
+          "line": 34008,
+          "value_c": 30.0
+        },
+        {
+          "line": 34276,
+          "value_c": 30.0
+        },
+        {
+          "line": 34544,
+          "value_c": 30.0
+        },
+        {
+          "line": 34812,
+          "value_c": 30.0
+        },
+        {
+          "line": 35080,
+          "value_c": 30.0
+        },
+        {
+          "line": 35348,
+          "value_c": 30.0
+        },
+        {
+          "line": 35616,
+          "value_c": 30.0
+        },
+        {
+          "line": 35884,
+          "value_c": 30.0
+        },
+        {
+          "line": 36152,
+          "value_c": 30.0
+        },
+        {
+          "line": 36420,
+          "value_c": 30.0
+        },
+        {
+          "line": 36688,
+          "value_c": 30.0
+        },
+        {
+          "line": 36956,
+          "value_c": 30.0
+        },
+        {
+          "line": 37224,
+          "value_c": 30.0
+        },
+        {
+          "line": 37492,
+          "value_c": 30.0
+        },
+        {
+          "line": 37760,
+          "value_c": 30.0
+        },
+        {
+          "line": 38028,
+          "value_c": 30.0
+        },
+        {
+          "line": 38296,
+          "value_c": 30.0
+        },
+        {
+          "line": 38564,
+          "value_c": 30.0
+        },
+        {
+          "line": 38832,
+          "value_c": 30.0
+        },
+        {
+          "line": 39100,
+          "value_c": 30.0
+        },
+        {
+          "line": 39368,
+          "value_c": 30.0
+        },
+        {
+          "line": 39636,
+          "value_c": 30.0
+        },
+        {
+          "line": 39904,
+          "value_c": 30.0
+        },
+        {
+          "line": 40172,
+          "value_c": 30.0
+        },
+        {
+          "line": 40440,
+          "value_c": 30.0
+        },
+        {
+          "line": 40708,
+          "value_c": 30.0
+        },
+        {
+          "line": 40976,
+          "value_c": 30.0
+        },
+        {
+          "line": 41244,
+          "value_c": 30.0
+        },
+        {
+          "line": 41512,
+          "value_c": 30.0
+        },
+        {
+          "line": 41780,
+          "value_c": 30.0
+        },
+        {
+          "line": 42048,
+          "value_c": 30.0
+        },
+        {
+          "line": 42316,
+          "value_c": 30.0
+        },
+        {
+          "line": 42584,
+          "value_c": 30.0
+        },
+        {
+          "line": 42852,
+          "value_c": 30.0
+        },
+        {
+          "line": 43120,
+          "value_c": 30.0
+        },
+        {
+          "line": 43388,
+          "value_c": 30.0
+        },
+        {
+          "line": 43656,
+          "value_c": 30.0
+        },
+        {
+          "line": 43924,
+          "value_c": 30.0
+        },
+        {
+          "line": 44192,
+          "value_c": 30.0
+        },
+        {
+          "line": 44460,
+          "value_c": 30.0
+        },
+        {
+          "line": 44728,
+          "value_c": 30.0
+        },
+        {
+          "line": 44996,
+          "value_c": 30.0
+        },
+        {
+          "line": 45264,
+          "value_c": 30.0
+        },
+        {
+          "line": 45532,
+          "value_c": 30.0
+        },
+        {
+          "line": 45800,
+          "value_c": 30.0
+        },
+        {
+          "line": 46068,
+          "value_c": 30.0
+        },
+        {
+          "line": 46336,
+          "value_c": 30.0
+        },
+        {
+          "line": 46604,
+          "value_c": 30.0
+        },
+        {
+          "line": 46872,
+          "value_c": 30.0
+        },
+        {
+          "line": 47140,
+          "value_c": 30.0
+        },
+        {
+          "line": 47408,
+          "value_c": 30.0
+        },
+        {
+          "line": 47676,
+          "value_c": 30.0
+        },
+        {
+          "line": 47944,
+          "value_c": 30.0
+        },
+        {
+          "line": 48212,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_01v8_lvt__tt.pm3.spice",
+      "sha256": "848471966a7f41daaa44b2f03636d0652136714e0b9a365bb0e537651640ddcf",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_01v8_lvt__tt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "12da0cf9616f297d86cacb1805ed6acda4be36af",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 38,
+          "value_c": 30.0
+        },
+        {
+          "line": 313,
+          "value_c": 30.0
+        },
+        {
+          "line": 588,
+          "value_c": 30.0
+        },
+        {
+          "line": 863,
+          "value_c": 30.0
+        },
+        {
+          "line": 1138,
+          "value_c": 30.0
+        },
+        {
+          "line": 1413,
+          "value_c": 30.0
+        },
+        {
+          "line": 1688,
+          "value_c": 30.0
+        },
+        {
+          "line": 1963,
+          "value_c": 30.0
+        },
+        {
+          "line": 2238,
+          "value_c": 30.0
+        },
+        {
+          "line": 2513,
+          "value_c": 30.0
+        },
+        {
+          "line": 2788,
+          "value_c": 30.0
+        },
+        {
+          "line": 3063,
+          "value_c": 30.0
+        },
+        {
+          "line": 3338,
+          "value_c": 30.0
+        },
+        {
+          "line": 3613,
+          "value_c": 30.0
+        },
+        {
+          "line": 3888,
+          "value_c": 30.0
+        },
+        {
+          "line": 4163,
+          "value_c": 30.0
+        },
+        {
+          "line": 4438,
+          "value_c": 30.0
+        },
+        {
+          "line": 4713,
+          "value_c": 30.0
+        },
+        {
+          "line": 4988,
+          "value_c": 30.0
+        },
+        {
+          "line": 5263,
+          "value_c": 30.0
+        },
+        {
+          "line": 5538,
+          "value_c": 30.0
+        },
+        {
+          "line": 5813,
+          "value_c": 30.0
+        },
+        {
+          "line": 6088,
+          "value_c": 30.0
+        },
+        {
+          "line": 6363,
+          "value_c": 30.0
+        },
+        {
+          "line": 6638,
+          "value_c": 30.0
+        },
+        {
+          "line": 6913,
+          "value_c": 30.0
+        },
+        {
+          "line": 7188,
+          "value_c": 30.0
+        },
+        {
+          "line": 7463,
+          "value_c": 30.0
+        },
+        {
+          "line": 7738,
+          "value_c": 30.0
+        },
+        {
+          "line": 8013,
+          "value_c": 30.0
+        },
+        {
+          "line": 8288,
+          "value_c": 30.0
+        },
+        {
+          "line": 8563,
+          "value_c": 30.0
+        },
+        {
+          "line": 8838,
+          "value_c": 30.0
+        },
+        {
+          "line": 9113,
+          "value_c": 30.0
+        },
+        {
+          "line": 9388,
+          "value_c": 30.0
+        },
+        {
+          "line": 9663,
+          "value_c": 30.0
+        },
+        {
+          "line": 9938,
+          "value_c": 30.0
+        },
+        {
+          "line": 10213,
+          "value_c": 30.0
+        },
+        {
+          "line": 10488,
+          "value_c": 30.0
+        },
+        {
+          "line": 10763,
+          "value_c": 30.0
+        },
+        {
+          "line": 11038,
+          "value_c": 30.0
+        },
+        {
+          "line": 11313,
+          "value_c": 30.0
+        },
+        {
+          "line": 11588,
+          "value_c": 30.0
+        },
+        {
+          "line": 11863,
+          "value_c": 30.0
+        },
+        {
+          "line": 12138,
+          "value_c": 30.0
+        },
+        {
+          "line": 12413,
+          "value_c": 30.0
+        },
+        {
+          "line": 12688,
+          "value_c": 30.0
+        },
+        {
+          "line": 12963,
+          "value_c": 30.0
+        },
+        {
+          "line": 13238,
+          "value_c": 30.0
+        },
+        {
+          "line": 13513,
+          "value_c": 30.0
+        },
+        {
+          "line": 13788,
+          "value_c": 30.0
+        },
+        {
+          "line": 14063,
+          "value_c": 30.0
+        },
+        {
+          "line": 14338,
+          "value_c": 30.0
+        },
+        {
+          "line": 14613,
+          "value_c": 30.0
+        },
+        {
+          "line": 14888,
+          "value_c": 30.0
+        },
+        {
+          "line": 15163,
+          "value_c": 30.0
+        },
+        {
+          "line": 15438,
+          "value_c": 30.0
+        },
+        {
+          "line": 15713,
+          "value_c": 30.0
+        },
+        {
+          "line": 15988,
+          "value_c": 30.0
+        },
+        {
+          "line": 16263,
+          "value_c": 30.0
+        },
+        {
+          "line": 16538,
+          "value_c": 30.0
+        },
+        {
+          "line": 16813,
+          "value_c": 30.0
+        },
+        {
+          "line": 17088,
+          "value_c": 30.0
+        },
+        {
+          "line": 17363,
+          "value_c": 30.0
+        },
+        {
+          "line": 17638,
+          "value_c": 30.0
+        },
+        {
+          "line": 17913,
+          "value_c": 30.0
+        },
+        {
+          "line": 18188,
+          "value_c": 30.0
+        },
+        {
+          "line": 18463,
+          "value_c": 30.0
+        },
+        {
+          "line": 18738,
+          "value_c": 30.0
+        },
+        {
+          "line": 19013,
+          "value_c": 30.0
+        },
+        {
+          "line": 19288,
+          "value_c": 30.0
+        },
+        {
+          "line": 19563,
+          "value_c": 30.0
+        },
+        {
+          "line": 19838,
+          "value_c": 30.0
+        },
+        {
+          "line": 20113,
+          "value_c": 30.0
+        },
+        {
+          "line": 20388,
+          "value_c": 30.0
+        },
+        {
+          "line": 20663,
+          "value_c": 30.0
+        },
+        {
+          "line": 20938,
+          "value_c": 30.0
+        },
+        {
+          "line": 21213,
+          "value_c": 30.0
+        },
+        {
+          "line": 21488,
+          "value_c": 30.0
+        },
+        {
+          "line": 21763,
+          "value_c": 30.0
+        },
+        {
+          "line": 22038,
+          "value_c": 30.0
+        },
+        {
+          "line": 22313,
+          "value_c": 30.0
+        },
+        {
+          "line": 22588,
+          "value_c": 30.0
+        },
+        {
+          "line": 22863,
+          "value_c": 30.0
+        },
+        {
+          "line": 23138,
+          "value_c": 30.0
+        },
+        {
+          "line": 23413,
+          "value_c": 30.0
+        },
+        {
+          "line": 23688,
+          "value_c": 30.0
+        },
+        {
+          "line": 23963,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_03v3_nvt.pm3.spice",
+      "sha256": "042730a5b254b5508e4ef366784d972a8e10ed133f23ec7fdfc4ef9b3e545932",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_03v3_nvt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "ab2d0f66cfc1fc1ce2b6bf88a9e57b692d50e3d4",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 38,
+          "value_c": 30.0
+        },
+        {
+          "line": 312,
+          "value_c": 30.0
+        },
+        {
+          "line": 586,
+          "value_c": 30.0
+        },
+        {
+          "line": 860,
+          "value_c": 30.0
+        },
+        {
+          "line": 1134,
+          "value_c": 30.0
+        },
+        {
+          "line": 1408,
+          "value_c": 30.0
+        },
+        {
+          "line": 1682,
+          "value_c": 30.0
+        },
+        {
+          "line": 1956,
+          "value_c": 30.0
+        },
+        {
+          "line": 2230,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_05v0_nvt.pm3.spice",
+      "sha256": "c023cbfd9a518a3f9f87c45f85f7690324e23e5d1125bce37c84d2e3f9cc164c",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_05v0_nvt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "99d24babc99b8199520f353a05a42f6f913741ce",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 41,
+          "value_c": 30.0
+        },
+        {
+          "line": 315,
+          "value_c": 30.0
+        },
+        {
+          "line": 589,
+          "value_c": 30.0
+        },
+        {
+          "line": 863,
+          "value_c": 30.0
+        },
+        {
+          "line": 1137,
+          "value_c": 30.0
+        },
+        {
+          "line": 1411,
+          "value_c": 30.0
+        },
+        {
+          "line": 1685,
+          "value_c": 30.0
+        },
+        {
+          "line": 1959,
+          "value_c": 30.0
+        },
+        {
+          "line": 2233,
+          "value_c": 30.0
+        },
+        {
+          "line": 2507,
+          "value_c": 30.0
+        },
+        {
+          "line": 2781,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
+      "sha256": "64b63a8bd76ca1a5f7f14849d80399e99dd85ed39534c452ae65c4a3fa19e270",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0__subcircuit.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "a0212f8aa8d5b189127cab91c68bda42e8524d75",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 68,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_20v0_iso__subcircuit.pm3.spice",
+      "sha256": "0ba6101d75c9ca9271c9e0254901804a33f2981d6a7b60e35d3a71e311e9fc56",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_iso__subcircuit.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "51ea27dc697eb426c235efceaf1f30f3ed85fea8",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 72,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice",
+      "sha256": "1b3c68a09794e92515d24ff596f92e087b527f68eb696df63dfadb3a78cb9c04",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "86dd8afd527340cb6fbb5b308b91c76961353362",
+      "public_tree_exact_byte_match": true,
+      "public_path": "cells/nfet_20v0_nvt/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice",
+      "public_revision": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+      "url": "https://github.com/google/skywater-pdk-libs-sky130_fd_pr/blob/f62031a1be9aefe902d6d54cddd6f59b57627436/cells/nfet_20v0_nvt/sky130_fd_pr__nfet_20v0_nvt__subcircuit.pm3.spice",
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 72,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice",
+      "sha256": "a2173e3b3d601fc070e8c2babad25c01f6d0c61df8b3432d25245c800d51389d",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "b1aa9d93f68d5eb50637be93a8de448a77af7f0a",
+      "public_tree_exact_byte_match": true,
+      "public_path": "cells/nfet_20v0_zvt/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice",
+      "public_revision": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+      "url": "https://github.com/google/skywater-pdk-libs-sky130_fd_pr/blob/f62031a1be9aefe902d6d54cddd6f59b57627436/cells/nfet_20v0_zvt/sky130_fd_pr__nfet_20v0_zvt__subcircuit.pm3.spice",
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 67,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__nfet_g5v0d10v5__tt.pm3.spice",
+      "sha256": "c685365ea7b4678a05ea2eb70d4ba6081a507b6337279f58301e846a39d80ef4",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__nfet_g5v0d10v5__tt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "85ecb4260dde824cd826b093c0e7b5e508a6f347",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 38,
+          "value_c": 30.0
+        },
+        {
+          "line": 312,
+          "value_c": 30.0
+        },
+        {
+          "line": 586,
+          "value_c": 30.0
+        },
+        {
+          "line": 860,
+          "value_c": 30.0
+        },
+        {
+          "line": 1134,
+          "value_c": 30.0
+        },
+        {
+          "line": 1408,
+          "value_c": 30.0
+        },
+        {
+          "line": 1682,
+          "value_c": 30.0
+        },
+        {
+          "line": 1956,
+          "value_c": 30.0
+        },
+        {
+          "line": 2230,
+          "value_c": 30.0
+        },
+        {
+          "line": 2504,
+          "value_c": 30.0
+        },
+        {
+          "line": 2778,
+          "value_c": 30.0
+        },
+        {
+          "line": 3052,
+          "value_c": 30.0
+        },
+        {
+          "line": 3326,
+          "value_c": 30.0
+        },
+        {
+          "line": 3600,
+          "value_c": 30.0
+        },
+        {
+          "line": 3874,
+          "value_c": 30.0
+        },
+        {
+          "line": 4148,
+          "value_c": 30.0
+        },
+        {
+          "line": 4422,
+          "value_c": 30.0
+        },
+        {
+          "line": 4696,
+          "value_c": 30.0
+        },
+        {
+          "line": 4970,
+          "value_c": 30.0
+        },
+        {
+          "line": 5244,
+          "value_c": 30.0
+        },
+        {
+          "line": 5518,
+          "value_c": 30.0
+        },
+        {
+          "line": 5792,
+          "value_c": 30.0
+        },
+        {
+          "line": 6066,
+          "value_c": 30.0
+        },
+        {
+          "line": 6340,
+          "value_c": 30.0
+        },
+        {
+          "line": 6614,
+          "value_c": 30.0
+        },
+        {
+          "line": 6888,
+          "value_c": 30.0
+        },
+        {
+          "line": 7162,
+          "value_c": 30.0
+        },
+        {
+          "line": 7436,
+          "value_c": 30.0
+        },
+        {
+          "line": 7710,
+          "value_c": 30.0
+        },
+        {
+          "line": 7984,
+          "value_c": 30.0
+        },
+        {
+          "line": 8258,
+          "value_c": 30.0
+        },
+        {
+          "line": 8532,
+          "value_c": 30.0
+        },
+        {
+          "line": 8806,
+          "value_c": 30.0
+        },
+        {
+          "line": 9080,
+          "value_c": 30.0
+        },
+        {
+          "line": 9354,
+          "value_c": 30.0
+        },
+        {
+          "line": 9628,
+          "value_c": 30.0
+        },
+        {
+          "line": 9902,
+          "value_c": 30.0
+        },
+        {
+          "line": 10176,
+          "value_c": 30.0
+        },
+        {
+          "line": 10450,
+          "value_c": 30.0
+        },
+        {
+          "line": 10724,
+          "value_c": 30.0
+        },
+        {
+          "line": 10998,
+          "value_c": 30.0
+        },
+        {
+          "line": 11272,
+          "value_c": 30.0
+        },
+        {
+          "line": 11546,
+          "value_c": 30.0
+        },
+        {
+          "line": 11820,
+          "value_c": 30.0
+        },
+        {
+          "line": 12094,
+          "value_c": 30.0
+        },
+        {
+          "line": 12368,
+          "value_c": 30.0
+        },
+        {
+          "line": 12642,
+          "value_c": 30.0
+        },
+        {
+          "line": 12916,
+          "value_c": 30.0
+        },
+        {
+          "line": 13190,
+          "value_c": 30.0
+        },
+        {
+          "line": 13464,
+          "value_c": 30.0
+        },
+        {
+          "line": 13738,
+          "value_c": 30.0
+        },
+        {
+          "line": 14012,
+          "value_c": 30.0
+        },
+        {
+          "line": 14286,
+          "value_c": 30.0
+        },
+        {
+          "line": 14560,
+          "value_c": 30.0
+        },
+        {
+          "line": 14834,
+          "value_c": 30.0
+        },
+        {
+          "line": 15108,
+          "value_c": 30.0
+        },
+        {
+          "line": 15382,
+          "value_c": 30.0
+        },
+        {
+          "line": 15656,
+          "value_c": 30.0
+        },
+        {
+          "line": 15930,
+          "value_c": 30.0
+        },
+        {
+          "line": 16204,
+          "value_c": 30.0
+        },
+        {
+          "line": 16478,
+          "value_c": 30.0
+        },
+        {
+          "line": 16752,
+          "value_c": 30.0
+        },
+        {
+          "line": 17026,
+          "value_c": 30.0
+        },
+        {
+          "line": 17300,
+          "value_c": 30.0
+        },
+        {
+          "line": 17574,
+          "value_c": 30.0
+        },
+        {
+          "line": 17848,
+          "value_c": 30.0
+        },
+        {
+          "line": 18122,
+          "value_c": 30.0
+        },
+        {
+          "line": 18396,
+          "value_c": 30.0
+        },
+        {
+          "line": 18670,
+          "value_c": 30.0
+        },
+        {
+          "line": 18944,
+          "value_c": 30.0
+        },
+        {
+          "line": 19218,
+          "value_c": 30.0
+        },
+        {
+          "line": 19492,
+          "value_c": 30.0
+        },
+        {
+          "line": 19766,
+          "value_c": 30.0
+        },
+        {
+          "line": 20040,
+          "value_c": 30.0
+        },
+        {
+          "line": 20314,
+          "value_c": 30.0
+        },
+        {
+          "line": 20588,
+          "value_c": 30.0
+        },
+        {
+          "line": 20862,
+          "value_c": 30.0
+        },
+        {
+          "line": 21136,
+          "value_c": 30.0
+        },
+        {
+          "line": 21410,
+          "value_c": 30.0
+        },
+        {
+          "line": 21684,
+          "value_c": 30.0
+        },
+        {
+          "line": 21958,
+          "value_c": 30.0
+        },
+        {
+          "line": 22232,
+          "value_c": 30.0
+        },
+        {
+          "line": 22506,
+          "value_c": 30.0
+        },
+        {
+          "line": 22780,
+          "value_c": 30.0
+        },
+        {
+          "line": 23054,
+          "value_c": 30.0
+        },
+        {
+          "line": 23328,
+          "value_c": 30.0
+        },
+        {
+          "line": 23602,
+          "value_c": 30.0
+        },
+        {
+          "line": 23876,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__pfet_01v8__tt.pm3.spice",
+      "sha256": "06b8e3f4b3d8a40c248adae022a4d8ebdd3c6499633deab6615b9794878f997f",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8__tt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "20b5774fdb172f4eede1fcc0df2b04bcefa2b7bf",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 38,
+          "value_c": 30.0
+        },
+        {
+          "line": 312,
+          "value_c": 30.0
+        },
+        {
+          "line": 586,
+          "value_c": 30.0
+        },
+        {
+          "line": 860,
+          "value_c": 30.0
+        },
+        {
+          "line": 1134,
+          "value_c": 30.0
+        },
+        {
+          "line": 1408,
+          "value_c": 30.0
+        },
+        {
+          "line": 1682,
+          "value_c": 30.0
+        },
+        {
+          "line": 1956,
+          "value_c": 30.0
+        },
+        {
+          "line": 2230,
+          "value_c": 30.0
+        },
+        {
+          "line": 2504,
+          "value_c": 30.0
+        },
+        {
+          "line": 2778,
+          "value_c": 30.0
+        },
+        {
+          "line": 3052,
+          "value_c": 30.0
+        },
+        {
+          "line": 3326,
+          "value_c": 30.0
+        },
+        {
+          "line": 3600,
+          "value_c": 30.0
+        },
+        {
+          "line": 3874,
+          "value_c": 30.0
+        },
+        {
+          "line": 4148,
+          "value_c": 30.0
+        },
+        {
+          "line": 4422,
+          "value_c": 30.0
+        },
+        {
+          "line": 4696,
+          "value_c": 30.0
+        },
+        {
+          "line": 4970,
+          "value_c": 30.0
+        },
+        {
+          "line": 5244,
+          "value_c": 30.0
+        },
+        {
+          "line": 5518,
+          "value_c": 30.0
+        },
+        {
+          "line": 5792,
+          "value_c": 30.0
+        },
+        {
+          "line": 6066,
+          "value_c": 30.0
+        },
+        {
+          "line": 6340,
+          "value_c": 30.0
+        },
+        {
+          "line": 6614,
+          "value_c": 30.0
+        },
+        {
+          "line": 6888,
+          "value_c": 30.0
+        },
+        {
+          "line": 7162,
+          "value_c": 30.0
+        },
+        {
+          "line": 7436,
+          "value_c": 30.0
+        },
+        {
+          "line": 7710,
+          "value_c": 30.0
+        },
+        {
+          "line": 7984,
+          "value_c": 30.0
+        },
+        {
+          "line": 8258,
+          "value_c": 30.0
+        },
+        {
+          "line": 8532,
+          "value_c": 30.0
+        },
+        {
+          "line": 8806,
+          "value_c": 30.0
+        },
+        {
+          "line": 9080,
+          "value_c": 30.0
+        },
+        {
+          "line": 9354,
+          "value_c": 30.0
+        },
+        {
+          "line": 9628,
+          "value_c": 30.0
+        },
+        {
+          "line": 9902,
+          "value_c": 30.0
+        },
+        {
+          "line": 10176,
+          "value_c": 30.0
+        },
+        {
+          "line": 10450,
+          "value_c": 30.0
+        },
+        {
+          "line": 10724,
+          "value_c": 30.0
+        },
+        {
+          "line": 10998,
+          "value_c": 30.0
+        },
+        {
+          "line": 11272,
+          "value_c": 30.0
+        },
+        {
+          "line": 11546,
+          "value_c": 30.0
+        },
+        {
+          "line": 11820,
+          "value_c": 30.0
+        },
+        {
+          "line": 12094,
+          "value_c": 30.0
+        },
+        {
+          "line": 12368,
+          "value_c": 30.0
+        },
+        {
+          "line": 12642,
+          "value_c": 30.0
+        },
+        {
+          "line": 12916,
+          "value_c": 30.0
+        },
+        {
+          "line": 13190,
+          "value_c": 30.0
+        },
+        {
+          "line": 13464,
+          "value_c": 30.0
+        },
+        {
+          "line": 13738,
+          "value_c": 30.0
+        },
+        {
+          "line": 14012,
+          "value_c": 30.0
+        },
+        {
+          "line": 14286,
+          "value_c": 30.0
+        },
+        {
+          "line": 14560,
+          "value_c": 30.0
+        },
+        {
+          "line": 14834,
+          "value_c": 30.0
+        },
+        {
+          "line": 15108,
+          "value_c": 30.0
+        },
+        {
+          "line": 15382,
+          "value_c": 30.0
+        },
+        {
+          "line": 15656,
+          "value_c": 30.0
+        },
+        {
+          "line": 15930,
+          "value_c": 30.0
+        },
+        {
+          "line": 16204,
+          "value_c": 30.0
+        },
+        {
+          "line": 16478,
+          "value_c": 30.0
+        },
+        {
+          "line": 16752,
+          "value_c": 30.0
+        },
+        {
+          "line": 17026,
+          "value_c": 30.0
+        },
+        {
+          "line": 17300,
+          "value_c": 30.0
+        },
+        {
+          "line": 17574,
+          "value_c": 30.0
+        },
+        {
+          "line": 17848,
+          "value_c": 30.0
+        },
+        {
+          "line": 18122,
+          "value_c": 30.0
+        },
+        {
+          "line": 18396,
+          "value_c": 30.0
+        },
+        {
+          "line": 18670,
+          "value_c": 30.0
+        },
+        {
+          "line": 18944,
+          "value_c": 30.0
+        },
+        {
+          "line": 19218,
+          "value_c": 30.0
+        },
+        {
+          "line": 19492,
+          "value_c": 30.0
+        },
+        {
+          "line": 19766,
+          "value_c": 30.0
+        },
+        {
+          "line": 20040,
+          "value_c": 30.0
+        },
+        {
+          "line": 20314,
+          "value_c": 30.0
+        },
+        {
+          "line": 20588,
+          "value_c": 30.0
+        },
+        {
+          "line": 20862,
+          "value_c": 30.0
+        },
+        {
+          "line": 21136,
+          "value_c": 30.0
+        },
+        {
+          "line": 21410,
+          "value_c": 30.0
+        },
+        {
+          "line": 21684,
+          "value_c": 30.0
+        },
+        {
+          "line": 21958,
+          "value_c": 30.0
+        },
+        {
+          "line": 22232,
+          "value_c": 30.0
+        },
+        {
+          "line": 22506,
+          "value_c": 30.0
+        },
+        {
+          "line": 22780,
+          "value_c": 30.0
+        },
+        {
+          "line": 23054,
+          "value_c": 30.0
+        },
+        {
+          "line": 23328,
+          "value_c": 30.0
+        },
+        {
+          "line": 23602,
+          "value_c": 30.0
+        },
+        {
+          "line": 23876,
+          "value_c": 30.0
+        },
+        {
+          "line": 24150,
+          "value_c": 30.0
+        },
+        {
+          "line": 24424,
+          "value_c": 30.0
+        },
+        {
+          "line": 24698,
+          "value_c": 30.0
+        },
+        {
+          "line": 24972,
+          "value_c": 30.0
+        },
+        {
+          "line": 25246,
+          "value_c": 30.0
+        },
+        {
+          "line": 25520,
+          "value_c": 30.0
+        },
+        {
+          "line": 25794,
+          "value_c": 30.0
+        },
+        {
+          "line": 26068,
+          "value_c": 30.0
+        },
+        {
+          "line": 26342,
+          "value_c": 30.0
+        },
+        {
+          "line": 26616,
+          "value_c": 30.0
+        },
+        {
+          "line": 26890,
+          "value_c": 30.0
+        },
+        {
+          "line": 27164,
+          "value_c": 30.0
+        },
+        {
+          "line": 27438,
+          "value_c": 30.0
+        },
+        {
+          "line": 27712,
+          "value_c": 30.0
+        },
+        {
+          "line": 27986,
+          "value_c": 30.0
+        },
+        {
+          "line": 28260,
+          "value_c": 30.0
+        },
+        {
+          "line": 28534,
+          "value_c": 30.0
+        },
+        {
+          "line": 28808,
+          "value_c": 30.0
+        },
+        {
+          "line": 29082,
+          "value_c": 30.0
+        },
+        {
+          "line": 29356,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__pfet_01v8_hvt__tt.pm3.spice",
+      "sha256": "9ee2827efa84cdb6d3c8c2110b0b8b3665973d4da5032b63bb78e0a1ee20d983",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_hvt__tt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "996bc9e3ec454852bb2fd96705803e0ffae819e4",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 242,
+          "value_c": 30.0
+        },
+        {
+          "line": 510,
+          "value_c": 30.0
+        },
+        {
+          "line": 778,
+          "value_c": 30.0
+        },
+        {
+          "line": 1046,
+          "value_c": 30.0
+        },
+        {
+          "line": 1314,
+          "value_c": 30.0
+        },
+        {
+          "line": 1582,
+          "value_c": 30.0
+        },
+        {
+          "line": 1850,
+          "value_c": 30.0
+        },
+        {
+          "line": 2118,
+          "value_c": 30.0
+        },
+        {
+          "line": 2386,
+          "value_c": 30.0
+        },
+        {
+          "line": 2654,
+          "value_c": 30.0
+        },
+        {
+          "line": 2922,
+          "value_c": 30.0
+        },
+        {
+          "line": 3190,
+          "value_c": 30.0
+        },
+        {
+          "line": 3458,
+          "value_c": 30.0
+        },
+        {
+          "line": 3726,
+          "value_c": 30.0
+        },
+        {
+          "line": 3994,
+          "value_c": 30.0
+        },
+        {
+          "line": 4262,
+          "value_c": 30.0
+        },
+        {
+          "line": 4530,
+          "value_c": 30.0
+        },
+        {
+          "line": 4798,
+          "value_c": 30.0
+        },
+        {
+          "line": 5066,
+          "value_c": 30.0
+        },
+        {
+          "line": 5334,
+          "value_c": 30.0
+        },
+        {
+          "line": 5602,
+          "value_c": 30.0
+        },
+        {
+          "line": 5870,
+          "value_c": 30.0
+        },
+        {
+          "line": 6138,
+          "value_c": 30.0
+        },
+        {
+          "line": 6406,
+          "value_c": 30.0
+        },
+        {
+          "line": 6674,
+          "value_c": 30.0
+        },
+        {
+          "line": 6942,
+          "value_c": 30.0
+        },
+        {
+          "line": 7210,
+          "value_c": 30.0
+        },
+        {
+          "line": 7478,
+          "value_c": 30.0
+        },
+        {
+          "line": 7746,
+          "value_c": 30.0
+        },
+        {
+          "line": 8014,
+          "value_c": 30.0
+        },
+        {
+          "line": 8282,
+          "value_c": 30.0
+        },
+        {
+          "line": 8550,
+          "value_c": 30.0
+        },
+        {
+          "line": 8818,
+          "value_c": 30.0
+        },
+        {
+          "line": 9086,
+          "value_c": 30.0
+        },
+        {
+          "line": 9354,
+          "value_c": 30.0
+        },
+        {
+          "line": 9622,
+          "value_c": 30.0
+        },
+        {
+          "line": 9890,
+          "value_c": 30.0
+        },
+        {
+          "line": 10158,
+          "value_c": 30.0
+        },
+        {
+          "line": 10426,
+          "value_c": 30.0
+        },
+        {
+          "line": 10694,
+          "value_c": 30.0
+        },
+        {
+          "line": 10962,
+          "value_c": 30.0
+        },
+        {
+          "line": 11230,
+          "value_c": 30.0
+        },
+        {
+          "line": 11498,
+          "value_c": 30.0
+        },
+        {
+          "line": 11766,
+          "value_c": 30.0
+        },
+        {
+          "line": 12034,
+          "value_c": 30.0
+        },
+        {
+          "line": 12302,
+          "value_c": 30.0
+        },
+        {
+          "line": 12570,
+          "value_c": 30.0
+        },
+        {
+          "line": 12838,
+          "value_c": 30.0
+        },
+        {
+          "line": 13106,
+          "value_c": 30.0
+        },
+        {
+          "line": 13374,
+          "value_c": 30.0
+        },
+        {
+          "line": 13642,
+          "value_c": 30.0
+        },
+        {
+          "line": 13910,
+          "value_c": 30.0
+        },
+        {
+          "line": 14178,
+          "value_c": 30.0
+        },
+        {
+          "line": 14446,
+          "value_c": 30.0
+        },
+        {
+          "line": 14714,
+          "value_c": 30.0
+        },
+        {
+          "line": 14982,
+          "value_c": 30.0
+        },
+        {
+          "line": 15250,
+          "value_c": 30.0
+        },
+        {
+          "line": 15518,
+          "value_c": 30.0
+        },
+        {
+          "line": 15786,
+          "value_c": 30.0
+        },
+        {
+          "line": 16054,
+          "value_c": 30.0
+        },
+        {
+          "line": 16322,
+          "value_c": 30.0
+        },
+        {
+          "line": 16590,
+          "value_c": 30.0
+        },
+        {
+          "line": 16858,
+          "value_c": 30.0
+        },
+        {
+          "line": 17126,
+          "value_c": 30.0
+        },
+        {
+          "line": 17394,
+          "value_c": 30.0
+        },
+        {
+          "line": 17662,
+          "value_c": 30.0
+        },
+        {
+          "line": 17930,
+          "value_c": 30.0
+        },
+        {
+          "line": 18198,
+          "value_c": 30.0
+        },
+        {
+          "line": 18466,
+          "value_c": 30.0
+        },
+        {
+          "line": 18734,
+          "value_c": 30.0
+        },
+        {
+          "line": 19002,
+          "value_c": 30.0
+        },
+        {
+          "line": 19270,
+          "value_c": 30.0
+        },
+        {
+          "line": 19538,
+          "value_c": 30.0
+        },
+        {
+          "line": 19806,
+          "value_c": 30.0
+        },
+        {
+          "line": 20074,
+          "value_c": 30.0
+        },
+        {
+          "line": 20342,
+          "value_c": 30.0
+        },
+        {
+          "line": 20610,
+          "value_c": 30.0
+        },
+        {
+          "line": 20878,
+          "value_c": 30.0
+        },
+        {
+          "line": 21146,
+          "value_c": 30.0
+        },
+        {
+          "line": 21414,
+          "value_c": 30.0
+        },
+        {
+          "line": 21682,
+          "value_c": 30.0
+        },
+        {
+          "line": 21950,
+          "value_c": 30.0
+        },
+        {
+          "line": 22218,
+          "value_c": 30.0
+        },
+        {
+          "line": 22486,
+          "value_c": 30.0
+        },
+        {
+          "line": 22754,
+          "value_c": 30.0
+        },
+        {
+          "line": 23022,
+          "value_c": 30.0
+        },
+        {
+          "line": 23290,
+          "value_c": 30.0
+        },
+        {
+          "line": 23558,
+          "value_c": 30.0
+        },
+        {
+          "line": 23826,
+          "value_c": 30.0
+        },
+        {
+          "line": 24094,
+          "value_c": 30.0
+        },
+        {
+          "line": 24362,
+          "value_c": 30.0
+        },
+        {
+          "line": 24630,
+          "value_c": 30.0
+        },
+        {
+          "line": 24898,
+          "value_c": 30.0
+        },
+        {
+          "line": 25166,
+          "value_c": 30.0
+        },
+        {
+          "line": 25434,
+          "value_c": 30.0
+        },
+        {
+          "line": 25702,
+          "value_c": 30.0
+        },
+        {
+          "line": 25970,
+          "value_c": 30.0
+        },
+        {
+          "line": 26238,
+          "value_c": 30.0
+        },
+        {
+          "line": 26506,
+          "value_c": 30.0
+        },
+        {
+          "line": 26774,
+          "value_c": 30.0
+        },
+        {
+          "line": 27042,
+          "value_c": 30.0
+        },
+        {
+          "line": 27310,
+          "value_c": 30.0
+        },
+        {
+          "line": 27578,
+          "value_c": 30.0
+        },
+        {
+          "line": 27846,
+          "value_c": 30.0
+        },
+        {
+          "line": 28114,
+          "value_c": 30.0
+        },
+        {
+          "line": 28382,
+          "value_c": 30.0
+        },
+        {
+          "line": 28650,
+          "value_c": 30.0
+        },
+        {
+          "line": 28918,
+          "value_c": 30.0
+        },
+        {
+          "line": 29186,
+          "value_c": 30.0
+        },
+        {
+          "line": 29454,
+          "value_c": 30.0
+        },
+        {
+          "line": 29722,
+          "value_c": 30.0
+        },
+        {
+          "line": 29990,
+          "value_c": 30.0
+        },
+        {
+          "line": 30258,
+          "value_c": 30.0
+        },
+        {
+          "line": 30526,
+          "value_c": 30.0
+        },
+        {
+          "line": 30794,
+          "value_c": 30.0
+        },
+        {
+          "line": 31062,
+          "value_c": 30.0
+        },
+        {
+          "line": 31330,
+          "value_c": 30.0
+        },
+        {
+          "line": 31598,
+          "value_c": 30.0
+        },
+        {
+          "line": 31866,
+          "value_c": 30.0
+        },
+        {
+          "line": 32134,
+          "value_c": 30.0
+        },
+        {
+          "line": 32402,
+          "value_c": 30.0
+        },
+        {
+          "line": 32670,
+          "value_c": 30.0
+        },
+        {
+          "line": 32938,
+          "value_c": 30.0
+        },
+        {
+          "line": 33206,
+          "value_c": 30.0
+        },
+        {
+          "line": 33474,
+          "value_c": 30.0
+        },
+        {
+          "line": 33742,
+          "value_c": 30.0
+        },
+        {
+          "line": 34010,
+          "value_c": 30.0
+        },
+        {
+          "line": 34278,
+          "value_c": 30.0
+        },
+        {
+          "line": 34546,
+          "value_c": 30.0
+        },
+        {
+          "line": 34814,
+          "value_c": 30.0
+        },
+        {
+          "line": 35082,
+          "value_c": 30.0
+        },
+        {
+          "line": 35350,
+          "value_c": 30.0
+        },
+        {
+          "line": 35618,
+          "value_c": 30.0
+        },
+        {
+          "line": 35886,
+          "value_c": 30.0
+        },
+        {
+          "line": 36154,
+          "value_c": 30.0
+        },
+        {
+          "line": 36422,
+          "value_c": 30.0
+        },
+        {
+          "line": 36690,
+          "value_c": 30.0
+        },
+        {
+          "line": 36958,
+          "value_c": 30.0
+        },
+        {
+          "line": 37226,
+          "value_c": 30.0
+        },
+        {
+          "line": 37494,
+          "value_c": 30.0
+        },
+        {
+          "line": 37762,
+          "value_c": 30.0
+        },
+        {
+          "line": 38030,
+          "value_c": 30.0
+        },
+        {
+          "line": 38298,
+          "value_c": 30.0
+        },
+        {
+          "line": 38566,
+          "value_c": 30.0
+        },
+        {
+          "line": 38834,
+          "value_c": 30.0
+        },
+        {
+          "line": 39102,
+          "value_c": 30.0
+        },
+        {
+          "line": 39370,
+          "value_c": 30.0
+        },
+        {
+          "line": 39638,
+          "value_c": 30.0
+        },
+        {
+          "line": 39906,
+          "value_c": 30.0
+        },
+        {
+          "line": 40174,
+          "value_c": 30.0
+        },
+        {
+          "line": 40442,
+          "value_c": 30.0
+        },
+        {
+          "line": 40710,
+          "value_c": 30.0
+        },
+        {
+          "line": 40978,
+          "value_c": 30.0
+        },
+        {
+          "line": 41246,
+          "value_c": 30.0
+        },
+        {
+          "line": 41514,
+          "value_c": 30.0
+        },
+        {
+          "line": 41782,
+          "value_c": 30.0
+        },
+        {
+          "line": 42050,
+          "value_c": 30.0
+        },
+        {
+          "line": 42318,
+          "value_c": 30.0
+        },
+        {
+          "line": 42586,
+          "value_c": 30.0
+        },
+        {
+          "line": 42854,
+          "value_c": 30.0
+        },
+        {
+          "line": 43122,
+          "value_c": 30.0
+        },
+        {
+          "line": 43390,
+          "value_c": 30.0
+        },
+        {
+          "line": 43658,
+          "value_c": 30.0
+        },
+        {
+          "line": 43926,
+          "value_c": 30.0
+        },
+        {
+          "line": 44194,
+          "value_c": 30.0
+        },
+        {
+          "line": 44462,
+          "value_c": 30.0
+        },
+        {
+          "line": 44730,
+          "value_c": 30.0
+        },
+        {
+          "line": 44998,
+          "value_c": 30.0
+        },
+        {
+          "line": 45266,
+          "value_c": 30.0
+        },
+        {
+          "line": 45534,
+          "value_c": 30.0
+        },
+        {
+          "line": 45802,
+          "value_c": 30.0
+        },
+        {
+          "line": 46070,
+          "value_c": 30.0
+        },
+        {
+          "line": 46338,
+          "value_c": 30.0
+        },
+        {
+          "line": 46606,
+          "value_c": 30.0
+        },
+        {
+          "line": 46874,
+          "value_c": 30.0
+        },
+        {
+          "line": 47142,
+          "value_c": 30.0
+        },
+        {
+          "line": 47410,
+          "value_c": 30.0
+        },
+        {
+          "line": 47678,
+          "value_c": 30.0
+        },
+        {
+          "line": 47946,
+          "value_c": 30.0
+        },
+        {
+          "line": 48214,
+          "value_c": 30.0
+        },
+        {
+          "line": 48482,
+          "value_c": 30.0
+        },
+        {
+          "line": 48750,
+          "value_c": 30.0
+        },
+        {
+          "line": 49018,
+          "value_c": 30.0
+        },
+        {
+          "line": 49286,
+          "value_c": 30.0
+        },
+        {
+          "line": 49554,
+          "value_c": 30.0
+        },
+        {
+          "line": 49822,
+          "value_c": 30.0
+        },
+        {
+          "line": 50090,
+          "value_c": 30.0
+        },
+        {
+          "line": 50358,
+          "value_c": 30.0
+        },
+        {
+          "line": 50626,
+          "value_c": 30.0
+        },
+        {
+          "line": 50894,
+          "value_c": 30.0
+        },
+        {
+          "line": 51162,
+          "value_c": 30.0
+        },
+        {
+          "line": 51430,
+          "value_c": 30.0
+        },
+        {
+          "line": 51698,
+          "value_c": 30.0
+        },
+        {
+          "line": 51966,
+          "value_c": 30.0
+        },
+        {
+          "line": 52234,
+          "value_c": 30.0
+        },
+        {
+          "line": 52502,
+          "value_c": 30.0
+        },
+        {
+          "line": 52770,
+          "value_c": 30.0
+        },
+        {
+          "line": 53038,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__pfet_01v8_lvt__tt.pm3.spice",
+      "sha256": "3148bdcac99f8f4efefb49882ac81fab817a581c3e0b54df09ee14f0482f6e71",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_01v8_lvt__tt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "916e80d85b8d3d1b57b42d0a1cf3bb1c1c857c2f",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 38,
+          "value_c": 30.0
+        },
+        {
+          "line": 312,
+          "value_c": 30.0
+        },
+        {
+          "line": 586,
+          "value_c": 30.0
+        },
+        {
+          "line": 860,
+          "value_c": 30.0
+        },
+        {
+          "line": 1134,
+          "value_c": 30.0
+        },
+        {
+          "line": 1408,
+          "value_c": 30.0
+        },
+        {
+          "line": 1682,
+          "value_c": 30.0
+        },
+        {
+          "line": 1956,
+          "value_c": 30.0
+        },
+        {
+          "line": 2230,
+          "value_c": 30.0
+        },
+        {
+          "line": 2504,
+          "value_c": 30.0
+        },
+        {
+          "line": 2778,
+          "value_c": 30.0
+        },
+        {
+          "line": 3052,
+          "value_c": 30.0
+        },
+        {
+          "line": 3326,
+          "value_c": 30.0
+        },
+        {
+          "line": 3600,
+          "value_c": 30.0
+        },
+        {
+          "line": 3874,
+          "value_c": 30.0
+        },
+        {
+          "line": 4148,
+          "value_c": 30.0
+        },
+        {
+          "line": 4422,
+          "value_c": 30.0
+        },
+        {
+          "line": 4696,
+          "value_c": 30.0
+        },
+        {
+          "line": 4970,
+          "value_c": 30.0
+        },
+        {
+          "line": 5244,
+          "value_c": 30.0
+        },
+        {
+          "line": 5518,
+          "value_c": 30.0
+        },
+        {
+          "line": 5792,
+          "value_c": 30.0
+        },
+        {
+          "line": 6066,
+          "value_c": 30.0
+        },
+        {
+          "line": 6340,
+          "value_c": 30.0
+        },
+        {
+          "line": 6614,
+          "value_c": 30.0
+        },
+        {
+          "line": 6888,
+          "value_c": 30.0
+        },
+        {
+          "line": 7162,
+          "value_c": 30.0
+        },
+        {
+          "line": 7436,
+          "value_c": 30.0
+        },
+        {
+          "line": 7710,
+          "value_c": 30.0
+        },
+        {
+          "line": 7984,
+          "value_c": 30.0
+        },
+        {
+          "line": 8258,
+          "value_c": 30.0
+        },
+        {
+          "line": 8532,
+          "value_c": 30.0
+        },
+        {
+          "line": 8806,
+          "value_c": 30.0
+        },
+        {
+          "line": 9080,
+          "value_c": 30.0
+        },
+        {
+          "line": 9354,
+          "value_c": 30.0
+        },
+        {
+          "line": 9628,
+          "value_c": 30.0
+        },
+        {
+          "line": 9902,
+          "value_c": 30.0
+        },
+        {
+          "line": 10176,
+          "value_c": 30.0
+        },
+        {
+          "line": 10450,
+          "value_c": 30.0
+        },
+        {
+          "line": 10724,
+          "value_c": 30.0
+        },
+        {
+          "line": 10998,
+          "value_c": 30.0
+        },
+        {
+          "line": 11272,
+          "value_c": 30.0
+        },
+        {
+          "line": 11546,
+          "value_c": 30.0
+        },
+        {
+          "line": 11820,
+          "value_c": 30.0
+        },
+        {
+          "line": 12094,
+          "value_c": 30.0
+        },
+        {
+          "line": 12368,
+          "value_c": 30.0
+        },
+        {
+          "line": 12642,
+          "value_c": 30.0
+        },
+        {
+          "line": 12916,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+      "sha256": "5ac0449e927e098e43b89b7ad84c506e59aca864fd8d1dae8e1f15b1dece9660",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "b6c2ee5b4f565d3345166cdb2145508d6fb58650",
+      "public_tree_exact_byte_match": true,
+      "public_path": "cells/pfet_20v0/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+      "public_revision": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+      "url": "https://github.com/google/skywater-pdk-libs-sky130_fd_pr/blob/f62031a1be9aefe902d6d54cddd6f59b57627436/cells/pfet_20v0/sky130_fd_pr__pfet_20v0__subcircuit.pm3.spice",
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 42,
+          "value_c": 30.0
+        }
+      ]
+    },
+    {
+      "file": "sources/sky130_fd_pr__pfet_g5v0d10v5__tt.pm3.spice",
+      "sha256": "48512e0cc4ae95fc8030db3c86d2e33cd27db5d392aa5e09627368a9684e24be",
+      "package_path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__pfet_g5v0d10v5__tt.pm3.spice",
+      "package_revision": "b26f7f28e659ddc1",
+      "git_blob_sha1": "5fe492ddcfec04908f50b9632bfaeed96de4e7be",
+      "public_tree_exact_byte_match": false,
+      "public_path": null,
+      "public_revision": null,
+      "url": null,
+      "license": "Apache-2.0",
+      "license_file": "sources/LICENSE",
+      "tnom_occurrences": [
+        {
+          "line": 38,
+          "value_c": 30.0
+        },
+        {
+          "line": 312,
+          "value_c": 30.0
+        },
+        {
+          "line": 586,
+          "value_c": 30.0
+        },
+        {
+          "line": 860,
+          "value_c": 30.0
+        },
+        {
+          "line": 1134,
+          "value_c": 30.0
+        },
+        {
+          "line": 1408,
+          "value_c": 30.0
+        },
+        {
+          "line": 1682,
+          "value_c": 30.0
+        },
+        {
+          "line": 1956,
+          "value_c": 30.0
+        },
+        {
+          "line": 2230,
+          "value_c": 30.0
+        },
+        {
+          "line": 2504,
+          "value_c": 30.0
+        },
+        {
+          "line": 2778,
+          "value_c": 30.0
+        },
+        {
+          "line": 3052,
+          "value_c": 30.0
+        },
+        {
+          "line": 3326,
+          "value_c": 30.0
+        },
+        {
+          "line": 3600,
+          "value_c": 30.0
+        },
+        {
+          "line": 3874,
+          "value_c": 30.0
+        },
+        {
+          "line": 4148,
+          "value_c": 30.0
+        },
+        {
+          "line": 4422,
+          "value_c": 30.0
+        },
+        {
+          "line": 4696,
+          "value_c": 30.0
+        },
+        {
+          "line": 4970,
+          "value_c": 30.0
+        },
+        {
+          "line": 5244,
+          "value_c": 30.0
+        },
+        {
+          "line": 5518,
+          "value_c": 30.0
+        },
+        {
+          "line": 5792,
+          "value_c": 30.0
+        },
+        {
+          "line": 6066,
+          "value_c": 30.0
+        },
+        {
+          "line": 6340,
+          "value_c": 30.0
+        },
+        {
+          "line": 6614,
+          "value_c": 30.0
+        },
+        {
+          "line": 6888,
+          "value_c": 30.0
+        },
+        {
+          "line": 7162,
+          "value_c": 30.0
+        },
+        {
+          "line": 7436,
+          "value_c": 30.0
+        },
+        {
+          "line": 7710,
+          "value_c": 30.0
+        },
+        {
+          "line": 7984,
+          "value_c": 30.0
+        },
+        {
+          "line": 8258,
+          "value_c": 30.0
+        },
+        {
+          "line": 8532,
+          "value_c": 30.0
+        },
+        {
+          "line": 8806,
+          "value_c": 30.0
+        },
+        {
+          "line": 9080,
+          "value_c": 30.0
+        },
+        {
+          "line": 9354,
+          "value_c": 30.0
+        },
+        {
+          "line": 9628,
+          "value_c": 30.0
+        },
+        {
+          "line": 9902,
+          "value_c": 30.0
+        },
+        {
+          "line": 10176,
+          "value_c": 30.0
+        },
+        {
+          "line": 10450,
+          "value_c": 30.0
+        },
+        {
+          "line": 10724,
+          "value_c": 30.0
+        },
+        {
+          "line": 10998,
+          "value_c": 30.0
+        },
+        {
+          "line": 11272,
+          "value_c": 30.0
+        },
+        {
+          "line": 11546,
+          "value_c": 30.0
+        },
+        {
+          "line": 11820,
+          "value_c": 30.0
+        },
+        {
+          "line": 12094,
+          "value_c": 30.0
+        },
+        {
+          "line": 12368,
+          "value_c": 30.0
+        },
+        {
+          "line": 12642,
+          "value_c": 30.0
+        },
+        {
+          "line": 12916,
+          "value_c": 30.0
+        },
+        {
+          "line": 13190,
+          "value_c": 30.0
+        },
+        {
+          "line": 13464,
+          "value_c": 30.0
+        },
+        {
+          "line": 13738,
+          "value_c": 30.0
+        },
+        {
+          "line": 14012,
+          "value_c": 30.0
+        },
+        {
+          "line": 14286,
+          "value_c": 30.0
+        },
+        {
+          "line": 14560,
+          "value_c": 30.0
+        },
+        {
+          "line": 14834,
+          "value_c": 30.0
+        },
+        {
+          "line": 15108,
+          "value_c": 30.0
+        },
+        {
+          "line": 15382,
+          "value_c": 30.0
+        },
+        {
+          "line": 15656,
+          "value_c": 30.0
+        },
+        {
+          "line": 15930,
+          "value_c": 30.0
+        },
+        {
+          "line": 16204,
+          "value_c": 30.0
+        },
+        {
+          "line": 16478,
+          "value_c": 30.0
+        },
+        {
+          "line": 16752,
+          "value_c": 30.0
+        },
+        {
+          "line": 17026,
+          "value_c": 30.0
+        },
+        {
+          "line": 17300,
+          "value_c": 30.0
+        },
+        {
+          "line": 17574,
+          "value_c": 30.0
+        },
+        {
+          "line": 17848,
+          "value_c": 30.0
+        },
+        {
+          "line": 18122,
+          "value_c": 30.0
+        },
+        {
+          "line": 18396,
+          "value_c": 30.0
+        },
+        {
+          "line": 18670,
+          "value_c": 30.0
+        },
+        {
+          "line": 18944,
+          "value_c": 30.0
+        },
+        {
+          "line": 19218,
+          "value_c": 30.0
+        },
+        {
+          "line": 19492,
+          "value_c": 30.0
+        },
+        {
+          "line": 19766,
+          "value_c": 30.0
+        },
+        {
+          "line": 20040,
+          "value_c": 30.0
+        },
+        {
+          "line": 20314,
+          "value_c": 30.0
+        },
+        {
+          "line": 20588,
+          "value_c": 30.0
+        },
+        {
+          "line": 20862,
+          "value_c": 30.0
+        },
+        {
+          "line": 21136,
+          "value_c": 30.0
+        },
+        {
+          "line": 21410,
+          "value_c": 30.0
+        },
+        {
+          "line": 21684,
+          "value_c": 30.0
+        },
+        {
+          "line": 21958,
+          "value_c": 30.0
+        },
+        {
+          "line": 22232,
+          "value_c": 30.0
+        },
+        {
+          "line": 22506,
+          "value_c": 30.0
+        },
+        {
+          "line": 22780,
+          "value_c": 30.0
+        },
+        {
+          "line": 23054,
+          "value_c": 30.0
+        },
+        {
+          "line": 23328,
+          "value_c": 30.0
+        },
+        {
+          "line": 23602,
+          "value_c": 30.0
+        },
+        {
+          "line": 23876,
+          "value_c": 30.0
+        }
+      ]
+    }
+  ]
+}

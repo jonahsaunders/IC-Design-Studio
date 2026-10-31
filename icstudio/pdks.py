@@ -1,13 +1,53 @@
 """Local, content-verified PDK revisions; never imply foundry qualification."""
 from __future__ import annotations
-import json,shutil,re,os
+import json,shutil,re,os,errno,stat,sys,time
 from pathlib import Path
-from .model import clone,digest,file_digest,atomic_write,example,validate,uid
+from .model import clone,digest,file_digest,atomic_write,example,validate,uid,io_path
+
+
+def _publication_path(path, *, missing=False):
+    """Check original Windows path components before following/resolving them."""
+    path=Path(path)
+    if not path.is_absolute():path=Path.cwd()/path
+    for component in (path,*path.parents):
+        try:info=io_path(component).lstat()
+        except FileNotFoundError:
+            if missing and component==path:continue
+            raise
+        if stat.S_ISLNK(info.st_mode) or getattr(info,'st_file_attributes',0)&0x400:
+            raise ValueError('PDK publication cannot follow a symbolic link or junction: '+str(component))
+    return io_path(path)
+
+
+def _publish_directory(stage,destination):
+    # Preserve existing non-Windows publication semantics. Windows rename is
+    # the no-overwrite primitive; replace would have different file semantics.
+    if sys.platform!='win32':
+        os.replace(io_path(stage),io_path(destination));return
+    source=_publication_path(stage);target=_publication_path(destination,missing=True)
+    if not source.is_dir() or source.parent.resolve()!=target.parent.resolve():
+        raise ValueError('Publish a staged PDK directory within its original registry.')
+    identity=lambda path:(path.stat().st_dev,path.stat().st_ino)
+    expected_source,expected_parent=identity(source),identity(source.parent)
+    delays=(.01,.02,.04,.08,.15)  # Same bounded policy as model._replace_with_retry.
+    for attempt in range(len(delays)+1):
+        source=_publication_path(stage);target=_publication_path(destination,missing=True)
+        if identity(source)!=expected_source or identity(source.parent)!=expected_parent:
+            raise ValueError('The PDK staging directory or registry changed during publication.')
+        if os.path.lexists(target):
+            raise FileExistsError(errno.EEXIST,'The PDK destination already exists; it was not replaced.',str(target))
+        try:
+            os.rename(source,target)
+            return
+        except OSError as exc:
+            if getattr(exc,'winerror',None) not in (5,32,33) or attempt==len(delays):raise
+            time.sleep(delays[attempt])
+
 
 class PDKRegistry:
-    def __init__(self,root): self.root=Path(root);self.root.mkdir(parents=True,exist_ok=True)
+    def __init__(self,root): self.root=Path(root);io_path(self.root).mkdir(parents=True,exist_ok=True)
     def install(self,manifest_path):
-        src=Path(manifest_path).resolve();base=src.parent;manifest=json.loads(src.read_text(encoding='utf-8'))
+        src=Path(manifest_path).resolve();base=src.parent;manifest=json.loads(io_path(src).read_text(encoding='utf-8'))
         # Managed packages must use their installed copies, even when exported
         # from a registration that referred to a developer's original folder.
         manifest.pop('source_root',None)
@@ -19,52 +59,52 @@ class PDKRegistry:
         if not files:raise ValueError('A technology package needs checksummed assets.')
         for rel,sha in files.items():
             path=(base/rel).resolve()
-            if Path(rel).is_absolute() or not path.is_relative_to(base) or path.is_symlink() or not path.is_file():raise ValueError('Unsafe or missing PDK asset: '+rel)
+            if Path(rel).is_absolute() or not path.is_relative_to(base) or io_path(path).is_symlink() or not io_path(path).is_file():raise ValueError('Unsafe or missing PDK asset: '+rel)
             if file_digest(path)!=sha:raise ValueError('PDK asset checksum mismatch: '+rel)
         key=manifest['id']+'@'+manifest['revision'];dest=self.root/key
-        if dest.exists():
-            if json.loads((dest/'package.json').read_text())!=manifest:raise ValueError('This revision is already installed with different contents. Use a new revision.')
+        if io_path(dest).exists():
+            if json.loads(io_path(dest/'package.json').read_text(encoding='utf-8'))!=manifest:raise ValueError('This revision is already installed with different contents. Use a new revision.')
             self.verify(key);return key
-        stage=self.root/('_install_'+uid());stage.mkdir()
+        stage=self.root/('_install_'+uid());io_path(stage).mkdir()
         try:
             for rel in files:
-                target=stage/rel;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(base/rel,target)
+                target=stage/rel;io_path(target.parent).mkdir(parents=True,exist_ok=True);shutil.copyfile(io_path(base/rel),io_path(target))
                 if file_digest(target)!=files[rel]:raise ValueError('PDK asset changed during installation: '+rel)
-            atomic_write(stage/'package.json',json.dumps(manifest,indent=2));os.replace(stage,dest)
+            atomic_write(io_path(stage/'package.json'),json.dumps(manifest,indent=2));_publish_directory(stage,dest)
         finally:
-            if stage.exists():shutil.rmtree(stage)
+            if io_path(stage).exists():shutil.rmtree(io_path(stage))
         return key
     def register_local(self,path,progress=lambda message:None):
         from .pdk_import import scan_local
         manifest=scan_local(path,progress);key=manifest['id']+'@'+manifest['revision'];dest=self.root/key
-        if dest.exists():
+        if io_path(dest).exists():
             previous=self.manifest(key)
             if previous.get('files')!=manifest['files'] or previous.get('technology')!=manifest['technology']:raise ValueError('Catalog revision conflicts with installed metadata.')
-            if previous.get('source_root')!=manifest['source_root']:atomic_write(dest/'package.json',json.dumps(manifest,indent=2))
+            if previous.get('source_root')!=manifest['source_root']:atomic_write(io_path(dest/'package.json'),json.dumps(manifest,indent=2))
             self.verify(key);return key
-        stage=self.root/('_install_'+uid());stage.mkdir()
+        stage=self.root/('_install_'+uid());io_path(stage).mkdir()
         try:
-            atomic_write(stage/'package.json',json.dumps(manifest,indent=2));os.replace(stage,dest)
+            atomic_write(io_path(stage/'package.json'),json.dumps(manifest,indent=2));_publish_directory(stage,dest)
         finally:
-            if stage.exists():shutil.rmtree(stage)
+            if io_path(stage).exists():shutil.rmtree(io_path(stage))
         return key
     def entries(self):
         entries=[]
-        for p in sorted(self.root.glob('*/package.json')):
+        for p in sorted(io_path(self.root).glob('*/package.json')):
             if p.parent.name.startswith(('_install_','_removed_')):continue
-            try:entries.append(json.loads(p.read_text()))
+            try:entries.append(json.loads(p.read_text(encoding='utf-8')))
             except (ValueError,OSError):entries.append({'id':p.parent.name,'revision':'unreadable','error':'Cannot read registration metadata.'})
         return entries
     def manifest(self,key):
         if not re.fullmatch(r'[A-Za-z0-9_-][A-Za-z0-9_.-]*@[A-Za-z0-9_-][A-Za-z0-9_.-]*',key):raise ValueError('Invalid package key.')
         base=(self.root/key).resolve()
         if not base.is_relative_to(self.root.resolve()):raise ValueError('Invalid package location.')
-        return json.loads((base/'package.json').read_text())
+        return json.loads(io_path(base/'package.json').read_text(encoding='utf-8'))
     def verify(self,key):
         manifest=self.manifest(key);base=Path(manifest.get('source_root',self.root/key)).resolve()
         for rel,sha in manifest['files'].items():
             path=(base/rel).resolve()
-            if not path.is_relative_to(base) or not path.is_file() or file_digest(path)!=sha:raise ValueError('Installed PDK asset missing or changed: '+rel+'. Restore the original folder or register a new revision.')
+            if not path.is_relative_to(base) or not io_path(path).is_file() or file_digest(path)!=sha:raise ValueError('Installed PDK asset missing or changed: '+rel+'. Restore the original folder or register a new revision.')
         return manifest
     def technology(self,key):
         manifest=self.verify(key);tech=clone(manifest['technology']);tech['package_root']=str(Path(manifest.get('source_root',self.root/key)).resolve());tech['package_lock']={'id':manifest['id'],'revision':manifest['revision'],'manifest_hash':digest(manifest),'files':manifest['files']};return tech
@@ -72,15 +112,15 @@ class PDKRegistry:
         manifest=self.manifest(key);root=Path(folder).resolve()
         for rel,sha in manifest['files'].items():
             path=(root/rel).resolve()
-            if not path.is_relative_to(root) or not path.is_file() or file_digest(path)!=sha:raise ValueError('Folder does not match registered revision: '+rel)
+            if not path.is_relative_to(root) or not io_path(path).is_file() or file_digest(path)!=sha:raise ValueError('Folder does not match registered revision: '+rel)
         manifest['source_root']=str(root)
-        atomic_write(self.root/key/'package.json',json.dumps(manifest,indent=2))
+        atomic_write(io_path(self.root/key/'package.json'),json.dumps(manifest,indent=2))
         return self.technology(key)
     def remove(self,key):
         self.manifest(key)
         # Retain every byte in a recoverable local archive. External PDK folders
         # and projects already linked to them are never deleted here.
-        dest=self.root/('_removed_'+uid());os.replace(self.root/key,dest);return dest
+        dest=self.root/('_removed_'+uid());os.replace(io_path(self.root/key),io_path(dest));return dest
 
 def model_lines(technology,corner='nominal'):
     lock=technology.get('package_lock');root=Path(technology.get('package_root','')).resolve();lines=[]
@@ -89,7 +129,7 @@ def model_lines(technology,corner='nominal'):
     if not lock:raise ValueError('Install this PDK package before using its models.')
     for rel,sha in lock['files'].items():
         path=(root/rel).resolve()
-        if not path.is_relative_to(root) or not path.is_file() or file_digest(path)!=sha:raise ValueError('Locked PDK asset is missing or changed: '+rel)
+        if not path.is_relative_to(root) or not io_path(path).is_file() or file_digest(path)!=sha:raise ValueError('Locked PDK asset is missing or changed: '+rel)
     for item in binding.get('includes',[]):
         rel=item['path']
         if rel not in lock['files']:raise ValueError('Model include is absent from the dependency lock.')
@@ -137,9 +177,9 @@ def stage_model_deck(technology, text, directory):
         if path in staged:
             return staged[path]
         relative, expected = files[path]
-        if not path.is_relative_to(source) or not path.is_file():
+        if not path.is_relative_to(source) or not io_path(path).is_file():
             raise ValueError('Unsafe or missing locked PDK model: ' + relative)
-        data = path.read_bytes()
+        data = io_path(path).read_bytes()
         if hashlib.sha256(data).hexdigest() != expected:
             raise ValueError('Locked PDK model changed while preparing the run: ' + relative)
         name = 'pdk-models/' + hashlib.sha256((relative + '\0' + expected).encode()).hexdigest()[:24] + '.spice'

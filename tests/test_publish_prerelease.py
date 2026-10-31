@@ -167,6 +167,9 @@ class PublicPublishingTests(unittest.TestCase):
         (self.root / 'docs/UPDATE_0.23.0.md').write_text('Qualified 0.23.0 release')
         self.assets = self.root / 'release'; self.assets.mkdir()
         self.prefix = 'IC-Design-Studio-0.23.0-'; self.commit = 'a' * 40
+        from tests.test_release_pw2dn_evidence import fixture, distribution
+        from scripts.release_pw2dn_evidence import validate as validate_pw2dn
+        import zipfile
         probe = {'status': 'passed', 'version': '0.23.0', 'frozen': True,
                  'build': {'commit': self.commit, 'dirty': False}}
         for platform in ('Windows', 'Linux'):
@@ -174,14 +177,21 @@ class PublicPublishingTests(unittest.TestCase):
             names = [archive, self.prefix + f'Source-{platform}.zip', self.prefix + f'Evidence-{platform}.zip']
             if platform == 'Windows': names.append(self.prefix + 'Windows-x64-Setup.exe')
             for name in names: (self.assets / name).write_bytes(('Qualified fixture: ' + name).encode())
+            distribution(self.assets / archive, platform)
+            pw_files = fixture(platform)
+            pw_prefix = 'windows-evidence/pw2dn' if platform == 'Windows' else 'frozen-pw2dn-evidence'
+            with zipfile.ZipFile(self.assets / (self.prefix + f'Evidence-{platform}.zip'), 'w') as evidence:
+                for name, content in pw_files.items(): evidence.writestr(pw_prefix + '/' + name, content)
             record = {'status': 'passed', 'version': '0.23.0', 'commit': self.commit, 'platform': platform,
                       'assets': {name: checksum(self.assets / name) for name in names},
-                      'distribution': {'status': 'passed', 'archive': archive, 'archive_sha256': checksum(self.assets / archive), 'report': probe}}
+                      'distribution': {'status': 'passed', 'archive': archive, 'archive_sha256': checksum(self.assets / archive), 'report': probe},
+                      'pw2dn': validate_pw2dn(pw_files, self.commit)}
             if platform == 'Windows':
                 setup = names[-1]
                 record['installer'] = {'status': 'passed', 'version': '0.23.0', 'commit': self.commit,
                     'installer': setup, 'installer_sha256': checksum(self.assets / setup),
-                    'probes': [dict(probe, scale=scale) for scale in ('1', '1.5', '2')]}
+                    'probes': [dict(probe, scale=scale) for scale in ('1', '1.5', '2')],
+                    'pw2dn': json.loads(pw_files['verification.json'])}
             (self.assets / (self.prefix + f'Validation-{platform}.json')).write_text(json.dumps(record))
         for kind in EVIDENCE_KINDS: (self.assets / (self.prefix + kind + '-Evidence.zip')).write_bytes(b'Qualification fixture')
         (self.assets / (self.prefix + 'Statistical-Validation.json')).write_text(json.dumps(
@@ -220,6 +230,15 @@ class PublicPublishingTests(unittest.TestCase):
         self.assertEqual(edit[edit.index('--target') + 1], self.commit)
         self.assertLess(commands.index(create), commands.index(reserve)); self.assertLess(commands.index(reserve), commands.index(edit))
         self.assertFalse(any('--clobber' in command or 'delete' in command for command in commands))
+
+    def test_public_requires_pw2dn_receipts_from_both_platforms(self):
+        for platform in ('Windows', 'Linux'):
+            path = self.assets / (self.prefix + f'Validation-{platform}.json')
+            original = path.read_text(); record = json.loads(original); record.pop('pw2dn')
+            path.write_text(json.dumps(record)); self.refresh_checksums(); run = Mock()
+            with self.subTest(platform=platform), self.assertRaisesRegex(ValueError, 'pw2dn'):
+                self.publish(run)
+            run.assert_not_called(); path.write_text(original); self.refresh_checksums()
 
     def test_public_identity_requires_stable_main_and_matching_notes(self):
         for version, branch in (('0.23.0.dev1', 'main'), ('0.23.0', 'experimental'), ('00.23.0', 'main')):

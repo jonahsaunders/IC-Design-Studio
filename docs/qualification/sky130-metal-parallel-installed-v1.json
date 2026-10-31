@@ -1,0 +1,103 @@
+{
+  "schema": 1,
+  "id": "sky130-metal-parallel-installed-v1",
+  "date": "2026-10-26",
+  "scope": "Selected installed physical LI/M1-M4 parallel-array editing, fresh native extraction and compact-model DC/AC integration. No continuous device envelope, array transient/noise, silicon calibration, whole-family or signoff qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "full_family": false,
+  "signoff": false,
+  "source_contract": {
+    "path": "docs/qualification/sky130-metal-resistor-parallel-v1.json",
+    "sha256": "66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472",
+    "reuse": "Unchanged public model/reference identities, five-model array construction, typical-section coefficients, 27 C DC/AC stimuli and fixed numerical tolerances. Earlier source acceptance retains its own execution identity."
+  },
+  "previous_installed_contract": {
+    "path": "docs/qualification/sky130-metal-installed-v1.json",
+    "sha256": "9245943194baf0fca698b9487b962390d2dc2af07983e19d0b493ae21f952fa2",
+    "preservation": "The existing straight-resistor, historical-binding, electrical and release gates remain required and unchanged. This additional gate covers physical arrays."
+  },
+  "gui": {
+    "models": ["l1", "m1", "m2", "m3", "m4"],
+    "dimensions_um": [2, 5],
+    "multiplicities": [2, 3, 16],
+    "rotations": [0, 90],
+    "case_pattern": "<model>-m<count>-r<rotation>",
+    "top_pattern": "metal_parallel_<model>_m<count>_r<rotation>_<execution-id-first-12>",
+    "clean_native_layouts": 30,
+    "application_reference": "One actual GUI-exported R with m=N, exact selected model, W2/L5 and R1/R2 terminals.",
+    "native_reference": "Actual unchanged fresh native extraction with N separate resistor primitives, each W2/L5 and m=1 or absent, connected only between R1 and R2. No synthetic expanded circuit or regenerated positive extraction.",
+    "required_lifecycle": [
+      "real_catalog_placement",
+      "preview_apply",
+      "count_change_and_undo_redo",
+      "save_reopen",
+      "actual_reference_schematic_GDS_OASIS_export",
+      "persistent_first_unit_shapes_and_terminal_identity",
+      "exact_current_package_binding"
+    ],
+    "attached_route_lifecycle": {
+      "models": 5,
+      "initial_count": 1,
+      "counts": [3, 16, 2, 1],
+      "transitions": 20,
+      "route_width_nm": 400,
+      "route_a_nm": [[1000, -250], [-2000, -250]],
+      "route_b_nm": [[1000, 5250], [-2000, 5250]],
+      "required_states": ["before", "requested", "proposed", "applied", "undo", "restored", "reopened"],
+      "late_layer_lock_rejections": 5,
+      "scope": "Separate actual GUI count-edit lifecycle with attached wires. Native positive coupons contain the bare array and its actual terminal labels."
+    },
+    "native_controls": {
+      "width_faults": 5,
+      "width_fault_selection": "Each model at m3/r0: widen only the final physical unit from 2 to 3 um, retaining L5, all three markers, buses and ports. Actual extracted widths [2,2,3]; full DRC clean and strict LVS property mismatch. Restore original content and obtain fresh native pass.",
+      "drc_faults": 1,
+      "drc_fault_selection": "Final m4/m16/r90 coupon: add an isolated 100 nm square on metal1 drawing at [100000,100000] nm. Native DRC must fail with nonzero findings. Undo restores original design content with a new revision; only a fresh native result can pass.",
+      "repairs": 6,
+      "missing_engine_blocks": 1,
+      "missing_engine_selection": "Select an absent custom Magic executable for the final coupon. The queued job must visibly block in preflight without native execution; restore the original tool setting."
+    },
+    "fresh_native_jobs": 42,
+    "queued_jobs": 43,
+    "required_native": [
+      "full_DRC",
+      "strict_LVS",
+      "actual_unmerged_device_count_model_dimensions_and_two_net_graph",
+      "exact_written_masks_and_terminal_labels",
+      "fresh_job_input_result_and_received_artifact_identities",
+      "fault_specific_rejection_and_fresh_repairs",
+      "missing_engine_preflight_rejection"
+    ]
+  },
+  "electrical": {
+    "models": ["l1", "m1", "m2", "m3", "m4"],
+    "dimensions_um": [2, 5],
+    "multiplicities": [2, 3, 16],
+    "rotations": [0, 90],
+    "section": "tt",
+    "temperature_c": 27,
+    "fresh_gui_native_inputs": 30,
+    "contexts": 30,
+    "analyses": ["dc", "ac"],
+    "simulator_runs": 60,
+    "path_samples": 3870,
+    "paths": ["application", "native", "analytic"],
+    "original_inputs": "Retain actual fresh GUI references and native extractions unchanged. If required, normalize only the top subcircuit name to coupon and retain a byte-span proof. Each complete circuit is included and instantiated once.",
+    "freshness": "Bind raw titles to the decoded file-URI execution root, GUI execution nonce, exact case and analysis. Retain original invocation, command, environment, report and all artifact identities.",
+    "observables": ["exact_DC_and_frequency_grids", "drive_and_each_branch_input", "complex_output", "current_law", "KCL", "every_effective_passive_coefficient"],
+    "tolerances": "Exactly the referenced source contract; no numerical tolerance changes.",
+    "scope_exclusions": ["array_transient", "array_noise", "continuous_operating_limits", "calibrated_matching_and_statistics", "reliability"]
+  },
+  "runtime_profiles": {
+    "win32": {"engine": "ngspice46", "sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453"},
+    "linux": {"engine": "ngspice42", "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45"}
+  },
+  "provenance": [
+    "Exact clean immutable candidate and all new producer, independent checker, app and backend source bytes.",
+    "Actual frozen/installed executable, embedded build identity, shipped model package, discovered simulator and physical adapter.",
+    "Fresh GUI nonce, actual queued native artifacts and unchanged before/after tool, package and source identities.",
+    "No installed simulator override, source-pilot promotion, reused native execution or synthetic replacement inputs.",
+    "Independent raw readback and rehashed semantic corruption controls; retained original failures and compact verified recovery."
+  ],
+  "completion": "Both exact-candidate Windows and Linux installed workflows, independent aggregate acceptance and every existing release gate must pass before this selected installed-array milestone is complete. Source pilots are explicitly separate. No device status or chunk gate is promoted."
+}

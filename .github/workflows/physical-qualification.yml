@@ -2,20 +2,36 @@ name: Pinned SKY130 physical qualification
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full 40-character commit of the selected branch or tag
+        type: string
+        required: true
   push:
-    branches: [main, experimental]
-  pull_request:
+    tags: ['v*']
+# Selected candidates retain all acceptance gates and are not cancelled by new pushes.
+concurrency:
+  group: candidate-physical-qualification-${{ github.workflow }}-${{ github.run_id }}
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
   qualification:
+    needs: candidate
     name: qualify (${{ matrix.stage }})
     strategy:
       fail-fast: false
       matrix:
         stage: [inverter, analog, analog-rc, hierarchy-rc, devices, bipolar, two-stage-opamp, detector, public-layouts]
     runs-on: ubuntu-24.04
-    timeout-minutes: ${{ matrix.stage == 'two-stage-opamp' && 90 || matrix.stage == 'detector' && 60 || 45 }}
+    timeout-minutes: ${{ (matrix.stage == 'two-stage-opamp' || matrix.stage == 'devices') && 90 || matrix.stage == 'detector' && 60 || 45 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,8 +42,42 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential pkg-config m4 tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev ngspice klayout xschem libegl1 libopengl0
           python -m pip install -r requirements.txt
+      - name: Install the pinned native RF geometry checker
+        if: matrix.stage == 'devices'
+        run: |
+          curl -fL --retry 3 -o /tmp/rf-klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/rf-klayout.deb' | sha256sum -c
+          sudo apt-get install -y /tmp/rf-klayout.deb
       - name: Build compatible pinned Magic and Netgen
         run: python scripts/build_physical_engines.py --output build/physical-engines
+      - name: Build the verified simulator for externally included model decks
+        if: matrix.stage == 'inverter' || matrix.stage == 'detector' || matrix.stage == 'devices'
+        run: |
+          sudo apt-get install -y autoconf automake libtool bison flex libreadline-dev libsuitesparse-dev
+          python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/simulation-engine
+          python scripts/verify_ngspice_diode_sequences.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/simulation-engine/diode-sequences
+      - name: Qualify the installed public RF n-well default binding
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 10
+        run: python scripts/qualify_sky130_rf_default.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/sky130-rf-default
+      - name: Qualify public RF reverse-bias current, admittance and noise
+        if: matrix.stage == 'inverter'
+        run: python scripts/qualify_sky130_rf_bias.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/simulation-engine/rf-bias
+      - name: Qualify public RF reverse pulses and timestep convergence
+        if: matrix.stage == 'inverter'
+        run: python scripts/qualify_sky130_rf_transient.py --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/simulation-engine/rf-transient
+      - name: Check published SKY130 MOS bias limits and deliberate binding faults
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 10
+        run: |
+          python -m unittest tests.test_sky130_mos_bias -v
+          python scripts/qualify_sky130_mos_bias.py --pilot --workers 2 --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/sky130-mos-bias
+      - name: Check fresh SKY130 MOS defaults against independent model calls
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 10
+        run: |
+          python -m unittest tests.test_sky130_mos_defaults -v
+          python scripts/qualify_sky130_mos_defaults.py --pilot --workers 2 --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/sky130-mos-defaults
       - name: Cache checksummed upstream archives
         uses: actions/cache@v4
         with:
@@ -37,13 +87,74 @@ jobs:
         run: python scripts/fetch_sky130_reference.py --physical-only --output build/qualification-pdk
       - name: Recreate the locked adapter
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/physical-adapter/sky130A
+      - name: Require explicit RF p-well substrate connectivity and fault detection
+        if: matrix.stage == 'devices'
+        run: python scripts/qualify_sky130_rf_isolation.py --sky130 build/physical-adapter/sky130A --klayout /usr/bin/klayout --output build/rf-isolation-evidence --pilot
+      - name: Check the public RF n-well opening spacing boundary
+        if: matrix.stage == 'devices'
+        run: python scripts/qualify_sky130_rf_isolation_boundaries.py --sky130 build/physical-adapter/sky130A --klayout /usr/bin/klayout --output build/rf-isolation-boundaries --pilot
+      - name: Verify threshold implants and native MOS model recognition
+        if: matrix.stage == 'devices'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_TEST_NGSPICE: /usr/bin/ngspice
+        run: |
+          python -m unittest tests.test_sky130_threshold_layouts -v
+          python scripts/qualify_sky130_threshold_layouts.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --output build/threshold-layout-evidence --pilot
+      - name: Verify thick-oxide and native voltage-device layouts
+        if: matrix.stage == 'devices'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_TEST_NGSPICE: /usr/bin/ngspice
+        run: |
+          python -m unittest tests.test_sky130_voltage_layouts -v
+          python scripts/qualify_sky130_voltage_layouts.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --output build/voltage-layout-evidence --pilot
+      - name: Verify second-plate MiM geometry and extracted response
+        if: matrix.stage == 'devices'
+        timeout-minutes: 10
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          python -m unittest tests.test_sky130_mim2 -v
+          python scripts/qualify_sky130_mim2.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim2-layout-evidence --pilot
+      - name: Require rectangular MiM orientation, faults and independent raw audit
+        if: matrix.stage == 'devices'
+        timeout-minutes: 20
+        run: |
+          python -m unittest tests.test_sky130_mim2_extract -v
+          python scripts/qualify_sky130_mim_orientation.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim-orientation-evidence
+          python scripts/audit_sky130_mim_orientation.py --root build/mim-orientation-evidence --output build/mim-orientation-evidence/audit.json
+      - name: Require first-MiM orientation and contact-edge regression
+        if: matrix.stage == 'devices'
+        timeout-minutes: 20
+        run: |
+          python -m unittest tests.test_sky130_mim1_extract -v
+          python scripts/qualify_sky130_mim_orientation.py --plate 1 --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim1-orientation-evidence
+          python scripts/audit_sky130_mim_orientation.py --root build/mim1-orientation-evidence --output build/mim1-orientation-evidence/audit.json
+          python scripts/qualify_sky130_mim_mixed.py --sky130 build/physical-adapter/sky130A --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --klayout /usr/bin/klayout --output build/mim-mixed-evidence
+      - name: Verify MiM model multiplicity and seeded mismatch controls
+        if: matrix.stage == 'devices'
+        timeout-minutes: 10
+        run: |
+          python scripts/qualify_sky130_mim_binding.py --sky130 icstudio/assets/pdks/sky130A --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice" --output build/mim-binding-evidence --pilot
+          python scripts/audit_sky130_mim_binding.py build/mim-binding-evidence --output build/mim-binding-evidence/audit.json
       - name: Prepare the separately versioned experimental PNP adapter
         if: matrix.stage == 'bipolar'
         run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/bipolar-adapter/sky130A --bipolar
       - name: Qualify nominal inverter and deliberate DRC/LVS faults
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
-        run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+        run: python scripts/qualify_layout_process.py --pdk build/physical-adapter/sky130A --out build/physical-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice"
+      - name: Qualify GF180 and IHP parallel MOS units and inverter placement
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 15
+        run: python scripts/qualify_mos_parallel_layouts.py --output build/mos-parallel-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --workers 2
+      - name: Qualify shared MOS fingers and independent native channel counts
+        if: matrix.stage == 'inverter'
+        timeout-minutes: 15
+        run: python scripts/qualify_mos_finger_layouts.py --output build/mos-finger-evidence --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --workers 2
       - name: Check exact full-deck width and spacing boundaries
         if: matrix.stage == 'inverter'
         timeout-minutes: 5
@@ -53,7 +164,7 @@ jobs:
         timeout-minutes: 10
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python tests/gui_physical_qualification.py --pdk build/physical-adapter/sky130A --out build/physical-evidence/desktop --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice /usr/bin/ngspice
+        run: python tests/gui_physical_qualification.py --pdk build/physical-adapter/sky130A --out build/physical-evidence/desktop --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice"
       - name: Qualify analog references, corners, extraction and deliberate faults
         if: matrix.stage == 'analog'
         timeout-minutes: 15
@@ -89,7 +200,7 @@ jobs:
       - name: Require detector strict LVS, fault detection and HSA simulation
         if: matrix.stage == 'detector'
         timeout-minutes: 22
-        run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/open-project-evidence --require-consistent --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen"
+        run: python scripts/qualify_open_project.py --source build/open-project-source --pdk build/qualification-pdk/sky130A --out build/open-project-evidence --require-consistent --magic "$PWD/build/physical-engines/installed/bin/magic" --netgen "$PWD/build/physical-engines/installed/bin/netgen" --ngspice "$PWD/build/simulation-engine/installed/bin/ngspice"
       - name: Verify detector streams after independent export and reimport
         if: matrix.stage == 'detector'
         timeout-minutes: 15
@@ -137,6 +248,26 @@ jobs:
             build/physical-engines/*-build.log
             build/physical-engines/*-version.log
             build/physical-engines/source-lock.json
+            build/simulation-engine/*-build.log
+            build/simulation-engine/*-version.log
+            build/simulation-engine/source-lock.json
+            build/simulation-engine/diode-sequences
+            build/simulation-engine/rf-bias
+            build/sky130-rf-default
+            build/mos-parallel-evidence
+            build/mos-finger-evidence
+            build/simulation-engine/rf-transient
+            build/sky130-mos-defaults
+            build/sky130-mos-bias
+            build/rf-isolation-evidence
+            build/rf-isolation-boundaries
+            build/threshold-layout-evidence
+            build/voltage-layout-evidence
+            build/mim2-layout-evidence
+            build/mim-orientation-evidence
+            build/mim1-orientation-evidence
+            build/mim-mixed-evidence
+            build/mim-binding-evidence
           if-no-files-found: error
 
   detector-desktop:

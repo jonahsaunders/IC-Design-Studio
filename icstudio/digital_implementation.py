@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -46,6 +47,15 @@ def tcl_word(value):
     return word(str(value))
 
 
+def structural_verilog(text):
+    """Remove signed declaration qualifiers after all arithmetic is mapped.
+
+    OpenSTA's structural reader does not accept them. Widths, bit selections,
+    cell connections and constants are unchanged; this is never applied to RTL.
+    """
+    return re.sub(r'(?m)^([ \t]*(?:wire|input|output|inout)) signed(?=[ \t])',r'\1',text)
+
+
 class Runner:
     def __init__(self,job,directory,progress):
         from .digital_flow import environment,stage_sources
@@ -83,14 +93,19 @@ class Runner:
     def save_json(self,key,data,filename):
         atomic_write(self.root/filename,json.dumps(data,indent=2));self.add_artifact(key,self.root/filename)
 
-    def libraries(self):
-        corner = getattr(self, 'timing_corner', None) or self.platform['corner']
-        return [self.root/'platform'/p for p in self.platform['corners'][corner]]
+    def libraries(self, corner=None):
+        from .digital_platform import liberty_files
+        corner = corner or getattr(self, 'timing_corner', None) or self.platform['corner']
+        paths=liberty_files(self.platform,self.root/'platform',self.root/'liberty',corner)
+        for path in paths:
+            if path.parent==self.root/'liberty':self.add_artifact('liberty_'+path.stem,path)
+        return paths
 
     def versions_check(self):
         for name,path in self.tools.items():
             flag='-V' if name in ('iverilog','vvp','yosys') else '-version' if name in ('sta','openroad') else '-v' if name=='klayout' else '--version'
-            self.versions[name]=self.command([path,flag],'Checking '+name,fraction=.01).strip()[:12000]
+            args=[path,'-c','version'] if name=='yosys-abc' else [path,flag]
+            self.versions[name]=self.command(args,'Checking '+name,fraction=.01).strip()[:12000]
 
     def constraints(self):
         files=[f for f in self.config['files'] if f['role']=='constraint']
@@ -128,12 +143,28 @@ def mapped(runner):
             atomic_write(constraint, 'set_driving_cell ' + intent['driving_cell'] + '\nset_load ' + str(intent.get('load_pf', 0) * 1000) + '\n')
             abc += ' -constr ' + quote(constraint)
             r.add_artifact('synthesis_constraints', constraint)
+        if intent.get('mapping')=='speed':
+            from .digital_mapping import speed_script, SOURCE
+            path=r.root/'abc_speed.script';atomic_write(path,speed_script(intent.get('delay_ns')))
+            abc+=' -script '+quote(path);r.add_artifact('mapping_script',path)
+            r.save_json('mapping_recipe',{'source':SOURCE,'script_sha256':file_digest(path),
+                'delay_ns':intent.get('delay_ns'),'mapping':'speed'},'mapping_recipe.json')
         r.save_json('synthesis_intent', intent, 'synthesis_intent.json')
         script += 'dfflibmap -liberty ' + quote(libs[0]) + '\n' + abc + '\nclean\n'
-        if r.platform['name']=='sky130hd':script+='hilomap -singleton -hicell sky130_fd_sc_hd__conb_1 HI -locell sky130_fd_sc_hd__conb_1 LO\n'
-        script+='delete t:$scopeinfo\ncheck -assert\nwrite_verilog -noattr ../netlist.v\nwrite_json ../netlist.json\n'
+        from .digital_platform import ORFS_PROFILES
+        # Preserve legacy SKY130 manifests; other profiles carry explicit ties.
+        ties=r.platform.get('tie_cells',ORFS_PROFILES['sky130hd']['tie_cells'] if r.platform['name']=='sky130hd' else {})
+        if ties:script+='hilomap -singleton -hicell '+' '.join(ties['high'])+' -locell '+' '.join(ties['low'])+'\n'
+        script+='delete t:$scopeinfo\ncheck -assert\nwrite_verilog -noattr -noexpr ../netlist.v\nwrite_json ../netlist.json\n'
         script+='tee -o ../statistics.json stat -json -liberty '+quote(libs[0])+'\n'
         atomic_write(r.root/'mapped.ys',script);r.command([r.tools['yosys'],'-s',str(r.root/'mapped.ys')],'Mapping '+r.config['top']+' to '+r.platform['name'])
+        hierarchy=json.loads((r.root/'netlist.json').read_text())
+        if any(c['type'].startswith('$') for c in hierarchy['modules'][r.config['top']].get('cells',{}).values()):
+            raise ValueError('Technology mapping left unsupported cells. Inspect the retained synthesis logs.')
+        original=(r.root/'netlist.v').read_text();normalized=structural_verilog(original)
+        if normalized!=original:
+            atomic_write(r.root/'netlist_yosys.v',original);r.add_artifact('synthesis_netlist',r.root/'netlist_yosys.v')
+            atomic_write(r.root/'netlist.v',normalized)
         for key,name in (('netlist','netlist.v'),('hierarchy','netlist.json'),('statistics','statistics.json')):r.add_artifact(key,r.root/name)
     from .digital_reports import netlist_index
     data=json.loads((r.root/'netlist.json').read_text());index=netlist_index(data,r.config['files'])
@@ -155,25 +186,45 @@ def mapped(runner):
 
 
 def timing_script(r):
-    lines=['set_cmd_units -time ns -capacitance pF']
+    lines=['set_cmd_units -time ns -capacitance pF',
+           'sta::redirect_file_begin '+tcl_word(r.root/'timing_load.txt')]
     lines += ['read_liberty '+tcl_word(p) for p in r.libraries()]
     lines += ['read_verilog '+tcl_word(r.root/'netlist.v'),'link_design '+r.config['top'],
               'read_sdc '+tcl_word(r.constraints())]
     upstream=r.settings.get('upstream',{})
-    if 'spef' in upstream.get('artifacts',{}):
-        verify_upstream(upstream);shutil.copy2(Path(upstream['root'])/upstream['artifacts']['spef']['path'],r.root/'parasitics.spef')
-        r.add_artifact('spef',r.root/'parasitics.spef');lines.append('read_spef '+tcl_word(r.root/'parasitics.spef'))
+    key=getattr(r,'timing_spef_key','spef')
+    if key in upstream.get('artifacts',{}):
+        if not hasattr(r,'timing_spef_key'):verify_upstream(upstream)
+        target=r.root/('parasitics.spef' if key=='spef' else 'parasitics/'+key+'.spef')
+        target.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copy2(Path(upstream['root'])/upstream['artifacts'][key]['path'],target)
+        r.add_artifact(key,target)
+        factor='-coupling_reduction_factor 1.0 ' if 'fill' in upstream.get('artifacts',{}) else ''
+        lines.append('read_spef '+factor+tcl_word(target))
         lines.append('set_propagated_clock [all_clocks]')
-    lines += ['sta::redirect_file_begin '+tcl_word(r.root/'timing_units.txt'),
+    lines.append('sta::redirect_file_end')
+    if key in upstream.get('artifacts',{}):
+        lines += ['report_parasitic_annotation -report_unannotated > '+tcl_word(r.root/'parasitic_annotation.txt'),
+                  'set out [open '+tcl_word(r.root/'disconnected_outputs.txt')+' w]',
+                  '''foreach pin [get_pins -hierarchical * -filter {direction == output}] {
+  set nets [get_nets -quiet -of_objects $pin]
+  if {$nets eq "NULL" || ![llength $nets]} {puts $out [get_full_name $pin]}
+}
+close $out''']
+    # An SDC can set its own input units. Normalize only after interpreting it,
+    # so every saved path, total and UI label uses the declared output units.
+    lines += ['set_cmd_units -time ns -capacitance pF',
+              'sta::redirect_file_begin '+tcl_word(r.root/'timing_units.txt'),
               'report_units','sta::redirect_file_end',
               'check_setup -verbose > '+tcl_word(r.root/'timing_checks.txt'),
               'report_checks -path_delay min_max -group_count 50 -format full_clock_expanded > '+tcl_word(r.root/'timing_full.txt'),
               'report_power > '+tcl_word(r.root/'power.txt'),
-              'report_tns > '+tcl_word(r.root/'timing_totals.txt'),
+              'report_tns -max > '+tcl_word(r.root/'timing_totals.txt'),
+              'report_tns -min > '+tcl_word(r.root/'timing_hold_totals.txt'),
               'report_check_types -max_slew -max_capacitance -max_fanout -violators > '+tcl_word(r.root/'electrical_checks.txt'),
               'set out [open '+tcl_word(r.root/'timing_paths.tsv')+' w]',
               '''foreach {kind delay} {setup max hold min} {
-  foreach path [find_timing_paths -path_delay $delay -group_count 50 -sort_by_slack] {
+  foreach path [find_timing_paths -path_delay $delay -group_path_count 50 -sort_by_slack] {
     set start [get_property [get_property $path startpoint] full_name]
     set end [get_property [get_property $path endpoint] full_name]
     set pins {}
@@ -189,25 +240,48 @@ def timing(r):
     from .digital_reports import timing_report
     data=mapped(r);corners=r.config.get('timing_corners',[r.platform['corner']]);reports=[];powers=[]
     from .digital_reports import power_report
-    for corner in corners:
-        r.timing_corner=corner;atomic_write(r.root/'timing.tcl',timing_script(r))
-        r.command([r.tools['sta'],'-no_init','-exit',str(r.root/'timing.tcl')],'Analyzing setup and hold · '+corner,fraction=.6)
-        report=timing_report(r.root);report['corner']=corner
-        report['parasitics']='extracted SPEF' if 'spef' in r.artifacts else 'No extracted interconnect; pre-layout estimate'
-        for path in report['paths']:path['corner']=corner
-        reports.append(report);powers.append({'corner':corner,**power_report(r.root/'power.txt')})
-        folder=r.root/'timing-corners'/corner;folder.mkdir(parents=True)
-        for name in ('timing.tcl','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','electrical_checks.txt','power.txt'):
-            shutil.copy2(r.root/name,folder/name);r.add_artifact('corner_'+corner+'_'+name.replace('.','_'),folder/name,allow_empty=True)
+    from .digital_rc import timing_sources
+    sources=timing_sources(r)
+    outputs=('timing_load.txt','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv',
+             'timing_totals.txt','timing_hold_totals.txt','electrical_checks.txt','power.txt',
+             'parasitic_annotation.txt','disconnected_outputs.txt')
+    for i,corner in enumerate(corners):
+        for j,(rc_corner,spef_key) in enumerate(sources):
+            scenario=corner+(' / '+rc_corner if rc_corner else '')
+            r.timing_corner=corner;r.timing_spef_key=spef_key
+            # Missing output from this scenario cannot borrow a previous pass.
+            for name in outputs:(r.root/name).unlink(missing_ok=True)
+            atomic_write(r.root/'timing.tcl',timing_script(r))
+            r.command([r.tools['sta'],'-no_init','-exit',str(r.root/'timing.tcl')],'Analyzing setup and hold · '+scenario,fraction=.6)
+            report=timing_report(r.root,require_parasitics=bool(spef_key));report.update(corner=corner,rc_corner=rc_corner,scenario=scenario)
+            report['parasitics']='extracted SPEF' if spef_key else 'No extracted interconnect; pre-layout estimate'
+            for path in report['paths']:path.update(corner=corner,rc_corner=rc_corner,scenario=scenario)
+            reports.append(report);powers.append({'corner':corner,'rc_corner':rc_corner,'scenario':scenario,**power_report(r.root/'power.txt')})
+            folder=r.root/'timing-corners'/corner
+            if rc_corner:folder=folder/rc_corner
+            folder.mkdir(parents=True)
+            prefix='corner_'+corner if not rc_corner else 'scenario_'+str(i)+'_'+str(j)
+            names=['timing.tcl','timing_load.txt','timing_full.txt','timing_checks.txt','timing_units.txt','timing_paths.tsv','timing_totals.txt','timing_hold_totals.txt','electrical_checks.txt','power.txt']
+            if spef_key:names += ['parasitic_annotation.txt','disconnected_outputs.txt']
+            for name in names:
+                if (r.root/name).is_file():
+                    shutil.copy2(r.root/name,folder/name);r.add_artifact(prefix+'_'+name.replace('.','_'),folder/name,allow_empty=True)
     r.timing_corner=None
     report=clone(reports[0]);report['corners']=reports;report['paths']=[p for c in reports for p in c['paths']]
-    states={c['status'] for c in reports};report['status']=next((s for s in ('INCOMPLETE','FAIL') if s in states),'PASS')
+    report.pop('rc_corner',None);report.pop('scenario',None);report.pop('parasitic_annotation',None)
+    states={c['status'] for c in reports};report['status']=next((s for s in ('FAIL','INCOMPLETE') if s in states),'PASS')
+    report['unconstrained']=any(c['unconstrained'] for c in reports)
+    report['incomplete_reasons']=[c['scenario']+': '+reason for c in reports for reason in c['incomplete_reasons']]
+    report['electrical_status']=next((status for status in ('FAIL','Unavailable')
+        if any(c['electrical_status']==status for c in reports)),'No reported violations')
     report['summary']={key:min(values) for key in ('setup_worst_slack_ns','hold_worst_slack_ns') if (values:=[c['summary'][key] for c in reports if c['summary'].get(key) is not None])}
     for key in ('setup_reported_violations','hold_reported_violations'):
         report['summary'][key]=sum(c['summary'].get(key,0) for c in reports)
-    totals=[c['summary']['setup_total_negative_slack_ns'] for c in reports if 'setup_total_negative_slack_ns' in c['summary']]
-    if totals:report['summary']['setup_total_negative_slack_ns']=min(totals)
-    report['scope']='Selected library corners with the captured netlist and parasitics. RC corner variation requires separately extracted SPEF.'
+    for kind in ('setup','hold'):
+        key=kind+'_total_negative_slack_ns';totals=[c['summary'][key] for c in reports if key in c['summary']]
+        if totals:report['summary'][key]=min(totals)
+    report['rc_corners']=[name for name,key in sources if name]
+    report['scope']='Every selected library corner crossed with each captured interconnect extraction. Legacy single-SPEF and pre-layout results retain their narrower scope.'
     r.save_json('timing',report,'timing.json');r.add_artifact('timing_full',r.root/'timing_full.txt',allow_empty=True);r.add_artifact('power_report',r.root/'power.txt')
     data['power']={**powers[0],'corners':powers}
     upstream=r.settings.get('upstream',{})
@@ -215,7 +289,18 @@ def timing(r):
         verify_upstream(upstream)
         shutil.copy2(Path(upstream['root'])/upstream['artifacts']['layout_preview']['path'],r.root/'layout_preview.json')
         r.add_artifact('layout_preview',r.root/'layout_preview.json')
-    return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+', '.join(corners)+' · '+report['parasitics']}
+    detail=' · '+report['incomplete_reasons'][0] if report['incomplete_reasons'] else ''
+    rc_detail=' · RC '+', '.join(report['rc_corners']) if report['rc_corners'] else ''
+    return {**data,'timing':report,'verdict':report['status'],'summary':'Timing '+report['status']+' · '+', '.join(corners)+rc_detail+' · '+report['parasitics']+detail}
+
+
+def proof_strategies(timeout):
+    # Keep induction for simple partitions and try reachability-based PDR when
+    # induction cannot establish their invariants. Both use formal X propagation;
+    # neither inserts a reset assumption or accepts bounded simulation as proof.
+    budget=max(1,timeout//2)
+    return ('[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\ntimeout '+str(budget)+'\n'
+            '\n[strategy pdr]\nuse sby\nengine abc pdr\nxprop on\ntimeout '+str(budget)+'\n')
 
 
 def equivalence(r):
@@ -240,10 +325,11 @@ def equivalence(r):
     # name; those gates still need the history behind a matched pointer/count.
     script+='\n[partition *]\namend *\n'
     # Encode undefined state explicitly; EQY's SAT strategy can prove this case vacuously.
-    script+='\n[strategy smtbmc]\nuse sby\nengine smtbmc bitwuzla\nxprop on\ndepth 30\n'
+    script+='\n'+proof_strategies(r.config.get('timeout',60))
     atomic_write(r.root/'equivalence.eqy',script)
     r.env['PATH']=str(Path(r.tools['eqy']).parent)+os.pathsep+r.env.get('PATH','')
     r.env['YOSYS']=r.tools['yosys']
+    r.env['ABC']=r.tools['yosys-abc']
     r.command([r.tools['eqy'],'--yosys',r.tools['yosys'],'-f','-d','../proof','../equivalence.eqy'],
               'Proving the captured mapped netlist',fraction=.6,allow_failure=True)
     report=eqy_report(r.root/'proof');r.save_json('equivalence',report,'equivalence.json')

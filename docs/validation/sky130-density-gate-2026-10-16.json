@@ -1,0 +1,904 @@
+{
+  "schema": 1,
+  "date": "2026-10-16",
+  "chunk": 6,
+  "status": "mandatory-public-density-gate-tested",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Project acceptance of the two named public growth profiles is mandatory independently of fill generation. No new foundry rule applicability, final-mask definition, complete-chip density policy, installer or electrical qualification.",
+  "source_baseline": "6ad282fe6b94a01db5276fe8b02d381f12f40ea8",
+  "source_files": {
+    "icstudio/digital_sky130_density.py": "5e7850562a4db72e0009c553f83b279984da2a2d8b95c9c4fe6991ab022993e9",
+    "icstudio/digital_sky130_oxide_density.py": "7fa8601ee76e813339160f37ff9a43e972c9ba3715d5c42d91240e2bbf0dd63e",
+    "icstudio/digital_flow.py": "9abacf1cf402855970838200a9e2e4c171a17247ad5b0e866c5e159e7d66046c",
+    "icstudio/digital_physical.py": "0137117381c57de99aeccaaaa2ba003ec3337b75233a3355cd710af9184d7352",
+    "icstudio/digital_macro.py": "2daa7e45a7c36ffdcd9d1870dfc7094f88bb3e216860369f5f3ef49f754b0cb6",
+    "tests/test_sky130_application_density.py": "1344a5bba4ac9be4531874eed645e7376d9c22a9fbc65737fa295744676d238f",
+    "THIRD_PARTY_NOTICES.md": "a99091142eaf13b1fab5ab3cb8b053d7560deffc23fe199a4a7580b70a4f4ae7",
+    ".gitattributes": "21bc6e1b8cb197c9fdd0e5d36eb7ba4a1d51d83550ac101a1020b9a5d7d7ef02"
+  },
+  "native": {
+    "small-unfilled": {
+      "schema": 1,
+      "status": "PASS",
+      "case": "small-unfilled",
+      "fill_enabled": false,
+      "qualified": false,
+      "chunk_complete": false,
+      "driver_sha256": "d74c90d65bf82f1fdd157f66c5d191c3044b5870b0aef6a98b135df08767871e",
+      "input_sha256": "e386749322b69577237467a75337dbde9517eec039209241eb22183c567054a7",
+      "density": {
+        "status": "surrounding-layout-required",
+        "full_windows": 0,
+        "full_window_findings": 0,
+        "qualified": false,
+        "acceptance_established": false
+      },
+      "result_sha256": "535b9cfb958f71d6d0ddead0ec18e60ab644f256ed7d3e3393dd427e9b48a696",
+      "macro_sha256": "2de3f7ea07605a849d4eb8636e81602cbbac0069962d9a83f8b10b91c66a5153",
+      "qualification": {
+        "physical_stage": "finish",
+        "drc": "Not qualified by this export",
+        "lvs": "Strict captured SKY130 HD device/body/port comparison passed; see sky130_lvs scope.",
+        "physical_checks": {
+          "status": "PASS",
+          "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks. Logic inputs require positive gate area; declared CORE ANTENNACELL inputs require positive diffusion area, retained separately in the coverage report.",
+          "artifact": "physical_checks"
+        },
+        "abstract_timing_model": null,
+        "scope": "LEF/GDS geometry with the actual gate netlist and captured SPEF. No characterized macro Liberty model is implied.",
+        "sky130_native": {
+          "status": "PASS",
+          "scope": "Generic SKY130 AL-backend FEOL, BEOL and off-grid geometry on the exact final GDS. Block context: seal checking is deferred to complete-chip qualification. The deck floating-metal option is off; Studio device-root connectivity and LVS remain separate obligations. SRAM_EXCLUDE is false, but upstream built-in cell filters remain. Density, antenna, LVS, special-device coverage and full signoff are not established by this report.",
+          "artifact": "sky130_native",
+          "qualified": false,
+          "categories": 255,
+          "markers": 0,
+          "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1"
+        },
+        "sky130_rules": {
+          "status": "reviewed-profiles-pass",
+          "scope": "Six reviewed drawn-mask geometry/connectivity profiles and the 601-row periphery ledger. This is partial coverage: native decks, full antenna, density, error-catalog reconciliation, device/body LVS and electrical acceptance remain separate. SKY130 signoff is not qualified.",
+          "artifact": "sky130_rules",
+          "qualified": false,
+          "coverage": {
+            "rows": 601,
+            "counts": {
+              "execution-review-required": 28,
+              "upstream-na": 77,
+              "executed-reviewed": 133,
+              "absent-operand": 273,
+              "advisory": 28,
+              "definition-required": 1,
+              "other-backend": 61
+            },
+            "complete": false
+          }
+        },
+        "sky130_density": {
+          "status": "surrounding-layout-required",
+          "scope": "Mandatory project density policy for every new SKY130 HD Finish, independent of the fill-generation setting. Both retained public growth profiles must pass every full 700 um window, stepped 70 um from independently captured layout bounds. Clipped observations are diagnostic. A block without full windows requires surrounding layout and receives no density acceptance. These public profiles do not establish foundry applicability, final-mask density, metal-5 density, complete-chip boundaries or complete physical qualification.",
+          "artifact": "sky130_density",
+          "qualified": false,
+          "acceptance_established": false,
+          "full_windows": 0
+        },
+        "sky130_lvs": {
+          "status": "PASS",
+          "scope": "Local final-GDS device, body and boundary-port connectivity against an independent final-OpenDB and reviewed HD CDL reference. Four-terminal 1.8 V NMOS/PMOS and the independently referenced diode_2 antenna cell are compared, including dimensions. Port labels are encoded on a mask-identical copy; pin annotations are not conductors. No blanket supply ties, port equivalences or device blackboxes. This does not establish complete device-family, density, parasitic, electrical, complete-chip or foundry qualification.",
+          "artifact": "sky130_lvs",
+          "qualified": false,
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            }
+          }
+        },
+        "sky130_antenna": {
+          "status": "PASS",
+          "scope": "Thirteen staged antenna checks on the captured SKY130 five-metal HD MOS layout. The reviewed supplemental deck retains its published met5 description discrepancy. Other devices, process options, complete physical coverage and foundry signoff remain unqualified.",
+          "artifact": "sky130_antenna",
+          "qualified": false,
+          "stages": 13
+        },
+        "sky130_isolation": {
+          "status": "NOT_REQUESTED",
+          "scope": "SKY130 x.29: C3 NFET gate containment in drawn deep nwell when explicitly requested. Bulk mode retains measurements as NOT_REQUESTED. Other well rules, body connectivity, electrical checks and complete physical qualification remain separate.",
+          "artifact": "sky130_isolation",
+          "qualified": false,
+          "enforced": false,
+          "measurement": {
+            "top": "counter",
+            "nfet_gates": 156,
+            "pfet_gates": 156,
+            "dnwell_polygons": 0,
+            "raw_dnwell_shapes": 0,
+            "raw_dnwell_texts": 0,
+            "nfet_not_contained": 156,
+            "outside_examples_nm": [
+              [
+                20640,
+                97265,
+                20790,
+                97685
+              ],
+              [
+                20645,
+                92715,
+                20795,
+                93135
+              ],
+              [
+                21070,
+                97265,
+                21220,
+                97685
+              ],
+              [
+                21155,
+                92715,
+                21655,
+                93365
+              ],
+              [
+                21500,
+                97265,
+                21650,
+                97685
+              ],
+              [
+                21930,
+                97265,
+                22080,
+                97685
+              ],
+              [
+                22360,
+                97265,
+                22510,
+                97685
+              ],
+              [
+                22455,
+                92715,
+                22955,
+                93365
+              ],
+              [
+                22485,
+                98155,
+                22635,
+                98575
+              ],
+              [
+                22790,
+                97265,
+                22940,
+                97685
+              ],
+              [
+                22935,
+                91595,
+                23085,
+                92245
+              ],
+              [
+                22995,
+                98155,
+                23495,
+                98805
+              ],
+              [
+                23220,
+                97265,
+                23370,
+                97685
+              ],
+              [
+                23280,
+                92715,
+                23430,
+                93135
+              ],
+              [
+                23355,
+                91595,
+                23505,
+                92245
+              ],
+              [
+                23650,
+                97265,
+                23800,
+                97685
+              ],
+              [
+                24080,
+                97265,
+                24230,
+                97685
+              ],
+              [
+                24295,
+                98155,
+                24795,
+                98805
+              ],
+              [
+                24315,
+                91825,
+                24465,
+                92245
+              ],
+              [
+                24510,
+                97265,
+                24660,
+                97685
+              ]
+            ]
+          }
+        }
+      },
+      "density_sha256": "73d4e17d97d806eff7d1072f84208bd3954db3b4cfdf6a5ed272c78afc8712f1",
+      "elapsed_seconds": 131.02258378199997
+    },
+    "large-unfilled": {
+      "schema": 1,
+      "status": "PASS",
+      "case": "large-unfilled",
+      "fill_enabled": false,
+      "qualified": false,
+      "chunk_complete": false,
+      "driver_sha256": "d74c90d65bf82f1fdd157f66c5d191c3044b5870b0aef6a98b135df08767871e",
+      "input_sha256": "880dfa20e40f656a2c57e52cae0cfbb29575939c650afaf12088f01753766ee0",
+      "expected_rejection": "SKY130 density: a full public density window is below 80%; inspect sky130-density/report.json",
+      "density": {
+        "status": "FAIL",
+        "full_windows": 9,
+        "full_window_findings": 72,
+        "qualified": false,
+        "acceptance_established": false
+      },
+      "density_sha256": "e3c4f9d5362db11a83a4afa3485442e0c08658a154d3c6644d3cb27b0659d5da",
+      "elapsed_seconds": 288.914377495
+    },
+    "large-filled": {
+      "schema": 1,
+      "status": "PASS",
+      "case": "large-filled",
+      "fill_enabled": true,
+      "qualified": false,
+      "chunk_complete": false,
+      "driver_sha256": "d74c90d65bf82f1fdd157f66c5d191c3044b5870b0aef6a98b135df08767871e",
+      "input_sha256": "35f016df316979151367341c5b4fe1840651a395de3ff22672b25ed1184f606d",
+      "density": {
+        "status": "sampled-full-windows-pass",
+        "full_windows": 9,
+        "full_window_findings": 0,
+        "qualified": false,
+        "acceptance_established": false
+      },
+      "result_sha256": "8f63042cfe744f29e589b883cd3f5804edecd3a5f5ca90eabe0d2b4c30e0d29c",
+      "macro_sha256": "bda154ef4a0ee97c3364c4bff44934d4a3b5019d636f605ba03a02995bf4a7de",
+      "qualification": {
+        "physical_stage": "finish",
+        "drc": "Not qualified by this export",
+        "lvs": "Strict captured SKY130 HD device/body/port comparison passed; see sky130_lvs scope.",
+        "physical_checks": {
+          "status": "PASS",
+          "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks. Logic inputs require positive gate area; declared CORE ANTENNACELL inputs require positive diffusion area, retained separately in the coverage report.",
+          "artifact": "physical_checks"
+        },
+        "abstract_timing_model": null,
+        "scope": "LEF/GDS geometry with the actual gate netlist and captured SPEF. No characterized macro Liberty model is implied.",
+        "sky130_native": {
+          "status": "PASS",
+          "scope": "Generic SKY130 AL-backend FEOL, BEOL and off-grid geometry on the exact final GDS. Block context: seal checking is deferred to complete-chip qualification. The deck floating-metal option is off; Studio device-root connectivity and LVS remain separate obligations. SRAM_EXCLUDE is false, but upstream built-in cell filters remain. Density, antenna, LVS, special-device coverage and full signoff are not established by this report.",
+          "artifact": "sky130_native",
+          "qualified": false,
+          "categories": 255,
+          "markers": 0,
+          "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1"
+        },
+        "sky130_rules": {
+          "status": "reviewed-profiles-pass",
+          "scope": "Six reviewed drawn-mask geometry/connectivity profiles and the 601-row periphery ledger. This is partial coverage: native decks, full antenna, density, error-catalog reconciliation, device/body LVS and electrical acceptance remain separate. SKY130 signoff is not qualified.",
+          "artifact": "sky130_rules",
+          "qualified": false,
+          "coverage": {
+            "rows": 601,
+            "counts": {
+              "execution-review-required": 28,
+              "upstream-na": 77,
+              "executed-reviewed": 133,
+              "absent-operand": 273,
+              "advisory": 28,
+              "definition-required": 1,
+              "other-backend": 61
+            },
+            "complete": false
+          }
+        },
+        "sky130_density": {
+          "status": "sampled-full-windows-pass",
+          "scope": "Mandatory project density policy for every new SKY130 HD Finish, independent of the fill-generation setting. Both retained public growth profiles must pass every full 700 um window, stepped 70 um from independently captured layout bounds. Clipped observations are diagnostic. A block without full windows requires surrounding layout and receives no density acceptance. These public profiles do not establish foundry applicability, final-mask density, metal-5 density, complete-chip boundaries or complete physical qualification.",
+          "artifact": "sky130_density",
+          "qualified": false,
+          "acceptance_established": false,
+          "full_windows": 9
+        },
+        "sky130_fill": {
+          "status": "generated-and-checked",
+          "scope": "Local metal fill on the five-metal SKY130A HD stack. Every exported fill rectangle is compared with the implementation database; widths, area, spacing, grid and signal clearance are independently checked. Full 700 um windows use the two retained public 80% grown-metal profiles. Smaller blocks require surrounding layout; clipped edge observations are diagnostic. This is not complete density, generated-mask, electrical or foundry signoff. Routed OpenRCX SPEF is retained, but floating-fill coupling has not been qualified.",
+          "artifact": "sky130_fill",
+          "qualified": false,
+          "density_status": "sampled-full-windows-pass",
+          "full_windows": 9
+        },
+        "sky130_lvs": {
+          "status": "PASS",
+          "scope": "Local final-GDS device, body and boundary-port connectivity against an independent final-OpenDB and reviewed HD CDL reference. Four-terminal 1.8 V NMOS/PMOS and the independently referenced diode_2 antenna cell are compared, including dimensions. Port labels are encoded on a mask-identical copy; pin annotations are not conductors. No blanket supply ties, port equivalences or device blackboxes. This does not establish complete device-family, density, parasitic, electrical, complete-chip or foundry qualification.",
+          "artifact": "sky130_lvs",
+          "qualified": false,
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102,
+                "sky130_fd_pr__diode_pw2nd_05v5": 1
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102,
+                "sky130_fd_pr__diode_pw2nd_05v5": 1
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            }
+          }
+        },
+        "sky130_antenna": {
+          "status": "PASS",
+          "scope": "Thirteen staged antenna checks on the captured SKY130 five-metal HD MOS layout. The reviewed supplemental deck retains its published met5 description discrepancy. Other devices, process options, complete physical coverage and foundry signoff remain unqualified.",
+          "artifact": "sky130_antenna",
+          "qualified": false,
+          "stages": 13
+        },
+        "sky130_isolation": {
+          "status": "NOT_REQUESTED",
+          "scope": "SKY130 x.29: C3 NFET gate containment in drawn deep nwell when explicitly requested. Bulk mode retains measurements as NOT_REQUESTED. Other well rules, body connectivity, electrical checks and complete physical qualification remain separate.",
+          "artifact": "sky130_isolation",
+          "qualified": false,
+          "enforced": false,
+          "measurement": {
+            "top": "counter",
+            "nfet_gates": 156,
+            "pfet_gates": 156,
+            "dnwell_polygons": 0,
+            "raw_dnwell_shapes": 0,
+            "raw_dnwell_texts": 0,
+            "nfet_not_contained": 156,
+            "outside_examples_nm": [
+              [
+                792060,
+                408235,
+                792210,
+                408655
+              ],
+              [
+                792490,
+                408235,
+                792640,
+                408655
+              ],
+              [
+                792920,
+                408235,
+                793070,
+                408655
+              ],
+              [
+                793350,
+                408235,
+                793500,
+                408655
+              ],
+              [
+                793780,
+                408235,
+                793930,
+                408655
+              ],
+              [
+                794210,
+                408235,
+                794360,
+                408655
+              ],
+              [
+                794640,
+                408235,
+                794790,
+                408655
+              ],
+              [
+                795070,
+                408235,
+                795220,
+                408655
+              ],
+              [
+                795275,
+                407345,
+                795425,
+                407765
+              ],
+              [
+                795500,
+                408235,
+                795650,
+                408655
+              ],
+              [
+                795695,
+                407345,
+                795845,
+                407765
+              ],
+              [
+                795930,
+                408235,
+                796080,
+                408655
+              ],
+              [
+                796195,
+                412785,
+                796345,
+                413205
+              ],
+              [
+                796360,
+                408235,
+                796510,
+                408655
+              ],
+              [
+                796615,
+                412785,
+                796765,
+                413205
+              ],
+              [
+                796635,
+                407345,
+                796785,
+                407765
+              ],
+              [
+                796790,
+                408235,
+                796940,
+                408655
+              ],
+              [
+                797195,
+                407405,
+                797345,
+                407765
+              ],
+              [
+                797215,
+                408235,
+                797365,
+                408655
+              ],
+              [
+                797555,
+                412785,
+                797705,
+                413205
+              ]
+            ]
+          }
+        }
+      },
+      "density_sha256": "56ec9d3514407acebc63ec1871937c10b66e9127e6bb99491c96a0c8119150e1",
+      "elapsed_seconds": 752.498222662
+    }
+  },
+  "windows": {
+    "small-unfilled": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "platform": "win32",
+      "result_sha256": "535b9cfb958f71d6d0ddead0ec18e60ab644f256ed7d3e3393dd427e9b48a696",
+      "driver_sha256": "2e7a9ee65ee4148ea7b3647d8089dd8640d438101198b03e426dfc2981a64a89",
+      "case": "small-unfilled",
+      "top": "counter",
+      "macro_sha256": "958eebfb9f459cd83b797631d15fb606dc5774ad20f6279c45479cd19cc8a174",
+      "relocated_artifacts": 290,
+      "all_hashes_verified": true,
+      "rehashed_density_rejected": true,
+      "density": {
+        "status": "surrounding-layout-required",
+        "scope": "Mandatory project density policy for every new SKY130 HD Finish, independent of the fill-generation setting. Both retained public growth profiles must pass every full 700 um window, stepped 70 um from independently captured layout bounds. Clipped observations are diagnostic. A block without full windows requires surrounding layout and receives no density acceptance. These public profiles do not establish foundry applicability, final-mask density, metal-5 density, complete-chip boundaries or complete physical qualification.",
+        "artifact": "sky130_density",
+        "qualified": false,
+        "acceptance_established": false,
+        "full_windows": 0
+      },
+      "elapsed_seconds": 8.547000000005937
+    },
+    "large-filled": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "platform": "win32",
+      "result_sha256": "8f63042cfe744f29e589b883cd3f5804edecd3a5f5ca90eabe0d2b4c30e0d29c",
+      "driver_sha256": "2e7a9ee65ee4148ea7b3647d8089dd8640d438101198b03e426dfc2981a64a89",
+      "case": "large-filled",
+      "top": "counter",
+      "macro_sha256": "716b41169bf5b423dfa4c5de2dc1e032411980e2a45d6472975304ea6456796f",
+      "relocated_artifacts": 300,
+      "all_hashes_verified": true,
+      "rehashed_density_rejected": true,
+      "density": {
+        "status": "sampled-full-windows-pass",
+        "scope": "Mandatory project density policy for every new SKY130 HD Finish, independent of the fill-generation setting. Both retained public growth profiles must pass every full 700 um window, stepped 70 um from independently captured layout bounds. Clipped observations are diagnostic. A block without full windows requires surrounding layout and receives no density acceptance. These public profiles do not establish foundry applicability, final-mask density, metal-5 density, complete-chip boundaries or complete physical qualification.",
+        "artifact": "sky130_density",
+        "qualified": false,
+        "acceptance_established": false,
+        "full_windows": 9
+      },
+      "elapsed_seconds": 234.28100000000268
+    }
+  },
+  "tests": {
+    "win32": {
+      "status": "PASS",
+      "platform": "win32",
+      "tests": 241,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 8,
+      "skip_reasons": [
+        {
+          "test": "test_builder_normalizes_docker_system_links_before_publication (tests.test_digital_runtime.DigitalRuntimeTests.test_builder_normalizes_docker_system_links_before_publication)",
+          "reason": "Native tar symlink extraction is tested on Linux"
+        },
+        {
+          "test": "test_legacy_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_legacy_cleanup_rejects_symlinked_directory_and_parent)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_native_flow_restores_scripts_after_windows_transfer (tests.test_digital_runtime.DigitalRuntimeTests.test_native_flow_restores_scripts_after_windows_transfer)",
+          "reason": "Unix executable permissions are restored inside Linux"
+        },
+        {
+          "test": "test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_native_supervisor_cancels_descendants_in_separate_sessions (tests.test_digital_runtime.DigitalRuntimeTests.test_native_supervisor_cancels_descendants_in_separate_sessions)",
+          "reason": "Process-tree supervision requires Linux procfs"
+        },
+        {
+          "test": "test_partial_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_cleanup_rejects_symlinked_directory_and_parent)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_retry_reclaims_partial_unpacking_after_worker_is_killed (tests.test_digital_runtime.DigitalRuntimeTests.test_retry_reclaims_partial_unpacking_after_worker_is_killed)",
+          "reason": "Native Linux unpacking lifecycle"
+        },
+        {
+          "test": "test_linked_decks_are_materialized_before_sibling_platforms_are_pruned (tests.test_digital_bundle.DigitalBundleTests.test_linked_decks_are_materialized_before_sibling_platforms_are_pruned)",
+          "reason": "Real symlinks are verified by the native Linux build"
+        }
+      ],
+      "modules": [
+        "tests.test_sky130_application_density",
+        "tests.test_sky130_application_lvs",
+        "tests.test_sky130_lvs",
+        "tests.test_sky130_diode_lvs",
+        "tests.test_sky130_fill",
+        "tests.test_sky130_oxide_density",
+        "tests.test_sky130_native",
+        "tests.test_digital_macro",
+        "tests.test_digital_runtime",
+        "tests.test_windows_digital_paths",
+        "tests.test_digital_physical_checks",
+        "tests.test_sky130_digital_builder",
+        "tests.test_digital_bundle",
+        "tests.test_sky130_application_antenna",
+        "tests.test_sky130_application_rules",
+        "tests.test_sky130_boundaries",
+        "tests.test_sky130_pins"
+      ],
+      "driver_sha256": "9599b0f5c6e8703f0390358724f3803b35f4a0f37701334c3957295d330929ea",
+      "log_sha256": "bc1a30256dbbe9b921857ef4819082240d905989c05925b35a902318d9e595d4",
+      "elapsed_seconds": 138.39100000000326
+    },
+    "linux": {
+      "status": "PASS",
+      "platform": "linux",
+      "tests": 241,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 5,
+      "skip_reasons": [
+        {
+          "test": "test_native_setup_rejects_junction_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_junction_target_and_parent_before_integrity_repair)",
+          "reason": "Directory junctions are Windows-specific"
+        },
+        {
+          "test": "test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions)",
+          "reason": "Directory junctions are Windows-specific"
+        },
+        {
+          "test": "test_capture_reopen_and_tamper_detection_beyond_legacy_limit (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_capture_reopen_and_tamper_detection_beyond_legacy_limit)",
+          "reason": "Windows extended-length filesystem paths"
+        },
+        {
+          "test": "test_path_conversion_preserves_unc_and_existing_extended_paths (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_path_conversion_preserves_unc_and_existing_extended_paths)",
+          "reason": "Windows extended-length filesystem paths"
+        },
+        {
+          "test": "test_upstream_transfer_keeps_all_nested_artifacts (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_upstream_transfer_keeps_all_nested_artifacts)",
+          "reason": "Windows extended-length filesystem paths"
+        }
+      ],
+      "modules": [
+        "tests.test_sky130_application_density",
+        "tests.test_sky130_application_lvs",
+        "tests.test_sky130_lvs",
+        "tests.test_sky130_diode_lvs",
+        "tests.test_sky130_fill",
+        "tests.test_sky130_oxide_density",
+        "tests.test_sky130_native",
+        "tests.test_digital_macro",
+        "tests.test_digital_runtime",
+        "tests.test_windows_digital_paths",
+        "tests.test_digital_physical_checks",
+        "tests.test_sky130_digital_builder",
+        "tests.test_digital_bundle",
+        "tests.test_sky130_application_antenna",
+        "tests.test_sky130_application_rules",
+        "tests.test_sky130_boundaries",
+        "tests.test_sky130_pins"
+      ],
+      "driver_sha256": "9599b0f5c6e8703f0390358724f3803b35f4a0f37701334c3957295d330929ea",
+      "log_sha256": "6cbad13675faec3f4525fc8976c0c3f2816e0edea0df615de76b7e006d35b5ce",
+      "elapsed_seconds": 83.60967826699999
+    }
+  },
+  "replay": {
+    "win32": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "platform": "win32",
+      "cases": [
+        {
+          "revision": "retained",
+          "design": "counter",
+          "gds_sha256": "d6ce4e65ead7e6c9f974757449a195574707527bf4986474f51aabd508b1b6a5",
+          "density_sha256": "4bafe4a6b6d9ebfebdc1f96edebb43577ccfd1808ca27c21bf1031e8bc30876d",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "retained",
+          "design": "uart",
+          "gds_sha256": "4542d56b9cd3759b9a85bc59e78fc9904eb8483ccd6338d4eeda592f822a407b",
+          "density_sha256": "b6f173426218d82873c3246929a0203c0786e160f4b20dce8fe42cadd6b071ab",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "retained",
+          "design": "apb",
+          "gds_sha256": "cb743e00b4a1c90ecb3a8e961c1eee6bde859e7ec66d2b1054c36b65263c6953",
+          "density_sha256": "460c3441509f426d21ba83fb471081ad309b86b6cb5a90bacc364013ce7332e7",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "pvt",
+          "design": "counter",
+          "gds_sha256": "f1c6cf20b39a2686eec4813b91745244240177f47864d72b54e4e63bc25ca304",
+          "density_sha256": "b03def892859a661fe14726eba618830532ce98e9a952df72440f735070371d0",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "pvt",
+          "design": "uart",
+          "gds_sha256": "ca79d53f6b9ee45d00eba3dc91be4c41d329722c8b3530786ebe722e0de06e36",
+          "density_sha256": "59e15e5eacc5e6700dc0fad647f8db4f79713030526e67212ae2ac6c5a1ac79a",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "pvt",
+          "design": "apb",
+          "gds_sha256": "2d12393d2c2421735ad0e4aedb6f844d75f837bc8b6c0ece14c9edaf6259e3ee",
+          "density_sha256": "eabe383964351be681d47ca1b6dce2652131c0152c3b27edf0155b39d914a18a",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        }
+      ],
+      "driver_sha256": "1000d6ed5a2b4dbacdf5f5bc28dd18de92fc7b5c82f7fb881d98bc3c139c8c8f",
+      "elapsed_seconds": 26.155999999988126
+    },
+    "linux": {
+      "schema": 1,
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "platform": "linux",
+      "cases": [
+        {
+          "revision": "retained",
+          "design": "counter",
+          "gds_sha256": "d6ce4e65ead7e6c9f974757449a195574707527bf4986474f51aabd508b1b6a5",
+          "density_sha256": "37a036e1cb4f0b30fce7b026b9b63fbe2401de2f3269b0d47f8062717c68e785",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "retained",
+          "design": "uart",
+          "gds_sha256": "4542d56b9cd3759b9a85bc59e78fc9904eb8483ccd6338d4eeda592f822a407b",
+          "density_sha256": "091f7a8c87a5c19cbc696e1d5140dc87227fcf11472841c0812e581c2310f6d3",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "retained",
+          "design": "apb",
+          "gds_sha256": "cb743e00b4a1c90ecb3a8e961c1eee6bde859e7ec66d2b1054c36b65263c6953",
+          "density_sha256": "5e59c27f28581c107b8f0188dd5f00a828b3706bdbb7566ecbefbff7f60c7b40",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "pvt",
+          "design": "counter",
+          "gds_sha256": "f1c6cf20b39a2686eec4813b91745244240177f47864d72b54e4e63bc25ca304",
+          "density_sha256": "0f9b8b0d3285255000732438080f171bd5c94ebbb1479bb9fadbce6e26efa78a",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "pvt",
+          "design": "uart",
+          "gds_sha256": "ca79d53f6b9ee45d00eba3dc91be4c41d329722c8b3530786ebe722e0de06e36",
+          "density_sha256": "d7bca86e192131a976d8779bc16309ba7c00f2ecf6877b841c4b3594b63c6a54",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        },
+        {
+          "revision": "pvt",
+          "design": "apb",
+          "gds_sha256": "2d12393d2c2421735ad0e4aedb6f844d75f837bc8b6c0ece14c9edaf6259e3ee",
+          "density_sha256": "7e2e34f8003b4dd12461517e0dbebf137a34120b53ab0cf33c7eb8cc947db46c",
+          "status": "surrounding-layout-required",
+          "full_windows": 0
+        }
+      ],
+      "driver_sha256": "1000d6ed5a2b4dbacdf5f5bc28dd18de92fc7b5c82f7fb881d98bc3c139c8c8f",
+      "elapsed_seconds": 21.253381768000025
+    }
+  },
+  "cross_platform": [
+    {
+      "revision": "retained",
+      "design": "counter",
+      "identical_measurements": true
+    },
+    {
+      "revision": "retained",
+      "design": "uart",
+      "identical_measurements": true
+    },
+    {
+      "revision": "retained",
+      "design": "apb",
+      "identical_measurements": true
+    },
+    {
+      "revision": "pvt",
+      "design": "counter",
+      "identical_measurements": true
+    },
+    {
+      "revision": "pvt",
+      "design": "uart",
+      "identical_measurements": true
+    },
+    {
+      "revision": "pvt",
+      "design": "apb",
+      "identical_measurements": true
+    }
+  ],
+  "retained_diagnostics": [
+    "Initial native harness used the unadapted source ORFS flow and failed before physical execution on missing /utils.mk; the final runs use the previously tested runtime flow.",
+    "Initial Windows export used the sandbox temporary directory and could not write a temporary LVS file. The final exports use the writable qualification temporary directory."
+  ],
+  "public_request": {
+    "posted": false,
+    "state": "cancelled-by-user",
+    "reason": "The initially approved fork has issues disabled. The user declined posting to its upstream repository and instructed that nothing be posted."
+  },
+  "remaining": [
+    "Complete applicability for the approved generic block/transistor profile remains open; historical 302 catalog records are unchanged.",
+    "Published x.20 pin-center spacing still lacks a numeric definition. No arbitrary substitute is used.",
+    "The named public density profiles do not resolve final-mask construction, metal-5 policy or complete-chip boundaries. Small blocks still require surrounding-layout verification."
+  ],
+  "archive": {
+    "relative_to_codex_documents": "IC-Design-Studio-evidence/sky130-density-gate-2026-10-16/evidence.zip",
+    "sha256": "20db9d0ec6547c4d0dca294cba53d948ed87312de66d8acff4fe3286493ee704",
+    "bytes": 121937458,
+    "entries": 214,
+    "manifest_sha256": "a3e22dd0236a6fd29219f82766530683c84fbe0cba9c84b73c77e389fb4501fe",
+    "readback": "Every archive entry size and SHA-256 verified after writing"
+  }
+}

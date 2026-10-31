@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "scope": "Unmodified written masks and native Magic extraction from the failed rectangular pilot; test inputs, not acceptance.",
+  "source_archive": "sky130-mim2-layouts-2026-10-22-v1/evidence.zip",
+  "archive_sha256": "8632f7c8762fba274a26a172d38f7f4abb792284bb5e6968a39c56b919dea153",
+  "cases": [
+    {
+      "name": "1-0",
+      "dimensions_um": [
+        2,
+        10
+      ],
+      "angle": 0,
+      "coordinate_nm": 10,
+      "files": {
+        "layout.gds": "ceb896b62872c2853cfd14b637d1cd43d5413df7af2dd4a39d413e30d6ca2e3f",
+        "device_coupon.ext": "542158fdcf4326279e1272f2f2e62be77f7a759386d56cfc755723788daf58bf"
+      }
+    },
+    {
+      "name": "1-90",
+      "dimensions_um": [
+        2,
+        10
+      ],
+      "angle": 90,
+      "coordinate_nm": 10,
+      "files": {
+        "layout.gds": "c6b5bda9c64392c42ea56827b6f8f7032d277eb4c9409579717143592e38567a",
+        "device_coupon.ext": "4c3862ad9c874dfbf62ab8b754f56ccf081e935cd49da2891472e59b9286b5ff"
+      }
+    },
+    {
+      "name": "2-0",
+      "dimensions_um": [
+        10,
+        2
+      ],
+      "angle": 0,
+      "coordinate_nm": 10,
+      "files": {
+        "layout.gds": "6f8330e26d9a8c38b217ff0c5907303dd5845cce6b13b357fcaca15150de4a4d",
+        "device_coupon.ext": "66f71b77e292e7896ad4cdc9352c7801aa6c20dfd10de7d5f66429c6eca58fda"
+      }
+    },
+    {
+      "name": "2-90",
+      "dimensions_um": [
+        10,
+        2
+      ],
+      "angle": 90,
+      "coordinate_nm": 10,
+      "files": {
+        "layout.gds": "85662823979b70442e56492a42416e641040fd1fad4a118de2c13fef5694b183",
+        "device_coupon.ext": "25e07fc4efa6bf3921042ce398da1da9b9d2e4a6f7074e7a6c639d4479c27209"
+      }
+    },
+    {
+      "name": "3-0",
+      "dimensions_um": [
+        3.005,
+        5.005
+      ],
+      "angle": 0,
+      "coordinate_nm": 5,
+      "files": {
+        "layout.gds": "4f4179bb0188e11bedb49048ec210306302ecf94da1c6d9247675d9d13900b63",
+        "device_coupon.ext": "a79ecabf5e726b593d07127636d9dfab43afc78511618f1ff60274b33dcedd0e"
+      }
+    },
+    {
+      "name": "3-90",
+      "dimensions_um": [
+        3.005,
+        5.005
+      ],
+      "angle": 90,
+      "coordinate_nm": 5,
+      "files": {
+        "layout.gds": "1e1321422ac49160101525077db07ad7fbfd190b95ebfb722a32b854a2482c26",
+        "device_coupon.ext": "0885d5238bbaa63e5546e07279f2d846dd5378fe287c3a3179397327dfaa06a9"
+      }
+    }
+  ]
+}

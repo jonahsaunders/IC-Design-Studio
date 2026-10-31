@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Three original-footprint SKY130 HD remote-fill candidates, full enabled native geometry, selected antenna stages, partial manual checks, diode-inclusive connectivity, exact nominal native circuit invariance and cross-OS readback. Not complete required-rule, application or tapeout acceptance.",
+  "source_files": {
+    "scripts/sky130_fill_geometry.py": "6dc6eb2baa4f14e32667f8b9e3bb1927df3957095c048562d1809213f1b683d7",
+    "scripts/sky130_raw_feol.py": "5e3dc7a2e2acf2fe214c819ab305bec30487197b6e8f06be81fddc43aa03bbdb",
+    "scripts/sky130_block_applicability.py": "ab5246ed227615f339b010b505d72c9f82adbeb184281626de360fb634d6dae5",
+    "scripts/check_sky130_circuit_invariance.py": "893682f0d08f1b85521d91cd94dde4d118c55c756c0ba856d6ef36f9b6e38706",
+    "scripts/sky130_diode_lvs.py": "fcc94a5d7c3c82bba988323df74370bd6eca60bffdc91a455e1fb92daffcd0fb",
+    "scripts/sky130_lvs_reference.py": "505be1aedd0ac00623cd58618101744228395a247a45ece0fe46c1024753791d",
+    "scripts/check_sky130_lvs.py": "199744d6db2caeac6e4678934dc2b7a3958abacd48eb8811547414fd746cd80e",
+    "scripts/sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+    "tests/test_sky130_raw_feol.py": "7c57f5e44becb370812167cf773c3954f4163df0f0f138b05f24666effdfb68a",
+    "tests/test_sky130_block_applicability.py": "01297f49e0866e69b2e9ea1d94f3049e7e02e14a03601692bc7d95f4f266c941",
+    "tests/test_sky130_circuit_invariance.py": "756829ca473d218474deb04c280333a6ea0a06c52b2bbbb0931d09238803f2c0",
+    "tests/test_sky130_diode_lvs.py": "9ab0008120570ca3ff197fa8b3927fe096ea28aafadbfd8f6474a94f03baed4a"
+  },
+  "references": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "die_um": [
+        0,
+        0,
+        200,
+        200
+      ],
+      "reconstructed_decaps": 964,
+      "screening_density": {
+        "fom": 0.354991865,
+        "li": 0.451098084375,
+        "m1": 0.367101845,
+        "m2": 0.41770759,
+        "m3": 0.359317785,
+        "m4": 0.39260822,
+        "m5": 0.4662828,
+        "poly": 0.156757678125
+      },
+      "generation": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/counter-generation.json",
+        "sha256": "87c391742fca7e4da298a3907eb233803bb5701aebbb4ab4fec66eeefa4d8ab9"
+      },
+      "native_geometry": {
+        "klayout": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/counter-klayout.json",
+          "sha256": "ad404a11943e4dbf125051ec75ae5badaa4219c92986b6ffb819fbd57d569bdb"
+        },
+        "magic": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/counter-magic.json",
+          "sha256": "d93fbadd2498564504cd3c7182d04738827f3af5a2b3fbd4e6fdcf363a43a51f"
+        }
+      },
+      "antenna": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/counter-antenna.json",
+        "sha256": "1f4e401409f6002375e7e338e9a200d231c5c51dab5e8214f88b3800807a7659"
+      },
+      "diode_connectivity": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/counter-diode.json",
+        "sha256": "a65243ca97885bc4b502ff16149cee000978207f7669969a38707168c12bc952"
+      },
+      "native_circuit_capture": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/counter-circuit-capture.json",
+        "sha256": "4c4d19ec96f7ab4d92a87fd21ebabafd950d1869fe03e6b86881668fb3857532"
+      },
+      "manual_dispositions": {
+        "absent-operand": 106,
+        "advisory": 27,
+        "definition-required": 1,
+        "execution-review-required": 329,
+        "other-backend": 61,
+        "upstream-na": 77
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "die_um": [
+        0,
+        0,
+        400,
+        400
+      ],
+      "reconstructed_decaps": 7095,
+      "screening_density": {
+        "fom": 0.355003931875,
+        "li": 0.565844763125,
+        "m1": 0.368234368125,
+        "m2": 0.442060879375,
+        "m3": 0.37218908,
+        "m4": 0.411508945,
+        "m5": 0.45502095,
+        "poly": 0.29173502828125
+      },
+      "generation": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/uart-generation.json",
+        "sha256": "7c697f4ebeffcc39d5dd4c1e17ca5a097d87c0be72097d9ea74319f392007110"
+      },
+      "native_geometry": {
+        "klayout": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/uart-klayout.json",
+          "sha256": "12a4fa6d36af03f6d0c10b0e81311ceac73226c2d90bc3d0dc61794b076fafe7"
+        },
+        "magic": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/uart-magic.json",
+          "sha256": "6864d902542904c804b70670bce4b4cc027e71dfd7ce66676875b6b651cc471a"
+        }
+      },
+      "antenna": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/uart-antenna.json",
+        "sha256": "aa4c9691acf3894b54edecaa50ec84f25615002fe5bd6a7d48fdb3129648bbe7"
+      },
+      "diode_connectivity": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/uart-diode.json",
+        "sha256": "477429c01c8b08b5eba77a8c56453bbd4487e79cca3fc72bfa785fd03538d235"
+      },
+      "native_circuit_capture": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/uart-circuit-capture.json",
+        "sha256": "e39ea76bef79e71bf83be270f8b09239cf33a15601994a75e8e13b60da50f68b"
+      },
+      "manual_dispositions": {
+        "absent-operand": 106,
+        "advisory": 27,
+        "definition-required": 1,
+        "execution-review-required": 329,
+        "other-backend": 61,
+        "upstream-na": 77
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "die_um": [
+        0,
+        0,
+        400,
+        400
+      ],
+      "reconstructed_decaps": 7348,
+      "screening_density": {
+        "fom": 0.35499276375,
+        "li": 0.5614363865625,
+        "m1": 0.35704465953125,
+        "m2": 0.4168174840625,
+        "m3": 0.353648574375,
+        "m4": 0.3943867096875,
+        "m5": 0.4601741625,
+        "poly": 0.30165000265625
+      },
+      "generation": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/apb-generation.json",
+        "sha256": "e6fe32b7bfb2787c9cbfd1064ecc6f241f124319a098bcd3385a531265326cc9"
+      },
+      "native_geometry": {
+        "klayout": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/apb-klayout.json",
+          "sha256": "fe8ddfd647dc0c86eb326e6b050fef9d1cd01b881d96107633c59d7b447962fc"
+        },
+        "magic": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/apb-magic.json",
+          "sha256": "d1e1689e107a4b587700224701cf6ba2f26dfe5abbcf336ec78dadc58a939837"
+        }
+      },
+      "antenna": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/apb-antenna.json",
+        "sha256": "8c7849b16af1a7fa4b5952817525f5c2b01f431e7fd42d1715c16b7e1b54fb03"
+      },
+      "diode_connectivity": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/apb-diode.json",
+        "sha256": "a75d06f4e6738cc912b6d3e47ecbb6bc50ba321a6638920c379163fe40c5d6a3"
+      },
+      "native_circuit_capture": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/apb-circuit-capture.json",
+        "sha256": "e4b30c7e2c004da2d1d04675d79c7ec88ed19b4d70ecc878787edc31a25dea31"
+      },
+      "manual_dispositions": {
+        "absent-operand": 106,
+        "advisory": 27,
+        "definition-required": 1,
+        "execution-review-required": 329,
+        "other-backend": 61,
+        "upstream-na": 77
+      }
+    }
+  ],
+  "audits": {
+    "physical": {
+      "data": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/physical-data.json",
+        "sha256": "6c782eb2f89d7ed4defb6a4bbe404697d606836a220dcab158f365ddf76bd98d"
+      },
+      "records": {
+        "win32": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/physical-win32.json",
+          "sha256": "b09f1aa918baa8b790a8564fb0f552f70e155490cb433777382451ffb3457ae9"
+        },
+        "linux": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/physical-linux.json",
+          "sha256": "ed837e87060d7445bd6e9e909a20907a348ba551940e33d1f4ef905d7604028c"
+        }
+      }
+    },
+    "circuit": {
+      "data": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/circuit-data.json",
+        "sha256": "6da191ab62b4fe82ec2a82e87bbb99077cab3704c0cdac7142c8008455f3f22d"
+      },
+      "records": {
+        "win32": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/circuit-win32.json",
+          "sha256": "08d1ba2a0327d94cf6dd98f5cbaea1d3d7da667c6676223bb0cf3cd5df5efcf9"
+        },
+        "linux": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/circuit-linux.json",
+          "sha256": "01cdc97a9531c69631a7a14c1b50cfd584d5c018b9b9fa90e024ef4755f8236e"
+        }
+      }
+    },
+    "diode": {
+      "data": {
+        "path": "docs/validation/sky130-fill-progress-2026-10-11/diode-data.json",
+        "sha256": "4c279c193fc5f533e7c7b193dc51fc4216de500450469ee8e4702bc4195ea210"
+      },
+      "records": {
+        "win32": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/diode-win32.json",
+          "sha256": "44c330892ad1c84719745f025a2be01134ffbde9e6dec62dc1f9d9c856bdebaf"
+        },
+        "linux": {
+          "path": "docs/validation/sky130-fill-progress-2026-10-11/diode-linux.json",
+          "sha256": "7df4a4ae8b6069f48ce54c9103f72c48422a943830b4fb77c367aee320d01fe1"
+        }
+      }
+    }
+  },
+  "native_density": {
+    "path": "docs/validation/sky130-fill-progress-2026-10-11/native-density.json",
+    "sha256": "5dbf426a11f4617287b25c3f4db2706fb2551edfcb9106d4bab14f1b9dffc343"
+  },
+  "tests": {
+    "win32": {
+      "path": "docs/validation/sky130-fill-progress-2026-10-11/regression-win32.json",
+      "sha256": "86ce072201029ed39d5364b82158a69d8e7d355a605133a3cef5bf741d3123fa"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-fill-progress-2026-10-11/regression-linux.json",
+      "sha256": "f0be1126feeead45ecb71a55897ede35ed9eacd38782ff99555004c7bf0f8954"
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-fill-progress-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0",
+    "bytes": 920448744,
+    "files": 1959,
+    "unique_blobs": 1399,
+    "manifest_sha256": "81f06b06441a6c9864cc93abcd90af2ab87b5658fef3a2953efcedb90c2da9b0",
+    "seconds": 162.43700000000536,
+    "scope": "SKY130 fill, failed attempts, final physical/native circuit checks, partial rule applicability and diode comparison. Not chunk 6 acceptance."
+  },
+  "resolved": [
+    "All final candidates pass the unchanged conservative eight-layer density screen on their original dies; native Magic measurements agree.",
+    "All original non-supply capacitance pairs, node resistance values and native device records are exact; new devices are supply-only decaps with individually explained native feedback.",
+    "The empty diode_2 CDL master is supplemented from a pinned independent library whose every polygon layer matches the installed cell. Five native diode faults are rejected, including explicit area and perimeter controls.",
+    "Windows and Linux independently reconstruct/read back the final geometry, native circuit and diode records with identical data hashes."
+  ],
+  "retained_failures": [
+    "Earlier dense counter fill changed circuit capacitance and is rejected for an unchanged-model handoff.",
+    "Intermediate clearance recipes failed density screening; final candidates are counter/UART v20 and APB v22.",
+    "Initial remote audit overapplied drawn-mask invariance to nonconducting body-pin annotations; the corrected audit records those annotation changes and still requires every actual mask unchanged within circuit clearance.",
+    "Initial diode extraction omitted explicit area comparison and incorrectly accepted an area fault. The corrected deck enables both dimensions and rejects all five faults."
+  ],
+  "remaining": [
+    "Reconcile every required periphery/error-catalog rule with executable semantics and controls; 329 periphery rows still require execution review.",
+    "Resolve the published x.20 IP_block pin-spacing row with missing numeric value and unit; do not invent an acceptance threshold.",
+    "Complete implant enclosure/butting-edge coverage and remaining density/window/oxide applicability for the selected block profile.",
+    "Complete final netlist equivalence, bound extracted timing, application integration and delivered Windows/Linux execution for the final fill recipe."
+  ],
+  "limits": [
+    "Native engines ran on Linux. Windows reconstruction/report audit is not fresh Windows native execution.",
+    "Exact nominal native invariance assumes ideal supplies; it is not distributed RC timing, power-integrity or independent field calibration.",
+    "Density screening is not complete foundry density qualification. Complete-chip context and device-family qualification remain later chunks."
+  ]
+}

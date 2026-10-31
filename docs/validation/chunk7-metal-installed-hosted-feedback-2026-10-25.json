@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "run": 40216848780,
+  "candidate": "38fccf7242bac4c86117982ce03c78dd07302cf2",
+  "base": "49c79957b4d6f4978127da612e167e5c75cda6b3",
+  "merge": "d60e46c1752c1b940bfc496b0983aebf0ce0f418",
+  "status": "success",
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40216848780",
+  "platforms": [
+    {
+      "platform": "Linux",
+      "status": "PASS",
+      "tests": 504,
+      "skips": 4,
+      "seconds": 89.364,
+      "source_bindings": 1377,
+      "source_report_sha256": "b0099803fd8c5b4523658362b9c355573f16ede3947df0171ea237f8274c4373",
+      "artifact_sha256": "0ec3148b979b59fec4f21c59f4515d9350462698e22ff255aab15356039849e9",
+      "artifact_bytes": 899220,
+      "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\metal-installed-hosted-2026-10-25-v1\\source-feedback-Linux-d60e46c.zip",
+      "merge_commit": "d60e46c1752c1b940bfc496b0983aebf0ce0f418",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 43.684
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.571
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.739
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.376
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.334
+        }
+      ]
+    },
+    {
+      "platform": "Windows",
+      "status": "PASS",
+      "tests": 504,
+      "skips": 15,
+      "seconds": 152.015,
+      "source_bindings": 1377,
+      "source_report_sha256": "f32b2599901b76ce4a34deca9e31311f41b949f4d3e6e779f4e1b4ce404a0f5a",
+      "artifact_sha256": "62b91d24e713612246d4cb723b7f42fdcc2757d64336591e1543fc85fbfd51b5",
+      "artifact_bytes": 750015,
+      "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\metal-installed-hosted-2026-10-25-v1\\source-feedback-Windows-d60e46c.zip",
+      "merge_commit": "d60e46c1752c1b940bfc496b0983aebf0ce0f418",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 87.063
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 5.156
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 34.344
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.734
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 12.094
+        }
+      ]
+    }
+  ],
+  "scope": "Hosted automatic synthetic-merge source feedback; not installed acceptance.",
+  "installed_acceptance": false,
+  "required_feedback": "success"
+}

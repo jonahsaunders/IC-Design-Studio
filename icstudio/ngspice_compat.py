@@ -13,7 +13,31 @@ import re
 from .model import atomic_write
 
 MARKER='* ICSTUDIO_DIODE_GEOMETRY_V1 scale=1e-6'
-MODELS={'sky130_fd_pr__diode_pw2nd_05v5','sky130_fd_pr__diode_pd2nw_05v5'}
+# Reviewed public level-3 models sharing the source template's legacy AREA
+# convention. Keep this explicit: RF names without definitions are not aliases.
+MODELS={'sky130_fd_pr__'+name for name in (
+    'diode_pw2nd_05v5','diode_pd2nw_05v5','diode_pd2nw_05v5_hvt',
+    'diode_pd2nw_05v5_lvt','diode_pd2nw_11v0','diode_pw2nd_05v5_lvt',
+    'diode_pw2nd_05v5_nvt','diode_pw2nd_11v0','model__parasitic__diode_ps2dn',
+    'model__parasitic__diode_ps2nw','model__parasitic__diode_pw2dn')}
+CATALOG_SYMBOLS={
+    'libs.tech/xschem/sky130_fd_pr/diode.sym':'700b3d49fe57f4b92ba990764b7e984444011170717d7c73fc68e401dfab0c2e',
+    'libs.tech/xschem/sky130_fd_pr/lvsdiode.sym':'87f6c533c1c63849ee93e8d58d468ba7612770ba18374a38d19c6d4b28fa6755'}
+
+
+def legacy_catalog(technology,binding):
+    """Recognize the exact locked public templates, including older projects.
+
+    Geometry convention comes from source identity and its declared template,
+    never from the size of the user's instance. Model verification remains the
+    caller's responsibility, as for every other catalog device.
+    """
+    if not binding:return False
+    source=binding.get('source');expected=CATALOG_SYMBOLS.get(source)
+    return bool(expected and technology.get('package_lock',{}).get('files',{}).get(source)==expected
+        and binding.get('prefix')=='D' and binding.get('model') in MODELS
+        and binding.get('emit_parameters')=={'area':'area'}
+        and binding.get('parameters',{}).get('area',{}).get('default')=='1e12')
 
 
 def legacy_symbol(attributes,properties_override=None):
@@ -94,6 +118,8 @@ def convert(text,mode):
 
 
 def prepare(text,executable,directory):
+    from .rf_runtime import enforce
+    enforce(text,executable,directory)
     if MARKER not in text:return text
     record=behavior(executable,directory)
     result,count=convert(text,record['mode'])

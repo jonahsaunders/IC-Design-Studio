@@ -1184,8 +1184,12 @@ style drc
  # For metal6 spacing to MiM cap, a regular spacing rule will
  # not suffice, because only unrelated metal6 should be
  # considered.
+ # IC Design Studio: isolate this traversal from native DRC tile marks.
+ # The same contact and metal sets are copied to fresh CIF planes first.
+ templayer icstudio_mim_contact_seed mimcc/m6
+ templayer icstudio_mim_top_metal (*metal6)/m6
  templayer metal6_connects_mimcap
-	bloat-all mimcc/m6 (*metal6)/m6
+	bloat-all icstudio_mim_contact_seed icstudio_mim_top_metal
 
  templayer metal6_spacing_to_mimcap metal6
 	and-not metal6_connects_mimcap

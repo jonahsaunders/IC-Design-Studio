@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "id": "sky130-metal-parallel-source-feedback-2026-10-26",
+  "status": "PASS",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "installed": false,
+  "release_ready": false,
+  "signoff": false,
+  "parent_candidate": "e3fa0cc60da18cee8359817bb5321923587abc50",
+  "source_bindings": 1386,
+  "scope": "Final combined Windows and native-Linux source feedback plus complete Linux unit discovery; separate from original native-array qualification and installed desktop acceptance.",
+  "source_binding": {
+    "current_files_match": true,
+    "windows_linux_equal": true,
+    "staged_archive_sha256": "35c45e72b54a29733b0bd4a7142b392d08d5de1460a9c6cd3b87e14dbe395cf6",
+    "native_snapshot_sha256": "ff67a633eb30c70ff729c88ef8fe4ca7e25af4e708856c95e59d2c8f0682fb90",
+    "native_snapshot_files": 6540,
+    "historical_linux_git_metadata": "65614924f125200db068d66669af6fe102c71e45",
+    "note": "Linux Git metadata is historical; every actual input is bound by the full snapshot and Windows source hashes."
+  },
+  "windows": {
+    "report_sha256": "970fab7b0c9418bf595c818e6f5c1961ec3defd8b5242bc6519f28d01962045c",
+    "tests": {
+      "tests": 550,
+      "seconds": 81.264,
+      "skipped": 16
+    },
+    "stages": [
+      {
+        "name": "unit-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 82.219
+      },
+      {
+        "name": "release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 5.422
+      },
+      {
+        "name": "menu-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 28.609
+      },
+      {
+        "name": "project-hub-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 7.875
+      },
+      {
+        "name": "metal-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 7.109
+      },
+      {
+        "name": "metal-resistor-parallel-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 28.328
+      }
+    ],
+    "seconds": 161.656,
+    "ordinary_user_prerequisites": "PASS"
+  },
+  "linux": {
+    "report_sha256": "238399e11408ec2b4f6a9bca2c8fe5ea05985131952fd78d67532d0145d01395",
+    "tests": {
+      "tests": 550,
+      "seconds": 21.927,
+      "skipped": 4
+    },
+    "stages": [
+      {
+        "name": "unit-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 22.971
+      },
+      {
+        "name": "release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 1.568
+      },
+      {
+        "name": "menu-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 22.625
+      },
+      {
+        "name": "project-hub-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 3.173
+      },
+      {
+        "name": "metal-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 4.627
+      },
+      {
+        "name": "metal-resistor-parallel-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 18.262
+      }
+    ],
+    "seconds": 74.948
+  },
+  "complete_linux_regression": {
+    "schema": 1,
+    "status": "PASS",
+    "command": [
+      "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+      "-B",
+      "-X",
+      "pycache_prefix=/var/tmp/icstudio-parallel-core-20261026-v1/absent-pycache",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "cwd": "/var/tmp/icstudio-mim-mm-20261024-v1/feedback-source",
+    "uid": 1000,
+    "source_manifest_sha256": "ff67a633eb30c70ff729c88ef8fe4ca7e25af4e708856c95e59d2c8f0682fb90",
+    "source_files": 6540,
+    "scope": "Complete native Linux source unit discovery; not installed desktop acceptance.",
+    "returncode": 0,
+    "seconds": 541.024247888,
+    "source_unchanged": true,
+    "pycache_created": false,
+    "log_sha256": "0397d14d8bb52d5d645461c43efa0b3cc902441bb8ea82ef3c6950942649dc4f",
+    "tests": {
+      "tests": 3725,
+      "seconds": 538.198,
+      "skipped": 61
+    }
+  },
+  "cleanup": {
+    "schema": 1,
+    "status": "PASS",
+    "deleted": [
+      {
+        "path": "/var/tmp/icstudio-metal-parallel-20261026-v1/pilot-v1",
+        "files": 2331,
+        "logical_bytes": 184144395
+      },
+      {
+        "path": "/var/tmp/icstudio-metal-parallel-20261026-v1/pilot-v2",
+        "files": 2505,
+        "logical_bytes": 204276775
+      },
+      {
+        "path": "/var/tmp/icstudio-metal-parallel-20261026-v1/pilot-v3",
+        "files": 2753,
+        "logical_bytes": 226704951
+      },
+      {
+        "path": "/var/tmp/icstudio-metal-parallel-20261026-v1/full-v1",
+        "files": 15103,
+        "logical_bytes": 2247993813
+      },
+      {
+        "path": "/var/tmp/icstudio-metal-parallel-20261026-v1/archive-restored",
+        "files": 15104,
+        "logical_bytes": 2247994063
+      },
+      {
+        "path": "/var/tmp/icstudio-metal-parallel-audit-20261026-v1/pilot-v3-controls",
+        "files": 2779,
+        "logical_bytes": 226751595
+      }
+    ],
+    "logical_bytes": 5337865592,
+    "archive_sha256": "e53c9af3171ff1778c8d961576b458e54ffc1a3e809509d0fc5ac6068d736d8c",
+    "all_deleted_files_matched_recovery": true,
+    "retained_archive_and_receipts_unchanged": true,
+    "scope": "Deleted six exact recoverable Linux output directories after archive/object/restore verification. No tools, PDKs or source fixture removed; no physical C: reclaim claim and no Windows administrator operation."
+  },
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-parallel-feedback-2026-10-26-v1/evidence.zip",
+    "sha256": "88b77a81e311ad2777a60b418f6b13a16e0fe5a6e2d450b4e543fc1e61840b52",
+    "bytes": 17284414,
+    "manifest_sha256": "ab3ffbd79ee838777647c1ed596e38940e43bee0d58b56c420ce9c048c378cc1",
+    "logical_files": 436,
+    "unique_objects": 378,
+    "logical_bytes": 270886457,
+    "all_objects_verified": true,
+    "recovered_reports_equal": true,
+    "source_originals_unchanged": true,
+    "windows_archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-parallel-feedback-2026-10-26-v1/evidence.zip"
+  }
+}

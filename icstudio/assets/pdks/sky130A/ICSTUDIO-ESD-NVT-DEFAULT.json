@@ -1,0 +1,12 @@
+{
+  "candidate_default": true,
+  "chunk_complete": false,
+  "default_promoted": false,
+  "device": "sky130_fd_pr/nfet_g5v0d10v5_nvt_esd.sym",
+  "optional_candidate_manifest_sha256": "5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a",
+  "predecessor_manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+  "qualified": false,
+  "schema": 1,
+  "scope": "Finite corrected ESD simulation binding only; no ESD rating, physical, family, or installed qualification.",
+  "status": "candidate-default-binding"
+}

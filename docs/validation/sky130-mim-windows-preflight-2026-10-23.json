@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "installed_acceptance": false,
+  "release_ready": false,
+  "scope": "Staged native Windows46 engine and frozen project Python/model integration preflight; no installed desktop, new physical geometry, complete runtime dependency closure, full operating-envelope or manufacturing acceptance.",
+  "known_linux47_issue": {
+    "source": "scripts/build_ngspice_runtime.py:correct_capacitor_multiplier",
+    "problem": "The pinned inpcom.c appends e9 to the evaluated nonlinear-capacitor multiplier text, making scientific/parameter expressions invalid (for example1.00000000e+00e9).",
+    "correction": "Explicit {(m)*1e9}, with nested braces converted to parentheses; retained original source/patch and unchanged PDK equations.",
+    "windows_conclusion": "This exact staged46 binary passes all tested multiplier semantics. Its correct observed behavior does not establish that it contains the identical47 source patch."
+  },
+  "engine": {
+    "path": "icstudio/assets/runtime/ngspice/ngspice.exe",
+    "version": "46",
+    "sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+    "runtime_identity_sha256": "9ca794d00520c503853a12f72ff9eeb0d0f17de2d7a29f9ac6f5d9933e5dba48"
+  },
+  "source": {
+    "files": 800,
+    "manifest_sha256": "bdd53e3ca8753d668b46f1a7a9f8fa2c7ad81938b955d970bcdbd0839ab24070",
+    "bias_producer_sha256": "e139903982ff732339c5e3debb2b07c5f838fca482418b7a0077287d24bc0a2a",
+    "bias_auditor_sha256": "37b1d69247502c7ac49d6718211c19ae9a936a2fc734151e43ca5abad8c7d69a",
+    "repository_mutations": []
+  },
+  "package": {
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "multiplier": {
+    "report_sha256": "e62144e5d8b2dad95c1d11f1e15f3fb92d8601532f3b4082bce0c43fa5c4c94d",
+    "biases_V": [
+      -0.5,
+      0,
+      0.5
+    ],
+    "forms": 7,
+    "frequency_points_per_bias": 26,
+    "current_values": 546,
+    "relative_tolerance": 1e-06,
+    "absolute_current_tolerance_A": 1e-14,
+    "status": "PASS"
+  },
+  "linked_preflight": {
+    "record_sha256": "a04caef354e46d6d5de6b15b2d3fa9232598efc94872276ecbbaa67f84606f64",
+    "files_manifest_sha256": "d3eb5aa1448d6330123ef235e7a5eb5be152041df41795742962eb806235dd11",
+    "selected_cases": [
+      "p1-tt-r0-b0",
+      "p1-tt-r0-bp5",
+      "p2-tt-r0-b0",
+      "p2-tt-r0-bp5"
+    ],
+    "op_points": 4,
+    "ac_samples": 32,
+    "bias_faults": 10,
+    "domain_rejections": 5,
+    "bias_invariance_comparisons": 2,
+    "elapsed_seconds": 131.795999999973,
+    "source_unchanged": true,
+    "runtime_unchanged": true,
+    "package_unchanged": true,
+    "retained_physical_unchanged": true
+  },
+  "historical_physical": {
+    "archive_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430",
+    "original_execution_root": "/var/tmp/icstudio-mim-passive-20261023-final-v1/native",
+    "original_qualification_sha256": "3051f4edeb041ee080210e72e86e86985c76c4f70c869e6990ceec2206da5c4c",
+    "original_manifest_sha256": "127e67064cd10d4c4670a5abc7aa47fabc41914ba64682854a59036db110187e",
+    "selected": [
+      "p1-r0",
+      "p2-r0"
+    ],
+    "fresh_physical_execution": false,
+    "scope": "Selected historical members and mask/native normalization proof verified; full original physical acceptance was not rerun or relabeled as fresh."
+  },
+  "independent_readback": {
+    "status": "PASS",
+    "findings": [],
+    "candidate": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+    "scope": "Independent retained-file and raw-data readback of staged Windows ngspice46/source integration only. Not installed desktop acceptance, new physical execution, full historical replay, complete voltage/corner/orientation envelope, or foundry signoff.",
+    "files_verified": 1614,
+    "frozen_source_files_bound_to_candidate_git_blobs": 800,
+    "staged_original_model_files_verified": 322,
+    "historical_files_verified": 68,
+    "historical_execution_root": "/var/tmp/icstudio-mim-passive-20261023-final-v1/native",
+    "historical_archive_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430",
+    "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+    "runtime_sha256": "9ca794d00520c503853a12f72ff9eeb0d0f17de2d7a29f9ac6f5d9933e5dba48",
+    "record_sha256": "a04caef354e46d6d5de6b15b2d3fa9232598efc94872276ecbbaa67f84606f64",
+    "source_manifest_sha256": "bdd53e3ca8753d668b46f1a7a9f8fa2c7ad81938b955d970bcdbd0839ab24070",
+    "files_manifest_sha256": "d3eb5aa1448d6330123ef235e7a5eb5be152041df41795742962eb806235dd11",
+    "contexts": 4,
+    "op_points": 4,
+    "ac_samples": 32,
+    "bias_faults": 10,
+    "domain_rejections": 5,
+    "unique_execution_titles": 18,
+    "bias_invariance_comparisons": 2,
+    "cases": [
+      {
+        "case": "p1-tt-r0-b0",
+        "bias_V": 0,
+        "op": {
+          "schematic": {
+            "P_V": 0.0,
+            "N_V": 0.0,
+            "differential_V": 0.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          },
+          "extracted": {
+            "P_V": 0.0,
+            "N_V": 0.0,
+            "differential_V": 0.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          },
+          "independent": {
+            "P_V": 0.0,
+            "N_V": 0.0,
+            "differential_V": 0.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          }
+        },
+        "expected_R_ohm": 0.29166107039751277,
+        "expected_C_F": 4.3942250000000005e-14,
+        "ac_samples": 8,
+        "bias_faults": 1
+      },
+      {
+        "case": "p1-tt-r0-bp5",
+        "bias_V": 5,
+        "op": {
+          "schematic": {
+            "P_V": 5.0,
+            "N_V": 0.0,
+            "differential_V": 5.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          },
+          "extracted": {
+            "P_V": 5.0,
+            "N_V": 0.0,
+            "differential_V": 5.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          },
+          "independent": {
+            "P_V": 5.0,
+            "N_V": 0.0,
+            "differential_V": 5.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          }
+        },
+        "expected_R_ohm": 0.29166107039751277,
+        "expected_C_F": 4.3942250000000005e-14,
+        "ac_samples": 8,
+        "bias_faults": 4
+      },
+      {
+        "case": "p2-tt-r0-b0",
+        "bias_V": 0,
+        "op": {
+          "schematic": {
+            "P_V": 0.0,
+            "N_V": 0.0,
+            "differential_V": 0.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          },
+          "extracted": {
+            "P_V": 0.0,
+            "N_V": 0.0,
+            "differential_V": 0.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          },
+          "independent": {
+            "P_V": 0.0,
+            "N_V": 0.0,
+            "differential_V": 0.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          }
+        },
+        "expected_R_ohm": 0.247658710066305,
+        "expected_C_F": 4.3942250000000005e-14,
+        "ac_samples": 8,
+        "bias_faults": 1
+      },
+      {
+        "case": "p2-tt-r0-bp5",
+        "bias_V": 5,
+        "op": {
+          "schematic": {
+            "P_V": 5.0,
+            "N_V": 0.0,
+            "differential_V": 5.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          },
+          "extracted": {
+            "P_V": 5.0,
+            "N_V": 0.0,
+            "differential_V": 5.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          },
+          "independent": {
+            "P_V": 5.0,
+            "N_V": 0.0,
+            "differential_V": 5.0,
+            "current_A": 0.0,
+            "return_current_A": 0.0
+          }
+        },
+        "expected_R_ohm": 0.247658710066305,
+        "expected_C_F": 4.3942250000000005e-14,
+        "ac_samples": 8,
+        "bias_faults": 4
+      }
+    ],
+    "native_simulator_rerun_by_reviewer": false,
+    "limitations": [
+      "Runtime file set and host captured; no complete loaded Windows system-DLL or Python-runtime closure claimed.",
+      "Schematic/extracted/independent netlists share the same public model wrappers; analytic RC comparison tests model integration, not measured silicon accuracy.",
+      "Selected positive contexts use tt, rotation0, 0 and +5V only; -5V and other corners/orientations remain outside this Windows preflight."
+    ],
+    "live_package_manifest_and_collection_rechecked": true,
+    "live_package_manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+    "live_package_assets_verified": 420
+  },
+  "observed_failure": {
+    "attempt": "electrical",
+    "kind": "one-off harness argument type",
+    "detail": "The first native OP completed, then check_deck received WindowsPath instead of its required path string. No simulator failure inferred. Fresh electrical-v2 passed after changing only the outside-repo harness argument to as_posix().",
+    "retained_in_archive": true
+  },
+  "archive": {
+    "status": "PASS",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-mim-windows-preflight-2026-10-23-v1\\evidence.zip",
+    "sha256": "cd25721467cad9d62905345906b1da48e82283da8818b2650d4918ff57252c99",
+    "manifest_sha256": "cd3968e405ceebf5eabe297c38260e8f88a775e14f4cb459931483523689eed0",
+    "files": 3174,
+    "new_objects": 385,
+    "archive_bytes": 1515227,
+    "logical_bytes": 168243963,
+    "prior": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-mim-passive-2026-10-23-v1\\evidence.zip",
+      "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+    },
+    "all_member_recovery_verified": true
+  },
+  "cleanup": {
+    "roots": [
+      {
+        "removed": true,
+        "windows_file_bytes": 83756809,
+        "files": 1537,
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mim-windows-preflight-20261023-v1\\electrical"
+      },
+      {
+        "removed": true,
+        "windows_file_bytes": 84257115,
+        "files": 1615,
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mim-windows-preflight-20261023-v1\\electrical-v2"
+      }
+    ],
+    "status": "PASS",
+    "scope": "Only archive-verified Windows preflight setup/output copies removed; compact metadata and multiplier raw data retained. No Windows administrator access.",
+    "windows_file_bytes": 168013924.0,
+    "archive_sha256": "cd25721467cad9d62905345906b1da48e82283da8818b2650d4918ff57252c99"
+  },
+  "next": "Implement and qualify the dedicated MiM workflow in an exact clean frozen candidate on Windows and Linux; this preflight does not close MIM-INSTALLED.",
+  "date": "2026-10-23",
+  "source_baseline": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+  "integrator_summary_sha256": "abc00a640edee132cf80204acb6c57e018f8165704acb0e96b969dbef4d8b115",
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  }
+}

@@ -116,6 +116,8 @@ def import_package(path):
             if d.get('model_ref'):
                 from .catalog import binding_for
                 binding=binding_for(p['pdk'],d)
+                from .ihp_rf_mos_exchange import validate_external_selector
+                validate_external_selector(binding,r[6])
                 if props.get('model',binding['model'])!=binding['model']:raise ValueError('Model changed externally. Choose a catalog device in Studio before importing this instance.')
                 from .catalog import import_emitted_parameters
                 import_emitted_parameters(binding,d,{k:props[k] for k in binding.get('emit_parameters',{}) if k in props})

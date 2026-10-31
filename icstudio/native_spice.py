@@ -30,6 +30,7 @@ def lvs_defaults(text, technology=None):
     text=re.sub(r'(?im)^[ \t]*x\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text)
     if (technology or {}).get('package_lock',{}).get('id')=='ihp-sg13g2':
         text,ihp_changes=ihp_lvs_defaults(text,technology);changes.extend(ihp_changes)
+        text,resistor_changes=ihp_resistor_lvs_defaults(text,technology);changes.extend(resistor_changes)
     return text,changes
 
 
@@ -63,6 +64,40 @@ def ihp_lvs_defaults(text, technology):
         if count:changes.append(dict(instance=tokens[0],parameter='mm_ok',reason='Statistical simulation flag omitted by the locked upstream LVS format',proof=proofs[tokens[5].lower()]))
         return rewritten if count else original
     return re.sub(r'(?im)^[ \t]*[xm]\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text),changes
+
+
+def ihp_resistor_lvs_defaults(text,technology):
+    """Apply the pinned resistor symbols' physical LVS view for Boolean mm_ok.
+
+    Their simulation view exposes the statistical selector; their LVS view
+    explicitly omits it. Keep the original schematic separately. This is a
+    physical reference projection, never a statistical simulation equivalence.
+    Unknown/duplicate/nonliteral values and every geometry/body/model token stay.
+    """
+    from .model import file_digest
+    root=Path(technology['package_root']).resolve();files=technology['package_lock']['files'];proofs={};changes=[]
+    for model in ('rsil','rppd','rhigh'):
+        entries=[entry for entry in technology['simulation']['catalog'].values()
+                 if entry.get('model')==model and Path(entry.get('source','')).stem==model and not entry.get('unavailable')]
+        if len(entries)!=1:continue
+        entry=entries[0];relative=entry['source'];path=(root/relative).resolve()
+        if not path.is_relative_to(root) or not files.get(relative) or file_digest(path)!=files[relative]:
+            raise ValueError('The IHP resistor LVS symbol is missing or changed.')
+        source=path.read_text(encoding='utf-8');lvs=re.findall(r'(?m)^lvs_format="([^"\n]*)"',source);simulation=re.findall(r'(?m)^format="([^"\n]*)"',source)
+        required=('w=@w','l=@l','m=@m')+(('b=@b',) if model!='rsil' else ())
+        if (len(lvs)==len(simulation)==1 and all(token in lvs[0] and token in simulation[0] for token in required)
+                and '@body' in lvs[0] and '@model' in lvs[0] and '@body @model' in simulation[0]
+                and 'mm_ok=@mm_ok' in simulation[0] and 'mm_ok' not in lvs[0]
+                and entry.get('prefix')=='X' and entry.get('pin_order')==['p','m','body']):
+            proofs[model]=dict(source=relative,sha256=files[relative])
+    def instance(match):
+        original=match[0];logical=re.sub(r'\n[ \t]*\+[ \t]*',' ',original);tokens=logical.split()
+        if len(tokens)<5 or tokens[4].lower() not in proofs:return original
+        if len(re.findall(r'(?i)\smm_ok\s*=',logical))!=1:return original
+        rewritten,count=re.subn(r'(?i)[ \t]+mm_ok[ \t]*=[ \t]*(?:0(?:\.0*)?|1(?:\.0*)?)(?=\s|$)','',logical)
+        if count:changes.append(dict(instance=tokens[0],parameter='mm_ok',reason='Statistical selector omitted by the locked upstream resistor LVS format',proof=proofs[tokens[4].lower()]))
+        return rewritten if count else original
+    return re.sub(r'(?im)^[ \t]*x\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text),changes
 
 
 def render(device, child=None, mode='simulation'):
@@ -154,8 +189,10 @@ def netlist(project, directory, mode='simulation'):
             d = original; definition = d.get('native_spice')
             if d.get('model_ref'):
                 line=emit(d,p['pdk'],mode)
-                if mode=='simulation' and d['model_ref'].get('diode_geometry')=='pre46-scale-1e-6':
-                    from .ngspice_compat import declare
+                from .ngspice_compat import legacy_catalog,declare
+                from .catalog import binding_for
+                if mode=='simulation' and (d['model_ref'].get('diode_geometry')=='pre46-scale-1e-6'
+                        or legacy_catalog(p['pdk'],binding_for(p['pdk'],d))):
                     line=declare(line)
                 lines.append(line);continue
             if definition:

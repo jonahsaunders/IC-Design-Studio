@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "chunk": 7,
+  "status": "PASS",
+  "scope": "Reviewed combined source integration, not packaged acceptance or complete family qualification.",
+  "qualification": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "source_manifest_sha256": "f9729b780741ddd48180cc29441582c346f12b9d034272d1832b2b4cee1d6390",
+  "captured_files": 6691,
+  "checked_source_files": 1452,
+  "all_checked_sources_match_both_hosts_and_current_files": true,
+  "hosts": {
+    "windows": {
+      "status": "passed",
+      "tests": {
+        "tests": 795,
+        "seconds": 130.359,
+        "skips": 34
+      },
+      "elapsed_seconds": 219.812,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 131.532
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.656
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 30.609
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.875
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.188
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 34.578
+        }
+      ]
+    },
+    "linux": {
+      "status": "passed",
+      "tests": {
+        "tests": 795,
+        "seconds": 30.648,
+        "skips": 14
+      },
+      "elapsed_seconds": 83.067,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 31.648
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.467
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.666
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.02
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.423
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 18.027
+        }
+      ]
+    }
+  },
+  "evidence": {
+    "location": "chunk7-final-integration-2026-10-28-v1/source-feedback.zip",
+    "sha256": "b0ec279ecd449ae7c1a4171e0fcd167f8a0068483bd14688a06f17ca9c995f7f",
+    "bytes": 13145667,
+    "files": 227,
+    "restored_member_hashes_verified": true
+  },
+  "milestones": [
+    "sky130-metal-hierarchy-electrical-2026-10-28.json",
+    "sky130-esd-gui-electrical-2026-10-28.json",
+    "sky130-mim-conditioning-2026-10-28.json"
+  ],
+  "source_voltage_screen": {
+    "models": 17,
+    "bound_models": 16,
+    "catalog_views": 40,
+    "source_only_models": 1,
+    "tests_per_host": 20,
+    "scope": "Documented model-validity voltages; no ratings, temperature bounds, SOA or current-package native envelope."
+  },
+  "packaging_fix": {
+    "scope": "Post-freeze Linux manifest from reviewed engine, initializer and complete adjacent files; actual packaged acceptance pending.",
+    "sources": {
+      "scripts/stage_linux_ngspice_manifest.py": {
+        "sha256": "8c9552b39dd06984d4de78c5c63a389881d980a53078d2dfc71009906e816f80",
+        "bytes": 2030
+      },
+      "scripts/package.py": {
+        "sha256": "1e0ed21d4200380cd825d698bf89e5d03aa3863b3c5e144d58f6d2b703c275a6",
+        "bytes": 5514
+      },
+      "icstudio/__main__.py": {
+        "sha256": "37d4e8f716af8c96a7dfe5f1dd5b831f5cf11fffb93f271bcb50e85d55ca5587",
+        "bytes": 4294
+      },
+      "tests/test_linux_ngspice_manifest.py": {
+        "sha256": "f2b995dd0f60a74b6b4a9822d072c741fabba379c3a8cdaf0ee094dc89a43cb6",
+        "bytes": 4351
+      }
+    },
+    "actual_linux_staging": {
+      "status": "PASS",
+      "focused_tests": 4,
+      "original_inputs_unchanged": true,
+      "real_engine_and_initializer": true,
+      "changed_initializer_and_support_rejected": true,
+      "fresh_frozen_acceptance": false,
+      "retained_directory": "chunk7-final-integration-2026-10-28-v1/linux-runtime-staging",
+      "files": {
+        "staging.log": "4b7edae76fbeaf3b484adedf6de0b4965499316ee87df45377c2a6758efd445b",
+        "run_staging.py": "0621ce1038e0227f492615dc2536c04e824b14f8c3e30fc5492004646a399b12",
+        "linux-runtime-manifest.json": "977afb2380e13df76816d2b56152321be03c458a3f62b2459474cc20a480a78e"
+      }
+    }
+  },
+  "engineering_estimate": {
+    "percent": 70,
+    "confidence": "low",
+    "range": [
+      55,
+      80
+    ],
+    "basis": "Existing estimate retained until required installed acceptance; no whole-family closure."
+  },
+  "native_gui_evidence": {
+    "schema": 1,
+    "status": "PASS",
+    "location": "chunk7-final-integration-2026-10-28-v1/native-feedback.zip",
+    "sha256": "0b5a4defe274b7038aa8e8bca60b192fd1f7ed38676205ab2afd5370d8e135a0",
+    "bytes": 7320584,
+    "files": 201,
+    "all_member_hashes_verified": true
+  },
+  "documentation_note": "Final links and integration-status prose were updated after the frozen source run; all 1452 checked Python/workflow/dependency/fixture identities remain unchanged."
+}

@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "source_baseline": "1461c4a8ec66a8a133096300d0ba39d7e6d2e11f",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "public_source_followup_no_replacement_established",
+  "scope": "Read-only review of current public upstream inventories and selected source definitions. No new model, alias, package, operating envelope or qualification claim.",
+  "repositories": [
+    {
+      "repository": "google/skywater-pdk-libs-sky130_fd_pr",
+      "tree_sha": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+      "truncated": false,
+      "inventory_sha256": "8dcc05dbd635dedfe23d02d5872b1a750b1a8c403a482d9d4383a74c86c8a08d"
+    },
+    {
+      "repository": "IHP-GmbH/IHP-Open-PDK",
+      "tree_sha": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "truncated": false,
+      "inventory_sha256": "3ae0d4e54088a4733c147c5d123acc923589ee4e33e506dbcdc96ca2676346fd"
+    }
+  ],
+  "verified_files": [
+    {
+      "path": "ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib",
+      "filename": "sg13g2_bondpad.lib",
+      "git_blob": "9cf626f18307791aafd63c343e4cb6c177a951a2",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib",
+      "sha256": "19b3edd62d507bfaf03633b3dc3e89b4ab4d43187a309e8fc665cc5af28a0a4f",
+      "bytes": 919
+    },
+    {
+      "path": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/inductor.sym",
+      "filename": "inductor.sym",
+      "git_blob": "8e942ec3ad0ac827678fb05f82d77c7ad573ff40",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/xschem/sg13g2_pr/inductor.sym",
+      "sha256": "7b4542146a127904be4ddb5069d3cd414936470593499abd9c204e3b90621b4e",
+      "bytes": 2208
+    },
+    {
+      "path": "ihp-sg13g2/libs.tech/xschem/sg13g2_pr/inductor3.sym",
+      "filename": "inductor3.sym",
+      "git_blob": "68f4c219505b971404310c9aefae67ace35b8bb5",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/xschem/sg13g2_pr/inductor3.sym",
+      "sha256": "56c6db7b7fbeae03d3162cc9eeb41e99ee15f7ad4d826f465072e86bbf7cbad7",
+      "bytes": 2338
+    },
+    {
+      "path": "cells/esd_nfet_05v0_nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice",
+      "filename": "sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice",
+      "git_blob": "2b95841dbd985f6d2a9ba8f21b536051abeb62a4",
+      "url": "https://github.com/google/skywater-pdk-libs-sky130_fd_pr/blob/f62031a1be9aefe902d6d54cddd6f59b57627436/cells/esd_nfet_05v0_nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice",
+      "sha256": "595d9710b646c7384d06ebe370f8e327ae681cd4d4b46b0a8af951af19db5859",
+      "bytes": 22438
+    }
+  ],
+  "findings": [
+    {
+      "device": "IHP bondpad",
+      "result": "The current ngspice file explicitly remains an empty placeholder subcircuit with only parameter declarations."
+    },
+    {
+      "device": "IHP inductor / inductor3",
+      "result": "Public symbols and LVS geometry fixtures exist. The reviewed inventory/search did not establish a new simulator compact-model implementation; the separately tested EM work retains its bounded scope."
+    },
+    {
+      "device": "SKY130 esd_nfet_g5v0d10v5_nvt",
+      "result": "The reviewed tree has esd_nfet_05v0_nvt, which declares that different name. No source-backed equivalence or replacement was established."
+    },
+    {
+      "device": "SKY130 unsuffixed 11p3x11p8 VPP",
+      "result": "The reviewed cell directory contains _nhv and _nhvtop views; no unsuffixed executable model or source-backed alias was established."
+    },
+    {
+      "device": "SKY130 RF diode candidates",
+      "result": "Previously executed public candidates remain available for bounded tests. Three-terminal isolation/coupling and full supported operating coverage still prevent complete device acceptance."
+    }
+  ],
+  "sources": [
+    "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib",
+    "https://github.com/google/skywater-pdk-libs-sky130_fd_pr/tree/f62031a1be9aefe902d6d54cddd6f59b57627436/cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+    "https://github.com/google/skywater-pdk-libs-sky130_fd_pr/blob/f62031a1be9aefe902d6d54cddd6f59b57627436/cells/esd_nfet_05v0_nvt/sky130_fd_pr__esd_nfet_05v0_nvt.pm3.spice"
+  ],
+  "remaining_status_unchanged": true,
+  "archive": {
+    "path": "IC-Design-Studio-evidence/sky130-mim-orientation-2026-10-23-v1/public-source-review.zip",
+    "sha256": "931f65bd34ab7a9c80819a656e3afef62fa6fd702dfe366986e183808f808451",
+    "bytes": 403205,
+    "all_files_verified": true
+  }
+}

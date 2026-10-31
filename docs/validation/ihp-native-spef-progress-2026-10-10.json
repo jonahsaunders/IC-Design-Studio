@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "status": "native-capacitance-handoff-checkpoint",
+  "chunk_complete": false,
+  "qualified": false,
+  "observed_at": "2026-10-10T22:28:00.660691+00:00",
+  "source_baseline": "9e976aae1f4c908b22a8a94279613d38f7056f2d",
+  "scope": "Native capacitance conservation, resistance preservation and OpenROAD readback on isolated rectangular controls. This is a new direct-native-C path, not an acceptance of the rejected RCX tables, complete routed-block integration or field calibration.",
+  "controls": {
+    "total": 80,
+    "short_rectangles": 52,
+    "cross_layer_rectangles": 28,
+    "native_import_passed": 80,
+    "windows_byte_identical": 80,
+    "record_sha256": "e0350a15d01e2edb79ca88a58af5cc3fde053d5124ba06de9b27b57000d3d663",
+    "windows_record_sha256": "6ae37303a11679fe185399c47d6b76aedb76a86748baac4a97a7836b8a127bd2",
+    "maximum_contracted_error_af": 9.094947017729282e-13,
+    "maximum_native_import_error_pf": 1.0000000000374293e-08
+  },
+  "tests": [
+    {
+      "platform": "win32",
+      "status": "pass",
+      "tests": 116,
+      "skips": 0,
+      "log_sha256": "93ef7d5353a1b78442694f23cafacd8431de9d7a4a26a24ba228faf349158b02"
+    },
+    {
+      "platform": "linux",
+      "status": "pass",
+      "tests": 116,
+      "skips": 0,
+      "log_sha256": "d20dc83e30c58341b90cf761b1aed5510b62c9ef0ed1599a40830ce493af24b9"
+    }
+  ],
+  "complete_apb_original": {
+    "waveform": {
+      "schema": 1,
+      "status": "pass",
+      "qualified": false,
+      "complete_waveform": true,
+      "tested_bits": 869,
+      "failed_bits": 0,
+      "failures": [],
+      "duration_ns": 1610,
+      "waveform_sha256": "c93be35c73f1e48bce2e2971141ec693eda063c0fc67c3aa383ee0e5f204a5cc",
+      "expectations_sha256": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+      "engine_log_sha256": "86ab72e1687e5f4973b31558c01674f5bc123b1b9da5c2b6efc68993e2fe92d6",
+      "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+    },
+    "archive": {
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-native-batch-2026-10-10-v1/apb-original-baseline.tar.gz",
+      "sha256": "c8becf7aa4e75a4645967976981b84f92ccadef13035c8ca0ffdacb7c63ae9b6",
+      "files": {
+        ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+        "bench.spice": "cc6eb3e9274ca61082986d5853a7a0213bdc479a7df2bed0fa3b33e6ac452782",
+        "capacitance.spice": "bc68836951e50b62b7f9757ab8f1d5d34239c55ac178f0588800fa01f011f11a",
+        "circuit.spice": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f",
+        "engine.log": "86ab72e1687e5f4973b31558c01674f5bc123b1b9da5c2b6efc68993e2fe92d6",
+        "expectations.json": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+        "initial-state.json": "7c33c9c6555a1c2f177960c1bcc4e811cf2ecc91d9474bd6c3a71777645634bb",
+        "record.json": "20543e87f9a66cc80a14a1b67c1c2a4242cb4d91b9f51b105ccae8e7927a2f46",
+        "simulation.json": "4f9f21b2a0e84ee7724adcca8c5ae706e678ae35d7264a63c1ce85f9b5d6fa02",
+        "waveform.txt": "c93be35c73f1e48bce2e2971141ec693eda063c0fc67c3aa383ee0e5f204a5cc"
+      },
+      "verified": true
+    },
+    "limitation": "One unfilled baseline only; matched filled performance and tighter numerical comparison remain open."
+  },
+  "previous_checkpoint": {
+    "path": "docs/validation/ihp-field-controls-2026-10-10.json",
+    "sha256": "003124d8153f70d480bcd780c53c918043798f18e5318fd97938407816d7ea79"
+  },
+  "remaining": [
+    "Whole routed-block native capacitance mapping and cell-capacitance accounting; the old RCX candidate remains rejected.",
+    "Accepted final timing at declared conditions, complete matched full-RC UART/APB performance and convergence.",
+    "Production fill integration, final-export binding and affected release checks."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-native-spef-progress-2026-10-10-v1\\evidence.tar.gz",
+    "sha256": "aef7a1a63f85a344c8959e8f02a302a0621eda3ed5865315f4cbb9a19d03e034",
+    "bytes": 20113227,
+    "logical_files": 600,
+    "unique_blobs": 439,
+    "verified": true,
+    "manifest_sha256": "fe31e4a3993b9b0dbefb9d9d44dea5e16fbf64de0bb54563798468d9e670ea45",
+    "format": "content-addressed-tar-v1",
+    "restore": "Map logical names in file-manifest.json to sha256/<digest> members. Completed 80-control inputs and outputs, Windows replays, 116-test reports, source and rejected bounded probes are retained. The separately verified APB baseline archive is referenced. Running simulations are not accepted here."
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "42af03b4ac4680f35b042adacf054e7c688ecc56264040bf1d7ac1963ec8c58d",
+  "tests": 36,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "log_sha256": "e35b0a82c2d56e084aef50ef61f4133a290d2cf9bd58c7cee7ca3bc82d276af6",
+  "data_sha256": "8056cb07c88e58be1fff098881c444e204ae85b53dc21bc570a35558e0c5de9a",
+  "cases": {
+    "counter": {
+      "catalog": {
+        "unreviewed": 851,
+        "executed-reviewed": 356,
+        "absent-operand": 349
+      },
+      "periphery": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    },
+    "uart": {
+      "catalog": {
+        "unreviewed": 851,
+        "executed-reviewed": 356,
+        "absent-operand": 349
+      },
+      "periphery": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    },
+    "apb": {
+      "catalog": {
+        "unreviewed": 851,
+        "executed-reviewed": 356,
+        "absent-operand": 349
+      },
+      "periphery": {
+        "execution-review-required": 10,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 280,
+        "advisory": 36,
+        "definition-required": 1,
+        "declared-option-not-required": 1,
+        "other-backend": 61
+      }
+    }
+  },
+  "elapsed_seconds": 25.9954358
+}

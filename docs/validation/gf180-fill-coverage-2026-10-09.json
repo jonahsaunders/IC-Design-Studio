@@ -1,0 +1,1275 @@
+{
+  "schema": 1,
+  "status": "applicability-and-trial-geometry-verified",
+  "chunk": 4,
+  "chunk_complete": false,
+  "observed_at": "2026-10-09T23:44:47.723322+00:00",
+  "source_revision": "de3240d7529a6970437ac3344820aaae7839f215",
+  "scope": "Six unchanged production exports have matching Windows/Linux conditional-rule and whole-array audits. Six separate trial COMP additions pass native geometry. No trial boundary/electrical/production acceptance is claimed.",
+  "source_files": {
+    "scripts/check_gf180_fill.py": "757f9b5fbe39a9ab77d1a411f651392688ff6b81319dc27024a0944a90236fe6",
+    "scripts/gf180_fill_applicability.py": "e88cb329670f402a16eea6df85e2710be4acf03acf4efd5cca94355db1023b7d",
+    "scripts/gf180_comp_coverage.py": "b18ff82d3db4820ebaa4b17a15cfa8f122cb7cd4d3699c2ea8d28a8358d4cb3c",
+    "scripts/gf180_fill_patterns.py": "3ac034d9ccc147bd6abd3068130c654ce382f2f27dcd4dab871667af70b22075",
+    "scripts/gf180_comp_sites.py": "785cd0c3ef3f7fa762cf1e9788bde8e81aed12199d43c19b25c82971c0d686be",
+    "scripts/gf180_fill_boundaries.py": "4c376d6d3648b1774d79d309968c4f85cfbe35ad9823d64573857b85741db8bb",
+    "tests/test_gf180_fill_applicability.py": "7109ad15760aaaaefddcc172c978053c6787951a179006a45bf922751838f86e",
+    "tests/test_gf180_comp_coverage.py": "a18cd0085c900b3613778b05d77b942abaacb31b94b2aec8399dc559741b9c06",
+    "tests/test_gf180_fill_checks.py": "14df548b3dd51ea1171fafb25e1a4eb0ab346102a749f5bcd05a7f4fcbfe3493",
+    "scripts/check_pdk_qualification.py": "73b0c69550f4a1241a32671c1098a25f8848d43e6059e3a36c49fca386a4af65",
+    "scripts/check_gf180_density_acceptance.py": "6814600dda9b638c4b5454608b044c57ffb644f7b90a2192dfed2b23f184ad1b"
+  },
+  "manual_sources": [
+    {
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "path": "docs/physical_verification/design_manual/drm_13.rst",
+      "sha256": "f5a7c74430b474bc8282d4a369180053b908f01679a9c679bf61f38b9761dc3a",
+      "bytes": 1641
+    },
+    {
+      "path": "docs/physical_verification/design_manual/drm_13_1.rst",
+      "sha256": "00da78fa0a3722986ec1dad61f7c671e59d9d4a29413c3ada8b6b0da83af6b6c",
+      "bytes": 1580
+    },
+    {
+      "path": "docs/physical_verification/design_manual/drm_13_2.rst",
+      "sha256": "3502234427aead8fc2cb2175702d535b4e7eed403a1fdb1d710159d7267cdcea",
+      "bytes": 1191
+    },
+    {
+      "path": "docs/physical_verification/design_manual/drm_13_3.rst",
+      "sha256": "aa7ea7714064b547eaf68b13b1ce326b055dba21e0bce41c7fbb4ce997776e3d",
+      "bytes": 1011
+    },
+    {
+      "path": "docs/physical_verification/design_manual/tables_clear/51_Dummy_COMP_136.csv",
+      "sha256": "07d5d19b694fbec7aa4ef40a11c76e077215dc7a7ab33b0ea16fdf0077dc824e",
+      "bytes": 3175
+    },
+    {
+      "path": "docs/physical_verification/design_manual/tables_clear/52_Dummy_Poly2_141.csv",
+      "sha256": "c62230a040e475b89bdfbf4aa30c6a3d6b7faf14ff2724d26df38ea36a46cdd5",
+      "bytes": 1808
+    },
+    {
+      "path": "docs/physical_verification/design_manual/tables_clear/53_Dummy_Metal_145.csv",
+      "sha256": "da14e79970f7bfcb511c14d4787682ee4f3ef9633e13b14bc9a83a84542b368a",
+      "bytes": 1509
+    }
+  ],
+  "os_records": {
+    "Windows": {
+      "sha256": "2018ad98f6142256c508f8e66b63749b5dae54966af500e08fa3ac24bd68fd54",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\gf180-fill-site-audit-windows-2026-10-09-v1\\record.json"
+    },
+    "Linux": {
+      "sha256": "a8cfdf74e818a946bc4d927efb22e1b5a2d2d61ee57553989f7d063921424e20",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\outputs\\gf180-fill-site-audit-linux-2026-10-09-v1\\record.json"
+    }
+  },
+  "cases": [
+    {
+      "case": "c-counter",
+      "macro_sha256": "e11ff2a4a93b11f164da1c0a10f71f5965af3d94e752533bf667edffb7a358d3",
+      "gds_sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+      "report_sha256": "0bccd7bebc90bdd8ca30bf677cb44594e5322388c41c97510185c36d631e4e43",
+      "overlay_sha256": "592b772814a346dd53a9838300f9c40fa2813aced694bfc540f1ae4f45c37083",
+      "failed_checks": 0,
+      "rules": [
+        {
+          "rule": "DCF.8b",
+          "status": "not_applicable_absent_operand",
+          "marker": "RES_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 4184,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.11b",
+          "status": "not_applicable_absent_operand",
+          "marker": "NDMY",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 4184,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.13-row",
+          "status": "not_applicable_absent_operand",
+          "marker": "IND_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 4184,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.9",
+          "status": "not_applicable_absent_operand",
+          "pad_polygons": 0,
+          "dummy_comp_polygons": 0,
+          "scope": "The 7 um COMP-to-pad distance is an RF guideline, not a universal DRC rule."
+        },
+        {
+          "rule": "DCF.7a/7b/7c/7d",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "DPF.1-prime-die/7",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "vendor-memory-fill",
+          "status": "not_applicable_absent_operand",
+          "layers": {
+            "MCELL_FEOL_MK": 0,
+            "YMTP_MK": 0
+          },
+          "scope": "Only the unsupported vendor implant layers; supported MTPMARK checks run separately."
+        },
+        {
+          "rule": "DE.1",
+          "status": "not_applicable_absent_operand",
+          "ndmy_polygons": 0,
+          "pmndmy_polygons": 0
+        }
+      ],
+      "comp_candidate_sites": 601,
+      "comp_unblocked_sites": 150,
+      "comp_missing_sites": 150
+    },
+    {
+      "case": "c-uart",
+      "macro_sha256": "0d10e779964a2fe3620cad679be8a6c2d05fc95d4ec9c6cc3766321caaadfbd5",
+      "gds_sha256": "43204f13ecca0655a86dd1e5dd1e1439a28f7efca5750d075a9bff9eedd37184",
+      "report_sha256": "e40493c315d8e57615c1032b932dd317ff70becdaedf58f1947a6b102c825da6",
+      "overlay_sha256": "f928951de3673bf83a562b41569359bdf0c38bdf506aa3c5bfc8f142a58727ab",
+      "failed_checks": 0,
+      "rules": [
+        {
+          "rule": "DCF.8b",
+          "status": "not_applicable_absent_operand",
+          "marker": "RES_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22588,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.11b",
+          "status": "not_applicable_absent_operand",
+          "marker": "NDMY",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22588,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.13-row",
+          "status": "not_applicable_absent_operand",
+          "marker": "IND_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22588,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.9",
+          "status": "not_applicable_absent_operand",
+          "pad_polygons": 0,
+          "dummy_comp_polygons": 0,
+          "scope": "The 7 um COMP-to-pad distance is an RF guideline, not a universal DRC rule."
+        },
+        {
+          "rule": "DCF.7a/7b/7c/7d",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "DPF.1-prime-die/7",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "vendor-memory-fill",
+          "status": "not_applicable_absent_operand",
+          "layers": {
+            "MCELL_FEOL_MK": 0,
+            "YMTP_MK": 0
+          },
+          "scope": "Only the unsupported vendor implant layers; supported MTPMARK checks run separately."
+        },
+        {
+          "rule": "DE.1",
+          "status": "not_applicable_absent_operand",
+          "ndmy_polygons": 0,
+          "pmndmy_polygons": 0
+        }
+      ],
+      "comp_candidate_sites": 2451,
+      "comp_unblocked_sites": 312,
+      "comp_missing_sites": 312
+    },
+    {
+      "case": "c-apb",
+      "macro_sha256": "a25d01fd3d88d3128998ff7cf0bd17b7a10d4bf59379bc8827a3ad1b0cb940c0",
+      "gds_sha256": "da6c9f30cc321126fe7c05f86be6dd1e39f2e1efd02abb1dbc1142dc1bbfee48",
+      "report_sha256": "b60961e189ca1caadc564557df118aac9b5adf0c6f37d2710b4a72bea80dfd04",
+      "overlay_sha256": "133c60751c7cd2ddba507d04245065a1afe3a1f3f72e85bf1401d44b73f645f5",
+      "failed_checks": 0,
+      "rules": [
+        {
+          "rule": "DCF.8b",
+          "status": "not_applicable_absent_operand",
+          "marker": "RES_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22486,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.11b",
+          "status": "not_applicable_absent_operand",
+          "marker": "NDMY",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22486,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.13-row",
+          "status": "not_applicable_absent_operand",
+          "marker": "IND_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22486,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.9",
+          "status": "not_applicable_absent_operand",
+          "pad_polygons": 0,
+          "dummy_comp_polygons": 0,
+          "scope": "The 7 um COMP-to-pad distance is an RF guideline, not a universal DRC rule."
+        },
+        {
+          "rule": "DCF.7a/7b/7c/7d",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "DPF.1-prime-die/7",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "vendor-memory-fill",
+          "status": "not_applicable_absent_operand",
+          "layers": {
+            "MCELL_FEOL_MK": 0,
+            "YMTP_MK": 0
+          },
+          "scope": "Only the unsupported vendor implant layers; supported MTPMARK checks run separately."
+        },
+        {
+          "rule": "DE.1",
+          "status": "not_applicable_absent_operand",
+          "ndmy_polygons": 0,
+          "pmndmy_polygons": 0
+        }
+      ],
+      "comp_candidate_sites": 2451,
+      "comp_unblocked_sites": 312,
+      "comp_missing_sites": 312
+    },
+    {
+      "case": "d-counter",
+      "macro_sha256": "23d4606b1091761480c85f550cc313a7ca0804b48ab300a22643915e1c3869ae",
+      "gds_sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+      "report_sha256": "8a72300073dad903293c4e0278eda42bfcfc5fc2cba656dffea9b91cb5a5c0c3",
+      "overlay_sha256": "592b772814a346dd53a9838300f9c40fa2813aced694bfc540f1ae4f45c37083",
+      "failed_checks": 0,
+      "rules": [
+        {
+          "rule": "DCF.8b",
+          "status": "not_applicable_absent_operand",
+          "marker": "RES_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 4184,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.11b",
+          "status": "not_applicable_absent_operand",
+          "marker": "NDMY",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 4184,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.13-row",
+          "status": "not_applicable_absent_operand",
+          "marker": "IND_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 4184,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.9",
+          "status": "not_applicable_absent_operand",
+          "pad_polygons": 0,
+          "dummy_comp_polygons": 0,
+          "scope": "The 7 um COMP-to-pad distance is an RF guideline, not a universal DRC rule."
+        },
+        {
+          "rule": "DCF.7a/7b/7c/7d",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "DPF.1-prime-die/7",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "vendor-memory-fill",
+          "status": "not_applicable_absent_operand",
+          "layers": {
+            "MCELL_FEOL_MK": 0,
+            "YMTP_MK": 0
+          },
+          "scope": "Only the unsupported vendor implant layers; supported MTPMARK checks run separately."
+        },
+        {
+          "rule": "DE.1",
+          "status": "not_applicable_absent_operand",
+          "ndmy_polygons": 0,
+          "pmndmy_polygons": 0
+        }
+      ],
+      "comp_candidate_sites": 601,
+      "comp_unblocked_sites": 150,
+      "comp_missing_sites": 150
+    },
+    {
+      "case": "d-uart",
+      "macro_sha256": "9776d0fa0dac63fdf83ed381d15c7dc733a59b408e92a19ef3520fb08b3fe323",
+      "gds_sha256": "f6d0168455d6f9664172b9af26818d1027652c68f7af39bff36e8765cf00870f",
+      "report_sha256": "35a2e2003fcba661c6d46eb956529ea263ff2cf55dc16ad2edaca821fe759c79",
+      "overlay_sha256": "f928951de3673bf83a562b41569359bdf0c38bdf506aa3c5bfc8f142a58727ab",
+      "failed_checks": 0,
+      "rules": [
+        {
+          "rule": "DCF.8b",
+          "status": "not_applicable_absent_operand",
+          "marker": "RES_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22588,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.11b",
+          "status": "not_applicable_absent_operand",
+          "marker": "NDMY",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22588,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.13-row",
+          "status": "not_applicable_absent_operand",
+          "marker": "IND_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22588,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.9",
+          "status": "not_applicable_absent_operand",
+          "pad_polygons": 0,
+          "dummy_comp_polygons": 0,
+          "scope": "The 7 um COMP-to-pad distance is an RF guideline, not a universal DRC rule."
+        },
+        {
+          "rule": "DCF.7a/7b/7c/7d",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "DPF.1-prime-die/7",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "vendor-memory-fill",
+          "status": "not_applicable_absent_operand",
+          "layers": {
+            "MCELL_FEOL_MK": 0,
+            "YMTP_MK": 0
+          },
+          "scope": "Only the unsupported vendor implant layers; supported MTPMARK checks run separately."
+        },
+        {
+          "rule": "DE.1",
+          "status": "not_applicable_absent_operand",
+          "ndmy_polygons": 0,
+          "pmndmy_polygons": 0
+        }
+      ],
+      "comp_candidate_sites": 2451,
+      "comp_unblocked_sites": 312,
+      "comp_missing_sites": 312
+    },
+    {
+      "case": "d-apb",
+      "macro_sha256": "d5c022b52f2f5efe2996ac808ee304d45fd981700851adb82486c0a8bcb5ae29",
+      "gds_sha256": "60c61fe5fe70f745c185721aa5ea7698e2bc2f47ccc37812c0f4c84de7cdfcd3",
+      "report_sha256": "d96783e548ddc506cc59949b19bf73aa132cf1deec7d88a4da64c67399007434",
+      "overlay_sha256": "133c60751c7cd2ddba507d04245065a1afe3a1f3f72e85bf1401d44b73f645f5",
+      "failed_checks": 0,
+      "rules": [
+        {
+          "rule": "DCF.8b",
+          "status": "not_applicable_absent_operand",
+          "marker": "RES_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22486,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.11b",
+          "status": "not_applicable_absent_operand",
+          "marker": "NDMY",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22486,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.13-row",
+          "status": "not_applicable_absent_operand",
+          "marker": "IND_MK",
+          "polygons": 0,
+          "rectangular_markers_exceeding_both_80um_dimensions": 0,
+          "nonrectangular_markers": 0,
+          "channel_intersections": 22486,
+          "threshold_um": 80,
+          "threshold_comparison": "both dimensions strictly greater than"
+        },
+        {
+          "rule": "DCF.9",
+          "status": "not_applicable_absent_operand",
+          "pad_polygons": 0,
+          "dummy_comp_polygons": 0,
+          "scope": "The 7 um COMP-to-pad distance is an RF guideline, not a universal DRC rule."
+        },
+        {
+          "rule": "DCF.7a/7b/7c/7d",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "DPF.1-prime-die/7",
+          "status": "not_applicable_absent_operand",
+          "dummy_polygons": 0,
+          "scope": "Actual dummy boundary distances only; this does not waive missing fill or floorplan coverage."
+        },
+        {
+          "rule": "vendor-memory-fill",
+          "status": "not_applicable_absent_operand",
+          "layers": {
+            "MCELL_FEOL_MK": 0,
+            "YMTP_MK": 0
+          },
+          "scope": "Only the unsupported vendor implant layers; supported MTPMARK checks run separately."
+        },
+        {
+          "rule": "DE.1",
+          "status": "not_applicable_absent_operand",
+          "ndmy_polygons": 0,
+          "pmndmy_polygons": 0
+        }
+      ],
+      "comp_candidate_sites": 2451,
+      "comp_unblocked_sites": 312,
+      "comp_missing_sites": 312
+    }
+  ],
+  "trials": [
+    {
+      "case": "c-counter",
+      "record_sha256": "ce900cee0ad84c08941bfbe96ffecb7cc0cbe000e55a45fc7dcc77817c09970d",
+      "gds_sha256": "5bd9094d29d4c9ab5b7bb9c45eecb9c33fd9cd8065ae591746d8fe1ad82ebfea",
+      "added_comp_squares": 150,
+      "native_markers": {
+        "antenna": 0,
+        "density": 0,
+        "main": 0
+      },
+      "status": "trial_native_checks_passed",
+      "electrical_acceptance": "not_run",
+      "boundary_acceptance": "missing_declaration"
+    },
+    {
+      "case": "c-uart",
+      "record_sha256": "141ccf4bd92e887e75e0a7d87a92249334d0e0905840f45cf630ef72cec57107",
+      "gds_sha256": "6e366394d215d2d4b0c68f79749f482257b2161151e8d1955cdc352363a80f81",
+      "added_comp_squares": 312,
+      "native_markers": {
+        "antenna": 0,
+        "density": 0,
+        "main": 0
+      },
+      "status": "trial_native_checks_passed",
+      "electrical_acceptance": "not_run",
+      "boundary_acceptance": "missing_declaration"
+    },
+    {
+      "case": "c-apb",
+      "record_sha256": "0664a8704482d2c638d53556171b6adb77042b9464a263c84cd8671c0ccfd2e5",
+      "gds_sha256": "43ea3ed4a16f145d6901fa5cb36a1fbb5816b3aedc0e1d2ac626a343acfdf1e7",
+      "added_comp_squares": 312,
+      "native_markers": {
+        "antenna": 0,
+        "density": 0,
+        "main": 0
+      },
+      "status": "trial_native_checks_passed",
+      "electrical_acceptance": "not_run",
+      "boundary_acceptance": "missing_declaration"
+    },
+    {
+      "case": "d-counter",
+      "record_sha256": "798ffd562a74f7f3008d01a06dd70f1d788c0e8dc15f2f73df22c8a3d06b50c7",
+      "gds_sha256": "5bd9094d29d4c9ab5b7bb9c45eecb9c33fd9cd8065ae591746d8fe1ad82ebfea",
+      "added_comp_squares": 150,
+      "native_markers": {
+        "antenna": 0,
+        "density": 0,
+        "main": 0
+      },
+      "status": "trial_native_checks_passed",
+      "electrical_acceptance": "not_run",
+      "boundary_acceptance": "missing_declaration"
+    },
+    {
+      "case": "d-uart",
+      "record_sha256": "e8f3a7e38113655a121183d936e872d2172497cccd03f950eb284ad1e9c84962",
+      "gds_sha256": "aed175602be52c931f489e126a2e8a39f8f7fe1e6e351b17d564a2a5a341fa34",
+      "added_comp_squares": 312,
+      "native_markers": {
+        "antenna": 0,
+        "density": 0,
+        "main": 0
+      },
+      "status": "trial_native_checks_passed",
+      "electrical_acceptance": "not_run",
+      "boundary_acceptance": "missing_declaration"
+    },
+    {
+      "case": "d-apb",
+      "record_sha256": "b3ff2d8fa1a7547dd7047ffcbe9f3d590cbdaf1ba52b2b3de568769b6adbae48",
+      "gds_sha256": "250dfe04cfc8c07852fba988244ea78257ee6cbe9554e1b1ea93116691b26a02",
+      "added_comp_squares": 312,
+      "native_markers": {
+        "antenna": 0,
+        "density": 0,
+        "main": 0
+      },
+      "status": "trial_native_checks_passed",
+      "electrical_acceptance": "not_run",
+      "boundary_acceptance": "missing_declaration"
+    }
+  ],
+  "os_comparison": "All parsed measurements and pattern plans are identical; raw OS-specific line endings produce different plan/report hashes, which remain bound and independently verified.",
+  "controls": {
+    "windows_focused_tests": 49,
+    "linux_geometry_tests": 36,
+    "full_suite_tests": 1672,
+    "full_suite_skips": 62,
+    "full_suite_seconds": 335.441
+  },
+  "remaining": [
+    "A real complete-chip prime-die/scribe/frame declaration and the applicable DCF.1a scope.",
+    "Boundary acceptance, extraction, connectivity and electrical checks for any new COMP additions before production integration.",
+    "Source-backed local/clipped-density acceptance and remaining post-fill electrical qualification."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-fill-site-audit-2026-10-09-v3\\evidence.tar.gz",
+    "sha256": "66a5f58adf5f80b611130d0bbf047f8d869b65e07804e70c696d278d44ea969b",
+    "bytes": 5413389,
+    "verified_members": 153
+  },
+  "members": {
+    "windows/c-apb/filled.gds": {
+      "sha256": "da6c9f30cc321126fe7c05f86be6dd1e39f2e1efd02abb1dbc1142dc1bbfee48",
+      "bytes": 1229408
+    },
+    "windows/c-apb/missing-sites.gds": {
+      "sha256": "133c60751c7cd2ddba507d04245065a1afe3a1f3f72e85bf1401d44b73f645f5",
+      "bytes": 1484264
+    },
+    "windows/c-apb/pattern.json": {
+      "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14",
+      "bytes": 219
+    },
+    "windows/c-apb/report.json": {
+      "sha256": "b60961e189ca1caadc564557df118aac9b5adf0c6f37d2710b4a72bea80dfd04",
+      "bytes": 85309
+    },
+    "windows/c-counter/filled.gds": {
+      "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+      "bytes": 310510
+    },
+    "windows/c-counter/missing-sites.gds": {
+      "sha256": "592b772814a346dd53a9838300f9c40fa2813aced694bfc540f1ae4f45c37083",
+      "bytes": 298262
+    },
+    "windows/c-counter/pattern.json": {
+      "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14",
+      "bytes": 219
+    },
+    "windows/c-counter/report.json": {
+      "sha256": "0bccd7bebc90bdd8ca30bf677cb44594e5322388c41c97510185c36d631e4e43",
+      "bytes": 53903
+    },
+    "windows/c-uart/filled.gds": {
+      "sha256": "43204f13ecca0655a86dd1e5dd1e1439a28f7efca5750d075a9bff9eedd37184",
+      "bytes": 1461028
+    },
+    "windows/c-uart/missing-sites.gds": {
+      "sha256": "f928951de3673bf83a562b41569359bdf0c38bdf506aa3c5bfc8f142a58727ab",
+      "bytes": 1465894
+    },
+    "windows/c-uart/pattern.json": {
+      "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14",
+      "bytes": 219
+    },
+    "windows/c-uart/report.json": {
+      "sha256": "e40493c315d8e57615c1032b932dd317ff70becdaedf58f1947a6b102c825da6",
+      "bytes": 85277
+    },
+    "windows/d-apb/filled.gds": {
+      "sha256": "60c61fe5fe70f745c185721aa5ea7698e2bc2f47ccc37812c0f4c84de7cdfcd3",
+      "bytes": 1229378
+    },
+    "windows/d-apb/missing-sites.gds": {
+      "sha256": "133c60751c7cd2ddba507d04245065a1afe3a1f3f72e85bf1401d44b73f645f5",
+      "bytes": 1484264
+    },
+    "windows/d-apb/pattern.json": {
+      "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14",
+      "bytes": 219
+    },
+    "windows/d-apb/report.json": {
+      "sha256": "d96783e548ddc506cc59949b19bf73aa132cf1deec7d88a4da64c67399007434",
+      "bytes": 85309
+    },
+    "windows/d-counter/filled.gds": {
+      "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+      "bytes": 310510
+    },
+    "windows/d-counter/missing-sites.gds": {
+      "sha256": "592b772814a346dd53a9838300f9c40fa2813aced694bfc540f1ae4f45c37083",
+      "bytes": 298262
+    },
+    "windows/d-counter/pattern.json": {
+      "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14",
+      "bytes": 219
+    },
+    "windows/d-counter/report.json": {
+      "sha256": "8a72300073dad903293c4e0278eda42bfcfc5fc2cba656dffea9b91cb5a5c0c3",
+      "bytes": 53903
+    },
+    "windows/d-uart/filled.gds": {
+      "sha256": "f6d0168455d6f9664172b9af26818d1027652c68f7af39bff36e8765cf00870f",
+      "bytes": 1460930
+    },
+    "windows/d-uart/missing-sites.gds": {
+      "sha256": "f928951de3673bf83a562b41569359bdf0c38bdf506aa3c5bfc8f142a58727ab",
+      "bytes": 1465894
+    },
+    "windows/d-uart/pattern.json": {
+      "sha256": "03f77a6dfac229b231a32bb7899cf1482a2228b8a2900ac801cfd57404d6df14",
+      "bytes": 219
+    },
+    "windows/d-uart/report.json": {
+      "sha256": "35a2e2003fcba661c6d46eb956529ea263ff2cf55dc16ad2edaca821fe759c79",
+      "bytes": 85277
+    },
+    "windows/record.json": {
+      "sha256": "2018ad98f6142256c508f8e66b63749b5dae54966af500e08fa3ac24bd68fd54",
+      "bytes": 21092
+    },
+    "linux/c-apb/filled.gds": {
+      "sha256": "da6c9f30cc321126fe7c05f86be6dd1e39f2e1efd02abb1dbc1142dc1bbfee48",
+      "bytes": 1229408
+    },
+    "linux/c-apb/missing-sites.gds": {
+      "sha256": "133c60751c7cd2ddba507d04245065a1afe3a1f3f72e85bf1401d44b73f645f5",
+      "bytes": 1484264
+    },
+    "linux/c-apb/pattern.json": {
+      "sha256": "2671af3a5965847a0e06a01ed8bc6aea3277a49aa6dba61c38be400437dfb6d1",
+      "bytes": 203
+    },
+    "linux/c-apb/report.json": {
+      "sha256": "3ef3bd552e23ca173904de71bc025a5234757017c0b11629289b238b0f5317ed",
+      "bytes": 81103
+    },
+    "linux/c-counter/filled.gds": {
+      "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+      "bytes": 310510
+    },
+    "linux/c-counter/missing-sites.gds": {
+      "sha256": "592b772814a346dd53a9838300f9c40fa2813aced694bfc540f1ae4f45c37083",
+      "bytes": 298262
+    },
+    "linux/c-counter/pattern.json": {
+      "sha256": "2671af3a5965847a0e06a01ed8bc6aea3277a49aa6dba61c38be400437dfb6d1",
+      "bytes": 203
+    },
+    "linux/c-counter/report.json": {
+      "sha256": "55058d1bf580c30cb855097045a6dfcbe50f0d1fb8c1c39528e61c535b8ebf77",
+      "bytes": 51389
+    },
+    "linux/c-uart/filled.gds": {
+      "sha256": "43204f13ecca0655a86dd1e5dd1e1439a28f7efca5750d075a9bff9eedd37184",
+      "bytes": 1461028
+    },
+    "linux/c-uart/missing-sites.gds": {
+      "sha256": "f928951de3673bf83a562b41569359bdf0c38bdf506aa3c5bfc8f142a58727ab",
+      "bytes": 1465894
+    },
+    "linux/c-uart/pattern.json": {
+      "sha256": "2671af3a5965847a0e06a01ed8bc6aea3277a49aa6dba61c38be400437dfb6d1",
+      "bytes": 203
+    },
+    "linux/c-uart/report.json": {
+      "sha256": "674db798801bc12342b0dd2ea6c07115af487a4f9acd980d2f685267c9f197ee",
+      "bytes": 81071
+    },
+    "linux/d-apb/filled.gds": {
+      "sha256": "60c61fe5fe70f745c185721aa5ea7698e2bc2f47ccc37812c0f4c84de7cdfcd3",
+      "bytes": 1229378
+    },
+    "linux/d-apb/missing-sites.gds": {
+      "sha256": "133c60751c7cd2ddba507d04245065a1afe3a1f3f72e85bf1401d44b73f645f5",
+      "bytes": 1484264
+    },
+    "linux/d-apb/pattern.json": {
+      "sha256": "2671af3a5965847a0e06a01ed8bc6aea3277a49aa6dba61c38be400437dfb6d1",
+      "bytes": 203
+    },
+    "linux/d-apb/report.json": {
+      "sha256": "53235595de7b13b1a2edb838fbf1a2ad3c03fc6bccb3544fb27a48bc8b8626fa",
+      "bytes": 81103
+    },
+    "linux/d-counter/filled.gds": {
+      "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465",
+      "bytes": 310510
+    },
+    "linux/d-counter/missing-sites.gds": {
+      "sha256": "592b772814a346dd53a9838300f9c40fa2813aced694bfc540f1ae4f45c37083",
+      "bytes": 298262
+    },
+    "linux/d-counter/pattern.json": {
+      "sha256": "2671af3a5965847a0e06a01ed8bc6aea3277a49aa6dba61c38be400437dfb6d1",
+      "bytes": 203
+    },
+    "linux/d-counter/report.json": {
+      "sha256": "86dd89ad822387fbe90d4521fe197ca3b3af340811cc9b803e15496c4859109f",
+      "bytes": 51389
+    },
+    "linux/d-uart/filled.gds": {
+      "sha256": "f6d0168455d6f9664172b9af26818d1027652c68f7af39bff36e8765cf00870f",
+      "bytes": 1460930
+    },
+    "linux/d-uart/missing-sites.gds": {
+      "sha256": "f928951de3673bf83a562b41569359bdf0c38bdf506aa3c5bfc8f142a58727ab",
+      "bytes": 1465894
+    },
+    "linux/d-uart/pattern.json": {
+      "sha256": "2671af3a5965847a0e06a01ed8bc6aea3277a49aa6dba61c38be400437dfb6d1",
+      "bytes": 203
+    },
+    "linux/d-uart/report.json": {
+      "sha256": "5f90ff33bcdef655037e94c2c75080edf8e3b9dbbc2deff9fce9d10c092b5bf8",
+      "bytes": 81071
+    },
+    "linux/record.json": {
+      "sha256": "a8cfdf74e818a946bc4d927efb22e1b5a2d2d61ee57553989f7d063921424e20",
+      "bytes": 20555
+    },
+    "trials/c-counter/candidate.gds": {
+      "sha256": "5bd9094d29d4c9ab5b7bb9c45eecb9c33fd9cd8065ae591746d8fe1ad82ebfea",
+      "bytes": 320110
+    },
+    "trials/c-counter/drc/candidate_antenna.lyrdb": {
+      "sha256": "bf3ca8e0ef4c0d3972bb4573fc99dccc49229ad0439747d3ca2fc163dab66182",
+      "bytes": 4935
+    },
+    "trials/c-counter/drc/candidate_density.lyrdb": {
+      "sha256": "0aed4db2a0af748a3b9e9b229d462c3205faddde0397ce04cef688cca65e004e",
+      "bytes": 520
+    },
+    "trials/c-counter/drc/candidate_main.lyrdb": {
+      "sha256": "7334f7e37e0ac5649f43b51e29492ce32a8f9f0f03d616cbd1ec1fbe5c99c458",
+      "bytes": 120563
+    },
+    "trials/c-counter/drc/drc_run_2026_10_09_23_35_28.log": {
+      "sha256": "f4d5930b7e1f9653fc4e31f694b2b29aaa3c245e669946cea90f9963084eb2a6",
+      "bytes": 1843
+    },
+    "trials/c-counter/drc/layers_def.drc": {
+      "sha256": "7e4832a2966d4124ee0e475063c5365cf698b70233287fdbf60465aecb3402c3",
+      "bytes": 16792
+    },
+    "trials/c-counter/drc/main.drc": {
+      "sha256": "1103f59a964ce60a17bdd3e9f768bb715df4944e784be080f543c2d5b405094a",
+      "bytes": 363597
+    },
+    "trials/c-counter/engine.log": {
+      "sha256": "6119d93df7678e0ba4ab4fa1e6826d64e15ddb8b960c02815b852f171769d55a",
+      "bytes": 69363
+    },
+    "trials/c-counter/pattern.json": {
+      "sha256": "ee98d21b3cf06797b38712ee2b8900ee072f95fca069a20fe1a27ab7394c6833",
+      "bytes": 334
+    },
+    "trials/c-counter/record.json": {
+      "sha256": "ce900cee0ad84c08941bfbe96ffecb7cc0cbe000e55a45fc7dcc77817c09970d",
+      "bytes": 2311
+    },
+    "trials/c-counter/supplement.json": {
+      "sha256": "841cbc446996b3c1875876a397abb50809649184f509c6024bda9bbf4a6b81e8",
+      "bytes": 39429
+    },
+    "trials/c-uart/candidate.gds": {
+      "sha256": "6e366394d215d2d4b0c68f79749f482257b2161151e8d1955cdc352363a80f81",
+      "bytes": 1480996
+    },
+    "trials/c-uart/drc/candidate_antenna.lyrdb": {
+      "sha256": "00462b5263acfc79b7d77423096542d102f6fe69ef032955d34c62377375620c",
+      "bytes": 4935
+    },
+    "trials/c-uart/drc/candidate_density.lyrdb": {
+      "sha256": "c826b6355befcc581e40905a805f156a7fe7e19f919e2648970b5be752fbfb21",
+      "bytes": 520
+    },
+    "trials/c-uart/drc/candidate_main.lyrdb": {
+      "sha256": "b33f6c8e43446b2157c1354f86d9922c6508e6036e42d2fafded530ebe8e60bc",
+      "bytes": 120560
+    },
+    "trials/c-uart/drc/drc_run_2026_10_09_23_36_39.log": {
+      "sha256": "b7d0dd2b1d326c5df26776e65b5570b150930cad1ef809363b75d1c010a13258",
+      "bytes": 1831
+    },
+    "trials/c-uart/drc/layers_def.drc": {
+      "sha256": "7e4832a2966d4124ee0e475063c5365cf698b70233287fdbf60465aecb3402c3",
+      "bytes": 16792
+    },
+    "trials/c-uart/drc/main.drc": {
+      "sha256": "1103f59a964ce60a17bdd3e9f768bb715df4944e784be080f543c2d5b405094a",
+      "bytes": 363597
+    },
+    "trials/c-uart/engine.log": {
+      "sha256": "7f2676f2ef0aa04c4581c59cb3362f67fdfa774c969c74c6c3973a03cafefa94",
+      "bytes": 69377
+    },
+    "trials/c-uart/pattern.json": {
+      "sha256": "ee98d21b3cf06797b38712ee2b8900ee072f95fca069a20fe1a27ab7394c6833",
+      "bytes": 334
+    },
+    "trials/c-uart/record.json": {
+      "sha256": "141ccf4bd92e887e75e0a7d87a92249334d0e0905840f45cf630ef72cec57107",
+      "bytes": 2302
+    },
+    "trials/c-uart/supplement.json": {
+      "sha256": "9a4b5bbfca917e64f25d6e9d08aaa592815fbe402d6a61ed7aacfb32ff417187",
+      "bytes": 56442
+    },
+    "trials/c-apb/candidate.gds": {
+      "sha256": "43ea3ed4a16f145d6901fa5cb36a1fbb5816b3aedc0e1d2ac626a343acfdf1e7",
+      "bytes": 1249376
+    },
+    "trials/c-apb/drc/candidate_antenna.lyrdb": {
+      "sha256": "9e03c667ae0d70fa7d20cdf734b05213a909b73b25fdcdd784044838876d0264",
+      "bytes": 4937
+    },
+    "trials/c-apb/drc/candidate_density.lyrdb": {
+      "sha256": "744cb2990a2c42ec9240e7c69330339fc9fabfbac576786db7c620ac7bf53fe1",
+      "bytes": 522
+    },
+    "trials/c-apb/drc/candidate_main.lyrdb": {
+      "sha256": "9f33b0a3aef536d953dff4aa5c49ed60fc6215f5160ad7882ed67b1acfd039c4",
+      "bytes": 120561
+    },
+    "trials/c-apb/drc/drc_run_2026_10_09_23_36_41.log": {
+      "sha256": "6d7b03896f6e672dbadbd177f377bebe8c88bd640d343349a5f9ef6d2b9a7c66",
+      "bytes": 1830
+    },
+    "trials/c-apb/drc/layers_def.drc": {
+      "sha256": "7e4832a2966d4124ee0e475063c5365cf698b70233287fdbf60465aecb3402c3",
+      "bytes": 16792
+    },
+    "trials/c-apb/drc/main.drc": {
+      "sha256": "1103f59a964ce60a17bdd3e9f768bb715df4944e784be080f543c2d5b405094a",
+      "bytes": 363597
+    },
+    "trials/c-apb/engine.log": {
+      "sha256": "7c83e4db6a52a913f8d568afa4201ec7dad1dbf94472b240f8756c01f3142a99",
+      "bytes": 69366
+    },
+    "trials/c-apb/pattern.json": {
+      "sha256": "ee98d21b3cf06797b38712ee2b8900ee072f95fca069a20fe1a27ab7394c6833",
+      "bytes": 334
+    },
+    "trials/c-apb/record.json": {
+      "sha256": "0664a8704482d2c638d53556171b6adb77042b9464a263c84cd8671c0ccfd2e5",
+      "bytes": 2300
+    },
+    "trials/c-apb/supplement.json": {
+      "sha256": "4cee525f1448cc5fb05dd6f82cf1218e3e47c867d15a8f1dd7399d3fbdae2833",
+      "bytes": 56474
+    },
+    "trials/d-counter/candidate.gds": {
+      "sha256": "5bd9094d29d4c9ab5b7bb9c45eecb9c33fd9cd8065ae591746d8fe1ad82ebfea",
+      "bytes": 320110
+    },
+    "trials/d-counter/drc/candidate_antenna.lyrdb": {
+      "sha256": "bf3ca8e0ef4c0d3972bb4573fc99dccc49229ad0439747d3ca2fc163dab66182",
+      "bytes": 4935
+    },
+    "trials/d-counter/drc/candidate_density.lyrdb": {
+      "sha256": "0aed4db2a0af748a3b9e9b229d462c3205faddde0397ce04cef688cca65e004e",
+      "bytes": 520
+    },
+    "trials/d-counter/drc/candidate_main.lyrdb": {
+      "sha256": "b82e5dcd31308b8930cb41396900aaa6beb07cd8634148c28a2a3f51d5013ded",
+      "bytes": 120563
+    },
+    "trials/d-counter/drc/drc_run_2026_10_09_23_38_53.log": {
+      "sha256": "54f292bf20f187a7abfe95dcc1c6b253e46dd2fad54378bb0a8b7b93fc63684f",
+      "bytes": 1843
+    },
+    "trials/d-counter/drc/layers_def.drc": {
+      "sha256": "7e4832a2966d4124ee0e475063c5365cf698b70233287fdbf60465aecb3402c3",
+      "bytes": 16792
+    },
+    "trials/d-counter/drc/main.drc": {
+      "sha256": "1103f59a964ce60a17bdd3e9f768bb715df4944e784be080f543c2d5b405094a",
+      "bytes": 363597
+    },
+    "trials/d-counter/engine.log": {
+      "sha256": "9fcb463b49aa9327d329d609a92d3dcd8a66d13021a1d0ae9bd4048d05fb4670",
+      "bytes": 69366
+    },
+    "trials/d-counter/pattern.json": {
+      "sha256": "ee98d21b3cf06797b38712ee2b8900ee072f95fca069a20fe1a27ab7394c6833",
+      "bytes": 334
+    },
+    "trials/d-counter/record.json": {
+      "sha256": "798ffd562a74f7f3008d01a06dd70f1d788c0e8dc15f2f73df22c8a3d06b50c7",
+      "bytes": 2311
+    },
+    "trials/d-counter/supplement.json": {
+      "sha256": "fe747436fe27abc19b2ef62b90d905d4a1b181532302d553f61df37c16fb94d2",
+      "bytes": 39429
+    },
+    "trials/d-uart/candidate.gds": {
+      "sha256": "aed175602be52c931f489e126a2e8a39f8f7fe1e6e351b17d564a2a5a341fa34",
+      "bytes": 1480898
+    },
+    "trials/d-uart/drc/candidate_antenna.lyrdb": {
+      "sha256": "00462b5263acfc79b7d77423096542d102f6fe69ef032955d34c62377375620c",
+      "bytes": 4935
+    },
+    "trials/d-uart/drc/candidate_density.lyrdb": {
+      "sha256": "c826b6355befcc581e40905a805f156a7fe7e19f919e2648970b5be752fbfb21",
+      "bytes": 520
+    },
+    "trials/d-uart/drc/candidate_main.lyrdb": {
+      "sha256": "1ed047a9fb83748a50fb0b20158ddbc9480f5adb29810e1a9f43a5711aa6c503",
+      "bytes": 120560
+    },
+    "trials/d-uart/drc/drc_run_2026_10_09_23_39_02.log": {
+      "sha256": "3e7faf4a1b304e3cbf5637160ba3e1c9873aeb4c5258886f69a9af67db639d25",
+      "bytes": 1831
+    },
+    "trials/d-uart/drc/layers_def.drc": {
+      "sha256": "7e4832a2966d4124ee0e475063c5365cf698b70233287fdbf60465aecb3402c3",
+      "bytes": 16792
+    },
+    "trials/d-uart/drc/main.drc": {
+      "sha256": "1103f59a964ce60a17bdd3e9f768bb715df4944e784be080f543c2d5b405094a",
+      "bytes": 363597
+    },
+    "trials/d-uart/engine.log": {
+      "sha256": "fa80699ddba847752664632661724f22dc3566b9e7cfe0a0110e5ffd22e70ecc",
+      "bytes": 69378
+    },
+    "trials/d-uart/pattern.json": {
+      "sha256": "ee98d21b3cf06797b38712ee2b8900ee072f95fca069a20fe1a27ab7394c6833",
+      "bytes": 334
+    },
+    "trials/d-uart/record.json": {
+      "sha256": "e8f3a7e38113655a121183d936e872d2172497cccd03f950eb284ad1e9c84962",
+      "bytes": 2302
+    },
+    "trials/d-uart/supplement.json": {
+      "sha256": "1d4084992d00d04f11fc6c790a3a7f33dc4098e3c748a7e132951ac2fe1e6549",
+      "bytes": 56442
+    },
+    "trials/d-apb/candidate.gds": {
+      "sha256": "250dfe04cfc8c07852fba988244ea78257ee6cbe9554e1b1ea93116691b26a02",
+      "bytes": 1249346
+    },
+    "trials/d-apb/drc/candidate_antenna.lyrdb": {
+      "sha256": "9e03c667ae0d70fa7d20cdf734b05213a909b73b25fdcdd784044838876d0264",
+      "bytes": 4937
+    },
+    "trials/d-apb/drc/candidate_density.lyrdb": {
+      "sha256": "744cb2990a2c42ec9240e7c69330339fc9fabfbac576786db7c620ac7bf53fe1",
+      "bytes": 522
+    },
+    "trials/d-apb/drc/candidate_main.lyrdb": {
+      "sha256": "0403e83146eb24dbb1e3403ae37af3a69ca13d8b4066afc1786141d6759a05f7",
+      "bytes": 120561
+    },
+    "trials/d-apb/drc/drc_run_2026_10_09_23_39_02.log": {
+      "sha256": "e31f5b64a1b39e811acb3005d6062e7ff8cc33af035309a8946db324b77f720b",
+      "bytes": 1830
+    },
+    "trials/d-apb/drc/layers_def.drc": {
+      "sha256": "7e4832a2966d4124ee0e475063c5365cf698b70233287fdbf60465aecb3402c3",
+      "bytes": 16792
+    },
+    "trials/d-apb/drc/main.drc": {
+      "sha256": "1103f59a964ce60a17bdd3e9f768bb715df4944e784be080f543c2d5b405094a",
+      "bytes": 363597
+    },
+    "trials/d-apb/engine.log": {
+      "sha256": "f3f8ba86472ee0f4cb2cacf7eda3ec25feef7b7de61cd186b09244c63eccec87",
+      "bytes": 69370
+    },
+    "trials/d-apb/pattern.json": {
+      "sha256": "ee98d21b3cf06797b38712ee2b8900ee072f95fca069a20fe1a27ab7394c6833",
+      "bytes": 334
+    },
+    "trials/d-apb/record.json": {
+      "sha256": "b3ff2d8fa1a7547dd7047ffcbe9f3d590cbdaf1ba52b2b3de568769b6adbae48",
+      "bytes": 2300
+    },
+    "trials/d-apb/supplement.json": {
+      "sha256": "c48abdf1fba577d856471c9d9dec9305ce2e8178fb0b1e481818fdbe5276febc",
+      "bytes": 56474
+    },
+    "source/scripts/check_gf180_fill.py": {
+      "sha256": "757f9b5fbe39a9ab77d1a411f651392688ff6b81319dc27024a0944a90236fe6",
+      "bytes": 25451
+    },
+    "source/scripts/gf180_fill_applicability.py": {
+      "sha256": "e88cb329670f402a16eea6df85e2710be4acf03acf4efd5cca94355db1023b7d",
+      "bytes": 3082
+    },
+    "source/scripts/gf180_comp_coverage.py": {
+      "sha256": "b18ff82d3db4820ebaa4b17a15cfa8f122cb7cd4d3699c2ea8d28a8358d4cb3c",
+      "bytes": 4504
+    },
+    "source/scripts/gf180_fill_patterns.py": {
+      "sha256": "3ac034d9ccc147bd6abd3068130c654ce382f2f27dcd4dab871667af70b22075",
+      "bytes": 5442
+    },
+    "source/scripts/gf180_comp_sites.py": {
+      "sha256": "785cd0c3ef3f7fa762cf1e9788bde8e81aed12199d43c19b25c82971c0d686be",
+      "bytes": 4275
+    },
+    "source/scripts/gf180_fill_boundaries.py": {
+      "sha256": "4c376d6d3648b1774d79d309968c4f85cfbe35ad9823d64573857b85741db8bb",
+      "bytes": 8436
+    },
+    "source/tests/test_gf180_fill_applicability.py": {
+      "sha256": "7109ad15760aaaaefddcc172c978053c6787951a179006a45bf922751838f86e",
+      "bytes": 4648
+    },
+    "source/tests/test_gf180_comp_coverage.py": {
+      "sha256": "a18cd0085c900b3613778b05d77b942abaacb31b94b2aec8399dc559741b9c06",
+      "bytes": 4831
+    },
+    "source/tests/test_gf180_fill_checks.py": {
+      "sha256": "14df548b3dd51ea1171fafb25e1a4eb0ab346102a749f5bcd05a7f4fcbfe3493",
+      "bytes": 23176
+    },
+    "source/scripts/check_pdk_qualification.py": {
+      "sha256": "73b0c69550f4a1241a32671c1098a25f8848d43e6059e3a36c49fca386a4af65",
+      "bytes": 17271
+    },
+    "source/scripts/check_gf180_density_acceptance.py": {
+      "sha256": "6814600dda9b638c4b5454608b044c57ffb644f7b90a2192dfed2b23f184ad1b",
+      "bytes": 6248
+    },
+    "helpers/audit_gf180_fill_coverage_v1.py": {
+      "sha256": "7aa44c9848e915412b0b051bc6de140abe746959a3cbeb7c617fb519d31b939f",
+      "bytes": 5259
+    },
+    "helpers/probe_gf180_comp_candidate_v1.py": {
+      "sha256": "b383b09dbb53e96ef62c82001b8ea4a30ab4ae74ad1bdd55dc3d58e3bc4a6ce5",
+      "bytes": 4222
+    },
+    "helpers/probe_gf180_comp_candidate_v2.py": {
+      "sha256": "5b8e5945e091d0fdc279c25269d9ad4e2329ea21fc46841d612077c14d20d864",
+      "bytes": 4405
+    },
+    "helpers/retain_gf180_fill_site_audit_v1.py": {
+      "sha256": "bc5497bb576b923790988da13b11602326d777341d8eb27b63c533bd02d02c0e",
+      "bytes": 6065
+    },
+    "helpers/retain_gf180_fill_site_audit_v2.py": {
+      "sha256": "568964b2081663e1ed827e17a5aa5ca618fb3148cb06edb386e61849be702fcf",
+      "bytes": 6437
+    },
+    "helpers/retain_gf180_fill_site_audit_v3.py": {
+      "sha256": "f98a5988b3a173875d87c1cc563ead34a68e26515d6f8644359a0311769f7917",
+      "bytes": 7183
+    },
+    "manual/LICENSE": {
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    "manual/docs/physical_verification/design_manual/drm_13.rst": {
+      "sha256": "f5a7c74430b474bc8282d4a369180053b908f01679a9c679bf61f38b9761dc3a",
+      "bytes": 1641
+    },
+    "manual/docs/physical_verification/design_manual/drm_13_1.rst": {
+      "sha256": "00da78fa0a3722986ec1dad61f7c671e59d9d4a29413c3ada8b6b0da83af6b6c",
+      "bytes": 1580
+    },
+    "manual/docs/physical_verification/design_manual/drm_13_2.rst": {
+      "sha256": "3502234427aead8fc2cb2175702d535b4e7eed403a1fdb1d710159d7267cdcea",
+      "bytes": 1191
+    },
+    "manual/docs/physical_verification/design_manual/drm_13_3.rst": {
+      "sha256": "aa7ea7714064b547eaf68b13b1ce326b055dba21e0bce41c7fbb4ce997776e3d",
+      "bytes": 1011
+    },
+    "manual/docs/physical_verification/design_manual/tables_clear/51_Dummy_COMP_136.csv": {
+      "sha256": "07d5d19b694fbec7aa4ef40a11c76e077215dc7a7ab33b0ea16fdf0077dc824e",
+      "bytes": 3175
+    },
+    "manual/docs/physical_verification/design_manual/tables_clear/52_Dummy_Poly2_141.csv": {
+      "sha256": "c62230a040e475b89bdfbf4aa30c6a3d6b7faf14ff2724d26df38ea36a46cdd5",
+      "bytes": 1808
+    },
+    "manual/docs/physical_verification/design_manual/tables_clear/53_Dummy_Metal_145.csv": {
+      "sha256": "da14e79970f7bfcb511c14d4787682ee4f3ef9633e13b14bc9a83a84542b368a",
+      "bytes": 1509
+    },
+    "tests/gf180-fill-coverage-focused-v1.log": {
+      "sha256": "2f6d58ce3b7b757675862ff228724ab2a6e5084c3c9efa878dbb41f8c088ee10",
+      "bytes": 154
+    },
+    "tests/gf180-fill-site-linux-tests-v1.log": {
+      "sha256": "4ae5a5826c3b3ba19e5dff440627ca217446ca90f7e63c9a4388b245562c3f5b",
+      "bytes": 141
+    },
+    "tests/gf180-fill-coverage-full-tests-v1.log": {
+      "sha256": "20421efe784e6744d26fc74c5e79f94e3e81ae103f8b3827b09db34400899068",
+      "bytes": 7546
+    },
+    "tests/gf180-comp-coverage-tests-v1.log": {
+      "sha256": "bbf0e32cff8b69954e28445eed4ae0349733d1760aac25f591534bd1a7f1da57",
+      "bytes": 10258
+    },
+    "tests/gf180-comp-coverage-tests-v2.log": {
+      "sha256": "f6f6da2b32682bd90254e1e9f0edb8ee0b1e8feaa1418a376c4273792c824c53",
+      "bytes": 1457
+    },
+    "tests/gf180-comp-coverage-tests-v3.log": {
+      "sha256": "54da26fcb8d2f11672edb9c1eda44a8eb4da8ef491f8d6406302793fa4234795",
+      "bytes": 1102
+    },
+    "tests/gf180-comp-coverage-tests-v4.log": {
+      "sha256": "69b98f322f46743f3bc0db9ea8e06896431cdf41fe3a0227d167160684a833d5",
+      "bytes": 109
+    },
+    "failed-attempt/candidate.gds": {
+      "sha256": "5bd9094d29d4c9ab5b7bb9c45eecb9c33fd9cd8065ae591746d8fe1ad82ebfea",
+      "bytes": 320110
+    },
+    "failed-attempt/engine.log": {
+      "sha256": "f236bfff2516c10ff6647d2973868e9556105b2b276b26e38b77d85b159c2b99",
+      "bytes": 977
+    },
+    "failed-attempt/pattern.json": {
+      "sha256": "ee98d21b3cf06797b38712ee2b8900ee072f95fca069a20fe1a27ab7394c6833",
+      "bytes": 334
+    },
+    "failed-attempt/record.json": {
+      "sha256": "e28979825fd147126b240beddf3a7b23fe11a91530726fefaa7469f1e14a3b52",
+      "bytes": 1328
+    },
+    "failed-attempt/supplement.json": {
+      "sha256": "841cbc446996b3c1875876a397abb50809649184f509c6024bda9bbf4a6b81e8",
+      "bytes": 39429
+    }
+  }
+}

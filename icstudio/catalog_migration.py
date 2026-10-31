@@ -52,7 +52,9 @@ def symbol_context(device, technology):
             values.update({k:device['params'][k] for k in ('w','l')})
         else:
             values=parameter_values(binding,device)
-        for key in set(context)|set(values)|{k.upper() for k in values}:
+        placeholders={name for item in device.get('symbol',{}).get('primitives',[])
+                      if item.get('kind')=='text' for name in re.findall(r'@([A-Za-z_][A-Za-z0-9_]*)',item['text'])}
+        for key in set(context)|set(values)|{k.upper() for k in values}|placeholders:
             if key.lower() in values:
                 raw=values[key.lower()]
                 context[key]=str(raw) if symbolic_geometry else format(raw,'.12g')

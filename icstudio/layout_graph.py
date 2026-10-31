@@ -19,7 +19,8 @@ class GeometryGraph:
 
     def sync(self,shapes,tech,trusted=False):
         db=kdb();connect=tech.get('connectivity',{});vias=connect.get('vias',[['metal1','via1','metal2']])
-        from .contact_rules import blocked_regions,interacts
+        from .contact_rules import blocked_regions,interacts,conductive_shapes
+        if self.mode=='contact':shapes=conductive_shapes(shapes,tech)
         blockers=blocked_regions(shapes,tech) if self.mode=='contact' else {}
         conductors=set(connect.get('conductors',['metal1','metal2']))|{v for _,v,_ in vias}
         if self.mode=='contact':
@@ -35,7 +36,7 @@ class GeometryGraph:
             for rule in enclosure_rules(tech):
                 for a,b in ((rule['cut'],rule['conductor']),(rule['conductor'],rule['cut'])):radii[a,b]=max(radii.get((a,b),0),int(rule['minimum']))
         rulekey=repr(tech)+repr([(sorted(key),value.to_s()) for key,value in blockers.items()]);reset=rulekey!=self.rules
-        records={};changed=set();built=0
+        records={};source_keys={};changed=set();built=0
         for shape in shapes:
             ident=key(shape);old=self.records.get(ident)
             signature=old['signature'] if trusted and old and old['shape'] is shape else (shape['layer'],geometry_key(shape))
@@ -44,6 +45,7 @@ class GeometryGraph:
             else:
                 poly=polygon(shape);b=poly.bbox();record={'signature':signature,'poly':poly,'region':db.Region(poly),'box':(b.left,b.bottom,b.right,b.top),'shape':shape};changed.add(ident);built+=1
             records[ident]=record
+            source_keys.setdefault(tuple(shape.get('_contact_source_key',ident)),[]).append(ident)
         removed=self.records.keys()-records.keys();changed.update(removed)
         if reset:changed.update(records)
         ordered=list(records);boxes=tuple(records[k]['box'] for k in ordered)
@@ -97,6 +99,7 @@ class GeometryGraph:
             for ident in component:groups[ident]=frozen
             todo.difference_update(component)
         self.records=records;self.keys=ordered;self.index=index;self.edges=edges;self.groups=groups;self.rules=rulekey;self.generation+=1
+        self.source_keys=source_keys
         self.changed=changed;self.affected=affected & records.keys();self.stats={'polygons_built':built,'edge_tests':tests,'changed':len(changed),'affected':len(self.affected),'nodes':len(records),'adjacency_copies':len(copied)}
         return self
 

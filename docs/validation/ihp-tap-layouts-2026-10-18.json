@@ -1,0 +1,500 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "date": "2026-10-18",
+  "status": "selected_physical_integration_passed",
+  "process": {
+    "target": "ihp-sg13g2",
+    "revision": "c0a32344f73be40d",
+    "manifest_sha256": "f1bd520184204ce71add7b7b9bf640b7daae9987bd52230473d91141bc53859b"
+  },
+  "scope": "Twenty sampled tap layouts and two public-format reference checks; full native DRC plus explicit raw contact-width check, unfiltered public extraction, strict A/P and terminal-role LVS, exchange and source desktop/backend checks. No complete process, operating-envelope, latchup/ESD, installed release or foundry qualification.",
+  "qualification_sha256": "a1f2a5d9e25d42b77c414d1c035968fd1ae6c8d223a15b4aee25d3581dc93ca4",
+  "source_files_sha256": "90e953a263a231da34fa77f8ec25109d426647192f630bec9eda80bc2bb4dbb2",
+  "independent_audit": {
+    "status": "PASS",
+    "qualification_sha256": "a1f2a5d9e25d42b77c414d1c035968fd1ae6c8d223a15b4aee25d3581dc93ca4",
+    "counts": {
+      "layouts": 20,
+      "public_references": 2,
+      "physical_faults": 40,
+      "reference_faults": 8,
+      "native_netlists": 70,
+      "comparison_netlists": 50,
+      "exact_export_masks": 540
+    },
+    "scope": "Independent raw masks, text anchors, native versus converted terminal order and A/P, and physical/reference fault separation. No complete process or installed qualification."
+  },
+  "repairs": [
+    "Use exact public tap A/P geometry for LVS; validate literal R or recognize only the exact reviewed live formula. Preserve native terminal roles and every extracted A/P value.",
+    "Keep taps out of generic resistor pin permutation and W/L series/parallel reduction in the private comparison setup. Original upstream source files remain unchanged.",
+    "Add the source-locked Cnt.a minimum width check directly on written contact masks, with navigable error locations. Retain full Magic checks and the original undersized-contact false passes."
+  ],
+  "tests": {
+    "Windows": {
+      "count": 44,
+      "status": "PASS",
+      "log_sha256": "e89d50c2f6687edc1f461aba09d6196b6a053b3e280016316c6c223fb0cca501"
+    },
+    "Linux": {
+      "count": 44,
+      "status": "PASS",
+      "log_sha256": "cb9f2afdd0169639c206ad6ab52d236186235ac6e33f3281aee189d20de90317"
+    }
+  },
+  "editors": {
+    "Windows": {
+      "status": "PASS",
+      "scope": "Source desktop action and captured job settings; not an installed-release acceptance run.",
+      "checks": [
+        "IHP action selects public KLayout extraction",
+        "Self-contained reference captured before queueing",
+        "Default action retains Magic extraction",
+        "Other PDKs rejected"
+      ],
+      "job": {
+        "type": "silicon",
+        "verification_mode": "drc_lvs",
+        "reference": {
+          "text": ".subckt coupon TIE well\nX_TAP TIE well ntap1 l=2e-06 r='1.0/(1.0/(9.8e-10/(w*l))+1.0/(9.8e-4/(2.0*(w+l))))' w=2e-06\n.ends coupon\n",
+          "top": "coupon",
+          "ports": [
+            "TIE",
+            "well"
+          ],
+          "sha256": "8988c869e248844a71ca9bdbd00f0d6d991cb8095c9fb21d0933fb1c9f060301"
+        },
+        "lvs_extractor": "ihp-klayout"
+      },
+      "report_sha256": "2a7726ae7702e10a361d9588f76e1b0cb59983f0a637480a202ad1d7e6c8501c"
+    },
+    "Linux": {
+      "status": "PASS",
+      "scope": "Source desktop action and captured job settings; not an installed-release acceptance run.",
+      "checks": [
+        "IHP action selects public KLayout extraction",
+        "Self-contained reference captured before queueing",
+        "Default action retains Magic extraction",
+        "Other PDKs rejected"
+      ],
+      "job": {
+        "type": "silicon",
+        "verification_mode": "drc_lvs",
+        "reference": {
+          "text": ".subckt coupon TIE well\nX_TAP TIE well ntap1 l=2e-06 r='1.0/(1.0/(9.8e-10/(w*l))+1.0/(9.8e-4/(2.0*(w+l))))' w=2e-06\n.ends coupon\n",
+          "top": "coupon",
+          "ports": [
+            "TIE",
+            "well"
+          ],
+          "sha256": "8988c869e248844a71ca9bdbd00f0d6d991cb8095c9fb21d0933fb1c9f060301"
+        },
+        "lvs_extractor": "ihp-klayout"
+      },
+      "report_sha256": "5f3018e4b55c8a88655bba2922cd4419c6c85f5cb75e48a876be87e07351ce97"
+    }
+  },
+  "regressions": [
+    {
+      "name": "mos-n",
+      "status": "passed",
+      "drc_count": 0,
+      "contact_width": {
+        "schema": 1,
+        "status": "PASS",
+        "rule": "Cnt.a",
+        "minimum_width_nm": 160,
+        "layer": [
+          6,
+          0
+        ],
+        "violations": 0,
+        "boxes_nm": [],
+        "layout_sha256": "6a6ad4e604d769c87e2b445cf7b536ecf51bec3b87dd35e84a8334ddd0255269",
+        "rule_source": {
+          "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+          "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+        },
+        "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+      },
+      "error": null,
+      "report_sha256": "6f63bc063be8d3b01c682fa6908245a45939c059db5a1379e0623cd70eda9402"
+    },
+    {
+      "name": "mos-p",
+      "status": "passed",
+      "drc_count": 0,
+      "contact_width": {
+        "schema": 1,
+        "status": "PASS",
+        "rule": "Cnt.a",
+        "minimum_width_nm": 160,
+        "layer": [
+          6,
+          0
+        ],
+        "violations": 0,
+        "boxes_nm": [],
+        "layout_sha256": "91bd131f48c870d10b5958e2b28ac0f26cbb037921f20c57250b1ae0fa934baa",
+        "rule_source": {
+          "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+          "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+        },
+        "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+      },
+      "error": null,
+      "report_sha256": "f5dfb26b248ca9ec77be6795800e7cb45861772a51ebd3f5f3e1a430dcd9e086"
+    },
+    {
+      "name": "rsil",
+      "status": "passed",
+      "drc_count": 0,
+      "contact_width": {
+        "schema": 1,
+        "status": "PASS",
+        "rule": "Cnt.a",
+        "minimum_width_nm": 160,
+        "layer": [
+          6,
+          0
+        ],
+        "violations": 0,
+        "boxes_nm": [],
+        "layout_sha256": "727c727c1a0fb8e3b3f0b20b047b171b362f69e4ed414743d9badf533c53c6c4",
+        "rule_source": {
+          "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+          "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+        },
+        "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+      },
+      "error": null,
+      "report_sha256": "06d082bae7ada7c85f2994165cbad82589badf7ffb8ab5c35c1745218dd6040d"
+    },
+    {
+      "name": "rppd",
+      "status": "passed",
+      "drc_count": 0,
+      "contact_width": {
+        "schema": 1,
+        "status": "PASS",
+        "rule": "Cnt.a",
+        "minimum_width_nm": 160,
+        "layer": [
+          6,
+          0
+        ],
+        "violations": 0,
+        "boxes_nm": [],
+        "layout_sha256": "7bfc6c4609a07920d59e586cc071c37abbed73a583eab043851831afc3a1eeb8",
+        "rule_source": {
+          "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+          "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+        },
+        "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+      },
+      "error": null,
+      "report_sha256": "e0a425460814f689edde023440ab72284d743931db3994e5ebd72efbdc7991d8"
+    },
+    {
+      "name": "rhigh",
+      "status": "passed",
+      "drc_count": 0,
+      "contact_width": {
+        "schema": 1,
+        "status": "PASS",
+        "rule": "Cnt.a",
+        "minimum_width_nm": 160,
+        "layer": [
+          6,
+          0
+        ],
+        "violations": 0,
+        "boxes_nm": [],
+        "layout_sha256": "746400fa902d7d05b92b842704f82eca88a859d5787f96540fa6d67c954e756f",
+        "rule_source": {
+          "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+          "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+        },
+        "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+      },
+      "error": null,
+      "report_sha256": "160d4837a16924c126c00b8d2a08f19477b5a1b6816b31a37b1ada40048c8750"
+    },
+    {
+      "name": "mim",
+      "status": "passed",
+      "drc_count": 0,
+      "contact_width": {
+        "schema": 1,
+        "status": "PASS",
+        "rule": "Cnt.a",
+        "minimum_width_nm": 160,
+        "layer": [
+          6,
+          0
+        ],
+        "violations": 0,
+        "boxes_nm": [],
+        "layout_sha256": "815f65527d9f81f3d7d89e4409553620d448fdc7374d1a3078e1633855f2b50b",
+        "rule_source": {
+          "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+          "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+        },
+        "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+      },
+      "error": null,
+      "report_sha256": "e6987bef6205eb457166fca9e8b5676badcc01415502cee5250cec16330162c3"
+    },
+    {
+      "name": "pnp",
+      "status": "passed",
+      "drc_count": 0,
+      "contact_width": {
+        "schema": 1,
+        "status": "PASS",
+        "rule": "Cnt.a",
+        "minimum_width_nm": 160,
+        "layer": [
+          6,
+          0
+        ],
+        "violations": 0,
+        "boxes_nm": [],
+        "layout_sha256": "16f65f9681e70665521adc5b1480da79d93be31ecb359c69c5cb0e42e03fc279",
+        "rule_source": {
+          "path": "libs.tech/magic/ihp-sg13g2-drc.tech",
+          "sha256": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402"
+        },
+        "scope": "Minimum contact-mask width only; full native DRC and LVS remain separate requirements."
+      },
+      "error": null,
+      "report_sha256": "42adf560e4a44069f4f9d12783ed4c5e31dc24cc373861b622a3c8147afe007b"
+    }
+  ],
+  "retained_failures": [
+    {
+      "scope": "Initial physical probe",
+      "reason": "Schematic W/L/R and native A/P representations differed; DRC passed but strict LVS rejected the design."
+    },
+    {
+      "scope": "First runner prototype",
+      "reason": "The actual catalog emitted the reviewed live resistance expression. Added exact-formula recognition; arbitrary or modified expressions remain rejected."
+    },
+    {
+      "scope": "Second runner prototype",
+      "reason": "Native Magic DRC accepted 80 nm tap contacts. Direct mask inspection confirmed the fault; added source-locked Cnt.a checking and retained these false passes."
+    },
+    {
+      "scope": "First production pilot",
+      "reason": "The application correctly rejected swapped terminal roles. The qualification parser missed Netgen failed-pin-matching wording; its final checker and regression test cover that outcome."
+    },
+    {
+      "scope": "Initial NPN regression attempt",
+      "reason": "It used the default package instead of the prior NPN-specific corrected package. Native DRC failed while raw-contact checking passed. Repeated all three NPN families with their exact prior qualified package; no transfer of NPN acceptance to the default is claimed."
+    },
+    {
+      "scope": "Focused Windows attempts",
+      "reason": "The first sandboxed run could not access temporary directories and was interrupted. The second passed all 30 actual tests but requested one nonexistent navigation test module. Final 44-test command passes with ordinary-user access."
+    },
+    {
+      "scope": "Independent audit development",
+      "reason": "Initial assumptions rejected complete removal of a contact layer and additional native DRC errors from missing contacts. The final audit verifies the removed geometry and actual native connectivity failure; these attempts remain retained."
+    }
+  ],
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-tap-layouts-2026-10-18/evidence.zip",
+    "sha256": "ba81aa4d68257f1ae1f286c92ba3566a47d9a3b9af222ea796e4985f4a8c8ee9",
+    "bytes": 93138197,
+    "files": 24363,
+    "unique_contents": 7374,
+    "all_objects_verified": true,
+    "restore_check": {
+      "status": "PASS",
+      "archive_sha256": "ba81aa4d68257f1ae1f286c92ba3566a47d9a3b9af222ea796e4985f4a8c8ee9",
+      "root": "/var/tmp/icstudio-tap-layout-restore-20261018-v1",
+      "prefixes": {
+        "final-source": "source",
+        "ihp-package": "source/icstudio/assets/pdks/ihp-sg13g2",
+        "icstudio-ihp-tap-layouts-20261018-v1/ntap1-2000-2000-0": "case"
+      },
+      "files_verified": 2056,
+      "restored_checker_tests": 14,
+      "restored_checker_exit": 0,
+      "restored_native_case_exit": 0,
+      "scope": "Byte-exact restored model package, sources and complete case; 14 restored checks and one actual native DRC/strict-LVS run from restored sources pass."
+    }
+  },
+  "windows_backend": {
+    "status": "PASS",
+    "process": {
+      "target": "ihp-sg13g2",
+      "revision": "c0a32344f73be40d",
+      "manifest_sha256": "f1bd520184204ce71add7b7b9bf640b7daae9987bd52230473d91141bc53859b"
+    },
+    "cases": [
+      {
+        "name": "ntap1-physical",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 81,
+        "result_sha256": "17a4360ffd3b0a9b608970833afd97591d0cfe12748ac0e48530da28a8da6b79",
+        "input_sha256": "a7f0aca81ed5c6acf0111a70e3faff4cb8448f8f16fbd51159a93c689f74727a"
+      },
+      {
+        "name": "ntap1-contact-open",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 76,
+        "result_sha256": "39d621d3874b5a603171ca38d1966a6084a02d4c8034609e39af070455c5342d",
+        "input_sha256": "2ad2985dfe9bc58e02258bffaac26cc151ab2c304c47afa0cfa23b5ad2290e86"
+      },
+      {
+        "name": "ntap1-contact-size",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 81,
+        "result_sha256": "94d02b0993b6d0509d6e2d627aeb74ddd451a3e2376f6f0be10e3738293955ea",
+        "input_sha256": "13a7ec9749249fd8e3056016bd8eb72dc9c00825af4ef94741f9ac23bfd92d56"
+      },
+      {
+        "name": "ptap1-physical",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 81,
+        "result_sha256": "6b11d4e47251b4aecc0adc96ce33f60ebce23b76c8777e498e4730368b9946b7",
+        "input_sha256": "642466b1868c0190e703d20f70bebe4ae8d1c2207fd972e3ff84cf9ff0b4f99f"
+      },
+      {
+        "name": "ptap1-contact-open",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 76,
+        "result_sha256": "4c03ec1e1af9b1e1e70aaed8f8794ed46f7426dbf4d7dd68699b402558648275",
+        "input_sha256": "5b271ddc733a21482311a6d84eaaff05682d852b7d43116a71e7526a8d187543"
+      },
+      {
+        "name": "ptap1-contact-size",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 81,
+        "result_sha256": "e192d90674afe6e8c67ca30d2c3a0fcb3819dc0300febfc65cc402551b80f0e0",
+        "input_sha256": "b40cdc89d7222ba5b77c93a505b5a4cad93d741e1835d1014a3cbb309af5d1e6"
+      }
+    ],
+    "scope": "Windows staging, actual local source backend, and verified artifact receipt. No installed-executable claim.",
+    "implementation_unchanged": true,
+    "report_sha256": "a8f9a774a85be7a380cec0360f16958a09b1f615fdce26c3926b672820a21991"
+  },
+  "npn_regression": {
+    "status": "PASS",
+    "package": {
+      "revision": "ae6da8cb9fd2140d",
+      "manifest_sha256": "1616f75d1b8111b705f74154eb226e98eb85a56fc38710eddcf56da4455ec066",
+      "correction": {
+        "schema": 1,
+        "source_revision": "1e24ec25b491028b",
+        "source_manifest_sha256": "ba1fbda134f02ad703126527993fa5d01c5d3afcc71161afc35c065d3df227ab",
+        "source_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+        "base_sha256": "b972c6d07557e0147462ad533aaf2f3aea14404437f800a1f8fc96ba13086dc8",
+        "corrected_sha256": "74b6df465b9d547c72deb2e423dbeccf63b68d271e304ffadb65a9b81daa74f2",
+        "change": "Intersect the original grown-NPN seed with the original active set, then traverse each disconnected component. No rule operand, distance, illegal mask, extraction or model change.",
+        "scope": "Local public NPN checker correction; full layout DRC/LVS remains required. Not foundry or complete PDK qualification.",
+        "license": "Original Apache-2.0 notices and license preserved; local correction explicitly identified."
+      }
+    },
+    "cases": [
+      {
+        "name": "npn13G2l",
+        "status": "passed",
+        "drc_count": 0,
+        "error": null,
+        "report_sha256": "d1d0e31db1f7f4f466995e6a092cb265c935e75eb22ead11d0ea562ff0c35afd"
+      },
+      {
+        "name": "npn13G2v",
+        "status": "passed",
+        "drc_count": 0,
+        "error": null,
+        "report_sha256": "0b872af87935d1b3183e0c018f647f053618a987d6430c2a4b350e22e92f1b45"
+      },
+      {
+        "name": "npn13G2",
+        "status": "passed",
+        "drc_count": 0,
+        "error": null,
+        "report_sha256": "96aaf041318a9b1bf5a2bbd2efd8c77354d7df108987308b4bd9f88afc213f28"
+      }
+    ],
+    "scope": "Three prior NPN qualification geometries with their exact separate corrected package; not current-default NPN acceptance.",
+    "report_sha256": "5a28ec2a6b62f3b8033444b14eddcc5648a256a827e285ff9dcfc32203d5a4c7"
+  },
+  "full_regressions": {
+    "Windows": {
+      "discovered": 3085,
+      "seconds": 1153.122,
+      "skipped": 39,
+      "log_sha256": "d9d0640b3e8c5f25499373d25daad78834ac3fdaa50e62e76ee7aa1442725a84",
+      "execution": {
+        "exit": 0,
+        "implementation_unchanged": true,
+        "source_files_sha256": "a0a98a241e5fa1e7bb9dd49f87339a245543362129acffbdd23d7c6e45e0566a",
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      },
+      "execution_sha256": "3f034c00a219ab2931541be36a4b7ecc1078d08e711dc6c01cd4659c495ec662"
+    },
+    "Linux": {
+      "discovered": 3085,
+      "seconds": 548.587,
+      "skipped": 31,
+      "log_sha256": "038631f3c5d0fc2984c0884f59fc4f059d0b115676b7da6d0af89e92c216a587",
+      "execution": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit": 0,
+        "environment": {
+          "OMP_THREAD_LIMIT": "1",
+          "QT_QPA_PLATFORM": "offscreen",
+          "GIT_OPTIONAL_LOCKS": "0",
+          "ICSTUDIO_TEST_NGSPICE": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/ngspice",
+          "SPICE_LIB_DIR": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice",
+          "SPICE_SCRIPTS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice/scripts",
+          "ICSTUDIO_SPICE_MODELS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/lib/ngspice"
+        },
+        "source_bytes": 263197620
+      },
+      "execution_sha256": "f9eb9bb67748feed1e46373536ccdb5c60c17cc6c7dec570b51c177cd14cbc66"
+    }
+  },
+  "full_regression_scope": "The full 3085-test source snapshots precede the subsequent test-fixture-only UTF-8 repair. Production Python source is unchanged by that CI repair. Four actual saved-bias simulations/checks are independently rerun under Windows CP1252 with the repaired repository test and exact locked SKY130 package; see ci-repair-2026-10-18.json.",
+  "limits": [
+    "Only the declared five rectangles, two rotations and two models are covered.",
+    "The default Magic LVS route for taps is not qualified by the optional public KLayout route.",
+    "Cnt.a covers the 160 nm minimum only; no other missing process rule receives a pass.",
+    "Complete operating envelopes, other device families, upstream completeness and installed-release acceptance remain open."
+  ],
+  "source_files": {
+    "icstudio/ihp_tap_lvs.py": "d4aab070e322ef07f6f7411b51b27698ebeae8f154ba26238eb12179bb9ce03a",
+    "icstudio/ihp_contact_rules.py": "416ba8da8f1dc76e94fd0334b94cde07109b48e51ae0ef8cec3431947ecb8ef3",
+    "icstudio/ihp_klayout_lvs.py": "e4a357586d5e96702d4f5ee48109e67e4c06bac462f94bf15c8a1fa84a138f48",
+    "icstudio/layout_verification.py": "2fc62a86e8a23961bbf851ca4216799e50778abe68f9b7e92dc5d825e5a6cc4a",
+    "icstudio/verification_navigation.py": "6b2330827dfd381ab5eeb2aff2391e446bb873f519fbdc84be57949862074082",
+    "scripts/qualify_ihp_tap_layouts.py": "92bd9a42813f43a0087da00fa9e2a1c532e82b36769daedd51c1aaae946ed49b"
+  }
+}

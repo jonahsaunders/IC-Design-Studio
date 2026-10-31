@@ -45,6 +45,31 @@ def collect(p, cid, directory):
             for s in by[key]['shapes']:
                 if not kdb().Region(polygon(s)).interacting(region).is_empty():objects.append(s['id'])
             add('MAGIC.DRC',reason,str(path.relative_to(out)),cell_id=key,bbox=box,objects=objects,object=objects[0] if objects else '')
+    for path in (out/'drc/findings.lyrdb',out/'drc/main/findings.lyrdb',out/'drc/maximal/findings.lyrdb'):
+        if not path.is_file():continue
+        from .ihp_klayout_drc import read_report
+        data=read_report(path)
+        for finding in data['findings'][:4000]:
+            key=byname.get(finding['cell'])
+            if key is None:continue
+            for coords in finding['boxes_um']:
+                box=[round(v*1000) for v in coords];region=kdb().Region(kdb().Box(*box))
+                objects=[s['id'] for s in by[key]['shapes'] if not kdb().Region(polygon(s)).interacting(region).is_empty()]
+                add('KLAYOUT.DRC',finding['rule']+': '+finding['details'],str(path.relative_to(out)),cell_id=key,bbox=box,objects=objects,object=objects[0] if objects else '')
+    for filename,code,message in (('ihp-contact-width.json','IHP.Cnt.a','Contact width is below the public 160 nm minimum.'),
+                                  ('ihp-varactor-oxide.json','IHP.SVaricap.ThickGateOx','Marked high-voltage varactor gate is missing thick oxide.')):
+        path=out/'drc'/filename
+        if not path.is_file():continue
+        data=json.loads(path.read_text())
+        for box in data.get('boxes_nm',[]):
+            region=kdb().Region(kdb().Box(*box));objects=[s['id'] for s in by[cid]['shapes'] if not kdb().Region(polygon(s)).interacting(region).is_empty()]
+            add(code,message,str(path.relative_to(out)),bbox=box,objects=objects,object=objects[0] if objects else '')
+    path=out/'drc/npn-native/result.json'
+    if path.is_file():
+        for finding in json.loads(path.read_text()).get('findings',[]):
+            box=finding['bbox_nm'];region=kdb().Region(kdb().Box(*box))
+            objects=[s['id'] for s in by[cid]['shapes'] if not kdb().Region(polygon(s)).interacting(region).is_empty()]
+            add('IHP.NPN.MAGIC',finding['reason'],str(path.relative_to(out)),bbox=box,objects=objects,object=objects[0] if objects else '')
     mapping=device_map(p,cid);path=out/'lvs/lvs.json'
     if path.is_file():
         try:data=json.loads(path.read_text())

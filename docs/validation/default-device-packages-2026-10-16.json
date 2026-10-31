@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "29676ec3e32e7907df434b20fece9b117acc0bb5",
+  "scope": "Promote tested SKY130 resistor/NPN and IHP standard-MIM corrections to the default bundled packages. Preserve original-source reconstruction and exact saved-project revisions. This does not finish device or runtime qualification.",
+  "packages": {
+    "sky130A": {
+      "revision": "2a8a8a7048ac324d",
+      "manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d",
+      "files": 406
+    },
+    "ihp-sg13g2": {
+      "revision": "d03f47cdf46a85a0",
+      "manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c",
+      "files": 157
+    }
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/default-device-packages-2026-10-16/evidence.zip",
+    "sha256": "2d55aaa03e93468b342d07c40eb393ef3882e3480a2c5ee874223c23edaaf06d",
+    "bytes": 140400478,
+    "file_paths": 107194,
+    "unique_contents": 9051,
+    "verified_objects": true
+  },
+  "reports": {
+    "ihp-mim": {
+      "status": "PASS",
+      "cases": 18,
+      "report_sha256": "7d5471c95d0a2b3e7d45d882e3997706f9177182c5bc9d1b1abb287803d64390",
+      "source_files_sha256": "9cebd59e002e0ac605cc56cde16be4e7df5a08d102d51e55fab22acce118217c"
+    },
+    "ihp-bipolar": {
+      "status": "PASS",
+      "cases": 36,
+      "report_sha256": "4d14c06ef6a912263a91a793ce0cd7e6db21a3d35b7eee04003ecb8ac309c709",
+      "source_files_sha256": "81cedf7cbb59d5a35ffbe43ff5107f30f492954f9c5849a404520d41f5566323"
+    },
+    "sky130-bipolar": {
+      "status": "PASS",
+      "cases": 36,
+      "report_sha256": "a9aab0f8c407e68e9d29712265472347337499825a255ec6e0a6269a24599cd3",
+      "source_files_sha256": "81cedf7cbb59d5a35ffbe43ff5107f30f492954f9c5849a404520d41f5566323"
+    },
+    "sky130-resistor": {
+      "status": "PASS",
+      "cases": 18,
+      "report_sha256": "b7cbe6497182a9521c875f5cffa6068916c48932b83767a33cf92ba6f06461c2",
+      "source_files_sha256": "a02ece590220dc10eccc3b1a01a52d867e63ebc00a67b87e399a874decd31ba8"
+    },
+    "catalog-Linux": {
+      "status": "PASS",
+      "cases": 255,
+      "report_sha256": "0796465f570e46d57a5de6943eec660368baadcf2351c424c9f266f8fef28129",
+      "source_files_sha256": "35a757582034f8159d07e9caa367c5a87a89b5ce2f9967bed20eb63a98855242"
+    },
+    "mos-Windows": {
+      "status": "PASS",
+      "cases": 2,
+      "report_sha256": "2912b2c330ccd2c3a0788ecff116a5099af99bcb1ca21509a0238d9051464814",
+      "source_files_sha256": "c0cad4006593a179dd90cb0d31a736c0ddf29205e58591713c048ee9d6700ec4"
+    }
+  },
+  "focused_tests": {
+    "Windows": 25,
+    "Linux": 25
+  },
+  "compatibility": [
+    "Every original SKY130 corner selection and all three changed sections retain their original contents except explicit NPN t/s/f inputs. No other NPN corner is inferred or qualified.",
+    "The original 396-file SKY130 package can be reconstructed from locked original deltas and unchanged bundled files. Separate resistor and bipolar preparers still reproduce their original tested identities.",
+    "The IHP bundled package is byte-identical to the earlier tested correction. Its simulation models, catalog and corner selections are unchanged.",
+    "New projects use the new revisions; saved projects retain their registered old revisions. The registry does not silently migrate them."
+  ],
+  "diagnostics": [
+    "The first clean Linux source snapshot omitted the new .lib file because of the general Git ignore rule. A narrow text-library exception fixes source distribution; failed snapshot evidence is retained.",
+    "The first Windows native invocation pointed to a missing repository runtime binary and stopped before simulation. The verified existing frozen-app ngspice 42 runtime passes two MOS cases, eight analyses and two width faults."
+  ],
+  "remaining": [
+    "Candidate ngspice 47 broad regression and production runtime integration remain in progress. The 36 IHP bipolar cases here use that exact isolated candidate, not the installed default ngspice 42.",
+    "Complete device operating envelopes, other families, source inventory completeness, physical connectivity and unsupported required devices remain open.",
+    "GF180 bandgap reference top-level VSS must-connect warning remains open."
+  ]
+}

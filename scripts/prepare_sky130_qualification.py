@@ -9,9 +9,23 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio.model import digest, file_digest
-from icstudio.pdk_import import scan_local
 
 LOCK = ROOT / 'examples/sky130-qualification-lock.json'
+MANIFEST = ROOT / 'icstudio/assets/qualification/sky130-physical-v1/package.json'
+
+
+def locked_manifest():
+    """Keep this historical input independent of changes to the live importer."""
+    lock = json.loads(LOCK.read_bytes())
+    content = MANIFEST.read_bytes()
+    if hashlib.sha256(content).hexdigest() != lock['manifest_sha256']:
+        raise ValueError('The retained adapter differs from the committed qualification lock.')
+    manifest = json.loads(content)
+    if (manifest['id'] != lock['id'] or manifest['revision'] != lock['revision']
+            or manifest['technology']['revision'] != lock['revision']
+            or digest(manifest['files']) != lock['files_hash']):
+        raise ValueError('The retained adapter identity differs from its qualification lock.')
+    return manifest, content
 
 
 def manifest_for(source):
@@ -22,8 +36,10 @@ def manifest_for(source):
                          if k in ('common.tar.zst', 'sky130_fd_pr.tar.zst')}
     if upstream != expected:
         raise ValueError('Use the pinned --physical-only download; upstream provenance differs.')
-    manifest = scan_local(source)
-    manifest.pop('source_root')
+    # This recipe reproduces a specific regression fixture. Re-scanning with
+    # today's importer changes its identity whenever device bindings improve.
+    # Preserve the old metadata, but verify every original asset before copying.
+    manifest, content = locked_manifest()
     additions = {
         'LICENSE-PDK.txt': (source / 'libs.tech/xschem/LICENSE').read_bytes(),
         'UPSTREAM-LOCK.json': (json.dumps(upstream, sort_keys=True, indent=2) + '\n').encode(),
@@ -35,12 +51,14 @@ def manifest_for(source):
             'See LICENSE-PDK.txt and UPSTREAM-LOCK.json.\n'
             'This package is a bounded regression input, not foundry signoff.\n').encode(),
     }
-    for name, content in additions.items():
-        manifest['files'][name] = hashlib.sha256(content).hexdigest()
-    manifest['technology']['revision'] = ''
-    revision = digest({'files': manifest['files'], 'technology': manifest['technology']})[:16]
-    manifest['revision'] = manifest['technology']['revision'] = revision
-    content = (json.dumps(manifest, sort_keys=True, indent=2) + '\n').encode()
+    for name, expected_hash in manifest['files'].items():
+        origin = (source / name).resolve()
+        if not origin.is_relative_to(source):
+            raise ValueError('Unsafe qualification asset path: ' + name)
+        actual = (hashlib.sha256(additions[name]).hexdigest() if name in additions
+                  else file_digest(origin) if origin.is_file() else None)
+        if actual != expected_hash:
+            raise ValueError('Source differs from the committed qualification lock: ' + name)
     return manifest, content, additions
 
 

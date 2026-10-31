@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "tests": 14,
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "c8dc8265a41da92a9a8b66f6fad116b70f52e204f8460606fbb2da19459618b5",
+  "tests_sha256": "d382e6306f99100bf2b11165a5129c3c0312240108a83bbc3d4eb0ddfe5bd224",
+  "driver_sha256": "eb1da0cac33f0a70d2a5944edede6f6569345f7262b00ee1a76ea7997355d69c",
+  "source_files": {
+    "scripts/sky130_device_intent_review.py": "bc7fed0d2544f1eac7fe4091c211af2518cd360aa4805734b22e193bd201c19b",
+    "tests/test_sky130_device_intent.py": "595487347f692b899bbce5129c9a2413a4bef2b47ed35d35ae50389186e94672",
+    "docs/qualification/sky130-device-tables/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "docs/qualification/sky130-device-tables/table-f2a-lvs.tsv": "c19398018c0f45674c7162077af48c57f5113617691cb985b7985f7e362de3e3",
+    "docs/qualification/sky130-device-tables/table-f2b-mask.tsv": "7db89f09785ab8508ec0cef35cb0ce2a97a18241a3e54294a49c489c2cbaf47a"
+  }
+}

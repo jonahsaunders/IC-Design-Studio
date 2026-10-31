@@ -49,9 +49,9 @@ class SavedBiasTests(unittest.TestCase):
         p, t = fixture()
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / 'included.spice'
-            source.write_text(native_subcircuit(p, t['dut_cell']))
+            source.write_text(native_subcircuit(p, t['dut_cell']), encoding='utf-8')
             def changed(*args, **kwargs):
-                source.write_text(source.read_text() + '* concurrent edit\n')
+                source.write_text(source.read_text(encoding='utf-8') + '* concurrent edit\n', encoding='utf-8')
                 return {}
             with patch('icstudio.engines.run_deck', side_effect=changed):
                 with self.assertRaisesRegex(ValueError, 'implementation changed'):
@@ -89,7 +89,7 @@ class SavedBiasTests(unittest.TestCase):
             self.assertTrue(all(row['status'] == 'available' for row in first['bias_capture']['devices']))
             self.assertAlmostEqual(first['device_operating_point']['XDUT/M8']['id'] / 5e-6, 1., places=5)
             source = root / 'renamed.spice'
-            source.write_text(native_subcircuit(p, cid).replace('X_M8 ', 'XEXTRACTED8 '))
+            source.write_text(native_subcircuit(p, cid).replace('X_M8 ', 'XEXTRACTED8 '), encoding='utf-8')
             second = simulate(p, t, str(ENGINE), root / 'implementation', source)
             self.assertNotIn('XDUT/M8', second['device_operating_point'])
             actual = second['device_operating_point']['XDUT/XEXTRACTED8']

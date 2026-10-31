@@ -1,0 +1,218 @@
+{
+  "base_manifest_sha256": "408fa5e9d94e5e91d482988c26938bfb3b2a47dbfef68d8e5077144ba6eae1f0",
+  "base_revision": "5f3017f16df69dbe",
+  "choices": [
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:48:subckt:cap_mim_1f0_m2m3_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_1f0_m2m3_noshield.sym",
+      "model": "cap_mim_1f0_m2m3_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:126:subckt:cap_mim_1f0_m3m4_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_1f0_m3m4_noshield.sym",
+      "model": "cap_mim_1f0_m3m4_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:205:subckt:cap_mim_1f0_m4m5_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_1f0_m4m5_noshield.sym",
+      "model": "cap_mim_1f0_m4m5_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:283:subckt:cap_mim_1f0_m5m6_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_1f0_m5m6_noshield.sym",
+      "model": "cap_mim_1f0_m5m6_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:24:subckt:cap_mim_1f5_m2m3_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_1f5_m2m3_noshield.sym",
+      "model": "cap_mim_1f5_m2m3_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:102:subckt:cap_mim_1f5_m3m4_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_1f5_m3m4_noshield.sym",
+      "model": "cap_mim_1f5_m3m4_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:181:subckt:cap_mim_1f5_m4m5_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_1f5_m4m5_noshield.sym",
+      "model": "cap_mim_1f5_m4m5_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:259:subckt:cap_mim_1f5_m5m6_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_1f5_m5m6_noshield.sym",
+      "model": "cap_mim_1f5_m5m6_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:72:subckt:cap_mim_2f0_m2m3_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_2f0_m2m3_noshield.sym",
+      "model": "cap_mim_2f0_m2m3_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:229:subckt:cap_mim_2f0_m4m5_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_2f0_m4m5_noshield.sym",
+      "model": "cap_mim_2f0_m4m5_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "absent_in_corners": [],
+      "definitions": [
+        "libs.tech/ngspice/sm141064_mim.spice:307:subckt:cap_mim_2f0_m5m6_noshield"
+      ],
+      "device": "symbols/cap_mim_analog__cap_mim_2f0_m5m6_noshield.sym",
+      "model": "cap_mim_2f0_m5m6_noshield",
+      "namespace_normalized": false,
+      "parent": "symbols/cap_mim_analog.sym",
+      "source_model": "libs.tech/ngspice/sm141064_mim.spice",
+      "source_model_sha256": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f",
+      "source_symbol": "libs.tech/xschem/symbols/cap_mim_analog.sym",
+      "source_symbol_sha256": "d477dc1f714113229780207da84357e4d4f81b4b6299f83a1888fd9014fd2a48",
+      "status": "AVAILABLE",
+      "terminal_contract": [
+        "1",
+        "2"
+      ]
+    }
+  ],
+  "qualified": false,
+  "schema": 1,
+  "scope": "Expose reviewed, source-listed model choices as immutable catalog identities.\n\nThese are electrical model views. Availability of a model does not establish\nlayout support or compatibility with a selected fabrication metal option.\nOriginal symbols, models, notices and existing catalog bindings are preserved.\n"
+}

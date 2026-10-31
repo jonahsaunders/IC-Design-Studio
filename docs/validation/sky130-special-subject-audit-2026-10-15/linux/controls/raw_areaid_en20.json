@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "recipe": "sky130-special-empty-subjects-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+      "docs/rules/periphery/p055-uhvi_dotdash_dotdash.csv": "415c36c520c98089eb62a548cd04eecbc21338206bd85da2c0d416df9a90332f",
+      "docs/rules/periphery/p055-ulvt-_dotdash.csv": "0ea62d9009cbe454ea9fc6fee57de4fb32bd26bc5bf4a5d3e492f7c2e4ee8bf5",
+      "docs/rules/periphery/p029-rpm_dotdash.csv": "96f394adf42b2f023ab2a4448783b0372c97d9a05072aa41ad3a5f6b7b38491a",
+      "docs/rules/periphery/p051-depmos_dotdash.csv": "5bd0eee503fee3700223eeb079d92c8b94066fd4f9f172cf2395ec1fce3ed1fc"
+    }
+  },
+  "scope": "Seven catalog obligations have conservative empty-subject proofs only. An entirely absent UHVI region cannot be straddled by any selected geometry. Deep-well enclosure requires the deep-well target itself absent, including explicit mask data. Precision-resistor and RPM-selected subjects require empty RPM, URPM, CRPM and poly-resistor purposes. The nwell-hole angle subject requires no holes in the merged nwell and no explicit nwell mask or extended-drain markers. Candidate cell names or labels prevent the associated proof. Nonempty subjects stay unreviewed; source N/A values are not used as waivers. Nonempty rule meanings and complete device qualification remain separate, including the catalog/manual depmos.8 and urpm.3 naming differences.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "c32d42f835e954a09e23fe27aa78813aa7781f308a08a7cf40403b624dea8eb6",
+  "measurements": {
+    "raw": {
+      "uhvi": 0,
+      "dnwell": 0,
+      "cdnm": 0,
+      "rpm": 0,
+      "urpm": 0,
+      "crpm": 0,
+      "poly_resistor": 0,
+      "areaid_en": 0,
+      "areaid_en20": 1,
+      "cnwm": 0
+    },
+    "hints": {
+      "uhvi": {
+        "cells": 0,
+        "labels": 0
+      },
+      "dnwell": {
+        "cells": 0,
+        "labels": 0
+      },
+      "resistor": {
+        "cells": 0,
+        "labels": 0
+      },
+      "extended_drain": {
+        "cells": 0,
+        "labels": 0
+      }
+    },
+    "nwell": {
+      "raw_shapes": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "holes": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "r396",
+      "subject": "uhvi",
+      "witnesses": {
+        "uhvi": 0,
+        "uhvi_cells": 0,
+        "uhvi_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r929",
+      "subject": "uhvi",
+      "witnesses": {
+        "uhvi": 0,
+        "uhvi_cells": 0,
+        "uhvi_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r928",
+      "subject": "deep_well",
+      "witnesses": {
+        "dnwell": 0,
+        "cdnm": 0,
+        "dnwell_cells": 0,
+        "dnwell_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1047",
+      "subject": "resistor",
+      "witnesses": {
+        "rpm": 0,
+        "urpm": 0,
+        "crpm": 0,
+        "poly_resistor": 0,
+        "resistor_cells": 0,
+        "resistor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1059",
+      "subject": "resistor",
+      "witnesses": {
+        "rpm": 0,
+        "urpm": 0,
+        "crpm": 0,
+        "poly_resistor": 0,
+        "resistor_cells": 0,
+        "resistor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1060",
+      "subject": "resistor",
+      "witnesses": {
+        "rpm": 0,
+        "urpm": 0,
+        "crpm": 0,
+        "poly_resistor": 0,
+        "resistor_cells": 0,
+        "resistor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r922",
+      "subject": "nwell_hole",
+      "witnesses": {
+        "cnwm": 0,
+        "areaid_en": 0,
+        "areaid_en20": 1,
+        "extended_drain_cells": 0,
+        "extended_drain_labels": 0,
+        "nwell_holes": 0
+      },
+      "disposition": "unreviewed"
+    }
+  ],
+  "unreviewed": 1,
+  "status": "review-required"
+}

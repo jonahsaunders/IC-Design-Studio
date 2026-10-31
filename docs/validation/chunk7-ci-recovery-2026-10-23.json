@@ -1,0 +1,418 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "local_rf_qualification_recovered_hosted_acceptance_pending",
+  "source_baseline": "b4e00d9bb89546feb3d9dfc728d57c2558bcdc18",
+  "scope": "Reproduce historical public RF branch/bias/transient and application checks with the current MiM default. Exact corner inputs and thresholds preserved. No new device, operating-envelope, physical, default-promotion or installed-release qualification.",
+  "source_files": {
+    "scripts/prepare_sky130_rf_qualification.py": "5756fb2d7b2c20c124df6b8cb152be02d510e0835543ff0fd1fd3427ae07e347",
+    "scripts/qualify_sky130_rf_branches.py": "c6772653d64951346579970d567fd5da7c734b7f59989f79d1109249f79370f9",
+    "scripts/qualify_sky130_rf_bias.py": "c791a38ef740610c4ea0da47ee5e9d876585a431c9824f2156835339b523d041",
+    "scripts/qualify_sky130_rf_transient.py": "652b0cbdf7928a7ca20775e54e7a5f84cea3c9c0153c491ebaed011e6d03c501",
+    "tests/test_sky130_rf_corner_sources.py": "8c8284e7ca036b3b964e26725fe06754e9db91b24298c0da56acbd8a2f4d565d",
+    ".github/workflows/ihp-inductor-qualification.yml": "35bd6f9992809c38ce30ff50ee6c85b32bf860bbe5b66e2824df88610a2d2539",
+    ".github/workflows/reference-compatibility.yml": "81f556310991789ae05da17d2c6318aa66617ca513c955d97f8054742d3b2634"
+  },
+  "original_ci": {
+    "checked_at": "2026-10-23T12:49:30.646139+00:00",
+    "sha": "b4e00d9bb89546feb3d9dfc728d57c2558bcdc18",
+    "counts": {
+      "success": 9,
+      "cancelled": 3,
+      "failure": 4
+    },
+    "runs": [
+      {
+        "id": 39848768261,
+        "name": "External tool interoperability",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848768261"
+      },
+      {
+        "id": 39848768505,
+        "name": "Statistical campaign qualification",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848768505"
+      },
+      {
+        "id": 39848768307,
+        "name": "Verify VGA Playground",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848768307"
+      },
+      {
+        "id": 39848768324,
+        "name": "Digital flow",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848768324"
+      },
+      {
+        "id": 39848768310,
+        "name": "IHP coil physical qualification",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848768310"
+      },
+      {
+        "id": 39848768259,
+        "name": "Pinned SKY130 physical qualification",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "failure",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848768259"
+      },
+      {
+        "id": 39848768547,
+        "name": "Build and verify desktop release",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "failure",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848768547"
+      },
+      {
+        "id": 39848768329,
+        "name": "Reference design compatibility",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848768329"
+      },
+      {
+        "id": 39848757608,
+        "name": "External tool interoperability",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848757608"
+      },
+      {
+        "id": 39848757601,
+        "name": "Statistical campaign qualification",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848757601"
+      },
+      {
+        "id": 39848757740,
+        "name": "Verify VGA Playground",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848757740"
+      },
+      {
+        "id": 39848757628,
+        "name": "Digital flow",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848757628"
+      },
+      {
+        "id": 39848757757,
+        "name": "IHP coil physical qualification",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848757757"
+      },
+      {
+        "id": 39848757579,
+        "name": "Reference design compatibility",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848757579"
+      },
+      {
+        "id": 39848757896,
+        "name": "Build and verify desktop release",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "failure",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848757896"
+      },
+      {
+        "id": 39848757534,
+        "name": "Pinned SKY130 physical qualification",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "failure",
+        "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39848757534"
+      }
+    ],
+    "logs": {
+      "windows-ci.log": "013cce056ad3472ddeca22b08dddebca164f9128c96a50df887315d90dc18923",
+      "physical-ci.log": "6ff3e0ea6a11e48bf386f1a0d3d41bc16937327750b60c3c9a23cfcfdea45002",
+      "ihp-ci.log": "a138e1f3e6ecffc6b22d18d190ef378cf9dca53dc2f5b7a3a0bbfd59d4def304",
+      "reference-ci.log": "d1e62b3476bae087a775c2aa910fe84a26f23d0939789adebc5469ac35f4496d"
+    }
+  },
+  "root_causes": [
+    "RF runners required the previous default manifest directly; the new MiM revision left RF corner bytes unchanged.",
+    "The IHP job exhausted its 60-minute total while existing checks were running.",
+    "A GF180 reference dependency-install step exhausted 210 minutes before extraction began."
+  ],
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "raw_files_verified": 8730,
+      "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "results": {
+        "branches": {
+          "status": "PASS",
+          "conditions": 360,
+          "native_valid": 90,
+          "native_faults_detected": 270,
+          "sha256": "dbbb9c495b2660a4bca5da3f0bd99c93d3e1f9a74a4dd8831b80620fbeb06837",
+          "corner_source": {
+            "selected_manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
+            "historical_manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
+            "source_helper_sha256": "5756fb2d7b2c20c124df6b8cb152be02d510e0835543ff0fd1fd3427ae07e347",
+            "files": {
+              "libs.tech/ngspice/corners/tt/nonfet.spice": "9e442b3828f29c8cf0a4d030c37b913fae11a23b00b58a4622d8bdf6909b56dd",
+              "libs.tech/ngspice/corners/ss/nonfet.spice": "7aa4c20bf9cc7d8e16239ccc750e435433f959123a2e6c2214a549f0f76395b1",
+              "libs.tech/ngspice/corners/ff/nonfet.spice": "d03e3604898888b64c71a6ddba5f03dd8a05b298ac6a10a5dc2ae1c01ab73a74"
+            }
+          }
+        },
+        "bias": {
+          "status": "PASS",
+          "conditions": 360,
+          "native_valid": 90,
+          "native_faults_detected": 270,
+          "sha256": "e46eeaaf4880d6fb3ea9a98c8925ffa97a0348e78e3018bd90870619137b07a6",
+          "corner_source": {
+            "selected_manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
+            "historical_manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
+            "source_helper_sha256": "5756fb2d7b2c20c124df6b8cb152be02d510e0835543ff0fd1fd3427ae07e347",
+            "files": {
+              "libs.tech/ngspice/corners/tt/nonfet.spice": "9e442b3828f29c8cf0a4d030c37b913fae11a23b00b58a4622d8bdf6909b56dd",
+              "libs.tech/ngspice/corners/ss/nonfet.spice": "7aa4c20bf9cc7d8e16239ccc750e435433f959123a2e6c2214a549f0f76395b1",
+              "libs.tech/ngspice/corners/ff/nonfet.spice": "d03e3604898888b64c71a6ddba5f03dd8a05b298ac6a10a5dc2ae1c01ab73a74"
+            }
+          }
+        },
+        "transient": {
+          "status": "PASS",
+          "conditions": 90,
+          "native_valid": 180,
+          "native_faults_detected": 270,
+          "sha256": "c70c21da0390fc1efc7a1533451a884d4fe8785add2ecc09696928d4cfa7b491",
+          "corner_source": {
+            "selected_manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
+            "historical_manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
+            "source_helper_sha256": "5756fb2d7b2c20c124df6b8cb152be02d510e0835543ff0fd1fd3427ae07e347",
+            "files": {
+              "libs.tech/ngspice/corners/tt/nonfet.spice": "9e442b3828f29c8cf0a4d030c37b913fae11a23b00b58a4622d8bdf6909b56dd",
+              "libs.tech/ngspice/corners/ss/nonfet.spice": "7aa4c20bf9cc7d8e16239ccc750e435433f959123a2e6c2214a549f0f76395b1",
+              "libs.tech/ngspice/corners/ff/nonfet.spice": "d03e3604898888b64c71a6ddba5f03dd8a05b298ac6a10a5dc2ae1c01ab73a74"
+            }
+          }
+        },
+        "application": {
+          "status": "PASS",
+          "automatic_runtime_checks": 6,
+          "report_sha256": "17a37950bff23b8a596edcba70c012a485bbc17bf30f34f59d6b9e9001d47d6f",
+          "candidate_manifest_sha256": "a96fb4b9c517bdd36d54db7a9cd36fb99f18264269be9d1bf3273b10e9db0904"
+        }
+      }
+    },
+    "Linux": {
+      "status": "PASS",
+      "raw_files_verified": 8730,
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "results": {
+        "branches": {
+          "status": "PASS",
+          "conditions": 360,
+          "native_valid": 90,
+          "native_faults_detected": 270,
+          "sha256": "32d6f5d86cc265fc1909c742274f409ace54d93c0e0251a158347b5d04cccb2b",
+          "corner_source": {
+            "selected_manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
+            "historical_manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
+            "source_helper_sha256": "5756fb2d7b2c20c124df6b8cb152be02d510e0835543ff0fd1fd3427ae07e347",
+            "files": {
+              "libs.tech/ngspice/corners/tt/nonfet.spice": "9e442b3828f29c8cf0a4d030c37b913fae11a23b00b58a4622d8bdf6909b56dd",
+              "libs.tech/ngspice/corners/ss/nonfet.spice": "7aa4c20bf9cc7d8e16239ccc750e435433f959123a2e6c2214a549f0f76395b1",
+              "libs.tech/ngspice/corners/ff/nonfet.spice": "d03e3604898888b64c71a6ddba5f03dd8a05b298ac6a10a5dc2ae1c01ab73a74"
+            }
+          }
+        },
+        "bias": {
+          "status": "PASS",
+          "conditions": 360,
+          "native_valid": 90,
+          "native_faults_detected": 270,
+          "sha256": "a2c5d113d4448b51e312a9b2f00cd40894e192a5e07d2b737ff731470324ffcd",
+          "corner_source": {
+            "selected_manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
+            "historical_manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
+            "source_helper_sha256": "5756fb2d7b2c20c124df6b8cb152be02d510e0835543ff0fd1fd3427ae07e347",
+            "files": {
+              "libs.tech/ngspice/corners/tt/nonfet.spice": "9e442b3828f29c8cf0a4d030c37b913fae11a23b00b58a4622d8bdf6909b56dd",
+              "libs.tech/ngspice/corners/ss/nonfet.spice": "7aa4c20bf9cc7d8e16239ccc750e435433f959123a2e6c2214a549f0f76395b1",
+              "libs.tech/ngspice/corners/ff/nonfet.spice": "d03e3604898888b64c71a6ddba5f03dd8a05b298ac6a10a5dc2ae1c01ab73a74"
+            }
+          }
+        },
+        "transient": {
+          "status": "PASS",
+          "conditions": 90,
+          "native_valid": 180,
+          "native_faults_detected": 270,
+          "sha256": "6b847c3b22419f3a106d906a8315db6f03a2eb3babffb74e35e8b0641b6e5665",
+          "corner_source": {
+            "selected_manifest_sha256": "9b328d315f7e48ca67c7a11450f74618c4026b8758fb553120acba0d698182db",
+            "historical_manifest_sha256": "42cafd2b1407783d361cfbb276abe3ba9e97b2c06a716af6c9069c8426852413",
+            "source_helper_sha256": "5756fb2d7b2c20c124df6b8cb152be02d510e0835543ff0fd1fd3427ae07e347",
+            "files": {
+              "libs.tech/ngspice/corners/tt/nonfet.spice": "9e442b3828f29c8cf0a4d030c37b913fae11a23b00b58a4622d8bdf6909b56dd",
+              "libs.tech/ngspice/corners/ss/nonfet.spice": "7aa4c20bf9cc7d8e16239ccc750e435433f959123a2e6c2214a549f0f76395b1",
+              "libs.tech/ngspice/corners/ff/nonfet.spice": "d03e3604898888b64c71a6ddba5f03dd8a05b298ac6a10a5dc2ae1c01ab73a74"
+            }
+          }
+        },
+        "application": {
+          "status": "PASS",
+          "automatic_runtime_checks": 6,
+          "report_sha256": "6505d746a53fa4cf1e3cc098001319aa3c6ddc83b33ae17f42ebc52d491e2b33",
+          "candidate_manifest_sha256": "a96fb4b9c517bdd36d54db7a9cd36fb99f18264269be9d1bf3273b10e9db0904"
+        }
+      }
+    }
+  },
+  "validation": {
+    "focused_tests_per_host": 21,
+    "focused_tests_status": "PASS",
+    "workflow_lint": "PASS",
+    "workflow_lint_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "full_source_suite_rerun": false,
+    "full_source_suite_scope": "Application/runtime code is unchanged in this batch; focused scripts and complete affected native suites were executed.",
+    "bookkeeping_tests": {
+      "status": "PASS",
+      "tests": 35,
+      "host": "Windows",
+      "log_sha256": "b4f2422cce53f7f9ba81a1827780110a14f2e47ef2b096226a7f3ab8b7392ce1"
+    },
+    "release_document_checks": {
+      "status": "PASS",
+      "log_sha256": "d96f319c55b66f0fdb73634f08585f08aa31ca5ec78f172833a2dadd32117343"
+    }
+  },
+  "rejected_engine": {
+    "engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7",
+    "status": "correctly_rejected",
+    "reason": "Ordinary engine scales explicit AREA and fails the existing RF runtime guard.",
+    "preserved": true
+  },
+  "workflow_changes": {
+    "ihp_total_minutes": [
+      60,
+      120
+    ],
+    "existing_test_gates_removed": false,
+    "existing_individual_gate_limits_changed": false,
+    "affected_dependency_setup_limit_minutes": 20,
+    "apt_retries": 3,
+    "http_https_timeout_seconds": 30,
+    "update_error_mode": "any",
+    "hosted_reverification": "pending",
+    "documentation": [
+      "https://manpages.debian.org/bookworm/apt/apt.conf.5.en.html",
+      "https://manpages.debian.org/bookworm/apt/apt-transport-http.1.en.html",
+      "https://manpages.debian.org/bookworm/apt/apt-get.8.en.html"
+    ]
+  },
+  "archive": {
+    "status": "PASS",
+    "path": "IC-Design-Studio-evidence/chunk7-ci-closure-2026-10-23-v1/evidence.zip",
+    "sha256": "275fc96d61442ead57bb53882a99f9b3cf87d5735c54c8b969166a7cd8870841",
+    "bytes": 154106731,
+    "path_bindings": 52209,
+    "objects": 23263,
+    "logical_bytes": 1707060203
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "275fc96d61442ead57bb53882a99f9b3cf87d5735c54c8b969166a7cd8870841",
+    "source_files": 1203,
+    "source_unchanged": true,
+    "results": {
+      "bias": {
+        "status": "PASS",
+        "conditions": 8,
+        "report_sha256": "f679464bf94c2ca33ba2833aeed321fdbf2f0b91b47c26e3de1c220c6173a47a"
+      },
+      "transient": {
+        "status": "PASS",
+        "conditions": 2,
+        "report_sha256": "89a1aae87fdf35ccc2b60165ec21a836b149a04d921da65fe0160882861807b1"
+      }
+    },
+    "replay_archive": {
+      "sha256": "3b443557778b4408c041acfeaf7c7bcad76d6359b12e41947ddda2d114bb13d2",
+      "bytes": 930998
+    }
+  },
+  "remaining": [
+    "Seven required real-device bindings unavailable in default packages.",
+    "Complete source-backed device operating ranges.",
+    "Wider physical/extracted geometry and upstream process-option coverage.",
+    "Exact final hosted/installed acceptance."
+  ],
+  "cleanup": {
+    "Windows": {
+      "status": "PASS",
+      "mode": "removed",
+      "paths": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-ci-closure-20261023-v1\\Windows",
+          "verified_files": 16366,
+          "logical_bytes": 409840529
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-ci-closure-20261023-v1\\source.zip",
+          "verified_zip": true,
+          "logical_bytes": 84172502
+        }
+      ]
+    },
+    "Linux": {
+      "status": "PASS",
+      "mode": "removed",
+      "paths": [
+        {
+          "path": "/var/tmp/icstudio-ci-closure-20261023-v1",
+          "verified_files": 7057,
+          "logical_bytes": 347680470
+        },
+        {
+          "path": "/var/tmp/icstudio-ci-closure-20261023-v2",
+          "verified_files": 22569,
+          "logical_bytes": 675307123
+        },
+        {
+          "path": "/var/tmp/icstudio-ci-closure-replay-20261023-v1",
+          "verified_files": 1480,
+          "logical_bytes": 47370410
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,2150 @@
+{
+  "date": "2026-10-06",
+  "status": "Two SKY130 block cases and existing-runtime compatibility passed; full release/tapeout unqualified",
+  "source_commit": "8c28be9d427b1e7dc6e55f269adc6c38bd06571f",
+  "backend_sha256": "d56b80263048386e1100744a5ef54f8be7a9de681df0277a9c75511f83a6eb58",
+  "digital_source_files": {
+    "digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+    "digital_apb_example.py": "0eab253a16a2292d6ca32a602f0160ab5f5f531eed7981b3cda1b28714e9c288",
+    "digital_backend.py": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6",
+    "digital_cli.py": "8d32654db5cdc002926f9de14b7ae0a4d338ccc3dd728f25ea21fa6455fccd83",
+    "digital_constraints.py": "9771a358129e78f7b7bd3dc2f08fa8fdc952d191b0f14b8873212945fc7005b6",
+    "digital_constraints_ui.py": "a7b3a4f3b428469656d33294960d4d4a390675135b273f3ab9959b9382b42fa1",
+    "digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+    "digital_editor.py": "462152c2fe423643ea203bbf5456fed342e6c33d59498636ea8953a17bfe14bd",
+    "digital_examples.py": "9cb9e5cbf0afd01abc329a6dbcbc409680d9ddf6826073ca61297e513de55b25",
+    "digital_flow.py": "049be2b5f1120ce51fe4f2a03036a56846e9e08d9e667b74ae8dfce49ff683fd",
+    "digital_identity.py": "eb729eb73a3bdb67848a5d4cd9629ede72ce729e187e054f5de53769f8145ad9",
+    "digital_implementation.py": "8775ef393f39ee1562a722e0e795ec3e2a99bb3166230e4ebd3e27ec40aead40",
+    "digital_inspection.py": "b515de8a5d8bba4cddad9a6f993b323933697e23f29195e8f98f4d204c90a6bb",
+    "digital_layout.py": "490c6884d012a9f5348e5eef3bdbf25bc5012e9f452cb6926e24fe64d8243265",
+    "digital_logic_ui.py": "70492458c40e98498cbe47ebd4fc0a9dbbde8912992601f39050742dcc83a7d8",
+    "digital_lsp.py": "1555f1bde82376814d27558ecefa578389b9abe05c491c6e933e12a711c4e67f",
+    "digital_macro.py": "570e068ebf4230046ace187fc31d6dca213182e63ef185f143fae08bb21ff018",
+    "digital_mapping.py": "7890689f3b697c2ddd87e3cd240e4eb7307b99cce323f81b207fc40dd7b5b34d",
+    "digital_odb.py": "83c80d8d35e2ac6edded3f022181df6d58d5111d02dca9c3b663d6446bb223cb",
+    "digital_physical.py": "c2634671a96dfb80ef17e1ec0a25b46426c3d9fdf239449dc20201de934d3282",
+    "digital_physical_ui.py": "8d918bc11df0f5c34e5995f98b0f37f8e2b873bbd87fb42cbd805caafca6ef9c",
+    "digital_physical_view.py": "97cb2fd302523d198dfcd0da580c6884a8eb6ecf8402c95aa0a14f1d3053b7ba",
+    "digital_planning.py": "73602bd3b1afb0aaab5243b5cbe655bda00de19dd7459713569275303b91a527",
+    "digital_platform.py": "da9404103e0af007c707b7d4d353b7f70fc9c2e0d94d8ae0236d7459e725d1ab",
+    "digital_qualification.py": "6d9e4cf0ae01ef013bdde737c9a983220633e67a52a4bacf23e28b4a8cce9047",
+    "digital_rc.py": "2890fc4229205a007cf928edede9b18da3d1569c81a35d8f48e53d24d957c877",
+    "digital_regression.py": "65673f44e8fb586403257696c13fbfaccc2b692ee69e1029e9bb71e30b650f2e",
+    "digital_reports.py": "8d915e4e49839afc521a11a2bac0a31bdcff8ded6f629ac6dbb8c6f25d1f5deb",
+    "digital_runtime.py": "34fa50ef1e853d32282729f1deb68fead6dc8a52b3f52ba1816f030d21deb78f",
+    "digital_setup_probe.py": "e5e907dc688bac58cadd40c6da37654210cbf0066572ef079d112de9fca598c8",
+    "digital_setup_ui.py": "cbc4a5e21932d01e5932df27f787518f2ce6c43745a8a5e6fe88a9c1a3884c20",
+    "digital_shell.py": "55bf0796bd46e4ed31eb2200d663cf6e5b846174cfcdd5de5d12dd96d6f22b13",
+    "digital_tools.py": "d53090a2d97f432899086846d2e2c10cc4d47bc60d78d7e3d51b06091a408660",
+    "digital_trace_store.py": "f2b5be9e2c0d131496c707cd08073e9d452cc2ff69570f9dcb933c18b411113f",
+    "digital_ui.py": "687e51dd51cddc0b0bf49d20de34f42d95b754cfe9c9e83caf68713c6c52b259",
+    "digital_vga.py": "770fba42c61d20b05956b407e4d0152451b5aee377e923b554870ec79d1aef4f",
+    "digital_vga_ui.py": "6b0c5f017cba7ecae1b2251fbce588a7477602f83a7d4f8a3117246b3256c649",
+    "digital_wave_tools.py": "f6ac733f253fd287d1f506d76223cd580c26a63c48e80ee0926c40e10006e8c1",
+    "digital_waveform.py": "a1f48745cdb96e75a9bcab14646621df636272254da9fee45f43820716489ec4",
+    "digital_workspace.py": "9eff651934d4ecb602e1fef218d9a543d13b85569f312e9088a1e82311fa9124"
+  },
+  "qualifier_sha256": "0a8affbf522263a7f6f63f0afb48c1e7016e88d4af4b7d7edef84d764af1030a",
+  "platform_preparer_sha256": "ff97ea66afd4a3bfb5b97ae03b7841f473309398021b99d04090cd2cc56c2a9c",
+  "scope": "Separately prepared SKY130 HD platform; UART and APB original RTL/SDC; 3 Liberty x 3 independently extracted RC corners per design",
+  "evidence_archive_scope": "Inputs, engine/proof logs, reports, geometry, extraction scripts/SPEFs and macro exports with source/license notices. Repeated platform/flow/Liberty trees and simulator objects omitted; audit evidence, not standalone engine job bundles.",
+  "engine_versions": {
+    "bitwuzla": [
+      "0.9.1"
+    ],
+    "eqy": [
+      "EQY v0.69"
+    ],
+    "iverilog": [
+      "Icarus Verilog version 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 2000-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\nIcarus Verilog Preprocessor version 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 1999-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\nIcarus Verilog Parser/Elaborator version 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 1998-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.\n\n FLAGS DLL vvp.tgt\nvvp.tgt: Icarus Verilog VVP Code Generator 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 2001-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+    ],
+    "klayout": [
+      "KLayout 0.28.16"
+    ],
+    "make": [
+      "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law."
+    ],
+    "openroad": [
+      "26Q2-1164-g08f67ee5ec"
+    ],
+    "sby": [
+      "SBY v0.69"
+    ],
+    "sta": [
+      "3.1.0"
+    ],
+    "verilator": [
+      "Verilator 5.053 devel rev v5.052-73-g298922d88 (mod)"
+    ],
+    "verilator_coverage": [
+      "Verilator 5.053 devel rev v5.052-73-g298922d88 (mod)"
+    ],
+    "vvp": [
+      "Icarus Verilog runtime version 14.0 (devel) (s20260301-436-gd254ea49e-dirty)\n\nCopyright (c) 2001-2026 Stephen Williams (steve@icarus.com)\n\n  This program is free software; you can redistribute it and/or modify\n  it under the terms of the GNU General Public License as published by\n  the Free Software Foundation; either version 2 of the License, or\n  (at your option) any later version.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n  You should have received a copy of the GNU General Public License along\n  with this program; if not, write to the Free Software Foundation, Inc.,\n  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+    ],
+    "yosys": [
+      "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)"
+    ],
+    "yosys-abc": [
+      "======== ABC command line \"version\"\nUC Berkeley, ABC 1.01 (compiled Sep 12 2026 05:01:00)"
+    ]
+  },
+  "workloads": [
+    {
+      "design": "uart",
+      "technology": {
+        "name": "sky130hd",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2 + sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+        "fingerprint": "cdad83d1b2577a71786613430839fa580be9c2b0fe12a2b0420b393dd0075e99",
+        "corner": "typical",
+        "corners": {
+          "typical": [
+            "sky130hd/pvt/sky130_fd_sc_hd__tt_025C_1v80.lib"
+          ],
+          "slow": [
+            "sky130hd/pvt/sky130_fd_sc_hd__ss_100C_1v60.lib"
+          ],
+          "fast": [
+            "sky130hd/pvt/sky130_fd_sc_hd__ff_n40C_1v95.lib"
+          ]
+        },
+        "extraction": {
+          "cell_lefs": [
+            "sky130hd/pvt/sky130_fd_sc_hd.lef",
+            "sky130hd/pvt/sky130_ef_sc_hd.lef"
+          ],
+          "coupling_threshold_ff": 0.1,
+          "corners": {
+            "minimum": {
+              "rules": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+              "technology_lef": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef"
+            },
+            "nominal": {
+              "rules": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+              "technology_lef": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef"
+            },
+            "maximum": {
+              "rules": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+              "technology_lef": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef"
+            }
+          }
+        }
+      },
+      "conditions": {
+        "physical": {
+          "die_area": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "core_area": [
+            20,
+            20,
+            380,
+            380
+          ],
+          "place_density": 0.6,
+          "threads": 2
+        },
+        "timing_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "mapping_corner": "typical",
+        "synthesis": {},
+        "constraints": [
+          {
+            "path": "constraints.sdc",
+            "role": "constraint",
+            "text": "create_clock -name core_clk -period 10 [get_ports clk]\nset_input_delay 1 -clock core_clk [get_ports {reset send data*}]\nset_output_delay 1 -clock core_clk [get_ports {tx busy}]\n"
+          }
+        ],
+        "rc_corners": [
+          "minimum",
+          "nominal",
+          "maximum"
+        ]
+      },
+      "stages": [
+        {
+          "name": "behavior",
+          "verdict": "PASS",
+          "summary": "Regression PASS \u00b7 2/2 cases passed",
+          "result_sha256": "72442079d1c6b5dd5bf33e9af28456a47b8768a7bcff2a0000765ae323b446d5"
+        },
+        {
+          "name": "mapped",
+          "verdict": null,
+          "summary": "Mapped synthesis complete \u00b7 sky130hd / typical",
+          "result_sha256": "c185311339cd7c1d3f79ef74bf3fd6ba97bcfa58a807bb1e5ec39d21aaab96a9"
+        },
+        {
+          "name": "equivalent",
+          "verdict": "PASS",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "result_sha256": "7d481d59bf883ab389d2e69427bc238c9c0bbc6c0b582744d191669e9185f95f"
+        },
+        {
+          "name": "fault-detected",
+          "verdict": "FAIL",
+          "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+          "result_sha256": "046fb090aec24cfcba8090a0db090082127b73fe2361b66369e614e56c438bb3"
+        },
+        {
+          "name": "pre-layout-timing",
+          "verdict": "FAIL",
+          "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+          "result_sha256": "65dda2c8c42b26479af43a4de8a90d6ff3cc652a1749210e845246f6ae8c716f"
+        },
+        {
+          "name": "finished",
+          "verdict": null,
+          "summary": "Physical finish complete \u00b7 17345 placed cells",
+          "result_sha256": "fe7dbd96ecdd9a3672987ae5214974c5c52c73da13e2f0b22a394c6f4fe272f1"
+        },
+        {
+          "name": "extracted-timing",
+          "verdict": "PASS",
+          "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 RC minimum, nominal, maximum \u00b7 extracted SPEF",
+          "result_sha256": "f8dcd6f61e698e0879381d4221fa1f402ae0dad1c82e209b5144bf441864ec82"
+        },
+        {
+          "name": "physical-equivalent",
+          "verdict": "PASS",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "result_sha256": "9f14e319dfd04da64bd65c7b69adb61d9e5636b3894487a245abfce4c3eff532"
+        }
+      ],
+      "mapped_proof": {
+        "status": "PASS",
+        "partitions": [
+          {
+            "partition": "uart_tx.bit_index",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.busy",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.frame",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS"
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "UNKNOWN"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.ticks",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          }
+        ],
+        "counterexamples": [
+          "strategies/uart_tx.frame/smtbmc/uart_tx.frame/engine_0/trace_induct.vcd"
+        ],
+        "scope": "Sequential equivalence under the captured EQY strategy and initialization assumptions."
+      },
+      "physical_proof": {
+        "status": "PASS",
+        "partitions": [
+          {
+            "partition": "uart_tx.bit_index",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.busy",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.frame",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS"
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "UNKNOWN"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.ticks",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          }
+        ],
+        "counterexamples": [
+          "strategies/uart_tx.frame/smtbmc/uart_tx.frame/engine_0/trace_induct.vcd"
+        ],
+        "scope": "Sequential equivalence under the captured EQY strategy and initialization assumptions."
+      },
+      "fault": {
+        "status": "FAIL",
+        "partitions": [
+          {
+            "partition": "uart_tx.bit_index",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.busy",
+            "status": "FAIL",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "FAIL",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "FAIL"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.frame",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS"
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "UNKNOWN"
+              }
+            ]
+          },
+          {
+            "partition": "uart_tx.ticks",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          }
+        ],
+        "counterexamples": [
+          "strategies/uart_tx.frame/smtbmc/uart_tx.frame/engine_0/trace_induct.vcd",
+          "strategies/uart_tx.busy/smtbmc/uart_tx.busy/engine_0/trace.vcd"
+        ],
+        "scope": "Sequential equivalence under the captured EQY strategy and initialization assumptions."
+      },
+      "extracted_timing": [
+        {
+          "corner": "typical",
+          "rc_corner": "minimum",
+          "scenario": "typical / minimum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 5.556659,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.449977,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "typical",
+          "rc_corner": "nominal",
+          "scenario": "typical / nominal",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 5.560371,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.450035,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "typical",
+          "rc_corner": "maximum",
+          "scenario": "typical / maximum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 5.559304,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.450274,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "rc_corner": "minimum",
+          "scenario": "slow / minimum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 1.045096,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.93464,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "rc_corner": "nominal",
+          "scenario": "slow / nominal",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 1.06432,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.934724,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "rc_corner": "maximum",
+          "scenario": "slow / maximum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 1.069967,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.935005,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "rc_corner": "minimum",
+          "scenario": "fast / minimum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 7.275224,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.280475,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "rc_corner": "nominal",
+          "scenario": "fast / nominal",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 7.274958,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.280551,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "rc_corner": "maximum",
+          "scenario": "fast / maximum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 7.273993,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.280778,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        }
+      ],
+      "extraction": {
+        "schema": 1,
+        "status": "complete",
+        "platform_fingerprint": "cdad83d1b2577a71786613430839fa580be9c2b0fe12a2b0420b393dd0075e99",
+        "definition_sha256": "93a8742f532ca92e152b2c8573644938d13cdd70c849ff93203865f1a66266b9",
+        "def": {
+          "path": "snapshot.def",
+          "sha256": "ba0f199fe19df2a14e122b6c2d9cdd7a2248594038a15c144a2066959ac3bd85",
+          "bytes": 2435335
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "17727ed513a9433e6c123a09b6fe5e117253b8b5b4782bc98d60141599e4db64",
+          "bytes": 28138
+        },
+        "coupling_threshold_ff": 0.1,
+        "corners": {
+          "minimum": {
+            "spef_key": "spef_minimum",
+            "spef": {
+              "path": "extraction/minimum/parasitics.spef",
+              "sha256": "2a0ceb37cf5dc200ccba993d31a992fcc0522ea3fd56503f7138f0aa498bd1a1",
+              "bytes": 543564
+            },
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+                "sha256": "0c8d667cf41e920e67188e258b3b51ad722ff6aadc9a641fb79cbfdc7558550e",
+                "bytes": 35820
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__min.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef",
+                "sha256": "fd44aa653851894bf812d8f898a6878b7f152e6ccd993af256f610369a2297ed",
+                "bytes": 18127
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "metrics": {
+              "nets": 286,
+              "resistors": 1049,
+              "capacitors": 4007,
+              "units": {
+                "R": "1 OHM",
+                "C": "1 PF"
+              },
+              "sum_resistance_values": 6721.2984100000285,
+              "sum_capacitance_values": 0.4100060331899995,
+              "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+            }
+          },
+          "nominal": {
+            "spef_key": "spef_nominal",
+            "spef": {
+              "path": "extraction/nominal/parasitics.spef",
+              "sha256": "ad087855958e6421a0ffa01552d54f1020426c9328ace38df38af5dd5c9128d6",
+              "bytes": 545240
+            },
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+                "sha256": "682de2d5ceba1fffbdd58ee3033b2ab89ac81ced4ad3f51406f77a05ec4bca8b",
+                "bytes": 37579
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef",
+                "sha256": "1a18b353fb5457caf0eca5b3cb28b2c0c9bbacdbbdeee7c4fc64a115932066c2",
+                "bytes": 18131
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "metrics": {
+              "nets": 286,
+              "resistors": 1049,
+              "capacitors": 4007,
+              "units": {
+                "R": "1 OHM",
+                "C": "1 PF"
+              },
+              "sum_resistance_values": 16961.70507499991,
+              "sum_capacitance_values": 0.4100060331899995,
+              "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+            }
+          },
+          "maximum": {
+            "spef_key": "spef_maximum",
+            "spef": {
+              "path": "extraction/maximum/parasitics.spef",
+              "sha256": "1eea25f2032b011aae51d0629b593a20eb5cecf64aa437c24a966c6b950c6b07",
+              "bytes": 552261
+            },
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+                "sha256": "2083537e19365687ef0377e490b9d09ee58ce6fbf2865a9a9ba755840982d66e",
+                "bytes": 36464
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__max.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef",
+                "sha256": "317b8fb8ba802a0845870ffb374eb46d14dd29b6400fb5cc3795764bbf2bc83d",
+                "bytes": 18130
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "metrics": {
+              "nets": 286,
+              "resistors": 1297,
+              "capacitors": 4271,
+              "units": {
+                "R": "1 OHM",
+                "C": "1 PF"
+              },
+              "sum_resistance_values": 39723.773350000025,
+              "sum_capacitance_values": 0.41000601796999964,
+              "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+            }
+          }
+        },
+        "scope": "Independent OpenRCX runs on the same final DEF, using each corner technology LEF and extraction deck."
+      },
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "macro_export": {
+        "name": "uart-macro.zip",
+        "sha256": "c888e3a36ae4cf49a928b21c69818af683a01070bbc8a1897855c231d83e5e19",
+        "bytes": 1789584,
+        "interconnect_corners": {
+          "minimum": {
+            "spef_artifact": "spef_minimum",
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+                "sha256": "0c8d667cf41e920e67188e258b3b51ad722ff6aadc9a641fb79cbfdc7558550e",
+                "bytes": 35820
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__min.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef",
+                "sha256": "fd44aa653851894bf812d8f898a6878b7f152e6ccd993af256f610369a2297ed",
+                "bytes": 18127
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "source_def_sha256": "ba0f199fe19df2a14e122b6c2d9cdd7a2248594038a15c144a2066959ac3bd85",
+            "source_netlist_sha256": "17727ed513a9433e6c123a09b6fe5e117253b8b5b4782bc98d60141599e4db64"
+          },
+          "nominal": {
+            "spef_artifact": "spef_nominal",
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+                "sha256": "682de2d5ceba1fffbdd58ee3033b2ab89ac81ced4ad3f51406f77a05ec4bca8b",
+                "bytes": 37579
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef",
+                "sha256": "1a18b353fb5457caf0eca5b3cb28b2c0c9bbacdbbdeee7c4fc64a115932066c2",
+                "bytes": 18131
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "source_def_sha256": "ba0f199fe19df2a14e122b6c2d9cdd7a2248594038a15c144a2066959ac3bd85",
+            "source_netlist_sha256": "17727ed513a9433e6c123a09b6fe5e117253b8b5b4782bc98d60141599e4db64"
+          },
+          "maximum": {
+            "spef_artifact": "spef_maximum",
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+                "sha256": "2083537e19365687ef0377e490b9d09ee58ce6fbf2865a9a9ba755840982d66e",
+                "bytes": 36464
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__max.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef",
+                "sha256": "317b8fb8ba802a0845870ffb374eb46d14dd29b6400fb5cc3795764bbf2bc83d",
+                "bytes": 18130
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "source_def_sha256": "ba0f199fe19df2a14e122b6c2d9cdd7a2248594038a15c144a2066959ac3bd85",
+            "source_netlist_sha256": "17727ed513a9433e6c123a09b6fe5e117253b8b5b4782bc98d60141599e4db64"
+          }
+        }
+      },
+      "physical_artifacts": {
+        "gds": {
+          "path": "physical/results/sky130hd/uart_tx/base/6_final.gds",
+          "sha256": "65149d04799ac28fd59212244dfa3329c0396d1858c38e1b9c5c75aa53e24a7c",
+          "bytes": 2335832
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "17727ed513a9433e6c123a09b6fe5e117253b8b5b4782bc98d60141599e4db64",
+          "bytes": 28138
+        },
+        "def": {
+          "path": "snapshot.def",
+          "sha256": "ba0f199fe19df2a14e122b6c2d9cdd7a2248594038a15c144a2066959ac3bd85",
+          "bytes": 2435335
+        },
+        "spef": {
+          "path": "physical/results/sky130hd/uart_tx/base/6_final.spef",
+          "sha256": "a04fc9fc75db814998c9553f65bf9822e52bcef6f989402a66ec0529e6a7b46b",
+          "bytes": 534255
+        }
+      }
+    },
+    {
+      "design": "apb",
+      "technology": {
+        "name": "sky130hd",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2 + sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+        "fingerprint": "cdad83d1b2577a71786613430839fa580be9c2b0fe12a2b0420b393dd0075e99",
+        "corner": "typical",
+        "corners": {
+          "typical": [
+            "sky130hd/pvt/sky130_fd_sc_hd__tt_025C_1v80.lib"
+          ],
+          "slow": [
+            "sky130hd/pvt/sky130_fd_sc_hd__ss_100C_1v60.lib"
+          ],
+          "fast": [
+            "sky130hd/pvt/sky130_fd_sc_hd__ff_n40C_1v95.lib"
+          ]
+        },
+        "extraction": {
+          "cell_lefs": [
+            "sky130hd/pvt/sky130_fd_sc_hd.lef",
+            "sky130hd/pvt/sky130_ef_sc_hd.lef"
+          ],
+          "coupling_threshold_ff": 0.1,
+          "corners": {
+            "minimum": {
+              "rules": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+              "technology_lef": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef"
+            },
+            "nominal": {
+              "rules": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+              "technology_lef": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef"
+            },
+            "maximum": {
+              "rules": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+              "technology_lef": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef"
+            }
+          }
+        }
+      },
+      "conditions": {
+        "physical": {
+          "die_area": [
+            0,
+            0,
+            400,
+            400
+          ],
+          "core_area": [
+            20,
+            20,
+            380,
+            380
+          ],
+          "place_density": 0.6,
+          "threads": 2
+        },
+        "timing_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "mapping_corner": "typical",
+        "synthesis": {},
+        "constraints": [
+          {
+            "path": "constraints.sdc",
+            "role": "constraint",
+            "text": "# Generated by IC Design Studio. Time: ns; capacitance: pF.\nset_cmd_units -time ns -capacitance pF\ncreate_clock -name \"core_clk\" -period 20 [get_ports \"clk\"]\nset_clock_uncertainty 0.1 [get_clocks \"core_clk\"]\nset_input_delay -min 0 -clock \"core_clk\" [get_ports \"reset psel penable pwrite paddr* pwdata*\"]\nset_input_delay -max 1 -clock \"core_clk\" [get_ports \"reset psel penable pwrite paddr* pwdata*\"]\nset_output_delay -min 0 -clock \"core_clk\" [get_ports \"prdata* pready pslverr irq\"]\nset_output_delay -max 1 -clock \"core_clk\" [get_ports \"prdata* pready pslverr irq\"]\nset_load 0.01 [all_outputs]\n"
+          }
+        ],
+        "rc_corners": [
+          "minimum",
+          "nominal",
+          "maximum"
+        ]
+      },
+      "stages": [
+        {
+          "name": "behavior",
+          "verdict": "PASS",
+          "summary": "Regression PASS \u00b7 2/2 cases passed",
+          "result_sha256": "53c6dfe3fd8e0b0a95f3f6252f29f6872118afeb02cf17936b0b02e34a229c0f"
+        },
+        {
+          "name": "mapped",
+          "verdict": null,
+          "summary": "Mapped synthesis complete \u00b7 sky130hd / typical",
+          "result_sha256": "a21df6bcc78383aa63a1f16a204242c9ee9fc8a7a6b4d3b7412bdf5a7c58e93b"
+        },
+        {
+          "name": "equivalent",
+          "verdict": "PASS",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "result_sha256": "3f05ca27fe3b4ad0a640bd264544f8c3e09c57c6e90d0ac6af305acbe0c875a7"
+        },
+        {
+          "name": "fault-detected",
+          "verdict": "FAIL",
+          "summary": "Equivalence FAIL \u00b7 captured mapped netlist",
+          "result_sha256": "e6d16d0acd8e9892d4f290556a1e679ef8692923223a8f17b034f83ece728c01"
+        },
+        {
+          "name": "pre-layout-timing",
+          "verdict": "FAIL",
+          "summary": "Timing FAIL \u00b7 typical, slow, fast \u00b7 No extracted interconnect; pre-layout estimate",
+          "result_sha256": "b97f8fe9aca27fa2c819345bc1042a8eff586376675dafa64a3dd8392ddf8e21"
+        },
+        {
+          "name": "finished",
+          "verdict": null,
+          "summary": "Physical finish complete \u00b7 17190 placed cells",
+          "result_sha256": "abfd32af406b21ca11fcec82bfc3b10ceeda39896ec794ddfdbd44508f9d8ba4"
+        },
+        {
+          "name": "extracted-timing",
+          "verdict": "PASS",
+          "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 RC minimum, nominal, maximum \u00b7 extracted SPEF",
+          "result_sha256": "d82080a15bd66c27e4aab43fe91a4e624e3d4a12697c6839bb562a60243ecde9"
+        },
+        {
+          "name": "physical-equivalent",
+          "verdict": "PASS",
+          "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+          "result_sha256": "90da57c4e92d2c14f16050f0a88b61cbdd92a07c6cfba2bc0045b851cfebc357"
+        }
+      ],
+      "mapped_proof": {
+        "status": "PASS",
+        "partitions": [
+          {
+            "partition": "apb_fifo.fifo.count",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.0",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.1",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.2",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.3",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.rd",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.wr",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.irq",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.irq_enable",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.prdata",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.pready",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.pslverr",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          }
+        ],
+        "counterexamples": [],
+        "scope": "Sequential equivalence under the captured EQY strategy and initialization assumptions."
+      },
+      "physical_proof": {
+        "status": "PASS",
+        "partitions": [
+          {
+            "partition": "apb_fifo.fifo.count",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.0",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.1",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.2",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.3",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.rd",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.wr",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.irq",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.irq_enable",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.prdata",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.pready",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.pslverr",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          }
+        ],
+        "counterexamples": [],
+        "scope": "Sequential equivalence under the captured EQY strategy and initialization assumptions."
+      },
+      "fault": {
+        "status": "FAIL",
+        "partitions": [
+          {
+            "partition": "apb_fifo.fifo.count",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.0",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.1",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.2",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.mem.3",
+            "status": "FAIL",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "FAIL",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "FAIL"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.rd",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.fifo.wr",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.irq",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.irq_enable",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.prdata",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.pready",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          },
+          {
+            "partition": "apb_fifo.pslverr",
+            "status": "PASS",
+            "strategies": [
+              {
+                "strategy": "pdr",
+                "status": "PASS",
+                "cached": true
+              },
+              {
+                "strategy": "smtbmc",
+                "status": "PASS"
+              }
+            ]
+          }
+        ],
+        "counterexamples": [
+          "strategies/apb_fifo.fifo.mem.3/smtbmc/apb_fifo.fifo.mem.3/engine_0/trace.vcd"
+        ],
+        "scope": "Sequential equivalence under the captured EQY strategy and initialization assumptions."
+      },
+      "extracted_timing": [
+        {
+          "corner": "typical",
+          "rc_corner": "minimum",
+          "scenario": "typical / minimum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 15.782638,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.265347,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "typical",
+          "rc_corner": "nominal",
+          "scenario": "typical / nominal",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 15.782224,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.26417,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "typical",
+          "rc_corner": "maximum",
+          "scenario": "typical / maximum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 15.781361,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.261556,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "rc_corner": "minimum",
+          "scenario": "slow / minimum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 13.80973,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.558206,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "rc_corner": "nominal",
+          "scenario": "slow / nominal",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 13.814186,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.557001,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "slow",
+          "rc_corner": "maximum",
+          "scenario": "slow / maximum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 13.813262,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.554648,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "rc_corner": "minimum",
+          "scenario": "fast / minimum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 16.553518,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.124299,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "rc_corner": "nominal",
+          "scenario": "fast / nominal",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 16.553127,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.123135,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        },
+        {
+          "corner": "fast",
+          "rc_corner": "maximum",
+          "scenario": "fast / maximum",
+          "status": "PASS",
+          "summary": {
+            "setup_worst_slack_ns": 16.552277,
+            "setup_reported_violations": 0,
+            "setup_total_negative_slack_ns": 0.0,
+            "hold_worst_slack_ns": 0.120616,
+            "hold_reported_violations": 0,
+            "hold_total_negative_slack_ns": 0.0
+          },
+          "electrical_status": "No reported violations",
+          "incomplete_reasons": []
+        }
+      ],
+      "extraction": {
+        "schema": 1,
+        "status": "complete",
+        "platform_fingerprint": "cdad83d1b2577a71786613430839fa580be9c2b0fe12a2b0420b393dd0075e99",
+        "definition_sha256": "93a8742f532ca92e152b2c8573644938d13cdd70c849ff93203865f1a66266b9",
+        "def": {
+          "path": "snapshot.def",
+          "sha256": "75dce33f66c3192c2b77829cacba9d2ac956a5c668f7e9211b611325dbdf2000",
+          "bytes": 2362985
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "1e4ab2d9bc94b32ff1dd5ed3e48ac1d9863e680d02bb995e0263a44eea5187b2",
+          "bytes": 17355
+        },
+        "coupling_threshold_ff": 0.1,
+        "corners": {
+          "minimum": {
+            "spef_key": "spef_minimum",
+            "spef": {
+              "path": "extraction/minimum/parasitics.spef",
+              "sha256": "77e217a828c1bb61ca6ce6598f6858c817b0d78f35a498de17283ebe1e8ddefd",
+              "bytes": 469514
+            },
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+                "sha256": "0c8d667cf41e920e67188e258b3b51ad722ff6aadc9a641fb79cbfdc7558550e",
+                "bytes": 35820
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__min.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef",
+                "sha256": "fd44aa653851894bf812d8f898a6878b7f152e6ccd993af256f610369a2297ed",
+                "bytes": 18127
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "metrics": {
+              "nets": 171,
+              "resistors": 634,
+              "capacitors": 2387,
+              "units": {
+                "R": "1 OHM",
+                "C": "1 PF"
+              },
+              "sum_resistance_values": 5175.119399999999,
+              "sum_capacitance_values": 0.4938390453,
+              "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+            }
+          },
+          "nominal": {
+            "spef_key": "spef_nominal",
+            "spef": {
+              "path": "extraction/nominal/parasitics.spef",
+              "sha256": "fdf9160b787b114c3415e6e06fd080eeae06f175d0ac4b8653214d03a1e7197d",
+              "bytes": 470703
+            },
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+                "sha256": "682de2d5ceba1fffbdd58ee3033b2ab89ac81ced4ad3f51406f77a05ec4bca8b",
+                "bytes": 37579
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef",
+                "sha256": "1a18b353fb5457caf0eca5b3cb28b2c0c9bbacdbbdeee7c4fc64a115932066c2",
+                "bytes": 18131
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "metrics": {
+              "nets": 171,
+              "resistors": 645,
+              "capacitors": 2400,
+              "units": {
+                "R": "1 OHM",
+                "C": "1 PF"
+              },
+              "sum_resistance_values": 11531.225530000003,
+              "sum_capacitance_values": 0.49383902469999996,
+              "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+            }
+          },
+          "maximum": {
+            "spef_key": "spef_maximum",
+            "spef": {
+              "path": "extraction/maximum/parasitics.spef",
+              "sha256": "4f4565aeba81c33d35dc851cf765debf32c290265f58ef03f762628efa9bf09b",
+              "bytes": 476056
+            },
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+                "sha256": "2083537e19365687ef0377e490b9d09ee58ce6fbf2865a9a9ba755840982d66e",
+                "bytes": 36464
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__max.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef",
+                "sha256": "317b8fb8ba802a0845870ffb374eb46d14dd29b6400fb5cc3795764bbf2bc83d",
+                "bytes": 18130
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "metrics": {
+              "nets": 171,
+              "resistors": 821,
+              "capacitors": 2610,
+              "units": {
+                "R": "1 OHM",
+                "C": "1 PF"
+              },
+              "sum_resistance_values": 25566.73585000001,
+              "sum_capacitance_values": 0.49383912928,
+              "scope": "Raw SPEF element sums in reported units; not path delay or signoff acceptance."
+            }
+          }
+        },
+        "scope": "Independent OpenRCX runs on the same final DEF, using each corner technology LEF and extraction deck."
+      },
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "macro_export": {
+        "name": "apb-macro.zip",
+        "sha256": "fab8e6ad2182c982ec2ae47a5a89a2ccaf558bde40bcc2c3d306d43d6721a59a",
+        "bytes": 1669486,
+        "interconnect_corners": {
+          "minimum": {
+            "spef_artifact": "spef_minimum",
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.min.spef_extractor",
+                "sha256": "0c8d667cf41e920e67188e258b3b51ad722ff6aadc9a641fb79cbfdc7558550e",
+                "bytes": 35820
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__min.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__min.tlef",
+                "sha256": "fd44aa653851894bf812d8f898a6878b7f152e6ccd993af256f610369a2297ed",
+                "bytes": 18127
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "source_def_sha256": "75dce33f66c3192c2b77829cacba9d2ac956a5c668f7e9211b611325dbdf2000",
+            "source_netlist_sha256": "1e4ab2d9bc94b32ff1dd5ed3e48ac1d9863e680d02bb995e0263a44eea5187b2"
+          },
+          "nominal": {
+            "spef_artifact": "spef_nominal",
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.nom.spef_extractor",
+                "sha256": "682de2d5ceba1fffbdd58ee3033b2ab89ac81ced4ad3f51406f77a05ec4bca8b",
+                "bytes": 37579
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__nom.tlef",
+                "sha256": "1a18b353fb5457caf0eca5b3cb28b2c0c9bbacdbbdeee7c4fc64a115932066c2",
+                "bytes": 18131
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "source_def_sha256": "75dce33f66c3192c2b77829cacba9d2ac956a5c668f7e9211b611325dbdf2000",
+            "source_netlist_sha256": "1e4ab2d9bc94b32ff1dd5ed3e48ac1d9863e680d02bb995e0263a44eea5187b2"
+          },
+          "maximum": {
+            "spef_artifact": "spef_maximum",
+            "inputs": {
+              "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor": {
+                "path": "sky130hd/pvt/rules.openrcx.sky130A.max.spef_extractor",
+                "sha256": "2083537e19365687ef0377e490b9d09ee58ce6fbf2865a9a9ba755840982d66e",
+                "bytes": 36464
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd__max.tlef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd__max.tlef",
+                "sha256": "317b8fb8ba802a0845870ffb374eb46d14dd29b6400fb5cc3795764bbf2bc83d",
+                "bytes": 18130
+              },
+              "sky130hd/pvt/sky130_fd_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_fd_sc_hd.lef",
+                "sha256": "305c3a00b8d562b50265dfda80b00ea705f416e13b50b303504ddbcb8b46771d",
+                "bytes": 1888519
+              },
+              "sky130hd/pvt/sky130_ef_sc_hd.lef": {
+                "path": "sky130hd/pvt/sky130_ef_sc_hd.lef",
+                "sha256": "614801bb338dbc452fb62d35d706cd888e5d9e54741a238a7ee8137bd0f685bd",
+                "bytes": 5890
+              }
+            },
+            "source_def_sha256": "75dce33f66c3192c2b77829cacba9d2ac956a5c668f7e9211b611325dbdf2000",
+            "source_netlist_sha256": "1e4ab2d9bc94b32ff1dd5ed3e48ac1d9863e680d02bb995e0263a44eea5187b2"
+          }
+        }
+      },
+      "physical_artifacts": {
+        "gds": {
+          "path": "physical/results/sky130hd/apb_fifo/base/6_final.gds",
+          "sha256": "58ed8e43b51a116fa6b53fcdfd1ac6fda60f14d49d9bb18408ba7244fd19e35e",
+          "bytes": 2206540
+        },
+        "netlist": {
+          "path": "netlist.v",
+          "sha256": "1e4ab2d9bc94b32ff1dd5ed3e48ac1d9863e680d02bb995e0263a44eea5187b2",
+          "bytes": 17355
+        },
+        "def": {
+          "path": "snapshot.def",
+          "sha256": "75dce33f66c3192c2b77829cacba9d2ac956a5c668f7e9211b611325dbdf2000",
+          "bytes": 2362985
+        },
+        "spef": {
+          "path": "physical/results/sky130hd/apb_fifo/base/6_final.spef",
+          "sha256": "f032579eaefdb5468e355c0022cf14206d5024dd428b2e64690847e48f82473c",
+          "bytes": 464785
+        }
+      }
+    }
+  ],
+  "existing_runtime_compatibility": {
+    "Linux": {
+      "status": "passed",
+      "digital_checks": 26,
+      "checked": "2026-10-07T00:42:10+00:00",
+      "platforms": [
+        "sky130hd",
+        "gf180",
+        "ihp-sg13g2"
+      ],
+      "runtime_sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563",
+      "physical_tool_checks": {
+        "status": "passed",
+        "design_hash": "71e91cdaed4710d6c69d50539ba133c37505bc8ee1832f0f20b5ae6b5ad49b3b",
+        "qualification": "Runtime tool smoke tests only; no process or design qualification.",
+        "stages": [
+          {
+            "name": "drc-legal",
+            "status": "passed",
+            "count": 0
+          },
+          {
+            "name": "drc-narrow",
+            "status": "passed",
+            "count": 1
+          },
+          {
+            "name": "lvs-equal",
+            "status": "passed"
+          },
+          {
+            "name": "lvs-wrong",
+            "status": "passed"
+          },
+          {
+            "name": "ngspice",
+            "status": "passed"
+          }
+        ],
+        "klayout": "0.30.5",
+        "native_design_hash": "ecd90d191bbc2cf4dec8c51f92eafae6377dd480773b001bee9b2510a5d5a7a5",
+        "execution": {
+          "runtime": {
+            "kind": "linux",
+            "root": "/state/runtimes/479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563",
+            "sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563"
+          },
+          "native_directory": "/tmp/icstudio-physical-2629itg0",
+          "native_input_sha256": "4d150e4c1dce879711d9ccff0a7dc79ae2896644207c7a6fec837ed3ff7f5581",
+          "received_files": {
+            "physical-backend-result.json": "9884bb46cd66e58dbe474ef77927e1d9831bd8b94087961da8069668b7968bfe",
+            "physical-flow/legal.log": "8197c515b2eb8777f4f39f54ac8aba4bb0c1d68b0b7c8a010de345139257025b",
+            "physical-flow/narrow.tcl": "ce0385ae715968111aa70008c899f368f8b4975042ecf75fcdaa7a5a335928d7",
+            "physical-flow/legal.tcl": "ee090d774cf3ce61fda80fe40ebc3caf9ed620e6e3c5cfc860c4ac40f8b6775c",
+            "physical-flow/setup.tcl": "066b62eb66b2428b270d410a77dae833a0f3d6dde7244cb8d0402701d5e07390",
+            "physical-flow/report.json": "29da22f1a82c8b0901b7e2b861d0ff102d51250cb894a0bbe54ddd6734975fc9",
+            "physical-flow/narrow.log": "42da79bd6c39b848df5e76004c0cd45cca3913354ba26d524beb5a176fe18283",
+            "physical-flow/equal.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/reference.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/startup.tcl": "c65131cec2210258a5380dbdf912d2a81442e674e83a9856098a8435b4c2c6f8",
+            "physical-flow/wrong.spice": "6a51082e74a23ad0503569f6632d9df462a10ee14adf37ed2727bd3eab37f6b3",
+            "physical-flow/wrong/lvs.log": "c876f9eb14e79734f988f302447f3a1f7fcf2d4958207c067099c7132c4b9bb8",
+            "physical-flow/wrong/lvs.json": "503ebaccddf32815e37daf760f69b7ec19a1c671783cc0ca6e82f6fc40543e95",
+            "physical-flow/wrong/console.log": "d2c0ac3746f79caaedc82e183e953dc6bd956341dd09057b240d6c8e1a9613cc",
+            "physical-flow/equal/lvs.log": "3bd2772702557fca047a8a35df14610d511240b685b1d2af9dd787cf3ea2f2b9",
+            "physical-flow/equal/lvs.json": "41e6c9c74ec7212b7f4bd03b98dfa7310cb9f0ba26e904e2864bd973b2dcffc8",
+            "physical-flow/equal/console.log": "7e25688fc1c8d2ea40398ebd558b4f9457da5bb6940284289db5f2fc787c4fe9"
+          }
+        }
+      },
+      "scope": "Existing installed three-platform candidate on this backend; its SKY130 catalog is still typical-only. Not final frozen desktop qualification."
+    },
+    "Windows": {
+      "status": "passed",
+      "digital_checks": 26,
+      "checked": "2026-10-07T00:52:32+00:00",
+      "platforms": [
+        "sky130hd",
+        "gf180",
+        "ihp-sg13g2"
+      ],
+      "runtime_sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563",
+      "physical_tool_checks": {
+        "status": "passed",
+        "design_hash": "45ef91be68ff1f213af3633c264d588ca6474c2f6ccfcb518d860e1556d4b61e",
+        "qualification": "Runtime tool smoke tests only; no process or design qualification.",
+        "stages": [
+          {
+            "name": "drc-legal",
+            "status": "passed",
+            "count": 0
+          },
+          {
+            "name": "drc-narrow",
+            "status": "passed",
+            "count": 1
+          },
+          {
+            "name": "lvs-equal",
+            "status": "passed"
+          },
+          {
+            "name": "lvs-wrong",
+            "status": "passed"
+          },
+          {
+            "name": "ngspice",
+            "status": "passed"
+          }
+        ],
+        "klayout": "0.30.5",
+        "native_design_hash": "144b6d251c2785e9d69886cb4cd949647aaf5858c942d7de7c653f0466c1b505",
+        "execution": {
+          "runtime": {
+            "kind": "wsl",
+            "distro": "ICStudio-Digital-479ab2d7898f92fa-55f1d1d7",
+            "root": "\\\\wsl.localhost\\ICStudio-Digital-479ab2d7898f92fa-55f1d1d7",
+            "sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563"
+          },
+          "native_directory": "/var/tmp/icstudio-physical/ebdbe980528d46f680de9c5e4ba5eda4",
+          "native_input_sha256": "6ed63f054558d633caf6ab9faa9082713720b97ba49f439997f04f770a3b91e2",
+          "received_files": {
+            "physical-backend-result.json": "b86b1045254f2e35926cb725049f0c40cf1fc4e001ea828fce27c54cef5e60f8",
+            "physical-flow/startup.tcl": "7f0b9644f18818b7ee9f8c3e58935b14fea63528d94e3dfd79569704832b877c",
+            "physical-flow/reference.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/report.json": "d993d066db242a21177d9348e5af2f04ac75f2e142fb55113860c3bd18dfcfe5",
+            "physical-flow/setup.tcl": "066b62eb66b2428b270d410a77dae833a0f3d6dde7244cb8d0402701d5e07390",
+            "physical-flow/equal.spice": "4e65c303b9179641048a0c027662660f693eb023de03a66436629e30a8b94b65",
+            "physical-flow/legal.tcl": "ee090d774cf3ce61fda80fe40ebc3caf9ed620e6e3c5cfc860c4ac40f8b6775c",
+            "physical-flow/narrow.log": "46a4859dfc40c6d2ac0e9fc4b69e20b85b91a5568cf6d31ca8cd3b6228c3473b",
+            "physical-flow/legal.log": "c6c2c95031b51f99b9ba7d2bf56346669a5a4b8a54ca192b04ef74a4a1a23804",
+            "physical-flow/narrow.tcl": "ce0385ae715968111aa70008c899f368f8b4975042ecf75fcdaa7a5a335928d7",
+            "physical-flow/wrong.spice": "6a51082e74a23ad0503569f6632d9df462a10ee14adf37ed2727bd3eab37f6b3",
+            "physical-flow/wrong/lvs.json": "503ebaccddf32815e37daf760f69b7ec19a1c671783cc0ca6e82f6fc40543e95",
+            "physical-flow/wrong/lvs.log": "c876f9eb14e79734f988f302447f3a1f7fcf2d4958207c067099c7132c4b9bb8",
+            "physical-flow/wrong/console.log": "d3440b0f48d226f5f905a6ffa168a6be9e6e72f84c8744a8094cfe21d454d9b7",
+            "physical-flow/equal/lvs.json": "41e6c9c74ec7212b7f4bd03b98dfa7310cb9f0ba26e904e2864bd973b2dcffc8",
+            "physical-flow/equal/lvs.log": "3bd2772702557fca047a8a35df14610d511240b685b1d2af9dd787cf3ea2f2b9",
+            "physical-flow/equal/console.log": "1bdfbc589ef2944a29346fe7dc95492fd6c277e91fbef71a75917b985379c3bc"
+          }
+        }
+      },
+      "scope": "Existing installed three-platform candidate on this backend; its SKY130 catalog is still typical-only. Not final frozen desktop qualification."
+    }
+  },
+  "evidence": {
+    "digital-corners-runtime-Linux-audit.json": {
+      "sha256": "db8829d92a9c4b73684b44ce7553859f5b20a77824f9dc2cda21adcf7a1fcdf1",
+      "bytes": 78136
+    },
+    "digital-corners-runtime-Linux-evidence.tar.gz": {
+      "sha256": "6b77af6568852f766d3cd7dd4a9ace72c741396aa6056e8badb1f98522c87c86",
+      "bytes": 28691362
+    },
+    "digital-corners-runtime-Windows-audit.json": {
+      "sha256": "2cbd93263271d822cf783c05bcb8042bdfe9a4423f6b266af91602b30cba3b29",
+      "bytes": 79973
+    },
+    "digital-corners-runtime-Windows-evidence.tar.gz": {
+      "sha256": "8e722502a6f2aad51441f27798ccce1cdb45e176342b1a32b1d280eebd874571",
+      "bytes": 28687798
+    },
+    "sky130-corner-evidence.tar.gz": {
+      "sha256": "b871fa84b09c565b297826e984327b7325316fbd36304ee196b169ea9b2e7ead",
+      "bytes": 49371280
+    },
+    "sky130-corner-audit.json": {
+      "sha256": "e23838460acc4cea151b06639d39718728a3d2f668d06c864610dfbcb7fa5bc3",
+      "bytes": 102444
+    },
+    "sky130-corner-report.json": {
+      "sha256": "44701700faf2649bcdb51895ce41bc2a658e2a0a4a1ac6a5a5a30d184294d7cf",
+      "bytes": 43431
+    }
+  },
+  "local_validation": {
+    "full_suite": {
+      "tests": 1383,
+      "skips": 63,
+      "failures": 0,
+      "seconds": 330.491
+    },
+    "focused": {
+      "tests": 57,
+      "skips": 1,
+      "failures": 0
+    },
+    "gui": {
+      "status": "passed",
+      "platform_revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2 + sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "scope": "Offscreen editor workflow; no engine or process qualification",
+      "checks": [
+        "Independent RC selection",
+        "Unchanged library selection and manual SDC",
+        "Save/reopen",
+        "Empty RC selection rejected",
+        "New cell clears detached platform corner selections"
+      ]
+    },
+    "gui_scope": "Offscreen Windows Qt with isolated settings and system fonts; not consumer desktop acceptance",
+    "screenshot_sha256": "a98e7b590d582b184cbd017d75f462e1a1004f2281d878840d4b5829ccf1a8b8",
+    "documentation": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 120,
+      "local_links": 1162,
+      "gallery_examples": 13
+    }
+  },
+  "recovery_note": "The first external audit launch failed with Wsl/Service/0x8007274c. A process check found no audit running, a read-only WSL call succeeded, and the subsequent audit passed. The failed launch log is retained separately.",
+  "remaining": [
+    "Bundle and qualify this PVT/RC platform in the default runtime and exact desktop packages",
+    "Matched GF180/IHP RC sweeps, operating modes/conditions, GF180 variants and broader analog/digital designs",
+    "Full-chip physical signoff, consumer desktop acceptance and process-owner/shuttle acceptance"
+  ]
+}

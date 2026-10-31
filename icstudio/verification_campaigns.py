@@ -103,6 +103,22 @@ def _seeds(value, path=''):
     return found
 
 
+def _publish_directory(stage, destination):
+    # Windows readers may briefly deny directory rename after the database is
+    # closed. Retry the same completed snapshot, without replacing another
+    # campaign or treating permanent/unrelated I/O errors as success.
+    delays = (.01, .02, .04, .08, .15)
+    for attempt in range(len(delays)+1):
+        if destination.exists() or destination.is_symlink():
+            raise FileExistsError('Campaign destination appeared during preparation.')
+        try:
+            os.rename(stage, destination)
+            return
+        except OSError as exc:
+            if getattr(exc, 'winerror', None) not in (5, 32, 33) or attempt == len(delays): raise
+            time.sleep(delays[attempt])
+
+
 def create(directory, project, plan, prepare_job):
     """Stream at most 10,000 captured cases to a new, atomically published folder."""
     from .test_plans import iter_prepare, validate_plans, case_count
@@ -160,7 +176,7 @@ def create(directory, project, plan, prepare_job):
                                (index, case['test_name'], _json({**case['labels'],'entry_id':case['entry_id']}), file_digest(path), now()))
             if index % 100 == 0:connection.commit()
         connection.commit(); connection.close(); connection = None
-        os.rename(stage, destination)
+        _publish_directory(stage, destination)
         return Campaign(destination)
     except BaseException:
         if connection is not None:connection.close()

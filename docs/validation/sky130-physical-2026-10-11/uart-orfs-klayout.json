@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "status": "enabled-deck-execution-complete",
+  "qualified": false,
+  "case": "uart",
+  "source_result_sha256": "7e62adcf692431a099055706ffea5812873765749c9cf116dacec9f15f33dfa7",
+  "gds_sha256": "6ff9ae1f5d2139ce18bc4cbd7b121b932bdef3f8ccf1836018fa7a8afafdc77f",
+  "original_deck_sha256": "029722ea1fc2cf8c48f09fc670c0b72efb295f799c4eb236b7e9767930ecf772",
+  "enabled_deck_sha256": "e78b39325745065d401ab0cab19c9a47dd5c963dc130132c4c38775c23b75813",
+  "engine_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+  "engine_version": "KLayout 0.30.5",
+  "command": [
+    "/opt/icstudio/bin/klayout",
+    "-b",
+    "-r",
+    "/var/tmp/icstudio-sky130-full-deck-v1/uart/enabled.drc",
+    "-rd",
+    "in_gds=/var/tmp/icstudio-sky130-full-deck-v1/uart/input.gds",
+    "-rd",
+    "report_file=/var/tmp/icstudio-sky130-full-deck-v1/uart/report.lyrdb"
+  ],
+  "flags": {
+    "FEOL": true,
+    "BEOL": true,
+    "OFFGRID": true
+  },
+  "scope": "Full enabled execution of the captured ORFS deck. Commented-out checks, missing rule coverage, density, antenna and LVS need separate reconciliation. Not chunk-6 acceptance.",
+  "markers": 0,
+  "categories": {},
+  "seconds": 172.79510712099727,
+  "files": {
+    "input.gds": "6ff9ae1f5d2139ce18bc4cbd7b121b932bdef3f8ccf1836018fa7a8afafdc77f",
+    "engine.log": "a00a906bfff746329c642dff2f25d141c2bf1909565089f4ae0b737a7a673006",
+    "source.lydrc": "029722ea1fc2cf8c48f09fc670c0b72efb295f799c4eb236b7e9767930ecf772",
+    "report.lyrdb": "214231e604275b1657f1c9b31758815e56b6543a36f7d09d25dedc6353887bdc",
+    "enabled.drc": "e78b39325745065d401ab0cab19c9a47dd5c963dc130132c4c38775c23b75813"
+  }
+}

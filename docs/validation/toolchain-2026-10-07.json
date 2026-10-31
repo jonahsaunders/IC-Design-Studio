@@ -1,0 +1,1495 @@
+{
+  "chunk": 2,
+  "date": "2026-10-07",
+  "status": "passed_reference_scope",
+  "scope": "Exact compatible toolchain reference gate: verified installed native Linux and Windows/private WSL installations, actual Ruby rule controls, four analog process variants with DRC/LVS faults/repairs, three digital profiles with native antenna/power faults, and required hosted implementation execution. This does not qualify complete PDK device coverage, final streamed GDS or tapeout.",
+  "source_commit": "7feca0695f586ff84c8d2111b528076891a50e77",
+  "backend_sha256": "35f429b100c184174d0df82f0f21db888c8306cf20fab9a977bc42b0b167795d",
+  "archive_sha256": "bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1",
+  "image_id": "sha256:b1fe6a538b270864579ec8991b08c58d4e14c419a0e5c6822bdec17514bc57a6",
+  "runtime_bytes": 1528868993,
+  "source_files": {
+    "icstudio/digital_physical_checks.py": "b6727b27b061ed86e30666f40f04b0fc3d201577915b5453f7a13cbbf1b829ac",
+    "icstudio/digital_physical_engine.py": "f71d5d2b8d5c87ddb94761b6e27025b7db7235be3c20a6377cfc16cff87d7489",
+    "icstudio/klayout_runtime_probe.py": "51d750b45a8787dd07a45a75e40e371fe9961e8f2e651388a47a709cb422d7a2",
+    "icstudio/physical_runtime_probe.py": "7cc634223f4967efcedc66db193e55c4db9e98462716b12cb16047969fabf13d",
+    "icstudio/physical_backend.py": "4013dd9a3af04e1d0bea76427e362b0e5ab948c5b212cbd3fd157ddac9a63cda",
+    "scripts/qualify_klayout_runtime.py": "f46320c006b718a1c32e6ab828c94991babc21bfdb7c95015baee6e091309c1d",
+    "scripts/ci/klayout": "8d2e75c8081006981bc46396d7c9009e338ae6ff36162dfc4b0d5d2e390b5dd6",
+    "scripts/ci/openroad": "88bd51e38300088c583276f462573002abf9f72bdbfceb81fdeffab9784916da",
+    "packaging/digital/Dockerfile": "9974096adf3d750f9f7224a0dd0d5065c8ebb16b973ee330f6b689227b89871e",
+    "packaging/digital/assemble.py": "7faa8e50d06712f13cff39f86e9161e7c9782ae132404e51f204fe1a29d34a44",
+    ".github/workflows/digital.yml": "d551f624d6c132802e5af90e01de31c00322436ec2046caea2d106622f464ab4"
+  },
+  "klayout_package": {
+    "version": "0.30.5",
+    "sha256": "9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49",
+    "url": "https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb"
+  },
+  "installation_history": "The same archive first passed clean Linux/Windows installation on backend 0f4ab60; after the diode-model correction, full installed-file integrity and every acceptance case were rerun on backend 35f429b. The source backend is separately captured, and the native archive is unchanged.",
+  "operating_systems": {
+    "Linux": {
+      "acceptance": {
+        "runtime": {
+          "kind": "linux",
+          "root": "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1",
+          "sha256": "bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1"
+        },
+        "manifest": "09b75ee56541c66e09e112cb9745ee029b440d6aa75d4350d88509700fd284f5",
+        "backend": "35f429b100c184174d0df82f0f21db888c8306cf20fab9a977bc42b0b167795d",
+        "checked": "2026-10-07T14:30:54+00:00",
+        "evidence": "/qualification/state/checks/83d9c98022494e3da1d067ba5310b965",
+        "platforms": [
+          "sky130hd",
+          "gf180",
+          "ihp-sg13g2"
+        ],
+        "platform_corners": {
+          "sky130hd": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": [
+              "minimum",
+              "nominal",
+              "maximum"
+            ]
+          },
+          "gf180": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": []
+          },
+          "ihp-sg13g2": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": []
+          }
+        }
+      },
+      "installation_checks": 26,
+      "timing_pairs": 15,
+      "macro_exports": 3,
+      "physical_tool_checks": [
+        {
+          "name": "drc-legal",
+          "status": "passed",
+          "count": 0
+        },
+        {
+          "name": "drc-narrow",
+          "status": "passed",
+          "count": 1
+        },
+        {
+          "name": "lvs-equal",
+          "status": "passed"
+        },
+        {
+          "name": "lvs-wrong",
+          "status": "passed"
+        },
+        {
+          "name": "ngspice",
+          "status": "passed"
+        },
+        {
+          "name": "klayout-legal",
+          "status": "passed",
+          "markers": 0,
+          "converted_edges": 0,
+          "version": "KLayout 0.30.5",
+          "input_sha256": "41098994d5b8ef8e7af7d4ea39a87ff90d85cb2795d15d5c69fe3c7b0d5021f3",
+          "report_sha256": "866e49c1e02dad0f761a62480f0cb8b6e6ae51cc2a1fe4441e248a9a9ae7075f"
+        },
+        {
+          "name": "klayout-narrow",
+          "status": "passed",
+          "markers": 1,
+          "converted_edges": 1,
+          "version": "KLayout 0.30.5",
+          "input_sha256": "1e1c8fdaaaacd6d3e35d4cbd15a84e1bbb1c3d102f14a5db4ce85b62f46aa554",
+          "report_sha256": "941ce81ff4872636d8d98dfcda6e0c2babe764658029673fe1fbd89b1fd74773"
+        }
+      ],
+      "process_rule_controls": [
+        {
+          "target": "sky130A",
+          "case": "drc-fault",
+          "native_status": "failed",
+          "drc_count": 2,
+          "result_sha256": "cc507560437bda0545a20cf311c56dd1dda7b5bc4605f6b5a96916fef331bb75"
+        },
+        {
+          "target": "sky130A",
+          "case": "drc-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "624043659c1d9e038979b87c608fb9d1b2ea13af0d54c604ca0376a8f663640d"
+        },
+        {
+          "target": "sky130A",
+          "case": "lvs-fault",
+          "native_status": "failed",
+          "drc_count": 0,
+          "result_sha256": "3ae101ca4541200ecc8e2577808322cbca66701ebd4b37651b8f34f84ce1af43"
+        },
+        {
+          "target": "sky130A",
+          "case": "lvs-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "4e1d9bfeae71472e161c700daa1716984577a8364ac21bd3fe7a4dd834890771"
+        },
+        {
+          "target": "gf180mcuC",
+          "case": "drc-fault",
+          "native_status": "failed",
+          "drc_count": 2,
+          "result_sha256": "7072b0b9bafd93eb4138af9b2997adefc18d25b587c2be9e6dfc69bc4a4c0b63"
+        },
+        {
+          "target": "gf180mcuC",
+          "case": "drc-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "77f2c3971fc34570b79cf05a805683403b80d48676755fa67ee45777d11ce406"
+        },
+        {
+          "target": "gf180mcuC",
+          "case": "lvs-fault",
+          "native_status": "failed",
+          "drc_count": 0,
+          "result_sha256": "1f798ce0fe76001bcb0186b2372884e0caf5e741411e9d8ccc66a4817f4ba107"
+        },
+        {
+          "target": "gf180mcuC",
+          "case": "lvs-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "b13e94ee410448f29130c833aff434dfb0b8bb43bf4bed4abfa26c99987eeb4f"
+        },
+        {
+          "target": "gf180mcuD",
+          "case": "drc-fault",
+          "native_status": "failed",
+          "drc_count": 2,
+          "result_sha256": "33eef590735fab97ec3d472889ad6d05c6c8547ec9935a159adbb4d920dbd6d1"
+        },
+        {
+          "target": "gf180mcuD",
+          "case": "drc-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "4d5dfd47c4a1afdd54c97a59c342e32ad3dff4d014470d4336bf280304d1cf9e"
+        },
+        {
+          "target": "gf180mcuD",
+          "case": "lvs-fault",
+          "native_status": "failed",
+          "drc_count": 0,
+          "result_sha256": "a046e58da6371ec6fdabd8e2830c113450170e1b6ac3ce672bf7757b5fd19fc3"
+        },
+        {
+          "target": "gf180mcuD",
+          "case": "lvs-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "247028432bedc63007a85b203212794e93545f80a39cd2eef6f934297d26f0f4"
+        },
+        {
+          "target": "ihp-sg13g2",
+          "case": "drc-fault",
+          "native_status": "failed",
+          "drc_count": 2,
+          "result_sha256": "ea1efe17947bca7ae5a3edd0e8c5d681423a8e0ed495556d63344554ad9da876"
+        },
+        {
+          "target": "ihp-sg13g2",
+          "case": "drc-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "34e114139e19a93ec991311be6544e8ac90d23dd20dd0e8b544b7de1e74b7952"
+        },
+        {
+          "target": "ihp-sg13g2",
+          "case": "lvs-fault",
+          "native_status": "failed",
+          "drc_count": 0,
+          "result_sha256": "2f1c818f8e65d7628f17b68e7ccafc8a0401fb6f13540b04094d25f36ba62963"
+        },
+        {
+          "target": "ihp-sg13g2",
+          "case": "lvs-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "efcb5f41c2f4e5866d9333fb57c87a374e2bbd9a77f3bbcb23aa828ae5dc9821"
+        }
+      ],
+      "digital_controls": [
+        {
+          "platform": "sky130hd",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "c6152c5b75134890e6f9d40b6abc7e6d781604a0350bbc94670a1777072f470d",
+            "result_sha256": "f642c21a5aca67c5b0e9c524f7e647bfa753fbfbf401afc77e1c91a38560ec81",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": null,
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/sky130hd/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+          "result_sha256": "9b13c6ca36331b9305e5b76b9fdb607b6a41fc947d1d87bd8b59fe0434a1324d",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "sky130hd",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "c6152c5b75134890e6f9d40b6abc7e6d781604a0350bbc94670a1777072f470d",
+            "result_sha256": "f642c21a5aca67c5b0e9c524f7e647bfa753fbfbf401afc77e1c91a38560ec81",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/sky130hd/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "8eb8ba56a99a4e3ccc92b653d308b47fe1e9871e7f6f8f16baadd6d9e4d88a77",
+          "result_sha256": "b30d12f79970705b295be6462f3f931f986ea00d2ed6d68766c1c993a43c041d",
+          "log_sha256": "b139d4de699dd5059f2e9de0a37f11c24160256dd9c87cdef66965f805fd92f8"
+        },
+        {
+          "platform": "sky130hd",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "c6152c5b75134890e6f9d40b6abc7e6d781604a0350bbc94670a1777072f470d",
+            "result_sha256": "f642c21a5aca67c5b0e9c524f7e647bfa753fbfbf401afc77e1c91a38560ec81",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": {
+            "net": "net2",
+            "instance": "_08_",
+            "pin": "A1",
+            "layer": "li1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/sky130hd/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "3813d906df7b91885729d4f98fa32b8111c1ec266820f606624e95290c793e31",
+          "result_sha256": "a6d78d00c5c557bea98b28fc971058d9eac8700ba3d9da317e8dae4785d0960b",
+          "log_sha256": "995eb0025488c334fad211de176ab2b7a3eaf3d330374d52b883d6e599835c95"
+        },
+        {
+          "platform": "gf180",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "d1d25c90b5b09f00ba537a4f90c764a950fe0c35e56a4c14a70d1bc8f39d2831",
+            "result_sha256": "e4bc0b074f600d2dbf1c15da9e412df6291d751e57e835593c2b90d4fdd5faac",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": null,
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/gf180/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+          "result_sha256": "72ab2cea4a36376250f9778ed339b48c9769f45e7e2e4b2ac22ca8f6665b99c9",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "gf180",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "d1d25c90b5b09f00ba537a4f90c764a950fe0c35e56a4c14a70d1bc8f39d2831",
+            "result_sha256": "e4bc0b074f600d2dbf1c15da9e412df6291d751e57e835593c2b90d4fdd5faac",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/gf180/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "e34492159244ab48d27ebe58f97e49a38cea484ac2c1f1a2fe23b9c05d0d83e0",
+          "result_sha256": "94d2f5eb0e1f682c1c1dab4297709bc281b242590c90af20f99bf1f935c20bf9",
+          "log_sha256": "a6ec8d8722f882123417cbe02a32b9049de61685b03ed761864a338955af9d6e"
+        },
+        {
+          "platform": "gf180",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "d1d25c90b5b09f00ba537a4f90c764a950fe0c35e56a4c14a70d1bc8f39d2831",
+            "result_sha256": "e4bc0b074f600d2dbf1c15da9e412df6291d751e57e835593c2b90d4fdd5faac",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": {
+            "net": "net1",
+            "instance": "_09_",
+            "pin": "I",
+            "layer": "Metal1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/gf180/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "81e5d39bbaf8a17a8a4c5d5391b2f25ddf5a5d1cae99b21fd156f18d49db13cc",
+          "result_sha256": "a7ae94180bc2e67a1db588715518abd451d168d1b2131c5bf801aa78efa77221",
+          "log_sha256": "2bd43275aa47ad6805751ce9b748992f4318f4d39d054e8f87f103346934fe9f"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "f7d74771dca3f1e10d90cdffad7bbc626fed3833797852b664e783e69085bc56",
+            "result_sha256": "30c0e3a535f7956fb9351f558aa64263d3107a2173a28e2c86a1618264a34e29",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": null,
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/ihp-sg13g2/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+          "result_sha256": "b1fd4381404cb0f69af5122c08e12284732561466c8b4342ec8e1ca4e2da51d2",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "f7d74771dca3f1e10d90cdffad7bbc626fed3833797852b664e783e69085bc56",
+            "result_sha256": "30c0e3a535f7956fb9351f558aa64263d3107a2173a28e2c86a1618264a34e29",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/ihp-sg13g2/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "e0bbf39f00e65535a313fdd4ba618991f40d4e346289084adee74806f98df9f3",
+          "result_sha256": "40dc63cdd3967ae9f6ac0d435180783fc31bf35316ffe3202c53be7c740282c5",
+          "log_sha256": "03aa1b639eacda970a01cd5de6675eb96402bbd315456d6b5895e90aeec3dcfa"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "f7d74771dca3f1e10d90cdffad7bbc626fed3833797852b664e783e69085bc56",
+            "result_sha256": "30c0e3a535f7956fb9351f558aa64263d3107a2173a28e2c86a1618264a34e29",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": {
+            "net": "net4",
+            "instance": "_10_",
+            "pin": "A",
+            "layer": "Metal1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/qualification/state/runtimes/bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/work/antenna-digital-controls-Linux/ihp-sg13g2/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "7010ff9abcf338e06d7a4a40d351517bcc6c50f4aceaeb284b1e484bb48b37ec",
+          "result_sha256": "b8c2560fa63f19355632a02356360c7e2e6fab09b7a2d13503e9854c6e48d571",
+          "log_sha256": "240bdf23ee9b8054fac895ca9c4f66f528f87d23d7700d6624d63bd236b1a8f1"
+        }
+      ],
+      "audit_status": "passed",
+      "runtime_audit_sha256": "2dbf187e31bb79499022c91d563207252695b162ddd4da449870a4bcf839b4bd",
+      "process_audit_sha256": "e8ec7d8ea42c8aef656dc73fbf6e94533152741491437a405fb1a8aff5443212",
+      "digital_audit_sha256": "bff5eb726420cee48203e31e32fccf3ccb59ae0f7c0699260c96b30f61de74df"
+    },
+    "Windows": {
+      "acceptance": {
+        "runtime": {
+          "kind": "wsl",
+          "distro": "ICStudio-Digital-bf1e3262a6cc6697-555a7994",
+          "root": "\\\\wsl.localhost\\ICStudio-Digital-bf1e3262a6cc6697-555a7994",
+          "sha256": "bf1e3262a6cc669723d390e18e3b166592b7b98ebb8b0d441fbd1f814cfd5be1"
+        },
+        "manifest": "09b75ee56541c66e09e112cb9745ee029b440d6aa75d4350d88509700fd284f5",
+        "backend": "35f429b100c184174d0df82f0f21db888c8306cf20fab9a977bc42b0b167795d",
+        "checked": "2026-10-07T14:40:44+00:00",
+        "evidence": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\klayout-qualified-windows-state\\checks\\794110b5df934024984ced85439f20b3",
+        "platforms": [
+          "sky130hd",
+          "gf180",
+          "ihp-sg13g2"
+        ],
+        "platform_corners": {
+          "sky130hd": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": [
+              "minimum",
+              "nominal",
+              "maximum"
+            ]
+          },
+          "gf180": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": []
+          },
+          "ihp-sg13g2": {
+            "library_corners": [
+              "typical",
+              "slow",
+              "fast"
+            ],
+            "interconnect_corners": []
+          }
+        }
+      },
+      "installation_checks": 26,
+      "timing_pairs": 15,
+      "macro_exports": 3,
+      "physical_tool_checks": [
+        {
+          "name": "drc-legal",
+          "status": "passed",
+          "count": 0
+        },
+        {
+          "name": "drc-narrow",
+          "status": "passed",
+          "count": 1
+        },
+        {
+          "name": "lvs-equal",
+          "status": "passed"
+        },
+        {
+          "name": "lvs-wrong",
+          "status": "passed"
+        },
+        {
+          "name": "ngspice",
+          "status": "passed"
+        },
+        {
+          "name": "klayout-legal",
+          "status": "passed",
+          "markers": 0,
+          "converted_edges": 0,
+          "version": "KLayout 0.30.5",
+          "input_sha256": "488d2c572c60d38e673862babfd95a981abedc10abb09d90bff5913f14e69524",
+          "report_sha256": "7e28bbf1ea153135ebb94fa57ede5a3ec51bf5275a0aee1a181bb05923f48e01"
+        },
+        {
+          "name": "klayout-narrow",
+          "status": "passed",
+          "markers": 1,
+          "converted_edges": 1,
+          "version": "KLayout 0.30.5",
+          "input_sha256": "b08aa12c7fe762bc7a1d6544e934156179bdf930c28da0b2e6b0c5aa49c2d1f8",
+          "report_sha256": "7867d763a888c14ab3138224281af8062153127feb475ed72f8b9a42b0cd8908"
+        }
+      ],
+      "process_rule_controls": [
+        {
+          "target": "sky130A",
+          "case": "drc-fault",
+          "native_status": "failed",
+          "drc_count": 2,
+          "result_sha256": "de9bd81f92fc5ad90c8a1e0ba7f45f4b912e1bed7db18a5bad66d1e0bd26d267"
+        },
+        {
+          "target": "sky130A",
+          "case": "drc-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "0f7c99239f29a001f16b4f4860730890cbdd96aa9f39510f2e745fe1fc3181f4"
+        },
+        {
+          "target": "sky130A",
+          "case": "lvs-fault",
+          "native_status": "failed",
+          "drc_count": 0,
+          "result_sha256": "579cc3fa1b3fde7549db4f86c813c62b072c50ea0a671c1b129b4e2fd6716b53"
+        },
+        {
+          "target": "sky130A",
+          "case": "lvs-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "eb67b25de7903bf33366c36d4356efaf669ee2f288b7e055a7e487fc06e03eb8"
+        },
+        {
+          "target": "gf180mcuC",
+          "case": "drc-fault",
+          "native_status": "failed",
+          "drc_count": 2,
+          "result_sha256": "de59ffb7467d39620595229daa704eaeaf38c2f160851245a75676fa4b6a22ed"
+        },
+        {
+          "target": "gf180mcuC",
+          "case": "drc-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "c597bbb6331629897adff6489d5aa1e87fabe13d46c498ea0b9d348472831b06"
+        },
+        {
+          "target": "gf180mcuC",
+          "case": "lvs-fault",
+          "native_status": "failed",
+          "drc_count": 0,
+          "result_sha256": "58c7deb6e46162814679e3fc1f2e9aa39b541aba83cf2018d85a3b9944d3662a"
+        },
+        {
+          "target": "gf180mcuC",
+          "case": "lvs-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "f6f265931a7cc4d80d7bdfc05cd405fc7e54cd59c90c2e807f68ad7eac535e83"
+        },
+        {
+          "target": "gf180mcuD",
+          "case": "drc-fault",
+          "native_status": "failed",
+          "drc_count": 2,
+          "result_sha256": "ed0f5cdb94a4e3ca5e54d94b0335bc3f25b6da565a7142208bd84d6a98de11e7"
+        },
+        {
+          "target": "gf180mcuD",
+          "case": "drc-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "154b9990e94e854add8197bfe6b3a20914b47ba8681acd34263a0ed91fe15bc1"
+        },
+        {
+          "target": "gf180mcuD",
+          "case": "lvs-fault",
+          "native_status": "failed",
+          "drc_count": 0,
+          "result_sha256": "be0aa776d7d1ff124ca62b3e0f10c1c6bffa88ced10f1c63be89c27bdb18ce1b"
+        },
+        {
+          "target": "gf180mcuD",
+          "case": "lvs-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "eee3bd4a292fc5774ab7fb6e96e65784164e70e0518c1dd64bb99fa5fcdb8876"
+        },
+        {
+          "target": "ihp-sg13g2",
+          "case": "drc-fault",
+          "native_status": "failed",
+          "drc_count": 2,
+          "result_sha256": "5718c2c8a015d65f997ba58e592ddcac3a842e684a962ab02f40af8ac1ab6c20"
+        },
+        {
+          "target": "ihp-sg13g2",
+          "case": "drc-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "04dbfc2fc7a4ffba5ee703868c1247c2a2c11d316e09844ca1a4fc8976a76e69"
+        },
+        {
+          "target": "ihp-sg13g2",
+          "case": "lvs-fault",
+          "native_status": "failed",
+          "drc_count": 0,
+          "result_sha256": "1bc17e9135cf7c87183f12d5465aa48d553ff6b592129d092b422500bcae2c6f"
+        },
+        {
+          "target": "ihp-sg13g2",
+          "case": "lvs-repaired",
+          "native_status": "passed",
+          "drc_count": 0,
+          "result_sha256": "4237d88ecb446f616c22bc33c5ec196d55ae4513652d59a5450b7879f09b7ac3"
+        }
+      ],
+      "digital_controls": [
+        {
+          "platform": "sky130hd",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "b225d43d7a7fd638b49a3f562822947e3f13080743d696b849fd9ae63644db94",
+            "result_sha256": "f0a17835b2d51780fbd7763b999465fabf1156c49438383ee66612b383d75847",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": null,
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/sky130hd/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+          "result_sha256": "9b13c6ca36331b9305e5b76b9fdb607b6a41fc947d1d87bd8b59fe0434a1324d",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "sky130hd",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "b225d43d7a7fd638b49a3f562822947e3f13080743d696b849fd9ae63644db94",
+            "result_sha256": "f0a17835b2d51780fbd7763b999465fabf1156c49438383ee66612b383d75847",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/sky130hd/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "8eb8ba56a99a4e3ccc92b653d308b47fe1e9871e7f6f8f16baadd6d9e4d88a77",
+          "result_sha256": "b30d12f79970705b295be6462f3f931f986ea00d2ed6d68766c1c993a43c041d",
+          "log_sha256": "b139d4de699dd5059f2e9de0a37f11c24160256dd9c87cdef66965f805fd92f8"
+        },
+        {
+          "platform": "sky130hd",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "b225d43d7a7fd638b49a3f562822947e3f13080743d696b849fd9ae63644db94",
+            "result_sha256": "f0a17835b2d51780fbd7763b999465fabf1156c49438383ee66612b383d75847",
+            "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+            "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+          },
+          "mutation": {
+            "net": "net2",
+            "instance": "_08_",
+            "pin": "A1",
+            "layer": "li1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/sky130hd/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "3813d906df7b91885729d4f98fa32b8111c1ec266820f606624e95290c793e31",
+          "result_sha256": "a6d78d00c5c557bea98b28fc971058d9eac8700ba3d9da317e8dae4785d0960b",
+          "log_sha256": "995eb0025488c334fad211de176ab2b7a3eaf3d330374d52b883d6e599835c95"
+        },
+        {
+          "platform": "gf180",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "39c26b650c18d440060bafd77dd047d2964f17685b749078c05c1ecc76544085",
+            "result_sha256": "7e2f7b06892147746a63325f5f33764e2a70e2509f1e2fa1cbcbcbf1f5ce4d2b",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": null,
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/gf180/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+          "result_sha256": "72ab2cea4a36376250f9778ed339b48c9769f45e7e2e4b2ac22ca8f6665b99c9",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "gf180",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "39c26b650c18d440060bafd77dd047d2964f17685b749078c05c1ecc76544085",
+            "result_sha256": "7e2f7b06892147746a63325f5f33764e2a70e2509f1e2fa1cbcbcbf1f5ce4d2b",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/gf180/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "e34492159244ab48d27ebe58f97e49a38cea484ac2c1f1a2fe23b9c05d0d83e0",
+          "result_sha256": "94d2f5eb0e1f682c1c1dab4297709bc281b242590c90af20f99bf1f935c20bf9",
+          "log_sha256": "a6ec8d8722f882123417cbe02a32b9049de61685b03ed761864a338955af9d6e"
+        },
+        {
+          "platform": "gf180",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "39c26b650c18d440060bafd77dd047d2964f17685b749078c05c1ecc76544085",
+            "result_sha256": "7e2f7b06892147746a63325f5f33764e2a70e2509f1e2fa1cbcbcbf1f5ce4d2b",
+            "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+            "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+          },
+          "mutation": {
+            "net": "net1",
+            "instance": "_09_",
+            "pin": "I",
+            "layer": "Metal1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/gf180/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "81e5d39bbaf8a17a8a4c5d5391b2f25ddf5a5d1cae99b21fd156f18d49db13cc",
+          "result_sha256": "a7ae94180bc2e67a1db588715518abd451d168d1b2131c5bf801aa78efa77221",
+          "log_sha256": "2bd43275aa47ad6805751ce9b748992f4318f4d39d054e8f87f103346934fe9f"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "baseline",
+          "status": "passed",
+          "expected_check_status": "PASS",
+          "source": {
+            "input_sha256": "0867671d35435085155785bbb959ba1c0ffbcc7205f194512fddbcb9b5e137f2",
+            "result_sha256": "dfc60a831b4b07e049bfeb8a329cdde2b410798e8503b2d2f9aadcb1c49390ae",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": null,
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/ihp-sg13g2/baseline/checks/check.py"
+          ],
+          "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+          "result_sha256": "b1fd4381404cb0f69af5122c08e12284732561466c8b4342ec8e1ca4e2da51d2",
+          "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "removed-grid",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "0867671d35435085155785bbb959ba1c0ffbcc7205f194512fddbcb9b5e137f2",
+            "result_sha256": "dfc60a831b4b07e049bfeb8a329cdde2b410798e8503b2d2f9aadcb1c49390ae",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": {
+            "net": "VDD",
+            "removed_special_wires": 1
+          },
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/ihp-sg13g2/removed-grid/checks/check.py"
+          ],
+          "checkpoint_sha256": "e0bbf39f00e65535a313fdd4ba618991f40d4e346289084adee74806f98df9f3",
+          "result_sha256": "40dc63cdd3967ae9f6ac0d435180783fc31bf35316ffe3202c53be7c740282c5",
+          "log_sha256": "03aa1b639eacda970a01cd5de6675eb96402bbd315456d6b5895e90aeec3dcfa"
+        },
+        {
+          "platform": "ihp-sg13g2",
+          "case": "antenna-route",
+          "status": "passed",
+          "expected_check_status": "FAIL",
+          "source": {
+            "input_sha256": "0867671d35435085155785bbb959ba1c0ffbcc7205f194512fddbcb9b5e137f2",
+            "result_sha256": "dfc60a831b4b07e049bfeb8a329cdde2b410798e8503b2d2f9aadcb1c49390ae",
+            "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+            "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+          },
+          "mutation": {
+            "net": "net4",
+            "instance": "_10_",
+            "pin": "A",
+            "layer": "Metal1",
+            "routing_length_um": 60000
+          },
+          "command": [
+            "/opt/icstudio/bin/openroad",
+            "-no_init",
+            "-exit",
+            "-python",
+            "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/antenna-digital-controls-Windows/ihp-sg13g2/antenna-route/checks/check.py"
+          ],
+          "checkpoint_sha256": "7010ff9abcf338e06d7a4a40d351517bcc6c50f4aceaeb284b1e484bb48b37ec",
+          "result_sha256": "b8c2560fa63f19355632a02356360c7e2e6fab09b7a2d13503e9854c6e48d571",
+          "log_sha256": "240bdf23ee9b8054fac895ca9c4f66f528f87d23d7700d6624d63bd236b1a8f1"
+        }
+      ],
+      "audit_status": "passed",
+      "runtime_audit_sha256": "1a1df5e0115a9380f7d66f544563bd1680a8a853a5730f1c0d50b20335b4cd7d",
+      "process_audit_sha256": "a6c943c913afc2ef5d2a5bd0692efedea2d0022ae4d699ed96386887d965e189",
+      "digital_audit_sha256": "2ac151c0fd0eab0a7c0cd40357ea50eb1824d17946ed58a879531a7aba9bdb42"
+    }
+  },
+  "hosted": {
+    "run_id": 37636835004,
+    "job_id": 112845163218,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37636835004/job/112845163218",
+    "head_sha": "7feca0695f586ff84c8d2111b528076891a50e77",
+    "job_status": "completed",
+    "job_conclusion": "success",
+    "steps": [
+      {
+        "completedAt": "2026-10-07T14:32:07Z",
+        "conclusion": "success",
+        "name": "Install pinned implementation toolchain",
+        "number": 5,
+        "startedAt": "2026-10-07T14:31:09Z",
+        "status": "completed"
+      },
+      {
+        "completedAt": "2026-10-07T14:32:07Z",
+        "conclusion": "success",
+        "name": "Isolate the pinned implementation executables",
+        "number": 6,
+        "startedAt": "2026-10-07T14:32:07Z",
+        "status": "completed"
+      },
+      {
+        "completedAt": "2026-10-07T14:32:15Z",
+        "conclusion": "success",
+        "name": "Require actual KLayout Ruby rules and deliberate geometry failure",
+        "number": 7,
+        "startedAt": "2026-10-07T14:32:07Z",
+        "status": "completed"
+      },
+      {
+        "completedAt": "2026-10-07T14:33:30Z",
+        "conclusion": "success",
+        "name": "Require real mapped timing, equivalence, fault detection and RTL to GDS",
+        "number": 8,
+        "startedAt": "2026-10-07T14:32:15Z",
+        "status": "completed"
+      },
+      {
+        "completedAt": "2026-10-07T14:36:04Z",
+        "conclusion": "success",
+        "name": "Require SKY130, GF180 and IHP counter implementation and extracted timing",
+        "number": 9,
+        "startedAt": "2026-10-07T14:33:30Z",
+        "status": "completed"
+      },
+      {
+        "completedAt": "2026-10-07T14:49:27Z",
+        "conclusion": "success",
+        "name": "Require UART and APB FIFO proof and physical closure on all three profiles",
+        "number": 10,
+        "startedAt": "2026-10-07T14:36:04Z",
+        "status": "completed"
+      },
+      {
+        "completedAt": "2026-10-07T14:49:36Z",
+        "conclusion": "success",
+        "name": "Require final antenna and power-grid checks with actual layout faults",
+        "number": 11,
+        "startedAt": "2026-10-07T14:49:27Z",
+        "status": "completed"
+      },
+      {
+        "completedAt": "2026-10-07T14:54:57Z",
+        "conclusion": "success",
+        "name": "Require independent SKY130 library and interconnect corner coverage",
+        "number": 12,
+        "startedAt": "2026-10-07T14:49:36Z",
+        "status": "completed"
+      }
+    ],
+    "snapshot_sha256": "b30f8de6333547d953efa949b9e3fb365f2f199824f8c495f64edc3820912fc0"
+  },
+  "old_cli_control": {
+    "version": "0.28.16",
+    "exit": 1,
+    "missing_interface": "RBA::EdgePairToEdgeOperator",
+    "log_sha256": "96c5eed3afaa6397cd2407c763b4fbec4d35f1dadabfc7ed1f466a059d921f60"
+  },
+  "inherited_environment_controls": {
+    "inherited": {
+      "LD_LIBRARY_PATH": "/work/hosted-python/extracted/lib",
+      "PYTHONHOME": "/work/hosted-python/extracted",
+      "PYTHONPATH": "/nonexistent/hosted-site",
+      "QT_PLUGIN_PATH": "/nonexistent/qt-plugins"
+    },
+    "library_sha256": "c7c1a2206db0fa089f8a252d1652d5ccb82669774dbb599427082ffc9eaaae85",
+    "launcher_sha256": "8d2e75c8081006981bc46396d7c9009e338ae6ff36162dfc4b0d5d2e390b5dd6",
+    "checks": [
+      {
+        "name": "klayout-legal",
+        "status": "passed",
+        "markers": 0,
+        "converted_edges": 0,
+        "version": "KLayout 0.30.5",
+        "input_sha256": "a321813f83f859ab8134cfd30ef1ee4baed6a3bfc91e2ac6b79f4073d5af9bd4",
+        "report_sha256": "e53158f54fd4f237c566c13bcb44c44a8ac49ef32d7c91d4a1f6a4a56b1a9b58"
+      },
+      {
+        "name": "klayout-narrow",
+        "status": "passed",
+        "markers": 1,
+        "converted_edges": 1,
+        "version": "KLayout 0.30.5",
+        "input_sha256": "3521e04b6364a1e58bdd469ab54ecc1eb53ec51f560c01735a7db9ab974d35ab",
+        "report_sha256": "7c5b676dbae006fdf24e215e3dd37843ed15bf47659f6c8bde37ffc43132dc4f"
+      }
+    ]
+  },
+  "final_gds_diagnostic": {
+    "status": "diagnosed",
+    "scope": "Exploratory captured-deck checks; not foundry qualification. SKY130 deck defaults disable FEOL.",
+    "cases": [
+      {
+        "name": "sky130hd",
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/qualification/finish/sky130hd/finished/platform/sky130hd/drc/sky130hd.lydrc",
+          "-rd",
+          "in_gds=/qualification/finish/sky130hd/finished/physical/results/sky130hd/counter/base/6_final.gds",
+          "-rd",
+          "report_file=/audit/klayout-managed-final-rules/sky130hd.lyrdb"
+        ],
+        "gds_sha256": "0fcece8f6d84805517b8d04bbcd2f4164a6fd51d0d93cbbdaed667d6bdba7a4e",
+        "deck_sha256": "029722ea1fc2cf8c48f09fc670c0b72efb295f799c4eb236b7e9767930ecf772",
+        "exit": 0,
+        "markers": 0,
+        "categories": {},
+        "report_sha256": "5a1be6958e6b38eb962f36b932eee2f48c6db10c44433b921f128527e5843ef6",
+        "log_sha256": "54311eac5f807e9c2b03c7011d47104838898c730ccd28da86e64d945aed3d95"
+      },
+      {
+        "name": "ihp-sg13g2",
+        "command": [
+          "/opt/icstudio/bin/klayout",
+          "-b",
+          "-r",
+          "/qualification/finish/ihp-sg13g2/finished/platform/ihp-sg13g2/drc/sg13g2_maximal.lydrc",
+          "-rd",
+          "in_gds=/qualification/finish/ihp-sg13g2/finished/physical/results/ihp-sg13g2/counter/base/6_final.gds",
+          "-rd",
+          "report_file=/audit/klayout-managed-final-rules/ihp-sg13g2.lyrdb"
+        ],
+        "gds_sha256": "6b621053f0bb4326c57eddcbcfe9ccda9c2d9702b6ee571154b720fd54c242a4",
+        "deck_sha256": "46f21123f6439da8e46f2eb32035d4870c2125ee1a1684308937597c4d4d608a",
+        "exit": 0,
+        "markers": 12,
+        "categories": {
+          "'AFil.g/g1'": 1,
+          "'M1.j/k'": 1,
+          "'M2.j/k'": 1,
+          "'M3.j/k'": 1,
+          "'M4.j/k'": 1,
+          "'M5.j/k'": 1,
+          "'M2Fil.h/k'": 1,
+          "'M3Fil.h/k'": 1,
+          "'M4Fil.h/k'": 1,
+          "'M5Fil.h/k'": 1,
+          "'TM1.c/d'": 1,
+          "'TM2.c/d'": 1
+        },
+        "report_sha256": "fb01f40dc0eef7d529c7212cbf03f0ee5da31a0c2004dfe6277c522eaf888b00",
+        "log_sha256": "944012a8ae2d0547288126bde805085b44fcb21cf398ca731c079b8eb778cbb5"
+      }
+    ],
+    "engine_version": "KLayout 0.30.5"
+  },
+  "additional_native_process_geometry": [
+    {
+      "pdk": "gf180mcuC",
+      "revision": "627ca682d68e1e92",
+      "width_um": 1,
+      "length_um": 0.28,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "1cdce45628628b296b397987b951b0e735a6178caafd1f0e0c7bff04e3d29061"
+    },
+    {
+      "pdk": "gf180mcuC",
+      "revision": "627ca682d68e1e92",
+      "width_um": 1,
+      "length_um": 2,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "1217b6a0d6f4d66fc10536194d123cef8119684a31200e4d8b604a61dc385552"
+    },
+    {
+      "pdk": "gf180mcuC",
+      "revision": "627ca682d68e1e92",
+      "width_um": 10,
+      "length_um": 0.28,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "22d19214d61420917e810d8f8a03121f85a04161478e23ec1774d9004455a98c"
+    },
+    {
+      "pdk": "gf180mcuC",
+      "revision": "627ca682d68e1e92",
+      "width_um": 10,
+      "length_um": 2,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "fdee6a5760a55fcbc94bead5ed6726816cf52ab37206947188dae72ceba8d451"
+    },
+    {
+      "pdk": "gf180mcuD",
+      "revision": "7dd87219f1333dbb",
+      "width_um": 1,
+      "length_um": 0.28,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "429a765c56287235abc73642273fb9ffd93279f88dce6d84c88169571d38baf9"
+    },
+    {
+      "pdk": "gf180mcuD",
+      "revision": "7dd87219f1333dbb",
+      "width_um": 1,
+      "length_um": 2,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "5d3cd895b94c704d8edb85ddfc1512787a40c226bbad543bd17b0fd729e9c1b9"
+    },
+    {
+      "pdk": "gf180mcuD",
+      "revision": "7dd87219f1333dbb",
+      "width_um": 10,
+      "length_um": 0.28,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "3233ca95aa5b8799ab12eca6f9c252e8e461018a6646be07551d5b9e7df6c98f"
+    },
+    {
+      "pdk": "gf180mcuD",
+      "revision": "7dd87219f1333dbb",
+      "width_um": 10,
+      "length_um": 2,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "7f951c3e923690b924ff6b45f8c047786900c1408e69ee067b0d370fc50674f8"
+    },
+    {
+      "pdk": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "width_um": 1,
+      "length_um": 0.13,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "d693edb20eb2a4d8f47c6b3e6d3dad6d213011df367e490a09f526fd2a8e5e0a"
+    },
+    {
+      "pdk": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "width_um": 1,
+      "length_um": 2,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "43479f34ef2958fb59e1ed51535021b8c0ab9879bd58c18c39e594c54989e4f0"
+    },
+    {
+      "pdk": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "width_um": 10,
+      "length_um": 0.13,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "c5711a991f3f5dc276becb7a4e6a35f7ff1e87f2caab7a9929272539f443c70f"
+    },
+    {
+      "pdk": "ihp-sg13g2",
+      "revision": "3abac20fcb57e184",
+      "width_um": 10,
+      "length_um": 2,
+      "status": "passed",
+      "drc_count": 0,
+      "report_sha256": "a7dffb0c2661412b091de182b495bbaf3ff4195c49928d1ea2253a1d5c9cd237"
+    }
+  ],
+  "acceptance_checker_regressions": {
+    "tests": 1424,
+    "skips": 63,
+    "failures": 0,
+    "seconds": 292.443,
+    "log_sha256": "fdabd09d1153d706660d432da112d6e916dfe302a4f34dc603cd9a021e05e931"
+  },
+  "regressions": {
+    "full": {
+      "tests": 1422,
+      "skips": 63,
+      "failures": 0,
+      "seconds": 304.263,
+      "log_sha256": "0a10bba9c50e0536a6b2de1f02f0904745c30437798bea4d5c539fa92782e4c0"
+    },
+    "focused": {
+      "tests": 39,
+      "skips": 8,
+      "failures": 0,
+      "log_sha256": "6b7307039c724c523ef6c28390871d3fddfe55530f125e27ee0732ed093c8eca"
+    }
+  },
+  "limitations": [
+    "All results have their exact source, engine and process revision scope; later source/runtime changes require appropriate requalification.",
+    "The SKY130 analog coupon uses physical adapter 9a491f0ebd51a0aa, not a claim that the smaller bundled simulation manifest includes its physical decks.",
+    "GF180-D has analog engine controls but still has no digital profile.",
+    "IHP full-deck diagnostic still has 12 density/fill markers. SKY130 diagnostic still omits FEOL. GF180 production geometry/fill remains unresolved.",
+    "Core inverter controls do not qualify all devices, analog performance, independent RC conditions, I/O/reliability, full chips or foundry acceptance.",
+    "Fresh source-driven runtime installs do not qualify exact final frozen desktop packages."
+  ],
+  "antenna_model_regression": {
+    "date": "2026-10-07",
+    "status": "passed_scoped_regression",
+    "chunk": 2,
+    "source_base": "48e0d7cbf34ecab62f097cde942f0dbd8fde6520",
+    "backend_sha256": "35f429b100c184174d0df82f0f21db888c8306cf20fab9a977bc42b0b167795d",
+    "source_files": {
+      "icstudio/digital_physical_checks.py": "b6727b27b061ed86e30666f40f04b0fc3d201577915b5453f7a13cbbf1b829ac",
+      "icstudio/digital_physical_engine.py": "f71d5d2b8d5c87ddb94761b6e27025b7db7235be3c20a6377cfc16cff87d7489",
+      "tests/test_digital_physical_checks.py": "5db530c51c56d467ba9275e81f6a959dedf7980ce4145f9ef8096da135b6daa5"
+    },
+    "hosted_failure": {
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37631533919/job/112826779293",
+      "scope": "SKY130 HD and GF180-C APB finish rejected valid protection diodes as missing gate models. The hosted toolchain gate is still incomplete.",
+      "log_sha256": "e19cb8932643cf7ce0f95441c147f3b601ba9e824685125e908b424b86c1278d"
+    },
+    "inspection": [
+      {
+        "platform": "sky130hd",
+        "pin": "ANTENNA_1/DIODE",
+        "master": "sky130_fd_sc_hd__diode_2",
+        "class": "CORE_ANTENNACELL",
+        "has_gate_model": false,
+        "diffusion_areas": [
+          [
+            0.4347,
+            null
+          ]
+        ]
+      },
+      {
+        "platform": "sky130hd",
+        "pin": "ANTENNA_2/DIODE",
+        "master": "sky130_fd_sc_hd__diode_2",
+        "class": "CORE_ANTENNACELL",
+        "has_gate_model": false,
+        "diffusion_areas": [
+          [
+            0.4347,
+            null
+          ]
+        ]
+      },
+      {
+        "platform": "sky130hd",
+        "pin": "ANTENNA_3/DIODE",
+        "master": "sky130_fd_sc_hd__diode_2",
+        "class": "CORE_ANTENNACELL",
+        "has_gate_model": false,
+        "diffusion_areas": [
+          [
+            0.4347,
+            null
+          ]
+        ]
+      },
+      {
+        "platform": "gf180",
+        "pin": "ANTENNA_1/I",
+        "master": "gf180mcu_fd_sc_mcu9t5v0__antenna",
+        "class": "CORE_ANTENNACELL",
+        "has_gate_model": false,
+        "diffusion_areas": [
+          [
+            0.4068,
+            null
+          ]
+        ]
+      }
+    ],
+    "native_regression": {
+      "status": "passed",
+      "cases": [
+        {
+          "platform": "sky130hd",
+          "case": "baseline",
+          "status": "PASS",
+          "checkpoint_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+          "source_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+          "missing_gate_models": [],
+          "antenna_diodes": [
+            {
+              "pin": "ANTENNA_1/DIODE",
+              "master": "sky130_fd_sc_hd__diode_2",
+              "class": "CORE_ANTENNACELL",
+              "diffusion_areas": [
+                {
+                  "area": 0.4347,
+                  "layer": null
+                }
+              ]
+            },
+            {
+              "pin": "ANTENNA_2/DIODE",
+              "master": "sky130_fd_sc_hd__diode_2",
+              "class": "CORE_ANTENNACELL",
+              "diffusion_areas": [
+                {
+                  "area": 0.4347,
+                  "layer": null
+                }
+              ]
+            },
+            {
+              "pin": "ANTENNA_3/DIODE",
+              "master": "sky130_fd_sc_hd__diode_2",
+              "class": "CORE_ANTENNACELL",
+              "diffusion_areas": [
+                {
+                  "area": 0.4347,
+                  "layer": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "platform": "sky130hd",
+          "case": "ordinary-diffusion",
+          "status": "FAIL",
+          "checkpoint_sha256": "8352d60edcc77fa08fb142f1c0b242e17ac0ba73a2150d129f6e6a5345b4b56a",
+          "source_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+          "missing_gate_models": [
+            "ANTENNA_1/DIODE",
+            "ANTENNA_2/DIODE",
+            "ANTENNA_3/DIODE"
+          ],
+          "antenna_diodes": []
+        },
+        {
+          "platform": "gf180",
+          "case": "baseline",
+          "status": "PASS",
+          "checkpoint_sha256": "64ba0d55a09047cced656a7489aaaee1d7580b277213787e58fac9ce57ae23c4",
+          "source_sha256": "64ba0d55a09047cced656a7489aaaee1d7580b277213787e58fac9ce57ae23c4",
+          "missing_gate_models": [],
+          "antenna_diodes": [
+            {
+              "pin": "ANTENNA_1/I",
+              "master": "gf180mcu_fd_sc_mcu9t5v0__antenna",
+              "class": "CORE_ANTENNACELL",
+              "diffusion_areas": [
+                {
+                  "area": 0.4068,
+                  "layer": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "platform": "gf180",
+          "case": "ordinary-diffusion",
+          "status": "FAIL",
+          "checkpoint_sha256": "e963437a70c83915cf2434212ac8058b21743d59aa605213b959cf48af6007e4",
+          "source_sha256": "64ba0d55a09047cced656a7489aaaee1d7580b277213787e58fac9ce57ae23c4",
+          "missing_gate_models": [
+            "ANTENNA_1/I"
+          ],
+          "antenna_diodes": []
+        }
+      ]
+    },
+    "engine": "OpenROAD 26Q2-1164-g08f67ee5ec",
+    "semantics": "Logic inputs require positive gate area. Declared CORE ANTENNACELL inputs require positive diffusion area. Ordinary diffusion-only cells remain rejected. No geometry or rule changes to the original checkpoints.",
+    "limitations": [
+      "Native original-checkpoint regression only; fresh complete hosted implementation remains pending.",
+      "Updated backend requires current-source installed-runtime qualification; earlier acceptance records do not qualify it.",
+      "Final GDS physical closure, complete PDK coverage and tapeout remain unqualified."
+    ],
+    "artifacts": {
+      "name": "antenna-model-coverage-evidence.tar.gz",
+      "sha256": "f0c59257811a3c12a594675c30d0751a94391820b9c1d9ad6b2235c53942c885",
+      "bytes": 3914318
+    }
+  },
+  "artifacts": [
+    {
+      "name": "antenna-runtime-validation-Linux.json",
+      "sha256": "2dbf187e31bb79499022c91d563207252695b162ddd4da449870a4bcf839b4bd",
+      "bytes": 472856
+    },
+    {
+      "name": "antenna-runtime-qualification-Linux.tar.gz",
+      "sha256": "eb09a32478a486fa6bead43a0d77f49508bef4fa0ee296de13d62d8284ed322d",
+      "bytes": 29592573
+    },
+    {
+      "name": "antenna-managed-rules-Linux-audit.json",
+      "sha256": "e8ec7d8ea42c8aef656dc73fbf6e94533152741491437a405fb1a8aff5443212",
+      "bytes": 4168
+    },
+    {
+      "name": "antenna-managed-rules-Linux-evidence.tar.gz",
+      "sha256": "f38870029d9c37eece70addd45a13bac2c1806134ce240fbe8f48ed55224e748",
+      "bytes": 1992337
+    },
+    {
+      "name": "antenna-digital-controls-Linux-audit.json",
+      "sha256": "bff5eb726420cee48203e31e32fccf3ccb59ae0f7c0699260c96b30f61de74df",
+      "bytes": 11362
+    },
+    {
+      "name": "antenna-digital-controls-Linux-evidence.tar.gz",
+      "sha256": "627c0b7a5e1417b60c5fe35e68e11c37e582e79935fc8f8439d45310df308f07",
+      "bytes": 2075335
+    },
+    {
+      "name": "antenna-runtime-validation-Windows.json",
+      "sha256": "1a1df5e0115a9380f7d66f544563bd1680a8a853a5730f1c0d50b20335b4cd7d",
+      "bytes": 485408
+    },
+    {
+      "name": "antenna-runtime-qualification-Windows.tar.gz",
+      "sha256": "bf918b2dc9ddb607549ed26f08082b58154d829969c2761666c2177de1b5a8ab",
+      "bytes": 29591675
+    },
+    {
+      "name": "antenna-managed-rules-Windows-audit.json",
+      "sha256": "a6c943c913afc2ef5d2a5bd0692efedea2d0022ae4d699ed96386887d965e189",
+      "bytes": 4194
+    },
+    {
+      "name": "antenna-managed-rules-Windows-evidence.tar.gz",
+      "sha256": "e1d8986211b69790d15dbb15dbd4a6be09cf2a60ff770fe9a4d9034d32d4ad3a",
+      "bytes": 2002001
+    },
+    {
+      "name": "antenna-digital-controls-Windows-audit.json",
+      "sha256": "2ac151c0fd0eab0a7c0cd40357ea50eb1824d17946ed58a879531a7aba9bdb42",
+      "bytes": 10966
+    },
+    {
+      "name": "antenna-digital-controls-Windows-evidence.tar.gz",
+      "sha256": "58506d00242c26b2127ee0bd5ca0cdb99a698d0922795b56810249353b0b6a97",
+      "bytes": 2076255
+    },
+    {
+      "name": "klayout-native-controls-summary.json",
+      "sha256": "f997c542072aa9648529cba0f860cae8ef91cdb8eb70191cfd72e8d87075c09b",
+      "bytes": 39742
+    },
+    {
+      "name": "klayout-native-controls-evidence.tar.gz",
+      "sha256": "bdcc401acb19b7a98f2af8b12ec24c23d889f2c290cef10f1a129759dd32875d",
+      "bytes": 14710789
+    }
+  ],
+  "qualification_helpers": {
+    "collect_antenna_runtime.py": "46702631b0b7e0e22dc94baefeb61f7992adf411573a67f82db9191c6ce08c7b",
+    "qualify_antenna_process_rules.py": "1a586f2d2413691651ff791bbef9f6a4c27f60d36f7a7b293a20fa0c9b23a95e",
+    "qualify_klayout_inverters.py": "9f9585bfca69e10ebe45aedfa004e8935d72f73bbd4d01385f619a4cb1326718",
+    "probe_klayout_ci_environment.py": "41ed0a7c1ce62e2d19074ec6562aad288c255ce7dfeea20b476794e51cc2cf0c",
+    "audit_antenna_controls.py": "f98a6a717716468183db150aef5ebcfdeeb037cb4ffecfe7bca8cce268f51916",
+    "run_antenna_postinstall.py": "d44b8a0c6a323000ad7a5f8d110be2c8a53fc68121e691c3845dcc4b93a04b4e",
+    "probe_antenna_model_fix.py": "98de7f858ff526074e930be7f67617c0db97df42772db7d413d27c2945f0b0ba"
+  }
+}

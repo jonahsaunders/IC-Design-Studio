@@ -1,0 +1,250 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "8206e6fb21dd2512a5afb1e64a73737c10075c0f",
+  "recipe": "sky130-reviewed-geometry-v2",
+  "data": {
+    "path": "docs/validation/sky130-scope-corrections-2026-10-14.json",
+    "sha256": "15ce1eb3ca0237adfec577d2bb53de5761ea34dd63c1840256dd4ac9e4576465"
+  },
+  "scope": "Source-backed correction of three unsupported absence decisions, application finish/export on retained original checkpoints, and exact filled worker replay on Windows/Linux. Full-rule coverage, filled timing/equivalence and rebuilt delivery acceptance remain open.",
+  "tests": {
+    "win32": {
+      "run": 22,
+      "passed": 22,
+      "skipped": 0
+    },
+    "linux": {
+      "run": 22,
+      "passed": 22,
+      "skipped": 0
+    }
+  },
+  "audits": {
+    "win32": {
+      "tests": {
+        "path": "docs/validation/sky130-scope-correction-2026-10-14/tests-win32.json",
+        "sha256": "6ccb33592549de0a1c6ff4f0a6a28dc7479a4ad4782e36ca11cf8fc89172f719"
+      },
+      "tests_log": {
+        "path": "docs/validation/sky130-scope-correction-2026-10-14/tests-win32.log",
+        "sha256": "4e8d4ee664439892ec62905a7e1e89ade94ca65068d247ac3749a663d018e591"
+      },
+      "replay": {
+        "path": "docs/validation/sky130-scope-correction-2026-10-14/replay-win32.json",
+        "sha256": "15fba53a6a71b0ba6d197519e23896163b475f460d0e5060fa23e1142cd14e04"
+      }
+    },
+    "linux": {
+      "tests": {
+        "path": "docs/validation/sky130-scope-correction-2026-10-14/tests-linux.json",
+        "sha256": "d23f1e4831b891b388d6ca33be90f39d011d98b5668b7ca47792fcc86747ad9f"
+      },
+      "tests_log": {
+        "path": "docs/validation/sky130-scope-correction-2026-10-14/tests-linux.log",
+        "sha256": "c44c2b8b612a3a484c424096ebca4fdec50837846dfd3dd27a70258f97f6d496"
+      },
+      "replay": {
+        "path": "docs/validation/sky130-scope-correction-2026-10-14/replay-linux.json",
+        "sha256": "7a077d907276d294367f5ee190e0876baa450e6ebce7b95fdd3bfd00d00ef219"
+      }
+    }
+  },
+  "applications": {
+    "counter": {
+      "path": "docs/validation/sky130-scope-correction-2026-10-14/application-counter.json",
+      "sha256": "5dc06ba104af1c2099a8b8f08ff67ed99033c64b526d42ccf408e69827cba96b"
+    },
+    "uart": {
+      "path": "docs/validation/sky130-scope-correction-2026-10-14/application-uart.json",
+      "sha256": "0e901ab9b4d9014118143fc9d7f1e29bf1338c9293437ab6892bfbd987bcb644"
+    },
+    "apb": {
+      "path": "docs/validation/sky130-scope-correction-2026-10-14/application-apb.json",
+      "sha256": "f40d7becc9232b20ad37856b1a6bfd22cebc453f1082e9ef1cdc1eb120959013"
+    }
+  },
+  "source_files": {
+    "icstudio/digital_sky130_scope.py": "9f081c4229441aef29380b44e776d2890c20ec3df316d9a0b9dbfafa2864f95f",
+    "icstudio/digital_sky130_rules.py": "3672c5a87a7d2ca218c2685f63e8cc15dcb93060a65a7c3413e021b177c08f3e",
+    "icstudio/digital_sky130_rules_lock.py": "7f4463e6d1f184c649fb7be13c1e0717e538ba46d2efa4b3f40f51badff94fab",
+    "icstudio/digital_sky130_rule_worker.py": "2846309a442f05791d3d707112163305a485e6434b3f0b21d2fe6b1170976595",
+    "scripts/sky130_scope_corrections.py": "94edfc415fe27f24f2229d26dda0b701f309087eb558363d103992a7671edd17",
+    "tests/test_sky130_scope_corrections.py": "de758fe3dce72c33d740cb12aa134ae130f4888b0e811e4fbb9f53329fdeb4f0",
+    "tests/test_sky130_application_rules.py": "c99c1f016d8cb98a4fc2cf4cafb2257d65cf497074fd60f9cf9b29dc2fe60977",
+    "tests/test_sky130_density_rule_scope.py": "f643fe490b06a3344b406ae2ad49b01350aaf66ffabe0cfbe3c5284c5733b14b"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+    "bytes": 44401516,
+    "files": 842,
+    "unique_blobs": 386,
+    "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+  },
+  "filled_replay": [
+    {
+      "case": "counter",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "report_sha256": "abd096c27d52fa5016eeb03ea41e6269c0305061d1e8dd63fe40400de9da4aaf",
+      "log_sha256": "519112e1fdbd81fbdad135d1f6c52dd9c3a67de8a908c3789b05e85375f84a65",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "uart",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "report_sha256": "329561903d40ade773f8199d678facc527451cb40b945fc34477d51872b1a974",
+      "log_sha256": "519112e1fdbd81fbdad135d1f6c52dd9c3a67de8a908c3789b05e85375f84a65",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "apb",
+      "status": "exact-filled-reference-replayed",
+      "exit_code": 0,
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "report_sha256": "e57b984556086016da0810a4efb1cc6c5b8a529613ed07739d677d8727d4fe7c",
+      "log_sha256": "519112e1fdbd81fbdad135d1f6c52dd9c3a67de8a908c3789b05e85375f84a65",
+      "profiles": {
+        "floating_connectivity": "PASS",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "PASS",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    },
+    {
+      "case": "negative",
+      "status": "invalid-mask-rejected-with-all-six-reports",
+      "exit_code": 1,
+      "gds_sha256": "c990e919db516452841d0a6afb303e25d0fed446347dfa5cde916a98ab8a963b",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "report_sha256": "419235d66c7a411ece36aaec4eb2aeb44dc99039bacb38d165493ce15296e5b2",
+      "log_sha256": "42a65e115e14c0950bc38f0bfacc377b211ac0ee684f194defc6a0890464b58d",
+      "profiles": {
+        "floating_connectivity": "FAIL",
+        "global_geometry": "PASS",
+        "interconnect_geometry": "FAIL",
+        "low_voltage_geometry": "PASS",
+        "raw_geometry": "PASS",
+        "wide_metal_geometry": "PASS"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "case": "counter",
+      "counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 1161,
+        "executed-reviewed": 356,
+        "absent-operand": 39
+      }
+    },
+    {
+      "case": "uart",
+      "counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 1161,
+        "executed-reviewed": 356,
+        "absent-operand": 39
+      }
+    },
+    {
+      "case": "apb",
+      "counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 1161,
+        "executed-reviewed": 356,
+        "absent-operand": 39
+      }
+    }
+  ],
+  "application_counts": {
+    "counter": {
+      "execution-review-required": 27,
+      "upstream-na": 77,
+      "executed-reviewed": 133,
+      "absent-operand": 274,
+      "advisory": 28,
+      "definition-required": 1,
+      "other-backend": 61
+    },
+    "uart": {
+      "execution-review-required": 27,
+      "upstream-na": 77,
+      "executed-reviewed": 133,
+      "absent-operand": 274,
+      "advisory": 28,
+      "definition-required": 1,
+      "other-backend": 61
+    },
+    "apb": {
+      "execution-review-required": 27,
+      "upstream-na": 77,
+      "executed-reviewed": 133,
+      "absent-operand": 274,
+      "advisory": 28,
+      "definition-required": 1,
+      "other-backend": 61
+    }
+  },
+  "notes": [
+    "hvtr.3 needs a supported PFET selection; absence of HVTR alone is insufficient.",
+    "nsm.3a and nsm.3b require frame/die-cut review independently of NSM presence.",
+    "Earlier zero-operand measurements remain preserved, but their three exclusions are superseded.",
+    "Version 1 prepared-platform reports require preparation and execution under the current policy; the current validator rejects removed or reversed corrections.",
+    "All six geometry profiles still pass the three original application cases and three filled references. The synthetic invalid mask is rejected with all six diagnostic reports retained. No new synthesis, route, fill, full native-deck or final electrical acceptance is asserted."
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "9c570588a52a00c90c534ca704268301ebbded9c46579be43416eb96b7a46b3b",
+  "tests": 20,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "log_sha256": "4b533daa5135a4655718358517f30af145a0eb164ed7acd7144c0e71e2f2afb3",
+  "data_sha256": "bfe5423c9e4efadf24e134f904e39eda4df016ebd60de9fc40ae33e80945d7fe",
+  "cases": {
+    "counter": {
+      "catalog": {
+        "unreviewed": 756,
+        "executed-reviewed": 356,
+        "absent-operand": 354,
+        "standard-cell-wl-exempt": 90
+      },
+      "gates": 2240,
+      "masters": 17
+    },
+    "uart": {
+      "catalog": {
+        "unreviewed": 756,
+        "executed-reviewed": 356,
+        "absent-operand": 354,
+        "standard-cell-wl-exempt": 90
+      },
+      "gates": 17002,
+      "masters": 43
+    },
+    "apb": {
+      "catalog": {
+        "unreviewed": 756,
+        "executed-reviewed": 356,
+        "absent-operand": 354,
+        "standard-cell-wl-exempt": 90
+      },
+      "gates": 17143,
+      "masters": 40
+    }
+  },
+  "elapsed_seconds": 25.242767903999997
+}

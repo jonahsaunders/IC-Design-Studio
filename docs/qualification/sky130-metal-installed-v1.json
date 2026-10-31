@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "id": "sky130-metal-installed-v1",
+  "date": "2026-10-25",
+  "scope": "Selected installed straight LI/M1-M4 editor/queued-native workflow and M1-M4 compact-model electrical integration. No full device, continuous operating range, reliability, calibrated statistics, full-chip or foundry qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "signoff": false,
+  "source_contract": {
+    "path": "docs/qualification/sky130-metal-resistors-linked-v1.json",
+    "sha256": "2c0ad7e2142ec684bebe843596b84a1e6809e3f5a52195660bba8509e190c612",
+    "reuse": "Exact equations, model/source identities, three geometry selections, five sections, three temperatures, DC/AC/transient/noise observables and fixed tolerances. Original source-only acceptance remains separate."
+  },
+  "gui": {
+    "models": [
+      "l1",
+      "m1",
+      "m2",
+      "m3",
+      "m4"
+    ],
+    "geometries_um": [
+      [
+        0.5,
+        0.5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        5,
+        2
+      ]
+    ],
+    "rotations": [
+      0,
+      90
+    ],
+    "physical_multiplicity": 1,
+    "clean_native_layouts": 30,
+    "required_lifecycle": [
+      "real_catalog_placement",
+      "preview_apply",
+      "late_layer_lock_rejection",
+      "undo_redo",
+      "resize_regenerate",
+      "persistent_terminal_identity",
+      "save_reopen",
+      "actual_reference_and_stream_export",
+      "historical_saved_binding_preservation"
+    ],
+    "required_native": [
+      "full_DRC",
+      "strict_LVS",
+      "exact_model_terminals_width_length",
+      "changed_width_rejected_for_each_model",
+      "fresh_repair_for_each_model",
+      "actual_DRC_defect_stale_undo_fresh_repair",
+      "missing_engine_preflight_rejection"
+    ]
+  },
+  "electrical": {
+    "models": [
+      "m1",
+      "m2",
+      "m3",
+      "m4"
+    ],
+    "fresh_gui_native_inputs": 24,
+    "native_batches": 90,
+    "conditions": {
+      "dc": 720,
+      "ac": 720,
+      "tran": 720,
+      "noise": 120
+    },
+    "multiplicities": [
+      1,
+      3
+    ],
+    "multiplicity_scope": "Three copies of the exact GUI-exported or native-extracted single-device subcircuit in electrical parallel; no physical array acceptance.",
+    "application_path": "Actual fresh installed GUI reference, not a recreated source-catalog device.",
+    "native_path": "Actual unmodified fresh queued extraction. Only declared top-subcircuit name normalization may be used for safe wrapping; originals remain retained and compared.",
+    "analytic_path": "Independent numerical source-derived R, loaded RC transfer/transient and thermal-noise law.",
+    "faults": [
+      "wrong-width",
+      "wrong-length",
+      "wrong-model",
+      "wrong-multiplicity",
+      "disconnected-terminal",
+      "wrong-section",
+      "wrong-temperature"
+    ],
+    "source_pilot": "Explicit development mode. Source runs, incomplete selections and stale/prior-native inputs cannot satisfy installed acceptance."
+  },
+  "runtime_profiles": {
+    "win32": {
+      "engine": "ngspice46",
+      "sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453"
+    },
+    "linux": {
+      "engine": "ngspice42",
+      "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45"
+    }
+  },
+  "provenance": [
+    "Exact clean candidate Git commit and all external-checker/backend source bytes.",
+    "Actual installed executable, embedded build identity, shipped package, discovered engine and immutable physical adapter.",
+    "Fresh GUI execution nonce, original invocation, queued job/result/stage identities, all raw artifacts and masks.",
+    "Captured simulator initializer/dependency closure before and after; no installed engine override.",
+    "Independent raw numerical, deck, native/model and fault readback; altered/rehashed evidence must reject."
+  ],
+  "completion": "Both selected installed platform workflows, unchanged existing release gates and full candidate evidence binding must pass before this selected installed milestone is called complete. This does not close chunk7 or promote any catalog device."
+}

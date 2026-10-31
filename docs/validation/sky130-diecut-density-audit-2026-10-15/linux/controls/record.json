@@ -1,0 +1,531 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "f55bcddea1bcb9f625c1eab4f0b3ff9db5df4d6abde906aa4ed61ff67fb8f801",
+  "checker_sha256": {
+    "diecut": "76585e33f1e4967c50fc300395f6c1743bcc030beac0b9285f86434bdcdf3ecf",
+    "density": "4fceb4473170fff06bdae1b4caa7a8f64d35e227b9493ada9322497ebdb11c3a"
+  },
+  "cases": [
+    {
+      "case": "empty",
+      "gds_sha256": "f409e778d8194f598d56c7f49be7ddd50812d6cc038a55b4d7709d0f5dcf1837",
+      "report_sha256": "6c0ac3ddaa051a3222016e517cd8f2270cf33ec580f4cd880fd03572aec86cb5",
+      "unreviewed": 0
+    },
+    {
+      "case": "physical_without_diecut",
+      "gds_sha256": "4cbd450e083901bb49680d4a1c441b169b07af20e34b4d43594383247293df38",
+      "report_sha256": "a53348da98e3410c2ec857a5ee79f166c258414768446f9f89b702ff0c1955b6",
+      "unreviewed": 0
+    },
+    {
+      "case": "diecut_box",
+      "gds_sha256": "2022581a254bdc3cdb50c11096b8093ea7b70a605df34704c89c945e01b0bc09",
+      "report_sha256": "cf82dd478a48b786455209a4f14681e00734c96255276a80d009960d3876b417",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_polygon",
+      "gds_sha256": "261cf8e0ccc63514aba21644e1aa0d939cc37b7878f0b8c28ea726c1423db797",
+      "report_sha256": "8277d247270d932e7b3554991018ee53509ff20d5100bce3718f41eed9099e87",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_path",
+      "gds_sha256": "e0acb1535ff0f13f0e17bdce674f53415ee02af54b3c3a7a4eb39aa64bdf2bd6",
+      "report_sha256": "6f10e17a768f56a26c8371c7c46480739e3a16e251617dff17dcac36a128b311",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_text",
+      "gds_sha256": "e6f0901655bf58ba98ccda9084d650d866c7a7e0f11f2471e2a888cb155b95bc",
+      "report_sha256": "1e6ce52343d4c5362c60a1da657df8945e84b65e426e5c8c1aa82ef10c9eb505",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_sliver",
+      "gds_sha256": "e42f62f079001ecbf3bddf4ad169afa8e97a35a90deaf3f290f03aadba83e9ea",
+      "report_sha256": "367cecced9641b32d1bfa56159d7cc8d46820b10e0f2063d22efa4a580c70337",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_hole",
+      "gds_sha256": "2152824fe52b6e6146ece3bb1e899da87bf728eeab6bd23c032a981884eb825a",
+      "report_sha256": "4c7bdf0f1812d087d4b23eeef5b5f975fe68084e167750e11ce41bda4b68c747",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_nonmanhattan",
+      "gds_sha256": "3c5b3a1159b576711dd709e899e16e8b7411761c308ffa463468c5d04781be75",
+      "report_sha256": "1810dcb8a5803f057b62efb35acda6aaad2cbeff4b9df401fefe02b9015fdadb",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_rotated",
+      "gds_sha256": "75dbed97cf77f692c1f2916742b005e5be3b262d7f69382644a9dc70bb24c75e",
+      "report_sha256": "7650745db49a37e603c56b01804354750990940447b293923bbbf1c839e268f5",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_array",
+      "gds_sha256": "e322593d764a0ddcf5c4b06f1d3b38c09a4df3e0921aa8d7ef631f8a605e5966",
+      "report_sha256": "4a85f2630c220fd99fbf2ebd48661ce5b7be420c17373a009fb8430797a75201",
+      "unreviewed": 18
+    },
+    {
+      "case": "unrelated_annotations",
+      "gds_sha256": "3214b083310bb5fef3bbad86b6b0602959f71911ed879d60839ee9e8094e0063",
+      "report_sha256": "c0423abcbc206e572e3dcb64443d22a2f2561461f723edd58cc41973a291258b",
+      "unreviewed": 0
+    },
+    {
+      "case": "diecut_under_buildspace",
+      "gds_sha256": "59bc413f958fdb12c51311f058c16ebf067251a59fe54a758315191fdcb7a073",
+      "report_sha256": "1bc6bd961082c2d17461d3cbed82cc9a9dce3ef6953032e7bf2b17abb3986d45",
+      "unreviewed": 18
+    },
+    {
+      "case": "diecut_under_testchip",
+      "gds_sha256": "47a1d4e8139fdb29af781ff91305a5e7dcce681969863004a5a2a3e9b710a5b0",
+      "report_sha256": "815055d28af66f8dddb2e341016ca509e91a3d51fefe57ad4f979ae9cabbaa43",
+      "unreviewed": 18
+    },
+    {
+      "case": "m1-drop-30-metal-30-delta--1",
+      "gds_sha256": "e66dc4d92df0afd1c4fd74ce31e7d3550ba1123868c0f5e8dc6332384eb2588a",
+      "report_sha256": "8196a344f1543462f54cb28fa118bd49a36e006dca1d96adb2fdb3e83292350e",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-30-metal-30-delta-0",
+      "gds_sha256": "56ded91477cea316f0f9bfb2b033a8bf8eb7995d164511eafaa6bc680c9e371f",
+      "report_sha256": "621e56ba52adfa47b3124c4107dc51ae1bacf0265c59e544445c5ccd7c354b82",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-30-metal-30-delta-1",
+      "gds_sha256": "b0beaf742b4f58ba6be81b5c01aa58c31c071310872eb2ae4495c1f5a1827b74",
+      "report_sha256": "1d96b59fbd2853465ff5a228e5dc339913a1b56cee3d9bf1c79c0a84d49c2d31",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-40-metal-40-delta--1",
+      "gds_sha256": "21db549351607beb19eb0c2b1c062a9c3cf8320390998537a3c868a198276312",
+      "report_sha256": "635a960138a2836ef7ded0435846ccaa487ce8bd7e01fe0301486e1dec96c9fa",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-40-metal-40-delta-0",
+      "gds_sha256": "d1280354d13aaac9aa9671c377be51b8cab3b5dea84a93f3d1d839bcd44487d1",
+      "report_sha256": "0a7aadac2e0f6a6a8d0f90a08ca952e301750a342cdc98eb2668ebad0f87ac32",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-40-metal-40-delta-1",
+      "gds_sha256": "b6effdf5254c133931d3520bf39b398c578892ad16102bc52554d49fc3c2ed15",
+      "report_sha256": "300b8c6b62fd5a46832b70c5d46042be1513fc9a1749605b58a4abf21b2ead9b",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-50-metal-50-delta--1",
+      "gds_sha256": "218aff07f8266959a21e62306352d2416a4152012bc2ff8724a9809f64d88b42",
+      "report_sha256": "6490b584abfbec7f99cf67ea36cb981f437ad80ddacf58aeabcc758fef844c1a",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-50-metal-50-delta-0",
+      "gds_sha256": "6de91c1756ee5b64c1a9c3e221aeae898cb17b1841beb3361015dd84554f0c28",
+      "report_sha256": "83ba6e64d4bb535757f482da826c7f707a07267e236ae35c0ddd2380654787e8",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-50-metal-50-delta-1",
+      "gds_sha256": "753f04a8f29122ac376093c813da984b885d36310190326d085e687f0d780e5e",
+      "report_sha256": "254145a0711cc55390a3845ea45134926642589ac6cc9ae41ebac1c7ae374755",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-60-metal-60-delta--1",
+      "gds_sha256": "a21db83bccdfb13de50a98d8a5fce4b83cd8a300c7cef945b5247a2cad349a2f",
+      "report_sha256": "896d564cdbdaf3aa81c1eec355b47e3d77c7405335578c8c4e1f6b5e71d7a6ce",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-60-metal-60-delta-0",
+      "gds_sha256": "aa43b527e284dfcf6eef6b3d38930f1b12fe209553a0f3bfe51029b0e1c0f981",
+      "report_sha256": "600d9ee42caa86fd90762c7138ce40296382faf015a55a79c99d26d389ea8107",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-60-metal-60-delta-1",
+      "gds_sha256": "fefa43c9cf27a2243ac5e37036bbbe0cbc271172f3464fbaafb642cd3fe145b7",
+      "report_sha256": "0044fbeb21d441d500042f47c608758abbedfc42475f40cab7f6667633208f78",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-80-metal-65-delta--1",
+      "gds_sha256": "50d614bec572654aa45f6871255d44fe5780af4b0f5357b51da2711fb65c7c23",
+      "report_sha256": "c9eb4685ad61e4dc40b4f4f120dff59ab32994222b96cd4cc870b3c3c397bdc5",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-80-metal-65-delta-0",
+      "gds_sha256": "569e6e41fbbeb3d7a77022dec46baa34e720a6f7f43b108d2123158c09440859",
+      "report_sha256": "57c4e41ca5cbbcd224c3fdb0915f6fe83930172d665a9e1354723904c9c7c037",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-80-metal-65-delta-1",
+      "gds_sha256": "e5ea5ee7e9c1084a5ded7bf83fcb2c63629211974502fa01de27a5940322ebde",
+      "report_sha256": "0ee0a392d855d49133f6d3a402e7fca84cceca39ca20fc7fdae16d39fdf96aff",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-100-metal-70-delta--1",
+      "gds_sha256": "2b37b1b97f117aec897e28806c6ba28529a8a2f2660352736b4f4d20a940e3d1",
+      "report_sha256": "dad656aaf069c14c0d88a63eacf9ff4237c7199f68472c77acba789fd59c523c",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-100-metal-70-delta-0",
+      "gds_sha256": "7a123ab8206537b03f9fc23955ccde1b5e7f7958c1f573fb53d3f92b7c20939c",
+      "report_sha256": "b2e998e5cfcb188838cb7b60561102c8aa71ad1705f2d6bafcc2a21a96a05f4e",
+      "unreviewed": 12
+    },
+    {
+      "case": "m1-drop-100-metal-70-delta-1",
+      "gds_sha256": "1bae89e0e840099ddfc8462fa13b8c74069d9268500700bcd26ad7d5c99074d8",
+      "report_sha256": "06af501bf65ce2bad94a115a47c712b0cb79ea59d87d0897b5545c32acd458e1",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-30-metal-30-delta--1",
+      "gds_sha256": "75c8c4bcc661ea602a97c0cff529808e7175ddbb4f1beab8005026310caa5df8",
+      "report_sha256": "c1bda3389807c3adcaa42cdfd505782d61f7aceb12c52f073a1bdb26921b5f34",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-30-metal-30-delta-0",
+      "gds_sha256": "990399da36cfb77be06b3fa048012776b35b594a2fb53f47dc202bd774e596e3",
+      "report_sha256": "8df1e222e3e771a016982067eab54ac38ed3024a7d3796c20b9bb52162b388d1",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-30-metal-30-delta-1",
+      "gds_sha256": "2b3f6f5bd423fc5486ccb0d9a565670dcdf86e1d4377e6df989df5241f7e3487",
+      "report_sha256": "dd5e006919f30d88de8b575b2778143a9c07d4467da95b0ce11b9db594405557",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-40-metal-40-delta--1",
+      "gds_sha256": "6800c2cfa7273ac359d371fb84f041ce80abe9091dba3b8ee3b04c702faee0d0",
+      "report_sha256": "6014fc90229293cd7b542c7f1155c766c416490b5a092e7d5256e5a50eb3d869",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-40-metal-40-delta-0",
+      "gds_sha256": "258e720a2f10c832cc15cb0c23357ef21e84add5b40bc5715117f240c5ec54ad",
+      "report_sha256": "61dda58f4c2e632ea2f1ec69b41700a74304d00e4afddb813874562b6ea16ed8",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-40-metal-40-delta-1",
+      "gds_sha256": "1814b4f686b2fd322192e1100943dbfd01e2b18e293354272bce010f5dda5887",
+      "report_sha256": "ff79cc08fd106624e49b54bad534bd4f979a9caf9e7bec667a35fa84af6d32e5",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-50-metal-50-delta--1",
+      "gds_sha256": "a9d95ebaf9197615558fd0387f9da40897c180804c818cc55847ed12f1829ecd",
+      "report_sha256": "b04768edb0e620806fa5bc75c554a8c783c70adf0164c6fd4dbc438a7752dd20",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-50-metal-50-delta-0",
+      "gds_sha256": "e0a8431e59dac6d03c774110bda11809a4bc935547c889fc766412815366a28c",
+      "report_sha256": "a177d1358ce8ad93c04bbc50b6e2f3b4d08ef2ea35a3cae662208b57fa3a8eea",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-50-metal-50-delta-1",
+      "gds_sha256": "f3d6d14e07e33332c54c019d9f0cb06579fc237f8158e72939024cb2dcfe6205",
+      "report_sha256": "0ec02d99d7dc22ad5ceb6a2ef3bc431a43d60a2c9965a9eca444a97f03a94348",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-60-metal-60-delta--1",
+      "gds_sha256": "f0f6f944def1a26a52a6b09ed10ba5f73638eda7b7a9cfb3da6d769ac16861d2",
+      "report_sha256": "9053761fa72fef959289d0ae15f265ed3172e1d88278e4a00a6d978366153111",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-60-metal-60-delta-0",
+      "gds_sha256": "33bf402b1918789d521f2fecc430adc480739d5c88afc9e45cf1808b9de92130",
+      "report_sha256": "6ce2e8452091b05758b87b83ae3481f5108b558f0d4a533627d7637e9e24fd38",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-60-metal-60-delta-1",
+      "gds_sha256": "2076c9b5a9e0d2affd83f091cdcdd42465d725888d87991c3334469f6f1a6159",
+      "report_sha256": "2f6eafd38adfbf4fcc90064fd6acdd751d77d2c972bccc5ff90a30d57c2404a4",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-80-metal-65-delta--1",
+      "gds_sha256": "ffb0cc6526654c5152e36ac3e3bbdc9649b01f55f2b1371986c432e73b83a1ee",
+      "report_sha256": "754c728bccb611b7bd6c4bc2379b68c054f1a18ac34b6420f961ad173f23953e",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-80-metal-65-delta-0",
+      "gds_sha256": "ccbd746403083ac0fdbf483f663af433fbb2c7876faae208e42acbbd895e44ea",
+      "report_sha256": "8bd81defc5566c5deb1f4468c2b62442ca3aeacb357277be2ef022824515eace",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-80-metal-65-delta-1",
+      "gds_sha256": "a5236906e87db31aa3c9cc51351a76f86fd4a7c7e8f847a7a747117acdd2657e",
+      "report_sha256": "6966a2f0cddf7e21eddb45606444d735d15b74ae73a81d5f373ae86370f8590f",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-100-metal-70-delta--1",
+      "gds_sha256": "8877ce91f9413e62ca81a17b30dd4935f743d8f4edbf9a6d83bb6517ee90057d",
+      "report_sha256": "5abe59ef28cfc65cf8e8ae71c4e6c6a5243f72190865a380669ae54fc2e49793",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-100-metal-70-delta-0",
+      "gds_sha256": "7261fe61724373870b674a7979cff02ff8a5c2177cf498562d31a40724e8113f",
+      "report_sha256": "fd0894b35ff44f81dfbb0de778f2db098a139fad679f138e94b8995b021d3612",
+      "unreviewed": 12
+    },
+    {
+      "case": "m2-drop-100-metal-70-delta-1",
+      "gds_sha256": "f2aced2fb3ad12f287b94c796ecd054e164b17bb7b3e720371da6bd2b5115237",
+      "report_sha256": "cfd6ad80da01bd082d4d17a8e6f87662b66e246097dd701fe07e13228b8d5d15",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-30-metal-30-delta--1",
+      "gds_sha256": "51d34fd51641a25e4cc4f1ad0df19436deeb6cb6918ffca9ae597ba6b29e3fef",
+      "report_sha256": "adcc3286aaa0170eefaafe5bd3f1043567982be3f7e087418e4f546d9eef34cd",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-30-metal-30-delta-0",
+      "gds_sha256": "d352856bc582d10bf6e0b471d0d5a11ac7f7fa0568f89ac1ce7e22397e564e8d",
+      "report_sha256": "740e0e1d48bbd1fdbfebe9ba8f5d5eefd3c3c71756269511af03342228b75208",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-30-metal-30-delta-1",
+      "gds_sha256": "860397978b7929314e6f15aa846c6d4a526fcc7c4c769bcbda476c41214c4c80",
+      "report_sha256": "df50507b8c13858239fd80dbe013dc6c5af1cb63c7dae996491918dceb328fdf",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-40-metal-40-delta--1",
+      "gds_sha256": "e8b06a58cf5bf16ec72ad0e9d2229cf6889c378bece9ea3624b9b335da0ae9da",
+      "report_sha256": "de9e35a19f3c3c1c081199a75c463b0d2669f1f7d611f5637df167ece5572531",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-40-metal-40-delta-0",
+      "gds_sha256": "9837a4b7a65389ca07bce6d0973775d5b6df78ad52b006e6b3c9b17d41347fed",
+      "report_sha256": "95b20efd51a51a28499706dda6e661729865753503059214e12518f7b0df0cc6",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-40-metal-40-delta-1",
+      "gds_sha256": "58f6c86557abfd4ed0c1fa8fb940d30156f59f23c363f2dcd33fb84821e60fe3",
+      "report_sha256": "c895d4ad28031675d0b78d68f94305519428d623097d337c38704c2d2acc44f1",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-50-metal-50-delta--1",
+      "gds_sha256": "5433bad9f681a7e9a012efd7bf8d5c9fc1f67effed3fe874fb25c5ffc737514f",
+      "report_sha256": "46dc823424f663d8bc9d40e36d64f52bb68d222a547c744b546d7fc442a110fc",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-50-metal-50-delta-0",
+      "gds_sha256": "cd9f37add6884f6493e3c5a2749ead4c728514b4e38d36a0918795a6a117954a",
+      "report_sha256": "5c4562655646810abeaa5a296ba13b3b73a5d64f522b998dd4d58d89f365ec67",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-50-metal-50-delta-1",
+      "gds_sha256": "b0224fab118be1849dd4cda84d6e6f1c226cb83d931f6d057e1e1e4a3e181240",
+      "report_sha256": "ce3bd5189520afc00f95c11861603378e03c171109cc9007d635199f531d6504",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-60-metal-60-delta--1",
+      "gds_sha256": "ad42c957ad63891956c29b9faa3c68b7daedca774a8bc23f2939a9c5b86eaa19",
+      "report_sha256": "75676acbe0ae674bf0043f488207a86be29b5560c5f3e146b0fa569efd85da54",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-60-metal-60-delta-0",
+      "gds_sha256": "68e586a096bdc6e3bb6d0a273995533d3580ce0c1e6fa781e16708a49f7a1c2e",
+      "report_sha256": "25045aa6519c8a3b6a0a018d66b89fe3dd9495b0231a5cb6d98b96ed5247e4a7",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-60-metal-60-delta-1",
+      "gds_sha256": "f6e423055a9d099bc785317297b1c632faee24319f0e81d0c91485cb264c727b",
+      "report_sha256": "263dcb74cc04011635221de8b3a055de019ee01154813ca630661492327cb391",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-80-metal-65-delta--1",
+      "gds_sha256": "d7ae4a1af7fd0536420b85b8d51442658c5743833d87fe6b39addc82d73df44e",
+      "report_sha256": "780c9579b4ac96c97c48847c14c04d80ebd1865afb4038aa59a66419d2e988b2",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-80-metal-65-delta-0",
+      "gds_sha256": "9187671abb260ccd4488fd6bb741e5040c86fab849f476719ad9c54f8a9378d1",
+      "report_sha256": "8dba05d2a117329f0a57e29e39c8aff12754e4d20c31431025d17009107082dc",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-80-metal-65-delta-1",
+      "gds_sha256": "578df748e90f1d0ccc48d072dea4af887c85d0058f2b360c0107bd383c1d6804",
+      "report_sha256": "77997ccf9e37cff93d9b844df7cf17c08f3186ba45caab7630567d4a730bb58b",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-100-metal-70-delta--1",
+      "gds_sha256": "1120d5c40f0ff979740b149a9cfc54e5862c4338302c639f32ecf5f328fb8253",
+      "report_sha256": "00b30255c9c1dde8239c3fa84d6cbeb4d7a2cdb2a5c1b2473387259cbd839f83",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-100-metal-70-delta-0",
+      "gds_sha256": "bceabddce7538df92615438b0dee52bf1e993192e16a581a595c9cd20cfb0d96",
+      "report_sha256": "c8bc39087dd2a6c0a43e4017f872b384d50007b20921dd3422c8867137de0a19",
+      "unreviewed": 12
+    },
+    {
+      "case": "m3-drop-100-metal-70-delta-1",
+      "gds_sha256": "20fb87a686d86b967eb5fae44da3aff88ea262556cc0a42468163db61557a789",
+      "report_sha256": "d6a9ed69bd787ef5d168c8e9128ae6553c210aba1bb99e908b57ca9d867f5356",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-30-metal-30-delta--1",
+      "gds_sha256": "d0e0a964f2c9cbbcb4c5b14f47a955cb59059e1915ec57276503302a9d78daf4",
+      "report_sha256": "40bc62739bab7fc9306cfca9d0fdd0a63c06d39bced3c6310501b295f9ce0b35",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-30-metal-30-delta-0",
+      "gds_sha256": "63e9086aa5849b854def428115b0ae8195fd211f070c7e774ef5e0c4fcf41c74",
+      "report_sha256": "a40f26f9aecd827d33079d76b8ec05be3e5ebf3b59d1e9fd2602d4f58ebdca00",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-30-metal-30-delta-1",
+      "gds_sha256": "cb5b5b306af9e4dd1cf48cab5324ac923e29438c951333a7133c7d1a956c0616",
+      "report_sha256": "07b48d98e0ebed15260403e77bb4750d049670aa58bad8d27ee699685392ac64",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-40-metal-40-delta--1",
+      "gds_sha256": "14807a8f15dff7177929dcaabbbba83f15a8d605e2a80f4393042224bcbe9fc7",
+      "report_sha256": "269979c92900dbf18e989a947a854aa0c48262d4cb332d883636278692ff7dd0",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-40-metal-40-delta-0",
+      "gds_sha256": "55af043c54f5820572e2cb1c15f34e64d079113ef7d27aa252d4b1c2586b5903",
+      "report_sha256": "e4b056cb4168df332dd09e86b9da2d7b671a9343d92868eb918ccbce76eeaaf3",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-40-metal-40-delta-1",
+      "gds_sha256": "fc3c48a281ba34f161b341ad9149dce42b693ecbf9c1f7864fd03a607ed2be12",
+      "report_sha256": "4492fab65200c5f258e4c99ad9aee0cd183632a2cd7085b76c44742354de88f7",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-50-metal-50-delta--1",
+      "gds_sha256": "a7350fdd9cc0e1aca66c86f68e969fe62a9f2bba1c3fa695c993ebf75bb4076d",
+      "report_sha256": "04537f6fd3e2be18ed53a4a7fa644a7d65d2fa4d588118cd6960bae56b52d5ba",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-50-metal-50-delta-0",
+      "gds_sha256": "5d5ecb628abeaaffd400d7d9628a14f5904242033039466839e3ef1ba4e64cd2",
+      "report_sha256": "e5761fca4526b392c0b2aa0ab26258cd2a28c178de40452a2ef65b98f7ffbede",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-50-metal-50-delta-1",
+      "gds_sha256": "b8d3086f4b9f0a0b53f5158b059f75c398d2a8a75958d597d2dedfddb70af84c",
+      "report_sha256": "76a35f818f934b83151ebc9fe23b2fd049933fb27edabb477394eb6339e8609b",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-60-metal-60-delta--1",
+      "gds_sha256": "cf92892f05185d73e2efebbb78a85478190ee42f980ec4c1a8048bd1d7eb731d",
+      "report_sha256": "6510d7b4ecaf6b90c82caab6ce63ad086ef6a88988d738bd46858e22ef17c2ca",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-60-metal-60-delta-0",
+      "gds_sha256": "cde891276cf05109c8be04e49d12cc0334b207162e8917698c0d7c0ee55aea61",
+      "report_sha256": "b50609d0827620663a8ebe7ca68010129d6ca8a63917879724f67c961cfb5ba4",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-60-metal-60-delta-1",
+      "gds_sha256": "6b47fab1d1a720b346a6c36313a9def4052ae194c84f01d304f7ad04248da4ba",
+      "report_sha256": "d270a56d978f4bf2f3d4d7bce6b64877bbc7ca00655247153cb101fd2729e92f",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-80-metal-65-delta--1",
+      "gds_sha256": "08128dff7a1953f875ef3542a9fdca94578927b9dac884e68641c2e622d0162c",
+      "report_sha256": "1d55f51e87bef559eba4744ac8eef9e30d55a270b95b9c4b7a5844c07d046c38",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-80-metal-65-delta-0",
+      "gds_sha256": "d246bac0058178002907e1dd43de90174c6ccb29f8d8727b47fcca9dbfd2559d",
+      "report_sha256": "3b8c45794de6022fcf21bd1363fb8ae732ecdf7791bf17b576134fc242d4d405",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-80-metal-65-delta-1",
+      "gds_sha256": "3cf68a523a8532b038355eec29d89e6060df589d413d5deea13236a9bc015c63",
+      "report_sha256": "5e59bfb252f7187f9e6a3ee7a1c79f7d05ae73f972f8d32429d034d0fd6e538f",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-100-metal-70-delta--1",
+      "gds_sha256": "db4bec50faccdfa0373a4e0512577a8281f73acb0146e5d59142120c4c16e933",
+      "report_sha256": "e62b2079641d30c871e9ecc1d3383b5e2466881eacca44ac19e292e96302ef87",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-100-metal-70-delta-0",
+      "gds_sha256": "4a10ea91b9a57813335e2199a902484f5f25ee23350dc657e4b4765d112ba0b2",
+      "report_sha256": "7c8bc0b47b16c757f63f0b02943de42ef32e3de55475bc9f66d71b44b45d1046",
+      "unreviewed": 12
+    },
+    {
+      "case": "m4-drop-100-metal-70-delta-1",
+      "gds_sha256": "36de797452991e809a5e5c3d2412ba64d223b5c99552dbeaae3b1f552ddff7c3",
+      "report_sha256": "e4161ac85cd81688231e595f83349e2fe536b74c3dde7d35b98e3214fdb52fe5",
+      "unreviewed": 12
+    }
+  ],
+  "elapsed_seconds": 3.0294312960000003
+}

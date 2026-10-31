@@ -1,0 +1,595 @@
+{
+  "schema": 1,
+  "observed_at": "2026-10-30T17:11:46.913918+00:00",
+  "commit": "f633d2c875669634173936e57285860b62ff08c9",
+  "parent": "52049be725eda34922bc921dfdea6cbf14da0952",
+  "files": 108,
+  "checked_git_blobs": 3019,
+  "source_manifest_sha256": "3b9cbbfbbc25c1064be17241d566c50c0faa8fdf5ec88ada50b8cc5960ce1694",
+  "scope": "Source-tested current0c19 package and corrected47 Linux runtime; exact frozen/installed acceptance required.",
+  "runs": {
+    "desktop": {
+      "conclusion": "",
+      "databaseId": 41096461030,
+      "event": "workflow_dispatch",
+      "headSha": "f633d2c875669634173936e57285860b62ff08c9",
+      "jobs": [
+        {
+          "completedAt": "2026-10-30T17:10:31Z",
+          "conclusion": "success",
+          "databaseId": 124203394773,
+          "name": "candidate",
+          "startedAt": "2026-10-30T17:10:23Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-30T17:10:24Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-30T17:10:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:29Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-30T17:10:24Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:29Z",
+              "conclusion": "success",
+              "name": "Verify immutable acceptance candidate",
+              "number": 3,
+              "startedAt": "2026-10-30T17:10:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:29Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 6,
+              "startedAt": "2026-10-30T17:10:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:29Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 7,
+              "startedAt": "2026-10-30T17:10:29Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030/job/124203394773"
+        },
+        {
+          "completedAt": "2026-10-30T17:11:29Z",
+          "conclusion": "success",
+          "databaseId": 124203479726,
+          "name": "release-tools (windows-2022)",
+          "startedAt": "2026-10-30T17:10:33Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-30T17:10:35Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-30T17:10:34Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:45Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-30T17:10:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:45Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "startedAt": "2026-10-30T17:10:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:11:25Z",
+              "conclusion": "success",
+              "name": "Verify portable release evidence and publishing",
+              "number": 4,
+              "startedAt": "2026-10-30T17:10:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:11:26Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 7,
+              "startedAt": "2026-10-30T17:11:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:11:28Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 8,
+              "startedAt": "2026-10-30T17:11:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:11:28Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-30T17:11:28Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030/job/124203479726"
+        },
+        {
+          "completedAt": "2026-10-30T17:10:54Z",
+          "conclusion": "success",
+          "databaseId": 124203479843,
+          "name": "release-tools (ubuntu-24.04)",
+          "startedAt": "2026-10-30T17:10:33Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-30T17:10:34Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-30T17:10:34Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:39Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-30T17:10:34Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:39Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "startedAt": "2026-10-30T17:10:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:52Z",
+              "conclusion": "success",
+              "name": "Verify portable release evidence and publishing",
+              "number": 4,
+              "startedAt": "2026-10-30T17:10:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:52Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 7,
+              "startedAt": "2026-10-30T17:10:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:52Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 8,
+              "startedAt": "2026-10-30T17:10:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:52Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-30T17:10:52Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030/job/124203479843"
+        },
+        {
+          "completedAt": "2026-10-30T17:10:47Z",
+          "conclusion": "success",
+          "databaseId": 124203480624,
+          "name": "digital-runtime / candidate",
+          "startedAt": "2026-10-30T17:10:34Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-10-30T17:10:35Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-30T17:10:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:43Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-30T17:10:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:43Z",
+              "conclusion": "success",
+              "name": "Verify immutable acceptance candidate",
+              "number": 3,
+              "startedAt": "2026-10-30T17:10:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:44Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@v4",
+              "number": 6,
+              "startedAt": "2026-10-30T17:10:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:44Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 7,
+              "startedAt": "2026-10-30T17:10:44Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030/job/124203480624"
+        },
+        {
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "databaseId": 124203611802,
+          "name": "digital-runtime / runtime",
+          "startedAt": "2026-10-30T17:10:49Z",
+          "status": "in_progress",
+          "steps": [
+            {
+              "completedAt": "2026-10-30T17:10:50Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-30T17:10:49Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:55Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-30T17:10:50Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:55Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "startedAt": "2026-10-30T17:10:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:57Z",
+              "conclusion": "success",
+              "name": "Install the pinned layout reader for saved-evidence validation",
+              "number": 4,
+              "startedAt": "2026-10-30T17:10:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:58Z",
+              "conclusion": "success",
+              "name": "Verify complete runtime cache identity and build context",
+              "number": 5,
+              "startedAt": "2026-10-30T17:10:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:58Z",
+              "conclusion": "success",
+              "name": "Identify every staged runtime build input",
+              "number": 6,
+              "startedAt": "2026-10-30T17:10:58Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:58Z",
+              "conclusion": "success",
+              "name": "Run actions/cache/restore@v4",
+              "number": 7,
+              "startedAt": "2026-10-30T17:10:58Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Build the runtime filesystem",
+              "number": 8,
+              "startedAt": "2026-10-30T17:10:58Z",
+              "status": "in_progress"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Run actions/cache/save@v4",
+              "number": 9,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Require the cached payload to match current build inputs",
+              "number": 10,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Verify native installation with no user tool configuration",
+              "number": 11,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 12,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 13,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 25,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Post Run actions/checkout@v4",
+              "number": 26,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            }
+          ],
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030/job/124203611802"
+        }
+      ],
+      "status": "in_progress",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030"
+    },
+    "source_feedback": {
+      "conclusion": "",
+      "databaseId": 41096477635,
+      "event": "pull_request",
+      "headSha": "f633d2c875669634173936e57285860b62ff08c9",
+      "jobs": [
+        {
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "databaseId": 124203439827,
+          "name": "source feedback (windows-2022)",
+          "startedAt": "2026-10-30T17:10:28Z",
+          "status": "in_progress",
+          "steps": [
+            {
+              "completedAt": "2026-10-30T17:10:30Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-30T17:10:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:41Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-30T17:10:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:47Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "startedAt": "2026-10-30T17:10:41Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:52Z",
+              "conclusion": "success",
+              "name": "Check application, runner and test syntax before installing dependencies",
+              "number": 4,
+              "startedAt": "2026-10-30T17:10:47Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:52Z",
+              "conclusion": "skipped",
+              "name": "Install desktop libraries",
+              "number": 5,
+              "startedAt": "2026-10-30T17:10:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:11:10Z",
+              "conclusion": "success",
+              "name": "Install pinned Python dependencies",
+              "number": 6,
+              "startedAt": "2026-10-30T17:10:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Run focused contracts and GUI smoke checks",
+              "number": 7,
+              "startedAt": "2026-10-30T17:11:10Z",
+              "status": "in_progress"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 8,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 15,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Post Run actions/checkout@v4",
+              "number": 16,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            }
+          ],
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096477635/job/124203439827"
+        },
+        {
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "databaseId": 124203440195,
+          "name": "source feedback (ubuntu-24.04)",
+          "startedAt": "2026-10-30T17:10:29Z",
+          "status": "in_progress",
+          "steps": [
+            {
+              "completedAt": "2026-10-30T17:10:30Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-30T17:10:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:35Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "startedAt": "2026-10-30T17:10:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:39Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-python@v5",
+              "number": 3,
+              "startedAt": "2026-10-30T17:10:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:43Z",
+              "conclusion": "success",
+              "name": "Check application, runner and test syntax before installing dependencies",
+              "number": 4,
+              "startedAt": "2026-10-30T17:10:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:52Z",
+              "conclusion": "success",
+              "name": "Install desktop libraries",
+              "number": 5,
+              "startedAt": "2026-10-30T17:10:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-30T17:10:59Z",
+              "conclusion": "success",
+              "name": "Install pinned Python dependencies",
+              "number": 6,
+              "startedAt": "2026-10-30T17:10:52Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Run focused contracts and GUI smoke checks",
+              "number": 7,
+              "startedAt": "2026-10-30T17:10:59Z",
+              "status": "in_progress"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 8,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Post Run actions/setup-python@v5",
+              "number": 15,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            },
+            {
+              "completedAt": "0001-01-01T00:00:00Z",
+              "conclusion": "",
+              "name": "Post Run actions/checkout@v4",
+              "number": 16,
+              "startedAt": "0001-01-01T00:00:00Z",
+              "status": "pending"
+            }
+          ],
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096477635/job/124203440195"
+        }
+      ],
+      "status": "in_progress",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096477635"
+    }
+  },
+  "desktop_dispatches": 1,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "source_feedback_record": "chunk7-combined-pw2dn-feedback-2026-10-30.json",
+  "astra_review_sha256": "da40dc01da41a02b5f1f62b744fb52fd96a704f57ca3fda232c9c4d29b7ebbe9",
+  "estimate": {
+    "percent": 70,
+    "range": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "engineering_estimate": true
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "commit": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+  "parent": "a5148eca440e04f4c93d1f9400f80d131e211cd0",
+  "files": 45,
+  "checked_git_blobs": 1472,
+  "scope": "Reviewed IHP finite source integration; fresh frozen acceptance pending.",
+  "date": "2026-10-28",
+  "remote_branch": "experimental",
+  "remote_commit_verified": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+  "desktop_run": {
+    "id": 40730809639,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40730809639",
+    "head_sha": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+    "status": "pending"
+  },
+  "hosted_feedback": {
+    "id": 40730784620,
+    "status": "success",
+    "readback": "docs/validation/chunk7-ihp-hosted-feedback-2026-10-28.json"
+  },
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "estimate_percent": 70
+}

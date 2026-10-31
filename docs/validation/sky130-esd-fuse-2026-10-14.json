@@ -1,0 +1,2140 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "partial-esd-fuse-target-review",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_files": {
+    "scripts/sky130_esd_fuse_review.py": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a",
+    "tests/test_sky130_esd_fuse.py": "96477190b73b3806eb288e138004cc64a86cc87e50d0db1de68a14ef4ace9ed5"
+  },
+  "inputs": {
+    "docs/validation/sky130-waffle-density-2026-10-14.json": "5fcb18dc44127b9ab9c53e5afdb1bd5cfb1d379cce63455ec3a18f85e2f40e4a",
+    "docs/validation/sky130-scope-corrections-2026-10-14.json": "15ce1eb3ca0237adfec577d2bb53de5761ea34dd63c1840256dd4ac9e4576465",
+    "docs/qualification/sky130-error-rule-inventory.json": "9b8ac023b0b0045639bf586e77b9540b51816be448d801f2a8b922c0af9524c9",
+    "docs/qualification/sky130-rule-inventory.json": "470a056e6ef613b60d4082c575f70f097ddb0d5b340a6dda0d6620eb20edb58f",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb"
+  },
+  "bundle": {
+    "path": "tests/fixtures/sky130-filled-references-v1.zip",
+    "sha256": "8db9401bc73e117db9d72dcccb03ac7700016b5a5c61e518c14cb5a0ec3542fa"
+  },
+  "proof": {
+    "files": {
+      "docs/rules/periphery/p025-ncm_dotdash.csv": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+      "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+      "docs/rules/periphery/p046-mf_dotdash.csv": "28ef6cbb2cb057025e50984b335ca7983d9880e6188fb2d3f96ef2a12ee91364",
+      "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+    },
+    "definitions": {
+      "P+_diff": "Diff AND Nwell",
+      "fuse:dg": "met2:fe for S8D*/S8TM*, met3.fe for S8TEE*/S8TNV/S8Q*/SP8TEE-5R/SP8Q*, met4.fe for S8P*/SP8P*",
+      "fuse_contact": "(fuse_metal overlapping fuse:dg) NOT fuse:dg",
+      "fuse_shield": "Metal line (same metal level as fuse) between fuse and periphery, not overlapping contacts or vias, with specified dimensions",
+      "non-isolated fuse edge": "Long edge of the fuse spaced to Met2/Met3/Met4  less than a specified amount"
+    },
+    "layer_map_sha256": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "esd_parent": "docs/rules/periphery/p025-ncm_dotdash.csv#7",
+    "fuse_parent": "docs/rules/periphery/p018-x_dotdash.csv#21",
+    "bindings": {
+      "r1280": {
+        "rule": "mf.1&2",
+        "description": "metal4 fuse should be rectangular",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#1",
+          "docs/rules/periphery/p046-mf_dotdash.csv#2"
+        ]
+      },
+      "r1281": {
+        "rule": "mf.1&2",
+        "description": "0.8 min. width of metal4 fuse",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#1"
+        ]
+      },
+      "r1282": {
+        "rule": "mf.1&2",
+        "description": "0.8 max. width of metal4 fuse",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#1"
+        ]
+      },
+      "r1283": {
+        "rule": "mf.1&2",
+        "description": "7.2 min. length of metal4 fuse",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#2"
+        ]
+      },
+      "r1284": {
+        "rule": "mf.1&2",
+        "description": "7.2 max. length of metal4 fuse",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#2"
+        ]
+      },
+      "r1285": {
+        "rule": "mf.3",
+        "description": "2.75 min. spacing of target",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#3"
+        ]
+      },
+      "r1286": {
+        "rule": "mf.5",
+        "description": "0.83 max extension of met4 beyond fuse boundary",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#5"
+        ]
+      },
+      "r1287": {
+        "rule": "mf.22",
+        "description": "1.96 min. spacing of METxContact",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#22"
+        ]
+      },
+      "r1288": {
+        "rule": "mf.6",
+        "description": "3.295 min. spacing of target & met1",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#6"
+        ]
+      },
+      "r1289": {
+        "rule": "mf.6",
+        "description": "target must not overlap met1",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#6"
+        ]
+      },
+      "r1290": {
+        "rule": "mf.7",
+        "description": "3.295 min. spacing of target & li1",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#7"
+        ]
+      },
+      "r1291": {
+        "rule": "mf.7",
+        "description": "target must not overlap li1",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#7"
+        ]
+      },
+      "r1292": {
+        "rule": "mf.8",
+        "description": "2.655 min. spacing of target & poly",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#8"
+        ]
+      },
+      "r1293": {
+        "rule": "mf.8",
+        "description": "target must not overlap poly",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#8"
+        ]
+      },
+      "r1294": {
+        "rule": "mf.9",
+        "description": "2.635 min. spacing of target & tap",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#9"
+        ]
+      },
+      "r1295": {
+        "rule": "mf.9",
+        "description": "target must not overlap tap",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#9"
+        ]
+      },
+      "r1296": {
+        "rule": "mf.10",
+        "description": "3.245 min. spacing of target & diff",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#10"
+        ]
+      },
+      "r1297": {
+        "rule": "mf.10",
+        "description": "target must not overlap diff",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#10"
+        ]
+      },
+      "r1298": {
+        "rule": "mf.11",
+        "description": "3.315 min. spacing of target & nwell",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#11"
+        ]
+      },
+      "r1299": {
+        "rule": "mf.11",
+        "description": "target must not overlap nwell",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#11"
+        ]
+      },
+      "r1300": {
+        "rule": "mf.19",
+        "description": "3.295 min. spacing of target & met2",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#19"
+        ]
+      },
+      "r1301": {
+        "rule": "mf.19",
+        "description": "target must not overlap met2",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#19"
+        ]
+      },
+      "r1302": {
+        "rule": "mf.12",
+        "description": "mf.12: 2.40x0.50 size of a fuse_shield",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#12"
+        ]
+      },
+      "r1303": {
+        "rule": "mf.4",
+        "description": "3.295 min. spacing of target & METnotFUSE",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#4"
+        ]
+      },
+      "r1304": {
+        "rule": "mf.13",
+        "description": "2.195 min. spacing of target & fuseShield",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#13"
+        ]
+      },
+      "r1305": {
+        "rule": "mf.14",
+        "description": "max shield to target spacing",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#14"
+        ]
+      },
+      "r1306": {
+        "rule": "mf.15a",
+        "description": "fuseShield is allowed for non_isolated fuse edges ONLY",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#15",
+          "docs/rules/periphery/p046-mf_dotdash.csv#16"
+        ]
+      },
+      "r1307": {
+        "rule": "mf.15b",
+        "description": "fuseShield is required between peri metal and non isolated fuse edges",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#15",
+          "docs/rules/periphery/p046-mf_dotdash.csv#16"
+        ]
+      },
+      "r1308": {
+        "rule": "mf.18",
+        "description": "0.6 min&max space between fuse_shield and met4",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#18"
+        ]
+      },
+      "r1309": {
+        "rule": "mf.20",
+        "description": "only one fuse allowed per metal line",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#20"
+        ]
+      },
+      "r1310": {
+        "rule": "mf.24",
+        "description": "3.295 min. spacing of target & met5",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#24"
+        ]
+      },
+      "r1311": {
+        "rule": "mf.24",
+        "description": "target must not overlap met5",
+        "parents": [
+          "docs/rules/periphery/p046-mf_dotdash.csv#24"
+        ]
+      }
+    },
+    "caveats": [
+      "Fuse catalog distances differ from manual values in several rows; emptiness holds under both. No numeric fuse execution or resolution of those discrepancies is claimed.",
+      "Raw metal2 69:17 is a conservative rejection guard, not an asserted published layer mapping.",
+      "No conclusions about ncm.3, device voltage intent, RF selection, frame boundaries, grid units or x.20 are made."
+    ]
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "measurement": {
+        "top": "counter",
+        "counts": {
+          "(81, 19)": 0,
+          "(69, 17)": 0,
+          "(70, 17)": 0,
+          "(71, 17)": 0,
+          "(72, 17)": 0,
+          "(76, 44)": 0
+        },
+        "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+        "checker_sha256": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a"
+      },
+      "periphery_counts": {
+        "execution-review-required": 15,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 276,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 945,
+        "executed-reviewed": 356,
+        "absent-operand": 255
+      },
+      "new_periphery_decisions": [
+        {
+          "disposition": "absent-operand",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#21",
+          "reason": "The C3-defined metal4 fuse, every additional captured fuse purpose, the metal2 guard and the independent fuse target are all absent.",
+          "record": 21,
+          "rule": "x.11",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {
+            "(69, 17)": 0,
+            "(70, 17)": 0,
+            "(71, 17)": 0,
+            "(72, 17)": 0,
+            "(76, 44)": 0
+          },
+          "semantic_review": "sky130-esd-fuse-targets-v1"
+        },
+        {
+          "disposition": "absent-operand",
+          "id": "docs/rules/periphery/p025-ncm_dotdash.csv#7",
+          "reason": "Empty raw areaid.ed makes P+diff within (areaid.ed AND NOT areaid.de) empty, regardless of NCM presence or the interpretation of within.",
+          "record": 7,
+          "rule": "ncm.4",
+          "source": "docs/rules/periphery/p025-ncm_dotdash.csv",
+          "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+          "witnesses": {
+            "(81, 19)": 0
+          },
+          "semantic_review": "sky130-esd-fuse-targets-v1"
+        }
+      ],
+      "new_error_decisions": [
+        {
+          "id": "r1280",
+          "record": 1265,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1280",
+          "description": "metal4 fuse should be rectangular",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1",
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1281",
+          "record": 1266,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1281",
+          "description": "0.8 min. width of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1282",
+          "record": 1267,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1282",
+          "description": "0.8 max. width of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1283",
+          "record": 1268,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1283",
+          "description": "7.2 min. length of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1284",
+          "record": 1269,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1284",
+          "description": "7.2 max. length of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1285",
+          "record": 1270,
+          "rule": "mf.3",
+          "disposition": "absent-operand",
+          "binding": "r1285",
+          "description": "2.75 min. spacing of target",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#3"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1286",
+          "record": 1271,
+          "rule": "mf.5",
+          "disposition": "absent-operand",
+          "binding": "r1286",
+          "description": "0.83 max extension of met4 beyond fuse boundary",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#5"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1287",
+          "record": 1272,
+          "rule": "mf.22",
+          "disposition": "absent-operand",
+          "binding": "r1287",
+          "description": "1.96 min. spacing of METxContact",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#22"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1288",
+          "record": 1273,
+          "rule": "mf.6",
+          "disposition": "absent-operand",
+          "binding": "r1288",
+          "description": "3.295 min. spacing of target & met1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#6"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1289",
+          "record": 1274,
+          "rule": "mf.6",
+          "disposition": "absent-operand",
+          "binding": "r1289",
+          "description": "target must not overlap met1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#6"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1290",
+          "record": 1275,
+          "rule": "mf.7",
+          "disposition": "absent-operand",
+          "binding": "r1290",
+          "description": "3.295 min. spacing of target & li1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#7"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1291",
+          "record": 1276,
+          "rule": "mf.7",
+          "disposition": "absent-operand",
+          "binding": "r1291",
+          "description": "target must not overlap li1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#7"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1292",
+          "record": 1277,
+          "rule": "mf.8",
+          "disposition": "absent-operand",
+          "binding": "r1292",
+          "description": "2.655 min. spacing of target & poly",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#8"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1293",
+          "record": 1278,
+          "rule": "mf.8",
+          "disposition": "absent-operand",
+          "binding": "r1293",
+          "description": "target must not overlap poly",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#8"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1294",
+          "record": 1279,
+          "rule": "mf.9",
+          "disposition": "absent-operand",
+          "binding": "r1294",
+          "description": "2.635 min. spacing of target & tap",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#9"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1295",
+          "record": 1280,
+          "rule": "mf.9",
+          "disposition": "absent-operand",
+          "binding": "r1295",
+          "description": "target must not overlap tap",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#9"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1296",
+          "record": 1281,
+          "rule": "mf.10",
+          "disposition": "absent-operand",
+          "binding": "r1296",
+          "description": "3.245 min. spacing of target & diff",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#10"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1297",
+          "record": 1282,
+          "rule": "mf.10",
+          "disposition": "absent-operand",
+          "binding": "r1297",
+          "description": "target must not overlap diff",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#10"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1298",
+          "record": 1283,
+          "rule": "mf.11",
+          "disposition": "absent-operand",
+          "binding": "r1298",
+          "description": "3.315 min. spacing of target & nwell",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#11"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1299",
+          "record": 1284,
+          "rule": "mf.11",
+          "disposition": "absent-operand",
+          "binding": "r1299",
+          "description": "target must not overlap nwell",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#11"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1300",
+          "record": 1285,
+          "rule": "mf.19",
+          "disposition": "absent-operand",
+          "binding": "r1300",
+          "description": "3.295 min. spacing of target & met2",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#19"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1301",
+          "record": 1286,
+          "rule": "mf.19",
+          "disposition": "absent-operand",
+          "binding": "r1301",
+          "description": "target must not overlap met2",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#19"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1302",
+          "record": 1287,
+          "rule": "mf.12",
+          "disposition": "absent-operand",
+          "binding": "r1302",
+          "description": "mf.12: 2.40x0.50 size of a fuse_shield",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#12"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1303",
+          "record": 1288,
+          "rule": "mf.4",
+          "disposition": "absent-operand",
+          "binding": "r1303",
+          "description": "3.295 min. spacing of target & METnotFUSE",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#4"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1304",
+          "record": 1289,
+          "rule": "mf.13",
+          "disposition": "absent-operand",
+          "binding": "r1304",
+          "description": "2.195 min. spacing of target & fuseShield",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#13"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1305",
+          "record": 1290,
+          "rule": "mf.14",
+          "disposition": "absent-operand",
+          "binding": "r1305",
+          "description": "max shield to target spacing",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#14"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1306",
+          "record": 1291,
+          "rule": "mf.15a",
+          "disposition": "absent-operand",
+          "binding": "r1306",
+          "description": "fuseShield is allowed for non_isolated fuse edges ONLY",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#15",
+            "docs/rules/periphery/p046-mf_dotdash.csv#16"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1307",
+          "record": 1292,
+          "rule": "mf.15b",
+          "disposition": "absent-operand",
+          "binding": "r1307",
+          "description": "fuseShield is required between peri metal and non isolated fuse edges",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#15",
+            "docs/rules/periphery/p046-mf_dotdash.csv#16"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1308",
+          "record": 1293,
+          "rule": "mf.18",
+          "disposition": "absent-operand",
+          "binding": "r1308",
+          "description": "0.6 min&max space between fuse_shield and met4",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#18"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1309",
+          "record": 1294,
+          "rule": "mf.20",
+          "disposition": "absent-operand",
+          "binding": "r1309",
+          "description": "only one fuse allowed per metal line",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#20"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1310",
+          "record": 1295,
+          "rule": "mf.24",
+          "disposition": "absent-operand",
+          "binding": "r1310",
+          "description": "3.295 min. spacing of target & met5",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#24"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1311",
+          "record": 1296,
+          "rule": "mf.24",
+          "disposition": "absent-operand",
+          "binding": "r1311",
+          "description": "target must not overlap met5",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#24"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        }
+      ],
+      "open_periphery": [
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#1",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 1,
+          "rule": "x.1a",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#2",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 2,
+          "rule": "x.1b",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "definition-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#35",
+          "reason": "IP_block pin-centre spacing is described, but the pinned table supplies no value or unit.",
+          "record": 35,
+          "rule": "x.20",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#49",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 49,
+          "rule": "x.29",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p020-dnwell_dotdash.csv#9",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 9,
+          "rule": "dnwell.6",
+          "source": "docs/rules/periphery/p020-dnwell_dotdash.csv",
+          "source_sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p024-hvtr_dotdash.csv#3",
+          "reason": "The source requires enclosure of pfet by HVTR without explicitly restricting the target to an HVTR-selected device. Absent HVTR alone cannot prove that target absent; device-selection semantics require review.",
+          "record": 3,
+          "rule": "hvtr.3",
+          "source": "docs/rules/periphery/p024-hvtr_dotdash.csv",
+          "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+          "witnesses": {
+            "(18, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p024-lvtn_dotdash.csv#5",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 5,
+          "rule": "lvtn.4b",
+          "source": "docs/rules/periphery/p024-lvtn_dotdash.csv",
+          "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p025-ncm_dotdash.csv#6",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 6,
+          "rule": "ncm.3",
+          "source": "docs/rules/periphery/p025-ncm_dotdash.csv",
+          "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p026-difftap_dotdash.csv#15",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 15,
+          "rule": "difftap.13",
+          "source": "docs/rules/periphery/p026-difftap_dotdash.csv",
+          "source_sha256": "fb1596a118010cbeb998f15411e701a70aed16b78b1522289a4a950e2130c155",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p028-poly_dotdash.csv#17",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 17,
+          "rule": "poly.16",
+          "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+          "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p034-licon_dotdash.csv#31",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 31,
+          "rule": "licon.19",
+          "source": "docs/rules/periphery/p034-licon_dotdash.csv",
+          "source_sha256": "00c36280ef8dc17de0c58baab5bb1be1ab3e8c0b44b7c50eef1baa8cdd45e9fe",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p043-nsm_dotdash.csv#4",
+          "reason": "The source requires areaid.ft enclosure of drawn/mask geometry and gives frame exceptions. It does not condition the check on NSM presence. Absent NSM cannot establish frame enclosure; complete-boundary geometry and applicability require review.",
+          "record": 4,
+          "rule": "nsm.3a",
+          "source": "docs/rules/periphery/p043-nsm_dotdash.csv",
+          "source_sha256": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+          "witnesses": {
+            "(22, 0)": 0,
+            "(61, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p043-nsm_dotdash.csv#5",
+          "reason": "The source requires spacing from areaid.dt to drawn/mask geometry and gives frame exceptions. It does not condition the check on NSM presence. Absent NSM cannot establish die-cut spacing; complete-boundary geometry and applicability require review.",
+          "record": 5,
+          "rule": "nsm.3b",
+          "source": "docs/rules/periphery/p043-nsm_dotdash.csv",
+          "source_sha256": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+          "witnesses": {
+            "(22, 0)": 0,
+            "(61, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p047-hvnwell_dotdash.csv#4",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 4,
+          "rule": "hvnwell.11",
+          "source": "docs/rules/periphery/p047-hvnwell_dotdash.csv",
+          "source_sha256": "a59bb54abd43f109129db77f2fdd9135657da880d2b71b3d0192722d4305f895",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv#1",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 1,
+          "rule": "hv.X.1",
+          "source": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv",
+          "source_sha256": "e5c8e5d757f2ac8634f0c880415847ae0743981853a2fde0a56660bd5a7e9e5b",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv#3",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 3,
+          "rule": "hv.X.4",
+          "source": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv",
+          "source_sha256": "e5c8e5d757f2ac8634f0c880415847ae0743981853a2fde0a56660bd5a7e9e5b",
+          "witnesses": {}
+        }
+      ]
+    },
+    {
+      "case": "uart",
+      "measurement": {
+        "top": "uart_tx",
+        "counts": {
+          "(81, 19)": 0,
+          "(69, 17)": 0,
+          "(70, 17)": 0,
+          "(71, 17)": 0,
+          "(72, 17)": 0,
+          "(76, 44)": 0
+        },
+        "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+        "checker_sha256": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a"
+      },
+      "periphery_counts": {
+        "execution-review-required": 15,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 276,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 945,
+        "executed-reviewed": 356,
+        "absent-operand": 255
+      },
+      "new_periphery_decisions": [
+        {
+          "disposition": "absent-operand",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#21",
+          "reason": "The C3-defined metal4 fuse, every additional captured fuse purpose, the metal2 guard and the independent fuse target are all absent.",
+          "record": 21,
+          "rule": "x.11",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {
+            "(69, 17)": 0,
+            "(70, 17)": 0,
+            "(71, 17)": 0,
+            "(72, 17)": 0,
+            "(76, 44)": 0
+          },
+          "semantic_review": "sky130-esd-fuse-targets-v1"
+        },
+        {
+          "disposition": "absent-operand",
+          "id": "docs/rules/periphery/p025-ncm_dotdash.csv#7",
+          "reason": "Empty raw areaid.ed makes P+diff within (areaid.ed AND NOT areaid.de) empty, regardless of NCM presence or the interpretation of within.",
+          "record": 7,
+          "rule": "ncm.4",
+          "source": "docs/rules/periphery/p025-ncm_dotdash.csv",
+          "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+          "witnesses": {
+            "(81, 19)": 0
+          },
+          "semantic_review": "sky130-esd-fuse-targets-v1"
+        }
+      ],
+      "new_error_decisions": [
+        {
+          "id": "r1280",
+          "record": 1265,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1280",
+          "description": "metal4 fuse should be rectangular",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1",
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1281",
+          "record": 1266,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1281",
+          "description": "0.8 min. width of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1282",
+          "record": 1267,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1282",
+          "description": "0.8 max. width of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1283",
+          "record": 1268,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1283",
+          "description": "7.2 min. length of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1284",
+          "record": 1269,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1284",
+          "description": "7.2 max. length of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1285",
+          "record": 1270,
+          "rule": "mf.3",
+          "disposition": "absent-operand",
+          "binding": "r1285",
+          "description": "2.75 min. spacing of target",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#3"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1286",
+          "record": 1271,
+          "rule": "mf.5",
+          "disposition": "absent-operand",
+          "binding": "r1286",
+          "description": "0.83 max extension of met4 beyond fuse boundary",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#5"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1287",
+          "record": 1272,
+          "rule": "mf.22",
+          "disposition": "absent-operand",
+          "binding": "r1287",
+          "description": "1.96 min. spacing of METxContact",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#22"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1288",
+          "record": 1273,
+          "rule": "mf.6",
+          "disposition": "absent-operand",
+          "binding": "r1288",
+          "description": "3.295 min. spacing of target & met1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#6"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1289",
+          "record": 1274,
+          "rule": "mf.6",
+          "disposition": "absent-operand",
+          "binding": "r1289",
+          "description": "target must not overlap met1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#6"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1290",
+          "record": 1275,
+          "rule": "mf.7",
+          "disposition": "absent-operand",
+          "binding": "r1290",
+          "description": "3.295 min. spacing of target & li1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#7"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1291",
+          "record": 1276,
+          "rule": "mf.7",
+          "disposition": "absent-operand",
+          "binding": "r1291",
+          "description": "target must not overlap li1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#7"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1292",
+          "record": 1277,
+          "rule": "mf.8",
+          "disposition": "absent-operand",
+          "binding": "r1292",
+          "description": "2.655 min. spacing of target & poly",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#8"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1293",
+          "record": 1278,
+          "rule": "mf.8",
+          "disposition": "absent-operand",
+          "binding": "r1293",
+          "description": "target must not overlap poly",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#8"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1294",
+          "record": 1279,
+          "rule": "mf.9",
+          "disposition": "absent-operand",
+          "binding": "r1294",
+          "description": "2.635 min. spacing of target & tap",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#9"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1295",
+          "record": 1280,
+          "rule": "mf.9",
+          "disposition": "absent-operand",
+          "binding": "r1295",
+          "description": "target must not overlap tap",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#9"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1296",
+          "record": 1281,
+          "rule": "mf.10",
+          "disposition": "absent-operand",
+          "binding": "r1296",
+          "description": "3.245 min. spacing of target & diff",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#10"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1297",
+          "record": 1282,
+          "rule": "mf.10",
+          "disposition": "absent-operand",
+          "binding": "r1297",
+          "description": "target must not overlap diff",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#10"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1298",
+          "record": 1283,
+          "rule": "mf.11",
+          "disposition": "absent-operand",
+          "binding": "r1298",
+          "description": "3.315 min. spacing of target & nwell",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#11"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1299",
+          "record": 1284,
+          "rule": "mf.11",
+          "disposition": "absent-operand",
+          "binding": "r1299",
+          "description": "target must not overlap nwell",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#11"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1300",
+          "record": 1285,
+          "rule": "mf.19",
+          "disposition": "absent-operand",
+          "binding": "r1300",
+          "description": "3.295 min. spacing of target & met2",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#19"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1301",
+          "record": 1286,
+          "rule": "mf.19",
+          "disposition": "absent-operand",
+          "binding": "r1301",
+          "description": "target must not overlap met2",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#19"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1302",
+          "record": 1287,
+          "rule": "mf.12",
+          "disposition": "absent-operand",
+          "binding": "r1302",
+          "description": "mf.12: 2.40x0.50 size of a fuse_shield",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#12"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1303",
+          "record": 1288,
+          "rule": "mf.4",
+          "disposition": "absent-operand",
+          "binding": "r1303",
+          "description": "3.295 min. spacing of target & METnotFUSE",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#4"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1304",
+          "record": 1289,
+          "rule": "mf.13",
+          "disposition": "absent-operand",
+          "binding": "r1304",
+          "description": "2.195 min. spacing of target & fuseShield",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#13"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1305",
+          "record": 1290,
+          "rule": "mf.14",
+          "disposition": "absent-operand",
+          "binding": "r1305",
+          "description": "max shield to target spacing",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#14"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1306",
+          "record": 1291,
+          "rule": "mf.15a",
+          "disposition": "absent-operand",
+          "binding": "r1306",
+          "description": "fuseShield is allowed for non_isolated fuse edges ONLY",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#15",
+            "docs/rules/periphery/p046-mf_dotdash.csv#16"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1307",
+          "record": 1292,
+          "rule": "mf.15b",
+          "disposition": "absent-operand",
+          "binding": "r1307",
+          "description": "fuseShield is required between peri metal and non isolated fuse edges",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#15",
+            "docs/rules/periphery/p046-mf_dotdash.csv#16"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1308",
+          "record": 1293,
+          "rule": "mf.18",
+          "disposition": "absent-operand",
+          "binding": "r1308",
+          "description": "0.6 min&max space between fuse_shield and met4",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#18"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1309",
+          "record": 1294,
+          "rule": "mf.20",
+          "disposition": "absent-operand",
+          "binding": "r1309",
+          "description": "only one fuse allowed per metal line",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#20"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1310",
+          "record": 1295,
+          "rule": "mf.24",
+          "disposition": "absent-operand",
+          "binding": "r1310",
+          "description": "3.295 min. spacing of target & met5",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#24"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1311",
+          "record": 1296,
+          "rule": "mf.24",
+          "disposition": "absent-operand",
+          "binding": "r1311",
+          "description": "target must not overlap met5",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#24"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        }
+      ],
+      "open_periphery": [
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#1",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 1,
+          "rule": "x.1a",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#2",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 2,
+          "rule": "x.1b",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "definition-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#35",
+          "reason": "IP_block pin-centre spacing is described, but the pinned table supplies no value or unit.",
+          "record": 35,
+          "rule": "x.20",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#49",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 49,
+          "rule": "x.29",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p020-dnwell_dotdash.csv#9",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 9,
+          "rule": "dnwell.6",
+          "source": "docs/rules/periphery/p020-dnwell_dotdash.csv",
+          "source_sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p024-hvtr_dotdash.csv#3",
+          "reason": "The source requires enclosure of pfet by HVTR without explicitly restricting the target to an HVTR-selected device. Absent HVTR alone cannot prove that target absent; device-selection semantics require review.",
+          "record": 3,
+          "rule": "hvtr.3",
+          "source": "docs/rules/periphery/p024-hvtr_dotdash.csv",
+          "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+          "witnesses": {
+            "(18, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p024-lvtn_dotdash.csv#5",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 5,
+          "rule": "lvtn.4b",
+          "source": "docs/rules/periphery/p024-lvtn_dotdash.csv",
+          "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p025-ncm_dotdash.csv#6",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 6,
+          "rule": "ncm.3",
+          "source": "docs/rules/periphery/p025-ncm_dotdash.csv",
+          "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p026-difftap_dotdash.csv#15",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 15,
+          "rule": "difftap.13",
+          "source": "docs/rules/periphery/p026-difftap_dotdash.csv",
+          "source_sha256": "fb1596a118010cbeb998f15411e701a70aed16b78b1522289a4a950e2130c155",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p028-poly_dotdash.csv#17",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 17,
+          "rule": "poly.16",
+          "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+          "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p034-licon_dotdash.csv#31",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 31,
+          "rule": "licon.19",
+          "source": "docs/rules/periphery/p034-licon_dotdash.csv",
+          "source_sha256": "00c36280ef8dc17de0c58baab5bb1be1ab3e8c0b44b7c50eef1baa8cdd45e9fe",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p043-nsm_dotdash.csv#4",
+          "reason": "The source requires areaid.ft enclosure of drawn/mask geometry and gives frame exceptions. It does not condition the check on NSM presence. Absent NSM cannot establish frame enclosure; complete-boundary geometry and applicability require review.",
+          "record": 4,
+          "rule": "nsm.3a",
+          "source": "docs/rules/periphery/p043-nsm_dotdash.csv",
+          "source_sha256": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+          "witnesses": {
+            "(22, 0)": 0,
+            "(61, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p043-nsm_dotdash.csv#5",
+          "reason": "The source requires spacing from areaid.dt to drawn/mask geometry and gives frame exceptions. It does not condition the check on NSM presence. Absent NSM cannot establish die-cut spacing; complete-boundary geometry and applicability require review.",
+          "record": 5,
+          "rule": "nsm.3b",
+          "source": "docs/rules/periphery/p043-nsm_dotdash.csv",
+          "source_sha256": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+          "witnesses": {
+            "(22, 0)": 0,
+            "(61, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p047-hvnwell_dotdash.csv#4",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 4,
+          "rule": "hvnwell.11",
+          "source": "docs/rules/periphery/p047-hvnwell_dotdash.csv",
+          "source_sha256": "a59bb54abd43f109129db77f2fdd9135657da880d2b71b3d0192722d4305f895",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv#1",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 1,
+          "rule": "hv.X.1",
+          "source": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv",
+          "source_sha256": "e5c8e5d757f2ac8634f0c880415847ae0743981853a2fde0a56660bd5a7e9e5b",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv#3",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 3,
+          "rule": "hv.X.4",
+          "source": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv",
+          "source_sha256": "e5c8e5d757f2ac8634f0c880415847ae0743981853a2fde0a56660bd5a7e9e5b",
+          "witnesses": {}
+        }
+      ]
+    },
+    {
+      "case": "apb",
+      "measurement": {
+        "top": "apb_fifo",
+        "counts": {
+          "(81, 19)": 0,
+          "(69, 17)": 0,
+          "(70, 17)": 0,
+          "(71, 17)": 0,
+          "(72, 17)": 0,
+          "(76, 44)": 0
+        },
+        "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+        "checker_sha256": "0efa3ca2964d59342fbd857c4a06bbe513f0be42926c2acb40cc9ab60c10257a"
+      },
+      "periphery_counts": {
+        "execution-review-required": 15,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 276,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "error_counts": {
+        "unreviewed": 945,
+        "executed-reviewed": 356,
+        "absent-operand": 255
+      },
+      "new_periphery_decisions": [
+        {
+          "disposition": "absent-operand",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#21",
+          "reason": "The C3-defined metal4 fuse, every additional captured fuse purpose, the metal2 guard and the independent fuse target are all absent.",
+          "record": 21,
+          "rule": "x.11",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {
+            "(69, 17)": 0,
+            "(70, 17)": 0,
+            "(71, 17)": 0,
+            "(72, 17)": 0,
+            "(76, 44)": 0
+          },
+          "semantic_review": "sky130-esd-fuse-targets-v1"
+        },
+        {
+          "disposition": "absent-operand",
+          "id": "docs/rules/periphery/p025-ncm_dotdash.csv#7",
+          "reason": "Empty raw areaid.ed makes P+diff within (areaid.ed AND NOT areaid.de) empty, regardless of NCM presence or the interpretation of within.",
+          "record": 7,
+          "rule": "ncm.4",
+          "source": "docs/rules/periphery/p025-ncm_dotdash.csv",
+          "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+          "witnesses": {
+            "(81, 19)": 0
+          },
+          "semantic_review": "sky130-esd-fuse-targets-v1"
+        }
+      ],
+      "new_error_decisions": [
+        {
+          "id": "r1280",
+          "record": 1265,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1280",
+          "description": "metal4 fuse should be rectangular",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1",
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1281",
+          "record": 1266,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1281",
+          "description": "0.8 min. width of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1282",
+          "record": 1267,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1282",
+          "description": "0.8 max. width of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#1"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1283",
+          "record": 1268,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1283",
+          "description": "7.2 min. length of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1284",
+          "record": 1269,
+          "rule": "mf.1&2",
+          "disposition": "absent-operand",
+          "binding": "r1284",
+          "description": "7.2 max. length of metal4 fuse",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#2"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1285",
+          "record": 1270,
+          "rule": "mf.3",
+          "disposition": "absent-operand",
+          "binding": "r1285",
+          "description": "2.75 min. spacing of target",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#3"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1286",
+          "record": 1271,
+          "rule": "mf.5",
+          "disposition": "absent-operand",
+          "binding": "r1286",
+          "description": "0.83 max extension of met4 beyond fuse boundary",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#5"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1287",
+          "record": 1272,
+          "rule": "mf.22",
+          "disposition": "absent-operand",
+          "binding": "r1287",
+          "description": "1.96 min. spacing of METxContact",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#22"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1288",
+          "record": 1273,
+          "rule": "mf.6",
+          "disposition": "absent-operand",
+          "binding": "r1288",
+          "description": "3.295 min. spacing of target & met1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#6"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1289",
+          "record": 1274,
+          "rule": "mf.6",
+          "disposition": "absent-operand",
+          "binding": "r1289",
+          "description": "target must not overlap met1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#6"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1290",
+          "record": 1275,
+          "rule": "mf.7",
+          "disposition": "absent-operand",
+          "binding": "r1290",
+          "description": "3.295 min. spacing of target & li1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#7"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1291",
+          "record": 1276,
+          "rule": "mf.7",
+          "disposition": "absent-operand",
+          "binding": "r1291",
+          "description": "target must not overlap li1",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#7"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1292",
+          "record": 1277,
+          "rule": "mf.8",
+          "disposition": "absent-operand",
+          "binding": "r1292",
+          "description": "2.655 min. spacing of target & poly",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#8"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1293",
+          "record": 1278,
+          "rule": "mf.8",
+          "disposition": "absent-operand",
+          "binding": "r1293",
+          "description": "target must not overlap poly",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#8"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1294",
+          "record": 1279,
+          "rule": "mf.9",
+          "disposition": "absent-operand",
+          "binding": "r1294",
+          "description": "2.635 min. spacing of target & tap",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#9"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1295",
+          "record": 1280,
+          "rule": "mf.9",
+          "disposition": "absent-operand",
+          "binding": "r1295",
+          "description": "target must not overlap tap",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#9"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1296",
+          "record": 1281,
+          "rule": "mf.10",
+          "disposition": "absent-operand",
+          "binding": "r1296",
+          "description": "3.245 min. spacing of target & diff",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#10"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1297",
+          "record": 1282,
+          "rule": "mf.10",
+          "disposition": "absent-operand",
+          "binding": "r1297",
+          "description": "target must not overlap diff",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#10"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1298",
+          "record": 1283,
+          "rule": "mf.11",
+          "disposition": "absent-operand",
+          "binding": "r1298",
+          "description": "3.315 min. spacing of target & nwell",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#11"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1299",
+          "record": 1284,
+          "rule": "mf.11",
+          "disposition": "absent-operand",
+          "binding": "r1299",
+          "description": "target must not overlap nwell",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#11"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1300",
+          "record": 1285,
+          "rule": "mf.19",
+          "disposition": "absent-operand",
+          "binding": "r1300",
+          "description": "3.295 min. spacing of target & met2",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#19"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1301",
+          "record": 1286,
+          "rule": "mf.19",
+          "disposition": "absent-operand",
+          "binding": "r1301",
+          "description": "target must not overlap met2",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#19"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1302",
+          "record": 1287,
+          "rule": "mf.12",
+          "disposition": "absent-operand",
+          "binding": "r1302",
+          "description": "mf.12: 2.40x0.50 size of a fuse_shield",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#12"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1303",
+          "record": 1288,
+          "rule": "mf.4",
+          "disposition": "absent-operand",
+          "binding": "r1303",
+          "description": "3.295 min. spacing of target & METnotFUSE",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#4"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1304",
+          "record": 1289,
+          "rule": "mf.13",
+          "disposition": "absent-operand",
+          "binding": "r1304",
+          "description": "2.195 min. spacing of target & fuseShield",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#13"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1305",
+          "record": 1290,
+          "rule": "mf.14",
+          "disposition": "absent-operand",
+          "binding": "r1305",
+          "description": "max shield to target spacing",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#14"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1306",
+          "record": 1291,
+          "rule": "mf.15a",
+          "disposition": "absent-operand",
+          "binding": "r1306",
+          "description": "fuseShield is allowed for non_isolated fuse edges ONLY",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#15",
+            "docs/rules/periphery/p046-mf_dotdash.csv#16"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1307",
+          "record": 1292,
+          "rule": "mf.15b",
+          "disposition": "absent-operand",
+          "binding": "r1307",
+          "description": "fuseShield is required between peri metal and non isolated fuse edges",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#15",
+            "docs/rules/periphery/p046-mf_dotdash.csv#16"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1308",
+          "record": 1293,
+          "rule": "mf.18",
+          "disposition": "absent-operand",
+          "binding": "r1308",
+          "description": "0.6 min&max space between fuse_shield and met4",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#18"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1309",
+          "record": 1294,
+          "rule": "mf.20",
+          "disposition": "absent-operand",
+          "binding": "r1309",
+          "description": "only one fuse allowed per metal line",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#20"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1310",
+          "record": 1295,
+          "rule": "mf.24",
+          "disposition": "absent-operand",
+          "binding": "r1310",
+          "description": "3.295 min. spacing of target & met5",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#24"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        },
+        {
+          "id": "r1311",
+          "record": 1296,
+          "rule": "mf.24",
+          "disposition": "absent-operand",
+          "binding": "r1311",
+          "description": "target must not overlap met5",
+          "parents": [
+            "docs/rules/periphery/p046-mf_dotdash.csv#24"
+          ],
+          "absence_proof": "No fuse or target exists. C3 fuse contacts, shields and non-isolated edges all depend on a fuse; their selected subjects are empty."
+        }
+      ],
+      "open_periphery": [
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#1",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 1,
+          "rule": "x.1a",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#2",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 2,
+          "rule": "x.1b",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "definition-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#35",
+          "reason": "IP_block pin-centre spacing is described, but the pinned table supplies no value or unit.",
+          "record": 35,
+          "rule": "x.20",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#49",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 49,
+          "rule": "x.29",
+          "source": "docs/rules/periphery/p018-x_dotdash.csv",
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p020-dnwell_dotdash.csv#9",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 9,
+          "rule": "dnwell.6",
+          "source": "docs/rules/periphery/p020-dnwell_dotdash.csv",
+          "source_sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p024-hvtr_dotdash.csv#3",
+          "reason": "The source requires enclosure of pfet by HVTR without explicitly restricting the target to an HVTR-selected device. Absent HVTR alone cannot prove that target absent; device-selection semantics require review.",
+          "record": 3,
+          "rule": "hvtr.3",
+          "source": "docs/rules/periphery/p024-hvtr_dotdash.csv",
+          "source_sha256": "ba7813ea0f6f272dbf0db6e4d7b1ddfd6c8e49b775311823094c6cad86b1776e",
+          "witnesses": {
+            "(18, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p024-lvtn_dotdash.csv#5",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 5,
+          "rule": "lvtn.4b",
+          "source": "docs/rules/periphery/p024-lvtn_dotdash.csv",
+          "source_sha256": "5b4f203b21b0a0fad3a3da072a194e3f7c3b223e0b104522ff327b2c7f4a8176",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p025-ncm_dotdash.csv#6",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 6,
+          "rule": "ncm.3",
+          "source": "docs/rules/periphery/p025-ncm_dotdash.csv",
+          "source_sha256": "85e1a27682cf3826fd5861b79cf38066f462e23f26418814e9aab7f0426934f8",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p026-difftap_dotdash.csv#15",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 15,
+          "rule": "difftap.13",
+          "source": "docs/rules/periphery/p026-difftap_dotdash.csv",
+          "source_sha256": "fb1596a118010cbeb998f15411e701a70aed16b78b1522289a4a950e2130c155",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p028-poly_dotdash.csv#17",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 17,
+          "rule": "poly.16",
+          "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+          "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p034-licon_dotdash.csv#31",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 31,
+          "rule": "licon.19",
+          "source": "docs/rules/periphery/p034-licon_dotdash.csv",
+          "source_sha256": "00c36280ef8dc17de0c58baab5bb1be1ab3e8c0b44b7c50eef1baa8cdd45e9fe",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p043-nsm_dotdash.csv#4",
+          "reason": "The source requires areaid.ft enclosure of drawn/mask geometry and gives frame exceptions. It does not condition the check on NSM presence. Absent NSM cannot establish frame enclosure; complete-boundary geometry and applicability require review.",
+          "record": 4,
+          "rule": "nsm.3a",
+          "source": "docs/rules/periphery/p043-nsm_dotdash.csv",
+          "source_sha256": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+          "witnesses": {
+            "(22, 0)": 0,
+            "(61, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p043-nsm_dotdash.csv#5",
+          "reason": "The source requires spacing from areaid.dt to drawn/mask geometry and gives frame exceptions. It does not condition the check on NSM presence. Absent NSM cannot establish die-cut spacing; complete-boundary geometry and applicability require review.",
+          "record": 5,
+          "rule": "nsm.3b",
+          "source": "docs/rules/periphery/p043-nsm_dotdash.csv",
+          "source_sha256": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+          "witnesses": {
+            "(22, 0)": 0,
+            "(61, 20)": 0
+          }
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p047-hvnwell_dotdash.csv#4",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 4,
+          "rule": "hvnwell.11",
+          "source": "docs/rules/periphery/p047-hvnwell_dotdash.csv",
+          "source_sha256": "a59bb54abd43f109129db77f2fdd9135657da880d2b71b3d0192722d4305f895",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv#1",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 1,
+          "rule": "hv.X.1",
+          "source": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv",
+          "source_sha256": "e5c8e5d757f2ac8634f0c880415847ae0743981853a2fde0a56660bd5a7e9e5b",
+          "witnesses": {}
+        },
+        {
+          "disposition": "execution-review-required",
+          "id": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv#3",
+          "reason": "No executable per-rule semantic binding has been established.",
+          "record": 3,
+          "rule": "hv.X.4",
+          "source": "docs/rules/periphery/p054-hv_dotdash_dotdash.csv",
+          "source_sha256": "e5c8e5d757f2ac8634f0c880415847ae0743981853a2fde0a56660bd5a7e9e5b",
+          "witnesses": {}
+        }
+      ]
+    }
+  ],
+  "scope": "Two explicit periphery targets and 32 fuse catalog records are absent on the exact filled reference layouts. Nonempty ESD/fuse devices are not qualified; remaining required rules stay open."
+}

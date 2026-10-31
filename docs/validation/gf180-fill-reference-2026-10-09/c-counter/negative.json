@@ -1,0 +1,60 @@
+{
+  "status": "failed",
+  "qualified": false,
+  "plan_sha256": "05f45045e083cc4624994233e27d6e9783a5845cbbed2fb4b217193e0904df2b",
+  "floorplan_source_sha256": "ca73e608aa6809cf39e9bf34bf267b56dc344893732cdcd0c7d131714f9cda62",
+  "regions": [
+    {
+      "name": "reference-prime-die",
+      "kind": "prime_die",
+      "comp": 150,
+      "poly": 0
+    }
+  ],
+  "checks": [
+    {
+      "rule": "DCF.7a",
+      "layer": "comp",
+      "status": "failed",
+      "violations": 185,
+      "minimum_um": 26.0,
+      "region": "reference-prime-die",
+      "polygons": 150,
+      "metric": "Euclidean",
+      "overlap_regions": 0,
+      "separation_pairs": 185
+    },
+    {
+      "rule": "DPF.7",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "minimum_um": 25.7,
+      "region": "reference-prime-die",
+      "polygons": 0,
+      "metric": "Euclidean",
+      "overlap_regions": 0,
+      "separation_pairs": 0
+    },
+    {
+      "rule": "boundary-region-coverage",
+      "layer": "comp",
+      "status": "passed",
+      "violations": 0,
+      "reason": "Every actual dummy polygon must be wholly inside one declared region; crossing or unclassified polygons are not clipped."
+    },
+    {
+      "rule": "boundary-region-coverage",
+      "layer": "poly",
+      "status": "passed",
+      "violations": 0,
+      "reason": "Every actual dummy polygon must be wholly inside one declared region; crossing or unclassified polygons are not clipped."
+    }
+  ],
+  "dcf7a_source_discrepancy": {
+    "main_table_um": 26.0,
+    "appendix_um": 8.0,
+    "enforced_minimum_um": 26.0
+  },
+  "scope": "Clearances to declared rectangular prime-die/frame/SLM regions and scribe geometry only. Source identity does not prove declaration completeness, physical guard-ring connectivity, reticle or package acceptance."
+}

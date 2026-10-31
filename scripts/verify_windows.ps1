@@ -40,6 +40,36 @@ python scripts/verify_packaged_vga.py --executable "$exe" --output "$evidence/vg
 if ($LASTEXITCODE -ne 0) { throw 'Installed Windows VGA qualification failed.' }
 python scripts/verify_frozen_physical.py --executable "$exe" --pdk build/physical-adapter/sky130A --out "$evidence/physical"
 if ($LASTEXITCODE -ne 0) { throw 'Installed Windows physical qualification failed.' }
+python scripts/verify_frozen_mim.py --executable "$exe" --physical-pdk build/physical-adapter/sky130A --expected-commit "$commit" --out "$evidence/mim"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows MiM editor and native layout acceptance failed.' }
+python scripts/qualify_installed_sky130_mim_public_drc.py --gui "$evidence/mim" --expected-commit "$commit" --out "$evidence/mim-public-drc"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows MiM public geometry acceptance failed.' }
+python scripts/qualify_installed_sky130_mim_electrical.py --gui-root "$evidence/mim" --expected-commit "$commit" --out "$evidence/mim-electrical"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows MiM electrical acceptance failed.' }
+python scripts/verify_installed_mim.py --gui "$evidence/mim" --public "$evidence/mim-public-drc" --electrical "$evidence/mim-electrical" --expected-commit "$commit" --out "$evidence/mim-acceptance.json"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows MiM evidence does not describe one complete selected workflow.' }
+python scripts/qualify_installed_sky130_esd.py --executable "$exe" --expected-commit "$commit" --timeout 2400 --out "$evidence/optional-esd"
+if ($LASTEXITCODE -ne 0) { throw "Installed optional ESD workflow failed." }
+python scripts/qualify_installed_sky130_esd.py --executable "$exe" --expected-commit "$commit" --bundled-default --timeout 2400 --out "$evidence/default-esd"
+if ($LASTEXITCODE -ne 0) { throw 'Installed bundled default ESD workflow and saved revision compatibility failed.' }
+$pw2dnEngine = Join-Path $install '_internal/icstudio/assets/runtime/ngspice/ngspice.exe'
+$pw2dnExecutableSha256 = (Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLowerInvariant()
+python scripts/qualify_installed_sky130_pw2dn.py --executable "$exe" --executable-sha256 "$pw2dnExecutableSha256" --engine "$pw2dnEngine" --engine-sha256 86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453 --commit "$commit" --timeout 900 --out "$evidence/pw2dn"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows pw2dn GUI, predecessor and native electrical acceptance failed.' }
+python scripts/verify_frozen_ihp_resistors.py --executable "$exe" --expected-commit "$commit" --timeout 3600 --out "$evidence/ihp-resistors"
+if ($LASTEXITCODE -ne 0) { throw 'Installed IHP resistor editor and managed native acceptance failed.' }
+python scripts/verify_frozen_metal_resistors.py --executable "$exe" --physical-pdk build/physical-adapter/sky130A --expected-commit "$commit" --timeout 2400 --out "$evidence/metal-resistors"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows resistor editor and fresh native layout acceptance failed.' }
+python scripts/qualify_installed_sky130_metal_resistors.py --gui-root "$evidence/metal-resistors" --expected-commit "$commit" --out "$evidence/metal-resistors-electrical"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows resistor electrical acceptance failed.' }
+python scripts/verify_installed_metal_resistors.py --gui "$evidence/metal-resistors" --electrical "$evidence/metal-resistors-electrical" --expected-commit "$commit" --out "$evidence/metal-resistors-acceptance.json"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows resistor evidence does not describe one complete selected workflow.' }
+python scripts/verify_frozen_metal_parallel.py --executable "$exe" --physical-pdk build/physical-adapter/sky130A --expected-commit "$commit" --timeout 2400 --out "$evidence/metal-parallel"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows physical resistor arrays and routed editing acceptance failed.' }
+python scripts/qualify_installed_metal_parallel.py --gui-root "$evidence/metal-parallel" --expected-commit "$commit" --out "$evidence/metal-parallel-electrical"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows actual-array electrical acceptance failed.' }
+python scripts/verify_installed_metal_parallel.py --gui "$evidence/metal-parallel" --electrical "$evidence/metal-parallel-electrical" --expected-commit "$commit" --out "$evidence/metal-parallel-acceptance.json"
+if ($LASTEXITCODE -ne 0) { throw 'Installed Windows array evidence does not describe one complete selected workflow.' }
 $shortcut = Join-Path ([Environment]::GetFolderPath('Programs')) 'IC Design Studio\IC Design Studio.lnk'
 if (-not (Test-Path $shortcut)) { throw 'Start menu shortcut is missing.' }
 $shell = New-Object -ComObject WScript.Shell
@@ -52,4 +82,4 @@ Wait-Checked (Join-Path $install 'unins000.exe') "/VERYSILENT /SUPPRESSMSGBOXES 
 if (Test-Path $exe) { throw 'Uninstall left the application executable behind.' }
 if (Test-Path 'HKCU:\Software\Classes\icstudio') { throw 'Uninstall left the invitation protocol registered.' }
 if ((Get-FileHash $setup.FullName -Algorithm SHA256).Hash.ToLowerInvariant() -ne $setupSha256) { throw 'Installer changed during acceptance execution.' }
-@{status='passed';version=$version;commit=$commit;installer=$setup.Name;installer_sha256=$setupSha256;probes=$probes;installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;vga=(Get-Content "$evidence/vga/probe/vga-test.json" -Raw | ConvertFrom-Json);uninstalled=$true;signing='not configured'} | ConvertTo-Json -Depth 30 | Set-Content "$evidence\windows-release.json"
+@{status='passed';version=$version;commit=$commit;installer=$setup.Name;installer_sha256=$setupSha256;probes=$probes;installed=$true;shortcuts=$true;association=$true;dpi=@(100,150,200);simulation=$true;vga=(Get-Content "$evidence/vga/probe/vga-test.json" -Raw | ConvertFrom-Json);mim=(Get-Content "$evidence/mim-acceptance.json" -Raw | ConvertFrom-Json);metal_resistors=(Get-Content "$evidence/metal-resistors-acceptance.json" -Raw | ConvertFrom-Json);metal_parallel=(Get-Content "$evidence/metal-parallel-acceptance.json" -Raw | ConvertFrom-Json);optional_esd=(Get-Content "$evidence/optional-esd/acceptance.json" -Raw | ConvertFrom-Json);default_esd=(Get-Content "$evidence/default-esd/acceptance.json" -Raw | ConvertFrom-Json);pw2dn=(Get-Content "$evidence/pw2dn/verification.json" -Raw | ConvertFrom-Json);ihp_resistors=(Get-Content "$evidence/ihp-resistors/verification.json" -Raw | ConvertFrom-Json);uninstalled=$true;signing='not configured'} | ConvertTo-Json -Depth 30 | Set-Content "$evidence\windows-release.json"

@@ -2,14 +2,29 @@ name: Build and verify desktop release
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full 40-character commit of the selected branch or tag
+        type: string
+        required: true
   push:
     tags: ['v*']
-    branches: [main, experimental]
-  pull_request:
+# Selected candidates retain all acceptance gates and are not cancelled by new pushes.
+concurrency:
+  group: candidate-build-desktop-${{ github.workflow }}-${{ github.run_id }}
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
   release-tools:
+    needs: candidate
     strategy:
       fail-fast: false
       matrix:
@@ -22,8 +37,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_intent tests.test_release_notes -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
   digital-runtime:
+    needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
   package:
     needs: [digital-runtime, release-tools]
@@ -107,17 +123,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Fetch locked PDK for packaged physical acceptance
+        run: python scripts/fetch_sky130_reference.py --physical-only --output build/qualification-pdk
+      - name: Prepare locked adapter for packaged physical acceptance
+        run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/physical-adapter/sky130A
       - name: Verify windowed Windows worker pipes
         if: runner.os == 'Windows'
         run: python -m unittest tests.test_windows_stdio -v
       - name: Verify cross-platform installation and path contracts
-        run: python -m unittest tests.test_digital_runtime tests.test_digital_tools -v
+        run: python -m unittest tests.test_digital_runtime tests.test_digital_bundle tests.test_digital_rc tests.test_digital_macro tests.test_digital_tools -v
       - name: Verify installed digital runtime on this operating system
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/qualify_digital_runtime.py
-      - name: Install dependencies
-        run: python -m pip install -r requirements-build.txt
+      - name: Verify macro export input integrity on every included platform
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python scripts/qualify_macro_exports.py
       - name: Install Linux libraries for the early GUI audit
         if: runner.os == 'Linux'
         run: |
@@ -128,6 +152,12 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_student_usability.py
+      - name: Verify actual included SKY130 corner selection
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+        run: python tests/gui_bundled_corners.py
       - name: Audit menu regressions and export drafts
         timeout-minutes: 5
         env:
@@ -153,24 +183,45 @@ jobs:
           node-version: '24'
       - name: Build pinned offline VGA Playground
         run: python scripts/build_vga_playground.py --test
-      - name: Install Linux simulation engine and desktop runtime
+      - name: Install Linux desktop and simulator dependency libraries
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y ngspice xschem libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
+          sudo apt-get install -y xschem libreadline8t64 libgomp1 libstdc++6 libgcc-s1 libtinfo6 \
+            libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
             libx11-6 libxtst6 libxkbfile1 libnss3 libasound2t64 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
             libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
             libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0 \
-            build-essential cmake libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev
-          echo "ICSTUDIO_TEST_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
-          echo "ICSTUDIO_BUNDLED_NGSPICE=$(command -v ngspice)" >> "$GITHUB_ENV"
+            build-essential cmake
+      - name: Stage exact corrected Linux simulation input
+        if: runner.os == 'Linux'
+        run: |
+          engine="$(python scripts/stage_linux_ngspice.py)"
+          test -x "$engine"
+          echo "ICSTUDIO_TEST_NGSPICE=$engine" >> "$GITHUB_ENV"
+          echo "ICSTUDIO_BUNDLED_NGSPICE=$engine" >> "$GITHUB_ENV"
+          dirname "$engine" >> "$GITHUB_PATH"
+      - name: Verify Linux diode history and capacitor multipliers
+        if: runner.os == 'Linux'
+        run: |
+          python scripts/verify_ngspice_diode_sequences.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-diode-sequences
+          SPICE_SCRIPTS="$(dirname "$ICSTUDIO_TEST_NGSPICE")" python scripts/verify_ngspice_capacitors.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-capacitor-multipliers
+      - name: Verify public SKY130 RF candidate with the pinned Linux engine
+        if: runner.os == 'Linux'
+        run: |
+          python scripts/prepare_sky130_rf_qualification.py --output build/sky130-rf-candidate
+          python scripts/qualify_sky130_rf_branches.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-branches
+          python scripts/qualify_sky130_rf_bias.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-bias
+          python scripts/qualify_sky130_rf_transient.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-transient
+          python scripts/qualify_sky130_rf_application.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --package build/sky130-rf-candidate --output build/linux-rf-application
+          python scripts/qualify_sky130_rf_default.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-default
       - name: Restore pinned Windows simulation archive
         if: runner.os == 'Windows'
         id: ngspice-cache
         uses: actions/cache/restore@v4
         with:
-          path: build/ngspice-windows/ngspice-42_64.7z
-          key: ngspice-windows-42-aa98b3c74743260a38835bd2698f58221b7237939798d1fdf2297f44ecf1d6ec
+          path: build/ngspice-windows/ngspice-46_64.7z
+          key: ngspice-windows-46-7ed713cd8d401db724ffe99087c3122bf05a9cfa99de02c6eeed44ee44785a33
       - name: Stage verified Windows simulation engine
         if: runner.os == 'Windows'
         shell: pwsh
@@ -184,8 +235,45 @@ jobs:
         if: runner.os == 'Windows' && steps.ngspice-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: build/ngspice-windows/ngspice-42_64.7z
+          path: build/ngspice-windows/ngspice-46_64.7z
           key: ${{ steps.ngspice-cache.outputs.cache-primary-key }}
+      - name: Verify Windows diode analysis history and capacitor multipliers
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python scripts/verify_ngspice_diode_sequences.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-diode-sequences
+          if ($LASTEXITCODE -ne 0) { throw 'Diode sequence acceptance failed.' }
+          python scripts/verify_ngspice_capacitors.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-capacitor-multipliers
+          if ($LASTEXITCODE -ne 0) { throw 'Capacitor multiplier acceptance failed.' }
+      - name: Verify public SKY130 RF candidate and automatic runtime checks
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python scripts/prepare_sky130_rf_qualification.py --output build/sky130-rf-candidate
+          if ($LASTEXITCODE -ne 0) { throw 'RF candidate preparation failed.' }
+          python scripts/qualify_sky130_rf_branches.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-rf-branches
+          if ($LASTEXITCODE -ne 0) { throw 'RF branch qualification failed.' }
+          python scripts/qualify_sky130_rf_bias.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-rf-bias
+          if ($LASTEXITCODE -ne 0) { throw 'SKY130 RF reverse-bias/noise qualification failed.' }
+          python scripts/qualify_sky130_rf_transient.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-rf-transient
+          if ($LASTEXITCODE -ne 0) { throw 'SKY130 RF transient qualification failed.' }
+          python scripts/qualify_sky130_rf_application.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --package build/sky130-rf-candidate --output build/windows-rf-application
+          if ($LASTEXITCODE -ne 0) { throw 'RF application qualification failed.' }
+          python scripts/qualify_sky130_rf_default.py --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-rf-default
+          if ($LASTEXITCODE -ne 0) { throw 'RF default integration failed.' }
+      - name: Check public SKY130 MOS bias limits with the bundled Windows engine
+        if: runner.os == 'Windows'
+        timeout-minutes: 10
+        shell: pwsh
+        run: |
+          python scripts/qualify_sky130_mos_bias.py --pilot --workers 2 --ngspice "$env:ICSTUDIO_TEST_NGSPICE" --output build/windows-mos-bias
+          if ($LASTEXITCODE -ne 0) { throw 'SKY130 MOS voltage-boundary acceptance failed.' }
+      # Exercise Windows' legacy text encoding before larger release dependencies.
+      - name: Verify Windows saved bias with UTF-8 mode disabled
+        if: runner.os == 'Windows'
+        env:
+          ICSTUDIO_TEST_SKY130_PDK: ${{ github.workspace }}/build/physical-adapter/sky130A
+        run: python -X utf8=0 -m unittest tests.test_saved_bias -v
       - name: Cache included openEMS runtime
         uses: actions/cache@v4
         with:
@@ -194,12 +282,25 @@ jobs:
             build/openems-downloads
           key: openems-${{ runner.os }}-${{ hashFiles('scripts/stage_openems.py', 'icstudio/openems_runtime.py') }}
           restore-keys: openems-${{ runner.os }}-
+      - name: Install Linux openEMS build dependencies only when rebuilding
+        if: runner.os == 'Linux'
+        timeout-minutes: 30
+        run: |
+          if python scripts/stage_openems.py --verify; then
+            echo "Cached openEMS passed file integrity and native execution verification."
+          else
+            sudo apt-get update
+            sudo apt-get install -y libhdf5-dev libvtk9-dev libboost-all-dev libcgal-dev libtinyxml-dev
+          fi
       - name: Prepare included open-source openEMS and Python
         timeout-minutes: 30
         run: python scripts/stage_openems.py
       - name: Run the included native openEMS solver
         timeout-minutes: 12
-        run: python tests/probe_openems.py --out build/openems-native-evidence
+        # The old 5 um domain produces a nonpassive common-mode response.
+        # Keep the full-network acceptance gate and use the verified larger
+        # domain for this execution smoke test; mesh accuracy remains separate.
+        run: python tests/probe_openems.py --out build/openems-native-evidence --margin-um 50
       - name: Check native Windows experimental gestures and inductor creator at 200 percent before packaging
         if: runner.os == 'Windows'
         timeout-minutes: 5
@@ -230,6 +331,8 @@ jobs:
         run: python scripts/verify_bandgap_compatibility.py --output build/bandgap-compatibility-evidence
       - name: Build optional native core
         run: python scripts/build_native.py
+      - name: Install physical qualification reference solvers
+        run: python -m pip install -r requirements-qualification.txt
       - name: Test core
         id: core_tests
         run: python -m unittest discover -s tests -v
@@ -294,7 +397,12 @@ jobs:
         timeout-minutes: 5
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python tests/gui_sky130_devices.py --out build/sky130-devices-ui-evidence
+        run: |
+          python tests/gui_sky130_devices.py --out build/sky130-devices-ui-evidence
+          python tests/gui_sky130_thresholds.py --out build/sky130-devices-ui-evidence/thresholds
+          python tests/gui_sky130_voltage.py --out build/sky130-devices-ui-evidence/voltage
+          python tests/gui_sky130_defaults.py --out build/sky130-devices-ui-evidence/defaults
+          python tests/gui_sky130_mim2.py --out build/sky130-devices-ui-evidence/mim2
       - name: Test native bus and instance array editing
         timeout-minutes: 5
         env:
@@ -436,6 +544,64 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
         run: python tests/gui_catalog_migration.py
+      - name: Verify fixed model geometry in the property editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_fixed_geometry.py
+      - name: Verify GF180 and IHP parallel MOS editing and regeneration
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_mos_parallel.py --out build/mos-parallel-editor
+      - name: Verify shared MOS finger editing and regeneration
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_mos_fingers.py --out build/mos-finger-editor
+      - name: Verify IHP tap parameters and saved revision in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_ihp_taps.py --out build/ihp-tap-editor-evidence
+      - name: Verify both IHP coil physical interfaces in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_ihp_inductor_verification.py --out build/ihp-coil-editor-evidence
+      - name: Verify public IHP material profiles in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_ihp_em_profile.py --out build/ihp-em-profile-evidence
+      - name: Verify GF180 high-voltage devices in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          python tests/gui_gf180_hv.py --target gf180mcuC --out build/gf180-hv-editor-C
+          python tests/gui_gf180_hv.py --target gf180mcuD --out build/gf180-hv-editor-D
+      - name: Verify GF180 high-voltage physical action in the editor
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python tests/gui_gf180_hv_verification.py --out build/gf180-hv-physical-editor
+      - name: Reconcile the complete bundled SPICE definition inventory
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        run: python scripts/inventory_device_models.py --output build/device-model-inventory.json
+      - name: Reconcile referenced IHP Verilog-A model types
+        if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
+        timeout-minutes: 5
+        run: python scripts/inventory_veriloga_models.py --output build/veriloga-model-inventory.json
       - name: Run six-case native testbench through the desktop interface
         if: ${{ !cancelled() && steps.core_tests.outcome == 'success' }}
         timeout-minutes: 5
@@ -538,15 +704,223 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: ./scripts/build_windows.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: desktop-source-diagnostics-${{ runner.os }}
+          path: |
+            build/student-usability/*.json
+            build/student-usability/*.png
+            build/audit-regressions/*.json
+            build/menu-audit/*.json
+            build/deep-controls/*.json
+            build/deep-controls/*.png
+            build/pdk-exchange-evidence/report.json
+            build/student-inverter-gui/*.json
+            build/student-inverter-gui/*.png
+            build/analog-closure-evidence/*.json
+            build/analog-closure-evidence/*.png
+            build/analog-reference-evidence/*.json
+            build/analog-reference-evidence/*.png
+            build/sky130-devices-ui-evidence/*.json
+            build/sky130-devices-ui-evidence/*.png
+            build/analog-scale-evidence/report.json
+            build/analog-scale-evidence/**/*.png
+            build/design-automation-evidence/*.json
+            build/design-automation-evidence/*.png
+            build/design-automation-benchmark.json
+            build/engine-setup-ui/report.json
+            build/usability-responsive-evidence/*.json
+            build/usability-responsive-evidence/*.png
+            build/workflow-evidence/*.json
+            build/workflow-evidence/*.png
+            build/analog-experiment-evidence
+            build/optimizer-refinement-evidence
+            build/analog-advanced-evidence
+            build/digital-frozen-evidence
+            build/bundled-corner-ui
+            build/linux-diode-sequences
+            build/linux-capacitor-multipliers
+            build/linux-rf-branches
+            build/linux-rf-bias
+            build/linux-rf-transient
+            build/linux-rf-application
+            build/linux-rf-default
+            build/ngspice-dependencies-*/**/report.json
+            build/ngspice-dependencies-*/**/files.json
+            build/ngspice-dependencies-*/**/ldd.txt
+            build/ngspice-dependencies-*/source-cache/apt*.log
+            build/ngspice-dependencies-*/source-cache/invocations.json
+            build/ngspice-dependencies-*/source-cache/fetch-report.json
+            build/ngspice-dependencies-*/source-cache/source-inputs.json
+            build/windows-diode-sequences
+            build/windows-capacitor-multipliers
+            build/windows-rf-branches
+            build/windows-rf-bias
+            build/windows-rf-transient
+            build/windows-rf-application
+            build/windows-rf-default
+            build/windows-mos-bias
+            build/macro-integrity-installed
+            build/distribution-evidence/vga
+            build/windows-evidence/vga
+            build/windows-evidence/physical
+            build/windows-evidence/mim
+            build/windows-evidence/mim-public-drc
+            build/windows-evidence/mim-electrical
+            build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/optional-esd
+            build/windows-evidence/default-esd
+            build/windows-evidence/pw2dn
+            build/windows-evidence/ihp-resistors
+            build/windows-evidence/metal-resistors
+            build/windows-evidence/metal-resistors-electrical
+            build/windows-evidence/metal-resistors-acceptance.json
+            build/windows-evidence/metal-parallel
+            build/windows-evidence/metal-parallel-electrical
+            build/windows-evidence/metal-parallel-acceptance.json
+            build/frozen-physical-evidence
+            build/frozen-mim-evidence
+            build/frozen-mim-public-drc-evidence
+            build/frozen-mim-electrical-evidence
+            build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-optional-esd-evidence
+            build/frozen-default-esd-evidence
+            build/frozen-pw2dn-evidence
+            build/frozen-ihp-resistor-evidence
+            build/frozen-metal-resistor-evidence
+            build/frozen-metal-resistor-electrical-evidence
+            build/frozen-metal-resistor-workflow-evidence/acceptance.json
+            build/frozen-metal-parallel-evidence
+            build/frozen-metal-parallel-electrical-evidence
+            build/frozen-metal-parallel-workflow-evidence/acceptance.json
+            build/digital-first-run-ui
+            build/digital-state/checks/**/report.json
+            build/digital-state/checks/**/result.json
+            build/digital-state/checks/**/engine.log
+            build/digital-state/checks/**/timing.json
+            build/digital-state/checks/**/physical_metrics.json
+            build/windows-evidence/install.log
+            build/windows-evidence/wsl-install.log
+            build/windows-evidence/uninstall.log
+            build/windows-evidence/windows-release.json
+            build/windows-evidence/dpi-*/*.json
+            build/windows-evidence/dpi-*/experimental/*.png
+            build/native-experimental-evidence/**/*.json
+            build/native-experimental-evidence/**/*.png
+      - name: Seal exact candidate handoff
+        run: python scripts/desktop_acceptance_handoff.py pack --output build/desktop-handoff
+      - name: Retain immutable candidate for fresh acceptance
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-candidate-${{ runner.os }}
+          path: build/desktop-handoff
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+  installed-acceptance:
+    needs: [candidate, package]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements-build.txt
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
+      - name: Download only this run's matching candidate
+        uses: actions/download-artifact@v4
+        with:
+          name: desktop-candidate-${{ runner.os }}
+          path: build/desktop-handoff
+      - name: Verify and restore candidate bytes before execution
+        run: python scripts/desktop_acceptance_handoff.py restore --input build/desktop-handoff
+      - name: Prepare Windows Linux support for the included runtime
+        if: runner.os == 'Windows'
+        timeout-minutes: 10
+        shell: pwsh
+        run: |
+          # WSL opens its first-run welcome window when the runtime is imported.
+          # It can steal native pointer input from the installed-app DPI probe.
+          # Mark onboarding complete for this disposable CI user before any WSL
+          # setup; keep real native input checks enabled at every scale factor.
+          # https://github.com/microsoft/WSL/blob/bc5abef10cc49b8d58c6ee93d8da066f76d225be/src/windows/service/exe/LxssUserSession.cpp
+          $wslKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss'
+          New-Item -Path $wslKey -Force -ErrorAction Stop | Out-Null
+          New-ItemProperty -Path $wslKey -Name OOBEComplete -PropertyType DWord -Value 1 -Force -ErrorAction Stop | Out-Null
+          if ((Get-ItemPropertyValue -Path $wslKey -Name OOBEComplete -ErrorAction Stop) -ne 1) {
+            throw 'Could not suppress WSL onboarding on the CI desktop.'
+          }
+          # Reuse a working runner installation. Updating unconditionally makes
+          # every build depend on the WSL download service (which can return 403).
+          # https://learn.microsoft.com/en-us/windows/wsl/basic-commands
+          wsl --status
+          if ($LASTEXITCODE -ne 0) {
+            wsl --update --web-download
+            if ($LASTEXITCODE -ne 0) {
+              Write-Warning 'WSL web download failed; trying the Microsoft Store update channel.'
+              wsl --update
+              if ($LASTEXITCODE -ne 0) {
+                # Server 2022 images can lack the kernel while BOTH update
+                # channels return HTTP 403. Microsoft's documented offline
+                # install uses the MSI from microsoft/WSL releases instead.
+                # https://learn.microsoft.com/en-us/windows/wsl/install#offline-install
+                Write-Warning 'WSL update channels failed; installing the pinned Microsoft release MSI.'
+                $msi = Join-Path $env:RUNNER_TEMP 'wsl.2.6.3.0.x64.msi'
+                $evidence = New-Item -ItemType Directory -Path 'build/windows-evidence' -Force
+                $installLog = Join-Path $evidence.FullName 'wsl-install.log'
+                Invoke-WebRequest -Uri 'https://github.com/microsoft/WSL/releases/download/2.6.3/wsl.2.6.3.0.x64.msi' -OutFile $msi -MaximumRetryCount 3 -RetryIntervalSec 5
+                $expected = '562c79aba6ce9b6e9170f069d31e3717f10d76dd8bfbee39b07eae0ca4a02ca0'
+                if ((Get-FileHash -LiteralPath $msi -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) {
+                  throw 'WSL installer checksum mismatch.'
+                }
+                $installer = Start-Process msiexec.exe -ArgumentList @('/i', "`"$msi`"", '/quiet', '/norestart', '/l*v', "`"$installLog`"") -Wait -PassThru
+                if ($installer.ExitCode -notin @(0, 3010)) {
+                  Get-Content -LiteralPath $installLog -Tail 80 -ErrorAction SilentlyContinue
+                  throw "WSL MSI installation failed with exit code $($installer.ExitCode)."
+                }
+                if ($installer.ExitCode -eq 3010) {
+                  Write-Warning 'The WSL installer requested a restart; runtime qualification must still pass on this runner.'
+                }
+              }
+            }
+            wsl --status
+            if ($LASTEXITCODE -ne 0) { throw 'WSL is still unavailable after updating.' }
+          }
+          # The mandatory digital-runtime qualification below imports a WSL 2
+          # distribution and runs the included engines before packaging.
+      - name: Configure Windows virtual desktop for native DPI checks
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          # The included toolchain makes compilation long enough to reach the
+          # runner's display idle timeout. Native pointer tests need its display.
+          powercfg /change monitor-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI display available.' }
+          powercfg /change standby-timeout-ac 0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not keep the CI runner awake.' }
+          Set-DisplayResolution -Width 1920 -Height 1080 -Force
+          Get-DisplayResolution
+      - name: Install Linux libraries for frozen execution
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libopengl0 libgl1 libglx0 libglvnd0 \
+            libx11-6 libxtst6 libxkbfile1 libnss3 libasound2t64 libxcb1 libxcb-image0 libxcb-xkb1 libxcb-cursor0 \
+            libxcb-keysyms1 libxcb-render-util0 libxcb-icccm4 libxcb-util1 \
+            libxcb-shape0 libxkbcommon-x11-0 xvfb xauth openbox x11-utils libgl1-mesa-dri libglx-mesa0
       - name: Qualify included digital engines through the frozen desktop
-        timeout-minutes: 20
+        timeout-minutes: 95
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/verify_frozen_digital.py
-      - name: Fetch locked PDK for packaged physical acceptance
-        run: python scripts/fetch_sky130_reference.py --physical-only --output build/qualification-pdk
-      - name: Prepare locked adapter for packaged physical acceptance
-        run: python scripts/prepare_sky130_qualification.py --input build/qualification-pdk/sky130A --output build/physical-adapter/sky130A
       - name: Verify installed Windows app
         if: runner.os == 'Windows'
         shell: pwsh
@@ -572,10 +946,195 @@ jobs:
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
         run: python scripts/verify_frozen_physical.py --executable dist/ICDesignStudio/ICDesignStudio --pdk build/physical-adapter/sky130A --out build/frozen-physical-evidence
-      - name: Assemble and execute release archives
+      - name: Verify frozen Linux MiM editor and native layout workflow
+        if: runner.os == 'Linux'
+        timeout-minutes: 30
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_mim.py --executable dist/ICDesignStudio/ICDesignStudio --physical-pdk build/physical-adapter/sky130A --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 1500 --out build/frozen-mim-evidence
+      - name: Verify frozen Linux MiM public geometry and full selected electrical workflow
+        if: runner.os == 'Linux'
+        timeout-minutes: 30
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          python scripts/qualify_installed_sky130_mim_public_drc.py --gui build/frozen-mim-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-public-drc-evidence
+          python scripts/qualify_installed_sky130_mim_electrical.py --gui-root build/frozen-mim-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-electrical-evidence
+          python scripts/verify_installed_mim.py --gui build/frozen-mim-evidence --public build/frozen-mim-public-drc-evidence --electrical build/frozen-mim-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-mim-workflow-evidence/acceptance.json
+      - name: Verify frozen Linux optional ESD GUI and native electrical workflow
+        if: runner.os == 'Linux'
+        timeout-minutes: 45
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/qualify_installed_sky130_esd.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 2400 --out build/frozen-optional-esd-evidence
+      - name: Verify frozen Linux bundled default ESD and saved revision compatibility
+        if: runner.os == 'Linux'
+        timeout-minutes: 45
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/qualify_installed_sky130_esd.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --bundled-default --timeout 2400 --out build/frozen-default-esd-evidence
+      - name: Verify frozen Linux pw2dn GUI, predecessor and native electrical workflow
+        if: runner.os == 'Linux'
+        timeout-minutes: 35
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          executable=dist/ICDesignStudio/ICDesignStudio
+          engine=dist/ICDesignStudio/_internal/icstudio/assets/runtime/ngspice/ngspice
+          executable_sha256=$(sha256sum "$executable" | cut -d ' ' -f 1)
+          python scripts/qualify_installed_sky130_pw2dn.py --executable "$executable" --executable-sha256 "$executable_sha256" --engine "$engine" --engine-sha256 67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25 --commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 900 --out build/frozen-pw2dn-evidence
+      - name: Verify frozen Linux IHP resistor editor and managed native layouts
+        if: runner.os == 'Linux'
+        timeout-minutes: 65
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_ihp_resistors.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 3600 --out build/frozen-ihp-resistor-evidence
+      - name: Verify frozen Linux resistor editor and fresh native layout workflow
+        if: runner.os == 'Linux'
+        timeout-minutes: 45
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_metal_resistors.py --executable dist/ICDesignStudio/ICDesignStudio --physical-pdk build/physical-adapter/sky130A --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 2400 --out build/frozen-metal-resistor-evidence
+      - name: Verify frozen Linux resistor electrical workflow and independent readback
+        if: runner.os == 'Linux'
+        timeout-minutes: 30
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          python scripts/qualify_installed_sky130_metal_resistors.py --gui-root build/frozen-metal-resistor-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-resistor-electrical-evidence
+          python scripts/verify_installed_metal_resistors.py --gui build/frozen-metal-resistor-evidence --electrical build/frozen-metal-resistor-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-resistor-workflow-evidence/acceptance.json
+      - name: Verify frozen Linux physical resistor arrays and routed editing
+        if: runner.os == 'Linux'
+        timeout-minutes: 45
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_metal_parallel.py --executable dist/ICDesignStudio/ICDesignStudio --physical-pdk build/physical-adapter/sky130A --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 2400 --out build/frozen-metal-parallel-evidence
+      - name: Verify frozen Linux actual-array electrical workflow and independent readback
+        if: runner.os == 'Linux'
+        timeout-minutes: 30
+        env:
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          python scripts/qualify_installed_metal_parallel.py --gui-root build/frozen-metal-parallel-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-parallel-electrical-evidence
+          python scripts/verify_installed_metal_parallel.py --gui build/frozen-metal-parallel-evidence --electrical build/frozen-metal-parallel-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-parallel-workflow-evidence/acceptance.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: desktop-installed-checkpoint-${{ runner.os }}
+          path: |
+            build/student-usability/*.json
+            build/student-usability/*.png
+            build/audit-regressions/*.json
+            build/menu-audit/*.json
+            build/deep-controls/*.json
+            build/deep-controls/*.png
+            build/pdk-exchange-evidence/report.json
+            build/student-inverter-gui/*.json
+            build/student-inverter-gui/*.png
+            build/analog-closure-evidence/*.json
+            build/analog-closure-evidence/*.png
+            build/analog-reference-evidence/*.json
+            build/analog-reference-evidence/*.png
+            build/sky130-devices-ui-evidence/*.json
+            build/sky130-devices-ui-evidence/*.png
+            build/analog-scale-evidence/report.json
+            build/analog-scale-evidence/**/*.png
+            build/design-automation-evidence/*.json
+            build/design-automation-evidence/*.png
+            build/design-automation-benchmark.json
+            build/engine-setup-ui/report.json
+            build/usability-responsive-evidence/*.json
+            build/usability-responsive-evidence/*.png
+            build/workflow-evidence/*.json
+            build/workflow-evidence/*.png
+            build/analog-experiment-evidence
+            build/optimizer-refinement-evidence
+            build/analog-advanced-evidence
+            build/digital-frozen-evidence
+            build/bundled-corner-ui
+            build/linux-diode-sequences
+            build/linux-capacitor-multipliers
+            build/linux-rf-branches
+            build/linux-rf-bias
+            build/linux-rf-transient
+            build/linux-rf-application
+            build/linux-rf-default
+            build/ngspice-dependencies-*/**/report.json
+            build/ngspice-dependencies-*/**/files.json
+            build/ngspice-dependencies-*/**/ldd.txt
+            build/ngspice-dependencies-*/source-cache/apt*.log
+            build/ngspice-dependencies-*/source-cache/invocations.json
+            build/ngspice-dependencies-*/source-cache/fetch-report.json
+            build/ngspice-dependencies-*/source-cache/source-inputs.json
+            build/windows-diode-sequences
+            build/windows-capacitor-multipliers
+            build/windows-rf-branches
+            build/windows-rf-bias
+            build/windows-rf-transient
+            build/windows-rf-application
+            build/windows-rf-default
+            build/windows-mos-bias
+            build/macro-integrity-installed
+            build/distribution-evidence/vga
+            build/windows-evidence/vga
+            build/windows-evidence/physical
+            build/windows-evidence/mim
+            build/windows-evidence/mim-public-drc
+            build/windows-evidence/mim-electrical
+            build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/optional-esd
+            build/windows-evidence/default-esd
+            build/windows-evidence/pw2dn
+            build/windows-evidence/ihp-resistors
+            build/windows-evidence/metal-resistors
+            build/windows-evidence/metal-resistors-electrical
+            build/windows-evidence/metal-resistors-acceptance.json
+            build/windows-evidence/metal-parallel
+            build/windows-evidence/metal-parallel-electrical
+            build/windows-evidence/metal-parallel-acceptance.json
+            build/frozen-physical-evidence
+            build/frozen-mim-evidence
+            build/frozen-mim-public-drc-evidence
+            build/frozen-mim-electrical-evidence
+            build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-optional-esd-evidence
+            build/frozen-default-esd-evidence
+            build/frozen-pw2dn-evidence
+            build/frozen-ihp-resistor-evidence
+            build/frozen-metal-resistor-evidence
+            build/frozen-metal-resistor-electrical-evidence
+            build/frozen-metal-resistor-workflow-evidence/acceptance.json
+            build/frozen-metal-parallel-evidence
+            build/frozen-metal-parallel-electrical-evidence
+            build/frozen-metal-parallel-workflow-evidence/acceptance.json
+            build/digital-first-run-ui
+            build/digital-state/checks/**/report.json
+            build/digital-state/checks/**/result.json
+            build/digital-state/checks/**/engine.log
+            build/digital-state/checks/**/timing.json
+            build/digital-state/checks/**/physical_metrics.json
+            build/windows-evidence/install.log
+            build/windows-evidence/wsl-install.log
+            build/windows-evidence/uninstall.log
+            build/windows-evidence/windows-release.json
+            build/windows-evidence/dpi-*/*.json
+            build/windows-evidence/dpi-*/experimental/*.png
+            build/native-experimental-evidence/**/*.json
+            build/native-experimental-evidence/**/*.png
+      - name: Assemble and execute Windows release archives
+        if: runner.os == 'Windows'
         env:
           QT_QPA_PLATFORM: offscreen
-        run: python scripts/prepare_release_payload.py --output build/release-payload
+        run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence build/windows-evidence/pw2dn
+      - name: Assemble and execute Linux release archives
+        if: runner.os == 'Linux'
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python scripts/prepare_release_payload.py --output build/release-payload --source-archive build/desktop-handoff-source/source.zip --pw2dn-evidence build/frozen-pw2dn-evidence
       - name: Retain release payload
         uses: actions/upload-artifact@v4
         with:
@@ -616,11 +1175,68 @@ jobs:
             build/optimizer-refinement-evidence
             build/analog-advanced-evidence
             build/digital-frozen-evidence
+            build/bundled-corner-ui
+            build/linux-diode-sequences
+            build/linux-capacitor-multipliers
+            build/linux-rf-branches
+            build/linux-rf-bias
+            build/linux-rf-transient
+            build/linux-rf-application
+            build/linux-rf-default
+            build/ngspice-dependencies-*/**/report.json
+            build/ngspice-dependencies-*/**/files.json
+            build/ngspice-dependencies-*/**/ldd.txt
+            build/ngspice-dependencies-*/source-cache/apt*.log
+            build/ngspice-dependencies-*/source-cache/invocations.json
+            build/ngspice-dependencies-*/source-cache/fetch-report.json
+            build/ngspice-dependencies-*/source-cache/source-inputs.json
+            build/windows-diode-sequences
+            build/windows-capacitor-multipliers
+            build/windows-rf-branches
+            build/windows-rf-bias
+            build/windows-rf-transient
+            build/windows-rf-application
+            build/windows-rf-default
+            build/windows-mos-bias
+            build/macro-integrity-installed
             build/distribution-evidence/vga
             build/windows-evidence/vga
             build/windows-evidence/physical
+            build/windows-evidence/mim
+            build/windows-evidence/mim-public-drc
+            build/windows-evidence/mim-electrical
+            build/windows-evidence/mim-acceptance.json
+            build/windows-evidence/optional-esd
+            build/windows-evidence/default-esd
+            build/windows-evidence/pw2dn
+            build/windows-evidence/ihp-resistors
+            build/windows-evidence/metal-resistors
+            build/windows-evidence/metal-resistors-electrical
+            build/windows-evidence/metal-resistors-acceptance.json
+            build/windows-evidence/metal-parallel
+            build/windows-evidence/metal-parallel-electrical
+            build/windows-evidence/metal-parallel-acceptance.json
             build/frozen-physical-evidence
+            build/frozen-mim-evidence
+            build/frozen-mim-public-drc-evidence
+            build/frozen-mim-electrical-evidence
+            build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-optional-esd-evidence
+            build/frozen-default-esd-evidence
+            build/frozen-pw2dn-evidence
+            build/frozen-ihp-resistor-evidence
+            build/frozen-metal-resistor-evidence
+            build/frozen-metal-resistor-electrical-evidence
+            build/frozen-metal-resistor-workflow-evidence/acceptance.json
+            build/frozen-metal-parallel-evidence
+            build/frozen-metal-parallel-electrical-evidence
+            build/frozen-metal-parallel-workflow-evidence/acceptance.json
             build/digital-first-run-ui
+            build/digital-state/checks/**/report.json
+            build/digital-state/checks/**/result.json
+            build/digital-state/checks/**/engine.log
+            build/digital-state/checks/**/timing.json
+            build/digital-state/checks/**/physical_metrics.json
             build/windows-evidence/install.log
             build/windows-evidence/wsl-install.log
             build/windows-evidence/uninstall.log
@@ -639,9 +1255,36 @@ jobs:
             build/windows-evidence
             build/frozen-evidence
             build/frozen-physical-evidence
+            build/frozen-mim-evidence
+            build/frozen-mim-public-drc-evidence
+            build/frozen-mim-electrical-evidence
+            build/frozen-mim-workflow-evidence/acceptance.json
+            build/frozen-optional-esd-evidence
+            build/frozen-default-esd-evidence
+            build/frozen-pw2dn-evidence
+            build/frozen-ihp-resistor-evidence
+            build/frozen-metal-resistor-evidence
+            build/frozen-metal-resistor-electrical-evidence
+            build/frozen-metal-resistor-workflow-evidence/acceptance.json
+            build/frozen-metal-parallel-evidence
+            build/frozen-metal-parallel-electrical-evidence
+            build/frozen-metal-parallel-workflow-evidence/acceptance.json
             build/x11-evidence
             build/native-migration-evidence
             build/native-workflow-evidence
+            build/ihp-tap-editor-evidence/report.json
+            build/ihp-tap-editor-evidence/taps.png
+            build/ihp-tap-editor-evidence/taps.icproj
+            build/ihp-coil-editor-evidence
+            build/ihp-em-profile-evidence
+            build/gf180-hv-editor-C/report.json
+            build/mos-parallel-editor
+            build/mos-finger-editor
+            build/gf180-hv-editor-C/high-voltage.png
+            build/gf180-hv-editor-C/high-voltage.icproj
+            build/gf180-hv-editor-D/report.json
+            build/gf180-hv-editor-D/high-voltage.png
+            build/gf180-hv-editor-D/high-voltage.icproj
             build/native-vectors-ui-evidence
             build/physical-variants-ui-evidence
             build/sky130-devices-ui-evidence
@@ -680,4 +1323,6 @@ jobs:
             build/openems-native-evidence/*.log
             build/digital-frozen-evidence
             build/distribution-evidence
+            build/device-model-inventory.json
+            build/veriloga-model-inventory.json
             build/verification-0.8.0

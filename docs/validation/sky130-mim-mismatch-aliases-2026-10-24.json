@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "date": "2026-10-24",
+  "status": "selected_mismatch_alias_integration_passed",
+  "chunk": 7,
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_mim_installed": false,
+  "chunk_complete": false,
+  "signoff": false,
+  "source_integration_acceptance": true,
+  "source_baseline": "65614924f125200db068d66669af6fe102c71e45",
+  "scope": "Finite source compact-model integration of actual tt_mm/ll_mm/hh_mm/hl_mm/lh_mm library aliases for both SKY130 MiM constructions. No measured distribution/correlation, calibrated variation, full geometry/operating/reliability envelope, installed workflow or manufacturing qualification.",
+  "contract": {
+    "path": "docs/qualification/sky130-mim-mismatch-aliases-v1.json",
+    "sha256": "b31cff4a8fbbd844a759f16ec7a61c34c590a76ed330c31f325a0d182259a400"
+  },
+  "original_contract_sha256": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209",
+  "simulation_package": {
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "selection": {
+    "sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "aliases": [
+      "tt_mm",
+      "ll_mm",
+      "hh_mm",
+      "hl_mm",
+      "lh_mm"
+    ],
+    "models": [
+      "cap_mim_m3_1",
+      "cap_mim_m3_2"
+    ],
+    "width_um": 2,
+    "length_um": 10,
+    "temperature_c": 27,
+    "dc_v": 0,
+    "ac_v": 1,
+    "frequencies_hz": [
+      1000,
+      10000,
+      100000
+    ],
+    "multipliers": [
+      1,
+      4
+    ],
+    "seed": 20261024,
+    "replicas_per_model": 4
+  },
+  "profiles": {
+    "windows": {
+      "engine": "ngspice46",
+      "sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453"
+    },
+    "linux": {
+      "engine": "ngspice42",
+      "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45"
+    }
+  },
+  "platforms": {
+    "windows": {
+      "status": "PASS",
+      "native_seconds": 186.01599999994505,
+      "qualification_sha256": "e7a674b2efb8f734eca2f1ddfe91ee8a0ef744ed2e0df64e25467ceca7506d93",
+      "manifest_sha256": "80739b88e92ec1cc563a841ed7af7aff9cf98c5ea4dca635f9deec3ef8c9f002",
+      "independent_review_sha256": "6ba3c48ad7bcac577f9f0a27c254c45f4f4da34a03f3301c37646ddd4bad122a",
+      "counts": {
+        "native_runs": 45,
+        "replica_AC_observations": 1080,
+        "sections": 5,
+        "detected_control_conditions": 20
+      },
+      "captured_reviewed_sources": 41,
+      "source_files": {
+        "docs/qualification/sky130-mim-contract-v1.json": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209",
+        "docs/qualification/sky130-mim-mismatch-aliases-v1.json": "b31cff4a8fbbd844a759f16ec7a61c34c590a76ed330c31f325a0d182259a400",
+        "icstudio/__init__.py": "a7096e59a4cf2fc5e46fd1b73c437cfe3b97660cae5e874116642fc25c3da5be",
+        "icstudio/analog_constraints.py": "75caa810aa71b80bb76f489bb0d180cfc7b59ebf3e8830dbe02a61475a662f99",
+        "icstudio/analysis_plan.py": "3744866057f202c5712e859c81c7bd86ed1819cef50906a8d6180a18e5746520",
+        "icstudio/catalog.py": "33aa52277f5961ec54c32e2319904094ac8ed0807f29b8768119bbf419366fc6",
+        "icstudio/catalog_migration.py": "f379181929f3d4c7b14762c276037eb881e2e74af618a83be98708c849540a7f",
+        "icstudio/components.py": "84d1842c6824662d72b4539420d78071d14aa54b4f3a49f676fd9838edeb0314",
+        "icstudio/design_ops.py": "80cec5dea5728f0bdbe709051e4d3f0adb6e6b490af622c9ec9d30bdfedc345d",
+        "icstudio/digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+        "icstudio/digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+        "icstudio/electrical_rules.py": "e3e78af7726258e9cf21c5517777602ce0cd659f6e6670a7b77bd692be0a113b",
+        "icstudio/engines.py": "ab0e2a1a1dd8f4f22b9495ae3481273965212a48bf5e3896dae69ea6d5b13049",
+        "icstudio/implementation_views.py": "618a99e750869c7aa60880c8e3db840e52cca43a05be5c497a0aac4b98184911",
+        "icstudio/inductor_electrical.py": "085bc54da2475a08230ca820f0108e38e58fa6d4e71fbf96d827ca4b23585bde",
+        "icstudio/interchange.py": "edcb9b6bae8d26e418c15d3eadb1c9420e41c65719776c877efb9464aa244ca3",
+        "icstudio/layout.py": "eb6fd29a4dc7841622066df382389422d9fbf90e100cefa8f67855751d5ad8b7",
+        "icstudio/layout_limits.py": "7c8f1ae93ccff3b5a08de2202b17cb5c60fd894130e30ca495c3b510c2467ff7",
+        "icstudio/layout_routing.py": "6ea312b7a5b67cc2a49cb3c6d1398b5102b4bcd799fbeb3e148cb4b7488ac49c",
+        "icstudio/mixed_signal.py": "af857b8fbaff991471cc64480538da9b16d5539078da4cde38d56bf0a806851d",
+        "icstudio/model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+        "icstudio/native_spice.py": "77a659bb96dcb4580aa3a57c383d4d69c4436e71140330c4af59f3f88ef5fa53",
+        "icstudio/native_vectors.py": "79154c357a3f06715e959af3f55a0ab20c8c3101f47d0975ee673372dfb2ac01",
+        "icstudio/ngspice_compat.py": "df92acb064402a29c19b0a40062ba04c783a0596b8013d8632cc11521f5aa0c7",
+        "icstudio/pdks.py": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+        "icstudio/route_constraints.py": "28acd120b85cb6b03536ff23fbd9eb1590ac1eb1f45c50945024535408a2ace6",
+        "icstudio/runtime_setup.py": "3c3b3c270e76bacec009adae2fa9b5ad4fd1d02f387a91f9f4d84edf1145bd9b",
+        "icstudio/specifications.py": "61eb678cc6d6512b1e5c29a18cb80a41fc87ea8c14087bfee9c368e9f56e9532",
+        "icstudio/spice_import.py": "0116919ab9589c7dba65265bb4619c04a58c5c833bfc8949ab5c665f4ee4833e",
+        "icstudio/symbol_io.py": "eabf140a3e81f02b97b7651cf4bb034bdb17bc12b995cca786525446ef77f050",
+        "icstudio/test_plans.py": "ac9216c977f0945f4be1b8d518f7e10852a538ce10fa0f98ef0ed62db9b601b9",
+        "icstudio/testbenches.py": "e0111b43b370782b7c7378c420250d5aefeddf1ac6b2a999b9dcd35334375b26",
+        "icstudio/wavecalc.py": "f49d06ef394e57cac293eda9ce380ce73892839dd7fec5952a6dfa7e87af6596",
+        "icstudio/wiring.py": "2d2ca4e48b0c53b8bab3399cb8844bb716e482e40840fcdef334ea3bddc5e689",
+        "icstudio/xschem_io.py": "4b5b0724c9598b982932bc441008d67cc8c49631c252b349e06e1d032fd2eca0",
+        "scripts/audit_sky130_mim_mismatch_aliases.py": "36c3933bb6056d2b76b5ccdf1351ee6eb2030a9be6dad0ccf6c1f56cce411cde",
+        "scripts/installed_mim_inputs.py": "46696a5e01d318fe7ae88748548780c7b6a707bf7dcf83b4c3b862758f44b12e",
+        "scripts/qualify_sky130_mim_mismatch_aliases.py": "2bbb0da2cdf0851a67bc4caf34c256c33b496a81ae48857795b550900f2b3e3b",
+        "scripts/verify_frozen_mim.py": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57",
+        "tests/test_sky130_mim_mismatch_alias_audit.py": "313580e215abd04854e5ff16c5ce48183c0f9989a7cc4f14745e4172ddbfea53",
+        "tests/test_sky130_mim_mismatch_aliases.py": "be235e00a1292df445ad880c22f2a688a14cd3edcfca643e57892f9c49e03b3b"
+      },
+      "runtime_before_sha256": "a6c1bf2b0d15611457207a2de2bdeb55de09c96d52dc2a35c6db643d650aa058",
+      "runtime_after_sha256": "a6c1bf2b0d15611457207a2de2bdeb55de09c96d52dc2a35c6db643d650aa058",
+      "max_relative_mapping": 0,
+      "max_absolute_fractional_mf_scaling": 6.661338147750939e-16
+    },
+    "linux": {
+      "status": "PASS",
+      "native_seconds": 278.1218205089972,
+      "qualification_sha256": "895cc797f02d0d1880fdc3110be1be2f71a5563c901da1e63acf0fb52abf2772",
+      "manifest_sha256": "fd7b9c3339252430e779441cb7e33933fa046af51ad0a555a7489559a423a1de",
+      "independent_review_sha256": "7bf318a496076a8cb4b9809bf521b84b210912929d55e7457d65b99324985ccf",
+      "counts": {
+        "native_runs": 45,
+        "replica_AC_observations": 1080,
+        "sections": 5,
+        "detected_control_conditions": 20
+      },
+      "captured_reviewed_sources": 40,
+      "source_files": {
+        "docs/qualification/sky130-mim-contract-v1.json": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209",
+        "docs/qualification/sky130-mim-mismatch-aliases-v1.json": "b31cff4a8fbbd844a759f16ec7a61c34c590a76ed330c31f325a0d182259a400",
+        "icstudio/__init__.py": "a7096e59a4cf2fc5e46fd1b73c437cfe3b97660cae5e874116642fc25c3da5be",
+        "icstudio/analog_constraints.py": "75caa810aa71b80bb76f489bb0d180cfc7b59ebf3e8830dbe02a61475a662f99",
+        "icstudio/analysis_plan.py": "3744866057f202c5712e859c81c7bd86ed1819cef50906a8d6180a18e5746520",
+        "icstudio/catalog.py": "33aa52277f5961ec54c32e2319904094ac8ed0807f29b8768119bbf419366fc6",
+        "icstudio/catalog_migration.py": "f379181929f3d4c7b14762c276037eb881e2e74af618a83be98708c849540a7f",
+        "icstudio/components.py": "84d1842c6824662d72b4539420d78071d14aa54b4f3a49f676fd9838edeb0314",
+        "icstudio/design_ops.py": "80cec5dea5728f0bdbe709051e4d3f0adb6e6b490af622c9ec9d30bdfedc345d",
+        "icstudio/digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+        "icstudio/digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+        "icstudio/electrical_rules.py": "e3e78af7726258e9cf21c5517777602ce0cd659f6e6670a7b77bd692be0a113b",
+        "icstudio/engines.py": "ab0e2a1a1dd8f4f22b9495ae3481273965212a48bf5e3896dae69ea6d5b13049",
+        "icstudio/implementation_views.py": "618a99e750869c7aa60880c8e3db840e52cca43a05be5c497a0aac4b98184911",
+        "icstudio/inductor_electrical.py": "085bc54da2475a08230ca820f0108e38e58fa6d4e71fbf96d827ca4b23585bde",
+        "icstudio/interchange.py": "edcb9b6bae8d26e418c15d3eadb1c9420e41c65719776c877efb9464aa244ca3",
+        "icstudio/layout.py": "eb6fd29a4dc7841622066df382389422d9fbf90e100cefa8f67855751d5ad8b7",
+        "icstudio/layout_limits.py": "7c8f1ae93ccff3b5a08de2202b17cb5c60fd894130e30ca495c3b510c2467ff7",
+        "icstudio/layout_routing.py": "6ea312b7a5b67cc2a49cb3c6d1398b5102b4bcd799fbeb3e148cb4b7488ac49c",
+        "icstudio/mixed_signal.py": "af857b8fbaff991471cc64480538da9b16d5539078da4cde38d56bf0a806851d",
+        "icstudio/model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+        "icstudio/native_spice.py": "77a659bb96dcb4580aa3a57c383d4d69c4436e71140330c4af59f3f88ef5fa53",
+        "icstudio/native_vectors.py": "79154c357a3f06715e959af3f55a0ab20c8c3101f47d0975ee673372dfb2ac01",
+        "icstudio/ngspice_compat.py": "df92acb064402a29c19b0a40062ba04c783a0596b8013d8632cc11521f5aa0c7",
+        "icstudio/pdks.py": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+        "icstudio/route_constraints.py": "28acd120b85cb6b03536ff23fbd9eb1590ac1eb1f45c50945024535408a2ace6",
+        "icstudio/specifications.py": "61eb678cc6d6512b1e5c29a18cb80a41fc87ea8c14087bfee9c368e9f56e9532",
+        "icstudio/spice_import.py": "0116919ab9589c7dba65265bb4619c04a58c5c833bfc8949ab5c665f4ee4833e",
+        "icstudio/symbol_io.py": "eabf140a3e81f02b97b7651cf4bb034bdb17bc12b995cca786525446ef77f050",
+        "icstudio/test_plans.py": "ac9216c977f0945f4be1b8d518f7e10852a538ce10fa0f98ef0ed62db9b601b9",
+        "icstudio/testbenches.py": "e0111b43b370782b7c7378c420250d5aefeddf1ac6b2a999b9dcd35334375b26",
+        "icstudio/wavecalc.py": "f49d06ef394e57cac293eda9ce380ce73892839dd7fec5952a6dfa7e87af6596",
+        "icstudio/wiring.py": "2d2ca4e48b0c53b8bab3399cb8844bb716e482e40840fcdef334ea3bddc5e689",
+        "icstudio/xschem_io.py": "4b5b0724c9598b982932bc441008d67cc8c49631c252b349e06e1d032fd2eca0",
+        "scripts/audit_sky130_mim_mismatch_aliases.py": "36c3933bb6056d2b76b5ccdf1351ee6eb2030a9be6dad0ccf6c1f56cce411cde",
+        "scripts/installed_mim_inputs.py": "46696a5e01d318fe7ae88748548780c7b6a707bf7dcf83b4c3b862758f44b12e",
+        "scripts/qualify_sky130_mim_mismatch_aliases.py": "2bbb0da2cdf0851a67bc4caf34c256c33b496a81ae48857795b550900f2b3e3b",
+        "scripts/verify_frozen_mim.py": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57",
+        "tests/test_sky130_mim_mismatch_alias_audit.py": "313580e215abd04854e5ff16c5ce48183c0f9989a7cc4f14745e4172ddbfea53",
+        "tests/test_sky130_mim_mismatch_aliases.py": "be235e00a1292df445ad880c22f2a688a14cd3edcfca643e57892f9c49e03b3b"
+      },
+      "runtime_before_sha256": "cf9f5cfec1f1429c98dd57376f9cce99d1d2578c5a83476f27863863ec396aab",
+      "runtime_after_sha256": "cf9f5cfec1f1429c98dd57376f9cce99d1d2578c5a83476f27863863ec396aab",
+      "max_relative_mapping": 0,
+      "max_absolute_fractional_mf_scaling": 5.551115123125783e-16
+    }
+  },
+  "feedback": {
+    "windows": {
+      "status": "passed",
+      "tests": 399,
+      "skips": 15,
+      "seconds": 122.547,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 73.219
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 5.719
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 32.578
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.828
+        }
+      ],
+      "source_bindings": 1356,
+      "report_sha256": "3ce384098e3db06134ac30e3623b1da608add3342b9272d0f2d9e2c6e52c118d",
+      "checked_out_base_commit": "65614924f125200db068d66669af6fe102c71e45"
+    },
+    "linux": {
+      "status": "passed",
+      "tests": 399,
+      "skips": 2,
+      "seconds": 47.11,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 18.657
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.618
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.232
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.07
+        }
+      ],
+      "source_bindings": 1356,
+      "report_sha256": "c522b9d04fbfb7e5a2f8a8fce78a9cb51ed0da6129f62c82a90930605d4635b0",
+      "checked_out_base_commit": "65614924f125200db068d66669af6fe102c71e45"
+    }
+  },
+  "independent_controls": {
+    "count": 16,
+    "offline_auditor_rejections": 15,
+    "external_source_binding_rejections": 1,
+    "receipt_sha256": "30e507b6e559956662244c175672348e1a10e51b87c081f6ee58b94135003984",
+    "all_originals_unchanged": true
+  },
+  "source_identity": {
+    "frozen_python_and_contract_files": 1343,
+    "freeze_sha256": "69859b00ec9e715819eb945aa3457db691cbe7d88f24c775d39038ddf27eb8b0",
+    "claim": "Captured native sources are compared to the reviewed frozen snapshot separately from offline inventory validation. Both final local feedback reports bind identical source bytes; Git candidate binding is checked after commit."
+  },
+  "retention": {
+    "directory": "sky130-mim-mismatch-aliases-2026-10-24-v1",
+    "file": "evidence.zip",
+    "sha256": "9baa606c74f7d3a2f63e5687dd2ca589dbb00478c86f89f5ba3500732a116f37",
+    "bytes": 20613329,
+    "manifest_sha256": "df1f5c5d3b4cccf193713d6ab59fbfb9bbeea0a185601e2be95dbaa6661ced50",
+    "logical_files": 3911,
+    "unique_objects": 1247,
+    "complete_object_readback": true,
+    "all_original_inventories_unchanged": true,
+    "recovery_receipt_sha256": "871d1679dc4d0e5c0e2415264d0d71c7515b52ab37423b322bac7d6678396c8b"
+  },
+  "retained_attempts": [
+    "Historical Windows pilot-v1 used explicit m=1; it is not relabeled as omitted-m coverage. Corrected pilot-v2 and both full runs actually omit m for that control.",
+    "Windows sandbox TEMP failure/300s timeout and subsequent junction/long-path cleanup errors are retained; identical sources pass with short writable TEMP as ordinary user, without Windows admin.",
+    "Linux mounted-checkout unit stage reached its unchanged300s limit before GUI checks; verified Linux-local sources pass the unchanged lane. No successful native batch was repeated."
+  ],
+  "requirement_disposition": {
+    "requirement": "MIM-STATISTICS",
+    "selected_alias_execution": "completed",
+    "full_requirement": "open",
+    "remaining": "Measured distributions/correlations, global process variation, layout dependence and reliability calibration."
+  },
+  "preservation": "Application, models, package revisions, historical evidence, original contract and all device statuses remain unchanged. New qualification runners/tests and additive records only."
+}

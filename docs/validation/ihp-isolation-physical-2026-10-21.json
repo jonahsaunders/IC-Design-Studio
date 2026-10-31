@@ -1,0 +1,253 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "sampled_ihp_isolation_and_internal_tap_physical_checks_passed",
+  "source_baseline": "09e31f14a0ab7806412afff6a897f838aa5c816d",
+  "scope": "Three-terminal isolation boxes and one isolated-transistor/tap circuit using full public main/maximal DRC, unfiltered KLayout extraction and strict Netgen. Fixed 1.05 um well ring, zero PWellBlock and selected rectangles only. Not complete operating-envelope, installed-release or tapeout qualification.",
+  "source_files": {
+    "icstudio/ihp_isolation_lvs.py": "fcde5617da4b8389d126c1dd24cd8b90d71047dada5b6c9fd9c160b43ae00f36",
+    "icstudio/ihp_klayout_lvs.py": "39e0deef03402e0bc83fdce78532dea915e7d7459bd38453f5c7d6b34c8eea7b",
+    "icstudio/ihp_tap_lvs.py": "cb66eeafb40c76d3be5744226ff1e0e9a1b6ae9261048f583dd93eab9ee30ff7",
+    "icstudio/layout_verification.py": "d025f2d288b0136401dbdb121da6227b9a380cdba63d14c1fe9c379c067ddd08",
+    "scripts/qualify_ihp_isolation_layouts.py": "983548e94e350c456e679c4706041f09ec4d67413b0a58df4548e781ee15114a",
+    "scripts/qualify_ihp_isolation_context.py": "343ff1808ba1f69bddcb3a2a89b5f17038d10f17b72c7f233be0f74aeae761fb",
+    "tests/test_ihp_isolation_lvs.py": "dc6d3307432bba535c42ab8f50f5a887a9dd326b8946fb6610b6520ecbdee857",
+    "tests/test_ihp_inductor_lvs.py": "5f6e224065f3ad92dce1c56ea774a0039fefe53fab3f308e8eada5e3a89964a6",
+    ".github/workflows/ihp-inductor-qualification.yml": "a7057cfaf6b2290094ad5e207dd912415fe875adec667b7bfb7981d68cbd01a3",
+    "icstudio/assets/qualification/ihp-isolation/isolbox.cdl": "4866275cdbd08728e8eb9d2caaa28e298be529b96b2e4d4ddc3dfc99fea13cdb",
+    "icstudio/assets/qualification/ihp-isolation/isolbox.gds": "33e083e2d1a6e9ab541458c716fb0bd834a4bca883d93ec3b497c4175c956edc",
+    "icstudio/assets/qualification/ihp-isolation/isolbox_code.py": "2e86ded691d3c6f974dce177d9c6e2b890560b8912103f3eec830b3e35e086b1",
+    "icstudio/assets/qualification/ihp-isolation/isolbox_sweep_tb.sch": "fd535442a02f9fde0ab34c5afd52359501f4f261c28b9f0d394e9a12baca7946",
+    "icstudio/assets/qualification/ihp-isolation/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "icstudio/assets/qualification/ihp-isolation/source-lock.json": "5f3c2a19e70b5da5e80ada943d2db970229c1d0111cb453a467d2daadea2e823"
+  },
+  "process": {
+    "target": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "public_sources": {
+    "repository": "IHP-GmbH/IHP-Open-PDK",
+    "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "license": "Apache-2.0",
+    "files": {
+      "LICENSE": {
+        "path": "LICENSE",
+        "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/LICENSE",
+        "git_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+        "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+        "bytes": 11357
+      },
+      "isolbox_code.py": {
+        "path": "ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/isolbox_code.py",
+        "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/isolbox_code.py",
+        "git_blob": "6a1433ebf198d8047e81e93a41d19fb6ecdff9db",
+        "sha256": "2e86ded691d3c6f974dce177d9c6e2b890560b8912103f3eec830b3e35e086b1",
+        "bytes": 6951
+      },
+      "isolbox.gds": {
+        "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/diode_devices/layout/isolbox.gds",
+        "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/diode_devices/layout/isolbox.gds",
+        "git_blob": "d12238bddb5e870f59cdbf072061889d33b1ec2e",
+        "sha256": "33e083e2d1a6e9ab541458c716fb0bd834a4bca883d93ec3b497c4175c956edc",
+        "bytes": 4544
+      },
+      "isolbox.cdl": {
+        "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/diode_devices/netlist/isolbox.cdl",
+        "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/diode_devices/netlist/isolbox.cdl",
+        "git_blob": "d61eb321da336d4e23be1d29b639398ce246cde0",
+        "sha256": "4866275cdbd08728e8eb9d2caaa28e298be529b96b2e4d4ddc3dfc99fea13cdb",
+        "bytes": 248
+      },
+      "isolbox_sweep_tb.sch": {
+        "path": "ihp-sg13g2/libs.tech/xschem/sg13g2_tests/isolbox_sweep_tb.sch",
+        "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/xschem/sg13g2_tests/isolbox_sweep_tb.sch",
+        "git_blob": "1177ea060355f0c463022a1689a9b24a49f4ec91",
+        "sha256": "fd535442a02f9fde0ab34c5afd52359501f4f261c28b9f0d394e9a12baca7946",
+        "bytes": 3698
+      }
+    }
+  },
+  "corrections": [
+    "Preserve three-terminal D/X isolation records and public outer area/perimeter, with exact catalog/symbol/model proof and unknown-parameter rejection.",
+    "In a hash-checked private copy, connect isolbox_i to overlapping NWell and the physically contacted n-active isolation ring. Keep upstream source and metal joins unchanged.",
+    "Preserve Text/0 isolation and tap model-recognition annotations in private flattening without globalizing ordinary internal conductor labels."
+  ],
+  "native_isolation": {
+    "status": "PASS",
+    "layouts": 20,
+    "public_format_references": 5,
+    "detected_faults": 70,
+    "geometries_nm": [
+      [
+        4060,
+        4060
+      ],
+      [
+        6000,
+        6000
+      ],
+      [
+        6000,
+        12000
+      ],
+      [
+        12000,
+        6000
+      ],
+      [
+        12000,
+        12000
+      ]
+    ],
+    "rotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "implementation_unchanged": true,
+    "record_sha256": "0efd7cfc3c629a92c7f3a5b220e26fa0a098fec5b1595e9f65dc97664a3112cc",
+    "source_manifest_sha256": "40bf644f23ab540b8ec00d6c2e3a10c14b62fd033d28a2e36573e3cc89721be2"
+  },
+  "native_mixed_circuit": {
+    "status": "PASS",
+    "layouts": 8,
+    "detected_faults": 10,
+    "rotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "mirrors": [
+      false,
+      true
+    ],
+    "required_devices": [
+      "sg13_lv_nmos",
+      "ptap1",
+      "isolbox"
+    ],
+    "physical_changes": "Public inmos MOS/tap/isolation dimensions retained; add contacted external bulk and top/right NWell ring, correct gate landing, move tap 0.15 um inward for buried-layer enclosure.",
+    "implementation_unchanged": true,
+    "record_sha256": "dc1293a2ac883b61ff070071f45a9edd407eb92a720ffafba88f7ee666690898",
+    "source_manifest_sha256": "b9283a3f06c0315c69b107d2908bbb2a0a02f07867ee96d621c9d88e37a84d85"
+  },
+  "contact_enclosure_boundary": {
+    "cases": 12,
+    "rotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "dimensions_nm": [
+      4050,
+      4060,
+      4070
+    ],
+    "outcome": "Four 4050 nm samples fail exactly nmosi.b with LVS/integrity passing; eight 4060/4070 nm samples pass.",
+    "basis": "780 nm body contact + 2*1240 nm nBuLay enclosure + 2*400 nm buried-layer inset = 4060 nm. Specific to this fixture, not a universal device minimum."
+  },
+  "prior_tap_regression": {
+    "status": "PASS",
+    "models": [
+      "ntap1",
+      "ptap1"
+    ],
+    "geometry_nm": [
+      2000,
+      2000
+    ],
+    "rotation": 0,
+    "public_format_references": 2,
+    "detected_faults": 12,
+    "source_unchanged": true,
+    "record_sha256": "cb83b57e3cad3ba399a886438123151c67ae41135f364918571672278d1c158f"
+  },
+  "independent_audit": {
+    "status": "PASS",
+    "isolation_layouts": 20,
+    "mixed_layouts": 8,
+    "detected_faults": 80,
+    "contact_boundary_cases": 12,
+    "native_netlists": 48,
+    "artifact_bindings": 10010,
+    "stream_layer_comparisons": 528,
+    "windows_receipts": 885,
+    "source_unchanged": true,
+    "qualification_sha256": "0efd7cfc3c629a92c7f3a5b220e26fa0a098fec5b1595e9f65dc97664a3112cc",
+    "mixed_qualification_sha256": "dc1293a2ac883b61ff070071f45a9edd407eb92a720ffafba88f7ee666690898"
+  },
+  "focused_tests": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 80,
+      "skips": 0,
+      "log_sha256": "4041c8f494b85b9e6685a6551dae3062d073075eea06071e36306e04d8e25a4a"
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 80,
+      "skips": 0,
+      "log_sha256": "454d3039fd01169c8ebd7365c7d5b7dcbd74e455888c75801691fccdf7aedf9e"
+    }
+  },
+  "windows_local_backend": {
+    "status": "PASS",
+    "cases": 5,
+    "artifact_receipts": 885,
+    "record_sha256": "450cda7abf2e12c990b8fa35ea418b29aa6a623211820dd2d139da788cd11145",
+    "scope": "Source Windows backend staging, Linux native execution and verified returned files; not installed binary acceptance."
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-isolation-physical-2026-10-21-v2/evidence.zip",
+    "sha256": "975f5cb959fb8e0ff6f96731d00f27fd991f009dd2bb34e549f56c1d75d04e1a",
+    "bytes": 49218153,
+    "path_bindings": 77423,
+    "unique_objects": 11054,
+    "all_objects_verified": true
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "975f5cb959fb8e0ff6f96731d00f27fd991f009dd2bb34e549f56c1d75d04e1a",
+    "restored_files": 2396,
+    "restored_inputs_unchanged": true,
+    "process": {
+      "target": "ihp-sg13g2",
+      "revision": "cfb96b74cf33877e",
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+    },
+    "valid_isolation": "PASS",
+    "bad_contact_rejected": true,
+    "mixed_circuit": "PASS",
+    "missing_tap_rejected": true,
+    "reports": {
+      "valid": "218ae76182f02ed0522f45d8227c2e4dd2b20e7acc979762c42ad79ef3485d71",
+      "bad_contact": "83bf20082622d0ed2d2cc845b1e8feed616647074f2d1bdfe3d7440d607ed5cb",
+      "mixed": "1d50272e46242c3f2e7fc0becc3da44d928fa1940fd2480e441b1f087e0c1bcc",
+      "missing_tap": "c97fbdfab16944a43f1d99732d1042aa4eed198ca3f461f9410a7b1f850a115f"
+    }
+  },
+  "retained_failures": [
+    "Initial pilot removed isolbox recognition and extracted no isolation device; restoring recognition exposed the unconnected NWell terminal. Private physical-overlap/contact connections fix both.",
+    "Early contacts violated active area and contact spacing. Corrected actual layout and retained native failures without altering rule thresholds.",
+    "Initial full matrix used a 3.6 um outer square that failed nmosi.b/c. Replaced the positive with the derived 4.06 um contact boundary; 4.05 um remains an explicit rejection.",
+    "Early mixed fixture crossed signal exits with ring metal and used undersized gate/contact landings. Corrected those fixture routes and retained unchanged transistor channel/tap dimensions.",
+    "Mixed pilot lost the child tap recognition, collapsing its body into the source net. The product fix preserves the annotation; final native output retains all three devices.",
+    "One test harness expected Cnt.a rather than the actual CntB.a and looked in diagnostics rather than findings. Its native DRC failure was correct; the harness now demands the exact native rule.",
+    "The first Windows receipt harness searched silicon instead of physical-flow; completed native results are retained. The final five-case staging/receipt harness passes.",
+    "Initial evidence archive listing included Python assets twice. A fresh deduplicated archive verifies all objects; native check results were unaffected."
+  ],
+  "remaining": [
+    "Full isolation geometry/options, bias, temperature, statistical and reliability envelopes.",
+    "Seven nonutility catalog entries still lack qualified default bindings.",
+    "Other device-family physical/extracted coverage, complete operating envelopes and semantic upstream/process-option inventory.",
+    "Exact final installed-release acceptance and the remaining declared chunk-7 requirements."
+  ]
+}

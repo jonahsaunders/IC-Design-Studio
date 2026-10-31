@@ -29,6 +29,19 @@ class EMProfileDialog(QDialog):
         note.setWordWrap(True); layout.addWidget(note)
         layout.addWidget(QLabel('Source / process documentation and corner'))
         self.source = QLineEdit(); self.source.setAccessibleName('Physical data source'); layout.addWidget(self.source)
+        from .ihp_em_profile import applicable
+        if applicable(technology(owner.project)):
+            public = QHBoxLayout(); layout.addLayout(public)
+            self.public_ihp_option = QComboBox()
+            self.public_ihp_option.setAccessibleName('Public IHP substrate thickness')
+            self.public_ihp_option.addItem('280 µm bulk substrate', 280)
+            self.public_ihp_option.addItem('180 µm bulk substrate (public 200 µm stack)', 180)
+            public.addWidget(self.public_ihp_option)
+            self.public_ihp_load = QPushButton('Load public IHP top-metal profile')
+            self.public_ihp_load.clicked.connect(self.load_public_ihp); public.addWidget(self.public_ihp_load)
+            hint = QLabel('TopMetal1, TopVia2 and TopMetal2 drawing layers only. '
+                          'Includes the public substrate and dielectric data; other drawn layers still need a model.')
+            hint.setWordWrap(True); layout.addWidget(hint)
         tabs = QTabWidget(); layout.addWidget(tabs, 1)
         physical = QWidget(); box = QVBoxLayout(physical)
         self.layers = QTableWidget(0, len(self.columns)); self.layers.setAccessibleName('Physical stackup layers')
@@ -68,6 +81,15 @@ class EMProfileDialog(QDialog):
         try: self.populate(profiles.template(self.current_technology())); self.error.clear()
         except ValueError as exc: self.error.setText(str(exc))
 
+    def load_public_ihp(self):
+        try:
+            from .ihp_em_profile import profile
+            self.populate(profile(self.current_technology(), self.public_ihp_option.currentData()))
+            self.error.setText('Public material profile loaded for review. Apply to project to use it. '
+                               'Solver convergence and physical device qualification remain separate checks.')
+        except (ValueError, OSError, KeyError) as exc:
+            self.error.setText(str(exc))
+
     def add_layer(self, layer):
         row = self.layers.rowCount(); self.layers.insertRow(row)
         for col, key in enumerate(self.columns):
@@ -85,6 +107,7 @@ class EMProfileDialog(QDialog):
 
     def populate(self, stack):
         self.bound_identity = stack.get('technology'); self.source.setText(stack.get('source', ''))
+        self.source.setCursorPosition(0)
         self.layers.setRowCount(0)
         for layer in stack['layers']: self.add_layer(layer)
         tech = self.current_technology(); mapping = profiles.mapping_for(tech, stack)

@@ -1,0 +1,647 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "date": "2026-10-18",
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "windows_runtime_and_selected_rf_candidate_checks_passed",
+  "scope": "Default native Windows simulation runtime replaces the reproduced diode analysis-history failure. Independent runtime checks, source regression, public RF candidate and Windows PDK path repair retain separate scopes. No complete device/PDK or installed-release qualification.",
+  "windows_runtime": {
+    "version": "46",
+    "archive_url": "https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/46/ngspice-46_64.7z/download",
+    "archive_sha256": "7ed713cd8d401db724ffe99087c3122bf05a9cfa99de02c6eeed44ee44785a33",
+    "scope": "Console SPICE runtime; optional XSPICE/OSDI plugins are separate.",
+    "files": {
+      "COPYING.txt": "53e838832e7c00598bb86602a99f9644ba2060e19be209b52e60adb2c8eb6f77",
+      "libomp140.x86_64.dll": "644c49149f8a5d9275a83e9331a0adbd14620f930190e985d30b842107123597",
+      "ngspice.exe": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "spinit": "cef1e2ffa61cf0fae3afe80afa94800df8fadc67df3178aa7f1e3216ccfb0e91"
+    }
+  },
+  "diode_sequence": {
+    "status": "PASS",
+    "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+    "checks": [
+      {
+        "name": "op",
+        "status": "PASS",
+        "samples": 1,
+        "currents": 2,
+        "maximum_normalized_error": 0.0,
+        "raw_sha256": "ac05cc1ba2a5a83ae231152498e173ec8d58ae44b91075dfe390cbe145babca1"
+      },
+      {
+        "name": "dc",
+        "status": "PASS",
+        "samples": 5,
+        "currents": 2,
+        "maximum_normalized_error": 3.9862010908701407e-10,
+        "raw_sha256": "6761d0633a68ad001c82ac4293ada6602cce2b4028eca910730b23dc1c0e4645"
+      },
+      {
+        "name": "ac1",
+        "status": "PASS",
+        "samples": 16,
+        "currents": 2,
+        "maximum_normalized_error": 1.512160523826209e-09,
+        "raw_sha256": "bf297a69a088cae0a5c88d07287b885d2a74675cf3475dc68a1b673ac36a16aa"
+      },
+      {
+        "name": "ac2",
+        "status": "PASS",
+        "samples": 16,
+        "currents": 2,
+        "maximum_normalized_error": 1.512160523826209e-09,
+        "raw_sha256": "bf297a69a088cae0a5c88d07287b885d2a74675cf3475dc68a1b673ac36a16aa"
+      },
+      {
+        "name": "ac3",
+        "status": "PASS",
+        "samples": 16,
+        "currents": 2,
+        "maximum_normalized_error": 1.512160523826209e-09,
+        "raw_sha256": "bf297a69a088cae0a5c88d07287b885d2a74675cf3475dc68a1b673ac36a16aa"
+      },
+      {
+        "name": "area",
+        "status": "PASS",
+        "samples": 16,
+        "currents": 2,
+        "maximum_normalized_error": 1.512160523826209e-09,
+        "raw_sha256": "bce2648c0f77e3084f5b780420da3e40a7a1d9e7daf996c099bee88afdbb4b51"
+      },
+      {
+        "name": "perimeter",
+        "status": "PASS",
+        "samples": 16,
+        "currents": 2,
+        "maximum_normalized_error": 1.3609444410733671e-09,
+        "raw_sha256": "16f125e75a22a424c7e93e719453cd2524549c92c42bf386cf03b9e3bc495ec3"
+      },
+      {
+        "name": "multiplicity",
+        "status": "PASS",
+        "samples": 16,
+        "currents": 2,
+        "maximum_normalized_error": 1.3609444410733671e-09,
+        "raw_sha256": "b82a750ae9030f3882e360eaed2a0c1851a262c8100aa9f0c6967ec3166486c1"
+      }
+    ],
+    "relative_tolerance": 1e-06,
+    "absolute_tolerance_a": 1e-18,
+    "scope": "Analytical level-3 OP/DC/AC, repeated analyses and explicit AREA/PJ/M alteration; no reset or PDK equations. This does not establish full runtime or PDK qualification.",
+    "behavior": {
+      "mode": "unscaled-explicit-area",
+      "area_ratio": 1000000000000.0,
+      "currents": {
+        "i(va)": -0.9999767397924221,
+        "i(vb)": -9.99976739792422e-13
+      },
+      "engine": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+        "sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453"
+      }
+    },
+    "command": [
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+      "-n",
+      "-D",
+      "ngbehavior=hsa",
+      "-b",
+      "input.cir"
+    ],
+    "exit": 0
+  },
+  "capacitor_multipliers": {
+    "status": "PASS",
+    "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+    "cases": [
+      {
+        "bias_v": -0.5,
+        "exit": 0,
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+          "-n",
+          "-D",
+          "ngbehavior=hsa",
+          "-D",
+          "filetype=ascii",
+          "-b",
+          "-r",
+          "result.raw",
+          "input.cir"
+        ],
+        "status": "PASS",
+        "vectors": 7,
+        "samples": 26,
+        "maximum_normalized_error": 2.8892244116883096e-09,
+        "channel_errors": {
+          "default": 2.51634432310733e-09,
+          "literal": 2.8532696365498554e-09,
+          "scientific": 2.8532696365498554e-09,
+          "parameter": 2.8532696365498554e-09,
+          "expression": 2.7695214351251194e-09,
+          "nested": 2.8532696365498554e-09,
+          "charge": 2.8892244116883096e-09
+        },
+        "relative_tolerance": 1e-06,
+        "absolute_tolerance_a": 1e-14,
+        "tolerance_note": "Allows the simulator numerical stabilizing shunt; no sub-1e-14-S conductance claim.",
+        "raw_sha256": "02a9745f0e8625fcd59d1e9023627d223ba6d05e9a2340a3e4ccf620e40f5cf6"
+      },
+      {
+        "bias_v": 0,
+        "exit": 0,
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+          "-n",
+          "-D",
+          "ngbehavior=hsa",
+          "-D",
+          "filetype=ascii",
+          "-b",
+          "-r",
+          "result.raw",
+          "input.cir"
+        ],
+        "status": "PASS",
+        "vectors": 7,
+        "samples": 26,
+        "maximum_normalized_error": 2.8892244116883096e-09,
+        "channel_errors": {
+          "default": 2.7079262671606065e-09,
+          "literal": 2.7086478859577905e-09,
+          "scientific": 2.7086478859577905e-09,
+          "parameter": 2.7086478859577905e-09,
+          "expression": 2.302427398047924e-09,
+          "nested": 2.7086478859577905e-09,
+          "charge": 2.8892244116883096e-09
+        },
+        "relative_tolerance": 1e-06,
+        "absolute_tolerance_a": 1e-14,
+        "tolerance_note": "Allows the simulator numerical stabilizing shunt; no sub-1e-14-S conductance claim.",
+        "raw_sha256": "3eefeccb75271569beae8c07567456e51056f4db657c55cf7287ba1dede6ecd3"
+      },
+      {
+        "bias_v": 0.5,
+        "exit": 0,
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+          "-n",
+          "-D",
+          "ngbehavior=hsa",
+          "-D",
+          "filetype=ascii",
+          "-b",
+          "-r",
+          "result.raw",
+          "input.cir"
+        ],
+        "status": "PASS",
+        "vectors": 7,
+        "samples": 26,
+        "maximum_normalized_error": 2.8892244116883096e-09,
+        "channel_errors": {
+          "default": 2.5932092005517697e-09,
+          "literal": 2.5936818560045548e-09,
+          "scientific": 2.5936818560045548e-09,
+          "parameter": 2.5936818560045548e-09,
+          "expression": 2.593740950051175e-09,
+          "nested": 2.5936818560045548e-09,
+          "charge": 2.8892244116883096e-09
+        },
+        "relative_tolerance": 1e-06,
+        "absolute_tolerance_a": 1e-14,
+        "tolerance_note": "Allows the simulator numerical stabilizing shunt; no sub-1e-14-S conductance claim.",
+        "raw_sha256": "2406bd744aba28eedd95b6be2885944a546cccf9370141357d71d63d3bc77125"
+      }
+    ],
+    "scope": "Analytical AC tests of capacitor syntax/multipliers; no PDK or full runtime qualification."
+  },
+  "previous_windows_runtime_control": {
+    "status": "FAIL",
+    "engine_sha256": "f86062f3bb1016dcf1552a57f38954891b4e71aee6defbebde6de589ee55682f",
+    "checks": [
+      {
+        "name": "op",
+        "status": "PASS",
+        "samples": 1,
+        "currents": 2,
+        "maximum_normalized_error": 0.0,
+        "raw_sha256": "01e843c73a1f92fda9f768b0f2931ed8432917b0b835cf929b2195f5e538231e"
+      },
+      {
+        "name": "dc",
+        "status": "FAIL",
+        "error": "ValueError('Analytical diode mismatch in dc: normalized error 984579.131')"
+      },
+      {
+        "name": "ac1",
+        "status": "FAIL",
+        "error": "ValueError('Analytical diode mismatch in ac1: normalized error 999999.653')"
+      },
+      {
+        "name": "ac2",
+        "status": "FAIL",
+        "error": "ValueError('Analytical diode mismatch in ac2: normalized error 999999.996')"
+      },
+      {
+        "name": "ac3",
+        "status": "FAIL",
+        "error": "ValueError('Analytical diode mismatch in ac3: normalized error 999999.996')"
+      },
+      {
+        "name": "area",
+        "status": "FAIL",
+        "error": "ValueError('Analytical diode mismatch in area: normalized error 999999.996')"
+      },
+      {
+        "name": "perimeter",
+        "status": "FAIL",
+        "error": "ValueError('Analytical diode mismatch in perimeter: normalized error 999999.992')"
+      },
+      {
+        "name": "multiplicity",
+        "status": "FAIL",
+        "error": "ValueError('Analytical diode mismatch in multiplicity: normalized error 999999.992')"
+      }
+    ],
+    "relative_tolerance": 1e-06,
+    "absolute_tolerance_a": 1e-18,
+    "scope": "Analytical level-3 OP/DC/AC, repeated analyses and explicit AREA/PJ/M alteration; no reset or PDK equations. This does not establish full runtime or PDK qualification.",
+    "behavior": {
+      "mode": "scales-explicit-area",
+      "area_ratio": 1.0,
+      "currents": {
+        "i(va)": -9.99976739792422e-13,
+        "i(vb)": -9.99976739792422e-13
+      },
+      "engine": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\experimental-frozen-windows\\dist\\ICDesignStudio\\_internal\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+        "sha256": "f86062f3bb1016dcf1552a57f38954891b4e71aee6defbebde6de589ee55682f"
+      }
+    },
+    "command": [
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\experimental-frozen-windows\\dist\\ICDesignStudio\\_internal\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+      "-n",
+      "-D",
+      "ngbehavior=hsa",
+      "-b",
+      "input.cir"
+    ],
+    "exit": 0
+  },
+  "full_windows_suite": {
+    "discovered": 3107,
+    "passed": 3069,
+    "skipped": 38,
+    "failures": 0,
+    "errors": 0,
+    "execution": {
+      "exit": 0,
+      "seconds": 1070.4690000000119,
+      "implementation_unchanged": true,
+      "source_files_sha256": "84093e91472cbad25c299cf0d7508bffded844c6fb0d67ac961e01b6620e21d4",
+      "command": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8=0",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ]
+    },
+    "log_sha256": "29063008bf2ea77af78fc3e624da89730001086cb7b4483272a0a8e8e2cb6106",
+    "source_scope": "Exact unchanged source in full-suite-source archive prefix. The subsequent PDK filesystem repair has its own focused tests."
+  },
+  "path_repair": {
+    "change": {
+      "before_sha256": "275334010a5156b7e11f4f763746b35996e564af2a8b59576d71035965590623",
+      "after_sha256": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+      "changes": {
+        "atomic_write,example,validate,uid": 1,
+        "self.root.mkdir(parents=True,exist_ok=True)": 1,
+        "json.loads(src.read_text(encoding='utf-8'))": 1,
+        "path.is_symlink()": 1,
+        "path.is_file()": 5,
+        "if dest.exists():": 2,
+        "json.loads((dest/'package.json').read_text())": 1,
+        "stage.mkdir()": 2,
+        "target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(base/rel,target)": 1,
+        "atomic_write(stage/'package.json'": 2,
+        "os.replace(stage,dest)": 2,
+        "if stage.exists():shutil.rmtree(stage)": 2,
+        "atomic_write(dest/'package.json'": 1,
+        "self.root.glob('*/package.json')": 1,
+        "json.loads(p.read_text())": 1,
+        "json.loads((base/'package.json').read_text())": 1,
+        "atomic_write(self.root/key/'package.json'": 1,
+        "os.replace(self.root/key,dest)": 1,
+        "data = path.read_bytes()": 1
+      },
+      "full_suite_precedes_this_change": true
+    },
+    "checks": {
+      "status": "PASS",
+      "hosts": [
+        {
+          "status": "PASS",
+          "host": "Windows",
+          "exit": 0,
+          "command": [
+            "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+            "-X",
+            "utf8=0",
+            "-m",
+            "unittest",
+            "tests.test_windows_pdk_paths",
+            "tests.test_project_pdk",
+            "tests.test_pdk_templates",
+            "tests.test_bundled_simulation",
+            "tests.test_ngspice_compat",
+            "tests.test_ngspice_diode_sequences",
+            "tests.test_windows_digital_paths",
+            "-v"
+          ],
+          "pdks_sha256": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+          "log_sha256": "11e0bc9ff1233283a04bae223b428ac816a1cda74e3982d45e29514bb896b615"
+        },
+        {
+          "status": "PASS",
+          "host": "Linux",
+          "exit": 0,
+          "command": [
+            "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+            "-m",
+            "unittest",
+            "tests.test_windows_pdk_paths",
+            "tests.test_project_pdk",
+            "tests.test_pdk_templates",
+            "tests.test_bundled_simulation",
+            "tests.test_ngspice_compat",
+            "tests.test_ngspice_diode_sequences",
+            "tests.test_windows_digital_paths",
+            "-v"
+          ],
+          "pdks_sha256": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+          "log_sha256": "c28fc343fef34692ebb3084d19e57658176062fb280274c1159ba303227e625e"
+        }
+      ]
+    },
+    "failed_before_log_sha256": "deb6fb2f377d1fe16dd60e339edd02016851a7cd9911d4cb9468bdf4e24849bb",
+    "baseline": "Three of four real Windows tests errored before the repair; the path-escape control already passed. The actual bundled SKY130 installation also failed at a long asset filename.",
+    "scope": "Existing extended-path helper used only for filesystem I/O; normal stored paths and strict checksums/path confinement remain."
+  },
+  "release_circuits": {
+    "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+    "pdks_sha256": "b1e25d33a6c1d81847972a9f3507e840ad1b541232120ea82c48f98994e2b77e",
+    "scope": "Native Windows 46 SKY130 and GF180 C/D device checks, full bundled startup and inverter programs. IHP compiled-model execution uses the separate unchanged managed Linux runtime.",
+    "native": [
+      {
+        "pdk": "1901822ae8f81ae1",
+        "model": "sky130_fd_pr/nfet_01v8.sym",
+        "status": "PASS",
+        "voltage": 1.383786102546654
+      },
+      {
+        "pdk": "b661a751abfc662a",
+        "model": "symbols/nfet_03v3.sym",
+        "status": "PASS",
+        "voltage": 2.833554991327411
+      },
+      {
+        "pdk": "2f92b1f05da58bd7",
+        "model": "symbols/nfet_03v3.sym",
+        "status": "PASS",
+        "voltage": 2.833554991327411
+      }
+    ],
+    "programs": [
+      {
+        "name": "gf180-startup",
+        "status": "PASS",
+        "samples": 30034,
+        "last": {
+          "vref": 1.1950723756730446,
+          "avdd": 5.0
+        }
+      },
+      {
+        "name": "sky130-inverter",
+        "status": "PASS",
+        "samples": 1226,
+        "last": {
+          "in": 1.8,
+          "out": 2.1841081841139137e-07
+        }
+      }
+    ],
+    "status": "PASS"
+  },
+  "rf_candidate": {
+    "revision": "f4b04c7d5265292f",
+    "manifest_sha256": "39a9f52548aa9035a5d25ee982dc1893ccb52d0f00b126677467914e7871259a",
+    "default_promoted": false,
+    "qualified": false,
+    "positive_branch_cases_per_host": 30,
+    "fault_branch_cases_per_host": 90,
+    "corners": [
+      "tt",
+      "ss",
+      "ff"
+    ],
+    "temperature_c": 27,
+    "area_perimeter_pairs": [
+      [
+        4,
+        8
+      ],
+      [
+        8,
+        12
+      ],
+      [
+        100,
+        40
+      ],
+      [
+        4,
+        10
+      ],
+      [
+        16,
+        20
+      ]
+    ],
+    "independent_audit": {
+      "status": "PASS",
+      "qualified": false,
+      "scope": "Independent raw-file integrity, finiteness, cross-engine comparison and recorded fault acceptance; no measured-silicon or physical qualification.",
+      "branch_positive_cases_per_host": 30,
+      "branch_fault_cases_per_host": 90,
+      "compared_complex_values": 85200,
+      "maximum_cross_engine_normalized_error": 0,
+      "application": [
+        {
+          "host": "Windows46",
+          "raw_files": 15,
+          "report_sha256": "bdda1ef65224b2ca8e210355b9a74bbc57ffb7767c13c884dad0404bcd7158e4",
+          "interfaces": 2,
+          "cases": 1
+        },
+        {
+          "host": "Linux47",
+          "raw_files": 15,
+          "report_sha256": "7f4b6f35b70cf48598e95a1cb4688abd695f83510f50fa8b45ba2a7b7d3c7345",
+          "interfaces": 2,
+          "cases": 1
+        }
+      ]
+    },
+    "audit_sha256": "b4b929febc30259d7090156d355e68cbead8ed8e7f91e73ad06d39ed4b6f8f45",
+    "application_scope": "Two candidate entries save/reopen and rotate/export/reimport on both hosts; six devices compare nominal DC/AC against independent calls and detect twelve polarity/width faults per host.",
+    "modification": "Apache-2.0 public originals retained. Separate derivative wrappers add PJ={perim} to dp; rectangular dimensions compute explicit area and perimeter. No default catalog promotion or model availability change.",
+    "remaining": [
+      "Runtime behavior enforcement before general catalog use.",
+      "Physical RF marker recognition, device layout and strict extracted connectivity.",
+      "Defined bias, temperature, geometry, noise and RF operating envelopes; no measured-silicon claim."
+    ]
+  },
+  "ci_repair": {
+    "failed_run": 39174060701,
+    "failed_job": 117812968442,
+    "failed_assertion": "Process-specific GF180 verification action appeared directly in a general menu.",
+    "fix": "Place the retained action under Verify / Physical verification through the existing menu map.",
+    "windows": "Both interoperability and GF180 action tests pass.",
+    "linux": "Same two GUI tests and 25 focused checks pass.",
+    "hosted_acceptance": "Pending a new run of the final commit; no hosted pass is inferred."
+  },
+  "retained_failed_diagnostics": [
+    "Initial diode DC oracle used newer exact SI constants rather than the engine constants; replaced with the documented engine convention without loosening tolerance.",
+    "Initial Linux checker attempted to expand a None environment; fixed fallback to the process environment.",
+    "Initial RF oracle omitted the model TREF=30 IV temperature and default NS behavior; corrected from public model/source definitions. Original numerical failures retained.",
+    "Initial application RF current lookup was case-sensitive; both full reruns pass after SPICE name normalization.",
+    "First bundled-release-circuit probe reproduced the long Windows PDK path failure; the repeated run uses the actual repaired source."
+  ],
+  "archive": {
+    "path": "IC-Design-Studio-evidence/windows-simulation-and-rf-2026-10-18/evidence.zip",
+    "sha256": "4cf417ca32bdeca635f816207222d4e2a86a5a05ea052ae09ab8ec0e67bccaf9",
+    "bytes": 54362088,
+    "files": 13120,
+    "unique_contents": 4536,
+    "all_objects_verified": true
+  },
+  "restore": {
+    "status": "PASS",
+    "archive_sha256": "4cf417ca32bdeca635f816207222d4e2a86a5a05ea052ae09ab8ec0e67bccaf9",
+    "restores": [
+      {
+        "prefix": "Windows46-runtime",
+        "output": "Restored and verified 5 files into C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\rf-restore-runtime\r\n"
+      },
+      {
+        "prefix": "full-suite-source",
+        "output": "Restored and verified 1204 files into C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\rf-restore-source\r\n"
+      }
+    ],
+    "replay": "Restored archived verifier source and native Windows 46 binary/DLL/initializer execute all eight diode analyses without resets.",
+    "report": {
+      "status": "PASS",
+      "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "checks": [
+        {
+          "name": "op",
+          "status": "PASS",
+          "samples": 1,
+          "currents": 2,
+          "maximum_normalized_error": 0.0,
+          "raw_sha256": "f6d806695499fd9cb9b0059ecc5c0d9150827588af53f16fc6bdb14917903c63"
+        },
+        {
+          "name": "dc",
+          "status": "PASS",
+          "samples": 5,
+          "currents": 2,
+          "maximum_normalized_error": 3.9862010908701407e-10,
+          "raw_sha256": "66a8315d1dd18faf93990ea56206e8e169d66a1c0ac5a92c3e146711823cf474"
+        },
+        {
+          "name": "ac1",
+          "status": "PASS",
+          "samples": 16,
+          "currents": 2,
+          "maximum_normalized_error": 1.512160523826209e-09,
+          "raw_sha256": "22f320a9aad5d42ce529b0f6db59199a979c2d6187fa2a57aa96202561829f96"
+        },
+        {
+          "name": "ac2",
+          "status": "PASS",
+          "samples": 16,
+          "currents": 2,
+          "maximum_normalized_error": 1.512160523826209e-09,
+          "raw_sha256": "22f320a9aad5d42ce529b0f6db59199a979c2d6187fa2a57aa96202561829f96"
+        },
+        {
+          "name": "ac3",
+          "status": "PASS",
+          "samples": 16,
+          "currents": 2,
+          "maximum_normalized_error": 1.512160523826209e-09,
+          "raw_sha256": "22f320a9aad5d42ce529b0f6db59199a979c2d6187fa2a57aa96202561829f96"
+        },
+        {
+          "name": "area",
+          "status": "PASS",
+          "samples": 16,
+          "currents": 2,
+          "maximum_normalized_error": 1.512160523826209e-09,
+          "raw_sha256": "6c2001858bb0e76026c8c7c8ff9bad45126ee557dbb75e3dc244c4015b9811a2"
+        },
+        {
+          "name": "perimeter",
+          "status": "PASS",
+          "samples": 16,
+          "currents": 2,
+          "maximum_normalized_error": 1.3609444410733671e-09,
+          "raw_sha256": "cf86272a998ae127283c9e066d8d8204d3203cadf36087dd4c7d31d96172c3fa"
+        },
+        {
+          "name": "multiplicity",
+          "status": "PASS",
+          "samples": 16,
+          "currents": 2,
+          "maximum_normalized_error": 1.3609444410733671e-09,
+          "raw_sha256": "04d8473f5928c0a642842ac2bd630662b91dc0aeef1fc16182beecba85673c33"
+        }
+      ],
+      "relative_tolerance": 1e-06,
+      "absolute_tolerance_a": 1e-18,
+      "scope": "Analytical level-3 OP/DC/AC, repeated analyses and explicit AREA/PJ/M alteration; no reset or PDK equations. This does not establish full runtime or PDK qualification.",
+      "behavior": {
+        "mode": "unscaled-explicit-area",
+        "area_ratio": 1000000000000.0,
+        "currents": {
+          "i(va)": -0.9999767397924221,
+          "i(vb)": -9.99976739792422e-13
+        },
+        "engine": {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\rf-restore-runtime\\ngspice.exe",
+          "sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453"
+        }
+      },
+      "command": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\rf-restore-runtime\\ngspice.exe",
+        "-n",
+        "-D",
+        "ngbehavior=hsa",
+        "-b",
+        "input.cir"
+      ],
+      "exit": 0
+    }
+  },
+  "remaining_chunk7": "Seven real model entries remain unavailable in the default catalog. Complete operating envelopes, remaining physical/extracted device coverage, statistical/RF qualification and installed-release acceptance remain open."
+}

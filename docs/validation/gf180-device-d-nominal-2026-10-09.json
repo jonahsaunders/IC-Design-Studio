@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "status": "both-d-nominal-programs-independently-audited-and-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T17:23:20.828969+00:00",
+  "cases": [
+    {
+      "case": "d-uart",
+      "audit": {
+        "path": "outputs/gf180-device-audit-d-uart-v1/record.json",
+        "sha256": "e907e36e890361f971e929b97a49ab41eb1dd4eac20fc6d3f5f0502009e62fb0"
+      },
+      "result": {
+        "status": "nominal-device-waveform-independently-audited",
+        "qualified": false,
+        "case": "d-uart",
+        "script": {
+          "path": "work/audit_gf180_completed_device_v1.py",
+          "sha256": "640ed84d290a7f79671734312d09d63476b31bdd5a27ed55850f6b29f6309cb7"
+        },
+        "observed_at": "2026-10-09T17:22:41.875757+00:00",
+        "fixture": {
+          "path": "outputs/gf180-larger-function-fixtures-v1/record.json",
+          "sha256": "9cce45db651977973308c668ead800b5f4640e9abcdb889639a41409d4f06edb"
+        },
+        "fixture_audit": {
+          "path": "outputs/gf180-function-fixture-audit-v1/record.json",
+          "sha256": "88b78f625f0f81be6c51d4c3f869b030c1629105e6820f0879c1712af3ef01f8"
+        },
+        "completed_case": {
+          "path": "outputs/gf180-device-audit-d-uart-v1/completed-case-snapshot.json",
+          "sha256": "89ddcfc6525ce290c27fe4590f6973211763289dfe0c40557f69c510fdfbb2ca"
+        },
+        "binary_sha256": "48c1dca1ee855e18dc29a9e5199cffc1e59e964d7571d53eaf1f85694117a8bf",
+        "input_hashes": {
+          "test.spice": "dda84128b62bd3d259f05cc0181fdaee04e8872fac56512461e37c4f63326fe1",
+          "dut.spice": "2f1ecb406171f692e287e115de98fa9a46933687a1e1f1a0844859a179a0b9b4",
+          "engine.log": "9b027f2c45ba8b84e264b1948c0873bd7c0a2b2ec8a7cda89e625ca71d0c3140",
+          "waveform.txt": "0f2d41834cae43ff75caa8b37f5557ddcb2efa80eea29d4a2c35841c2e0a58ed",
+          "pdk-models/31987f30dc28716123774c5e.spice": "c991d7d3e8c66cb691915a73395a62041b10c8ff7943575e7c510b44e1567c7d",
+          "pdk-models/a9baecac6ed1e4a471fd73e8.spice": "7e222f050318388f37543a64fbd0be55cc15e4b93f57501a09f7c159c4c9e561",
+          "pdk-models/f3820c6e6aaf2b76c63830e2.spice": "4e22cf76e2a75dc7908c1ca567a4b379586170e82d538fddd68a1b28245e5984",
+          "pdk-models/f3c9dd0c02366fbd9ca7def0.spice": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f"
+        },
+        "limits": {
+          "low_max_v": 1,
+          "high_min_v": 4,
+          "input_source_abs_v": 1e-06,
+          "runner_interpolation_abs_v": 1e-12,
+          "max_step_ns": 0.1001
+        },
+        "scope": "Full frozen nominal device-only program, 5 V / 25 C. No wire RC, post-fill function, all-path timing, PVT or tapeout acceptance.",
+        "points": 86284,
+        "assertions": 41,
+        "bit_checks": 41,
+        "output_faults_rejected": 41,
+        "input_sample_checks": 1035408,
+        "max_input_error_v": 5.29395592033898e-12,
+        "max_runner_interpolation_difference_v": 8.881784197001252e-16,
+        "stop_seconds": 1.3320000000000001e-06,
+        "wall_seconds": 7043.42996096611,
+        "independent_samples": {
+          "path": "outputs/gf180-device-audit-d-uart-v1/independent-samples.json",
+          "sha256": "d1578fdce0f890c3828920d5b606e2cde1d9b81c73c4cc9b45ecc58f7f4a5992"
+        }
+      }
+    },
+    {
+      "case": "d-apb",
+      "audit": {
+        "path": "outputs/gf180-device-audit-d-apb-v1/record.json",
+        "sha256": "317d9a94b7d4ba4719e52ab76afa86326bfff2ed1d3e99c59c31706fc9ce3409"
+      },
+      "result": {
+        "status": "nominal-device-waveform-independently-audited",
+        "qualified": false,
+        "case": "d-apb",
+        "script": {
+          "path": "work/audit_gf180_completed_device_v1.py",
+          "sha256": "640ed84d290a7f79671734312d09d63476b31bdd5a27ed55850f6b29f6309cb7"
+        },
+        "observed_at": "2026-10-09T17:20:40.632101+00:00",
+        "fixture": {
+          "path": "outputs/gf180-larger-function-fixtures-v1/record.json",
+          "sha256": "9cce45db651977973308c668ead800b5f4640e9abcdb889639a41409d4f06edb"
+        },
+        "fixture_audit": {
+          "path": "outputs/gf180-function-fixture-audit-v1/record.json",
+          "sha256": "88b78f625f0f81be6c51d4c3f869b030c1629105e6820f0879c1712af3ef01f8"
+        },
+        "completed_case": {
+          "path": "outputs/gf180-device-audit-d-apb-v1/completed-case-snapshot.json",
+          "sha256": "5d5f1fcac02899d17c803b196e3bc940329aedad03fc5ed57f3bed25f7b61eb9"
+        },
+        "binary_sha256": "48c1dca1ee855e18dc29a9e5199cffc1e59e964d7571d53eaf1f85694117a8bf",
+        "input_hashes": {
+          "test.spice": "c3536727bc448e169d9d92785e0fc923f11fc09d65c189e76f208017e3bb90d6",
+          "dut.spice": "a43e16748fa999f6e6529cff5e873ab4312a134b974bcc17304a41d691e6e71c",
+          "engine.log": "3be3ba4e69edbeb9d72a6694b4bcd2b3672babdece0e62e545fb303eeabc1eae",
+          "waveform.txt": "f4facdda5c237ca92bcb86e1a5a3dbe04b116fe8c23cc50852eb3dcd587da776",
+          "pdk-models/31987f30dc28716123774c5e.spice": "c991d7d3e8c66cb691915a73395a62041b10c8ff7943575e7c510b44e1567c7d",
+          "pdk-models/a9baecac6ed1e4a471fd73e8.spice": "7e222f050318388f37543a64fbd0be55cc15e4b93f57501a09f7c159c4c9e561",
+          "pdk-models/f3820c6e6aaf2b76c63830e2.spice": "4e22cf76e2a75dc7908c1ca567a4b379586170e82d538fddd68a1b28245e5984",
+          "pdk-models/f3c9dd0c02366fbd9ca7def0.spice": "9b85cd009968d9aeb6b61046b24a63f39d6a463c4e4aee3949c8fd183c06666f"
+        },
+        "limits": {
+          "low_max_v": 1,
+          "high_min_v": 4,
+          "input_source_abs_v": 1e-06,
+          "runner_interpolation_abs_v": 1e-12,
+          "max_step_ns": 0.1001
+        },
+        "scope": "Full frozen nominal device-only program, 5 V / 25 C. No wire RC, post-fill function, all-path timing, PVT or tapeout acceptance.",
+        "points": 57534,
+        "assertions": 63,
+        "bit_checks": 147,
+        "output_faults_rejected": 147,
+        "input_sample_checks": 1035612,
+        "max_input_error_v": 5.29395592033898e-12,
+        "max_runner_interpolation_difference_v": 8.881784197001252e-16,
+        "stop_seconds": 1.652e-06,
+        "wall_seconds": 4607.982502698898,
+        "independent_samples": {
+          "path": "outputs/gf180-device-audit-d-apb-v1/independent-samples.json",
+          "sha256": "145a43e7e3ca471134e24df2991f0203130d6e1b0712aa7b4d58ede5ed3eb6ee"
+        }
+      }
+    }
+  ],
+  "completed_batch": {
+    "path": "outputs/gf180-larger-device-controls-v1/record.json",
+    "sha256": "b2c49db8f59aa31a3f4e3d7d11874a27ee22b4968985b01ea88f4a8465f700ae"
+  },
+  "scope": "Both D full frozen device-only programs, nominal 5 V / 25 C, with independently checked input waveforms and all 104 assertions / 188 output-bit checks. This establishes no wire-RC, post-fill, all-path timing, PVT or tapeout result.",
+  "fault_scope": "188 changed sampled output comparisons are rejected; no physically altered transistor simulation is implied.",
+  "remaining": [
+    "Complete before/filled full-RC programs and timing for all required designs.",
+    "Process/voltage/temperature coverage and the remaining qualification chunks."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-device-d-nominal-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "ed3a8efdcf7148bc9f09be3247ebbdc6c6661740d8a80045b0b169841bf41989",
+    "bytes": 27387120,
+    "logical_files": 36,
+    "unique_objects": 31,
+    "verified": true
+  }
+}

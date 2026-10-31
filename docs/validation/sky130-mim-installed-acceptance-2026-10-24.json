@@ -1,0 +1,278 @@
+{
+  "schema": 1,
+  "date": "2026-10-24",
+  "status": "selected_installed_workflow_passed",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "signoff": false,
+  "full_mim_installed": false,
+  "installed_selected_workflow_acceptance": true,
+  "scope": "Exact candidate Windows installation and Linux frozen application: both 2x10um MiM constructions at 0/90 degrees, current/historical binding lifecycle, included native engines, selected public block DRC and sixty linear-model electrical contexts per platform. Explicit separately locked physical PDK adapter. No full device family, complete geometry/operating/statistical envelope, silicon calibration, reliability or manufacturing signoff.",
+  "candidate": "65614924f125200db068d66669af6fe102c71e45",
+  "branch": "experimental",
+  "run_id": 40047259255,
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40047259255",
+  "attempt": 1,
+  "jobs": "7/7 success",
+  "total_elapsed_seconds": 19580.0,
+  "package_seconds": {
+    "Linux": 5846,
+    "Windows": 18650
+  },
+  "runtime_preparation_seconds": 907,
+  "core_tests": {
+    "Linux": {
+      "tests": 3558,
+      "skips": 35,
+      "seconds": 1239.726
+    },
+    "Windows": {
+      "tests": 3558,
+      "skips": 40,
+      "seconds": 2134.48,
+      "installer_repeat_seconds": 2111.684,
+      "installer_repeat_tests": 3558,
+      "installer_repeat_skips": 40
+    }
+  },
+  "release_tool_tests": {
+    "Linux": {
+      "tests": 99,
+      "skips": 0
+    },
+    "Windows": {
+      "tests": 99,
+      "skips": 1
+    }
+  },
+  "skip_classification": {
+    "Linux_platform_specific": 13,
+    "Windows_platform_specific": 16,
+    "all_platform_specific_pass_on_other_host": true,
+    "core_tests_skipped_both_hosts": 22,
+    "Windows_extra_tool_skips_pass_on_Linux": 2
+  },
+  "common_skips": "22 exact tool-configuration-dependent core tests remain skipped on both hosts. Separate managed/frozen acceptance does not retroactively pass those exact tests.",
+  "digital_diagnostics": "Four deliberate fault FAIL results required, four informational pre-layout timing FAIL results retained per platform; mandatory equivalence and extracted timing pass.",
+  "code_signing": "not configured",
+  "windows_install_uninstall": true,
+  "windows_scales_percent": [
+    100,
+    150,
+    200
+  ],
+  "selected_counts_per_platform": {
+    "contexts": 60,
+    "ac_samples": 480,
+    "op_points": 60,
+    "bias_faults": 180,
+    "domain_rejections": 5,
+    "bias_invariance_contexts": 40,
+    "fresh_gui_native_inputs": 4
+  },
+  "platforms": [
+    {
+      "platform": "Linux",
+      "status": "PASS",
+      "candidate": "65614924f125200db068d66669af6fe102c71e45",
+      "aggregate_sha256": "f97f82a9c507256794357422d8f95404c07c12d9c7071c4e3dccc00a5a39e194",
+      "complete_inventory_files": {
+        "frozen-mim-evidence/probe": 1536,
+        "frozen-mim-public-drc-evidence": 35,
+        "frozen-mim-electrical-evidence": 2110
+      },
+      "candidate_source_hashes": 470,
+      "native_raw_files": 300,
+      "contexts": 60,
+      "op_points": 60,
+      "ac_samples": 480,
+      "detected_bias_faults": 180,
+      "bias_invariance_comparisons": 40,
+      "domain_rejections": 5,
+      "public_geometry": [
+        {
+          "case": "p1-r0",
+          "categories": 255,
+          "markers": 0,
+          "violations": {}
+        },
+        {
+          "case": "p1-r90",
+          "categories": 255,
+          "markers": 0,
+          "violations": {}
+        },
+        {
+          "case": "p2-r0",
+          "categories": 255,
+          "markers": 0,
+          "violations": {}
+        },
+        {
+          "case": "p2-r90",
+          "categories": 255,
+          "markers": 0,
+          "violations": {}
+        },
+        {
+          "case": "p2-r90-narrow-metal",
+          "categories": 255,
+          "markers": 3,
+          "violations": {
+            "MR_met1.AR.1": 1,
+            "MR_met1.WID.1": 2
+          }
+        }
+      ],
+      "frozen_application_sha256": "4584e12a2a8288a96b30e7cca79f88a18ab18b358ab7f5fda06dd4272e7622fe",
+      "application_build": {
+        "version": "0.23.0",
+        "commit": "65614924f125200db068d66669af6fe102c71e45",
+        "branch": "experimental",
+        "dirty": false,
+        "frozen": true
+      },
+      "scope": "Complete archived MiM inventory/hash and selected raw electrical/public geometry readback. No new native execution, live installed binary check or full-family qualification."
+    },
+    {
+      "platform": "Windows",
+      "status": "PASS",
+      "candidate": "65614924f125200db068d66669af6fe102c71e45",
+      "aggregate_sha256": "ec433cc8f91e90fc14bccdfeb14c1ce4cc7d5e1e100106de15a66526e183f5b5",
+      "complete_inventory_files": {
+        "windows-evidence/mim/probe": 1535,
+        "windows-evidence/mim-public-drc": 35,
+        "windows-evidence/mim-electrical": 2110
+      },
+      "candidate_source_hashes": 470,
+      "native_raw_files": 300,
+      "contexts": 60,
+      "op_points": 60,
+      "ac_samples": 480,
+      "detected_bias_faults": 180,
+      "bias_invariance_comparisons": 40,
+      "domain_rejections": 5,
+      "public_geometry": [
+        {
+          "case": "p1-r0",
+          "categories": 255,
+          "markers": 0,
+          "violations": {}
+        },
+        {
+          "case": "p1-r90",
+          "categories": 255,
+          "markers": 0,
+          "violations": {}
+        },
+        {
+          "case": "p2-r0",
+          "categories": 255,
+          "markers": 0,
+          "violations": {}
+        },
+        {
+          "case": "p2-r90",
+          "categories": 255,
+          "markers": 0,
+          "violations": {}
+        },
+        {
+          "case": "p2-r90-narrow-metal",
+          "categories": 255,
+          "markers": 3,
+          "violations": {
+            "MR_met1.AR.1": 1,
+            "MR_met1.WID.1": 2
+          }
+        }
+      ],
+      "frozen_application_sha256": "c487a0b8fe0ee8f8ee272b3adf174945f80379aa9b33d474431418ac7b1e3dfe",
+      "application_build": {
+        "version": "0.23.0",
+        "commit": "65614924f125200db068d66669af6fe102c71e45",
+        "branch": "experimental",
+        "dirty": false,
+        "frozen": true
+      },
+      "scope": "Complete archived MiM inventory/hash and selected raw electrical/public geometry readback. No new native execution, live installed binary check or full-family qualification."
+    }
+  ],
+  "simulation_package": {
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "physical_package": {
+    "revision": "9a491f0ebd51a0aa",
+    "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+    "provision": "explicit build/physical-adapter/sky130A; distinct from bundled simulation package"
+  },
+  "runtime_archive_sha256": "e66916239b11e108547295fa4927d80582f332a47fa2d010f03b53244f2e7d85",
+  "retention": {
+    "directory": "mim-installed-hosted-2026-10-24-v1",
+    "diagnostic_archives": [
+      {
+        "name": "desktop-diagnostics-Windows",
+        "artifact_id": 12550696939,
+        "file": "desktop-diagnostics-Windows.zip",
+        "bytes": 446364450,
+        "sha256": "9f4567eb4379b308da8049993433915b6bf4c8d2910b0a43b379aa49b1e762c6",
+        "members": 45996,
+        "all_member_crc_verified": true
+      },
+      {
+        "name": "desktop-diagnostics-Linux",
+        "artifact_id": 12544234393,
+        "file": "desktop-diagnostics-Linux.zip",
+        "bytes": 65552109,
+        "sha256": "b1a0f6f5377f0106970009967fae8b4634fccbb533bc05d0ae2def79a73d35f5",
+        "members": 5670,
+        "all_member_crc_verified": true
+      }
+    ],
+    "independent_review": {
+      "file": "independent-review.zip",
+      "sha256": "ed299795540851a39ac05a112bbb19966b869042a35a24b325b8084872c9d96a",
+      "bytes": 1446610
+    },
+    "readback_proof": {
+      "file": "readback-proof.zip",
+      "sha256": "e9c86410c6959062d0dcdf5fc1bef21ef665e0b8bdc4a6cb9e5317c80b0fcc65",
+      "bytes": 37146,
+      "manifest_sha256": "33e0b49b2c4a2eb30119c61d40456b53f10700d0f9cb5352bf269b309a892865",
+      "files": 14,
+      "all_files_readback_verified": true
+    },
+    "closure_clarification": {
+      "file": "closure-clarification.zip",
+      "sha256": "ae2c54557df83d3fbf115dc0887ce345f89abe9480bbf9f4a378cb1da1fc4b07",
+      "bytes": 7346,
+      "manifest_sha256": "cc77d0fcf80252c314b732ab1bdb21b1ac8716388ddebff5e081d12c78d750b2",
+      "all_files_readback_verified": true
+    }
+  },
+  "retained_source_only_records": [
+    "sky130-mim-installed-probe-source-2026-10-23",
+    "sky130-mim-installed-public-drc-source-2026-10-23",
+    "sky130-mim-installed-electrical-source-2026-10-23"
+  ],
+  "scope_limits": [
+    "Diagnostics retain declared executable/engine hashes, not their full binary payloads; binary identity was checked live by mandatory hosted checkers.",
+    "Generated build_info.py is excluded from Git blob comparison and is corroborated by exact clean frozen build reports.",
+    "Selected installed MiM scope is not full family, reliability, silicon calibration, manufacturing signoff or overall release completion."
+  ],
+  "next_scope": "Actual _mm aliases/switch integration, followed by remaining source-backed operating/statistical definitions and physical classes; no catalog promotion.",
+  "defined_installation_requirement": {
+    "schema": 1,
+    "date": "2026-10-24",
+    "candidate": "65614924f125200db068d66669af6fe102c71e45",
+    "requirement": "MIM-INSTALLED",
+    "status": "defined_recipe_completed_for_exact_candidate",
+    "contract_path": "docs/qualification/sky130-mim-contract-v1.json",
+    "contract_sha256": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209",
+    "explanation": "The original row lists the defined installed lifecycle, rotated native export and electrical recipe. That recipe is complete on Windows and Linux. All-class coverage, source-backed operating limits and statistics remain separate rows, not new blockers added to this row. The raw full_mim_installed=false full-scope flag is preserved.",
+    "supersedes_interpretation_only": "The earlier review inside readback-proof.zip left full MIM-INSTALLED open. This additive clarification corrects that interpretation; no native evidence, original contract, acceptance gate or raw flag changes.",
+    "review_sha256": "ff280a29d212252ba2042f7b11ab5af7015e18084a493836e334abb6c7a6c062"
+  }
+}

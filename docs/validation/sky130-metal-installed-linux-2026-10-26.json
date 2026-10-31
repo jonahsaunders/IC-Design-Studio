@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "chunk": 7,
+  "status": "linux_selected_installed_workflow_passed_windows_pending",
+  "candidate": "e3fa0cc60da18cee8359817bb5321923587abc50",
+  "run_id": 40340500387,
+  "run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40340500387",
+  "qualified": false,
+  "chunk_complete": false,
+  "full_family": false,
+  "signoff": false,
+  "two_platform_installed_acceptance": false,
+  "scope": "Exact e3fa0cc Linux packaged straight-resistor workflow and independent retained-artifact readback. Windows remains pending. New physical parallel arrays require their own selected candidate.",
+  "linux": {
+    "schema": 1,
+    "status": "PASS",
+    "run_id": 40340500387,
+    "candidate": "e3fa0cc60da18cee8359817bb5321923587abc50",
+    "platform": "Linux",
+    "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\desktop-resistor-installed-2026-10-26-v1\\desktop-diagnostics-Linux.zip",
+    "archive_sha256": "300638d9872ad91085149250eec93502236ff4a05c38ffc30b930c08f4198bff",
+    "artifact_id": 12671298454,
+    "gui_counts": {
+      "lifecycle": 30,
+      "binding_lifecycle": 15,
+      "native_layouts": 30,
+      "fresh_native_jobs": 42,
+      "queued_jobs": 43,
+      "width_faults": 5,
+      "drc_faults": 1,
+      "repairs": 6,
+      "blocked": 1
+    },
+    "electrical_counts": {
+      "contexts": 90,
+      "logical_variants": 48,
+      "fresh_gui_native_inputs": 24,
+      "dc_conditions": 720,
+      "ac_conditions": 720,
+      "transient_conditions": 720,
+      "noise_conditions": 120,
+      "detected_branch_controls": 4680
+    },
+    "gui_execution_id": "0d63d22c0be14154b71f15e46eebe9e6",
+    "electrical_execution": {
+      "root": "/home/runner/work/IC-Design-Studio/IC-Design-Studio/build/frozen-metal-resistor-electrical-evidence",
+      "nonce": "564a5bffde4c4ac692c73c5f02645871"
+    },
+    "application_sha256": "7d0c165b7278f6eadfa12a68e1c235e1ccd93e8bcbb6b48723c9d9a5c1ce1414",
+    "engine": {
+      "engine": "/home/runner/work/IC-Design-Studio/IC-Design-Studio/dist/ICDesignStudio/_internal/icstudio/assets/runtime/ngspice/ngspice",
+      "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+      "platform": "linux"
+    },
+    "source_bindings": 851,
+    "gui_manifest_files": 2974,
+    "electrical_manifest_files": 2575,
+    "raw_component_readback": {
+      "enabled": true,
+      "native_jobs": 42,
+      "electrical_contexts": 90,
+      "branch_samples": 7829496,
+      "detected_controls": 4680
+    },
+    "authenticated_import_sources": {
+      "scripts/verify_frozen_metal_resistors.py": "094fdb7e0794347b171ed3549314d528bff99c7dfe85a60bd614bb465e855d1d",
+      "scripts/verify_frozen_mim.py": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57",
+      "scripts/audit_installed_sky130_metal_resistors.py": "211e8e85cceb727fd33a3670e42f8215c5ade37953cb88fd2a63a007fd2407b7",
+      "scripts/installed_metal_resistor_inputs.py": "575f63038fdb9a1dd12488169f250ca8e1d120d1792b863d6ac6fc9d20e9c23c",
+      "scripts/installed_mim_inputs.py": "46696a5e01d318fe7ae88748548780c7b6a707bf7dcf83b4c3b862758f44b12e",
+      "scripts/audit_sky130_metal_resistors_linked.py": "a175a04a9a867fc790cfefa8ccd89d52f6f3329f9c3cf4bb13b6bbaa0f3ead7b",
+      "scripts/audit_sky130_mim_mismatch_aliases.py": "36c3933bb6056d2b76b5ccdf1351ee6eb2030a9be6dad0ccf6c1f56cce411cde",
+      "scripts/audit_sky130_li_case.py": "6ddf5174fd0fd5665f8e0438ac0c760a29266c59f057603ab385edd51be29bd9"
+    },
+    "scope": "Offline retained candidate/receipt/manifest and optional portable raw-component readback; no simulator run and no live installed requalification.",
+    "limits": [
+      "Original executable, full managed runtime and physical adapter are not downloaded or checked live here; mandatory hosted checkers bind them before/after.",
+      "Full live GUI/electrical auditors require original absolute roots and installed resources. This helper retains those identities and never relabels relocated data as a fresh execution.",
+      "Without --raw, independent numerical/native-log components are not rerun. Geometric and GUI-interaction acceptance remains the retained mandatory hosted gate.",
+      "This selected scope does not establish whole-family, silicon or manufacturing qualification."
+    ]
+  },
+  "retained_member_checks": 5556,
+  "readback_receipt_sha256": "cab00c75f3c53484573f1b71cd45f1e0f1696da5eee0f3826b3e8ae1c2eb088e",
+  "invocation_sha256": "b6ee235234809ead21949bf32bc7a8f286268156ac4b2585b03cc597727ced6d",
+  "isolated_source_archive_sha256": "16c149c0e24b12eba6928b0f08a9cabb356f23b89ab54e31d0b956971d697e8a",
+  "readback_source_control": "REJECTED deliberate local source drift with the unchanged candidate/local check.",
+  "retained_attempts": [
+    {
+      "path": "linux-readback-v1.json",
+      "sha256": "dc0f72ecb1fd07b1af97604b761babb598615c8b18c244bee649ac70f53d7f5f"
+    },
+    {
+      "path": "linux-readback-v2.json",
+      "sha256": "6a74a629fe5ea95d833bf052e0348bef9f5c1f0492f3b8480b6fe47efa20dd07"
+    }
+  ],
+  "limitations": [
+    "This offline readback does not rerun the installed executable or physical/simulation engines.",
+    "The original hosted gate binds executable, managed runtime and package identities; only necessary diagnostic evidence was downloaded.",
+    "Both platforms must pass before claiming the two-platform installed milestone. Whole-family and manufacturing acceptance remain separate."
+  ]
+}

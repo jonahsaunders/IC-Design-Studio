@@ -1,0 +1,804 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "chunk": 7,
+  "status": "sampled_shared_finger_layouts_passed",
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "source_baseline": "e44f7f318e428c764d9faae9ae5a879da483522a",
+  "scope": "Standard four-terminal GF180 C/D 3.3 V and IHP 1.2 V shared-diffusion gate fingers with separate parallel multiplicity, exact native channels and exported diffusion-group verification, rotated stream exchange, selected inverter contexts and source editor workflows. No full operating-envelope, extracted electrical, installed release or foundry qualification.",
+  "source_files": {
+    "icstudio/process_mos_fingers.py": "aeac49eef5183fbc1c7b911e73ea473bca0d8c709808225709a25b9f86545225",
+    "icstudio/process_mos_parallel.py": "feb2fb530e0c5a6f7219a29eda7f026f39bc78e06924abf8a2d5d1fcd0305e02",
+    "icstudio/gf180_layout.py": "33a21066a05f9c50cb825b183f9535e2aee0ec14175c1e4ac62f3cc65f58229d",
+    "icstudio/ihp_layout.py": "9eda3eb35a0dbf392c48adfa8f2822efd9a1bc8d7fd73ad6c4985234b1fc424f",
+    "scripts/qualify_mos_finger_layouts.py": "7c500acf25396f372e5bb676734ad9dc1b34782f350d20d612f5fee59ae4a7d5",
+    "scripts/qualify_mos_parallel_layouts.py": "dd9f16880a5880c4022a021433c367cd169ea76d090b29dacd050c2095ee03b4",
+    "tests/test_mos_finger_layouts.py": "8498d11c6a2626aa4f9a03cc9550aa36cf53e8c023b0643c7ed1275fe806c9d6",
+    "tests/gui_mos_fingers.py": "2f0b5d1bcfc25e3ee1bf925255142685966506cfee38f27b0ae9ac2e78a6894f",
+    "tests/test_layout_release.py": "54229fd26ff9e0733e4ea6fe7cc56c7ab34076b14942ed151cdd71330f36e192",
+    "tests/test_student_physical.py": "409e434a3b293e58c021cc97558d112e30d4c2ae543bf0c94b9efe4c7aae54da",
+    ".github/workflows/physical-qualification.yml": "46862b5c57997c0553508099192eb643f97421941a0df48e50826ca2bb8aec4c",
+    ".github/workflows/build-desktop.yml": "762db17783e8634ae725fed75555cb6e369563b18a697e8bc92f0e619e07bfe0",
+    ".github/workflows/ihp-inductor-qualification.yml": "d7d68377fcaffeb7364181399bf560594d08de01a5ac3c881b5c476b64bd25ec"
+  },
+  "final_source_manifest_sha256": "a1ecac2363b363b040e10f48ab30dd87e9f750b4de004152084847e36f00c24a",
+  "packages": {
+    "gf180mcuC": {
+      "revision": "b661a751abfc662a",
+      "manifest_sha256": "abfbf8702d759247ad77075c72c7b042a6f9b89d2629f5c194a925a0d4f6194c",
+      "assets": 83,
+      "changed": false,
+      "model_and_comparator_sources": {
+        "libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9",
+        "libs.tech/netgen/gf180mcuC_setup.tcl": "cf050e6302f93967c27fe797f8647d75ef5f22c7b806c32b324d2eaf77480949"
+      }
+    },
+    "gf180mcuD": {
+      "revision": "2f92b1f05da58bd7",
+      "manifest_sha256": "d46a592f236f5a42356db52e861b17f1412ec826cd19a73452f1aa3a50a1e6ae",
+      "assets": 83,
+      "changed": false,
+      "model_and_comparator_sources": {
+        "libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9",
+        "libs.tech/netgen/gf180mcuD_setup.tcl": "eb6217e33acb2c81680351745bc184a2ee37b31a25d37f4dce423f61ba466fe4"
+      }
+    },
+    "ihp-sg13g2": {
+      "revision": "cfb96b74cf33877e",
+      "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0",
+      "assets": 163,
+      "changed": false,
+      "model_and_comparator_sources": {
+        "libs.tech/ngspice/models/sg13g2_moslv_mod.lib": "84ec57080b9dd4666417f05db6f7b34c8dd3f12118929f9b308018613bece16e",
+        "libs.tech/netgen/ihp-sg13g2_setup.tcl": "9981101e0bbe9d8f6af656f03475d0d00fb7507559645e85e4d9d5f704b3878e"
+      }
+    }
+  },
+  "native": {
+    "status": "PASS",
+    "record_sha256": "f6a7f1e280daf05945d3359bb6b58763445d727c7a6a607607c5ff4d8d13de5f",
+    "source_unchanged": true,
+    "device_cases": [
+      {
+        "target": "gf180mcuC",
+        "polarity": "n",
+        "size": [
+          0.44,
+          0.28,
+          2,
+          1
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "n",
+        "size": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "p",
+        "size": [
+          0.44,
+          0.28,
+          2,
+          1
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "n",
+        "size": [
+          10,
+          10,
+          8,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "p",
+        "size": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuC",
+        "polarity": "p",
+        "size": [
+          10,
+          10,
+          8,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "n",
+        "size": [
+          0.44,
+          0.28,
+          2,
+          1
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "n",
+        "size": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "n",
+        "size": [
+          10,
+          10,
+          8,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "p",
+        "size": [
+          0.44,
+          0.28,
+          2,
+          1
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "p",
+        "size": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "n",
+        "size": [
+          0.3,
+          0.13,
+          2,
+          1
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "gf180mcuD",
+        "polarity": "p",
+        "size": [
+          10,
+          10,
+          8,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "n",
+        "size": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "n",
+        "size": [
+          10,
+          10,
+          8,
+          16
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "p",
+        "size": [
+          0.3,
+          0.13,
+          2,
+          1
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "p",
+        "size": [
+          3,
+          1,
+          3,
+          3
+        ],
+        "status": "PASS"
+      },
+      {
+        "target": "ihp-sg13g2",
+        "polarity": "p",
+        "size": [
+          10,
+          10,
+          8,
+          16
+        ],
+        "status": "PASS"
+      }
+    ],
+    "inverters": [
+      {
+        "target": "gf180mcuC",
+        "counts": [
+          2,
+          3,
+          1,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "nfet_03v3": 2,
+            "pfet_03v3": 3
+          },
+          "sha256": "2d90127e699a35f5475858ba0c785f03a3d45348738fb1fbda0900b8fd9bf4f3"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "gf180mcuC",
+        "counts": [
+          3,
+          2,
+          3,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "nfet_03v3": 9,
+            "pfet_03v3": 2
+          },
+          "sha256": "93f70080521bffeb58ed14f60c49869c889059e4dac186e2e5b78424bc52abe9"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "gf180mcuC",
+        "counts": [
+          1,
+          8,
+          1,
+          3
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "nfet_03v3": 1,
+            "pfet_03v3": 24
+          },
+          "sha256": "bb6385a33276064c00f3b2ec5e9270227a6e94f65ce3fd89c21e8eb922110b29"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "gf180mcuC",
+        "counts": [
+          8,
+          1,
+          16,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "nfet_03v3": 128,
+            "pfet_03v3": 1
+          },
+          "sha256": "2c528c956dc1d76a6c8e452a23f24f747acd0c7b6f261287d37f8db544167534"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "gf180mcuD",
+        "counts": [
+          2,
+          3,
+          1,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "nfet_03v3": 2,
+            "pfet_03v3": 3
+          },
+          "sha256": "d617a735466438a3077aa9e68dbed5646772787de65d57ef23f44be373a6889d"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "gf180mcuD",
+        "counts": [
+          3,
+          2,
+          3,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "nfet_03v3": 9,
+            "pfet_03v3": 2
+          },
+          "sha256": "9a0b2bbcd7e63b59cd142806da10572a9251d56f908c29c0cb4c91effdbe73cd"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "gf180mcuD",
+        "counts": [
+          1,
+          8,
+          1,
+          3
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "nfet_03v3": 1,
+            "pfet_03v3": 24
+          },
+          "sha256": "3a6d24c2f74b6d9a64a30cab2d0c992c21c70684a5a96e8bbca18047b9d05b6d"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "gf180mcuD",
+        "counts": [
+          8,
+          1,
+          16,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "nfet_03v3": 128,
+            "pfet_03v3": 1
+          },
+          "sha256": "9756e4986cacc52b5e23d7cffcf6e9f87901a21d3e9ceb4a3f0b15eba185e6f4"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "ihp-sg13g2",
+        "counts": [
+          2,
+          3,
+          1,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "sg13_lv_nmos": 2,
+            "sg13_lv_pmos": 3
+          },
+          "sha256": "076861377265b1c5d2877d196eb5bdb1dda98c0e91a6fb91e45a83697f8dd3be"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "ihp-sg13g2",
+        "counts": [
+          3,
+          2,
+          3,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "sg13_lv_nmos": 9,
+            "sg13_lv_pmos": 2
+          },
+          "sha256": "4be47ba52a38bd31a88527d91c025959f8de188c37a12e788b3e76d011fb3c71"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "ihp-sg13g2",
+        "counts": [
+          1,
+          8,
+          1,
+          3
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "sg13_lv_nmos": 1,
+            "sg13_lv_pmos": 24
+          },
+          "sha256": "c3fcde9dd18539eff5dca3b0e073dac168a4d691598c34da1bdf9bf0fc441f0a"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      },
+      {
+        "target": "ihp-sg13g2",
+        "counts": [
+          8,
+          1,
+          16,
+          1
+        ],
+        "status": "PASS",
+        "native": {
+          "channels": {
+            "sg13_lv_nmos": 128,
+            "sg13_lv_pmos": 1
+          },
+          "sha256": "a1adaf2bb5c5b6c156b6171ed7c65549e7dbc00906e2e9d5443465fc0d73ea63"
+        },
+        "fault_detected": true,
+        "grouping_fault_detected": true
+      }
+    ],
+    "engines": {
+      "magic": {
+        "path": "/opt/icstudio/bin/magic",
+        "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223"
+      },
+      "netgen": {
+        "path": "/opt/icstudio/bin/netgen",
+        "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+      }
+    },
+    "audit": {
+      "status": "PASS",
+      "record_sha256": "f6a7f1e280daf05945d3359bb6b58763445d727c7a6a607607c5ff4d8d13de5f",
+      "valid_layouts": 156,
+      "native_faults": 162,
+      "extraction_interface_faults": 36,
+      "independent_finger_faults": 30,
+      "independent_grouping_faults": 30,
+      "exported_channels": 7182,
+      "native_channels": 7182,
+      "reports": 378,
+      "file_bindings": 3924,
+      "asset_bindings": 5418,
+      "tool_bindings": 756,
+      "scope": "Independent native-netlist and report integrity readback. Native extraction/interface or LVS rejects physical/terminal/width/copy faults. Extraction-interface faults require completed native output with an actual lost/merged port, retained geometry hashes and independently rechecked asset/tool identities; setup errors do not pass. Separate exact channel readback rejects wrong nf/ng that native LVS ignores. Independently read exported diffusion groups reject wrong finger/copy grouping that native LVS and channel counts cannot distinguish. No RC, mismatch, manufacturing or complete-device qualification.",
+      "extraction_controls": {
+        "count": 36,
+        "retained_in": "work/audit-final.json in evidence.zip",
+        "report_sha256": "2bf96edd57056aac4784a5e3608d50a847be4a51ceb21dd556bdb0f1e539d9bc"
+      }
+    }
+  },
+  "negative_control_scope": {
+    "total": 222,
+    "native_lvs_mismatches": 126,
+    "native_extraction_lost_or_merged_ports": 36,
+    "independent_channel_failures": 30,
+    "independent_diffusion_group_failures": 30,
+    "setup_errors_accepted": false,
+    "native_comparator_limit": "The public setup ignores nf/ng and merges equivalent electrical devices. The runner adds exact channel readback and exported-mask grouping. These additions are qualification-runner checks; an ordinary native LVS pass alone does not verify grouping."
+  },
+  "compatibility": {
+    "status": "PASS",
+    "cases": 216,
+    "base_commit": "e44f7f318e428c764d9faae9ae5a879da483522a",
+    "report_sha256": "bffcc6c976d060d4905b2b5b0974ac9ce4bd25f28a43fe6c90cf3a8c72440db9",
+    "scope": "All 72 prior single-finger size cases at m=1/3/16 retain identical geometry, pins, roles and specification after removing newly allocated object IDs."
+  },
+  "desktop": {
+    "Windows": {
+      "status": "PASS",
+      "cases": 6,
+      "record_sha256": "5b7dc28b56b344d668b25e63b63b65f0283a42fbc3a808192bbabdfec1e3d54d",
+      "scope": "Source desktop generation, gate-finger/width/copy editing, regeneration and save/reopen. Source desktop only; installed release acceptance remains separate."
+    },
+    "Linux": {
+      "status": "PASS",
+      "cases": 6,
+      "record_sha256": "71153dfbc2268bd6f65cbc0f2a6eaa99bd39072486328e65608ba0ef0987af9a",
+      "scope": "Source desktop generation, gate-finger/width/copy editing, regeneration and save/reopen. Source desktop only; installed release acceptance remains separate."
+    }
+  },
+  "regression": {
+    "Linux": {
+      "status": "PASS",
+      "tests": 3341,
+      "skipped": 43,
+      "log_sha256": "3c4d490557f02a1649915261bc440b5a79799dbc65a51cd56be6e21e52396a2b",
+      "record_sha256": "33a44dad10eff306ede5e6eab2d360b6c7a1b4afb2f33f500cae91692f55704b",
+      "execution": {
+        "status": "PASS",
+        "source_unchanged": true,
+        "source_manifest_sha256": "a1ecac2363b363b040e10f48ab30dd87e9f750b4de004152084847e36f00c24a",
+        "results": {
+          "focused": {
+            "exit": 0,
+            "seconds": 4.51324571101577,
+            "log_sha256": "50a6a27000c411acbd6f4d9ffc296aec9bad9a4ac399437b9dc18879877e8bae"
+          },
+          "regression": {
+            "exit": 0,
+            "seconds": 543.0998097989941,
+            "log_sha256": "3c4d490557f02a1649915261bc440b5a79799dbc65a51cd56be6e21e52396a2b"
+          }
+        }
+      }
+    },
+    "Windows": {
+      "status": "FAIL",
+      "tests": 3340,
+      "skipped": 67,
+      "log_sha256": "279fe58d36dc16bbfa8487ae7da30f3fcc6e2449fe041e017d66706114c7c7a0",
+      "record_sha256": "885aeb84cc3cdf89adc36dcb4da20b5d04dd7cfa17f9973e4ba183d78828d573",
+      "execution": {
+        "status": "FAIL",
+        "host": "Windows",
+        "exit": 1,
+        "seconds": 1290.5,
+        "source_unchanged": true,
+        "source_manifest_sha256": "94a54cf146e28c3bf8f3c8a2e823d341bc4a354d6fd207c62c18f086dd38c68c",
+        "log_sha256": "279fe58d36dc16bbfa8487ae7da30f3fcc6e2449fe041e017d66706114c7c7a0"
+      },
+      "scope": "Initial immutable snapshot: one obsolete test expected ng=2 to be rejected. Final affected suite now checks supported ng=2 and rejects 0, fractional and >8 counts. No fresh final full Windows-suite pass claimed."
+    }
+  },
+  "final_affected_suites": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 58,
+      "skipped": 2,
+      "log_sha256": "ba70e0058a71743a67eb3b94ad3ca7b089cb30caa2f5f8990a132b8a1dabf7f0",
+      "source_manifest_sha256": "a1ecac2363b363b040e10f48ab30dd87e9f750b4de004152084847e36f00c24a"
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 58,
+      "skipped": 2,
+      "log_sha256": "50a6a27000c411acbd6f4d9ffc296aec9bad9a4ac399437b9dc18879877e8bae",
+      "source_manifest_sha256": "a1ecac2363b363b040e10f48ab30dd87e9f750b4de004152084847e36f00c24a"
+    }
+  },
+  "initial_failures": {
+    "single_finger_expectations": "The old GF180 nf=2 and IHP ng=2 rejection expectations were replaced with positive supported-finger coverage and explicit out-of-range/invalid coverage. Both original 3340-test runs retained the obsolete IHP failure. The final Linux full suite and both affected suites pass.",
+    "runner_syntax": "The first grouping-aware final runner had a missing parenthesis in its inverter audit. Exact bad source and failed logs are retained. The corrected runner passes the entire native batch and restored pilot.",
+    "expected_error_text": "The updated IHP test initially expected the physical finger-count message for zero and fractional ng, which the existing catalog rejects earlier. Both failure records are retained; the final test expects the existing specific validation errors without changing production behavior.",
+    "stopped_redundant_run": "After the fractional-ng message mismatch, the redundant first accepted full run was stopped (exit -9 after normal termination was ignored). Its partial log and FAIL record are retained. A separate immutable accepted-v2 snapshot completed successfully.",
+    "native_wrapper_scope": "The full-v3 wrapper is FAIL solely because its affected test still expected the wrong error message. Its native and editor commands both exit zero; their unchanged sources and raw results are audited independently. No overall wrapper PASS is substituted."
+  },
+  "archives": {
+    "archive": {
+      "status": "PASS",
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/mos-finger-layouts-2026-10-23-v1/evidence.zip",
+      "sha256": "2f01cc179d626093b3169d3366d0be7b9b3015b7799e22a340b84b627bd29b7a",
+      "bytes": 183871923,
+      "files": 27788,
+      "unique_objects": 15594,
+      "logical_bytes": 2717230305,
+      "verified_objects": 15594,
+      "source_files": 6364,
+      "source_zip_sha256": "fe4158dc48d4326831c79923749b098b6fb689cc79285e8b6508f36e11226cd5",
+      "scope": "Exact initial source plus final/accepted deltas, native full batches, all independent audits, editor evidence, legacy source and initial failures. Active/final full regressions and replay are checkpointed separately."
+    },
+    "checkpoint": {
+      "status": "PASS",
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/mos-finger-layouts-2026-10-23-v1/checkpoint.zip",
+      "sha256": "0543d85252ad868969d2a48d24793230d8ca3dad6f0580aa0b924856d401bc02",
+      "bytes": 3003046,
+      "files": 1973,
+      "unique_objects": 985,
+      "logical_bytes": 113475901,
+      "verified_objects": 985,
+      "scope": "Final Linux full regression, corrected Windows affected tests, preserved earlier failures and stopped redundant run, archive restore/replay, hosted parent diagnostics and final workflow correction. Earlier unchanged inputs remain in the verified main archive."
+    }
+  },
+  "restore_replay": {
+    "status": "PASS",
+    "restored_source_files": 6364,
+    "archive_sha256": "2f01cc179d626093b3169d3366d0be7b9b3015b7799e22a340b84b627bd29b7a",
+    "accepted_manifest_sha256": "a1ecac2363b363b040e10f48ab30dd87e9f750b4de004152084847e36f00c24a",
+    "source_unchanged": true,
+    "results": {
+      "native": {
+        "exit": 0,
+        "seconds": 23.792048914008774,
+        "log_sha256": "f1348465b3c036b512cf9b4c8484ac47ec6ae3173e585f188478c4b61a7a67bf"
+      },
+      "tests": {
+        "exit": 0,
+        "seconds": 4.56240084397723,
+        "log_sha256": "3d81995df60c6b7f3d515242ebce16949e3549e9208169ebe6fa8ccae6a93a6d"
+      }
+    }
+  },
+  "workflow_static_checks": {
+    "status": "PASS",
+    "checks": {
+      "ihp-inductor-qualification.yml": {
+        "status": "PASS",
+        "source_sha256": "d7d68377fcaffeb7364181399bf560594d08de01a5ac3c881b5c476b64bd25ec",
+        "shell_script_sha256": "4de7a696954678d2cd7b83f24cd9a5791fa3dddb877dbadddd65df44381a63e2"
+      },
+      "physical-qualification.yml": {
+        "status": "PASS",
+        "source_sha256": "46862b5c57997c0553508099192eb643f97421941a0df48e50826ca2bb8aec4c",
+        "shell_script_sha256": "65dde3b77843c0c47a7e19e2cbf70a5214a3ce3132df73c762b46002e7234d99"
+      },
+      "build-desktop.yml": {
+        "status": "PASS",
+        "source_sha256": "762db17783e8634ae725fed75555cb6e369563b18a697e8bc92f0e619e07bfe0",
+        "shell_script_sha256": "82b0d1392d26db3c894fd332faa6610d2d292cfd47d42725b17c9a71197de153"
+      }
+    },
+    "scope": "Edited shell steps parse with bash -n; pinned KLayout checksum and evidence destinations retained. Static inspection, not a fresh hosted installation, full YAML/actionlint or hosted acceptance."
+  },
+  "parent_hosted_snapshot": {
+    "sha": "e44f7f318e428c764d9faae9ae5a879da483522a",
+    "checked_at": "2026-10-23T18:20:24.136299+00:00",
+    "workflow_counts": {
+      "in_progress": 9,
+      "success": 6,
+      "pending": 1,
+      "failure": 1
+    },
+    "record_sha256": "e342192cc7f50061fee9794259f7b79fdc668d5d07b74cd9951475ddb6feb5ad",
+    "failed_job": 120560558146,
+    "log_sha256": "e4dcf1f39ede450e63e96f39360d4cf793703231363307fec2aba76f5fa4bbfa",
+    "scope": "Coil push job timed out during 20-minute OS dependency setup, while downloading the 38.9 MB Ubuntu KLayout package that would be replaced by the pinned package. It produced no qualification artifacts. Final workflow removes this redundant installation and recommendations, retains pinned checksum and all checks; fresh hosted installation remains unverified."
+  },
+  "remaining": [
+    "Unsampled geometry/finger/multiplicity combinations and broader hierarchical physical contexts.",
+    "Complete device operating, temperature, statistical and reliability envelopes.",
+    "Extracted RC, performance, coupling and mismatch.",
+    "Six unavailable required bindings and broader device/process/tool-view completeness.",
+    "Exact final hosted and installed release acceptance."
+  ],
+  "final_bookkeeping": {
+    "status": "PASS",
+    "tests": 35,
+    "log_sha256": "9ccd63404aeda6bab0e8eb532ab75c82fe2d8958d7bb6d4203edf0e209ab8380",
+    "release": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 168,
+      "local_links": 1783,
+      "gallery_examples": 13,
+      "pdk_coverage": {
+        "status": "matrix_consistent",
+        "process_qualification": "unqualified",
+        "targets": 4,
+        "requirements": 125,
+        "device_entries": 302,
+        "requirement_statuses": {
+          "not_run": 73,
+          "partial": 34,
+          "needs_definition": 4,
+          "passed_reference": 14
+        }
+      }
+    },
+    "release_log_sha256": "693400a73e36de8c8d396687340dcd90d852f04fc13dadcc29ecfdbc7e834a4b"
+  },
+  "cleanup": {
+    "Windows": {
+      "status": "PASS",
+      "removed_bytes": 378479696,
+      "targets": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mos-fingers-20261023-v1\\Windows-regression",
+          "bytes": 289814702
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-mos-fingers-20261023-v1\\source.zip",
+          "bytes": 88664994
+        }
+      ],
+      "scope": "Only this batch temporary Windows source copies; verified permanent archives and the working repository retained. No administrator access."
+    },
+    "Linux": {
+      "status": "PASS",
+      "removed_bytes": 4505635493,
+      "targets": [
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-pilot",
+          "bytes": 10146399
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-fault-pilot",
+          "bytes": 91466285
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-full-v1",
+          "bytes": 1406514509
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-full-v2",
+          "bytes": 275315980
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-full-v3",
+          "bytes": 1467852686
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-regression",
+          "bytes": 289812115
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-accepted",
+          "bytes": 288960879
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-accepted-v2",
+          "bytes": 289836886
+        },
+        {
+          "path": "/var/tmp/icstudio-mos-fingers-20261023-replay",
+          "bytes": 385729754
+        }
+      ],
+      "scope": "Only this batch temporary Linux copies; permanent archives, repository, engines and PDKs retained. Space freed inside Linux; no Windows administrator access or virtual-disk compaction."
+    },
+    "preservation": {
+      "status": "PASS",
+      "sha256": "dc5a2a83b161be729ba7bfb70c59b6c9defeada5803044b3de074b5a64989d58",
+      "bytes": 155,
+      "checked_files": 74227,
+      "additional_files": 0,
+      "additional_logical_bytes": 0,
+      "objects": 0,
+      "scope": "Every non-bytecode file in the ten named temporary trees is content-bound in the verified main archive, checkpoint or this recovery archive before cleanup."
+    }
+  }
+}

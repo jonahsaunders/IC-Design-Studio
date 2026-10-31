@@ -1,0 +1,268 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Thirteen antenna etch stages on original SKY130 HD five-metal counter/UART/APB references; complete process rule coverage and delivery remain open.",
+  "source_files": {
+    "scripts/sky130_staged_antenna.drc": "92b0378b845c81f2e5ec46918f894988f8648fd0a8f4482441de325aa3cc18fc",
+    "scripts/sky130_antenna_controls.py": "1ca984777fcd35b3a48c46d62b2ce8d7ffe587c39cd89f5bbee8717eae1c9a94",
+    "scripts/check_sky130_antenna_controls.py": "8fb2d34108c7ac463e06d5bbe1615f1df358f560a29458099419b17ed53d53b7",
+    "tests/test_sky130_antenna_controls.py": "d2ff5f769c6b3f5be5a3be0f9d9e447bf9575e7d8b5c5e314add8877d30086b4"
+  },
+  "profile": {
+    "manual_commit": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "table_sha256": "fb84ff4f7c8e6d848b693508a412587b5fcc7f4c1724424c9b7fa2ea9e1a2c7d",
+    "definitions_sha256": "3b8a5445da67e7ffa3d5b77f0edb4af90524e29b85d8dd58dac5499c3abf9af8",
+    "technology_lef_sha256": "0cdae79b72254554888e5af386c5b41ef83135fe3b4fd6197c4e3518ed328334",
+    "thicknesses": {
+      "li1": 0.1,
+      "met1": 0.35,
+      "met2": 0.35,
+      "met3": 0.8,
+      "met4": 0.8,
+      "met5": 1.2
+    },
+    "interpretation": "Table Ig matches the captured five-metal, 1.2 um top-metal stack. Row identifiers define via4/met5 despite copied via3/met4 descriptions. Other options and device classes remain unqualified."
+  },
+  "references": [
+    {
+      "case": "counter",
+      "evidence": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/counter-all-stages.json",
+        "sha256": "a1edae6f3dcce3972ea75f0c16a4b0d3aa7042483d9ce729879b3c8dd8c8743e"
+      }
+    },
+    {
+      "case": "uart",
+      "evidence": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/uart-all-stages.json",
+        "sha256": "79804da49f757f5787699ad94b2404c02d1ca90f1fbaaff058737d3cce832aef"
+      }
+    },
+    {
+      "case": "apb",
+      "evidence": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/apb-all-stages.json",
+        "sha256": "fb14442cf9e1c6a21ea75fa2a7d24780a45b5bcb4a3d024d7dc6f665310eda89"
+      }
+    }
+  ],
+  "contact_controls": [
+    {
+      "case": "via3-1-separated",
+      "expected_violation": false,
+      "magic_violation": false,
+      "actual_gate_area_um2": 0.09,
+      "actual_cut_area_um2": 0.04,
+      "actual_ratio": 0.4444444444444445,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-1-separated-all-stages.json",
+        "sha256": "e8705a541070f4504aecdb9aa2126543ad70c759c56e93651b5b41ae0b9d7c40"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-1-separated-native.json",
+        "sha256": "ce050158f5ecea8ea12749b30b3e2967161f4ab832227fd260021034af7fb97d"
+      }
+    },
+    {
+      "case": "via3-1-stacked",
+      "expected_violation": false,
+      "magic_violation": false,
+      "actual_gate_area_um2": 0.09,
+      "actual_cut_area_um2": 0.04,
+      "actual_ratio": 0.4444444444444445,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-1-stacked-all-stages.json",
+        "sha256": "8907d6b32ed7e044f02783335534f4c9bf53a0a074e61111101a4511afc99bd3"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-1-stacked-native.json",
+        "sha256": "ba5d6ac16b72b088ea51f64514dfa0d13187a862fe00bafb2e30e2f2f8448eec"
+      }
+    },
+    {
+      "case": "via3-4-separated",
+      "expected_violation": false,
+      "magic_violation": false,
+      "actual_gate_area_um2": 0.09,
+      "actual_cut_area_um2": 0.16,
+      "actual_ratio": 1.777777777777778,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-4-separated-all-stages.json",
+        "sha256": "8de492952ef71b840ff0978853a394e17775395c304ad45f33e1e252cdc5441b"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-4-separated-native.json",
+        "sha256": "86b61d9434505cde89aea5d97ecd352a42da66a421289d27f2573e500ae1ab8c"
+      }
+    },
+    {
+      "case": "via3-4-stacked",
+      "expected_violation": false,
+      "magic_violation": false,
+      "actual_gate_area_um2": 0.09,
+      "actual_cut_area_um2": 0.16,
+      "actual_ratio": 1.777777777777778,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-4-stacked-all-stages.json",
+        "sha256": "6942bf1c2e2ce862f5013cac68f839f1e8aba24e21bbe970bf87ec7962755edf"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-4-stacked-native.json",
+        "sha256": "45ec48b0533c2c5ac9716c4f17e4d45c113f4f39ad56dfcfdc3e8fdd00b0c954"
+      }
+    },
+    {
+      "case": "via3-16-separated",
+      "expected_violation": true,
+      "magic_violation": false,
+      "actual_gate_area_um2": 0.09,
+      "actual_cut_area_um2": 0.64,
+      "actual_ratio": 7.111111111111112,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-16-separated-all-stages.json",
+        "sha256": "feb923d7cfacaf221a3dcb2dc7b52bf056b8c47222719a0c5015bf89f1b80659"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-16-separated-native.json",
+        "sha256": "7ecdcef925a2c57fbdc87da235c5ab047bdb2f8d7be91f2a8f069d7db9bbe666"
+      }
+    },
+    {
+      "case": "via3-16-stacked",
+      "expected_violation": true,
+      "magic_violation": false,
+      "actual_gate_area_um2": 0.09,
+      "actual_cut_area_um2": 0.64,
+      "actual_ratio": 7.111111111111112,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-16-stacked-all-stages.json",
+        "sha256": "cf4fc75beb25f88e8f1d02b6e1c71d729248e3122bcbd4dd480f31e94191efbe"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via3-16-stacked-native.json",
+        "sha256": "191360bd928bd60fe7177c19fbeb772f2c6e7be1ef54a8d1ecd35ff03606706c"
+      }
+    },
+    {
+      "case": "via4-1-separated",
+      "expected_violation": false,
+      "magic_violation": false,
+      "actual_gate_area_um2": 0.213,
+      "actual_cut_area_um2": 0.64,
+      "actual_ratio": 3.0046948356807515,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via4-1-separated-all-stages.json",
+        "sha256": "576e85fc887992d4b80e756b301c20f621d154c1a4e850dbb666ea37b6250cd2"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via4-1-separated-native.json",
+        "sha256": "809b1343c5c0317badf921c337738884b2310c4aac4d94187ec7ab92c4daff8b"
+      }
+    },
+    {
+      "case": "via4-1-stacked",
+      "expected_violation": false,
+      "magic_violation": true,
+      "actual_gate_area_um2": 0.213,
+      "actual_cut_area_um2": 0.64,
+      "actual_ratio": 3.0046948356807515,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via4-1-stacked-all-stages.json",
+        "sha256": "348541c0ffda6d954b1861f6705bbacc727440e1eeecb328a85d181940607233"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via4-1-stacked-native.json",
+        "sha256": "72f97468accfaf979516c3d6b0c9113e8ca0cca0dff593bcb43126fa30c2d53a"
+      }
+    },
+    {
+      "case": "via4-4-separated",
+      "expected_violation": true,
+      "magic_violation": false,
+      "actual_gate_area_um2": 0.213,
+      "actual_cut_area_um2": 2.56,
+      "actual_ratio": 12.018779342723006,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via4-4-separated-all-stages.json",
+        "sha256": "ab4015891176bf0a29d44c240a20b58c416264f9f8a49fd929f87c200f605f9a"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via4-4-separated-native.json",
+        "sha256": "59aa125c8ecda0f27271a347ccd55999c7bfab06ba5b0f98d4fc40698c2fb10e"
+      }
+    },
+    {
+      "case": "via4-4-stacked",
+      "expected_violation": true,
+      "magic_violation": true,
+      "actual_gate_area_um2": 0.213,
+      "actual_cut_area_um2": 2.56,
+      "actual_ratio": 12.018779342723006,
+      "supplemental": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via4-4-stacked-all-stages.json",
+        "sha256": "123c9230ea5d15c6c702043c0549ac4485fd4f4b90d31979345d40818c36131d"
+      },
+      "native": {
+        "path": "docs/validation/sky130-antenna-2026-10-11/via4-4-stacked-native.json",
+        "sha256": "7106e4362794e6600656e6afe9799bb3f34e199360470d1386b16781a00e3f8c"
+      }
+    }
+  ],
+  "controls": {
+    "execution": {
+      "path": "docs/validation/sky130-antenna-2026-10-11/controls-all-stages.json",
+      "sha256": "5365ce6703220b8c5e2be211917eac31f9d6029cf0ecd89689a6eb5aedc81627"
+    },
+    "files": {
+      "audit-linux.json": "68bf07351b34e8a04cd3afef0ca739835749caba9c720bb0c1547af2827e8515",
+      "audit-win32.json": "d9df67dad02ec204804c63e29a17aa6e352844c35442cf00aefc7f611fe5d702",
+      "control-expectations.json": "4db3bb8e9630d8c3273fd07b3e9befdb5e5f0348630e26e3b28b5db5e898a86d",
+      "control-metrics.json": "8dca5885f7f3465c22452a8145c377a00d491a3825015969c22df62af3d4089f",
+      "control-report.lyrdb": "ee76a8b626806810a38d80c1188d52bf3cee2b52c0fb692859af734118fe973f"
+    },
+    "coupons": 178,
+    "accepted": 88,
+    "rejected": 90
+  },
+  "apb_via4_measurement": {
+    "path": "docs/validation/sky130-antenna-2026-10-11/apb-via4-measurement.json",
+    "sha256": "a267a5fb87d8b2a9c9006d1942f5c586298a537c8fad532ee52838ad590b8603"
+  },
+  "trace": {
+    "path": "docs/validation/sky130-antenna-2026-10-11/apb-diagnostic-trace.json",
+    "sha256": "74a90ac90efa201e547ca3a079da2129760adfff5e3f9e18eb8ae144513f4171"
+  },
+  "trace_build": {
+    "path": "docs/validation/sky130-antenna-2026-10-11/diagnostic-build.json",
+    "sha256": "da84b9c1a04edf6530183d57c483c4ab84285516785ca79c2552f2b8fd0681be"
+  },
+  "findings": [
+    "The previously reported via3 comparison addressed the wrong etch stage. Native APB failures are via4 at the metal4 plane.",
+    "Each of the three APB nets has 0.213 um2 gate and one 0.64 um2 via4 cut. The ratio 3.00469483568075 is below six before diode credit.",
+    "Native Magic uses contact dimensions in CIF units with tile dimensions in internal units, causing the known via3/via4 arrays to be undercounted.",
+    "Native Magic counts overlapping contact fragments as at least one cut each, producing a false failure for one legal stacked via4 cut. All four native misclassifications remain preserved.",
+    "All thirteen supplemental stages pass on the unchanged reference GDS files and classify all ten exact-cut controls correctly.",
+    "178 independent rational controls cover every stage boundary, diode area and fixed bonus, substrate shorts, future and disconnected protection, two connected gates, unrelated metal and one-time bonus on multiple diodes.",
+    "Windows/Linux raw-marker audits agree. 24 native-evidence rejection and rule-inventory unit tests pass on both systems."
+  ],
+  "limitations": [
+    "The rule-specific rectangular coupons isolate antenna arithmetic and connectivity and are not complete geometry-legal chips.",
+    "The logging-only APB trace has 4000 parsed records out of 4003 prefixes; three interleaved records are not claimed reconstructed. The raw log is retained.",
+    "Native execution uses the installed Linux KLayout 0.30.5 binary. Windows independently audits the exact reports; fresh consumer delivery is not claimed.",
+    "The earlier all-stage v1 record incorrectly carried via4-only metadata; its execution is preserved as diagnostic but not used for the all-stage claim.",
+    "Complete rule applicability, density/fill, strict final-GDS LVS, production integration and delivery acceptance remain open."
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-antenna-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "9942fdf12124e1f6112e779d947dd259f2ee8f432d9b59a066509b0fb5b65f8b",
+    "bytes": 3774903,
+    "files": 527,
+    "manifest_sha256": "8804fb4342809e5b5012dd44281a3009ce33b9631bb3670ffe0ca3e949ba9851",
+    "scope": "SKY130 antenna diagnostic progress, including controls and superseded metadata. Chunk 6 remains incomplete."
+  }
+}

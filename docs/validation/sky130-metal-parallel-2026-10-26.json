@@ -1,0 +1,218 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "milestone": "SKY130 LI/M1–M4 editable physical parallel arrays1–16 and selected actual-array DC/AC",
+  "scope": {
+    "product": "Single straight unit geometry/specification/shape/pin identity preserved. Physical count1–16, W/L0.5–10um on5nmgrid; bounded app construction policy, not a proven continuous foundry operating envelope.",
+    "physical": "280 selected layouts, both0/90 orientations, exact unmerged units and shared two-net graph, strict full Magic DRC and Netgen LVS, directGDS presentation and format-supported OASIS exchange.",
+    "electrical": "30 actual exported/native array contexts at2×5um,counts2/3/16,bothrotations,tt27C. DC+complexAC only, appsingleRmN vs one entire nativeN-unit array vs analyticalRsingle/N. No array transient/noise or calibrated matching claim.",
+    "qualified": false,
+    "installed_acceptance": false,
+    "full_family": false,
+    "chunk_complete": false,
+    "signoff": false
+  },
+  "counts": {
+    "clean_layouts": 280,
+    "native_faults": 25,
+    "electrical_contexts": 30,
+    "electrical_analyses": 60,
+    "electrical_path_samples": 3870,
+    "models": 5,
+    "clean_native_primitives": 2200,
+    "rehashed_native_controls": 12,
+    "rehashed_qt_controls": 4,
+    "single_unit_legacy_identity_cases": 40,
+    "qt_count_transitions": 20,
+    "qt_late_lock_rejections": 5
+  },
+  "seconds": {
+    "native": 233.257824411,
+    "audit": 10.243067553000003,
+    "archive_restored_audit": 10.376421518
+  },
+  "maximum_normalized_error": 7.506651565794252e-08,
+  "execution": {
+    "root": "/var/tmp/icstudio-metal-parallel-20261026-v1/full-v1",
+    "nonce": "d1279116fc4c435887e5bf055f292679",
+    "qualification_sha256": "fab879807ed04de432f69be553d56d1f889352f1f7010f340d404b45e094e520",
+    "manifest_sha256": "a4ee11f1b089a0984c46c6abad40144d64a8efac2da6965abd91f4ab347ddaa5"
+  },
+  "source": {
+    "snapshot": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-parallel-20261026-v1/source-manifest-v3.json",
+    "snapshot_sha256": "81968b0364f91b7aefdb1c23df97a773dc4b4dfdd0bb459a2f146c63711d3586",
+    "fixture_files": 6538,
+    "captured_files": 854,
+    "source_files_sha256": "7975fca2e78c45e616032fa0efb072130bbd6e3ab2983bd1096f4b172d02993b",
+    "reviewed_source_unchanged": true,
+    "selected_hashes": {
+      "icstudio/sky130_metal_resistors.py": "d6df44dbb4e0a54d7506bf269d9b7edba6f9f55d67d96835300853524b21bc4b",
+      "icstudio/silicon_ui.py": "edf2bcec91ee932160cf5a9cb6d31ca27d4ee69add36f0b73f8735231c8801d6",
+      "scripts/qualify_sky130_metal_resistor_parallel.py": "800110f1eae18a7a697547515eb928bcc8f5d2b6f49545d5fcbe3e9668febe43",
+      "scripts/audit_sky130_metal_resistor_parallel.py": "7c44f3f73cd2b868a391b8619a05d62c181d9936f3a996c0b24ceb4fd4bb17e0",
+      "tests/test_sky130_metal_resistor_parallel.py": "f7ad9dd6d472bcebe88b6d81171743bc01ed6499943bee5c83900a09093b1b2d",
+      "tests/test_sky130_metal_resistor_parallel_audit.py": "2de7095cc445dd2231d8d3ba155feb5137b6a8d662e4a04b18e527fd4bf5f491",
+      "tests/gui_sky130_metal_resistor_parallel.py": "f91bcced3058f05d00900fb5fe345c32f5eec63437939fa7e64e86310220388c",
+      "docs/qualification/sky130-metal-resistor-parallel-v1.json": "66b905bcde6cc53fd94a5408fd5ae76f71387ae41d8c7a0c5357961c6bc64472"
+    }
+  },
+  "inputs": {
+    "simulation_package": {
+      "path": "icstudio/assets/pdks/sky130A",
+      "revision": "b26f7f28e659ddc1",
+      "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+    },
+    "physical_package": {
+      "target": "sky130A",
+      "revision": "9a491f0ebd51a0aa",
+      "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+      "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+    },
+    "physical_runtime_before_sha256": "7b6c0b62a8f0934f89a30bd32a3697d39b9e880d71eeafc617526e577878479c",
+    "runtime_before_sha256": "b860ead033c9312e97f463d5f987e46efef1d042ab0cb9883bb61bdd057b66bf",
+    "guard_results": {
+      "source": true,
+      "simulation_package": true,
+      "staged_models": true,
+      "physical_package": true,
+      "runtime": true
+    }
+  },
+  "verification": {
+    "independent_full": {
+      "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-parallel-audit-20261026-v1/full-readback.json",
+      "sha256": "0d6d87b95cc4cb75763793fe3dedf6f1561c9b1eed434cedae7134587c588c83"
+    },
+    "pilot_controls": {
+      "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-parallel-audit-20261026-v1/pilot-v3-controls.json",
+      "sha256": "02e0b7f37e7fc5d699bb3a612f04ed59506854b5ecf1d9bd53690f767de344fd"
+    },
+    "qt": {
+      "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-parallel-audit-20261026-v1/qt-audit.json",
+      "sha256": "0bf76f0e578e62a85b7ad986f59ed79a44998498002f9161dde464d89ebc2e9e"
+    },
+    "legacy_m1": {
+      "path": "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-metal-parallel-audit-20261026-v1/single-unit-compatibility.json",
+      "sha256": "9346c9d7b3bfcabdba925aae3026f1894c5ead89a0e1164bffb3ed4686dd2cbf"
+    },
+    "focused_linux": {
+      "tests": 25,
+      "seconds": 3.708,
+      "status": "PASS",
+      "log_sha256": "531b6ed259228398cde2e4c1c4e9d4e5c35ed2a8f075ebce1fe4790ed66a6845"
+    }
+  },
+  "earlier_attempts": [
+    {
+      "name": "pilot-v1",
+      "status": "FAIL",
+      "cause": "Adapter port-assignment fixture reset imported text presentation. Four unrotated clean arrays passed before rotated exchange rejected; no final acceptance inherited."
+    },
+    {
+      "name": "pilot-v2",
+      "status": "FAIL",
+      "cause": "Checker treated Netgen unique topology as success despite exact summed-width property errors. Eight clean arrays passed; fault loop stopped at missing-unit mismatch readback."
+    },
+    {
+      "name": "pilot-v3",
+      "status": "PASS",
+      "scope": "8clean/10nativefault/8electricalcontexts16analyses; independent corrupted-evidence controls passed before fullrun."
+    }
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "PASS",
+    "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-parallel-2026-10-26-v1/evidence.zip",
+    "archive_sha256": "e53c9af3171ff1778c8d961576b458e54ffc1a3e809509d0fc5ac6068d736d8c",
+    "archive_bytes": 86120677,
+    "manifest_sha256": "6c09e25d104e2d8ed41a263fbf05d9b671f822fd8ad8a31ec1abfa0cbad4980f",
+    "logical_files": 22968,
+    "unique_objects": 9890,
+    "logical_bytes": 2995991760,
+    "all_objects_verified": true,
+    "all_originals_unchanged": true,
+    "source_linkage": {
+      "schema": 1,
+      "status": "PASS",
+      "captured_sources": 854,
+      "source_files_sha256": "7975fca2e78c45e616032fa0efb072130bbd6e3ab2983bd1096f4b172d02993b",
+      "source_manifest_sha256": "81968b0364f91b7aefdb1c23df97a773dc4b4dfdd0bb459a2f146c63711d3586",
+      "source_unchanged": true
+    },
+    "windows_archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-parallel-2026-10-26-v1/evidence.zip"
+  },
+  "recovery": {
+    "schema": 1,
+    "status": "PASS",
+    "archive_sha256": "e53c9af3171ff1778c8d961576b458e54ffc1a3e809509d0fc5ac6068d736d8c",
+    "manifest_sha256": "6c09e25d104e2d8ed41a263fbf05d9b671f822fd8ad8a31ec1abfa0cbad4980f",
+    "method_sha256": "faa535ff8b6e20a55a602148310bee24ebf76161ced86ea124ba20094fca13b2",
+    "command": [
+      "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+      "-B",
+      "-X",
+      "pycache_prefix=/__icstudio_parallel_archive_no_bytecode__",
+      "/var/tmp/icstudio-metal-parallel-20261026-v1/archive-restored/readback.py"
+    ],
+    "cwd": "/var/tmp/icstudio-metal-parallel-20261026-v1/archive-restored",
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "HOME": "/__icstudio_parallel_archive_no_home__",
+      "LANG": "C",
+      "LC_ALL": "C",
+      "TZ": "UTC",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONNOUSERSITE": "1",
+      "PYTHONHASHSEED": "0"
+    },
+    "seconds": 10.376421518,
+    "restored_files": 15103,
+    "audit": {
+      "schema": 1,
+      "status": "PASS",
+      "gate": "sky130-metal-resistor-parallel-v1",
+      "pilot": false,
+      "original_execution_root": "/var/tmp/icstudio-metal-parallel-20261026-v1/full-v1",
+      "execution_id": "d1279116fc4c435887e5bf055f292679",
+      "qualification_sha256": "fab879807ed04de432f69be553d56d1f889352f1f7010f340d404b45e094e520",
+      "manifest_sha256": "a4ee11f1b089a0984c46c6abad40144d64a8efac2da6965abd91f4ab347ddaa5",
+      "source_files_sha256": "7975fca2e78c45e616032fa0efb072130bbd6e3ab2983bd1096f4b172d02993b",
+      "qualified": false,
+      "installed_acceptance": false,
+      "full_family": false,
+      "chunk_complete": false,
+      "release_ready": false,
+      "signoff": false,
+      "counts": {
+        "clean_layouts": 280,
+        "native_faults": 25,
+        "electrical_contexts": 30,
+        "electrical_analyses": 60,
+        "electrical_path_samples": 3870
+      },
+      "maximum_normalized_error": 7.506651565794252e-08,
+      "scope": "Independent written-mask/native/raw audit of bounded parallel resistor arrays.\n\nThis source integration does not qualify continuous device envelopes, array\ntransient/noise, matching, installed delivery, reliability or manufacturing.\n",
+      "source_binding": "captured sources matched reviewed files"
+    },
+    "scope": "Complete raw readback from restored archive. No native simulation, DRC or LVS execution was repeated."
+  },
+  "remaining": [
+    "Installed packaged acceptance of the new physical parallel implementation.",
+    "Unselected geometries and physical classes beyond the expressly defined construction.",
+    "Continuous electrical validity, calibrated device accuracy/matching/statistical distributions, power/current and reliability.",
+    "Array transient/noise and manufacturing signoff."
+  ],
+  "combined_feedback": "Root-owned final Windows/Linux feedback is separately recorded; this receipt does not claim it.",
+  "id": "sky130-metal-parallel-2026-10-26",
+  "chunk": 7,
+  "parent_candidate": "e3fa0cc60da18cee8359817bb5321923587abc50",
+  "source_note": "Reviewed parent plus exact source delta; new physical-array implementation source acceptance. Separate installed candidate e3fa0cc contains the earlier single-unit implementation.",
+  "integrator_verification": {
+    "status": "PASS",
+    "archive_hash": true,
+    "all_zip_crc": true,
+    "manifest_hash": true,
+    "object_hashes": 9890,
+    "scope": "Independent ZIP and complete object readback; restored native-artifact audit is recorded separately."
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "schema": 1,
+  "recipe": "sky130-drawn-scribe-size-bounds-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5"
+    }
+  },
+  "scope": "Fourteen drawn-layer scribe.5 records use a global sufficient size bound. After flattening reachable hierarchy and merging all touching/overlapping fragments, every connected feature must have at least one bounding-box side strictly below 10000 nm. Such a feature cannot contain a 10-by-10 um region at any location or orientation, so none can occur within 150 um of any scribe junction. A feature at exactly 10000 nm on both sides is a candidate. Large boxes, including thin L shapes and rings, stay unreviewed: bounding-box size does not prove a wide region or a nearby junction. No junction, frame, die or chip boundary is inferred. Empty drawing geometry is recorded separately. Generated-mask companion records and complete scribe context remain unreviewed; this report does not establish full physical coverage or process qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "b7bce88fc6cf0c5b3cf0d8fb112b91a002dc394d4b1d0c8a3194bf2de1420a50",
+  "measurements": {
+    "diff": {
+      "raw_shapes": 2,
+      "texts": 0,
+      "components": 1,
+      "area_nm2": 100000000,
+      "candidates": 1,
+      "max_short_span_nm": 10000
+    },
+    "poly": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "li1": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "met1": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "met2": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "met3": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "mcon": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "licon1": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "via": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "via2": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "met4": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "met5": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "via3": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    },
+    "via4": {
+      "raw_shapes": 0,
+      "texts": 0,
+      "components": 0,
+      "area_nm2": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "r1376",
+      "rule": "scribe.5",
+      "target": "diff",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 1,
+      "candidates": 1,
+      "max_short_span_nm": 10000,
+      "disposition": "unreviewed",
+      "reason": "wide-candidate-needs-context"
+    },
+    {
+      "id": "r1377",
+      "rule": "scribe.5",
+      "target": "poly",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1378",
+      "rule": "scribe.5",
+      "target": "li1",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1379",
+      "rule": "scribe.5",
+      "target": "met1",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1380",
+      "rule": "scribe.5",
+      "target": "met2",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1381",
+      "rule": "scribe.5",
+      "target": "met3",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1382",
+      "rule": "scribe.5",
+      "target": "mcon",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1383",
+      "rule": "scribe.5",
+      "target": "licon1",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1384",
+      "rule": "scribe.5",
+      "target": "via",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1385",
+      "rule": "scribe.5",
+      "target": "via2",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1386",
+      "rule": "scribe.5",
+      "target": "met4",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1387",
+      "rule": "scribe.5",
+      "target": "met5",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1388",
+      "rule": "scribe.5",
+      "target": "via3",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    },
+    {
+      "id": "r1389",
+      "rule": "scribe.5",
+      "target": "via4",
+      "limit_nm": 10000,
+      "junction_distance_nm": 150000,
+      "components": 0,
+      "candidates": 0,
+      "max_short_span_nm": 0,
+      "disposition": "absent-operand",
+      "reason": "empty-drawing"
+    }
+  ],
+  "unreviewed": 1,
+  "status": "review-required"
+}

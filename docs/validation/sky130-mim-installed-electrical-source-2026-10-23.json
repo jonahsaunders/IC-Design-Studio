@@ -1,0 +1,245 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "chunk": 7,
+  "status": "implemented_and_source_verified_installed_execution_pending",
+  "qualified": false,
+  "chunk_complete": false,
+  "full_mim_installed": false,
+  "installed_electrical_acceptance": false,
+  "signoff": false,
+  "scope": "New installed-gate source bringup only: fresh electrical60 on actual apt42 and four fresh source GUI native extractions. Frozen Windows/Linux application acceptance remains pending.",
+  "source_baseline": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+  "source_files": {
+    "scripts/installed_mim_inputs.py": "46696a5e01d318fe7ae88748548780c7b6a707bf7dcf83b4c3b862758f44b12e",
+    "scripts/qualify_installed_sky130_mim_electrical.py": "81caaccf9eff94d7b24a7aa5ca6c470ff5e343a16463aca133bb4b73cc422213",
+    "scripts/audit_installed_sky130_mim_electrical.py": "58f916c18519a14cf62991fb5921896965db56a44129945ad1442fb15e255b27",
+    "tests/test_installed_mim_electrical.py": "1dae6707a79e43af7ffaa78294b045d46aaa0913146d92d1b435b9194bc30972"
+  },
+  "source_snapshot": {
+    "manifest_sha256": "f71d4a8d2a70f04af74e7bb656df6230a623da5c1035d69ef09438088673dfb9",
+    "runner_source_manifest_sha256": "58a68af3a3a8a943403af73bf217c93518c52433016a51e494d1d0d898b896e3",
+    "unchanged": true,
+    "scope": "Explicit working-source snapshot on the listed commit; not a clean packaged candidate."
+  },
+  "source_native": {
+    "host": "Linux",
+    "engine": "/usr/bin/ngspice",
+    "version": "42",
+    "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "runtime_before_sha256": "8464420accfda9882f2835ba2e22da7d99c618b83d3b4f1dc24dd767db1896c6",
+    "runtime_after_sha256": "8464420accfda9882f2835ba2e22da7d99c618b83d3b4f1dc24dd767db1896c6",
+    "runtime_unchanged": true,
+    "qualification_sha256": "8461816d2c2a4db4afdae7ef14d4c43128b97b3ef529e6deda9c80bcd9049999",
+    "audit_sha256": "adde7cb0794cc1ec84d3f5bfd630fe763009e6d8bda8fda10dd79f117bc9c01b",
+    "manifest_sha256": "f9355e5680392e9c0358d2f48dd4869b31b3c7af6a546aa4fb598f4f2ee47c78",
+    "seconds": 469.5958712299762,
+    "native_simulator_invocations": 300,
+    "counts": {
+      "contexts": 60,
+      "ac_samples": 480,
+      "op_points": 60,
+      "bias_faults": 180,
+      "domain_rejections": 5,
+      "bias_invariance_contexts": 40,
+      "fresh_gui_native_inputs": 4
+    },
+    "original_gui_inputs": {
+      "execution_id": "d0c66fc9b5cc46acaf5dbd8ebc9b203f",
+      "report_sha256": "45252f81b0fb011c0c23e365e3b8da5818417f1f2165ea908c8642aec28a666c",
+      "files_sha256": "ea3e26d5d09c0124aaebae8c670fe6b4214edced5ffbf98288a47f38c5a34e9c",
+      "binding_sha256": "7a475366cda607c41d2f29ce9381a6ffadcb5a1db3708d8c024b1422a32da1ea",
+      "archive_sha256": "f87b12919d6a4abdc713dd77e2a96a5f574a1b1b9fe4100b4b7bd8c6e9d60c7f",
+      "original_jobs": {
+        "p1-r0": {
+          "job_id": "2026-10-24T00-05-52+00-00_43e14ee91ac24a82",
+          "native_sha256": "7d0ace725bf632e0ae368c727b55a3759c6aea0c794d9eea4fb6a696f0394e81",
+          "gds_sha256": "1a88a2e6768020cb905ba6b55e07b3329cdcefd694c90f4f31a394b4b05c5329",
+          "reference_sha256": "2290ebafdff18aa4f8cbd3f4b47f848b9b00ade9b0fd944562bba59ba52df1c6"
+        },
+        "p1-r90": {
+          "job_id": "2026-10-24T00-05-54+00-00_2d1628c35ad04893",
+          "native_sha256": "391236133eb72d550fefd35e104ee7bf2500de29213b693a4b3e86abcb10ce95",
+          "gds_sha256": "b8c53e2f47a411ce7b34fdf8b2bbe7d598ee405d36d63ec63a2f75cfc4eb240a",
+          "reference_sha256": "5267b9909423c4f2e3729efe250bdd3939d5ff121110d6b340f08e5a79cb07cb"
+        },
+        "p2-r0": {
+          "job_id": "2026-10-24T00-05-55+00-00_cff6e62f54d54d2f",
+          "native_sha256": "73308692901356d908439118d5c1750bf82ddc5d2408a558cddc16ad72873339",
+          "gds_sha256": "58db6024b4c1603893ede1912048e781670e7ffec076a7d49de75166f6e548bf",
+          "reference_sha256": "974e70f9a4119787294f2838be8954b9c012567892d5b0de1d2f7ef6fe373dd1"
+        },
+        "p2-r90": {
+          "job_id": "2026-10-24T00-05-57+00-00_1ca9943067704786",
+          "native_sha256": "a3b1b68554c9f0e0fb3f9ff6407e4a0fb1eca10eee695e072c5ce862f0a6520b",
+          "gds_sha256": "9134c2daeb8cc33f3eccba4f2f638f00cbb45019f7724dd42db42ed4371510ff",
+          "reference_sha256": "550aec0a59ec055a4ff8c8365ce5db00d926d4b7207242ad0312df92573f67d0"
+        }
+      }
+    },
+    "scope": "Three model paths per electrical context: saved GUI reference, fresh native extraction, and independent literal call; independent source-fixed analytical RC checks."
+  },
+  "four_context_bringup": {
+    "qualification_sha256": "21b409c2f7de10b60fdf22c02bbe4a6754c7131bc851353f808a4467cdd3e8b2",
+    "audit_sha256": "36d9d613c97141f80d65a6429680d3d8c2b39b6c3502250316016a2868b2773c",
+    "seconds": 26.084938340005465,
+    "counts": {
+      "contexts": 4,
+      "ac_samples": 32,
+      "op_points": 4,
+      "bias_faults": 4,
+      "domain_rejections": 5,
+      "bias_invariance_contexts": 0,
+      "fresh_gui_native_inputs": 4
+    }
+  },
+  "tests": {
+    "Windows": {
+      "tests": 20,
+      "failures": 0,
+      "skips": 0,
+      "log_sha256": "fe9053a2c391d0202950449e155b52b6d37b14575a7ba7583b5315f8e0582b4c"
+    },
+    "Linux": {
+      "tests": 20,
+      "failures": 0,
+      "skips": 0,
+      "log_sha256": "19c5f048c810b6a913fa1fd0c68c2b494ccda6a873461ae69e097cff2bc84d26"
+    }
+  },
+  "independent_review": {
+    "status": "PASS",
+    "controls_archive": {
+      "path": "IC-Design-Studio-evidence/chunk7-installed-mim-independent-review-2026-10-23-v1/evidence.zip",
+      "sha256": "cb9d322dad41fbd355df989c60b4abd29d45d203235edbe6fd9b710d2373c4f3",
+      "bytes": 152793,
+      "manifest_sha256": "4caaa308434bf506a93c1a51bc4cc8b4e6cd21a875a244111fa49d625e1f2616",
+      "scope": "Independently archived copied raw/deck controls and review methods; full readback performed by the reviewer. The native source archive is an explicit dependency."
+    },
+    "receipt_sha256": "8801cbf4fa21163b5149ab696a4532a79f3cd49a6dbb9fa403f50ece2297d38c",
+    "full_live_audit_matches_saved": true,
+    "original_inventory_unchanged": true,
+    "rehashed_copied_controls": [
+      {
+        "name": "missing-bias",
+        "status": "REJECTED",
+        "reason": "Native terminal bias differs."
+      },
+      {
+        "name": "sign-reversed",
+        "status": "REJECTED",
+        "reason": "Native terminal bias differs."
+      },
+      {
+        "name": "clamped-bias",
+        "status": "REJECTED",
+        "reason": "Native terminal bias differs."
+      },
+      {
+        "name": "displaced-ground",
+        "status": "REJECTED",
+        "reason": "Native terminal bias differs."
+      },
+      {
+        "name": "unexpected-dc-current",
+        "status": "REJECTED",
+        "reason": "Ideal-model DC current/KCL differs."
+      },
+      {
+        "name": "control-current-kcl",
+        "status": "REJECTED",
+        "reason": "Ideal-model DC current/KCL differs."
+      },
+      {
+        "name": "wrong-coefficient",
+        "status": "REJECTED",
+        "reason": "Native coefficient/switch differs: camimc"
+      },
+      {
+        "name": "wrong-ac-stimulus",
+        "status": "REJECTED",
+        "reason": "Native AC stimulus differs."
+      },
+      {
+        "name": "broken-ac-kcl",
+        "status": "REJECTED",
+        "reason": "Native response is nonpassive or fails KCL."
+      },
+      {
+        "name": "nonfinite-ac",
+        "status": "REJECTED",
+        "reason": "Nonfinite native value: v(n_extracted)"
+      },
+      {
+        "name": "same-bias-other-orientation",
+        "status": "REJECTED",
+        "reason": "Stale/substituted raw context identity."
+      },
+      {
+        "name": "hidden-shunt",
+        "status": "REJECTED",
+        "reason": "Executed circuit/directives differ from the independent deck contract."
+      },
+      {
+        "name": "wrong-deck-bias",
+        "status": "REJECTED",
+        "reason": "Executed circuit/directives differ from the independent deck contract."
+      }
+    ],
+    "scope": "Mutated native copies are rehashed; independent selected raw/deck predicates reject semantic faults. Original native invocation identities remain in original evidence; only synthetic copied checker paths are rebased for the context-substitution test."
+  },
+  "contracts": {
+    "contract_sha256": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209",
+    "bias_source_map_sha256": "549bb89580245515b5a7e2b43eb784fcfd3d621a57ff3141c10183da42c87830",
+    "unchanged": true,
+    "orientation_mapping": "Historical application corroboration retained separately; current source is captured with fresh GUI/native evidence."
+  },
+  "retained_development_failures": {
+    "record_sha256": "0df3c0632148a68818d7500c645fdb86cdb51f35fef16b9a88473a0b9484cc74",
+    "scope": "Initial restricted-Windows test invocation interrupted before traceback; initial Linux snapshot lacked scripts directory; first outside-review copied-control helper selected the wrong raw header. Successful final tests/controls are distinct. No failed native electrical run was discarded or rerun."
+  },
+  "evidence_archive": {
+    "path": "IC-Design-Studio-evidence/sky130-mim-installed-electrical-source-2026-10-23-v1/evidence.zip",
+    "sha256": "d239ad3a78c5b32a115a0319dafbaaeeeac6c9bb85a0c775b26158415fe13edc",
+    "bytes": 4238874,
+    "manifest_sha256": "59ced9143fce8d150c50c231847885df148d4d98f2bd2c74476dbbc965e8b2af",
+    "logical_files": 9035,
+    "logical_bytes": 416565859,
+    "stored_unique_objects": 1663,
+    "referenced_unique_objects": 4233,
+    "all_stored_and_referenced_objects_fully_read_back": true,
+    "original_files_removed": false,
+    "dependencies": {
+      "gui": {
+        "path": "IC-Design-Studio-evidence/sky130-mim-installed-probe-2026-10-23-v1/evidence.zip",
+        "sha256": "f87b12919d6a4abdc713dd77e2a96a5f574a1b1b9fe4100b4b7bd8c6e9d60c7f"
+      },
+      "passive": {
+        "path": "IC-Design-Studio-evidence/sky130-mim-passive-2026-10-23-v1/evidence.zip",
+        "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+      },
+      "li": {
+        "path": "IC-Design-Studio-evidence/sky130-li-linked-2026-10-23-v1/evidence.zip",
+        "sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49"
+      }
+    },
+    "recovery": "The manifest records original file paths and explicit self/prior archive member locations. Referenced archives are required; the original live paths must be reconstructed for this live auditor."
+  },
+  "installed_exit_gate": {
+    "status": "pending_actual_frozen_execution",
+    "requires": [
+      "Independently verified frozen GUI prerequisite for the exact immutable candidate.",
+      "Actual shipped simulator and initializer/library identities; no custom or PATH-selected replacement.",
+      "Unchanged packaged PDK, four fresh GUI native input identities and source-fixed contracts.",
+      "Full60 qualification PASS and independent audit PASS with exact required counts and matching receipt hashes.",
+      "Separate installed public-DRC and other family requirements remain independently required."
+    ]
+  },
+  "limits": [
+    "Source-only execution; no frozen application or installer was launched.",
+    "The four native geometry results retain their original GUI identity; only electrical cases were freshly run here.",
+    "Bounded2x10um,mf1,27C linear-model checks do not establish leakage, breakdown, reliability, silicon accuracy or foundry signoff.",
+    "Auditor verifies live original paths and dependencies; the evidence archive preserves paths for reconstruction, not silent relocation.",
+    "Runtime capture covers engine/configuration/bundled files and resolved engine ELF dependencies, not a hermetic full operating-system image."
+  ]
+}

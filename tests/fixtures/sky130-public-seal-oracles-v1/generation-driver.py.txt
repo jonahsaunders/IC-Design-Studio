@@ -1,0 +1,24 @@
+import hashlib, json, os, shutil, subprocess
+from pathlib import Path
+
+root=Path(__file__).resolve().parent.parent
+sources=root/'work/IC-Design-Studio/tests/fixtures/sky130-public-seal-v1'
+out=root/'outputs/sky130-nikon-oracles-v1'
+out.mkdir(exist_ok=False)
+env=dict(os.environ, PATH='/opt/icstudio/bin:'+os.environ['PATH'])
+def run(command,cwd,name):
+    result=subprocess.run(command,cwd=cwd,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=120)
+    (out/(name+'.log')).write_text(result.stdout,encoding='utf-8')
+    assert result.returncode==0, result.stdout
+    print(name,result.returncode,flush=True)
+cross=out/'cross'; cross.mkdir()
+for f in sources.glob('*.mag'): shutil.copy2(f,cross/f.name)
+shutil.copy2(sources/'sky130seal_ring.tech',cross/'sky130seal_ring.tech')
+(cross/'convert.tcl').write_text('tech load sky130seal_ring -noprompt\ndrc off\nload nikon_sealring_shape\nselect top cell\nexpand\ncif *hier write disable\ncif *array write disable\ngds write nikon_sealring_shape\nquit\n')
+run(['/opt/icstudio/bin/magic','-dnull','-noconsole','-rcfile','/dev/null','convert.tcl'],cross,'cross')
+assert (cross/'nikon_sealring_shape.gds').is_file()
+for width,height in [('100','120'),('100.005','150.005'),('400','300')]:
+    name='seal-'+width+'x'+height; work=out/name; work.mkdir()
+    assert not (work/'temp').exists()
+    run(['/usr/bin/python3',str(sources/'sky130_gen_sealring.py'),width,height,'result','-keep'],work,name)
+    assert (work/'result/advSeal_6um_gen.gds').is_file()

@@ -1,0 +1,1210 @@
+{
+  "schema": 1,
+  "id": "sky130-mim-contract-v1",
+  "as_of": "2026-10-23",
+  "source_baseline": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+  "chunk": 7,
+  "status": "source_review_complete_with_open_requirements",
+  "qualified": false,
+  "chunk_complete": false,
+  "target": "sky130A",
+  "catalog_entries": [
+    "sky130_fd_pr/cap_mim_m3_1.sym",
+    "sky130_fd_pr/cap_mim_m3_2.sym"
+  ],
+  "scope": "Source-locked requirements for both SKY130 MiM constructions and a predefined passive-corner integration example. No new execution, complete-envelope or device-status claim.",
+  "package": {
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "sources": {
+    "device_docs": {
+      "path": "docs/qualification/sky130-mos-bias-sources-v1/device-details.rst",
+      "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+      "bytes": 45543,
+      "kind": "public_document",
+      "selectors": {
+        "MiM capacitors": [
+          1217
+        ],
+        "0` to 5.0V": [
+          718,
+          763,
+          823,
+          824,
+          875,
+          876,
+          1098,
+          1171,
+          1228
+        ],
+        "CAPM over Metal-3": [
+          1235
+        ],
+        "CAP2M over Metal-4": [
+          1236
+        ],
+        "parasitic capacitance from the bottom plate to substrate": [
+          1247
+        ]
+      },
+      "upstream_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details.rst",
+      "license": "Apache-2.0"
+    },
+    "electrical_specs": {
+      "path": "docs/qualification/sky130-mim-sources-v1/cap_mim-table0.rst",
+      "sha256": "4dcab6b9d0fc9c843828d7c9363603de497edd82589d1a8297e0ea24a32bf37f",
+      "bytes": 750,
+      "kind": "public_document",
+      "selectors": {
+        "CMIMA": [
+          13
+        ],
+        "CMIM2A": [
+          34
+        ],
+        "RSCAPM": [
+          27,
+          48
+        ]
+      },
+      "license": "Apache-2.0",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/cap_mim/cap_mim-table0.rst",
+      "upstream_path": "docs/rules/device-details/cap_mim/cap_mim-table0.rst",
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1"
+    },
+    "public_rules": {
+      "path": "docs/qualification/sky130-mim-sources-v1/periphery-rules.rst",
+      "sha256": "a4fec57aa417caa1b52d67b684a6b17dfc1ed0b69724ffe121de421bd938d44e",
+      "bytes": 109085,
+      "kind": "public_document",
+      "selectors": {
+        "(capm.1)": [
+          1825
+        ],
+        "(capm.6)": [
+          1855
+        ],
+        "(capm.10)": [
+          1870
+        ],
+        "(capm.12)": [
+          1880
+        ]
+      },
+      "license": "Apache-2.0",
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery-rules.rst",
+      "upstream_path": "docs/rules/periphery-rules.rst",
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1"
+    },
+    "public_license": {
+      "path": "docs/qualification/sky130-mim-sources-v1/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "kind": "license",
+      "selectors": {}
+    },
+    "package": {
+      "path": "icstudio/assets/pdks/sky130A/package.json",
+      "sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+      "bytes": 915525,
+      "kind": "package_manifest",
+      "selectors": {}
+    },
+    "upstream_lock": {
+      "path": "icstudio/assets/pdks/sky130A/UPSTREAM-LOCK.json",
+      "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c",
+      "bytes": 407,
+      "kind": "upstream_release_lock",
+      "selectors": {}
+    },
+    "models_license": {
+      "path": "icstudio/assets/pdks/sky130A/LICENSE-models.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "kind": "license",
+      "selectors": {}
+    },
+    "symbols_license": {
+      "path": "icstudio/assets/pdks/sky130A/LICENSE-symbols.txt",
+      "sha256": "cce5dea3ff2bf1730e2dfb96c2170f7ec25ec15ef4b51ddfb691acf556072141",
+      "bytes": 11355,
+      "kind": "license",
+      "selectors": {}
+    },
+    "library": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice",
+      "sha256": "fa39ed2a7845082fe57970d32c155cb9ac082c62b3c35fa75ffafd7f40f418d2",
+      "bytes": 6634,
+      "kind": "public_model_library",
+      "selectors": {
+        ".lib tt": [
+          18,
+          141
+        ],
+        ".lib ll": [
+          89,
+          206
+        ],
+        ".lib hh": [
+          102,
+          219
+        ],
+        ".lib hl": [
+          115,
+          232
+        ],
+        ".lib lh": [
+          128,
+          245
+        ]
+      },
+      "license": "Apache-2.0 with retained integration annotations"
+    },
+    "common_rc": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice",
+      "sha256": "277930447149f1b40ffda6959a990e473bbda7bdf97ce6180f5e563fe5957eea",
+      "bytes": 9789,
+      "kind": "public_model",
+      "selectors": {
+        "m3_dw =": [
+          82
+        ],
+        "m4_dw =": [
+          83
+        ],
+        "tc1rm3=": [
+          36
+        ],
+        "tc1rvia4=": [
+          58
+        ]
+      },
+      "license": "Apache-2.0"
+    },
+    "model_1": {
+      "path": "icstudio/assets/pdks/sky130A/libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_1.model.spice",
+      "sha256": "5cb086313d55341351305d30500ca39571d689b692d2be525c4b3b8b4db86e6f",
+      "bytes": 1262,
+      "kind": "public_model",
+      "selectors": {
+        ".subckt": [
+          16
+        ],
+        "num_contacts": [
+          20,
+          22
+        ],
+        "r1 =": [
+          21
+        ],
+        "carea =": [
+          23
+        ],
+        "czero =": [
+          25
+        ]
+      },
+      "license": "Apache-2.0"
+    },
+    "symbol_1": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/cap_mim_m3_1.sym",
+      "sha256": "da40e6b6461fe88068dbb412e1e5d56115b744ee50a4d60e86d6af6b507ab617",
+      "bytes": 773,
+      "kind": "public_symbol",
+      "selectors": {
+        "format=": [
+          4
+        ],
+        "template=": [
+          5
+        ],
+        "name=c0": [
+          13
+        ],
+        "name=c1": [
+          14
+        ]
+      },
+      "license": "Apache-2.0"
+    },
+    "model_2": {
+      "path": "icstudio/assets/pdks/sky130A/libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_mim_m3_2.model.spice",
+      "sha256": "a2e9ed5568b23debce5ac002f15df8c675010bac34d05b0c4e8a8dcca916260f",
+      "bytes": 1262,
+      "kind": "public_model",
+      "selectors": {
+        ".subckt": [
+          16
+        ],
+        "num_contacts": [
+          20,
+          22
+        ],
+        "r1 =": [
+          21
+        ],
+        "carea =": [
+          23
+        ],
+        "czero =": [
+          25
+        ]
+      },
+      "license": "Apache-2.0"
+    },
+    "symbol_2": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/cap_mim_m3_2.sym",
+      "sha256": "b20c6884dcacecd897b81276a7dc220beb0c760815f0fde2da241456557fec2e",
+      "bytes": 772,
+      "kind": "public_symbol",
+      "selectors": {
+        "format=": [
+          4
+        ],
+        "template=": [
+          5
+        ],
+        "name=c0": [
+          13
+        ],
+        "name=c1": [
+          14
+        ]
+      },
+      "license": "Apache-2.0"
+    },
+    "generator_1": {
+      "path": "icstudio/sky130_devices.py",
+      "sha256": "c7aa310d39200ca57787e829a571e0d5c98e41e1182534e3bc2d9d4414b9428c",
+      "bytes": 19698,
+      "kind": "project_source",
+      "selectors": {
+        "aspect ratio at most 5:1": [
+          63
+        ],
+        "maximum=30000": [
+          59
+        ],
+        "100,000-shape": [
+          152
+        ]
+      }
+    },
+    "generator_2": {
+      "path": "icstudio/sky130_mim2.py",
+      "sha256": "55fa6b60b07d0d785c0e9ef946b5170d609133c99ff88f5bdd48b4eac852259f",
+      "bytes": 4977,
+      "kind": "project_source",
+      "selectors": {
+        "not 2000 <= nm <= 30000": [
+          47
+        ],
+        "not 1 <= count <= 16": [
+          42
+        ]
+      }
+    },
+    "orientation_adapter": {
+      "path": "icstudio/sky130_mim2_extract.py",
+      "sha256": "0ef71dfe61e9c05b5a9179c2bdfc3fefa60e056932f972889757a3d83b0cd39f",
+      "bytes": 9541,
+      "kind": "project_source",
+      "selectors": {}
+    },
+    "orientation_runner": {
+      "path": "scripts/qualify_sky130_mim_orientation.py",
+      "sha256": "fdce05dc39d4640f27d0657a2094705c5b8b3ab12cfb3f0524fbb39eec8154ba",
+      "bytes": 11022,
+      "kind": "project_source",
+      "selectors": {
+        ".ac dec 1 1k 10G": [
+          43
+        ],
+        "errors[k]>1e-6": [
+          60,
+          62
+        ],
+        "resistance_relative_error": [
+          65,
+          66
+        ]
+      }
+    },
+    "orientation_auditor": {
+      "path": "scripts/audit_sky130_mim_orientation.py",
+      "sha256": "f24bcdbf1f955ac100f1fce7eececac4400b217232bbd0fd2857401fcaba9c9f",
+      "bytes": 10619,
+      "kind": "project_source",
+      "selectors": {}
+    },
+    "binding_runner": {
+      "path": "scripts/qualify_sky130_mim_binding.py",
+      "sha256": "0b3ec48da17be819adede3557575f5ea74468d1c487aa5b561c0b3591a6782e0",
+      "bytes": 9471,
+      "kind": "project_source",
+      "selectors": {
+        "MULTIPLIERS =": [
+          24
+        ],
+        "PROFILES =": [
+          25
+        ],
+        "SEED =": [
+          26
+        ],
+        "scaling > 1e-9": [
+          138
+        ]
+      }
+    },
+    "binding_auditor": {
+      "path": "scripts/audit_sky130_mim_binding.py",
+      "sha256": "5378149b807007a77eed7789b05706234e89ea439e0d4bf6fbc49e3c200e62ff",
+      "bytes": 6171,
+      "kind": "project_source",
+      "selectors": {}
+    },
+    "binding_preparer": {
+      "path": "scripts/prepare_sky130_mim_binding.py",
+      "sha256": "ffad6c2ee0cfcb6d550f53ba7badef8a9d5f8dd2f4edf6b82259fa8978bfb8ee",
+      "bytes": 4395,
+      "kind": "project_source",
+      "selectors": {}
+    },
+    "historical_capacitor_runner": {
+      "path": "scripts/qualify_capacitor_families.py",
+      "sha256": "23681648a84e35fc0a7c824a966ad3db000e27836c8f9622eeffaddf020fac78",
+      "bytes": 15718,
+      "kind": "project_source",
+      "selectors": {
+        "(-.5, .5)": [
+          220
+        ],
+        "vm' if name == 'cap_mim_m3_2": [
+          48
+        ]
+      }
+    },
+    "physical_release_lock": {
+      "path": "examples/sky130-reference-assets.json",
+      "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c",
+      "bytes": 407,
+      "kind": "project_source",
+      "selectors": {}
+    },
+    "physical_pcell": {
+      "kind": "public_release_asset",
+      "asset_path": "sky130A/libs.tech/magic/sky130A.tcl",
+      "sha256": "48d2111c3246cbbed88bca5cf479dd8edc4ce4629d5241cca4102368765da69a",
+      "bytes": 226099,
+      "release_lock_source": "physical_release_lock",
+      "release": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "url": "https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "retained_archive": "sky130-li-linked-2026-10-23-v1/evidence.zip",
+      "archive_member": "native/physical-adapter/libs.tech/magic/sky130A.tcl",
+      "scope": "Inspected exact existing public adapter asset; not recopied or relicensed by this contract."
+    },
+    "physical_technology": {
+      "kind": "public_release_asset",
+      "asset_path": "sky130A/libs.tech/magic/sky130A.tech",
+      "sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "bytes": 162731,
+      "release_lock_source": "physical_release_lock",
+      "release": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "url": "https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "retained_archive": "sky130-li-linked-2026-10-23-v1/evidence.zip",
+      "archive_member": "native/physical-adapter/libs.tech/magic/sky130A.tech",
+      "scope": "Inspected exact existing public adapter asset; not recopied or relicensed by this contract."
+    },
+    "tt_res": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_typical__cap_typical.spice",
+      "sha256": "7c29723076a22fe5b080d245adb97451de5ad0812f0344f6bfe31c9697b71f0d",
+      "bytes": 937,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "tt_cap": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_typical__cap_typical__lin.spice",
+      "sha256": "4deedaa4be27f2e1f083567a945cbaed02027e018fcd09431e57a02c08a117b1",
+      "bytes": 2029,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "ll_res": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_low__cap_low.spice",
+      "sha256": "8d8f19bfd7d9728508b0a45bfbfae293fed168b902cb2fc820fb40a7c2627ac0",
+      "bytes": 1003,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "ll_cap": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_low__cap_low__lin.spice",
+      "sha256": "3b09fb3584bdc4f8992f651c3137eaacb8c513bbbc04b71318a7e1e67868f7c6",
+      "bytes": 2091,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "hh_res": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_high__cap_high.spice",
+      "sha256": "38ec47a4a5fa0d5a23dcab8dee6c43086503204c71ea956e0d78471cadc909a4",
+      "bytes": 1022,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "hh_cap": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_high__cap_high__lin.spice",
+      "sha256": "a7e7c905ed3c7857fb72a6c55046f335caaa9eb2e09dc725c5bbed6d52a03a09",
+      "bytes": 2091,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "hl_res": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_high__cap_low.spice",
+      "sha256": "fa31c9c9a72f46cd4666428ff3c338a2e912578914f77049d7d15980fb546b85",
+      "bytes": 976,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "hl_cap": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_high__cap_low__lin.spice",
+      "sha256": "c602a648587cab46b5db98a994656bdfad8b8970d658bab404890f65504be20e",
+      "bytes": 2088,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "lh_res": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_low__cap_high.spice",
+      "sha256": "30bf08f792bb9c569f76b3fe3c81825551f5a0750a65208b49a2010ad9b765c3",
+      "bytes": 977,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "lh_cap": {
+      "path": "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_low__cap_high__lin.spice",
+      "sha256": "459dde9efbf35abed0554d5203fc2ed4e8a10a25422a6794bf7662a71517dc75",
+      "bytes": 2094,
+      "kind": "public_model_parameters",
+      "selectors": {},
+      "license": "Apache-2.0"
+    },
+    "capacitor-families-2026-10-17": {
+      "path": "docs/validation/capacitor-families-2026-10-17.json",
+      "sha256": "2edf2da917d3bd37d799d9530b1b885d5d1ac9bbe6c8f9745ce6b57a78f39e48",
+      "bytes": 66266,
+      "kind": "historical_acceptance",
+      "selectors": {}
+    },
+    "sky130-mim2-layouts-2026-10-22": {
+      "path": "docs/validation/sky130-mim2-layouts-2026-10-22.json",
+      "sha256": "2d29b7431f5b354837ff6be852ed0c75a47eba7daa19efe046fda16de8b97a6a",
+      "bytes": 100004,
+      "kind": "historical_acceptance",
+      "selectors": {}
+    },
+    "sky130-mim-binding-2026-10-22": {
+      "path": "docs/validation/sky130-mim-binding-2026-10-22.json",
+      "sha256": "fe7c235301eeeb9f5cb6673ec73de3da649b9ae03173d588633115812606b433",
+      "bytes": 81386,
+      "kind": "historical_acceptance",
+      "selectors": {}
+    },
+    "sky130-mim-orientation-2026-10-23": {
+      "path": "docs/validation/sky130-mim-orientation-2026-10-23.json",
+      "sha256": "e9b8b66d436897ac391ec4c1751befcbc92e72e1f27efe9bb0a27136894f12cc",
+      "bytes": 56213,
+      "kind": "historical_acceptance",
+      "selectors": {}
+    },
+    "sky130-first-mim-2026-10-23": {
+      "path": "docs/validation/sky130-first-mim-2026-10-23.json",
+      "sha256": "85608b52405e75bb42f06e3ba416da77b1aca10c5cea0ec0a1727c90fd4a43ab",
+      "bytes": 101054,
+      "kind": "historical_acceptance",
+      "selectors": {}
+    }
+  },
+  "facts": [
+    {
+      "id": "MIM-IDENTITY",
+      "kind": "source_model_interface",
+      "sources": [
+        "model_1",
+        "model_2",
+        "symbol_1",
+        "symbol_2",
+        "package",
+        "binding_preparer"
+      ],
+      "claim": "Two-terminal c0/c1 subcircuits with W/L in micrometres and mf parameter. First plate uses metal3/via3; second metal4/via4. Original second symbol says VM but current reviewed adapter emits mf and simulator m; original assets remain unchanged."
+    },
+    {
+      "id": "MIM-VOLTAGE-DOCUMENT",
+      "kind": "published_family_voltage_definition_with_mapping_caveat",
+      "sources": [
+        "device_docs",
+        "model_1",
+        "model_2"
+      ],
+      "value": {
+        "abs_terminal_difference_v": [
+          0,
+          5
+        ]
+      },
+      "claim": "Public MiM section states this model-validity voltage range for CAPM over metal3 and CAP2M over metal4. Its model/cell identifiers differ from shipped wrapper names; reviewed construction identity supports a bounded family mapping, not proof of the missing parasitic or reliability behavior."
+    },
+    {
+      "id": "MIM-PUBLIC-SPECS",
+      "kind": "published_measurement_limits_with_unresolved_conditions",
+      "sources": [
+        "electrical_specs"
+      ],
+      "value": {
+        "area_fF_per_um2": {
+          "nominal": 2,
+          "lsl": 1.8,
+          "usl": 2.2
+        },
+        "perimeter_fF_per_um": {
+          "nominal": 0.19,
+          "lsl": 0.11,
+          "usl": 0.27
+        },
+        "top_sheet_ohm_per_square": {
+          "nominal": 5.8,
+          "lsl": 4.8,
+          "usl": 6.8
+        }
+      },
+      "claim": "Same listed values for both constructions. Measurement temperature, bias, frequency, geometry extraction and statistical confidence are not given by this table. Do not enforce these limits directly on stress-corner coefficients or substitute top-sheet resistance for bottom-metal resistance."
+    },
+    {
+      "id": "MIM-MODEL-LAW",
+      "kind": "compact_model_equation",
+      "sources": [
+        "model_1",
+        "model_2",
+        "common_rc"
+      ],
+      "claim": "Series capacitor and two resistors, with geometry offsets, area/perimeter capacitance and optional per-instance AGAUSS mismatch scaled by 1/sqrt(wc*lc*mf). Both C temperature coefficients are zero; this is a model choice, not temperature accuracy or an operating bound. These wrappers have no bias-dependent C or leakage term and no explicit substrate terminal."
+    },
+    {
+      "id": "MIM-CORNER-ALIASES",
+      "kind": "library_selection",
+      "sources": [
+        "library",
+        "binding_runner",
+        "orientation_runner"
+      ],
+      "claim": "nominal/tt,ss,ff,sf,fs select identical typical passive files. Existing nominal/ss/ff checks cannot establish ll/hh/hl/lh coverage. Library process/mismatch switches default to zero in ordinary sections."
+    },
+    {
+      "id": "MIM-PCELL-RANGE",
+      "kind": "upstream_generator_bounds_not_electrical_validity",
+      "sources": [
+        "physical_pcell"
+      ],
+      "value": {
+        "width_um": [
+          2,
+          30
+        ],
+        "length_um": [
+          2,
+          30
+        ]
+      },
+      "claim": "Both PCell defaults/checks set wmin/lmin2 and wmax/lmax30. Source labels drawn capacitor routines work in progress; defaults are not a complete model-validity statement."
+    },
+    {
+      "id": "MIM-APPLICATION-RANGE",
+      "kind": "implementation_bounds",
+      "sources": [
+        "generator_1",
+        "generator_2"
+      ],
+      "value": {
+        "width_um": [
+          2,
+          30
+        ],
+        "length_um": [
+          2,
+          30
+        ],
+        "grid_um": 0.005,
+        "parallel_count": [
+          1,
+          16
+        ],
+        "plate1_aspect_ratio_max": 5,
+        "plate2_aspect_ratio_cap": null,
+        "footprint_shape_limit": 100000
+      },
+      "claim": "First plate has an explicit5:1 aspect bound; second plate accepts rectangles without that additional ratio test. Shape-budget and exact terminal/parameter/layer guards can reject otherwise in-range inputs. Fractional positive electrical mf is not a physical copy count."
+    },
+    {
+      "id": "MIM-RULE-GAP",
+      "kind": "unresolved_written_rule_applicability",
+      "sources": [
+        "public_rules",
+        "physical_technology"
+      ],
+      "claim": "Public capm table has N/A values, legacy met2/via2 terminology and named aspect/area/context restrictions; pinned executable technology separately defines capm/cap2m rules on metal3/4. Reconcile stack applicability and nonchecked context/area/aspect requirements before a full written-rule claim."
+    },
+    {
+      "id": "MIM-MEASURED-MODEL-GAP",
+      "kind": "unresolved_accuracy_mapping",
+      "sources": [
+        "electrical_specs",
+        "device_docs",
+        "model_1",
+        "model_2"
+      ],
+      "claim": "Documentation describes substrate parasitics and top-plate sheet resistance, whereas these two-pin wrappers contain bottom-metal/contact resistance and a single capacitor. Full substrate/distributed/top-electrode and RF accuracy cannot be inferred from shared-model agreement."
+    }
+  ],
+  "passive_sections": {
+    "tt": {
+      "coefficients": {
+        "rm3": 0.047,
+        "rm4": 0.047,
+        "rcvia3": 3.41,
+        "rcvia4": 0.38,
+        "tol_m3": 0.0,
+        "tol_m4": 0.0,
+        "camimc": 2e-15,
+        "cpmimc": 1.9e-16,
+        "m3_dw": -2.5e-08,
+        "m4_dw": -2.5e-08
+      },
+      "parameter_units": {
+        "rm3": "ohm/square",
+        "rm4": "ohm/square",
+        "rcvia3": "ohm",
+        "rcvia4": "ohm",
+        "tol_m3": "m",
+        "tol_m4": "m",
+        "camimc": "F/um^2",
+        "cpmimc": "F/um",
+        "m3_dw": "m",
+        "m4_dw": "m"
+      },
+      "library_section": "tt",
+      "includes": [
+        "corners/tt.spice",
+        "r+c/res_typical__cap_typical.spice",
+        "r+c/res_typical__cap_typical__lin.spice",
+        "corners/tt/specialized_cells.spice"
+      ],
+      "passive_includes": [
+        "r+c/res_typical__cap_typical.spice",
+        "r+c/res_typical__cap_typical__lin.spice"
+      ],
+      "sources": [
+        "library",
+        "common_rc",
+        "tt_res",
+        "tt_cap"
+      ],
+      "kind": "model_coefficient_not_validity_bound"
+    },
+    "ll": {
+      "coefficients": {
+        "rm3": 0.0407,
+        "rm4": 0.0407,
+        "rcvia3": 1.373,
+        "rcvia4": 0.1224,
+        "tol_m3": 4.55e-08,
+        "tol_m4": 4.55e-08,
+        "camimc": 1.778e-15,
+        "cpmimc": 3e-17,
+        "m3_dw": -2.5e-08,
+        "m4_dw": -2.5e-08
+      },
+      "parameter_units": {
+        "rm3": "ohm/square",
+        "rm4": "ohm/square",
+        "rcvia3": "ohm",
+        "rcvia4": "ohm",
+        "tol_m3": "m",
+        "tol_m4": "m",
+        "camimc": "F/um^2",
+        "cpmimc": "F/um",
+        "m3_dw": "m",
+        "m4_dw": "m"
+      },
+      "library_section": "ll",
+      "includes": [
+        "corners/tt.spice",
+        "r+c/res_low__cap_low.spice",
+        "r+c/res_low__cap_low__lin.spice",
+        "corners/tt/specialized_cells.spice"
+      ],
+      "passive_includes": [
+        "r+c/res_low__cap_low.spice",
+        "r+c/res_low__cap_low__lin.spice"
+      ],
+      "sources": [
+        "library",
+        "common_rc",
+        "ll_res",
+        "ll_cap"
+      ],
+      "kind": "model_coefficient_not_validity_bound"
+    },
+    "hh": {
+      "coefficients": {
+        "rm3": 0.0533,
+        "rm4": 0.0533,
+        "rcvia3": 6.623,
+        "rcvia4": 0.7377,
+        "tol_m3": -4.55e-08,
+        "tol_m4": -4.55e-08,
+        "camimc": 2.231e-15,
+        "cpmimc": 3.5e-16,
+        "m3_dw": -2.5e-08,
+        "m4_dw": -2.5e-08
+      },
+      "parameter_units": {
+        "rm3": "ohm/square",
+        "rm4": "ohm/square",
+        "rcvia3": "ohm",
+        "rcvia4": "ohm",
+        "tol_m3": "m",
+        "tol_m4": "m",
+        "camimc": "F/um^2",
+        "cpmimc": "F/um",
+        "m3_dw": "m",
+        "m4_dw": "m"
+      },
+      "library_section": "hh",
+      "includes": [
+        "corners/tt.spice",
+        "r+c/res_high__cap_high.spice",
+        "r+c/res_high__cap_high__lin.spice",
+        "corners/tt/specialized_cells.spice"
+      ],
+      "passive_includes": [
+        "r+c/res_high__cap_high.spice",
+        "r+c/res_high__cap_high__lin.spice"
+      ],
+      "sources": [
+        "library",
+        "common_rc",
+        "hh_res",
+        "hh_cap"
+      ],
+      "kind": "model_coefficient_not_validity_bound"
+    },
+    "hl": {
+      "coefficients": {
+        "rm3": 0.056,
+        "rm4": 0.056,
+        "rcvia3": 8.0,
+        "rcvia4": 0.891,
+        "tol_m3": -6.5e-08,
+        "tol_m4": -6.5e-08,
+        "camimc": 1.778e-15,
+        "cpmimc": 3e-17,
+        "m3_dw": -2.5e-08,
+        "m4_dw": -2.5e-08
+      },
+      "parameter_units": {
+        "rm3": "ohm/square",
+        "rm4": "ohm/square",
+        "rcvia3": "ohm",
+        "rcvia4": "ohm",
+        "tol_m3": "m",
+        "tol_m4": "m",
+        "camimc": "F/um^2",
+        "cpmimc": "F/um",
+        "m3_dw": "m",
+        "m4_dw": "m"
+      },
+      "library_section": "hl",
+      "includes": [
+        "corners/tt.spice",
+        "r+c/res_high__cap_low.spice",
+        "r+c/res_high__cap_low__lin.spice",
+        "corners/tt/specialized_cells.spice"
+      ],
+      "passive_includes": [
+        "r+c/res_high__cap_low.spice",
+        "r+c/res_high__cap_low__lin.spice"
+      ],
+      "sources": [
+        "library",
+        "common_rc",
+        "hl_res",
+        "hl_cap"
+      ],
+      "kind": "model_coefficient_not_validity_bound"
+    },
+    "lh": {
+      "coefficients": {
+        "rm3": 0.038,
+        "rm4": 0.038,
+        "rcvia3": 0.5,
+        "rcvia4": 0.012,
+        "tol_m3": 6.5e-08,
+        "tol_m4": 6.5e-08,
+        "camimc": 2.231e-15,
+        "cpmimc": 3.5e-16,
+        "m3_dw": -2.5e-08,
+        "m4_dw": -2.5e-08
+      },
+      "parameter_units": {
+        "rm3": "ohm/square",
+        "rm4": "ohm/square",
+        "rcvia3": "ohm",
+        "rcvia4": "ohm",
+        "tol_m3": "m",
+        "tol_m4": "m",
+        "camimc": "F/um^2",
+        "cpmimc": "F/um",
+        "m3_dw": "m",
+        "m4_dw": "m"
+      },
+      "library_section": "lh",
+      "includes": [
+        "corners/tt.spice",
+        "r+c/res_low__cap_high.spice",
+        "r+c/res_low__cap_high__lin.spice",
+        "corners/tt/specialized_cells.spice"
+      ],
+      "passive_includes": [
+        "r+c/res_low__cap_high.spice",
+        "r+c/res_low__cap_high__lin.spice"
+      ],
+      "sources": [
+        "library",
+        "common_rc",
+        "lh_res",
+        "lh_cap"
+      ],
+      "kind": "model_coefficient_not_validity_bound"
+    }
+  },
+  "evidence": {
+    "capacitor-families-2026-10-17": {
+      "source": "capacitor-families-2026-10-17",
+      "status": "partial",
+      "scope": "Selected public capacitor interfaces, complex terminal responses, parallel factors and deliberate device faults. No full operating range, physical, RF-band or silicon-model qualification.",
+      "source_baseline": "e07e5681e82f063997b68ab3347b121983774289",
+      "qualified": false,
+      "chunk_complete": false
+    },
+    "sky130-mim2-layouts-2026-10-22": {
+      "source": "sky130-mim2-layouts-2026-10-22",
+      "status": "sampled_second_mim_layouts_passed",
+      "scope": "Bounded square SKY130 second-plate MiM recipe on metal4/cap2m/metal5. Finite native geometry/connectivity, deterministic extracted capacitance, source desktop and Windows/native handoff. Rectangular geometry and full operating/statistical envelopes remain unqualified.",
+      "source_baseline": "3c1b4b846adf9eac763d9c3258c4f3bd32964e09",
+      "qualified": false,
+      "chunk_complete": false
+    },
+    "sky130-mim-binding-2026-10-22": {
+      "source": "sky130-mim-binding-2026-10-22",
+      "status": "reviewed_mim_parameter_integration_passed",
+      "scope": "Versioned SKY130 second-MiM MF parameter mapping, exact-source local import, finite seeded public-model integration and selected square-layout regression. No silicon, complete statistical/operating, rectangular geometry or tapeout qualification.",
+      "source_baseline": "cf590699f11b30c6edd7b103416e71c0ddd9a068",
+      "qualified": false,
+      "chunk_complete": false
+    },
+    "sky130-mim-orientation-2026-10-23": {
+      "source": "sky130-mim-orientation-2026-10-23",
+      "status": "bounded_rectangular_mim_orientation_passed",
+      "scope": "Finite rectangular SKY130 second-MiM layout/extraction and public-model equivalence. No measured RF accuracy, complete operating/statistical/reliability envelope, arbitrary geometry, distributed RC, installed-release or foundry qualification.",
+      "source_baseline": "096c275d32991aae86b09c86ea2049b8e6c1e387",
+      "qualified": false,
+      "chunk_complete": false
+    },
+    "sky130-first-mim-2026-10-23": {
+      "source": "sky130-first-mim-2026-10-23",
+      "status": "first_mim_orientation_and_contact_edge_checks_passed",
+      "scope": "Finite first-MiM orientation and contact-edge correction, both-family native regression and public-model electrical equivalence. No measured RF accuracy, complete operating/statistical/reliability envelope, arbitrary layout, distributed RC, installed-release or foundry qualification.",
+      "source_baseline": "1461c4a8ec66a8a133096300d0ba39d7e6d2e11f",
+      "qualified": false,
+      "chunk_complete": false
+    }
+  },
+  "requirements": [
+    {
+      "id": "MIM-INTERFACE",
+      "axis": "terminal_parameter_model",
+      "status": "bounded_historical_pass",
+      "sources": [
+        "model_1",
+        "model_2",
+        "symbol_1",
+        "symbol_2",
+        "sky130-mim-binding-2026-10-22"
+      ],
+      "remaining": "Preserve exact current/saved package mappings, imports, terminal order, units and rejection paths in installed candidate acceptance.",
+      "blocker_kind": "installed_execution"
+    },
+    {
+      "id": "MIM-PASSIVE-CORNERS",
+      "axis": "operating_conditions",
+      "status": "implementation_and_execution_gap",
+      "sources": [
+        "library",
+        "tt_res",
+        "tt_cap",
+        "ll_res",
+        "ll_cap",
+        "hh_res",
+        "hh_cap",
+        "hl_res",
+        "hl_cap",
+        "lh_res",
+        "lh_cap",
+        "orientation_runner"
+      ],
+      "remaining": "Execute the predefined20 selected model/section/orientation contexts with raw effective coefficients, exact extracted native geometry and independent RC law.",
+      "blocker_kind": "local_implementation_and_execution"
+    },
+    {
+      "id": "MIM-BIAS-BOUNDARIES",
+      "axis": "operating_conditions",
+      "status": "source_defined_family_range_not_currently_linked",
+      "sources": [
+        "device_docs",
+        "model_1",
+        "model_2",
+        "historical_capacitor_runner",
+        "orientation_runner"
+      ],
+      "remaining": "After explicit wrapper/family mapping review, check actual−5,0,+5V applied terminal differences for both linked models. Earlier general batch uses±0.5V; orientation uses0. Linear compact-model equivalence cannot qualify leakage, breakdown or voltage nonlinearity.",
+      "blocker_kind": "local_execution_plus_source_mapping"
+    },
+    {
+      "id": "MIM-ELECTRICAL-GEOMETRY",
+      "axis": "operating_envelope",
+      "status": "unresolved_source_definition",
+      "sources": [
+        "model_1",
+        "model_2",
+        "physical_pcell",
+        "electrical_specs"
+      ],
+      "remaining": "No complete electrical W/L validity or accuracy domain established. Distinguish PCell/application bounds from model-validity limits; preserve invalid/nonpositive parameter controls.",
+      "blocker_kind": "upstream_definition"
+    },
+    {
+      "id": "MIM-TEMPERATURE",
+      "axis": "operating_envelope",
+      "status": "unresolved_source_definition",
+      "sources": [
+        "model_1",
+        "model_2",
+        "common_rc",
+        "orientation_runner"
+      ],
+      "remaining": "Find MiM-specific temperature validity/accuracy limits. Prior0/27/85C or−40/27/125C samples and zero C temperature coefficients do not supply them.",
+      "blocker_kind": "upstream_definition"
+    },
+    {
+      "id": "MIM-RELIABILITY",
+      "axis": "operating_envelope",
+      "status": "unresolved_source_definition",
+      "sources": [
+        "device_docs",
+        "electrical_specs",
+        "model_1",
+        "model_2"
+      ],
+      "remaining": "Resolve lifetime, dielectric field/breakdown, ripple-current, self-heating, leakage and contact/electrode reliability definitions with temperature/duty/time applicability. Do not treat5V model-validity wording as lifetime qualification.",
+      "blocker_kind": "upstream_definition"
+    },
+    {
+      "id": "MIM-SPEC-ACCURACY",
+      "axis": "independent_accuracy",
+      "status": "unresolved_source_conditions",
+      "sources": [
+        "electrical_specs",
+        "device_docs",
+        "model_1",
+        "model_2"
+      ],
+      "remaining": "Resolve measurement conditions and topology mapping for area/perimeter/top-sheet limits; retain stress-coefficient differences without marking a spec failure or replacing constants.",
+      "blocker_kind": "upstream_definition_and_model_mapping"
+    },
+    {
+      "id": "MIM-STATISTICS",
+      "axis": "statistical_applicability",
+      "status": "bounded_model_integration_only",
+      "sources": [
+        "model_1",
+        "model_2",
+        "library",
+        "sky130-mim-binding-2026-10-22"
+      ],
+      "remaining": "Seeded paired MF law is tested; measured mismatch distribution/correlations, global process variation, layout dependence and reliability calibration remain separate. Verify selected _mm aliases and source switches before broader claims.",
+      "blocker_kind": "upstream_calibration_and_execution"
+    },
+    {
+      "id": "MIM-PHYSICAL-CLASSES",
+      "axis": "physical_geometry",
+      "status": "bounded_historical_pass",
+      "sources": [
+        "physical_pcell",
+        "physical_technology",
+        "generator_1",
+        "generator_2",
+        "orientation_adapter",
+        "sky130-mim-orientation-2026-10-23",
+        "sky130-first-mim-2026-10-23"
+      ],
+      "remaining": "Reconcile isolated rectangles and connected integer parallel units with stacked capacitors, shared electrodes, dummy/contact coverage, arrays and imported/hierarchical geometry. Unsupported classes must remain explicit; existing mixed separated families do not qualify stacked overlap.",
+      "blocker_kind": "local_scope_reconciliation_and_execution"
+    },
+    {
+      "id": "MIM-WRITTEN-RULES",
+      "axis": "physical_geometry",
+      "status": "unresolved_applicability",
+      "sources": [
+        "public_rules",
+        "physical_technology"
+      ],
+      "remaining": "Resolve legacy stack terminology, missing numerical area/aspect bounds and context restrictions; full native DRC passes do not waive unimplemented manual rules.",
+      "blocker_kind": "upstream_definition_and_rule_mapping"
+    },
+    {
+      "id": "MIM-EXTRACTED-RC",
+      "axis": "extracted_behavior",
+      "status": "bounded_historical_pass",
+      "sources": [
+        "model_1",
+        "model_2",
+        "orientation_adapter",
+        "sky130-first-mim-2026-10-23"
+      ],
+      "remaining": "Preserve mask-derived W/L, exact connectivity/model and original native records. Distributed RC, substrate/top-sheet physical accuracy, direct hierarchical native extraction and ambiguous shared electrodes remain unqualified/rejected.",
+      "blocker_kind": "local_implementation_plus_model_scope"
+    },
+    {
+      "id": "MIM-INSTALLED",
+      "axis": "installed_acceptance",
+      "status": "not_run_for_current_candidate",
+      "sources": [
+        "sky130-mim-binding-2026-10-22",
+        "sky130-mim-orientation-2026-10-23",
+        "sky130-first-mim-2026-10-23"
+      ],
+      "remaining": "Freeze exact Windows/Linux deliverables; verify installed place/edit/save/reopen, old revisions, generation, rotated exports, native verification and defined electrical checks with actual shipped engines/packages. Source GUI is not installed acceptance.",
+      "blocker_kind": "installed_execution"
+    }
+  ],
+  "model_equations": {
+    "effective_geometry_um": "wc=w+1e6*(mN_dw+tol_mN); lc=l+1e6*(mN_dw+tol_mN)",
+    "capacitance_f": "C0=camimc*wc*lc+2*cpmimc*(wc+lc)",
+    "contact_pitch_um": {
+      "1": 0.56,
+      "2": 0.73
+    },
+    "series_resistance_ohm": "R=rmN*lc/wc+rcviaN*pitch_um^2/(wc*lc), at temp=tnom with mf=m=1",
+    "admittance_s": "Y=1/(R+1/(j*2*pi*f*C0))",
+    "mismatch": "C=C0*(1+MC_MM_SWITCH*AGAUSS(0,1,1)*0.028/sqrt(wc*lc*mf)); simulator m additionally multiplies complete subcircuit",
+    "sources": [
+      "model_1",
+      "model_2",
+      "common_rc"
+    ],
+    "scope": "Literal public compact-model laws; not empirical calibration or validity bounds."
+  },
+  "next_acceptance": {
+    "id": "MIM-PASSIVE-CORNERS-2x10-v1",
+    "status": "planned_not_executed",
+    "requirement": "MIM-PASSIVE-CORNERS",
+    "models": [
+      "sky130_fd_pr__cap_mim_m3_1",
+      "sky130_fd_pr__cap_mim_m3_2"
+    ],
+    "width_um": 2,
+    "length_um": 10,
+    "multiplicity": 1,
+    "rotations_degrees": [
+      0,
+      90
+    ],
+    "sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "contexts": 20,
+    "temperature_c": 27,
+    "tnom_c": 27,
+    "dc_bias_v": 0,
+    "ac_voltage_v": 1,
+    "frequencies_hz": [
+      1000,
+      10000,
+      100000,
+      1000000,
+      10000000,
+      100000000,
+      1000000000,
+      10000000000
+    ],
+    "statistical_switches": {
+      "mc_mm_switch": 0,
+      "mc_pr_switch": 0
+    },
+    "paths": [
+      "actual_application_export",
+      "actual_native_extracted_subcircuit",
+      "independent_literal_model_call",
+      "independent_analytical_series_rc"
+    ],
+    "observables": [
+      "complex_terminal_admittance",
+      "Re(1/Y) series resistance",
+      "−1/(2*pi*f*Im(1/Y)) capacitance",
+      "effective raw coefficient probes for every passive_sections coefficient",
+      "raw MC switches and applied source",
+      "original/corrected native model terminals and dimensions"
+    ],
+    "tolerances": {
+      "relative_admittance": 1e-06,
+      "relative_resistance": 1e-06,
+      "relative_capacitance": 1e-06,
+      "coefficient_relative": 1e-10,
+      "coefficient_absolute": 1e-24,
+      "swapped_dimension_resistance_fraction_min": 0.05
+    },
+    "faults": [
+      "preserve existing native dielectric/top-open/bottom-open/reference-width/reference-count and swapped-W/L controls",
+      "wrong distinct passive section must mismatch numerical response and/or coefficient readback",
+      "changed coefficient after staging must fail source identity",
+      "rehashed equivalent manual substitution for extracted path must fail independent identity audit"
+    ],
+    "evidence": [
+      "fresh full native DRC,strict LVS and pinned public KLayout configuration for both plate geometries/orientations",
+      "complete original source hashes, model closure, runtime/engine identities, input decks, native original/corrected extraction, raw output, faults and independent audit",
+      "retained failures and exact selected coverage; no cached result or family promotion"
+    ],
+    "exit_condition": "All20 predefined selected contexts pass source/raw/analytical checks and required controls. This closes this bounded missing execution example only; all other contract requirements remain."
+  },
+  "claim_boundaries": [
+    "The chunk7 gate is unchanged; missing required source definitions remain blockers.",
+    "Public-source and package identities remain distinct from installed deliverable acceptance.",
+    "Five distinct passive conditions do not imply a complete measured process/statistical envelope.",
+    "No private resources or upstream relicense; retained public Apache notices remain applicable.",
+    "Absence in the inspected sources is not a claim that no public definition exists elsewhere."
+  ]
+}

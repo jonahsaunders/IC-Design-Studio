@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "included_rf_runtime_checks_passed",
+  "scope": "Known RF diode calls behind static nested includes and selected libraries require the measured runtime proof. Indeterminate inputs conservatively require the same proof. No model/circuit bytes are rewritten and no new default device is enabled.",
+  "source_files": {
+    "icstudio/rf_runtime.py": "82bfcdc4d640401a3dfb013e1f0f0c93116492285d1f1e0d66206d0bdb09acbb",
+    "icstudio/engines.py": "c1b70933f485d63c3ad67c3fc6a9477821c8a68ff7784980f90aa98cc24250c6",
+    "tests/test_rf_runtime.py": "efa48aed2e86fbdcda66a796cf71bb25fc64d2f1925e7e54b5a251859ea213a3",
+    "scripts/qualify_sky130_rf_includes.py": "229690e8f08236e7e18e68505320852785c0dfb79b60b6dc5ebd32207ad955d7"
+  },
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "report_sha256": "c671d2e8a433e7739b9f4363aa9252440eccb8b8d56e06449c3ab14ee80c9159",
+      "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "rejected_engine_sha256": "f86062f3bb1016dcf1552a57f38954891b4e71aee6defbebde6de589ee55682f",
+      "modes": [
+        "include",
+        "library"
+      ],
+      "devices_per_case": 6,
+      "ac_samples_per_device": 31,
+      "maximum_normalized_current_error": 0.0,
+      "incompatible_engine_rejections": 2,
+      "original_inputs_unchanged": true
+    },
+    "Linux": {
+      "status": "PASS",
+      "report_sha256": "e9318a9a50b8cd9e7b596afb1464a0780599c45703705b3a10ed9263f5cc6376",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "rejected_engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7",
+      "modes": [
+        "include",
+        "library"
+      ],
+      "devices_per_case": 6,
+      "ac_samples_per_device": 31,
+      "maximum_normalized_current_error": 0.0,
+      "incompatible_engine_rejections": 2,
+      "original_inputs_unchanged": true
+    }
+  },
+  "regressions": {
+    "Windows": {
+      "status": "PASS",
+      "host": "Windows",
+      "exit": 0,
+      "source_unchanged": true,
+      "seconds": 150.79699999999139,
+      "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "log_sha256": "cc8d733bcbcfdb69793dbe210eadf1123f2a65610cf4f383cd69f8001c1b89ee",
+      "discovered": 146,
+      "passed": 142,
+      "skipped": 4,
+      "failed": 0
+    },
+    "Linux": {
+      "status": "PASS",
+      "host": "Linux",
+      "exit": 0,
+      "source_unchanged": true,
+      "seconds": 522.740607501,
+      "engine_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+      "log_sha256": "b53a73ae731062c3838c6b8e54eed693455ddeefc5f286aa6fa4d450ce63c3ef",
+      "discovered": 146,
+      "passed": 143,
+      "skipped": 3,
+      "failed": 0
+    }
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/sky130-rf-includes-2026-10-18/evidence.zip",
+    "sha256": "e19659c9af851e16d23aecd5d545ba300ac339d171fbb478d897dd639625ab13",
+    "bytes": 5566349,
+    "files": 2239,
+    "unique_contents": 532,
+    "all_objects_verified": true,
+    "base_archive": {
+      "path": "IC-Design-Studio-evidence/sky130-rf-runtime-2026-10-18/evidence.zip",
+      "sha256": "f5e5ae0122d5c92f77f8cc408b4cac60f8ff20a22e0657e7fed9cbe6122624d2",
+      "scope": "Unchanged full source, Windows runtime and portable candidate dependencies."
+    }
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "base_archive_sha256": "f5e5ae0122d5c92f77f8cc408b4cac60f8ff20a22e0657e7fed9cbe6122624d2",
+    "overlay_archive_sha256": "e19659c9af851e16d23aecd5d545ba300ac339d171fbb478d897dd639625ab13",
+    "restored": {
+      "source": 1220,
+      "runtime": 5,
+      "overlay": 4,
+      "include": 364,
+      "library": 364
+    },
+    "replays": [
+      {
+        "mode": "include",
+        "status": "PASS",
+        "exact_current_agreement": true,
+        "proof_sha256": "e3d0bf748d8952a866c79a70d265c7308b930598a4d83c9d5cadc8e73df9b145"
+      },
+      {
+        "mode": "library",
+        "status": "PASS",
+        "exact_current_agreement": true,
+        "proof_sha256": "8b0e9445b9bffacfbfc232f78a1979568eee7c4c71ed2fd124f2d4d5a044ab93"
+      }
+    ],
+    "unit_test_exit": 0,
+    "unit_test_log_sha256": "75a5fd9eb433abc728c4308102da9fc6b9dcb58d801ca7df585199d5f5e1f925"
+  },
+  "source_reference": "https://github.com/imr/ngspice/blob/ngspice-46/src/frontend/inpcom.c",
+  "boundaries": [
+    "Static include inspection does not evaluate conditional expressions or certify renamed model definitions.",
+    "Parent-relative resolution can be affected by initializer sourcepath; those cases conservatively require the probe.",
+    "Unresolved, dynamic, unreadable, oversized or excessively nested dependencies cannot establish absence of RF calls.",
+    "Full physical RF extraction, operating envelopes, remaining models and installed-release qualification remain open."
+  ],
+  "physical_investigation": {
+    "status": "NOT_QUALIFIED",
+    "model": "rf_diode_ps2nw",
+    "width_um": 2,
+    "length_um": 2,
+    "enabled_public_drc_findings": 0,
+    "raw_extracted_area_um2": 4,
+    "raw_extracted_perimeter_um": 8,
+    "direct_well_tap_terminals": [
+      "A",
+      "K"
+    ],
+    "source_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+    "gds_sha256": "c7f59cb544ad71942cda28e5d4902249fd3b6ca26729d487ab28123032f92596",
+    "extraction_recipe_sha256": "346a3b7458b5f30f7b013d476fb95e55ad992460d0bffb9d1798b75c26c024ed",
+    "netlist_sha256": "d52bf5fca1e2949b1223b026556a7bf621e1a5e39c98bab0a8fc39850e792ca9",
+    "remaining": [
+      "Independent written-contact and metal continuity before well/substrate joins.",
+      "Strict independent schematic comparison and physical fault controls.",
+      "Geometry and rotation coverage.",
+      "Integration with the actual application verifier."
+    ],
+    "prior_attempts": "All five prototypes retained. Soft-connection variants leave device terminals disconnected from labels; variant 2 additionally fails an invalid diagnostic API call. No failed attempt is counted as physical acceptance."
+  },
+  "initial_fixture_failure": {
+    "host": "Linux",
+    "path": "icstudio-rf-includes-Linux47-20261018-v1",
+    "reason": "The unused .lib section included a nonexistent file. ngspice opens includes before selecting library sections and rejected that invalid fixture. It was replaced with an ordinary resistor in the unused section; the completed rerun is retained separately."
+  },
+  "default_inventory": {
+    "entries": 302,
+    "usable": 286,
+    "unavailable_real_models": 7,
+    "unavailable_utilities": 9
+  },
+  "release_consistency": {
+    "Windows": "PASS",
+    "Linux": "PASS",
+    "documents": 147,
+    "local_links": 1641,
+    "gallery_examples": 13,
+    "matrix_regressions_passed": 11,
+    "process_qualification": "unqualified"
+  }
+}

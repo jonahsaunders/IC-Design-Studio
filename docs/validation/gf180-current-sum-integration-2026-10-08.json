@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "status": "current-sum-export-integration-passed; chunk-4-incomplete",
+  "qualified": false,
+  "observed_at": "2026-10-08T02:38:32.388377+00:00",
+  "source_backend": "cd6a3cd4e4b280c812456e0113ddb0b46dde728e76f8a80a9e25400856f030ef",
+  "scope": "Exact representation of the existing area-weighted lumped capacitance model. No new extraction accuracy, full-counter behavior/timing, complete fill or process qualification.",
+  "application_sources": {
+    "icstudio/compact_rc.py": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+    "icstudio/magic_rc.py": "c6f137128bb4e5e8e661cb72fb76fdd02de4a84372f6002abe5d0819c77d1e69",
+    "icstudio/rc_islands.py": "cb7151d288c07bd8a138af902403890c0db83afcfa3e685e6a6127fb02029f53",
+    "scripts/qualify_compact_rc_coupling.py": "19ad14eddc985a66d2e25923ab29d674569d21b354b978bd605b8fd2cc6ec5f4",
+    "tests/test_compact_rc.py": "3cf3c400dd6e1f9a10fb16af991960d9df646a134d4f2621fbb2c868be90a16f",
+    "docs/GF180_RC_EXTRACTION_CANDIDATE.md": "d1408db6f0aea5619c00805c58198cd2c4415307085e89a141fafa0b4064d2ba",
+    "docs/PDK_QUALIFICATION_PLAN.md": "f4ca81898d25b28c74144bf797c85df96b2dd8e99233ebde2e82fcf37f6389ee"
+  },
+  "native_controls": {
+    "sparse": {
+      "record": {
+        "path": "outputs/compact-current-sum-production-sparse-v2/report.json",
+        "sha256": "f00516c547cac644fc271d54d484ef8210fe6a1391f89eb494d8c1029480552a"
+      },
+      "positive_frequency_basis_cases": 21,
+      "negative_controls": {
+        "corrupt": true,
+        "production-corrupt": true,
+        "production-leak": true
+      },
+      "production_transient_error_volts": 9.30128106091388e-07,
+      "waveform_samples": 5001,
+      "ngspice_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+    },
+    "klu": {
+      "record": {
+        "path": "outputs/compact-current-sum-production-klu-v2/report.json",
+        "sha256": "22affc063000d54ca3b8375c351e061015cdd420b4df13e6b85fdae933f2488b"
+      },
+      "positive_frequency_basis_cases": 21,
+      "negative_controls": {
+        "corrupt": true,
+        "production-corrupt": true,
+        "production-leak": true
+      },
+      "production_transient_error_volts": 9.299287633268705e-07,
+      "waveform_samples": 5001,
+      "ngspice_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7"
+    }
+  },
+  "full_exports": {
+    "windows": {
+      "record": {
+        "path": "outputs/gf180-current-sum-production-windows-v2/report.json",
+        "sha256": "a5de61b7f069dc48aaefe0d145dfc5956c7e3b130e688946284668d13b1c9219"
+      },
+      "cases": {
+        "shield/before": {
+          "resistors": 46757,
+          "devices": 4184,
+          "ports": [
+            "clk",
+            "count[0]",
+            "count[1]",
+            "count[3]",
+            "reset",
+            "count[2]",
+            "VDD",
+            "VSS"
+          ],
+          "compact": {
+            "capacitors": 24459,
+            "encoding": "current-sum-v1",
+            "sources": 77021,
+            "controlled_current_sources": 72963,
+            "output_buffers": 4058,
+            "internal_sum_resistors": 8116,
+            "auxiliary_nodes": 12174,
+            "max_sources": 250000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          },
+          "artifacts": {
+            "counter.raw.ext": "264721525dafc41e8d9b9dba3fabdf043484795107a26b9cdc8715cc1fc14913",
+            "counter.raw.res.ext": "8582a97c23cf0988ea7d8ca015147f1728df1f72f86f44949d811ec609fb8fea",
+            "rc-normalization.json": "c846c0797b3fcb6cedc5711986205209b9c8e95c3f367101fd21e1cd61259a7b",
+            "compact-capacitance.spice": "3f0a9b54153b77a7c8f07e345d639a13056f184ade24cafecf64e1a2ee8b7b29",
+            "extracted.spice": "254d74c21577c33fa585355dfdc11df31056fa249554ea3f3a0d5d4429d8cb56",
+            "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+            "electrical.spice": "254d74c21577c33fa585355dfdc11df31056fa249554ea3f3a0d5d4429d8cb56"
+          }
+        },
+        "shield/filled": {
+          "resistors": 47668,
+          "devices": 4184,
+          "ports": [
+            "clk",
+            "count[0]",
+            "count[1]",
+            "count[3]",
+            "reset",
+            "count[2]",
+            "VDD",
+            "VSS"
+          ],
+          "compact": {
+            "capacitors": 26281,
+            "encoding": "current-sum-v1",
+            "sources": 88740,
+            "controlled_current_sources": 83771,
+            "output_buffers": 4969,
+            "internal_sum_resistors": 9938,
+            "auxiliary_nodes": 14907,
+            "max_sources": 250000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          },
+          "artifacts": {
+            "counter.raw.ext": "a8edb0e483428595aab8f9034aa9336c0e2e6cee7d0288126741197e7e311a6d",
+            "counter.raw.res.ext": "b5e4e16203f7a653c38acf4a89faedf177ce01e83e9c422fd555319de0a40a08",
+            "rc-normalization.json": "337e23c5db54634180e7a005366a3753585c0e057271ae137e9f61f61e6cbd30",
+            "compact-capacitance.spice": "b54ea14afb181c3549eb2a3834bf241b7911b19b49d530978cb2fb16eedba504",
+            "extracted.spice": "8af751a2c9c18ae9615c863ef1eaf6456d34f683053ec28f16978a21bb1982b5",
+            "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+            "electrical.spice": "8af751a2c9c18ae9615c863ef1eaf6456d34f683053ec28f16978a21bb1982b5"
+          }
+        },
+        "polygon/before": {
+          "resistors": 46757,
+          "devices": 4184,
+          "ports": [
+            "clk",
+            "count[0]",
+            "count[1]",
+            "count[3]",
+            "reset",
+            "count[2]",
+            "VDD",
+            "VSS"
+          ],
+          "compact": {
+            "capacitors": 24459,
+            "encoding": "current-sum-v1",
+            "sources": 77021,
+            "controlled_current_sources": 72963,
+            "output_buffers": 4058,
+            "internal_sum_resistors": 8116,
+            "auxiliary_nodes": 12174,
+            "max_sources": 250000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          },
+          "artifacts": {
+            "counter.raw.ext": "05ee24f8df516907a5ad56c168f6376eba73b955d1ba4a1e2a45e5238c36e1ef",
+            "counter.raw.res.ext": "0b40626b5d93859175932889458aaa2501e0c35e0bb476b4a432c891ba503c15",
+            "rc-normalization.json": "ec7ed52a9755aed0baa5c7ba6fb6e7c414f29c28a32ce92aa8eb0031a61fd65a",
+            "compact-capacitance.spice": "0befb83ca395374201a05ab13d8207380d94b56b901a12473d359796b2ab8526",
+            "extracted.spice": "541301980757cc223a4ae221b9d67c5391b80231a34f2f6611cfd26a83e2aabe",
+            "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+            "electrical.spice": "541301980757cc223a4ae221b9d67c5391b80231a34f2f6611cfd26a83e2aabe"
+          }
+        },
+        "polygon/filled": {
+          "resistors": 47668,
+          "devices": 4184,
+          "ports": [
+            "clk",
+            "count[0]",
+            "count[1]",
+            "count[3]",
+            "reset",
+            "count[2]",
+            "VDD",
+            "VSS"
+          ],
+          "compact": {
+            "capacitors": 26281,
+            "encoding": "current-sum-v1",
+            "sources": 88740,
+            "controlled_current_sources": 83771,
+            "output_buffers": 4969,
+            "internal_sum_resistors": 9938,
+            "auxiliary_nodes": 14907,
+            "max_sources": 250000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          },
+          "artifacts": {
+            "counter.raw.ext": "8470fc79e17e2861190a85e6a95deaf293b7f1167ca6f26a60080ce0e241cd83",
+            "counter.raw.res.ext": "b382461ce55c7f37882bb13be06ed9f88627aacab6f89ca0b46624800ff2aaed",
+            "rc-normalization.json": "f4bcdc12e7e396eca3a587ae3ce70c010241472c96b9c66b8c0a0e32ee9b3c2d",
+            "compact-capacitance.spice": "c245e1b1f96936af31d81fe39b98502c7bd3d17c9b699cb1c5f252538a12ac02",
+            "extracted.spice": "c6562ac9889038608e8a90952e01f27bc67595d03a843849e8a74b56afdcbaec",
+            "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+            "electrical.spice": "c6562ac9889038608e8a90952e01f27bc67595d03a843849e8a74b56afdcbaec"
+          }
+        }
+      }
+    },
+    "linux": {
+      "record": {
+        "path": "outputs/gf180-current-sum-production-linux-v2/report.json",
+        "sha256": "79a24355354a2a141cdc6e64d7a16f9d1dfe1a3d51eaaf3a88d8538ef7a2c75f"
+      },
+      "cases": {
+        "shield/before": {
+          "resistors": 46757,
+          "devices": 4184,
+          "ports": [
+            "clk",
+            "count[0]",
+            "count[1]",
+            "count[3]",
+            "reset",
+            "count[2]",
+            "VDD",
+            "VSS"
+          ],
+          "compact": {
+            "capacitors": 24459,
+            "encoding": "current-sum-v1",
+            "sources": 77021,
+            "controlled_current_sources": 72963,
+            "output_buffers": 4058,
+            "internal_sum_resistors": 8116,
+            "auxiliary_nodes": 12174,
+            "max_sources": 250000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          },
+          "artifacts": {
+            "counter.raw.ext": "264721525dafc41e8d9b9dba3fabdf043484795107a26b9cdc8715cc1fc14913",
+            "counter.raw.res.ext": "8582a97c23cf0988ea7d8ca015147f1728df1f72f86f44949d811ec609fb8fea",
+            "rc-normalization.json": "c846c0797b3fcb6cedc5711986205209b9c8e95c3f367101fd21e1cd61259a7b",
+            "compact-capacitance.spice": "3f0a9b54153b77a7c8f07e345d639a13056f184ade24cafecf64e1a2ee8b7b29",
+            "extracted.spice": "254d74c21577c33fa585355dfdc11df31056fa249554ea3f3a0d5d4429d8cb56",
+            "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+            "electrical.spice": "254d74c21577c33fa585355dfdc11df31056fa249554ea3f3a0d5d4429d8cb56"
+          }
+        },
+        "shield/filled": {
+          "resistors": 47668,
+          "devices": 4184,
+          "ports": [
+            "clk",
+            "count[0]",
+            "count[1]",
+            "count[3]",
+            "reset",
+            "count[2]",
+            "VDD",
+            "VSS"
+          ],
+          "compact": {
+            "capacitors": 26281,
+            "encoding": "current-sum-v1",
+            "sources": 88740,
+            "controlled_current_sources": 83771,
+            "output_buffers": 4969,
+            "internal_sum_resistors": 9938,
+            "auxiliary_nodes": 14907,
+            "max_sources": 250000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          },
+          "artifacts": {
+            "counter.raw.ext": "a8edb0e483428595aab8f9034aa9336c0e2e6cee7d0288126741197e7e311a6d",
+            "counter.raw.res.ext": "b5e4e16203f7a653c38acf4a89faedf177ce01e83e9c422fd555319de0a40a08",
+            "rc-normalization.json": "337e23c5db54634180e7a005366a3753585c0e057271ae137e9f61f61e6cbd30",
+            "compact-capacitance.spice": "b54ea14afb181c3549eb2a3834bf241b7911b19b49d530978cb2fb16eedba504",
+            "extracted.spice": "8af751a2c9c18ae9615c863ef1eaf6456d34f683053ec28f16978a21bb1982b5",
+            "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+            "electrical.spice": "8af751a2c9c18ae9615c863ef1eaf6456d34f683053ec28f16978a21bb1982b5"
+          }
+        },
+        "polygon/before": {
+          "resistors": 46757,
+          "devices": 4184,
+          "ports": [
+            "clk",
+            "count[0]",
+            "count[1]",
+            "count[3]",
+            "reset",
+            "count[2]",
+            "VDD",
+            "VSS"
+          ],
+          "compact": {
+            "capacitors": 24459,
+            "encoding": "current-sum-v1",
+            "sources": 77021,
+            "controlled_current_sources": 72963,
+            "output_buffers": 4058,
+            "internal_sum_resistors": 8116,
+            "auxiliary_nodes": 12174,
+            "max_sources": 250000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          },
+          "artifacts": {
+            "counter.raw.ext": "05ee24f8df516907a5ad56c168f6376eba73b955d1ba4a1e2a45e5238c36e1ef",
+            "counter.raw.res.ext": "0b40626b5d93859175932889458aaa2501e0c35e0bb476b4a432c891ba503c15",
+            "rc-normalization.json": "ec7ed52a9755aed0baa5c7ba6fb6e7c414f29c28a32ce92aa8eb0031a61fd65a",
+            "compact-capacitance.spice": "0befb83ca395374201a05ab13d8207380d94b56b901a12473d359796b2ab8526",
+            "extracted.spice": "541301980757cc223a4ae221b9d67c5391b80231a34f2f6611cfd26a83e2aabe",
+            "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+            "electrical.spice": "541301980757cc223a4ae221b9d67c5391b80231a34f2f6611cfd26a83e2aabe"
+          }
+        },
+        "polygon/filled": {
+          "resistors": 47668,
+          "devices": 4184,
+          "ports": [
+            "clk",
+            "count[0]",
+            "count[1]",
+            "count[3]",
+            "reset",
+            "count[2]",
+            "VDD",
+            "VSS"
+          ],
+          "compact": {
+            "capacitors": 26281,
+            "encoding": "current-sum-v1",
+            "sources": 88740,
+            "controlled_current_sources": 83771,
+            "output_buffers": 4969,
+            "internal_sum_resistors": 9938,
+            "auxiliary_nodes": 14907,
+            "max_sources": 250000,
+            "file": "compact-capacitance.spice",
+            "implementation_sha256": "fe982a243693343dca45508ae46542044a53d2fb580f1faf7243134f743fb1be",
+            "scope": "Exact factorization of the existing area-weighted lumped C model, including the original substrate anchor; no new field accuracy."
+          },
+          "artifacts": {
+            "counter.raw.ext": "8470fc79e17e2861190a85e6a95deaf293b7f1167ca6f26a60080ce0e241cd83",
+            "counter.raw.res.ext": "b382461ce55c7f37882bb13be06ed9f88627aacab6f89ca0b46624800ff2aaed",
+            "rc-normalization.json": "f4bcdc12e7e396eca3a587ae3ce70c010241472c96b9c66b8c0a0e32ee9b3c2d",
+            "compact-capacitance.spice": "c245e1b1f96936af31d81fe39b98502c7bd3d17c9b699cb1c5f252538a12ac02",
+            "extracted.spice": "c6562ac9889038608e8a90952e01f27bc67595d03a843849e8a74b56afdcbaec",
+            "contracted.spice": "38f899c8eac2406b93eb16867bf5676dffe993d3de964d1e6573a51b91e3ac4b",
+            "electrical.spice": "c6562ac9889038608e8a90952e01f27bc67595d03a843849e8a74b56afdcbaec"
+          }
+        }
+      }
+    }
+  },
+  "regression": {
+    "full_windows_suite": {
+      "tests": 1470,
+      "seconds": 257.406,
+      "skips": 62,
+      "failures": 0,
+      "process": {
+        "path": "outputs/gf180-current-sum-suite-v1/process.json",
+        "sha256": "e20bf24b1ad992c3be92fbc0723fc5db404979319c3b9c5e926f3e440ba50685"
+      },
+      "log": {
+        "path": "outputs/gf180-current-sum-suite-v1/tests.log",
+        "sha256": "b40179840de36111ea0838e2c5a28615142a043b0882fb7ebfe9e03f8227e26e"
+      },
+      "scope": "Application code unchanged after suite launch. One subsequently added element-name-collision regression is included in the final focused runs below."
+    },
+    "windows_final_focused": {
+      "tests": 33,
+      "failures": 0,
+      "skips": 0,
+      "log": {
+        "path": "outputs/compact-current-sum-windows-focused-v1.log",
+        "sha256": "3f3765aa53d1ad7c41c10eb4df2be37d8571eee10c1303e42091543ab0876acf"
+      }
+    },
+    "linux_final_focused": {
+      "tests": 33,
+      "failures": 0,
+      "skips": 0,
+      "log": {
+        "path": "outputs/compact-current-sum-linux-focused-v1.log",
+        "sha256": "11f4f1900f57bc2af50cfe9a6daa00de21da47abaf6274a81b41e154a43f3310"
+      }
+    }
+  },
+  "fixed_limits": {
+    "ac_relative": 1e-09,
+    "ac_absolute_amperes": 1e-18,
+    "transient_absolute_volts": 2e-06,
+    "capacitor_default": 50000,
+    "auxiliary_sources_including_buffers": 250000
+  },
+  "preserved": [
+    "all raw native inputs",
+    "all physical R edges and values",
+    "all capacitor values",
+    "4184 device parameter records and eight ports per export",
+    "911 floating fill conductors",
+    "original substrate anchor",
+    "original circuit constraints and numerical tolerances",
+    "authenticated historical series-voltage exports"
+  ],
+  "open_gates": [
+    "Full-counter before/filled transient on the frozen functional fixture",
+    "Post-fill timing with unchanged design constraints and required corners",
+    "Native R-node capacitance-weight repeatability and extraction accuracy",
+    "Optional diagonal corner/direct-overlap coverage",
+    "Complete local-density, pattern, adjacent-layer, marker-alias and boundary/scribe fill rules",
+    "Production C/D counter, UART and APB acceptance on both operating systems",
+    "Chunks 5-12, exact fresh consumer packages and external tapeout acceptance"
+  ],
+  "all_export_artifact_hashes_identical_across_os": true,
+  "full_transient_snapshot": {
+    "record": {
+      "path": "outputs/gf180-current-sum-integration-v1/full-transient-snapshot.json",
+      "sha256": "1468c6a9cee1c265131a9e8d9cc3e39f086bc3761d94ae7a3cc58ab91be55866"
+    },
+    "status": "running",
+    "qualified": false,
+    "scope": "Snapshot only; progress is not a functional or timing pass. Observe existing session 40555 to terminal state."
+  },
+  "retained_failures": [
+    {
+      "record": {
+        "path": "outputs/gf180-current-sum-production-windows-v1/failure.json",
+        "sha256": "9dbc5d7b3fe2b2b7e06d2c95c93ac96a655d5de335a3dfe01bffd9d8895cc97e"
+      },
+      "scope": "Diagnostic report writer referenced a missing metadata key; v2 reads the explicit SPICE port declaration."
+    },
+    {
+      "record": {
+        "path": "outputs/gf180-current-sum-production-linux-v1/failure.json",
+        "sha256": "9dbc5d7b3fe2b2b7e06d2c95c93ac96a655d5de335a3dfe01bffd9d8895cc97e"
+      },
+      "scope": "Diagnostic report writer referenced a missing metadata key; v2 reads the explicit SPICE port declaration."
+    }
+  ],
+  "archive": {
+    "path": "outputs/gf180-current-sum-integration-v1/evidence.tar.gz",
+    "sha256": "ccb3126488c4a0541e26f3a2eafcef898eb49612df8968fc189ffde02520315d",
+    "bytes": 86885894,
+    "verified_members": 693
+  },
+  "manifest": {
+    "path": "outputs/gf180-current-sum-integration-v1/manifest.json",
+    "sha256": "b89931b694321337d283b2c607486d54998c9cffaba081c085cd9d960845de2d"
+  }
+}

@@ -1,0 +1,25 @@
+--- a/src/maths/KLU/klusmp.c
++++ b/src/maths/KLU/klusmp.c
+@@ -1261,6 +1261,22 @@
+           return 0 ;
+         }
+ 
++        /* Isolated qualification diagnostic: ordering only, no pivot/tolerance change. */
++        const char *icstudio_order = getenv("ICSTUDIO_KLU_ORDERING");
++        if (icstudio_order != NULL) {
++            if (strcmp(icstudio_order, "AMD") == 0)
++                Matrix->SMPkluMatrix->KLUmatrixCommon->ordering = 0;
++            else if (strcmp(icstudio_order, "COLAMD") == 0)
++                Matrix->SMPkluMatrix->KLUmatrixCommon->ordering = 1;
++            else {
++                fprintf(stderr, "ICSTUDIO invalid diagnostic ordering\n");
++                return 1;
++            }
++        }
++        fprintf(stderr, "ICSTUDIO_KLU_ORDERING=%d N=%u NNZ=%d\n",
++            Matrix->SMPkluMatrix->KLUmatrixCommon->ordering,
++            Matrix->SMPkluMatrix->KLUmatrixN,
++            Matrix->SMPkluMatrix->KLUmatrixAp[Matrix->SMPkluMatrix->KLUmatrixN]);
+         Matrix->SMPkluMatrix->KLUmatrixSymbolic = klu_analyze ((int)Matrix->SMPkluMatrix->KLUmatrixN, Matrix->SMPkluMatrix->KLUmatrixAp,
+                                                                Matrix->SMPkluMatrix->KLUmatrixAi, Matrix->SMPkluMatrix->KLUmatrixCommon) ;
+ 

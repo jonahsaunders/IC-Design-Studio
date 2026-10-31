@@ -1,0 +1,323 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "synthetic_mesh_study_passed",
+  "scope": "Repeat the same synthetic resistive-coil fixture with a finer mesh, same frequency band/materials/geometry and unchanged 5% Z/R limits. This is a solver integration study, not an IHP device qualification.",
+  "source_files": {
+    "scripts/qualify_ihp_em_profile.py": "5eaf0d3afa51c43b70a04528a5d334e523de20cabed1df683e20260f55b13b1b",
+    "tests/probe_openems.py": "1eb02b46018e89e33398c492d09a4bf03ec69f5d4f885f1b1a359139c90b3e0d",
+    "tests/test_ihp_em_profile.py": "76547085d416c17829a5d5a26889c334e72d19933ab54391507451b17d12890e",
+    "icstudio/assets/openems/driver.py": "7a79ddbd7a9244b1769dad66e4e58d1c0b2d2cdeebd7a2fb479dc015a5a23269",
+    "icstudio/openems_backend.py": "ad0461c4350b3ae17610d93cc1245e2bcb2205d55d879c62a1de44028ec98586",
+    "icstudio/openems_waves.py": "1a539c1495f839bdc742b51850aaa7eb721c6e3d6bbed8975d8bd0b0bdc8c0ab",
+    "icstudio/inductor_em.py": "30e6bff74fff5e4226720371957016172c7d37c437e7f0c2cccabbf7dd7586b1",
+    "scripts/audit_openems_waves.py": "063e1726c29f6a5ac65cad3c0e14781ce20e721790e9fe66c76218675dee0cd4"
+  },
+  "prior_record": "docs/validation/ihp-em-waves-2026-10-21.json",
+  "masks_materials_ports_reference_plane_and_field_region_unchanged": true,
+  "pec_cap_padding_um": [
+    2.0,
+    1.0
+  ],
+  "pec_cap_note": "The existing driver fills the entire region above the unchanged reference plane with ideal PEC. Its extra grid padding uses max(mesh_um,1), so the computational cap changes from 2 to 1 um. This is retained explicitly; no air/material/port region below the reference plane changes.",
+  "changed_settings": {
+    "mesh_um": [
+      2.0,
+      0.5
+    ],
+    "threads": [
+      1,
+      8
+    ],
+    "timeout_s": [
+      600,
+      1800
+    ]
+  },
+  "native_audit": {
+    "schema": 1,
+    "status": "AUDIT_MATCHED",
+    "source_run_hash": "4d82de470195c98facab94b1db71c3330dcdd715ef99cdf47fe8554e8c7515e0",
+    "original_wave_basis": "full-incident-matrix-v1",
+    "audit_wave_basis": "full-incident-matrix-v1",
+    "stages": {
+      "base-1": {
+        "energy_db": -31.52,
+        "cells": 73017,
+        "mesh_lines": [
+          63,
+          61,
+          19
+        ],
+        "versions": {
+          "python": "3.11.16",
+          "numpy": "1.23.5",
+          "openEMS": "0.0.36",
+          "CSXCAD": "0.6.3"
+        }
+      },
+      "base-2": {
+        "energy_db": -39.92,
+        "cells": 73017,
+        "mesh_lines": [
+          63,
+          61,
+          19
+        ],
+        "versions": {
+          "python": "3.11.16",
+          "numpy": "1.23.5",
+          "openEMS": "0.0.36",
+          "CSXCAD": "0.6.3"
+        }
+      },
+      "fine-1": {
+        "energy_db": -32.91,
+        "cells": 386022,
+        "mesh_lines": [
+          101,
+          98,
+          39
+        ],
+        "versions": {
+          "python": "3.11.16",
+          "numpy": "1.23.5",
+          "openEMS": "0.0.36",
+          "CSXCAD": "0.6.3"
+        }
+      },
+      "fine-2": {
+        "energy_db": -30.8,
+        "cells": 386022,
+        "mesh_lines": [
+          101,
+          98,
+          39
+        ],
+        "versions": {
+          "python": "3.11.16",
+          "numpy": "1.23.5",
+          "openEMS": "0.0.36",
+          "CSXCAD": "0.6.3"
+        }
+      }
+    },
+    "meshes": {
+      "base": {
+        "basis": "full-incident-matrix-v1",
+        "maximum_incident_condition": 1.0259041385030496,
+        "maximum_inactive_incident_ratio": 0.01281928088592024,
+        "frequency_hz": [
+          500000000000.0,
+          535886731268.1474,
+          574349177498.517,
+          615572206672.4586,
+          659753955386.446,
+          707106781186.5475,
+          757858283255.2002,
+          812252396356.2349,
+          870550563296.1249,
+          933032991536.8059,
+          1000000000000.0
+        ],
+        "resistance_ohm": [
+          117.36297602853303,
+          118.33272271006715,
+          122.09327848315277,
+          127.69266593677622,
+          134.5368760027157,
+          142.37241815173624,
+          151.30756075806124,
+          161.99073992044444,
+          176.1500870244829,
+          197.84346175031658,
+          231.6766232388748
+        ],
+        "reactance_ohm": [
+          99.94872474009901,
+          110.01795168947109,
+          120.80695714511623,
+          131.65601905383997,
+          142.61903939357632,
+          154.092993225176,
+          166.7210692275529,
+          181.37816757627667,
+          199.0278572402819,
+          219.35271639378482,
+          232.53662627722903
+        ],
+        "maximum_singular_value": 1.1930820113937073,
+        "maximum_reciprocity_error": 0.01211539246914632,
+        "minimum_impedance_hermitian_eigenvalue": -107.71836011939502
+      },
+      "fine": {
+        "basis": "full-incident-matrix-v1",
+        "maximum_incident_condition": 1.026325784161878,
+        "maximum_inactive_incident_ratio": 0.01300993581373628,
+        "frequency_hz": [
+          500000000000.0,
+          535886731268.1474,
+          574349177498.517,
+          615572206672.4586,
+          659753955386.446,
+          707106781186.5475,
+          757858283255.2002,
+          812252396356.2349,
+          870550563296.1249,
+          933032991536.8059,
+          1000000000000.0
+        ],
+        "resistance_ohm": [
+          116.05816254703429,
+          117.01235122774261,
+          121.39212890640235,
+          127.39574060513175,
+          134.1855574343388,
+          141.54381173851093,
+          149.71211094451587,
+          159.49160338450497,
+          172.7868141302938,
+          194.0681644873456,
+          228.4456683504681
+        ],
+        "reactance_ohm": [
+          98.47179060369768,
+          110.585546153595,
+          122.14374087269047,
+          132.97052870009418,
+          143.61020802190444,
+          154.79045998999783,
+          167.32931856325953,
+          182.1641103428319,
+          200.24137033632726,
+          221.0059218595248,
+          231.78225280662025
+        ],
+        "maximum_singular_value": 1.151684121814109,
+        "maximum_reciprocity_error": 0.0096596099230955,
+        "minimum_impedance_hermitian_eigenvalue": -75.87323873932392
+      }
+    },
+    "incomplete": [],
+    "scope": "Independently audit retained native port waveforms without attaching results.\n\nReads actual voltage/current probe files and compares direct Z = U inv(I) with\nthe application's full incident-wave conversion. Incomplete/aborted stages stay\nincomplete. Historical files are never relabeled as new-driver executions.\n",
+    "qualified": false,
+    "chunk_complete": false,
+    "mesh_comparison": {
+      "max_relative_z_change": 0.014012696911222536,
+      "max_relative_r_change": 0.01946487011244355,
+      "tolerance": 0.05,
+      "absolute_floor_ohm": 0.001
+    },
+    "numerical_gate": "passes_recorded_mesh_and_nonnegative_resistance",
+    "files": {
+      "model.json": "3bc4b592f7f21d6cc60d7fbba30e7fe69793bf2295a343c06d2feb0915e4eae9",
+      "driver.py": "7a79ddbd7a9244b1769dad66e4e58d1c0b2d2cdeebd7a2fb479dc015a5a23269",
+      "manifest.json": "17908ce2fc5a991c1c2c665f769652799df819ed2dbde64aaddf41ba8c5ff12b",
+      "exchange.zip": "d30a86c5a322d67d4709edb73f9c7e9811a5d43de051fe19bc9a2bdfed72dd95",
+      "base-1.json": "0b1af458fc3f3833d3785d0149b01c0d2f36fb7c2af04def7999882d302febd6",
+      "base-1.log": "15db7262d9ecfb83719797d1d21c6ddac13d5f96d3f3f2dc14e657821574b78a",
+      "base-2.json": "8c532cda60a81f005a49c14476543a3e322950f5ffd4ba3354ce317f5133c4f8",
+      "base-2.log": "4f1ee722d6ae5fbbd45cdf7683fe7b9cbe0ad98a535a5378ac80a782ae72f876",
+      "base-1/port_ut_1": "c48cd277152cb319c30579b438e48cc8d0e1b521036aa6a37b96196dd723dfc1",
+      "base-1/port_it_1": "267ac574a89973dbce5703d7c50832e6fbf893389b60c23222f57e6f241c39e5",
+      "base-1/port_ut_2": "221d9229d7831be8afefe19ec847db6cbcc714ed3fed9c058c2e48e7fa1974bc",
+      "base-1/port_it_2": "6ec4630d1faf13f26e3e202157744bd7cfbc4fdfff1d36a17c609210de1c24f5",
+      "base-2/port_ut_1": "1c161411795bb91fa23dbd00a76c16734ab8f4dc316bb646fc53e8f1ec2652a6",
+      "base-2/port_it_1": "0c8a994ee016ac73ec7ca99082b42ec38652c99936bae5814fca1f7c6c11ff70",
+      "base-2/port_ut_2": "45052a6cc18ccad3fbf99a4f3fc417b9e6986d15b430a4ed9d4eccd97b49d138",
+      "base-2/port_it_2": "3c797f07c739da19e9f821fb099b391ebbcb2cd0c9a221971fa8b551f2fd043f",
+      "fine-1.json": "f1f43c1f481d071d3d804f8832df78e4e8d7729044416443e8969b7f3ec3a77e",
+      "fine-1.log": "dd41ddf00550ad6655fc7399bae4615ef88b3ebbaaaa7543a4d84b5f725b4204",
+      "fine-2.json": "3ecc1284fb184fa0861aa586f4920fb4c38cb7a5ab3871dc6936b7cfe711f8c5",
+      "fine-2.log": "f7158078aa92c85abc6dff5a4e46d5e9061c24423a80436624ed7bc9b5b50bbc",
+      "fine-1/port_ut_1": "c2a2a21e7fe0eea32c421cc6c242f9e29df04f4f7a9347e4bb73eaef1c116b55",
+      "fine-1/port_it_1": "b410a08eef0cda2c099a591084748decca1b2cf4eaba8e94c473e8a8a4fadb78",
+      "fine-1/port_ut_2": "83a9ddb04b3c07d3d6ed2d1a30545e60086053c7790cc9b84f9bf76ebb9fa71b",
+      "fine-1/port_it_2": "ab7c1b58e81d4d5165830956914ad45784953bc5a59cd3b2b943e48ebb432ba5",
+      "fine-2/port_ut_1": "883b72eef01747b99621979713e26fa8fd15e09b75ceb3706f1b36b16dbda5e2",
+      "fine-2/port_it_1": "6db353fca6350087051ee367606a8824206e2ebbb0108994f90aa55410df3593",
+      "fine-2/port_ut_2": "96fa526346234d1ac72d4ab5afe184435a6935039ab1d06c3e37588ef9f702de",
+      "fine-2/port_it_2": "fbb78e74ba367954dde3531729babd2e139cb7d78f2cbabab9e5556cfedc2c1b"
+    },
+    "auditor_sha256": "063e1726c29f6a5ac65cad3c0e14781ce20e721790e9fe66c76218675dee0cd4",
+    "converter_sha256": "1a539c1495f839bdc742b51850aaa7eb721c6e3d6bbed8975d8bd0b0bdc8c0ab",
+    "backend_sha256": "ad0461c4350b3ae17610d93cc1245e2bcb2205d55d879c62a1de44028ec98586"
+  },
+  "current_saved_characterization": true,
+  "cli_tests": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 1,
+      "seconds": 0.674,
+      "sha256": "d6c314455d9f4d924cd53b2dfbb126abd78f60da5d819e8d35768bfb4930050e"
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 1,
+      "seconds": 5.762,
+      "sha256": "b0c156466e4ce63e047992f1bb1dd81b499d7f1fd7c8e5a4c54c5479af2fc899"
+    }
+  },
+  "hosted_ihp": {
+    "commit": "7cb70161af9cf35be5b1b81f8b957b016add55c0",
+    "run_id": 39613802857,
+    "status": "PASS",
+    "all_steps_success": true,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39613802857",
+    "scope": "Physical qualification on the preceding 7cb7016 commit; new wave-conversion commit has separate pending CI."
+  },
+  "restored_previous_archive": {
+    "status": "PASS",
+    "archive_sha256": "20fff3452ac6af94f4dd519007efb5d6e7588957a3933aecac387a39289f2841",
+    "cases": [
+      {
+        "case": "ihp-280",
+        "status": "AUDIT_REPRODUCED",
+        "numerical_gate": "rejected",
+        "files": 28
+      },
+      {
+        "case": "ihp-180",
+        "status": "AUDIT_REPRODUCED",
+        "numerical_gate": "incomplete",
+        "files": 21
+      },
+      {
+        "case": "synthetic",
+        "status": "AUDIT_REPRODUCED",
+        "numerical_gate": "rejected",
+        "files": 28
+      }
+    ]
+  },
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-em-waves-2026-10-21-v1\\mesh-study.zip",
+    "sha256": "8b916440e5b43d173b8602d6876613b55bfc95391acbf5365043dca0645c4697",
+    "bytes": 1941746,
+    "files": 60,
+    "unique_objects": 55,
+    "all_objects_verified": true
+  },
+  "remaining": [
+    "IHP-specific convergence and physical operating-band/boundary/reference studies",
+    "Full device envelopes, large-varactor mixed layouts, required unavailable models and installed release acceptance"
+  ],
+  "linux_readback": {
+    "status": "PASS",
+    "sha256": "34af3f75b90c70e095064d2a2f43882642d9ea1293482fe97c14273971bf7098",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-em-waves-2026-10-21-v1\\mesh-readback-linux.json",
+    "numerical_gate": "passes_recorded_mesh_and_nonnegative_resistance",
+    "mesh_comparison": {
+      "max_relative_z_change": 0.014012696911222623,
+      "max_relative_r_change": 0.01946487011244372,
+      "tolerance": 0.05,
+      "absolute_floor_ohm": 0.001
+    },
+    "same_native_file_hashes": true,
+    "relative_tolerance": 1e-10,
+    "absolute_tolerance": 1e-10
+  }
+}

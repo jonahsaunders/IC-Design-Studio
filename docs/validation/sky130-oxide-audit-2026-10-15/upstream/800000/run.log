@@ -1,0 +1,45 @@
+met_tiled_density.drc:: sourcing design file=/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/outputs/sky130-oxide-controls-v1/linux/upstream-800000.gds topcell=density_control ...
+done.
+flattening chip boundary...
+done.
+step size = 70
+llx=10.0 lly=-20.0 urx=810.0 ury=780.0
+x_cnt = 11
+y_cnt = 11
+dbu = 0.001
+bbox_area = 640000.0
+calculating subtile areas (= 121)...
+tiles per step = 10
+calculating window step densities (= 4)...
+m1 met_tiled density greater than 0.80 : 0/4 is 0.5945 for tile ((0,0;700,700)), area = 462400
+m1 met_tiled density greater than 0.80 : 1/4 is 0.5924 for tile ((0,70;700,770)), area = 476000
+m1 met_tiled density greater than 0.80 : 2/4 is 0.5024 for tile ((70,0;770,700)), area = 476000
+m1 met_tiled density greater than 0.80 : 3/4 is 0.5006 for tile ((70,70;770,770)), area = 490000
+m1 minimum met_tiled density  = 0.5006
+m1 maximum met_tiled density  = 0.5945
+m1 met_tiled.pd violations = {"m1"=>4, "m2"=>0, "m3"=>0, "m4"=>0}
+m2 met_tiled density greater than 0.80 : 4/4 is 0.5943 for tile ((0,0;700,700)), area = 462400
+m2 met_tiled density greater than 0.80 : 5/4 is 0.5923 for tile ((0,70;700,770)), area = 476000
+m2 met_tiled density greater than 0.80 : 6/4 is 0.5023 for tile ((70,0;770,700)), area = 476000
+m2 met_tiled density greater than 0.80 : 7/4 is 0.5005 for tile ((70,70;770,770)), area = 490000
+m2 minimum met_tiled density  = 0.5005
+m2 maximum met_tiled density  = 0.5943
+m2 met_tiled.pd violations = {"m1"=>4, "m2"=>4, "m3"=>0, "m4"=>0}
+m3 met_tiled density greater than 0.80 : 8/4 is 0.5952 for tile ((0,0;700,700)), area = 462400
+m3 met_tiled density greater than 0.80 : 9/4 is 0.5929 for tile ((0,70;700,770)), area = 476000
+m3 met_tiled density greater than 0.80 : 10/4 is 0.5028 for tile ((70,0;770,700)), area = 476000
+m3 met_tiled density greater than 0.80 : 11/4 is 0.5009 for tile ((70,70;770,770)), area = 490000
+m3 minimum met_tiled density  = 0.5009
+m3 maximum met_tiled density  = 0.5952
+m3 met_tiled.pd violations = {"m1"=>4, "m2"=>4, "m3"=>4, "m4"=>0}
+m4 met_tiled density greater than 0.80 : 12/4 is 0.5950 for tile ((0,0;700,700)), area = 462400
+m4 met_tiled density greater than 0.80 : 13/4 is 0.5928 for tile ((0,70;700,770)), area = 476000
+m4 met_tiled density greater than 0.80 : 14/4 is 0.5027 for tile ((70,0;770,700)), area = 476000
+m4 met_tiled density greater than 0.80 : 15/4 is 0.5008 for tile ((70,70;770,770)), area = 490000
+m4 minimum met_tiled density  = 0.5008
+m4 maximum met_tiled density  = 0.5950
+m4 met_tiled.pd violations = {"m1"=>4, "m2"=>4, "m3"=>4, "m4"=>4}
+finish received: success = true
+finish received: success = true
+finish received: success = true
+finish received: success = true

@@ -90,11 +90,13 @@ class LayoutReleaseTests(unittest.TestCase):
             self.assertEqual({l['datatype'] for l in p['pdk']['layers'] if l['name'] in {t['layer'] for t in c['layout_texts']}},{10})
             inferred=clone(p);next(cc for cc in inferred['cells'] if cc['id']==cid).pop('layout_ports');self.assertEqual({r['name'] for r in ports(inferred,cid)},set(c['ports']))
             d=clone(c['devices'][0])
-            for field,value in [('w','.9u'),('l','.275u'),('l','2.005u')]:
+            for field,value in [('w','.215u'),('l','.275u'),('l','10.005u')]:
                 bad=clone(d);bad['params'][field]=value
                 with self.assertRaises(ValueError):specification(p['pdk'],bad)
             d['model_params']['nf']='2'
-            with self.assertRaisesRegex(ValueError,'one finger'):specification(p['pdk'],d)
+            self.assertEqual(specification(p['pdk'],d)['values']['nf'],2)
+            d['model_params']['nf']=9
+            with self.assertRaisesRegex(ValueError,'finger count'):specification(p['pdk'],d)
 
     def test_gf180_does_not_enable_ring_or_mirror(self):
         from icstudio.process_adapters import capabilities
@@ -102,7 +104,8 @@ class LayoutReleaseTests(unittest.TestCase):
         for variant in ('gf180mcuC','gf180mcuD'):
             t=bundled_technology(variant);c=capabilities(t)
             self.assertEqual(c['native_layout'],['mos','inverter'])
-            self.assertIn('four size boundaries passed',c['physical_evidence'])
+            # New simulation metadata revisions do not inherit old physical acceptance.
+            self.assertEqual(c['physical_evidence'],'No release physical qualification for this revision.')
         t=technology();t['package_lock']['id']='gf180mcuC'
         self.assertEqual(capabilities(t)['native_layout'],[])
         self.assertIn('No release',capabilities(t)['physical_evidence'])

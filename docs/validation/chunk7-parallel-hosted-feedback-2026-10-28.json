@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "chunk": 7,
+  "status": "hosted-source-feedback-pass",
+  "candidate": "95ab31ddf46282cda9aef8a4772de33c86913870",
+  "run_id": 40696467112,
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40696467112",
+  "jobs": [
+    {
+      "id": 122844447387,
+      "name": "source feedback (windows-2022)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 122844447745,
+      "name": "source feedback (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 122846954218,
+      "name": "PR feedback",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "operating_systems": {
+    "Linux": {
+      "status": "PASS",
+      "host": "Linux",
+      "run_id": 40696467112,
+      "candidate": "95ab31ddf46282cda9aef8a4772de33c86913870",
+      "tested_commit": "96ad6f645c6665f9989ba4c815877a9460ccd138",
+      "merge_parents": [
+        "49c79957b4d6f4978127da612e167e5c75cda6b3",
+        "95ab31ddf46282cda9aef8a4772de33c86913870"
+      ],
+      "tests": 722,
+      "skips": 4,
+      "stages": 6,
+      "feedback_seconds": 102.438,
+      "source_files": 1430,
+      "source_binding": "All feedback hashes equal final local hashes already authenticated to exact candidate Git blobs.",
+      "archive": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-parallel-integration-2026-10-28-v1\\hosted-Linux.zip",
+        "sha256": "e813f7f3e5ee52e19d22508bbcfbc1fe252a8f9f83e178478538dac775301a52",
+        "bytes": 7475940,
+        "members": 250,
+        "all_members_read": true
+      },
+      "report_sha256": "89f1d06e0f32a3bf15f0ac22f6f9c5635fe6cc5617e3ff9a634491b37ea105e7",
+      "installed_acceptance": false
+    },
+    "Windows": {
+      "status": "PASS",
+      "host": "Windows",
+      "run_id": 40696467112,
+      "candidate": "95ab31ddf46282cda9aef8a4772de33c86913870",
+      "tested_commit": "96ad6f645c6665f9989ba4c815877a9460ccd138",
+      "merge_parents": [
+        "49c79957b4d6f4978127da612e167e5c75cda6b3",
+        "95ab31ddf46282cda9aef8a4772de33c86913870"
+      ],
+      "tests": 722,
+      "skips": 23,
+      "stages": 6,
+      "feedback_seconds": 232.953,
+      "source_files": 1430,
+      "source_binding": "All feedback hashes equal final local hashes already authenticated to exact candidate Git blobs.",
+      "archive": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-parallel-integration-2026-10-28-v1\\hosted-Windows.zip",
+        "sha256": "2ff44e82d3d5f69a710abf4b41cfebe40e36205fd6faf800f525cc816e17a7a3",
+        "bytes": 7324727,
+        "members": 218,
+        "all_members_read": true
+      },
+      "report_sha256": "351a3e64f60b2952187bb824ef39496090767f680eba8c7eb8ffa03dc1f37c41",
+      "installed_acceptance": false
+    }
+  },
+  "scope": "Actual PR synthetic merge, both six-stage source feedback lanes, aggregate required check and independent artifact/source readback. Not installed or process qualification.",
+  "installed_acceptance": false,
+  "chunk_complete": false
+}

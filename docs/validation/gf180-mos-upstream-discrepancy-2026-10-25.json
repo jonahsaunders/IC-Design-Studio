@@ -1,0 +1,209 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "chunk": 7,
+  "candidate_during_review": "38fccf7242bac4c86117982ce03c78dd07302cf2",
+  "status": "upstream_reference_discrepancy_confirmed",
+  "qualified": false,
+  "chunk_complete": false,
+  "new_native_runs": 0,
+  "scope": "Source provenance and independent re-reading of retained direct-default diagnostics; no changed model, limits, acceptance exit codes or operating-envelope qualification.",
+  "result": {
+    "discrepancy_provenance": "CONFIRMED_IN_UPSTREAM_REFERENCE_RESULTS",
+    "underlying_upstream_centering_reason": "UNRESOLVED",
+    "literal_EP_current_outcome": "MISMATCH_UNCHANGED",
+    "threshold_definition": "INCOMPLETE; signed VDS/2 correction supported numerically but not uniquely specified",
+    "application_defect_found": false,
+    "alternative_public_extraction_closes_same_EP_Vth0_requirement": false,
+    "repository_edits_by_review": false
+  },
+  "workbook": {
+    "path": "spec_all_fets.nl_out.xlsx",
+    "sha256": "18dd25e32ae45413244f7957801279a3961a9bb97c216961f8fdc5a18d4d0a2d",
+    "git_blob": "3ef61df54743640d1990cecb3d75a6dc6b299c31",
+    "bytes": 84232,
+    "sheet": "spec_all_fets.nl_out",
+    "formula_count": 0,
+    "independent_artifact_readback_agrees": true,
+    "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr",
+    "revision": "4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+    "url": "https://github.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr/blob/4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c/models/180MCU_SPICE_DATA/MOS/spec_all_fets.nl_out.xlsx",
+    "license": "Apache-2.0",
+    "source_cells": {
+      "geometry": "A2:C3",
+      "corner_headers": "W1:Y1",
+      "ff_current": "X2:X3",
+      "repeated_ff_current": "D15:G16",
+      "threshold": "K1:M3"
+    },
+    "original_presence_commit": "7140ee1b44359f44db8fa8eda2a8758faa3e164b"
+  },
+  "comparison": [
+    {
+      "corner": "nominal",
+      "device": "nfet_03v3",
+      "idsat_uA_per_um": 509.9621903295985,
+      "reference_cell": "W2",
+      "reference_uA_per_um": 509.96,
+      "difference_uA_per_um": 0.0021903295985339355,
+      "same_value_at_reference_displayed_0p01_precision": true,
+      "literal_EP_range_uA_per_um": [
+        430,
+        590
+      ],
+      "literal_EP_current_status": "PASS",
+      "diagnostic_threshold": {
+        "reference_cell": "K2",
+        "reference_v": 0.6301,
+        "tangent_intercept_v": 0.655238506636172,
+        "corrected_v": 0.630238506636172,
+        "uncorrected_difference_mv": 25.13850663617201,
+        "corrected_difference_mv": 0.13850663617198666,
+        "accepted": false
+      }
+    },
+    {
+      "corner": "nominal",
+      "device": "pfet_03v3",
+      "idsat_uA_per_um": -250.3451799197949,
+      "reference_cell": "W3",
+      "reference_uA_per_um": -250.35,
+      "difference_uA_per_um": 0.004820080205092836,
+      "same_value_at_reference_displayed_0p01_precision": true,
+      "literal_EP_range_uA_per_um": [
+        -290,
+        -210
+      ],
+      "literal_EP_current_status": "PASS",
+      "diagnostic_threshold": {
+        "reference_cell": "K3",
+        "reference_v": -0.7301,
+        "tangent_intercept_v": -0.7551131954228336,
+        "corrected_v": -0.7301131954228336,
+        "uncorrected_difference_mv": -25.013195422833647,
+        "corrected_difference_mv": -0.01319542283362285,
+        "accepted": false
+      }
+    },
+    {
+      "corner": "ff",
+      "device": "nfet_03v3",
+      "idsat_uA_per_um": 590.504375459477,
+      "reference_cell": "X2",
+      "reference_uA_per_um": 590.5,
+      "difference_uA_per_um": 0.004375459477046206,
+      "same_value_at_reference_displayed_0p01_precision": true,
+      "literal_EP_range_uA_per_um": [
+        430,
+        590
+      ],
+      "literal_EP_current_status": "OUTSIDE_PUBLISHED_BOUND",
+      "diagnostic_threshold": {
+        "reference_cell": "L2",
+        "reference_v": 0.5299,
+        "tangent_intercept_v": 0.5549329858489112,
+        "corrected_v": 0.5299329858489111,
+        "uncorrected_difference_mv": 25.032985848911117,
+        "corrected_difference_mv": 0.03298584891109346,
+        "accepted": false
+      }
+    },
+    {
+      "corner": "ff",
+      "device": "pfet_03v3",
+      "idsat_uA_per_um": -290.4653589589051,
+      "reference_cell": "X3",
+      "reference_uA_per_um": -290.47,
+      "difference_uA_per_um": 0.004641041094942011,
+      "same_value_at_reference_displayed_0p01_precision": true,
+      "literal_EP_range_uA_per_um": [
+        -290,
+        -210
+      ],
+      "literal_EP_current_status": "OUTSIDE_PUBLISHED_BOUND",
+      "diagnostic_threshold": {
+        "reference_cell": "L3",
+        "reference_v": -0.6088,
+        "tangent_intercept_v": -0.6338729321639184,
+        "corrected_v": -0.6088729321639184,
+        "uncorrected_difference_mv": -25.07293216391837,
+        "corrected_difference_mv": -0.07293216391834889,
+        "accepted": false
+      }
+    }
+  ],
+  "historical_application_ff": {
+    "nfet_03v3": {
+      "uA_per_um": 590.2774461457483,
+      "maximum": 590,
+      "status": "MISMATCH"
+    },
+    "pfet_03v3": {
+      "uA_per_um": -290.3901988460689,
+      "minimum": -290,
+      "status": "MISMATCH"
+    },
+    "exit_code": 2,
+    "qualified": false
+  },
+  "archive": {
+    "status": "PASS",
+    "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-mos-upstream-discrepancy-2026-10-25-v1\\evidence.zip",
+    "sha256": "4140f30c0fc809f7ec8b2aa053e91aa3c4d47640d74be83232489e0e1d5323c9",
+    "bytes": 269049,
+    "manifest_sha256": "00aca3da5551ad9a05b450c6e812cdaf108daccc29b69dd2b10f87822e9c2a09",
+    "files": 36,
+    "logical_bytes": 913158,
+    "verification": "All ZIP members read, CRC checked, exact byte count and SHA256 matched against pre-archive inputs.",
+    "review_sha256": "d8718914fc40a1fe0fd01eedbb4a1ab4b5b7262eeb2ac81838b694a64679e1d4",
+    "report_sha256": "23582a8ef06c0b96ea6764e9b0dc9ef1ad061c49c13d7d6cf5d7202ef1658028",
+    "external_raw_archive": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-mos-specs-2026-10-23-v1\\Linux-evidence.zip",
+      "sha256": "c95545361c8b50fcaf02eb2a578fc1ef36b1aa86406a7f31c1fd5520fb1bd3d0",
+      "members": {
+        "icstudio-mos-electrical-specs-20261023-model-diagnostic-v1/nominal-public-default-parasitics/deck.raw": {
+          "sha256": "58ee160ccb9d05c64dc7197639dbc6303888d8a33f711cfee6a7f5e92f222554",
+          "bytes": 1528634
+        },
+        "icstudio-mos-electrical-specs-20261023-model-diagnostic-v1/nominal-public-default-parasitics/input.cir": {
+          "sha256": "fc07f61fa05c41d871606e800eb191e04ad6d845c49c159b821cd556473b83ff",
+          "bytes": 2311
+        },
+        "icstudio-mos-electrical-specs-20261023-model-diagnostic-v1/nominal-public-default-parasitics/deck-snapshot.cir": {
+          "sha256": "fc07f61fa05c41d871606e800eb191e04ad6d845c49c159b821cd556473b83ff",
+          "bytes": 2311
+        },
+        "icstudio-mos-electrical-specs-20261023-model-diagnostic-v1/nominal-public-default-parasitics/pdk-model-files.json": {
+          "sha256": "d8756dae7f1e0c9368e4a050da46823474638aedaffc1c107cb40b6ca33ce06a",
+          "bytes": 425
+        },
+        "icstudio-mos-electrical-specs-20261023-model-diagnostic-v1/ff-public-default-parasitics/deck.raw": {
+          "sha256": "b695eacf3e7693aa6acf553e930fb65f3d61c336a8d1e922c1150584b85e42c4",
+          "bytes": 1528634
+        },
+        "icstudio-mos-electrical-specs-20261023-model-diagnostic-v1/ff-public-default-parasitics/input.cir": {
+          "sha256": "35f999d8041ace378b0581ebfd24d3b1de763cfde3f41c6ebf378ae5e690f20f",
+          "bytes": 2276
+        },
+        "icstudio-mos-electrical-specs-20261023-model-diagnostic-v1/ff-public-default-parasitics/deck-snapshot.cir": {
+          "sha256": "35f999d8041ace378b0581ebfd24d3b1de763cfde3f41c6ebf378ae5e690f20f",
+          "bytes": 2276
+        },
+        "icstudio-mos-electrical-specs-20261023-model-diagnostic-v1/ff-public-default-parasitics/pdk-model-files.json": {
+          "sha256": "d8756dae7f1e0c9368e4a050da46823474638aedaffc1c107cb40b6ca33ce06a",
+          "bytes": 425
+        }
+      }
+    },
+    "no_historical_raw_copy": true,
+    "native_runs": 0,
+    "cleanup_performed": false
+  },
+  "independent_archive_check": "Root re-read every member and checked inventory, byte counts, CRC and SHA256 after sealing.",
+  "remaining": [
+    "No public reconciliation of the literal electrical-process limits with the released corner reference outputs.",
+    "Complete source-defined threshold extraction fixture, equation and comparison policy remain unresolved."
+  ],
+  "reference_precision_note": "Agreement at displayed workbook precision describes the reference outputs only; no rounding is applied to a specification limit.",
+  "threshold_inference": "The signed VDS/2 correction is numerically supported by the reference values, but this does not uniquely specify the extraction algorithm or establish a passed threshold requirement."
+}

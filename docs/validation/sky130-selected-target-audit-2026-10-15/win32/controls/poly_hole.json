@@ -1,0 +1,331 @@
+{
+  "schema": 1,
+  "recipe": "sky130-selected-empty-targets-v2",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+      "docs/rules/layers/table-f2a-lvs-key.rst": "0eec9055cef67032ddfc197a5c2cc754098956174340dcc1e82c82275a3dc760"
+    },
+    "device_table": {
+      "path": "docs/qualification/sky130-device-tables/table-f2a-lvs.tsv",
+      "sha256": "c19398018c0f45674c7162077af48c57f5113617691cb985b7985f7e362de3e3"
+    }
+  },
+  "scope": "Sixteen exact catalog targets have conservative absence proofs. BondPad is a subset of pad:drawing under the published C3 definition; the complete drawing and additional pad/mask/intent guards must be empty. The generic pad name must end before another ASCII letter; explicit pad compounds and bond names retain substring matching. These name hints supplement the mandatory raw drawing checks and do not recognize devices by name alone. Every captured inductor family requires the inductor drawing identifier; all identifier/terminal/label data and candidate names must be absent. For r1476, empty poly AND tap implies empty Var_channel and therefore an empty selected well target. For r1493, an absent HVI region makes ndiff inside HVI empty, with additional voltage/mask/intent guards. Missing enclosing metal or implant is never an absence proof. Nonempty or ambiguous targets remain unreviewed. ViaTop, hugePad, other pad variants, generated-mask recipes and device qualification remain separate; no nonempty numerical rule execution is claimed.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "7d695e21573b97ffb496646d3e0f1807e8de921f833f4b9296a6f9f72b7cb84b",
+  "measurements": {
+    "raw": {
+      "pad": 0,
+      "pad_pin": 0,
+      "pad_label": 0,
+      "pad_legacy_pin": 0,
+      "cpdm": 0,
+      "pad_center": 0,
+      "pad_frame": 0,
+      "inductor": 0,
+      "inductor_label": 0,
+      "inductor_terminal1": 0,
+      "inductor_terminal2": 0,
+      "inductor_terminal3": 0,
+      "cp1m": 0,
+      "cfom": 0,
+      "cfom_drawing": 0,
+      "hvi": 0,
+      "hvntm": 0,
+      "chvntm": 0,
+      "chvntm_drawing": 0,
+      "clvom": 0,
+      "clvom_drawing": 0,
+      "uhvi": 0,
+      "vhvi": 0,
+      "areaid_hl": 0,
+      "diff_hv": 0
+    },
+    "hints": {
+      "bond_pad": {
+        "cells": 0,
+        "labels": 0
+      },
+      "inductor": {
+        "cells": 0,
+        "labels": 0
+      },
+      "varactor": {
+        "cells": 0,
+        "labels": 0
+      },
+      "high_voltage": {
+        "cells": 0,
+        "labels": 0
+      }
+    },
+    "poly_tap": {
+      "poly": {
+        "raw_shapes": 1,
+        "texts": 0,
+        "components": 1,
+        "area_nm2": 5000000
+      },
+      "tap": {
+        "raw_shapes": 1,
+        "texts": 0,
+        "components": 1,
+        "area_nm2": 3240000
+      },
+      "intersection_components": 0,
+      "intersection_area_nm2": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "r1326",
+      "subject": "bond_pad",
+      "witnesses": {
+        "pad": 0,
+        "pad_pin": 0,
+        "pad_label": 0,
+        "pad_legacy_pin": 0,
+        "cpdm": 0,
+        "pad_center": 0,
+        "pad_frame": 0,
+        "bond_pad_cells": 0,
+        "bond_pad_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1327",
+      "subject": "bond_pad",
+      "witnesses": {
+        "pad": 0,
+        "pad_pin": 0,
+        "pad_label": 0,
+        "pad_legacy_pin": 0,
+        "cpdm": 0,
+        "pad_center": 0,
+        "pad_frame": 0,
+        "bond_pad_cells": 0,
+        "bond_pad_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1328",
+      "subject": "bond_pad",
+      "witnesses": {
+        "pad": 0,
+        "pad_pin": 0,
+        "pad_label": 0,
+        "pad_legacy_pin": 0,
+        "cpdm": 0,
+        "pad_center": 0,
+        "pad_frame": 0,
+        "bond_pad_cells": 0,
+        "bond_pad_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1329",
+      "subject": "bond_pad",
+      "witnesses": {
+        "pad": 0,
+        "pad_pin": 0,
+        "pad_label": 0,
+        "pad_legacy_pin": 0,
+        "cpdm": 0,
+        "pad_center": 0,
+        "pad_frame": 0,
+        "bond_pad_cells": 0,
+        "bond_pad_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1330",
+      "subject": "bond_pad",
+      "witnesses": {
+        "pad": 0,
+        "pad_pin": 0,
+        "pad_label": 0,
+        "pad_legacy_pin": 0,
+        "cpdm": 0,
+        "pad_center": 0,
+        "pad_frame": 0,
+        "bond_pad_cells": 0,
+        "bond_pad_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1331",
+      "subject": "bond_pad",
+      "witnesses": {
+        "pad": 0,
+        "pad_pin": 0,
+        "pad_label": 0,
+        "pad_legacy_pin": 0,
+        "cpdm": 0,
+        "pad_center": 0,
+        "pad_frame": 0,
+        "bond_pad_cells": 0,
+        "bond_pad_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1362",
+      "subject": "bond_pad",
+      "witnesses": {
+        "pad": 0,
+        "pad_pin": 0,
+        "pad_label": 0,
+        "pad_legacy_pin": 0,
+        "cpdm": 0,
+        "pad_center": 0,
+        "pad_frame": 0,
+        "bond_pad_cells": 0,
+        "bond_pad_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1369",
+      "subject": "inductor",
+      "witnesses": {
+        "inductor": 0,
+        "inductor_label": 0,
+        "inductor_terminal1": 0,
+        "inductor_terminal2": 0,
+        "inductor_terminal3": 0,
+        "inductor_cells": 0,
+        "inductor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1370",
+      "subject": "inductor",
+      "witnesses": {
+        "inductor": 0,
+        "inductor_label": 0,
+        "inductor_terminal1": 0,
+        "inductor_terminal2": 0,
+        "inductor_terminal3": 0,
+        "inductor_cells": 0,
+        "inductor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1371",
+      "subject": "inductor",
+      "witnesses": {
+        "inductor": 0,
+        "inductor_label": 0,
+        "inductor_terminal1": 0,
+        "inductor_terminal2": 0,
+        "inductor_terminal3": 0,
+        "inductor_cells": 0,
+        "inductor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1372",
+      "subject": "inductor",
+      "witnesses": {
+        "inductor": 0,
+        "inductor_label": 0,
+        "inductor_terminal1": 0,
+        "inductor_terminal2": 0,
+        "inductor_terminal3": 0,
+        "inductor_cells": 0,
+        "inductor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1373",
+      "subject": "inductor",
+      "witnesses": {
+        "inductor": 0,
+        "inductor_label": 0,
+        "inductor_terminal1": 0,
+        "inductor_terminal2": 0,
+        "inductor_terminal3": 0,
+        "inductor_cells": 0,
+        "inductor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1374",
+      "subject": "inductor",
+      "witnesses": {
+        "inductor": 0,
+        "inductor_label": 0,
+        "inductor_terminal1": 0,
+        "inductor_terminal2": 0,
+        "inductor_terminal3": 0,
+        "inductor_cells": 0,
+        "inductor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1375",
+      "subject": "inductor",
+      "witnesses": {
+        "inductor": 0,
+        "inductor_label": 0,
+        "inductor_terminal1": 0,
+        "inductor_terminal2": 0,
+        "inductor_terminal3": 0,
+        "inductor_cells": 0,
+        "inductor_labels": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1476",
+      "subject": "varactor_well",
+      "witnesses": {
+        "cp1m": 0,
+        "cfom": 0,
+        "cfom_drawing": 0,
+        "varactor_cells": 0,
+        "varactor_labels": 0,
+        "poly_tap_area_nm2": 0
+      },
+      "disposition": "absent-operand"
+    },
+    {
+      "id": "r1493",
+      "subject": "high_voltage_diff",
+      "witnesses": {
+        "hvi": 0,
+        "hvntm": 0,
+        "chvntm": 0,
+        "chvntm_drawing": 0,
+        "clvom": 0,
+        "clvom_drawing": 0,
+        "uhvi": 0,
+        "vhvi": 0,
+        "areaid_hl": 0,
+        "diff_hv": 0,
+        "high_voltage_cells": 0,
+        "high_voltage_labels": 0
+      },
+      "disposition": "absent-operand"
+    }
+  ],
+  "unreviewed": 0,
+  "status": "selected-target-absence-reviewed"
+}

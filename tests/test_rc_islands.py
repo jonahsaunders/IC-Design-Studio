@@ -39,9 +39,18 @@ Rfloating2 f2 f3 5
 
     def test_unsupported_elements_and_hierarchy_fail_closed(self):
         with tempfile.TemporaryDirectory() as tmp:
-            for n,body in enumerate(('L1 a b 1n','.subckt inner a b','+ continuation','R1 a b -1','R1 a b 1\nr1 floating island 2')):
+            for n,body in enumerate(('L1 a b 1n','.subckt inner a b','* no preceding statement\n+ continuation','R1 a b -1','R1 a b 1\nr1 floating island 2')):
                 source=Path(tmp)/str(n);source.write_text('.subckt top a b\n'+body+'\n.ends\n')
                 with self.subTest(body=body),self.assertRaises(ValueError):prune(source,Path(tmp)/(str(n)+'.out'))
+
+    def test_wrapped_port_remains_an_observable_anchor(self):
+        text='.subckt top a b\n+ wrapped_port\nRkeep wrapped_port internal 1\nRdrop disconnected other 2\n.ends\n'
+        with tempfile.TemporaryDirectory() as tmp:
+            source=Path(tmp)/'raw.spice';target=Path(tmp)/'electrical.spice'
+            source.write_text(text, newline='\n')
+            report=prune(source,target)
+            self.assertEqual(report['removed_resistors'],['rdrop'])
+            self.assertEqual(target.read_text(),text.replace('Rdrop disconnected other 2\n',''))
 
     def test_range_requires_both_bounded_micron_declarations(self):
         text='extract\n units microns\n sidehalo 8\n fringeshieldhalo 8\nend\n'

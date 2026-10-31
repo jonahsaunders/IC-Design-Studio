@@ -2,13 +2,29 @@ name: Statistical campaign qualification
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full 40-character commit of the selected branch or tag
+        type: string
+        required: true
   push:
-    branches: [main, experimental]
-  pull_request:
+    tags: ['v*']
+# Selected candidates retain all acceptance gates and are not cancelled by new pushes.
+concurrency:
+  group: candidate-analog-campaign-qualification-${{ github.workflow }}-${{ github.run_id }}
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
   campaign:
+    needs: candidate
     name: 1152 ngspice cases and coordinator recovery
     runs-on: ubuntu-24.04
     timeout-minutes: 20

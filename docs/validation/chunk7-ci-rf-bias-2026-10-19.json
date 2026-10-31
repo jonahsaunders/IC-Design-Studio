@@ -1,0 +1,614 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "sampled_rf_bias_noise_and_local_ci_repairs_passed",
+  "baseline": "841199bb7f5721bd25cb87ce3253f157f8dd6b23",
+  "scope": "Both public RF diode candidates: sampled reverse DC, admittance and noise with anode grounded; return to zero without reset. Local reproductions of hosted menu, Windows path identity, Magic boundary-warning and simulator-compatibility failures. No complete family, operating-envelope, default promotion or installed-release qualification.",
+  "source_files": {
+    "scripts/qualify_sky130_rf_bias.py": "c0a0f8a0cf522afa1ee6cee7d16e2509373dfa82fae0791129024e3675da10ec",
+    "tests/test_sky130_rf_bias.py": "9bfe343ce39abd5fda87251f9656019a1fd1dd78e6b12ef2111f9b815889ff69",
+    "icstudio/magic_diagnostics.py": "014bd2a289bb38a50ae8d196e5ed1fabda463fd0ea06bf4d9a6d48ac76d2d211",
+    "icstudio/menu_map.py": "5c2ff3461ebfa1e5c8f10c769e90259eedd3d489228f466479abcf94492aa213",
+    "tests/test_magic_diagnostics.py": "ab1510f4b76c9ad859c97a6da349730765e001cbd681cba05f4634c6de802906",
+    "tests/test_rf_runtime.py": "f18db937f2fbfebf6364399b3ea382325c3f0cf1211b07b934f6e410f8192ef6",
+    "tests/gui_sky130_rf_verification.py": "9432882952d9b7a883cc78fef449c520fa0c054ba7e1defe2536e85009a1c6bf",
+    ".github/workflows/physical-qualification.yml": "ed47133d78b0f5289857f568c8152e33612e632e38004040fc5f646f4187a852",
+    ".github/workflows/build-desktop.yml": "94049d6a8d645da21a16a01bd27e64f930377c714c5449ea720570a8a775443d"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/chunk7-ci-rf-bias-2026-10-19/evidence.zip",
+    "sha256": "6565c2304046c2215f2e6b79ffa26bfaa1c709e98e158dae2415c2c13fa63943",
+    "bytes": 76064612,
+    "files": 24051,
+    "unique_contents": 15399,
+    "all_objects_verified": true
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "6565c2304046c2215f2e6b79ffa26bfaa1c709e98e158dae2415c2c13fa63943",
+    "checks": [
+      {
+        "name": "restore",
+        "exit": 0,
+        "log_sha256": "fb759b491f1391e33c9fed8ad6fd933541271aaa20d2d94ca972d0c6143901c9"
+      },
+      {
+        "name": "units",
+        "exit": 0,
+        "log_sha256": "366bc02eb469476757c2214a15e2f63abc7dc738670c1e55da71a5f21113e6d6"
+      },
+      {
+        "name": "pilot",
+        "exit": 0,
+        "log_sha256": "3c2334c70f89a8e897a492f50c4d35f29bdfe31d499429c7d8527a329e3204ce"
+      }
+    ],
+    "pilot_cases": 8,
+    "source": "/var/tmp/icstudio-rf-bias-restored-20261019-v1/source"
+  },
+  "rf": {
+    "models": [
+      "ps2nw",
+      "pw2dn"
+    ],
+    "corners": [
+      "tt",
+      "ss",
+      "ff"
+    ],
+    "temperatures_c": [
+      -40,
+      27,
+      125
+    ],
+    "geometries_um2_um": [
+      [
+        4,
+        8
+      ],
+      [
+        8,
+        12
+      ],
+      [
+        100,
+        40
+      ],
+      [
+        4,
+        10
+      ],
+      [
+        16,
+        20
+      ]
+    ],
+    "biases_v": [
+      0,
+      -0.05,
+      -0.1,
+      -0.5,
+      -1,
+      -5,
+      0
+    ],
+    "frequency_hz": [
+      10,
+      10000000000.0
+    ],
+    "frequency_points": 91,
+    "relative_tolerance": 1e-06,
+    "absolute_current_tolerance_a": 1e-18,
+    "absolute_noise_tolerance_a_sqrt_hz": 1e-24,
+    "faults": [
+      "missing-perimeter",
+      "wrong-barrier",
+      "wrong-leakage"
+    ],
+    "oracle": "Independent branch bisection, complex series admittance and propagated resistor Johnson / junction shot noise from literal public parameters. Independent readback is a separate parser/hash/cross-host audit, not a second model oracle.",
+    "independent_audit": {
+      "status": "PASS",
+      "raw_files": 15120,
+      "plot_points_per_host": 461160,
+      "scalar_components_compared": 3913560,
+      "maximum_host_relative_difference": 9.749691998737179e-16,
+      "hosts": [
+        {
+          "positive_cases": 90,
+          "detected_faults": 270,
+          "maximum_valid_error": {
+            "dc": 3.759498761049806e-09,
+            "ac": 7.1996797728365695e-09,
+            "noise": 0.00048490507397526644
+          }
+        },
+        {
+          "positive_cases": 90,
+          "detected_faults": 270,
+          "maximum_valid_error": {
+            "dc": 3.759498761049806e-09,
+            "ac": 7.1996797728365695e-09,
+            "noise": 0.00048490507397526644
+          }
+        }
+      ]
+    },
+    "hosts": [
+      {
+        "host": "Windows",
+        "status": "PASS",
+        "positive_cases": 90,
+        "detected_faults": 270,
+        "report_sha256": "90cfbc0c0e5ab00c7dd4bb6fa11afee9c08275528a398e7fd8308271c755cb95",
+        "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+        "runner_sha256": "c0a0f8a0cf522afa1ee6cee7d16e2509373dfa82fae0791129024e3675da10ec"
+      },
+      {
+        "host": "Linux",
+        "status": "PASS",
+        "positive_cases": 90,
+        "detected_faults": 270,
+        "report_sha256": "8547c87f8206d33227b2362fa5e8e09614919ac7724ac418bcab09343b0566b6",
+        "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+        "runner_sha256": "c0a0f8a0cf522afa1ee6cee7d16e2509373dfa82fae0791129024e3675da10ec"
+      }
+    ]
+  },
+  "ci_repairs": [
+    {
+      "workflows": [
+        "39181307275",
+        "39181307278"
+      ],
+      "cause": "RF action was absent from the central menu map.",
+      "repair": "Map the action to Physical verification; both source desktops pass all three affected GUI checks."
+    },
+    {
+      "workflows": [
+        "39181307278"
+      ],
+      "cause": "Hosted Windows temporary directory short alias and resolved long path differ as strings.",
+      "repair": "Use filesystem samefile identity in both tests; wrong-directory rejection remains tested."
+    },
+    {
+      "workflows": [
+        "39181307308"
+      ],
+      "cause": "Magic reports repeated FIXED_BBOX metadata as an Error while reading cell warning.",
+      "repair": "Accept only the full exact known warning with matching cell names. Unknown masks and other reader errors remain fatal.",
+      "source": "https://github.com/RTimothyEdwards/magic/blob/4f53bb3091d1e4a9b2009a58f157a8a4331d4c84/cif/CIFrdcl.c"
+    },
+    {
+      "workflows": [
+        "39181307308"
+      ],
+      "cause": "Conservative RF guard rejects unverified Ubuntu ngspice 42 for externally included model decks.",
+      "repair": "Build pinned public ngspice 46 and require measured diode-sequence checks in inverter and detector jobs. Guard behavior is unchanged.",
+      "local_replay_engine": "Public retained ngspice 47; Windows RF batch uses pinned official 46."
+    }
+  ],
+  "native_ci_replay": {
+    "status": "PASS",
+    "cases": [
+      {
+        "name": "common-mode-original",
+        "status": "PASS",
+        "drc": 0,
+        "lvs_match": true,
+        "expected_match": true,
+        "unchanged_native_circuit": true,
+        "input_sha256": "bda4ec42da1e37c8bbf164cb2134e3a5bca673bcb428005b83f770c9de8ac190",
+        "reference_sha256": "e366dd66a6a0ee13179cc9a116ab094903f1352e77a3b70a94d0b1c0b066a1de"
+      },
+      {
+        "name": "amplifier-original",
+        "status": "PASS",
+        "drc": 0,
+        "lvs_match": false,
+        "expected_match": false,
+        "unchanged_native_circuit": true,
+        "input_sha256": "97f063f8a961488873e599872439034a1b2ed2b64d7b7126a1e0b6c46c00c369",
+        "reference_sha256": "6e150e45f83d3ea62e982d8380270768a06d2e6bb5100dc97b03d03d6e6d0564"
+      },
+      {
+        "name": "amplifier-repaired",
+        "status": "PASS",
+        "drc": 0,
+        "lvs_match": true,
+        "expected_match": true,
+        "unchanged_native_circuit": true,
+        "input_sha256": "97f063f8a961488873e599872439034a1b2ed2b64d7b7126a1e0b6c46c00c369",
+        "reference_sha256": "26d25cbd97948265145604ce1083c898bcb0aa5fdd04e4cac96561c2132ee3cb"
+      },
+      {
+        "name": "unknown-mask",
+        "status": "PASS",
+        "rejected": true
+      },
+      {
+        "name": "diode-sequences",
+        "status": "PASS",
+        "exit": 0
+      },
+      {
+        "name": "inverter",
+        "status": "PASS",
+        "exit": 0
+      }
+    ]
+  },
+  "focused_regressions": [
+    {
+      "host": "Windows",
+      "checks": [
+        {
+          "name": "units",
+          "exit": 0,
+          "seconds": 5.092999999993481,
+          "log_sha256": "5a33a6ff4baaef4f1d633af1c24c1aab503c1916cd1c0e1e2be1ac05d117a9c0"
+        },
+        {
+          "name": "interoperability",
+          "exit": 0,
+          "seconds": 1.6400000000139698,
+          "log_sha256": "1a076770e0747c4ab42c7315293dd67d44ce2d366fb12e5c703ff2d9a9b8a751"
+        },
+        {
+          "name": "professional",
+          "exit": 0,
+          "seconds": 5.5310000000172295,
+          "log_sha256": "710812b0a218cc97b355131731b748602df179354df26e8590d85eb29a036317"
+        },
+        {
+          "name": "rf-menu",
+          "exit": 0,
+          "seconds": 2.6719999999913853,
+          "log_sha256": "7645cdadb495c4087ff926a7fc88c93fdb654e03783313c934e033a847057dca"
+        }
+      ],
+      "source_unchanged": true
+    },
+    {
+      "host": "Linux",
+      "checks": [
+        {
+          "name": "units",
+          "exit": 0,
+          "seconds": 26.540133480999998,
+          "log_sha256": "cf892d23b72d99ebc908e24c00a33c53b9c9be76a406f10dca84f15c7c19f871"
+        },
+        {
+          "name": "interoperability",
+          "exit": 0,
+          "seconds": 3.0686316590000047,
+          "log_sha256": "c1a21700975ebc8455ddbd76573a353eb99455cd662029b7d471a9c496f3b0bb"
+        },
+        {
+          "name": "professional",
+          "exit": 0,
+          "seconds": 5.804100016999996,
+          "log_sha256": "7c298fbc2e72d58c5a9b9dbe7b1115950057c7f501e6af0d97816d9dc9eb5cc9"
+        },
+        {
+          "name": "rf-menu",
+          "exit": 0,
+          "seconds": 5.517329683,
+          "log_sha256": "3cae1d8a3ac601dc6858d600ee19125f1cdda2ae5d01417f657325e60badda67"
+        }
+      ],
+      "source_unchanged": true
+    }
+  ],
+  "full_suites": [
+    {
+      "host": "Windows",
+      "exit": 0,
+      "seconds": 1249.1870000000054,
+      "source_unchanged": true,
+      "command": [
+        "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8=0",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "discovered": 3135,
+      "skipped": 38,
+      "log_sha256": "c074e2768fe9ed929f56d31b64fac8dac5093006a270b43c8a30013fe9504cff",
+      "source_manifest_sha256": "6913b83e7763e794ccfc8ca6e191f11bf1109308fc7df4c6bf8221a27fc90cf6",
+      "scope": "Suite discovered before the five RF-bias and five RF-transient tests were added. All ten added tests pass separately on both hosts; archive-restored Linux executes them again."
+    },
+    {
+      "host": "Linux",
+      "exit": 0,
+      "seconds": 1953.8092738190003,
+      "source_unchanged": true,
+      "command": [
+        "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "discovered": 3135,
+      "skipped": 34,
+      "log_sha256": "1035a6d24ef4c70e29e2bcf570affb6245636368eb601da694752ea2cf6e8614",
+      "source_manifest_sha256": "4f3d5b93927a97e9cb02ebd8b7cea8cd06b51a09ed7816422bfae19cd10f4c88",
+      "scope": "Suite discovered before the five RF-bias and five RF-transient tests were added. All ten added tests pass separately on both hosts; archive-restored Linux executes them again."
+    }
+  ],
+  "hosted_acceptance": "At e912509, interoperability and physical inverter/public-layout jobs pass. Other jobs remain pending in the saved checkpoint; no installed-release acceptance is inferred.",
+  "retained_investigations": [
+    "Anode-driven -5 V prototype exposed cancellation of tiny series-resistor currents against a large common-mode voltage. Grounded-anode cathode drive passes unchanged tolerance. The original failed prototype is retained; arbitrary common-mode equivalence is not claimed."
+  ],
+  "remaining": [
+    "Seven real catalog models still unavailable; RF candidates are not default-promoted.",
+    "RF pw2dn physical extraction and full device operating envelopes remain unqualified.",
+    "Other device-family physical/extracted coverage, statistical behavior, upstream tool-view completeness and installed-release acceptance remain open."
+  ],
+  "detector_replay": {
+    "status": "passed",
+    "compatibility": "hsa",
+    "dc_startup": true,
+    "corner": "tt",
+    "temperature": 27,
+    "dvdd": 1.8,
+    "vbg": 1.2,
+    "ibias": 6e-07,
+    "supply_step": 0.01,
+    "tolerance": {
+      "relative": 0.001,
+      "absolute_voltage": 2e-06,
+      "trip": "same 10 mV step"
+    },
+    "codes": [
+      {
+        "code": 0,
+        "trip_voltage": 3.299999999999994,
+        "max_reference_error": 0.0006746189441129147,
+        "status": "passed"
+      },
+      {
+        "code": 1,
+        "trip_voltage": 3.429999999999991,
+        "max_reference_error": 0.0014411494653210344,
+        "status": "passed"
+      },
+      {
+        "code": 2,
+        "trip_voltage": 3.579999999999988,
+        "max_reference_error": 0.0003623129437080319,
+        "status": "passed"
+      },
+      {
+        "code": 3,
+        "trip_voltage": 3.739999999999984,
+        "max_reference_error": 0.0009776964657559617,
+        "status": "passed"
+      },
+      {
+        "code": 4,
+        "trip_voltage": 3.829999999999982,
+        "max_reference_error": 0.0004793441250268149,
+        "status": "passed"
+      },
+      {
+        "code": 5,
+        "trip_voltage": 4.009999999999978,
+        "max_reference_error": 0.00025863393750702457,
+        "status": "passed"
+      },
+      {
+        "code": 6,
+        "trip_voltage": 4.109999999999976,
+        "max_reference_error": 0.0005318867242680714,
+        "status": "passed"
+      },
+      {
+        "code": 7,
+        "trip_voltage": 4.319999999999972,
+        "max_reference_error": 0.0002672164925039411,
+        "status": "passed"
+      },
+      {
+        "code": 8,
+        "trip_voltage": 4.439999999999969,
+        "max_reference_error": 0.00022705289834901166,
+        "status": "passed"
+      },
+      {
+        "code": 9,
+        "trip_voltage": 4.559999999999967,
+        "max_reference_error": 0.0002638901817177963,
+        "status": "passed"
+      },
+      {
+        "code": 10,
+        "trip_voltage": 4.689999999999964,
+        "max_reference_error": 0.00016404626157995317,
+        "status": "passed"
+      },
+      {
+        "code": 11,
+        "trip_voltage": 4.819999999999961,
+        "max_reference_error": 0.00019798208311216925,
+        "status": "passed"
+      },
+      {
+        "code": 12,
+        "trip_voltage": 4.969999999999958,
+        "max_reference_error": 0.0002472406915701164,
+        "status": "passed"
+      },
+      {
+        "code": 13,
+        "trip_voltage": 5.119999999999955,
+        "max_reference_error": 0.0007370347939390509,
+        "status": "passed"
+      },
+      {
+        "code": 14,
+        "trip_voltage": 5.279999999999951,
+        "max_reference_error": 0.00021483138815203695,
+        "status": "passed"
+      },
+      {
+        "code": 15,
+        "trip_voltage": 5.459999999999948,
+        "max_reference_error": 0.0004470399232818778,
+        "status": "passed"
+      }
+    ],
+    "scope": "Emitted-deck comparison in the declared compatibility mode; excludes transient timing, hysteresis, PVT and extracted simulation."
+  },
+  "final_evidence_archive": {
+    "path": "IC-Design-Studio-evidence/sky130-rf-transient-2026-10-19/evidence.zip",
+    "sha256": "725c054388007570bdf7d813a8467e9f189a6c08744d7e7252a90248943d30f7",
+    "bytes": 32917531,
+    "files": 6497,
+    "unique_contents": 4524,
+    "all_objects_verified": true
+  },
+  "hosted_checkpoint": [
+    {
+      "run_id": 39263305360,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305360",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "qualify (devices)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (detector)",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "qualify (public-layouts)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (analog-rc)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (two-stage-opamp)",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "qualify (hierarchy-rc)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (bipolar)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (analog)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "qualify (inverter)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263313114,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263313114",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "exchange",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263305274,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305274",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "exchange",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263313270,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263313270",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "digital-runtime / runtime",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 39263305237,
+      "commit": "e912509e5e52982b48ddf86bb6e55a7c6a8f768b",
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39263305237",
+      "status": "in_progress",
+      "conclusion": "",
+      "jobs": [
+        {
+          "name": "digital-runtime / runtime",
+          "status": "in_progress",
+          "conclusion": ""
+        },
+        {
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

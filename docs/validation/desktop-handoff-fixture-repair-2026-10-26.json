@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "status": "PASS",
+  "chunk": 7,
+  "baseline_commit": "d9c0fc3db714891226e0dfbabca044ce38a81f09",
+  "scope": "Test-fixture canonical-path repair only. Production payload/path/source checks, native tools, operating limits and family gates are unchanged. Local integrated source feedback is not hosted installed acceptance.",
+  "failure": {
+    "source_run": 40407908833,
+    "desktop_run": 40407920649,
+    "portable_windows_job": 121870440370,
+    "portable_tests": 184,
+    "portable_errors": 34,
+    "reason": "Fixture stored lexical TEMP spelling while production canonicalized its workspace. Windows alias spelling therefore looked outside the fixture root.",
+    "log_sha256": "762092dc60781ae613460897caf15f9feb395ace3da022edc0724a7730483c94",
+    "retained_log_format": "Connector-decoded text retained with LF normalization.",
+    "source_feedback_artifacts": {
+      "Windows": {
+        "artifact_sha256": "0b62cb2e9d8e88538aa30ab431cfeb89b121abce8c1649553f0a6ad9982639b5",
+        "status": "failed",
+        "commit": "2cef1b3b148b06d1ed89ee5259a002f2246e9785",
+        "tests": 681,
+        "source_hashes_match_d9": true,
+        "errors": 34
+      },
+      "Linux": {
+        "artifact_sha256": "74c47cf767c957c923def1901d35306aca1fbda0ceb13eb3c95fab37675ade1a",
+        "status": "passed",
+        "commit": "2cef1b3b148b06d1ed89ee5259a002f2246e9785",
+        "tests": 681,
+        "source_hashes_match_d9": true,
+        "errors": 0
+      }
+    }
+  },
+  "correction": {
+    "file": "tests/test_desktop_acceptance_handoff.py",
+    "before_sha256": "0e17ff187ee2b54f4fdb6ffdd4e934487ad27d9a3e20908628ad1b13213ac233",
+    "after_sha256": "94c3890337c694808050e9d11906eea828b4d30b688f950a5f4298075e68a3b3",
+    "change": "Resolve the ordinary temporary directory before constructing fixture paths/identity; new parent-traversal alias reproducer verifies complete pack/restore and unchanged source bytes.",
+    "regression_failed_before": true,
+    "before_log_sha256": "97903b3bcb3406ceb59378a4463b6ba25bdedac8ed6a7a4aaa3175c0f241f826",
+    "production_sources_unchanged": true
+  },
+  "hosts": {
+    "windows": {
+      "status": "PASS",
+      "tests": 682,
+      "skips": 20,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 116.312
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.469
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 29.594
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.484
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.344
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 36.359
+        }
+      ],
+      "elapsed_seconds": 204.828,
+      "unit_log_sha256": "09fb2642a5d7e56e656f39185e20e6eb77b608ab3ace6fed93ecc54da0962692",
+      "source_bindings": 1415
+    },
+    "linux": {
+      "status": "PASS",
+      "tests": 682,
+      "skips": 4,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 25.264
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.648
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 22.592
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.201
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.848
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 18.117
+        }
+      ],
+      "elapsed_seconds": 77.349,
+      "unit_log_sha256": "6580b40a0247d6a8bc7a4cdfffd693f87279d3074c838d685550f893df545e7b",
+      "source_bindings": 1415
+    }
+  },
+  "source_maps_identical_except_reviewed_test": true,
+  "linux_snapshot_manifest_sha256": "0f692689ba1b42c298d2efabddaa50ad3d5f3d9d5c01a7553cf4ec32e3090b5e",
+  "source_guard_files": 6599,
+  "chunk_complete": false,
+  "qualified": false,
+  "full_family": false,
+  "signoff": false
+}

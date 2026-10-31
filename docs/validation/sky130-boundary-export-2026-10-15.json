@@ -1,0 +1,716 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "boundary-export-correction-verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "a533b9d5985ca57d1d5f0aa3bfdc4f260a2f20e5",
+  "scope": "Current Finish/export removes only one top-level prBoundary box equal to the independent OpenDB die and rejects other forbidden boundary purposes. All three real corrected GDS files preserve manufacturing geometry and text, pass the six existing partial geometry profiles, thirteen antenna stages, OpenDB checks and macro export. Windows reproduces identical GDS and validates exports. Thirty-five focused tests pass on each OS. Eight literal catalog prohibitions are checked separately on these new GDS identities; the earlier 651-open catalog ledger remains tied to its original GDS files.",
+  "source_files": {
+    "icstudio/digital_sky130_boundaries.py": "3ccfda72825de8b1dce28d665ab7fe0cdc8b36251ad15371449b7923808a16ae",
+    "icstudio/digital_sky130_pins.py": "413ef2626b803bf17c5f65339e5ffe2e9deb0c63f451befaa28a9f669dfe535b",
+    "tests/test_sky130_boundaries.py": "aaff3b39d708fae340b415f98733063f021ab9a314fde0abeafc2b6086cdf822",
+    "tests/test_sky130_pins.py": "b05b9bb9d209e0aa34bdb3439bf7a4d932e15eec0cf08deb0cc971604e0b8b07",
+    "tests/test_digital_macro.py": "0cc2e45e0632b38e919c794d1ecde54b9a56070f779530dd08e9d71f0eec08ea"
+  },
+  "systems": {
+    "win32": {
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "win32",
+        "qualified": false,
+        "chunk_complete": false,
+        "driver_sha256": "fd21187826747d29519f28da7c7ce070b85ca442be79dc17086e1f0bb04c7377",
+        "tests": 35,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "log_sha256": "debdba498f609144551f052b99395267a6258c63d7e57ba21bdfda45486d5dc6",
+        "source_files": {
+          "icstudio/digital_sky130_boundaries.py": "3ccfda72825de8b1dce28d665ab7fe0cdc8b36251ad15371449b7923808a16ae",
+          "icstudio/digital_sky130_pins.py": "413ef2626b803bf17c5f65339e5ffe2e9deb0c63f451befaa28a9f669dfe535b",
+          "tests/test_sky130_boundaries.py": "aaff3b39d708fae340b415f98733063f021ab9a314fde0abeafc2b6086cdf822",
+          "tests/test_sky130_pins.py": "b05b9bb9d209e0aa34bdb3439bf7a4d932e15eec0cf08deb0cc971604e0b8b07",
+          "tests/test_digital_macro.py": "0cc2e45e0632b38e919c794d1ecde54b9a56070f779530dd08e9d71f0eec08ea"
+        },
+        "elapsed_seconds": 1.4059999999990396
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-boundary-export-2026-10-15/win32/record.json",
+          "sha256": "a092f3a1cdc9c1aff9bd3441917e5e69985aa4b03736e78faf79369edbb101ff"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-boundary-export-2026-10-15/win32/tests.log",
+          "sha256": "debdba498f609144551f052b99395267a6258c63d7e57ba21bdfda45486d5dc6"
+        }
+      }
+    },
+    "linux": {
+      "result": {
+        "schema": 1,
+        "status": "PASS",
+        "platform": "linux",
+        "qualified": false,
+        "chunk_complete": false,
+        "driver_sha256": "fd21187826747d29519f28da7c7ce070b85ca442be79dc17086e1f0bb04c7377",
+        "tests": 35,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "log_sha256": "4e71b5ee0cadb2ec695df36ea88395a46c272cec80466dddd5401b2cf7e4925b",
+        "source_files": {
+          "icstudio/digital_sky130_boundaries.py": "3ccfda72825de8b1dce28d665ab7fe0cdc8b36251ad15371449b7923808a16ae",
+          "icstudio/digital_sky130_pins.py": "413ef2626b803bf17c5f65339e5ffe2e9deb0c63f451befaa28a9f669dfe535b",
+          "tests/test_sky130_boundaries.py": "aaff3b39d708fae340b415f98733063f021ab9a314fde0abeafc2b6086cdf822",
+          "tests/test_sky130_pins.py": "b05b9bb9d209e0aa34bdb3439bf7a4d932e15eec0cf08deb0cc971604e0b8b07",
+          "tests/test_digital_macro.py": "0cc2e45e0632b38e919c794d1ecde54b9a56070f779530dd08e9d71f0eec08ea"
+        },
+        "elapsed_seconds": 0.6153493299999999
+      },
+      "evidence": {
+        "record.json": {
+          "path": "docs/validation/sky130-boundary-export-2026-10-15/linux/record.json",
+          "sha256": "31796b81e30765c711426690f8e9ae0b14e992b6d4925bcd173317b5e4e73c0b"
+        },
+        "tests.log": {
+          "path": "docs/validation/sky130-boundary-export-2026-10-15/linux/tests.log",
+          "sha256": "4e71b5ee0cadb2ec695df36ea88395a46c272cec80466dddd5401b2cf7e4925b"
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "schema": 1,
+      "status": "application-checks-and-export-pass",
+      "qualified": false,
+      "chunk_complete": false,
+      "case": "counter",
+      "platform": "linux",
+      "driver_sha256": "fcd7ff659b4c67a58ba5ded4c30e15a20530dd80510c11847efdfa541f07bbc4",
+      "source_result_sha256": "ad66824f3592bfbca7f80c639fb206aabb2c63b5b9b88ef0fc41947935cbbd88",
+      "source_input_sha256": "1bb2a7ef2a1db3d000a68c429cee82807eaff828d646c5d127666adb5a0b3991",
+      "source_gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "scope": "Actual Runner export removes only the top-level prBoundary box matching the independent OpenDB die. Manufacturing masks and text are compared in full. Six partial geometry profiles, antenna, isolation, OpenDB checks and macro export rerun on the corrected GDS. Original timing/equivalence remains separate; no new extraction, full physical signoff or installer qualification. Earlier catalog results retain their original GDS identities.",
+      "boundary_export": {
+        "recipe": "sky130-declared-die-outline-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed"
+        },
+        "top": "counter",
+        "die_nm": [
+          0,
+          0,
+          200000,
+          200000
+        ],
+        "removed_top_die_outlines": 1,
+        "rules": [
+          {
+            "pair": [
+              235,
+              4
+            ],
+            "records": [
+              "r1252",
+              "s68"
+            ]
+          },
+          {
+            "pair": [
+              66,
+              4
+            ],
+            "records": [
+              "r1253",
+              "s69"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              4
+            ],
+            "records": [
+              "r1254",
+              "s70"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              60
+            ],
+            "records": [
+              "r1255",
+              "s71"
+            ]
+          }
+        ],
+        "scope": "Remove only the single top-level prBoundary box equal to the OpenDB die, if present. All other forbidden boundary-purpose input is rejected; manufacturing shapes and annotations are preserved."
+      },
+      "pin_layers": [
+        {
+          "layer": 67,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 68,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 69,
+          "pin_polygons": 2,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 70,
+          "pin_polygons": 4,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 71,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 72,
+          "pin_polygons": 11,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        }
+      ],
+      "clean_output": [
+        {
+          "pair": [
+            235,
+            4
+          ],
+          "records": [
+            "r1252",
+            "s68"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            66,
+            4
+          ],
+          "records": [
+            "r1253",
+            "s69"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            4
+          ],
+          "records": [
+            "r1254",
+            "s70"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            60
+          ],
+          "records": [
+            "r1255",
+            "s71"
+          ],
+          "raw_shapes": 0
+        }
+      ],
+      "isolation": "NOT_REQUESTED",
+      "periphery_counts": {
+        "execution-review-required": 28,
+        "upstream-na": 77,
+        "executed-reviewed": 133,
+        "absent-operand": 273,
+        "advisory": 28,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "restored_boundary_rejected": "Forbidden SKY130 boundary-purpose data remains in the delivered GDS. Recheck Finish/export.",
+      "result_sha256": "68b4e36b32c317f0d14bb5a84808766da2cfc5fe68e9ec153ec28c02a6ba962b",
+      "macro_sha256": "35727e3c35a84238c26fc3a26faca59620a2cd0d3f0c6becc27b4a923c246222",
+      "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "spef_sha256": "2141e49fd4e3f4e9c7dfb42ceebafe4a6a0756be81f8c16ec2803215d8403024",
+      "inventory_sha256": "205a32cad25105dd78073adb7dcf0b8c1878670d82fc904a626d6237e12ad59c",
+      "elapsed_seconds": 66.242680627,
+      "evidence": {
+        "path": "docs/validation/sky130-boundary-export-2026-10-15/counter-application.json",
+        "sha256": "bba4b418010e0cac4d1d93572e66a259502e0bc74e3bfe59798369bbe9c76522"
+      }
+    },
+    {
+      "schema": 1,
+      "status": "application-checks-and-export-pass",
+      "qualified": false,
+      "chunk_complete": false,
+      "case": "uart",
+      "platform": "linux",
+      "driver_sha256": "fcd7ff659b4c67a58ba5ded4c30e15a20530dd80510c11847efdfa541f07bbc4",
+      "source_result_sha256": "d85812ac451b2ef0a2b639b4647572df8f7e351ba60e8d789f903809b50fe8ab",
+      "source_input_sha256": "ecdf75aa48f65ad8ca837703cdadc93b51d1503ea522f6e4bc0d3893bf3be660",
+      "source_gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "scope": "Actual Runner export removes only the top-level prBoundary box matching the independent OpenDB die. Manufacturing masks and text are compared in full. Six partial geometry profiles, antenna, isolation, OpenDB checks and macro export rerun on the corrected GDS. Original timing/equivalence remains separate; no new extraction, full physical signoff or installer qualification. Earlier catalog results retain their original GDS identities.",
+      "boundary_export": {
+        "recipe": "sky130-declared-die-outline-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed"
+        },
+        "top": "uart_tx",
+        "die_nm": [
+          0,
+          0,
+          400000,
+          400000
+        ],
+        "removed_top_die_outlines": 1,
+        "rules": [
+          {
+            "pair": [
+              235,
+              4
+            ],
+            "records": [
+              "r1252",
+              "s68"
+            ]
+          },
+          {
+            "pair": [
+              66,
+              4
+            ],
+            "records": [
+              "r1253",
+              "s69"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              4
+            ],
+            "records": [
+              "r1254",
+              "s70"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              60
+            ],
+            "records": [
+              "r1255",
+              "s71"
+            ]
+          }
+        ],
+        "scope": "Remove only the single top-level prBoundary box equal to the OpenDB die, if present. All other forbidden boundary-purpose input is rejected; manufacturing shapes and annotations are preserved."
+      },
+      "pin_layers": [
+        {
+          "layer": 67,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 68,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 69,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 70,
+          "pin_polygons": 13,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 71,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 72,
+          "pin_polygons": 26,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        }
+      ],
+      "clean_output": [
+        {
+          "pair": [
+            235,
+            4
+          ],
+          "records": [
+            "r1252",
+            "s68"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            66,
+            4
+          ],
+          "records": [
+            "r1253",
+            "s69"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            4
+          ],
+          "records": [
+            "r1254",
+            "s70"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            60
+          ],
+          "records": [
+            "r1255",
+            "s71"
+          ],
+          "raw_shapes": 0
+        }
+      ],
+      "isolation": "NOT_REQUESTED",
+      "periphery_counts": {
+        "execution-review-required": 28,
+        "upstream-na": 77,
+        "executed-reviewed": 133,
+        "absent-operand": 273,
+        "advisory": 28,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "restored_boundary_rejected": "Forbidden SKY130 boundary-purpose data remains in the delivered GDS. Recheck Finish/export.",
+      "result_sha256": "ace16065ce29c53a4110d17e777a4ecef102970369a592544a8bfcf286e18f34",
+      "macro_sha256": "4b926d39da5e0363da3408bd391df030d4da1eb0a160e3a7c7509c9b563e5fab",
+      "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "spef_sha256": "0a422acf5dd7362de9d47fa793fe0df126e021024a95a3142b769e599c3b0e6b",
+      "inventory_sha256": "dc781ac94a231e78af37669f6b1a97ff0970515ffb59858b4f0877a21ee5f262",
+      "elapsed_seconds": 133.53152941399998,
+      "evidence": {
+        "path": "docs/validation/sky130-boundary-export-2026-10-15/uart-application.json",
+        "sha256": "2cae50dc2032c82fdc6e0506faec98b2e4b654ab97ec4800999990f435939bc3"
+      }
+    },
+    {
+      "schema": 1,
+      "status": "application-checks-and-export-pass",
+      "qualified": false,
+      "chunk_complete": false,
+      "case": "apb",
+      "platform": "linux",
+      "driver_sha256": "fcd7ff659b4c67a58ba5ded4c30e15a20530dd80510c11847efdfa541f07bbc4",
+      "source_result_sha256": "3a8d904cfb302c0771bd13f84bfd17222e88892563262c0ba270a35087b94f0d",
+      "source_input_sha256": "50c4418df21f2ed9539a340b16e36b0417b885651d3c1ca519542abcfb809a77",
+      "source_gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "scope": "Actual Runner export removes only the top-level prBoundary box matching the independent OpenDB die. Manufacturing masks and text are compared in full. Six partial geometry profiles, antenna, isolation, OpenDB checks and macro export rerun on the corrected GDS. Original timing/equivalence remains separate; no new extraction, full physical signoff or installer qualification. Earlier catalog results retain their original GDS identities.",
+      "boundary_export": {
+        "recipe": "sky130-declared-die-outline-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed"
+        },
+        "top": "apb_fifo",
+        "die_nm": [
+          0,
+          0,
+          400000,
+          400000
+        ],
+        "removed_top_die_outlines": 1,
+        "rules": [
+          {
+            "pair": [
+              235,
+              4
+            ],
+            "records": [
+              "r1252",
+              "s68"
+            ]
+          },
+          {
+            "pair": [
+              66,
+              4
+            ],
+            "records": [
+              "r1253",
+              "s69"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              4
+            ],
+            "records": [
+              "r1254",
+              "s70"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              60
+            ],
+            "records": [
+              "r1255",
+              "s71"
+            ]
+          }
+        ],
+        "scope": "Remove only the single top-level prBoundary box equal to the OpenDB die, if present. All other forbidden boundary-purpose input is rejected; manufacturing shapes and annotations are preserved."
+      },
+      "pin_layers": [
+        {
+          "layer": 67,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 68,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 69,
+          "pin_polygons": 1,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 70,
+          "pin_polygons": 27,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 71,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 72,
+          "pin_polygons": 26,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        }
+      ],
+      "clean_output": [
+        {
+          "pair": [
+            235,
+            4
+          ],
+          "records": [
+            "r1252",
+            "s68"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            66,
+            4
+          ],
+          "records": [
+            "r1253",
+            "s69"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            4
+          ],
+          "records": [
+            "r1254",
+            "s70"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            60
+          ],
+          "records": [
+            "r1255",
+            "s71"
+          ],
+          "raw_shapes": 0
+        }
+      ],
+      "isolation": "NOT_REQUESTED",
+      "periphery_counts": {
+        "execution-review-required": 28,
+        "upstream-na": 77,
+        "executed-reviewed": 133,
+        "absent-operand": 273,
+        "advisory": 28,
+        "definition-required": 1,
+        "other-backend": 61
+      },
+      "restored_boundary_rejected": "Forbidden SKY130 boundary-purpose data remains in the delivered GDS. Recheck Finish/export.",
+      "result_sha256": "58dc13baf26ae8fd74eebb059658c0f96f9813dda2b4ef937a1ece8f1205cf50",
+      "macro_sha256": "a48d5b1fab72d1bc80bc4c5b906d84c56567eb0b9bf8351484136f8f497f2be8",
+      "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "spef_sha256": "9b1b64716f87b71c79c5ccceac76f6489fff2f11f76b1e428b1f23e4ba7205c4",
+      "inventory_sha256": "ba1f33789e13c846a8958423be89a17cfdc6867ef9885f31cb2aeb4861faf3ca",
+      "elapsed_seconds": 131.01604052,
+      "evidence": {
+        "path": "docs/validation/sky130-boundary-export-2026-10-15/apb-application.json",
+        "sha256": "52bbfe00ca69b54fce83bacbd38f450374fc4dcfebca66c447aa157a2ec7c667"
+      }
+    }
+  ],
+  "windows_replay": {
+    "path": "docs/validation/sky130-boundary-export-2026-10-15/windows-replay.json",
+    "sha256": "8ed53a19b39d01c35347f86ffdef7d1ae459da43cec932531411d28ffd48d209"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-parent-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-boundary-export-2026-10-15-v1\\evidence.tar.gz",
+    "sha256": "3ace86e74b318a69ce3510d4f97578ded1cd3ec20302507b6d912105a9f3e617",
+    "bytes": 68893448,
+    "files": 1746,
+    "unique_local_blobs": 97,
+    "reused_parent_files": 1636,
+    "manifest_sha256": "71bbad1af40e79e2b950ffa129b37ae7bb783c1eb6f24556d7b3a6ec07d3cab7",
+    "parent": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-with-parent-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-grid-catalog-2026-10-15-v1\\evidence.tar.gz",
+      "sha256": "7bf0f7adad93a10d97ad20a0dc07e908c5f4bc6144127d0497514ac82669a1f8",
+      "bytes": 85592,
+      "files": 932,
+      "unique_local_blobs": 10,
+      "reused_parent_files": 916,
+      "manifest_sha256": "56456ab45b727af26e9754bfc58eaf83074940c5bcc3c09d913a0caedb1fbfe4",
+      "parent": {
+        "schema": 1,
+        "status": "readback-verified",
+        "layout": "sha256-addressed-blobs-with-parent-v1",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-standard-cell-wl-2026-10-15-v1\\evidence.tar.gz",
+        "sha256": "2f4cce1c00d0d0a43301973d72ee564d31d59a9c0f130baa21f65207a7e24f14",
+        "bytes": 138665,
+        "files": 916,
+        "unique_local_blobs": 12,
+        "reused_parent_files": 898,
+        "manifest_sha256": "ec53f54ad37eb0558c670fd8e8fa5138aa2ef5dcb56b96411a5d7b6b102cac6b",
+        "parent": {
+          "schema": 1,
+          "status": "readback-verified",
+          "layout": "sha256-addressed-blobs-with-parent-v1",
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-local-hv-2026-10-15-v1\\evidence.tar.gz",
+          "sha256": "af80985dcd6f1a35d95797482fafa41b9e1a1e7bc60444bf6af7fb190d04ba21",
+          "bytes": 28772307,
+          "files": 895,
+          "unique_local_blobs": 80,
+          "reused_parent_files": 806,
+          "manifest_sha256": "f6e4c3ac7d25f3596c20eee369ec78b995a541b131a1bf010dd66cbce26e4006",
+          "parent": {
+            "schema": 1,
+            "status": "readback-verified",
+            "layout": "sha256-addressed-blobs-with-parent-v1",
+            "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-application-isolation-2026-10-14-v1\\evidence.tar.gz",
+            "sha256": "521e6aa0401a22453e307143504788f6e6abb9322a03e0292b8ee16253c47818",
+            "bytes": 17483870,
+            "files": 895,
+            "unique_local_blobs": 163,
+            "reused_parent_files": 704,
+            "manifest_sha256": "0b40d7ed2e9a44d500bfc2927c03de3fadf13b72acec5221550de76cd68f6596",
+            "parent": {
+              "schema": 1,
+              "status": "readback-verified",
+              "layout": "sha256-addressed-blobs-with-parent-v1",
+              "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-electrical-2026-10-14-v1\\evidence.tar.gz",
+              "sha256": "e473b4d289a92a2dd196512ce20cc2a23ac5a5607715bfcbdeaf83e15e49983d",
+              "bytes": 22598988,
+              "files": 4465,
+              "unique_local_blobs": 727,
+              "reused_parent_files": 3382,
+              "manifest_sha256": "13f0993a6a28af4b28ba242ed45f5cb64bb6a31173243f9291c3d1f9a35f3b11",
+              "parent": {
+                "schema": 1,
+                "status": "readback-verified",
+                "layout": "sha256-addressed-blobs-v1",
+                "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+                "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+                "bytes": 44401516,
+                "files": 842,
+                "unique_blobs": 386,
+                "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "limitations": [
+    "The retained 1556-record catalog remains 376 executed-reviewed, 439 absent-operand, 90 standard-cell-wl-exempt and 651 unreviewed on the original streams. It is not silently rebound to new GDS hashes.",
+    "The separately checked prohibitions are r1252-r1255 and s68-s71 on prBoundary.boundary, poly.boundary, diff.boundary and tap.boundary.",
+    "Known top-level outline correction is not arbitrary layer deletion: nested, multiple, mismatched or nonrectangular outline data and other prohibited boundary purposes fail.",
+    "Historical boundary-bearing streams or schema-1 pin reports require current Finish rechecking before delivery. Original evidence remains intact.",
+    "Original checkpoints, netlists, SPEF and manufacturing shapes are unchanged. Earlier nominal extracted timing and equivalence retain their source-specific scope; this batch does not claim a new extraction or timing run.",
+    "The six-profile application ledger stays at 133 executed and 28 execution reviews. Broader grid/text diagnostics, generated-mask, RF, density, frame, pad and missing rule definitions remain unresolved.",
+    "This is not full physical signoff, desktop installer qualification or foundry acceptance."
+  ]
+}

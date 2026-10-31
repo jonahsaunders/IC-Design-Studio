@@ -1,0 +1,159 @@
+{
+  "checked_at": "2026-10-22T13:29:21.197236+00:00",
+  "sha": "e29cfd657cd607528da530eccce466361d6dee59",
+  "runs": [
+    {
+      "id": 39706564992,
+      "name": "Reference design compatibility",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706564992"
+    },
+    {
+      "id": 39706564983,
+      "name": "Pinned SKY130 physical qualification",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706564983"
+    },
+    {
+      "id": 39706565138,
+      "name": "Digital flow",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565138"
+    },
+    {
+      "id": 39706564985,
+      "name": "IHP coil physical qualification",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706564985"
+    },
+    {
+      "id": 39706565021,
+      "name": "Statistical campaign qualification",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565021"
+    },
+    {
+      "id": 39706565044,
+      "name": "Verify VGA Playground",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565044"
+    },
+    {
+      "id": 39706565098,
+      "name": "External tool interoperability",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565098"
+    },
+    {
+      "id": 39706565008,
+      "name": "Build and verify desktop release",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706565008"
+    },
+    {
+      "id": 39706558984,
+      "name": "Pinned SKY130 physical qualification",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558984"
+    },
+    {
+      "id": 39706558991,
+      "name": "Prepare desktop release",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558991"
+    },
+    {
+      "id": 39706558983,
+      "name": "Build and verify desktop release",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558983"
+    },
+    {
+      "id": 39706558813,
+      "name": "IHP coil physical qualification",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558813"
+    },
+    {
+      "id": 39706558915,
+      "name": "Reference design compatibility",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558915"
+    },
+    {
+      "id": 39706558934,
+      "name": "Digital flow",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558934"
+    },
+    {
+      "id": 39706558891,
+      "name": "Statistical campaign qualification",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558891"
+    },
+    {
+      "id": 39706558924,
+      "name": "External tool interoperability",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558924"
+    },
+    {
+      "id": 39706558865,
+      "name": "Verify VGA Playground",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e29cfd657cd607528da530eccce466361d6dee59",
+      "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39706558865"
+    }
+  ]
+}
