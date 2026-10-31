@@ -37,7 +37,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_esd_installed_header_regression tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_esd_installed_header_regression tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff tests.test_ci_hosted_storage -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
@@ -50,6 +50,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - name: Reserve hosted Linux storage before payload download
+        if: runner.os == 'Linux'
+        timeout-minutes: 10
+        run: python scripts/ci_hosted_storage.py cleanup --out build/ci-storage/package-initial.json
       - uses: actions/download-artifact@v4
         with:
           name: digital-runtime-payload
@@ -206,10 +210,14 @@ jobs:
         run: |
           python scripts/verify_ngspice_diode_sequences.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-diode-sequences
           SPICE_SCRIPTS="$(dirname "$ICSTUDIO_TEST_NGSPICE")" python scripts/verify_ngspice_capacitors.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-capacitor-multipliers
+      - name: Check workspace and temporary storage before RF preparation
+        if: runner.os == 'Linux'
+        run: python scripts/ci_hosted_storage.py check --min-free-gib 4 --out build/ci-storage/package-before-rf.json
       - name: Verify public SKY130 RF candidate with the pinned Linux engine
         if: runner.os == 'Linux'
         run: |
           python scripts/prepare_sky130_rf_qualification.py --output build/sky130-rf-candidate
+          python scripts/ci_hosted_storage.py check --min-free-gib 4 --out build/ci-storage/package-after-rf-preparation.json
           python scripts/qualify_sky130_rf_branches.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-branches
           python scripts/qualify_sky130_rf_bias.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-bias
           python scripts/qualify_sky130_rf_transient.py --ngspice "$ICSTUDIO_TEST_NGSPICE" --output build/linux-rf-transient
@@ -697,6 +705,9 @@ jobs:
             choco install innosetup --yes --no-progress
             if ($LASTEXITCODE -ne 0) { throw 'Inno Setup installation failed' }
           }
+      - name: Check hosted Linux storage before release assembly
+        if: runner.os == 'Linux'
+        run: python scripts/ci_hosted_storage.py check --min-free-gib 8 --out build/ci-storage/package-before-assembly.json
       - name: Package Linux
         if: runner.os == 'Linux'
         run: python scripts/package.py
@@ -818,6 +829,16 @@ jobs:
           if-no-files-found: error
           compression-level: 0
           retention-days: 7
+      - name: Record final hosted Linux storage diagnostics
+        if: ${{ always() && runner.os == 'Linux' }}
+        run: python scripts/ci_hosted_storage.py report --out build/ci-storage/package-final.json
+      - name: Retain hosted Linux storage diagnostics
+        if: ${{ always() && runner.os == 'Linux' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-storage-package-Linux
+          path: build/ci-storage
+          if-no-files-found: error
   installed-acceptance:
     needs: [candidate, package]
     strategy:
@@ -828,6 +849,10 @@ jobs:
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
+      - name: Reserve hosted Linux storage before candidate download
+        if: runner.os == 'Linux'
+        timeout-minutes: 10
+        run: python scripts/ci_hosted_storage.py cleanup --out build/ci-storage/installed-initial.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -1326,3 +1351,13 @@ jobs:
             build/device-model-inventory.json
             build/veriloga-model-inventory.json
             build/verification-0.8.0
+      - name: Record final hosted Linux storage diagnostics
+        if: ${{ always() && runner.os == 'Linux' }}
+        run: python scripts/ci_hosted_storage.py report --out build/ci-storage/installed-final.json
+      - name: Retain hosted Linux storage diagnostics
+        if: ${{ always() && runner.os == 'Linux' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-storage-installed-Linux
+          path: build/ci-storage
+          if-no-files-found: error

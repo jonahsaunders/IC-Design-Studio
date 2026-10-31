@@ -6,11 +6,21 @@ The increase from 67% reflects a working optional binding for one previously
 unavailable ESD symbol, selected whole-network capacitor hierarchy electrical
 closure on both hosts, and actual Linux installed parallel-array acceptance.
 Full family statuses and completion gates remain unchanged; this estimate is
-not calculated from passing test counts. The published `461a9b2` source candidate
-passes hosted feedback on both hosts. The preceding `f633d2c` desktop candidate
+not calculated from passing test counts. The published `6450b89` source candidate
+passes [hosted feedback on both hosts](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41217140610).
+The preceding `f633d2c` desktop candidate
 packages successfully on both hosts but fails both installed bundled-default ESD
 checks; the shared independent-reader header mismatch now has a reviewed,
-tested source repair awaiting fresh installed acceptance.
+tested source repair published as `6450b89`. Its fresh exact-candidate
+[desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41217134207)
+has started; immutable-candidate checks and both hosted release-tool jobs pass.
+The runtime build and clean-install check pass. Linux packaging failed while
+reconstructing historical RF/MiM inputs: the hosted runner reported no space
+left on device before RF simulation. Windows packaging is still running.
+The reviewed [hosted-storage repair](validation/ci-hosted-storage-repair-2026-10-31.json)
+passes the 310 selected release/feedback tests on each host. It is ready for a
+fresh candidate; all scientific checks and source-isolation requirements remain
+intact. The failed candidate does not establish installed acceptance.
 Source results do not substitute for the installed gate.
 
 ## Current tracker
@@ -36,6 +46,32 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**October 31 hosted Linux storage repair.** The `6450b89` Linux packaging job
+failed with `ENOSPC` during historical RF/MiM input reconstruction, before RF
+simulation. The failed job's small complete diagnostics archive is retained and
+its published digest verified; its decoded job log is retained separately.
+The [reviewed repair](validation/ci-hosted-storage-repair-2026-10-31.json) removes
+only three fixed, unused SDK directories on disposable GitHub-hosted Linux
+workers, before payload/candidate downloads. It rejects local/self-hosted use
+and changed or linked paths. Workspace and actual temporary-filesystem bytes
+and inodes are checked before RF preparation and release assembly; final
+diagnostics are retained after assembly even on failure. No PDK, runtime,
+historical isolated source, scientific evidence or qualification gate is removed.
+All 310 selected release and feedback tests pass on Windows and native Linux
+(13 and one environment-dependent skips); Astra independently reviews the
+final implementation. Real hosted execution must still establish that the
+operational storage floors are sufficient. This is source repair, not a
+recovered hosted run or installed acceptance.
+
+**October 31 additional obsolete-build cleanup.** The October 7 setup installer
+was removed after independent identity and active-use review, returning an
+observed **1,744,838,656 bytes (about 1.74 GB)** to C: during deletion. This is
+additional to the preceding 5.1 GB cleanup. The portable package, source ZIP,
+checksums and scientific evidence remain authenticated and available. Exact
+recovery of the deleted historical installer is not established. Two older
+runtime archives were inspected but preserved because their remaining use and
+recovery were unresolved. No Windows administrator access was used.
+
 **October 31 installed failure and source publication.** Commit `461a9b2` is
 published on `experimental`; its [hosted source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41151108281)
 passes on Windows and Linux. The preceding [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096461030)
@@ -47,15 +83,30 @@ exact list to both package and execution role; it does not accept either list
 interchangeably or change numerical requirements. Sixteen authentic saved
 Windows/Linux decks reproduce the original reference-only error and pass the
 corrected complete parser. Each host's 2,608 staged-model hashes match the pinned
-package and archived manifests; the full downloaded ZIP digest is explicitly
+package and archived manifests; the full artifact ZIP digest is explicitly
 unverified because only authenticated selected byte ranges were retained.
 All 304 selected release and regression tests pass on both hosts (12 Windows
 and one Linux environment-dependent skips). The first local wrapper omitted
 CI's test import path; both failures are retained and unchanged sources pass
 with that existing import configuration. Fresh installed acceptance remains
-required; the original failed jobs remain failed. Temporary-build cleanup is being checked against
-retained archives and active runtime/source dependencies before deletion;
-no reclaimed-space result is claimed yet.
+required; the original failed jobs remain failed. Additional independent
+readback of their retained nominal DC at 0 °C and drain AC at 27 °C finds zero
+normalized healthy comparison error on both hosts and detects all four selected
+DC fault classes. Those diagnostics do not recover the full installed gate.
+
+**October 31 storage cleanup completed for the verified groups.** Five exact
+obsolete/partial files and 11,278 byte-identical old extracted-application files
+were removed after recovery, active-use and identity checks. C: free space rose
+by 2,637,008,896 bytes and 2,520,420,352 bytes within the two deletion intervals.
+The overall before-first/after-second snapshot gain was **5,132,324,864 bytes
+(about 5.1 GB)**; intervening evidence writes explain why it differs from the
+sum of interval gains. The removed files' allocated-byte total was
+5,182,347,376. Independent postchecks verified all deleted paths and retained
+permanent recovery archives, installer/source archives, scientific evidence,
+unmatched files and active runtime/source roots. The old portable archive has
+a permanent hardlink without extra archive allocation. No Windows administrator
+access or disk compaction was used. Small temporary fixtures with unclear
+ownership/recovery were preserved.
 
 **October 31 Windows capacitor source route closed for its finite scope.** The
 [reviewed Windows CMIM milestone](IHP_CMIM_WINDOWS_MANAGED_SOURCE.md) now covers
@@ -68,6 +119,21 @@ are rejected. Astra independently replayed the results and verified the compact
 from pinned source and returned inputs, rather than directly captured receipts.
 This closes the selected Windows source-route gap; installed acceptance, other
 conditions, extraction and the full family's operating requirements remain open.
+
+**October 31 Windows LV source route closed for its selected fixture.** The
+[reviewed LV Windows milestone](IHP_LV_WINDOWS_MANAGED_SOURCE.md) exercises the
+saved asymmetric two-finger NMOS native view through the actual source Studio
+and managed backend. Its 41-point DC and 31-point AC results match all retained
+terminal references with zero normalized error; fifteen rehashed evidence
+corruptions are independently rejected. The original representation failures
+remain retained, and the prototype repair preserves the extracted geometry
+and emitted circuit. Astra verified the 1,859-object archive. As with CMIM,
+native process invocation details are reconstructed from pinned source and
+returned inputs. This is source-route closure for one fixture, with installed,
+PMOS, operating-envelope and full-family qualification still open. These two
+new LV documentation files are included with the hosted-storage repair.
+The historical source experiment retains its original immutable application
+and runtime identities; it does not inherit the newer candidate identity.
 
 **October 30 IHP capacitor requirements and existing-rule boundary.** The
 [CMIM source checklist](IHP_CMIM_REQUIREMENTS.md) now ties the existing family

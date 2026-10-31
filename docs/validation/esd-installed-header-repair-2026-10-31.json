@@ -64,6 +64,16 @@
   "publication_review_sha256": "c1b6cb351f469d0e46e32147d6831e3412008c761d31a7c796c44774a9f88292",
   "archive_members": 97,
   "evidence_members": 96,
+  "selected_post_failure_numerics": {
+    "scope": "Two retained conditions per host only: nominal DC at 0 C and nominal drain AC at 27 C. Diagnostic readback of failed f633d2c run; no fresh execution or full installed recovery.",
+    "maximum_normalized_error": 0.0,
+    "deliberate_dc_fault_classes_detected_per_host": 4,
+    "raw_and_log_members_bound": 32,
+    "archive": "IC-Design-Studio-evidence/esd-installed-header-repair-2026-10-31-v1/selected-numerics-diagnostic-v1.zip",
+    "archive_sha256": "2faeb1b41a77bf0f0a192f7d45df155fb78d93c17b149f7e2b4c3e5d44c09c88",
+    "independent_review_sha256": "8c535b3cc96ffc057496655c985e9c1fa840da33c3d3949f9a0b392329504e69",
+    "installed_acceptance": false
+  },
   "installed_status": "Both original installed jobs remain failed. Fresh exact-candidate Windows and Linux installed acceptance is required.",
   "chunk_complete": false,
   "qualified": false
