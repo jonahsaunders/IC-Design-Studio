@@ -1,27 +1,27 @@
 # Chunks 1–12: progress and forecast
 
-Updated October 31, 2026. Chunk 7 is approximately **70% complete**, with low
+Updated November 2, 2026. Chunk 7 is approximately **70% complete**, with low
 confidence (55–80%); this is an engineering estimate, not verified acceptance.
-The increase from 67% reflects a working optional binding for one previously
-unavailable ESD symbol, selected whole-network capacitor hierarchy electrical
-closure on both hosts, and actual Linux installed parallel-array acceptance.
-Full family statuses and completion gates remain unchanged; this estimate is
-not calculated from passing test counts. The published `6450b89` source candidate
-passes [hosted feedback on both hosts](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41217140610).
-The preceding `f633d2c` desktop candidate
-packages successfully on both hosts but fails both installed bundled-default ESD
-checks; the shared independent-reader header mismatch now has a reviewed,
-tested source repair published as `6450b89`. Its fresh exact-candidate
-[desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41217134207)
-has started; immutable-candidate checks and both hosted release-tool jobs pass.
-The runtime build and clean-install check pass. Linux packaging failed while
-reconstructing historical RF/MiM inputs: the hosted runner reported no space
-left on device before RF simulation. Windows packaging is still running.
-The reviewed [hosted-storage repair](validation/ci-hosted-storage-repair-2026-10-31.json)
-passes the 310 selected release/feedback tests on each host. It is ready for a
-fresh candidate; all scientific checks and source-isolation requirements remain
-intact. The failed candidate does not establish installed acceptance.
-Source results do not substitute for the installed gate.
+Current published candidate `51201ee` passes both desktop packaging jobs,
+the runtime clean-install gate and hosted source feedback. Its
+[desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41228444877)
+has finished with two installed failures. Linux passes the frozen app, physical,
+MiM, optional/default ESD, pw2dn, IHP resistor and physical-array stages before
+the final array electrical reader rejects saved coefficient types. Windows
+passes bundled-default ESD but its pw2dn reference reader cannot start Git
+after inheriting the isolated simulator environment.
+
+Both defects have [reviewed source repairs](validation/chunk7-installed-repair-2026-11-02.json).
+All 328 selected release/regression tests pass per host (13 Windows and one
+Linux platform skips), with 6,890 source files unchanged. Astra independently
+reviews both patches and replays all 60 retained Linux array cases: 3,870 path
+samples, all original type failures reproduced, and eight rejected controls.
+The selected-member diagnostic does not verify complete upstream artifact
+digests or establish fresh installed acceptance. Original failed jobs remain
+failed; the next exact candidate must pass the original complete gates on both
+hosts. Full device envelopes, required unavailable models and physical/extracted
+coverage remain open. This repair does not promote a family or change the
+completion estimate.
 
 ## Current tracker
 
@@ -46,6 +46,131 @@ can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
 
+**November 2 installed-reader repairs.** The Linux producer now stores
+physical coefficients as decimal values, matching the unchanged independent
+reader; it retains the original numerical checks. The Windows checker restores
+its reader environment before repeating immutable Git source verification while
+native simulator calls keep their explicit isolated environment. The new
+regression uses a private temporary Git repository, so source archives and
+Linux file-only snapshots exercise real blob validation without needing checkout
+metadata. Deliberately rehashed source changes still fail. All four changed
+source/test files are bound to the independent review and both host receipts in
+the [repair record](validation/chunk7-installed-repair-2026-11-02.json).
+Only selected diagnostic files were downloaded; compact retained evidence avoids
+another full multi-gigabyte desktop download. Fresh installed acceptance is
+still required, and all original failure records remain unchanged.
+
+**November 2 larger-cache and diagnostic cleanup.** C: free space increased
+by **17.84 GB net** across this pass, bringing the last five measured passes
+to **60.05 GB**. Docker reported 19.24 GB of regenerable unused build cache
+removed; 475 old diagnostic traces and crash dumps occupied another 6.68 GB.
+Docker's automatic disk reclamation reduced its virtual-disk allocation by
+30.74 GB. These overlapping measurements are recorded separately and must not
+be added to infer C: savings. Other filesystem activity affects the measured
+net change; the difference is not attributed to a specific cause.
+
+Docker encountered stale temporary socket errors on restart. Two socket-only
+parent folders were renamed to retained backups while Docker was stopped;
+normal startup then succeeded. All 46 listed container identities, nine listed
+image tags/identities and six volume names/drivers match the prior inventory.
+The engine still reports 47 containers and ten images, the same as before.
+No containers, images or volumes were removed. Source, current runtimes,
+qualification evidence and personal files remain preserved. No Windows
+administrator access, factory reset or global WSL shutdown was used. Removed
+build cache is regenerable; old diagnostic contents were not backed up.
+The [cleanup record](validation/storage-cleanup-2026-11-02-v2.json) pins the
+verified 32-payload audit archive and the final health/inventory receipt.
+Chunk 7 remains approximately **70%** (low confidence, 55–80%). This local
+housekeeping update makes no new scientific or hosted acceptance claim;
+the qualification snapshot above remains dated October 31.
+
+**November 2 additional historical-output cleanup.** Removed 65,785
+old test-output files and 6,127 empty directories after separate full
+archive/original readback and fresh complete-set, identity and activity checks.
+Every removed file is recoverable from a 197.78 MB verified archive with
+original-path mappings; 20 protected source/archive boundaries remain untouched.
+File allocation removed totals 4.77 GB. After retaining the recovery
+archive and audit, C: free space increased by **4.30 GB** across this pass;
+volume deltas and allocation are separate measurements. The last four passes
+total **42.20 GB** of measured net gain. Exact receipts and recovery
+pins are in the [November 2 cleanup record](validation/storage-cleanup-2026-11-02-v1.json).
+Apparent runtime duplicates already share physical storage and were retained.
+Active source/runtime roots, the Linux disk, personal files and prior evidence
+are unchanged. No Windows administrator access, virtual-disk modification or
+new scientific acceptance is involved. Chunk 7 remains approximately **70%**
+(low confidence, 55–80%). The qualification and CI snapshot above remains the
+October 31 snapshot; this local housekeeping update makes no newer CI claim.
+
+**October 31 historical-output compaction.** Another **4.10 GB** of
+net C: space was recovered in this pass, removing 36,393 files and
+4,454 directories. The 27,182 old digital/layout and C7 test-output files
+are retained byte-for-byte in two verified recovery archives occupying 91.66 MB,
+with exact original-path maps. Six source/candidate boundaries remain untouched;
+their four ancestor directories were excluded from the optional nonrecursive
+empty-folder pass. File allocation, archive cost and actual volume changes are
+recorded separately in the [v5 cleanup record](validation/storage-cleanup-2026-10-31-v5.json).
+Two inactive dependency folders were removed after package-ownership and current-use
+checks, retaining configuration, version records and all modified/unowned files.
+Their package binaries require reinstallation before those old workflows are reused.
+Across the last three cleanup passes, the measured net gain totals
+**37.91 GB**. The active Linux disk remains preserved: its
+233.91 GB host allocation contains about 200.74 GB of guest data. The difference
+is not a verified reclaimable-space estimate. No Windows administrator access,
+virtual-disk manipulation or scientific acceptance rerun was used. Original
+result identities, archives, current sources and runtimes remain intact.
+Chunk 7 remains approximately **70%**, with low confidence (55–80%). This
+documentation update remains local for the next appropriate project push.
+
+**October 31 further duplicate cleanup.** An additional **7.59 GB** of
+net C: space was recovered by removing 65,480 verified duplicate work
+archives and historical capacitor, metal, RF and desktop-test copies. Their
+file allocation totals 7.64 GB; allocation and volume measurements remain
+separate. All 5,645 unmatched regular files retain their verified content,
+and 12 protected source/candidate boundaries remain excluded. The four fully
+archived RF isolation trees were removed after complete file/directory checks;
+the separately recorded empty-folder cleanup uses nonrecursive removal only.
+In total, 6,464 directories were removed, including 4,064 confirmed empty folders
+in that final pass. Directory and file allocation measurements are separate.
+Canonical archives, exact restoration maps and independent reviews are retained
+outside the dated workspace in the [additional cleanup record](validation/storage-cleanup-2026-10-31-v4.json).
+Across this pass and the preceding broad cleanup, the measured net gain totals
+**33.80 GB**. No Windows administrator access, new scientific acceptance or
+qualification change is involved. Chunk 7 remains approximately **70%**, with
+low confidence (55–80%). This tracker update remains local for the next appropriate push.
+
+**October 31 broader disk cleanup.** Removed 247,588 old generated
+files: disposable pip/npm/font caches, four inactive CAD dependency
+environments, and archive-backed ESD, RF and restored desktop-checkpoint copies.
+Their measured file allocation totals **26.29 GB**; the net increase in C: free
+space across the pass is **26.21 GB**, recorded separately because background
+activity and retained audit files affect the volume measurement. The
+[cleanup record](validation/storage-cleanup-2026-10-31-v3.json) pins the compact
+audit archive stored outside the dated workspace, including exact restoration
+maps to the preserved canonical scientific archives. All five unmatched
+preliminary workspace records remain. Current source/runtime roots and finished
+CAD designs were excluded. The four old CAD dependency environments need
+reinstallation from their retained package/config records before reuse; exact
+dependency binaries were not backed up. No Windows administrator access was
+used. This housekeeping changes no scientific result, family status or
+qualification gate; chunk 7 remains approximately **70%**, with low confidence
+(55–80%). This documentation update remains local for the next appropriate push.
+
+**October 31 complete retained ESD numerical readback.** The
+[bounded diagnostic](validation/esd-retained-numerics-2026-10-31.json) now covers
+all 19 original conditions on each host: 196 previously executed native roles,
+zero normalized healthy comparison error, and all 120 deliberate fault-role
+comparisons detected across 720 device instances. Astra independently replays
+all 784 selected members against original manifests and execution receipts.
+Two fully rehashed numerical corruptions are rejected; the equal/opposite
+drain/body-current control preserves current balance and still fails the
+healthy comparison. The original helper used the standalone receipt schema;
+that tooling failure is retained separately, and the corrected helper uses the
+unchanged installed receipt validator. No solver was rerun and no staged-model
+copies were created. The compact 2,317,294-byte archive and its explicit prior
+metadata dependency are byte-verified; no full restored installed-reader replay
+or full hosted-artifact digest verification is claimed. Original failed jobs,
+staged-model/runtime qualification and fresh installed acceptance remain separate.
+
 **October 31 hosted Linux storage repair.** The `6450b89` Linux packaging job
 failed with `ENOSPC` during historical RF/MiM input reconstruction, before RF
 simulation. The failed job's small complete diagnostics archive is retained and
@@ -59,9 +184,11 @@ diagnostics are retained after assembly even on failure. No PDK, runtime,
 historical isolated source, scientific evidence or qualification gate is removed.
 All 310 selected release and feedback tests pass on Windows and native Linux
 (13 and one environment-dependent skips); Astra independently reviews the
-final implementation. Real hosted execution must still establish that the
-operational storage floors are sufficient. This is source repair, not a
-recovered hosted run or installed acceptance.
+final implementation. Fresh hosted execution at `51201ee` now passes the
+initial storage check, pre-RF capacity check and complete RF stage, resolving
+the prior failure at that stage. Later packaging and installed acceptance
+remain pending; the operational floors are not complete-job peak guarantees.
+The original failed run remains failed.
 
 **October 31 additional obsolete-build cleanup.** The October 7 setup installer
 was removed after independent identity and active-use review, returning an
@@ -70,7 +197,13 @@ additional to the preceding 5.1 GB cleanup. The portable package, source ZIP,
 checksums and scientific evidence remain authenticated and available. Exact
 recovery of the deleted historical installer is not established. Two older
 runtime archives were inspected but preserved because their remaining use and
-recovery were unresolved. No Windows administrator access was used.
+recovery were unresolved. After the full retained numerical readback was
+archived, 720 newly expanded duplicate files were also removed, releasing
+15,482,880 bytes of file allocation. Independent postchecks confirm the
+archives, reused files, controls and records are intact; exact member paths
+are recorded for restoration. The larger observed volume change includes
+unrelated activity and is not attributed entirely to this cleanup. No Windows
+administrator access was used.
 
 **October 31 installed failure and source publication.** Commit `461a9b2` is
 published on `experimental`; its [hosted source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41151108281)

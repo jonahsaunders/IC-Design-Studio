@@ -382,6 +382,10 @@ def verify(native_root,gui_root,engine,expected,reference_out):
         write(out/'reference-report.json',report)
         audit_expected={**expected,'reference_origin':str(out),'reference_report_sha256':sha(out/'reference-report.json'),'reference_inventory':reference_inventory(out)}
         write(out/'expected-inputs.json',audit_expected)
+        # Only reference production inherits the isolated simulator environment.
+        # Readback repeats the Git source check using the original reader PATH;
+        # its native runtime probes still receive their captured env explicitly.
+        engines.execute=original;os.environ.clear();os.environ.update(oldenv)
         verdict=readback(native_root,gui_root,engine,audit_expected,out)
         verdict.update(seconds=time.monotonic()-started,expected=audit_expected,reference_report_sha256=sha(out/'reference-report.json'),reader_sha256=sha(__file__))
         write(out/'verification.json',verdict);write(out/'files.json',inventory(out));return verdict

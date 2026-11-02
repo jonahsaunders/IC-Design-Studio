@@ -1,5 +1,7 @@
 """Actual-input, context and raw negative tests for installed parallel arrays."""
 from pathlib import Path
+import copy
+import json
 import tempfile
 import unittest
 from scripts import installed_metal_parallel_inputs as inputs
@@ -62,6 +64,25 @@ class InstalledParallelAuditTests(unittest.TestCase):
             for change in ('current','response','coefficient','nan','title'):
                 path.write_text(raw_fixture('dc',change).replace('* array-independent-fixture',title))
                 with self.assertRaises(ValueError):audit.raw.electrical_observation(path,title,'dc','l1',2,5,3)
+
+    def test_serialized_producer_observation_matches_independent_raw_readback(self):
+        _,spec,_=inputs.contracts();execution={'root':'/evidence/run','nonce':'a'*32};gui_nonce='b'*32
+        key='l1-m3-r0';row=dict(model='l1',width_um=2,length_um=5,multiplicity=3,rotation=0)
+        self.assertIs(type(producer.original.coefficients(spec)['tol_li']),int)
+        with tempfile.TemporaryDirectory() as tmp:
+            folder=Path(tmp)
+            for analysis in ('dc','ac'):
+                title=audit.context_title(execution,gui_nonce,key,analysis)
+                path=folder/'result.raw';path.write_text(raw_fixture(analysis).replace('* array-independent-fixture',title))
+                saved=json.loads(json.dumps(producer.observe(spec,row,key,analysis,folder,execution,gui_nonce)))
+                observed=audit.raw.electrical_observation(path,title,analysis,'l1',2,5,3)
+                audit.compare_summary(saved,observed)
+                self.assertTrue(all(type(value) is float for value in saved['parameters'].values()))
+                for replacement in (0, False, '0', None):
+                    changed=copy.deepcopy(saved);changed['parameters']['tol_li']=replacement
+                    with self.assertRaises(ValueError):audit.compare_summary(changed,observed)
+                changed=copy.deepcopy(saved);changed['parameters']['rl1']+=1
+                with self.assertRaises(ValueError):audit.compare_summary(changed,observed)
 
     def test_live_scope_counts_do_not_infer_transient_noise_or_full_family(self):
         self.assertEqual(audit.COUNTS,dict(fresh_gui_native_inputs=30,electrical_contexts=30,electrical_analyses=60,electrical_path_samples=3870))

@@ -108,8 +108,10 @@ def observe(spec, row, case, analysis, folder, execution, gui_nonce):
             current_normalized_error=error(current, [(a-b)/resistance for a, b in zip(vin, vout)], 1e-12),
             kcl_normalized_error=error(current, [v*(1+(2j*math.pi*f*1e-9 if analysis == 'ac' else 0))
                                                 for f, v in zip(x, vout)], 1e-12))
+    # The observation schema records physical coefficients as floating-point
+    # values, even when the contract spells a coefficient as a JSON integer.
     return dict(raw_sha256=sha(folder/'result.raw'), analysis=analysis, samples=len(x),
-                parameters=parameters, branches=branches)
+                parameters={key: float(value) for key, value in parameters.items()}, branches=branches)
 
 
 def execute_case(spec, row, key, analysis, staged, normalized, execution, gui_nonce, out, engine, env):
