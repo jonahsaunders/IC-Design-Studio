@@ -1,5 +1,7 @@
 # PDK qualification in twelve chunks
 
+The November 2 [complete imported IHP capacitor boundary](IHP_MIM_G_BOUNDARY.md) closes the selected maximum-area physical submilestone and verifies truthful coverage reporting in both source-desktop routes. Full device applicability, other geometry classes and installed acceptance remain separate; the chunk-7 gate is unchanged.
+
 The October 30 [IHP capacitor requirements](IHP_CMIM_REQUIREMENTS.md) separate
 the reviewed public measurements and rule definitions from unresolved operating
 and model-applicability requirements. Its [MIM.g boundary](IHP_MIM_G_BOUNDARY.md)

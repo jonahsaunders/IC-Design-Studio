@@ -55,6 +55,9 @@ class SiliconMixin:
         scope='One rectangular RF n-well diode with a contacted substrate ring. The schematic must contain one ps2nw subcircuit call with explicit area and perimeter. This check does not cover RF p-well diodes or complete circuits. ' if lvs_extractor=='sky130-rf-nwell-klayout' else ''
         if lvs_extractor=='sky130-rf-isolation-klayout':scope='Check the separate anode, cathode and substrate connections against a three-terminal geometry reference. Include all three RF, deep-well and n-well-skirt geometry records. These records are not simulation models; this check does not qualify electrical isolation behavior. '
         if drc_engine=='ihp-public':scope='Run both public IHP geometry decks and strict circuit comparison. Antenna, density and fabrication qualification are separate checks. '
+        elif self.project['pdk'].get('package_lock',{}).get('id')=='ihp-sg13g2':
+            from .layout_verification import IHP_MIM_GUIDANCE
+            scope='The Magic checks do not establish MIM.g maximum area per MIM device. '+IHP_MIM_GUIDANCE+' '
         values=self.simple_form('Layout DRC / LVS',{'Schematic SPICE file':'','Schematic cell':self.cell['name']},
             scope+'Check the active layout against a self-contained schematic netlist using the linked physical PDK. The reference is captured with the run. Legacy layout labels use the named schematic terminals; no simulation testbench is required.')
         if not values:return
@@ -167,7 +170,12 @@ class SiliconMixin:
         for row,s in enumerate(report['stages']):
             ev=s.get('evidence',{});detail=s.get('error','') or ('0 violations' if 'violations' in ev else 'Unique match; no property errors' if ev.get('unique_match') else str(ev['capacitors'])+' capacitors' if 'capacitors' in ev else str(ev['samples'])+' samples; settled logic passed' if 'samples' in ev else 'Assets and tools recorded')
             if s['status']=='not_run':detail='Waiting on an earlier stage to pass'
-            for col,val in enumerate(({'drc':'Magic DRC','lvs':'Netgen LVS','lvs_extraction':'LVS extraction'}.get(s['name'],s['name'].replace('_',' ').title()),s['status'].replace('_',' '),detail)):self.silicon_table.setItem(row,col,QTableWidgetItem(val))
+            if s['name']=='drc':
+                from .layout_verification import mim_coverage_note
+                note=mim_coverage_note(report)
+                if note:detail+='; '+note
+            drc_label='IHP public DRC' if report.get('drc_engine')=='ihp-public' else 'Magic DRC'
+            for col,val in enumerate(({'drc':drc_label,'lvs':'Netgen LVS','lvs_extraction':'LVS extraction'}.get(s['name'],s['name'].replace('_',' ').title()),s['status'].replace('_',' '),detail)):self.silicon_table.setItem(row,col,QTableWidgetItem(val))
         pre=next((s.get('evidence') for s in report['stages'] if s['name']=='schematic_simulation'),None);post=next((s.get('evidence') for s in report['stages'] if s['name']=='post_layout_simulation'),None)
         if pre and post and 'mean_delay_s' in pre and 'mean_delay_s' in post:self.silicon_metrics.setText(f'Mean delay: {pre["mean_delay_s"]*1e12:.2f} ps → {post["mean_delay_s"]*1e12:.2f} ps · Δ {post["delay_delta_s"]*1e12:+.2f} ps')
 

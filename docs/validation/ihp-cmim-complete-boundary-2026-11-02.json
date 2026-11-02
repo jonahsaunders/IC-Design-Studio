@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "status": "PASS_SOURCE_BOUNDARY",
+  "date": "2026-11-02",
+  "base_commit": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+  "scope": "Finite complete imported cap_cmim maximum-area boundary using source-derived rectangles and an explicit physical-C LVS reference; actual source-desktop coverage reporting in Magic and public routes.",
+  "physical_cases": {
+    "count": 6,
+    "rotations_degrees": [
+      0,
+      90
+    ],
+    "width_um": 75,
+    "lengths_um": [
+      74.98,
+      75,
+      75.02
+    ],
+    "areas_um2": [
+      5623.5,
+      5625,
+      5626.5
+    ],
+    "main_findings_per_rotation": [
+      0,
+      0,
+      0
+    ],
+    "maximal_findings_per_rotation": [
+      0,
+      0,
+      1
+    ],
+    "above_limit_rule": "MIM.g",
+    "strict_lvs_all_six": true
+  },
+  "native_faults": {
+    "wrong-width": "Complete 73 x 74.98 um capacitor: DRC clean, native extraction correct, fixed 75 x 74.98 reference rejected for A/P property mismatch.",
+    "missing-contacts": "Native top electrode open; declared C1 lost.",
+    "plate-short": "Native C1|C2 merged net shorts both electrodes.",
+    "swapped-reference": "Native strict LVS fails top-level pin matching; independent ordered-electrode reference also rejects."
+  },
+  "independent_controls": {
+    "copied_evidence": 10,
+    "additional_advisor_geometry": 5,
+    "all_rejected_for_expected_reasons": true
+  },
+  "package": {
+    "id": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "public_decks": {
+    "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "lock_sha256": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863",
+    "main_and_maximal": true
+  },
+  "source_manifests": {
+    "full-v2-source-manifest.json": "16d6e6315a15728e9fc4defd130a634e3d5e53337eb7a0a95fe1a3fdca933260",
+    "audit-source-manifest.json": "7776f97420999edf5bd6abcf8b088738945b9eef5e2d8925f53b0deabe9e7614",
+    "coverage-source-manifest.json": "47708672e76e15000ac2bc5ec2d65f9215f8721f8318aa1a2735f97349ffa8ab"
+  },
+  "native_receipts": {
+    "full-v2-result.json": "086996beb8b6ae4612d0832a83430a0c2c871bf900f620f3d3beb9d2cb7399f8",
+    "full-v2-evidence-manifest.json": "e99c62225d8adf40ec0cc59e13e43ba4090550df564a25021f09066f74fbdbe1",
+    "full-v2-runtime-before.json": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4",
+    "full-v2-runtime-after.json": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4",
+    "audit-v1.json": "d23d4129c97e375174c0ea7066221afe4e3dfc6c4b3c52a57eff78087cfe152b",
+    "audit-v1-result.json": "00fce423b9a645efff30eb3463e75a8bc2b95091d7c0bdad712f4531e146ca4b",
+    "restored-audit-v1.json": "d23d4129c97e375174c0ea7066221afe4e3dfc6c4b3c52a57eff78087cfe152b",
+    "restored-result-v1.json": "89989778efe81c8536cf3fa216e7f6c88b7099c703e8e23be35f2d0e780294a5"
+  },
+  "app_routes": {
+    "magic": "PASS_SOURCE_MAGIC_LIMITED: actual 7 x 7 um native job, six stages passed, zero DRC findings, MIM.g NOT_CHECKED.",
+    "public": "PASS_SOURCE_PUBLIC_GEOMETRY: actual 7 x 7 um native job, six stages passed, both decks zero findings, MIM.g EXECUTED.",
+    "current_design_and_result_match": true,
+    "stale_status": false,
+    "readable_actual_qt_screenshots": true
+  },
+  "review_receipts": {
+    "advisor-boundary-review-v1.json": "5d31ee018e4b80e1da4e6fd0d5ac6aac9ae64f69896f02ad311910d14bae7830",
+    "advisor-magic-v3-review.json": "aa1523377d042f3ed5ebec2db7aba4e4f585754725b005d3d164af27b8bd1765",
+    "app-coverage-route-review.json": "b314a349ab41e8351a6d51aba86c6672e034dddbcee31bb7e06eb9f3a08f4ed1",
+    "independent-public-coverage-review.json": "eaabaf284f64cd5f1db2f41392f54352cd4371807d9c23ee3045d368c190f9bc"
+  },
+  "source_files": {
+    "icstudio/layout_verification.py": "0d1bd3da8aa7b244f4ece962c638bfdab5d01355c5d151326afc862430f2308a",
+    "icstudio/silicon_ui.py": "7feb6cb79ffe46d16bdf059080e1193088deddd9a09d6bd8636f0a5a1c118030",
+    "scripts/ci_feedback.py": "fb406e62088ab138b89765c2af228f0cf05ee3b94a9b25786f60290c81732ecf",
+    "scripts/ihp_cmim_boundary.py": "a9b4d828cd84ae501a531b1850938b9175f23d58fe07163fd07a706f39edc4c6",
+    "scripts/ihp_cmim_boundary_probe.py": "f99d99fb1a0ac0653316b0ac7fb2f234e0af12bbb0d2c9ffdad1cb492cf27b91",
+    "scripts/ihp_cmim_boundary_audit.py": "044ae606b960ca979e45aa35a2819ede49a969ce47815ba31bb8cbe1cc09ee2e",
+    "scripts/check_ihp_cmim_boundary.py": "96e905142625041031381ac3ce07dd36f2b2bc52ed18094716a2a68f35775ff1",
+    "tests/test_layout_verification.py": "f916f978f8f2cc54b6b1b52c9d6f32b36836fb3bc7a99b87f3e8bf7bf23118c7",
+    "tests/test_ihp_cmim_boundary.py": "63806ca2ef42a6435eecfe87f9164eedf396e2c5d6a6b28fc3c3c3b368572bc0"
+  },
+  "retained_native_evidence": {
+    "directory": "IC-Design-Studio-evidence/ihp-cmim-complete-boundary-2026-11-02-v1",
+    "status": "PASS_FULL_READBACK",
+    "archive": "native-evidence-v1.zip",
+    "sha256": "e0bcff69bf17586e2db8fbd319b75287cfbeab530e5ac5c804f570fbf4d72136",
+    "archive_bytes": 116994078,
+    "logical_files": 19897,
+    "unique_objects": 6375,
+    "logical_bytes": 980592097,
+    "unique_bytes": 384198664,
+    "manifest_sha256": "2a2dd2252b9821a6180d98af90fd4eb827d7f6cc3bab846b248d3f582a033eca",
+    "all_member_crc_and_sha256_verified": true,
+    "original_files_unchanged": true
+  },
+  "regression_checkpoint": {
+    "Windows": {
+      "tests": 98,
+      "skips": 1,
+      "receipt_sha256": "dbb35f49c063cc1c25068bf6ff1b242a830d8707d18c92a399f0a254d48434ba"
+    },
+    "Linux": {
+      "tests": 98,
+      "skips": 0,
+      "receipt_sha256": "26f1277257e8bca88fe3db58de804cf797ec03d91c9daa21c462edcfbae78256"
+    },
+    "final_auditor_tests_native": 4,
+    "note": "Focused application regression checkpoint precedes final strengthened independent reader; final integration checks are recorded separately."
+  },
+  "retained_diagnostics": [
+    "Initial system Magic too old; no valid tool acceptance.",
+    "Initial 74.995 and 74.99 um draws rounded to 75 um; area oracle rejected.",
+    "Simulation-X manual reference did not match physical-C extraction; explicit pinned physical LVS representation used.",
+    "First width fault broke the single MIM mask and yielded no extracted device; replaced by complete 73 um device.",
+    "Initial genuine GUI observation was stale after editor metadata migration; final runs use exact live project.",
+    "Xvfb absent; final Qt offscreen screen configuration uses the existing Qt plugin.",
+    "Restricted Windows junction prerequisite and focused manual test PYTHONPATH errors retained separately.",
+    "External full-v2 launcher manifest filename corrected before native jobs started.",
+    "First final Linux documentation snapshot omitted one newly tracked validation record; repository source was intact. Complete tracked inventory restored and release/syntax checks passed."
+  ],
+  "limitations": [
+    "No default PCell qualification outside its unchanged 2-30 um parameter-check range.",
+    "Chosen independently measured dimension steps are not a proof of closest possible legal boundaries.",
+    "No electrical/model validity, PEX, operating/reliability envelope or simulation-X equivalence claim at the maximum-area sizes.",
+    "Other physical classes and installed/frozen acceptance remain open.",
+    "The published candidate desktop run is separate from this local source patch."
+  ],
+  "installed_acceptance": false,
+  "full_family_acceptance": false,
+  "chunk_complete": false,
+  "chunk7_estimate_percent": 70,
+  "estimate_range_percent": [
+    55,
+    80
+  ],
+  "estimate_confidence": "low",
+  "final_regression": {
+    "Windows": {
+      "tests": 101,
+      "skips": 1,
+      "receipt_sha256": "8f589daae2282383bb18d50305d86b6ebb5ff86eb65f1ae0e15a462195549614",
+      "release_and_syntax_pass": true
+    },
+    "Linux": {
+      "tests": 101,
+      "skips": 0,
+      "receipt_sha256": "ea9e4d6ed31e78b22362441e44490b51230396c72463e815d0d602636e220e80",
+      "release_and_syntax_pass": true,
+      "release_receipt_sha256": "f951197e2a3ef70298bf1d2169418c4dbbde4a1b7cc9f234c9bfc782d1665665"
+    },
+    "source_code_unchanged_during_checks": true,
+    "note": "Final scientific and application code tested; subsequent documentation-only package naming/derivation clarifications and receipt additions are checked separately."
+  },
+  "retained_review_evidence": {
+    "status": "PASS_FULL_READBACK",
+    "archive": "review-evidence-v1.zip",
+    "archive_sha256": "54f550a5c6edf263b43a0ff23f24acfe49ea20851974f0000e3dbf4247873f3e",
+    "archive_bytes": 5982335,
+    "files": 158,
+    "all_member_crc_and_sha256_verified": true,
+    "original_files_unchanged": true
+  }
+}

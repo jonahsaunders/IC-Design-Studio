@@ -1,9 +1,13 @@
 import json
+import copy
+import os
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
 import klayout.db as db
 from icstudio.layout_verification import reference,verification_stream,run
+from icstudio import layout_verification as verification
 from icstudio.model import example
 
 
@@ -60,6 +64,99 @@ class LayoutVerificationTests(unittest.TestCase):
         self.assertEqual(changes,[dict(instance='XC1',parameter='VM',default='1')])
         ambiguous='XC1 a b sky130_fd_pr__cap_var_lvt VM=2 VM=1'
         self.assertEqual(lvs_defaults(ambiguous),(ambiguous,[]))
+
+
+class IHPMIMCoverageTests(unittest.TestCase):
+    def project(self,process='ihp-sg13g2'):
+        p=example('empty');p['pdk']['package_lock']={'id':process};return p
+
+    def blocked(self,root,engine='magic',process='ihp-sg13g2'):
+        p=self.project(process);ref=reference('.subckt dut a b\nX1 a b cap_cmim w=7u l=7u m=1\n.ends\n','dut')
+        return run(p,p['top'],root,{},ref,blocked_reason='Fixture stops before native execution',
+                   drc_engine=engine,lvs_extractor='ihp-klayout' if engine=='ihp-public' else 'magic')
+
+    def fixture(self,root):
+        from icstudio.ihp_klayout_drc import LOCK_SHA256,ENTRIES
+        from icstudio.model import file_digest
+        report=self.blocked(root/'blocked','ihp-public');source=root/'source.gds';source.write_bytes(b'captured input fixture')
+        directory=root/'drc';rows=[]
+        for name,entry in ENTRIES.items():
+            path=directory/name/'findings.lyrdb';path.parent.mkdir(parents=True);path.write_bytes((name+' native report fixture').encode())
+            rows.append(dict(name=name,entry=entry,report=name+'/findings.lyrdb',report_sha256=file_digest(path),violations=0))
+        result=dict(schema=1,source_lock_sha256=LOCK_SHA256,input_sha256=file_digest(source),top=report['cell_name'],decks=rows,violations=0)
+        return report,result,source,directory
+
+    def test_magic_and_unfinished_public_never_claim_the_maximum_rule(self):
+        with tempfile.TemporaryDirectory() as temp:
+            for engine,reason in (('magic','unsupported_by_selected_checker'),('ihp-public','not_completed')):
+                report=self.blocked(Path(temp)/engine,engine)
+                self.assertEqual(report['status'],'blocked')
+                self.assertEqual(report['drc_coverage']['MIM.g']['status'],'NOT_CHECKED')
+                self.assertEqual(report['drc_coverage']['MIM.g']['reason'],reason)
+                self.assertIn('not checked',report['qualification'])
+                self.assertIn('public geometry decks',report['qualification'])
+            self.assertNotIn('drc_coverage',self.blocked(Path(temp)/'other',process='sky130A'))
+
+    def test_both_bound_public_decks_record_execution_even_with_findings(self):
+        with tempfile.TemporaryDirectory() as temp:
+            report,result,source,directory=self.fixture(Path(temp))
+            result['violations']=1;result['decks'][1].update(violations=1,categories=['MIM.g'])
+            verification.record_public_mim_coverage(report,result,source,directory)
+            row=report['drc_coverage']['MIM.g']
+            self.assertEqual(row['status'],'EXECUTED')
+            self.assertEqual(row['report_sha256'],result['decks'][1]['report_sha256'])
+            self.assertEqual(row['input_sha256'],result['input_sha256'])
+            self.assertEqual(row['source_lock_sha256'],result['source_lock_sha256'])
+            self.assertNotIn('qualified',row)
+            self.assertNotIn('not checked',report['qualification'])
+
+    def test_partial_wrong_input_source_or_report_stays_unchecked(self):
+        with tempfile.TemporaryDirectory() as temp:
+            report,result,source,directory=self.fixture(Path(temp))
+            mutations=[lambda r:r['decks'].pop(0),lambda r:r['decks'].pop(1),
+                       lambda r:r.update(input_sha256='0'*64),lambda r:r.update(source_lock_sha256='0'*64),
+                       lambda r:r.update(top='other'),lambda r:r['decks'][1].update(report_sha256='0'*64),
+                       lambda r:r['decks'][1].update(report='../outside.lyrdb')]
+            for mutate in mutations:
+                changed=copy.deepcopy(result);mutate(changed)
+                with self.subTest(result=changed),self.assertRaisesRegex(ValueError,'public IHP MIM.g'):
+                    verification.record_public_mim_coverage(report,changed,source,directory)
+                self.assertEqual(report['drc_coverage']['MIM.g']['status'],'NOT_CHECKED')
+
+
+class IHPMIMCoverageDisplayTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
+        from PySide6.QtWidgets import QApplication
+        cls.app=QApplication.instance() or QApplication([])
+
+    def test_clean_magic_result_visibly_retains_the_missing_rule(self):
+        from PySide6.QtWidgets import QLabel,QTableWidget
+        from icstudio.silicon_ui import SiliconMixin
+        with tempfile.TemporaryDirectory() as temp:
+            helper=IHPMIMCoverageTests();report=helper.blocked(Path(temp)/'report')
+        p=helper.project();report.pop('error');report.update(status='passed',drc_engine='magic',stages=[dict(name='drc',status='passed',evidence={'violations':0})])
+        view=SimpleNamespace(project=p,cell=p['cells'][0],silicon_status=QLabel(),silicon_metrics=QLabel(),silicon_table=QTableWidget(0,3),
+            _silicon_result={'project_id':p['id'],'design_hash':verification.design_digest(p),'silicon_report':report})
+        SiliconMixin.refresh_silicon(view)
+        self.assertIn('PASSED',view.silicon_status.text())
+        self.assertIn('MIM.g',view.silicon_status.text())
+        self.assertIn('not checked',view.silicon_table.item(0,2).text())
+        self.assertIn('public geometry decks',view.silicon_table.item(0,2).text())
+        self.assertEqual(view.silicon_table.item(0,0).text(),'Magic DRC')
+        report['drc_engine']='ihp-public';SiliconMixin.refresh_silicon(view)
+        self.assertEqual(view.silicon_table.item(0,0).text(),'IHP public DRC')
+
+    def test_magic_dialog_names_the_existing_public_route(self):
+        from icstudio.silicon_ui import SiliconMixin
+        p=IHPMIMCoverageTests().project();notes=[]
+        view=SimpleNamespace(project=p,cell=p['cells'][0],simple_form=lambda title,fields,note:notes.append(note))
+        SiliconMixin.run_layout_verification(view)
+        self.assertIn('MIM.g',notes[0]);self.assertIn('Verify IHP layout with public geometry decks',notes[0])
+        notes.clear();SiliconMixin.run_layout_verification(view,lvs_extractor='ihp-klayout',drc_engine='ihp-public')
+        self.assertIn('Run both public IHP geometry decks',notes[0])
+        self.assertNotIn('do not establish MIM.g',notes[0])
 
 
 if __name__=='__main__':unittest.main()

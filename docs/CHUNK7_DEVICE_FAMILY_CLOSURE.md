@@ -1,5 +1,7 @@
 # Chunk 7: close one device family at a time
 
+**November 2 source milestone:** the [complete imported IHP capacitor maximum-area boundary](IHP_MIM_G_BOUNDARY.md) now passes independent readback: six layouts, four meaningful native faults, ten copied-evidence controls and five additional geometry controls. Both real source-desktop checker routes display their actual MIM.g coverage. The published reader-repair candidate `cbf9705` passes hosted source feedback on both hosts; its desktop packaging/installed acceptance remains in progress. The new boundary/app changes are separately source-tested and do not inherit that candidate's hosted results. Full family requirements and the 289 partial / four unavailable source inventory are unchanged.
+
 **October 30 current source checkpoint:** `f633d2c` adds the reviewed
 two-terminal SKY130 pw2dn binding and corrected Linux simulator. The current
 inventory is 289 partial entries, four unavailable bindings and nine utilities.
@@ -140,11 +142,11 @@ adding LI samples and call that progress toward resolving the missing definition
 | 4 | GF180 C and D standard 3.3 V MOS | Resolve the two retained fast-corner specification discrepancies and the incomplete threshold-extraction definition; consolidate finger/multiplicity coverage against the contract. | Literal published current bounds still differ from direct public-model results. Geometry batches and source/reference agreement cannot override those mismatches. C/D physical stacks remain separate. |
 | 5 | IHP straight resistors and taps; GF180 C/D straight resistor families | Join each model's electrical envelope to its existing physical classes and native extraction. For taps include the exact computed-resistance binding and independent body/port check. | Selected geometry/temperature points, body handling, optional via classes, model-specific operating limits and installed acceptance. A disabled optional via stack is not a passed via class. |
 | 6 | Remaining capacitors/varactors, junction diodes and bipolar families across all targets | Produce one contract per model/class, starting with families that already have native DRC/LVS and independent electrical evidence. Close their uncovered boundary/context rows. | Separate body/isolation/thermal terminals, nonlinear bias, applicable statistical/RF/reliability behavior, public limits and installed acceptance. Selected BJT thermal responses do not calibrate a thermal network. |
-| Separate discovery queue | IHP coils/pads, SKY130 unavailable ESD/VPP/RF binding and other upstream process/tool views | Resolve exact model/source availability and semantic view equivalence; attach one evidence-backed resolution to each missing input. | The six required bindings below and the broader upstream semantic inventory. More successful execution on a substitute cannot resolve a missing identity. |
+| Separate discovery queue | IHP coils/pads, SKY130 unavailable ESD/VPP/RF binding and other upstream process/tool views | Resolve exact model/source availability and semantic view equivalence; attach one evidence-backed resolution to each missing input. | The four currently unavailable bindings, two source-resolved bindings still awaiting installed acceptance, and the broader upstream semantic inventory. More successful execution on a substitute cannot resolve a missing identity. |
 
 This order builds on sampled HV implementation acceptance while making the next
 family's closure contract a separate, small piece of work. It does not require
-waiting for the six unavailable bindings before closing an independently
+waiting for the currently unavailable bindings before closing an independently
 complete available family. Chunk 7 as a whole still requires those blockers.
 
 Relevant retained records are the
@@ -270,6 +272,6 @@ Measure time to first actionable failure and time to close a contract row.
 The current estimate is in the [progress tracker](QUALIFICATION_PROGRESS.md).
 The October 25 milestone delivers missing native editing for five device types
 and closes four models’ selected extracted-electrical integration. Complete
-family qualification still needs all applicable contract rows, six missing
+family qualification still needs all applicable contract rows, the four current missing
 bindings and exact installed workflows. Revise the estimate for delivered
 capability and resolved requirements, not for the number of samples or tests.

@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "status": "PASS_HOSTED_SOURCE_FEEDBACK",
+  "candidate": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+  "merge_commit": "01cbbfe97e61a1a5ac9fed9a8ed4b558f66c26b7",
+  "merge_parents": [
+    "49c79957b4d6f4978127da612e167e5c75cda6b3",
+    "cbf97057b9bda6121c9a00f501226f0ee81e5e06"
+  ],
+  "run_id": 41526882833,
+  "source_files_verified": 2209,
+  "source_hashes_match_between_hosts": true,
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "artifact_id": 13180234080,
+      "archive_sha256": "6fc832ae8168b102dec7307c3dc2e2d86c8fe0cc4b8817bc3e85de3ed5c0ddaf",
+      "archive_bytes": 17059018,
+      "archive_members": 1248,
+      "archive_crc_verified": true,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 129.469
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 120.703
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 112.688
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 11.156
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.86
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 34.312
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 11.016
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 11.687
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 47.5
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 152.641
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.36
+        }
+      ],
+      "selected_tests": 992,
+      "skips": 36,
+      "elapsed_source_seconds": 644.0,
+      "report_sha256": "359f94b3d60251dad6bc301cadd50fe34375d420e1d53ebf5a89e9c02820270d"
+    },
+    "Linux": {
+      "status": "PASS",
+      "artifact_id": 13179549333,
+      "archive_sha256": "ce329da0bb516633b4866f867073e644aed0d546b398769a3a8f239ad27d5aae",
+      "archive_bytes": 17399163,
+      "archive_members": 1291,
+      "archive_crc_verified": true,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 68.729
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 37.159
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 52.754
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 6.682
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.173
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.279
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.776
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.037
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 35.705
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 135.27
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.521
+        }
+      ],
+      "selected_tests": 992,
+      "skips": 15,
+      "elapsed_source_seconds": 387.053,
+      "report_sha256": "4e96c7280538908e251655d46a51ecbb0874432d3464b840f740ffd265b7666c"
+    }
+  },
+  "scope": "Complete downloaded hosted source-feedback archives and exact candidate source identity; not desktop packaging or installed acceptance.",
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "archive_directory": "IC-Design-Studio-evidence/chunk7-hosted-feedback-2026-11-02-v1",
+  "date": "2026-11-02",
+  "verification_sha256": "86a97bb8723caaeb1cd6a8c331df553e35abd5ab3ac3a92d557ca8798516957f"
+}

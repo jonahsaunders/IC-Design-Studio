@@ -2,7 +2,23 @@
 
 Updated November 2, 2026. Chunk 7 is approximately **70% complete**, with low
 confidence (55–80%); this is an engineering estimate, not verified acceptance.
-Current published candidate `51201ee` passes both desktop packaging jobs,
+The reviewed repairs are published on `experimental` as `cbf9705`.
+The [publication record](validation/chunk7-installed-repair-publication-2026-11-02.json)
+pins one fresh [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526912766)
+and the automatic [source-feedback run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526882833).
+The immutable candidate, both release-tool gates and runtime verification pass.
+[Hosted source feedback](validation/chunk7-hosted-feedback-2026-11-02.json) passes
+all eleven stages and 992 selected tests per host (36 Windows and 15 Linux skips).
+Both complete artifact digests and all 2,209 source identities match the candidate;
+the tested merge has the exact candidate and base as its verified parents.
+Both desktop packaging jobs are running; Linux has reached core tests and Windows
+is checking its installed digital runtime. Installed application acceptance remains
+pending. The separately verified complete IHP capacitor boundary below is a source
+submilestone; it does not inherit this published candidate's hosted result. This
+source record pins the exact changed-file identities; the running desktop candidate
+remains `cbf9705`. No passing final outcome is inferred.
+
+Earlier candidate `51201ee` passes both desktop packaging jobs,
 the runtime clean-install gate and hosted source feedback. Its
 [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41228444877)
 has finished with two installed failures. Linux passes the frozen app, physical,
@@ -18,7 +34,7 @@ reviews both patches and replays all 60 retained Linux array cases: 3,870 path
 samples, all original type failures reproduced, and eight rejected controls.
 The selected-member diagnostic does not verify complete upstream artifact
 digests or establish fresh installed acceptance. Original failed jobs remain
-failed; the next exact candidate must pass the original complete gates on both
+failed; the new exact candidate must pass the original complete gates on both
 hosts. Full device envelopes, required unavailable models and physical/extracted
 coverage remain open. This repair does not promote a family or change the
 completion estimate.
@@ -45,6 +61,12 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**November 2 complete IHP capacitor maximum-area milestone.** The [bounded source acceptance](validation/ihp-cmim-complete-boundary-2026-11-02.json) closes six complete imported rectangular layouts at below/at/above 5,625 µm² and both rotations. Four legal cases pass both public decks and strict LVS; two oversized cases fail exactly MIM.g while LVS passes. All four native faults are detected for their actual causes, including a complete wrong-width device with clean DRC and a property mismatch. Ten rehashed copied-evidence controls and five independently constructed geometry controls reject as expected. Astra independently checks all 1,808 raw files and the finite outcome matrix.
+
+The actual application now shows that Magic does not check MIM.g, directs users to the existing public route, and records public execution only after verifying both deck identities. Both real 7 × 7 µm source-desktop routes pass all six native stages, with current project/result identities and readable coverage text. Final focused regression checks pass 101 tests on each host (one Windows platform skip, no Linux skips); release-document and syntax checks also pass. Initial rounding, wrong-reference and harness failures remain separately retained. The default PCell limits, physical rules and strict readers were not relaxed.
+
+This closes a named physical submilestone, not a whole device family: electrical applicability at these dimensions, other physical classes, operating/reliability limits and final installed acceptance remain open. Chunk 7 stays approximately **70%** (low confidence, 55–80%); no dramatic increase is justified by this bounded result. The next family work is the remaining source-backed geometry classes and applicable envelopes, alongside the running installed candidate.
 
 **November 2 installed-reader repairs.** The Linux producer now stores
 physical coefficients as decimal values, matching the unchanged independent
@@ -82,7 +104,7 @@ The [cleanup record](validation/storage-cleanup-2026-11-02-v2.json) pins the
 verified 32-payload audit archive and the final health/inventory receipt.
 Chunk 7 remains approximately **70%** (low confidence, 55–80%). This local
 housekeeping update makes no new scientific or hosted acceptance claim;
-the qualification snapshot above remains dated October 31.
+it adds no device qualification evidence.
 
 **November 2 additional historical-output cleanup.** Removed 65,785
 old test-output files and 6,127 empty directories after separate full

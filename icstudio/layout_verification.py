@@ -9,6 +9,36 @@ from .model import atomic_write, clone, design_digest, file_digest, now, save_pr
 from .engines import execute, netgen_lvs, require_lvs_match, tcl_word
 
 STAGES=('preflight','layout_export','drc','lvs_extraction','lvs','integrity')
+IHP_SELECTED_SCOPE='Selected process DRC checks and strict LVS for the recorded layout, schematic reference and PDK. Antenna, density and fabrication qualification are separate.'
+IHP_MIM_GUIDANCE='Use Analysis > Verify IHP layout with public geometry decks to run the main and maximal checks.'
+
+
+def mim_coverage_note(report):
+    """Describe this one rule's execution, without claiming complete coverage."""
+    rule=report.get('drc_coverage',{}).get('MIM.g')
+    if not rule:return ''
+    if rule['status']=='EXECUTED':return 'MIM.g maximum-area checking was executed by the public maximal deck.'
+    return 'MIM.g maximum area per MIM device was not checked. '+IHP_MIM_GUIDANCE
+
+
+def record_public_mim_coverage(report,result,source,directory):
+    """Bind execution to both completed public decks and their actual reports."""
+    from .ihp_klayout_drc import LOCK_SHA256,ENTRIES
+    rows=result.get('decks',[])
+    if (result.get('schema')!=1 or result.get('source_lock_sha256')!=LOCK_SHA256 or
+        result.get('input_sha256')!=file_digest(source) or result.get('top')!=report['cell_name'] or
+        len(rows)!=2 or {row.get('name') for row in rows}!=set(ENTRIES)):
+        raise ValueError('Incomplete or changed public IHP MIM.g execution identity.')
+    for row in rows:
+        name=row['name'];relative=name+'/findings.lyrdb'
+        if (row.get('entry')!=ENTRIES[name] or row.get('report')!=relative or
+            row.get('report_sha256')!=file_digest(Path(directory)/relative)):
+            raise ValueError('Changed public IHP MIM.g deck report identity.')
+    maximal=next(row for row in rows if row['name']=='maximal')
+    report['drc_coverage']['MIM.g']=dict(status='EXECUTED',checker='ihp-public',deck='maximal',
+        source_lock_sha256=result['source_lock_sha256'],input_sha256=result['input_sha256'],
+        report='drc/'+maximal['report'],report_sha256=maximal['report_sha256'])
+    report['qualification']=IHP_SELECTED_SCOPE+' '+mim_coverage_note(report)
 
 
 def reference(text, top):
@@ -88,6 +118,10 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
     out.mkdir(parents=True,exist_ok=True);c=next(c for c in p['cells'] if c['id']==cid)
     report=dict(schema=3,created=now(),status='running',mode='drc_lvs',cell_id=cid,cell_name=c['name'],
                 design_hash=design_digest(p),stages=[],qualification='Process DRC and strict LVS for the recorded layout, schematic reference and PDK. No simulation, antenna/density signoff or fabrication signoff.')
+    if p['pdk'].get('package_lock',{}).get('id')=='ihp-sg13g2':
+        report['drc_coverage']={'MIM.g':dict(status='NOT_CHECKED',checker=drc_engine,
+            reason='unsupported_by_selected_checker' if drc_engine=='magic' else 'not_completed',guidance=IHP_MIM_GUIDANCE)}
+        report['qualification']=IHP_SELECTED_SCOPE+' '+mim_coverage_note(report)
     assets={};resolved={};files={};ref={};contract={}
     def publish():atomic_write(out/'report.json',json.dumps(report,indent=2,allow_nan=False))
     def stage(name,fn):return record_stage(report,name,fn,publish,progress)
@@ -217,6 +251,7 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
                 # interface-only label pruning is solely an extraction step.
                 try:
                     result=public_drc(resolved['klayout']['path'],out/'original.gds',c['name'],out/'drc')
+                    record_public_mim_coverage(report,result,out/'original.gds',out/'drc')
                     from .ihp_varactor_oxide import check as varactor_oxide
                     oxide=varactor_oxide(out/'layout.gds',c['name'])
                     atomic_write(out/'drc/ihp-varactor-oxide.json',json.dumps(oxide,indent=2))
