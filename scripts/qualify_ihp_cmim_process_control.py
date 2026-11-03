@@ -9,7 +9,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts.check_ihp_cmim_process_control import (
-    CASES, COMMAND, CONTROLS, MANAGED_WRAPPER_SHA, MODEL, MODEL_NAMES, PDK, SOURCE_MODULES, plate_evidence, source_contract, verify,
+    CASES, COMMAND, CONTROLS, DEFAULT_ARCHIVE, MANAGED_WRAPPER_SHA, MODEL, MODEL_NAMES, PDK, SOURCE_MODULES, plate_evidence, source_contract, verify,
 )
 from scripts.verify_frozen_ihp_cmim import FORBIDDEN, confined, require, safe, sha
 
@@ -96,7 +96,8 @@ def run(root, out, archive, engine, binary):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out', type=Path, required=True)
-    parser.add_argument('--physical-archive', type=Path, required=True)
+    parser.add_argument('--physical-archive', type=Path, default=DEFAULT_ARCHIVE,
+                        help='Exact audited physical evidence; defaults to the included public subset.')
     parser.add_argument('--ngspice', type=Path, required=True)
     parser.add_argument('--native-binary', type=Path, required=True)
     args = parser.parse_args()

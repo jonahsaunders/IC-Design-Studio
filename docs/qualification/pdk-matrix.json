@@ -315,7 +315,9 @@
       "latest_metal_spacing_supplement_evidence": "docs/validation/ihp-metal-spacing-supplement-2026-11-03.json",
       "latest_metal_spacing_integration_evidence": "docs/validation/chunk7-spacing-integration-2026-11-03.json",
       "latest_cmim_process_control_evidence": "docs/validation/ihp-cmim-process-control-2026-11-03.json",
-      "latest_hosted_source_feedback_evidence": "docs/validation/chunk7-d767-hosted-feedback-2026-11-03.json"
+      "latest_hosted_source_feedback_evidence": "docs/validation/chunk7-04ce-hosted-feedback-2026-11-03.json",
+      "latest_cmim_public_reproduction_evidence": "docs/validation/ihp-cmim-public-reproduction-2026-11-03.json",
+      "latest_cmim_enclosure_evidence": "docs/validation/ihp-cmim-enclosures-2026-11-03.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24233,7 +24235,9 @@
           "default-device-packages-2026-10-17",
           "ihp-cmim-catalog-reference-2026-11-02",
           "ihp-cmim-isolated-spacing-2026-11-03",
-          "ihp-cmim-process-control-2026-11-03"
+          "ihp-cmim-process-control-2026-11-03",
+          "ihp-cmim-public-reproduction-2026-11-03",
+          "ihp-cmim-enclosures-2026-11-03"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -25819,6 +25823,21 @@
       "path": "docs/validation/chunk7-spacing-integration-2026-11-03.json",
       "sha256": "400b24b7d07a677a0da23b2d5b63840f8ae7281ee3557891ba48b4dfaa2cc35f",
       "scope_limit": "Frozen full source regression plus a separately tested six-file native caller overlay; no installed or full-family qualification."
+    },
+    "ihp-cmim-public-reproduction-2026-11-03": {
+      "path": "docs/validation/ihp-cmim-public-reproduction-2026-11-03.json",
+      "sha256": "5ebe3cce0c352988bffad54bc1b1d8856d3d142a7530dfa953e49ec5811b7b4d",
+      "scope_limit": "Public-checkout nominal model comparison using an authenticated subset of historical electrode evidence; no fresh physical, calibrated, installed or full-family acceptance."
+    },
+    "chunk7-04ce-hosted-feedback-2026-11-03": {
+      "path": "docs/validation/chunk7-04ce-hosted-feedback-2026-11-03.json",
+      "sha256": "e2c7c6d0e0473b443f2662159a969a0e8c6236e0bfafa2520274850f4aaaf4b9",
+      "scope_limit": "Complete Windows/Linux source feedback artifacts at the exact synthetic merge for 04ce9bce only; no later working-tree or installed qualification."
+    },
+    "ihp-cmim-enclosures-2026-11-03": {
+      "path": "docs/validation/ihp-cmim-enclosures-2026-11-03.json",
+      "sha256": "1f6a63c2d437bfc215eb751129776ff0b687574f196b59c9831585572833e3de",
+      "scope_limit": "Finite imported 7um Metal5/TopVia1 enclosure class, full 12-boundary/6-fault source CLI and independent Linux/Windows readback; no electrical, installed or full-family qualification."
     },
     "ihp-metal-spacing-supplement-2026-11-03": {
       "path": "docs/validation/ihp-metal-spacing-supplement-2026-11-03.json",

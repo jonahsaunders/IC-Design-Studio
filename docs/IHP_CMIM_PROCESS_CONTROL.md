@@ -33,27 +33,40 @@ imaginary component. Statistical sections, parasitic extraction, broader
 geometries, installed execution and continuous validity/reliability remain open.
 
 The runner and separate reader use the licensed source ledger already retained
-in [the applicability checklist](IHP_CMIM_REQUIREMENTS.md). Reproduction requires
-the exact recorded physical-evidence archive, SHA-256
-`495ee8b7771c8df0f00c8b4b994e48d4dbcf18a8734a1b25cb9c8b423136e6a7`,
-a native Linux ngspice installation and Python with KLayout bindings (reviewed
-version 0.30.5) for archived-mask readback. Use a new output directory outside
+in [the applicability checklist](IHP_CMIM_REQUIREMENTS.md). Reproduction uses the [included public evidence subset](qualification/ihp-cmim-plate-evidence-v1/README.md),
+75,922 bytes, containing twelve unchanged historical native files and both
+applicable licenses. The source contract pins the ZIP and provenance manifest;
+physical, model and raw-output checks remain mandatory. The complete original
+15 MB archive is no longer required for the default commands. The subset's
+parent digest is provenance; reading this subset does not verify omitted parent
+contents or perform a fresh physical extraction.
+
+Use native Linux ngspice and Python with KLayout bindings (reviewed version
+0.30.5) for archived-mask readback. The output must be a new directory outside
 the checkout with an existing parent. For a direct installation, launcher and
 native-binary paths must be the same; the alternative is the exact supported
-managed wrapper, not an arbitrary shell launcher. That archived input is a separate
-retained artifact; it is not embedded in this CLI or supplied by arbitrary new
-layout output. Model/source hashes must match the declared package. The archive
-is `repair-native-review.zip` under
-`IC-Design-Studio-evidence/ihp-cmim-catalog-reference-2026-11-02-v1`, retained
-with the [original catalog-reference record](validation/ihp-cmim-catalog-reference-2026-11-02.json).
+managed wrapper. Run from the repository root:
 
 ```text
-python scripts/qualify_ihp_cmim_process_control.py --out NEW_DIRECTORY --physical-archive RETAINED_ARCHIVE --ngspice NATIVE_LAUNCHER --native-binary ACTUAL_NGSPICE_BINARY
-python scripts/check_ihp_cmim_process_control.py --evidence NEW_DIRECTORY --physical-archive RETAINED_ARCHIVE
+python scripts/qualify_ihp_cmim_process_control.py --out /absolute/new-output --ngspice NATIVE_LAUNCHER --native-binary ACTUAL_NGSPICE_BINARY
+python scripts/check_ihp_cmim_process_control.py --evidence /absolute/new-output
 ```
+
+The optional `--physical-archive` accepts either the exact bundled subset or the
+original `repair-native-review.zip`, SHA-256
+`495ee8b7771c8df0f00c8b4b994e48d4dbcf18a8734a1b25cb9c8b423136e6a7`,
+retained under `IC-Design-Studio-evidence/ihp-cmim-catalog-reference-2026-11-02-v1`
+with the [original catalog-reference record](validation/ihp-cmim-catalog-reference-2026-11-02.json).
+Arbitrary or repacked archives are rejected. The recorded archive identity
+always distinguishes the public subset from that complete historical archive.
 
 The [validation record](validation/ihp-cmim-process-control-2026-11-03.json)
 binds native results, independent readback and the compact recovery archive.
+
+The [public reproduction record](validation/ihp-cmim-public-reproduction-2026-11-03.json)
+verifies the default producer and independent raw readback on Linux, portable
+Windows replay, and changed/missing/repacked evidence rejection. It preserves
+the original comparison result and its limitations.
 
 The original model coefficients are unchanged. Qualification requires resolving
 the voltage-dependence discrepancy and the missing applicability/calibration

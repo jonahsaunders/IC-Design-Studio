@@ -52,7 +52,8 @@ Both package jobs are running; installed acceptance has not passed yet. The
 earlier [publication observation](validation/chunk7-source-repair-publication-2026-11-03.json)
 retains its original timestamp and pending states.
 
-The next source batch fixes a real missed IHP wide-metal spacing violation,
+The next reviewed source batch is published as `04ce9bce` and fixes a real missed
+IHP wide-metal spacing violation,
 verifies independently wired capacitor layouts and ordinary catalog exports,
 and adds a reproducible process-control electrical comparison. Independent
 review approves the finite geometry/electrical evidence. The [combined source record](validation/chunk7-spacing-integration-2026-11-03.json)
@@ -68,6 +69,19 @@ New installed acceptance remains
 required. The four unavailable bindings and mandatory family applicability,
 reliability and broader geometry/extraction requirements remain unresolved.
 These milestones do not justify a full-family promotion or an estimate increase.
+
+Published candidate `04ce9bce` passes all three [hosted source-feedback jobs](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41689154257).
+[Complete retained readback](validation/chunk7-04ce-hosted-feedback-2026-11-03.json)
+verifies both archives, all 2,229 source bindings at synthetic merge `4f0012ba`,
+and eleven stages/1,075 tests per host (37 Windows and 17 Linux skips).
+Its [desktop acceptance](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41689153566)
+passes the candidate, release tools and runtime build/clean-install stages; both
+package jobs are running. The older `d767f71` Linux core suite has also passed
+and packaging advanced to the final handoff. No new installed pass is claimed.
+The [earlier publication observation](validation/chunk7-metal-spacing-publication-2026-11-03.json)
+retains its original timestamp and pending states. The newer enclosure/public
+reproduction work has separately reviewed source evidence; it does not inherit
+the older candidates' hosted or installed acceptance.
 
 Earlier candidate `51201ee` passes both desktop packaging jobs,
 the runtime clean-install gate and hosted source feedback. Its
@@ -112,6 +126,32 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**November 3 enclosure/contact class completed at finite source scope.** The
+[reusable enclosure workflow](IHP_CMIM_ENCLOSURES.md) now runs twelve boundary
+cases and six faults from public repository sources. It covers one-sided Metal5
+enclosure and the explicit TopVia1 contact alternative at both rotations. Below-
+limit cases yield MIM.c or MIM.d, legal cases are clean, and all boundary cases
+pass strict LVS. Four contact/topology faults complete extraction and stop at the
+specific port guard; two reach failing LVS for the expected property or pin
+errors. The complete independent reader passes on Linux and Windows and rejects
+missing/substituted faults, extra reference directives and incomplete evidence.
+The pilot cannot satisfy the full selection. Astra independently checks all
+eighteen fresh contexts, 54 DRC reports and retained source identities. Other
+contact/enclosure topologies, parasitics and installed/electrical applicability
+remain open; this does not promote a complete family.
+
+**November 3 public reproduction prerequisite closed.** The [process comparison](IHP_CMIM_PROCESS_CONTROL.md)
+now defaults to a 75,922-byte repository fixture with twelve unchanged historical
+native members and both applicable licenses. The complete separately retained
+15 MB archive is optional. Fresh default commands pass fourteen native cases and
+four altered setups, with independent numerical readback and Windows replay.
+The original electrode mapping and numerical limitations remain unchanged. This
+closes the public-input accessibility gap; omitted parent contents, fresh physical
+extraction, calibration and installed acceptance remain outside this claim. The
+[validation record](validation/ihp-cmim-public-reproduction-2026-11-03.json) binds the
+public assets, source delta, tests and recovery archive. The estimate remains
+**74%**, low confidence **55–82%**.
 
 **November 3 wide-metal correction and isolated capacitor class.** The original
 public decks miss the selected 220 nm Metal5 gap where the source rule requires

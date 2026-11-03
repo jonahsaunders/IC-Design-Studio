@@ -5,9 +5,10 @@ import hashlib
 import io
 import json
 import math
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import re
 import sys
+import stat
 import tempfile
 import zipfile
 
@@ -24,6 +25,10 @@ PDK = 'icstudio/assets/pdks/ihp-sg13g2'
 FIXTURE = 'icstudio/assets/qualification/ihp-cmim-reference'
 DECK = 'icstudio/assets/physical/ihp_klayout_lvs'
 ARCHIVE_SHA = '495ee8b7771c8df0f00c8b4b994e48d4dbcf18a8734a1b25cb9c8b423136e6a7'
+PUBLIC_PLATES = 'docs/qualification/ihp-cmim-plate-evidence-v1'
+PUBLIC_ARCHIVE_SHA = '5de4278a2b44047881d9b37482edf5b9e6ec0aabb47b30449e6a727b4b572f8e'
+PUBLIC_SOURCE_SHA = '06d7d7853c3c7721c3c9c86e0dbc220ce9b489aa4ceb199ee3fdede0c084fc55'
+DEFAULT_ARCHIVE = ROOT / PUBLIC_PLATES / 'physical-evidence.zip'
 PACKAGE_SHA = 'da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0'
 LEDGER_SHA = '9dd59dddde12f86f2b818ffe7eb721c25fd6b0faed2969f3a9a2940403f5aba7'
 MODEL = 'libs.tech/ngspice/models'
@@ -51,7 +56,9 @@ CONTROLS = {'swapped-electrodes': (CASES['voltage-4'], 'upper', 'electrode diffe
 
 
 def source_contract(root):
-    paths = {f'{DOC}/source-ledger.json': LEDGER_SHA, f'{PDK}/package.json': PACKAGE_SHA}
+    paths = {f'{DOC}/source-ledger.json': LEDGER_SHA, f'{PDK}/package.json': PACKAGE_SHA,
+             f'{PUBLIC_PLATES}/SOURCE.json': PUBLIC_SOURCE_SHA,
+             f'{PUBLIC_PLATES}/physical-evidence.zip': PUBLIC_ARCHIVE_SHA}
     for relative, digest in paths.items():
         require(sha(confined(root, relative)) == digest, 'Source lock differs: '+relative)
     ledger = load(root/f'{DOC}/source-ledger.json')
@@ -96,15 +103,44 @@ def source_contract(root):
 
 
 def plate_evidence(root, archive_path):
-    require(sha(safe(archive_path)) == ARCHIVE_SHA, 'Original audited native archive differs.')
+    archive_path = safe(archive_path)
+    require(archive_path.stat().st_size <= 20_000_000, 'Physical evidence archive is too large.')
+    archive_digest = sha(archive_path)
+    require(archive_digest in (ARCHIVE_SHA, PUBLIC_ARCHIVE_SHA), 'Audited physical evidence archive differs.')
+    manifest_path = confined(root, f'{PUBLIC_PLATES}/SOURCE.json')
+    require(sha(manifest_path) == PUBLIC_SOURCE_SHA, 'Public physical evidence manifest differs.')
+    manifest = load(manifest_path)
+    require(manifest['parent_archive_sha256'] == ARCHIVE_SHA and
+            manifest['archive_sha256'] == PUBLIC_ARCHIVE_SHA, 'Public physical evidence lineage differs.')
     prefix = 'default-7-0/'
     flow = 'job/physical-flow/'
     extract = flow+'lvs-extraction/'
     with zipfile.ZipFile(archive_path) as archive:
-        require(len(archive.namelist()) == len(set(archive.namelist())), 'Duplicate native member.')
+        names = archive.namelist()
+        require(len(names) == len(set(names)), 'Duplicate native member.')
+        for info in archive.infolist():
+            path = PurePosixPath(info.filename)
+            require(not path.is_absolute() and '..' not in path.parts and
+                    '\\' not in info.filename and ':' not in info.filename and
+                    not stat.S_ISLNK(info.external_attr >> 16), 'Unsafe native member.')
+        if archive_digest == PUBLIC_ARCHIVE_SHA:
+            require(set(names) == set(manifest['selected_members']) | set(manifest['licenses']),
+                    'Public physical evidence members differ.')
+            for name, record in manifest['licenses'].items():
+                require(hashlib.sha256(archive.read(name)).hexdigest() == record['sha256'],
+                        'Public physical evidence license differs.')
 
         def member(name):
-            return archive.read(prefix+name)
+            full = prefix+name
+            require(full in manifest['selected_members'], 'Unlisted physical evidence member.')
+            record = manifest['selected_members'][full]
+            info = archive.getinfo(full)
+            require(info.file_size == record['bytes'] and info.file_size <= 1_000_000,
+                    'Physical evidence member size differs.')
+            data = archive.read(full)
+            require(hashlib.sha256(data).hexdigest() == record['sha256'],
+                    'Physical evidence member differs.')
+            return data
 
         native = circuit(member(extract+'native.cir').decode(), 'public', raw_top_order=True)
         original = circuit(member('captured-reference.spice').decode(), 'original')
@@ -160,7 +196,9 @@ def plate_evidence(root, archive_path):
             re.search(r'^\.subckt cap_cmim PLUS MINUS\s*$', model, re.M) and
             'Metal5 - insulator - TopMetal1 capacitor' in lvs_doc and 'C0 PLUS MINUS cap_cmim' in lvs_doc,
             'Public physical/model/symbol order differs.')
-    return dict(archive_sha256=ARCHIVE_SHA, selected_member_prefix=prefix, files=evidence, raw_native=native,
+    return dict(archive_sha256=archive_digest, parent_archive_sha256=ARCHIVE_SHA,
+                archive_scope='Selected historical electrode evidence; omitted parent contents are not verified by the public subset.',
+                selected_member_prefix=prefix, files=evidence, raw_native=native,
                 captured_reference=original, top=['c0', 'PLUS', 'C1', 'TopMetal1'],
                 lower=['c1', 'MINUS', 'C2', 'Metal5'],
                 model_comment_conflict='The pinned model comment names Metal3; the selected actual layout and ordered extractor establish TopMetal1.')
@@ -307,7 +345,8 @@ def verify(root, evidence, physical_archive):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--evidence', type=Path, required=True)
-    parser.add_argument('--physical-archive', type=Path, required=True)
+    parser.add_argument('--physical-archive', type=Path, default=DEFAULT_ARCHIVE,
+                        help='Exact audited physical evidence; defaults to the included public subset.')
     args = parser.parse_args()
     result = verify(safe(ROOT), safe(args.evidence), args.physical_archive)
     require(load(confined(args.evidence, 'comparison.json')) == result, 'Retained comparison does not match raw replay.')

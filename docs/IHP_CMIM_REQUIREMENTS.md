@@ -63,3 +63,13 @@ ordinary catalog pair and strict wrong-width fault. Its source-rule negative
 exposed a real wide-metal false pass. The [versioned supplemental check](IHP_METAL_SPACING_SUPPLEMENT.md)
 now catches it alongside the unchanged original decks. This adds a bounded class;
 it does not extend acceptance to all spacing/contact/enclosure variants or installed execution.
+
+
+The November 3 [reusable enclosure/contact workflow](IHP_CMIM_ENCLOSURES.md)
+adds the finite Metal5 MIM.c and TopVia1 MIM.d boundary class with all twelve
+layouts, six faults and independent native/Windows readback. It does not infer
+a Vmim enclosure limit or qualify arbitrary contacts. The [public process
+comparison](IHP_CMIM_PROCESS_CONTROL.md) now ships its small authenticated
+historical electrode input, so a public checkout no longer requires the
+separately retained full archive. Calibration and operating/reliability
+requirements remain unresolved.
