@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "status": "PASS_BOUNDED_SOURCE_SPACING_READBACK",
+  "date": "2026-11-03",
+  "scope": "Two separate 7 x 7 um imported cap_cmim devices with shared Metal5 and intentionally connected full-height TopMetal1, original 25 Vmim contacts per device, three MIM edge spacings and two rotations.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "source": {
+    "base_commit": "09c671c2be1cc473dd57e89b8a50cdf53454fcb3",
+    "snapshot_manifest_sha256": "c0fb4eec686317724ff77ba48a9d51bdd3dd96651611e1866427044d09be2bd9",
+    "snapshot_files_verified_before_and_after": 6902,
+    "scope": "Frozen source snapshot with repair overlay; base commit alone does not identify all executed bytes."
+  },
+  "package": {"id": "ihp-sg13g2", "revision": "cfb96b74cf33877e", "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"},
+  "public_decks": {"commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6", "lock_sha256": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863", "main_and_maximal": true},
+  "runtime": {"before_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4", "after_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4", "scope": "Managed native tools, scoped runtime files and recorded dependencies; not a hermetic full-OS identity."},
+  "construction": {"unit_width_um": 7, "unit_length_um": 7, "contacts_per_unit": 25, "mim_regions": 2, "bottom_electrode": "shared Metal5", "top_electrode": "full-height common TopMetal1 bridge", "original_generator_gds_sha256": "155b6ce13c29ec58a40933ca6eebf48226da1eb0c14106361c7a66ee51bd697b", "p_cell_or_rule_modified": false},
+  "cases": {"rotations_degrees": [0, 90], "main_findings_per_case": 0, "strict_lvs_all_six": true, "rows": [{"gap_nm": 580, "maximal": {"MIM.b": 1}}, {"gap_nm": 600, "maximal": {}}, {"gap_nm": 620, "maximal": {}}]},
+  "raw_extraction": {"capacitors_per_case": 2, "ordered_terminals": ["C1", "C2"], "width_um": 7, "length_um": 7, "area_um2": 49, "perimeter_um": 28, "multiplicity": 1, "reference": "Predeclared two-instance physical C reference, not simulation export.", "comparison_note": "Netgen merges parallel capacitors during comparison; two-device count is independently checked in the raw unfiltered native netlist."},
+  "initial_narrow_bridge": {"gap_nm": 600, "main_findings": {"TM1.b": 2}, "strict_lvs": "passed", "status": "retained_failed_geometry"},
+  "faults": {"wrong_width": "Native LVS property errors.", "swapped_reference": "Native LVS top-level pin mismatch.", "one_missing_contact": "MIM.h and native LVS failure; second device top terminal disconnected.", "plate_short": "Native extraction joins C1 and C2; application port guard fails and LVS is not run."},
+  "producer": {"status": "OBSERVED", "report_sha256": "2b3693df413cee7f0bc119de7d26938634913f24f12730cb01cbe9f683cd82df", "driver_sha256": "8ff172be63e5b58306ac13cb0eb44ac8029966f10d8108fb438111255d480d70"},
+  "independent_readback": {"status": "PASS_INDEPENDENT_SIX_CASE_READBACK", "six_case_receipt_sha256": "0e1b51aa527e85efe95d2c757a3acabd4e7b34a1dd613bbbedb77ee3b4231857", "scope": "Original source contacts, written GDS/OAS masks and labels, both raw DRC reports, unfiltered two-device extraction and strict LVS across six cases.", "advisor_receipt_sha256": "489dbf68881945b45346e6d29ee4c2ef77ae351ee18a7bc1670838a0e97ecc45", "advisor_contexts": 10, "advisor_evidence_files_unchanged": 1833, "advisor_corruption_controls_rejected": 9},
+  "retention": {"directory": "IC-Design-Studio-evidence/ihp-cmim-spacing-boundary-2026-11-03-v1", "spacing-raw-evidence.zip": "91bc85d437092c52d6fb74e072534d356fdaa65ea0e6294881d055a8ffccd0d6", "review-source-receipts.zip": "d284224b0a9dcde3e539a428879d3b82e1508027cb48f52d2d8f7a5a7819fd4a", "raw_members": 2220, "all_members_readback_verified": true, "source_recovery": "Earlier ihp-cmim-catalog-reference-2026-11-02-v1 native-source-delta-v1.zip SHA256 4a8ef2760a147d28bfe7f1c5572dd93ca7bc42e8e98bf474645cc8ce7063ca35 with ihp-cmim-complete-boundary-2026-11-02-v1 native-evidence-v1.zip predecessor SHA256 e0bcff69bf17586e2db8fbd319b75287cfbeab530e5ac5c804f570fbf4d72136; restored source readback separately recorded.", "replay": "Retained external drivers require the recorded source/runtime and fresh output directories; no repository CLI for this finite selection exists."},
+  "remaining": "Other contact/enclosure interpretations, isolated electrodes, arrays, parasitics, operating/reliability, installed and full-family requirements remain open."
+}

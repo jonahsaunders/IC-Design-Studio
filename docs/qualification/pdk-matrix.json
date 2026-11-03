@@ -59,7 +59,7 @@
       "latest_ihp_isolation_hierarchy_evidence": "docs/validation/ihp-isolation-hierarchy-2026-10-21.json",
       "latest_sky130_mos_bias_evidence": "docs/validation/sky130-mos-bias-2026-10-21.json",
       "latest_sky130_threshold_evidence": "docs/validation/sky130-threshold-layouts-2026-10-21.json",
-      "latest_hosted_acceptance": "docs/validation/sky130-mim-installed-acceptance-2026-10-24.json",
+      "latest_hosted_acceptance": "docs/validation/chunk7-selected-installed-acceptance-2026-11-03.json",
       "latest_sky130_voltage_evidence": "docs/validation/sky130-voltage-layouts-2026-10-22.json",
       "latest_sky130_default_geometry_evidence": "docs/validation/sky130-mos-defaults-2026-10-22.json",
       "latest_sky130_mim2_evidence": "docs/validation/sky130-mim2-layouts-2026-10-22.json",
@@ -296,7 +296,21 @@
         },
         "remaining": "Fresh exact frozen Windows/Linux acceptance and preserved earlier release gates are required. Current installed predecessor acceptance and all full-family requirements remain separate; no completed gate is advanced."
       },
-      "latest_cmim_catalog_reference_evidence": "docs/validation/ihp-cmim-catalog-reference-2026-11-02.json"
+      "latest_cmim_catalog_reference_evidence": "docs/validation/ihp-cmim-catalog-reference-2026-11-02.json",
+      "latest_selected_installed_acceptance": {
+        "evidence": "docs/validation/chunk7-selected-installed-acceptance-2026-11-03.json",
+        "candidate": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+        "run": 41526912766,
+        "status": "both_hosted_installed_gates_passed_selected_local_receipts_verified",
+        "partial_entries": 289,
+        "unavailable_bindings": 4,
+        "utilities": 9,
+        "device_statuses_unchanged": true,
+        "local_full_hosted_archives_verified": false,
+        "newer_cmim_installed_acceptance": false,
+        "scope": "Closes the previous Windows pw2dn reader and Linux array coefficient reader blockers for the exact cbf9705 candidate. Includes selected bundled-default ESD and preserved earlier installed gates. Earlier candidate_* fields are historical source checkpoints; no full-family promotion."
+      },
+      "latest_cmim_shared_electrode_spacing_evidence": "docs/validation/ihp-cmim-spacing-boundary-2026-11-03.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -25813,16 +25827,16 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-10-29-project-hub-v2/manifest.json",
-        "sha256": "9941786c243617e4b4ee15df31c2fb530c8bd12c609ef14a0121f7f9f2d610bf"
+        "path": "docs/validation/gf180-tested-source-2026-11-03-yosys/manifest.json",
+        "sha256": "42529c7a3f5959a8d3c5fe19fb253810b12cba1eace942bda28cbbe860b682c6"
       }
     },
     "5": {
       "path": "docs/validation/ihp-fill-closure-2026-10-11.json",
       "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004",
       "historical_source_snapshot": {
-        "path": "docs/validation/ihp-fill-tested-source-2026-10-14-isolation/manifest.json",
-        "sha256": "c67a9221db18863d74b6a8cc033c17542f183eeb8ddb9638f24b526ff7ef19a0"
+        "path": "docs/validation/ihp-fill-tested-source-2026-11-03-yosys/manifest.json",
+        "sha256": "5b0aebcd274ce6d17779491a679e60c2a85c527df04e8059a5aba4474343ae76"
       }
     },
     "6": {

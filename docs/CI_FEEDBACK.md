@@ -1,5 +1,13 @@
 # Source feedback and selected acceptance candidates
 
+The November 3 [source repair](validation/chunk7-desktop-source-repair-2026-11-03.json)
+adds the actual recovery-to-widget test order and the real long-path Yosys
+regression to fast feedback. Linux digital children with Yosys use a deterministic
+line width so ABC's persistent command protocol retains its complete source-path
+echo. Both digital runners preserve the parent's environment, source/tool checks,
+temporary-directory isolation and existing timeout. Historical qualification
+continues to name its exact original source rather than inheriting this repair.
+
 Pull requests and merge-queue groups run **Fast source feedback** on Windows and
 Linux. The default checkout tests GitHub's synthetic merge commit, preserving
 compatibility with the proposed base. The lane compiles application, script and
@@ -55,7 +63,7 @@ Windows desktop CI builds the native component before its retained full core
 suite and requires it to load in the ordinary test environment. Packaging first
 checks that the selected compiler, source inputs and tested binary are unchanged;
 the installer then uses the already tested build. This removes the former second
-compilation and full core suite inside the installer step. The standalone Windows
+build invocation and repeated full core suite inside the installer step. The standalone Windows
 build still runs its original default checks. Hosted timing and actual compilation
 on the revised candidate remain separate acceptance observations.
 

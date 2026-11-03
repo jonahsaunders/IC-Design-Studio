@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "status": "HOSTED_SELECTED_INSTALLED_MILESTONE_PASSED",
+  "run": 41526912766,
+  "candidate": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+  "all_nine_jobs_succeeded": true,
+  "source_files_checked": 5,
+  "hosts": {
+    "Windows": {
+      "job": 125662970511,
+      "artifact_id": 13209106543,
+      "artifact_sha256_as_hosted": "sha256:125de4b817157e4359bf6879bb34d19700cdf69ecd65ff696bbf1f80cb0c1b06",
+      "artifact_full_digest_verified": false,
+      "selected_member_count": 8,
+      "selected_range_receipt_sha256": "2919bcf40e2fa6a3ee9919ae86f8e43fb03906d42d4be02c5bc3910b46eee78c",
+      "array_acceptance_sha256": "f20c506fe5b988f8fb48edeb499d384dd29a64e49f8082535d3db16a0bf43829",
+      "pw2dn_verification_sha256": "a02603617f402d201a91615a2fc993ff89b262e449e883e93fec07341fc0d869",
+      "default_esd_selected_cases": 19,
+      "array_counts": {
+        "fresh_gui_native_inputs": 30,
+        "electrical_contexts": 30,
+        "electrical_analyses": 60,
+        "electrical_path_samples": 3870
+      }
+    },
+    "Linux": {
+      "job": 125662970518,
+      "artifact_id": 13201462547,
+      "artifact_sha256_as_hosted": "sha256:adb4f42ec2c607abc0fe7feae15744ee3b002759b16beaf7f6ebcb7e9b591198",
+      "artifact_full_digest_verified": false,
+      "selected_member_count": 8,
+      "selected_range_receipt_sha256": "d09a2da18263eda15ed1fd77ae4c37302cd82abe3a8bd3ba561585e7ad04e5fb",
+      "array_acceptance_sha256": "d47ca7c029b027f070a69f3c27b7384b86a9dc89c3935948ad6a11c1154e2588",
+      "pw2dn_verification_sha256": "50ca4c27795a4167f8a039cdb3854def5de638a58729fd4fc365faae9390ff18",
+      "default_esd_selected_cases": 19,
+      "array_counts": {
+        "fresh_gui_native_inputs": 30,
+        "electrical_contexts": 30,
+        "electrical_analyses": 60,
+        "electrical_path_samples": 3870
+      }
+    }
+  },
+  "scope": "Selected hosted logs, metadata and 16 archive members with CRC and SHA-256; no full multi-GB ZIP digest or complete raw numerical replay.",
+  "full_family": false,
+  "chunk_complete": false,
+  "verified_scope": "Authentic hosted completion of all nine jobs, including both exact-candidate installed gates and release-archive execution, plus local selected-receipt CRC/hash/source cross-checks. No independent full hosted artifact or numerical-data replay.",
+  "closed_previous_blockers": [
+    "Windows pw2dn reader can verify immutable Git source in the restored environment.",
+    "Linux array electrical reader accepts the producer decimal coefficients and passes its unchanged numerical checks."
+  ],
+  "separate_current_candidate": {
+    "commit": "c76377da7812c3deae5feb98b5ea2db6d87fd310",
+    "run": 41567538709,
+    "status": "FAILED_TEST_CORE_BOTH_HOSTS",
+    "reason": "Core-only Qt application retained by an earlier test cannot construct widgets in the new display fixture.",
+    "new_ihp_cmim_installed_gate_passed": false
+  },
+  "retention": {
+    "directory": "chunk7-cbf9705-desktop-selected-2026-11-03-v1",
+    "archive": "desktop-selected-evidence.zip",
+    "sha256": "8644d0ab8ad248f6edba97154c3cafc6ce4642a50ea826b67f0c7d1a2e556f46",
+    "bytes": 6400192,
+    "members": 28,
+    "all_retained_members_verified": true
+  },
+  "progress": {
+    "estimated_percent": 74,
+    "confidence": "low",
+    "range_percent": [
+      55,
+      82
+    ],
+    "basis": "Subjective reassessment after the two previously blocked cross-platform installed workflows finish; not computed from test counts."
+  },
+  "qualified": false
+}

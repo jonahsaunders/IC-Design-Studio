@@ -58,13 +58,13 @@ def structural_verilog(text):
 
 class Runner:
     def __init__(self,job,directory,progress):
-        from .digital_flow import environment,stage_sources
+        from .digital_flow import child_environment,environment,stage_sources
         self.job=job;self.config=cell_config(job['project'],job['cell']);self.settings=job['settings'];self.tools=self.settings['tools'];self.progress=progress
         if environment(job)!=job.get('environment'):raise ValueError('The digital toolchain or platform changed. Prepare a new run.')
         self.root=Path(directory).resolve();self.root.mkdir(parents=True,exist_ok=True)
         self.sources=self.root/'sources';self.sources.mkdir();stage_sources(self.config,self.sources)
         self.tmp=self.root/'tmp';self.tmp.mkdir();self.log=self.root/'engine.log';atomic_write(self.log,'Digital '+self.settings['stage']+'\n')
-        self.env={**os.environ,**{k:str(self.tmp) for k in ('TMPDIR','TMP','TEMP')}}
+        self.env=child_environment(self.tmp,self.tools)
         self.commands=[];self.artifacts={};self.versions={};self.platform=self.config.get('platform')
         if self.platform:
             from .digital_platform import stage

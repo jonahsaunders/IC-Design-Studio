@@ -1,40 +1,50 @@
 # Chunks 1–12: progress and forecast
 
-Updated November 2, 2026. Chunk 7 is approximately **72% complete**, with low
-confidence (55–80%); this is an engineering estimate, not verified acceptance.
-The ordinary IHP capacitor reference repair is published on `experimental` as
-`9d5afef`. Its [hosted source feedback](validation/chunk7-catalog-hosted-feedback-2026-11-02.json)
-passes all eleven stages on both hosts: 1,009 selected tests each (36 Windows and
-15 Linux skips), complete archive checks, exact merge parents and 2,216 source
-identities. The new [installed capacitor gate](IHP_CMIM_INSTALLED_ACCEPTANCE.md)
-is published as `6521f4b` and independently source-reviewed; fresh frozen
-acceptance on both hosts remains pending. That commit's hosted source lane
-passes on Linux (1,058 tests, 16 skips) but fails on one Windows test fixture's
-short-path spelling. The [reviewed fixture repair](validation/chunk7-windows-short-path-repair-2026-11-02.json)
-reproduces the exact failure on a real NTFS alias and passes all 35 focused
-checks afterward. Application behavior and protection gates are unchanged;
-fresh hosted feedback on the repair remains required. Windows CI also preserves its full early core suite
-and verifies the tested native binary before packaging, removing the former
-duplicate suite. No time saving or installed pass is inferred before execution.
-The preceding complete IHP capacitor boundary/app coverage milestone is
-published as `09c671c`. Its [hosted source feedback](validation/chunk7-boundary-hosted-feedback-2026-11-02.json) now passes on both platforms: 1,001 selected tests per host (36 Windows and 15 Linux skips), all eleven stages, complete archive verification, exact merge parents and 2,214 source identities. The earlier installed-reader repairs remain pinned to `cbf9705` for the running desktop acceptance below.
-The [publication record](validation/chunk7-installed-repair-publication-2026-11-02.json)
-pins one fresh [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526912766)
-and the automatic [source-feedback run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526882833).
-The immutable candidate, both release-tool gates and runtime verification pass.
-[Hosted source feedback](validation/chunk7-hosted-feedback-2026-11-02.json) passes
-all eleven stages and 992 selected tests per host (36 Windows and 15 Linux skips).
-Both complete artifact digests and all 2,209 source identities match the candidate;
-the tested merge has the exact candidate and base as its verified parents.
-Linux desktop packaging has passed, including 4,133 core tests (48 skips).
-Windows desktop packaging and the exact candidate handoff also pass.
-Both fresh installed-acceptance jobs are running. Linux has passed the frozen
-MiM, optional/default ESD and pw2dn workflows and reached IHP resistor acceptance;
-Windows has reached its frozen digital-runtime qualification. Final outcomes remain pending.
-Installed application acceptance remains pending. The separately verified complete IHP capacitor boundary below is a source
-submilestone; it does not inherit this published candidate's hosted result. This
-source record pins the exact changed-file identities; the running desktop candidate
-remains `cbf9705`. No passing final outcome is inferred.
+Updated November 3, 2026. Chunk 7 is approximately **74% complete**, with low
+confidence (55–82%). This is a subjective engineering estimate, not a measured
+fraction or verified full-family acceptance. The change from 72% reflects closure
+of the two previously blocked installed workflows on both required platforms.
+
+The [completed desktop acceptance](validation/chunk7-selected-installed-acceptance-2026-11-03.json)
+passes all nine jobs at exact candidate `cbf9705`, including both installed
+applications and execution of their release archives. Windows passes the repaired
+pw2dn source reader; Linux passes the repaired array electrical reader. Both
+hosts complete the selected array GUI/native/electrical workflow (30 inputs,
+60 DC/AC analyses and 3,870 path samples), pw2dn checks and 19 bundled-default
+ESD cases. Local verification binds sixteen selected receipt members and five
+candidate source files; the compact archive is fully read back. This is authentic
+hosted acceptance with selected local readback, not an independent replay of all
+raw data or verification of the complete multi-gigabyte hosted archives.
+
+The earlier published candidate `c76377d` passes eleven-stage hosted source feedback
+on both platforms, but [desktop run 41567538709](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41567538709)
+fails the full core suite on both hosts. Its runtime build/clean installation,
+early release tools and required Windows compiled-core load pass. The actual
+failure is a GUI test creating widgets after an earlier recovery test retained a
+core-only Qt application. A narrow local repair isolates the real widget checks
+in a bounded child; fast feedback now runs the actual preceding recovery tests.
+Independent review reproduces the order, preserves the parent application and
+confirms genuine child assertion failures remain failures. The [combined reviewed repairs](validation/chunk7-desktop-source-repair-2026-11-03.json)
+now pass all eleven Windows feedback stages (1,062 tests, 38 skips) and
+the complete compiled-core Linux suite (4,200 tests, 57 skips). All 6,931
+named source files remain unchanged. Full discovery also exposed and reproduced
+a real headless Yosys/ABC deadlock; a scoped child-environment fix now passes
+actual long-path synthesis and gate simulation with the original 60-second limit.
+Exact original source snapshots preserve historical GF180/IHP records, without
+transferring their physical qualification to the new application. Original failed
+runs remain retained. A fresh hosted desktop run is still required. Neither original hosted failure is rewritten as a pass.
+
+The newer ordinary IHP capacitor reference repair and installed capacitor gate
+remain separate from the accepted `cbf9705` candidate. Fresh installed acceptance
+of those changes is still required. The four unavailable electrical bindings,
+full applicable operating/reliability ranges and remaining physical/extracted
+classes remain open. No complete-family status or chunk gate has changed.
+
+The reviewed source changes and milestone records in this update are ready
+for a fresh selected desktop acceptance. Prior [source feedback](validation/chunk7-installed-gate-hosted-feedback-2026-11-02.json)
+and [publication snapshot](validation/chunk7-installed-gate-publication-2026-11-02.json)
+retain their original candidate and observation times; this section supersedes
+their pending desktop observations.
 
 Earlier candidate `51201ee` passes both desktop packaging jobs,
 the runtime clean-install gate and hosted source feedback. Its
@@ -67,7 +77,7 @@ completion estimate.
 | 4 | GF180 density | **Reference gate closed.** [Acceptance](validation/gf180-fill-closure-2026-10-09.json). | Preserve the six reference layouts' fill, exclusions and post-fill checks. | Mostly regression work; different floorplans need new evidence. |
 | 5 | IHP geometry and fill | **Reference gate closed.** [Acceptance](validation/ihp-fill-closure-2026-10-11.json). | Preserve the declared counter/UART/APB geometry, connectivity and extracted-performance coverage. | Mostly regression work; device and full-chip coverage remain separate. |
 | 6 | SKY130 public physical checks | **Approved public-baseline gate closed.** [Acceptance](validation/sky130-public-baseline-2026-10-16.json). | Maintain local DRC, antenna, LVS, density/fill and generic export for the versioned baseline and its exclusions. Full foundry signoff remains excluded. | Stable baseline with regression work. The user-approved narrower boundary applies only to this chunk. |
-| 7 | Device families | **In progress.** Current source candidate: 289 partial entries, four unavailable bindings and nine utilities. Accepted predecessor inventory remains 287 partial / six unavailable / nine utilities; default-candidate installed acceptance is pending. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
+| 7 | Device families | **In progress.** Current inventory: 289 partial entries, four unavailable bindings and nine utilities. The two source-resolved default bindings and declared array workflow now pass selected installed gates on both hosts at `cbf9705`; newer capacitor acceptance remains pending. | Resolve required model bindings; finish source-backed operating ranges, physical/extracted geometry classes and upstream process-option coverage; verify the applicable installed workflows. | **Current critical path; high uncertainty.** Expect individual families to advance unevenly. More passing samples alone do not close the full gate. |
 | 8 | Extraction and corners | **Pending formal qualification.** Coupon, extraction and corner tooling already exists. | Cover required routing layers/vias/device parasitics, coupling/fill and independent RC corners against source-backed references; execute the complete required condition pairs. | More structured once device and corner inputs are settled. **Medium-to-high uncertainty:** GF180/IHP additional independent RC data is an explicit gap. |
 | 9 | Analog blocks | **Pending formal qualification.** Amplifier, reference and other example workflows provide a starting point. | Freeze per-process numerical specifications, then qualify mirror, differential pair, amplifier, reference, oscillator, noise/statistics and relevant IHP bipolar/RF cases before and after extraction. | Substantial design-and-verification iteration. **Medium-to-high uncertainty** from corner failures, startup, stability and parasitics. |
 | 10 | Larger digital and mixed-signal designs | **Pending formal qualification.** Counter/UART/APB and teaching mixed-signal flows provide groundwork. | Lock a larger controller and per-target mixed-signal demonstrator; cover functionality, clock/reset crossings, actual interfaces, all-mode timing and final physical checks. | Existing flows should help. Planning can overlap chunk 9 once device/RC inputs are usable. **Medium-to-high uncertainty** at scale and at analog/digital boundaries. |
@@ -79,6 +89,29 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**November 3 shared-electrode capacitor spacing milestone.** Six complete
+[imported two-capacitor layouts](IHP_CMIM_SPACING_BOUNDARY.md) now have independent
+native readback: 0.58 µm gives the required MIM.b finding, while 0.60/0.62 µm
+are clean, at both rotations. Strict LVS passes all six; independent unfiltered
+extraction confirms two distinct devices before Netgen combines their parallel
+connections. Four physical/reference faults are detected for their actual causes,
+and nine independently corrupted records are rejected. The original narrow-bridge
+notch failure is preserved. Two compact, fully verified archives retain the
+evidence and sources. This closes the selected shared-electrode spacing class;
+isolated electrodes, other contacts/arrays, electrical applicability and installed
+acceptance remain open. The estimate stays **74%**, low confidence **55–82%**.
+
+**November 2 measured Windows CI repetition.** The completed older Windows
+package log shows two 4,133-test suites, with 62 skips each. The first optional
+build could not find MSVC; the installer performed the one successful compile
+before the second suite. That repeated suite took **47m 46.412s**, within a
+**60m 41s** installer step. The revised workflow requires compilation and native
+loading before the retained first suite and verifies that binary before packaging.
+It removes the second build invocation and repeated suite, not two previously
+successful compilations. [Exact retained timing evidence](validation/chunk7-windows-package-timing-2026-11-02.json)
+supports the amount of observed repeated work; net savings on the new candidate
+remain unmeasured. The timing record accompanies this source-repair update.
 
 **November 2 minimum-width/area source experiment.** Independent review verifies
 ten [imported capacitor boundary contexts](IHP_CMIM_MINIMUM_BOUNDARIES.md), two
@@ -104,7 +137,7 @@ checks actual filesystem inventory before supplying canonical mocked rows, while
 retaining forbidden-directory pruning. Both Sol and Astra reproduce the original
 failure with a real NTFS alias; 35 focused checks and separate pruning-before-
 metadata controls pass. No production code, timeout or skip was changed.
-The original hosted run remains failed until a fresh corrected candidate passes.
+The original hosted run remains failed; the corrected candidate now has a separate passing hosted record.
 
 **November 2 installed capacitor gate and Windows CI repair.** The actual GUI
 producer now exercises registry/catalog placement, parameter editing,

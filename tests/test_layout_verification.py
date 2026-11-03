@@ -2,6 +2,8 @@ import json
 import copy
 import os
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
@@ -125,15 +127,25 @@ class IHPMIMCoverageTests(unittest.TestCase):
 
 
 class IHPMIMCoverageDisplayTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        os.environ.setdefault('QT_QPA_PLATFORM','offscreen')
-        from PySide6.QtWidgets import QApplication
-        cls.app=QApplication.instance() or QApplication([])
-
     def test_clean_magic_result_visibly_retains_the_missing_rule(self):
-        from PySide6.QtWidgets import QLabel,QTableWidget
+        # Core-only tests can leave a QCoreApplication in the discovery process.
+        source = Path(__file__).resolve()
+        child = (
+            'import runpy, sys\n'
+            'test = runpy.run_path(sys.argv[1])["IHPMIMCoverageDisplayTests"]()\n'
+            'test._check_magic_result_display()\n'
+        )
+        completed = subprocess.run(
+            [sys.executable, '-B', '-c', child, str(source)],
+            cwd=source.parents[1], env={**os.environ, 'QT_QPA_PLATFORM': 'offscreen'},
+            capture_output=True, encoding='utf-8', errors='replace', timeout=60,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+
+    def _check_magic_result_display(self):
+        from PySide6.QtWidgets import QApplication,QLabel,QTableWidget
         from icstudio.silicon_ui import SiliconMixin
+        app = QApplication([])
         with tempfile.TemporaryDirectory() as temp:
             helper=IHPMIMCoverageTests();report=helper.blocked(Path(temp)/'report')
         p=helper.project();report.pop('error');report.update(status='passed',drc_engine='magic',stages=[dict(name='drc',status='passed',evidence={'violations':0})])

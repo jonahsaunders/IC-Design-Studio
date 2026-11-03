@@ -43,3 +43,11 @@ The process-control tables and A.k/A.l/A.y/A.ad/A.ah conditions and the pinned `
 7. **Operating/reliability applicability:** identify source-backed normal bias, current, temperature, frequency, lifetime and derating restrictions, or record each as unresolved. Breakdown and measurement ranges are not safe operating limits. A complete-family claim remains open while mandatory applicability or evidence is missing.
 
 The selected complete imported rectangular maximum-area boundary and explicit source application coverage reporting are now closed submilestones. A separate [minimum-boundary source experiment](IHP_CMIM_MINIMUM_BOUNDARIES.md) verifies ten modified imported rectangles around the width and area limits, two Magic positives and four exact fault causes. It adds one Vmim cut after the generator omits contacts at these sizes; the native MIM.d check covers TopVia1, not that Vmim layer. Measured enclosure is therefore not native enclosure-rule coverage, and the original producer assertion failure remains separately retained. The next physical work is extending these selected cases to the remaining enclosure, spacing, contact, array and other geometry classes, with separate installed acceptance. The default 2–30 µm PCell rectangles do not reach the maximum and their limits were not changed. No KLayout result is inferred from Magic. A separate high-value task is a source-faithful A.ah comparison at its stated setup, reported as a target/model discrepancy until a justified tolerance and plate mapping exist. Neither task alone closes the whole family.
+
+The November 3 [shared-electrode spacing experiment](IHP_CMIM_SPACING_BOUNDARY.md)
+closes one additional physical class: two complete imported 7 × 7 µm capacitors
+on shared electrodes at 0.58/0.60/0.62 µm MIM gaps and both rotations, with exact
+native findings, raw two-device extraction, strict LVS and four detected faults.
+Its predeclared physical C reference and source-derived contact arrays retain
+their separate scope. This does not establish independently wired electrodes,
+other contact/enclosure variants, arbitrary arrays, parasitics or installed behavior.

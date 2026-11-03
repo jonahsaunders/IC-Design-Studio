@@ -87,6 +87,25 @@ class DigitalModelTests(unittest.TestCase):
             self.assertEqual(job_store.read_result(root/'result.json',project['id'])['traces'],result['traces'])
 
 
+class DigitalChildEnvironmentTests(unittest.TestCase):
+    def test_runner_inherits_parent_settings_with_a_private_yosys_environment(self):
+        from icstudio.digital_implementation import Runner
+
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'COLUMNS': '80', 'TERM': 'dumb'}):
+            before = dict(os.environ)
+            job = digital_flow.prepare(digital.counter_project(), 'synth', tools={'yosys': sys.executable})
+            runner = Runner(job, Path(directory) / 'runner', lambda *_: None)
+            keys = ('COLUMNS', 'TERM', 'TMPDIR', 'TMP', 'TEMP')
+            probe = f'import json, os; print(json.dumps({{key: os.environ[key] for key in {keys!r}}}))'
+            observed = json.loads(runner.command([sys.executable, '-c', probe], 'Inspecting child environment'))
+            self.assertEqual(observed, {
+                'COLUMNS': '100000' if sys.platform == 'linux' else '80', 'TERM': 'dumb',
+                'TMPDIR': str(runner.tmp), 'TMP': str(runner.tmp), 'TEMP': str(runner.tmp),
+            })
+            self.assertEqual(digital_flow.child_environment(runner.tmp, {'iverilog': sys.executable})['COLUMNS'], '80')
+            self.assertEqual(dict(os.environ), before)
+
+
 class DigitalWaveformTests(unittest.TestCase):
     def parse(self, text):
         with tempfile.TemporaryDirectory() as td:
@@ -195,20 +214,27 @@ class IcarusIntegrationTests(unittest.TestCase):
 class YosysIntegrationTests(unittest.TestCase):
     def test_synthesis_and_gate_simulation(self):
         project=digital.counter_project()
-        with tempfile.TemporaryDirectory() as td:
-            root=Path(td)/'synthesis';root.mkdir()
+        with tempfile.TemporaryDirectory() as td, patch.dict(os.environ, {'COLUMNS': '80'}):
+            workspace = Path(td)
+            if sys.platform == 'linux':
+                os.environ.pop('TERM', None)
+                workspace = workspace / ('long-synthesis-workspace-' * 4)
+            before = dict(os.environ)
+            root=workspace/'synthesis';root.mkdir(parents=True)
             job=digital_flow.prepare(project,'synth',tools={'yosys':tool('yosys')})
             result=digital_flow.run(job,root)
+            digital_flow.validate_result(result, root)
             netlist=json.loads((root/'netlist.json').read_text())
             self.assertIn('counter',netlist['modules']);self.assertGreater(len(netlist['modules']['counter']['cells']),0)
             self.assertNotIn('counter_tb',netlist['modules'])
             self.assertEqual(result['digital_result']['stage'],'synth')
             if tool('iverilog') and tool('vvp'):
                 project['digital']['files'][0]['text']=(root/'netlist.v').read_text()
-                simulation=Path(td)/'gate';simulation.mkdir()
+                simulation=workspace/'gate';simulation.mkdir()
                 job=digital_flow.prepare(project,tools={'iverilog':tool('iverilog'),'vvp':tool('vvp')})
                 digital_flow.run(job,simulation)
                 self.assertIn('checks passed',(simulation/'engine.log').read_text())
+            self.assertEqual(dict(os.environ), before)
 
 
 @unittest.skipUnless(tool('verilator'),'Install Verilator or set ICSTUDIO_TEST_VERILATOR')

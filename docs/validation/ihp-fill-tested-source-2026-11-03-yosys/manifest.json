@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "source_commit": "33809bd3b4269f67ff8c062f825a436ba55f054b",
+  "scope": "historical-tested-source-only",
+  "acceptance_record": {
+    "path": "docs/validation/ihp-fill-closure-2026-10-11.json",
+    "sha256": "4255cce72f604e38874eb3dfad97758557d6cd1b56c60dae4f710459220b0004"
+  },
+  "files": {
+    "icstudio/digital_physical.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-11/icstudio/digital_physical.py",
+      "sha256": "e1c220a88450f43cefd9638e7f8eb92e131715b28dd12a84e111983ddf723223"
+    },
+    "icstudio/digital_flow.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-11/icstudio/digital_flow.py",
+      "sha256": "79b59b5e4fb8bfb94b9e08d2bb3eb88c045b00b2294967f69c5b1f67469e8105"
+    },
+    "icstudio/digital_macro.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-11/icstudio/digital_macro.py",
+      "sha256": "42c5491a73a31687ab654b1ebb3327bf5eddbd5168c839707d7418038ced7f7e"
+    },
+    "scripts/check_ihp_fill_closure.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-11/scripts/check_ihp_fill_closure.py",
+      "sha256": "bd56ca837b1378575bfd8ba1dc7029e54b342a9343d3721e1e33d849415c10ce"
+    },
+    "icstudio/digital_platform.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14/icstudio/digital_platform.py",
+      "sha256": "d161bd774635aea8ab5b33bcc21e90bc4e4d93c30dd71d06e1f0b5a290717e92"
+    },
+    "scripts/build_digital_runtime.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14/scripts/build_digital_runtime.py",
+      "sha256": "ded2d3e9c6ab325976e4f8bc38ee5931c78f59a2d1b445661539e7b258ba4012"
+    },
+    "packaging/digital/Dockerfile": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14/packaging/digital/Dockerfile",
+      "sha256": "a8b09c781001d607c017c060e6d655589ccef0af7cd9f6ea2596ae120333d50e"
+    },
+    "packaging/digital/bundle_platforms.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14/packaging/digital/bundle_platforms.py",
+      "sha256": "3aeaad8fd169a33b27cb0107a76ceb8673e2cd512e7e83f5c11186ab86812376"
+    },
+    "icstudio/digital_identity.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14-isolation/icstudio/digital_identity.py",
+      "sha256": "844db56e8ba0d70a95d88e713997b40519896b1b3087ccac56be3f7abe599298"
+    },
+    "icstudio/digital_physical_ui.py": {
+      "path": "docs/validation/ihp-fill-tested-source-2026-10-14-isolation/icstudio/digital_physical_ui.py",
+      "sha256": "7392653dd6d2face138df3fa949a65aa4754fadb85e6f0fa56df568b9f71797c"
+    },
+    "icstudio/digital_implementation.py": {
+      "path": "docs/validation/retained-digital-source-2026-11-03/digital_implementation.py.txt",
+      "sha256": "98b2fe7441c770f7cf7fa9e062eed31ae4fcab37332d5f90f3128ba2e6f2de8e"
+    }
+  },
+  "previous_snapshot": {
+    "path": "docs/validation/ihp-fill-tested-source-2026-10-14-isolation/manifest.json",
+    "sha256": "c67a9221db18863d74b6a8cc033c17542f183eeb8ddb9638f24b526ff7ef19a0"
+  },
+  "note": "Retain the exact implementation source used for the historical fill acceptance before the Linux Yosys child environment changed. The earlier reference remains bound to the original source and native evidence.",
+  "reason": "Preserve exact chunk 5 tested identity and physical-editor sources before adding the independent SKY130 isolation policy. Historical acceptance does not extend to the new workflow.",
+  "captured_source": {
+    "accepted_source_commit": "33809bd3b4269f67ff8c062f825a436ba55f054b",
+    "recovery_commit": "c76377da7812c3deae5feb98b5ea2db6d87fd310",
+    "files": [
+      {
+        "path": "icstudio/digital_implementation.py",
+        "sha256": "98b2fe7441c770f7cf7fa9e062eed31ae4fcab37332d5f90f3128ba2e6f2de8e",
+        "git_blob": "1fa4dbeb0affd8f14fb83310a696709daa53118d"
+      }
+    ],
+    "method": "Exact Git blob bytes from both the accepted source commit and the pre-change candidate match the original acceptance digest."
+  }
+}

@@ -59,7 +59,7 @@ fail validation. No additional full runtime archive is copied into the evidence.
 The Windows CI workflow now builds the native component before the existing full
 core suite, requires it to load in the ordinary test environment, and checks its
 source/compiler/binary identity again before packaging. This removes the former
-second compilation and full core suite inside the installer build. Standalone
+second build invocation and repeated full core suite inside the installer build. Standalone
 `build_windows.ps1` retains its original default checks. Hosted time savings and
 the real compiler path still require measurement on the new candidate.
 

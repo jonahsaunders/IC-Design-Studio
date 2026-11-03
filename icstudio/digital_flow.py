@@ -26,6 +26,15 @@ def tool_names(stage, simulator):
     return ('iverilog', 'vvp')
 
 
+def child_environment(temporary, tools):
+    env = {**os.environ, **{key: str(temporary) for key in ('TMPDIR', 'TMP', 'TEMP')}}
+    if sys.platform == 'linux' and 'yosys' in tools:
+        # Persistent ABC uses readline. A scrolled source-path echo can leave
+        # Yosys waiting for a prompt that it can no longer recognize.
+        env['COLUMNS'] = '100000'
+    return env
+
+
 def environment(job):
     from .build_info import WORKFLOW_SOURCE_HASH
     sources = {}
@@ -268,7 +277,7 @@ def run(job, directory, progress=lambda *_: None):
     root.mkdir(parents=True, exist_ok=True)
     source = root / 'sources'; source.mkdir(exist_ok=False)
     temporary = root / 'tmp'; temporary.mkdir()
-    process_env = {**os.environ, **{key: str(temporary) for key in ('TMPDIR', 'TMP', 'TEMP')}}
+    process_env = child_environment(temporary, settings['tools'])
     stage_sources(config, source)
     atomic_write(root/'inputs.json', json.dumps(digital.input_manifest(config), indent=2))
     commands = []; versions = {}; artifacts = {}; log = root/'engine.log'

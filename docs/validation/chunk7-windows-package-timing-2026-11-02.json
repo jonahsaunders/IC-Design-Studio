@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "status": "VERIFIED_HISTORICAL_WINDOWS_PACKAGE_TIMING",
+  "scope": "Observed old Windows package job and immutable old/new workflow contracts. New hosted timing and installed acceptance remain pending.",
+  "source": {
+    "job": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526912766/job/125562694921",
+    "run_id": 41526912766,
+    "job_id": 125562694921,
+    "candidate": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+    "api": "https://api.github.com/repos/jonahsaunders/IC-Design-Studio/actions/runs/41526912766/jobs?per_page=30",
+    "job_started_utc": "2026-11-02T21:28:20Z",
+    "job_completed_utc": "2026-11-03T01:14:47Z"
+  },
+  "retained": {
+    "job_api_sha256": "33e3fc041fba721887dfeae0cfde6086ba3e73d42ff514776de0bbbcf9df5750",
+    "decoded_job_log_sha256": "72426f1ce1d87c35d9131bc9b80468439cce6e6311b1cec04fb738094dccc9c1",
+    "decoded_job_log_bytes": 5895784,
+    "decoded_job_log_format": "Complete GitHub connector text with LF line endings."
+  },
+  "steps": {
+    "optional_early_build": {
+      "name": "Build optional native core",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 46,
+      "started_at": "2026-11-02T23:05:20Z",
+      "completed_at": "2026-11-02T23:05:21Z",
+      "seconds": 1
+    },
+    "test_core": {
+      "name": "Test core",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 48,
+      "started_at": "2026-11-02T23:05:35Z",
+      "completed_at": "2026-11-02T23:53:49Z",
+      "seconds": 2894
+    },
+    "installer": {
+      "name": "Build Windows installer",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 115,
+      "started_at": "2026-11-03T00:02:47Z",
+      "completed_at": "2026-11-03T01:03:28Z",
+      "seconds": 3641
+    },
+    "following_upload": {
+      "name": "Run actions/upload-artifact@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 116,
+      "started_at": "2026-11-03T01:03:28Z",
+      "completed_at": "2026-11-03T01:06:58Z",
+      "seconds": 210
+    }
+  },
+  "suites": {
+    "early": {
+      "discovered": 4133,
+      "passed": 4071,
+      "skipped": 62,
+      "unittest_seconds": 2884.377,
+      "summary": {
+        "line": 21022,
+        "timestamp_utc": "2026-11-02T23:53:48.7720294Z",
+        "text": "Ran 4133 tests in 2884.377s"
+      },
+      "compile_mode": "Python fallback on this runner; the optional build returned success without locating MSVC."
+    },
+    "installer": {
+      "discovered": 4133,
+      "passed": 4071,
+      "skipped": 62,
+      "unittest_seconds": 2866.412,
+      "summary": {
+        "line": 22786,
+        "timestamp_utc": "2026-11-03T00:50:50.6765120Z",
+        "text": "Ran 4133 tests in 2866.412s"
+      },
+      "compile_mode": "Ran after the successful MSVC native build inside the same installer step.",
+      "start_timestamp_separately_logged": false
+    }
+  },
+  "native_compile": {
+    "successful_compiles_observed": 1,
+    "optional_fallback": {
+      "line": 16697,
+      "timestamp_utc": "2026-11-02T23:05:20.9549788Z",
+      "text": "MSVC cl not found. The application will use the tested Python solver fallback."
+    },
+    "developer_shell": {
+      "line": 22626,
+      "timestamp_utc": "2026-11-03T00:02:49.4694405Z",
+      "text": "** Visual Studio 2022 Developer PowerShell v17.14.43"
+    },
+    "compiler_output": {
+      "line": 22629,
+      "timestamp_utc": "2026-11-03T00:02:52.1361062Z",
+      "text": "solver.cpp"
+    },
+    "linker_output": {
+      "line": 22630,
+      "timestamp_utc": "2026-11-03T00:02:58.2083190Z",
+      "text": "   Creating library solver.lib and object solver.exp"
+    },
+    "packaged_dll": {
+      "line": 27155,
+      "timestamp_utc": "2026-11-03T00:53:25.8719574Z",
+      "text": "   Compressing: D:\\a\\IC-Design-Studio\\IC-Design-Studio\\packaging\\windows\\..\\..\\dist\\ICDesignStudio\\_internal\\icstudio\\iccore.dll"
+    },
+    "installer_executable_compile": {
+      "line": 38005,
+      "timestamp_utc": "2026-11-03T01:00:34.3616286Z",
+      "text": "Successful compile (481.797 sec). Resulting Setup program filename is:"
+    }
+  },
+  "workflow": {
+    "old_candidate": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+    "old_sha256": "7155b40c947e4bb35449af82d98f62857d23beea9131ab1510a1cad0293d6db5",
+    "current_source_commit": "c76377da7812c3deae5feb98b5ea2db6d87fd310",
+    "current_sha256": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587",
+    "old_installer_script_sha256": "ea1515aefd011e80dbbc312acdcd92468821c0b17ff95c279b33058d94491b16",
+    "current_installer_script_sha256": "ea1515aefd011e80dbbc312acdcd92468821c0b17ff95c279b33058d94491b16",
+    "current_compiler_step_sha256": "0cd1e88a519938d370fe941c3ad075d253ba6f0a4def1b66a8761b5f73e551a3",
+    "fallback_test_file_unchanged": true,
+    "source_contract": "Windows now requires compiler discovery and native DLL loading before the one retained full suite. The ordinary test environment must load CORE. Packaging verifies source, compiler and binary identity before the installer runs with SkipBuild. Standalone installer build retains its default compile and test commands."
+  },
+  "observation": {
+    "repeated_suite_seconds": 2866.412,
+    "repeated_suite_minutes": 47.77353333333333,
+    "installer_step_seconds": 3641,
+    "description": "The old runner spent 47m 46.412s in the repeated suite. The revised source removes that second suite invocation and moves the successful MSVC build earlier. The old early invocation reached fallback, so only one successful compile was observed."
+  },
+  "new_hosted_speedup_measured": false,
+  "installed_acceptance": false,
+  "retention": {
+    "directory": "chunk7-desktop-timing-2026-11-02-v1",
+    "schema": 1,
+    "status": "PASS_COMPLETE_ARCHIVE_READBACK",
+    "archive": "review-evidence-v1.zip",
+    "archive_sha256": "8d361a839c7d031af012d95d33a071649b9df9f1cd2ac042fbaefde4f4a8fc4d",
+    "archive_bytes": 639703,
+    "files": 4,
+    "uncompressed_bytes": 5933720,
+    "all_members_read_and_hashed": true,
+    "all_originals_rechecked": true,
+    "originals_deleted": false,
+    "filesystem_restore_performed": false,
+    "installed_acceptance": false
+  },
+  "publication_status": "Local evidence update retained for the next appropriate project push; no active acceptance candidate is relabelled."
+}
