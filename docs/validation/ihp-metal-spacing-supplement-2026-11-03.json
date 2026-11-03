@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "status": "PASS_REVIEWED_FINITE_SOURCE_CHECK",
+  "qualified": false,
+  "full_family": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "base_commit": "d767f711d301ace057ceb4706c80e733aedc0c00",
+  "source_identity": "Reviewed source hashes identify the working-tree overlay; the base commit alone does not.",
+  "reviewed_source_files": {
+    "icstudio/ihp_metal_spacing.py": "addb754f96a3fb3289b653584250f80465fe2f15585018b68d1460ffede2bb3f",
+    "icstudio/ihp_klayout_drc.py": "6c61bb5970a10a303f091fffecee16b733f71cca821663a67927278f39540d40",
+    "icstudio/layout_verification.py": "1c6e1ec8e0e1fadbb602c74c908c344a448bd84e4ee59089524f6819a61f3453",
+    "scripts/verify_frozen_ihp_cmim.py": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d",
+    "scripts/check_ihp_cmim_process_control.py": "e75309221f702ca4a719c999c316bc518408b15cc055a632b871e98664524bf4",
+    "scripts/qualify_ihp_cmim_process_control.py": "f448208ac22a20dd22675af1ac5d9a8dfaf1842c342337477194165fe6459c5b",
+    "tests/test_ihp_metal_spacing.py": "ee06956381495374377ccf0fd48a4495e170216f3021beea9583227839a9fd77",
+    "tests/test_ihp_klayout_drc.py": "f30577a8583c2625bd96b0cd872bc9d53240658c5dc6235cdb81960d25cfa8fd",
+    "tests/test_layout_verification.py": "a95eb93f4b8a29d0cc1c347d416d387e891f5a94705470526441fed5466cd873",
+    "tests/test_ihp_cmim_process_control.py": "b4d8749f3c6f10f3ca79c49edf06dde556c78079a9338ef2a6aa4b3e40ed8ee3"
+  },
+  "final_review_sha256": "1ee9ecd345afebf307b9c8f7380d6a16e5aa0614d14b5c93efccda985c216747",
+  "original_decks": "Complete main and maximal decks remain unchanged, run separately and retain all findings.",
+  "supplement": {
+    "recipe": "ihp-metal-spacing-transparent-v1",
+    "recipe_sha256": "24adf2591231b27e5ed40c9ad86a5626f9e102b0ed8f3fc7728fe7843b3a29e0",
+    "public_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "public_lock_sha256": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863",
+    "rules": [
+      "M2.e",
+      "M2.f",
+      "M3.e",
+      "M3.f",
+      "M4.e",
+      "M4.f",
+      "M5.e",
+      "M5.f"
+    ],
+    "change": "Transparent separation prevents the derived wide-metal subset from shielding other metal. Source morphology, thresholds and layer mapping remain unchanged."
+  },
+  "native_regression": {
+    "contexts": 44,
+    "receipt_sha256": "43714ca81e3bcc5b6d4fe67ba2c4f43abe2d954088cf02b5c46ebbc7effd5eaf",
+    "scope": "Both rules distance boundaries; Mn.e width/run boundaries; rotations and selected 45-degree, wide/narrow, touching/single, thin-branch and U-notch contexts. Finite polygon classes only."
+  },
+  "isolated_layout_evidence": "ihp-cmim-isolated-spacing-2026-11-03.json",
+  "report_contract": "Schema 2: ordered main, maximal and metal-spacing rows, exact candidate recipe and public source identities, native command/markers and raw report required.",
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/chunk7-metal-spacing-process-control-2026-11-03-v1",
+    "archive": "process-control-review-source.zip",
+    "sha256": "c7d687957a9e5636b723d71ad0ed4f67eca37f23a21f060d92e426dbb4919a9b",
+    "bytes": 2627790,
+    "members": 732,
+    "retention_sha256": "ea50ab3d072f46eb4c452ad8257c1c4387474eb82d3bd28d6e18f696577081ca",
+    "all_members_readback_verified": true
+  },
+  "historical_scope": "Older two-deck reports acquire no new coverage; the historical MIM.g reader retains its original scope.",
+  "remaining": "Fresh installed acceptance and other device geometry/electrical/reliability requirements remain open."
+}

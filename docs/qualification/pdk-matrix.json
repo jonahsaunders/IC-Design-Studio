@@ -310,7 +310,12 @@
         "newer_cmim_installed_acceptance": false,
         "scope": "Closes the previous Windows pw2dn reader and Linux array coefficient reader blockers for the exact cbf9705 candidate. Includes selected bundled-default ESD and preserved earlier installed gates. Earlier candidate_* fields are historical source checkpoints; no full-family promotion."
       },
-      "latest_cmim_shared_electrode_spacing_evidence": "docs/validation/ihp-cmim-spacing-boundary-2026-11-03.json"
+      "latest_cmim_shared_electrode_spacing_evidence": "docs/validation/ihp-cmim-spacing-boundary-2026-11-03.json",
+      "latest_cmim_isolated_spacing_evidence": "docs/validation/ihp-cmim-isolated-spacing-2026-11-03.json",
+      "latest_metal_spacing_supplement_evidence": "docs/validation/ihp-metal-spacing-supplement-2026-11-03.json",
+      "latest_metal_spacing_integration_evidence": "docs/validation/chunk7-spacing-integration-2026-11-03.json",
+      "latest_cmim_process_control_evidence": "docs/validation/ihp-cmim-process-control-2026-11-03.json",
+      "latest_hosted_source_feedback_evidence": "docs/validation/chunk7-d767-hosted-feedback-2026-11-03.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24226,7 +24231,9 @@
           "device-corrections-2026-10-16",
           "capacitor-families-2026-10-17",
           "default-device-packages-2026-10-17",
-          "ihp-cmim-catalog-reference-2026-11-02"
+          "ihp-cmim-catalog-reference-2026-11-02",
+          "ihp-cmim-isolated-spacing-2026-11-03",
+          "ihp-cmim-process-control-2026-11-03"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -25807,6 +25814,31 @@
       "path": "docs/validation/sky130-pw2dn-source-candidate-2026-10-29.json",
       "sha256": "b6e9abea83511a1dae450391f34c8f071ab39938868c45c914faf7a82fc627f6",
       "scope_limit": "Isolated source candidate only: actual GUI path and finite two-terminal native/reference/fault comparisons on Windows and Linux. Not bundled default, frozen application, three-terminal isolation, continuous envelope, whole-family or tapeout acceptance."
+    },
+    "chunk7-spacing-integration-2026-11-03": {
+      "path": "docs/validation/chunk7-spacing-integration-2026-11-03.json",
+      "sha256": "400b24b7d07a677a0da23b2d5b63840f8ae7281ee3557891ba48b4dfaa2cc35f",
+      "scope_limit": "Frozen full source regression plus a separately tested six-file native caller overlay; no installed or full-family qualification."
+    },
+    "ihp-metal-spacing-supplement-2026-11-03": {
+      "path": "docs/validation/ihp-metal-spacing-supplement-2026-11-03.json",
+      "sha256": "cc0121a4a13d11679956945771d1b7e9de9ada6933b5c8ccf8737cf7d8966301",
+      "scope_limit": "Finite native M2-M5 Mn.e/f correction, unchanged public decks and independent 44-context regression; not installed or full-family qualification."
+    },
+    "ihp-cmim-isolated-spacing-2026-11-03": {
+      "path": "docs/validation/ihp-cmim-isolated-spacing-2026-11-03.json",
+      "sha256": "408f7e32490c3fabd20cfd92ae74812b7c5e76c2ea865e94d7836b5727cd11cc",
+      "scope_limit": "Selected independent-electrode imported capacitor spacing and ordinary catalog-pair source paths; no installed or complete-family claim."
+    },
+    "ihp-cmim-process-control-2026-11-03": {
+      "path": "docs/validation/ihp-cmim-process-control-2026-11-03.json",
+      "sha256": "35fc3f01338e19ccb4a3c859926273c2dd29f4987ead2f585c372f1db819c7c6",
+      "scope_limit": "Nominal model and published measurement-definition comparison only; missing tolerances/calibration/operating limits remain open."
+    },
+    "chunk7-d767-hosted-feedback-2026-11-03": {
+      "path": "docs/validation/chunk7-d767-hosted-feedback-2026-11-03.json",
+      "sha256": "1356018ab6887410b406e2e64c241f589c01a165ff9956a3c77b3dff161cfdc3",
+      "scope_limit": "Exact synthetic-merge hosted source feedback only; not new working-tree or installed acceptance."
     },
     "ihp-cmim-catalog-reference-2026-11-02": {
       "path": "docs/validation/ihp-cmim-catalog-reference-2026-11-02.json",

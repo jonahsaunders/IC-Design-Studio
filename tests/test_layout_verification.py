@@ -79,13 +79,16 @@ class IHPMIMCoverageTests(unittest.TestCase):
 
     def fixture(self,root):
         from icstudio.ihp_klayout_drc import LOCK_SHA256,ENTRIES
+        from icstudio.ihp_metal_spacing import DECK,RECIPE
         from icstudio.model import file_digest
         report=self.blocked(root/'blocked','ihp-public');source=root/'source.gds';source.write_bytes(b'captured input fixture')
         directory=root/'drc';rows=[]
-        for name,entry in ENTRIES.items():
+        for name,entry in {**ENTRIES,'metal-spacing':'metal-spacing/check.drc'}.items():
             path=directory/name/'findings.lyrdb';path.parent.mkdir(parents=True);path.write_bytes((name+' native report fixture').encode())
             rows.append(dict(name=name,entry=entry,report=name+'/findings.lyrdb',report_sha256=file_digest(path),violations=0))
-        result=dict(schema=1,source_lock_sha256=LOCK_SHA256,input_sha256=file_digest(source),top=report['cell_name'],decks=rows,violations=0)
+        deck=directory/'metal-spacing/check.drc';deck.write_bytes(DECK.encode())
+        rows[2].update(recipe=RECIPE,recipe_sha256=file_digest(deck))
+        result=dict(schema=2,source_lock_sha256=LOCK_SHA256,input_sha256=file_digest(source),top=report['cell_name'],decks=rows,violations=0)
         return report,result,source,directory
 
     def test_magic_and_unfinished_public_never_claim_the_maximum_rule(self):
@@ -115,7 +118,7 @@ class IHPMIMCoverageTests(unittest.TestCase):
     def test_partial_wrong_input_source_or_report_stays_unchecked(self):
         with tempfile.TemporaryDirectory() as temp:
             report,result,source,directory=self.fixture(Path(temp))
-            mutations=[lambda r:r['decks'].pop(0),lambda r:r['decks'].pop(1),
+            mutations=[lambda r:r['decks'].pop(0),lambda r:r['decks'].pop(1),lambda r:r['decks'].pop(2),
                        lambda r:r.update(input_sha256='0'*64),lambda r:r.update(source_lock_sha256='0'*64),
                        lambda r:r.update(top='other'),lambda r:r['decks'][1].update(report_sha256='0'*64),
                        lambda r:r['decks'][1].update(report='../outside.lyrdb')]

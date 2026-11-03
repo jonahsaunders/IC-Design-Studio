@@ -23,6 +23,7 @@ UNIT_MODULES = (
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
     'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
     'test_ihp_capacitor_corners', 'test_ihp_cmim_boundary', 'test_ihp_cmim_lvs_reference',
+    'test_ihp_metal_spacing', 'test_ihp_klayout_drc', 'test_ihp_cmim_process_control',
     'test_ihp_cmim_desktop_probe', 'test_frozen_ihp_cmim', 'test_release_ihp_cmim_evidence', 'test_ci_windows_native_identity',
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',

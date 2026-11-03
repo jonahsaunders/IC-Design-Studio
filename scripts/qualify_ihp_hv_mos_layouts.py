@@ -203,7 +203,8 @@ def disconnected_body(report,folder,polarity,size):
                 or any(stages[n]['status']!='not_run' for n in ('lvs','integrity'))):return False
         aborted_extraction_integrity(stages,folder)
         drc=report['klayout_drc'];decks=drc['decks']
-        if (not isinstance(decks,list) or len(decks)!=2 or {d['name'] for d in decks}!={'main','maximal'}
+        if (type(drc.get('schema')) is not int or drc['schema']!=2 or not isinstance(decks,list)
+                or [d.get('name') for d in decks]!=['main','maximal','metal-spacing']
                 or any(not isinstance(d['categories'],list) or type(d['violations']) is not int or d['violations']<0 for d in decks)
                 or type(report['drc_count']) is not int or report['drc_count']!=sum(d['violations'] for d in decks)):
             return False

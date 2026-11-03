@@ -1,4 +1,4 @@
-"""Run both unmodified public IHP geometry decks with their complete sources.
+"""Run both original public IHP decks and a versioned metal-spacing supplement.
 
 This is a selectable geometry check, independent of Magic. It supplies no
 antenna, density, electrical reliability or complete-chip signoff claim.
@@ -73,9 +73,11 @@ def drc(executable,source,top,output):
         if parsed['top']!=top:raise ValueError('The public IHP DRC report belongs to another top cell.')
         rows.append(dict(name=name,entry=entry,violations=parsed['count'],report=name+'/findings.lyrdb',
                          report_sha256=parsed['report_sha256'],categories=sorted({f['rule'] for f in parsed['findings']})))
+    from .ihp_metal_spacing import run as metal_spacing
+    rows.append(metal_spacing(executable, source, top, out/'metal-spacing', bundle))
     assets(bundle)
     if file_digest(source)!=before:raise ValueError('Layout changed during public IHP geometry checks.')
-    result=dict(schema=1,engine=version,source_commit=COMMIT,source_lock_sha256=LOCK_SHA256,
+    result=dict(schema=2,engine=version,source_commit=COMMIT,source_lock_sha256=LOCK_SHA256,
                 input_sha256=before,top=top,violations=sum(r['violations'] for r in rows),decks=rows,
-                scope='Complete unmodified public main and maximal geometry decks, default rule switches. Antenna, density and fabrication qualification are separate.')
+                scope='Complete unmodified public main and maximal geometry decks, default rule switches, plus versioned transparent Mn.e/f checks for M2-M5. Counts retain native edge-pair markers, including reversed duplicates. Antenna, density and fabrication qualification are separate.')
     atomic_write(out/'result.json',json.dumps(result,indent=2));return result

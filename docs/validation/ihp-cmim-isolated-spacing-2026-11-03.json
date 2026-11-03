@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "status": "PASS_CORRECTED_BOUNDED_SOURCE_READBACK",
+  "date": "2026-11-03",
+  "scope": "Two independently wired 7 x 7 um source-drawn imported cap_cmim devices with four ports, source Vmim contacts, three edge gaps and two rotations. Corrected source overlay and original failed negatives retained separately.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "source": {
+    "base_commit": "09c671c2be1cc473dd57e89b8a50cdf53454fcb3",
+    "original_snapshot_manifest_sha256": "c0fb4eec686317724ff77ba48a9d51bdd3dd96651611e1866427044d09be2bd9",
+    "original_files": 6902,
+    "corrected_overlay_manifest_sha256": "db7011b61ae40b9a871837556ae4b6b36987546470666f24cf5548b25733c690",
+    "corrected_overlay_files": 6903,
+    "overlay_modules": {
+      "icstudio/ihp_metal_spacing.py": "addb754f96a3fb3289b653584250f80465fe2f15585018b68d1460ffede2bb3f",
+      "icstudio/ihp_klayout_drc.py": "6c61bb5970a10a303f091fffecee16b733f71cca821663a67927278f39540d40",
+      "icstudio/layout_verification.py": "1c6e1ec8e0e1fadbb602c74c908c344a448bd84e4ee59089524f6819a61f3453"
+    },
+    "original_unchanged": true,
+    "scope": "Frozen source with overlay; base commit alone does not identify executed bytes."
+  },
+  "package": {"id": "ihp-sg13g2", "revision": "cfb96b74cf33877e", "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"},
+  "runtime": {"before_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4", "after_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4", "scope": "Managed native tools, scoped runtime files and recorded dependencies; not a hermetic full-OS identity."},
+  "rules": {"public_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6", "public_lock_sha256": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863", "original_main_and_maximal_unchanged": true, "supplement": "Separate versioned transparent Mn.e/f check retaining source morphology, thresholds and layer mapping.", "supplement_recipe_sha256": "24adf2591231b27e5ed40c9ad86a5626f9e102b0ed8f3fc7728fe7843b3a29e0"},
+  "construction": {"devices": 2, "ports": ["C1 top", "C2 bottom", "C3 top", "C4 bottom"], "unit_width_um": 7, "unit_length_um": 7, "contacts_per_device": 25, "metal5_enclosure_nm_each_side": 600, "topmetal1_inset_nm_each_side": 200, "reference": "Two independently wired physical C instances; not simulation export."},
+  "original_producer": {"status": "FAIL", "report_sha256": "4581d30b45e582d9aa3eb8c7a7f2cb6d8bb160fe041905cbd322484d31e37cbc", "reason": "Native unmodified public decks returned no M5.e finding at 220 nm Metal5 separation in both rotations; predeclared source-rule negative assertions failed.", "original_main_logged_m5_e_execution": true},
+  "original_threshold_diagnostic": {"report_sha256": "cf6465e7f686c27364b191caba799208069916467f98585d84fe7c9c95c26d39", "metal5_gaps_nm": [200, 210, 220, 230, 240, 250], "native_main_findings": ["M5.b", null, null, null, null, null], "interpretation": "Recorded native findings; zero findings at 210–230 nm are not a legality claim."},
+  "corrected_cases": {"rotations_degrees": [0, 90], "all_unfiltered_extraction_and_strict_lvs_passed": true, "original_main_and_maximal_findings_per_case": 0, "rows": [{"mim_gap_nm": 1420, "metal5_gap_nm": 220, "topmetal1_gap_nm": 1820, "supplement_m5_e_reverse_edge_markers": 2}, {"mim_gap_nm": 1440, "metal5_gap_nm": 240, "topmetal1_gap_nm": 1840, "supplement_m5_e_reverse_edge_markers": 0}, {"mim_gap_nm": 1460, "metal5_gap_nm": 260, "topmetal1_gap_nm": 1860, "supplement_m5_e_reverse_edge_markers": 0}]},
+  "faults": {"wrong_width": "Native LVS property mismatch.", "electrode_swap": "Physical second-device labels swapped; native LVS pin mismatch.", "one_missing_contact": "MIM.h and application port guard; completed raw extraction, LVS not run.", "same_plate_short": "Both top nets physically merged; completed raw extraction and application port guard, LVS not run.", "cross_plate_short": "Top/bottom nets physically merged; TM1.b and TV1.c/d findings, completed raw extraction and application port guard, LVS not run."},
+  "corrected_producer": {"status": "OBSERVED", "report_sha256": "eb5812d8592040b7a2428e74c18b190494d2d8a3cac9b8d6e84b3fc2611a26e3", "driver_sha256": "a4541f6af05c560613909c35306e2b795ec70a0ddeb300480f9d2952e25d601d"},
+  "independent_review": {"original_raw_review_sha256": "c7610f74620e36745cd9ceba0554e32b3784355d71ab599e1f68d9aabf720e6a", "corrected_raw_review_sha256": "273d98854ae014a87e01838da8f566d13f441efda4a26d611f34f9d91cdc3ba5", "corrected_six_case_review_sha256": "fe712379565c45c3b2964d7e53bd72896a33d15823c455074ff0d7ddb7a206e9", "contexts_each": 11, "corruption_controls_each": 7},
+  "ordinary_catalog_pair": {"status": "PASS_INDEPENDENT_SOURCE_READBACK", "mim_gap_nm": 1440, "rotations_degrees": [0, 90], "original_simulation": "Two saved ordinary catalog X statements with mm_ok=1 preserved.", "physical_comparison": "Two separately source-bound C projections; full geometry and strict native LVS pass.", "wrong_width_control": "Second instance W=7.2 um produces native A/P property errors and a top-level pin mismatch; strict LVS fails.", "initial_fixture_failure": "Coincident schematic symbols caused conflicting labels at save; retained separately.", "producer_report_sha256": "23f3444f0889a11bd8f24e80b22eb4f3029e858fdfab2ebfdd09ebbba28886f6", "independent_addendum_sha256": "19bcb01913c3b8e6b7a1b5ee29ecbafb737cf4e1298fae12723d2a2ab5fe2e55", "independent_contexts": 3, "corruption_controls_rejected": 4, "installed_acceptance": false},
+  "retention": {"directory": "IC-Design-Studio-evidence/ihp-cmim-isolated-spacing-2026-11-03-v1", "original-raw-evidence.zip": "3b03dfaf38475c7cd69665a71b9a0f9c3bc93476c0e275408dca73eb859b805e", "corrected-raw-evidence.zip": "c7a2e034193ecf209ba8d414805c28bdeb6235b96e7f82fc93e8883d5d76bb9b", "review-source-receipts.zip": "a4fe3c9e4ed4f49195b37b26a09a0bd055513860ac125cac5cdfb5a14bb7ad96", "catalog-pair-evidence.zip": "f6ebbe1f7d6f6af00d8e38a6cb8efbf30f8ce7a212b24e7b9d727f003f16dafb", "catalog-review-receipts.zip": "a34b652c9b9a59401c0c77fe5eac05c058366f7add943d92b093e0589b735825", "all_members_readback_verified": true, "source_recovery": "Earlier ihp-cmim-catalog-reference-2026-11-02-v1 native-source-delta-v1.zip SHA256 4a8ef2760a147d28bfe7f1c5572dd93ca7bc42e8e98bf474645cc8ce7063ca35 with ihp-cmim-complete-boundary-2026-11-02-v1 native-evidence-v1.zip predecessor SHA256 e0bcff69bf17586e2db8fbd319b75287cfbeab530e5ac5c804f570fbf4d72136; restored source readback separately recorded. The corrected archive retains all three overlay module bytes and overlay manifest.", "replay": "Retained external drivers require the recorded source/runtime and fresh output directories; no repository CLI for this finite selection exists."},
+  "remaining": "Other geometries, contact/enclosure interpretations, extracted parasitics, operating/reliability, installed and full-family requirements remain open."
+}

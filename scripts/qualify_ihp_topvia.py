@@ -17,16 +17,24 @@ CASES = {'single': None, 'array': None, 'cut-width': 'TV2.a', 'cut-spacing': 'TV
 
 
 def accept(name, expected, result):
-    # The maximal deck supplements the main deck; it does not duplicate every
-    # main-table rule. Require both completed native reports and test their union.
+    # Require the two public decks and the supplemental metal-spacing check.
     decks = result['decks']
-    if len(decks) != 2 or {d['name'] for d in decks} != {'main', 'maximal'}:
-        raise ValueError(name + ': both public decks must finish.')
+    if (type(result.get('schema')) is not int or result['schema'] != 2 or not isinstance(decks, list) or
+            [d.get('name') for d in decks] != ['main', 'maximal', 'metal-spacing']):
+        raise ValueError(name + ': both public decks and metal-spacing check must finish in order.')
+    if (any(type(d.get('violations')) is not int or d['violations'] < 0 or
+            not isinstance(d.get('categories'), list) or bool(d['categories']) != bool(d['violations']) for d in decks) or
+            type(result.get('violations')) is not int or
+            result['violations'] != sum(d['violations'] for d in decks)):
+        raise ValueError(name + ': inconsistent geometry finding counts.')
     if expected is None:
         if result['violations']:
             raise ValueError(name + ': native geometry findings remain: ' + json.dumps(decks))
-    elif not any(rule.strip("'\"").split()[0] == expected for d in decks for rule in d['categories']):
-        raise ValueError(name + ': expected native rule was not detected.')
+    else:
+        if decks[2]['violations']:
+            raise ValueError(name + ': unexpected supplemental metal-spacing findings remain.')
+        if not any(rule.strip("'\"").split()[0] == expected for d in decks for rule in d['categories']):
+            raise ValueError(name + ': expected native rule was not detected.')
 
 
 def stream(path, name):

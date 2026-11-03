@@ -39,17 +39,29 @@ class PublicIHPProfileTests(unittest.TestCase):
             self.assertFalse((root/'qualification.json').exists())
             self.assertFalse((root/'characterized.icproj').exists())
 
-    def test_topvia_receipt_requires_both_decks_and_the_specific_fault(self):
+    def test_topvia_receipt_requires_all_three_checks_and_the_specific_fault(self):
         from scripts.qualify_ihp_topvia import accept
-        result = dict(violations=1, decks=[dict(name='main', categories=["'TV2.a'"]),
-                                         dict(name='maximal', categories=[])])
+        result = dict(schema=2, violations=1, decks=[dict(name='main', categories=["'TV2.a'"], violations=1),
+                      dict(name='maximal', categories=[], violations=0),
+                      dict(name='metal-spacing', categories=[], violations=0)])
         accept('cut-width', 'TV2.a', result)
         with self.assertRaisesRegex(ValueError, 'expected native rule'):
             accept('cut-spacing', 'TV2.b', result)
         with self.assertRaisesRegex(ValueError, 'geometry findings remain'):
             accept('single', None, result)
+        for decks in (result['decks'][:2], [result['decks'][1], result['decks'][0], result['decks'][2]]):
+            with self.subTest(decks=decks), self.assertRaisesRegex(ValueError, 'both public decks'):
+                accept('cut-width', 'TV2.a', dict(result, decks=decks))
         with self.assertRaisesRegex(ValueError, 'both public decks'):
-            accept('cut-width', 'TV2.a', dict(result, decks=result['decks'][:1]))
+            accept('cut-width', 'TV2.a', dict(result, schema=1))
+        bad = copy.deepcopy(result); bad['decks'][2].update(categories=["'M5.e'"], violations=2); bad['violations']=3
+        with self.assertRaisesRegex(ValueError, 'supplemental metal-spacing'):
+            accept('cut-width', 'TV2.a', bad)
+        with self.assertRaisesRegex(ValueError, 'geometry findings remain'):
+            accept('single', None, bad)
+        bad['violations']=1
+        with self.assertRaisesRegex(ValueError, 'finding counts'):
+            accept('cut-width', 'TV2.a', bad)
 
     def test_public_topmetal_via_also_satisfies_minimum_metal_width(self):
         from icstudio.layout_routing import via_recipes

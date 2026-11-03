@@ -156,6 +156,31 @@ class LayoutReleaseTests(unittest.TestCase):
             work=Path(tmp);(work/'drc').mkdir();(work/'drc/navigation.tsv').write_text(c['name']+'\tBad width\t0,0,20,40\t0.005\nunknown\tBad width\t0,0,1,1\t1\n');r=collect(p,cid,work)
             self.assertEqual(len(r),1);self.assertEqual(r[0]['bbox'],[0,0,100,200]);self.assertEqual(r[0]['cell_id'],cid)
 
+    def test_navigation_reads_supplemental_native_edge_pair(self):
+        p,cid,c=self.mirror()
+        target=rect('m1',4100,-100,220,200);c['shapes'].append(target)
+        # A real KLayout RDB edge pair, rather than a mocked parsed finding.
+        xml='''<?xml version="1.0" encoding="utf-8"?>
+<report-database><description>metal spacing</description><original-file/><generator>test</generator>
+<top-cell>{cell}</top-cell><tags/><categories><category><name>M5.e</name><description>spacing</description><categories/></category></categories>
+<cells><cell><name>{cell}</name><variant/><layout-name/><references/></cell></cells><items>
+<item><tags/><category>'M5.e'</category><cell>{cell}</cell><visited>false</visited><multiplicity>1</multiplicity><comment/><image/><values><value>edge-pair: (4.1,4.1;4.1,-4.1)/(4.32,-4.1;4.32,4.1)</value></values></item>
+<item><tags/><category>'M5.e'</category><cell>{cell}</cell><visited>false</visited><multiplicity>1</multiplicity><comment/><image/><values><value>edge-pair: (4.32,-4.1;4.32,4.1)/(4.1,4.1;4.1,-4.1)</value></values></item>
+</items></report-database>'''.format(cell=c['name'])
+        with tempfile.TemporaryDirectory() as tmp:
+            work=Path(tmp);folder=work/'drc/metal-spacing';folder.mkdir(parents=True)
+            (folder/'findings.lyrdb').write_text(xml,encoding='utf-8')
+            findings=collect(p,cid,work)
+            self.assertEqual(len(findings),2)
+            for finding in findings:
+                self.assertEqual(finding['code'],'KLAYOUT.DRC')
+                self.assertEqual(finding['source'],str(Path('drc')/'metal-spacing'/'findings.lyrdb'))
+                self.assertEqual(finding['source_design_hash'],design_digest(p))
+                self.assertEqual(finding['cell_id'],cid)
+                self.assertIn(target['id'],finding['objects'])
+                self.assertIn('M5.e',finding['message'])
+                self.assertEqual(finding['bbox'],[4100,-4100,4320,4100])
+
     def test_single_physical_waveform_requires_checksum_and_identity(self):
         p,cid,c=self.mirror();t=p['testbenches'][0]
         with tempfile.TemporaryDirectory() as tmp:

@@ -4,7 +4,12 @@
 
 The application package is IHP `cfb96b74cf33877e`, manifest SHA-256 `da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0`. Its public symbol exposes `c0`, `c1`, `w`, `l`, `m`, and `mm_ok` and emits an `X` call to the two-terminal subcircuit `cap_cmim`; the current default is 7 µm × 7 µm, `m=1`. The source LVS documentation describes a scalable rectangular Metal5/TopMetal1 device, uses `PLUS`/`MINUS`, and lists area, perimeter and multiplicity in its comparison model. The symbol's displayed capacitance is not a physical rating. Physical multiplicity is a number of devices and cannot be inferred from a positive fractional simulation multiplier.
 
-The upstream LVS document identifies the layers as Metal5 and TopMetal1, but the pinned compact-model comment calls its top plate Metal3. Before any plate-dependent voltage claim, reconcile source revisions and map symbol pins, extracted nets and actual mask electrodes with independent physical evidence. Do not assume this comment proves the electrode mapping.
+The upstream LVS document identifies the layers as Metal5 and TopMetal1, but the pinned compact-model comment calls its top plate Metal3. Before any plate-dependent voltage claim, reconcile source revisions and map symbol pins, extracted nets and actual mask electrodes with independent physical evidence. Do not assume this comment proves the electrode mapping. The November 3
+[physical/archive and process-control readback](IHP_CMIM_PROCESS_CONTROL.md) now
+establishes the selected `c0`/`PLUS`/TopMetal1 and `c1`/`MINUS`/Metal5 mapping.
+The nominal model comparison reproduces the voltage discrepancy and accounts for
+the 300 K versus 27 °C reference difference; missing calibration/tolerances and
+operating/reliability limits remain unresolved.
 
 The [ordinary catalog reference integration](IHP_CMIM_LVS_REFERENCE.md) now passes both actual source checking routes and the Windows managed handoff. The original X simulation statement is preserved; Magic removes only its literal statistical selector, while public KLayout uses the pinned physical C form and independently derived per-unit area/perimeter. Changed or ambiguous sources/parameters fail. This closes the selected representation/linkage defect and retains strict native fault detection; exact installed acceptance, remaining physical classes and the applicability requirements below remain open.
 
@@ -51,3 +56,10 @@ native findings, raw two-device extraction, strict LVS and four detected faults.
 Its predeclared physical C reference and source-derived contact arrays retain
 their separate scope. This does not establish independently wired electrodes,
 other contact/enclosure variants, arbitrary arrays, parasitics or installed behavior.
+
+The later [isolated-electrode experiment](IHP_CMIM_ISOLATED_SPACING.md) closes the
+selected two-device/four-port 7 × 7 µm class at both rotations, including an
+ordinary catalog pair and strict wrong-width fault. Its source-rule negative
+exposed a real wide-metal false pass. The [versioned supplemental check](IHP_METAL_SPACING_SUPPLEMENT.md)
+now catches it alongside the unchanged original decks. This adds a bounded class;
+it does not extend acceptance to all spacing/contact/enclosure variants or installed execution.

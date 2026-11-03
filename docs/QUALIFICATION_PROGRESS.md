@@ -40,11 +40,34 @@ of those changes is still required. The four unavailable electrical bindings,
 full applicable operating/reliability ranges and remaining physical/extracted
 classes remain open. No complete-family status or chunk gate has changed.
 
-The reviewed source changes and milestone records in this update are ready
-for a fresh selected desktop acceptance. Prior [source feedback](validation/chunk7-installed-gate-hosted-feedback-2026-11-02.json)
-and [publication snapshot](validation/chunk7-installed-gate-publication-2026-11-02.json)
-retain their original candidate and observation times; this section supersedes
-their pending desktop observations.
+The reviewed earlier repairs and milestones are published as `d767f71`.
+[Source feedback 41681564655](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41681564655)
+now passes all three jobs. Full ZIP SHA/CRC readback and all 2,224 source bindings
+match the actual synthetic merge `3027d4c`, with eleven stages and 1,062 tests
+per host (37 Windows and 17 Linux skips). The [hosted source record](validation/chunk7-d767-hosted-feedback-2026-11-03.json)
+retains the archives and exact merge identity; it does not cover newer changes.
+[Desktop acceptance 41681580250](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41681580250)
+has passed the candidate, release-tool and runtime build/clean-install jobs.
+Both package jobs are running; installed acceptance has not passed yet. The
+earlier [publication observation](validation/chunk7-source-repair-publication-2026-11-03.json)
+retains its original timestamp and pending states.
+
+The next source batch fixes a real missed IHP wide-metal spacing violation,
+verifies independently wired capacitor layouts and ordinary catalog exports,
+and adds a reproducible process-control electrical comparison. Independent
+review approves the finite geometry/electrical evidence. The [combined source record](validation/chunk7-spacing-integration-2026-11-03.json)
+passes 4,205 compiled Linux tests (57 skips) and all eleven Windows feedback
+stages, 1,074 tests (38 skips), against the frozen 6,938-file snapshot. A separate
+six-file caller overlay passes 42 native tests, seven actual via cases, n/p HV
+positives and deliberate body-open faults, plus real spacing-finding navigation.
+Windows also passes the focused caller tests. The Windows outer wrapper retained
+its live-checkout-change failure while independent readback verified the unchanged
+test clone and all passing stages; this does not relabel that wrapper exit.
+Full-suite results and later focused tests retain their distinct source identities.
+New installed acceptance remains
+required. The four unavailable bindings and mandatory family applicability,
+reliability and broader geometry/extraction requirements remain unresolved.
+These milestones do not justify a full-family promotion or an estimate increase.
 
 Earlier candidate `51201ee` passes both desktop packaging jobs,
 the runtime clean-install gate and hosted source feedback. Its
@@ -89,6 +112,31 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**November 3 wide-metal correction and isolated capacitor class.** The original
+public decks miss the selected 220 nm Metal5 gap where the source rule requires
+240 nm. A [separately versioned native check](IHP_METAL_SPACING_SUPPLEMENT.md)
+corrects subset shielding while preserving both complete original decks and all
+their findings. Independent native regression covers 44 selected contexts across
+M2–M5. Six [independently wired capacitor layouts](IHP_CMIM_ISOLATED_SPACING.md)
+retain two extracted devices, four ports and strict LVS; both rotated below-limit
+gaps produce the required finding, and legal gaps stay clean. Five physical/reference faults
+retain their actual failure causes. Ordinary two-device catalog exports pass at
+both rotations, and a wrong-width parameter causes native property/pin errors.
+The original false passes remain archived. Other physical classes and fresh
+installed acceptance remain open.
+
+**November 3 process-control comparison.** Fourteen native nominal-model cases,
+four altered setups and independent raw readback establish the selected physical
+electrode mapping and reproduce the [published measurement setups](IHP_CMIM_PROCESS_CONTROL.md).
+The model remains voltage-independent: endpoint target differences are −760 and
+−240 ppm. The selected temperature target residual is about 0.0587 ppm; area and
+perimeter decomposition matches the model coefficients only. Missing target
+tolerances, monitor geometry/de-embedding and applicable reliability limits remain
+open. The independent reader now rejects injected passives, overrides and extra
+control commands even with recomputed hashes. Compact, fully verified archives
+retain the native outputs, failures, source bytes and independent reviews. The
+estimate stays **74%**, low confidence **55–82%**.
 
 **November 3 shared-electrode capacitor spacing milestone.** Six complete
 [imported two-capacitor layouts](IHP_CMIM_SPACING_BOUNDARY.md) now have independent

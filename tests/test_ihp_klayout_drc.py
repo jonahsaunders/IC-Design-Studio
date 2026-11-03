@@ -89,6 +89,9 @@ class PublicIHPDRCTests(unittest.TestCase):
             report.save(options['report'])
         if self.fault=='input' and name=='maximal':self.source.write_bytes(b'changed layout')
         if self.fault=='unfinished' and name=='maximal':return 'started\n'
+        if name=='metal-spacing':
+            from icstudio.ihp_metal_spacing import MARKER,RULES
+            return '\n'.join(['ICSTUDIO_IHP_METAL_SPACING_RULE '+rule for rule in RULES]+[MARKER])+'\n'
         switches='\n'.join(s+' enabled: true' for s in ('FEOL','BEOL','OFFGRID','ANGLE','PIN','FORBIDDEN','RECOMMENDED'))
         if self.fault=='disabled':switches=switches.replace('FEOL enabled: true','FEOL enabled: false')
         return switches+'\n'+("KLayout DRC run for tables 'main' completed in 1 seconds" if name=='main' else 'KLayout DRC run for maximum ruleSet completed in 1 seconds')
@@ -101,8 +104,8 @@ class PublicIHPDRCTests(unittest.TestCase):
 
     def test_reports_from_both_decks_are_counted_without_filtering(self):
         result=self.run_fixture()
-        self.assertEqual(self.calls,['main','maximal']);self.assertEqual(result['violations'],3)
-        self.assertEqual([r['violations'] for r in result['decks']],[1,2])
+        self.assertEqual(self.calls,['main','maximal','metal-spacing']);self.assertEqual(result['violations'],5)
+        self.assertEqual([r['violations'] for r in result['decks']],[1,2,2])
         self.assertEqual(result['source_lock_sha256'],rules.LOCK_SHA256)
 
     def test_missing_unfinished_disabled_wrong_top_crashed_or_changed_input_cannot_pass(self):

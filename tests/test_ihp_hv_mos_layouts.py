@@ -109,13 +109,13 @@ class IhpHvMosTests(unittest.TestCase):
         tools={name:dict(path=str(folder/name),sha256=write(name,'locked '+name)) for name in ('magic','netgen','klayout')}
         export=dict(sha256=write('layout.gds','layout bytes'),source_sha256=write('original.gds','original layout bytes'))
         decks=[dict(name=name,categories=["'LU.a'"] if name=='main' else [],violations=int(name=='main'),report=name+'/findings.lyrdb',
-                    report_sha256=write('drc/'+name+'/findings.lyrdb',name+' findings')) for name in ('main','maximal')]
+                    report_sha256=write('drc/'+name+'/findings.lyrdb',name+' findings')) for name in ('main','maximal','metal-spacing')]
         return dict(status='failed',lvs_extractor='ihp-klayout',drc_engine='ihp-public',drc_count=1,
             stages=[dict(name='preflight',status='passed',evidence=dict(assets=assets,tools=tools)),
                 dict(name='layout_export',status='passed',evidence=export),dict(name='drc',status='failed'),
                 dict(name='lvs_extraction',status='failed',error='IHP extracted port names differ from the schematic.'),
                 dict(name='lvs',status='not_run'),dict(name='integrity',status='not_run')],
-            klayout_drc=dict(decks=decks,input_sha256=export['source_sha256']))
+            klayout_drc=dict(schema=2,decks=decks,input_sha256=export['source_sha256']))
 
     def test_missing_body_requires_completed_native_device_and_exact_rule(self):
         with tempfile.TemporaryDirectory() as td:
@@ -141,7 +141,7 @@ class IhpHvMosTests(unittest.TestCase):
     def test_body_fault_rechecks_assets_tools_layouts_and_drc_reports(self):
         with tempfile.TemporaryDirectory() as td:
             folder=Path(td)
-            for name in ('asset.tech','magic','netgen','klayout','layout.gds','original.gds','drc/main/findings.lyrdb'):
+            for name in ('asset.tech','magic','netgen','klayout','layout.gds','original.gds','drc/main/findings.lyrdb','drc/metal-spacing/findings.lyrdb'):
                 report=self.body_evidence(folder);path=folder/name;path.write_bytes(b'changed after extraction')
                 with self.subTest(name=name):self.assertFalse(disconnected_body(report,folder,'p',(.3,.4,1,1)))
             report=self.body_evidence(folder)
@@ -150,6 +150,20 @@ class IhpHvMosTests(unittest.TestCase):
                 with self.subTest(field=field):self.assertFalse(disconnected_body(bad,folder,'p',(.3,.4,1,1)))
             bad=clone(report);bad['stages'][1]['evidence'].pop('sha256')
             self.assertFalse(disconnected_body(bad,folder,'p',(.3,.4,1,1)))
+
+    def test_body_fault_requires_ordered_three_checks_and_no_unrelated_findings(self):
+        with tempfile.TemporaryDirectory() as td:
+            folder=Path(td);report=self.body_evidence(folder)
+            self.assertTrue(disconnected_body(report,folder,'p',(.3,.4,1,1)))
+            for change in ('missing','reordered','old-schema','supplement-finding','count-mismatch'):
+                bad=clone(report);drc=bad['klayout_drc']
+                if change=='missing':drc['decks'].pop()
+                elif change=='reordered':drc['decks'][1],drc['decks'][2]=drc['decks'][2],drc['decks'][1]
+                elif change=='old-schema':drc['schema']=1
+                elif change=='supplement-finding':
+                    drc['decks'][2].update(categories=["'M5.e'"],violations=2);bad['drc_count']=3
+                else:bad['drc_count']=2
+                with self.subTest(change=change):self.assertFalse(disconnected_body(bad,folder,'p',(.3,.4,1,1)))
 
     def test_body_fault_requires_exact_stage_sequence_and_states(self):
         with tempfile.TemporaryDirectory() as td:

@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "observed_at": "2026-11-03T17:10:52Z",
+  "status": "PUBLISHED_DESKTOP_ACCEPTANCE_IN_PROGRESS",
+  "branch": "experimental",
+  "candidate": "d767f711d301ace057ceb4706c80e733aedc0c00",
+  "remote_verified": true,
+  "review": {
+    "file": "advisor-final-review.json",
+    "sha256": "2e1f26644d4b78cc41ae63698804ce0599d04940f791f5c36a50c692c7f009a3",
+    "decision": "approved_no_blocking_findings",
+    "scope": "Five staged source files match both tested snapshots; public record preserves source-only and historical acceptance scopes."
+  },
+  "source_validation": "docs/validation/chunk7-desktop-source-repair-2026-11-03.json",
+  "release_check": {
+    "status": "passed",
+    "documents": 215,
+    "local_links": 2063,
+    "gallery_examples": 13,
+    "matrix": "consistent"
+  },
+  "runs": [
+    {
+      "id": 41681580250,
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41681580250",
+      "name": "Build and verify desktop release",
+      "event": "workflow_dispatch",
+      "head_sha": "d767f711d301ace057ceb4706c80e733aedc0c00",
+      "status": "in_progress",
+      "conclusion": null,
+      "jobs": [
+        {
+          "id": 126076336303,
+          "name": "candidate",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 126076592411,
+          "name": "release-tools (windows-2022)",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 126076592532,
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 126076593305,
+          "name": "digital-runtime / candidate",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "id": 41681564655,
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41681564655",
+      "name": "Fast source feedback",
+      "event": "pull_request",
+      "head_sha": "d767f711d301ace057ceb4706c80e733aedc0c00",
+      "status": "in_progress",
+      "conclusion": null,
+      "scope": "Workflow retains the default synthetic merge checkout; head_sha identifies the pull-request source and does not alone identify checked-out merge bytes.",
+      "jobs": [
+        {
+          "id": 126076272123,
+          "name": "source feedback (ubuntu-24.04)",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 126076272421,
+          "name": "source feedback (windows-2022)",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ]
+    }
+  ],
+  "fresh_installed_acceptance": false,
+  "complete_family_statuses_changed": false,
+  "chunk_complete": false,
+  "estimate": {
+    "percentage": 74,
+    "confidence": "low",
+    "range_percent": [
+      55,
+      82
+    ],
+    "scope": "Subjective engineering estimate, not a measured fraction or verified full-family acceptance."
+  },
+  "publication_scope": "This observation record and the corresponding exact-candidate tracker update remain local for the next appropriate project push; all reviewed source changes, prior installed milestone, spacing evidence, and source-test records are in d767f711d301ace057ceb4706c80e733aedc0c00."
+}

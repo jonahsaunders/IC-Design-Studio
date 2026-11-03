@@ -286,11 +286,41 @@ def projection(report,original,comparison,route,lock,inputs):
     return row
 
 
-def public_drc(folder,native,inputs,native_origin,tool):
+def supplemental_metal_spacing(folder,row,inputs,native_origin,tool,source):
+    """Read the actual native recipe, command, completion and XML independently."""
+    name='icstudio/ihp_metal_spacing.py'
+    require(hashlib.sha256(source).hexdigest()==inputs['files'].get(name),'Supplemental checker source differs from candidate.')
+    definitions=[node for node in ast.parse(source).body if isinstance(node,ast.Assign) and
+        any(isinstance(target,ast.Name) and target.id=='DECK' for target in node.targets)]
+    require(len(definitions)==1,'Missing/duplicate supplemental recipe constant.')
+    recipe=ast.literal_eval(definitions[0].value)
+    require(isinstance(recipe,str),'Invalid supplemental recipe constant.')
+    raw=recipe.encode();deck=folder/'drc/metal-spacing/check.drc'
+    require(deck.read_bytes()==raw,'Executed supplemental recipe differs from candidate.')
+    rules=[f'M{n}.{suffix}' for n in range(2,6) for suffix in ('e','f')]
+    sources=('rule_decks/beol/5_17_metaln.drc','rule_decks/layers_def.drc','sg13g2_tech_mod.json','rule_decks/sg13g2_tech_default.json')
+    original={name:inputs['files'][PUBLIC[1]+'/'+name] for name in sources}
+    for name,value in original.items():require(sha(folder/'drc/rules'/name)==value,'Supplemental public source differs.')
+    report=folder/'drc/metal-spacing/findings.lyrdb';xml=ET.parse(report).getroot()
+    require(xml.tag=='report-database' and xml.findtext('top-cell')=='coupon' and not xml.findall('./items/item'),'Supplemental spacing has findings or wrong top.')
+    expected=dict(name='metal-spacing',entry='metal-spacing/check.drc',recipe='ihp-metal-spacing-transparent-v1',
+        recipe_sha256=hashlib.sha256(raw).hexdigest(),source_inputs=original,rules=rules,violations=0,
+        report='metal-spacing/findings.lyrdb',report_sha256=sha(report),categories=[])
+    require(row==expected and type(row['violations']) is int,'Supplemental spacing provenance/count differs.')
+    command=[tool,'-b','-r',native_origin+'/drc/metal-spacing/check.drc']
+    for key,value in dict(input=native_origin+'/original.gds',topcell='coupon',report=native_origin+'/drc/metal-spacing/findings.lyrdb',
+        drc_json=native_origin+'/drc/rules/sg13g2_tech_mod.json',drc_json_default=native_origin+'/drc/rules/rule_decks/sg13g2_tech_default.json').items():command+=['-rd',key+'='+value]
+    require(load(folder/'drc/metal-spacing/command.json')==command,'Supplemental spacing command differs.')
+    lines=(folder/'drc/metal-spacing/console.log').read_text().splitlines()
+    require(lines.count('ICSTUDIO_IHP_METAL_SPACING_COMPLETED_V1')==1 and
+        all(lines.count('ICSTUDIO_IHP_METAL_SPACING_RULE '+name)==1 for name in rules),'Supplemental spacing did not complete all rules.')
+
+
+def public_drc(folder,native,inputs,native_origin,tool,commit):
     record=native['klayout_drc'];source=inputs['files'][PUBLIC[1]+'/SOURCE.json'];layout=sha(folder/'original.gds')
     require(record['source_lock_sha256']==source and record['input_sha256']==layout and record['top']=='coupon' and type(record['violations']) is int and record['violations']==0,'Public DRC source/input/count differs.')
-    require([r['name'] for r in record['decks']]==['main','maximal'],'Missing/duplicate public DRC deck.')
-    for row,entry in zip(record['decks'],('ihp-sg13g2.drc','rule_decks/sg13g2_maximal.drc')):
+    require(record.get('schema')==2 and [r['name'] for r in record['decks']]==['main','maximal','metal-spacing'],'Missing/duplicate public DRC deck or supplement.')
+    for row,entry in zip(record['decks'][:2],('ihp-sg13g2.drc','rule_decks/sg13g2_maximal.drc')):
         name=row['name'];path=folder/'drc'/name/'findings.lyrdb';xml=ET.parse(path).getroot()
         require(xml.tag=='report-database' and xml.findtext('top-cell')=='coupon' and len(xml.findall('./items/item'))==0 and
             row['entry']==entry and type(row['violations']) is int and row['violations']==0 and not row['categories'] and row['report']==name+'/findings.lyrdb' and sha(path)==row['report_sha256'],'Raw public DRC report differs.')
@@ -299,6 +329,7 @@ def public_drc(folder,native,inputs,native_origin,tool):
         require(command==expected,'Public deck command/default switches differ.')
         log=(folder/'drc'/name/'console.log').read_text();marker="KLayout DRC run for tables 'main' completed in" if name=='main' else 'KLayout DRC run for maximum ruleSet completed in'
         require(marker in log and (name!='main' or all(s+' enabled: true' in log for s in ('FEOL','BEOL','OFFGRID','ANGLE','PIN','FORBIDDEN','RECOMMENDED'))),'Public DRC did not complete all selected checks.')
+    supplemental_metal_spacing(folder,record['decks'][2],inputs,native_origin,tool,git_blob(commit,'icstudio/ihp_metal_spacing.py'))
     expected=dict(status='EXECUTED',checker='ihp-public',deck='maximal',source_lock_sha256=source,input_sha256=layout,report='drc/maximal/findings.lyrdb',report_sha256=record['decks'][1]['report_sha256'])
     require(native['drc_coverage']=={'MIM.g':expected},'Public MIM.g execution binding differs.')
     for name,value in inputs['files'].items():
@@ -430,7 +461,7 @@ def audit_job(folder,project,raw,route,runtime,records,inputs,lock,launch):
             log=(flow/name/'console.log').read_text();require(log.count('STUDIO_MAGIC_COMPLETE')==1 and not re.search(r'STUDIO_MAGIC_ERROR|invalid command|contained errors|Malformed line',log,re.I),'Native Magic did not complete.')
         log=(flow/'drc/console.log').read_text();require(re.findall(r'^STUDIO_DRC_COUNT (\d+)$',log,re.M)==['0'] and 'STUDIO_DRC_STYLE drc(full)' in log and native['magic_drc_style']=='drc(full)' and not (flow/'drc/findings.tsv').read_bytes(),'Raw Magic full DRC differs.')
     else:
-        public_drc(flow,native,inputs,origin,native_tool_paths(runtime)['klayout'])
+        public_drc(flow,native,inputs,origin,native_tool_paths(runtime)['klayout'],launch['expected_commit'])
         observed_native=circuit((flow/'lvs-extraction/native.cir').read_text(),'public',raw_top_order=True)
         require(observed_native['parameters']==observed['parameters'] and observed_native['ordered_nodes']==observed['ordered_nodes'],'Native extraction was altered before LVS.')
         log=(flow/'lvs-extraction/console.log').read_text();require('LVS Total Run time ' in log and 'NET_ONLY enabled: apply extraction netlist options and skip comparison.' in log,'Unfiltered public extraction did not complete.')

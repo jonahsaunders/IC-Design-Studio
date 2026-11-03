@@ -24,16 +24,22 @@ def mim_coverage_note(report):
 def record_public_mim_coverage(report,result,source,directory):
     """Bind execution to both completed public decks and their actual reports."""
     from .ihp_klayout_drc import LOCK_SHA256,ENTRIES
+    from .ihp_metal_spacing import DECK,RECIPE
+    entries={**ENTRIES,'metal-spacing':'metal-spacing/check.drc'}
     rows=result.get('decks',[])
-    if (result.get('schema')!=1 or result.get('source_lock_sha256')!=LOCK_SHA256 or
+    if (result.get('schema')!=2 or result.get('source_lock_sha256')!=LOCK_SHA256 or
         result.get('input_sha256')!=file_digest(source) or result.get('top')!=report['cell_name'] or
-        len(rows)!=2 or {row.get('name') for row in rows}!=set(ENTRIES)):
+        len(rows)!=3 or [row.get('name') for row in rows]!=list(entries)):
         raise ValueError('Incomplete or changed public IHP MIM.g execution identity.')
     for row in rows:
         name=row['name'];relative=name+'/findings.lyrdb'
-        if (row.get('entry')!=ENTRIES[name] or row.get('report')!=relative or
+        if (row.get('entry')!=entries[name] or row.get('report')!=relative or
             row.get('report_sha256')!=file_digest(Path(directory)/relative)):
             raise ValueError('Changed public IHP MIM.g deck report identity.')
+    supplemental=rows[2];expected=hashlib.sha256(DECK.encode()).hexdigest()
+    if (supplemental.get('recipe')!=RECIPE or supplemental.get('recipe_sha256')!=expected or
+        file_digest(Path(directory)/supplemental['entry'])!=expected):
+        raise ValueError('Changed supplemental IHP metal-spacing recipe identity.')
     maximal=next(row for row in rows if row['name']=='maximal')
     report['drc_coverage']['MIM.g']=dict(status='EXECUTED',checker='ihp-public',deck='maximal',
         source_lock_sha256=result['source_lock_sha256'],input_sha256=result['input_sha256'],

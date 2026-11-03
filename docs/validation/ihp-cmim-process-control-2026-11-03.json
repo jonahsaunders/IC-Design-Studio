@@ -1,0 +1,60 @@
+{
+  "status": "PROCESS_CONTROL_COMPARISON_REPLAYED",
+  "scope": "Standard nominal IHP cap_cmim, selected physical electrode mapping and process-control model comparison.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "safe_operating_limits_established": false,
+  "native_comparison_sha256": "302ed66b6722be3ce5244aca6dbf320e36a27e8e8ab3b4aeab2901fb691e3360",
+  "windows_replay_sha256": "ee0560796f3417652307c3733f732a667f28e123f8de59f725d259c21c1eab45",
+  "portable_semantic_readback": true,
+  "native_source_manifest_sha256": "a4408b2c8a9abd00f32cb31f8f924e88b207f1defd1d6f87810f42eef1775aff",
+  "native_source_receipt_sha256": "bd4d0cb56fcef4dd748d95234bb39d7fcd534469f5159f2d4ebb805af7032276",
+  "base_source_manifest_sha256": "d9027e8ea190ea330dcabb3283445f076803b838167fd5e91d42c6145ccd3f5b",
+  "named_source_files": 6934,
+  "source_overlay_sha256": "f8466d379e1c83ad9b0ae8819d7d0eb5ab4d9b2674c23eacc95de56447c6ddfb",
+  "source_overlay_files": {
+    "scripts/check_ihp_cmim_process_control.py": "e75309221f702ca4a719c999c316bc518408b15cc055a632b871e98664524bf4",
+    "scripts/qualify_ihp_cmim_process_control.py": "f448208ac22a20dd22675af1ac5d9a8dfaf1842c342337477194165fe6459c5b",
+    "tests/test_ihp_cmim_process_control.py": "b4d8749f3c6f10f3ca79c49edf06dde556c78079a9338ef2a6aa4b3e40ed8ee3",
+    "scripts/verify_frozen_ihp_cmim.py": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d"
+  },
+  "immutable_plate_archive_path": "IC-Design-Studio-evidence/ihp-cmim-catalog-reference-2026-11-02-v1/repair-native-review.zip",
+  "immutable_plate_archive_sha256": "495ee8b7771c8df0f00c8b4b994e48d4dbcf18a8734a1b25cb9c8b423136e6a7",
+  "native_tool_version": "** ngspice-42 : Circuit level simulation program",
+  "native_runtime_files": 34,
+  "native_cases": 14,
+  "native_measurement_setup_controls": 4,
+  "schema": 1,
+  "date": "2026-11-03",
+  "chunk_complete": false,
+  "source_summary_sha256": "832f57dc6228e5799b76c6e7a45417603d8218cab1951c2f542ceee209d13a99",
+  "independent_review_sha256": "22f6bbc6f127b972c462bbda72e711179c3ca3f4cab5744b567fac32b7df9960",
+  "final_review_sha256": "1ee9ecd345afebf307b9c8f7380d6a16e5aa0614d14b5c93efccda985c216747",
+  "exact_circuit_injection_controls_sha256": "c7611e09afa54f4b23830c920cdbccbb830f82de359971c3f83f23ba8b4983bd",
+  "results": {
+    "voltage_target_residual_endpoints_ppm": [
+      -760,
+      -240
+    ],
+    "temperature_max_absolute_target_residual_ppm": 0.05868884067616875,
+    "geometry_fit": "Model-only area1.5fF/um2 and perimeter40aF/um; total C/A or C/P does not independently calibrate either coefficient.",
+    "numeric_caveat": "Reversed-drive tiny conductance differs about12percent from the analytic55mOhm RC real component, consistent with cancellation. Cp imaginary component agrees within arithmetic tolerance. No conductance or series resistance accuracy acceptance is granted.",
+    "tolerance_scope": "1e-12 relative comparison in independent reader applies only to Cp versus exact nominal compact-model arithmetic, never to process target acceptance."
+  },
+  "physical_mapping": {
+    "c0_PLUS_C1": "TopMetal1",
+    "c1_MINUS_C2": "Metal5",
+    "scope": "Readback of retained exact archive, not a new physical extraction for every electrical case."
+  },
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/chunk7-metal-spacing-process-control-2026-11-03-v1",
+    "archive": "process-control-review-source.zip",
+    "sha256": "c7d687957a9e5636b723d71ad0ed4f67eca37f23a21f060d92e426dbb4919a9b",
+    "bytes": 2627790,
+    "members": 732,
+    "retention_sha256": "ea50ab3d072f46eb4c452ad8257c1c4387474eb82d3bd28d6e18f696577081ca",
+    "all_members_readback_verified": true
+  },
+  "remaining": "Target tolerances, monitor geometry/de-embedding and applicability/calibration are unresolved. No safe operating range, reliability, installed or full-family qualification."
+}
