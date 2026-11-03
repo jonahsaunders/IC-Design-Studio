@@ -168,6 +168,8 @@ class PublicPublishingTests(unittest.TestCase):
         self.assets = self.root / 'release'; self.assets.mkdir()
         self.prefix = 'IC-Design-Studio-0.23.0-'; self.commit = 'a' * 40
         from tests.test_release_pw2dn_evidence import fixture, distribution
+        from tests.test_release_ihp_cmim_evidence import aggregation_files, aggregation_receipt, install_aggregation_reader
+        install_aggregation_reader(self)
         from scripts.release_pw2dn_evidence import validate as validate_pw2dn
         import zipfile
         probe = {'status': 'passed', 'version': '0.23.0', 'frozen': True,
@@ -179,19 +181,23 @@ class PublicPublishingTests(unittest.TestCase):
             for name in names: (self.assets / name).write_bytes(('Qualified fixture: ' + name).encode())
             distribution(self.assets / archive, platform)
             pw_files = fixture(platform)
+            cmim_files = aggregation_files(platform, self.commit)
+            cmim = aggregation_receipt(platform, self.commit)
             pw_prefix = 'windows-evidence/pw2dn' if platform == 'Windows' else 'frozen-pw2dn-evidence'
             with zipfile.ZipFile(self.assets / (self.prefix + f'Evidence-{platform}.zip'), 'w') as evidence:
                 for name, content in pw_files.items(): evidence.writestr(pw_prefix + '/' + name, content)
+                cmim_prefix = 'windows-evidence/ihp-cmim' if platform == 'Windows' else 'frozen-ihp-cmim-evidence'
+                for name, content in cmim_files.items(): evidence.writestr(cmim_prefix + '/' + name, content)
             record = {'status': 'passed', 'version': '0.23.0', 'commit': self.commit, 'platform': platform,
                       'assets': {name: checksum(self.assets / name) for name in names},
                       'distribution': {'status': 'passed', 'archive': archive, 'archive_sha256': checksum(self.assets / archive), 'report': probe},
-                      'pw2dn': validate_pw2dn(pw_files, self.commit)}
+                      'pw2dn': validate_pw2dn(pw_files, self.commit), 'ihp_cmim': cmim}
             if platform == 'Windows':
                 setup = names[-1]
                 record['installer'] = {'status': 'passed', 'version': '0.23.0', 'commit': self.commit,
                     'installer': setup, 'installer_sha256': checksum(self.assets / setup),
                     'probes': [dict(probe, scale=scale) for scale in ('1', '1.5', '2')],
-                    'pw2dn': json.loads(pw_files['verification.json'])}
+                    'pw2dn': json.loads(pw_files['verification.json']), 'ihp_cmim': cmim}
             (self.assets / (self.prefix + f'Validation-{platform}.json')).write_text(json.dumps(record))
         for kind in EVIDENCE_KINDS: (self.assets / (self.prefix + kind + '-Evidence.zip')).write_bytes(b'Qualification fixture')
         (self.assets / (self.prefix + 'Statistical-Validation.json')).write_text(json.dumps(
@@ -246,6 +252,15 @@ class PublicPublishingTests(unittest.TestCase):
         (self.root / 'docs/UPDATE_0.23.0.md').unlink(); run = Mock()
         with self.assertRaisesRegex(ValueError, 'notes'): self.publish(run)
         run.assert_not_called()
+
+    def test_public_requires_cmim_receipts_before_any_upload(self):
+        for platform in ('Windows', 'Linux'):
+            path = self.assets / (self.prefix + f'Validation-{platform}.json')
+            original = path.read_text(); record = json.loads(original); record.pop('ihp_cmim')
+            path.write_text(json.dumps(record)); self.refresh_checksums(); run = Mock()
+            with self.subTest(platform=platform), self.assertRaisesRegex(ValueError, 'CMIM'):
+                self.publish(run)
+            run.assert_not_called(); path.write_text(original); self.refresh_checksums()
 
     def test_public_release_upload_uses_rebased_notes_before_promotion(self):
         notes = self.root / 'docs/UPDATE_0.23.0.md'

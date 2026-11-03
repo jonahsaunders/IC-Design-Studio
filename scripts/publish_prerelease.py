@@ -75,6 +75,7 @@ def validate_public_assets(directory, assets, version, commit):
     """Require complete, unchanged desktop payloads from the selected source."""
     from scripts.release_evidence import checksum, EVIDENCE_KINDS, _validate_record, BUFFER_BYTES
     from scripts.release_pw2dn_evidence import from_zip as validate_pw2dn_zip, check_distribution as check_pw2dn_distribution
+    from scripts.release_ihp_cmim_evidence import from_zip as validate_cmim_zip, check_distribution as check_cmim_distribution, same_receipt as same_cmim_receipt
     import zipfile
     directory = Path(directory)
     files = {path.name: path for path in assets}
@@ -148,7 +149,14 @@ def validate_public_assets(directory, assets, version, commit):
             installer_receipt = record.get('installer')
             if platform == 'Windows' and (not isinstance(installer_receipt, dict) or json.loads(evidence.read(evidence_prefix + '/verification.json')) != installer_receipt.get('pw2dn')):
                 raise ValueError('Public Windows installer pw2dn receipt differs from the evidence.')
+            cmim_prefix = 'windows-evidence/ihp-cmim' if platform == 'Windows' else 'frozen-ihp-cmim-evidence'
+            cmim = validate_cmim_zip(evidence, cmim_prefix, commit)
+            if not same_cmim_receipt(cmim, record.get('ihp_cmim')):
+                raise ValueError('Public release IHP CMIM evidence differs from its validation.')
+            if platform == 'Windows' and not same_cmim_receipt(cmim, installer_receipt.get('ihp_cmim')):
+                raise ValueError('Public Windows installer IHP CMIM receipt differs from the evidence.')
         check_pw2dn_distribution(files[archive], platform, record['pw2dn'])
+        check_cmim_distribution(files[archive], platform, cmim)
         if platform == 'Windows':
             installer = record.get('installer', {}); setup = prefix + 'Windows-x64-Setup.exe'
             probes = installer.get('probes', []) if isinstance(installer, dict) else []

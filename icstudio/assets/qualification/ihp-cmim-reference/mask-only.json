@@ -1,0 +1,826 @@
+{
+  "external_properties": [],
+  "layout_instances": [],
+  "layout_label_mode": "explicit",
+  "layout_ports": [
+    {
+      "layer": "TopMetal1.drawing",
+      "name": "C1",
+      "point": [
+        0,
+        0
+      ]
+    },
+    {
+      "layer": "Metal5.drawing",
+      "name": "C2",
+      "point": [
+        3600,
+        0
+      ]
+    }
+  ],
+  "layout_texts": [
+    {
+      "layer": "TopMetal1.pin",
+      "rotation": 0,
+      "text": "C1",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "layer": "Metal5.pin",
+      "rotation": 0,
+      "text": "C2",
+      "x": 3600,
+      "y": 0
+    }
+  ],
+  "schema": 1,
+  "shapes": [
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "6766b52b97354719",
+      "kind": "polygon",
+      "layer": "prBoundary.boundary",
+      "net": "",
+      "points": [
+        [
+          -4100,
+          -4100
+        ],
+        [
+          -4100,
+          4100
+        ],
+        [
+          4100,
+          4100
+        ],
+        [
+          4100,
+          -4100
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "4bd2ed19482a421a",
+      "kind": "polygon",
+      "layer": "Metal5.drawing",
+      "net": "",
+      "points": [
+        [
+          -4100,
+          -4100
+        ],
+        [
+          -4100,
+          4100
+        ],
+        [
+          4100,
+          4100
+        ],
+        [
+          4100,
+          -4100
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "33d0d94bf1a741cd",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -2730,
+          2310
+        ],
+        [
+          -2730,
+          2730
+        ],
+        [
+          -2310,
+          2730
+        ],
+        [
+          -2310,
+          2310
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "6e92e41cdf9d451d",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -1470,
+          2310
+        ],
+        [
+          -1470,
+          2730
+        ],
+        [
+          -1050,
+          2730
+        ],
+        [
+          -1050,
+          2310
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "03debcb30c374569",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -210,
+          2310
+        ],
+        [
+          -210,
+          2730
+        ],
+        [
+          210,
+          2730
+        ],
+        [
+          210,
+          2310
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "688a84f5fbad4398",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          1050,
+          2310
+        ],
+        [
+          1050,
+          2730
+        ],
+        [
+          1470,
+          2730
+        ],
+        [
+          1470,
+          2310
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "46a6c936642b4fbd",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          2310,
+          2310
+        ],
+        [
+          2310,
+          2730
+        ],
+        [
+          2730,
+          2730
+        ],
+        [
+          2730,
+          2310
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "e0fe6ee8eb954352",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -2730,
+          1050
+        ],
+        [
+          -2730,
+          1470
+        ],
+        [
+          -2310,
+          1470
+        ],
+        [
+          -2310,
+          1050
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "5132fd51b6474b7e",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -1470,
+          1050
+        ],
+        [
+          -1470,
+          1470
+        ],
+        [
+          -1050,
+          1470
+        ],
+        [
+          -1050,
+          1050
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "953578db70394646",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -210,
+          1050
+        ],
+        [
+          -210,
+          1470
+        ],
+        [
+          210,
+          1470
+        ],
+        [
+          210,
+          1050
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "95f53a63bffd4950",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          1050,
+          1050
+        ],
+        [
+          1050,
+          1470
+        ],
+        [
+          1470,
+          1470
+        ],
+        [
+          1470,
+          1050
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "29278a76e3054f34",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          2310,
+          1050
+        ],
+        [
+          2310,
+          1470
+        ],
+        [
+          2730,
+          1470
+        ],
+        [
+          2730,
+          1050
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "317a1fe6b6104cb9",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -2730,
+          -210
+        ],
+        [
+          -2730,
+          210
+        ],
+        [
+          -2310,
+          210
+        ],
+        [
+          -2310,
+          -210
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "e89fda653e144ffd",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -1470,
+          -210
+        ],
+        [
+          -1470,
+          210
+        ],
+        [
+          -1050,
+          210
+        ],
+        [
+          -1050,
+          -210
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "4da354ba29eb44d8",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -210,
+          -210
+        ],
+        [
+          -210,
+          210
+        ],
+        [
+          210,
+          210
+        ],
+        [
+          210,
+          -210
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "82242fb95062485f",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          1050,
+          -210
+        ],
+        [
+          1050,
+          210
+        ],
+        [
+          1470,
+          210
+        ],
+        [
+          1470,
+          -210
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "2dfb0ce3d6994fa5",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          2310,
+          -210
+        ],
+        [
+          2310,
+          210
+        ],
+        [
+          2730,
+          210
+        ],
+        [
+          2730,
+          -210
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "601cd59e054646a7",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -2730,
+          -1470
+        ],
+        [
+          -2730,
+          -1050
+        ],
+        [
+          -2310,
+          -1050
+        ],
+        [
+          -2310,
+          -1470
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "e9a71f06c3d24a3f",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -1470,
+          -1470
+        ],
+        [
+          -1470,
+          -1050
+        ],
+        [
+          -1050,
+          -1050
+        ],
+        [
+          -1050,
+          -1470
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "d7407e394bc84dd6",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -210,
+          -1470
+        ],
+        [
+          -210,
+          -1050
+        ],
+        [
+          210,
+          -1050
+        ],
+        [
+          210,
+          -1470
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "1acf0bb2a2c24b78",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          1050,
+          -1470
+        ],
+        [
+          1050,
+          -1050
+        ],
+        [
+          1470,
+          -1050
+        ],
+        [
+          1470,
+          -1470
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "eaad679ab84a42d7",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          2310,
+          -1470
+        ],
+        [
+          2310,
+          -1050
+        ],
+        [
+          2730,
+          -1050
+        ],
+        [
+          2730,
+          -1470
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "5c62d23dd98147cf",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -2730,
+          -2730
+        ],
+        [
+          -2730,
+          -2310
+        ],
+        [
+          -2310,
+          -2310
+        ],
+        [
+          -2310,
+          -2730
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "f3ba7a7fc94f43b1",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -1470,
+          -2730
+        ],
+        [
+          -1470,
+          -2310
+        ],
+        [
+          -1050,
+          -2310
+        ],
+        [
+          -1050,
+          -2730
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "de715c153aa64d39",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          -210,
+          -2730
+        ],
+        [
+          -210,
+          -2310
+        ],
+        [
+          210,
+          -2310
+        ],
+        [
+          210,
+          -2730
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "1ca40c70aa60483a",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          1050,
+          -2730
+        ],
+        [
+          1050,
+          -2310
+        ],
+        [
+          1470,
+          -2310
+        ],
+        [
+          1470,
+          -2730
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "625fd7aa7e4d428c",
+      "kind": "polygon",
+      "layer": "Vmim.drawing",
+      "net": "",
+      "points": [
+        [
+          2310,
+          -2730
+        ],
+        [
+          2310,
+          -2310
+        ],
+        [
+          2730,
+          -2310
+        ],
+        [
+          2730,
+          -2730
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "2e98a7f323284882",
+      "kind": "polygon",
+      "layer": "TopMetal1.drawing",
+      "net": "",
+      "points": [
+        [
+          -3300,
+          -3300
+        ],
+        [
+          -3300,
+          3300
+        ],
+        [
+          3300,
+          3300
+        ],
+        [
+          3300,
+          -3300
+        ]
+      ]
+    },
+    {
+      "device_id": "",
+      "external_properties": [],
+      "holes": [],
+      "id": "ed9ba6a67de8452c",
+      "kind": "polygon",
+      "layer": "MIM.drawing",
+      "net": "",
+      "points": [
+        [
+          -3500,
+          -3500
+        ],
+        [
+          -3500,
+          3500
+        ],
+        [
+          3500,
+          3500
+        ],
+        [
+          3500,
+          -3500
+        ]
+      ]
+    }
+  ],
+  "source_project_sha256": "4935eab2169f74c058def21cd00f509712c930b71eb78b026cd814dccaceebeb"
+}

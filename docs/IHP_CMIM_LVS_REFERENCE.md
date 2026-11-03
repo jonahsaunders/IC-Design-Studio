@@ -49,5 +49,7 @@ source-runtime reuse does not establish ordinary setup readiness. The
 the sources, results, failed attempts and recoverable archives. It does not establish installed
 acceptance, a continuous geometry/electrical envelope, physical fractional
 multiplicity, statistical calibration, other capacitor families, or complete
-family qualification. The remaining [device requirements](IHP_CMIM_REQUIREMENTS.md)
-and the chunk 7 completion gate are unchanged.
+family qualification. The new [installed acceptance gate](IHP_CMIM_INSTALLED_ACCEPTANCE.md)
+requires the frozen GUI and both native routes on each supported host; its
+implementation does not establish an installed pass. The remaining
+[device requirements](IHP_CMIM_REQUIREMENTS.md) and chunk 7 gate are unchanged.

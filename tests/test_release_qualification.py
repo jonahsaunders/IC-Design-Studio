@@ -83,6 +83,8 @@ class ReleaseQualificationTests(unittest.TestCase):
 
     def payloads(self):
         from tests.test_release_pw2dn_evidence import fixture, distribution
+        from tests.test_release_ihp_cmim_evidence import aggregation_files, aggregation_receipt, install_aggregation_reader
+        install_aggregation_reader(self)
         from scripts.release_pw2dn_evidence import validate as validate_pw2dn
         import zipfile
         inputs = self.root / 'inputs'
@@ -96,9 +98,13 @@ class ReleaseQualificationTests(unittest.TestCase):
             for name in names: (directory / name).write_bytes(('Synthetic assembly fixture: ' + name).encode())
             distribution(archive, platform)
             pw_files = fixture(platform)
+            cmim_files = aggregation_files(platform)
+            cmim = aggregation_receipt(platform)
             pw_prefix = 'windows-evidence/pw2dn' if platform == 'Windows' else 'frozen-pw2dn-evidence'
             with zipfile.ZipFile(directory / (prefix + f'Evidence-{platform}.zip'), 'w') as evidence:
                 for name, content in pw_files.items(): evidence.writestr(pw_prefix + '/' + name, content)
+                cmim_prefix = 'windows-evidence/ihp-cmim' if platform == 'Windows' else 'frozen-ihp-cmim-evidence'
+                for name, content in cmim_files.items(): evidence.writestr(cmim_prefix + '/' + name, content)
             vga = {'status': 'passed', 'version': __version__, 'frozen': True,
                    'build': {'commit': 'a' * 40, 'dirty': False},
                    'presets': [{'id': name, 'status': 'passed'} for name in PRESET_IDS]}
@@ -107,12 +113,12 @@ class ReleaseQualificationTests(unittest.TestCase):
             installer = {'status': 'passed', 'version': __version__, 'commit': 'a' * 40,
                          'installer': names[-1], 'installer_sha256': checksum(directory / names[-1]),
                          'probes': [dict(probe, scale=scale) for scale in ('1', '1.5', '2')], 'vga': vga,
-                         'pw2dn': json.loads(pw_files['verification.json'])}
+                         'pw2dn': json.loads(pw_files['verification.json']), 'ihp_cmim': cmim}
             data = {'schema': 1, 'status': 'passed', 'version': __version__, 'commit': 'a' * 40,
                     'platform': platform, 'assets': {name: checksum(directory / name) for name in names},
                     'distribution': {'status': 'passed', 'archive': archive.name, 'archive_sha256': checksum(archive), 'vga': vga, 'report': probe},
                     'installer': installer if platform == 'Windows' else None,
-                    'pw2dn': validate_pw2dn(pw_files, 'a' * 40)}
+                    'pw2dn': validate_pw2dn(pw_files, 'a' * 40), 'ihp_cmim': cmim}
             (directory / f'IC-Design-Studio-{__version__}-Validation-{platform}.json').write_text(json.dumps(data))
         return inputs
 
@@ -134,6 +140,16 @@ class ReleaseQualificationTests(unittest.TestCase):
         for line in lines:
             digest, name = line.split('  ')
             self.assertEqual(checksum(output / name), digest)
+
+    def test_assembly_requires_cmim_receipts_from_both_platforms(self):
+        inputs = self.payloads()
+        for platform in ('Windows', 'Linux'):
+            path = inputs / platform / f'IC-Design-Studio-{__version__}-Validation-{platform}.json'
+            original = path.read_text(); value = json.loads(original); value.pop('ihp_cmim')
+            path.write_text(json.dumps(value))
+            with self.subTest(platform=platform), self.assertRaisesRegex(ValueError, 'CMIM'):
+                assemble(inputs, self.root / 'release', 'a' * 40)
+            self.assertFalse((self.root / 'release').exists()); path.write_text(original)
 
     def test_statistical_release_gate_requires_same_run_complete_workload_and_recovery(self):
         directory = self.root / 'statistics'

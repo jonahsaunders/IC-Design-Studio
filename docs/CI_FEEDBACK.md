@@ -51,6 +51,20 @@ separate candidate suite; this change does not invent a new release gate or
 claim that suite is covered by release preparation. Successful development
 feedback cannot replace fresh release acceptance.
 
+Windows desktop CI builds the native component before its retained full core
+suite and requires it to load in the ordinary test environment. Packaging first
+checks that the selected compiler, source inputs and tested binary are unchanged;
+the installer then uses the already tested build. This removes the former second
+compilation and full core suite inside the installer step. The standalone Windows
+build still runs its original default checks. Hosted timing and actual compilation
+on the revised candidate remain separate acceptance observations.
+
+The source lane also selects the finite IHP capacitor producer/reader, release
+boundary and Windows native-identity controls. The early release-tools job
+installs the pinned KLayout 0.30.5 reader for actual saved GDS/OASIS checks;
+its reader tests remain mandatory. These do not replace the new
+[installed capacitor gate](IHP_CMIM_INSTALLED_ACCEPTANCE.md).
+
 Each feedback artifact retains the checked-out commit, Python/workflow/dependency
 source hashes, stage return codes,
 elapsed time, first-failure time when applicable, logs and GUI results. Stage

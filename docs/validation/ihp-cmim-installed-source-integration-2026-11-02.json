@@ -1,0 +1,249 @@
+{
+  "schema": 1,
+  "date": "2026-11-02",
+  "status": "PASS_SOURCE_INTEGRATION_PENDING_FROZEN_ACCEPTANCE",
+  "base_commit": "9d5afef2bd62550e16bf1a0ddef78b53dd44cd0a",
+  "scope": "Finite installed IHP cap_cmim GUI and two-route native gate implementation, independent release evidence and complete distribution binding, Windows native build/test reuse; actual frozen acceptance remains pending.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "release_ready": false,
+  "source_files": {
+    ".github/workflows/build-desktop.yml": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587",
+    "icstudio/__main__.py": "bab80e61a15e0ec67c65340a1bb0847e5fb1896bafa715601f7127ee6ab14d84",
+    "icstudio/assets/qualification/ihp-cmim-reference/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "icstudio/assets/qualification/ihp-cmim-reference/SOURCE.json": "b8eee6f5c73fb3e700967095b89c2ce9cbce60343fa1ce6a4aec4de639c51982",
+    "icstudio/assets/qualification/ihp-cmim-reference/mask-only.json": "e228d35180cb12fa72b1dd0b119a17db7dadac02b3204146d150b45392a3c1a3",
+    "icstudio/ihp_cmim_desktop_probe.py": "625388c3f7959af6ae65b231b094d1b8aa4c2fd805f69c5cb842f5b33ee6d4c9",
+    "scripts/assemble_prerelease.py": "6798b976d43b9a6fb695d0d350d0d14f4d74fa6845dc27d17ea2f4fea7bb1bca",
+    "scripts/ci_feedback.py": "f900197d0e5cbf7d17207616bfd281e686b34f3676bebc2fe968099f494bda3b",
+    "scripts/prepare_release_payload.py": "b5f1760b04160b899fd9d263e837cc7f85fd93e88f49e7f49523589059a3724c",
+    "scripts/release_ihp_cmim_evidence.py": "65b45ccbca4496249a6e4e65d7e65593f2ab77b0d68add6dbbe346aa02a19700",
+    "scripts/verify_frozen_ihp_cmim.py": "0621aca2e0f1be5fd4d1a7ef2a1630449dbe641b82debfffbc8ca7f730b6dcfd",
+    "scripts/verify_frozen_ihp_resistors.py": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f",
+    "scripts/verify_frozen_mim.py": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57",
+    "scripts/verify_windows.ps1": "19341a138dea230abac429c373bb0a218162a11c790855ea95fb0f38029dd5b8",
+    "tests/test_frozen_ihp_cmim.py": "b41d1a7ae4003e069e94b67e06a04a53b634350ca1f59f1d5b40f5746703faf8",
+    "tests/test_ihp_cmim_desktop_probe.py": "074c8e5f925e13aba6f988dc397e4fa2049c3b4e6e724fac6c0ba8ee6e7e6c72",
+    "tests/test_release_ihp_cmim_evidence.py": "ae99573caabf5d7000a8504ea6c1c4d6bddad19b856763c1216337192edc923c",
+    "scripts/ci_windows_native.ps1": "0cd1e88a519938d370fe941c3ad075d253ba6f0a4def1b66a8761b5f73e551a3",
+    "scripts/ci_windows_native_identity.py": "e3283b94c0f29299a9415e7dacd584e205c2e9c0322acee5e4bfc62f87ec725b",
+    "tests/test_ci_windows_native_identity.py": "a1c5b269442507fd31a48a51455deac25f760be1ed2267e8f7ed190c5f2683be",
+    "scripts/publish_prerelease.py": "1c5418017fa83c343ad0c2bf5a80426faa7f222069b58c7da19b3bad62d69124",
+    "tests/test_publish_prerelease.py": "2ddd2cb31666e2c01fd769582bb03d087428b0689048d02fbeffbf5043983dbb",
+    "scripts/build_native.py": "71fad8cec747fb509f1206f3f4d4a05299c110afcfa9e850aa5a4f43ee03f52d",
+    "scripts/build_windows.ps1": "ea1515aefd011e80dbbc312acdcd92468821c0b17ff95c279b33058d94491b16",
+    "icstudio/native_core.py": "6b97ec807f41ec81875a5fb9400f41d95f67ad617eba6d475f11f35fed789006",
+    "icstudio/simulation.py": "145d938166250d00b531cfbbb86173a9231f7f9e748732d7fd7fec3af44b33ac"
+  },
+  "independent_review": {
+    "receipt_sha256": "5e9b1613517e048b7b366723daefc54fad6521d116ff610f779a7afc56cc64e7",
+    "original_review_sha256": "bb4e53cd38709e43de77de5751095cb36918845b2b8ee3417ae408b0922bedae",
+    "focused_checks": 47,
+    "source_gui_readback": true,
+    "source_run_rejected_as_installed": true,
+    "count_overlap": "Focused, combined and release-tools selections overlap; counts are not additive."
+  },
+  "regression": {
+    "Windows": {
+      "status": "PASS_SOURCE_ONLY",
+      "platform": "Windows",
+      "tests": 320,
+      "skipped": 16,
+      "unittest_seconds": 67.14,
+      "seconds": 69.34399999998277,
+      "source_manifest_sha256": "ac98f050f54f486ba651971c2bbd052c3b1a802dc876d219db1d8b23627c7829",
+      "source_files": 3143,
+      "source_before_sha256": "e8779346297014aefc69804c3bc7c4b21177d039f17ef2972e04ef50964bf57a",
+      "source_after_sha256": "e8779346297014aefc69804c3bc7c4b21177d039f17ef2972e04ef50964bf57a",
+      "sources_unchanged": true,
+      "log_sha256": "9831d99f62f205e9fdf8287dc8d176f0532473bcdba5838ed4c4062db8d167f1"
+    },
+    "Linux": {
+      "status": "PASS_SOURCE_ONLY",
+      "platform": "Linux",
+      "tests": 320,
+      "skipped": 7,
+      "unittest_seconds": 14.52,
+      "seconds": 17.2262874559965,
+      "source_manifest_sha256": "6203c2aa0e1b1f6a2ad11b5b124e3e25042324762d730c0e677a1485b5ec4123",
+      "source_files": 6916,
+      "source_before_sha256": "f1f189ec01b51e1bcadbcad19909552e4bdc56f886b02c231869ed6e96997fe5",
+      "source_after_sha256": "f1f189ec01b51e1bcadbcad19909552e4bdc56f886b02c231869ed6e96997fe5",
+      "sources_unchanged": true,
+      "log_sha256": "0897f0825adacfe9e54961b3cf97a28834382d3fc9c0c976d0847a1bb4d23789"
+    },
+    "linux_runtime_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4",
+    "linux_runtime_unchanged": true,
+    "scope": "Named source/test selection; later documentation and publication records are checked separately. Windows predates only the reviewed two-line dependency installation step.",
+    "detailed_receipt_sha256": "685e0356f6484c328df33f374ae7d47eacb0abce2fd681b23f16bcc9875f2ca6",
+    "runtime_scope": {
+      "before_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4",
+      "after_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4",
+      "files": 1371,
+      "elf_dependencies": 142,
+      "scope": "Managed launchers, scoped Magic/Netgen Tcl and native trees, managed shared libraries, actual native ELF dependencies and Python executable; not a hermetic full-OS identity."
+    }
+  },
+  "release_tools_portability": {
+    "receipt_sha256": "0687e8cf9fad9eec1278f91700941b82a4a9b17f15c9e1615005138cb4827603",
+    "tests": 333,
+    "passed": 321,
+    "skipped": 12,
+    "errors": 0,
+    "klayout": "0.30.5",
+    "PySide6_available": false,
+    "numpy_available": false,
+    "package_files_verified": 71,
+    "unchanged_code_files": 1495,
+    "workflow_before_sha256": "a746e935c421a7fbdfd068c991485176dbf8e3aff72978f6c13b8f36e9709ddc",
+    "workflow_after_sha256": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587",
+    "workflow_reconciliation": "Add only the two-line pinned klayout==0.30.5 installation step before the unchanged selector; deleting those exact bytes reconstructs the pre-run workflow SHA256.",
+    "original_missing_dependency_errors": 7,
+    "scope": "Existing pinned wheel isolated with -S; no hosted pip install or local MSVC compilation claim. The intentional workflow-change guard failure and exact reconciliation are retained."
+  },
+  "desktop_checkpoint": {
+    "schema": 1,
+    "candidate": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+    "run_id": 41526912766,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526912766",
+    "checked_at": "2026-11-03 01:20:22 UTC",
+    "jobs": [
+      {
+        "id": 125556897177,
+        "name": "candidate",
+        "status": "completed",
+        "conclusion": "success",
+        "current": []
+      },
+      {
+        "id": 125557015221,
+        "name": "release-tools (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success",
+        "current": []
+      },
+      {
+        "id": 125557015225,
+        "name": "release-tools (windows-2022)",
+        "status": "completed",
+        "conclusion": "success",
+        "current": []
+      },
+      {
+        "id": 125557016096,
+        "name": "digital-runtime / candidate",
+        "status": "completed",
+        "conclusion": "success",
+        "current": []
+      },
+      {
+        "id": 125557210300,
+        "name": "digital-runtime / runtime",
+        "status": "completed",
+        "conclusion": "success",
+        "current": []
+      },
+      {
+        "id": 125562694695,
+        "name": "package (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success",
+        "current": []
+      },
+      {
+        "id": 125562694921,
+        "name": "package (windows-2022)",
+        "status": "completed",
+        "conclusion": "success",
+        "current": []
+      },
+      {
+        "id": 125662970511,
+        "name": "installed-acceptance (windows-2022)",
+        "status": "in_progress",
+        "conclusion": null,
+        "current": [
+          "Download only this run's matching candidate"
+        ]
+      },
+      {
+        "id": 125662970518,
+        "name": "installed-acceptance (ubuntu-24.04)",
+        "status": "in_progress",
+        "conclusion": null,
+        "current": [
+          "Download only this run's matching candidate"
+        ]
+      }
+    ],
+    "scope": "Hosted state checkpoint only, older candidate; newer capacitor reference and installed-gate sources do not inherit this result.",
+    "installed_acceptance": false
+  },
+  "retention": {
+    "directory": "ihp-cmim-installed-source-2026-11-02-v1",
+    "schema": 1,
+    "status": "PASS_COMPLETE_ARCHIVE_READBACK",
+    "archive": "review-evidence-v1.zip",
+    "archive_sha256": "04fae6fdcb5f71fa29df7be63b51e4ce4941341e9256763a8fbd26d585da107a",
+    "archive_bytes": 18889824,
+    "files": 735,
+    "uncompressed_bytes": 75129455,
+    "all_members_read_and_hashed": true,
+    "all_originals_rechecked": true,
+    "originals_deleted": false,
+    "filesystem_restore_performed": false,
+    "installed_acceptance": false,
+    "native_source_recovery": {
+      "final_manifest_sha256": "6203c2aa0e1b1f6a2ad11b5b124e3e25042324762d730c0e677a1485b5ec4123",
+      "baseline_manifest_sha256": "c0fb4eec686317724ff77ba48a9d51bdd3dd96651611e1866427044d09be2bd9",
+      "files": 6916,
+      "hardlinked": 6888,
+      "copied": 28,
+      "baseline_files_verified": 6902,
+      "archive_sha256": "0aa2311ae21b7999af4a38e0e3457a07896a9c2c4090244f7cf936933a191e68",
+      "archive_bytes": 809039,
+      "delta_files": 28,
+      "replay_receipt_sha256": "43633e622cab1cd2a151d83ceb61ad65be421cc6e5f9ad4de06fb80331d253c0",
+      "replay_status": "PASS_NAMED_SOURCE_REPLAY",
+      "base_archives": [
+        {
+          "directory": "ihp-cmim-catalog-reference-2026-11-02-v1",
+          "archive": "native-source-delta-v1.zip",
+          "sha256": "4a8ef2760a147d28bfe7f1c5572dd93ca7bc42e8e98bf474645cc8ce7063ca35"
+        },
+        {
+          "directory": "ihp-cmim-complete-boundary-2026-11-02-v1",
+          "archive": "native-evidence-v1.zip",
+          "sha256": "e0bcff69bf17586e2db8fbd319b75287cfbeab530e5ac5c804f570fbf4d72136"
+        }
+      ],
+      "scope": "Retain both documented base archives; replay checked all 6,902 baseline files before reusing 6,888 unchanged files and applying 28 retained source files. Final untracked documentation is outside this named regression snapshot."
+    }
+  },
+  "retained_attempts": [
+    "Missing KLayout in dependencyless release-tools selection; seven actual layout errors.",
+    "Windows temporary environment and junction prerequisite failures before ordinary-user execution.",
+    "Raw ZIP-name normalization control failure before original-name validation.",
+    "Producer registry-lock and raw-header reader mismatches corrected against actual source GUI/native output.",
+    "Wrong default WSL distro and concurrent documentation capture failures before final verified native snapshot.",
+    "Intentional reviewed workflow dependency-step update detected by exact source guard; original failed guard receipt retained."
+  ],
+  "limitations": [
+    "No passing new frozen candidate or installed gate is inferred from source tests.",
+    "Physical negative controls and maximum-area layouts retain their separately qualified source scope.",
+    "Complete geometry, operating/reliability envelope, model calibration, statistical behavior and four required model bindings remain unresolved.",
+    "No family or requirement status promoted, tolerance relaxed, private package introduced, or Windows administrator access used."
+  ],
+  "progress": {
+    "chunk": 7,
+    "estimated_percent": 72,
+    "confidence": "low",
+    "range_percent": [
+      55,
+      80
+    ],
+    "basis": "Unchanged after source implementation/tests; no increase for an unexecuted installed gate."
+  }
+}

@@ -2,8 +2,17 @@
 
 Updated November 2, 2026. Chunk 7 is approximately **72% complete**, with low
 confidence (55–80%); this is an engineering estimate, not verified acceptance.
-The complete IHP capacitor boundary/app coverage milestone is published on
-`experimental` as `09c671c`. Its [hosted source feedback](validation/chunk7-boundary-hosted-feedback-2026-11-02.json) now passes on both platforms: 1,001 selected tests per host (36 Windows and 15 Linux skips), all eleven stages, complete archive verification, exact merge parents and 2,214 source identities. The earlier installed-reader repairs remain pinned to `cbf9705` for the running desktop acceptance below.
+The ordinary IHP capacitor reference repair is published on `experimental` as
+`9d5afef`. Its [hosted source feedback](validation/chunk7-catalog-hosted-feedback-2026-11-02.json)
+passes all eleven stages on both hosts: 1,009 selected tests each (36 Windows and
+15 Linux skips), complete archive checks, exact merge parents and 2,216 source
+identities. The new [installed capacitor gate](IHP_CMIM_INSTALLED_ACCEPTANCE.md)
+is implemented and independently source-reviewed; fresh frozen acceptance on
+both hosts remains pending. Windows CI also preserves its full early core suite
+and verifies the tested native binary before packaging, removing the former
+duplicate suite. No time saving or installed pass is inferred before execution.
+The preceding complete IHP capacitor boundary/app coverage milestone is
+published as `09c671c`. Its [hosted source feedback](validation/chunk7-boundary-hosted-feedback-2026-11-02.json) now passes on both platforms: 1,001 selected tests per host (36 Windows and 15 Linux skips), all eleven stages, complete archive verification, exact merge parents and 2,214 source identities. The earlier installed-reader repairs remain pinned to `cbf9705` for the running desktop acceptance below.
 The [publication record](validation/chunk7-installed-repair-publication-2026-11-02.json)
 pins one fresh [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526912766)
 and the automatic [source-feedback run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526882833).
@@ -13,7 +22,8 @@ all eleven stages and 992 selected tests per host (36 Windows and 15 Linux skips
 Both complete artifact digests and all 2,209 source identities match the candidate;
 the tested merge has the exact candidate and base as its verified parents.
 Linux desktop packaging has passed, including 4,133 core tests (48 skips).
-Windows has passed its core and later process-device tests and is building the installer.
+Windows desktop packaging and the exact candidate handoff also pass.
+Both fresh installed-acceptance jobs are running; their final outcomes remain pending.
 Installed application acceptance remains pending. The separately verified complete IHP capacitor boundary below is a source
 submilestone; it does not inherit this published candidate's hosted result. This
 source record pins the exact changed-file identities; the running desktop candidate
@@ -62,6 +72,29 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**November 2 installed capacitor gate and Windows CI repair.** The actual GUI
+producer now exercises registry/catalog placement, parameter editing,
+save/reopen and exports on the retained mask-only fixture. The independent
+reader requires the same frozen executable to run two fresh managed native jobs,
+normal runtime readiness, exact source/runtime identity, raw physical results
+and the complete distribution bytes. Release preparation, assembly and
+publication independently recheck the raw evidence and delivered archives.
+Astra's 47 distinct focused controls pass, including actual source Qt lifecycle
+readback and rejection of that source run as installed acceptance. The
+[source integration record](validation/ihp-cmim-installed-source-integration-2026-11-02.json)
+now binds 320 selected tests per host (16 Windows and seven Linux skips),
+unchanged named source/runtime identities and a verified 735-file recovery
+archive. An exact early-release selection passes 333 tests (12 skips) with only
+the pinned KLayout reader available; the original seven missing-dependency
+errors remain recorded. The two-line dependency fix is independently reconciled
+with the original workflow identity. Genuine frozen runs on this new candidate
+are still required. The reviewed
+Windows CI change builds and loads the native core before the retained full
+suite, then verifies source/compiler/DLL identity before packaging; standalone
+build checks remain unchanged. This is implementation progress, not a device
+promotion or another percentage increase. Current estimate remains **72%**,
+low confidence **55–80%**.
 
 **Current blocker closure work.** The ordinary freshly placed IHP `cap_cmim` reference defect is reproduced through both actual native routes on the unchanged published source. The source-bound repair now passes the complete nine-context native selection, all four meaningful physical faults and three malformed-reference controls, preserving simulation bytes and strict comparison. Focused regression passes 153 tests on each host (eight Windows and six Linux skips); all captured source identities remain unchanged. [Acceptance and retained evidence](validation/ihp-cmim-catalog-reference-2026-11-02.json) and [representation details](IHP_CMIM_LVS_REFERENCE.md) distinguish Magic X and public KLayout C views. Independent raw review and restored source/baseline retention pass. Both real Windows managed source handoffs also pass all six native stages, with 203 returned native artifacts verified and all 2,820 selected code files unchanged. The old setup record remains unchanged and correctly reports a changed backend; this is explicit reuse of a verified runtime, not ordinary setup readiness or installed acceptance. The repaired ordinary Magic and public KLayout workflows justify the modest reassessment to approximately **72%**, with unchanged low confidence (55-80%). Four required electrical bindings, full applicable operating envelopes/classes and exact installed acceptance remain open.
 

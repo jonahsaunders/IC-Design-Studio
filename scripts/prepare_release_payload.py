@@ -18,6 +18,7 @@ from icstudio import __version__
 from scripts.release_archives import source_archive
 from scripts.verify_packaged_vga import verify as verify_vga
 from scripts.release_pw2dn_evidence import from_directory as validate_pw2dn_directory, from_zip as validate_pw2dn_zip, check_distribution as check_pw2dn_distribution
+from scripts.release_ihp_cmim_evidence import from_directory as validate_cmim_directory, from_zip as validate_cmim_zip, check_distribution as check_cmim_distribution, same_receipt as same_cmim_receipt
 
 
 def checksum(path):
@@ -108,7 +109,7 @@ def release_source(output, target, source=None):
     return copied
 
 
-def prepare(output, source=None, pw2dn_evidence=None):
+def prepare(output, source=None, pw2dn_evidence=None, ihp_cmim_evidence=None):
     output = Path(output).resolve()
     require(not output.exists(), 'Use a new release payload directory')
     output.mkdir(parents=True)
@@ -117,6 +118,8 @@ def prepare(output, source=None, pw2dn_evidence=None):
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     require(pw2dn_evidence is not None, 'Frozen pw2dn evidence directory is required')
     pw2dn = validate_pw2dn_directory(pw2dn_evidence, commit)
+    require(ihp_cmim_evidence is not None, 'Installed IHP CMIM evidence directory is required')
+    cmim = validate_cmim_directory(ihp_cmim_evidence, commit)
     if target == 'Windows':
         packages = []
         for suffix in ('Windows-x64-Setup.exe', 'Windows-x64-Portable.zip'):
@@ -127,6 +130,8 @@ def prepare(output, source=None, pw2dn_evidence=None):
         validate_installer(installer, commit, packages[0].name, checksum(packages[0]))
         require(installer.get('pw2dn') == json.loads((Path(pw2dn_evidence) / 'verification.json').read_bytes()),
                 'Windows installer and selected pw2dn receipts differ')
+        require(same_cmim_receipt(installer.get('ihp_cmim'), cmim),
+                'Windows installer and selected IHP CMIM receipts differ')
         archive = packages[1]
     else:
         bundle = ROOT / 'dist/ICDesignStudio'
@@ -137,6 +142,7 @@ def prepare(output, source=None, pw2dn_evidence=None):
         packages = [archive]
         installer = None
     check_pw2dn_distribution(archive, target, pw2dn)
+    check_cmim_distribution(archive, target, cmim)
     source = release_source(output, target, source)
     packages.append(source)
     probe = verify_distribution(archive, ROOT / 'build/distribution-evidence')
@@ -150,12 +156,15 @@ def prepare(output, source=None, pw2dn_evidence=None):
     with zipfile.ZipFile(evidence_zip) as evidence:
         require(validate_pw2dn_zip(evidence, prefix, commit) == pw2dn,
                 'Archived pw2dn evidence differs from selected receipts')
+        cmim_prefix = 'windows-evidence/ihp-cmim' if target == 'Windows' else 'frozen-ihp-cmim-evidence'
+        require(same_cmim_receipt(validate_cmim_zip(evidence, cmim_prefix, commit), cmim),
+                'Archived IHP CMIM evidence differs from independent readback')
     packages.append(evidence_zip)
     validation = {'schema': 1, 'status': 'passed', 'version': __version__, 'commit': commit,
                   'platform': target, 'host': platform.platform(),
                   'workflow_run': os.environ.get('GITHUB_RUN_ID'),
                   'workflow_attempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
-                  'distribution': probe, 'installer': installer, 'pw2dn': pw2dn,
+                  'distribution': probe, 'installer': installer, 'pw2dn': pw2dn, 'ihp_cmim': cmim,
                   'assets': {f.name: checksum(f) for f in packages},
                   'limitations': ['Engineering preview; no foundry signoff.',
                                   'Windows signing is not configured.',
@@ -171,5 +180,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--source-archive', type=Path, help='Use the exact source ZIP authenticated by this run’s desktop handoff.')
     parser.add_argument('--pw2dn-evidence', type=Path, required=True, help='Full frozen pw2dn acceptance evidence for this platform.')
+    parser.add_argument('--ihp-cmim-evidence', type=Path, required=True, help='Complete installed two-route IHP capacitor acceptance evidence.')
     args = parser.parse_args()
-    prepare(args.output, args.source_archive, args.pw2dn_evidence)
+    prepare(args.output, args.source_archive, args.pw2dn_evidence, args.ihp_cmim_evidence)
