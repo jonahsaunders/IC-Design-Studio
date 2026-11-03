@@ -1,5 +1,7 @@
 # Chunk 7: close one device family at a time
 
+**November 2 ordinary capacitor workflow closure:** the [source-bound IHP reference repair](IHP_CMIM_LVS_REFERENCE.md) resolves two reproduced native failures for freshly placed catalog devices. Both actual Linux checker routes, the complete retained boundary/fault selection, the current source GUI and both Windows managed source handoffs pass independent raw readback. Focused regression runs pass with 153 tests per host (eight Windows and six Linux skips). Frozen installed behavior, full applicable envelopes/classes and four required unavailable bindings remain open; no complete-family status is promoted. The [tracker](QUALIFICATION_PROGRESS.md) now estimates approximately 72% with low confidence (55–80%).
+
 **November 2 source milestone:** the [complete imported IHP capacitor maximum-area boundary](IHP_MIM_G_BOUNDARY.md) now passes independent readback: six layouts, four meaningful native faults, ten copied-evidence controls and five additional geometry controls. Both real source-desktop checker routes display their actual MIM.g coverage. The published reader-repair candidate `cbf9705` passes hosted source feedback on both hosts; its desktop packaging/installed acceptance remains in progress. The new boundary/app changes are separately source-tested and do not inherit that candidate's hosted results. Full family requirements and the 289 partial / four unavailable source inventory are unchanged.
 
 **October 30 current source checkpoint:** `f633d2c` adds the reviewed

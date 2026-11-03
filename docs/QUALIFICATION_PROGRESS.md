@@ -1,8 +1,9 @@
 # Chunks 1–12: progress and forecast
 
-Updated November 2, 2026. Chunk 7 is approximately **70% complete**, with low
+Updated November 2, 2026. Chunk 7 is approximately **72% complete**, with low
 confidence (55–80%); this is an engineering estimate, not verified acceptance.
-The reviewed repairs are published on `experimental` as `cbf9705`.
+The complete IHP capacitor boundary/app coverage milestone is published on
+`experimental` as `09c671c`. Its [hosted source feedback](validation/chunk7-boundary-hosted-feedback-2026-11-02.json) now passes on both platforms: 1,001 selected tests per host (36 Windows and 15 Linux skips), all eleven stages, complete archive verification, exact merge parents and 2,214 source identities. The earlier installed-reader repairs remain pinned to `cbf9705` for the running desktop acceptance below.
 The [publication record](validation/chunk7-installed-repair-publication-2026-11-02.json)
 pins one fresh [desktop acceptance run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526912766)
 and the automatic [source-feedback run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526882833).
@@ -11,9 +12,9 @@ The immutable candidate, both release-tool gates and runtime verification pass.
 all eleven stages and 992 selected tests per host (36 Windows and 15 Linux skips).
 Both complete artifact digests and all 2,209 source identities match the candidate;
 the tested merge has the exact candidate and base as its verified parents.
-Both desktop packaging jobs are running; Linux has reached core tests and Windows
-is checking its installed digital runtime. Installed application acceptance remains
-pending. The separately verified complete IHP capacitor boundary below is a source
+Linux desktop packaging has passed, including 4,133 core tests (48 skips).
+Windows has passed its core and later process-device tests and is building the installer.
+Installed application acceptance remains pending. The separately verified complete IHP capacitor boundary below is a source
 submilestone; it does not inherit this published candidate's hosted result. This
 source record pins the exact changed-file identities; the running desktop candidate
 remains `cbf9705`. No passing final outcome is inferred.
@@ -61,6 +62,8 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**Current blocker closure work.** The ordinary freshly placed IHP `cap_cmim` reference defect is reproduced through both actual native routes on the unchanged published source. The source-bound repair now passes the complete nine-context native selection, all four meaningful physical faults and three malformed-reference controls, preserving simulation bytes and strict comparison. Focused regression passes 153 tests on each host (eight Windows and six Linux skips); all captured source identities remain unchanged. [Acceptance and retained evidence](validation/ihp-cmim-catalog-reference-2026-11-02.json) and [representation details](IHP_CMIM_LVS_REFERENCE.md) distinguish Magic X and public KLayout C views. Independent raw review and restored source/baseline retention pass. Both real Windows managed source handoffs also pass all six native stages, with 203 returned native artifacts verified and all 2,820 selected code files unchanged. The old setup record remains unchanged and correctly reports a changed backend; this is explicit reuse of a verified runtime, not ordinary setup readiness or installed acceptance. The repaired ordinary Magic and public KLayout workflows justify the modest reassessment to approximately **72%**, with unchanged low confidence (55-80%). Four required electrical bindings, full applicable operating envelopes/classes and exact installed acceptance remain open.
 
 **November 2 complete IHP capacitor maximum-area milestone.** The [bounded source acceptance](validation/ihp-cmim-complete-boundary-2026-11-02.json) closes six complete imported rectangular layouts at below/at/above 5,625 µm² and both rotations. Four legal cases pass both public decks and strict LVS; two oversized cases fail exactly MIM.g while LVS passes. All four native faults are detected for their actual causes, including a complete wrong-width device with clean DRC and a property mismatch. Ten rehashed copied-evidence controls and five independently constructed geometry controls reject as expected. Astra independently checks all 1,808 raw files and the finite outcome matrix.
 

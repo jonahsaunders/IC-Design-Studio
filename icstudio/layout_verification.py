@@ -201,7 +201,7 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             raise ValueError('This PDK requires Magic '+required[1]+' or newer. Set up the current included physical tools.')
         save_project(p,out/'input.icproj');atomic_write(out/'schematic.spice',ref['text'])
         from .native_spice import lvs_defaults
-        comparison,defaults=lvs_defaults(ref['text'],p['pdk'])
+        comparison,defaults=lvs_defaults(ref['text'],p['pdk'],lvs_extractor=lvs_extractor)
         if lvs_extractor=='ihp-klayout':
             from .ihp_tap_lvs import reference_geometry
             comparison,taps=reference_geometry(comparison,p['pdk']);defaults.extend(taps)

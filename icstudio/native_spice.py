@@ -7,6 +7,7 @@ tokens. SPICE expressions remain expressions for the selected simulator.
 import hashlib
 import json
 import re
+from decimal import Decimal, DecimalException, localcontext
 from pathlib import Path
 from .model import clone, validate, atomic_write, scalar
 
@@ -15,7 +16,7 @@ def native(project):
     return project.get('spice', {}).get('version') == 1
 
 
-def lvs_defaults(text, technology=None):
+def lvs_defaults(text, technology=None, *, lvs_extractor=None):
     """Canonicalize only explicit, literal unit defaults of known PDK devices."""
     changes=[]
     def instance(match):
@@ -31,7 +32,117 @@ def lvs_defaults(text, technology=None):
     if (technology or {}).get('package_lock',{}).get('id')=='ihp-sg13g2':
         text,ihp_changes=ihp_lvs_defaults(text,technology);changes.extend(ihp_changes)
         text,resistor_changes=ihp_resistor_lvs_defaults(text,technology);changes.extend(resistor_changes)
+        text,capacitor_changes=ihp_cmim_lvs_reference(text,technology,extractor=lvs_extractor);changes.extend(capacitor_changes)
     return text,changes
+
+
+def ihp_cmim_lvs_reference(text,technology,*,extractor=None):
+    """Project the pinned IHP MiM simulation symbol to its physical LVS view.
+
+    This changes no simulation output and makes no physical-model or operating
+    envelope claim. A complete, consistent C-form reference remains untouched.
+    """
+    from .model import file_digest
+    if not re.search(r'(?im)^[ \t]*[xc]\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*\s+cap_cmim(?=\s|$)',text):return text,[]
+    root=Path(technology['package_root']).resolve();files=technology['package_lock']['files']
+    entries=[e for e in technology.get('simulation',{}).get('catalog',{}).values()
+             if e.get('model')=='cap_cmim' and not e.get('unavailable')]
+    if len(entries)!=1:raise ValueError('IHP cap_cmim LVS requires the unique locked catalog binding.')
+    entry=entries[0];symbol='libs.tech/xschem/sg13g2_pr/cap_cmim.sym';model='libs.tech/ngspice/models/capacitors_mod.lib'
+    if (entry.get('source')!=symbol or entry.get('model_source')!=model or entry.get('prefix')!='X'
+            or entry.get('pin_order')!=['c0','c1'] or entry.get('emit_parameters')!={'w':'w','l':'l','m':'m','mm_ok':'mm_ok'}):
+        raise ValueError('IHP cap_cmim catalog interface differs from the locked symbol.')
+    for name in (symbol,model):
+        path=(root/name).resolve()
+        if not path.is_relative_to(root) or not files.get(name) or file_digest(path)!=files[name]:
+            raise ValueError('IHP cap_cmim source is missing or changed: '+name)
+    source=(root/symbol).read_text(encoding='utf-8')
+    if ('format="@spiceprefix@name @pinlist @model w=@w l=@l m=@m mm_ok=@mm_ok"' not in source or
+            'lvs_format="C@name @pinlist @model w=@w l=@l m=@m"' not in source):
+        raise ValueError('IHP cap_cmim simulation or LVS format differs.')
+    proof=dict(source=symbol,sha256=files[symbol],model_source=model,model_sha256=files[model]);changes=[]
+    if extractor!='magic':
+        reader=Path(__file__).resolve().parent/'assets/physical/ihp_klayout_lvs/rule_decks/custom_reader.lvs'
+        reader_sha='c71b6713d8a62055d3d8e9e75a7f5f78140001bf76e3fa573b9883fab5e49f06'
+        if file_digest(reader)!=reader_sha:raise ValueError('IHP cap_cmim public physical reader changed.')
+        proof.update(geometry_reader='rule_decks/custom_reader.lvs',geometry_reader_sha256=reader_sha,
+                     geometry_formula='A=w*l; P=2*(w+l), per unit; m retained separately')
+    multipliers={'':Decimal(1),'t':Decimal('1e12'),'g':Decimal('1e9'),'meg':Decimal('1e6'),'k':Decimal('1e3'),
+                 'm':Decimal('1e-3'),'u':Decimal('1e-6'),'n':Decimal('1e-9'),'p':Decimal('1e-12'),'f':Decimal('1e-15')}
+    def number(value):
+        found=re.fullmatch(r'([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?)(meg|[tgkmunpf]?)',value,re.I)
+        if not found:raise ValueError('IHP cap_cmim LVS requires finite literal parameters.')
+        try:
+            literal=Decimal(found[1])
+            if len(literal.as_tuple().digits)>10000:raise ValueError('IHP cap_cmim literal has excessive precision.')
+            with localcontext() as context:
+                context.prec=max(32,len(literal.as_tuple().digits)+1)
+                out=literal*multipliers[found[2].lower()]
+        except DecimalException as exc:raise ValueError('Invalid IHP cap_cmim LVS parameter.') from exc
+        if not out.is_finite():raise ValueError('IHP cap_cmim LVS requires finite literal parameters.')
+        return out
+    def instance(match):
+        original=match[0];line=re.sub(r'\n[ \t]*\+[ \t]*',' ',original);parts=line.split()
+        if not any(v.lower()=='cap_cmim' for v in parts[3:]):return original
+        if len(parts)<5 or parts[3].lower()!='cap_cmim':raise ValueError('IHP cap_cmim LVS requires exactly two ordered terminals.')
+        physical=parts[0][0].lower()=='c';fields={}
+        if physical and extractor=='magic':
+            raise ValueError('IHP cap_cmim C-form reference requires the public IHP KLayout checker; use an X-form reference with Magic.')
+        for part in parts[4:]:
+            if part.count('=')!=1:raise ValueError('Malformed IHP cap_cmim LVS parameter.')
+            key,value=part.split('=',1);key=key.lower()
+            if key not in (('w','l','m','a','p') if physical else ('w','l','m','mm_ok')) or key in fields:
+                raise ValueError('Unsupported or duplicated IHP cap_cmim LVS parameter.')
+            fields[key]=value
+        if not {'w','l','m'}<=set(fields):raise ValueError('IHP cap_cmim LVS requires w, l and m.')
+        w,l,m=(number(fields[k]) for k in ('w','l','m'))
+        if min(w,l,m)<=0:raise ValueError('IHP cap_cmim LVS geometry and multiplicity must be positive.')
+        if 'mm_ok' in fields and number(fields['mm_ok']) not in (0,1):raise ValueError('IHP cap_cmim mm_ok must be literal zero or one.')
+        if extractor=='magic':
+            if 'mm_ok' not in fields:
+                changes.append(dict(instance=parts[0],physical_instance=parts[0],changed=False,reason='Validated locked cap_cmim Magic X physical reference',proof=proof))
+                return original
+            result=' '.join(part for part in parts if not part.lower().startswith('mm_ok='))
+            changes.append(dict(instance=parts[0],physical_instance=parts[0],changed=True,reason='Locked cap_cmim physical LVS omits simulation-only mm_ok; Magic retains X representation',proof=proof))
+            return result
+        precision=max(len(w.as_tuple().digits)+len(l.as_tuple().digits)+4,
+                      max(w.adjusted(),l.adjusted())-min(w.as_tuple().exponent,l.as_tuple().exponent)+4,32)
+        if precision>10000:raise ValueError('IHP cap_cmim dimensions exceed supported literal precision.')
+        try:
+            with localcontext() as context:
+                context.prec=precision;area=w*l;perimeter=2*(w+l)
+        except DecimalException as exc:raise ValueError('Invalid IHP cap_cmim geometry calculation.') from exc
+        if not area.is_finite() or not perimeter.is_finite():raise ValueError('Nonfinite IHP cap_cmim physical geometry.')
+        if physical:
+            for key,wanted in (('a',area),('p',perimeter)):
+                if key in fields and number(fields[key])!=wanted:raise ValueError('IHP cap_cmim explicit area or perimeter contradicts dimensions.')
+            missing=[f'{key}={value}' for key,value in (('A',area),('P',perimeter)) if key.lower() not in fields]
+            if not missing:
+                changes.append(dict(instance=parts[0],physical_instance=parts[0],changed=False,reason='Validated locked cap_cmim physical reference',proof=proof))
+                return original
+            changes.append(dict(instance=parts[0],physical_instance=parts[0],changed=True,reason='Derive missing per-unit physical area/perimeter from the locked reader',proof=proof))
+            return original+' '+' '.join(missing)
+        name='C'+parts[0]
+        result=f'{name} {parts[1]} {parts[2]} {parts[3]} w={fields["w"]} l={fields["l"]} m={fields["m"]} A={area} P={perimeter}'
+        changes.append(dict(instance=parts[0],physical_instance=name,changed=True,reason='Locked cap_cmim physical LVS view; mm_ok is simulation-only',proof=proof))
+        return result
+    projected=re.sub(r'(?im)^[ \t]*[xc]\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text)
+    cmim_lvs_unique_names(projected)
+    return projected,changes
+
+
+def cmim_lvs_unique_names(text):
+    """Reject C-name collisions within each SPICE subcircuit containing MiM."""
+    seen={};cmim=set();scope='';logical=re.sub(r'\n[ \t]*\+[ \t]*',' ',text)
+    for line in logical.splitlines():
+        parts=line.split()
+        if not parts or parts[0].startswith('*'):continue
+        if parts[0].lower()=='.subckt':scope=' '.join(parts[1:2]).casefold();continue
+        if parts[0].lower()=='.ends':scope='';continue
+        if not parts[0].lower().startswith('c'):continue
+        key=(scope,parts[0].casefold());seen[key]=seen.get(key,0)+1
+        if len(parts)>3 and parts[3].lower()=='cap_cmim':cmim.add(key)
+    if any(seen[key]>1 for key in cmim):raise ValueError('IHP cap_cmim physical LVS instance name collides within its subcircuit.')
 
 
 def ihp_lvs_defaults(text, technology):
@@ -227,6 +338,7 @@ def netlist(project, directory, mode='simulation'):
     if mode=='lvs':
         from .native_analysis import circuit_text
         text=circuit_text(text)+'.end\n'
+        cmim_lvs_unique_names(text)
     atomic_write(root / 'source.cir', text)
     return text
 

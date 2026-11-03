@@ -295,7 +295,8 @@
           "remaining": "Fresh exact default-path installed acceptance on Windows and Linux, broader device requirements and all family gates remain open. This is a source candidate, not accepted production promotion."
         },
         "remaining": "Fresh exact frozen Windows/Linux acceptance and preserved earlier release gates are required. Current installed predecessor acceptance and all full-family requirements remain separate; no completed gate is advanced."
-      }
+      },
+      "latest_cmim_catalog_reference_evidence": "docs/validation/ihp-cmim-catalog-reference-2026-11-02.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24210,7 +24211,8 @@
           "standard-passives-2026-10-16",
           "device-corrections-2026-10-16",
           "capacitor-families-2026-10-17",
-          "default-device-packages-2026-10-17"
+          "default-device-packages-2026-10-17",
+          "ihp-cmim-catalog-reference-2026-11-02"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -25791,6 +25793,11 @@
       "path": "docs/validation/sky130-pw2dn-source-candidate-2026-10-29.json",
       "sha256": "b6e9abea83511a1dae450391f34c8f071ab39938868c45c914faf7a82fc627f6",
       "scope_limit": "Isolated source candidate only: actual GUI path and finite two-terminal native/reference/fault comparisons on Windows and Linux. Not bundled default, frozen application, three-terminal isolation, continuous envelope, whole-family or tapeout acceptance."
+    },
+    "ihp-cmim-catalog-reference-2026-11-02": {
+      "path": "docs/validation/ihp-cmim-catalog-reference-2026-11-02.json",
+      "sha256": "fa1f8d4a25739f09b27df9f3eb56a963ca123678952029774dcf1d834bd79e4c",
+      "scope_limit": "Finite ordinary IHP cap_cmim source reference integration: actual Magic/public native jobs and Windows managed handoffs. No installed, continuous-envelope, full-family or chunk-7 qualification."
     }
   },
   "execution_acceptance": {
