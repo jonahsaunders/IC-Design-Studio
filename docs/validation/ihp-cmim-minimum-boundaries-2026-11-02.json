@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "status": "PASS_INDEPENDENT_FINITE_SOURCE_PILOT",
+  "date": "2026-11-02",
+  "scope": "Five source-derived imported rectangular cap_cmim geometries at two rotations with one explicitly added Vmim; selected Magic cases and physical/reference faults. Original producer failure retained.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "family_complete": false,
+  "chunk_complete": false,
+  "matrix_status_promoted": false,
+  "source": {
+    "base_commit": "09c671c2be1cc473dd57e89b8a50cdf53454fcb3",
+    "snapshot_manifest_sha256": "c0fb4eec686317724ff77ba48a9d51bdd3dd96651611e1866427044d09be2bd9",
+    "snapshot_files_verified_before_and_after": 6902,
+    "scope": "Frozen source snapshot with repair overlay; base commit alone does not identify all executed bytes."
+  },
+  "package": {
+    "id": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "public_decks": {
+    "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "lock_sha256": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863",
+    "main_and_maximal": true,
+    "independently_reviewed_public_and_fault_flows": 16,
+    "drc_source_files_per_flow": 52,
+    "lvs_source_files_per_flow": 52,
+    "correction_receipt_sha256": "ac4bb1bfa8690d262b252388737120d75b839b087a194d35887b840afa09c9df"
+  },
+  "runtime": {
+    "before_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4",
+    "after_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4",
+    "scope": "Managed native tools, scoped runtime files and their recorded dependencies; not a hermetic full-OS identity."
+  },
+  "imported_geometry": {
+    "contact": "One explicitly added 420 x 420 nm Vmim on 129/0; not an unchanged Magic PCell result.",
+    "unmodified_generator": "Initial 1.14 x 2 and 1.16 x 2 source-drawn outputs lacked a written Vmim; failures retained.",
+    "p_cell_check_clamp_changed": false,
+    "mim_d_limit": "The native main-deck MIM.d check uses TopVia1 125/0, not the inserted Vmim 129/0; measured contact enclosure is not native MIM.d coverage.",
+    "port_order": ["C1 TopMetal1", "C2 Metal5"]
+  },
+  "public_cases": {
+    "rotations_degrees": [0, 90],
+    "all_extraction_and_strict_lvs_passed": true,
+    "main_findings_per_case": 0,
+    "cases": [
+      {"width_um": 1.12, "length_um": 2, "area_um2": 2.24, "maximal_rule": "MIM.a", "findings_per_rotation": 1, "measured_contact_enclosure_nm": 350},
+      {"width_um": 1.14, "length_um": 2, "area_um2": 2.28, "maximal_rule": null, "findings_per_rotation": 0, "measured_contact_enclosure_nm": 360},
+      {"width_um": 1.16, "length_um": 2, "area_um2": 2.32, "maximal_rule": null, "findings_per_rotation": 0, "measured_contact_enclosure_nm": 370},
+      {"width_um": 1.14, "length_um": 1.14, "area_um2": 1.2996, "maximal_rule": "MIM.f", "findings_per_rotation": 1, "measured_contact_enclosure_nm": 360},
+      {"width_um": 1.14, "length_um": 1.16, "area_um2": 1.3224, "maximal_rule": null, "findings_per_rotation": 0, "measured_contact_enclosure_nm": 360}
+    ],
+    "below_width_isolated_contact_control": false,
+    "exact_minimum_area_case": false
+  },
+  "magic_cases": {"dimensions_um": [[1.14, 2], [1.16, 2]], "rotation_degrees": 0, "all_six_stages_passed": true, "findings_each": 0, "mim_g_checked": false},
+  "faults": {
+    "wrong_width": "Completed strict LVS failed on property mismatch with clean DRC.",
+    "swapped_reference": "Completed strict LVS failed top-level pin matching with clean DRC.",
+    "missing_contact": "Native extraction completed with C1 port lost; MIM.h finding and application port guard rejected it; LVS not run.",
+    "plate_short": "Native extraction completed with C1 and C2 merged; TV1.c/TV1.d findings and application port guard rejected it; LVS not run."
+  },
+  "original_producer": {"status": "FAIL", "report_sha256": "4e3c59f2998a303fa83d2603dcfcd405e8973218557ebe02a0317cc00c6e7e3e", "reason": "The initial control assertion required application extraction to pass and LVS to fail, although the two physical faults correctly triggered the port guard before LVS."},
+  "separate_fault_replay": {"status": "PASS_SCOPED_REPLAY", "controls": 2, "native_extraction_completed": true, "application_port_guard_rejected": true, "lvs_not_run": true},
+  "independent_review": {
+    "original_contexts": 16,
+    "evidence_files_unchanged": 2739,
+    "in_memory_corruption_controls_rejected": 10,
+    "review_v1_sha256": "80baa78baba8e007e88b82386adc4ba28482726d0cf2d3f7994156f824454ced",
+    "review_v2_addendum_sha256": "5b3f7451b3cead6af4227c7c9b39df7b7dc5dde51f86f606a42b49f8505f323b"
+  },
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/ihp-cmim-minimum-boundaries-2026-11-02-v1",
+    "pilot-raw-evidence.zip": "32e0b8a92e29f0000438bd1e5f65723d1a329992dca7a79d6631df92ad32f0d8",
+    "fault-replay-evidence.zip": "96ff63f057ad24887162d5df9629adc286be77190d85333ed2cdf1f19ad94754",
+    "review-source-receipts.zip": "84140a0cb66bae304b0386b9f65319ff7217585ba9396acfe8b1f898d2a8d04c",
+    "all_members_readback_verified": true,
+    "source_recovery": "Earlier ihp-cmim-catalog-reference-2026-11-02-v1 native-source-delta-v1.zip SHA256 4a8ef2760a147d28bfe7f1c5572dd93ca7bc42e8e98bf474645cc8ce7063ca35 with ihp-cmim-complete-boundary-2026-11-02-v1 native-evidence-v1.zip predecessor SHA256 e0bcff69bf17586e2db8fbd319b75287cfbeab530e5ac5c804f570fbf4d72136; their restored full-source readback was separately recorded.",
+    "replay": "Retained external pilot drivers require recorded source/runtime and fresh outputs. No repository minimum-boundary CLI exists."
+  },
+  "remaining": "Other contact, spacing, array, electrical, operating, reliability, installed and full-family requirements remain open."
+}

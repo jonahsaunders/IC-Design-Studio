@@ -57,8 +57,11 @@ class EvidenceSafetyTests(unittest.TestCase):
     def test_inventory_prunes_forbidden_directory(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);(root/'allowed').write_bytes(b'bytes');dirs=[gate.FORBIDDEN]
-            with patch.object(gate.os,'walk',return_value=iter([(str(root),dirs,['allowed'])])):
-                self.assertEqual(gate.inventory(root),{'allowed':gate.sha(root/'allowed')})
+            expected={'allowed':gate.sha(root/'allowed')}
+            self.assertEqual(gate.inventory(root),expected)
+            # os.walk receives the resolved root, even if TEMP uses an 8.3 alias.
+            with patch.object(gate.os,'walk',return_value=iter([(str(root.resolve()),dirs,['allowed'])])):
+                self.assertEqual(gate.inventory(root),expected)
             self.assertEqual(dirs,[])
     def test_source_or_native_claim_cannot_pass_installed_header(self):
         for frozen,native in [(False,False),(True,True)]:

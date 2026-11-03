@@ -7,8 +7,13 @@ The ordinary IHP capacitor reference repair is published on `experimental` as
 passes all eleven stages on both hosts: 1,009 selected tests each (36 Windows and
 15 Linux skips), complete archive checks, exact merge parents and 2,216 source
 identities. The new [installed capacitor gate](IHP_CMIM_INSTALLED_ACCEPTANCE.md)
-is implemented and independently source-reviewed; fresh frozen acceptance on
-both hosts remains pending. Windows CI also preserves its full early core suite
+is published as `6521f4b` and independently source-reviewed; fresh frozen
+acceptance on both hosts remains pending. That commit's hosted source lane
+passes on Linux (1,058 tests, 16 skips) but fails on one Windows test fixture's
+short-path spelling. The [reviewed fixture repair](validation/chunk7-windows-short-path-repair-2026-11-02.json)
+reproduces the exact failure on a real NTFS alias and passes all 35 focused
+checks afterward. Application behavior and protection gates are unchanged;
+fresh hosted feedback on the repair remains required. Windows CI also preserves its full early core suite
 and verifies the tested native binary before packaging, removing the former
 duplicate suite. No time saving or installed pass is inferred before execution.
 The preceding complete IHP capacitor boundary/app coverage milestone is
@@ -23,7 +28,9 @@ Both complete artifact digests and all 2,209 source identities match the candida
 the tested merge has the exact candidate and base as its verified parents.
 Linux desktop packaging has passed, including 4,133 core tests (48 skips).
 Windows desktop packaging and the exact candidate handoff also pass.
-Both fresh installed-acceptance jobs are running; their final outcomes remain pending.
+Both fresh installed-acceptance jobs are running. Linux has passed the frozen
+MiM, optional/default ESD and pw2dn workflows and reached IHP resistor acceptance;
+Windows has reached its frozen digital-runtime qualification. Final outcomes remain pending.
 Installed application acceptance remains pending. The separately verified complete IHP capacitor boundary below is a source
 submilestone; it does not inherit this published candidate's hosted result. This
 source record pins the exact changed-file identities; the running desktop candidate
@@ -72,6 +79,32 @@ PDK, tool, design or required condition needs its own evidence. Pending chunks
 can have useful code and successful samples without having a completed gate.
 
 ## Latest work and retained checkpoints
+
+**November 2 minimum-width/area source experiment.** Independent review verifies
+ten [imported capacitor boundary contexts](IHP_CMIM_MINIMUM_BOUNDARIES.md), two
+Magic positives and four exact fault causes. Six public contexts have zero
+findings; two below-width contexts flag MIM.a and two below-area contexts flag
+MIM.f, all with completed strict LVS. The retained source construction adds a
+420 nm Vmim contact because the unmodified generator omits it at these sizes.
+MIM.d checks a different contact layer; native enclosure coverage is not claimed.
+The original producer assertion failure remains unchanged. Fresh replay and
+independent raw readback confirm that missing/shorted contacts correctly stop at
+the application's port guard before LVS; the other two faults reach failing LVS.
+Three verified archives retain the sources, raw outputs, reviews and failures.
+This is bounded geometry evidence, not a default PCell, installed, electrical or
+complete-family pass. Four model bindings, full applicable envelopes/classes,
+Vmim enclosure coverage and final installed acceptance remain open. Estimate
+stays approximately **72%**, low confidence **55–80%**.
+
+**November 2 Windows feedback repair.** Candidate `6521f4b` passes Linux source
+feedback but its Windows fixture mocked a short-path spelling inconsistent with
+the canonical path passed to the real inventory. Complete hosted archive readback
+verified both outcomes and all 2,224 candidate source identities. The test now
+checks actual filesystem inventory before supplying canonical mocked rows, while
+retaining forbidden-directory pruning. Both Sol and Astra reproduce the original
+failure with a real NTFS alias; 35 focused checks and separate pruning-before-
+metadata controls pass. No production code, timeout or skip was changed.
+The original hosted run remains failed until a fresh corrected candidate passes.
 
 **November 2 installed capacitor gate and Windows CI repair.** The actual GUI
 producer now exercises registry/catalog placement, parameter editing,
