@@ -319,7 +319,8 @@
       "latest_cmim_public_reproduction_evidence": "docs/validation/ihp-cmim-public-reproduction-2026-11-03.json",
       "latest_cmim_enclosure_evidence": "docs/validation/ihp-cmim-enclosures-2026-11-03.json",
       "latest_cmim_multiplicity_physical_evidence": "docs/validation/ihp-cmim-multiplicity-physical-2026-11-03.json",
-      "latest_cmim_multiplicity_electrical_evidence": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json"
+      "latest_cmim_multiplicity_electrical_evidence": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json",
+      "latest_cmim_profile_repair_evidence": "docs/validation/ihp-cmim-profile-isolation-2026-11-03.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -25837,6 +25838,11 @@
       "path": "docs/validation/chunk7-04ce-hosted-feedback-2026-11-03.json",
       "sha256": "e2c7c6d0e0473b443f2662159a969a0e8c6236e0bfafa2520274850f4aaaf4b9",
       "scope_limit": "Complete Windows/Linux source feedback artifacts at the exact synthetic merge for 04ce9bce only; no later working-tree or installed qualification."
+    },
+    "ihp-cmim-profile-isolation-2026-11-03": {
+      "path": "docs/validation/ihp-cmim-profile-isolation-2026-11-03.json",
+      "sha256": "85e3510acf55da6f71e7774224ece2cc273d44f186eec3574e7c9375d25190f0",
+      "scope_limit": "Reproduced Windows saved-profile selection failure; explicit private INI repair and real adverse-profile GUI regression. 66 focused tests per host with one platform skip each. Exact failed hosted runs retained; fresh repaired installed acceptance required."
     },
     "ihp-cmim-multiplicity-physical-2026-11-03": {
       "path": "docs/validation/ihp-cmim-multiplicity-physical-2026-11-03.json",

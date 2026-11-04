@@ -77,3 +77,15 @@ The [remaining device requirements](IHP_CMIM_REQUIREMENTS.md),
 [source integration record](validation/ihp-cmim-installed-source-integration-2026-11-02.json)
 distinguish implemented checks from completed frozen acceptance. The chunk 7
 gate and all partial device statuses remain unchanged.
+
+
+The November 3 [profile-isolation repair](validation/ihp-cmim-profile-isolation-2026-11-03.json)
+addresses a source GUI probe failure seen in both later Windows desktop runs.
+An explicit private INI file, with settings fallbacks disabled, prevents a
+previously saved host workspace from changing the probe selection during
+startup. An isolated adverse profile reproduces the original failure and
+passes the repaired edit/save/reopen/export lifecycle. The actual hosted
+profile was not captured; the mechanism is independently reproduced. Original
+timeouts, lifecycle assertions, mask checks and installed-only gates remain
+required. Focused source checks pass on both hosts; a fresh desktop candidate
+must still complete the packaged and installed gates.

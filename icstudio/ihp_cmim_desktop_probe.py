@@ -161,11 +161,16 @@ def main(arguments=None):
             shutil.copyfile(source,args.out/name)
         from PySide6.QtCore import QSettings,QStandardPaths
         from PySide6.QtWidgets import QApplication
-        from .gui import Studio
+        from unittest.mock import patch
+        from . import gui
         os.environ['XDG_DATA_HOME']=str(args.out/'profile/data');os.environ['XDG_CONFIG_HOME']=str(args.out/'profile/config')
-        QSettings.setDefaultFormat(QSettings.IniFormat);QSettings.setPath(QSettings.IniFormat,QSettings.UserScope,str(args.out/'profile/settings'))
+        # The organization/application constructor still selects the registry on Windows.
+        settings=QSettings(str(args.out/'profile/settings.ini'),QSettings.IniFormat);settings.setFallbacksEnabled(False)
         QStandardPaths.writableLocation=staticmethod(lambda kind:str(args.out/'profile'/str(kind.value)))
-        app=QApplication([]);app.setStyle('Fusion');studio=Studio(recover=False);studio.error=lambda e:errors.append(str(e))
+        app=QApplication([]);app.setStyle('Fusion')
+        with patch.object(gui,'QSettings',return_value=settings):
+            studio=gui.Studio(recover=False)
+        studio.error=lambda e:errors.append(str(e))
         studio.maybe_save=lambda:True;studio.live_check.setChecked(False);studio.resize(1400,960);studio.show()
         key=studio.pdk_registry.install(package/'package.json');tech=studio.pdk_registry.technology(key)
         result['registry_key']=key;result['registry_manifest_sha256']=file_digest(Path(tech['package_root'])/'package.json')

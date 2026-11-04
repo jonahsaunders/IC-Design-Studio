@@ -5,7 +5,7 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
-The latest reviewed batch is published as `71fb991`. It adds reproducible
+The earlier reviewed batch is published as `71fb991`. It adds reproducible
 IHP capacitor enclosure/contact checks (12 boundary cases and six deliberate
 faults), an independent reader, and a 76 KB public physical-evidence subset
 for the process-control comparison. Fresh native reproduction passes all
@@ -23,7 +23,7 @@ or complete-family promotion is claimed. The estimate remains 74% because
 mandatory family requirements are still unresolved. The older publication
 observation keeps its original timestamp and pending states.
 
-**Selected physical multiplicity and linked electrical milestone completed.**
+**Selected physical multiplicity and linked electrical milestone completed, published as `6e998477`.**
 The [reusable workflow](IHP_CMIM_MULTIPLICITY.md) now checks ordinary catalog
 m=2 against two explicit units and actual unfiltered extraction. Four physical
 positives at two rotations and six meaningful physical/reference faults pass
@@ -37,18 +37,26 @@ Independent review and compact archive readback are complete. The 6,965-file
 source snapshots remain unchanged. These finite class/linkage checks do not
 close the remaining family applicability, calibration, PEX or installed gates.
 
-The older `d767f71` Windows package has now failed one of 4,200 core tests
-(62 skips), with a missing `modelparam:w` inspector field. An isolated
-reproduction shows that the intended private profile can still read host
-settings, allowing delayed workspace restoration to clear the selected device.
-The hosted profile itself was not retained; this is a reproduced explanation,
-not a direct recovery of those settings. A narrowly
-scoped explicit-profile repair is in progress; no original hosted failure is
-relabelled. Both candidates' Linux package jobs have passed. A fresh check at
-00:10 UTC on November 4 (November 3 locally) shows that `04ce9bce` has also
-failed its Windows core suite; its exact failure is being checked. Installed
-acceptance was skipped downstream on both runs. Fresh repaired-candidate
-acceptance remains required. Chunk 7 remains **74%**, low confidence **55–82%**.
+Both later desktop candidates passed Linux packaging but failed their Windows
+core suite at the same `modelparam:w` inspector lookup: one failure in 4,200
+tests at `d767f71`, and one in 4,207 tests at `04ce9bce` (62 skips each).
+Their installed acceptance was consequently skipped. Both authentic failure logs
+are retained, and neither original run is relabelled as passing.
+
+The [reviewed profile-isolation repair](validation/ihp-cmim-profile-isolation-2026-11-03.json)
+gives the capacitor probe an explicit private INI file with fallbacks disabled.
+An isolated saved Layout workspace reproduces the old delayed-restore failure;
+the repaired probe preserves selection and passes its complete real GUI
+edit/save/reopen/export lifecycle. The hosted profiles were not captured, so
+this is a reproduced mechanism rather than recovery of their exact contents.
+Both hosts ran 66 focused tests with one expected platform skip each; no tests
+failed. Native source overlays and original snapshots remain unchanged, and
+independent review and compact retention are complete. Existing assertions and
+timeouts remain intact. Fresh desktop acceptance of the repaired commit is the
+next gate; source success does not establish a packaged or installed pass.
+Chunk 7 remains **74%**, low confidence **55–82%**. Four unavailable bindings,
+full operating/reliability applicability, calibration and broader physical/PEX
+requirements still prevent complete-family qualification.
 
 The [completed desktop acceptance](validation/chunk7-selected-installed-acceptance-2026-11-03.json)
 passes all nine jobs at exact candidate `cbf9705`, including both installed

@@ -86,7 +86,33 @@ class CmimProducerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             out=Path(tmp)/'probe with spaces';env={k:v for k,v in os.environ.items() if not k.upper().startswith('GIT_')}
             env.update(QT_QPA_PLATFORM='offscreen',PYTHONDONTWRITEBYTECODE='1')
-            command=[sys.executable,'-B','-m','icstudio','--ihp-cmim-acceptance','--execution-id',NONCE,'--out',str(out)]
+            # Seed a host profile whose delayed Layout restore would clear the schematic selection.
+            host=Path(tmp)/'host-settings.ini'
+            bootstrap='''
+import json
+from pathlib import Path
+import runpy
+import sys
+from unittest.mock import patch
+from PySide6.QtCore import QSettings
+from icstudio import gui
+
+path = Path(sys.argv.pop(1))
+settings = QSettings(str(path), QSettings.IniFormat)
+settings.setFallbacksEnabled(False)
+settings.setValue('editor/workspaces/Last session', json.dumps(dict(
+    mode=1, state='', splitter=[700, 700], filters=[], profile='Studio')))
+settings.sync()
+original = path.read_bytes()
+try:
+    with patch.object(gui, 'QSettings', return_value=settings):
+        runpy.run_module('icstudio', run_name='__main__')
+finally:
+    settings.sync()
+    if path.read_bytes() != original:
+        raise AssertionError('The CMIM probe changed the host settings.')
+'''
+            command=[sys.executable,'-B','-c',bootstrap,str(host),'--ihp-cmim-acceptance','--execution-id',NONCE,'--out',str(out)]
             run=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=120)
             self.assertEqual(run.returncode,0,run.stdout[-4000:]+run.stderr[-4000:]);report=json.loads((out/'report.json').read_bytes())
             self.assertEqual(report['status'],'passed');self.assertEqual(report['execution_id'],NONCE)
@@ -105,6 +131,7 @@ class CmimProducerTests(unittest.TestCase):
                 self.assertEqual(file_digest(out/row[kind]),row[kind+'_sha256'])
             self.assertEqual(file_digest(out/'files.json'),report['files_sha256'])
             listed=json.loads((out/'files.json').read_bytes())
+            self.assertIn('profile/settings.ini',listed)
             for name,expected in listed.items():self.assertEqual(file_digest(out/name),expected)
 
 
