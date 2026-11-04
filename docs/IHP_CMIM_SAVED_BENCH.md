@@ -75,7 +75,7 @@ network and AC readback, Windows/Linux regression results and compact recovery
 archives. It also verifies a real Windows-to-WSL source dispatch with the same
 staged inputs. That diagnostic invokes dispatch directly while retaining an
 old setup receipt; it does not establish normal GUI readiness or installed
-acceptance. The separately running desktop candidate predates this source repair.
+acceptance. The contemporaneous desktop candidate predated this source repair.
 
 ## Included model handoff
 
@@ -83,9 +83,10 @@ The [reviewed follow-up](validation/ihp-managed-physical-handoff-2026-11-03.json
 selects the matching included IHP models for physical saved-testbench
 simulation. It preserves explicit model selections and the physical job
 route; DRC/LVS-only jobs do not gain a simulation-model requirement.
-Focused Windows and native Linux checks pass. Final ordinary setup and
-unconfigured GUI verification for this combined source remain pending,
-as does installed acceptance. The earlier failure and configured control
+Focused Windows and native Linux checks pass. The subsequent
+[ordinary source acceptance](validation/ihp-cmim-managed-saved-bench-2026-11-04.json)
+passes real setup and unconfigured GUI verification for the bounded example;
+installed acceptance remains separate. The earlier failure and configured control
 remain separate evidence. Electrical saved-testbench and characterization
 actions still require their separately configured local tools and models.
 
@@ -94,3 +95,10 @@ requires a selected saved testbench before automatic IHP model lookup. Plain
 asset transfers retain their original source-integrity checks without needing
 an installed simulation runtime. Both hosted regression failures and the
 subsequent focused correction checks are retained separately.
+
+The ordinary acceptance binds all 470 application backend files and three
+additional captured inputs to `995bbcac`. Both default and explicit-control
+jobs pass all eight stages with exact model, layout and graph readback. A
+separate native Windows rendering check shows readable results with ordinary
+scrolling; it uses hidden real widgets rather than an interactive session.
+The floating-substrate, explicit-path and finite AC limitations above remain.

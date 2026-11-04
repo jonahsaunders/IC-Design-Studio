@@ -1,9 +1,36 @@
 # Chunks 1–12: progress and forecast
 
-Updated November 3, 2026. Chunk 7 is approximately **74% complete**, with low
+Updated November 4, 2026. Chunk 7 is approximately **74% complete**, with low
 confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
+
+**November 4: normal source setup and saved-testbench integration accepted.**
+The [ordinary workflow record](validation/ihp-cmim-managed-saved-bench-2026-11-04.json)
+passes 34 digital and seven physical setup checks, then both eight-stage IHP
+saved-testbench cases with automatic model selection and the separate explicit
+control. Independent review checks the actual readiness record, source/model
+bindings, raw capacitance graph and finite AC results. Readable native Windows
+rendering is separately verified using hidden real widgets and normal scrolling;
+the earlier offscreen missing-glyph captures retain their limitation. The setup
+elapsed time includes host sleep/resume and is not an active-runtime benchmark.
+
+Published `995bbcac` also passes all three [source-feedback jobs](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41763498512).
+[Independent readback](validation/chunk7-995b-hosted-feedback-2026-11-04.json)
+verifies 2,248 source bindings, 2,539 archive members and 1,131 tests per host
+(37 Windows / 17 Linux skips), including the unchanged formerly failing test.
+
+The older `39b24815` desktop candidate passed both package jobs but failed
+installed acceptance on both platforms because its shipped backend omitted the
+public IHP checker resource bundles. The [reviewed packaging repair](validation/ihp-backend-packaging-2026-11-04.json)
+now stages all 105 source-locked resources and notices, rejects changes during
+copying and passes 40 focused tests per host (one Windows skip). Its fresh built
+and installed acceptance remains pending. Application backend source is unchanged
+by this packaging-only repair; no full-family gate or matrix status is promoted.
+
+Storage follow-through removed 25,203 obsolete setup files (4,983,525,790 logical
+bytes) after a fresh complete archive/file audit. The full recovery archive and
+current ready setup remain intact. No Windows administrator access was used.
 
 **[Current model-handoff correction](validation/ihp-managed-handoff-boundary-2026-11-03.json).**
 The published `2d371303` source exposed an overbroad model requirement in both
