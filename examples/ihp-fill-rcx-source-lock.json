@@ -1,0 +1,42 @@
+{
+  "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "files": [
+    {
+      "path": "libs.tech/librelane/openrcx/IHP_rcx_patterns.rules",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/librelane/openrcx/IHP_rcx_patterns.rules",
+      "git_blob": "d8755aaab70934f62a9e043f51c12c4f7b48170f",
+      "sha256": "ffda02d57a6ecb39b02268be9511d89ef072911f17bd2dcd095f3f3cbeb5a905",
+      "bytes": 50282
+    },
+    {
+      "path": "libs.tech/librelane/openrcx/ihp-sg13g2.max.magic.rules",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/librelane/openrcx/ihp-sg13g2.max.magic.rules",
+      "git_blob": "f16f8eda8ccc52940bd87d3317dccae12e6ad647",
+      "sha256": "a0fe0c768b5c4217e12b8d253764a238f43a2cc822b98121ee400ffd9fedc3f9",
+      "bytes": 63715
+    },
+    {
+      "path": "libs.tech/librelane/openrcx/ihp-sg13g2.min.magic.rules",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/librelane/openrcx/ihp-sg13g2.min.magic.rules",
+      "git_blob": "66d934e5629cf191c7d811f61e1685c20979ec2f",
+      "sha256": "c4abe1065114e113803639782e01337e6cf50ba560bf1ca63f181fc389176875",
+      "bytes": 63647
+    },
+    {
+      "path": "libs.tech/librelane/openrcx/ihp-sg13g2.nom.magic.rules",
+      "url": "https://raw.githubusercontent.com/IHP-GmbH/IHP-Open-PDK/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/librelane/openrcx/ihp-sg13g2.nom.magic.rules",
+      "git_blob": "03238f6825117a7e9e75becd6a41cc7ae324921c",
+      "sha256": "479a65fb529a08756b6c91f122b9116f6ccacb6475413677ec654e2ba1a49c6c",
+      "bytes": 63559
+    }
+  ],
+  "qualified": false,
+  "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "selected": "libs.tech/librelane/openrcx/ihp-sg13g2.nom.magic.rules",
+  "selected_scope": "Nominal interconnect metal-fill controls, finite-R model comparison and three-library-condition reference timing. Experimental; no field calibration or active-fill acceptance.",
+  "rejected": {
+    "file": "libs.tech/librelane/openrcx/IHP_rcx_patterns.rules",
+    "reason": "Zero nearby floating-metal coupling on Metal1 through Metal5."
+  },
+  "other_corners": "Captured min/max vendor models have not been qualified."
+}

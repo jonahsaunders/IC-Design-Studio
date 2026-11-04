@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Complete drawn-conductor connectivity executes through every contact level on all three final layouts. All 133 executable requirements and every companion guard pass. Chunk 6 remains open.",
+  "data": {
+    "path": "docs/validation/sky130-floating-review-2026-10-11/data.json",
+    "sha256": "cbad4d8388453d9fbd55330a2fad21e88c6fdc688420557584fd2f91efad671e"
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-floating-review-2026-10-11/win32.json",
+      "sha256": "d512e283c9a5662bd448ca4a5a629c74234e281320c45b72b616a64dc5f586da"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-floating-review-2026-10-11/linux.json",
+      "sha256": "77d0fd708fe2347d9615fdd5f45bb7b67c2edc5a28508b3fa592314cfd36ca46"
+    }
+  },
+  "baseline_commit": "6c25591",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+    "scripts/sky130_low_voltage_geometry.py": "7751ceb802aafcfbb2e18b1068c2c641d422992c78ce6fc522c0915c62de3690",
+    "scripts/sky130_interconnect_geometry.py": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+    "scripts/sky130_wide_metal.py": "e804ee01d9516e58575f9a97be2bb012fae3b09331ee5385d5d0481389a3749a",
+    "scripts/sky130_global_geometry.py": "e02e3ad28b50009f99682bf57641bf7d3100f45e43e9b84adecef9f785032343",
+    "scripts/sky130_floating_connectivity.py": "58c4b7ceeb809959d9ff8532838f774e4e4c5dcc404cea8d3e70942302d68896",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "scripts/sky130_rule_execution.py": "c923d365f8eb5ad77e802230a1c29187829496f4e74e6969e06d9b17baa27d26",
+    "scripts/sky130_block_applicability.py": "fcafea17b84219eb19d26bc325911b931d35030067408f23377db8c988abf009",
+    "tests/test_sky130_raw_feol.py": "df2f3a922135004ffa3523fa59c9570a4d060a19a33ef853443df6f3f5ad917e",
+    "tests/test_sky130_block_applicability.py": "04781e5303d00773384a04301ed49c9eb8eceb284c8738f72707905128e998a4",
+    "tests/test_sky130_low_voltage_geometry.py": "ea46325424cb3c1f774ee0f688a74756231fbedae290fc4529214617c6b9ac58",
+    "tests/test_sky130_interconnect_geometry.py": "f20e78eb16afec8e79b8b760de4c8b65368337b74467881eef735a9df3934e6c",
+    "tests/test_sky130_wide_metal.py": "979093a310b9090a7cd7ef26236539832b9e18b84c4ff47202d8fcc16547bff9",
+    "tests/test_sky130_global_geometry.py": "a7b8b67a5a4ecc4b1502d189e4696ce6c245515af10cc622e1393aa3011e8a15",
+    "tests/test_sky130_floating_connectivity.py": "816ef3eb73c4f3fe43051b44e28e63a4375bb6e0352728e0e555292454ff90ea",
+    "tests/test_sky130_rule_execution.py": "673e59f0f557bab32fd4889ff2ca5815cf9b1c4a7d13a7bdfcc4aa64dd4a7480"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-floating-review-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "625c4a20801bf7e2287f8c788bbcd5899d441c27d2e6d2d87db5b04b225ebe6d",
+    "bytes": 386803,
+    "files": 211,
+    "unique_blobs": 210,
+    "manifest_sha256": "2f82e81454b400c3948c97a693076b40e39db8750f744c41e09b1a9df3e66f47",
+    "dependency": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-fill-progress-2026-10-11-v1\\evidence.tar.gz",
+      "sha256": "ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0",
+      "bytes": 920448744,
+      "files": 1959,
+      "unique_blobs": 1399,
+      "manifest_sha256": "81f06b06441a6c9864cc93abcd90af2ab87b5658fef3a2953efcedb90c2da9b0",
+      "seconds": 162.43700000000536,
+      "scope": "SKY130 fill, failed attempts, final physical/native circuit checks, partial rule applicability and diode comparison. Not chunk 6 acceptance."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "absent-operand": 277,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 133,
+        "execution-review-required": 24,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 133
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "absent-operand": 277,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 133,
+        "execution-review-required": 24,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 133
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "absent-operand": 277,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 133,
+        "execution-review-required": 24,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 133
+    }
+  ],
+  "notes": [
+    "All 123 applicability, geometry, connectivity and binding tests pass on Windows and Linux without skips; execution ledgers match exactly.",
+    "Every drawn poly/LI/metal component has a complete path to a transistor gate, diffusion/tap or a top-level metal pin. The final rooted component counts are 106 counter, 1304 UART and 1204 APB, with no floating component.",
+    "No floating/tie labels or standard-cell exemptions are invoked. Internal cell pin annotations are not roots; they cannot conceal a floating component. Generated physical fill has separate documented purposes and remains covered by the fill rules.",
+    "A deliberately disconnected metal/via stack fails even though every metal touches a contact. Removing any contact level, using a wrong-layer pin, adding fill as a supposed root or bridging a gap with a pin annotation is rejected.",
+    "All submitted conductor/root area is accounted for across the extracted nets, preventing omitted floating networks from becoming passing evidence. Gate oxide is not treated as a source/drain short.",
+    "The rejected first profile and both OS failures are preserved. APB contains two merged conb_1 poly-short annotations entirely inside existing poly. The final profile requires exact containment and never inserts those annotations as conductor or roots. Gap-bridging and uncovered annotations fail.",
+    "All 601 periphery records remain: 133 executed-reviewed, 277 absent-operand, 77 upstream-NA, 28 advisory, 61 other-backend, 24 execution-review-required and one definition-required."
+  ]
+}

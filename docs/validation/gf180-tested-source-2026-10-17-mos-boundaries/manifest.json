@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "source_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+  "backend_sha256": "eb22e7c53b3380f0765e2e6629ed8c6ca2ddb19dee5c49b6a0bb187a596736c0",
+  "scope": "historical-tested-source-only",
+  "files": {
+    "digital_flow.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_flow.py.txt",
+      "sha256": "8bf30f22ff9185c7036c5611d30345ad8834b208a590b52f12b932e536e40cbe"
+    },
+    "digital_identity.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_identity.py.txt",
+      "sha256": "76412de592149cdb08291ee9e3e1b31374c77c87101e1e775d06fe4971e246ec"
+    },
+    "digital_macro.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_macro.py.txt",
+      "sha256": "b885b0177014792a87052092c640b32e0adfa2ec84df117342238a47e2abf5ac"
+    },
+    "digital_physical.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_physical.py.txt",
+      "sha256": "660ef87bb312ec019a5dacea8a3315d3dfac4ab6dedd643decff939650959b3b"
+    },
+    "digital_physical_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_physical_ui.py.txt",
+      "sha256": "42fa1791436bd3c98875a5ba66dc33165048d06989ae55c23738346fddfeb06e"
+    },
+    "digital_platform.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_platform.py.txt",
+      "sha256": "a9b9db78cd93a165197b7fda644065b30f540784ca0fbcfd8a716dec04b2e61b"
+    },
+    "digital_rc.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_rc.py.txt",
+      "sha256": "cdab3d0d91982e95701ee2a8a6cf2b487317c26b27901b0a57d3226844a1f719"
+    },
+    "digital_runtime.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_runtime.py.txt",
+      "sha256": "8a11b3be62af512ebcb4d4f4ea9f17396678b42058ca2cfe2443f95acfd0bd6c"
+    },
+    "digital_backend.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16/digital_backend.py.txt",
+      "sha256": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6"
+    },
+    "pdk_import.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-mim/pdk_import.py.txt",
+      "sha256": "b6a6723ef2f2c3a30ef013cd1afe58996c1b64a3381320f69bc935e5ce75bad0"
+    },
+    "interchange.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/interchange.py.txt",
+      "sha256": "29993ee82c62651d08334f94aebffac2b6c162681f5b6ef429c8c556dde34616"
+    },
+    "native_spice.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/native_spice.py.txt",
+      "sha256": "5f841b2b1fbc9151770e011929bb54253e48a1fe2277f474f7e35c7962bbebaf"
+    },
+    "ngspice_compat.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/ngspice_compat.py.txt",
+      "sha256": "8ea16d8e5ff6a6aa947f0ae635097e9895131738491b4d5674ae7aca0ed5a50b"
+    },
+    "catalog.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/catalog.py.txt",
+      "sha256": "9ec02006afb2835c3be9ddb3db5ad03540b382f0d6ad53559295229505a0fc81"
+    },
+    "analog_optimizer.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/analog_optimizer.py.txt",
+      "sha256": "e81ec268c0cc79300d5f82c4f205edd9e9479e91a13563a834e2fc3af4ea4155"
+    },
+    "project_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/project_ui.py.txt",
+      "sha256": "063eab0b10d459bbcacea1b7a0c647bb5e3193dbf6242f45ab2bb0ec0e29ec43"
+    },
+    "studies.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/studies.py.txt",
+      "sha256": "52f37c4e1a220f60fe11de1fc3f771b719de7f4cd21869106a83cf837ef0e000"
+    },
+    "gf180_layout.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-mos-boundaries/gf180_layout.py.txt",
+      "sha256": "744555609e25e0e70aa5f58f950d327eb224682f23ed4c19cc8b3c834876032a"
+    },
+    "ihp_layout.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-mos-boundaries/ihp_layout.py.txt",
+      "sha256": "c9cf94b535a57aac4d677be853b1156c01c58f25e8322132b7cfed56b82cf284"
+    }
+  },
+  "explanation": "Retain the exact earlier GF180 production-gate MOS generators before extending the separate device-layout geometry ranges. Fresh device-level DRC/LVS is recorded separately; the historical complete-flow gate is not reassigned to modified source.",
+  "checker_files": {
+    "scripts/check_gf180_fill_closure.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/check_gf180_fill_closure.py.txt",
+      "sha256": "917a334ea3e9863c30a9a9ccff184cdac74ebe0756641566ee7c057ec65c92b1"
+    },
+    "scripts/check_pdk_qualification.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/check_pdk_qualification.py.txt",
+      "sha256": "746e1de81d9feee5d365122f394232b6b273dabb788670fe5bd6b934567e358c"
+    }
+  },
+  "previous_snapshot": {
+    "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/manifest.json",
+    "sha256": "ecdfa28e37bb6efdededc5ab7f04159e943685353f00e6ffc019e73579a0047d"
+  }
+}

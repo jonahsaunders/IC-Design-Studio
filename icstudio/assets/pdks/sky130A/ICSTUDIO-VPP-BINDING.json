@@ -1,0 +1,226 @@
+{
+  "schema": 1,
+  "source_model_sha256": "7710a12e99c750841df77b352eb240e818a995e20474ebad70021e4a739adab2",
+  "parent_parallel_package": {
+    "revision": "32afdde0c2e14085",
+    "manifest_sha256": "09cb522968c48205b15f306fd0497de4881464ab2ff00b592cc214dac60ab9c8",
+    "original_manifest_sha256": "177e57626c06cb5d103aab04c4bc82983bc4ba96f2e08e4bc04006ade6cd8e2d"
+  },
+  "original_binding": {
+    "category": "Capacitors",
+    "emit_parameters": {
+      "l": "l",
+      "m": "mult",
+      "mult": "mult",
+      "w": "w"
+    },
+    "kind": "PDK",
+    "label": "vpp_cap",
+    "model": "sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5",
+    "model_source": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5.model.spice",
+    "notes": [
+      "Executable text retained as metadata only."
+    ],
+    "parameter_scale": {
+      "l": 1000000.0,
+      "w": 1000000.0
+    },
+    "parameters": {
+      "l": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": true
+      },
+      "mult": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": true
+      },
+      "w": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": true
+      }
+    },
+    "pin_order": [
+      "c0",
+      "c1",
+      "top",
+      "sub"
+    ],
+    "prefix": "X",
+    "source": "libs.tech/xschem/sky130_fd_pr/vpp_cap.sym",
+    "symbol": {
+      "attributes": {
+        "available_models": "\ncap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\ncap_vpp_11p5x11p7_l1m1m2m3m4_shieldpom5\ncap_vpp_11p5x11p7_m1m2m3m4_shieldl1m5\ncap_vpp_04p4x04p6_m1m2m3_shieldl1m5_floatm4\ncap_vpp_08p6x07p8_m1m2m3_shieldl1m5_floatm4\ncap_vpp_11p5x11p7_m1m2m3_shieldl1m5_floatm4\ncap_vpp_11p5x11p7_l1m1m2m3_shieldm4\ncap_vpp_06p8x06p1_l1m1m2m3_shieldpom4\ncap_vpp_06p8x06p1_m1m2m3_shieldl1m4\ncap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5\n",
+        "format": "@spiceprefix@name @pinlist sky130_fd_pr__@model W=@W L=@L mult=@mult m=@mult",
+        "template": "name=C1\nmodel=cap_vpp_11p5x11p7_l1m1m2m3m4_shieldm5\nW=1\nL=1 \nmult=1 \nspiceprefix=X",
+        "type": "capacitor"
+      },
+      "pin_meta": {
+        "c0": {
+          "bus": "",
+          "direction": "inout",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        },
+        "c1": {
+          "bus": "",
+          "direction": "inout",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        },
+        "sub": {
+          "bus": "",
+          "direction": "in",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        },
+        "top": {
+          "bus": "",
+          "direction": "in",
+          "label_visible": true,
+          "required": true,
+          "role": "signal"
+        }
+      },
+      "pin_order": [
+        "c0",
+        "c1",
+        "top",
+        "sub"
+      ],
+      "pins": {
+        "c0": [
+          0.0,
+          -30.0
+        ],
+        "c1": [
+          0.0,
+          30.0
+        ],
+        "sub": [
+          -20.0,
+          10.0
+        ],
+        "top": [
+          -20.0,
+          -10.0
+        ]
+      },
+      "primitives": [
+        {
+          "kind": "line",
+          "points": [
+            [
+              0.0,
+              2.5
+            ],
+            [
+              0.0,
+              30.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              0.0,
+              -30.0
+            ],
+            [
+              0.0,
+              -5.0
+            ]
+          ]
+        },
+        {
+          "kind": "line",
+          "points": [
+            [
+              -10.0,
+              -5.0
+            ],
+            [
+              10.0,
+              -5.0
+            ]
+          ]
+        },
+        {
+          "kind": "arc",
+          "points": [
+            [
+              -21.25,
+              2.5
+            ],
+            [
+              21.25,
+              45.0
+            ]
+          ],
+          "start": -61.92751306414704,
+          "sweep": -56.14497387170592
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              20.0,
+              -28.75
+            ],
+            [
+              40.0,
+              -18.75
+            ]
+          ],
+          "rotation": 0,
+          "text": "@name"
+        },
+        {
+          "font_size": 8.0,
+          "kind": "text",
+          "points": [
+            [
+              20.0,
+              16.25
+            ],
+            [
+              40.0,
+              26.25
+            ]
+          ],
+          "rotation": 0,
+          "text": "mult=@mult"
+        },
+        {
+          "font_size": 4.0,
+          "kind": "text",
+          "points": [
+            [
+              5.0,
+              -13.75
+            ],
+            [
+              25.0,
+              -3.75
+            ]
+          ],
+          "rotation": 0,
+          "text": "@model"
+        }
+      ]
+    },
+    "unavailable": ""
+  },
+  "contract": "Public subcircuit order c0 c1 b m5 maps to c0 c1 sub top. Fixed layout; no W/L scaling. Positive mult retains upstream statistical parameter and subcircuit multiplier semantics.",
+  "limits": "Default fixed-layout model only. Other available_models, physical extraction, complete operating ranges and mismatch accuracy require separate qualification."
+}

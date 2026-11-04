@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "status": "REVIEWED_SOURCE_BOUNDARY_CORRECTION_ACCEPTANCE_PENDING",
+  "base_commit": "2d3713037e23128b6f056b811a10087e4ce8825a",
+  "source_sha256": {
+    "icstudio/physical_backend.py": "d95db8cb58bed305f8efece9a67104a1e7826f592ca97ce5f534ea7fc4a9d297",
+    "tests/test_ihp_managed_saved_bench.py": "80b86e537bfdd6434ed84f33d20c9c8b3eabaabe8370aba8980a38da740c15ce",
+    "scripts/ci_feedback.py": "3fc8d8c7e949eb88c3a621b96919647fbe125f01cf2db3ff651a9c6adb313e1d",
+    "icstudio/digital_platform.py": "7a2271e4a4fa1c5f88f7cc1952b71423d6e1a937d9c7df0e1c5cc5926047b42e",
+    "tests/test_wsl_platform_capture.py": "7a908c842cdbec94f94c5381c2cd8fbe68b87f6ec32713de9b0b8a444f8d8106",
+    "tests/test_ihp_resistor_backend_assets.py": "9d069167569d781d67d854d9ddeef2701dde5f5266d5127d9dc937a3985e5e76"
+  },
+  "problem": "Automatic IHP model selection required an installed runtime for a plain asset-transfer request with no saved testbench.",
+  "repair": "Require a nonempty saved-testbench identifier, matching the existing silicon_flow.job hierarchical-flow branch. The no-testbench fallback is the custom SKY130 inverter flow.",
+  "original_regression_test_unchanged": "tests/test_ihp_resistor_backend_assets.py",
+  "hosted_failure": {
+    "run": 41762196988,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41762196988",
+    "candidate": "2d3713037e23128b6f056b811a10087e4ce8825a",
+    "synthetic_merge": "ea7040e3464164789250d536cdfe8c02462a034b",
+    "result": "failure",
+    "same_error_both_hosts": true,
+    "failing_test": "tests.test_ihp_resistor_backend_assets.IhpResistorBackendAssetsTests.test_actual_template_transfer_and_staged_recipe_identity",
+    "error": "Install the current included physical tools with the IHP simulation models.",
+    "unit_tests_per_host": 689,
+    "skipped": {
+      "Windows": 27,
+      "Linux": 14
+    },
+    "retention": {
+      "store": "persistent-evidence",
+      "location": "chunk7-2d37-hosted-feedback-2026-11-03-v1/retention.json",
+      "sha256": "d66c5a32e17058b745488e530d057999a7af4ac7a0f0a8fcf4856e997807ae5e"
+    },
+    "audit": {
+      "store": "persistent-evidence",
+      "location": "chunk7-2d37-hosted-feedback-2026-11-03-v1/hosted-feedback-verification.json",
+      "sha256": "f24fc99a4c727b68248087ddd33b9b22fcb24714b9600827296e31ec7a64f544"
+    }
+  },
+  "local_correction_checks": {
+    "windows": {
+      "tests": 58,
+      "skipped": 1,
+      "receipt": {
+        "store": "work",
+        "location": "chunk7-cmim-setup-gui-20261103-v4/receipt.json",
+        "sha256": "1e906777ce11029dd017529cb9b0ad39c11be33d6a06c7f157273e73fec41222"
+      }
+    },
+    "linux": {
+      "tests": 40,
+      "skipped": 0,
+      "log": {
+        "store": "work",
+        "location": "chunk7-ihp-handoff-scope-native-20261103-v1/linux-focused.log",
+        "sha256": "c42e0b5c545835814772859127594f810996811cb01650f0532a3333af669050"
+      },
+      "source_manifest": {
+        "store": "work",
+        "location": "chunk7-ihp-handoff-scope-native-20261103-v1/native-source-manifest.json",
+        "sha256": "ff467ea9b9a9909e9369d5cb62c82671a3d4fd16b70236bb5136ba3080396265"
+      }
+    },
+    "independent_review": {
+      "tests": 8,
+      "skipped": 0,
+      "receipt": {
+        "store": "work",
+        "location": "chunk7-model-handoff-scope-advisor-20261103-v1/source-review.json",
+        "sha256": "4a196d85a93002d4f5b3ee80f9afd4a668b808bb27449690ba5be16f87f14634"
+      }
+    },
+    "runtime_payload_absent": true,
+    "suite_counts_overlap": true,
+    "controls": "Missing, null and empty testbench requests transfer real locked assets without looking up runtime models. Positive saved-bench selection and all original asset-tampering assertions remain.",
+    "retained_archive": {
+      "evidence.zip": {
+        "location": "chunk7-ihp-handoff-scope-2026-11-03-v1/evidence.zip",
+        "sha256": "caed62a96c6f748f9e1cc9d4854f0b8519432a6f450223a2ae1e55db1106f1a7"
+      },
+      "retention.json": {
+        "location": "chunk7-ihp-handoff-scope-2026-11-03-v1/retention.json",
+        "sha256": "f6c9fc7a1d72b31ad43d43d83e3d85b8bfb4fadb04e944ae23c2fdd1acbc6c9a"
+      }
+    }
+  },
+  "superseded_acceptance": {
+    "desktop_run": 41762221778,
+    "cancellation_requested": true,
+    "local_setup": "deliberately interrupted for this source correction; no Ready or GUI pass",
+    "interruption_receipt": {
+      "store": "work",
+      "location": "chunk7-cmim-setup-gui-20261103-v3/interruption-receipt.json",
+      "sha256": "da830ca1e4bc7f41e1e7fb2a06eca8ef9ea48f8657a0161a1951f359db4c9a75"
+    },
+    "original_records_unchanged": true
+  },
+  "acceptance": {
+    "corrected_normal_setup": "pending",
+    "corrected_normal_gui": "pending",
+    "corrected_hosted_feedback": "pending",
+    "installed": "pending"
+  },
+  "qualification": {
+    "complete_family": false,
+    "foundry_signoff": false,
+    "device_statuses_changed": false,
+    "chunk7_estimated_percent": 74,
+    "confidence": "low",
+    "range": [
+      55,
+      82
+    ]
+  }
+}

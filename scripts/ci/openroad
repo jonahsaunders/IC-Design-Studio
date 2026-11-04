@@ -1,0 +1,5 @@
+#!/bin/sh
+# The pinned Ubuntu package embeds Ubuntu's Python. actions/setup-python exports
+# another libpython through LD_LIBRARY_PATH, which cannot use that standard library.
+unset LD_LIBRARY_PATH PYTHONHOME PYTHONPATH
+exec /usr/bin/openroad "$@"

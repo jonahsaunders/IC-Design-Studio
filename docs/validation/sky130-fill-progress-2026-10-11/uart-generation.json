@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "status": "candidate-created",
+  "case": "uart",
+  "qualified": false,
+  "driver_sha256": "2c3440ae0225b55cc0e65f7ed5a17aa057d2ae3194993ba72805f1c87972b522",
+  "source_sha256": "bf1294d46b12982e05f4ca220b389aaa47b64d3ade639ae4f0e9307bb631588a",
+  "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+  "decap_gds_sha256": "78cc653d0bb396203c43bf62badf067dc1bc0b1c5148894b5a362ddcdcea8cd7",
+  "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+  "density": {
+    "fom": 0.355003931875,
+    "poly": 0.29173502828125,
+    "li": 0.565844763125,
+    "m1": 0.368234368125,
+    "m2": 0.442060879375,
+    "m3": 0.37218908,
+    "m4": 0.411508945,
+    "m5": 0.45502095
+  },
+  "rows": [
+    {
+      "width": 5000,
+      "height": 1600,
+      "iteration": 0,
+      "offset": [
+        0,
+        1825
+      ],
+      "count": 110
+    },
+    {
+      "width": 5000,
+      "height": 1600,
+      "iteration": 1,
+      "offset": [
+        0,
+        2285
+      ],
+      "count": 55
+    },
+    {
+      "width": 5000,
+      "height": 1600,
+      "iteration": 2,
+      "offset": [
+        0,
+        2740
+      ],
+      "count": 55
+    },
+    {
+      "width": 5000,
+      "height": 1600,
+      "iteration": 3,
+      "offset": [
+        0,
+        1370
+      ],
+      "count": 18
+    }
+  ],
+  "added_m5_area_nm2": 1904000000,
+  "seconds": 5.132408862999,
+  "scope": "Remote Metal5 top-up. Native geometry, connectivity and electrical verification remain required."
+}

@@ -30,3 +30,7 @@ live-sessions/
 *.sqlite3-wal
 *.sqlite3-shm
 creation-key.txt
+!icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-npn-corners.lib
+
+# Exact public electrical placeholder required by the bondpad source lock.
+!icstudio/assets/qualification/ihp-bondpad/sg13g2_bondpad.lib

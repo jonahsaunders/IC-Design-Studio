@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "version": "0.23.0",
+  "commit": "e29cfd657cd607528da530eccce466361d6dee59",
+  "run_id": "39706558991",
+  "gate_sha256": "f950def038361f2f2da39604dbfef2413a286c64bb92e1afa489eef56240caa8",
+  "qualification_sha256": "5bcd8cc3e42e980a275a42320f5747d8dc34e60bb9040daba8f065813b7e3d8d",
+  "cases": 1152,
+  "trials": 128,
+  "joint": {
+    "trials": 128,
+    "passed": 99,
+    "failed": 29,
+    "unresolved": 0,
+    "pass_fraction": 0.7734375,
+    "confidence_95": [
+      0.6935732116243923,
+      0.8373675154135328
+    ],
+    "unresolved_bounds": [
+      0.7734375,
+      0.7734375
+    ]
+  },
+  "scope": "One-host numerical sampling and coordinator recovery; no two-host or foundry yield qualification."
+}

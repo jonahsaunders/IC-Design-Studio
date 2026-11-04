@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "status": "PASS_FINITE_MULTIPLICITY_ELECTRICAL",
+  "source_commit_basis": "71fb99166af8a1cb4a209b9d5f8fb14809b7d0db",
+  "physical_source_manifest_sha256": "2bce791ea4b4d64e0af3f9c8d233996d093740e530fd4495c692fe437bc73bc0",
+  "electrical_source_manifest_sha256": "130c1f69fc1bfb92f1b9bf26b3bfe3182a43187f50818f6edb2ddcb209d54da3",
+  "physical_source_delta_sha256": "5d6591b01c957a53f873add7f56f6b9fecf7a19c9cb7a9d2e681a998d6f719e1",
+  "electrical_source_delta_sha256": "1bdd0de0a901222084fb03f4c109e506c81d285edbb0391ac2fefb19e13e890d",
+  "source_file_count": 6965,
+  "source_unchanged": true,
+  "source_code": {
+    "scripts/check_ihp_cmim_multiplicity_electrical.py": "466bedac548e5871fd910dcd3e23767e241a4cc7e1132440d3a82febd943b854",
+    "scripts/qualify_ihp_cmim_multiplicity_electrical.py": "4d61a8aef1d2c94e6c2ea4eceb54fb68b7373945ea579f2c406986ac7eba245f",
+    "scripts/check_ihp_cmim_multiplicity.py": "2156d5eea51e9dac9dcb12807774aa2828b9364f114a0a66103652a0b644d63b",
+    "scripts/qualify_ihp_cmim_multiplicity.py": "5288f1f955f82e6c3d58063fc66f9376492c4ec78d4132f0e770516a28fbfd41",
+    "tests/test_ihp_cmim_multiplicity_electrical.py": "8ed65c528bccb80966a864a5e44b03b5e06b88431dff58be92a2c06a5215c6c1",
+    "tests/test_ihp_cmim_multiplicity.py": "a89488c002028e00b8109945755873a614326f07630666fe86611a0e218dde05",
+    "scripts/ci_feedback.py": "4e0fd69da311a9694c3438ca3d68fd4aa0d7b03c8b061c060914447a21454cc7"
+  },
+  "native_receipt_sha256": "3b1c5690e21f97afefc95e149c6f247af16b91fe1cf70673b61c8aaffda0e5ce",
+  "native_comparison_sha256": "2b2f3751b745e246ab31a97f78eebdf93fa0857071d2368a80d34d0f8da76779",
+  "windows_receipt_sha256": "4665df29c212a7ad479e29576277a1dd80b800acd85f34807e46d95b3f952920",
+  "windows_replay_sha256": "f86375cb00dbd1f1246c4e06bbd08e6a0579f52eb92a415c77910beffeff2d40",
+  "cross_host_semantic_equality": true,
+  "physical_reader_report_sha256": "ac915b9dcc5b385aea04ee1b6e34b179852ae97c074aed52ac6159ab082d3ffb",
+  "native_copy_receipt_sha256": "bc7612222633a08e1c3bcba06cd8d490a285b27a4a4e06ff2f5cedd3cdb92f85",
+  "native_runs": 6,
+  "rotations": [
+    0,
+    90
+  ],
+  "sections": [
+    "cap_typ",
+    "cap_bcs",
+    "cap_wcs"
+  ],
+  "temperature_c": 27,
+  "numerical_points_per_run": 3,
+  "positive_routes_per_point": 4,
+  "altered_routes_per_point": 5,
+  "raw_observations": 162,
+  "frequency_scope": "100 kHz and 1 MHz; separate dimensionless omega*R*C=1 numerical sensitivity, not physical validity.",
+  "focused_tests": {
+    "linux": {
+      "count": 50,
+      "skipped": 0,
+      "log_sha256": "3d5476851d24286b80d1e3a9156d7a6de6defe87e0b9d06af87a3b579bd76542"
+    },
+    "windows": {
+      "count": 50,
+      "skipped": 1,
+      "log_sha256": "6ae7f366b257d0dbe59d86f4d32489506aec567224ec19ff87769d05a9f36aff"
+    }
+  },
+  "original_failures": {
+    "pilot_v1": "Zero low-frequency real admittance retained.",
+    "pilot_v2": "Own series-fault conductance differed by nodal subtraction roundoff; retained.",
+    "pilot_v3": "Independent decimal expression association changed last-bit deck formatting; retained.",
+    "first_final_windows": "Sixteen one-bit derived relative-error differences; all actual raw values and other fields matched.",
+    "staging_v2": "Wrapper expected V1 manifest status instead of V2 and stopped before native execution; downstream missing-input reader failure retained."
+  },
+  "remediation": "Exact decimal unit parsing; explicit DC bias in series control; tightly component-specific finite numerical allowance; decimal canonical coefficients; deterministic 80-digit HALF_EVEN relative-error magnitude. Exact report equality, input/source/runtime bindings and meaningful numerical thresholds remain required.",
+  "runtime_scope": "Native ngspice launcher, actual binary and resolved dynamic-library bytes bound before/after; physical launcher scope separate.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "excluded": [
+    "arbitrary arrays",
+    "nested multipliers",
+    "statistical calibration",
+    "plate/interconnect parasitic extraction",
+    "physical model frequency validity",
+    "operating/reliability envelope",
+    "installed acceptance"
+  ],
+  "independent_review": {
+    "sha256": "612e173b3db4d9e8f4448bf24cf78c2a7c81a22961729794cb9992b6d8d81595",
+    "physical_raw_sha256": "a44da6ae28e212ae9392a2bd2b1ec9a33e2d230d536a64af9c8111dba9a054e4",
+    "electrical_raw_sha256": "822069f96136f7590a66ddff653eb450b72fb46996bf23afd965bce4c2ce2cc4",
+    "electrical_binding_sha256": "ed611a86268bbafae40a43f844941835d5b5c4c8924a25e841b876ab9885ce5a",
+    "scope": "Independent raw scientific, source/input binding, corruption controls and exact native/Windows replay review; no family or installed promotion."
+  },
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/chunk7-cmim-multiplicity-electrical-2026-11-03-v1",
+    "receipt_sha256": "96bfe6319d95a348015cbcfc362b4bade94f6fd6b94ed98556a172a9b6d5eab3",
+    "archives": {
+      "electrical": {
+        "name": "electrical-evidence.zip",
+        "sha256": "0eacc7811e6e57b18623e36e730fe7c00c315ccd68aeaaa8a4abdf4484ba03b9",
+        "bytes": 1446957,
+        "files": 332
+      },
+      "advisory": {
+        "name": "advisory-evidence.zip",
+        "sha256": "9b2d21e229b5900be689affd79879f137562338a87e0203830cb725ffd102b9f",
+        "bytes": 81203,
+        "files": 92
+      }
+    },
+    "physical_recovery_archive": "IC-Design-Studio-evidence/ihp-cmim-multiplicity-2026-11-03-v1/physical-evidence.zip",
+    "physical_recovery_sha256": "6da0dbdd4b59dec7b8d3d5fc8fa0df33d1731bfed01727db295e6dd57c65d7eb",
+    "verification": "All member SHA-256 and ZIP CRC read back; originals unchanged; source deltas and exact predecessor chain retained separately."
+  }
+}

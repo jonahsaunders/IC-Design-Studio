@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "chunk": 7,
+  "status": "integrated-source-milestones-pass",
+  "baseline": "cbde80ed4ce85df9ad800e0b9b0c70e4d68cfd4a",
+  "source_manifest_sha256": "de53c5b24601242e64448a151eb6acf4ed2e57cf2c71d524b207f64f9b74e11b",
+  "source_files": 6631,
+  "feedback_source_files": 1430,
+  "feedback": {
+    "windows": {
+      "tests": 722,
+      "skips": 24,
+      "stages": 6,
+      "seconds": 211.735,
+      "report_sha256": "adf4185fb6df6ab313ad5a7b726a6655605d8a8469ba2cbd4a24e6ae5bf6b722"
+    },
+    "linux": {
+      "tests": 722,
+      "skips": 4,
+      "stages": 6,
+      "seconds": 92.935,
+      "report_sha256": "8e0c6e172206210e18ebb39afb7ec58414c1e2176b9f8cd9a612f58844f335b4"
+    }
+  },
+  "current_esd_source_qt": {
+    "windows": {
+      "status": "PASS",
+      "source_only": true,
+      "installed_acceptance": false,
+      "qualified": false,
+      "returncode": 0,
+      "rehashed_stale_revision_rejected": "Current or predecessor identity differs",
+      "external_wrong_source_rejected": "Application or script source identities differ",
+      "report_sha256": "3c959e39ae2da9fae30a14076fa7a3606de17c69b3cf1e563bfc0012d8e5cdd9",
+      "readback_sha256": "f8ca317d6c1e7af326cb9f3a1cd33d277848dd9c0b07862d01bdc0f65fbdcd13",
+      "unchanged_sources": true,
+      "seconds": 94.15599999998813
+    },
+    "linux": {
+      "status": "PASS",
+      "source_only": true,
+      "installed_acceptance": false,
+      "qualified": false,
+      "returncode": 0,
+      "rehashed_stale_revision_rejected": "Current or predecessor identity differs",
+      "external_wrong_source_rejected": "Application or script source identities differ",
+      "report_sha256": "470e66f327e14c20f76e60dbe3db06020dd6a983cb9a99702d47504097d757a3",
+      "readback_sha256": "9527db38931a569230e39b3e05fbc415dfabf0e84b6daa3ea7d2e2ab2dfb08c6",
+      "unchanged_sources": true,
+      "seconds": 11.471360071001982
+    }
+  },
+  "selected_hierarchy": {
+    "status": "PASS",
+    "command": [
+      "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+      "-B",
+      "-X",
+      "pycache_prefix=/var/tmp/icstudio-selection-20261028-v1/absent-cache",
+      "/var/tmp/icstudio-mim-mm-20261024-v1/feedback-source/scripts/qualify_sky130_mim_hierarchy_electrical.py",
+      "--source",
+      "/var/tmp/icstudio-mim-mm-20261024-v1/feedback-source",
+      "--out",
+      "/var/tmp/icstudio-selection-20261028-v1/one-case",
+      "--physical",
+      "/var/tmp/icstudio-selection-20261028-v1/physical",
+      "--archive",
+      "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-hierarchy-2026-10-26-v1/evidence.zip",
+      "--auditor-source",
+      "/var/tmp/icstudio-mim-mm-20261024-v1/feedback-source",
+      "--ngspice",
+      "/usr/bin/ngspice",
+      "--workers",
+      "1",
+      "--development",
+      "--select",
+      "p1-r0-tt"
+    ],
+    "development": true,
+    "source_integration_acceptance": false,
+    "returncode": 0,
+    "controls": {
+      "acceptance_flag": "Failed or overclaimed electrical evidence.",
+      "promoted_selection": "Non-development coverage differs.",
+      "missing_case": "Electrical selection incomplete or duplicated.",
+      "duplicate_case": "Electrical selection incomplete or duplicated."
+    },
+    "audit_sha256": "bf3728c9350ce4c937f3d2d9cd7b8f89dcc2f5a03ee011d588fd1c187ea1976c",
+    "seconds": 19.68297364099999
+  },
+  "native_source_binding": {
+    "status": "PASS",
+    "source_manifest_sha256": "de53c5b24601242e64448a151eb6acf4ed2e57cf2c71d524b207f64f9b74e11b",
+    "unchanged_snapshot_files": 6631,
+    "selection_base_sources": 846,
+    "selection_candidate_sources": 7,
+    "current_qt_sources": 476,
+    "source_scope": "All captured source and candidate bytes independently match frozen v2 manifest; actual readers repeated against those bytes.",
+    "installed_acceptance": false,
+    "qualified": false
+  },
+  "bondpad": {
+    "native_archive_sha256": "5487f3858d0658ef52e27b1ea1584e0db17c9d267142a2a5c4b2556530193562",
+    "public_source_commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "source_lock_sha256": "0811e348eb273f5827ff3f7ffb5fa32a7380f8ba53189a4c3004816c04661895",
+    "source_gui": {
+      "schema": 1,
+      "status": "PASS",
+      "mode": "source-qt",
+      "installed_acceptance": false,
+      "qualified": false,
+      "platform": "offscreen",
+      "late_layer_lock_rejected": true,
+      "electrical_binding_unavailable": true,
+      "undo_redo": true,
+      "save_reopen": true,
+      "stream_formats": [
+        "gds",
+        "oas"
+      ]
+    },
+    "scope": "16 written variants / 32 GDS-OASIS per host; one 80um native main/maximal positive and missing-TM2 control, no electrical model or full-chip acceptance."
+  },
+  "changes": [
+    "Linux handoff case semantics; Windows implicit parent collision rejection",
+    "Preserve 40 existing text SPICE libraries plus exact new bondpad placeholder in source archives",
+    "Selected IHP square TM2 physical bondpad action",
+    "Five IHP RF view LVS selectors preserved and checked during Xschem exchange",
+    "GF180 process recipe cannot change under corner overrides",
+    "Explicit non-accepting development selection; default full20/pilot2 retained",
+    "Strict source-only ESD revision and actual Qt lifecycle/staging bridge"
+  ],
+  "archives": {
+    "windows_review": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-parallel-integration-2026-10-28-v1\\windows-and-review.zip",
+      "sha256": "eb172e4348f5323a8ab0d094dcaac2f93f45c5b2452b97c59f9a12c840108f70",
+      "bytes": 31665504,
+      "files": 2250,
+      "all_members_verified": true
+    },
+    "native": {
+      "status": "PASS",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-parallel-integration-2026-10-28-v1\\native-evidence.zip",
+      "sha256": "9093d615f1cd7ec56ccb34e55be729cc17242e20e21c2101abb95ad7e131d746",
+      "bytes": 58384712,
+      "files": 4996,
+      "all_members_verified": true,
+      "source_binding": {
+        "status": "PASS",
+        "source_manifest_sha256": "de53c5b24601242e64448a151eb6acf4ed2e57cf2c71d524b207f64f9b74e11b",
+        "unchanged_snapshot_files": 6631,
+        "selection_base_sources": 846,
+        "selection_candidate_sources": 7,
+        "current_qt_sources": 476,
+        "source_scope": "All captured source and candidate bytes independently match frozen v2 manifest; actual readers repeated against those bytes.",
+        "installed_acceptance": false,
+        "qualified": false
+      }
+    },
+    "bondpad": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-parallel-integration-2026-10-28-v1\\bondpad-native.tar.gz",
+      "sha256": "5487f3858d0658ef52e27b1ea1584e0db17c9d267142a2a5c4b2556530193562",
+      "bytes": 1757309
+    }
+  },
+  "retained_failures": [
+    "Pre-integration cbde80ed Linux hosted handoff seal",
+    "First source feedback: missing historical digital_recipes/xschem source capture",
+    "Malformed ESD test nonce, corrected",
+    "Original GF180 ff and larger MiM common-mode failures remain open",
+    "WSL could not create permanent Windows archive folder; archive produced in task directory then byte-verified copy from Windows"
+  ],
+  "qualification": {
+    "default_bindings_unavailable": 6,
+    "partial_entries": 287,
+    "utilities": 9,
+    "default_promoted": false,
+    "family_gate_completed": false,
+    "chunk_complete": false,
+    "installed_acceptance": false
+  },
+  "estimate": {
+    "percent": 70,
+    "range": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "basis": "Engineering estimate, not test counts or assignment completion."
+  }
+}

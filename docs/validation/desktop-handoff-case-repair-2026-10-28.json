@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "date": "2026-10-28",
+  "status": "local_focused_pass_hosted_pending",
+  "baseline": "cbde80ed4ce85df9ad800e0b9b0c70e4d68cfd4a",
+  "failure": {
+    "run": 40409358187,
+    "job": 121880778315,
+    "stage": "Seal exact candidate handoff",
+    "error": "Case-colliding payload names"
+  },
+  "repair": "Authenticated Linux payloads preserve case-distinct paths. Windows payloads and portable source ZIPs reject case-colliding full paths and implicit parent prefixes before extraction.",
+  "preservation": "Candidate, run, attempt, host, workspace, source Git identities, per-file bytes, content hashes, containment and all fresh installed/release gates remain required.",
+  "independent_review": "Root reviewed worker patch; second reviewer reproduced implicit-parent aliases; root corrected both payload and source ZIP guards and added four regressions.",
+  "focused": {
+    "linux_tests": 54,
+    "linux_skips": 0,
+    "windows_handoff_tests": 45,
+    "windows_skips": 8,
+    "scope": "Synthetic tar/Git fixtures, including actual CLI transfer with representative Linux terminfo names/sizes; not the actual hosted payload."
+  },
+  "representative_inventory": {
+    "candidate": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+    "artifact": 12688583417,
+    "members": 53819,
+    "all_paths_passed_safety": true,
+    "scope": "Prior Linux ZIP directory only; not exact cb payload bytes or acceptance."
+  },
+  "evidence": {
+    "bytes": 1278334,
+    "sha256": "5d7533df8f41fffa1d9311dde729c8163e62342a2ca3c457953a4b1cfee9927b",
+    "logical_files": 17,
+    "recovery": "Every member read back and compared to its archived source bytes."
+  },
+  "changed_files": {
+    "scripts/desktop_acceptance_handoff.py": "feb463df52e69f9f6e5551bb0e227217cda6371253d57f0e9c759d8cabde49d4",
+    "tests/test_desktop_acceptance_handoff.py": "117057ee5c413ffe28d463fbeb805e64595cc561a1ce2e9e2c2e1b12ac42367d"
+  },
+  "full_feedback": "Pending integrated candidate",
+  "hosted_acceptance": false,
+  "installed_acceptance": false,
+  "qualified": false,
+  "chunk_complete": false
+}

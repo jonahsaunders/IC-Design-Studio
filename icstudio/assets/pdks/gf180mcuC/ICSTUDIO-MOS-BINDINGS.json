@@ -1,0 +1,380 @@
+{
+  "schema": 1,
+  "original_manifest_sha256": "92ed3a348c93cde49bf48f2edf37a4f41bee6a0d3741b04f7c5ebfbdbc23ac7f",
+  "parent": null,
+  "original_bindings": {
+    "symbols/nfet_06v0_nvt.sym": {
+      "label": "nfet_06v0_nvt",
+      "kind": "NMOS",
+      "category": "NMOS",
+      "source": "libs.tech/xschem/symbols/nfet_06v0_nvt.sym",
+      "model": "nfet_06v0",
+      "unavailable": "",
+      "pin_order": [
+        "d",
+        "g",
+        "s",
+        "b"
+      ],
+      "prefix": "X",
+      "parameters": {
+        "ad": {
+          "default": "int((nf+1)/2) * w/nf * 0.18u",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "as": {
+          "default": "int((nf+2)/2) * w/nf * 0.18u",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "l": {
+          "default": "1.80u",
+          "positive": true,
+          "integer": false,
+          "derived": false
+        },
+        "m": {
+          "default": "1",
+          "positive": true,
+          "integer": false,
+          "derived": false
+        },
+        "nf": {
+          "default": "1",
+          "positive": true,
+          "integer": true,
+          "derived": false
+        },
+        "nrd": {
+          "default": "0.18u / w",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "nrs": {
+          "default": "0.18u / w",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "pd": {
+          "default": "2*int((nf+1)/2) * (w/nf + 0.18u)",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "ps": {
+          "default": "2*int((nf+2)/2) * (w/nf + 0.18u)",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "sa": {
+          "default": "0",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "sb": {
+          "default": "0",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "sd": {
+          "default": "0",
+          "positive": false,
+          "integer": false,
+          "derived": false
+        },
+        "w": {
+          "default": "0.80u",
+          "positive": true,
+          "integer": false,
+          "derived": false
+        }
+      },
+      "emit_parameters": {
+        "l": "l",
+        "w": "w",
+        "nf": "nf",
+        "ad": "ad",
+        "as": "as",
+        "pd": "pd",
+        "ps": "ps",
+        "nrd": "nrd",
+        "nrs": "nrs",
+        "sa": "sa",
+        "sb": "sb",
+        "sd": "sd",
+        "m": "m"
+      },
+      "parameter_scale": {
+        "w": 1,
+        "l": 1
+      },
+      "symbol": {
+        "pins": {
+          "d": [
+            20.0,
+            -30.0
+          ],
+          "g": [
+            -20.0,
+            0.0
+          ],
+          "s": [
+            20.0,
+            30.0
+          ],
+          "b": [
+            20.0,
+            0.0
+          ]
+        },
+        "primitives": [
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -22.5
+              ],
+              [
+                7.5,
+                22.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -20.0,
+                0.0
+              ],
+              [
+                -2.5,
+                0.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                -30.0
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                20.0,
+                17.5
+              ],
+              [
+                20.0,
+                30.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                -2.5,
+                -15.0
+              ],
+              [
+                -2.5,
+                15.0
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                -17.5
+              ],
+              [
+                20.0,
+                -17.5
+              ]
+            ]
+          },
+          {
+            "kind": "line",
+            "points": [
+              [
+                7.5,
+                17.5
+              ],
+              [
+                15.0,
+                17.5
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                15.0,
+                15.0
+              ],
+              [
+                20.0,
+                17.5
+              ],
+              [
+                15.0,
+                20.0
+              ]
+            ]
+          },
+          {
+            "kind": "polygon",
+            "points": [
+              [
+                20.0,
+                -2.5
+              ],
+              [
+                15.0,
+                0.0
+              ],
+              [
+                20.0,
+                2.5
+              ]
+            ]
+          },
+          {
+            "kind": "text",
+            "points": [
+              [
+                30.0,
+                -8.75
+              ],
+              [
+                50.0,
+                1.25
+              ]
+            ],
+            "text": "@model",
+            "rotation": 180,
+            "font_size": 8.0
+          },
+          {
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                13.75
+              ],
+              [
+                51.25,
+                23.75
+              ]
+            ],
+            "text": "@m x @W / @L",
+            "rotation": 0,
+            "font_size": 8.0
+          },
+          {
+            "kind": "text",
+            "points": [
+              [
+                31.25,
+                1.25
+              ],
+              [
+                51.25,
+                11.25
+              ]
+            ],
+            "text": "nf=@nf",
+            "rotation": 0,
+            "font_size": 8.0
+          },
+          {
+            "kind": "text",
+            "points": [
+              [
+                5.0,
+                -30.0
+              ],
+              [
+                25.0,
+                -20.0
+              ]
+            ],
+            "text": "@spiceprefix@name",
+            "rotation": 0,
+            "font_size": 8.0
+          }
+        ],
+        "pin_meta": {
+          "d": {
+            "direction": "inout",
+            "role": "signal",
+            "bus": "",
+            "label_visible": true,
+            "required": true
+          },
+          "g": {
+            "direction": "in",
+            "role": "signal",
+            "bus": "",
+            "label_visible": true,
+            "required": true
+          },
+          "s": {
+            "direction": "inout",
+            "role": "signal",
+            "bus": "",
+            "label_visible": true,
+            "required": true
+          },
+          "b": {
+            "direction": "in",
+            "role": "signal",
+            "bus": "",
+            "label_visible": true,
+            "required": true
+          }
+        },
+        "pin_order": [
+          "d",
+          "g",
+          "s",
+          "b"
+        ],
+        "attributes": {
+          "type": "nmos",
+          "format": "@spiceprefix@name @pinlist @model L=@L W=@W\n+ nf=@nf ad=@ad as=@as pd=@pd ps=@ps\n+ nrd=@nrd nrs=@nrs sa=@sa sb=@sb sd=@sd\n+ m=@m",
+          "lvs_format": "@name @pinlist @model L=@L W=@W nf=@nf m=@m",
+          "template": "name=M1\nL=1.80u\nW=0.80u\nnf=1\nm=1\nad=\\int((nf+1)/2) * W/nf * 0.18u\\\npd=\\2*int((nf+1)/2) * (W/nf + 0.18u)\\\nas=\\int((nf+2)/2) * W/nf * 0.18u\\\nps=\\2*int((nf+2)/2) * (W/nf + 0.18u)\\\nnrd=\\0.18u / W\\ nrs=\\0.18u / W\\\nsa=0 sb=0 sd=0\nmodel=nfet_06v0\nspiceprefix=X\n"
+        }
+      },
+      "model_source": "libs.tech/ngspice/sm141064.spice",
+      "notes": [
+        "Executable text retained as metadata only.",
+        "Executable text retained as metadata only."
+      ]
+    }
+  },
+  "scope": "Explicit source-backed model/terminal corrections only. Upstream asset bytes retained. No complete operating envelope, physical, RF accuracy or ESD qualification."
+}

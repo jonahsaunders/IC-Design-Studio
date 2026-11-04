@@ -1,0 +1,173 @@
+{
+  "schema": 1,
+  "date": "2026-10-30",
+  "chunk": 7,
+  "status": "PASS_SOURCE_FEEDBACK",
+  "scope": "Current5dda desktop repair: current RF identity, explicit MiM v2 and parallel producer contracts, queued Hub completion and exact historical GF180 source preservation. Separate pw2dn record remains source-only; no future package or simulator promoted.",
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "source_metadata_commit": "f67b8ff6377c96816392a0a91bcc2063fddd54ab",
+  "source_manifest_sha256": "9803bf2371300f9d80f504e675461a6eaf4df31426498ee732c45b6633fe60e6",
+  "source_files": 6787,
+  "feedback_identity_files": 1497,
+  "hosts": {
+    "Windows": {
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 261.438
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 105.172
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 9.547
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.968
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.688
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.375
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 35.657
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 67816.375
+        }
+      ],
+      "source_seconds": 68284.813,
+      "unit-contracts": {
+        "tests": 866,
+        "seconds": 259.85,
+        "skipped": 34
+      },
+      "package-contracts": {
+        "tests": 8,
+        "seconds": 104.98,
+        "skipped": 0
+      },
+      "total_tests": 874
+    },
+    "Linux": {
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 61.362
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 26.041
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.618
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.378
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.424
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 5.179
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 20.474
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 81.442
+        }
+      ],
+      "source_seconds": 224.841,
+      "unit-contracts": {
+        "tests": 866,
+        "seconds": 60.363,
+        "skipped": 14
+      },
+      "package-contracts": {
+        "tests": 8,
+        "seconds": 25.944,
+        "skipped": 0
+      },
+      "total_tests": 874
+    }
+  },
+  "gui": {
+    "Windows": {
+      "cases": 60,
+      "execution_id": "fb1f1a06a67049cc829ee692b8da7fa7",
+      "files_sha256": "fa5f52f41e73567fe6a5720fe5e52d2fdf19be8efa79845abc1ca615d5eec68e",
+      "installed_acceptance": false
+    },
+    "Linux": {
+      "cases": 60,
+      "execution_id": "c1cfac5645f94ed7bbd9cd554a8b04e8",
+      "files_sha256": "7686f9030cbe46b2c5959de94e199878996e1c5c46d3857077de4a449026816c",
+      "installed_acceptance": false
+    }
+  },
+  "archives": {
+    "Windows": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-desktop-repair-feedback-2026-10-29-v1\\windows-feedback.zip",
+      "sha256": "be82c87fce26576036226f999571cc8b5d26fd3288e269bf35865cdb8014c16c",
+      "bytes": 16752941,
+      "files": 1102
+    },
+    "Linux": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-desktop-repair-feedback-2026-10-29-v1\\linux-feedback.zip",
+      "sha256": "9a96bd7b585c62fd8081fe438c9d044773ddf881029618593f327822c463096b",
+      "bytes": 16736603,
+      "files": 1101
+    }
+  },
+  "source_unchanged_on_both_hosts": true,
+  "estimate": {
+    "percent": 70,
+    "range": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "engineering_estimate": true
+  },
+  "preserved_failures": [
+    "Combined v2 source checks rejected missing historical Hub capture and stale parallel test; fixed without changing validation gates.",
+    "Linux v3 source snapshot omitted newly committed validation document; corrected source inventory copied all tracked and untracked scoped inputs. No application change."
+  ],
+  "review": "Independent GPT-6 Astra source/contract review; root integration and complete raw archive readback.",
+  "execution_started": "2026-10-29",
+  "execution_completed": "2026-10-30",
+  "timing_note": "Windows output timestamps and monotonic elapsed time cross a long host interruption. Preserve observed elapsed values; they are not a normal benchmark or a measured CI duration. No test timeout or threshold was changed."
+}

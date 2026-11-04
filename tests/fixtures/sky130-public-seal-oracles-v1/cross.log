@@ -1,0 +1,31 @@
+
+Magic 8.3 revision 684 - Compiled on Tue Oct  6 22:55:21 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Loading "convert.tcl" from command line.
+Input style generic: scaleFactor=1, multiplier=1
+The following types are not handled by extraction and will be treated as non-electrical types:
+    type11 type20 type21 type22 type22_22 type23 type25 type27 type28 type30 type32 type34 type35 type36 type37 type39 type40 type41 type43 type44 type46 type48 type49 type50 type51 type56 type58 type59 type61_20 type65_20 type81_1 type81_51 type81_52 type88 type96 type97 type98 
+Cell nikon_sealring_shape read from current working directory
+Cell sr_polygon00007 read from current working directory
+Cell sr_polygon00001 read from current working directory
+Cell sr_polygon00002 read from current working directory
+Cell sr_polygon00003 read from current working directory
+Cell sr_polygon00004 read from current working directory
+Cell sr_polygon00005 read from current working directory
+Cell sr_polygon00006 read from current working directory
+   Generating output for cell sr_polygon00007
+   Generating output for cell sr_polygon00001
+   Generating output for cell sr_polygon00002
+   Generating output for cell sr_polygon00003
+   Generating output for cell sr_polygon00004
+   Generating output for cell sr_polygon00005
+   Generating output for cell sr_polygon00006
+   Generating output for cell nikon_sealring_shape

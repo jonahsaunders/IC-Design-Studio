@@ -1,0 +1,73 @@
+{
+  "commit": "f79c1aa616361a5980994feffda1e2766a4b500b",
+  "commit_date": "2026-05-08",
+  "files": {
+    "02_process_control_params.rst": {
+      "bytes": 6084,
+      "git_blob_sha1": "37cfb0dba757d451f63c60ede0d5f1980165b7f8",
+      "path": "docs/process_specs/02_process_control_params.rst",
+      "sha256": "b95376d55e13087af9b81084ee02df88c3e71c76f390fb41f4986561345c9893",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/02_process_control_params.rst"
+    },
+    "04_06_cap.rst": {
+      "bytes": 4144,
+      "git_blob_sha1": "e29c114777d920bda59d1ba5f3b8d1547a46f5ee",
+      "path": "docs/verification/lvs/04_06_cap.rst",
+      "sha256": "aebaa8a397b6409798e8f3ed189c0811d78c80be36979852220790828ce79006",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/verification/lvs/04_06_cap.rst"
+    },
+    "04_meas_cond.rst": {
+      "bytes": 253,
+      "git_blob_sha1": "1f8e555db23f8c8e02e99c16fa8a4d5c7dce6143",
+      "path": "docs/process_specs/04_meas_cond.rst",
+      "sha256": "8cce0cdb08b8529c5068deb4a83f84de406cbcfa8f2c5438e41d598df01a8a04",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/04_meas_cond.rst"
+    },
+    "LICENSE": {
+      "bytes": 11357,
+      "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "path": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/LICENSE"
+    },
+    "README.rst": {
+      "bytes": 4866,
+      "git_blob_sha1": "5532f643e021ea54f2b35cb8e116aa4ecedfe3ff",
+      "path": "README.rst",
+      "sha256": "6e51e6b29e52aac2871b91f1500dd1b4310ccedd77008e982306891cc77197af",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/README.rst"
+    },
+    "extra_drc_table.csv": {
+      "bytes": 14200,
+      "git_blob_sha1": "9f13c568ed0f4148edeaf3a3756de908c69cf9cf",
+      "path": "docs/verification/drc/tables/extra_drc_table.csv",
+      "sha256": "09a0124fe7138234b4b2e686afef1cfeb6c104a70c7b7dffb28e5e2b6dc0826a",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/verification/drc/tables/extra_drc_table.csv"
+    },
+    "main_drc_table.csv": {
+      "bytes": 12357,
+      "git_blob_sha1": "388ee082116d092121d3e3566c22f192350d9526",
+      "path": "docs/verification/drc/tables/main_drc_table.csv",
+      "sha256": "f3c864fdb1c056e9f5b0842968458cee55256477a17e1274bba5abec3e538534",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/verification/drc/tables/main_drc_table.csv"
+    },
+    "meas_cond.csv": {
+      "bytes": 9939,
+      "git_blob_sha1": "26a0cc91cb3dfb6df66c86d4101d0bfebb848964",
+      "path": "docs/process_specs/tables/meas_cond.csv",
+      "sha256": "99294a0697a52b3c9863a2d8c40c75d1fe1148a40dd853b98ef0f55187205e3a",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/tables/meas_cond.csv"
+    },
+    "mimcap_params.csv": {
+      "bytes": 464,
+      "git_blob_sha1": "11139915f4ede1abc38e5ca61c47a1880035f8bb",
+      "path": "docs/process_specs/tables/mimcap_params.csv",
+      "sha256": "17da95f0446a8fc994608bf88d33968b1e1b6207bd09d34ab88124054189858d",
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/blob/f79c1aa616361a5980994feffda1e2766a4b500b/docs/process_specs/tables/mimcap_params.csv"
+    }
+  },
+  "license": "Apache-2.0",
+  "qualification_note": "This documentation commit is distinct from the already pinned application PDK; compatibility must be established per source before extending acceptance.",
+  "schema": 1,
+  "upstream": "IHP-GmbH/IHP-Open-PDK-docs"
+}

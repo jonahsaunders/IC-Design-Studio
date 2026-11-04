@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "recipe": "sky130-hd-staged-antenna-v1",
+  "policy": {
+    "recipe": "sky130-hd-staged-antenna-v1",
+    "deck": "sky130hd/antenna/check.drc",
+    "sha256": "92b0378b845c81f2e5ec46918f894988f8648fd0a8f4482441de325aa3cc18fc"
+  },
+  "scope": "Thirteen staged antenna checks on the captured SKY130 five-metal HD MOS layout. The reviewed supplemental deck retains its published met5 description discrepancy. Other devices, process options, complete physical coverage and foundry signoff remain unqualified.",
+  "qualified": false,
+  "chunk_complete": false,
+  "status": "PASS",
+  "top": "counter",
+  "platform_fingerprint": "f1c21b36a18d81b864a24e8c7fc2787cda6aa3ecae57e0d3459d1560b72a20dc",
+  "gds_sha256": "4832c2d52e14ec217bbf3dd14c34288d781a8b9edf252afa350136140daee872",
+  "checkpoint_sha256": "b1ecef2acc34c7810ac61e2775e1a35dc69e38fa46009b3271ab1ee0b3ed3625",
+  "engine": {
+    "version": "KLayout 0.30.5",
+    "sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9"
+  },
+  "stages": [
+    {
+      "stage": "poly",
+      "limit": 50,
+      "thickness_um": 0.18,
+      "diode_area_factor": 0,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "licon",
+      "limit": 3,
+      "thickness_um": 0,
+      "diode_area_factor": 0,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "li",
+      "limit": 75,
+      "thickness_um": 0.1,
+      "diode_area_factor": 450,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "mcon",
+      "limit": 3,
+      "thickness_um": 0,
+      "diode_area_factor": 18,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met1",
+      "limit": 400,
+      "thickness_um": 0.35,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    },
+    {
+      "stage": "via",
+      "limit": 6,
+      "thickness_um": 0,
+      "diode_area_factor": 36,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met2",
+      "limit": 400,
+      "thickness_um": 0.35,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    },
+    {
+      "stage": "via2",
+      "limit": 6,
+      "thickness_um": 0,
+      "diode_area_factor": 36,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met3",
+      "limit": 400,
+      "thickness_um": 0.8,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    },
+    {
+      "stage": "via3",
+      "limit": 6,
+      "thickness_um": 0,
+      "diode_area_factor": 36,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met4",
+      "limit": 400,
+      "thickness_um": 0.8,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    },
+    {
+      "stage": "via4",
+      "limit": 6,
+      "thickness_um": 0,
+      "diode_area_factor": 36,
+      "diode_bonus": 0,
+      "markers": 0
+    },
+    {
+      "stage": "met5",
+      "limit": 400,
+      "thickness_um": 1.2,
+      "diode_area_factor": 400,
+      "diode_bonus": 2200,
+      "markers": 0
+    }
+  ],
+  "violations": 0,
+  "evidence": {
+    "check.drc": "sky130_antenna_check",
+    "metrics.json": "sky130_antenna_metrics",
+    "native.log": "sky130_antenna_native",
+    "report.lyrdb": "sky130_antenna_report",
+    "request.json": "sky130_antenna_request"
+  }
+}

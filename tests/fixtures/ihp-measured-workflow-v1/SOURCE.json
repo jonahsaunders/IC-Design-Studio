@@ -1,0 +1,63 @@
+{
+  "repository": "https://github.com/VolkerMuehlhaus/openems_ihp_sg13g2",
+  "commit": "0f87e9d069de3e88bdfdc5bb30d4a0958f045d32",
+  "license": "GPL-3.0",
+  "files": [
+    {
+      "path": "gds2openEMS/__init__.py",
+      "upstream_path": "workflow/modules/__init__.py",
+      "git_blob": "d39edcc8a2d0e73e78563846ec9b201601a3963a",
+      "sha256": "e8c9f7e83cbf28835e9d7645c6286cd3b9da1aaa3d0c62d48d294941b12d46e8",
+      "bytes": 1077
+    },
+    {
+      "path": "gds2openEMS/momentum_to_xml.py",
+      "upstream_path": "workflow/modules/momentum_to_xml.py",
+      "git_blob": "9f46ca242def09fdb1b574ba93f5b7d4d0765c24",
+      "sha256": "cfb014b7f85ee12e9538db7cbf7b811e3473845e8c69f2a07d18d3f8849f9246",
+      "bytes": 26863
+    },
+    {
+      "path": "gds2openEMS/util_gds_reader.py",
+      "upstream_path": "workflow/modules/util_gds_reader.py",
+      "git_blob": "3af759d008f7059c2bb144f66f82f60b5933b98d",
+      "sha256": "d651dd3cb20adef3b8764ae0456b8402ca1abada50a8620f7dff221509b385ba",
+      "bytes": 35577
+    },
+    {
+      "path": "gds2openEMS/util_meshlines.py",
+      "upstream_path": "workflow/modules/util_meshlines.py",
+      "git_blob": "427caf8dbeda6ffb2a74c2cd0887157f5b89b04b",
+      "sha256": "4455af8eaf93466227e01b81d92316819a33a2812569a6119af292604fa6a6cd",
+      "bytes": 29587
+    },
+    {
+      "path": "gds2openEMS/util_resonance_estimation.py",
+      "upstream_path": "workflow/modules/util_resonance_estimation.py",
+      "git_blob": "78d6c567bd4ea95af3549029f8e1a4fc91dc3fef",
+      "sha256": "0698c13a9bf8d49ce4b68e3ce75fbc3ec21f6c6b099efba395662f5867efdff9",
+      "bytes": 25722
+    },
+    {
+      "path": "gds2openEMS/util_simulation_setup.py",
+      "upstream_path": "workflow/modules/util_simulation_setup.py",
+      "git_blob": "ddd81b3457455984d3d8a63a8cc6779399c88867",
+      "sha256": "45c37060f20bb1e408d88ead639359411b0780f047e2db77e5d43e21e355c2af",
+      "bytes": 60256
+    },
+    {
+      "path": "gds2openEMS/util_stackup_reader.py",
+      "upstream_path": "workflow/modules/util_stackup_reader.py",
+      "git_blob": "5d3fe23614663ffe047e2d94fb849609c66e4608",
+      "sha256": "1c886ec98403f51524e9c0f08a476a87fff5c17f45c43eb8aab69df50a21002c",
+      "bytes": 88590
+    },
+    {
+      "path": "gds2openEMS/util_utilities.py",
+      "upstream_path": "workflow/modules/util_utilities.py",
+      "git_blob": "a0d11c6d36e051a3af87708ad4bc9901526a1e5a",
+      "sha256": "7680655ea238f4a3f525ce7aad32d6732d2551f7cb88f9dc9e7e8aa9f494b988",
+      "bytes": 13709
+    }
+  ]
+}

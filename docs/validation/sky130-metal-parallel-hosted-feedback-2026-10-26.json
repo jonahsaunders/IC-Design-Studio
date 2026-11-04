@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "status": "success",
+  "date": "2026-10-26",
+  "run": 40361525098,
+  "candidate": "79a3fd4803ed0652fc5f3db8b06999186f6fdbb2",
+  "base": "49c79957b4d6f4978127da612e167e5c75cda6b3",
+  "merge": "47409ec0bddb0f133022219f64129ff5f50a1228",
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40361525098",
+  "required_feedback": "success",
+  "platforms": [
+    {
+      "platform": "Windows",
+      "status": "PASS",
+      "tests": 550,
+      "skips": 15,
+      "seconds": 179.703,
+      "source_bindings": 1386,
+      "artifact_id": 12667289999,
+      "artifact_sha256": "10d66007ae40fe33e3dda6546ceba0819819e29f1c7e6f35527f0dbeb0751732",
+      "artifact_bytes": 7168997,
+      "report_sha256": "176afb966457cd65d53628cf6a05b875263f8a0ff1ae2dbccbbd0d2148910a23",
+      "members": 210,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 81.25
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.968
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.219
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.969
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 10.14
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 42.25
+        }
+      ],
+      "archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-parallel-hosted-2026-10-26-v1/source-feedback-Windows.zip"
+    },
+    {
+      "platform": "Linux",
+      "status": "PASS",
+      "tests": 550,
+      "skips": 4,
+      "seconds": 110.819,
+      "source_bindings": 1386,
+      "artifact_id": 12669585149,
+      "artifact_sha256": "4721ae67b3e5186f669b2743f676ab950ed4a91e2ab5074a3166f06b5c8c23a0",
+      "artifact_bytes": 7467781,
+      "report_sha256": "8735124ff765e501b39a580c9cf61c2d74a3e9c619b8ec90cddffb9e135cd262",
+      "members": 250,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 41.356
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.42
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 25.117
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.973
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 6.93
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.477
+        }
+      ],
+      "archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-parallel-hosted-2026-10-26-v1/source-feedback-Linux.zip"
+    }
+  ],
+  "all_candidate_source_bindings_verified": true,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "member_manifest_sha256": "72a10d72e7ad61c83fa575bd3de9e3f28eb7508c2f0b85438391b7209d8fc159",
+  "merge_parents_verified": [
+    "49c79957b4d6f4978127da612e167e5c75cda6b3",
+    "79a3fd4803ed0652fc5f3db8b06999186f6fdbb2"
+  ],
+  "scope": "Exact candidate and synthetic-merge hosted source feedback; all six stages and aggregate pass. Not installed, full-family, or chunk completion.",
+  "readback_method_sha256": "f2d8b033e989c2e9af966990deb25f99e353b783c6e1549e6266829969d769aa",
+  "github_jobs_sha256": "c3ef39af035051b507ee8c93897fef45b930d91ba52485615a8dd71be2f08e9d",
+  "github_artifacts_sha256": "f7f95acbbd7638f1413e24b4f7de4a9a40b2adb9f9366c4c80bb26de5aa9c625"
+}

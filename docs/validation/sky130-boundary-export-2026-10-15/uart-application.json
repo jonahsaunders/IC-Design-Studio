@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "status": "application-checks-and-export-pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "case": "uart",
+  "platform": "linux",
+  "driver_sha256": "fcd7ff659b4c67a58ba5ded4c30e15a20530dd80510c11847efdfa541f07bbc4",
+  "source_result_sha256": "d85812ac451b2ef0a2b639b4647572df8f7e351ba60e8d789f903809b50fe8ab",
+  "source_input_sha256": "ecdf75aa48f65ad8ca837703cdadc93b51d1503ea522f6e4bc0d3893bf3be660",
+  "source_gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+  "scope": "Actual Runner export removes only the top-level prBoundary box matching the independent OpenDB die. Manufacturing masks and text are compared in full. Six partial geometry profiles, antenna, isolation, OpenDB checks and macro export rerun on the corrected GDS. Original timing/equivalence remains separate; no new extraction, full physical signoff or installer qualification. Earlier catalog results retain their original GDS identities.",
+  "boundary_export": {
+    "recipe": "sky130-declared-die-outline-v1",
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "path": "docs/rules/errors.csv",
+      "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed"
+    },
+    "top": "uart_tx",
+    "die_nm": [
+      0,
+      0,
+      400000,
+      400000
+    ],
+    "removed_top_die_outlines": 1,
+    "rules": [
+      {
+        "pair": [
+          235,
+          4
+        ],
+        "records": [
+          "r1252",
+          "s68"
+        ]
+      },
+      {
+        "pair": [
+          66,
+          4
+        ],
+        "records": [
+          "r1253",
+          "s69"
+        ]
+      },
+      {
+        "pair": [
+          65,
+          4
+        ],
+        "records": [
+          "r1254",
+          "s70"
+        ]
+      },
+      {
+        "pair": [
+          65,
+          60
+        ],
+        "records": [
+          "r1255",
+          "s71"
+        ]
+      }
+    ],
+    "scope": "Remove only the single top-level prBoundary box equal to the OpenDB die, if present. All other forbidden boundary-purpose input is rejected; manufacturing shapes and annotations are preserved."
+  },
+  "pin_layers": [
+    {
+      "layer": 67,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 68,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 69,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 70,
+      "pin_polygons": 13,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 71,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 72,
+      "pin_polygons": 26,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    }
+  ],
+  "clean_output": [
+    {
+      "pair": [
+        235,
+        4
+      ],
+      "records": [
+        "r1252",
+        "s68"
+      ],
+      "raw_shapes": 0
+    },
+    {
+      "pair": [
+        66,
+        4
+      ],
+      "records": [
+        "r1253",
+        "s69"
+      ],
+      "raw_shapes": 0
+    },
+    {
+      "pair": [
+        65,
+        4
+      ],
+      "records": [
+        "r1254",
+        "s70"
+      ],
+      "raw_shapes": 0
+    },
+    {
+      "pair": [
+        65,
+        60
+      ],
+      "records": [
+        "r1255",
+        "s71"
+      ],
+      "raw_shapes": 0
+    }
+  ],
+  "isolation": "NOT_REQUESTED",
+  "periphery_counts": {
+    "execution-review-required": 28,
+    "upstream-na": 77,
+    "executed-reviewed": 133,
+    "absent-operand": 273,
+    "advisory": 28,
+    "definition-required": 1,
+    "other-backend": 61
+  },
+  "restored_boundary_rejected": "Forbidden SKY130 boundary-purpose data remains in the delivered GDS. Recheck Finish/export.",
+  "result_sha256": "ace16065ce29c53a4110d17e777a4ecef102970369a592544a8bfcf286e18f34",
+  "macro_sha256": "4b926d39da5e0363da3408bd391df030d4da1eb0a160e3a7c7509c9b563e5fab",
+  "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+  "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+  "spef_sha256": "0a422acf5dd7362de9d47fa793fe0df126e021024a95a3142b769e599c3b0e6b",
+  "inventory_sha256": "dc781ac94a231e78af37669f6b1a97ff0970515ffb59858b4f0877a21ee5f262",
+  "elapsed_seconds": 133.53152941399998
+}

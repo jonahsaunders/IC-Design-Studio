@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-07",
+  "status": "chunk 1 matrix defined and validated; no execution or tapeout qualification implied",
+  "source_baseline": "5b33a68f3a8e225002c3b4ac38d63fc97cf25420",
+  "coverage": {
+    "status": "matrix_consistent",
+    "process_qualification": "unqualified",
+    "targets": 4,
+    "requirements": 125,
+    "device_entries": 255,
+    "requirement_statuses": {
+      "not_run": 83,
+      "partial": 27,
+      "needs_definition": 13,
+      "failed": 2
+    }
+  },
+  "files": {
+    "docs/qualification/pdk-matrix.json": "927226295ed3bb987f810bcd6b6007492b082dc6a33794ed90435d67587806ca",
+    "docs/PDK_QUALIFICATION_PLAN.md": "74fc679d1e58610a642f6d5f9daea88bb78bb1629bfa4c30fcf5a3042556c190",
+    "scripts/check_pdk_qualification.py": "408aca881a639618be9093b230ec4df94cd27deeec4f6f1bdcc0f5fc7a45d474",
+    "tests/test_pdk_qualification_matrix.py": "8bd81b815cea26d049895a491506d351c08228b66e0e8a17bac6088d48ad1135"
+  },
+  "tests": {
+    "focused": {
+      "count": 7,
+      "failures": 0,
+      "skips": 0
+    },
+    "full": {
+      "count": 1416,
+      "failures": 0,
+      "skips": 63,
+      "seconds": 261.168,
+      "log_sha256": "3b91033e89d6d24e13ebe7c4e5a3859215e2c0708d67bed3f9f1993d41bd7b87"
+    },
+    "documentation": {
+      "documents": 121,
+      "local_links": 1177,
+      "gallery_examples": 13,
+      "status": "passed"
+    }
+  },
+  "limitations": [
+    "Bundled catalog is not the complete upstream device/option inventory.",
+    "Per-device operating envelopes and numerical block specifications remain open requirements.",
+    "Current schema rejects execution PASS and chunk-complete claims without a future reviewed evidence schema.",
+    "GF180-D digital profile absent; IHP MOS, bipolar and RF coverage remain separate."
+  ]
+}

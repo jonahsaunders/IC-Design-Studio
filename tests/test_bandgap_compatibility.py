@@ -38,7 +38,11 @@ class BandgapCompatibilityTests(unittest.TestCase):
             registry=PDKRegistry(root/'registry');tech=registry.technology(registry.install(ROOT/'icstudio/assets/pdks/gf180mcuD/package.json'))
             result=bind(review(p)['candidate'],tech);self.assertEqual(result['converted'],60);self.assertEqual(result['unmatched'],0)
             native=result['candidate'];d=next(d for c in native['cells'] for d in c['devices'] if d['name']=='MTAIL')
-            emitted=emit(d,tech);self.assertIn('l=6u w=28.91u',emitted);self.assertIn("ad='int((nf+1)/2) * w/nf * 0.18u'",emitted)
+            emitted=emit(d,tech)
+            # Named SPICE parameters are order-independent. Sorted package
+            # metadata must preserve values and live formulas, not adjacency.
+            self.assertIn('l=6u',emitted.split());self.assertIn('w=28.91u',emitted.split())
+            self.assertIn("ad='int((nf+1)/2) * w/nf * 0.18u'",emitted)
             exported=export_project(native,root/'export');back=reimport(Path(exported['directory'])/exported['top'])
             self.assertEqual(back['errors'],[]);returned=next(x for c in back['candidate']['cells'] for x in c['devices'] if x['id']==d['id'])
             binding=binding_for(tech,d);before=parameter_values(binding,d)

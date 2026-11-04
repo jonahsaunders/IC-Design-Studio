@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "status": "bounded-exclusion-controls-passed; chunk-4-incomplete",
+  "qualified": false,
+  "observed_at": "2026-10-08T13:47:07.689772+00:00",
+  "application_backend": "cd6a3cd4e4b280c812456e0113ddb0b46dde728e76f8a80a9e25400856f030ef",
+  "scope": "Supplemental GF180 C/D exclusion controls and simulator diagnostics. Not complete fill, production D, post-fill timing or process acceptance.",
+  "sources": {
+    "scripts/check_gf180_fill.py": "f73247c30c4661ca5002242cf50e2fb5eeba7b9a28ad76cc82bd1caa710a892c",
+    "tests/test_gf180_fill_checks.py": "14df548b3dd51ea1171fafb25e1a4eb0ab346102a749f5bcd05a7f4fcbfe3493",
+    "scripts/qualify_gf180_exclusion_rules.py": "b7c85ed71d145efab7b81f4e4988713d2333253fc5c551271a945468f12ce5c7",
+    "examples/gf180-fill-coverage-lock.json": "e76113dd556fd192c5b7a21744602ce57e2cf7f6e5623046c33b15dcbaee7bac",
+    "examples/gf180-fill-manual-lock.json": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+    "examples/gf180-digital-drc-lock.json": "4ba84b61084fa7861424bbd096f91b28b096f17dafafc3bd77d2397e624b6eff",
+    "docs/PDK_QUALIFICATION_PLAN.md": "fce2dc46226569afbe82f6851137d3cf9b1e2985fbc9ba0e77a53ada846c3ca1",
+    "docs/GF180_RC_EXTRACTION_CANDIDATE.md": "9c026f2acfdea72fc93663df196c10cadcadc82906af06a1ee5c54d32c09cc0b"
+  },
+  "source_revision": "de3240d7529a6970437ac3344820aaae7839f215",
+  "changes": [
+    "DE.2 minimum 0.8 um width applied to each merged marker layer independently.",
+    "DE.4 NDMY 20 um spacing including notches.",
+    "DE.3 strictly greater than 15000 um2 requires rectangular short side at most 80 um; large nonrectangles fail coverage.",
+    "Vendor implant layers 11/17 and 86/17 fail coverage, independently of supported MTPMARK 122/5.",
+    "Exclusion markers retain a separate DE.1 design-justification requirement."
+  ],
+  "both_os": {
+    "windows": {
+      "process": {
+        "path": "outputs/gf180-exclusion-windows-v1/process.json",
+        "sha256": "0411187ea3dedafb3f7701a4d11245a49df2c61a0425a2257a8e756599a74dae"
+      },
+      "tests": 24,
+      "skips": 0,
+      "failures": 0,
+      "variants": {
+        "C": {
+          "record": {
+            "path": "outputs/gf180-exclusion-windows-v1/C.json",
+            "sha256": "2725f3a60cdcd475f159b1335c1ff3c4d3d388451235e6c555210f74ae7e1284"
+          },
+          "exit_code": 2,
+          "checks": 103,
+          "failed": 0
+        },
+        "D": {
+          "record": {
+            "path": "outputs/gf180-exclusion-windows-v1/D.json",
+            "sha256": "d4f6708b4bad2f2bf36cef1654756e9062ac650c575d069de4e68c89a33ec911"
+          },
+          "exit_code": 2,
+          "checks": 103,
+          "failed": 0
+        }
+      }
+    },
+    "linux": {
+      "process": {
+        "path": "outputs/gf180-exclusion-linux-v1/process.json",
+        "sha256": "a039098eec6dc02420df828dedf36f1737cc8141dd6904b1f3050b083cc5eb8e"
+      },
+      "tests": 24,
+      "skips": 0,
+      "failures": 0,
+      "variants": {
+        "C": {
+          "record": {
+            "path": "outputs/gf180-exclusion-linux-v1/C.json",
+            "sha256": "2725f3a60cdcd475f159b1335c1ff3c4d3d388451235e6c555210f74ae7e1284"
+          },
+          "exit_code": 2,
+          "checks": 103,
+          "failed": 0
+        },
+        "D": {
+          "record": {
+            "path": "outputs/gf180-exclusion-linux-v1/D.json",
+            "sha256": "d4f6708b4bad2f2bf36cef1654756e9062ac650c575d069de4e68c89a33ec911"
+          },
+          "exit_code": 2,
+          "checks": 103,
+          "failed": 0
+        }
+      }
+    }
+  },
+  "remaining": [
+    "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+    "DCF.1a empty-field coverage and local COMP density",
+    "DCF/DPF scribe/frame scope and COMP-to-pad RF guideline",
+    "DCF exclusion-edge tie/fill rows",
+    "Embedded-memory fill coverage beyond supported MTPMARK; vendor implant layers are unsupported",
+    "Required drawing patterns and offsets (DCF.2a/3, DPF.2a/3, DM.2a/9/10)",
+    "Foundry acceptance limits for local metal density and clipped die-edge windows",
+    "Independent full native geometry, antenna and final-layout LVS",
+    "Post-fill extraction, timing and foundry acceptance"
+  ],
+  "both_os_reports_byte_identical": true,
+  "native_controls": {
+    "record": {
+      "path": "outputs/gf180-exclusion-native-v2/report.json",
+      "sha256": "aa8cab5a1da6a124893998e9cc722dfb09c6bb8f1a6f146429014847b5ac943e"
+    },
+    "cases": 23,
+    "supplemental_map_cases": 46,
+    "expected_disagreements_reproduced": 7,
+    "disagreements": [
+      {
+        "name": "NDMY-masked-width-795",
+        "rule": "DE.2",
+        "supplemental_failed": true,
+        "native_failed": false
+      },
+      {
+        "name": "PMNDMY-masked-width-795",
+        "rule": "DE.2",
+        "supplemental_failed": true,
+        "native_failed": false
+      },
+      {
+        "name": "NDMY-area-100000-150000",
+        "rule": "DE.3",
+        "supplemental_failed": false,
+        "native_failed": true
+      },
+      {
+        "name": "NDMY-area-80000-200000",
+        "rule": "DE.3",
+        "supplemental_failed": false,
+        "native_failed": true
+      },
+      {
+        "name": "NDMY-area-200000-80000",
+        "rule": "DE.3",
+        "supplemental_failed": false,
+        "native_failed": true
+      },
+      {
+        "name": "MCELL_FEOL_MK",
+        "rule": "unsupported-memory-layer",
+        "supplemental_failed": true,
+        "native_failed": false
+      },
+      {
+        "name": "YMTP_MK",
+        "rule": "unsupported-memory-layer",
+        "supplemental_failed": true,
+        "native_failed": false
+      }
+    ],
+    "limitations": [
+      "Native DE.2 unions the two marker types and can hide a narrow marker.",
+      "Native DE.3 reports all edges at or above 15000 um2, including permitted rectangle controls.",
+      "Large nonrectangular DE.3 exceptions remain unqualified.",
+      "Memory coupons establish supplemental coverage rejection, not a complete native memory-rule audit.",
+      "Native rules remain unchanged; disagreements are not acceptance waivers."
+    ],
+    "initial_wrapper_failure": {
+      "record": {
+        "path": "outputs/gf180-exclusion-native-v1/report.json",
+        "sha256": "1df284408ec7e22cbd5ccef987309f0352c5df225ba0b102ff86f3b3694c3d2d"
+      },
+      "reason": "The diagnostic wrapper used an unavailable Ruby constant; corrected to use the native DSL method. The pinned deck is unchanged."
+    }
+  },
+  "full_windows_suite": {
+    "tests": 1481,
+    "skips": 62,
+    "failures": 0,
+    "seconds": 263.206,
+    "process": {
+      "path": "outputs/gf180-exclusion-suite-v1/process.json",
+      "sha256": "3cc6305051b83bb3ecbf17f0fb460e649c7732af893a361d72817b61db768f4b"
+    },
+    "log": {
+      "path": "outputs/gf180-exclusion-suite-v1/tests.log",
+      "sha256": "42f753a072fc94950b0ba130d7cbc627f0a8422442ad4e7b374888e581f1df7e"
+    }
+  },
+  "full_transient": {
+    "snapshot": {
+      "path": "outputs/gf180-exclusion-checkpoint-v1/transient-snapshot.json",
+      "sha256": "0a9f465d263ae4badb3cf2cf7030007399b6f29cbe378f8d198037c0f044705f"
+    },
+    "session": 64881,
+    "before_status": "running",
+    "filled": {
+      "status": "failed",
+      "exit_code": 0,
+      "source_sha256": "8af751a2c9c18ae9615c863ef1eaf6456d34f683053ec28f16978a21bb1982b5",
+      "simulation_seconds": 2e-12,
+      "wall_seconds": 3616.758220911026,
+      "log": {
+        "path": "outputs/gf180-exclusion-checkpoint-v1/filled-transient.log",
+        "sha256": "cae61c65b853eb1b57691be5938b14c3b6a93f8de639db7d89cb49e21d27ba30"
+      },
+      "finding": "Numerical timestep-too-small failure on xdut.vdd.n5401. Exit code zero correctly does not establish simulation success."
+    },
+    "acceptance": "No complete filled-circuit behavior or post-fill timing pass."
+  },
+  "precision_startup": {
+    "record": {
+      "path": "outputs/gf180-precision-startup-solvers-v1/report.json",
+      "sha256": "ed07054aba3c3fd6e5cee96a6aa424476bcf9d153ba569dbc4a7307cd375af5b"
+    },
+    "status": "both-solvers-hit-cpu-bound",
+    "source_sha256": "c3847e43895a8cb11e1f1072c52d9a0a24050508a7a6de684c2497321db8ae4e",
+    "actual_binary_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "launcher_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7",
+    "scope": "Two solver diagnostics on the same complete precision-candidate filled circuit. Original 900 ns tran command retained with a stop-when-time>100ps observation breakpoint; no full functional or timing acceptance. Circuit, model files, stimulus, physical/floating nodes, numerical tolerances and maximum time step unchanged.",
+    "limits": {
+      "cpu_seconds": 240,
+      "wall_seconds": 900
+    },
+    "cases": {
+      "klu": {
+        "exit_code": -24,
+        "cpu_seconds": 253.84,
+        "last_reported_time": 3.78367e-12
+      },
+      "sparse": {
+        "exit_code": -24,
+        "cpu_seconds": 253.37,
+        "last_reported_time": null
+      }
+    }
+  },
+  "instruction_sampling": {
+    "locations": {
+      "path": "outputs/gf180-ngspice-location-samples-v1/report.json",
+      "sha256": "4be7b9bb7c9db5c651effdac61474b65f3c0785eea524c4a542bb19c3769bcb6"
+    },
+    "floating_point": {
+      "path": "outputs/gf180-ngspice-fp-samples-v1/report.json",
+      "sha256": "33bf44ed75628538a78722bfa687b569f7133ffefad8d1c973739af1306e9f40"
+    },
+    "symbols": {
+      "path": "outputs/gf180-ngspice-resolved-samples-v1/report.json",
+      "sha256": "949851d52caf07dc38d961dfb1a3a80d5ae18fcac29a304714392d20059cd33f"
+    },
+    "exact_binary_build_id": "dcf2cee5961bf83d2655e0672410e58da271c268",
+    "scope": "Only exact PID/start-time matched task-owned processes. Read registers then immediately detach. No FP flags, registers, memory or solver settings changed.",
+    "finding": "Sampled instructions resolve to KLU refactorization/solve. No subnormal arithmetic was observed in the 16 inspected operand/product samples per circuit. Cause remains unresolved."
+  },
+  "hosted_snapshot": {
+    "record": {
+      "path": "outputs/gf180-exclusion-hosted-v1/report.json",
+      "sha256": "2b4c2f563444c3301cdefa0f507dd22e74df705b4e740d573047c230388ff857"
+    },
+    "head": "6122358eb93fc43620f342cd9493c0b3e911f316",
+    "states": {
+      "SUCCESS": 36,
+      "IN_PROGRESS": 6,
+      "FAILURE": 2,
+      "SKIPPED": 2
+    },
+    "failed": [
+      {
+        "name": "bandgap-physical",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37780825376/job/113323198851"
+      },
+      {
+        "name": "bandgap-physical",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/37780819776/job/113323181121"
+      }
+    ]
+  },
+  "next_steps": [
+    "Complete fill drawing patterns, local/edge acceptance, empty-field and boundary/scribe scope.",
+    "Resolve full filled-circuit numerical startup without relaxing physical connectivity, original behavior, tolerances or timing requirements.",
+    "Qualify the accepted recipe on production C/D counter, UART and APB on both OSes before chunk 5.",
+    "Resolve the separate hosted bandgap chip-top VSS must-connect failure while preserving strict LVS."
+  ],
+  "archive": {
+    "path": "outputs/gf180-exclusion-checkpoint-v1/evidence.tar.gz",
+    "sha256": "cb38e324c263cba6cbdd6c05ac8c2f0a5c6743c41ae2c5a2f45a0377258e6797",
+    "bytes": 5067246,
+    "verified_members": 227
+  },
+  "manifest": {
+    "path": "outputs/gf180-exclusion-checkpoint-v1/manifest.json",
+    "sha256": "c799d88cf21f7100867f3eeb92df15eccf0497d0f3cf36beaccf84b13148089d"
+  }
+}

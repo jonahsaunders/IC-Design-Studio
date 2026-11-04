@@ -36,6 +36,14 @@ runs their defined acceptance tests. Review the actual workflow run before
 promoting a release. Historical embedded-Python Windows archives used a different
 route; their records do not qualify a current PyInstaller/installer asset.
 
+Desktop branch and pull-request acceptance preserves an active run and queues
+the newest update. Other branch and pull-request checks cancel obsolete runs for
+the same workflow and ref. Each reusable workflow has its own concurrency
+prefix so it cannot cancel its caller. Manual runs, version
+tags and children of **Prepare desktop release** have unique run groups; the
+release-preparation workflow keeps its existing non-cancelling policy. These
+controls reduce redundant queued work; a cancelled old run is not a pass.
+
 ## Desktop build prerequisites
 
 Follow [build-desktop.yml](../.github/workflows/build-desktop.yml) for the exact
@@ -48,7 +56,10 @@ host dependencies and order. In addition to Python 3.12 and
   `digital-runtime-payload`; stage all files under `build/digital-payload`.
 - A successful `python scripts/qualify_digital_runtime.py` on each packaging
   OS. It executes real engine checks and writes `qualified-Windows.json` or
-  `qualified-Linux.json` matching that payload. Windows requires WSL 2.
+  `qualified-Linux.json` matching that payload, source backend and complete
+  advertised platform list. Packaging rejects stale, partial or other-OS
+  acceptance records. Requalify after changing application sources. Windows
+  requires WSL 2.
 - Pinned VGA assets from `python scripts/build_vga_playground.py --test`, using
   Git and Node.js 22.12+ (or 24), plus the platform graphics/WebEngine libraries.
 - Native ngspice: Windows staging uses
@@ -61,6 +72,24 @@ requirements or `build-windows.bat` alone do not provision all release assets.
 See [Windows build and installed-app verification](WINDOWS_RELEASE.md) and
 [Linux launch checks](LINUX_SETUP.md). End users of complete packages do not
 need Docker, Node.js or build compilers.
+
+The [2026-10-07 Windows package record](validation/frozen-windows-2026-10-07.json)
+retains actual frozen execution and an independent artifact audit for application
+source `0a62eca`: 26 installation checks and 15 timing pairs passed. That exact
+package predates the required final antenna/power checks; subsequent source and
+packages require their own qualification.
+
+After packaging, `python scripts/verify_frozen_digital.py` reruns the complete
+installation design through the frozen executable. The three-platform check has
+a one-hour deadline, with a 65-minute CI step budget for diagnostics and cleanup;
+the former single-platform 1,100-second limit was shorter than the observed
+Windows setup. A timeout remains a failure and signals the active acceptance job
+to stop. The verifier requires a fresh Ready record for the packaged archive,
+backend and complete platform/corner set, retains the executable and report
+hashes, and rejects stale or incomplete evidence. Source payload overrides are
+removed from the frozen application's environment. To inspect a retained build,
+use `--executable PATH --output DIRECTORY`; `--timeout SECONDS` sets a diagnostic
+deadline without skipping any acceptance checks.
 
 ## Build source and repository archives
 

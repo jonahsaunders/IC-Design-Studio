@@ -242,6 +242,8 @@ def magic_workspace_export(workspace,output,executable='magic'):
     rc=output/'startup.tcl';atomic_write(rc,'tech load '+tcl_word(technology)+'\n');atomic_write(output/'export.tcl',wrapped)
     log=execute([info['path'],'-dnull','-noconsole','-rcfile',str(rc)],native,timeout=240,input_text=wrapped)
     atomic_write(output/'engine.log',log)
+    from .magic_diagnostics import require_valid_technology
+    require_valid_technology(log,output/'engine.log')
     if 'STUDIO_MAGIC_COMPLETE' not in log or 'STUDIO_MAGIC_ERROR' in log or not target.is_file():raise ValueError('Magic export failed. Inspect engine.log.')
     for suffix in ('.icstudio.json','.exchange.json','.report.json'):
         shutil.copy2(workspace/('layout.gds'+suffix),Path(str(target)+suffix))

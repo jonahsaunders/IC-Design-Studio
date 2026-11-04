@@ -1,0 +1,1815 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "frame-bound-integration-reviewed",
+  "qualified": false,
+  "chunk_complete": false,
+  "predecessor": {
+    "path": "docs/validation/sky130-selected-targets-2026-10-15.json",
+    "sha256": "230efaf45aa2e74b19d4a5a366c9ce9f00fe1f223293584b75315505a221a2f4",
+    "scope": "Retained complete reference catalog; this command reruns only frame bounds."
+  },
+  "source_files": {
+    "scripts/sky130_frame_bound_review.py": "c0aa8ed769a27d2f96f16583579e0da92c2b1124df117532ea60b74f5ab16c4b",
+    "icstudio/digital_sky130_frame_bounds.py": "d70d6bf29534b35c6f0a8430340a1e81d1e87ac4b561fefeecff55a239b54603",
+    "icstudio/model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249",
+    "tests/test_sky130_frame_bounds.py": "f5f8aa4957ba8da19f78c3abbba16c785e61cceb7130c60749cd881488a7542e",
+    "icstudio/digital_sky130_rule_worker.py": "85cfb27983541bb6bc6a19aa068edeac3d12ea444b599f89445d1140c74f3ddb",
+    "icstudio/digital_sky130_rules.py": "4cc59fbe0d9265b74ad157985069bc12a79fa9681785518f766e8d9a34d4f8a5",
+    "tests/test_sky130_application_rules.py": "667f8cdc78db6ad858558f6f2d2cc97845dfaa3683e7067e0c1e1e8ae494807a"
+  },
+  "proof": {
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/periphery/p043-nsm_dotdash.csv": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+        "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f"
+      }
+    },
+    "bindings": {
+      "r988": {
+        "catalog": {
+          "id": "r988",
+          "record": 979,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of diff_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "diff",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1006": {
+        "catalog": {
+          "id": "r1006",
+          "record": 997,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of diff_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "diff",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      },
+      "r989": {
+        "catalog": {
+          "id": "r989",
+          "record": 980,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of tap_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "tap",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1007": {
+        "catalog": {
+          "id": "r1007",
+          "record": 998,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of tap_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "tap",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      },
+      "r992": {
+        "catalog": {
+          "id": "r992",
+          "record": 983,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of poly_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "poly",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1010": {
+        "catalog": {
+          "id": "r1010",
+          "record": 1001,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of poly_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "poly",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      },
+      "r994": {
+        "catalog": {
+          "id": "r994",
+          "record": 985,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of li1_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "li1",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1012": {
+        "catalog": {
+          "id": "r1012",
+          "record": 1003,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of li1_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "li1",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      },
+      "r996": {
+        "catalog": {
+          "id": "r996",
+          "record": 987,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met1_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "met1",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1014": {
+        "catalog": {
+          "id": "r1014",
+          "record": 1005,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of met1_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "met1",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      },
+      "r998": {
+        "catalog": {
+          "id": "r998",
+          "record": 989,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met2_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "met2",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1016": {
+        "catalog": {
+          "id": "r1016",
+          "record": 1007,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of met2_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "met2",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      },
+      "r1000": {
+        "catalog": {
+          "id": "r1000",
+          "record": 991,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met3_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "met3",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1018": {
+        "catalog": {
+          "id": "r1018",
+          "record": 1009,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of met3_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "met3",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      },
+      "r1002": {
+        "catalog": {
+          "id": "r1002",
+          "record": 993,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met4_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "met4",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1020": {
+        "catalog": {
+          "id": "r1020",
+          "record": 1011,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of met4_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "met4",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      },
+      "r1004": {
+        "catalog": {
+          "id": "r1004",
+          "record": 995,
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met5_not_NSM3a_exempt by frameBndr",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#4"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3a)",
+          "Description": "Min enclosure of diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5) by :drc_tag:`areaid.ft`. Exempt the following from the check: (a) cell name \"s8Fab_crntic*\"  (b)  blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3a",
+          "target": "met5",
+          "boundary": "frame",
+          "operation": "enclosure",
+          "limit_nm": 3000
+        }
+      },
+      "r1022": {
+        "catalog": {
+          "id": "r1022",
+          "record": 1013,
+          "rule": "nsm.3b",
+          "description": "3 min. spacing of met5_not_NSM3b_exempt & dieCut",
+          "periphery_candidates": [
+            "docs/rules/periphery/p043-nsm_dotdash.csv#5"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "manual": {
+          "Name": "(nsm.3b)",
+          "Description": "Min spacing between :drc_tag:`areaid.dt` to diff.dg, tap.dg, fom.dy, cfom.dg, cfom.mk, poly.dg, p1m.mk, li1.dg, cli1m.mk, metX.dg (X=1 to 5) and cmmX.mk (X=1 to 5). Exempt the following from the check: (a) blankings in the frame (rule uses :drc_tag:`areaid.dt` for exemption)",
+          "Flags": "",
+          "Value": "3.000",
+          "Unit": "µm"
+        },
+        "check": {
+          "rule": "nsm.3b",
+          "target": "met5",
+          "boundary": "die",
+          "operation": "spacing",
+          "limit_nm": 3000
+        }
+      }
+    },
+    "interpretation": "Eighteen exact drawn-layer frame records use a sufficient 3000 nm square-margin proof. The complete target union expanded by [-3000,3000] in both coordinates must fit within supplied areaid.ft for enclosure, or have zero positive-area overlap with supplied areaid.dt for spacing. Equality passes. No blanking or named-cell exception is applied. A failed square bound is unreviewed, not a foundry violation. Missing boundary context leaves a nonempty target unreviewed. Empty targets are recorded separately. Supplied markers do not establish complete-chip context. Generated masks, dummy diffusion, frame completeness and all other requirements remain separate.",
+    "proof": "No exemptions are subtracted: each published selected target is a subset of its complete drawn layer. A square dilation contains the Euclidean radius-3um dilation. Satisfying these stronger bounds proves the selected requirement; failure does not disprove an exempted or Euclidean-only case."
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+      "report": {
+        "schema": 1,
+        "recipe": "sky130-drawn-frame-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p043-nsm_dotdash.csv": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f"
+          }
+        },
+        "scope": "Eighteen exact drawn-layer frame records use a sufficient 3000 nm square-margin proof. The complete target union expanded by [-3000,3000] in both coordinates must fit within supplied areaid.ft for enclosure, or have zero positive-area overlap with supplied areaid.dt for spacing. Equality passes. No blanking or named-cell exception is applied. A failed square bound is unreviewed, not a foundry violation. Missing boundary context leaves a nonempty target unreviewed. Empty targets are recorded separately. Supplied markers do not establish complete-chip context. Generated masks, dummy diffusion, frame completeness and all other requirements remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "counter",
+        "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+        "measurements": {
+          "layers": {
+            "diff": {
+              "raw_shapes": 2000,
+              "texts": 0,
+              "components": 1996,
+              "area_nm2": 4685547000
+            },
+            "tap": {
+              "raw_shapes": 660,
+              "texts": 0,
+              "components": 660,
+              "area_nm2": 78540000
+            },
+            "poly": {
+              "raw_shapes": 2065,
+              "texts": 0,
+              "components": 2038,
+              "area_nm2": 6270307125
+            },
+            "li1": {
+              "raw_shapes": 7535,
+              "texts": 0,
+              "components": 190,
+              "area_nm2": 9706170175
+            },
+            "met1": {
+              "raw_shapes": 7248,
+              "texts": 0,
+              "components": 125,
+              "area_nm2": 4567851000
+            },
+            "met2": {
+              "raw_shapes": 1085,
+              "texts": 0,
+              "components": 358,
+              "area_nm2": 230337000
+            },
+            "met3": {
+              "raw_shapes": 992,
+              "texts": 0,
+              "components": 330,
+              "area_nm2": 189197400
+            },
+            "met4": {
+              "raw_shapes": 397,
+              "texts": 0,
+              "components": 11,
+              "area_nm2": 2741504000
+            },
+            "met5": {
+              "raw_shapes": 72,
+              "texts": 0,
+              "components": 11,
+              "area_nm2": 2809312000
+            },
+            "frame": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            },
+            "die": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            }
+          },
+          "bounds": {
+            "r988": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1006": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r989": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1007": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r992": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1010": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r994": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1012": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r996": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1014": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r998": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1016": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1000": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1018": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1002": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1020": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1004": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1022": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            }
+          }
+        },
+        "rows": [
+          {
+            "id": "r988",
+            "rule": "nsm.3a",
+            "target": "diff",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 1996,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1006",
+            "rule": "nsm.3b",
+            "target": "diff",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 1996,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r989",
+            "rule": "nsm.3a",
+            "target": "tap",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 660,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1007",
+            "rule": "nsm.3b",
+            "target": "tap",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 660,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r992",
+            "rule": "nsm.3a",
+            "target": "poly",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 2038,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1010",
+            "rule": "nsm.3b",
+            "target": "poly",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 2038,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r994",
+            "rule": "nsm.3a",
+            "target": "li1",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 190,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1012",
+            "rule": "nsm.3b",
+            "target": "li1",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 190,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r996",
+            "rule": "nsm.3a",
+            "target": "met1",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 125,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1014",
+            "rule": "nsm.3b",
+            "target": "met1",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 125,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r998",
+            "rule": "nsm.3a",
+            "target": "met2",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 358,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1016",
+            "rule": "nsm.3b",
+            "target": "met2",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 358,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1000",
+            "rule": "nsm.3a",
+            "target": "met3",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 330,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1018",
+            "rule": "nsm.3b",
+            "target": "met3",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 330,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1002",
+            "rule": "nsm.3a",
+            "target": "met4",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 11,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1020",
+            "rule": "nsm.3b",
+            "target": "met4",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 11,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1004",
+            "rule": "nsm.3a",
+            "target": "met5",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 11,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1022",
+            "rule": "nsm.3b",
+            "target": "met5",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 11,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          }
+        ],
+        "unreviewed": 18,
+        "status": "review-required"
+      },
+      "retained_catalog_counts": {
+        "executed-reviewed": 424,
+        "absent-operand": 609,
+        "unreviewed": 425,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "new_catalog_decisions": 0
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+      "report": {
+        "schema": 1,
+        "recipe": "sky130-drawn-frame-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p043-nsm_dotdash.csv": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f"
+          }
+        },
+        "scope": "Eighteen exact drawn-layer frame records use a sufficient 3000 nm square-margin proof. The complete target union expanded by [-3000,3000] in both coordinates must fit within supplied areaid.ft for enclosure, or have zero positive-area overlap with supplied areaid.dt for spacing. Equality passes. No blanking or named-cell exception is applied. A failed square bound is unreviewed, not a foundry violation. Missing boundary context leaves a nonempty target unreviewed. Empty targets are recorded separately. Supplied markers do not establish complete-chip context. Generated masks, dummy diffusion, frame completeness and all other requirements remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "uart_tx",
+        "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+        "measurements": {
+          "layers": {
+            "diff": {
+              "raw_shapes": 15030,
+              "texts": 0,
+              "components": 15030,
+              "area_nm2": 34989929100
+            },
+            "tap": {
+              "raw_shapes": 3458,
+              "texts": 0,
+              "components": 3458,
+              "area_nm2": 411502000
+            },
+            "poly": {
+              "raw_shapes": 15574,
+              "texts": 0,
+              "components": 15545,
+              "area_nm2": 46677604525
+            },
+            "li1": {
+              "raw_shapes": 40759,
+              "texts": 0,
+              "components": 1780,
+              "area_nm2": 68047048975
+            },
+            "met1": {
+              "raw_shapes": 39453,
+              "texts": 0,
+              "components": 981,
+              "area_nm2": 23222705700
+            },
+            "met2": {
+              "raw_shapes": 6498,
+              "texts": 0,
+              "components": 2043,
+              "area_nm2": 1263777800
+            },
+            "met3": {
+              "raw_shapes": 5223,
+              "texts": 0,
+              "components": 1737,
+              "area_nm2": 1193817600
+            },
+            "met4": {
+              "raw_shapes": 2080,
+              "texts": 0,
+              "components": 26,
+              "area_nm2": 14729728000
+            },
+            "met5": {
+              "raw_shapes": 364,
+              "texts": 0,
+              "components": 26,
+              "area_nm2": 14964352000
+            },
+            "frame": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            },
+            "die": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            }
+          },
+          "bounds": {
+            "r988": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1006": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r989": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1007": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r992": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1010": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r994": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1012": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r996": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1014": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r998": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1016": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1000": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1018": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1002": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1020": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1004": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1022": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            }
+          }
+        },
+        "rows": [
+          {
+            "id": "r988",
+            "rule": "nsm.3a",
+            "target": "diff",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 15030,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1006",
+            "rule": "nsm.3b",
+            "target": "diff",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 15030,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r989",
+            "rule": "nsm.3a",
+            "target": "tap",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 3458,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1007",
+            "rule": "nsm.3b",
+            "target": "tap",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 3458,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r992",
+            "rule": "nsm.3a",
+            "target": "poly",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 15545,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1010",
+            "rule": "nsm.3b",
+            "target": "poly",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 15545,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r994",
+            "rule": "nsm.3a",
+            "target": "li1",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 1780,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1012",
+            "rule": "nsm.3b",
+            "target": "li1",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 1780,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r996",
+            "rule": "nsm.3a",
+            "target": "met1",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 981,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1014",
+            "rule": "nsm.3b",
+            "target": "met1",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 981,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r998",
+            "rule": "nsm.3a",
+            "target": "met2",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 2043,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1016",
+            "rule": "nsm.3b",
+            "target": "met2",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 2043,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1000",
+            "rule": "nsm.3a",
+            "target": "met3",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 1737,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1018",
+            "rule": "nsm.3b",
+            "target": "met3",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 1737,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1002",
+            "rule": "nsm.3a",
+            "target": "met4",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 26,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1020",
+            "rule": "nsm.3b",
+            "target": "met4",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 26,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1004",
+            "rule": "nsm.3a",
+            "target": "met5",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 26,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1022",
+            "rule": "nsm.3b",
+            "target": "met5",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 26,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          }
+        ],
+        "unreviewed": 18,
+        "status": "review-required"
+      },
+      "retained_catalog_counts": {
+        "executed-reviewed": 424,
+        "absent-operand": 609,
+        "unreviewed": 425,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "new_catalog_decisions": 0
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+      "report": {
+        "schema": 1,
+        "recipe": "sky130-drawn-frame-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p043-nsm_dotdash.csv": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f"
+          }
+        },
+        "scope": "Eighteen exact drawn-layer frame records use a sufficient 3000 nm square-margin proof. The complete target union expanded by [-3000,3000] in both coordinates must fit within supplied areaid.ft for enclosure, or have zero positive-area overlap with supplied areaid.dt for spacing. Equality passes. No blanking or named-cell exception is applied. A failed square bound is unreviewed, not a foundry violation. Missing boundary context leaves a nonempty target unreviewed. Empty targets are recorded separately. Supplied markers do not establish complete-chip context. Generated masks, dummy diffusion, frame completeness and all other requirements remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "apb_fifo",
+        "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+        "measurements": {
+          "layers": {
+            "diff": {
+              "raw_shapes": 15408,
+              "texts": 0,
+              "components": 15400,
+              "area_nm2": 35994694200
+            },
+            "tap": {
+              "raw_shapes": 3458,
+              "texts": 0,
+              "components": 3458,
+              "area_nm2": 411502000
+            },
+            "poly": {
+              "raw_shapes": 15951,
+              "texts": 0,
+              "components": 15868,
+              "area_nm2": 48264000425
+            },
+            "li1": {
+              "raw_shapes": 39734,
+              "texts": 0,
+              "components": 1450,
+              "area_nm2": 69973079150
+            },
+            "met1": {
+              "raw_shapes": 38054,
+              "texts": 0,
+              "components": 775,
+              "area_nm2": 23286372725
+            },
+            "met2": {
+              "raw_shapes": 6075,
+              "texts": 0,
+              "components": 1940,
+              "area_nm2": 1209142350
+            },
+            "met3": {
+              "raw_shapes": 5286,
+              "texts": 0,
+              "components": 1759,
+              "area_nm2": 1535065900
+            },
+            "met4": {
+              "raw_shapes": 2104,
+              "texts": 0,
+              "components": 34,
+              "area_nm2": 14756212750
+            },
+            "met5": {
+              "raw_shapes": 373,
+              "texts": 0,
+              "components": 29,
+              "area_nm2": 15038272000
+            },
+            "frame": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            },
+            "die": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            }
+          },
+          "bounds": {
+            "r988": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1006": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r989": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1007": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r992": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1010": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r994": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1012": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r996": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1014": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r998": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1016": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1000": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1018": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1002": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1020": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1004": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            },
+            "r1022": {
+              "evaluated": false,
+              "witness_area_nm2": null
+            }
+          }
+        },
+        "rows": [
+          {
+            "id": "r988",
+            "rule": "nsm.3a",
+            "target": "diff",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 15400,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1006",
+            "rule": "nsm.3b",
+            "target": "diff",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 15400,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r989",
+            "rule": "nsm.3a",
+            "target": "tap",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 3458,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1007",
+            "rule": "nsm.3b",
+            "target": "tap",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 3458,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r992",
+            "rule": "nsm.3a",
+            "target": "poly",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 15868,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1010",
+            "rule": "nsm.3b",
+            "target": "poly",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 15868,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r994",
+            "rule": "nsm.3a",
+            "target": "li1",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 1450,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1012",
+            "rule": "nsm.3b",
+            "target": "li1",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 1450,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r996",
+            "rule": "nsm.3a",
+            "target": "met1",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 775,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1014",
+            "rule": "nsm.3b",
+            "target": "met1",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 775,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r998",
+            "rule": "nsm.3a",
+            "target": "met2",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 1940,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1016",
+            "rule": "nsm.3b",
+            "target": "met2",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 1940,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1000",
+            "rule": "nsm.3a",
+            "target": "met3",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 1759,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1018",
+            "rule": "nsm.3b",
+            "target": "met3",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 1759,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1002",
+            "rule": "nsm.3a",
+            "target": "met4",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 34,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1020",
+            "rule": "nsm.3b",
+            "target": "met4",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 34,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1004",
+            "rule": "nsm.3a",
+            "target": "met5",
+            "boundary": "frame",
+            "operation": "enclosure",
+            "limit_nm": 3000,
+            "target_components": 29,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          },
+          {
+            "id": "r1022",
+            "rule": "nsm.3b",
+            "target": "met5",
+            "boundary": "die",
+            "operation": "spacing",
+            "limit_nm": 3000,
+            "target_components": 29,
+            "boundary_components": 0,
+            "evaluated": false,
+            "witness_area_nm2": null,
+            "disposition": "unreviewed",
+            "reason": "missing-boundary-context"
+          }
+        ],
+        "unreviewed": 18,
+        "status": "review-required"
+      },
+      "retained_catalog_counts": {
+        "executed-reviewed": 424,
+        "absent-operand": 609,
+        "unreviewed": 425,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "new_catalog_decisions": 0
+    }
+  ],
+  "scope": "Eighteen numerical sufficient-bound checks are implemented for explicit frame/die context. All eighteen stay unreviewed on these blocks because their required markers are absent. Catalog totals do not change. Nonempty controls establish checker behavior, not reference-chip compliance."
+}

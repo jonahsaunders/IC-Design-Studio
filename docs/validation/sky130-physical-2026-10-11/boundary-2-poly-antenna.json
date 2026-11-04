@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "case": "boundary-2",
+  "qualified": false,
+  "status": "native-execution-complete",
+  "expected": "fail",
+  "gds_sha256": "34dfa27d0654a66fed17aafc7ee01094df871ed698ae17f39ef4eac7ebb3fbb9",
+  "deck_sha256": "7968f49b24553b9e41d20a6dd3dc474dc5ea0e8c47516420a63cda8d5fc94196",
+  "driver_sha256": "5c964412b5145dfc310f5ed5dc83f27b7f0bf708a4cd943b80a9a36f27e4a787",
+  "executable_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+  "command": [
+    "/opt/icstudio/bin/klayout",
+    "-b",
+    "-r",
+    "/var/tmp/icstudio-sky130-poly-antenna-v2/boundary-2/check.drc",
+    "-rd",
+    "input=/var/tmp/icstudio-sky130-poly-antenna-v2/boundary-2/input.gds",
+    "-rd",
+    "top_cell=ANTENNA",
+    "-rd",
+    "report=/var/tmp/icstudio-sky130-poly-antenna-v2/boundary-2/report.lyrdb"
+  ],
+  "rule": "ar_q.poly.1",
+  "thickness_um": 0.18,
+  "maximum_ratio": 50.0,
+  "markers": 1,
+  "categories": {
+    "'ar_q.poly.1'": 1
+  },
+  "expected_outcome_observed": true,
+  "seconds": 1.670672451997234,
+  "files": {
+    "input.gds": "34dfa27d0654a66fed17aafc7ee01094df871ed698ae17f39ef4eac7ebb3fbb9",
+    "engine.log": "1f04b7a299b990c0451d7375b3e00fa34c802e0d90433dc9ddc40e7a38548886",
+    "report.lyrdb": "1f1e9683d06adac0f4578cc5d057fd278fed04c72a4c421fd7d3a1139be35d8c",
+    "check.drc": "7968f49b24553b9e41d20a6dd3dc474dc5ea0e8c47516420a63cda8d5fc94196"
+  }
+}

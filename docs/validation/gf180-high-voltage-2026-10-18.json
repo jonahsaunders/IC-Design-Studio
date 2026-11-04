@@ -1,0 +1,318 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "selected_electrical_and_source_editor_checks_passed",
+  "chunk_complete": false,
+  "qualified": false,
+  "as_of": "2026-10-18",
+  "scope": "Exact public high-voltage source added to C/D model closure. Selected four-terminal DC/AC agreement and fault detection; source editor checks. No complete physical, operating-envelope, transient/noise, statistical/RF or installed-release qualification.",
+  "packages": {
+    "gf180mcuC": {
+      "manifest_sha256": "abfbf8702d759247ad77075c72c7b042a6f9b89d2629f5c194a925a0d4f6194c",
+      "revision": "b661a751abfc662a",
+      "previous_manifest_sha256": "6a3261b805a335644279b0e4e38e84166eb0840a0771dff8aff2f162c7f65f9f"
+    },
+    "gf180mcuD": {
+      "manifest_sha256": "d46a592f236f5a42356db52e861b17f1412ec826cd19a73452f1aa3a50a1e6ae",
+      "revision": "2f92b1f05da58bd7",
+      "previous_manifest_sha256": "a0a6fea3d56d49b318c415b12928297900f66c34acbd1aa9d8d0746f6f4fc444"
+    }
+  },
+  "raw_audit": {
+    "status": "PASS",
+    "cases": 84,
+    "comparisons": 168,
+    "vectors": 9408,
+    "values": 362208,
+    "raw_files": 504,
+    "fault_instances": 2352,
+    "maximum_kcl_residual_a": 3.2636038757377584e-13,
+    "packages": {
+      "gf180mcuC-Linux": {
+        "revision": "b661a751abfc662a",
+        "report_sha256": "38c52508ad3cc4c28210348724a5d36f299af7b408eafd5ebdd35eace87bf33a"
+      },
+      "gf180mcuC-Windows": {
+        "revision": "b661a751abfc662a",
+        "report_sha256": "70d7b84d059eb0893f0285ede0d26dac2084d8a8c7ebd716241a5fa01619fafc"
+      },
+      "gf180mcuD-Linux": {
+        "revision": "2f92b1f05da58bd7",
+        "report_sha256": "56a449fc2df0d20b83dda820d338704b8713ee0f0dedb5c7b04d06d24d96620e"
+      },
+      "gf180mcuD-Windows": {
+        "revision": "2f92b1f05da58bd7",
+        "report_sha256": "37565c87d5dfe142860486cb2e6a5e0ed7c90b6dbb34ea4bfd925d53781fae06"
+      }
+    }
+  },
+  "raw_audit_sha256": "1093de91523dfd9aaba0cdcc7ce2d198ed34be74f7810edc86748c3f6e620c11",
+  "checker_sha256": "6749722a9dcfa2c824eee14e7c1a61505d7fab01969a8c705a038a4fe798cb4e",
+  "tests": {
+    "Windows": {
+      "count": 33,
+      "status": "PASS",
+      "log_sha256": "7190fd09c7b09d257daa75293f487fbb7187374fff611490ab76fca404a17932"
+    },
+    "Linux": {
+      "count": 33,
+      "status": "PASS",
+      "log_sha256": "eaae694054e27fa83c591a3d66abe6b2b142b971ed6d16b0b790d9fa25d99987"
+    }
+  },
+  "editors": {
+    "Windows-C": {
+      "status": "PASS",
+      "scope": "Current-source offscreen editor: placement, limits, editing, save/reopen and netlist. Not installed acceptance.",
+      "target": "gf180mcuC",
+      "revision": "b661a751abfc662a",
+      "source_sha256": "82d646a7ecf19a66bb11d00c3ba6f83f339f1e6725fae9195743e91f4dc4ddb3",
+      "saved_sha256": "edf20ebd650ea9dfa4be541c64c5b8aa67236ccc4e1c165c15dcada2f21e2e12",
+      "report_sha256": "6ee0542e9ed59879762fcfd7473fea12a8035e161f6263581cc4cbee87718f27",
+      "screenshot_sha256": "ffbb8037ae18ab522ae761433802cd6a974fef39e23e9823792a006a0638ee62"
+    },
+    "Windows-D": {
+      "status": "PASS",
+      "scope": "Current-source offscreen editor: placement, limits, editing, save/reopen and netlist. Not installed acceptance.",
+      "target": "gf180mcuD",
+      "revision": "2f92b1f05da58bd7",
+      "source_sha256": "82d646a7ecf19a66bb11d00c3ba6f83f339f1e6725fae9195743e91f4dc4ddb3",
+      "saved_sha256": "74c43f5e45b8a2d69f5af36a4b2c7272bc8df0d9fb47b1e89f445f5c90e554e3",
+      "report_sha256": "cc9f299032a4d58a324363067f6d89e74a583b3cd996d29771041b474e6fc502",
+      "screenshot_sha256": "aee88327a08b097bfef092f72aa6139457d2550d928f6b41cfe6a01b56e20c30"
+    },
+    "Linux-C": {
+      "status": "PASS",
+      "scope": "Current-source offscreen editor: placement, limits, editing, save/reopen and netlist. Not installed acceptance.",
+      "target": "gf180mcuC",
+      "revision": "b661a751abfc662a",
+      "source_sha256": "82d646a7ecf19a66bb11d00c3ba6f83f339f1e6725fae9195743e91f4dc4ddb3",
+      "saved_sha256": "37f86b0b2fb44880c612f42f1f1362a795f7b3672e5de3ebb786f48474faf0db",
+      "report_sha256": "942227d04048b1fa4a2cca5cd933cf4cf4a2c704ad61cfd1a868c04abe18a6ad",
+      "screenshot_sha256": "d098117e4fed930cca7427a01616cc76c09fa9efeb69524d2fbdc4150278d3fa"
+    },
+    "Linux-D": {
+      "status": "PASS",
+      "scope": "Current-source offscreen editor: placement, limits, editing, save/reopen and netlist. Not installed acceptance.",
+      "target": "gf180mcuD",
+      "revision": "2f92b1f05da58bd7",
+      "source_sha256": "82d646a7ecf19a66bb11d00c3ba6f83f339f1e6725fae9195743e91f4dc4ddb3",
+      "saved_sha256": "19b2a067fbd04a02d7f9a2a95dd5a0731ebeb3a0b29c4fd6b478804ed5f02041",
+      "report_sha256": "369d620dd4627b6cc903a90e3635be7c0df015ff41ce578dcf0fa1e252207d8a",
+      "screenshot_sha256": "a4591ed640ba29032bae3cb3fdf22c1ab7650825f44a4da539b8ee248277b2e1"
+    }
+  },
+  "full_regressions": [
+    {
+      "host": "Linux",
+      "attempt": 1,
+      "accepted": false,
+      "discovered": 3071,
+      "seconds": 561.063,
+      "failures": 1,
+      "skipped": 31,
+      "exit": 1,
+      "log_sha256": "fe033e3647acec4c978707367c7c3380800aa6831754809700261f60956bd408",
+      "execution": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit": 1,
+        "environment": {
+          "OMP_THREAD_LIMIT": "1",
+          "QT_QPA_PLATFORM": "offscreen",
+          "GIT_OPTIONAL_LOCKS": "0",
+          "ICSTUDIO_TEST_NGSPICE": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/ngspice",
+          "SPICE_LIB_DIR": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice",
+          "SPICE_SCRIPTS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice/scripts",
+          "ICSTUDIO_SPICE_MODELS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/lib/ngspice"
+        },
+        "source_bytes": 263069771
+      },
+      "execution_sha256": "3c09884f660808aabd048ff8bd2f9724b61dd6e70f1d7fbd43963e3643a3b6d8"
+    },
+    {
+      "host": "Linux",
+      "attempt": 2,
+      "accepted": false,
+      "discovered": 3071,
+      "seconds": 563.824,
+      "failures": 7,
+      "errors": 2,
+      "skipped": 31,
+      "exit": 1,
+      "log_sha256": "9bb37f5efba8451bdf9cf766fe3c31067bc9604f4ddaace5253efac1969a0574",
+      "execution": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit": 1,
+        "environment": {
+          "OMP_THREAD_LIMIT": "1",
+          "QT_QPA_PLATFORM": "offscreen",
+          "GIT_OPTIONAL_LOCKS": "0",
+          "ICSTUDIO_TEST_NGSPICE": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/ngspice",
+          "SPICE_LIB_DIR": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice",
+          "SPICE_SCRIPTS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice/scripts",
+          "ICSTUDIO_SPICE_MODELS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/lib/ngspice"
+        },
+        "source_bytes": 263082644
+      },
+      "execution_sha256": "4d5cdf29f1ac0a263d5a2fe089e8c1b7aa98a2ff7e97cf949461599c06552a68"
+    },
+    {
+      "host": "Linux",
+      "attempt": 3,
+      "accepted": true,
+      "discovered": 3071,
+      "seconds": 552.405,
+      "skipped": 31,
+      "exit": 0,
+      "log_sha256": "582dc6ff3a90da91de3bac2d035e99feab80e5b2d20a9e76c2e1cceb3361fcdf",
+      "execution": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "exit": 0,
+        "environment": {
+          "OMP_THREAD_LIMIT": "1",
+          "QT_QPA_PLATFORM": "offscreen",
+          "GIT_OPTIONAL_LOCKS": "0",
+          "ICSTUDIO_TEST_NGSPICE": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/ngspice",
+          "SPICE_LIB_DIR": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice",
+          "SPICE_SCRIPTS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/share/ngspice/scripts",
+          "ICSTUDIO_SPICE_MODELS": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/lib/ngspice"
+        },
+        "source_bytes": 263146454
+      },
+      "execution_sha256": "a0fc5599ae3570cabba4c3ef46c4aca874cda621909078bade9d6015d6962e75"
+    },
+    {
+      "host": "Windows",
+      "attempt": 1,
+      "accepted": false,
+      "discovered": 3071,
+      "seconds": 1168.07,
+      "failures": 2,
+      "skipped": 39,
+      "exit": 1,
+      "log_sha256": "6a667f34800c9030a90d0dfaf870029a454e30c8155343c1462a5219a1dcbf4b",
+      "execution": {
+        "exit": 1,
+        "implementation_unchanged": false,
+        "source_files_sha256": "a0462ac89798713509177b5800e2a9adc10a111113f923470bd7c6b03b42086e",
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      },
+      "execution_sha256": "b592332033b00069c8969d9358bce089fc2b72c2323da50a137a469672cb83fe"
+    },
+    {
+      "host": "Windows",
+      "attempt": 2,
+      "accepted": true,
+      "discovered": 3071,
+      "seconds": 1070.713,
+      "skipped": 39,
+      "exit": 0,
+      "log_sha256": "2d4033868d5281e052e112311a5598c000a6e502331b015f8fad336e2cd21aa3",
+      "execution": {
+        "exit": 0,
+        "implementation_unchanged": true,
+        "source_files_sha256": "6f2bea0ade12935be3d93b1272ee722cf32604d1e77a6799fadffea692d9c2a2",
+        "command": [
+          "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\.venv\\Scripts\\python.exe",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ]
+      },
+      "execution_sha256": "78ad9a9cc3a0faa5759617e9c82a440da31eb7a2d1a2c65e1ceff6927d49a2be"
+    }
+  ],
+  "archive_pending": false,
+  "known_limits": [
+    "Public M scales the core device but not all external subcircuit elements; agreement does not establish complete parallel-copy equivalence.",
+    "Linux full matrix and Windows nominal samples are distinct execution scopes."
+  ],
+  "retained_failures": [
+    {
+      "log": "promoted-Windows-v1.log",
+      "sha256": "58e5325e86a2cb2b83677fa2c780bb937ad2823143b025ef4407827d440d38fc",
+      "reason": "First promotion omitted collection manifest identities; package manifest checks rejected the mismatch. Corrected before the accepted v2 run."
+    },
+    {
+      "scope": "Exploratory source and prototype runs",
+      "reason": "Missing design.ngspice dependency, current-name case, AC source mismatch and unsupported controlled-source kind were corrected in retained exploratory runs; no qualification credit for failures."
+    },
+    {
+      "scope": "First Linux and Windows full suites",
+      "reason": "The new optional library was loaded in a different order by folder registration. The first Windows run also overlapped the canvas edit; its implementation hash changed, so that run is not accepted."
+    },
+    {
+      "scope": "Second Linux full suite",
+      "reason": "The frozen copy preceded the historical canvas preservation. Nine related acceptance/matrix checks rejected stale evidence; the final v3 includes the corrected historical-source binding."
+    },
+    {
+      "scope": "First editor checks",
+      "reason": "Functional actions passed, but visual review exposed literal @spiceprefix. Fixed in the canvas and checked in all four final editor runs."
+    }
+  ],
+  "editor_visual_review": "Final Windows D and Linux C screenshots inspected: MN1/MP1 designators render without unresolved template text. All four editor scripts check the displayed device context.",
+  "repairs": [
+    "Restore the exact source-locked high-voltage library and source-reviewed terminal/geometry mappings.",
+    "Append the optional high-voltage include after the original GF180 includes so direct registration and bundled packages agree.",
+    "Resolve spiceprefix in PDK canvas text so the designator is displayed once; simulation emission is unchanged.",
+    "Retain the exact historical canvas source with the previous GF180 acceptance, rather than claiming that old evidence tested the new UI."
+  ],
+  "archive": {
+    "path": "IC-Design-Studio-evidence/gf180-high-voltage-2026-10-18/evidence.zip",
+    "sha256": "c9f8bfda2875359a2938d406a8559192c7daf5ea19db801172ff4b41bff0f240",
+    "bytes": 150710979,
+    "files": 31173,
+    "unique_contents": 8690,
+    "all_objects_verified": true,
+    "restore_check": {
+      "status": "PASS",
+      "archive_sha256": "c9f8bfda2875359a2938d406a8559192c7daf5ea19db801172ff4b41bff0f240",
+      "root": "/var/tmp/icstudio-hv-archive-restore-20261018-v3",
+      "prefixes": {
+        "final-source": "source",
+        "packages/gf180mcuC": "source/icstudio/assets/pdks/gf180mcuC",
+        "packages/gf180mcuD": "source/icstudio/assets/pdks/gf180mcuD",
+        "icstudio-gf180-hv-gf180mcuC-20261018-v1/nominal-25-5V": "case"
+      },
+      "files_verified": 1422,
+      "restored_checker_tests": 7,
+      "restored_checker_exit": 0,
+      "scope": "Restored byte-exact model package, implementation and one complete electrical case; checker regression executed from restored sources. No new full electrical run claimed."
+    }
+  }
+}

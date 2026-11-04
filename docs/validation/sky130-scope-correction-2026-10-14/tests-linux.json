@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "linux",
+  "python": "3.12.3",
+  "tests": 22,
+  "skipped": 0,
+  "data_sha256": "15ce1eb3ca0237adfec577d2bb53de5761ea34dd63c1840256dd4ac9e4576465",
+  "tests_sha256": "c44c2b8b612a3a484c424096ebca4fdec50837846dfd3dd27a70258f97f6d496",
+  "driver_sha256": "e2ddea13f8f29f51cdf2e620b0d940490503616e198423d0ea95caa74aa84f3b",
+  "source_files": {
+    "icstudio/digital_sky130_scope.py": "9f081c4229441aef29380b44e776d2890c20ec3df316d9a0b9dbfafa2864f95f",
+    "icstudio/digital_sky130_rules.py": "3672c5a87a7d2ca218c2685f63e8cc15dcb93060a65a7c3413e021b177c08f3e",
+    "icstudio/digital_sky130_rules_lock.py": "7f4463e6d1f184c649fb7be13c1e0717e538ba46d2efa4b3f40f51badff94fab",
+    "icstudio/digital_sky130_rule_worker.py": "2846309a442f05791d3d707112163305a485e6434b3f0b21d2fe6b1170976595",
+    "scripts/sky130_scope_corrections.py": "94edfc415fe27f24f2229d26dda0b701f309087eb558363d103992a7671edd17",
+    "tests/test_sky130_scope_corrections.py": "de758fe3dce72c33d740cb12aa134ae130f4888b0e811e4fbb9f53329fdeb4f0",
+    "tests/test_sky130_application_rules.py": "c99c1f016d8cb98a4fc2cf4cafb2257d65cf497074fd60f9cf9b29dc2fe60977",
+    "tests/test_sky130_density_rule_scope.py": "f643fe490b06a3344b406ae2ad49b01350aaf66ffabe0cfbe3c5284c5733b14b"
+  }
+}

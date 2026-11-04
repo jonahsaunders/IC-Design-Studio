@@ -1,0 +1,51 @@
+{
+  "LICENSE": {
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "bytes": 11358
+  },
+  "docs/analog/model_parameters/LV/LV_2_4.rst": {
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/LV_2_4.rst",
+    "sha256": "7f564e6e5673f495823eb3ecc5d1403b0a1f8be2a1d19e844e51186753e48c29",
+    "bytes": 1195
+  },
+  "docs/analog/model_parameters/LV/LV_2_5.rst": {
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/LV_2_5.rst",
+    "sha256": "4c6580655db93edcbda59bec3285b14960d82a1ef8d380119361b79bf89e824b",
+    "bytes": 1794
+  },
+  "docs/analog/spice/elec_specs/elec_specs_1.rst": {
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/spice/elec_specs/elec_specs_1.rst",
+    "sha256": "89d19dd6c1289da1fb956bb2e2fe9993641119ff1f9c1ed7400625bf1e04319f",
+    "bytes": 130
+  },
+  "docs/analog/spice/elec_specs/tables_clear/1_Low_Voltage_Devices.csv": {
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/spice/elec_specs/tables_clear/1_Low_Voltage_Devices.csv",
+    "sha256": "7d63fbb662dc4fbc74897d985b5820b685e3d3f3b48f31c98a7eef0a925049cf",
+    "bytes": 1262
+  },
+  "docs/analog/model_parameters/LV/tables_clear/18_Corner.csv": {
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/tables_clear/18_Corner.csv",
+    "sha256": "62c59793b0e40feb918981eafd28488c0b479fb858083ef03c8b86d952e8c8b7",
+    "bytes": 782
+  },
+  "docs/analog/model_parameters/LV/tables_clear/19_mos_3p3.csv": {
+    "repository": "https://github.com/google/gf180mcu-pdk",
+    "revision": "de3240d7529a6970437ac3344820aaae7839f215",
+    "url": "https://raw.githubusercontent.com/google/gf180mcu-pdk/de3240d7529a6970437ac3344820aaae7839f215/docs/analog/model_parameters/LV/tables_clear/19_mos_3p3.csv",
+    "sha256": "c3f0cca345c65babe328554f543a2eb9a79e4612e318320ea5019c0bbdcb2724",
+    "bytes": 297
+  }
+}

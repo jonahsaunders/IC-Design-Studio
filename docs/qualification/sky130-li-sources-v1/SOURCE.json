@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/google/skywater-pdk",
+  "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+  "license": "Apache-2.0",
+  "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "files": {
+    "docs/rules/device-details/res_generic/res_generic-table0.rst": {
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/res_generic/res_generic-table0.rst",
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "sha256": "97341fdc15c209037fb441ba083a3198bc12f4f5e9cbfe44cf5c27ed42d354d6",
+      "bytes": 1859,
+      "local_file": "res_generic-table0.rst"
+    },
+    "docs/rules/periphery/p035-li_dotdash_dotdash.csv": {
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p035-li_dotdash_dotdash.csv",
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "sha256": "2a70ccb00ed7dbcaa0b636c99df6edf683b714437b4570808ab48743236ccf69",
+      "bytes": 675,
+      "local_file": "p035-li_dotdash_dotdash.csv"
+    }
+  }
+}

@@ -1,0 +1,443 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "chunk": 7,
+  "status": "test_fixture_alias_repair_both_source_feedback_pass_hosted_pending",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "signoff": false,
+  "source_baseline": "7a44a9485f83acb7155393bf16b589cdf482b0b9",
+  "failed_hosted_feedback": {
+    "schema": 1,
+    "status": "VERIFIED_FAILURE",
+    "candidate": "7a44a9485f83acb7155393bf16b589cdf482b0b9",
+    "merge": "ec5d836b976fb8ca641c8121bf690f5f2dd0ebd4",
+    "run_id": 40376754467,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40376754467",
+    "required_feedback": "failure",
+    "platforms": [
+      {
+        "platform": "Windows",
+        "status": "failed",
+        "tests": 582,
+        "skips": 15,
+        "errors": [
+          "test_actual_retained_array_inputs_allow_only_top_token_changes (tests.test_installed_metal_parallel_audit.InstalledParallelAuditTests.test_actual_retained_array_inputs_allow_only_top_token_changes)"
+        ],
+        "seconds": 96.156,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 1,
+            "elapsed_seconds": 92.89
+          }
+        ],
+        "artifact_id": 12674564859,
+        "artifact_sha256": "6912cdb0c1926277c4dc4515b3182607268654aa31de139e18790986b53253ca",
+        "artifact_bytes": 81235,
+        "report_sha256": "37d145e23b9116fd999baf12400777f2ab29a11794b63c25c44f0eb0de51dbdb",
+        "members": 2,
+        "source_bindings": 1398
+      },
+      {
+        "platform": "Linux",
+        "status": "passed",
+        "tests": 582,
+        "skips": 4,
+        "errors": [],
+        "seconds": 128.276,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 46.565
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 3.222
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 27.377
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 4.575
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 8.634
+          },
+          {
+            "name": "metal-resistor-parallel-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 34.64
+          }
+        ],
+        "artifact_id": 12676765124,
+        "artifact_sha256": "0d3004c487afaeaf492d242017ba61e21552690ccb4c4b329448224f6584d154",
+        "artifact_bytes": 7656625,
+        "report_sha256": "abc1b90cc2749cb83d9cdb506bde7c94eabceda5ced6d95abd8ba7340d6adcbe",
+        "members": 260,
+        "source_bindings": 1398
+      }
+    ],
+    "all_candidate_source_bindings_verified": true,
+    "installed_acceptance": false,
+    "chunk_complete": false,
+    "scope": "Retained original hosted failure and passing Linux lane. No failure is relabelled as acceptance; cause and repair require separate evidence.",
+    "member_manifest_sha256": "7e77b271e6d35ad350e6af5bd3b435943d7415ee526c53ec4f71b4a89770155e"
+  },
+  "repair": {
+    "schema": 1,
+    "status": "PASS",
+    "scope": "Unit-fixture path correction only; no application, producer, checker, native or qualification changes.",
+    "candidate": "7a44a9485f83acb7155393bf16b589cdf482b0b9",
+    "hosted_run": 40376754467,
+    "hosted_archive": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-metal-parallel-installed-hosted-2026-10-26-v1\\source-feedback-Windows.zip",
+      "sha256": "6912cdb0c1926277c4dc4515b3182607268654aa31de139e18790986b53253ca"
+    },
+    "exact_original_test_matches_candidate_blob": true,
+    "before_test_sha256": "5a6086b20e386ec8898414d6a776321ce86b5a78084141a8cd1e921b541e04ce",
+    "after_test_sha256": "d43e6fe7a576235ea333678bb5c86167c7e6b41e84a0f35fd1598199ade2480f",
+    "observed_cause": "Direct fixture retained noncanonical original paths, while independent receipt readback canonicalizes them. Production run/bind_gui already canonicalize paths.",
+    "local_8dot3_path": "C:\\Users\\jonah\\DOCUME~1\\Codex\\c7t1024",
+    "actual_hosted_temp_alias": "not recorded; local reproduction demonstrates the mechanism only",
+    "before": [
+      {
+        "kind": "canonical",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": false,
+        "tests": 1,
+        "status": "PASS",
+        "errors": 0,
+        "failures": 0,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\before-canonical.log",
+        "log_sha256": "3643699e726419e63bb28cc1cd4a676b8e5559384b38c63c08e658c35f4727af"
+      },
+      {
+        "kind": "windows-8dot3",
+        "path": "C:\\Users\\jonah\\DOCUME~1\\Codex\\c7t1024",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": true,
+        "tests": 1,
+        "status": "FAIL",
+        "errors": 1,
+        "failures": 0,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\before-windows-8dot3.log",
+        "log_sha256": "d9c326cf4968c5bf55de72b220edd1ee32eb5688b19d027658a9599bb9a58034"
+      },
+      {
+        "kind": "lexical-parent",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024\\parallel-alias-probe\\..",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": true,
+        "tests": 1,
+        "status": "PASS",
+        "errors": 0,
+        "failures": 0,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\before-lexical-parent.log",
+        "log_sha256": "a9ad9a1a1368113d87eb3076bc869d671e3213743dc63f8de8273d227b65a623"
+      }
+    ],
+    "after": [
+      {
+        "kind": "canonical",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": false,
+        "tests": 1,
+        "status": "PASS",
+        "errors": 0,
+        "failures": 0,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\after-canonical.log",
+        "log_sha256": "0685036689c5770a1ef5036b695b2def10c25b70eb342b9d25436d740d8bd08e"
+      },
+      {
+        "kind": "windows-8dot3",
+        "path": "C:\\Users\\jonah\\DOCUME~1\\Codex\\c7t1024",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": true,
+        "tests": 1,
+        "status": "PASS",
+        "errors": 0,
+        "failures": 0,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\after-windows-8dot3.log",
+        "log_sha256": "bf82da201db8a57255ff1cd4680147cdcac0f5beedc55d317d2e006aa25d47ad"
+      },
+      {
+        "kind": "lexical-parent",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024\\parallel-alias-probe\\..",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": true,
+        "tests": 1,
+        "status": "PASS",
+        "errors": 0,
+        "failures": 0,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\after-lexical-parent.log",
+        "log_sha256": "750ceb22f938bd814cf4515809fbca583287cb8f32de38fa961ce405bf2061ad"
+      }
+    ],
+    "focused_tests": {
+      "count": 4,
+      "skipped": 0,
+      "seconds": 1.206,
+      "log": "focused-windows.log"
+    },
+    "negative_fixture_without_resolution": [
+      {
+        "kind": "canonical",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": false,
+        "tests": 1,
+        "status": "FAIL",
+        "errors": 0,
+        "failures": 1,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\no-resolve-control-canonical.log",
+        "log_sha256": "f6e030c48e96131b062fbcb3e7bb40f8f165a7566109651e15c6731662c91834"
+      },
+      {
+        "kind": "windows-8dot3",
+        "path": "C:\\Users\\jonah\\DOCUME~1\\Codex\\c7t1024",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": true,
+        "tests": 1,
+        "status": "FAIL",
+        "errors": 0,
+        "failures": 1,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\no-resolve-control-windows-8dot3.log",
+        "log_sha256": "5c1380fed2f59a08dbdf5ee9c51c1427af03d1cf5aaf78533ef0d2f0f7a2befa"
+      },
+      {
+        "kind": "lexical-parent",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024\\parallel-alias-probe\\..",
+        "resolved": "C:\\Users\\jonah\\Documents\\Codex\\c7t1024",
+        "distinct_spelling": true,
+        "tests": 1,
+        "status": "FAIL",
+        "errors": 0,
+        "failures": 1,
+        "log": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-parallel-temp-alias-fix-20261026-v1\\no-resolve-control-lexical-parent.log",
+        "log_sha256": "d554bf4ef493ee40977fd7b0a44555206dd7086da49e7c541cd17b625794b19f"
+      }
+    ],
+    "unchanged_production_sources": {
+      "scripts/verify_frozen_metal_parallel.py": "6884d19539b24fb498f3eed2eec4062d7088337e89808ef2ccf902324810efeb",
+      "scripts/installed_metal_parallel_inputs.py": "fc378d64c5b215977b6635187ad0a2bcd584c41b5267c781ed120f9fb4f4799c",
+      "scripts/audit_installed_metal_parallel.py": "caeb50ef18ca9a6156408ea401a3807245140e547defbdfd2e46190166d32f79",
+      "scripts/qualify_installed_metal_parallel.py": "a28f7c793ea0d469cc48cdb520c8082f1fe5354bce18999f314f57c20d41a431"
+    },
+    "installed_acceptance": false,
+    "native_execution": false
+  },
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-metal-parallel-temp-alias-fix-2026-10-26-v1\\evidence.zip",
+    "sha256": "0c34a736d16682f914b82098e9466b1e992bf0f1b6cadc7a25ecd186520b4771",
+    "bytes": 128886,
+    "manifest_sha256": "6451391315bbf813a42756cd4ece439e68e09508285c14f1077c4af20fcf1dcf",
+    "verified_members": 25
+  },
+  "validation_boundary": "Only the direct helper test fixture changes. Application, producer, independent checker, contract, toolchain and native/electrical evidence remain unchanged. Final source feedback is recorded separately; native/full-core runs are not repeated solely for a test-fixture path normalization.",
+  "final_source_feedback": {
+    "status": "PASS",
+    "source_bindings": 1398,
+    "changed_source_bindings": [
+      "tests/test_installed_metal_parallel_audit.py"
+    ],
+    "windows": {
+      "tests": 582,
+      "skips": 16,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 82.984
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.812
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 29.329
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.671
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.188
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.609
+        }
+      ],
+      "report_sha256": "33d965198a3ce36c1dc6e3101dc500be64fba97674bf007e6803fb2d1f3e6ce8"
+    },
+    "linux": {
+      "tests": 582,
+      "skips": 4,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 23.824
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 1.718
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 23.375
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.423
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.876
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 18.707
+        }
+      ],
+      "report_sha256": "933a9b4731fa5d6a25b708cf5bead6e976ddcd9b0d35d4e523e66216df9eebf8"
+    },
+    "fixture_manifest_sha256": "157ad5d43fa7d26d866a88eb16e8efe957f357b75b6fb4d3ba844056e160b4f0",
+    "scope": "Exact repaired test bytes pass both source lanes. The full production/native evidence is unchanged; hosted feedback and packaged execution remain separate.",
+    "archive_verification": {
+      "schema": 1,
+      "status": "PASS",
+      "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-parallel-repair-feedback-2026-10-26-v1/evidence.zip",
+      "archive_sha256": "9fca8c27cf8a95adddfc5d748561c69f53e0b3192a4d5338923e8d8b0ed2b1dc",
+      "archive_bytes": 13163651,
+      "manifest_sha256": "6463ecb92436aeec7d88188406da23fa8b17eb790eea560adca95aeadf0e70d1",
+      "logical_files": 426,
+      "unique_objects": 373,
+      "logical_bytes": 266628560,
+      "all_objects_and_crc_verified": true,
+      "all_originals_unchanged": true,
+      "archived_reports_and_maps_readback": true,
+      "summary_sha256": "ab5728579d6fd96228cbf8d15e552b94c5ba5bd281f5da8322c4af1389c0034e",
+      "source_files": 1398,
+      "source_manifest_sha256": "157ad5d43fa7d26d866a88eb16e8efe957f357b75b6fb4d3ba844056e160b4f0",
+      "published_candidate": "7a44a9485f83acb7155393bf16b589cdf482b0b9",
+      "source_map_differences": {
+        "tests/test_installed_metal_parallel_audit.py": {
+          "published": "5a6086b20e386ec8898414d6a776321ce86b5a78084141a8cd1e921b541e04ce",
+          "reviewed": "d43e6fe7a576235ea333678bb5c86167c7e6b41e84a0f35fd1598199ade2480f"
+        }
+      },
+      "platforms": {
+        "windows": {
+          "report_sha256": "33d965198a3ce36c1dc6e3101dc500be64fba97674bf007e6803fb2d1f3e6ce8",
+          "elapsed_seconds": 167.063,
+          "stages": [
+            {
+              "name": "unit-contracts",
+              "returncode": 0,
+              "elapsed_seconds": 82.984
+            },
+            {
+              "name": "release-contracts",
+              "returncode": 0,
+              "elapsed_seconds": 3.812
+            },
+            {
+              "name": "menu-smoke",
+              "returncode": 0,
+              "elapsed_seconds": 29.329
+            },
+            {
+              "name": "project-hub-smoke",
+              "returncode": 0,
+              "elapsed_seconds": 8.671
+            },
+            {
+              "name": "metal-resistor-editor-smoke",
+              "returncode": 0,
+              "elapsed_seconds": 8.188
+            },
+            {
+              "name": "metal-resistor-parallel-smoke",
+              "returncode": 0,
+              "elapsed_seconds": 31.609
+            }
+          ],
+          "tests": 582,
+          "unit_seconds": 81.884,
+          "skips": 16,
+          "unit_log_sha256": "3cf73c3beb2f5f62e0ea483acae5a2cfc904207eb454ea69636ccc23870c1427"
+        },
+        "linux": {
+          "report_sha256": "933a9b4731fa5d6a25b708cf5bead6e976ddcd9b0d35d4e523e66216df9eebf8",
+          "elapsed_seconds": 77.663,
+          "stages": [
+            {
+              "name": "unit-contracts",
+              "returncode": 0,
+              "elapsed_seconds": 23.824
+            },
+            {
+              "name": "release-contracts",
+              "returncode": 0,
+              "elapsed_seconds": 1.718
+            },
+            {
+              "name": "menu-smoke",
+              "returncode": 0,
+              "elapsed_seconds": 23.375
+            },
+            {
+              "name": "project-hub-smoke",
+              "returncode": 0,
+              "elapsed_seconds": 3.423
+            },
+            {
+              "name": "metal-resistor-editor-smoke",
+              "returncode": 0,
+              "elapsed_seconds": 4.876
+            },
+            {
+              "name": "metal-resistor-parallel-smoke",
+              "returncode": 0,
+              "elapsed_seconds": 18.707
+            }
+          ],
+          "tests": 582,
+          "unit_seconds": 22.786,
+          "skips": 4,
+          "unit_log_sha256": "0cb33dbb0d2cf67656557a818d10af8d44b34316ffbf8c33172081cfd66f97cd"
+        }
+      },
+      "installed_acceptance": false,
+      "native_qualification_rerun": false,
+      "full_core_rerun": false,
+      "scope": "Final local repair feedback, authenticated source delta, published/current source maps and test-fixture bytes. Hosted failure artifacts, earlier native/full-core evidence, runtime installations and temporary profiles are outside this archive."
+    }
+  }
+}

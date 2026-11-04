@@ -1,0 +1,19 @@
+test_changed_tables_and_source_legends_are_rejected (tests.test_sky130_device_intent.DeviceIntentTests.test_changed_tables_and_source_legends_are_rejected) ... ok
+test_each_varactor_indicator_prevents_its_absence_decision (tests.test_sky130_device_intent.DeviceIntentTests.test_each_varactor_indicator_prevents_its_absence_decision) ... ok
+test_empty_geometry_invalid_counts_and_unknown_models_fail_closed (tests.test_sky130_device_intent.DeviceIntentTests.test_empty_geometry_invalid_counts_and_unknown_models_fail_closed) ... ok
+test_final_gds_census_is_exhaustive (tests.test_sky130_device_intent.DeviceIntentTests.test_final_gds_census_is_exhaustive) ... ok
+test_hvtp_over_nmos_is_rejected (tests.test_sky130_device_intent.DeviceIntentTests.test_hvtp_over_nmos_is_rejected) ... ok
+test_known_device_types_and_complete_geometry_allow_only_two_decisions (tests.test_sky130_device_intent.DeviceIntentTests.test_known_device_types_and_complete_geometry_allow_only_two_decisions) ... ok
+test_missing_hvtp_cannot_establish_the_high_vt_device (tests.test_sky130_device_intent.DeviceIntentTests.test_missing_hvtp_cannot_establish_the_high_vt_device) ... ok
+test_missing_or_extra_native_mos_is_rejected (tests.test_sky130_device_intent.DeviceIntentTests.test_missing_or_extra_native_mos_is_rejected) ... ok
+test_native_capture_hash_mismatch_is_rejected_before_interpretation (tests.test_sky130_device_intent.DeviceIntentTests.test_native_capture_hash_mismatch_is_rejected_before_interpretation) ... ok
+test_native_model_substitution_does_not_inherit_hd_coverage (tests.test_sky130_device_intent.DeviceIntentTests.test_native_model_substitution_does_not_inherit_hd_coverage) ... ok
+test_partial_well_gate_cannot_be_split_into_apparently_valid_devices (tests.test_sky130_device_intent.DeviceIntentTests.test_partial_well_gate_cannot_be_split_into_apparently_valid_devices) ... ok
+test_raw_marker_text_in_hierarchy_is_not_discarded (tests.test_sky130_device_intent.DeviceIntentTests.test_raw_marker_text_in_hierarchy_is_not_discarded) ... ok
+test_table_identity_and_created_masks_are_explicit (tests.test_sky130_device_intent.DeviceIntentTests.test_table_identity_and_created_masks_are_explicit) ... ok
+test_unknown_shape_transform_and_purpose_are_rejected (tests.test_sky130_device_intent.DeviceIntentTests.test_unknown_shape_transform_and_purpose_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 21.627s
+
+OK

@@ -1,0 +1,6 @@
+Unmodified public SKY130 device documentation and Apache-2.0 license.
+Upstream: https://github.com/google/skywater-pdk
+Revision: 7198cf647113f56041e02abf3eb623692820c5e1
+Original paths, byte lengths and SHA-256 identities are in source-lock.json.
+These upstream files retain their original license. Their inclusion does not
+relicense them or establish foundry qualification of IC Design Studio.

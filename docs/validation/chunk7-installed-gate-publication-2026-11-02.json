@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "status": "PUBLISHED_SOURCE_PASS_DESKTOP_IN_PROGRESS",
+  "candidate": "c76377da7812c3deae5feb98b5ea2db6d87fd310",
+  "branch": "experimental",
+  "source_feedback": {
+    "run_id": 41566145288,
+    "status": "PASS",
+    "tests_per_host": 1058,
+    "skips": {
+      "Windows": 36,
+      "Linux": 16
+    },
+    "source_files_verified": 2224,
+    "record": "chunk7-installed-gate-hosted-feedback-2026-11-02.json"
+  },
+  "desktop_run": {
+    "conclusion": null,
+    "created_at": "2026-11-03T02:40:13Z",
+    "event": "workflow_dispatch",
+    "head_branch": "experimental",
+    "head_sha": "c76377da7812c3deae5feb98b5ea2db6d87fd310",
+    "html_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41567538709",
+    "id": 41567538709,
+    "path": ".github/workflows/build-desktop.yml",
+    "run_attempt": 1,
+    "status": "in_progress",
+    "updated_at": "2026-11-03T02:40:37Z"
+  },
+  "initial_gates_passed": [
+    "candidate",
+    "release-tools (ubuntu-24.04)",
+    "release-tools (windows-2022)",
+    "digital-runtime / candidate"
+  ],
+  "runtime_build_in_progress": true,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "qualified": false,
+  "prior_desktop": {
+    "run_id": 41526912766,
+    "candidate": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+    "both_packages_passed": true,
+    "installed_final_outcomes": "pending",
+    "scope": "Older candidate does not include the new ordinary capacitor reference repair or installed gate."
+  },
+  "retained_api": {
+    "directory": "chunk7-hosted-feedback-2026-11-02-v4",
+    "run_sha256": "b23bbeb7b95b10e118d2c570ae2421701f1956be129b4f8e1eb90f0bec672ee6",
+    "jobs_sha256": "445d2119e0ffd78fe8e8e35cef563f8aaccbe09df157fa0253aea9778281fe91"
+  },
+  "progress": {
+    "estimated_chunk7_percent": 72,
+    "confidence": "low",
+    "range_percent": [
+      55,
+      80
+    ]
+  },
+  "publication_status": "Local latest evidence; no documentation-only push while selected acceptance runs."
+}

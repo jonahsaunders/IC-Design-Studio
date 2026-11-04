@@ -1,0 +1,6 @@
+{
+  "upstream_masters_sha256": "5c10d8a6aa5165817bd8bf53fce902506c4ae131660965915c8e2b6e3878485b",
+  "normalized_masters_sha256": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+  "cdl_separators_removed": 7,
+  "dimension_scale": 1e-06
+}

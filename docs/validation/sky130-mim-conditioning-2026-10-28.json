@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "id": "sky130-mim-conditioning-2026-10-28",
+  "date": "2026-10-28",
+  "status": "candidate_finite_source_derived_replay_passed",
+  "chunk": 7,
+  "qualified": false,
+  "installed": false,
+  "release_ready": false,
+  "signoff": false,
+  "chunk_complete": false,
+  "scope": "Opt-in source-derived deterministic AC replay of four selected imported two-cell layouts with original v1 larger-common-mode profile. It does not claim untouched-model v1 pass, general simulator behavior, noise/transient, broader geometry or installed qualification.",
+  "source_baseline": "95ab31ddf46282cda9aef8a4772de33c86913870",
+  "original_failure": {
+    "contract": "docs/qualification/sky130-mim-hierarchy-electrical-v1.json",
+    "evidence_archive_sha256": "f0297a1f3405248dd41a467f5ed45d87a19033ada4b9978745fe28dbe1f0ed9b",
+    "case": "p1-r0-hl/e1",
+    "status": "failed",
+    "observation": "Windows ngspice 46 N1 real current -4.440892098500626e-16 A versus approximately 1.97e-20 A expected; allowed 2.1591e-16 A."
+  },
+  "previous_smaller_stimulus": {
+    "contract": "docs/qualification/sky130-mim-hierarchy-electrical-v2.json",
+    "delta_v": 1.52587890625e-05,
+    "scope": "Previously accepted distinct conditioned common-mode case; it does not resolve the original v1 direct-model numerical failure."
+  },
+  "fixture": {
+    "bundle_path": "docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip",
+    "bundle_sha256": "c3f66bd57fdfcb95744061ae717142409ded07aa7c43cb4447a25feddd41c6c0",
+    "bundle_bytes": 4537429,
+    "manifest_sha256": "1d433b5a3317b36bbcfaa8cf9037146a74256c76e5f40ba4f2aac35463631eed",
+    "decks": 40,
+    "sources": 346,
+    "old_manifest_sha256": "6f095e6cf9a82dea4f6d842d1071abc7a41fae3978d0f75aa9c85fdb8b08eb29",
+    "difference": "Omitted one unused staging metadata file containing historical local paths; all 40 decks and 346 remaining source files are byte-identical. No SPICE/deck reference to omitted file."
+  },
+  "stimulus": {
+    "profiles": {
+      "e1": [
+        1.25,
+        0.25,
+        -0.5,
+        -0.5
+      ],
+      "e2": [
+        0.25,
+        0.25,
+        0.5,
+        -0.5
+      ]
+    },
+    "temperature_c": 27,
+    "tnom_c": 27,
+    "dc_volts": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "frequencies_hz": [
+      1000,
+      10000,
+      100000,
+      1000000,
+      10000000,
+      100000000,
+      1000000000,
+      10000000000
+    ],
+    "multiplicity": 1,
+    "mc_mm_switch": 0,
+    "mc_pr_switch": 0,
+    "current_tolerance": "1e-6 of one-volt base admittance",
+    "unchanged_terminal_voltage_current_observations": true
+  },
+  "source_transformation": {
+    "method": "Replace each of two locked MiM resistor stamps by an ideal zero-volt current sensor and floating CCVS imposing the exact source resistance expression. Temperature correction factor is unity at the only selected TEMP=TNOM point.",
+    "scope": "DC operating point and selected linear AC only; no resistor thermal noise, transient or statistical equivalence claimed."
+  },
+  "hosts": {
+    "windows": {
+      "engine": "ngspice 46",
+      "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "runtime_lock_sha256": "0ee2b70e68caaff15c222d5b39172d1e868cf8676d3010fe31d4eb7abfe5282b",
+      "archive_sha256": "aaef60851eeb94556f60dd8cbf6a6e1d7c1cf161a96c559f55e2910f0f879e76",
+      "archive_manifest_sha256": "72343ade6784a429627c656d7e15f24fedb05a71a9a749ae831b0c1593296930"
+    },
+    "linux": {
+      "engine": "ngspice 42",
+      "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+      "runtime_lock_sha256": "9df4ee02ef9c24ac09a2b7fe67f3d75e71b500212205ef7442dedaf07b40d91e",
+      "archive_sha256": "9f1183a41c4519a5a9c6076c781eba1ec65a44a6ca7f3e296f2fc923fb1cdefa",
+      "archive_manifest_sha256": "3c75c036555ef1e87f4036f9ece8f4c25be3035984beb03c86ca938d8182845e"
+    }
+  },
+  "per_host_results": {
+    "runs": 40,
+    "independently_audited_runs": 40,
+    "network_frequency_samples": 1920,
+    "detected_faults": 60,
+    "maximum_normalized_current_error": 4.017215652478686e-09,
+    "logical_evidence_files": 14003,
+    "deduplicated_objects": 5577,
+    "compact_archive_independent_reconstruction": "PASS"
+  },
+  "controls": {
+    "public_bundle_builder_wrong_hash_and_rehashed_extra_path": "rejected",
+    "changed_deck_analysis_mc_temperature_element": "rejected",
+    "changed_source_and_rehashed_manifest": "rejected",
+    "rehashed_altered_raw_current_receipt_manifest": "rejected",
+    "resistor_change": "rejected",
+    "windows_junction_alias": "rejected",
+    "reviewed_windows_runtime_missing_companion": "rejected",
+    "test_module_alias_and_path_restoration": "verified",
+    "faults": "Cross, missing and width independently detected across all 20 e2 contexts."
+  },
+  "tests": {
+    "windows": {
+      "passed": 17,
+      "skipped": 0,
+      "python_optimized": true
+    },
+    "linux": {
+      "passed": 17,
+      "skipped": 0,
+      "python_optimized": true
+    },
+    "offline_default": "Seven tests run without retained execution data; ten data-dependent tests explicitly skip unless their external evidence paths are supplied."
+  },
+  "source_archive_tests": {
+    "windows": {
+      "passed": 4,
+      "skipped": 0
+    },
+    "linux": {
+      "passed": 4,
+      "skipped": 0
+    },
+    "release_archives_sha256": "b9e23b34bee3e9a86e0fe7c6f29b91808a8357000deb675be472d137323af05a",
+    "handoff_sha256": "1c88c0217df6778992cd6dfcd59c029ba1c7242bc5cb924111b047ada0827d96",
+    "scope": "Existing archive policy unchanged; actual Source and GitHub ZIP inclusion plus missing/changed Git-blob rejection."
+  },
+  "retention": {
+    "store": "IC-Design-Studio-evidence/chunk7-mim-conditioning-2026-10-28-v1",
+    "manifest_sha256": "a7358762670d0ab5ec1175c12b230cccf2b9cf1fe710b0b9aa619383a1698c22",
+    "scope": "Compact full public-v2 and prior v1 objects, retained source/readers, locks, licenses and negative deltas."
+  },
+  "files": {
+    "scripts/qualification/sky130_mim_conditioning/replay.py": "838f56e23e1aeba4e8f94debd9511b5591ddf94d49392c689bbb12732ad6c2e7",
+    "scripts/qualification/sky130_mim_conditioning/readback.py": "50ce1d67754564c7e242c41a204e9b95b3dd7dc875165779e33e62f7b062999b",
+    "scripts/qualification/sky130_mim_conditioning/audit_pilot.py": "d6a2136aa46ce6d2b6f5565575e82b5546ed94f0b6099bf3e35087b0ef884426",
+    "scripts/qualification/sky130_mim_conditioning/build_fixture.py": "27312d975f0f5ffd09aece475b3b0321f4336ae02cc6ae620a66716edf95feb9",
+    "scripts/qualification/sky130_mim_conditioning/build_runtime_lock.py": "57766e99d4add8bbac9708c206d067ec03ac2d2758e92d79a1b141b98ece4e5c",
+    "tests/test_sky130_mim_conditioning.py": "3731ab8c70e12beb7605355d743dd8e6d452227ad8e70111b49bb74de1758fbc",
+    "tests/test_source_mim_fixture_archive.py": "ae0a0457d4bb88cec2d1de650c5980b133697f7f1fb75cfa4df2d47a7d635d7f",
+    "docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip": "c3f66bd57fdfcb95744061ae717142409ded07aa7c43cb4447a25feddd41c6c0",
+    "docs/qualification/sky130-mim-conditioning-v1/fixture-provenance.json": "854d7dc42bdc5826327bc55e28c37871dba5fe6e0485f8efc177ef0ed61f4f0f",
+    "docs/qualification/sky130-mim-conditioning-v1/LICENSE-APACHE-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "docs/qualification/sky130-mim-conditioning-v1/LICENSE-GPL-3.0.txt": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "docs/qualification/sky130-mim-conditioning-v1/NOTICE.txt": "d21a40b2a942a7251bad7777bea9f35dc4fa10837bd87ab02c7e0774aab5ae07"
+  },
+  "exclusions": [
+    "Noise/transient/statistics",
+    "Other geometry/temperature/bias/multiplicity",
+    "Full physical family, installed release or foundry signoff"
+  ]
+}

@@ -1,0 +1,2400 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "physical-device-root-connectivity-reviewed",
+  "qualified": false,
+  "chunk_complete": false,
+  "inputs": {
+    "docs/qualification/sky130-error-rule-inventory.json": "9b8ac023b0b0045639bf586e77b9540b51816be448d801f2a8b922c0af9524c9",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "docs/qualification/sky130-reference-rule-options.json": "6032f58d9fc467c7cdfb0d8ba16d03d9c0cd6fcd8b83ccb3dbc56f20b65dfdf9",
+    "docs/qualification/sky130-reference-voltage-contract.json": "ba5fec303fe2d7fb4b70b9b714564accedbef25afdc370cda6d3dddb51a33c38",
+    "docs/qualification/sky130-rule-inventory.json": "470a056e6ef613b60d4082c575f70f097ddb0d5b340a6dda0d6620eb20edb58f",
+    "docs/validation/sky130-boundary-export-2026-10-15.json": "f4dde4c80783eb58a044ae24d9bda3034f44b71201937da42ad420414042b17b",
+    "docs/validation/sky130-boundary-interactions-2026-10-15.json": "eb6884f3730351f977cd77c6e86fea072b1c86e4a4afef44bdc84b81ef1e3cee",
+    "docs/validation/sky130-conservative-bounds-2026-10-15.json": "62d872f2703c9a17f2eb7e7831e279bd1cd0087073b74f733fa9d750f8454719",
+    "docs/validation/sky130-core-context-2026-10-15.json": "b3fb813d1b15b33210be66ef61d0b5ce91e1918ac933426359df4bad02ccc1d6",
+    "docs/validation/sky130-device-intent-2026-10-14.json": "c8dc8265a41da92a9a8b66f6fad116b70f52e204f8460606fbb2da19459618b5",
+    "docs/validation/sky130-device-intent-audit-2026-10-14.json": "33b80e82e6b66e9fd1c7302b0eda9f35ad0d2db3007f70a5da3c81e8ac580921",
+    "docs/validation/sky130-esd-fuse-2026-10-14.json": "c1a05882f3f48607a245ae3d0d3812503bc67663d2fc641e06fbbfaae248f880",
+    "docs/validation/sky130-fill-progress-2026-10-11.json": "4de1c733c3b0b29e0c7770d46c68a3d8e68c185410e9c24c930dab1cfbe55dd3",
+    "docs/validation/sky130-filled-electrical-2026-10-14.json": "7425fc329525069e3080d4eef7567c67bc354f20128005b90c063f4343b232df",
+    "docs/validation/sky130-floating-review-2026-10-11.json": "2a07fef720a4938d83a71a0a7bd6d8d6547499b756d5306b0c02804e4e8ef929",
+    "docs/validation/sky130-floating-review-2026-10-11/data.json": "cbad4d8388453d9fbd55330a2fad21e88c6fdc688420557584fd2f91efad671e",
+    "docs/validation/sky130-geometry-reconciliation-2026-10-14.json": "6a61be0415cc68efd4e591428c1ac7e2531cac731e6396da953f4485104608d3",
+    "docs/validation/sky130-grid-catalog-2026-10-15.json": "fd51a2cb9cc93c26399b95ed6c5a11b916dc95ced93fdd1d257ec5fd71e63c94",
+    "docs/validation/sky130-isolation-options-2026-10-14.json": "5c284df0743c4207282d2c37f561a3e701d0d8ddfb3a6dfc2425b0364a11d33c",
+    "docs/validation/sky130-label-subjects-2026-10-15.json": "346291eb600c055674d5ed305de2109249b590ebcddb58aa388761591f66e495",
+    "docs/validation/sky130-local-hv-2026-10-15.json": "8056cb07c88e58be1fff098881c444e204ae85b53dc21bc570a35558e0c5de9a",
+    "docs/validation/sky130-marker-reconciliation-2026-10-14.json": "c88d19aa1893d6a4c7fd1f7031c105e81c2e7a3c0f7c69fac1467b262654d91e",
+    "docs/validation/sky130-nsm-reconciliation-2026-10-14.json": "24217feeb0fe116057334fd41fce3696e88441b76a6935a0d82031da87e63ca0",
+    "docs/validation/sky130-scope-corrections-2026-10-14.json": "15ce1eb3ca0237adfec577d2bb53de5761ea34dd63c1840256dd4ac9e4576465",
+    "docs/validation/sky130-selected-devices-2026-10-15.json": "728bcf21dbc246cfa25a87129098afebafa01a2663e210dc87691ea0f2919b81",
+    "docs/validation/sky130-selected-subjects-2026-10-14.json": "9757823897dcc17028442528caf1e32ba6a37292e33fe168e8bcebed88187719",
+    "docs/validation/sky130-selected-subjects-audit-2026-10-14.json": "344d54c2c95c120c32acec0dd49df18b128d7a46b479196b66e465e0d0feb262",
+    "docs/validation/sky130-standard-cell-wl-2026-10-15.json": "bfe5423c9e4efadf24e134f904e39eda4df016ebd60de9fc40ae33e80945d7fe",
+    "docs/validation/sky130-voltage-intent-2026-10-14.json": "8110a8b2a1a9c6cfed2ae8a76124d7f3b975598350444605f1c9b593802e3a46",
+    "docs/validation/sky130-voltage-intent-audit-2026-10-14.json": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
+    "docs/validation/sky130-vpp-geometry-2026-10-15.json": "7dc92a2f624aa7a04aae74735a46649398144308510d88fc2ff6e850582e8eaa",
+    "docs/validation/sky130-waffle-density-2026-10-14.json": "5fcb18dc44127b9ab9c53e5afdb1bd5cfb1d379cce63455ec3a18f85e2f40e4a"
+  },
+  "source_files": {
+    "scripts/sky130_device_root_review.py": "cff0775b629b62f037d4ddf786727052578bc77272b041b3a336276379d37953",
+    "icstudio/digital_sky130_device_roots.py": "148e85a72123792a7d5766896e7cbe25cd3c128cd7e570465050d092b55f862f",
+    "tests/test_sky130_device_roots.py": "23e5c92770f0bfa8a8fd4af27d0b16009d31acdfadd32d704fd5570ddc476261",
+    "icstudio/digital_sky130_rules.py": "b45ac7f1c44ef3d6b0dba6261a7b4adfeeba6135131a52e3b20bd2084a5d08ae",
+    "icstudio/digital_sky130_rule_worker.py": "cdc30288e08cf2a71a8fab2547c5e60fcbe1212b1b1f9ba856aac28838554710",
+    "tests/test_sky130_application_rules.py": "f507f4258aa483be531992708b0715efee1c521278ca1d4be63ea19bcba69431"
+  },
+  "proof": {
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+        "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+      }
+    },
+    "bindings": {
+      "s11": {
+        "record": {
+          "id": "s11",
+          "record": 1494,
+          "rule": "x.22",
+          "description": "Nets on poly is floating",
+          "periphery_candidates": [
+            "docs/rules/periphery/p018-x_dotdash.csv#37"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "parent": {
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#37",
+          "rule": "x.22",
+          "description": "| No floating interconnects (poly, li1, met1-met5) or capm allowed; Rule flags interconnects with no path to poly, difftap or metal pins. Exempt floating layers can be excluded using poly_float, li1_float, m1_float, m2_float, m3_float, m4_float and m5_float text labels. Also flags an error if these text labels are placed on connected layers (not floating) and if the labels are not over the appropriate metal layer.  \n| If floating interconnects need to be connected at a higher level (Parent IP or Full chip), such floating interconnects can be exempted using poly_tie, li1_tie, m1_tie, m2_tie, m3_tie, m4_tie and m5_tie text labels.\n| It is the responsibility of the IP owner and chip/product owner to communicate and agree to the node each of these texted lines is connected to, if there is any risk to how a line is tied, and to what node.\n| Only metals outside :drc_tag:`areaid.stdcell` are checked.\n| \nThe following are exempt from x.22 violations: _techCD_ , inductor.dg, modulecut, capacitors and s8blerf\nThe 'notPublicCell' switch will deactivate this rule",
+          "flags": [
+            "RC"
+          ],
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+        },
+        "proof": "Every drawn conductor on this layer reaches physical gate or diffusion/tap geometry through the full contact graph. All extracted areas are accounted for. No block-pin endpoint, label, standard-cell exemption or tie declaration is used."
+      },
+      "s16": {
+        "record": {
+          "id": "s16",
+          "record": 1499,
+          "rule": "x.22",
+          "description": "Nets on li1 is floating",
+          "periphery_candidates": [
+            "docs/rules/periphery/p018-x_dotdash.csv#37"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "parent": {
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#37",
+          "rule": "x.22",
+          "description": "| No floating interconnects (poly, li1, met1-met5) or capm allowed; Rule flags interconnects with no path to poly, difftap or metal pins. Exempt floating layers can be excluded using poly_float, li1_float, m1_float, m2_float, m3_float, m4_float and m5_float text labels. Also flags an error if these text labels are placed on connected layers (not floating) and if the labels are not over the appropriate metal layer.  \n| If floating interconnects need to be connected at a higher level (Parent IP or Full chip), such floating interconnects can be exempted using poly_tie, li1_tie, m1_tie, m2_tie, m3_tie, m4_tie and m5_tie text labels.\n| It is the responsibility of the IP owner and chip/product owner to communicate and agree to the node each of these texted lines is connected to, if there is any risk to how a line is tied, and to what node.\n| Only metals outside :drc_tag:`areaid.stdcell` are checked.\n| \nThe following are exempt from x.22 violations: _techCD_ , inductor.dg, modulecut, capacitors and s8blerf\nThe 'notPublicCell' switch will deactivate this rule",
+          "flags": [
+            "RC"
+          ],
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+        },
+        "proof": "Every drawn conductor on this layer reaches physical gate or diffusion/tap geometry through the full contact graph. All extracted areas are accounted for. No block-pin endpoint, label, standard-cell exemption or tie declaration is used."
+      },
+      "s21": {
+        "record": {
+          "id": "s21",
+          "record": 1504,
+          "rule": "x.22",
+          "description": "Nets on met1 is floating",
+          "periphery_candidates": [
+            "docs/rules/periphery/p018-x_dotdash.csv#37"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "parent": {
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#37",
+          "rule": "x.22",
+          "description": "| No floating interconnects (poly, li1, met1-met5) or capm allowed; Rule flags interconnects with no path to poly, difftap or metal pins. Exempt floating layers can be excluded using poly_float, li1_float, m1_float, m2_float, m3_float, m4_float and m5_float text labels. Also flags an error if these text labels are placed on connected layers (not floating) and if the labels are not over the appropriate metal layer.  \n| If floating interconnects need to be connected at a higher level (Parent IP or Full chip), such floating interconnects can be exempted using poly_tie, li1_tie, m1_tie, m2_tie, m3_tie, m4_tie and m5_tie text labels.\n| It is the responsibility of the IP owner and chip/product owner to communicate and agree to the node each of these texted lines is connected to, if there is any risk to how a line is tied, and to what node.\n| Only metals outside :drc_tag:`areaid.stdcell` are checked.\n| \nThe following are exempt from x.22 violations: _techCD_ , inductor.dg, modulecut, capacitors and s8blerf\nThe 'notPublicCell' switch will deactivate this rule",
+          "flags": [
+            "RC"
+          ],
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+        },
+        "proof": "Every drawn conductor on this layer reaches physical gate or diffusion/tap geometry through the full contact graph. All extracted areas are accounted for. No block-pin endpoint, label, standard-cell exemption or tie declaration is used."
+      },
+      "s26": {
+        "record": {
+          "id": "s26",
+          "record": 1509,
+          "rule": "x.22",
+          "description": "Nets on met2 is floating",
+          "periphery_candidates": [
+            "docs/rules/periphery/p018-x_dotdash.csv#37"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "parent": {
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#37",
+          "rule": "x.22",
+          "description": "| No floating interconnects (poly, li1, met1-met5) or capm allowed; Rule flags interconnects with no path to poly, difftap or metal pins. Exempt floating layers can be excluded using poly_float, li1_float, m1_float, m2_float, m3_float, m4_float and m5_float text labels. Also flags an error if these text labels are placed on connected layers (not floating) and if the labels are not over the appropriate metal layer.  \n| If floating interconnects need to be connected at a higher level (Parent IP or Full chip), such floating interconnects can be exempted using poly_tie, li1_tie, m1_tie, m2_tie, m3_tie, m4_tie and m5_tie text labels.\n| It is the responsibility of the IP owner and chip/product owner to communicate and agree to the node each of these texted lines is connected to, if there is any risk to how a line is tied, and to what node.\n| Only metals outside :drc_tag:`areaid.stdcell` are checked.\n| \nThe following are exempt from x.22 violations: _techCD_ , inductor.dg, modulecut, capacitors and s8blerf\nThe 'notPublicCell' switch will deactivate this rule",
+          "flags": [
+            "RC"
+          ],
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+        },
+        "proof": "Every drawn conductor on this layer reaches physical gate or diffusion/tap geometry through the full contact graph. All extracted areas are accounted for. No block-pin endpoint, label, standard-cell exemption or tie declaration is used."
+      },
+      "s31": {
+        "record": {
+          "id": "s31",
+          "record": 1514,
+          "rule": "x.22",
+          "description": "Nets on met3 is floating",
+          "periphery_candidates": [
+            "docs/rules/periphery/p018-x_dotdash.csv#37"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "parent": {
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#37",
+          "rule": "x.22",
+          "description": "| No floating interconnects (poly, li1, met1-met5) or capm allowed; Rule flags interconnects with no path to poly, difftap or metal pins. Exempt floating layers can be excluded using poly_float, li1_float, m1_float, m2_float, m3_float, m4_float and m5_float text labels. Also flags an error if these text labels are placed on connected layers (not floating) and if the labels are not over the appropriate metal layer.  \n| If floating interconnects need to be connected at a higher level (Parent IP or Full chip), such floating interconnects can be exempted using poly_tie, li1_tie, m1_tie, m2_tie, m3_tie, m4_tie and m5_tie text labels.\n| It is the responsibility of the IP owner and chip/product owner to communicate and agree to the node each of these texted lines is connected to, if there is any risk to how a line is tied, and to what node.\n| Only metals outside :drc_tag:`areaid.stdcell` are checked.\n| \nThe following are exempt from x.22 violations: _techCD_ , inductor.dg, modulecut, capacitors and s8blerf\nThe 'notPublicCell' switch will deactivate this rule",
+          "flags": [
+            "RC"
+          ],
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+        },
+        "proof": "Every drawn conductor on this layer reaches physical gate or diffusion/tap geometry through the full contact graph. All extracted areas are accounted for. No block-pin endpoint, label, standard-cell exemption or tie declaration is used."
+      },
+      "s36": {
+        "record": {
+          "id": "s36",
+          "record": 1519,
+          "rule": "x.22",
+          "description": "Nets on met4 is floating",
+          "periphery_candidates": [
+            "docs/rules/periphery/p018-x_dotdash.csv#37"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "parent": {
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#37",
+          "rule": "x.22",
+          "description": "| No floating interconnects (poly, li1, met1-met5) or capm allowed; Rule flags interconnects with no path to poly, difftap or metal pins. Exempt floating layers can be excluded using poly_float, li1_float, m1_float, m2_float, m3_float, m4_float and m5_float text labels. Also flags an error if these text labels are placed on connected layers (not floating) and if the labels are not over the appropriate metal layer.  \n| If floating interconnects need to be connected at a higher level (Parent IP or Full chip), such floating interconnects can be exempted using poly_tie, li1_tie, m1_tie, m2_tie, m3_tie, m4_tie and m5_tie text labels.\n| It is the responsibility of the IP owner and chip/product owner to communicate and agree to the node each of these texted lines is connected to, if there is any risk to how a line is tied, and to what node.\n| Only metals outside :drc_tag:`areaid.stdcell` are checked.\n| \nThe following are exempt from x.22 violations: _techCD_ , inductor.dg, modulecut, capacitors and s8blerf\nThe 'notPublicCell' switch will deactivate this rule",
+          "flags": [
+            "RC"
+          ],
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+        },
+        "proof": "Every drawn conductor on this layer reaches physical gate or diffusion/tap geometry through the full contact graph. All extracted areas are accounted for. No block-pin endpoint, label, standard-cell exemption or tie declaration is used."
+      },
+      "s41": {
+        "record": {
+          "id": "s41",
+          "record": 1524,
+          "rule": "x.22",
+          "description": "Nets on met5 is floating",
+          "periphery_candidates": [
+            "docs/rules/periphery/p018-x_dotdash.csv#37"
+          ],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "parent": {
+          "id": "docs/rules/periphery/p018-x_dotdash.csv#37",
+          "rule": "x.22",
+          "description": "| No floating interconnects (poly, li1, met1-met5) or capm allowed; Rule flags interconnects with no path to poly, difftap or metal pins. Exempt floating layers can be excluded using poly_float, li1_float, m1_float, m2_float, m3_float, m4_float and m5_float text labels. Also flags an error if these text labels are placed on connected layers (not floating) and if the labels are not over the appropriate metal layer.  \n| If floating interconnects need to be connected at a higher level (Parent IP or Full chip), such floating interconnects can be exempted using poly_tie, li1_tie, m1_tie, m2_tie, m3_tie, m4_tie and m5_tie text labels.\n| It is the responsibility of the IP owner and chip/product owner to communicate and agree to the node each of these texted lines is connected to, if there is any risk to how a line is tied, and to what node.\n| Only metals outside :drc_tag:`areaid.stdcell` are checked.\n| \nThe following are exempt from x.22 violations: _techCD_ , inductor.dg, modulecut, capacitors and s8blerf\nThe 'notPublicCell' switch will deactivate this rule",
+          "flags": [
+            "RC"
+          ],
+          "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567"
+        },
+        "proof": "Every drawn conductor on this layer reaches physical gate or diffusion/tap geometry through the full contact graph. All extracted areas are accounted for. No block-pin endpoint, label, standard-cell exemption or tie declaration is used."
+      }
+    },
+    "gate_definition": "poly AND diff",
+    "interpretation": "Every merged routed poly/LI/metal component is traced through every contact level to gate (poly AND diff) or diffusion/tap outside poly. Pin shapes, text, standard-cell markers and exception labels cannot supply endpoints or connectivity. Every submitted conductor/root area must be accounted for. Unrooted components leave the selected catalog messages unreviewed; a legal IP feedthrough is not automatically a foundry violation. Capacitor/RDL/cut/short edits and float/tie declarations prevent this proof. Dummy-fill purposes, device/body correctness, electrical behavior and complete physical qualification remain separate."
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "original_gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "original_measurement": {
+        "schema": 1,
+        "recipe": "sky130-physical-device-roots-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+            "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+          }
+        },
+        "scope": "Every merged routed poly/LI/metal component is traced through every contact level to gate (poly AND diff) or diffusion/tap outside poly. Pin shapes, text, standard-cell markers and exception labels cannot supply endpoints or connectivity. Every submitted conductor/root area must be accounted for. Unrooted components leave the selected catalog messages unreviewed; a legal IP feedthrough is not automatically a foundry violation. Capacitor/RDL/cut/short edits and float/tie declarations prevent this proof. Dummy-fill purposes, device/body correctness, electrical behavior and complete physical qualification remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "counter",
+        "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+        "pin_roots_used": false,
+        "measurements": {
+          "layers": {
+            "poly": {
+              "raw_shapes": 2065,
+              "texts": 0,
+              "components": 2038,
+              "area_nm2": 6270307125
+            },
+            "licon": {
+              "raw_shapes": 13073,
+              "texts": 0,
+              "components": 13073,
+              "area_nm2": 377809700
+            },
+            "li1": {
+              "raw_shapes": 7535,
+              "texts": 0,
+              "components": 190,
+              "area_nm2": 9706170175
+            },
+            "mcon": {
+              "raw_shapes": 40342,
+              "texts": 0,
+              "components": 20563,
+              "area_nm2": 594270700
+            },
+            "m1": {
+              "raw_shapes": 7248,
+              "texts": 0,
+              "components": 125,
+              "area_nm2": 4567851000
+            },
+            "via": {
+              "raw_shapes": 1688,
+              "texts": 0,
+              "components": 1688,
+              "area_nm2": 37980000
+            },
+            "m2": {
+              "raw_shapes": 1085,
+              "texts": 0,
+              "components": 358,
+              "area_nm2": 230337000
+            },
+            "via2": {
+              "raw_shapes": 1306,
+              "texts": 0,
+              "components": 1306,
+              "area_nm2": 52240000
+            },
+            "m3": {
+              "raw_shapes": 992,
+              "texts": 0,
+              "components": 330,
+              "area_nm2": 189197400
+            },
+            "via3": {
+              "raw_shapes": 1300,
+              "texts": 0,
+              "components": 1300,
+              "area_nm2": 52000000
+            },
+            "m4": {
+              "raw_shapes": 397,
+              "texts": 0,
+              "components": 11,
+              "area_nm2": 2741504000
+            },
+            "via4": {
+              "raw_shapes": 61,
+              "texts": 0,
+              "components": 61,
+              "area_nm2": 39040000
+            },
+            "m5": {
+              "raw_shapes": 72,
+              "texts": 0,
+              "components": 11,
+              "area_nm2": 2809312000
+            },
+            "diff": {
+              "raw_shapes": 2000,
+              "texts": 0,
+              "components": 1996,
+              "area_nm2": 4685547000
+            },
+            "tap": {
+              "raw_shapes": 660,
+              "texts": 0,
+              "components": 660,
+              "area_nm2": 78540000
+            },
+            "poly_short": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            }
+          },
+          "unsupported": {
+            "89:44": 0,
+            "97:44": 0,
+            "74:20": 0,
+            "65:14": 0,
+            "66:14": 0,
+            "67:14": 0,
+            "68:14": 0,
+            "69:14": 0,
+            "70:14": 0,
+            "71:14": 0,
+            "72:14": 0,
+            "67:15": 0,
+            "68:15": 0,
+            "69:15": 0,
+            "70:15": 0,
+            "71:15": 0,
+            "72:15": 0
+          },
+          "exception_labels": 0,
+          "poly_short_outside": 0,
+          "graph": {
+            "nets": 106,
+            "rooted_nets": 106,
+            "contact_only_nets": 0,
+            "area_nm2": {
+              "poly": 6270307125,
+              "licon": 377809700,
+              "li1": 9706170175,
+              "mcon": 594270700,
+              "m1": 4567851000,
+              "via": 37980000,
+              "m2": 230337000,
+              "via2": 52240000,
+              "m3": 189197400,
+              "via3": 52000000,
+              "m4": 2741504000,
+              "via4": 39040000,
+              "m5": 2809312000,
+              "sd_root": 865910600,
+              "gate_root": 3898176400
+            },
+            "covered_area_nm2": {
+              "poly": 6270307125,
+              "licon": 377809700,
+              "li1": 9706170175,
+              "mcon": 594270700,
+              "m1": 4567851000,
+              "via": 37980000,
+              "m2": 230337000,
+              "via2": 52240000,
+              "m3": 189197400,
+              "via3": 52000000,
+              "m4": 2741504000,
+              "via4": 39040000,
+              "m5": 2809312000,
+              "sd_root": 865910600,
+              "gate_root": 3898176400
+            },
+            "unrooted": []
+          }
+        },
+        "rows": [
+          {
+            "id": "s11",
+            "rule": "x.22",
+            "layer": "poly",
+            "area_nm2": 6270307125,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s16",
+            "rule": "x.22",
+            "layer": "li1",
+            "area_nm2": 9706170175,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s21",
+            "rule": "x.22",
+            "layer": "m1",
+            "area_nm2": 4567851000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s26",
+            "rule": "x.22",
+            "layer": "m2",
+            "area_nm2": 230337000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s31",
+            "rule": "x.22",
+            "layer": "m3",
+            "area_nm2": 189197400,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s36",
+            "rule": "x.22",
+            "layer": "m4",
+            "area_nm2": 2741504000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s41",
+            "rule": "x.22",
+            "layer": "m5",
+            "area_nm2": 2809312000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "physical-device-roots-pass"
+      },
+      "original_new_error_decisions": [
+        {
+          "id": "s11",
+          "rule": "x.22",
+          "layer": "poly",
+          "area_nm2": 6270307125,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s16",
+          "rule": "x.22",
+          "layer": "li1",
+          "area_nm2": 9706170175,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s21",
+          "rule": "x.22",
+          "layer": "m1",
+          "area_nm2": 4567851000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s26",
+          "rule": "x.22",
+          "layer": "m2",
+          "area_nm2": 230337000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s31",
+          "rule": "x.22",
+          "layer": "m3",
+          "area_nm2": 189197400,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s36",
+          "rule": "x.22",
+          "layer": "m4",
+          "area_nm2": 2741504000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s41",
+          "rule": "x.22",
+          "layer": "m5",
+          "area_nm2": 2809312000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        }
+      ],
+      "original_error_counts": {
+        "executed-reviewed": 416,
+        "absent-operand": 586,
+        "unreviewed": 456,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+      "corrected_device_roots": {
+        "schema": 1,
+        "recipe": "sky130-physical-device-roots-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+            "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+          }
+        },
+        "scope": "Every merged routed poly/LI/metal component is traced through every contact level to gate (poly AND diff) or diffusion/tap outside poly. Pin shapes, text, standard-cell markers and exception labels cannot supply endpoints or connectivity. Every submitted conductor/root area must be accounted for. Unrooted components leave the selected catalog messages unreviewed; a legal IP feedthrough is not automatically a foundry violation. Capacitor/RDL/cut/short edits and float/tie declarations prevent this proof. Dummy-fill purposes, device/body correctness, electrical behavior and complete physical qualification remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "counter",
+        "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+        "pin_roots_used": false,
+        "measurements": {
+          "layers": {
+            "poly": {
+              "raw_shapes": 2065,
+              "texts": 0,
+              "components": 2038,
+              "area_nm2": 6270307125
+            },
+            "licon": {
+              "raw_shapes": 13073,
+              "texts": 0,
+              "components": 13073,
+              "area_nm2": 377809700
+            },
+            "li1": {
+              "raw_shapes": 7535,
+              "texts": 0,
+              "components": 190,
+              "area_nm2": 9706170175
+            },
+            "mcon": {
+              "raw_shapes": 40342,
+              "texts": 0,
+              "components": 20563,
+              "area_nm2": 594270700
+            },
+            "m1": {
+              "raw_shapes": 7248,
+              "texts": 0,
+              "components": 125,
+              "area_nm2": 4567851000
+            },
+            "via": {
+              "raw_shapes": 1688,
+              "texts": 0,
+              "components": 1688,
+              "area_nm2": 37980000
+            },
+            "m2": {
+              "raw_shapes": 1085,
+              "texts": 0,
+              "components": 358,
+              "area_nm2": 230337000
+            },
+            "via2": {
+              "raw_shapes": 1306,
+              "texts": 0,
+              "components": 1306,
+              "area_nm2": 52240000
+            },
+            "m3": {
+              "raw_shapes": 992,
+              "texts": 0,
+              "components": 330,
+              "area_nm2": 189197400
+            },
+            "via3": {
+              "raw_shapes": 1300,
+              "texts": 0,
+              "components": 1300,
+              "area_nm2": 52000000
+            },
+            "m4": {
+              "raw_shapes": 397,
+              "texts": 0,
+              "components": 11,
+              "area_nm2": 2741504000
+            },
+            "via4": {
+              "raw_shapes": 61,
+              "texts": 0,
+              "components": 61,
+              "area_nm2": 39040000
+            },
+            "m5": {
+              "raw_shapes": 72,
+              "texts": 0,
+              "components": 11,
+              "area_nm2": 2809312000
+            },
+            "diff": {
+              "raw_shapes": 2000,
+              "texts": 0,
+              "components": 1996,
+              "area_nm2": 4685547000
+            },
+            "tap": {
+              "raw_shapes": 660,
+              "texts": 0,
+              "components": 660,
+              "area_nm2": 78540000
+            },
+            "poly_short": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            }
+          },
+          "unsupported": {
+            "89:44": 0,
+            "97:44": 0,
+            "74:20": 0,
+            "65:14": 0,
+            "66:14": 0,
+            "67:14": 0,
+            "68:14": 0,
+            "69:14": 0,
+            "70:14": 0,
+            "71:14": 0,
+            "72:14": 0,
+            "67:15": 0,
+            "68:15": 0,
+            "69:15": 0,
+            "70:15": 0,
+            "71:15": 0,
+            "72:15": 0
+          },
+          "exception_labels": 0,
+          "poly_short_outside": 0,
+          "graph": {
+            "nets": 106,
+            "rooted_nets": 106,
+            "contact_only_nets": 0,
+            "area_nm2": {
+              "poly": 6270307125,
+              "licon": 377809700,
+              "li1": 9706170175,
+              "mcon": 594270700,
+              "m1": 4567851000,
+              "via": 37980000,
+              "m2": 230337000,
+              "via2": 52240000,
+              "m3": 189197400,
+              "via3": 52000000,
+              "m4": 2741504000,
+              "via4": 39040000,
+              "m5": 2809312000,
+              "sd_root": 865910600,
+              "gate_root": 3898176400
+            },
+            "covered_area_nm2": {
+              "poly": 6270307125,
+              "licon": 377809700,
+              "li1": 9706170175,
+              "mcon": 594270700,
+              "m1": 4567851000,
+              "via": 37980000,
+              "m2": 230337000,
+              "via2": 52240000,
+              "m3": 189197400,
+              "via3": 52000000,
+              "m4": 2741504000,
+              "via4": 39040000,
+              "m5": 2809312000,
+              "sd_root": 865910600,
+              "gate_root": 3898176400
+            },
+            "unrooted": []
+          }
+        },
+        "rows": [
+          {
+            "id": "s11",
+            "rule": "x.22",
+            "layer": "poly",
+            "area_nm2": 6270307125,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s16",
+            "rule": "x.22",
+            "layer": "li1",
+            "area_nm2": 9706170175,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s21",
+            "rule": "x.22",
+            "layer": "m1",
+            "area_nm2": 4567851000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s26",
+            "rule": "x.22",
+            "layer": "m2",
+            "area_nm2": 230337000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s31",
+            "rule": "x.22",
+            "layer": "m3",
+            "area_nm2": 189197400,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s36",
+            "rule": "x.22",
+            "layer": "m4",
+            "area_nm2": 2741504000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s41",
+            "rule": "x.22",
+            "layer": "m5",
+            "area_nm2": 2809312000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "physical-device-roots-pass"
+      }
+    },
+    {
+      "case": "uart",
+      "original_gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "original_measurement": {
+        "schema": 1,
+        "recipe": "sky130-physical-device-roots-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+            "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+          }
+        },
+        "scope": "Every merged routed poly/LI/metal component is traced through every contact level to gate (poly AND diff) or diffusion/tap outside poly. Pin shapes, text, standard-cell markers and exception labels cannot supply endpoints or connectivity. Every submitted conductor/root area must be accounted for. Unrooted components leave the selected catalog messages unreviewed; a legal IP feedthrough is not automatically a foundry violation. Capacitor/RDL/cut/short edits and float/tie declarations prevent this proof. Dummy-fill purposes, device/body correctness, electrical behavior and complete physical qualification remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "uart_tx",
+        "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+        "pin_roots_used": false,
+        "measurements": {
+          "layers": {
+            "poly": {
+              "raw_shapes": 15574,
+              "texts": 0,
+              "components": 15545,
+              "area_nm2": 46677604525
+            },
+            "licon": {
+              "raw_shapes": 96106,
+              "texts": 0,
+              "components": 96106,
+              "area_nm2": 2777463400
+            },
+            "li1": {
+              "raw_shapes": 40759,
+              "texts": 0,
+              "components": 1780,
+              "area_nm2": 68047048975
+            },
+            "mcon": {
+              "raw_shapes": 206105,
+              "texts": 0,
+              "components": 104445,
+              "area_nm2": 3018460500
+            },
+            "m1": {
+              "raw_shapes": 39453,
+              "texts": 0,
+              "components": 981,
+              "area_nm2": 23222705700
+            },
+            "via": {
+              "raw_shapes": 9360,
+              "texts": 0,
+              "components": 9360,
+              "area_nm2": 210600000
+            },
+            "m2": {
+              "raw_shapes": 6498,
+              "texts": 0,
+              "components": 2043,
+              "area_nm2": 1263777800
+            },
+            "via2": {
+              "raw_shapes": 6897,
+              "texts": 0,
+              "components": 6897,
+              "area_nm2": 275880000
+            },
+            "m3": {
+              "raw_shapes": 5223,
+              "texts": 0,
+              "components": 1737,
+              "area_nm2": 1193817600
+            },
+            "via3": {
+              "raw_shapes": 6864,
+              "texts": 0,
+              "components": 6864,
+              "area_nm2": 274560000
+            },
+            "m4": {
+              "raw_shapes": 2080,
+              "texts": 0,
+              "components": 26,
+              "area_nm2": 14729728000
+            },
+            "via4": {
+              "raw_shapes": 338,
+              "texts": 0,
+              "components": 338,
+              "area_nm2": 216320000
+            },
+            "m5": {
+              "raw_shapes": 364,
+              "texts": 0,
+              "components": 26,
+              "area_nm2": 14964352000
+            },
+            "diff": {
+              "raw_shapes": 15030,
+              "texts": 0,
+              "components": 15030,
+              "area_nm2": 34989929100
+            },
+            "tap": {
+              "raw_shapes": 3458,
+              "texts": 0,
+              "components": 3458,
+              "area_nm2": 411502000
+            },
+            "poly_short": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            }
+          },
+          "unsupported": {
+            "89:44": 0,
+            "97:44": 0,
+            "74:20": 0,
+            "65:14": 0,
+            "66:14": 0,
+            "67:14": 0,
+            "68:14": 0,
+            "69:14": 0,
+            "70:14": 0,
+            "71:14": 0,
+            "72:14": 0,
+            "67:15": 0,
+            "68:15": 0,
+            "69:15": 0,
+            "70:15": 0,
+            "71:15": 0,
+            "72:15": 0
+          },
+          "exception_labels": 0,
+          "poly_short_outside": 0,
+          "graph": {
+            "nets": 1304,
+            "rooted_nets": 1304,
+            "contact_only_nets": 0,
+            "area_nm2": {
+              "poly": 46677604525,
+              "licon": 2777463400,
+              "li1": 68047048975,
+              "mcon": 3018460500,
+              "m1": 23222705700,
+              "via": 210600000,
+              "m2": 1263777800,
+              "via2": 275880000,
+              "m3": 1193817600,
+              "via3": 274560000,
+              "m4": 14729728000,
+              "via4": 216320000,
+              "m5": 14964352000,
+              "sd_root": 6379922600,
+              "gate_root": 29021508500
+            },
+            "covered_area_nm2": {
+              "poly": 46677604525,
+              "licon": 2777463400,
+              "li1": 68047048975,
+              "mcon": 3018460500,
+              "m1": 23222705700,
+              "via": 210600000,
+              "m2": 1263777800,
+              "via2": 275880000,
+              "m3": 1193817600,
+              "via3": 274560000,
+              "m4": 14729728000,
+              "via4": 216320000,
+              "m5": 14964352000,
+              "sd_root": 6379922600,
+              "gate_root": 29021508500
+            },
+            "unrooted": []
+          }
+        },
+        "rows": [
+          {
+            "id": "s11",
+            "rule": "x.22",
+            "layer": "poly",
+            "area_nm2": 46677604525,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s16",
+            "rule": "x.22",
+            "layer": "li1",
+            "area_nm2": 68047048975,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s21",
+            "rule": "x.22",
+            "layer": "m1",
+            "area_nm2": 23222705700,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s26",
+            "rule": "x.22",
+            "layer": "m2",
+            "area_nm2": 1263777800,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s31",
+            "rule": "x.22",
+            "layer": "m3",
+            "area_nm2": 1193817600,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s36",
+            "rule": "x.22",
+            "layer": "m4",
+            "area_nm2": 14729728000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s41",
+            "rule": "x.22",
+            "layer": "m5",
+            "area_nm2": 14964352000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "physical-device-roots-pass"
+      },
+      "original_new_error_decisions": [
+        {
+          "id": "s11",
+          "rule": "x.22",
+          "layer": "poly",
+          "area_nm2": 46677604525,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s16",
+          "rule": "x.22",
+          "layer": "li1",
+          "area_nm2": 68047048975,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s21",
+          "rule": "x.22",
+          "layer": "m1",
+          "area_nm2": 23222705700,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s26",
+          "rule": "x.22",
+          "layer": "m2",
+          "area_nm2": 1263777800,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s31",
+          "rule": "x.22",
+          "layer": "m3",
+          "area_nm2": 1193817600,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s36",
+          "rule": "x.22",
+          "layer": "m4",
+          "area_nm2": 14729728000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s41",
+          "rule": "x.22",
+          "layer": "m5",
+          "area_nm2": 14964352000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        }
+      ],
+      "original_error_counts": {
+        "executed-reviewed": 416,
+        "absent-operand": 586,
+        "unreviewed": 456,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+      "corrected_device_roots": {
+        "schema": 1,
+        "recipe": "sky130-physical-device-roots-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+            "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+          }
+        },
+        "scope": "Every merged routed poly/LI/metal component is traced through every contact level to gate (poly AND diff) or diffusion/tap outside poly. Pin shapes, text, standard-cell markers and exception labels cannot supply endpoints or connectivity. Every submitted conductor/root area must be accounted for. Unrooted components leave the selected catalog messages unreviewed; a legal IP feedthrough is not automatically a foundry violation. Capacitor/RDL/cut/short edits and float/tie declarations prevent this proof. Dummy-fill purposes, device/body correctness, electrical behavior and complete physical qualification remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "uart_tx",
+        "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+        "pin_roots_used": false,
+        "measurements": {
+          "layers": {
+            "poly": {
+              "raw_shapes": 15574,
+              "texts": 0,
+              "components": 15545,
+              "area_nm2": 46677604525
+            },
+            "licon": {
+              "raw_shapes": 96106,
+              "texts": 0,
+              "components": 96106,
+              "area_nm2": 2777463400
+            },
+            "li1": {
+              "raw_shapes": 40759,
+              "texts": 0,
+              "components": 1780,
+              "area_nm2": 68047048975
+            },
+            "mcon": {
+              "raw_shapes": 206105,
+              "texts": 0,
+              "components": 104445,
+              "area_nm2": 3018460500
+            },
+            "m1": {
+              "raw_shapes": 39453,
+              "texts": 0,
+              "components": 981,
+              "area_nm2": 23222705700
+            },
+            "via": {
+              "raw_shapes": 9360,
+              "texts": 0,
+              "components": 9360,
+              "area_nm2": 210600000
+            },
+            "m2": {
+              "raw_shapes": 6498,
+              "texts": 0,
+              "components": 2043,
+              "area_nm2": 1263777800
+            },
+            "via2": {
+              "raw_shapes": 6897,
+              "texts": 0,
+              "components": 6897,
+              "area_nm2": 275880000
+            },
+            "m3": {
+              "raw_shapes": 5223,
+              "texts": 0,
+              "components": 1737,
+              "area_nm2": 1193817600
+            },
+            "via3": {
+              "raw_shapes": 6864,
+              "texts": 0,
+              "components": 6864,
+              "area_nm2": 274560000
+            },
+            "m4": {
+              "raw_shapes": 2080,
+              "texts": 0,
+              "components": 26,
+              "area_nm2": 14729728000
+            },
+            "via4": {
+              "raw_shapes": 338,
+              "texts": 0,
+              "components": 338,
+              "area_nm2": 216320000
+            },
+            "m5": {
+              "raw_shapes": 364,
+              "texts": 0,
+              "components": 26,
+              "area_nm2": 14964352000
+            },
+            "diff": {
+              "raw_shapes": 15030,
+              "texts": 0,
+              "components": 15030,
+              "area_nm2": 34989929100
+            },
+            "tap": {
+              "raw_shapes": 3458,
+              "texts": 0,
+              "components": 3458,
+              "area_nm2": 411502000
+            },
+            "poly_short": {
+              "raw_shapes": 0,
+              "texts": 0,
+              "components": 0,
+              "area_nm2": 0
+            }
+          },
+          "unsupported": {
+            "89:44": 0,
+            "97:44": 0,
+            "74:20": 0,
+            "65:14": 0,
+            "66:14": 0,
+            "67:14": 0,
+            "68:14": 0,
+            "69:14": 0,
+            "70:14": 0,
+            "71:14": 0,
+            "72:14": 0,
+            "67:15": 0,
+            "68:15": 0,
+            "69:15": 0,
+            "70:15": 0,
+            "71:15": 0,
+            "72:15": 0
+          },
+          "exception_labels": 0,
+          "poly_short_outside": 0,
+          "graph": {
+            "nets": 1304,
+            "rooted_nets": 1304,
+            "contact_only_nets": 0,
+            "area_nm2": {
+              "poly": 46677604525,
+              "licon": 2777463400,
+              "li1": 68047048975,
+              "mcon": 3018460500,
+              "m1": 23222705700,
+              "via": 210600000,
+              "m2": 1263777800,
+              "via2": 275880000,
+              "m3": 1193817600,
+              "via3": 274560000,
+              "m4": 14729728000,
+              "via4": 216320000,
+              "m5": 14964352000,
+              "sd_root": 6379922600,
+              "gate_root": 29021508500
+            },
+            "covered_area_nm2": {
+              "poly": 46677604525,
+              "licon": 2777463400,
+              "li1": 68047048975,
+              "mcon": 3018460500,
+              "m1": 23222705700,
+              "via": 210600000,
+              "m2": 1263777800,
+              "via2": 275880000,
+              "m3": 1193817600,
+              "via3": 274560000,
+              "m4": 14729728000,
+              "via4": 216320000,
+              "m5": 14964352000,
+              "sd_root": 6379922600,
+              "gate_root": 29021508500
+            },
+            "unrooted": []
+          }
+        },
+        "rows": [
+          {
+            "id": "s11",
+            "rule": "x.22",
+            "layer": "poly",
+            "area_nm2": 46677604525,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s16",
+            "rule": "x.22",
+            "layer": "li1",
+            "area_nm2": 68047048975,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s21",
+            "rule": "x.22",
+            "layer": "m1",
+            "area_nm2": 23222705700,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s26",
+            "rule": "x.22",
+            "layer": "m2",
+            "area_nm2": 1263777800,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s31",
+            "rule": "x.22",
+            "layer": "m3",
+            "area_nm2": 1193817600,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s36",
+            "rule": "x.22",
+            "layer": "m4",
+            "area_nm2": 14729728000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s41",
+            "rule": "x.22",
+            "layer": "m5",
+            "area_nm2": 14964352000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "physical-device-roots-pass"
+      }
+    },
+    {
+      "case": "apb",
+      "original_gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "original_measurement": {
+        "schema": 1,
+        "recipe": "sky130-physical-device-roots-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+            "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+          }
+        },
+        "scope": "Every merged routed poly/LI/metal component is traced through every contact level to gate (poly AND diff) or diffusion/tap outside poly. Pin shapes, text, standard-cell markers and exception labels cannot supply endpoints or connectivity. Every submitted conductor/root area must be accounted for. Unrooted components leave the selected catalog messages unreviewed; a legal IP feedthrough is not automatically a foundry violation. Capacitor/RDL/cut/short edits and float/tie declarations prevent this proof. Dummy-fill purposes, device/body correctness, electrical behavior and complete physical qualification remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "apb_fifo",
+        "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+        "pin_roots_used": false,
+        "measurements": {
+          "layers": {
+            "poly": {
+              "raw_shapes": 15951,
+              "texts": 0,
+              "components": 15868,
+              "area_nm2": 48264000425
+            },
+            "licon": {
+              "raw_shapes": 97954,
+              "texts": 0,
+              "components": 97946,
+              "area_nm2": 2830639400
+            },
+            "li1": {
+              "raw_shapes": 39734,
+              "texts": 0,
+              "components": 1450,
+              "area_nm2": 69973079150
+            },
+            "mcon": {
+              "raw_shapes": 205882,
+              "texts": 0,
+              "components": 104216,
+              "area_nm2": 3011842400
+            },
+            "m1": {
+              "raw_shapes": 38054,
+              "texts": 0,
+              "components": 775,
+              "area_nm2": 23286372725
+            },
+            "via": {
+              "raw_shapes": 9085,
+              "texts": 0,
+              "components": 9085,
+              "area_nm2": 204412500
+            },
+            "m2": {
+              "raw_shapes": 6075,
+              "texts": 0,
+              "components": 1940,
+              "area_nm2": 1209142350
+            },
+            "via2": {
+              "raw_shapes": 6915,
+              "texts": 0,
+              "components": 6915,
+              "area_nm2": 276600000
+            },
+            "m3": {
+              "raw_shapes": 5286,
+              "texts": 0,
+              "components": 1759,
+              "area_nm2": 1535065900
+            },
+            "via3": {
+              "raw_shapes": 6875,
+              "texts": 0,
+              "components": 6875,
+              "area_nm2": 275000000
+            },
+            "m4": {
+              "raw_shapes": 2104,
+              "texts": 0,
+              "components": 34,
+              "area_nm2": 14756212750
+            },
+            "via4": {
+              "raw_shapes": 344,
+              "texts": 0,
+              "components": 344,
+              "area_nm2": 220160000
+            },
+            "m5": {
+              "raw_shapes": 373,
+              "texts": 0,
+              "components": 29,
+              "area_nm2": 15038272000
+            },
+            "diff": {
+              "raw_shapes": 15408,
+              "texts": 0,
+              "components": 15400,
+              "area_nm2": 35994694200
+            },
+            "tap": {
+              "raw_shapes": 3458,
+              "texts": 0,
+              "components": 3458,
+              "area_nm2": 411502000
+            },
+            "poly_short": {
+              "raw_shapes": 4,
+              "texts": 0,
+              "components": 2,
+              "area_nm2": 43200
+            }
+          },
+          "unsupported": {
+            "89:44": 0,
+            "97:44": 0,
+            "74:20": 0,
+            "65:14": 0,
+            "66:14": 0,
+            "67:14": 0,
+            "68:14": 0,
+            "69:14": 0,
+            "70:14": 0,
+            "71:14": 0,
+            "72:14": 0,
+            "67:15": 0,
+            "68:15": 0,
+            "69:15": 0,
+            "70:15": 0,
+            "71:15": 0,
+            "72:15": 0
+          },
+          "exception_labels": 0,
+          "poly_short_outside": 0,
+          "graph": {
+            "nets": 1204,
+            "rooted_nets": 1204,
+            "contact_only_nets": 0,
+            "area_nm2": {
+              "poly": 48264000425,
+              "licon": 2830639400,
+              "li1": 69973079150,
+              "mcon": 3011842400,
+              "m1": 23286372725,
+              "via": 204412500,
+              "m2": 1209142350,
+              "via2": 276600000,
+              "m3": 1535065900,
+              "via3": 275000000,
+              "m4": 14756212750,
+              "via4": 220160000,
+              "m5": 15038272000,
+              "sd_root": 6415212600,
+              "gate_root": 29990983600
+            },
+            "covered_area_nm2": {
+              "poly": 48264000425,
+              "licon": 2830639400,
+              "li1": 69973079150,
+              "mcon": 3011842400,
+              "m1": 23286372725,
+              "via": 204412500,
+              "m2": 1209142350,
+              "via2": 276600000,
+              "m3": 1535065900,
+              "via3": 275000000,
+              "m4": 14756212750,
+              "via4": 220160000,
+              "m5": 15038272000,
+              "sd_root": 6415212600,
+              "gate_root": 29990983600
+            },
+            "unrooted": []
+          }
+        },
+        "rows": [
+          {
+            "id": "s11",
+            "rule": "x.22",
+            "layer": "poly",
+            "area_nm2": 48264000425,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s16",
+            "rule": "x.22",
+            "layer": "li1",
+            "area_nm2": 69973079150,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s21",
+            "rule": "x.22",
+            "layer": "m1",
+            "area_nm2": 23286372725,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s26",
+            "rule": "x.22",
+            "layer": "m2",
+            "area_nm2": 1209142350,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s31",
+            "rule": "x.22",
+            "layer": "m3",
+            "area_nm2": 1535065900,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s36",
+            "rule": "x.22",
+            "layer": "m4",
+            "area_nm2": 14756212750,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s41",
+            "rule": "x.22",
+            "layer": "m5",
+            "area_nm2": 15038272000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "physical-device-roots-pass"
+      },
+      "original_new_error_decisions": [
+        {
+          "id": "s11",
+          "rule": "x.22",
+          "layer": "poly",
+          "area_nm2": 48264000425,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s16",
+          "rule": "x.22",
+          "layer": "li1",
+          "area_nm2": 69973079150,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s21",
+          "rule": "x.22",
+          "layer": "m1",
+          "area_nm2": 23286372725,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s26",
+          "rule": "x.22",
+          "layer": "m2",
+          "area_nm2": 1209142350,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s31",
+          "rule": "x.22",
+          "layer": "m3",
+          "area_nm2": 1535065900,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s36",
+          "rule": "x.22",
+          "layer": "m4",
+          "area_nm2": 14756212750,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "s41",
+          "rule": "x.22",
+          "layer": "m5",
+          "area_nm2": 15038272000,
+          "unrooted_components": 0,
+          "disposition": "executed-reviewed"
+        }
+      ],
+      "original_error_counts": {
+        "executed-reviewed": 416,
+        "absent-operand": 586,
+        "unreviewed": 456,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+      "corrected_device_roots": {
+        "schema": 1,
+        "recipe": "sky130-physical-device-roots-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+            "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98"
+          }
+        },
+        "scope": "Every merged routed poly/LI/metal component is traced through every contact level to gate (poly AND diff) or diffusion/tap outside poly. Pin shapes, text, standard-cell markers and exception labels cannot supply endpoints or connectivity. Every submitted conductor/root area must be accounted for. Unrooted components leave the selected catalog messages unreviewed; a legal IP feedthrough is not automatically a foundry violation. Capacitor/RDL/cut/short edits and float/tie declarations prevent this proof. Dummy-fill purposes, device/body correctness, electrical behavior and complete physical qualification remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "apb_fifo",
+        "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+        "pin_roots_used": false,
+        "measurements": {
+          "layers": {
+            "poly": {
+              "raw_shapes": 15951,
+              "texts": 0,
+              "components": 15868,
+              "area_nm2": 48264000425
+            },
+            "licon": {
+              "raw_shapes": 97954,
+              "texts": 0,
+              "components": 97946,
+              "area_nm2": 2830639400
+            },
+            "li1": {
+              "raw_shapes": 39734,
+              "texts": 0,
+              "components": 1450,
+              "area_nm2": 69973079150
+            },
+            "mcon": {
+              "raw_shapes": 205882,
+              "texts": 0,
+              "components": 104216,
+              "area_nm2": 3011842400
+            },
+            "m1": {
+              "raw_shapes": 38054,
+              "texts": 0,
+              "components": 775,
+              "area_nm2": 23286372725
+            },
+            "via": {
+              "raw_shapes": 9085,
+              "texts": 0,
+              "components": 9085,
+              "area_nm2": 204412500
+            },
+            "m2": {
+              "raw_shapes": 6075,
+              "texts": 0,
+              "components": 1940,
+              "area_nm2": 1209142350
+            },
+            "via2": {
+              "raw_shapes": 6915,
+              "texts": 0,
+              "components": 6915,
+              "area_nm2": 276600000
+            },
+            "m3": {
+              "raw_shapes": 5286,
+              "texts": 0,
+              "components": 1759,
+              "area_nm2": 1535065900
+            },
+            "via3": {
+              "raw_shapes": 6875,
+              "texts": 0,
+              "components": 6875,
+              "area_nm2": 275000000
+            },
+            "m4": {
+              "raw_shapes": 2104,
+              "texts": 0,
+              "components": 34,
+              "area_nm2": 14756212750
+            },
+            "via4": {
+              "raw_shapes": 344,
+              "texts": 0,
+              "components": 344,
+              "area_nm2": 220160000
+            },
+            "m5": {
+              "raw_shapes": 373,
+              "texts": 0,
+              "components": 29,
+              "area_nm2": 15038272000
+            },
+            "diff": {
+              "raw_shapes": 15408,
+              "texts": 0,
+              "components": 15400,
+              "area_nm2": 35994694200
+            },
+            "tap": {
+              "raw_shapes": 3458,
+              "texts": 0,
+              "components": 3458,
+              "area_nm2": 411502000
+            },
+            "poly_short": {
+              "raw_shapes": 4,
+              "texts": 0,
+              "components": 2,
+              "area_nm2": 43200
+            }
+          },
+          "unsupported": {
+            "89:44": 0,
+            "97:44": 0,
+            "74:20": 0,
+            "65:14": 0,
+            "66:14": 0,
+            "67:14": 0,
+            "68:14": 0,
+            "69:14": 0,
+            "70:14": 0,
+            "71:14": 0,
+            "72:14": 0,
+            "67:15": 0,
+            "68:15": 0,
+            "69:15": 0,
+            "70:15": 0,
+            "71:15": 0,
+            "72:15": 0
+          },
+          "exception_labels": 0,
+          "poly_short_outside": 0,
+          "graph": {
+            "nets": 1204,
+            "rooted_nets": 1204,
+            "contact_only_nets": 0,
+            "area_nm2": {
+              "poly": 48264000425,
+              "licon": 2830639400,
+              "li1": 69973079150,
+              "mcon": 3011842400,
+              "m1": 23286372725,
+              "via": 204412500,
+              "m2": 1209142350,
+              "via2": 276600000,
+              "m3": 1535065900,
+              "via3": 275000000,
+              "m4": 14756212750,
+              "via4": 220160000,
+              "m5": 15038272000,
+              "sd_root": 6415212600,
+              "gate_root": 29990983600
+            },
+            "covered_area_nm2": {
+              "poly": 48264000425,
+              "licon": 2830639400,
+              "li1": 69973079150,
+              "mcon": 3011842400,
+              "m1": 23286372725,
+              "via": 204412500,
+              "m2": 1209142350,
+              "via2": 276600000,
+              "m3": 1535065900,
+              "via3": 275000000,
+              "m4": 14756212750,
+              "via4": 220160000,
+              "m5": 15038272000,
+              "sd_root": 6415212600,
+              "gate_root": 29990983600
+            },
+            "unrooted": []
+          }
+        },
+        "rows": [
+          {
+            "id": "s11",
+            "rule": "x.22",
+            "layer": "poly",
+            "area_nm2": 48264000425,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s16",
+            "rule": "x.22",
+            "layer": "li1",
+            "area_nm2": 69973079150,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s21",
+            "rule": "x.22",
+            "layer": "m1",
+            "area_nm2": 23286372725,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s26",
+            "rule": "x.22",
+            "layer": "m2",
+            "area_nm2": 1209142350,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s31",
+            "rule": "x.22",
+            "layer": "m3",
+            "area_nm2": 1535065900,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s36",
+            "rule": "x.22",
+            "layer": "m4",
+            "area_nm2": 14756212750,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "s41",
+            "rule": "x.22",
+            "layer": "m5",
+            "area_nm2": 15038272000,
+            "unrooted_components": 0,
+            "disposition": "executed-reviewed"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "physical-device-roots-pass"
+      }
+    }
+  ],
+  "remaining_original_batches": [
+    {
+      "id": "local_geometry",
+      "count": 1,
+      "ids": [
+        "r900"
+      ]
+    },
+    {
+      "id": "voltage",
+      "count": 0,
+      "ids": []
+    },
+    {
+      "id": "grid",
+      "count": 16,
+      "ids": [
+        "r35",
+        "r36",
+        "r37",
+        "r38",
+        "r39",
+        "r40",
+        "r41",
+        "r42",
+        "r150",
+        "r151",
+        "r152",
+        "r153",
+        "r154",
+        "r155",
+        "r156",
+        "r157"
+      ]
+    },
+    {
+      "id": "device_selection",
+      "count": 77,
+      "ids": [
+        "r396",
+        "r537",
+        "r543",
+        "r544",
+        "r545",
+        "r645",
+        "r646",
+        "r647",
+        "r648",
+        "r649",
+        "r650",
+        "r651",
+        "r652",
+        "r653",
+        "r654",
+        "r655",
+        "r656",
+        "r657",
+        "r658",
+        "r659",
+        "r660",
+        "r661",
+        "r662",
+        "r663",
+        "r664",
+        "r665",
+        "r666",
+        "r667",
+        "r668",
+        "r669",
+        "r670",
+        "r671",
+        "r672",
+        "r673",
+        "r674",
+        "r675",
+        "r676",
+        "r677",
+        "r678",
+        "r679",
+        "r680",
+        "r681",
+        "r682",
+        "r683",
+        "r684",
+        "r685",
+        "r686",
+        "r687",
+        "r688",
+        "r689",
+        "r690",
+        "r691",
+        "r692",
+        "r693",
+        "r694",
+        "r695",
+        "r696",
+        "r697",
+        "r698",
+        "r699",
+        "r700",
+        "r701",
+        "r702",
+        "r703",
+        "r704",
+        "r705",
+        "r908",
+        "r922",
+        "r923",
+        "r924",
+        "r928",
+        "r929",
+        "r930",
+        "r931",
+        "r1047",
+        "r1059",
+        "r1060"
+      ]
+    },
+    {
+      "id": "core_generated",
+      "count": 36,
+      "ids": [
+        "r258",
+        "r411",
+        "r416",
+        "r1024",
+        "r1029",
+        "r1030",
+        "r1031",
+        "r1032",
+        "r1033",
+        "r1034",
+        "r1035",
+        "r1036",
+        "r1038",
+        "r1473",
+        "r1474",
+        "r1475",
+        "r1476",
+        "r1477",
+        "r1478",
+        "r1479",
+        "r1480",
+        "r1481",
+        "r1482",
+        "r1483",
+        "r1484",
+        "r1487",
+        "r1488",
+        "r1489",
+        "r1490",
+        "r1491",
+        "r1492",
+        "r1493",
+        "r1494",
+        "r1495",
+        "r1496",
+        "r1497"
+      ]
+    },
+    {
+      "id": "module",
+      "count": 69,
+      "ids": [
+        "r261",
+        "r262",
+        "r263",
+        "r264",
+        "r265",
+        "r266",
+        "r267",
+        "r268",
+        "r269",
+        "r270",
+        "r271",
+        "r272",
+        "r273",
+        "r274",
+        "r275",
+        "r276",
+        "r277",
+        "r278",
+        "r279",
+        "r280",
+        "r281",
+        "r282",
+        "r283",
+        "r284",
+        "r285",
+        "r286",
+        "r287",
+        "r288",
+        "r289",
+        "r290",
+        "r291",
+        "r292",
+        "r293",
+        "r294",
+        "r295",
+        "r296",
+        "r297",
+        "r298",
+        "r299",
+        "r300",
+        "r301",
+        "r302",
+        "r303",
+        "r304",
+        "r305",
+        "r306",
+        "r307",
+        "r308",
+        "r309",
+        "r310",
+        "r311",
+        "r312",
+        "r313",
+        "r314",
+        "r315",
+        "r316",
+        "r317",
+        "r318",
+        "r319",
+        "r320",
+        "r321",
+        "r322",
+        "r323",
+        "r324",
+        "r325",
+        "r329",
+        "r330",
+        "r378",
+        "r927"
+      ]
+    },
+    {
+      "id": "frame_scribe",
+      "count": 156,
+      "ids": [
+        "r379",
+        "r390",
+        "r392",
+        "r988",
+        "r989",
+        "r990",
+        "r991",
+        "r992",
+        "r993",
+        "r994",
+        "r995",
+        "r996",
+        "r997",
+        "r998",
+        "r999",
+        "r1000",
+        "r1001",
+        "r1002",
+        "r1003",
+        "r1004",
+        "r1005",
+        "r1006",
+        "r1007",
+        "r1008",
+        "r1009",
+        "r1010",
+        "r1011",
+        "r1012",
+        "r1013",
+        "r1014",
+        "r1015",
+        "r1016",
+        "r1017",
+        "r1018",
+        "r1019",
+        "r1020",
+        "r1021",
+        "r1022",
+        "r1023",
+        "r1076",
+        "r1077",
+        "r1078",
+        "r1079",
+        "r1080",
+        "r1081",
+        "r1082",
+        "r1083",
+        "r1084",
+        "r1085",
+        "r1086",
+        "r1087",
+        "r1088",
+        "r1089",
+        "r1090",
+        "r1091",
+        "r1092",
+        "r1093",
+        "r1094",
+        "r1095",
+        "r1096",
+        "r1097",
+        "r1098",
+        "r1099",
+        "r1100",
+        "r1101",
+        "r1102",
+        "r1103",
+        "r1104",
+        "r1105",
+        "r1106",
+        "r1107",
+        "r1108",
+        "r1109",
+        "r1110",
+        "r1111",
+        "r1112",
+        "r1113",
+        "r1114",
+        "r1115",
+        "r1116",
+        "r1117",
+        "r1118",
+        "r1119",
+        "r1120",
+        "r1121",
+        "r1122",
+        "r1123",
+        "r1124",
+        "r1125",
+        "r1126",
+        "r1127",
+        "r1128",
+        "r1129",
+        "r1130",
+        "r1131",
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389",
+        "r1390",
+        "r1391",
+        "r1392",
+        "r1393",
+        "r1394",
+        "r1395",
+        "r1396",
+        "r1397",
+        "r1398",
+        "r1399",
+        "r1400",
+        "r1401",
+        "r1402",
+        "r1403",
+        "r1405",
+        "r1406",
+        "r1436",
+        "r1440",
+        "r1442",
+        "r1445",
+        "r1446",
+        "r1447",
+        "r1448",
+        "r1449",
+        "r1450",
+        "r1451",
+        "r1452",
+        "r1453",
+        "r1454",
+        "r1455",
+        "r1456",
+        "r1457",
+        "r1458",
+        "r1459",
+        "r1460",
+        "r1461",
+        "r1462",
+        "r1463",
+        "r1464",
+        "r1465",
+        "r1466",
+        "r1467",
+        "r1468",
+        "r1469",
+        "r1470",
+        "r1471",
+        "r1472"
+      ]
+    },
+    {
+      "id": "pad_via",
+      "count": 76,
+      "ids": [
+        "r836",
+        "r837",
+        "r838",
+        "r839",
+        "r840",
+        "r841",
+        "r842",
+        "r843",
+        "r844",
+        "r845",
+        "r1208",
+        "r1209",
+        "r1312",
+        "r1313",
+        "r1314",
+        "r1315",
+        "r1316",
+        "r1317",
+        "r1318",
+        "r1319",
+        "r1320",
+        "r1321",
+        "r1322",
+        "r1323",
+        "r1324",
+        "r1325",
+        "r1326",
+        "r1327",
+        "r1328",
+        "r1329",
+        "r1330",
+        "r1331",
+        "r1332",
+        "r1333",
+        "r1334",
+        "r1335",
+        "r1336",
+        "r1337",
+        "r1338",
+        "r1339",
+        "r1340",
+        "r1341",
+        "r1342",
+        "r1343",
+        "r1344",
+        "r1345",
+        "r1346",
+        "r1347",
+        "r1348",
+        "r1349",
+        "r1350",
+        "r1351",
+        "r1352",
+        "r1353",
+        "r1354",
+        "r1355",
+        "r1356",
+        "r1357",
+        "r1358",
+        "r1359",
+        "r1360",
+        "r1361",
+        "r1362",
+        "r1363",
+        "r1364",
+        "r1365",
+        "r1366",
+        "r1367",
+        "r1368",
+        "r1369",
+        "r1370",
+        "r1371",
+        "r1372",
+        "r1373",
+        "r1374",
+        "r1375"
+      ]
+    },
+    {
+      "id": "density_fill",
+      "count": 17,
+      "ids": [
+        "r1256",
+        "r1257",
+        "r1258",
+        "r1259",
+        "r1260",
+        "r1261",
+        "r1262",
+        "r1263",
+        "r1264",
+        "r1265",
+        "r1266",
+        "r1267",
+        "r1268",
+        "r1269",
+        "r1270",
+        "r1271",
+        "r1272"
+      ]
+    },
+    {
+      "id": "connectivity",
+      "count": 0,
+      "ids": []
+    },
+    {
+      "id": "routing_boundary",
+      "count": 8,
+      "ids": [
+        "r1252",
+        "r1253",
+        "r1254",
+        "r1255",
+        "s68",
+        "s69",
+        "s70",
+        "s71"
+      ]
+    }
+  ],
+  "scope": "Seven floating-net records pass a complete physical-device-root graph with no block-pin endpoints. Unrooted components or unimplemented profile selectors remain unreviewed. This does not establish device/body LVS, chip I/O correctness, ESD or electrical performance. The original catalog retains 456 unreviewed records; chunk 6 remains incomplete."
+}

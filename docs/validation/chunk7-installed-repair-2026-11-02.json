@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "status": "PASS_REVIEWED_SOURCE_REPAIR",
+  "date": "2026-11-02",
+  "source_parent": "51201ee9f3964f0a1c73df22402d342bab9a35ca",
+  "source_files": {
+    "scripts/qualify_installed_metal_parallel.py": "4c03232fc7f703ba93dd4bde910d98f5d2631793ef8f39e1fe2e94f8db71ae8e",
+    "tests/test_installed_metal_parallel_audit.py": "17eceec3680d6bb31dd8ccd72c9b061b048633caae5eb7bea7f932e8d821dd68",
+    "scripts/audit_installed_sky130_pw2dn_native.py": "729c658406428afe7b4a39262f4110b3e5db1de753c34f195493c978fc971336",
+    "tests/test_sky130_pw2dn_native_probe.py": "d60f0f5cc4c1b453b005904bafba2c32dea2f4e841ada7705875adfce0333632"
+  },
+  "source_snapshot_files": 6890,
+  "source_manifest_sha256": "d6f08967dbe0c8f60c6a7fe413518f480eb09ff686b7b103e579c61a4927c4b3",
+  "original_desktop_run_id": 41228444877,
+  "original_desktop_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41228444877",
+  "original_jobs": {
+    "linux_package": "success",
+    "windows_package": "success",
+    "linux_installed": "failure",
+    "windows_installed": "failure"
+  },
+  "linux_failure": {
+    "job_id": 124672192452,
+    "cause": "Persisted integer coefficients disagreed with the independent float observation schema.",
+    "repair": "Persist physical coefficients as floats after unchanged numerical validation; independent strict auditor unchanged."
+  },
+  "windows_failure": {
+    "job_id": 124672192492,
+    "cause": "Reader inherited simulator-only PATH, so final immutable Git source check could not start Git.",
+    "repair": "Restore original reader environment and execute hook before readback; native probes retain explicit captured environment."
+  },
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 328,
+      "skips": 13,
+      "seconds": 43.280999999988126,
+      "source_manifest_sha256": "d6f08967dbe0c8f60c6a7fe413518f480eb09ff686b7b103e579c61a4927c4b3",
+      "log_sha256": "c198628fe4c33a60a1481b0e6ead375125ab0296c0fe490875d467b138ca6717",
+      "receipt_sha256": "c06401a1cdaf86510c965cdcde0bd1107fec686a681414f7809b1f119222eecd",
+      "sources_unchanged": true
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 328,
+      "skips": 1,
+      "seconds": 7.997276851001516,
+      "source_manifest_sha256": "d6f08967dbe0c8f60c6a7fe413518f480eb09ff686b7b103e579c61a4927c4b3",
+      "log_sha256": "bce526caf56b0325daacad51fbdd236957e47457af4fb90c8f6ada281e9622bc",
+      "receipt_sha256": "34eb0a0f63c7ab1be7d7b0b529c0e2a49243cca0acb2316e09fcc1343e9feebd",
+      "sources_unchanged": true
+    }
+  },
+  "independent_review_sha256": "afe547be7391dc0a075cb83f16df45628db821907b36ee2b6840a1d6bf3ca659",
+  "historical_numerical_readback": {
+    "status": "PASS",
+    "scope": "historical selected raw numerical diagnostic only; not installed acceptance or source/runtime closure",
+    "full_archive_digest_verified": false,
+    "receipt_sha256": "a70b708062dc890d05a8cd71e091492c3deac0d017278b8da125dc3429d283d1",
+    "artifact": 13062250284,
+    "run": 41228444877,
+    "original_commit": "51201ee9f3964f0a1c73df22402d342bab9a35ca",
+    "selected_files": 256,
+    "selected_members_bound_to_manifest": 254,
+    "cases": 60,
+    "path_samples": 3870,
+    "original_strict_type_failures": 60,
+    "negative_controls": [
+      "raw-current",
+      "raw-response",
+      "raw-coefficient",
+      "raw-nan",
+      "raw-title",
+      "summary-integer",
+      "summary-boolean",
+      "summary-number"
+    ],
+    "code_sha256": {
+      "scripts/qualify_installed_metal_parallel.py": "4c03232fc7f703ba93dd4bde910d98f5d2631793ef8f39e1fe2e94f8db71ae8e",
+      "scripts/audit_installed_metal_parallel.py": "caeb50ef18ca9a6156408ea401a3807245140e547defbdfd2e46190166d32f79",
+      "scripts/audit_sky130_metal_resistor_parallel.py": "1668add5ca7c8ca1e5cb5e72b45841138dd1d6f8e536e6d12dc24a0589ca3ef5",
+      "scripts/audit_sky130_metal_resistors_linked.py": "8a5cebef17235e6996440d45def404fb8d351c0e3c143347a18cf2b1a6bc1677",
+      "scripts/qualify_sky130_metal_resistors_linked.py": "23cabb0cac68435660d06862d174d1418c0fd313cb35fdaa4cf30b7a52950044",
+      "scripts/qualify_sky130_metal_resistor_parallel.py": "f7afbebbcb412c8146c865715e4d2a75b3f664f761a2324caeb810f5f33f61c6",
+      "tests/test_sky130_metal_resistor_parallel_audit.py": "2de7095cc445dd2231d8d3ba155feb5137b6a8d662e4a04b18e527fd4bf5f491"
+    },
+    "script_sha256": "3af2609dbd648208f9538e239e93ade050ff3f71e70f76ccb81be63d3dc0d2f0"
+  },
+  "diagnostic_artifact_scope": "Authenticated selected member ranges only; complete upstream artifact ZIP digests are not verified. Original failure receipts and saved observations are unchanged. Historical numerical readback is not installed acceptance.",
+  "archive": "IC-Design-Studio-evidence/chunk7-installed-repair-2026-11-02-v1/repair-evidence-v1.zip",
+  "archive_bytes": 9576654,
+  "archive_sha256": "7d1e4d79595ca7e05cdecc81d5b624fa84f686e5c758b85a434dad8f8d8aff5a",
+  "archive_payloads_verified": 290,
+  "numerical_gates_unchanged": true,
+  "source_identity_gates_unchanged": true,
+  "simulator_isolation_preserved": true,
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "qualified": false,
+  "chunk7_estimate_percent": 70,
+  "chunk7_estimate_confidence": "Low; range 55\u201380%",
+  "publication": "Reviewed changes prepared for the next experimental candidate; fresh hosted acceptance required."
+}

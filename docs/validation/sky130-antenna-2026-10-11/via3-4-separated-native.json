@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "status": "comparison-executed",
+  "qualified": false,
+  "cuts": 4,
+  "stacked": false,
+  "gds_sha256": "ca37c8b5a287c210015dff975d9c0b1093f221bda1a2c32d5619e623caf1f611",
+  "driver_sha256": "62a3173cb6f866bbe388e984ee7fe68c22a93518108658db921f6933d31e2f8c",
+  "magic_deck_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "klayout_deck_sha256": "02201f89237fca05d54a1295b168ca2ee806dd341d0343c93c113728ae0acfbc",
+  "expected_gate_area_um2": 0.09,
+  "expected_cut_area_um2": 0.16,
+  "expected_ratio": 1.777777777777778,
+  "limit": 6,
+  "expected_violation": false,
+  "commands": {
+    "magic": [
+      "/opt/icstudio/physical/installed/bin/magic",
+      "-dnull",
+      "-noconsole",
+      "-rcfile",
+      "/var/tmp/icstudio-sky130-contact-antenna-v1/4-separated/startup.tcl",
+      "/var/tmp/icstudio-sky130-contact-antenna-v1/4-separated/run.tcl"
+    ],
+    "klayout": [
+      "/opt/icstudio/bin/klayout",
+      "-b",
+      "-r",
+      "/var/tmp/icstudio-sky130-contact-antenna-v1/4-separated/check.drc",
+      "-rd",
+      "input=/var/tmp/icstudio-sky130-contact-antenna-v1/4-separated/input.gds",
+      "-rd",
+      "top_cell=ANTENNA",
+      "-rd",
+      "report=/var/tmp/icstudio-sky130-contact-antenna-v1/4-separated/report.lyrdb"
+    ]
+  },
+  "executable_hashes": {
+    "magic": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+    "klayout": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9"
+  },
+  "magic_antenna": "Reading extract file.\nBuilding flattened netlist.\nRunning antenna checks.\nantennacheck finished.\n",
+  "magic_feedback": 0,
+  "klayout_markers": 0,
+  "klayout_values": [],
+  "seconds": 1.9453783259959891,
+  "files": {
+    "startup.tcl": "9f4dc2639d409c7862355416f179e3d5318e31f9352280e13017c3fda50dfc3f",
+    "input.gds": "ca37c8b5a287c210015dff975d9c0b1093f221bda1a2c32d5619e623caf1f611",
+    "report.lyrdb": "5d91d04cf61cd1b8b5d69695b821efc50023f48696c698321d79e23289debed1",
+    "ANTENNA.ext": "2267650c24944271fd557549a78a4e7429c13b2b67753218f12f95c0ef562424",
+    "sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+    "feedback.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check.drc": "02201f89237fca05d54a1295b168ca2ee806dd341d0343c93c113728ae0acfbc",
+    "klayout.log": "ded65e5130fe843f996024acc1f28fd2a6af25f22c038a75385f7cf1e7dce85f",
+    "run.tcl": "77b019d74ffe3ad533dc5478dbaab2167aac4fac4ce6aa12bc8108570216f0f7",
+    "magic.log": "1f54319ecfc47f3c85ddce81e7a2ec659427200472c91d7d9dc93bd63ce0d896"
+  }
+}

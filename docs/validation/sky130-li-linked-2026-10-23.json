@@ -1,0 +1,505 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "chunk": 7,
+  "status": "selected_linked_li_integration_passed",
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "source_baseline": "b6c623b44ba7ad2e30adb5a8c00a1e13807d8db5",
+  "scope": "Selected 2x5 um straight SKY130 LI resistor at 27 C, both orientations and five distinct passive sections; actual native extraction, application export and independently wired compact-model reference. Shared-model integration, not independent silicon accuracy or complete device qualification.",
+  "contract": {
+    "path": "docs/qualification/sky130-li-contract-v1.json",
+    "sha256": "be2c12aa3c80f3a189da0c303d53323ce083982820d0ff101c524b8a8d4e10c6",
+    "unchanged": true
+  },
+  "source_files": {
+    "scripts/qualify_sky130_li_linked.py": "3dfa4f7569b2eefd1aa287a33bf943e64ea009bba0f65687ab9203f72b7e61d1",
+    "scripts/audit_sky130_li_linked.py": "9a44a27caad1744acbe852689d81c13abbfe9360fab20f87e0143d35035cc273",
+    "tests/test_sky130_li_linked.py": "d7c54e7308aec6544fb129783ed76f35cfa2f581bf15106a208e685c6784c500"
+  },
+  "source_manifest_sha256": "2573be69c02a6744bdbe196ea4d0b5f6a7baf4f5b13b42748d49d32440db2d6f",
+  "source_snapshot": {
+    "initial_members": 6387,
+    "initial_manifest_sha256": "32a313cf8dd29e0ac3fead3602d4335e26568532a9d08c8683ce96751386bd90",
+    "final_native_delta": "work/source-delta-full-v2/files.json",
+    "independent_audit_delta": "work/audit-source-v4/files.json",
+    "scope": "Frozen initial tracked-file snapshot plus exact versioned LI deltas. The native runner/results are unchanged after full-v2; independent auditor/test-only frequency-grid and integrated-noise parsing corrections are separately retained and used by fresh archive replay. Native runs predate the behavior-preserving shared geometry-helper extraction in the integrated checkout; exact pre-extraction imports are retained."
+  },
+  "simulation_package": {
+    "target": "sky130A",
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "physical_package": {
+    "target": "sky130A",
+    "revision": "9a491f0ebd51a0aa",
+    "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+    "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+  },
+  "native": {
+    "host": "Linux",
+    "status": "PASS",
+    "selected_cases": [
+      "tt-r0",
+      "tt-r90",
+      "ll-r0",
+      "ll-r90",
+      "hh-r0",
+      "hh-r90",
+      "hl-r0",
+      "hl-r90",
+      "lh-r0",
+      "lh-r90"
+    ],
+    "geometry_um": {
+      "width": 2,
+      "length": 5
+    },
+    "multiplicity": 1,
+    "temperature_c": 27,
+    "orientations_degrees": [
+      0,
+      90
+    ],
+    "sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "analyses": [
+      "dc",
+      "complex_ac",
+      "transient",
+      "noise"
+    ],
+    "paths": [
+      "application",
+      "actual_native_extraction",
+      "independently_wired_reference"
+    ],
+    "report_sha256": "50f0d0018c6781be33b767a821150fa27462720da8761dc68e04e5869d8e197d",
+    "manifest_sha256": "46d2448ce69b6665bcc37b0adbecda1d2c7a1ca96abc293cab395745b059df31",
+    "audit_sha256": "5995f7a810d083373a9d3467ab757c9e5349f96a459203d50ca439d05cbe5196",
+    "audit": {
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "case_count": 10,
+      "native_files": 2,
+      "raw_files": 180,
+      "electrical_comparisons": 80,
+      "electrical_faults": 60,
+      "integrity_bindings": 1429,
+      "largest_normalized_error": 4.6275488576955486e-12,
+      "scope": "Independent raw numerical and native identity readback; shared compact-model integration only. No calibrated model/noise accuracy, full LI manual-rule coverage or operating-envelope claim."
+    },
+    "physical_faults": 5,
+    "parameter_readback": {
+      "tt": {
+        "rl1_ohm_per_square": 12.2,
+        "tol_li_um": 0
+      },
+      "ll": {
+        "rl1_ohm_per_square": 10.31,
+        "tol_li_um": 0.014
+      },
+      "hh": {
+        "rl1_ohm_per_square": 14.02,
+        "tol_li_um": -0.014
+      },
+      "hl": {
+        "rl1_ohm_per_square": 14.8,
+        "tol_li_um": -0.02
+      },
+      "lh": {
+        "rl1_ohm_per_square": 9.5,
+        "tol_li_um": 0.02
+      }
+    },
+    "fresh_execution": true,
+    "development_reuse": false
+  },
+  "independent_audit_controls": {
+    "status": "PASS",
+    "sha256": "54df03fb35d30366646320c2405459ac130d798c7ddb13cb13a28dbeaba5197d",
+    "controls": [
+      {
+        "name": "nonfinite-current",
+        "status": "REJECTED",
+        "reason": "Nonfinite raw sample.",
+        "rebound_manifest": true
+      },
+      {
+        "name": "manual-for-extraction",
+        "status": "REJECTED",
+        "reason": "Comparison path has extra/substituted circuit elements.",
+        "rebound_manifest": true
+      },
+      {
+        "name": "wrong-section",
+        "status": "REJECTED",
+        "reason": "Deck selected section or extracted-file path differs.",
+        "rebound_manifest": true
+      },
+      {
+        "name": "wrong-orientation",
+        "status": "REJECTED",
+        "reason": "Deck selected section or extracted-file path differs.",
+        "rebound_manifest": true
+      },
+      {
+        "name": "case-label",
+        "status": "REJECTED",
+        "reason": "Selected case identity differs.",
+        "rebound_manifest": true
+      }
+    ],
+    "scope": "Actual retained evidence mutated in a separate copy, with corresponding report and manifest hashes rebound; original evidence preserved. Each malformed evidence set rejected and pristine readback repeated."
+  },
+  "tests": {
+    "Windows": {
+      "tests": 17,
+      "status": "PASS",
+      "log_sha256": "c8dd91507ee40b3ec7bde5cdc807638da4e81e33fa9a24e8a2202d183a78e95f"
+    },
+    "Linux": {
+      "tests": 17,
+      "status": "PASS",
+      "log_sha256": "bbbc52093bdb7fdf5c51a1b2a31f18bf8c77c77f5d6b07daf98ce435a43ae028"
+    }
+  },
+  "runtime": {
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+    "klayout": "0.30.5",
+    "pyside": "6.8.3",
+    "environment": {
+      "LANG": "C.UTF-8",
+      "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib"
+    },
+    "tools": {
+      "magic": {
+        "path": "/opt/icstudio/bin/magic",
+        "command": [
+          "/opt/icstudio/bin/magic",
+          "--version"
+        ],
+        "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+        "returncode": 0,
+        "version": "8.3.684\n"
+      },
+      "netgen": {
+        "path": "/opt/icstudio/bin/netgen",
+        "command": [
+          "/opt/icstudio/bin/netgen",
+          "-batch",
+          "version"
+        ],
+        "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3",
+        "returncode": 0,
+        "version": "Netgen 1.5.300 compiled on Tue Oct  6 22:55:30 UTC 2026\nWarning: netgen command 'format' use fully-qualified name '::netgen::format'\nWarning: netgen command 'global' use fully-qualified name '::netgen::global'\ninvalid command name \"version\"\n    while executing\n\"version\"\n    (\"eval\" body line 1)\n    invoked from within\n\"eval $argv\"\n"
+      },
+      "ngspice": {
+        "path": "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/icstudio-ngspice",
+        "command": [
+          "/var/tmp/icstudio-ngspice-capacitor-build-20261017-v2/installed/bin/icstudio-ngspice",
+          "--version"
+        ],
+        "sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+        "returncode": 0,
+        "version": "******\n** ngspice-47 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2026, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Sat Oct 17 12:12:53 UTC 2026\n******\n"
+      }
+    },
+    "scope": "Observed versions and entry-point hashes; this does not claim a complete dynamic-loader dependency closure or qualify reuse."
+  },
+  "contract_milestones": {
+    "LI-PASSIVE-CORNERS": "Selected 2x5 um, 27 C implementation/execution example passed for tt,ll,hh,hl,lh with native raw rl1/tol_li and selected-deck checks; no full operating-envelope claim.",
+    "LI-EXTRACTED-ELECTRICAL": "Selected native extraction compared with schematic and literal reference for DC/AC/transient/noise, both orientations; actual native bytes included without reconstructed geometry.",
+    "remaining": "All other contract requirements remain unchanged. The immutable source contract retains its historical pre-execution status."
+  },
+  "retained_attempts": [
+    {
+      "name": "v1",
+      "status": "FAIL",
+      "report_sha256": "fd7ed6cac243854dc8f6574b3810387e56f8354d6b9fa7023b15e2cc7bf707c1",
+      "cases": [
+        {
+          "name": "tt-r0",
+          "status": "FAIL",
+          "error": "RuntimeError('icstudio-ngspice exited with code 1.\\nError: Could not find include file pdk-models/106b0ccd6cf522991dd84368.spice\\n    While reading /var/tmp/icstudio-sky130-li-linked-20261023-v1/pilot-v1/shared-models/pdk-models/04874273a824f6e861ba7f94.spice\\n\\nERROR: fatal error in ngspice, exit(1)\\n')"
+        },
+        {
+          "name": "tt-r90",
+          "status": "FAIL",
+          "error": "RuntimeError('icstudio-ngspice exited with code 1.\\nError: Could not find include file pdk-models/106b0ccd6cf522991dd84368.spice\\n    While reading /var/tmp/icstudio-sky130-li-linked-20261023-v1/pilot-v1/shared-models/pdk-models/04874273a824f6e861ba7f94.spice\\n\\nERROR: fatal error in ngspice, exit(1)\\n')"
+        }
+      ],
+      "source_manifest_sha256": "38f35528b0c81efda1065aac698be9361aa1014212f9ee9bd0d2204917b6837e"
+    },
+    {
+      "name": "v2",
+      "status": "FAIL",
+      "report_sha256": "dd723377fa8212734db01931cea8c58a3f4698a2a2db763ad2df4dd7934de90c",
+      "cases": [
+        {
+          "name": "tt-r0",
+          "status": "FAIL",
+          "error": "ValueError('Missing source-current probe: i(v_vdrive)')"
+        },
+        {
+          "name": "tt-r90",
+          "status": "FAIL",
+          "error": "ValueError('Missing source-current probe: i(v_vdrive)')"
+        }
+      ],
+      "source_manifest_sha256": "7114b739154a2fa5908628af8c585e317c3f59c445fae64aece724d643076b6d"
+    },
+    {
+      "name": "v3",
+      "status": "PASS",
+      "report_sha256": "918d40fc2f1a0774698736f6a2eee8dead01ff6121e7f865655ba39ff4d9a267",
+      "cases": [
+        {
+          "name": "tt-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "tt-r90",
+          "status": "PASS",
+          "error": null
+        }
+      ],
+      "source_manifest_sha256": "4244ae2495e1f9ee444e6f36f89bdb80e6f1cba5dcdbdfc552410669c1bc8603"
+    },
+    {
+      "name": "full-v1",
+      "status": "PASS",
+      "report_sha256": "25ca6073c818c1b075d3ebeaddd54062840b2db9e1bfb29bc802d1e57ec877e0",
+      "cases": [
+        {
+          "name": "hh-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "hh-r90",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "hl-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "hl-r90",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "lh-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "lh-r90",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "ll-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "ll-r90",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "tt-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "tt-r90",
+          "status": "PASS",
+          "error": null
+        }
+      ],
+      "source_manifest_sha256": "656b63227794cdecaf5b97e135015960d04e82be735cddf2a5124e38eadf2694"
+    },
+    {
+      "name": "full-v2",
+      "status": "PASS",
+      "report_sha256": "50f0d0018c6781be33b767a821150fa27462720da8761dc68e04e5869d8e197d",
+      "cases": [
+        {
+          "name": "hh-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "hh-r90",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "hl-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "hl-r90",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "lh-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "lh-r90",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "ll-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "ll-r90",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "tt-r0",
+          "status": "PASS",
+          "error": null
+        },
+        {
+          "name": "tt-r90",
+          "status": "PASS",
+          "error": null
+        }
+      ],
+      "source_manifest_sha256": "2573be69c02a6744bdbe196ea4d0b5f6a7baf4f5b13b42748d49d32440db2d6f"
+    }
+  ],
+  "retained_failures": [
+    "Initial ordinary Windows sandbox test invocation encountered temporary-directory permission errors; the tool transcript retains that diagnostic, and ordinary-user focused reruns are archived.",
+    "pilot-v1 failed when nested staged model includes were relative to a different directory; original decks/logs retained.",
+    "pilot-v2 failed because the raw current-channel lookup used i(v_vdrive), while the application emits VDRIVE and native i(vdrive); original outputs retained.",
+    "pilot-v3 and full-v1 passed under earlier sources. Full-v2 is a fresh final run after nonfinite-current and executed-deck identity audit fixes.",
+    "The first independent full-v2 audit rejected ngspice frequency variable declarations carrying grid=3. A separately retained auditor/test-only correction accepts that exact qualifier; original runner, results and failed audit identity are retained.",
+    "The next independent audit rejected the standard second Integrated Noise plot as extra rows. Final parsing checks that bounded trailer independently, including its shape and finite positive samples; it does not compare or calibrate integrated noise.",
+    "Netgen version-probe command returned its version banner but rejected the extra version Tcl command; complete diagnostic retained separately from successful native LVS logs."
+  ],
+  "limitations": [
+    "Three circuit paths share the same public compact model; their agreement does not calibrate sheet resistance, noise or silicon accuracy.",
+    "No complete electrical geometry/temperature/voltage/current/power/reliability envelope; selected stimuli are not validity limits.",
+    "li.2 source ambiguity and full manual written-rule/applicability coverage remain open.",
+    "One straight resistor and multiplicity one; arrays, snakes, imported/hierarchical variants and all physical classes remain separate work.",
+    "R-only native extraction does not establish complete distributed RC or frequency-dependent accuracy.",
+    "No calibrated statistics/mismatch, installed Windows/Linux acceptance, or M1-M4 electrical qualification.",
+    "No general resumable cache: complete loaded-dependency identity and semantic reuse audit remain prerequisites."
+  ],
+  "archive": {
+    "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-li-linked-2026-10-23-v1/evidence.zip",
+    "sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49",
+    "bytes": 109379856,
+    "path_bindings": 19827,
+    "unique_objects": 7837,
+    "logical_bytes": 1519882228,
+    "all_objects_verified": true,
+    "format": "sha256-deduplicated-zip-v1"
+  },
+  "archive_replay": {
+    "status": "PASS",
+    "tests": 17,
+    "selected_cases": [
+      "tt-r0"
+    ],
+    "audit": {
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "case_count": 1,
+      "native_files": 2,
+      "raw_files": 18,
+      "electrical_comparisons": 8,
+      "electrical_faults": 6,
+      "integrity_bindings": 610,
+      "largest_normalized_error": 3.6122374777491902e-12,
+      "scope": "Independent raw numerical and native identity readback; shared compact-model integration only. No calibrated model/noise accuracy, full LI manual-rule coverage or operating-envelope claim."
+    },
+    "source_files": 6388,
+    "source_unchanged": true,
+    "seconds": 64.465,
+    "archive_sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49",
+    "scope": "Fresh selected replay after exact source/adapter restore; original full-run artifact audit also repeated without rewriting its original execution identity.",
+    "replay_archive": {
+      "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-li-linked-2026-10-23-v1/replay.zip",
+      "sha256": "86f31e373eec70fcd08a0dfc91d84a653fec5c08d26f790dc2bd18c21201cf3b",
+      "bytes": 5992278,
+      "path_bindings": 622,
+      "unique_objects": 518,
+      "all_objects_verified": true
+    }
+  },
+  "cleanup": {
+    "native": {
+      "status": "PASS",
+      "removed": [
+        {
+          "path": "/var/tmp/icstudio-sky130-li-linked-20261023-v1",
+          "files": 13026,
+          "logical_bytes": 1211468301,
+          "removed": true
+        },
+        {
+          "path": "/var/tmp/icstudio-sky130-li-linked-20261023-replay-v1",
+          "files": 8957,
+          "logical_bytes": 614027085,
+          "removed": true
+        }
+      ],
+      "archive_sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49",
+      "replay_archive_sha256": "86f31e373eec70fcd08a0dfc91d84a653fec5c08d26f790dc2bd18c21201cf3b",
+      "scope": "Only this new LI pilot and its fresh replay temporary Linux trees. Logical bytes removed inside WSL; no claim that C: disk allocation was reclaimed."
+    },
+    "windows": {
+      "removed": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-li-linked-20261023-v1\\physical-adapter",
+          "removed": true,
+          "files": 442,
+          "logical_bytes": 36111409.0
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-li-linked-20261023-v1\\source-v1.zip",
+          "removed": true,
+          "files": 1,
+          "logical_bytes": 90809927
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-li-linked-20261023-v1\\physical-adapter.zip",
+          "removed": true,
+          "files": 1,
+          "logical_bytes": 6348198
+        }
+      ],
+      "status": "PASS",
+      "replay_archive_sha256": "86f31e373eec70fcd08a0dfc91d84a653fec5c08d26f790dc2bd18c21201cf3b",
+      "scope": "Only this pilot duplicate Windows source ZIP, adapter ZIP and adapter tree, after verified exact archive and restored native replay.",
+      "archive_sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49"
+    }
+  }
+}

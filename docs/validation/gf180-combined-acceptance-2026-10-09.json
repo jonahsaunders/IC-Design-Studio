@@ -1,0 +1,539 @@
+{
+  "schema": 1,
+  "status": "combined-native-and-cross-os-acceptance-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T17:21:42.236711+00:00",
+  "backend": "719a8abfbe6b3b6dda4eed20751de3ee230253bbcfb22b139a6316acc87b8cac",
+  "source_base_commit": "04df4e5e313eddbb5468a78318e4ee25c18715c2",
+  "native": {
+    "path": "outputs/gf180-combined-finish-native-v3/record.json",
+    "sha256": "04206569119f2079eab8f8f7940717e7659ef0b4889dc224a1e08bfe1cd5e676"
+  },
+  "native_backend": "e27556ea92007b2f6214ffe66a7ca175da30b6926c51e792fd5612b737678d6b",
+  "native_cases": [
+    {
+      "case": "c-counter",
+      "control": "positive",
+      "status": "expected-result-reproduced",
+      "native_directory": "/var/tmp/icstudio-gf180-combined-finish-v1/c-counter-positive",
+      "proc_start_ticks": 793027,
+      "current_command": 1,
+      "exit_code": 0,
+      "native_passed": true,
+      "metal_passed": true,
+      "combined_passed": true,
+      "rejection": null,
+      "seconds": 22.41209110700038,
+      "report": {
+        "path": "outputs/gf180-combined-finish-native-v1/c-counter-positive/gf180-connectivity/report.json",
+        "sha256": "f1ca738ad4e98ebf2e855dfa29e251b317f9b77490d65b606290da1a9bbe1ce4"
+      },
+      "saved_data": {
+        "path": "outputs/gf180-combined-finish-native-v1/c-counter-positive/saved-data.json",
+        "sha256": "83fe2a8fe0b385e230de4f65616fe09b4841331145d642b4aea214a8bb42c8ee"
+      },
+      "devices": 4184,
+      "device_terminals": 16736,
+      "primary_parameters": 8368
+    },
+    {
+      "case": "d-counter",
+      "control": "positive",
+      "status": "expected-result-reproduced",
+      "native_directory": "/var/tmp/icstudio-gf180-combined-finish-v1/d-counter-positive",
+      "proc_start_ticks": 795281,
+      "current_command": 1,
+      "exit_code": 0,
+      "native_passed": true,
+      "metal_passed": true,
+      "combined_passed": true,
+      "rejection": null,
+      "seconds": 22.878902313999788,
+      "report": {
+        "path": "outputs/gf180-combined-finish-native-v1/d-counter-positive/gf180-connectivity/report.json",
+        "sha256": "3ec8c8e8c88fc07afc577a7a90ca4757f25f5098d80fc47c5d29c4a3f90ae7e4"
+      },
+      "saved_data": {
+        "path": "outputs/gf180-combined-finish-native-v1/d-counter-positive/saved-data.json",
+        "sha256": "2d2dfc3025d38d03d3678ff736d173ae8d1fe5ba3edb25768ac60d0175c15f01"
+      },
+      "devices": 4184,
+      "device_terminals": 16736,
+      "primary_parameters": 8368
+    },
+    {
+      "case": "c-counter",
+      "control": "vdd-port-open",
+      "status": "expected-result-reproduced",
+      "native_directory": "/var/tmp/icstudio-gf180-combined-finish-v3/c-counter-vdd-port-open",
+      "fault": {
+        "original": {
+          "path": "outputs/gf180-density-production-c-counter-v2/filled.gds",
+          "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465"
+        },
+        "control_before": {
+          "path": "outputs/gf180-cd-power-windows-v2/c-counter/positive.gds",
+          "sha256": "8fe2ad28f82519180d9780483f3e21a2097391e40de3d03a2942f1aa3cb49920"
+        },
+        "control_after": {
+          "path": "outputs/gf180-cd-power-windows-v2/c-counter/vdd-port-open.gds",
+          "sha256": "ceed0068f6805cdf466eae8f3f5ffe25eeb608a0afe469048595eb2c20c64f2f"
+        },
+        "all_fault_masks_identical": true,
+        "changed_layers": [
+          [
+            41,
+            0
+          ],
+          [
+            81,
+            0
+          ]
+        ],
+        "standard_cells_preserved": true,
+        "via_helpers_flattened_without_mask_changes": 9
+      },
+      "proc_start_ticks": 816045,
+      "current_command": 1,
+      "exit_code": 0,
+      "native_passed": true,
+      "metal_passed": false,
+      "combined_passed": false,
+      "rejection": "Final GF180 connectivity failed. Inspect the native and metal reports.",
+      "seconds": 21.661228273999768,
+      "report": {
+        "path": "outputs/gf180-combined-finish-native-v3/c-counter-vdd-port-open/gf180-connectivity/report.json",
+        "sha256": "b7112be36503f59b91b06528fac8df87be114d3d4b6746ff083af68fe4fd8811"
+      },
+      "saved_data": {
+        "path": "outputs/gf180-combined-finish-native-v3/c-counter-vdd-port-open/saved-data.json",
+        "sha256": "8bde812e146eddf77b048dd36b8f24e1e06b1185570ce355069559c4bba8871b"
+      },
+      "devices": 4184,
+      "device_terminals": 16736,
+      "primary_parameters": 8368
+    },
+    {
+      "case": "c-uart",
+      "control": "positive",
+      "status": "expected-result-reproduced",
+      "native_directory": "/var/tmp/icstudio-gf180-combined-finish-v3/c-uart-positive",
+      "proc_start_ticks": 818481,
+      "current_command": 1,
+      "exit_code": 0,
+      "native_passed": true,
+      "metal_passed": true,
+      "combined_passed": true,
+      "rejection": null,
+      "seconds": 691.7177026339996,
+      "report": {
+        "path": "outputs/gf180-combined-finish-native-v3/c-uart-positive/gf180-connectivity/report.json",
+        "sha256": "17295405cebb9f10da7c3490fa45be1460f9ba9aa28d4a54dc091b3b831212be"
+      },
+      "saved_data": {
+        "path": "outputs/gf180-combined-finish-native-v3/c-uart-positive/saved-data.json",
+        "sha256": "9bfd8e1f938210491528d2eaa006a3df9eff847f146fddf2c9c06b15080eb278"
+      },
+      "devices": 22588,
+      "device_terminals": 90352,
+      "primary_parameters": 45176
+    },
+    {
+      "case": "d-uart",
+      "control": "positive",
+      "status": "expected-result-reproduced",
+      "native_directory": "/var/tmp/icstudio-gf180-combined-finish-v3/d-uart-positive",
+      "proc_start_ticks": 887827,
+      "current_command": 1,
+      "exit_code": 0,
+      "native_passed": true,
+      "metal_passed": true,
+      "combined_passed": true,
+      "rejection": null,
+      "seconds": 660.6446081949998,
+      "report": {
+        "path": "outputs/gf180-combined-finish-native-v3/d-uart-positive/gf180-connectivity/report.json",
+        "sha256": "2fb9817848a95226d31de2ae422172e951c11380ffc30eb33dc708bb1216e14e"
+      },
+      "saved_data": {
+        "path": "outputs/gf180-combined-finish-native-v3/d-uart-positive/saved-data.json",
+        "sha256": "6c6050cf6f5e593502fd027b1600959db8860e12b7b55929b7a2d096084ded7f"
+      },
+      "devices": 22588,
+      "device_terminals": 90352,
+      "primary_parameters": 45176
+    },
+    {
+      "case": "c-apb",
+      "control": "positive",
+      "status": "expected-result-reproduced",
+      "native_directory": "/var/tmp/icstudio-gf180-combined-finish-v3/c-apb-positive",
+      "proc_start_ticks": 953862,
+      "current_command": 1,
+      "exit_code": 0,
+      "native_passed": true,
+      "metal_passed": true,
+      "combined_passed": true,
+      "rejection": null,
+      "seconds": 678.1266657240012,
+      "report": {
+        "path": "outputs/gf180-combined-finish-native-v3/c-apb-positive/gf180-connectivity/report.json",
+        "sha256": "2ffd315aca82357ca44e7524c3a345e23542b8361ac3ef26f5ebed6ed13eaccd"
+      },
+      "saved_data": {
+        "path": "outputs/gf180-combined-finish-native-v3/c-apb-positive/saved-data.json",
+        "sha256": "5a54c254863a9986877a86fce6302ecba137841e745e7dd4939b8c86e6e10865"
+      },
+      "devices": 22490,
+      "device_terminals": 89952,
+      "primary_parameters": 44980
+    },
+    {
+      "case": "d-apb",
+      "control": "positive",
+      "status": "expected-result-reproduced",
+      "native_directory": "/var/tmp/icstudio-gf180-combined-finish-v3/d-apb-positive",
+      "proc_start_ticks": 1021619,
+      "current_command": 1,
+      "exit_code": 0,
+      "native_passed": true,
+      "metal_passed": true,
+      "combined_passed": true,
+      "rejection": null,
+      "seconds": 579.9101307019992,
+      "report": {
+        "path": "outputs/gf180-combined-finish-native-v3/d-apb-positive/gf180-connectivity/report.json",
+        "sha256": "bcde1cdac6de11fbbe72c801576b2a261bcf6eb570475a65a6e20b4f088cfcc4"
+      },
+      "saved_data": {
+        "path": "outputs/gf180-combined-finish-native-v3/d-apb-positive/saved-data.json",
+        "sha256": "60ff36a9c61d53ca4d3bd4153b7860d9d70262b1fb1daccd39b844130dd2c056"
+      },
+      "devices": 22490,
+      "device_terminals": 89952,
+      "primary_parameters": 44980
+    }
+  ],
+  "readbacks": {
+    "windows": {
+      "record": {
+        "path": "outputs/gf180-combined-current-readback-windows-v2/record.json",
+        "sha256": "427124c4ac7159eb0e9999872aeac3860584ffb81d1cbb91a8621507c269d226"
+      },
+      "cases": [
+        {
+          "case": "c-counter",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/c-counter-positive/gf180-connectivity/report.json",
+            "sha256": "311374a5039db5fb795b4374229f746f24ebfad5388c473a9e8887744c72e273"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/c-counter-positive/saved-data.json",
+            "sha256": "36109babee4a4ffe424581d028c66973935ae0e2df8e2a5f3d3298f61dc9cd5f"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v1/c-counter-positive/saved-data.json",
+            "sha256": "83fe2a8fe0b385e230de4f65616fe09b4841331145d642b4aea214a8bb42c8ee"
+          },
+          "artifacts": 87
+        },
+        {
+          "case": "d-counter",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/d-counter-positive/gf180-connectivity/report.json",
+            "sha256": "5b236ceb82a66aff61d093e1627d6c15074f3aba635d48c952febec951bfae75"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/d-counter-positive/saved-data.json",
+            "sha256": "117d240f6b13e286c23adccf88638369a0d858eff693de07eaf38afc11f21dcb"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v1/d-counter-positive/saved-data.json",
+            "sha256": "2d2dfc3025d38d03d3678ff736d173ae8d1fe5ba3edb25768ac60d0175c15f01"
+          },
+          "artifacts": 87
+        },
+        {
+          "case": "c-counter",
+          "control": "vdd-port-open",
+          "passed": false,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/c-counter-vdd-port-open/gf180-connectivity/report.json",
+            "sha256": "033ed68585dd12e4c89524edee6d28e7a06ea3a608f8d27a8ed540ff4b0d8930"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/c-counter-vdd-port-open/saved-data.json",
+            "sha256": "69c33575a2cdb1687c9ecd455122886841684996a7290076d576d0146eab9358"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/c-counter-vdd-port-open/saved-data.json",
+            "sha256": "8bde812e146eddf77b048dd36b8f24e1e06b1185570ce355069559c4bba8871b"
+          },
+          "artifacts": 87
+        },
+        {
+          "case": "c-uart",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/c-uart-positive/gf180-connectivity/report.json",
+            "sha256": "ee1d8a7f67b4bc84c8f73a34745a08e368ad0da7307ff869acaed64d5c1e8a88"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/c-uart-positive/saved-data.json",
+            "sha256": "d24d104d73de8ff851fde68513e2bd36e3ca2ff7e5eec2386c08b40e59a0b749"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/c-uart-positive/saved-data.json",
+            "sha256": "9bfd8e1f938210491528d2eaa006a3df9eff847f146fddf2c9c06b15080eb278"
+          },
+          "artifacts": 135
+        },
+        {
+          "case": "d-uart",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/d-uart-positive/gf180-connectivity/report.json",
+            "sha256": "ee42a03cf9c6bdc2a15deb1e6650628fdaef7919276a7b026dd8409a9ca022e9"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/d-uart-positive/saved-data.json",
+            "sha256": "270ea219459336870e6e1de6c5daeaaf16b35a3621bd27e4d1eb44db1129823b"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/d-uart-positive/saved-data.json",
+            "sha256": "6c6050cf6f5e593502fd027b1600959db8860e12b7b55929b7a2d096084ded7f"
+          },
+          "artifacts": 135
+        },
+        {
+          "case": "c-apb",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/c-apb-positive/gf180-connectivity/report.json",
+            "sha256": "f8dc72e7a0ce5621f2bb0c67d807328b146d43db94b83324cd4ac286e0579f85"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/c-apb-positive/saved-data.json",
+            "sha256": "a3f78cc2d593220b5add7fa0ec687fa695b6c8bfe190cc491bc007de68353127"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/c-apb-positive/saved-data.json",
+            "sha256": "5a54c254863a9986877a86fce6302ecba137841e745e7dd4939b8c86e6e10865"
+          },
+          "artifacts": 123
+        },
+        {
+          "case": "d-apb",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/d-apb-positive/gf180-connectivity/report.json",
+            "sha256": "39e937b095fc9d96af82c895e140724cdf5e1773a262c32129f9bdb49728f901"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-windows-v2/d-apb-positive/saved-data.json",
+            "sha256": "89dc727a07444c3b9e3dd863dfcb479dec910e2103ea5556584b4b4030940615"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/d-apb-positive/saved-data.json",
+            "sha256": "60ff36a9c61d53ca4d3bd4153b7860d9d70262b1fb1daccd39b844130dd2c056"
+          },
+          "artifacts": 123
+        }
+      ]
+    },
+    "linux": {
+      "record": {
+        "path": "outputs/gf180-combined-current-readback-linux-v1/record.json",
+        "sha256": "a8c4e6c02b1f1a962794885cd7dd0bed3cbf10f8e3bf014140463e0d865f7276"
+      },
+      "cases": [
+        {
+          "case": "c-counter",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/c-counter-positive/gf180-connectivity/report.json",
+            "sha256": "311374a5039db5fb795b4374229f746f24ebfad5388c473a9e8887744c72e273"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/c-counter-positive/saved-data.json",
+            "sha256": "36109babee4a4ffe424581d028c66973935ae0e2df8e2a5f3d3298f61dc9cd5f"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v1/c-counter-positive/saved-data.json",
+            "sha256": "83fe2a8fe0b385e230de4f65616fe09b4841331145d642b4aea214a8bb42c8ee"
+          },
+          "artifacts": 87
+        },
+        {
+          "case": "d-counter",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/d-counter-positive/gf180-connectivity/report.json",
+            "sha256": "5b236ceb82a66aff61d093e1627d6c15074f3aba635d48c952febec951bfae75"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/d-counter-positive/saved-data.json",
+            "sha256": "117d240f6b13e286c23adccf88638369a0d858eff693de07eaf38afc11f21dcb"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v1/d-counter-positive/saved-data.json",
+            "sha256": "2d2dfc3025d38d03d3678ff736d173ae8d1fe5ba3edb25768ac60d0175c15f01"
+          },
+          "artifacts": 87
+        },
+        {
+          "case": "c-counter",
+          "control": "vdd-port-open",
+          "passed": false,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/c-counter-vdd-port-open/gf180-connectivity/report.json",
+            "sha256": "033ed68585dd12e4c89524edee6d28e7a06ea3a608f8d27a8ed540ff4b0d8930"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/c-counter-vdd-port-open/saved-data.json",
+            "sha256": "69c33575a2cdb1687c9ecd455122886841684996a7290076d576d0146eab9358"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/c-counter-vdd-port-open/saved-data.json",
+            "sha256": "8bde812e146eddf77b048dd36b8f24e1e06b1185570ce355069559c4bba8871b"
+          },
+          "artifacts": 87
+        },
+        {
+          "case": "c-uart",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/c-uart-positive/gf180-connectivity/report.json",
+            "sha256": "ee1d8a7f67b4bc84c8f73a34745a08e368ad0da7307ff869acaed64d5c1e8a88"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/c-uart-positive/saved-data.json",
+            "sha256": "d24d104d73de8ff851fde68513e2bd36e3ca2ff7e5eec2386c08b40e59a0b749"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/c-uart-positive/saved-data.json",
+            "sha256": "9bfd8e1f938210491528d2eaa006a3df9eff847f146fddf2c9c06b15080eb278"
+          },
+          "artifacts": 135
+        },
+        {
+          "case": "d-uart",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/d-uart-positive/gf180-connectivity/report.json",
+            "sha256": "ee42a03cf9c6bdc2a15deb1e6650628fdaef7919276a7b026dd8409a9ca022e9"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/d-uart-positive/saved-data.json",
+            "sha256": "270ea219459336870e6e1de6c5daeaaf16b35a3621bd27e4d1eb44db1129823b"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/d-uart-positive/saved-data.json",
+            "sha256": "6c6050cf6f5e593502fd027b1600959db8860e12b7b55929b7a2d096084ded7f"
+          },
+          "artifacts": 135
+        },
+        {
+          "case": "c-apb",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/c-apb-positive/gf180-connectivity/report.json",
+            "sha256": "f8dc72e7a0ce5621f2bb0c67d807328b146d43db94b83324cd4ac286e0579f85"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/c-apb-positive/saved-data.json",
+            "sha256": "a3f78cc2d593220b5add7fa0ec687fa695b6c8bfe190cc491bc007de68353127"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/c-apb-positive/saved-data.json",
+            "sha256": "5a54c254863a9986877a86fce6302ecba137841e745e7dd4939b8c86e6e10865"
+          },
+          "artifacts": 123
+        },
+        {
+          "case": "d-apb",
+          "control": "positive",
+          "passed": true,
+          "report": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/d-apb-positive/gf180-connectivity/report.json",
+            "sha256": "39e937b095fc9d96af82c895e140724cdf5e1773a262c32129f9bdb49728f901"
+          },
+          "saved_data": {
+            "path": "outputs/gf180-combined-current-readback-linux-v1/d-apb-positive/saved-data.json",
+            "sha256": "89dc727a07444c3b9e3dd863dfcb479dec910e2103ea5556584b4b4030940615"
+          },
+          "original_saved_data": {
+            "path": "outputs/gf180-combined-finish-native-v3/d-apb-positive/saved-data.json",
+            "sha256": "60ff36a9c61d53ca4d3bd4153b7860d9d70262b1fb1daccd39b844130dd2c056"
+          },
+          "artifacts": 123
+        }
+      ]
+    }
+  },
+  "tests": {
+    "full-windows-v1": {
+      "tests": 1626,
+      "skipped": 62,
+      "record": {
+        "path": "outputs/gf180-current-full-windows-v1.log",
+        "sha256": "7a04da25b00d78434a1f406ac4bb65024ffd0b00a2d79e292ecbdbd5aff3bad1"
+      }
+    },
+    "focused-windows-v1": {
+      "tests": 100,
+      "skipped": 0,
+      "record": {
+        "path": "outputs/gf180-current-focused-windows-v1.log",
+        "sha256": "2ce61ea8e9a538f11f698e6a5f6cbf1cedc67bd2dbb249d8b7ef7edf31402170"
+      }
+    },
+    "focused-linux-v1": {
+      "tests": 100,
+      "skipped": 0,
+      "record": {
+        "path": "outputs/gf180-current-focused-linux-v1.log",
+        "sha256": "ed630a3b803a1a999d25117d246591e786010f7d91b3db637c47b7b7731c854a"
+      }
+    }
+  },
+  "engine_sha256": {
+    "openroad": "cc6e1144bbe55764009bc9297b980aef511826101c1d019935b737f738e86501",
+    "klayout": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9"
+  },
+  "positive_devices": 98524,
+  "positive_terminals": 394080,
+  "positive_primary_parameters": 197048,
+  "scope": "Six complete retained filled layouts pass native/device/primary-geometry and written-metal checks through the finish adapters. One actual VDD-open fails combined acceptance. Current-source Windows/Linux saved reconstruction agrees byte-for-byte after canonicalizing engine-local net IDs in separate copies; original native results are retained. This does not claim fresh routing of larger layouts, complete fill or post-fill performance.",
+  "retained_failures": [
+    "Initial fault construction retained a Region after its Layout lifetime ended.",
+    "Second fault construction did not flatten helper via cells; the corrected control preserves every physical mask and standard cell.",
+    "Initial current Windows readback was denied file resolution in the sandbox; the authorized repeat passed."
+  ],
+  "remaining": [
+    "Default runtime collateral bundling and installed Windows/Linux acceptance.",
+    "Complete fill-rule coverage and all required before/filled full electrical and timing cases.",
+    "Remaining qualification chunks and external tapeout acceptance."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-combined-acceptance-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "89574010d96c6b65864af7e167f00ed91c50bf9034e13375ab2780fe86eb744b",
+    "bytes": 21087967,
+    "logical_files": 2906,
+    "unique_objects": 674,
+    "verified": true
+  }
+}

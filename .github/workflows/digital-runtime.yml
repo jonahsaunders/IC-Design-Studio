@@ -2,23 +2,62 @@ name: Build included digital runtime
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full 40-character commit of the selected branch or tag
+        type: string
+        required: true
+# Selected candidates retain all acceptance gates and are not cancelled by new pushes.
+concurrency:
+  group: candidate-digital-runtime-${{ github.workflow }}-${{ github.run_id }}
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
-  runtime:
+  candidate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 2
     steps:
       - uses: actions/checkout@v4
+      - name: Verify immutable acceptance candidate
+        run: python scripts/ci_candidate.py
+  runtime:
+    needs: candidate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the pinned layout reader for saved-evidence validation
+        run: python -m pip install klayout==0.30.5
+      - name: Verify complete runtime cache identity and build context
+        run: python -m unittest tests.test_digital_build_cache tests.test_gf180_runtime_bundle -v
+      - name: Identify every staged runtime build input
+        id: runtime-key
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          from scripts.build_digital_runtime import cache_identity
+          record = cache_identity()
+          Path('build').mkdir(exist_ok=True)
+          Path('build/runtime-cache-key.json').write_text(json.dumps(record, indent=2)+'\n')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as stream:
+              stream.write('key=digital-runtime-v2-'+record['sha256']+'\n')
+              stream.write('digest='+record['sha256']+'\n')
+          print('Identified', len(record['files']), 'runtime build inputs.')
+          PY
       - uses: actions/cache/restore@v4
         id: cache
         with:
           path: build/digital-payload
-          key: digital-runtime-${{ hashFiles('packaging/digital/**', 'scripts/build_digital_runtime.py', 'scripts/build_physical_engines.py', 'examples/physical-engine-lock.json', 'icstudio/digital_platform.py', 'icstudio/model.py') }}
+          key: ${{ steps.runtime-key.outputs.key }}
       - name: Build the runtime filesystem
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          python scripts/build_digital_runtime.py
+          python scripts/build_digital_runtime.py --expected-cache-key '${{ steps.runtime-key.outputs.digest }}'
           docker image rm icstudio-digital-runtime
           docker builder prune --force
       - uses: actions/cache/save@v4
@@ -26,6 +65,17 @@ jobs:
         with:
           path: build/digital-payload
           key: ${{ steps.cache.outputs.cache-primary-key }}
+      - name: Require the cached payload to match current build inputs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('build/runtime-cache-key.json').read_text())
+          manifest = json.loads(Path('build/digital-payload/manifest.json').read_text())
+          inputs = json.loads(Path('build/digital-payload/build-inputs.json').read_text())
+          assert inputs == expected, 'Cached runtime source inventory differs.'
+          assert manifest.get('build_context_sha256') == expected['sha256'], 'Cached runtime build identity differs.'
+          PY
       - name: Verify native installation with no user tool configuration
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
@@ -46,3 +96,8 @@ jobs:
             build/digital-state/checks/*/*/engine.log
             build/digital-state/checks/*/*/result.json
             build/digital-state/checks/*/*/backend-input.json
+            build/digital-state/checks/*/*/*/engine.log
+            build/digital-state/checks/*/*/*/result.json
+            build/digital-state/checks/*/*/*/backend-input.json
+            build/digital-state/checks/*/*/*/timing.json
+            build/digital-state/checks/*/*/*/physical_metrics.json

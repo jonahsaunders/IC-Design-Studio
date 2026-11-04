@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "qualified": false,
+  "chunk_complete": false,
+  "date": "2026-10-28",
+  "scope": "Selected IHP rsil/rppd/rhigh terminal vias=1 with explicit source-rule-derived M2 landing/access; independent body port, native extraction and editable exchange. Scientific source class only; application editor and exact installed acceptance are separate.",
+  "source_origin_repository_head": "95ab31ddf46282cda9aef8a4772de33c86913870",
+  "execution_source": "Exact executed native Python source closure retained in archive. Verified read-only snapshot /var/tmp/icstudio-mim-mm-20261024-v1/feedback-source; origin HEAD is context, not a relabelled snapshot identity.",
+  "process": {
+    "target": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "contract": {
+    "models": [
+      "rsil",
+      "rppd",
+      "rhigh"
+    ],
+    "width_length_um": [
+      [
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        20
+      ],
+      [
+        20,
+        0.5
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        7,
+        2
+      ]
+    ],
+    "rotations_degrees": [
+      0,
+      90
+    ],
+    "terminal_vias": [
+      0,
+      1
+    ],
+    "generator_terminal_stack": "Metal1/Via1/Metal2 only",
+    "guard_via_coverage": {
+      "viagb": 0,
+      "viagt": 0,
+      "viagl": 0,
+      "viagr": 0
+    },
+    "m2_minimum_area_nm2": 144000,
+    "grid_nm": 5,
+    "landing": "For each sub-minimum rectangular terminal, extend east and west equally by ceil((144000-original_area_nm2)/(2*height_nm*5))*5 nm; preserve height. Add Metal2 only, require all other masks XOR equal and original Metal2 subset.",
+    "ports": "R1/R2 relocated once to actual Metal2 access; B stays independently contacted Metal1. Original lower R1/R2 labels removed."
+  },
+  "selected_results": {
+    "layouts": 30,
+    "detected_controls": 90,
+    "missing_via_native_lvs_controls": 15,
+    "independent_body_native_lvs_controls": 15,
+    "raw_native_vias1_cases": 15,
+    "raw_native_vias1_passed_cases": 9,
+    "raw_native_vias1_failed_narrow_cases": 6,
+    "legacy_vias0_layouts": 30,
+    "legacy_vias0_controls": 75
+  },
+  "batches": [
+    {
+      "name": "landing-final-v2",
+      "command": [
+        "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+        "/var/tmp/icstudio-ihp-resistor-vias-20261028-v1/scripts/qualify_ihp_resistor_layouts.py",
+        "--output",
+        "/var/tmp/icstudio-ihp-resistor-vias-20261028-v1/landing-final-v2",
+        "--magic",
+        "/opt/icstudio/bin/magic",
+        "--netgen",
+        "/opt/icstudio/bin/netgen",
+        "--workers",
+        "3",
+        "--vias",
+        "1",
+        "--access",
+        "m2-landing"
+      ],
+      "started_utc": "2026-10-28T15:23:43.633063+00:00",
+      "native_elapsed_seconds": 23.788807919001556,
+      "returncode": 0,
+      "status": "PASS",
+      "report_sha256": "afac2a68e187bbc7cc4601cdcfaab22f9e08c5b66e380fd2ed5842b6181b4e5d",
+      "log_sha256": "6b3e9bde3ce7d0570bcef81e50d49a4fc53c355b328b7384264fb0e1df488b94",
+      "host": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "uid": 1000
+    },
+    {
+      "name": "legacy-final-v2",
+      "command": [
+        "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+        "/var/tmp/icstudio-ihp-resistor-vias-20261028-v1/scripts/qualify_ihp_resistor_layouts.py",
+        "--output",
+        "/var/tmp/icstudio-ihp-resistor-vias-20261028-v1/legacy-final-v2",
+        "--magic",
+        "/opt/icstudio/bin/magic",
+        "--netgen",
+        "/opt/icstudio/bin/netgen",
+        "--workers",
+        "3",
+        "--vias",
+        "0"
+      ],
+      "started_utc": "2026-10-28T15:24:07.441550+00:00",
+      "native_elapsed_seconds": 21.765861949999817,
+      "returncode": 0,
+      "status": "PASS",
+      "report_sha256": "47795c83b24e0352695ccfebabeec8dbde835322bdbcb2445578517df2c0bd1c",
+      "log_sha256": "0ac7e2dfde9d427f1294b664220c2e951304ef29b19af18dedf193bc0037d9d6",
+      "host": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "uid": 1000
+    }
+  ],
+  "focused_regressions": {
+    "Windows": {
+      "host": "Windows",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "status": "PASS",
+      "tests": 14,
+      "skipped": 0,
+      "elapsed_seconds": 1.8717308044433594,
+      "log_sha256": "78274d384e587b81475cfec0c18204e68b09996cd7d5d49be8285da19422d32f",
+      "runner_sha256": "23bc30d875168154e8ee7f9d88683166899a4a722a5a35ac9a6dbf909e64890c"
+    },
+    "Linux": {
+      "host": "Linux",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "status": "PASS",
+      "tests": 14,
+      "skipped": 0,
+      "elapsed_seconds": 1.2709205150604248,
+      "log_sha256": "6996f5473802f6413eb6b0bf90ae85a824a98586b46394ac977b5f78739db126",
+      "runner_sha256": "23bc30d875168154e8ee7f9d88683166899a4a722a5a35ac9a6dbf909e64890c"
+    }
+  },
+  "independent_readback": {
+    "Windows": {
+      "status": "PASS",
+      "report_sha256": "1ba78d9d3c874a43ef1b01d054be6fa63a8c0b117a1c2ddf951c9b8faa1f254a",
+      "auditor_sha256": "5c35069c4f08f154b12d5e3e6e280a1e8e6703d7c9e6f07192a7ac4830edcbf6",
+      "optimized_python_checks": true
+    },
+    "Linux": {
+      "status": "PASS",
+      "report_sha256": "1229dd5f51514262a24b7bcec21852e1635572c7c926ce66180ff6235fe07cf7",
+      "auditor_sha256": "5c35069c4f08f154b12d5e3e6e280a1e8e6703d7c9e6f07192a7ac4830edcbf6",
+      "optimized_python_checks": true
+    }
+  },
+  "archive": {
+    "path": "work/chunk7-ihp-resistor-vias-20261028-v1/evidence.zip",
+    "sha256": "77c4b26bc0d5817c09bd470fc4615d3017b4247cf69c954c5856e3b4184030ce",
+    "manifest_sha256": "2636654f81f0ab47dbd9b7b068c5ea66418bea6478fb580976659dc05bdfe685",
+    "bytes": 39066932,
+    "files": 19204,
+    "unique_contents": 8922,
+    "all_objects_verified": true,
+    "runs": [
+      "raw-vias1",
+      "landing-pilot",
+      "landing-full",
+      "landing-final",
+      "legacy-final",
+      "landing-final-v2",
+      "legacy-final-v2"
+    ]
+  },
+  "native_runtime_provenance_sha256": "9330f6b969236604049d5edb95f8f5979f43b8ad8a530332d794398bf3114d2d",
+  "reader_review": {
+    "archived_original_reader_sha256": "3d4dedcd7c6cc6fd73fce9771c8c75eb4eb0bdd84bf636b1335af376d5c11a02",
+    "final_external_reader_sha256": "5c35069c4f08f154b12d5e3e6e280a1e8e6703d7c9e6f07192a7ac4830edcbf6",
+    "note": "The immutable archive retains the earlier executed reader. The final reviewed external reader additionally verifies exact positive rotations/labels, mutation layer inventory, and all legacy30/75 native artifacts. All native outputs and the qualification runner remain unchanged."
+  },
+  "failures_preserved": [
+    "Untouched vias=1 six narrow-width DRC failures remain failed; original report/source/native files retained.",
+    "Initial contact-graph test missing-Activ KeyError and independent-auditor API/lifetime failures retained as original console observations; no original separate raw logs existed.",
+    "All native runs before final source-bound freeze remain separately retained; no outputs relabelled.",
+    "Reader-hardening diagnostics distinguished native short-interface rejection from LVS mismatch and actual Netgen width-property errors."
+  ],
+  "source_notice": "Public IHP generator: Copyright 2025 IHP PDK Authors, Apache-2.0; package LICENSE and UPSTREAM-LOCK retained. Local qualification code follows project GPL-3.0.",
+  "remaining": [
+    "Native application recipe/editor exposure and its own fresh GUI/export verification are a separate app-worker candidate.",
+    "Exact frozen installed Windows/Linux acceptance; no native Windows execution inferred.",
+    "Guard-ring via coverage, snake/array classes and other guard/isolation options.",
+    "Continuous geometry and source-backed operating/statistical/reliability envelopes, linked electrical behavior and whole resistor family closure."
+  ],
+  "chunk7_engineering_estimate": {
+    "percent": 70,
+    "range_percent": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "verified_acceptance": false,
+    "change": "unchanged"
+  }
+}

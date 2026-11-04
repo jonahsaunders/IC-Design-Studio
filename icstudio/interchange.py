@@ -59,7 +59,10 @@ def spice(p,cid=None,settings=None,hierarchical=True):
             else:
                 pa=d['params'];m='model_'+d['id']+'_'+digest(pa)[:10];suffix=f'{m} W={scalar(pa["w"]):.12g} L={scalar(pa["l"]):.12g}';pol=-1 if k=='PMOS' else 1
                 models.append(f'.model {m} {k} (LEVEL=1 VTO={pol*scalar(pa["vto"]):.12g} KP={scalar(pa["kp"]):.12g} LAMBDA={scalar(pa["lambda"]):.12g})')
-            lines.append(f'{name} {nets} {suffix}')
+            line=f'{name} {nets} {suffix}'
+            from .ngspice_compat import legacy_catalog,declare
+            if legacy_catalog(p['pdk'],binding):line=declare(line)
+            lines.append(line)
     if hierarchical:
         # Dependency definitions first, top-level instances last.
         reached=set()
@@ -91,6 +94,16 @@ def spice(p,cid=None,settings=None,hierarchical=True):
     lines.append('.end');return '\n'.join(lines)+'\n'
 
 def export_layout(p,path):
+    if Path(path).suffix.lower() in ('.oas','.oasis'):
+        # KLayout substitutes invalid OASIS a/n-string characters with '*'.
+        # Reject before touching the destination instead of changing labels.
+        for c in p['cells']:
+            if not c['name'] or any(not 33<=ord(ch)<=126 for ch in c['name']):
+                raise ValueError('OASIS cell names must use printable ASCII without spaces. Use GDS for this layout.')
+            labels=[t['text'] for t in c.get('layout_texts',[])]
+            if c.get('layout_label_mode')!='explicit':labels.extend(s['net'] for s in c['shapes'] if s.get('net'))
+            if any(any(not 32<=ord(ch)<=126 for ch in text) for text in labels):
+                raise ValueError('OASIS cannot preserve multiline or non-ASCII layout text. Use GDS or edit the text before exporting.')
     db=kdb();ly=db.Layout();ly.dbu=p['pdk']['dbu_um'];layers={l['name']:ly.layer(l['gds'],l['datatype']) for l in p['pdk']['layers']}
     by={c['id']:ly.create_cell(c['name']) for c in p['cells']}
     for c in p['cells']:
@@ -203,6 +216,10 @@ def export_xschem(p,directory):
                 if d['kind'] in ('NMOS','PMOS'):props+=f' model=model_{d["id"]} w={d["params"]["w"]} l={d["params"]["l"]}'
             if d.get('symbol'):
                 symbol=d['symbol']
+                if binding:
+                    from .ihp_rf_mos_exchange import lvs_model
+                    selector=lvs_model(binding,symbol)
+                    if selector is not None:props+=' lvs_model='+quoted(selector)
                 if binding and symbol.get('attributes',{}).get('lvs_format'):
                     # Catalog parameters are normalized (GF180 uses l/w), but
                     # source symbols can still refer to @L/@W in their LVS

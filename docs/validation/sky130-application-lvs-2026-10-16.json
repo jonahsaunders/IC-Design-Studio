@@ -1,0 +1,1485 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "mandatory-application-connectivity-verified",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "d6be31e0808a7dc1ff1de7c8d23b3706090b0cf6",
+  "scope": "Mandatory generic SKY130 HD device/body/diode/port LVS in normal Finish and portable macro export. Six fresh filled application runs across the original and newer matched libraries; six real physical faults rejected by the production checker; six Windows exports and relocated readbacks. Every comparison runs locally. Complete profile applicability, density policy and foundry signoff remain open.",
+  "cases": [
+    {
+      "case": "counter",
+      "library": "retained",
+      "input_sha256": "f1ac27f41876a4701b1136aa07b28c7752331deb298ebc95fab0f165da5680cc",
+      "result_sha256": "10a6ed9ff91c35424891bd252ab63060bfe14ad2d65ac7bd4b0d5be775515be6",
+      "macro_sha256": "8ca851a30614b88cda3de4c6a29da1c779621aea8fc6456c77a2d19d92cb5abb",
+      "gds_sha256": "d6ce4e65ead7e6c9f974757449a195574707527bf4986474f51aabd508b1b6a5",
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "environment": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "lvs_policy": {
+        "recipe": "sky130-hd-strict-device-port-lvs-v1",
+        "masters_sha256s": [
+          "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+          "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6"
+        ],
+        "deck_sha256": "1afade11dd24ea4e64d1ffba54fc17a8f110286712ab942928d2f5e021bb3caf",
+        "assets": {
+          "BSD-2-Clause.txt": "879a976a181ce1e98b90b0c674b4ef55d72b7f90410b7d558f29c1e2d119e485",
+          "original.lylvs": "bcc7b27c6f118d9dbfa5db9fad01656cab2255673d18c50fe5002de6c1e41c61",
+          "extraction-source.json": "c6f615449e189a87a4a2014f2dd669e61cfc23380e90c4fc15f0be5e4aa0a5b5",
+          "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source-lock.json": "4dedcda67f6b354592277de70753c0d47de45f41ab58d5129520ae6952fd7e3c",
+          "sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+          "sky130_fd_sc_hd__diode_2.gds": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+          "sky130_fd_sc_hd__diode_2.spice": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45"
+        }
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "lvs_inventory": {
+        "layout": {
+          "devices": {
+            "pfet_01v8_hvt": 102,
+            "nfet_01v8": 102
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000010",
+            "n0000014",
+            "n0000015",
+            "n0000016",
+            "n0000017",
+            "n0000023"
+          ]
+        },
+        "reference": {
+          "devices": {
+            "pfet_01v8_hvt": 102,
+            "nfet_01v8": 102
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000010",
+            "n0000014",
+            "n0000015",
+            "n0000016",
+            "n0000017",
+            "n0000023"
+          ]
+        }
+      },
+      "lvs_status": "PASS",
+      "lvs_report_sha256": "2cd5e2930737891483a29003a52ab0fe243dd9b5530aa64e343724a5d259071a",
+      "lvs_native_sha256": "cde735d5ff9a4ee4c871f556c5c81daff810940157b93b2b9a891b1f16cda524",
+      "reference_conversion": {
+        "upstream_masters_sha256": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "normalized_masters_sha256": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "cdl_separators_removed": 7,
+        "dimension_scale": 1e-06
+      },
+      "fill_status": "generated-and-checked",
+      "density_status": "surrounding-layout-required",
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "elapsed_seconds": 126.62497484000005,
+      "fault": {
+        "fault": {
+          "master": "sky130_fd_sc_hd__dfxtp_1",
+          "layer": [
+            66,
+            20
+          ],
+          "removed_shapes": 14
+        },
+        "rejected": true,
+        "report_sha256": "9b6c1e0dd6aa1284f211d8793fa257411f651e4764a1f2d2869c676d34319a6f",
+        "elapsed_seconds": 4.600395552000009
+      },
+      "windows_export": {
+        "schema": 1,
+        "status": "PASS",
+        "qualified": false,
+        "chunk_complete": false,
+        "platform": "win32",
+        "result_sha256": "10a6ed9ff91c35424891bd252ab63060bfe14ad2d65ac7bd4b0d5be775515be6",
+        "driver_sha256": "1571935cab4b9347299c345c94ac0654edb95881c43277234af37fb8f73ccf20",
+        "version": "retained",
+        "case": "counter",
+        "top": "counter",
+        "macro_sha256": "4489ed0274c53be4532735d9ab4dfddd1242b4e94506888402deb80c5d812ec4",
+        "relocated_artifacts": 296,
+        "all_hashes_verified": true,
+        "changed_native_evidence_rejected": true,
+        "lvs": {
+          "status": "PASS",
+          "scope": "Local final-GDS device, body and boundary-port connectivity against an independent final-OpenDB and reviewed HD CDL reference. Four-terminal 1.8 V NMOS/PMOS and the independently referenced diode_2 antenna cell are compared, including dimensions. Port labels are encoded on a mask-identical copy; pin annotations are not conductors. No blanket supply ties, port equivalences or device blackboxes. This does not establish complete device-family, density, parasitic, electrical, complete-chip or foundry qualification.",
+          "artifact": "sky130_lvs",
+          "qualified": false,
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            }
+          }
+        },
+        "elapsed_seconds": 11.827999999994063
+      }
+    },
+    {
+      "case": "uart",
+      "library": "retained",
+      "input_sha256": "b45c27dc97307038be129735985a0aebd934f75ab5792c39493212cf96dd26e9",
+      "result_sha256": "392bc45050f1724b9c607c24e7326b0b6b70cfcd685baa44189cf00b8eb4ead1",
+      "macro_sha256": "b80363698233cdf2962ac318c6a94df945be3d6be1fe348f27bd65d68f4d3967",
+      "gds_sha256": "4542d56b9cd3759b9a85bc59e78fc9904eb8483ccd6338d4eeda592f822a407b",
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "environment": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "lvs_policy": {
+        "recipe": "sky130-hd-strict-device-port-lvs-v1",
+        "masters_sha256s": [
+          "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+          "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6"
+        ],
+        "deck_sha256": "1afade11dd24ea4e64d1ffba54fc17a8f110286712ab942928d2f5e021bb3caf",
+        "assets": {
+          "BSD-2-Clause.txt": "879a976a181ce1e98b90b0c674b4ef55d72b7f90410b7d558f29c1e2d119e485",
+          "original.lylvs": "bcc7b27c6f118d9dbfa5db9fad01656cab2255673d18c50fe5002de6c1e41c61",
+          "extraction-source.json": "c6f615449e189a87a4a2014f2dd669e61cfc23380e90c4fc15f0be5e4aa0a5b5",
+          "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source-lock.json": "4dedcda67f6b354592277de70753c0d47de45f41ab58d5129520ae6952fd7e3c",
+          "sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+          "sky130_fd_sc_hd__diode_2.gds": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+          "sky130_fd_sc_hd__diode_2.spice": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45"
+        }
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "lvs_inventory": {
+        "layout": {
+          "devices": {
+            "pfet_01v8_hvt": 1287,
+            "nfet_01v8": 1293
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000207",
+            "n0000208",
+            "n0000214",
+            "n0000215",
+            "n0000216",
+            "n0000217",
+            "n0000218",
+            "n0000219",
+            "n0000220",
+            "n0000221",
+            "n0000246",
+            "n0000247",
+            "n0000280"
+          ]
+        },
+        "reference": {
+          "devices": {
+            "nfet_01v8": 1293,
+            "pfet_01v8_hvt": 1287
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000207",
+            "n0000208",
+            "n0000214",
+            "n0000215",
+            "n0000216",
+            "n0000217",
+            "n0000218",
+            "n0000219",
+            "n0000220",
+            "n0000221",
+            "n0000246",
+            "n0000247",
+            "n0000280"
+          ]
+        }
+      },
+      "lvs_status": "PASS",
+      "lvs_report_sha256": "e63ed7f2cb102ff6544587e2e8a18b76ef40fc1e61a9f7465e42ac377460b0c3",
+      "lvs_native_sha256": "67453aee96fc0ff1cadb5b33a1f18d8b9f92d0cceac0d85ff1ddebcb0e2faf2e",
+      "reference_conversion": {
+        "upstream_masters_sha256": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "normalized_masters_sha256": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "cdl_separators_removed": 7,
+        "dimension_scale": 1e-06
+      },
+      "fill_status": "generated-and-checked",
+      "density_status": "surrounding-layout-required",
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "elapsed_seconds": 261.986327042,
+      "fault": {
+        "fault": {
+          "master": "sky130_fd_sc_hd__dfxtp_1",
+          "layer": [
+            66,
+            20
+          ],
+          "removed_shapes": 14
+        },
+        "rejected": true,
+        "report_sha256": "9076234fbb2c0482ca9d2688643828838f67fabbf3a1f5594a1ffd69f7efad68",
+        "elapsed_seconds": 13.417735637000078
+      },
+      "windows_export": {
+        "schema": 1,
+        "status": "PASS",
+        "qualified": false,
+        "chunk_complete": false,
+        "platform": "win32",
+        "result_sha256": "392bc45050f1724b9c607c24e7326b0b6b70cfcd685baa44189cf00b8eb4ead1",
+        "driver_sha256": "1571935cab4b9347299c345c94ac0654edb95881c43277234af37fb8f73ccf20",
+        "version": "retained",
+        "case": "uart",
+        "top": "uart_tx",
+        "macro_sha256": "1a4b1e06003a668d95e7cb17f102a34d992ad9ab81959f893ec35a992dca3f2d",
+        "relocated_artifacts": 296,
+        "all_hashes_verified": true,
+        "changed_native_evidence_rejected": true,
+        "lvs": {
+          "status": "PASS",
+          "scope": "Local final-GDS device, body and boundary-port connectivity against an independent final-OpenDB and reviewed HD CDL reference. Four-terminal 1.8 V NMOS/PMOS and the independently referenced diode_2 antenna cell are compared, including dimensions. Port labels are encoded on a mask-identical copy; pin annotations are not conductors. No blanket supply ties, port equivalences or device blackboxes. This does not establish complete device-family, density, parasitic, electrical, complete-chip or foundry qualification.",
+          "artifact": "sky130_lvs",
+          "qualified": false,
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 1287,
+                "nfet_01v8": 1293
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000207",
+                "n0000208",
+                "n0000214",
+                "n0000215",
+                "n0000216",
+                "n0000217",
+                "n0000218",
+                "n0000219",
+                "n0000220",
+                "n0000221",
+                "n0000246",
+                "n0000247",
+                "n0000280"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "nfet_01v8": 1293,
+                "pfet_01v8_hvt": 1287
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000207",
+                "n0000208",
+                "n0000214",
+                "n0000215",
+                "n0000216",
+                "n0000217",
+                "n0000218",
+                "n0000219",
+                "n0000220",
+                "n0000221",
+                "n0000246",
+                "n0000247",
+                "n0000280"
+              ]
+            }
+          }
+        },
+        "elapsed_seconds": 50.796000000002095
+      }
+    },
+    {
+      "case": "apb",
+      "library": "retained",
+      "input_sha256": "66ac07d0d18518fff05f9ac19a4b16f40d904fff5c483f7b130b37efa461784a",
+      "result_sha256": "4085e70161e4956aa6d89bae25fbd225318e0c279930ec1590115cabd1c60269",
+      "macro_sha256": "916d940904b6cc98e950a98bd82af9fc4c787fe044b0953b882eba010dfa7540",
+      "gds_sha256": "cb743e00b4a1c90ecb3a8e961c1eee6bde859e7ec66d2b1054c36b65263c6953",
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+        "fingerprint": "c7197f40cae3de0e02bf60913a83e99a62b9cf8d36eaed41230c7fcfb467fc92"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "environment": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "lvs_policy": {
+        "recipe": "sky130-hd-strict-device-port-lvs-v1",
+        "masters_sha256s": [
+          "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+          "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6"
+        ],
+        "deck_sha256": "1afade11dd24ea4e64d1ffba54fc17a8f110286712ab942928d2f5e021bb3caf",
+        "assets": {
+          "BSD-2-Clause.txt": "879a976a181ce1e98b90b0c674b4ef55d72b7f90410b7d558f29c1e2d119e485",
+          "original.lylvs": "bcc7b27c6f118d9dbfa5db9fad01656cab2255673d18c50fe5002de6c1e41c61",
+          "extraction-source.json": "c6f615449e189a87a4a2014f2dd669e61cfc23380e90c4fc15f0be5e4aa0a5b5",
+          "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source-lock.json": "4dedcda67f6b354592277de70753c0d47de45f41ab58d5129520ae6952fd7e3c",
+          "sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+          "sky130_fd_sc_hd__diode_2.gds": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+          "sky130_fd_sc_hd__diode_2.spice": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45"
+        }
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "lvs_inventory": {
+        "layout": {
+          "devices": {
+            "pfet_01v8_hvt": 1112,
+            "nfet_01v8": 1112,
+            "sky130_fd_pr__diode_pw2nd_05v5": 3
+          },
+          "pins": [
+            "n0000000,n0000160",
+            "n0000001",
+            "n0000071",
+            "n0000116",
+            "n0000147",
+            "n0000148",
+            "n0000149",
+            "n0000150",
+            "n0000151",
+            "n0000152",
+            "n0000153",
+            "n0000154",
+            "n0000155",
+            "n0000156",
+            "n0000157",
+            "n0000158",
+            "n0000159",
+            "n0000161",
+            "n0000162",
+            "n0000163",
+            "n0000164",
+            "n0000165",
+            "n0000166",
+            "n0000167",
+            "n0000168",
+            "n0000169",
+            "n0000170",
+            "n0000171",
+            "n0000172"
+          ]
+        },
+        "reference": {
+          "devices": {
+            "nfet_01v8": 1112,
+            "pfet_01v8_hvt": 1112,
+            "sky130_fd_pr__diode_pw2nd_05v5": 3
+          },
+          "pins": [
+            "n0000000,n0000160",
+            "n0000001",
+            "n0000071",
+            "n0000116",
+            "n0000147",
+            "n0000148",
+            "n0000149",
+            "n0000150",
+            "n0000151",
+            "n0000152",
+            "n0000153",
+            "n0000154",
+            "n0000155",
+            "n0000156",
+            "n0000157",
+            "n0000158",
+            "n0000159",
+            "n0000161",
+            "n0000162",
+            "n0000163",
+            "n0000164",
+            "n0000165",
+            "n0000166",
+            "n0000167",
+            "n0000168",
+            "n0000169",
+            "n0000170",
+            "n0000171",
+            "n0000172"
+          ]
+        }
+      },
+      "lvs_status": "PASS",
+      "lvs_report_sha256": "9c852ddb7bebbc9eb45780adea97cc7b0069e81b6d96bc0d6c88ea52f96d6985",
+      "lvs_native_sha256": "89a04f69b1fd5362c46e4a55a27e67022862b2d0b73a610254c49baefc04d1d7",
+      "reference_conversion": {
+        "upstream_masters_sha256": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "normalized_masters_sha256": "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+        "cdl_separators_removed": 7,
+        "dimension_scale": 1e-06
+      },
+      "fill_status": "generated-and-checked",
+      "density_status": "surrounding-layout-required",
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "elapsed_seconds": 262.10944138499997,
+      "fault": {
+        "fault": {
+          "master": "sky130_fd_sc_hd__diode_2",
+          "layer": [
+            65,
+            20
+          ],
+          "removed_shapes": 1
+        },
+        "rejected": true,
+        "report_sha256": "4f8e2ea1b3dc8ce55559ea7e95c26f7d51caad9d32c4f4c4c0dd6a59a0fab7ea",
+        "elapsed_seconds": 13.430663730999981
+      },
+      "windows_export": {
+        "schema": 1,
+        "status": "PASS",
+        "qualified": false,
+        "chunk_complete": false,
+        "platform": "win32",
+        "result_sha256": "4085e70161e4956aa6d89bae25fbd225318e0c279930ec1590115cabd1c60269",
+        "driver_sha256": "1571935cab4b9347299c345c94ac0654edb95881c43277234af37fb8f73ccf20",
+        "version": "retained",
+        "case": "apb",
+        "top": "apb_fifo",
+        "macro_sha256": "551f10c528be20eeb55b2301d54872e83913ad47de9815e79733309ed5f08ede",
+        "relocated_artifacts": 296,
+        "all_hashes_verified": true,
+        "changed_native_evidence_rejected": true,
+        "lvs": {
+          "status": "PASS",
+          "scope": "Local final-GDS device, body and boundary-port connectivity against an independent final-OpenDB and reviewed HD CDL reference. Four-terminal 1.8 V NMOS/PMOS and the independently referenced diode_2 antenna cell are compared, including dimensions. Port labels are encoded on a mask-identical copy; pin annotations are not conductors. No blanket supply ties, port equivalences or device blackboxes. This does not establish complete device-family, density, parasitic, electrical, complete-chip or foundry qualification.",
+          "artifact": "sky130_lvs",
+          "qualified": false,
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 1112,
+                "nfet_01v8": 1112,
+                "sky130_fd_pr__diode_pw2nd_05v5": 3
+              },
+              "pins": [
+                "n0000000,n0000160",
+                "n0000001",
+                "n0000071",
+                "n0000116",
+                "n0000147",
+                "n0000148",
+                "n0000149",
+                "n0000150",
+                "n0000151",
+                "n0000152",
+                "n0000153",
+                "n0000154",
+                "n0000155",
+                "n0000156",
+                "n0000157",
+                "n0000158",
+                "n0000159",
+                "n0000161",
+                "n0000162",
+                "n0000163",
+                "n0000164",
+                "n0000165",
+                "n0000166",
+                "n0000167",
+                "n0000168",
+                "n0000169",
+                "n0000170",
+                "n0000171",
+                "n0000172"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "nfet_01v8": 1112,
+                "pfet_01v8_hvt": 1112,
+                "sky130_fd_pr__diode_pw2nd_05v5": 3
+              },
+              "pins": [
+                "n0000000,n0000160",
+                "n0000001",
+                "n0000071",
+                "n0000116",
+                "n0000147",
+                "n0000148",
+                "n0000149",
+                "n0000150",
+                "n0000151",
+                "n0000152",
+                "n0000153",
+                "n0000154",
+                "n0000155",
+                "n0000156",
+                "n0000157",
+                "n0000158",
+                "n0000159",
+                "n0000161",
+                "n0000162",
+                "n0000163",
+                "n0000164",
+                "n0000165",
+                "n0000166",
+                "n0000167",
+                "n0000168",
+                "n0000169",
+                "n0000170",
+                "n0000171",
+                "n0000172"
+              ]
+            }
+          }
+        },
+        "elapsed_seconds": 50.60899999999674
+      }
+    },
+    {
+      "case": "counter",
+      "library": "pvt",
+      "input_sha256": "4755dbd8cf07e74a571e346c06ca626398f4f89e1cc4ae917151fd0ce2d7f37b",
+      "result_sha256": "559b248731f11cf58d98287559d38f0d7e2286819e2383aa278c0d96cb7b5583",
+      "macro_sha256": "032ff05f697ed05df2b105a9b08db93a9bfbdca8bb211d66e1e1cb36e97405bd",
+      "gds_sha256": "f1c6cf20b39a2686eec4813b91745244240177f47864d72b54e4e63bc25ca304",
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2 + sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+        "fingerprint": "b917d9a3c8f76a5131b13a17e27748a8ef6cf726b39ffb09cafbd393cbc2dc6b"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "environment": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "lvs_policy": {
+        "recipe": "sky130-hd-strict-device-port-lvs-v1",
+        "masters_sha256s": [
+          "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+          "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6"
+        ],
+        "deck_sha256": "1afade11dd24ea4e64d1ffba54fc17a8f110286712ab942928d2f5e021bb3caf",
+        "assets": {
+          "BSD-2-Clause.txt": "879a976a181ce1e98b90b0c674b4ef55d72b7f90410b7d558f29c1e2d119e485",
+          "original.lylvs": "bcc7b27c6f118d9dbfa5db9fad01656cab2255673d18c50fe5002de6c1e41c61",
+          "extraction-source.json": "c6f615449e189a87a4a2014f2dd669e61cfc23380e90c4fc15f0be5e4aa0a5b5",
+          "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source-lock.json": "4dedcda67f6b354592277de70753c0d47de45f41ab58d5129520ae6952fd7e3c",
+          "sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+          "sky130_fd_sc_hd__diode_2.gds": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+          "sky130_fd_sc_hd__diode_2.spice": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45"
+        }
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "lvs_inventory": {
+        "layout": {
+          "devices": {
+            "pfet_01v8_hvt": 102,
+            "nfet_01v8": 102
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000010",
+            "n0000014",
+            "n0000015",
+            "n0000016",
+            "n0000017",
+            "n0000023"
+          ]
+        },
+        "reference": {
+          "devices": {
+            "pfet_01v8_hvt": 102,
+            "nfet_01v8": 102
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000010",
+            "n0000014",
+            "n0000015",
+            "n0000016",
+            "n0000017",
+            "n0000023"
+          ]
+        }
+      },
+      "lvs_status": "PASS",
+      "lvs_report_sha256": "21735a38cfdf411462f425f7888992fea7fb08424f78f0b5c8a384e698f251b9",
+      "lvs_native_sha256": "64373698ce21b515a5f11ecd93c11e6b66376c8563736dfaa477320fa597b6ce",
+      "reference_conversion": {
+        "upstream_masters_sha256": "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6",
+        "normalized_masters_sha256": "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6",
+        "cdl_separators_removed": 7,
+        "dimension_scale": 1e-06
+      },
+      "fill_status": "generated-and-checked",
+      "density_status": "surrounding-layout-required",
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "elapsed_seconds": 151.643141583,
+      "fault": {
+        "fault": {
+          "master": "sky130_fd_sc_hd__dfxtp_1",
+          "layer": [
+            66,
+            20
+          ],
+          "removed_shapes": 14
+        },
+        "rejected": true,
+        "report_sha256": "8de0dd00c85214c4d399fdb752f05341a8d12568300e9b5ce05c1ca4d6f09b28",
+        "elapsed_seconds": 5.3052747750000435
+      },
+      "windows_export": {
+        "schema": 1,
+        "status": "PASS",
+        "qualified": false,
+        "chunk_complete": false,
+        "platform": "win32",
+        "result_sha256": "559b248731f11cf58d98287559d38f0d7e2286819e2383aa278c0d96cb7b5583",
+        "driver_sha256": "1571935cab4b9347299c345c94ac0654edb95881c43277234af37fb8f73ccf20",
+        "version": "pvt",
+        "case": "counter",
+        "top": "counter",
+        "macro_sha256": "68099c60b7d271a540345b31427ec318447d2b5de6b974409b05f32924919b09",
+        "relocated_artifacts": 299,
+        "all_hashes_verified": true,
+        "changed_native_evidence_rejected": true,
+        "lvs": {
+          "status": "PASS",
+          "scope": "Local final-GDS device, body and boundary-port connectivity against an independent final-OpenDB and reviewed HD CDL reference. Four-terminal 1.8 V NMOS/PMOS and the independently referenced diode_2 antenna cell are compared, including dimensions. Port labels are encoded on a mask-identical copy; pin annotations are not conductors. No blanket supply ties, port equivalences or device blackboxes. This does not establish complete device-family, density, parasitic, electrical, complete-chip or foundry qualification.",
+          "artifact": "sky130_lvs",
+          "qualified": false,
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "pfet_01v8_hvt": 102,
+                "nfet_01v8": 102
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000010",
+                "n0000014",
+                "n0000015",
+                "n0000016",
+                "n0000017",
+                "n0000023"
+              ]
+            }
+          }
+        },
+        "elapsed_seconds": 9.875
+      }
+    },
+    {
+      "case": "uart",
+      "library": "pvt",
+      "input_sha256": "647c3219f0ae2c503a9bd90c07733db0bd4f2fae608e4743c689dc0b56761e77",
+      "result_sha256": "6fb1b011b5c53aa38d85ac207f3425454bddeed390eba9de9446e50094794ad3",
+      "macro_sha256": "23fe9f53f7194a4aa5d2fe281645a149df0d258ff7d947f6ecbbce523c37995e",
+      "gds_sha256": "ca79d53f6b9ee45d00eba3dc91be4c41d329722c8b3530786ebe722e0de06e36",
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2 + sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+        "fingerprint": "b917d9a3c8f76a5131b13a17e27748a8ef6cf726b39ffb09cafbd393cbc2dc6b"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "environment": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "lvs_policy": {
+        "recipe": "sky130-hd-strict-device-port-lvs-v1",
+        "masters_sha256s": [
+          "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+          "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6"
+        ],
+        "deck_sha256": "1afade11dd24ea4e64d1ffba54fc17a8f110286712ab942928d2f5e021bb3caf",
+        "assets": {
+          "BSD-2-Clause.txt": "879a976a181ce1e98b90b0c674b4ef55d72b7f90410b7d558f29c1e2d119e485",
+          "original.lylvs": "bcc7b27c6f118d9dbfa5db9fad01656cab2255673d18c50fe5002de6c1e41c61",
+          "extraction-source.json": "c6f615449e189a87a4a2014f2dd669e61cfc23380e90c4fc15f0be5e4aa0a5b5",
+          "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source-lock.json": "4dedcda67f6b354592277de70753c0d47de45f41ab58d5129520ae6952fd7e3c",
+          "sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+          "sky130_fd_sc_hd__diode_2.gds": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+          "sky130_fd_sc_hd__diode_2.spice": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45"
+        }
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "lvs_inventory": {
+        "layout": {
+          "devices": {
+            "pfet_01v8_hvt": 1289,
+            "nfet_01v8": 1289
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000207",
+            "n0000208",
+            "n0000214",
+            "n0000215",
+            "n0000216",
+            "n0000217",
+            "n0000218",
+            "n0000219",
+            "n0000220",
+            "n0000221",
+            "n0000246",
+            "n0000247",
+            "n0000280"
+          ]
+        },
+        "reference": {
+          "devices": {
+            "nfet_01v8": 1289,
+            "pfet_01v8_hvt": 1289
+          },
+          "pins": [
+            "n0000000",
+            "n0000001",
+            "n0000207",
+            "n0000208",
+            "n0000214",
+            "n0000215",
+            "n0000216",
+            "n0000217",
+            "n0000218",
+            "n0000219",
+            "n0000220",
+            "n0000221",
+            "n0000246",
+            "n0000247",
+            "n0000280"
+          ]
+        }
+      },
+      "lvs_status": "PASS",
+      "lvs_report_sha256": "81f4fa24e9943f125889015063050211de48d16e8045aabee27dc2ae329fa480",
+      "lvs_native_sha256": "3fa3e3739368a95d63d765ed389abf0d3e4be5cf21e24e98af2ececb5878f19d",
+      "reference_conversion": {
+        "upstream_masters_sha256": "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6",
+        "normalized_masters_sha256": "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6",
+        "cdl_separators_removed": 7,
+        "dimension_scale": 1e-06
+      },
+      "fill_status": "generated-and-checked",
+      "density_status": "surrounding-layout-required",
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "elapsed_seconds": 280.78413040099997,
+      "fault": {
+        "fault": {
+          "master": "sky130_fd_sc_hd__dfxtp_1",
+          "layer": [
+            66,
+            20
+          ],
+          "removed_shapes": 14
+        },
+        "rejected": true,
+        "report_sha256": "34c17509a8d7888ce9de81e3b8c5a59a752db8512473dff8a55bdf899ee13d85",
+        "elapsed_seconds": 11.93111529099997
+      },
+      "windows_export": {
+        "schema": 1,
+        "status": "PASS",
+        "qualified": false,
+        "chunk_complete": false,
+        "platform": "win32",
+        "result_sha256": "6fb1b011b5c53aa38d85ac207f3425454bddeed390eba9de9446e50094794ad3",
+        "driver_sha256": "1571935cab4b9347299c345c94ac0654edb95881c43277234af37fb8f73ccf20",
+        "version": "pvt",
+        "case": "uart",
+        "top": "uart_tx",
+        "macro_sha256": "01d6bb90b3ea2e5c117c263ca4f6ae1d22133fb6bccfcfa6ae37a324a056cc2f",
+        "relocated_artifacts": 299,
+        "all_hashes_verified": true,
+        "changed_native_evidence_rejected": true,
+        "lvs": {
+          "status": "PASS",
+          "scope": "Local final-GDS device, body and boundary-port connectivity against an independent final-OpenDB and reviewed HD CDL reference. Four-terminal 1.8 V NMOS/PMOS and the independently referenced diode_2 antenna cell are compared, including dimensions. Port labels are encoded on a mask-identical copy; pin annotations are not conductors. No blanket supply ties, port equivalences or device blackboxes. This does not establish complete device-family, density, parasitic, electrical, complete-chip or foundry qualification.",
+          "artifact": "sky130_lvs",
+          "qualified": false,
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 1289,
+                "nfet_01v8": 1289
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000207",
+                "n0000208",
+                "n0000214",
+                "n0000215",
+                "n0000216",
+                "n0000217",
+                "n0000218",
+                "n0000219",
+                "n0000220",
+                "n0000221",
+                "n0000246",
+                "n0000247",
+                "n0000280"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "nfet_01v8": 1289,
+                "pfet_01v8_hvt": 1289
+              },
+              "pins": [
+                "n0000000",
+                "n0000001",
+                "n0000207",
+                "n0000208",
+                "n0000214",
+                "n0000215",
+                "n0000216",
+                "n0000217",
+                "n0000218",
+                "n0000219",
+                "n0000220",
+                "n0000221",
+                "n0000246",
+                "n0000247",
+                "n0000280"
+              ]
+            }
+          }
+        },
+        "elapsed_seconds": 47.13999999999942
+      }
+    },
+    {
+      "case": "apb",
+      "library": "pvt",
+      "input_sha256": "9cfc4aed45af4de061a08f634f752f6db15ebe5f1ed7f50d0e2f3a458cd385e6",
+      "result_sha256": "95dd6b0dd4a7e80e6d27e9473f25479cd389ba0d589ea05488d34f6a775e5751",
+      "macro_sha256": "3afa768e3dcc4174de97c45e97721cf002d457fcdcf558806fd1bffb9219ad96",
+      "gds_sha256": "2d12393d2c2421735ad0e4aedb6f844d75f837bc8b6c0ece14c9edaf6259e3ee",
+      "platform": {
+        "name": "sky130hd",
+        "corner": "typical",
+        "revision": "ORFS eaba6576441bf7c1743ea56ecdb1904210ec02c2 + sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+        "fingerprint": "b917d9a3c8f76a5131b13a17e27748a8ef6cf726b39ffb09cafbd393cbc2dc6b"
+      },
+      "versions": {
+        "yosys": "Yosys 0.69+24 (git sha1 d0e71cfb7-dirty, Release, Clang /usr/bin/clang++ 21.1.8)",
+        "openroad": "26Q2-1164-g08f67ee5ec",
+        "make": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.",
+        "klayout": "KLayout 0.30.5"
+      },
+      "environment": "cf05d7871ec47342c0b14ccea0999349f152405093845346862272e3ae7d204f",
+      "lvs_policy": {
+        "recipe": "sky130-hd-strict-device-port-lvs-v1",
+        "masters_sha256s": [
+          "ae02cdc40c81943bbc3f4a16a6760e01afd12764a94e7836b7e168edf40ae29c",
+          "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6"
+        ],
+        "deck_sha256": "1afade11dd24ea4e64d1ffba54fc17a8f110286712ab942928d2f5e021bb3caf",
+        "assets": {
+          "BSD-2-Clause.txt": "879a976a181ce1e98b90b0c674b4ef55d72b7f90410b7d558f29c1e2d119e485",
+          "original.lylvs": "bcc7b27c6f118d9dbfa5db9fad01656cab2255673d18c50fe5002de6c1e41c61",
+          "extraction-source.json": "c6f615449e189a87a4a2014f2dd669e61cfc23380e90c4fc15f0be5e4aa0a5b5",
+          "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "source-lock.json": "4dedcda67f6b354592277de70753c0d47de45f41ab58d5129520ae6952fd7e3c",
+          "sky130_cdl_reader.rb": "9a137e976c29c03726a2f53d2da959f99b33050aa351b7579c53ec238147c0b8",
+          "sky130_fd_sc_hd__diode_2.gds": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+          "sky130_fd_sc_hd__diode_2.spice": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45"
+        }
+      },
+      "native_categories": 255,
+      "native_markers": 0,
+      "lvs_inventory": {
+        "layout": {
+          "devices": {
+            "pfet_01v8_hvt": 1110,
+            "nfet_01v8": 1110,
+            "sky130_fd_pr__diode_pw2nd_05v5": 3
+          },
+          "pins": [
+            "n0000000,n0000160",
+            "n0000001",
+            "n0000071",
+            "n0000116",
+            "n0000147",
+            "n0000148",
+            "n0000149",
+            "n0000150",
+            "n0000151",
+            "n0000152",
+            "n0000153",
+            "n0000154",
+            "n0000155",
+            "n0000156",
+            "n0000157",
+            "n0000158",
+            "n0000159",
+            "n0000161",
+            "n0000162",
+            "n0000163",
+            "n0000164",
+            "n0000165",
+            "n0000166",
+            "n0000167",
+            "n0000168",
+            "n0000169",
+            "n0000170",
+            "n0000171",
+            "n0000172"
+          ]
+        },
+        "reference": {
+          "devices": {
+            "nfet_01v8": 1110,
+            "pfet_01v8_hvt": 1110,
+            "sky130_fd_pr__diode_pw2nd_05v5": 3
+          },
+          "pins": [
+            "n0000000,n0000160",
+            "n0000001",
+            "n0000071",
+            "n0000116",
+            "n0000147",
+            "n0000148",
+            "n0000149",
+            "n0000150",
+            "n0000151",
+            "n0000152",
+            "n0000153",
+            "n0000154",
+            "n0000155",
+            "n0000156",
+            "n0000157",
+            "n0000158",
+            "n0000159",
+            "n0000161",
+            "n0000162",
+            "n0000163",
+            "n0000164",
+            "n0000165",
+            "n0000166",
+            "n0000167",
+            "n0000168",
+            "n0000169",
+            "n0000170",
+            "n0000171",
+            "n0000172"
+          ]
+        }
+      },
+      "lvs_status": "PASS",
+      "lvs_report_sha256": "3e826698dad233bcc8498915dc3b735b9d6ceeee81147a80d3c4b86fef4d101a",
+      "lvs_native_sha256": "60db97dc44a88ea04925f18c26c708c2491b849f1f73c63cb5bfcadd27607e32",
+      "reference_conversion": {
+        "upstream_masters_sha256": "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6",
+        "normalized_masters_sha256": "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6",
+        "cdl_separators_removed": 7,
+        "dimension_scale": 1e-06
+      },
+      "fill_status": "generated-and-checked",
+      "density_status": "surrounding-layout-required",
+      "antenna_status": "PASS",
+      "antenna_stages": 13,
+      "physical_checks": "PASS",
+      "elapsed_seconds": 284.324552416,
+      "fault": {
+        "fault": {
+          "master": "sky130_fd_sc_hd__diode_2",
+          "layer": [
+            65,
+            20
+          ],
+          "removed_shapes": 1
+        },
+        "rejected": true,
+        "report_sha256": "c7bc2c189a3abf367a6badb241ccec92e84d30c9f0afbce89355bcf77a74d13c",
+        "elapsed_seconds": 12.236666302999993
+      },
+      "windows_export": {
+        "schema": 1,
+        "status": "PASS",
+        "qualified": false,
+        "chunk_complete": false,
+        "platform": "win32",
+        "result_sha256": "95dd6b0dd4a7e80e6d27e9473f25479cd389ba0d589ea05488d34f6a775e5751",
+        "driver_sha256": "1571935cab4b9347299c345c94ac0654edb95881c43277234af37fb8f73ccf20",
+        "version": "pvt",
+        "case": "apb",
+        "top": "apb_fifo",
+        "macro_sha256": "9469d5590cb2b77209b7a90793755faf077054fbde8a329858e691d0e15ee672",
+        "relocated_artifacts": 299,
+        "all_hashes_verified": true,
+        "changed_native_evidence_rejected": true,
+        "lvs": {
+          "status": "PASS",
+          "scope": "Local final-GDS device, body and boundary-port connectivity against an independent final-OpenDB and reviewed HD CDL reference. Four-terminal 1.8 V NMOS/PMOS and the independently referenced diode_2 antenna cell are compared, including dimensions. Port labels are encoded on a mask-identical copy; pin annotations are not conductors. No blanket supply ties, port equivalences or device blackboxes. This does not establish complete device-family, density, parasitic, electrical, complete-chip or foundry qualification.",
+          "artifact": "sky130_lvs",
+          "qualified": false,
+          "matched": true,
+          "inventory": {
+            "layout": {
+              "devices": {
+                "pfet_01v8_hvt": 1110,
+                "nfet_01v8": 1110,
+                "sky130_fd_pr__diode_pw2nd_05v5": 3
+              },
+              "pins": [
+                "n0000000,n0000160",
+                "n0000001",
+                "n0000071",
+                "n0000116",
+                "n0000147",
+                "n0000148",
+                "n0000149",
+                "n0000150",
+                "n0000151",
+                "n0000152",
+                "n0000153",
+                "n0000154",
+                "n0000155",
+                "n0000156",
+                "n0000157",
+                "n0000158",
+                "n0000159",
+                "n0000161",
+                "n0000162",
+                "n0000163",
+                "n0000164",
+                "n0000165",
+                "n0000166",
+                "n0000167",
+                "n0000168",
+                "n0000169",
+                "n0000170",
+                "n0000171",
+                "n0000172"
+              ]
+            },
+            "reference": {
+              "devices": {
+                "nfet_01v8": 1110,
+                "pfet_01v8_hvt": 1110,
+                "sky130_fd_pr__diode_pw2nd_05v5": 3
+              },
+              "pins": [
+                "n0000000,n0000160",
+                "n0000001",
+                "n0000071",
+                "n0000116",
+                "n0000147",
+                "n0000148",
+                "n0000149",
+                "n0000150",
+                "n0000151",
+                "n0000152",
+                "n0000153",
+                "n0000154",
+                "n0000155",
+                "n0000156",
+                "n0000157",
+                "n0000158",
+                "n0000159",
+                "n0000161",
+                "n0000162",
+                "n0000163",
+                "n0000164",
+                "n0000165",
+                "n0000166",
+                "n0000167",
+                "n0000168",
+                "n0000169",
+                "n0000170",
+                "n0000171",
+                "n0000172"
+              ]
+            }
+          }
+        },
+        "elapsed_seconds": 45.953000000008615
+      }
+    }
+  ],
+  "tests": {
+    "win32": {
+      "status": "PASS",
+      "platform": "win32",
+      "tests": 220,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 8,
+      "skip_reasons": [
+        {
+          "test": "test_builder_normalizes_docker_system_links_before_publication (tests.test_digital_runtime.DigitalRuntimeTests.test_builder_normalizes_docker_system_links_before_publication)",
+          "reason": "Native tar symlink extraction is tested on Linux"
+        },
+        {
+          "test": "test_legacy_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_legacy_cleanup_rejects_symlinked_directory_and_parent)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_native_flow_restores_scripts_after_windows_transfer (tests.test_digital_runtime.DigitalRuntimeTests.test_native_flow_restores_scripts_after_windows_transfer)",
+          "reason": "Unix executable permissions are restored inside Linux"
+        },
+        {
+          "test": "test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_native_supervisor_cancels_descendants_in_separate_sessions (tests.test_digital_runtime.DigitalRuntimeTests.test_native_supervisor_cancels_descendants_in_separate_sessions)",
+          "reason": "Process-tree supervision requires Linux procfs"
+        },
+        {
+          "test": "test_partial_cleanup_rejects_symlinked_directory_and_parent (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_cleanup_rejects_symlinked_directory_and_parent)",
+          "reason": "Symlink creation may require Windows administrator permission"
+        },
+        {
+          "test": "test_retry_reclaims_partial_unpacking_after_worker_is_killed (tests.test_digital_runtime.DigitalRuntimeTests.test_retry_reclaims_partial_unpacking_after_worker_is_killed)",
+          "reason": "Native Linux unpacking lifecycle"
+        },
+        {
+          "test": "test_linked_decks_are_materialized_before_sibling_platforms_are_pruned (tests.test_digital_bundle.DigitalBundleTests.test_linked_decks_are_materialized_before_sibling_platforms_are_pruned)",
+          "reason": "Real symlinks are verified by the native Linux build"
+        }
+      ],
+      "modules": [
+        "tests.test_sky130_application_lvs",
+        "tests.test_sky130_lvs",
+        "tests.test_sky130_diode_lvs",
+        "tests.test_sky130_fill",
+        "tests.test_sky130_oxide_density",
+        "tests.test_sky130_native",
+        "tests.test_digital_macro",
+        "tests.test_digital_runtime",
+        "tests.test_windows_digital_paths",
+        "tests.test_digital_physical_checks",
+        "tests.test_sky130_digital_builder",
+        "tests.test_digital_bundle",
+        "tests.test_sky130_application_antenna",
+        "tests.test_sky130_application_rules",
+        "tests.test_sky130_boundaries",
+        "tests.test_sky130_pins"
+      ],
+      "driver_sha256": "a7e0c0750076244137a53d330297aec530495957c89aff485b8dadfcb04e11ce",
+      "log_sha256": "a9b6bd15471ca35d917b8599fe92978ef68f445bb3601243680f0482d8f50674",
+      "elapsed_seconds": 119.5
+    },
+    "linux": {
+      "status": "PASS",
+      "platform": "linux",
+      "tests": 220,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 5,
+      "skip_reasons": [
+        {
+          "test": "test_native_setup_rejects_junction_target_and_parent_before_integrity_repair (tests.test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_junction_target_and_parent_before_integrity_repair)",
+          "reason": "Directory junctions are Windows-specific"
+        },
+        {
+          "test": "test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions (tests.test_digital_runtime.DigitalRuntimeTests.test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions)",
+          "reason": "Directory junctions are Windows-specific"
+        },
+        {
+          "test": "test_capture_reopen_and_tamper_detection_beyond_legacy_limit (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_capture_reopen_and_tamper_detection_beyond_legacy_limit)",
+          "reason": "Windows extended-length filesystem paths"
+        },
+        {
+          "test": "test_path_conversion_preserves_unc_and_existing_extended_paths (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_path_conversion_preserves_unc_and_existing_extended_paths)",
+          "reason": "Windows extended-length filesystem paths"
+        },
+        {
+          "test": "test_upstream_transfer_keeps_all_nested_artifacts (tests.test_windows_digital_paths.WindowsDigitalPathTests.test_upstream_transfer_keeps_all_nested_artifacts)",
+          "reason": "Windows extended-length filesystem paths"
+        }
+      ],
+      "modules": [
+        "tests.test_sky130_application_lvs",
+        "tests.test_sky130_lvs",
+        "tests.test_sky130_diode_lvs",
+        "tests.test_sky130_fill",
+        "tests.test_sky130_oxide_density",
+        "tests.test_sky130_native",
+        "tests.test_digital_macro",
+        "tests.test_digital_runtime",
+        "tests.test_windows_digital_paths",
+        "tests.test_digital_physical_checks",
+        "tests.test_sky130_digital_builder",
+        "tests.test_digital_bundle",
+        "tests.test_sky130_application_antenna",
+        "tests.test_sky130_application_rules",
+        "tests.test_sky130_boundaries",
+        "tests.test_sky130_pins"
+      ],
+      "driver_sha256": "a7e0c0750076244137a53d330297aec530495957c89aff485b8dadfcb04e11ce",
+      "log_sha256": "ee56925203ac0987be3f96219ebb1d911793e64ff44aecd37f9012ec056995dc",
+      "elapsed_seconds": 78.61974704000001
+    }
+  },
+  "source_files": {
+    "icstudio/digital_sky130_lvs.py": "84c54db08f289ced1875e32c67e76521e94a67596abd0e6de5c7e275bd044e7f",
+    "icstudio/digital_sky130_lvs_core.py": "76f5ae95ee4fe8cc2db4695298f81393938673f4cd8f25fa738112b6ab9de8da",
+    "icstudio/digital_lvs_engine.py": "306b50b2b70c0b0e4800273418f30f349f6d6ac7cacff00b5e8f2164c3198332",
+    "icstudio/digital_flow.py": "380e6af822af1348a9f0c43b1d9c4fda8b402f5245883b71b43584c5d742e09d",
+    "icstudio/digital_physical.py": "86f89ead208f5f0d9465757f30ba85d9b6fe4dc3a2212dab47b3c0ee7fa48cbc",
+    "icstudio/digital_macro.py": "767cee9c7dc25227798eee34c81f77e118ebe48ed51e9b46f40e97c4b81a78f4",
+    "icstudio/digital_backend.py": "3380031f4a5962d08648a9a1eaf90cc1a404c11c0fe3d80476467a6c7770afef",
+    "tests/test_sky130_application_lvs.py": "435068141d163759c5ddaf640d41638285958c0dd43d8539984612ae59057c78"
+  },
+  "fixture": {
+    "path": "tests/fixtures/sky130-application-lvs-v1.zip",
+    "sha256": "8d347c71e25c138d8ee4701ac51f8eb182bb932f8a291b5d23ccf242a03e8d7e"
+  },
+  "license": {
+    "application": "GPL-3.0-or-later",
+    "extraction": "BSD-2-Clause; copyright 2020 laurentc2. Original source and license retained in every new comparison/export. Exact mechanical relationship to captured ORFS source checked before execution.",
+    "extraction_source": {
+      "repository": "laurentc2/SKY130_for_KLayout",
+      "revision": "8f94c07178fbeef8630353add86f717746b1e3ab",
+      "license": "BSD-2-Clause",
+      "copyright": "Copyright (c) 2020, laurentc2",
+      "files": {
+        "BSD-2-Clause.txt": {
+          "path": "LICENSE",
+          "sha256": "879a976a181ce1e98b90b0c674b4ef55d72b7f90410b7d558f29c1e2d119e485",
+          "url": "https://github.com/laurentc2/SKY130_for_KLayout/blob/8f94c07178fbeef8630353add86f717746b1e3ab/LICENSE"
+        },
+        "original.lylvs": {
+          "path": "lvs/lvs_sky130.lylvs",
+          "sha256": "bcc7b27c6f118d9dbfa5db9fad01656cab2255673d18c50fe5002de6c1e41c61",
+          "url": "https://github.com/laurentc2/SKY130_for_KLayout/blob/8f94c07178fbeef8630353add86f717746b1e3ab/lvs/lvs_sky130.lylvs"
+        }
+      },
+      "captured_orfs_revision": "eaba6576441bf7c1743ea56ecdb1904210ec02c2",
+      "captured_orfs_path": "flow/platforms/sky130hd/lvs/sky130hd.lylvs",
+      "review": "The parsed Ruby differs only in three runtime variable names, the batch usage comment, and the default schematic filename. The production adapter verifies that exact relationship. Studio changes impose strict body/port/device checks and an independently sourced antenna diode."
+    },
+    "diode": "Apache-2.0; original public source headers, license and locked independent GDS/SPICE retained.",
+    "private_or_cadence_licensed_checker_used": false
+  },
+  "pvt_cdl_review": {
+    "schema": 1,
+    "status": "REVIEW",
+    "qualified": false,
+    "chunk_complete": false,
+    "files": {
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\orfs-platforms\\flow\\platforms\\sky130hd\\cdl\\sky130hd.cdl": "5c10d8a6aa5165817bd8bf53fce902506c4ae131660965915c8e2b6e3878485b",
+      "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\sky130-pvt-collateral\\sky130A\\libs.ref\\sky130_fd_sc_hd\\cdl\\sky130_fd_sc_hd.cdl": "35bdf5f2cd1c5d841dcc3d0fe4c34b3f0e8c57a3e25282aa1d716ad7cf2a1aa6"
+    },
+    "cells": [
+      437,
+      437
+    ],
+    "different_cells": [
+      "sky130_fd_sc_hd__a211o_4",
+      "sky130_fd_sc_hd__a21bo_4",
+      "sky130_fd_sc_hd__a21o_4",
+      "sky130_fd_sc_hd__macro_sparecell",
+      "sky130_fd_sc_hd__o21a_4"
+    ],
+    "mos_parameter_occurrences": [
+      {
+        "m": 5275,
+        "w": 5407,
+        "l": 5407,
+        "mult": 5295,
+        "sa": 5295,
+        "sb": 5295,
+        "sd": 5295,
+        "topography": 5295,
+        "area": 5295,
+        "perim": 5295,
+        "ad": 112,
+        "pd": 112,
+        "as": 112,
+        "ps": 112
+      },
+      {
+        "m": 5285,
+        "w": 5397,
+        "l": 5397,
+        "mult": 5285,
+        "sa": 5285,
+        "sb": 5285,
+        "sd": 5285,
+        "topography": 5285,
+        "area": 5285,
+        "perim": 5285,
+        "ad": 112,
+        "pd": 112,
+        "as": 112,
+        "ps": 112
+      }
+    ],
+    "scope": "Exact cell/instance/model/node/W/L and non-MOS statement comparison. Both multiplicities are compared explicitly. Additional junction/layout parameters are not treated as LVS properties; this review does not establish extracted parasitics or electrical equivalence.",
+    "driver_sha256": "3ddbfd2e7dd7320a6f618326aeaa7a97f76726ea7fb0921915219cca20ebe3d0"
+  },
+  "source_phase_note": "The six fresh native Finish/export runs use the retained source-native-v2 adapter. The final adapter additionally binds the reference capture worker to the recorded executed-source hash. This changes saved-evidence validation only. Both final 220-test suites and all six final Windows exports/replays include that binding. Original execution source and current source are both preserved.",
+  "remaining": [
+    "Complete the applicability record for every requirement of the agreed generic block/transistor profile; the historical 302 unresolved records are unchanged.",
+    "The public x.20 IP-block pin-center spacing rule has no numerical limit. No invented substitute is accepted.",
+    "Complete final-mask/process density and surrounding/boundary policy, including whether/how metal 5 is constrained. Prior full-window acceptance remains specific to the two retained public metal-growth profiles on metals 1-4.",
+    "Floating-fill coupling, broader device/electrical qualification and complete-chip obligations remain explicitly unqualified. No new installer or timing/equivalence acceptance is claimed."
+  ],
+  "retained_diagnostics": [
+    "The first small-counter fault assumed an antenna diode. That layout has none, so the setup assertion failed. The corrected fault removes nonempty flip-flop gate polysilicon; counter and UART use that fault, APB uses a present diode where available.",
+    "The first PVT platform attempts encountered a runtime without Git metadata and an unresolved Windows extraction-rule symlink. A minimal native checkout of the pinned external ORFS platform materialized its existing linked input; no new IC Design Studio branch/worktree was created.",
+    "Semantic CDL review finds five changed cells among 437 between the two captured libraries. The actual library revisions were run separately; no whole-library equivalence or device-family qualification is inferred."
+  ],
+  "archive": {
+    "relative_to_codex_documents": "IC-Design-Studio-evidence/sky130-application-lvs-2026-10-16/evidence.zip",
+    "sha256": "87bd3eb157f4a424891735c4549442d449e5eb05c65e24ce7ae551392c78b0d3",
+    "bytes": 131849014,
+    "entries": 350,
+    "manifest_sha256": "fce813e19b0a2626407654cacf2d9cbbec595f585b3df4290ce096cfdbeed515",
+    "readback": "Every archive member size and SHA-256 verified after writing"
+  },
+  "release_checks": {
+    "win32": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 135,
+      "local_links": 1540,
+      "gallery_examples": 13,
+      "pdk_coverage": {
+        "status": "matrix_consistent",
+        "process_qualification": "unqualified",
+        "targets": 4,
+        "requirements": 125,
+        "device_entries": 255,
+        "requirement_statuses": {
+          "not_run": 79,
+          "partial": 20,
+          "needs_definition": 12,
+          "passed_reference": 14
+        }
+      }
+    },
+    "linux": {
+      "version": "0.23.0",
+      "status": "passed",
+      "documents": 135,
+      "local_links": 1540,
+      "gallery_examples": 13,
+      "pdk_coverage": {
+        "status": "matrix_consistent",
+        "process_qualification": "unqualified",
+        "targets": 4,
+        "requirements": 125,
+        "device_entries": 255,
+        "requirement_statuses": {
+          "not_run": 79,
+          "partial": 20,
+          "needs_definition": 12,
+          "passed_reference": 14
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "status": "three-sky130-lvs-references-and-controls-audited",
+  "system": "linux",
+  "qualified": false,
+  "reader_controls": 7,
+  "layout_controls": 11,
+  "tests": 17,
+  "tests_skipped": 0,
+  "auditor_sha256": "8415b23b9bc4b946c13d6cad7ee7f63f134813472968fee33a8c9a3d1f761343",
+  "data_sha256": "354f032e24578d6574816bee54e03698ccd32ef334f1e5456d34310344d1d8ff",
+  "scope": "Native Linux engine reports independently read on each OS; not a new Windows engine or installer qualification."
+}

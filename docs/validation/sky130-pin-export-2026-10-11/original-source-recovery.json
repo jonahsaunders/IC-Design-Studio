@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "status": "source-bytes-recovered",
+  "original_export_sha256": "66f4191d89bcf5fc37d514ebae67cf36d5202bdb0b7eb2e8278ec4d47e54538c",
+  "method": "Removed later saved-result validation and original-GDS artifact registration from the retained intermediate source; exact original execution hash matched.",
+  "files": {
+    "application-v2.py": "b79584509aa50474de8d028e35e45f899be79a715910304db408d1ede0d20ffe",
+    "current-validated.py": "e7bbf52b7c0f3d727c758fe927b134bb23d734712c864eb05f96c68b9d984e63",
+    "first-export.py": "66f4191d89bcf5fc37d514ebae67cf36d5202bdb0b7eb2e8278ec4d47e54538c"
+  }
+}

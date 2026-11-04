@@ -1,0 +1,464 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "8d9a56bdf1094e984bbab539914364323ab0d109e3e312928b5bbd61f2ce869c",
+  "cases": [
+    {
+      "case": "counter",
+      "source_result_sha256": "68b4e36b32c317f0d14bb5a84808766da2cfc5fe68e9ec153ec28c02a6ba962b",
+      "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+      "source_gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "inventory_sha256": "205a32cad25105dd78073adb7dcf0b8c1878670d82fc904a626d6237e12ad59c",
+      "boundary_export": {
+        "recipe": "sky130-declared-die-outline-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed"
+        },
+        "top": "counter",
+        "die_nm": [
+          0,
+          0,
+          200000,
+          200000
+        ],
+        "removed_top_die_outlines": 1,
+        "rules": [
+          {
+            "pair": [
+              235,
+              4
+            ],
+            "records": [
+              "r1252",
+              "s68"
+            ]
+          },
+          {
+            "pair": [
+              66,
+              4
+            ],
+            "records": [
+              "r1253",
+              "s69"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              4
+            ],
+            "records": [
+              "r1254",
+              "s70"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              60
+            ],
+            "records": [
+              "r1255",
+              "s71"
+            ]
+          }
+        ],
+        "scope": "Remove only the single top-level prBoundary box equal to the OpenDB die, if present. All other forbidden boundary-purpose input is rejected; manufacturing shapes and annotations are preserved."
+      },
+      "pin_layers": [
+        {
+          "layer": 67,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 68,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 69,
+          "pin_polygons": 2,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 70,
+          "pin_polygons": 4,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 71,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 72,
+          "pin_polygons": 11,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        }
+      ],
+      "clean_output": [
+        {
+          "pair": [
+            235,
+            4
+          ],
+          "records": [
+            "r1252",
+            "s68"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            66,
+            4
+          ],
+          "records": [
+            "r1253",
+            "s69"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            4
+          ],
+          "records": [
+            "r1254",
+            "s70"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            60
+          ],
+          "records": [
+            "r1255",
+            "s71"
+          ],
+          "raw_shapes": 0
+        }
+      ],
+      "macro_sha256": "fbab5415bae8f8a679d70a3aef130e543275b4dff8fc6e059566f053bbbc7bf5"
+    },
+    {
+      "case": "uart",
+      "source_result_sha256": "ace16065ce29c53a4110d17e777a4ecef102970369a592544a8bfcf286e18f34",
+      "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+      "source_gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "inventory_sha256": "dc781ac94a231e78af37669f6b1a97ff0970515ffb59858b4f0877a21ee5f262",
+      "boundary_export": {
+        "recipe": "sky130-declared-die-outline-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed"
+        },
+        "top": "uart_tx",
+        "die_nm": [
+          0,
+          0,
+          400000,
+          400000
+        ],
+        "removed_top_die_outlines": 1,
+        "rules": [
+          {
+            "pair": [
+              235,
+              4
+            ],
+            "records": [
+              "r1252",
+              "s68"
+            ]
+          },
+          {
+            "pair": [
+              66,
+              4
+            ],
+            "records": [
+              "r1253",
+              "s69"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              4
+            ],
+            "records": [
+              "r1254",
+              "s70"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              60
+            ],
+            "records": [
+              "r1255",
+              "s71"
+            ]
+          }
+        ],
+        "scope": "Remove only the single top-level prBoundary box equal to the OpenDB die, if present. All other forbidden boundary-purpose input is rejected; manufacturing shapes and annotations are preserved."
+      },
+      "pin_layers": [
+        {
+          "layer": 67,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 68,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 69,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 70,
+          "pin_polygons": 13,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 71,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 72,
+          "pin_polygons": 26,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        }
+      ],
+      "clean_output": [
+        {
+          "pair": [
+            235,
+            4
+          ],
+          "records": [
+            "r1252",
+            "s68"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            66,
+            4
+          ],
+          "records": [
+            "r1253",
+            "s69"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            4
+          ],
+          "records": [
+            "r1254",
+            "s70"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            60
+          ],
+          "records": [
+            "r1255",
+            "s71"
+          ],
+          "raw_shapes": 0
+        }
+      ],
+      "macro_sha256": "5dc01165fa930df2974d6810ef946fea8f02ffc65d3db3d240853068bf2fbb62"
+    },
+    {
+      "case": "apb",
+      "source_result_sha256": "58dc13baf26ae8fd74eebb059658c0f96f9813dda2b4ef937a1ece8f1205cf50",
+      "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+      "source_gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "inventory_sha256": "ba1f33789e13c846a8958423be89a17cfdc6867ef9885f31cb2aeb4861faf3ca",
+      "boundary_export": {
+        "recipe": "sky130-declared-die-outline-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed"
+        },
+        "top": "apb_fifo",
+        "die_nm": [
+          0,
+          0,
+          400000,
+          400000
+        ],
+        "removed_top_die_outlines": 1,
+        "rules": [
+          {
+            "pair": [
+              235,
+              4
+            ],
+            "records": [
+              "r1252",
+              "s68"
+            ]
+          },
+          {
+            "pair": [
+              66,
+              4
+            ],
+            "records": [
+              "r1253",
+              "s69"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              4
+            ],
+            "records": [
+              "r1254",
+              "s70"
+            ]
+          },
+          {
+            "pair": [
+              65,
+              60
+            ],
+            "records": [
+              "r1255",
+              "s71"
+            ]
+          }
+        ],
+        "scope": "Remove only the single top-level prBoundary box equal to the OpenDB die, if present. All other forbidden boundary-purpose input is rejected; manufacturing shapes and annotations are preserved."
+      },
+      "pin_layers": [
+        {
+          "layer": 67,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 68,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 69,
+          "pin_polygons": 1,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 70,
+          "pin_polygons": 27,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 71,
+          "pin_polygons": 0,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        },
+        {
+          "layer": 72,
+          "pin_polygons": 26,
+          "added_polygons": 0,
+          "added_area_nm2": 0
+        }
+      ],
+      "clean_output": [
+        {
+          "pair": [
+            235,
+            4
+          ],
+          "records": [
+            "r1252",
+            "s68"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            66,
+            4
+          ],
+          "records": [
+            "r1253",
+            "s69"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            4
+          ],
+          "records": [
+            "r1254",
+            "s70"
+          ],
+          "raw_shapes": 0
+        },
+        {
+          "pair": [
+            65,
+            60
+          ],
+          "records": [
+            "r1255",
+            "s71"
+          ],
+          "raw_shapes": 0
+        }
+      ],
+      "macro_sha256": "57ea7ea62be2b671e9260366f6e7422ba60e102f1468287db5cce4a681745ff9"
+    }
+  ],
+  "elapsed_seconds": 103.59300000000076
+}

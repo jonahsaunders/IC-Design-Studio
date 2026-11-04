@@ -1,0 +1,9 @@
+{
+  "magic": {
+    "version": "8.3.684",
+    "commit": "4f53bb3091d1e4a9b2009a58f157a8a4331d4c84",
+    "repository": "https://github.com/RTimothyEdwards/magic.git",
+    "patch_sha256": "48e28150e831250c33f62243378f8035731d369929ed5b9e84dfa88db0bb9c93",
+    "patch": "packaging/physical/magic-ihp-same-net-ground.patch"
+  }
+}

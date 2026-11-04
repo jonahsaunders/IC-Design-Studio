@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "source_manifest_sha256": "44b2626b09d983b06e65bfb620ec372633811643ebdb71f1e3319dca2656f9d0",
+  "source_revision": "3e3cdb6aecf49063",
+  "source_symbol_sha256": "0074841d358fc35f443b6ed79181e6ccd424365836b6130c7f35cbf283ce354e",
+  "source_model_sha256": "277930447149f1b40ffda6959a990e473bbda7bdf97ce6180f5e563fe5957eea",
+  "documentation": "https://skywater-pdk.readthedocs.io/en/main/rules/device-details.html#generic-resistors",
+  "change": "Map the source res_generic_li symbol to its documented local-interconnect resistor model sky130_fd_pr__res_generic_l1. Original files and all other catalog bindings retained.",
+  "qualified": false
+}

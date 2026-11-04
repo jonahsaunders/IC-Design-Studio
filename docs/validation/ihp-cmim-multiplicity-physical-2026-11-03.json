@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "status": "PASS_FINITE_PHYSICAL_MULTIPLICITY_READBACK",
+  "scope": "Two source-drawn contacted 7 x 7 um cap_cmim units with shared top and bottom electrodes; ordinary catalog integer m=2 compared with an explicit pair of m=1 instances, at 0 and 90 degrees, plus six selected fault controls. This is not arbitrary-array, installed, electrical operating-envelope, parasitic or family qualification.",
+  "head_basis": "71fb99166af8a1cb4a209b9d5f8fb14809b7d0db",
+  "source_manifest_sha256": "2bce791ea4b4d64e0af3f9c8d233996d093740e530fd4495c692fe437bc73bc0",
+  "source_files_verified": 6965,
+  "source_delta_receipt_sha256": "5d6591b01c957a53f873add7f56f6b9fecf7a19c9cb7a9d2e681a998d6f719e1",
+  "physical_producer_sha256": "5288f1f955f82e6c3d58063fc66f9376492c4ec78d4132f0e770516a28fbfd41",
+  "physical_reader_sha256": "2156d5eea51e9dac9dcb12807774aa2828b9364f114a0a66103652a0b644d63b",
+  "physical_tests_sha256": "a89488c002028e00b8109945755873a614326f07630666fe86611a0e218dde05",
+  "physical_report_sha256": "e4fab0aebf012bd48d54f7c0fc2f5c107decf748aec18059ca8b6f0e32703f88",
+  "physical_copy_receipt_sha256": "4ac543267d6842c3c38d97975eed3b42583685c002e6d7f9e1fa825bd0485fda",
+  "windows_readback_sha256": "8e9b3fb26ae71c04216d2176082ae78d3a3b06f5072c4cf6072fa016e18be785",
+  "independent_raw_review_sha256": "a44da6ae28e212ae9392a2bd2b1ec9a33e2d230d536a64af9c8111dba9a054e4",
+  "independent_binding_review_sha256": "cfc29a3ab69d412d2bf25fb7eef6fdd12c66d44a9b53890243dc6932df90615f",
+  "cases": {
+    "positive": ["m2-0", "pair-0", "m2-90", "pair-90"],
+    "faults": ["m1-0", "m3-0", "wrong-wire-0", "missing-contact-0", "wrong-width-0", "physical-width-0"],
+    "positive_result": "The two unchanged public decks and versioned metal-spacing supplement report zero findings, and strict native LVS passes. The original catalog X reference and independently derived per-unit A/P physical C view are retained. Netgen reduces each parallel pair for comparison; the unfiltered extraction separately contains exactly two ordered m=1 devices.",
+    "fault_result": "m1 and m3 cause actual area mismatch; reversed wiring causes net/device mismatch; the missing-contact control has one anonymous unit terminal, MIM.h and native pin mismatch; the two width faults cause native property/network mismatch, including one physically wider unit with unchanged m=2 reference."
+  },
+  "fractional_pilot": "A separately retained m=1.5 ordinary reference reached physical projection and native LVS, where this two-unit comparison failed a property check. This diagnostic does not establish general fractional or nested multiplicity semantics.",
+  "test_summary": "Physical, enclosure and LVS-reference focused Windows tests passed; the standalone physical reader passed all ten final cases on both native Linux and Windows. Independent review checked all 1,921 copied files and 500 scoped source files, raw masks and failure causes, plus rehashed comparison-input and source-inventory negatives.",
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/ihp-cmim-multiplicity-2026-11-03-v1",
+    "physical_archive": "physical-evidence.zip",
+    "sha256": "6da0dbdd4b59dec7b8d3d5fc8fa0df33d1731bfed01727db295e6dd57c65d7eb",
+    "member_count": 4271,
+    "member_receipt": "physical-retention.json",
+    "member_receipt_sha256": "2e33802646e636043e26ebb0d1e6674b35418cd14749d7c5d7c9f482a28f02b0",
+    "verification": "Every archive member was read back with ZIP CRC and SHA-256 and its original was rehashed. The archive includes v1 and v2 source deltas and the predecessor-chain receipt; no full source/runtime copy was made."
+  },
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false
+}

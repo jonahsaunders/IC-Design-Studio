@@ -1,0 +1,317 @@
+{
+  "selection": {
+    "models": [
+      "sky130_fd_pr__cap_mim_m3_1",
+      "sky130_fd_pr__cap_mim_m3_2"
+    ],
+    "size_um": [
+      2,
+      10
+    ],
+    "passive_sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "rotations_degrees": [
+      0,
+      90
+    ],
+    "bias_V": [
+      -5,
+      0,
+      5
+    ],
+    "temperature_C": 27,
+    "frequencies_Hz": [
+      1000,
+      10000,
+      100000,
+      1000000,
+      10000000,
+      100000000,
+      1000000000,
+      10000000000
+    ],
+    "mc_mm_switch": 0,
+    "mc_pr_switch": 0
+  },
+  "counts": {
+    "contexts": 60,
+    "op_points": 60,
+    "ac_samples": 480,
+    "bias_faults": 180,
+    "domain_rejections": 5,
+    "bias_invariance_contexts": 40,
+    "retained_native_inputs": 4,
+    "new_physical_executions": 0
+  },
+  "timings_seconds": {
+    "setup": 10.199950852023903,
+    "electrical": 274.91530676098773
+  },
+  "native_audit": {
+    "status": "PASS",
+    "qualified": false,
+    "chunk_complete": false,
+    "release_acceptance": false,
+    "runtime_check": "live_files_and_captured_identity",
+    "full_declared_selection": true,
+    "counts": {
+      "contexts": 60,
+      "op_points": 60,
+      "ac_samples": 480,
+      "bias_faults": 180,
+      "domain_rejections": 5,
+      "bias_invariance_contexts": 40,
+      "retained_native_inputs": 4,
+      "new_physical_executions": 0
+    },
+    "scope": "Independent selected MiM DC boundary and linear-model integration readback.\n\nReads native OP and AC outputs independently of the producer. This is neither\nsilicon/leakage/reliability accuracy nor full operating-envelope qualification.\n",
+    "audit_sha256": "37b1d69247502c7ac49d6718211c19ae9a936a2fc734151e43ca5abad8c7d69a"
+  },
+  "native_files": {
+    "native/qualification.json": "7e97f2383cea9b779c6a2f15dedb568fc8756c4d1c45e7719e8b709945580807",
+    "native/manifest.json": "a09f18ce7296bd2dceccffd16a45dc35c6f5efcc17d4304b71e5db76f99de091",
+    "audit.json": "143ca9af6fb75efbedffe41ddf38bd81e71e74f685aab6f2a22e4ce45eed8d5a"
+  },
+  "sources": {
+    "scripts/qualify_sky130_mim_bias_boundaries.py": "e139903982ff732339c5e3debb2b07c5f838fca482418b7a0077287d24bc0a2a",
+    "scripts/audit_sky130_mim_bias_boundaries.py": "37b1d69247502c7ac49d6718211c19ae9a936a2fc734151e43ca5abad8c7d69a",
+    "tests/test_sky130_mim_bias_boundaries.py": "0eedf3aa75eef52d90b5a1ca6b9d4fe8735da02f8d32727603a62c74c13c1663",
+    "tests/test_sky130_mim_bias_audit.py": "56eb23f30e8421f78a283781690b487ba1a1e8a7539c5d70de159a41334be371"
+  },
+  "source_manifest_sha256": "eb39b53e597acbc2b490dc7431dfdefe49df5bca79052a950bf0df3963d9fa7a",
+  "source_snapshot_overrides": {
+    ".github/workflows/reference-compatibility.yml": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+    "scripts/reference_toolchain.py": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+    "tests/test_reference_toolchain.py": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b"
+  },
+  "contract_sha256": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209",
+  "source_map_sha256": "549bb89580245515b5a7e2b43eb784fcfd3d621a57ff3141c10183da42c87830",
+  "runtime_before_sha256": "6db73a4ed94a533210e3bbf56060ef00a593469dadc4516791c63877afed2eab",
+  "runtime_after_sha256": "6db73a4ed94a533210e3bbf56060ef00a593469dadc4516791c63877afed2eab",
+  "guards": {
+    "runtime_unchanged": true,
+    "source_unchanged": true,
+    "models_unchanged": true,
+    "retained_unchanged": true,
+    "contracts_unchanged": true
+  },
+  "physical_reuse": {
+    "status": "PASS",
+    "physical_execution": "historical_reuse_no_new_physical_run",
+    "archive_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430",
+    "member_prefix": "accepted/native/",
+    "original_execution_root": "/var/tmp/icstudio-mim-passive-20261023-final-v1/native",
+    "original_qualification_sha256": "3051f4edeb041ee080210e72e86e86985c76c4f70c869e6990ceec2206da5c4c",
+    "original_manifest_sha256": "127e67064cd10d4c4670a5abc7aa47fabc41914ba64682854a59036db110187e",
+    "audit": {
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "counts": {
+        "cases": 20,
+        "layouts": 4,
+        "physical_faults": 12,
+        "electrical_faults": 120,
+        "raw_files": 40,
+        "ac_samples": 320,
+        "integrity_bindings": 2755
+      },
+      "scope": "Independent native-mask, circuit, coefficient and raw-AC MiM readback.\n\nNo application, generator, simulation runner or application parser is imported.\nPublic model equations are integration references, not silicon measurements.\n",
+      "audit_sha256": "86e6de2cd3fd1a2c2a7fa8f9de87d830cc1e942db4f62c18792dbcc12cc4923c"
+    }
+  },
+  "evidence_controls": {
+    "count": 29,
+    "all_rejected": true,
+    "original_files_unchanged": 4328,
+    "archived_member": "semantic-controls/review.json",
+    "report_sha256": "30c9804e83303beaf0d532ef69a96dd741d136aac86cddf95274d5f15c53f217"
+  },
+  "runtime_indirect_dependency_control": {
+    "removed_indirect_dependency": "/lib64/ld-linux-x86-64.so.2",
+    "original_root": "/var/tmp/icstudio-mim-bias-20261023-final-v1/native",
+    "review_scope": "Only the standalone runtime checker; original source and native outputs remain unchanged.",
+    "old": {
+      "status": "ACCEPTED"
+    },
+    "new": {
+      "status": "REJECTED",
+      "error": "Missing actual ELF dependency: /lib/x86_64-linux-gnu/libc.so.6"
+    },
+    "status": "PASS"
+  },
+  "focused_tests": {
+    "producer_windows": 10,
+    "auditor_windows": 21,
+    "auditor_linux": 21,
+    "scope": "Individual focused modules; parent integrates the complete source-feedback results. Windows sandbox temp-ACL failure retained as an infrastructure failure."
+  },
+  "archive_replay": {
+    "status": "PASS",
+    "restored_source_files": 6439,
+    "archive_sha256": "c57b956ff406c0c8188338a344a7f27aa7d1e50eecea131459b4f0ca57c2729d",
+    "prior_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430",
+    "selections": [
+      {
+        "plate": 1,
+        "section": "tt",
+        "rotation": 0,
+        "biases": [
+          0,
+          5
+        ]
+      },
+      {
+        "plate": 2,
+        "section": "tt",
+        "rotation": 0,
+        "biases": [
+          -5,
+          0
+        ]
+      }
+    ],
+    "audits": [
+      {
+        "status": "PASS",
+        "qualified": false,
+        "chunk_complete": false,
+        "release_acceptance": false,
+        "runtime_check": "live_files_and_captured_identity",
+        "full_declared_selection": false,
+        "counts": {
+          "contexts": 2,
+          "op_points": 2,
+          "ac_samples": 16,
+          "bias_faults": 5,
+          "domain_rejections": 5,
+          "bias_invariance_contexts": 1,
+          "retained_native_inputs": 4,
+          "new_physical_executions": 0
+        },
+        "scope": "Independent selected MiM DC boundary and linear-model integration readback.\n\nReads native OP and AC outputs independently of the producer. This is neither\nsilicon/leakage/reliability accuracy nor full operating-envelope qualification.\n",
+        "audit_sha256": "37b1d69247502c7ac49d6718211c19ae9a936a2fc734151e43ca5abad8c7d69a"
+      },
+      {
+        "status": "PASS",
+        "qualified": false,
+        "chunk_complete": false,
+        "release_acceptance": false,
+        "runtime_check": "live_files_and_captured_identity",
+        "full_declared_selection": false,
+        "counts": {
+          "contexts": 2,
+          "op_points": 2,
+          "ac_samples": 16,
+          "bias_faults": 5,
+          "domain_rejections": 5,
+          "bias_invariance_contexts": 1,
+          "retained_native_inputs": 4,
+          "new_physical_executions": 0
+        },
+        "scope": "Independent selected MiM DC boundary and linear-model integration readback.\n\nReads native OP and AC outputs independently of the producer. This is neither\nsilicon/leakage/reliability accuracy nor full operating-envelope qualification.\n",
+        "audit_sha256": "37b1d69247502c7ac49d6718211c19ae9a936a2fc734151e43ca5abad8c7d69a"
+      }
+    ],
+    "scope": "Fresh electrical replay from archive-restored source; historical physical evidence reused with original identity."
+  },
+  "earlier_attempts": [
+    {
+      "label": "first-pilot",
+      "status": "PASS",
+      "contexts": 3,
+      "acceptance": "producer pass; modular independent subchecks only",
+      "qualification_sha256": "8cb33df7d9bb4d11968086cf7bfdd06162928cf710b3ae33ff214053a816ad11"
+    },
+    {
+      "label": "superseded-full",
+      "status": "PASS",
+      "contexts": 60,
+      "acceptance": "superseded after stronger title, fault-KCL and runtime-closure review",
+      "qualification_sha256": "9cb032ac33c295bf3ec90c2538bdec2a756f2bb06733809615c8f9c2cbf5fff0"
+    },
+    {
+      "label": "corrected-pilot",
+      "status": "PASS",
+      "contexts": 6,
+      "acceptance": "pilot plus29semantic controls passed; final parser delta did not change native stimuli",
+      "qualification_sha256": "6f3da42151d2875200795e96c103803f715a6b98643c0012600b69452cd3aa38"
+    }
+  ],
+  "limits": [
+    "Linear public compact-model integration is not silicon, leakage, breakdown, lifetime, common-mode/substrate or full operating-envelope validation.",
+    "All accepted and replayed native execution and live runtime checks ran on Linux; Windows validation here is source tests only.",
+    "Historical physical inputs and their original execution identity were reused; zero fresh physical executions.",
+    "No matrix status, release gate or immutable requirement contract was promoted."
+  ],
+  "schema": 1,
+  "date": "2026-10-23",
+  "chunk": 7,
+  "status": "selected_mim_signed_bias_integration_passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "release_acceptance": false,
+  "default_promoted": false,
+  "source_baseline": "d38615c77ecb7b09ff4128d591c6d6294ce4d57b",
+  "scope": "Selected source-mapped differential bias boundary and compact-model integration checks for two 2x10 um SKY130 MiM constructions; all physical inputs reused under original identity. At 27 C, five passive sections, two orientations, -5/0/+5 V. No full envelope, silicon/reliability, installed or foundry qualification.",
+  "simulation_package": {
+    "target": "sky130A",
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "physical_package": {
+    "target": "sky130A",
+    "revision": "9a491f0ebd51a0aa",
+    "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+    "scope": "Separate locked physical adapter; its model/deck revision is recorded independently from the bundled simulation PDK."
+  },
+  "integrator_summary_sha256": "0f3ec1498627efb979840e4b00931a21044a744805969c71405851e07ecf9e4b",
+  "combined_feedback": {
+    "path": "docs/validation/chunk7-bias-integration-2026-10-23.json",
+    "sha256": "f13ea1886e07a0e8c1d8484dd445a80f205c9d4a4cc84f1d0d681c058a524427"
+  },
+  "estimate": {
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  },
+  "archives": {
+    "main": {
+      "status": "PASS",
+      "sha256": "c57b956ff406c0c8188338a344a7f27aa7d1e50eecea131459b4f0ca57c2729d",
+      "prior_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430",
+      "files": 49273,
+      "objects": 2815,
+      "logical_bytes": 2570307450,
+      "archive_bytes": 20477443,
+      "manifest_sha256": "9f4eee3a32823bcb46392a2d35c48af95f6712b0a001ce2c690cb71c7fd768c5",
+      "file": "evidence.zip"
+    },
+    "replay_and_work": {
+      "status": "PASS",
+      "sha256": "c422fb1f930fa67e238c311c54f98760ed6b31d2ffd8d765e8c26ecd84fe4430",
+      "prior_sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430",
+      "files": 14995,
+      "objects": 384,
+      "logical_bytes": 841713758,
+      "archive_bytes": 4149607,
+      "manifest_sha256": "c6c077498d8ed2d73c7a61b5aa7a94498ce8e24706720ce1c6d8abf765489188",
+      "file": "replay-and-work.zip"
+    }
+  },
+  "cleanup": {
+    "linux_logical_bytes": 3404705917,
+    "linux_unique_inode_bytes": 3131699631,
+    "windows_file_bytes": 84928943,
+    "verified_recovery_before_removal": true,
+    "space_claim": "File bytes only; no Windows virtual-disk shrink. No administrator access."
+  }
+}

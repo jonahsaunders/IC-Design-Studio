@@ -1,0 +1,482 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "status": "public_ihp_geometry_scope_verified",
+  "baseline": "13a4db0254b48714fed9a362169e1244902b85e0",
+  "scope": "Explicit local public IHP geometry route: eighty varactor layouts and sixty-four faults, plus thirty-six NPN layouts and ninety-nine faults. Preserves all original masks and annotations. Operating envelopes, other required devices, mixed NPN/varactor layouts and installed-release qualification remain open.",
+  "source_files": {
+    "icstudio/ihp_klayout_drc.py": "b240dbd59c114124e6e3e43716df8552ac21c955bf84845dab0c198ee146584a",
+    "icstudio/ihp_npn_drc.py": "28d382b0030e40fad706670a75eda0abfc5e64c36cb6a7532c4a57993e37652c",
+    "icstudio/ihp_varactor_oxide.py": "568add88aac8216ae7f9eb35f3d8639ad02749f93ca11837db22fa6870147e74",
+    "icstudio/layout_verification.py": "86de4e59ef0e5c07d6ea0eb0b9ad5cffac6e3b9bbbab4db9e86c3950cd894b8d",
+    "icstudio/physical_backend.py": "687b92998b15f5c979d802a5297e40697b0f22404f2a0888b98f37b83b885c06",
+    "icstudio/silicon_flow.py": "cf2da28542a1f7f92385032e676f7c1aa0076d1a8a2feba5f5e39ae068499659",
+    "icstudio/silicon_ui.py": "0f38a924645f31cba21b4158d76d95cdefe7be51d2b9b6f9dbdafac7629190e9",
+    "icstudio/verification_navigation.py": "75346c094e9ba776afe3aad5d89d9d71bf8bc4c74b5f624709cb1dc59ba11c96",
+    "scripts/qualify_ihp_npn_layouts.py": "cf97a550e3d2fa39780074304ac381bb31006c945a6cdd49d13463078845edb9",
+    "scripts/qualify_ihp_varactor_layouts.py": "9c1bab35d15d2200914f88e6956f225c86024a0f64b689c2b0286da8f20f75f3",
+    "scripts/verify_frozen_digital.py": "e9191f1bc42f5d0a46c8b1667461e9e0fafcd2fb9275abcfbcc668c616ccede9",
+    "tests/test_ihp_klayout_drc.py": "ab784ec31e8d4381b9fa061be17a9c3488e2f8555c8a8c8f9791f111dd1d642d",
+    "tests/test_ihp_npn_qualification.py": "c467d17b311b5cc89e777c3f469dc9977388e3256a2caaa952ab18b15aa6262e",
+    "tests/test_frozen_digital.py": "c17758a55912e63e14cb360999a57c586881f98961b1b1d3757a1e517f0a7ca3",
+    "tests/gui_ihp_klayout_lvs.py": "ceb365c0ee4f6623e32f259af734f4edcefcc306a06f54bccec90fdeb1ae7beb",
+    ".github/workflows/build-desktop.yml": "486e08348684de765a6614f5868d25b4480a62d2d4681c06e518a7389049292f",
+    ".github/workflows/ihp-inductor-qualification.yml": "3a27733fedd818e951ec3c3608788f6790c414d7eed1b91c53296909ecc85839"
+  },
+  "native_source_manifest_sha256": "83ab2eb9942392071ac465e1ec4e96239dc7efef26702e151a7ab810109e8297",
+  "source": {
+    "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+    "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "license": "Apache-2.0",
+    "lock": "icstudio/assets/physical/ihp_klayout_drc/SOURCE.json",
+    "lock_sha256": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863",
+    "supplied_source_files": 51,
+    "native_cli": "KLayout 0.30.5",
+    "decks": [
+      "ihp-sg13g2.drc",
+      "rule_decks/sg13g2_maximal.drc"
+    ],
+    "policy": "Complete original sources and default switches; no rule thresholds changed and no native findings filtered."
+  },
+  "varactors": {
+    "sizes": [
+      {
+        "w_um": 3.74,
+        "l_um": 0.3
+      },
+      {
+        "w_um": 9.74,
+        "l_um": 0.8
+      }
+    ],
+    "nx": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "rotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "positive_layouts": 80,
+    "detected_faults": 64,
+    "qualification_sha256": "bcd3d0947394abe7a1e8cdbb6a8fa1915bdea628132445d9a822c0bf90c3e7fa",
+    "implementation_unchanged": true,
+    "coupon": "Original masks plus the documented written oxide rectangle, conductor labels and separate substrate tie. No additional Magic-specific well/substrate contacts.",
+    "independent_audit": {
+      "status": "PASS",
+      "positives": 80,
+      "detected_faults": 64,
+      "native_and_comparison_netlists": 160,
+      "exchange_layer_pairs": 800,
+      "native_reports": 288,
+      "complete_public_source_copies_verified": true,
+      "original_drawn_areas_preserved": true,
+      "public_large_oxide_gap_independently_caught": true,
+      "chunk_complete": false,
+      "scope": "Both public W/L geometries, Nx 1 through 10, all orthogonal rotations. Separate electrical operating-envelope and complete-chip qualification remain open."
+    }
+  },
+  "npn": {
+    "families": [
+      "npn13G2",
+      "npn13G2l",
+      "npn13G2v"
+    ],
+    "public_geometries": 9,
+    "rotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "positive_layouts": 36,
+    "detected_faults": 99,
+    "qualification_sha256": "f2c7b22fbd16b62331768a164f1e4c466d9fe20aeb9087fcee009c90560e9a88",
+    "implementation_unchanged": true,
+    "package_unchanged": true,
+    "independent_audit": {
+      "status": "PASS",
+      "layouts": 36,
+      "detected_faults": 99,
+      "native_and_comparison_netlists": 72,
+      "native_positive_reports": 72,
+      "original_masks_and_annotations_retained": true,
+      "chunk_complete": false
+    }
+  },
+  "mandatory_additional_checks": [
+    {
+      "name": "Written varactor oxide",
+      "reason": "Both public decks accept complete oxide removal on the large fixture. The pinned public generator draws ThickGateOx over the gates.",
+      "check": "Require coverage of all marked varactor gates by the written oxide mask. No guessed enclosure distance.",
+      "controls": "Whole oxide removal and 20 nm square gate holes at both sizes and all tested orientations."
+    },
+    {
+      "name": "Full native NPN DRC",
+      "reason": "Both public decks accept an unrelated active island inside the NPN boundary.",
+      "check": "When TRANS 26/0 exists, additionally run the existing full unfiltered Magic style over the entire layout. Retain every finding.",
+      "limitation": "Mixed NPN/varactor layouts can retain Magic varactor findings and have no blanket qualification."
+    }
+  ],
+  "annotation_correction": "Preserve the original public TEXT/C, B and E annotations when adding typed conductor pins. The public maximal deck uses E to determine NPN applicability; no mask or label position is changed.",
+  "windows_backend": {
+    "status": "PASS",
+    "cases": [
+      {
+        "name": "varactor-large-10-270-None",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 178,
+        "result_sha256": "c94b901553a32a780c061bfae6a7fc605556804ffbe6595409894aecf81acc31"
+      },
+      {
+        "name": "varactor-small-10-90-None",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 178,
+        "result_sha256": "29c0d873604fdcd77935d4de1c86f2fd4ab28ce03a69e9bf866aaf496f810410"
+      },
+      {
+        "name": "varactor-large-1-0-missing-oxide",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 178,
+        "result_sha256": "ce04797a20f0bcf43a728b51dea53a505b08cf3d523151080fdc739950dc471c"
+      },
+      {
+        "name": "varactor-large-10-180-oxide-gap",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 178,
+        "result_sha256": "b4132381359843d86ca7ac04ef8922f9d460e253768e2269a7fdba2a815f5734"
+      },
+      {
+        "name": "varactor-large-4-90-mixed-contact-width",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 178,
+        "result_sha256": "32166819bf755c8c236a4bf07c1d4038ecc219e9c03ece14a00ecdce15c0a065"
+      },
+      {
+        "name": "varactor-large-1-0-reference-well",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 178,
+        "result_sha256": "beac12f5e8176c05dbfcd717e93dc8396d23a0cc31fe1ddd7d728c282259fc47"
+      },
+      {
+        "name": "npn13G2L-physical-90",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 182,
+        "result_sha256": "0273e0d4713d923e58fca9d90b73551a9cb06cec9b0443918553a54a639be0e0"
+      },
+      {
+        "name": "npn13G2V$1-physical-180",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 182,
+        "result_sha256": "067bf97e4086586d9686f8c4be182b14955b95f5a617f67380fa7d81fa3675f9"
+      },
+      {
+        "name": "npn13G2$2-physical-270",
+        "status": "PASS",
+        "native_status": "passed",
+        "received_files": 182,
+        "result_sha256": "bfd0a05340bfb1a22b2ce95eff46fc1c0aa7c88d8a53d13e862a24c53e7762de"
+      },
+      {
+        "name": "npn13G2L-unrelated-diffusion",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 182,
+        "result_sha256": "8d3d8dcc04d30ce5f0c58f936ff8453047f866cd759485fb906f486707e016ae"
+      },
+      {
+        "name": "npn13G2$2-unrelated-well",
+        "status": "PASS",
+        "native_status": "failed",
+        "received_files": 182,
+        "result_sha256": "06ba94f77c4da2c6e0f0f5cb4b01a922ccff0c3540ba9e8bad84f0b81090a021"
+      }
+    ],
+    "received_files": 1978,
+    "final_source_modules_identical": true,
+    "scope": "Eleven source Windows-to-Linux handoffs. First batch stopped after eight completed cases because the next native fixture had not finished; the last three run separately. All receipts and final code identities audited. Not installed-release acceptance."
+  },
+  "source_desktop": {
+    "Windows": {
+      "status": "PASS",
+      "scope": "Source desktop action and captured job settings; not an installed-release acceptance run.",
+      "checks": [
+        "IHP action selects public KLayout extraction",
+        "Explicit public geometry action captures both decks",
+        "Self-contained reference captured before queueing",
+        "Default action retains Magic extraction",
+        "Other PDKs rejected"
+      ],
+      "jobs": [
+        {
+          "type": "silicon",
+          "verification_mode": "drc_lvs",
+          "reference": {
+            "text": ".subckt coupon C B E\nX1 C B E pnpMPA a=1.4p p=5.4u\n.ends coupon\n",
+            "top": "coupon",
+            "ports": [
+              "C",
+              "B",
+              "E"
+            ],
+            "sha256": "e39ac6874e6c2168805654c3f455ef26e88fd89deeb6766ec6f4327bd4cf5875"
+          },
+          "lvs_extractor": "ihp-klayout",
+          "drc_engine": "magic"
+        },
+        {
+          "type": "silicon",
+          "verification_mode": "drc_lvs",
+          "reference": {
+            "text": ".subckt coupon C B E\nX1 C B E pnpMPA a=1.4p p=5.4u\n.ends coupon\n",
+            "top": "coupon",
+            "ports": [
+              "C",
+              "B",
+              "E"
+            ],
+            "sha256": "e39ac6874e6c2168805654c3f455ef26e88fd89deeb6766ec6f4327bd4cf5875"
+          },
+          "lvs_extractor": "ihp-klayout",
+          "drc_engine": "ihp-public"
+        },
+        {
+          "type": "silicon",
+          "verification_mode": "drc_lvs",
+          "reference": {
+            "text": ".subckt coupon C B E\nX1 C B E pnpMPA a=1.4p p=5.4u\n.ends coupon\n",
+            "top": "coupon",
+            "ports": [
+              "C",
+              "B",
+              "E"
+            ],
+            "sha256": "e39ac6874e6c2168805654c3f455ef26e88fd89deeb6766ec6f4327bd4cf5875"
+          },
+          "lvs_extractor": "magic",
+          "drc_engine": "magic"
+        }
+      ]
+    },
+    "Linux": {
+      "status": "PASS",
+      "scope": "Source desktop action and captured job settings; not an installed-release acceptance run.",
+      "checks": [
+        "IHP action selects public KLayout extraction",
+        "Explicit public geometry action captures both decks",
+        "Self-contained reference captured before queueing",
+        "Default action retains Magic extraction",
+        "Other PDKs rejected"
+      ],
+      "jobs": [
+        {
+          "type": "silicon",
+          "verification_mode": "drc_lvs",
+          "reference": {
+            "text": ".subckt coupon C B E\nX1 C B E pnpMPA a=1.4p p=5.4u\n.ends coupon\n",
+            "top": "coupon",
+            "ports": [
+              "C",
+              "B",
+              "E"
+            ],
+            "sha256": "e39ac6874e6c2168805654c3f455ef26e88fd89deeb6766ec6f4327bd4cf5875"
+          },
+          "lvs_extractor": "ihp-klayout",
+          "drc_engine": "magic"
+        },
+        {
+          "type": "silicon",
+          "verification_mode": "drc_lvs",
+          "reference": {
+            "text": ".subckt coupon C B E\nX1 C B E pnpMPA a=1.4p p=5.4u\n.ends coupon\n",
+            "top": "coupon",
+            "ports": [
+              "C",
+              "B",
+              "E"
+            ],
+            "sha256": "e39ac6874e6c2168805654c3f455ef26e88fd89deeb6766ec6f4327bd4cf5875"
+          },
+          "lvs_extractor": "ihp-klayout",
+          "drc_engine": "ihp-public"
+        },
+        {
+          "type": "silicon",
+          "verification_mode": "drc_lvs",
+          "reference": {
+            "text": ".subckt coupon C B E\nX1 C B E pnpMPA a=1.4p p=5.4u\n.ends coupon\n",
+            "top": "coupon",
+            "ports": [
+              "C",
+              "B",
+              "E"
+            ],
+            "sha256": "e39ac6874e6c2168805654c3f455ef26e88fd89deeb6766ec6f4327bd4cf5875"
+          },
+          "lvs_extractor": "magic",
+          "drc_engine": "magic"
+        }
+      ]
+    }
+  },
+  "tests": {
+    "full_Windows": {
+      "status": "PASS",
+      "discovered": 3175,
+      "platform_skips": 63,
+      "seconds": 1132.951,
+      "log_sha256": "baf65c5e4e8e3e6caa431facd2da47c01797a83059c1d1fdd296a322976f1cf3",
+      "log": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-public-varactors-2026-10-20-v1/full-Windows-final.log"
+    },
+    "focused_Linux": {
+      "status": "PASS",
+      "tests": 61,
+      "log_sha256": "875234b1f712a3e322197f75aa06787f61c0d30e09224c4a2c90c9f491b53c61"
+    },
+    "earlier_failure": "The first full Windows suite discovered 3173 tests with 63 skips and one source-bound acceptance failure after changing the shared report parser. That shared file was restored byte-for-byte; the new IHP reader registers geometry types itself. The fresh full suite above verifies the final code."
+  },
+  "hosted_checks": {
+    "baseline": "13a4db0254b48714fed9a362169e1244902b85e0",
+    "passed": [
+      "External tool interoperability",
+      "IHP coil physical qualification",
+      "VGA",
+      "Statistical",
+      "Pinned SKY130 physical qualification",
+      "Reference design compatibility",
+      "Digital flow"
+    ],
+    "desktop_run": 39293684984,
+    "windows_job": 118218758592,
+    "failure": "Frozen Windows digital setup reached IHP after completing SKY130 and GF180 C/D, then hit the 3600-second deadline. The same source installation earlier took 65 minutes.",
+    "correction": "Allow setup 5400 seconds and its CI step 95 minutes. All acceptance designs, timing corners and fault checks remain mandatory.",
+    "current_changes": "Hosted acceptance pending; local source evidence is not installed-release acceptance."
+  },
+  "retained_failures": [
+    "Initial native oxide false pass",
+    "Initial unrelated-NPN-diffusion false pass",
+    "Lost original emitter annotation and nSDB.e findings",
+    "First Windows edge-pair reader failure",
+    "First full Windows source-bound gate failure",
+    "Hosted Windows setup deadline",
+    "Original Magic large-varactor seventeen findings"
+  ],
+  "evidence_archive": {
+    "path": "IC-Design-Studio-evidence/ihp-public-varactors-2026-10-20-v1/evidence.zip",
+    "sha256": "de035e6be3d8266177a984f2fab53d900d35c41c1d5c5d31c99b7a172d961139",
+    "bytes": 165923630,
+    "files": 120659,
+    "unique_contents": 21611,
+    "all_objects_verified": true
+  },
+  "restore_replay": {
+    "status": "PASS",
+    "archive_sha256": "de035e6be3d8266177a984f2fab53d900d35c41c1d5c5d31c99b7a172d961139",
+    "checks": [
+      {
+        "name": "restore",
+        "exit_code": 0,
+        "log_sha256": "963e57950baa799908e91fe632a292e6cd1f5b1993afa0867ae6abd0792e3fbd"
+      },
+      {
+        "name": "units",
+        "exit_code": 0,
+        "log_sha256": "37e677034f349d036a196a35cff526f8323652a02a4aacf55f42318ccbd1f66c"
+      }
+    ],
+    "cases": [
+      {
+        "name": "large",
+        "status": "PASS",
+        "native_status": "passed",
+        "drc_count": 0
+      },
+      {
+        "name": "contact",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 11
+      },
+      {
+        "name": "oxide",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 2
+      },
+      {
+        "name": "oxide-gap",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 2
+      },
+      {
+        "name": "old-magic",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 17
+      },
+      {
+        "name": "npn-None",
+        "status": "PASS",
+        "native_status": "passed",
+        "drc_count": 0
+      },
+      {
+        "name": "npn-unrelated-diffusion",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 1
+      },
+      {
+        "name": "npn-unrelated-well",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 7
+      },
+      {
+        "name": "npn-missing-original-E",
+        "status": "PASS",
+        "native_status": "failed",
+        "drc_count": 2
+      }
+    ],
+    "replay_archive": {
+      "path": "IC-Design-Studio-evidence/ihp-public-varactors-2026-10-20-v1/restore-replay.zip",
+      "sha256": "1be50099cb1cc4ab604c96e6cce17c6b918ede96c7ea45f6d20a5bd294c8338d",
+      "bytes": 1523690,
+      "files": 1561,
+      "all_objects_verified": true
+    }
+  },
+  "remaining": [
+    "Complete upstream process and tool-view inventory",
+    "All required currently unavailable devices and public electrical models",
+    "Device-specific operating envelopes and remaining physical/extracted cases",
+    "Mixed-device layouts",
+    "Exact installed Windows/Linux release acceptance",
+    "Complete-chip and foundry qualification"
+  ]
+}

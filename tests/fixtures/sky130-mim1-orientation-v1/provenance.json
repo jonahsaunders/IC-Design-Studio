@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "source_commit": "1461c4a8ec66a8a133096300d0ba39d7e6d2e11f",
+  "scope": "Unmodified native first-MiM failure probe; 0 degrees passes, 90 degrees fails strict LVS before the orientation correction.",
+  "engine_sha256": {
+    "magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+    "netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+  },
+  "cases": [
+    {
+      "name": "0",
+      "angle": 0,
+      "coordinate_nm": 10,
+      "dimensions_um": [
+        2,
+        10
+      ],
+      "files": {
+        "layout.gds": "129fc0f4cf4659d0cdfa45c9e86499baf2084770d042c5737f391d0f2e6812fa",
+        "device_coupon.ext": "e7760523557cece382a49b4956bcce6b3f8fb93ed80c890b5d96b028f4d66a3e",
+        "console.log": "2b81fa218ac401648e091a52d7bd4e21c77f00063f419f7fc0442c3e1f817a0d",
+        "lvs.log": "8f16b3309340e045555333a6c82681bd1e4a07e9e0a88ca6f6a8651b1cdbaf46"
+      }
+    },
+    {
+      "name": "90",
+      "angle": 90,
+      "coordinate_nm": 10,
+      "dimensions_um": [
+        2,
+        10
+      ],
+      "files": {
+        "layout.gds": "69496708abfa2f9427b78bf25eba8139d61831cba7ec91c53275ba3f7f4c224d",
+        "device_coupon.ext": "fae1c4a112e9b8ee34cffb9a69ff1b7e03433b8f270eddc001a364d8d5d30d06",
+        "console.log": "2b81fa218ac401648e091a52d7bd4e21c77f00063f419f7fc0442c3e1f817a0d",
+        "lvs.log": "aa677797c791c30560d936c602982cab0ef1427e963d43e66ede7cd3242db114"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/google/skywater-pdk",
+  "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+  "license": "Apache-2.0",
+  "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "files": {
+    "cap_mim-table0.rst": {
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/device-details/cap_mim/cap_mim-table0.rst",
+      "upstream_path": "docs/rules/device-details/cap_mim/cap_mim-table0.rst",
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "sha256": "4dcab6b9d0fc9c843828d7c9363603de497edd82589d1a8297e0ea24a32bf37f",
+      "bytes": 750
+    },
+    "periphery-rules.rst": {
+      "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery-rules.rst",
+      "upstream_path": "docs/rules/periphery-rules.rst",
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "sha256": "a4fec57aa417caa1b52d67b684a6b17dfc1ed0b69724ffe121de421bd938d44e",
+      "bytes": 109085
+    }
+  }
+}

@@ -21,7 +21,8 @@
 * 		vary sky130_fd_pr__res_high_po__var       dist=gauss std=0.025
 *         }
 * }
-.subckt  sky130_fd_pr__res_xhigh_po r0 r1 sub
+* IC Design Studio modification: explicitly propagate the parallel M factor.
+.subckt  sky130_fd_pr__res_xhigh_po r0 r1 sub m=1
 + w=1 l=1
 .param  mult = 1.0
 + rsheet = 2000.0
@@ -46,17 +47,17 @@
 + rhead = {rhead0*(1+sky130_fd_pr__res_xhigh_po__var_mult)*(1+rend_mm/sqrt(mult)*sky130_fd_pr__res_high_po__con_slope_spectre)}
 + rbody = {rbody0*(1+sky130_fd_pr__res_xhigh_po__var_mult)*(1+res_match)}
 + Efac = {1/leff*(1+bp22/w+bp23*min(0.2,leff-0.5)*log(leff/w))}
-rend1 r0 t1 reshead r = {rhead}
+rend1 r0 t1 reshead r = {rhead} m={m}
 + tc1 = -4.3e-4
 + tc2 = -1.3e-5
 *+ tnom = 25.0
-rend2 t2 r1 reshead r = {rhead}
+rend2 t2 r1 reshead r = {rhead} m={m}
 + tc1 = -4.3e-4
 + tc2 = -1.3e-5
 *+ tnom = 25.0
-xc0 r0 r1 sub sky130_fd_pr__model__parasitic__res_po w = {w} l = {l}
+xc0 r0 r1 sub sky130_fd_pr__model__parasitic__res_po w = {w} l = {l} m={m}
 rbody t1 t2 r = {rbody*(1-bp2+bp2*sqrt(1+(bq2*abs(v(t1,t2))*Efac)**2))*
-+ (sub1+sub2*tanh(sub3*(min(v(r0,sub)+v(r1,sub),sub4)+sub5))) / (sub1+sub2*tanh(sub3*sub5)) }
++ (sub1+sub2*tanh(sub3*(min(v(r0,sub)+v(r1,sub),sub4)+sub5))) / (sub1+sub2*tanh(sub3*sub5)) } m={m}
 + tc1 = -1.47e-3
 + tc2 = 2.7e-6
 *+ tnom = 25.0

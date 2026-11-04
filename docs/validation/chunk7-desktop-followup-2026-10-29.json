@@ -1,0 +1,49 @@
+{
+  "candidate": "f67b8ff6377c96816392a0a91bcc2063fddd54ab",
+  "run_id": 40931627021,
+  "conclusion": "failure",
+  "status": "completed",
+  "linux_package": "success",
+  "windows_package": "failure",
+  "installed_acceptance": "skipped",
+  "failure": "qualify_sky130_rf_default.py imported historical RF identity while bundled ESD successor is current.",
+  "archive_sha256": "ed1c7938d04da37fc25efc030852ab085f6d3c296d179eddad65db686b09fa62",
+  "reports": {
+    "windows-rf-branches/report.json": {
+      "status": "PASS",
+      "sha256": "b3a457b569e688994b3e10c302959b614dbc2bca257d65960c2bf0106411a63e"
+    },
+    "windows-rf-bias/report.json": {
+      "status": "PASS",
+      "sha256": "6e59dbd6e868c770b09df887de1106119582b426f925251267bf60f317a00bba"
+    },
+    "windows-rf-transient/report.json": {
+      "status": "PASS",
+      "sha256": "48cfdc0041118d6b739439dd81ee0194f413c2ae582c826ff7173d20aa727cc3"
+    },
+    "windows-rf-application/report.json": {
+      "status": "PASS",
+      "sha256": "8e07600de3fca98aba2b89e04141ba561fc8355f7ac381e468ced25f71ba5a56"
+    }
+  },
+  "job_log_sha256": "41a1d43c600000a51a313e762b3bec3d4e0ba04e39ba0a5eaa9da2ebfb152d29",
+  "qualified": false,
+  "chunk_complete": false,
+  "date": "2026-10-29",
+  "chunk": 7,
+  "evidence_archive": "chunk7-f67b8ff-desktop-2026-10-29-v1/Windows.zip",
+  "current_repair": "Exact current RF default selector and Project Hub queued-completion lifecycle; 24 focused tests and actual Hub GUI pass on both hosts. Full current-default Windows RF regression is running.",
+  "additional_blockers": [
+    "Installed MiM contract/source map still bind predecessor840f while the current package is125c; additive exact-current identity repair in preparation.",
+    "Linux bundled820658 simulator fails selected RF geometry/history guard; retained corrected47 passes native analytical RF and capacitor preflight. Packaging/profile migration and unchanged installed gates remain required."
+  ],
+  "estimate": {
+    "percent": 70,
+    "range_percent": [
+      55,
+      80
+    ],
+    "confidence": "low",
+    "kind": "engineering estimate, not acceptance"
+  }
+}

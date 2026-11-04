@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "date": "2026-10-29",
+  "status": "SOURCE_REPAIR_VERIFIED_INSTALLED_PENDING",
+  "scope": "Bounded two-worker scheduling of the unchanged 225-check frozen IHP reader; source evidence does not replace installed acceptance.",
+  "historical_failure": {
+    "schema": 1,
+    "candidate": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+    "workflow_run": 40730809639,
+    "job": 123078037409,
+    "artifact": 12859634679,
+    "artifact_sha256": "693dd237c9d574ecf3e6022497c9192ece0e5af2d36c48c19a8c7c398c871879",
+    "failure": {
+      "schema": 1,
+      "status": "FAIL",
+      "scope": "Frozen IHP Qt lifecycle for60 finite straight resistor layouts and165 actual-geometry/reference controls through the shipped managed backend; no electrical/operating-envelope/full-family/manufacturing qualification.",
+      "qualified": false,
+      "release_ready": false,
+      "full_family": false,
+      "installed_acceptance": false,
+      "expected_commit": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+      "execution_id": "fc40653765a64c1e960fb1775d3576a6",
+      "error": "Parent control deadline exceeded.",
+      "seconds": 3607.063,
+      "files_sha256": "6a1b628c732abbeb0b25055f7ac4dea77e2dda4f1222ae9fbe12f52b8eb60025"
+    },
+    "gui_status": "passed",
+    "gui_seconds": 167.6869999999999,
+    "worker_invocations": 198,
+    "worker_statuses": {
+      "complete": 198
+    },
+    "worker_returncodes": {
+      "0": 198
+    },
+    "worker_seconds": {
+      "sum": 3027.828000000005,
+      "mean": 15.29206060606063,
+      "minimum": 14.265999999999622,
+      "maximum": 51.28100000000086
+    },
+    "progress_jobs": 195,
+    "last_actual_worker": "windows-evidence/ihp-resistors/native/rhigh-g3-v0-r0/body-open/invocation.json",
+    "retained_ihp_members": 7566,
+    "retained_ihp_bytes": 508776070,
+    "scope": "Actual historical failed installed run; full225 fresh acceptance remains required."
+  },
+  "repair": {
+    "reader_sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f",
+    "workers": 2,
+    "per_job_deadline_seconds": 300,
+    "parent_deadline_seconds": 3600,
+    "geometry_and_audit": "serial parent",
+    "cancellation": "Stop new launches, retain cancellation markers, reap launched workers and verify termination before final inventory."
+  },
+  "source_experiment": {
+    "status": "PASS",
+    "gate": "ihp-source-native225-bounded-scheduler",
+    "installed_acceptance": false,
+    "managed_host_dispatch_exercised": false,
+    "frozen_executable_exercised": false,
+    "full_runtime_identity_cost_measured": false,
+    "qualified": false,
+    "release_ready": false,
+    "full_family": false,
+    "uid": 1000,
+    "fresh_native_jobs": 225,
+    "positive_layouts": 60,
+    "controls": 165,
+    "maximum_simultaneous_workers": 2,
+    "seconds": 122.80042734300002,
+    "source_bindings_sha256": "d307d3c15b5c319fab30dbafc06012fd787745567276b895052f4135d854263f",
+    "reader_sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f",
+    "original_source_gui_report_sha256": "de50107858bffba40d1819fab88b797132a4c569ac395ddc5ee0f110d1fc3395"
+  },
+  "native_archive": {
+    "status": "PASS",
+    "archive": "/var/tmp/chunk7-native225-parallel-20261029-v1/source-native225-parallel-evidence.zip",
+    "archive_sha256": "2c4da077940787d281b9f9954acc1edac44f62ae74ac90d286e2b84a7b3ecea7",
+    "archive_bytes": 39372478,
+    "manifest_sha256": "c62081635a6585c5835f4befd906c852e6bb78bec3cba5d6e637c4798f13778b",
+    "logical_files": 159025,
+    "unique_objects": 5186,
+    "logical_bytes": 2657172055,
+    "all_objects_verified": true,
+    "seconds": 7.362222983000038
+  },
+  "retention_path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-ihp-scheduler-2026-10-29-v1",
+  "regression_tests_per_host": 14,
+  "independent_review": "Astra Linux scheduling regressions and final integration review passed.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false
+}

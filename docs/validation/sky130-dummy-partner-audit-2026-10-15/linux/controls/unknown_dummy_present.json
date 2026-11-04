@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "recipe": "sky130-dummy-known-partners-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/layers/table-c3-device-lvs-other.csv": "e56b7c0570f4ce5e4c0a002ddd0cc82f4c0e0d12d98a7634d419e0abd6a1fd98",
+      "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+      "docs/rules/periphery/p018-x_dotdash.csv": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+      "docs/rules/periphery/p043-nsm_dotdash.csv": "232fb1afb91d400f6bbaea0ee52b39a22e831e0668b87b439edef759d1c6942c"
+    }
+  },
+  "scope": "Five dummy-FOM spacing/overlap records have independently defined seal, fuse or die-cut partners. All raw data on a partner must be absent throughout the reachable hierarchy. The fuse census includes the published metal4 fuse and target, installed metal3/5 fuse aliases and a conservative metal2 guard. No raw purpose is asserted for fomDummyDRC, and its absence is not inferred from drawn dummy or native waffle data. Any present partner, including text or unsupported geometry, leaves its records unreviewed. Missing enclosing regions, required markers, chip context and all other dummy-FOM obligations remain separate. This is an empty operand proof, not numerical verification of nonempty dummy fill.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "control",
+  "gds_sha256": "3bd503d9670938a97f1f73610a7ac3038af21333637524d2266cc99b15a61549",
+  "measurements": {
+    "seal": {
+      "raw_shapes": 0,
+      "texts": 0
+    },
+    "diecut": {
+      "raw_shapes": 0,
+      "texts": 0
+    },
+    "fuse_m2_guard": {
+      "raw_shapes": 0,
+      "texts": 0
+    },
+    "fuse_m3": {
+      "raw_shapes": 0,
+      "texts": 0
+    },
+    "fuse_m4": {
+      "raw_shapes": 0,
+      "texts": 0
+    },
+    "fuse_m5": {
+      "raw_shapes": 0,
+      "texts": 0
+    },
+    "fuse_target": {
+      "raw_shapes": 0,
+      "texts": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "r1259",
+      "rule": "fomdmy.4",
+      "operation": "spacing",
+      "partner": "SEALID",
+      "limit_nm": 1000,
+      "witnesses": {
+        "seal": 0
+      },
+      "disposition": "absent-operand",
+      "reason": "empty-known-partner"
+    },
+    {
+      "id": "r1260",
+      "rule": "fomdmy.4",
+      "operation": "overlap",
+      "partner": "SEALID",
+      "witnesses": {
+        "seal": 0
+      },
+      "disposition": "absent-operand",
+      "reason": "empty-known-partner"
+    },
+    {
+      "id": "r1261",
+      "rule": "fomdmy.6",
+      "operation": "spacing",
+      "partner": "fuse",
+      "limit_nm": 3250,
+      "witnesses": {
+        "fuse_m2_guard": 0,
+        "fuse_m3": 0,
+        "fuse_m4": 0,
+        "fuse_m5": 0,
+        "fuse_target": 0
+      },
+      "disposition": "absent-operand",
+      "reason": "empty-known-partner"
+    },
+    {
+      "id": "r1262",
+      "rule": "fomdmy.6",
+      "operation": "overlap",
+      "partner": "fuse",
+      "witnesses": {
+        "fuse_m2_guard": 0,
+        "fuse_m3": 0,
+        "fuse_m4": 0,
+        "fuse_m5": 0,
+        "fuse_target": 0
+      },
+      "disposition": "absent-operand",
+      "reason": "empty-known-partner"
+    },
+    {
+      "id": "r1272",
+      "rule": "fomdmy.13",
+      "operation": "spacing",
+      "partner": "dieCut",
+      "limit_nm": 500,
+      "witnesses": {
+        "diecut": 0
+      },
+      "disposition": "absent-operand",
+      "reason": "empty-known-partner"
+    }
+  ],
+  "unreviewed": 0,
+  "status": "dummy-partner-absence-reviewed"
+}

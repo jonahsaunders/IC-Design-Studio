@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "status": "two-complete-configured-finishes-and-macros-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T17:22:55.866748+00:00",
+  "cases": [
+    {
+      "variant": "C",
+      "result": {
+        "path": "outputs/gf180-configured-counter-finish-native-v2/result.json",
+        "sha256": "0c699b83d9804c8a0c8c198f0714637142375e69b78fe068c6374daebc808d8b"
+      },
+      "macro": {
+        "path": "outputs/gf180-configured-counter-finish-native-v2/macro.zip",
+        "sha256": "2a658807921c96de4ca310c3cf6832a24ea055c57e22114ce081344defbac82c"
+      },
+      "audit": {
+        "path": "outputs/gf180-configured-c-macro-audit-v2/record.json",
+        "sha256": "d7fc0a46cb545831a0e3e6cf3e26af390d9df60984cbf590119d37218cbff9ec"
+      },
+      "backend": "719a8abfbe6b3b6dda4eed20751de3ee230253bbcfb22b139a6316acc87b8cac",
+      "native_files": 1375,
+      "artifacts": 206,
+      "placed_cells": 801,
+      "native_passed": true,
+      "metal_passed": true,
+      "router": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      }
+    },
+    {
+      "variant": "D",
+      "result": {
+        "path": "outputs/gf180-configured-d-counter-finish-native-v2/result.json",
+        "sha256": "16c54a7022da9c1cc50d6e5693d9b79da80511df3fcbd1aafb38b590edb160cb"
+      },
+      "macro": {
+        "path": "outputs/gf180-configured-d-counter-finish-native-v2/macro.zip",
+        "sha256": "e5da67052814b0f871d11124948ffb484bd8d47c131c93bd5af3b8d0d5bfbeb0"
+      },
+      "audit": {
+        "path": "outputs/gf180-configured-d-macro-audit-v2/record.json",
+        "sha256": "86dd77850b1f6a542eb1506cf10d0ec1371c284efd9e94d5d6474b4876d7b689"
+      },
+      "backend": "719a8abfbe6b3b6dda4eed20751de3ee230253bbcfb22b139a6316acc87b8cac",
+      "native_files": 1375,
+      "artifacts": 206,
+      "placed_cells": 801,
+      "native_passed": true,
+      "metal_passed": true,
+      "router": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      }
+    }
+  ],
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/gf180-configured-finishes-2026-10-09-v2/evidence.tar.gz",
+    "sha256": "3697fe397d7e5765d2d0e384823a0c7c2160a1451b3027cda01e38d5e99ae994",
+    "bytes": 24731944,
+    "logical_files": 3562,
+    "unique_objects": 324,
+    "verified": true
+  },
+  "dependencies": {
+    "profile-dependency": {
+      "directory": "gf180-connectivity-profile-2026-10-09-v1",
+      "archive": "evidence.tar.gz",
+      "sha256": "7b560397c907182515e48de8fbd0aa379b7d4b22a13ac7112963552b763efc19",
+      "bytes": 93882529
+    }
+  },
+  "windows_reopen": {
+    "path": "outputs/gf180-current-finish-windows-reopen-v1/record.json",
+    "sha256": "2b14babd70a6ad750c81bbefa64b4447334dccd59ab92623048a42a8ae743284"
+  },
+  "scope": "Fresh C/D counter synthesis, complete physical finish, combined native and written-metal checks, and actual macro export with independently audited payloads. Complete jobs except scratch are retained, with every result artifact verified. Existing profile archive supplies identical source objects; both archives are required for reconstruction.",
+  "remaining": [
+    "Current full-suite acceptance is recorded separately in the combined checkpoint.",
+    "Runtime bundling and actual installed acceptance.",
+    "Complete fill coverage, full before/filled RC and timing, and remaining qualification chunks."
+  ]
+}

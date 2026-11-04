@@ -1,0 +1,187 @@
+{
+  "status": "PASS",
+  "scope": "Implemented bounded frozen-app GUI/queued-native subgate; executed source Qt/custom native bring-up only, not installed acceptance.",
+  "installed_acceptance_executed": false,
+  "full_mim_installed": false,
+  "qualified": false,
+  "release_ready": false,
+  "source_files_sha256": {
+    "icstudio/mim_desktop_probe.py": "c000c1e92a4d38561ee7479765b163769c685fbfef5e9f00f99d1cb1b0ceb0d9",
+    "icstudio/__main__.py": "1bdbf33c2470e9abec62fd51e4ab87e15ed4d9cd1bb60b5c0b0f007a45d83332",
+    "tests/test_mim_desktop_probe.py": "c98e20761541448be97733d9a77840603836f7d4361da0995d5e67058d644993"
+  },
+  "native": {
+    "status": "PASS",
+    "returncode": 0,
+    "argv": [
+      "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+      "-B",
+      "-X",
+      "pycache_prefix=/var/tmp/icstudio-mim-installed-probe-20261023-v1/unused-pycache",
+      "/var/tmp/icstudio-mim-installed-probe-20261023-v1/source-v2/main.py",
+      "--mim-acceptance",
+      "--mode",
+      "physical",
+      "--out",
+      "/var/tmp/icstudio-mim-installed-probe-20261023-v1/source-physical-v2",
+      "--execution-id",
+      "d0c66fc9b5cc46acaf5dbd8ebc9b203f",
+      "--physical-pdk",
+      "/var/tmp/icstudio-mim-installed-probe-20261023-v1/physical-adapter",
+      "--magic",
+      "/opt/icstudio/bin/magic",
+      "--netgen",
+      "/opt/icstudio/bin/netgen"
+    ],
+    "elapsed_seconds": 17.2928286009992,
+    "source_manifest_sha256": "2a135c2fabfcba43a6a156dc64ef771b00240732f6546e7e383e7c46303f12b3",
+    "source_unchanged": true,
+    "scope": "Source Qt plus ordinary Linux custom native engine bring-up; not installed/frozen acceptance.",
+    "original_source_zip_sha256": "5fa48ecc67f24c2db23883ab588a31d39cea2ae91d5bdee06f6369b0a1ceb931",
+    "changed_sources": {
+      "icstudio/mim_desktop_probe.py": "c000c1e92a4d38561ee7479765b163769c685fbfef5e9f00f99d1cb1b0ceb0d9"
+    },
+    "tool_sha256": {
+      "magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+      "netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+    },
+    "report_sha256": "45252f81b0fb011c0c23e365e3b8da5818417f1f2165ea908c8642aec28a666c",
+    "files_sha256": "ea3e26d5d09c0124aaebae8c670fe6b4214edced5ffbf98288a47f38c5a34e9c"
+  },
+  "counts": {
+    "lifecycle_cases": 4,
+    "historical_current_bindings": 3,
+    "clean_native_layouts": 4,
+    "queued_jobs": 7,
+    "native_executions": 6,
+    "corruption_controls_rejected": 10
+  },
+  "tests": {
+    "Windows": {
+      "tests": 5,
+      "passed": 5,
+      "seconds": 21.948,
+      "log": "Windows-focused-v3.log",
+      "scope": "Before final test-only GIT environment cleanup; parent combined feedback covers exact final sources."
+    },
+    "final_boundary": {
+      "tests": 4,
+      "passed": 4,
+      "log": "Windows-boundaries-final.log"
+    }
+  },
+  "earlier_attempts": [
+    {
+      "path": "source-physical-v1-summary.json",
+      "status": "FAIL",
+      "reason": "read_layout received a string instead of Path; failed before native execution; exact failed source and report retained."
+    },
+    {
+      "path": "Windows-focused-v1.log",
+      "status": "FAIL",
+      "reason": "Sandbox temp ACL and invalid 33-character test nonce; retained."
+    },
+    {
+      "path": "Windows-focused-v2.log",
+      "status": "FAIL",
+      "reason": "Test-only KLayout lazy Region lifetime; fixed oracle retaining Layout ownership; retained."
+    }
+  ],
+  "schema": 1,
+  "date": "2026-10-23",
+  "source_baseline": "c61eeaa3a416800cbd83c03a0409c475d638573a",
+  "source_note": "Baseline plus the explicit new source hashes; not execution of the unchanged baseline commit.",
+  "summary_sha256": "6e11fc97e39bafeeeb64e68185a7a378b571e59e2a8ac577679c50dab5dce6c3",
+  "chunk_complete": false,
+  "independent": {
+    "sha256": "6584524697643216c878f5bd41d487971171460c041c194f1aaf3824208ebf63",
+    "originals_unchanged": true,
+    "source_rejected_by_installed_header": true
+  },
+  "checker_review": {
+    "status": "PASS",
+    "installed_acceptance_executed": false,
+    "full_mim_installed": false,
+    "scope": "Implementation and focused validation of a bounded installed GUI/queued-layout checker; actual native readback is source/custom-engine only.",
+    "source_files_sha256": {
+      "scripts/verify_frozen_mim.py": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57",
+      "tests/test_frozen_mim.py": "31d6b1114bc3670b6831b222cc2f89f70152092fa2039288274bc7d00677eaee",
+      "scripts/audit_sky130_mim_physical_case.py": "61b3fb6f57b2ff0fe12551bae36fe2d6f6bbb59fea166fad6c56d0521d99cd51",
+      "scripts/audit_sky130_mim_orientation.py": "f24bcdbf1f955ac100f1fce7eececac4400b217232bbd0fd2857401fcaba9c9f"
+    },
+    "tests": {
+      "Windows": {
+        "tests": 21,
+        "passed": 20,
+        "skipped": 1,
+        "seconds": 0.215
+      },
+      "Linux": {
+        "tests": 21,
+        "passed": 21,
+        "skipped": 0,
+        "seconds": 0.03
+      }
+    },
+    "source_native_review_sha256": "cf1b587ff7471a1f49d9c5f76f09c335137969274e9b031acd8e55f458e8d2c8",
+    "actual_native_jobs_read": 6,
+    "lifecycle_cases": 4,
+    "binding_lifecycle_cases": 3,
+    "actual_rehashed_semantic_controls_rejected": 10,
+    "installed_header_rejected_source": true,
+    "originals_unchanged": true,
+    "earlier_failures": [
+      "First sandbox unit invocation failed to create its own temp subdirectories (WinError5); ordinary user retry passed, no administrator access.",
+      "A new test assumed lowercase ordinary environment variable keys on Windows; corrected test lookup, retained windows-focused-v2.log."
+    ],
+    "logs_sha256": {
+      "linux-focused-final.log": "1ba97cfa7ef25594df65e5f1a9494af397d7c3b5f31805f4c4af30b31f9c036f",
+      "linux-focused-v1.log": "6649f9bc01b79215f4b15e067aff6d1960a44d5cde7206fe894a2d6ba67f0fc7",
+      "source-readback-v1.log": "685db6d0fee81c467c71ab7b7650d2b06ac17a949cdbecaa57f2c2aa2ba43695",
+      "windows-focused-final.log": "8daa178282b6968be9c8a8effad93f27803e7e2c76d5c19a14222123f1066e45",
+      "windows-focused-v2.log": "72e4f7f7650284cf74455b9ca95aa6518a9dd9a05bc0ca080222a0fd3e223f01",
+      "windows-focused-v3.log": "6995259e76ab1293739c4ace3dd2bc68eb9a64e6c4a146dac84a07138bc7bcfe",
+      "windows-focused.log": "463ea211b94382d4ebff11640351c6975dd692fd7f169e6ecd6c47830a57d18a"
+    },
+    "limits": [
+      "No frozen/per-user installed acceptance yet.",
+      "Managed transfer envelope awaits the actual installed run; source native checks do not fake it.",
+      "No public KLayout or sixty-context electrical gate in this bounded subgate.",
+      "Evidence checks reject substitutions/corruption, not an adversary fabricating all native output."
+    ]
+  },
+  "archive": {
+    "status": "PASS",
+    "sha256": "f87b12919d6a4abdc713dd77e2a96a5f574a1b1b9fe4100b4b7bd8c6e9d60c7f",
+    "archive_bytes": 4175705,
+    "manifest_sha256": "6dd47484e16108273b6e40a87793662df93aa9618b9a5d356a8b36b56bc828bd",
+    "files": 15290,
+    "unique_recovery_objects": 4526,
+    "new_objects": 292,
+    "logical_bytes": 915810167,
+    "all_recovery_verified": true,
+    "source_zip": {
+      "sha256": "5fa48ecc67f24c2db23883ab588a31d39cea2ae91d5bdee06f6369b0a1ceb931",
+      "bytes": 68649906,
+      "all_members_recoverable_as": "native/source-v1/"
+    },
+    "cleanup_performed": false
+  },
+  "prior_archives": {
+    "passive": {
+      "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+    },
+    "li": {
+      "sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49"
+    }
+  },
+  "estimate": {
+    "chunk": 7,
+    "percent": 60,
+    "confidence": "low",
+    "range_percent": [
+      50,
+      70
+    ]
+  }
+}

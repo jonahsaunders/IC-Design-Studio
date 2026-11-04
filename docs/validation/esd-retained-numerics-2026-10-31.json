@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "status": "PASS_ALL_RETAINED_NUMERICS",
+  "original_failed_run": 41096461030,
+  "original_failed_commit": "f633d2c875669634173936e57285860b62ff08c9",
+  "scope": "All 19 retained conditions per host from original failed jobs; receipt-bound numerical diagnostics only. No solver rerun, staged-model/runtime revalidation, full installed recovery, or fresh installed acceptance. Original jobs remain failed.",
+  "conditions_per_host": 19,
+  "hosts": 2,
+  "native_executions": 196,
+  "healthy_maximum_normalized_error": 0.0,
+  "fault_role_comparisons": 120,
+  "fault_device_instances": 720,
+  "minimum_fault_normalized_error": 433083.3384893274,
+  "raw_and_log_bytes": 14411442,
+  "all_selected_raw_log_deck_receipt_bytes": 15273965,
+  "authenticated_range_transfer_bytes": 34001929,
+  "additional_expanded_bytes": 14261047,
+  "solver_reruns": 0,
+  "staged_model_copies": 0,
+  "private_controls": {
+    "single_current": {
+      "fully_rehashed": true,
+      "receipt_and_raw_validation_passed": true,
+      "numerical_comparison_rejected": true,
+      "current_balance_rejected": true
+    },
+    "equal_opposite_drain_body_current": {
+      "fully_rehashed": true,
+      "receipt_and_raw_validation_passed": true,
+      "current_balance_passed": true,
+      "numerical_comparison_rejected": true
+    }
+  },
+  "tooling_failure_retained_separately": true,
+  "original_jobs_remain_failed": true,
+  "canonical_verification": "Every archive member length, ZIP CRC and SHA-256 checked against the sealed manifest; all 784 original member hashes equal the independently replayed retained files.",
+  "full_restored_installed_reader_replay": false,
+  "archive": "IC-Design-Studio-evidence/esd-retained-numerics-2026-10-31-v1/retained-numerics-v1.zip",
+  "archive_sha256": "d459a68a43364140668061b1080903c1ee6cd705e9ebe52a1cb9a2050d5c5b31",
+  "archive_bytes": 2317294,
+  "required_dependency": "IC-Design-Studio-evidence/esd-installed-header-repair-2026-10-31-v1/source-repair-evidence-v1.zip",
+  "required_dependency_sha256": "fa87ebbb67c7c7733a0af2be0f1f7869c57eaa77b87945c42183388b161b6067",
+  "reader_sha256": "4f721b245fc2b6b8dfe10bb748bbd32a2a85cc2bcbddad4e3766598aa4105ec8",
+  "installed_reader_sha256": "1a1888f781b4d17d583b4ee72fa888a9c9ee9e6862f7f249bd66be7ae4a23131",
+  "helper_sha256": "bde69b2710f2bf56eafe42ca55c285bc30b489f136cc949471e15238b6123a72",
+  "result_sha256": "c9e616398baea157a005aeea5cf4975d926d4a97eb0599bff58548273dde2b35",
+  "independent_review_sha256": "eaa3eb3e041d8aea28b70056e345eeb5e1ea779a408c3298062885bf0472f623",
+  "full_hosted_artifact_digest_verified": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "conditions": 38,
+  "retained_original_members": 784,
+  "archive_zip_members": 820,
+  "healthy_independent_current_comparisons_per_host": 19,
+  "artifact_ids": {
+    "Linux": 13012309468,
+    "Windows": 13019951368
+  }
+}

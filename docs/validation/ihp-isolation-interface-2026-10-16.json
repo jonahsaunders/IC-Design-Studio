@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Exact public IHP isolbox terminal binding, mathematical geometry domain and selected DC integration. Separate installable package and fresh stock imports; saved or bundled revisions are not rewritten.",
+  "source_baseline": "fc80a50",
+  "reports": {
+    "isolation": {
+      "status": "PASS",
+      "cases": 9,
+      "report_sha256": "95a66a7cee27d4cdcd91c9de778510e665e1301af5d7e9c57f75490e97683f8b",
+      "terminal_vectors": 54,
+      "current_samples": 5454,
+      "faulted_device_instances": 36
+    },
+    "diodes": {
+      "status": "PASS",
+      "cases": 36,
+      "report_sha256": "cdc549b8dbba9b0343d4fa6f957614749acacf8e937ec8fdca11cf886650d158",
+      "terminal_vectors": 990,
+      "current_samples": 44046,
+      "faulted_device_instances": 900
+    }
+  },
+  "package": {
+    "revision": "29104588b71012e8",
+    "manifest_sha256": "bb6d016214af50c68f3c134d0e88b1d028f34ff4d149deaff910519f9a1a3913",
+    "source_assets_unchanged": true,
+    "source_manifest_sha256": "63616ff9b0af1ec391e325d8f5a44ec7a5a45b420ce9a1e0946fbb14b028057c"
+  },
+  "engine_dependency": {
+    "record": "docs/validation/runtime-device-regression-2026-10-16.json",
+    "sha256": "9a290fd4758bb2c42fa244ed97503f12b4ff9f6d64322a6c37fb7cc5b0261541",
+    "archive_sha256": "43c8ef40b04230eb59dd535458d88d3e9fa35ccccdbdba5b4be2b0885302a97f"
+  },
+  "focused_tests": {
+    "Windows": 11,
+    "Linux": 11
+  },
+  "raw_audit": {
+    "status": "PASS",
+    "responses": 180,
+    "sha256": "d1a4d9dc5ae5e635ef6ac6f90b2f6606fc29392d4b512c848fbb4e34239043c1"
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-isolation-interface-2026-10-16/evidence.zip",
+    "sha256": "eee382bd490b8f4496ab2cbe846c62159849690c57f85167abcd60df3bb52f79",
+    "bytes": 65847034,
+    "file_paths": 17872,
+    "unique_contents": 3897,
+    "verified_objects": true
+  },
+  "limits": [
+    "The source equations require w and l strictly greater than 2.1 um for positive inner lengths. This is a mathematical domain guard, not a published foundry minimum or a qualified geometry envelope.",
+    "The nine isolation cases use 3x3 and 6x4 um, nominal/slow/fast, 0/27/85 C; isosub -2 to 0.5 V, nwell 0 V, substrate -1 V. No breakdown, ESD, forward bipolar-effect or full reliability claim.",
+    "Physical layout and extracted connectivity, other bias/AC/transient/noise conditions and default package promotion remain open."
+  ]
+}

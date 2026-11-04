@@ -125,6 +125,8 @@ class Report:
 
 
 def parse_magic_drc(log, findings):
+    from icstudio.magic_diagnostics import require_readable_stream
+    require_readable_stream(log, Path(findings).with_name('engine.log'))
     counts = re.findall(r'^QUAL_DRC_COUNT (\d+)\s*$', log, re.M)
     styles = re.findall(r'^QUAL_DRC_STYLE (.+)$', log, re.M)
     if counts == [] or len(counts) != 1 or styles != ['drc(full)'] or 'QUAL_MAGIC_COMPLETE' not in log:

@@ -1,0 +1,867 @@
+{
+  "schema_version": 1,
+  "status": "six-layout-metal-and-counter-combined-connectivity-controls-audited",
+  "qualified": false,
+  "observed_at": "2026-10-08T18:11:00.213110+00:00",
+  "power_evidence": {
+    "path": "outputs/gf180-cd-power-audit-v2/record.json",
+    "sha256": "8e46c5617a85058e96e1f20bc0d254fdc4a1c3e64d3eed19e86bb349688bfd05"
+  },
+  "power_archive": {
+    "path": "outputs/gf180-cd-power-audit-v2/evidence.tar.gz",
+    "sha256": "fbe2921a733e33f303ff1453b35858742cac2aba3a96a0c8d7fa435dff9d6d24",
+    "bytes": 52789176,
+    "verified_members": 390
+  },
+  "placed_cells": 16592,
+  "power_terminals": 33184,
+  "independent_cell_types": 48,
+  "metal_faults_detected": 18,
+  "power_cases": [
+    {
+      "variant": "C",
+      "design": "counter",
+      "source_gds": {
+        "path": "outputs/gf180-density-production-c-counter-v2/filled.gds",
+        "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465"
+      },
+      "cells": 801,
+      "cell_types": 18,
+      "power_terminals": 1602,
+      "top_ports": 8,
+      "exact_instance_placement_verified": true,
+      "independent_cell_masks_verified": true,
+      "original_metal_check": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-counter/original-metal.json",
+        "sha256": "46182214e19708aa0cf210707ce84c7932968db14a4a8cce61b66d961f254efc"
+      },
+      "preview_port_anchors": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-counter/preview-port-connectivity.json",
+        "sha256": "fa7b7424467eac0e1f77ac67834f90163b65f32a969c14f6ab296857aa0ee6e4"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/positive.json",
+            "sha256": "c8f5d1d0f3ddb3693d5576b547e6a157fb5ca194eea4375c815cf4d312d79842"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/positive.gds",
+            "sha256": "8fe2ad28f82519180d9780483f3e21a2097391e40de3d03a2942f1aa3cb49920"
+          },
+          "changed_masks": {},
+          "failure_counts": {}
+        },
+        {
+          "case": "vdd-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/vdd-port-open.json",
+            "sha256": "0c2885fabd843a6dda5b271e2a9cadaf78c98aa212572d3ddfbdde0d1b1a89a1"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/vdd-port-open.gds",
+            "sha256": "ceed0068f6805cdf466eae8f3f5ffe25eeb608a0afe469048595eb2c20c64f2f"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 801
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/vss-port-open.json",
+            "sha256": "53d762d8fa0916a37ee61f93caac93c79ec3b2d8f47fc1e14cfdc4aaa9e53a94"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/vss-port-open.gds",
+            "sha256": "3d0ed6b4dda3c6653ef60ec12ccec3ea994c4c5c0a0f235c9c47c3fc8c7b9c77"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 801
+          }
+        },
+        {
+          "case": "signal-short",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/signal-short.json",
+            "sha256": "bb348cd6a7939684b531d755ae2b2366163f6bc3777b24991daf3c86173353e1"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/signal-short.gds",
+            "sha256": "9ac4ae55dd272b0b8b1fa51cdb75a4c718654c61a695b0e06fdec21755c05989"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 0.16799999999999998,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "shorted-top-ports": 1
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/substrate-taps-open.json",
+            "sha256": "59e34b270479fb78ee94400f214e8bf71a0f66e4a79e50522392cf7f0db0caf4"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-counter/substrate-taps-open.gds",
+            "sha256": "4975657356d058c921b11b2b29fc44145f2c7f88ddaec946ee21c11c936e686a"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 32.2828,
+              "polygons": 667
+            }
+          },
+          "failure_counts": {}
+        }
+      ]
+    },
+    {
+      "variant": "C",
+      "design": "uart",
+      "source_gds": {
+        "path": "outputs/gf180-density-production-c-uart-v3/filled.gds",
+        "sha256": "43204f13ecca0655a86dd1e5dd1e1439a28f7efca5750d075a9bff9eedd37184"
+      },
+      "cells": 3839,
+      "cell_types": 42,
+      "power_terminals": 7678,
+      "top_ports": 15,
+      "exact_instance_placement_verified": true,
+      "independent_cell_masks_verified": true,
+      "original_metal_check": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-uart/original-metal.json",
+        "sha256": "7629e7d8c025febf60ccc9a2ef40e8e9782d99b36f46a07a0d9bc9a8d0c81716"
+      },
+      "preview_port_anchors": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-uart/preview-port-connectivity.json",
+        "sha256": "d8c871acc73f39476694577bc5e85aab417bd8ec7f869396cbd6627beb8a1c83"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/positive.json",
+            "sha256": "b486c0571ee05aad773e1c5aa140eeab916b170c86fafdf9d927f186d3249837"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/positive.gds",
+            "sha256": "5d991ebeb74ef13efe89a0abebdad29af59a9f248df1259e88db3a34d4165dc5"
+          },
+          "changed_masks": {},
+          "failure_counts": {}
+        },
+        {
+          "case": "vdd-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/vdd-port-open.json",
+            "sha256": "8921ad1717e54262f949b645fb481b4e9ccbe40dcced71b5bfd80f943dd6f2c4"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/vdd-port-open.gds",
+            "sha256": "78fe68b8026d23f0b1e961df28ea5b10a7ec76044149e51fff6b2fa5c4038433"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 3839
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/vss-port-open.json",
+            "sha256": "699fc9f15f40e9f8eeaf9b173d16e953c180118c3f486e521f746979a285b665"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/vss-port-open.gds",
+            "sha256": "9d4cbd9b1bcffaaf40b6854644157f5d49a922fee372894b7b1f8e75d7cf4feb"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 3839
+          }
+        },
+        {
+          "case": "signal-short",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/signal-short.json",
+            "sha256": "5ca6930c4a17ebe57c77385978bc184460c8622461705132683dcdac394bae90"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/signal-short.gds",
+            "sha256": "6fb4906668b83f4d2b80f814555b70c0b43f40a878d75e2ccee63c8ffabefb75"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 5.992,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "shorted-top-ports": 1
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/substrate-taps-open.json",
+            "sha256": "dddd0a492efc809ba6f9e5c8ac1b8f4f1444116164a3c59744f59caae7806356"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-uart/substrate-taps-open.gds",
+            "sha256": "3b5605d0d6dba2f32126ae803d55a2b91aa1655c078136b72cd1b4e64d4f86a4"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 146.45839999999998,
+              "polygons": 3026
+            }
+          },
+          "failure_counts": {}
+        }
+      ]
+    },
+    {
+      "variant": "C",
+      "design": "apb",
+      "source_gds": {
+        "path": "outputs/gf180-density-production-c-apb-v2/filled.gds",
+        "sha256": "da6c9f30cc321126fe7c05f86be6dd1e39f2e1efd02abb1dbc1142dc1bbfee48"
+      },
+      "cells": 3656,
+      "cell_types": 36,
+      "power_terminals": 7312,
+      "top_ports": 30,
+      "exact_instance_placement_verified": true,
+      "independent_cell_masks_verified": true,
+      "original_metal_check": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-apb/original-metal.json",
+        "sha256": "53f2e7534a82f0c2e81fb587bc84d8f479de7981a4e1c8ece910ecfe5580c011"
+      },
+      "preview_port_anchors": {
+        "path": "outputs/gf180-cd-power-windows-v2/c-apb/preview-port-connectivity.json",
+        "sha256": "a0923cc022dd82f53f3cdb2178ef1f8e174616a29daa97cc837da5684648a043"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/positive.json",
+            "sha256": "483a7608d3e96b3479f3f7a3132da3f606f6f89465da3028c880e1391c94d78d"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/positive.gds",
+            "sha256": "1e59cf23b69b3acb5a436f1c37aebde79f9284560eddabb6b7293bb0929834ed"
+          },
+          "changed_masks": {},
+          "failure_counts": {}
+        },
+        {
+          "case": "vdd-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/vdd-port-open.json",
+            "sha256": "269ed1cd355c2521665bdb05e396f372ac9bfe334ebd0cd1f7c8e556f02612fe"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/vdd-port-open.gds",
+            "sha256": "7e49ef1165f15850a234c36cd8357aeb31c5d32b5333278be293e154a74885dc"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 3656
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/vss-port-open.json",
+            "sha256": "dd65ada067780047b60c5356333475864ada3478ffc980d7bb3954861186c4ca"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/vss-port-open.gds",
+            "sha256": "af52c715daa5f4adbcf05d8b240c0e5aa39b736587cb6e9502b94b8bc46f6eb2"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 3656
+          }
+        },
+        {
+          "case": "signal-short",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/signal-short.json",
+            "sha256": "1fd42ab22c8c269e5e555ad63271cf15f2cf2a9b7b3a020c187f0ff3d2edc540"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/signal-short.gds",
+            "sha256": "8cd881acb8b81021fd0499a2ba1e9dc4e8fb820e60a0457f44624568f18cdb69"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 0.16799999999999998,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "shorted-top-ports": 1
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/substrate-taps-open.json",
+            "sha256": "d7047b5a0e0c104203b86a0fcfd32ea19fbef9a0d58977ae4adf7cd6eb8b4586"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/c-apb/substrate-taps-open.gds",
+            "sha256": "9dfca36fa34589e9b1b75c00c71fbc779eb7425c64c38a559ecdcf839d643c9a"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 146.45839999999998,
+              "polygons": 3026
+            }
+          },
+          "failure_counts": {}
+        }
+      ]
+    },
+    {
+      "variant": "D",
+      "design": "counter",
+      "source_gds": {
+        "path": "outputs/gf180-density-production-d-counter-v2/filled.gds",
+        "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465"
+      },
+      "cells": 801,
+      "cell_types": 18,
+      "power_terminals": 1602,
+      "top_ports": 8,
+      "exact_instance_placement_verified": true,
+      "independent_cell_masks_verified": true,
+      "original_metal_check": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-counter/original-metal.json",
+        "sha256": "46182214e19708aa0cf210707ce84c7932968db14a4a8cce61b66d961f254efc"
+      },
+      "preview_port_anchors": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-counter/preview-port-connectivity.json",
+        "sha256": "fa7b7424467eac0e1f77ac67834f90163b65f32a969c14f6ab296857aa0ee6e4"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/positive.json",
+            "sha256": "c8f5d1d0f3ddb3693d5576b547e6a157fb5ca194eea4375c815cf4d312d79842"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/positive.gds",
+            "sha256": "8fe2ad28f82519180d9780483f3e21a2097391e40de3d03a2942f1aa3cb49920"
+          },
+          "changed_masks": {},
+          "failure_counts": {}
+        },
+        {
+          "case": "vdd-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/vdd-port-open.json",
+            "sha256": "0c2885fabd843a6dda5b271e2a9cadaf78c98aa212572d3ddfbdde0d1b1a89a1"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/vdd-port-open.gds",
+            "sha256": "ceed0068f6805cdf466eae8f3f5ffe25eeb608a0afe469048595eb2c20c64f2f"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 801
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/vss-port-open.json",
+            "sha256": "53d762d8fa0916a37ee61f93caac93c79ec3b2d8f47fc1e14cfdc4aaa9e53a94"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/vss-port-open.gds",
+            "sha256": "3d0ed6b4dda3c6653ef60ec12ccec3ea994c4c5c0a0f235c9c47c3fc8c7b9c77"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 801
+          }
+        },
+        {
+          "case": "signal-short",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/signal-short.json",
+            "sha256": "bb348cd6a7939684b531d755ae2b2366163f6bc3777b24991daf3c86173353e1"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/signal-short.gds",
+            "sha256": "9ac4ae55dd272b0b8b1fa51cdb75a4c718654c61a695b0e06fdec21755c05989"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 0.16799999999999998,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "shorted-top-ports": 1
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/substrate-taps-open.json",
+            "sha256": "59e34b270479fb78ee94400f214e8bf71a0f66e4a79e50522392cf7f0db0caf4"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-counter/substrate-taps-open.gds",
+            "sha256": "4975657356d058c921b11b2b29fc44145f2c7f88ddaec946ee21c11c936e686a"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 32.2828,
+              "polygons": 667
+            }
+          },
+          "failure_counts": {}
+        }
+      ]
+    },
+    {
+      "variant": "D",
+      "design": "uart",
+      "source_gds": {
+        "path": "outputs/gf180-density-production-d-uart-v3/filled.gds",
+        "sha256": "f6d0168455d6f9664172b9af26818d1027652c68f7af39bff36e8765cf00870f"
+      },
+      "cells": 3839,
+      "cell_types": 42,
+      "power_terminals": 7678,
+      "top_ports": 15,
+      "exact_instance_placement_verified": true,
+      "independent_cell_masks_verified": true,
+      "original_metal_check": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-uart/original-metal.json",
+        "sha256": "8c5f5bac82c49dcd1ca9c4c0d3c09a8b9704ce5ca3e137b091a4191de7d27eda"
+      },
+      "preview_port_anchors": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-uart/preview-port-connectivity.json",
+        "sha256": "1eb147f7a17e4c359a6333e50bda4e16ab571ecb66c12672fef5d9936a0065e3"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/positive.json",
+            "sha256": "b486c0571ee05aad773e1c5aa140eeab916b170c86fafdf9d927f186d3249837"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/positive.gds",
+            "sha256": "5d991ebeb74ef13efe89a0abebdad29af59a9f248df1259e88db3a34d4165dc5"
+          },
+          "changed_masks": {},
+          "failure_counts": {}
+        },
+        {
+          "case": "vdd-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/vdd-port-open.json",
+            "sha256": "8921ad1717e54262f949b645fb481b4e9ccbe40dcced71b5bfd80f943dd6f2c4"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/vdd-port-open.gds",
+            "sha256": "78fe68b8026d23f0b1e961df28ea5b10a7ec76044149e51fff6b2fa5c4038433"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 3839
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/vss-port-open.json",
+            "sha256": "699fc9f15f40e9f8eeaf9b173d16e953c180118c3f486e521f746979a285b665"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/vss-port-open.gds",
+            "sha256": "9d4cbd9b1bcffaaf40b6854644157f5d49a922fee372894b7b1f8e75d7cf4feb"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 3839
+          }
+        },
+        {
+          "case": "signal-short",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/signal-short.json",
+            "sha256": "5ca6930c4a17ebe57c77385978bc184460c8622461705132683dcdac394bae90"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/signal-short.gds",
+            "sha256": "6fb4906668b83f4d2b80f814555b70c0b43f40a878d75e2ccee63c8ffabefb75"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 5.992,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "shorted-top-ports": 1
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/substrate-taps-open.json",
+            "sha256": "dddd0a492efc809ba6f9e5c8ac1b8f4f1444116164a3c59744f59caae7806356"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-uart/substrate-taps-open.gds",
+            "sha256": "3b5605d0d6dba2f32126ae803d55a2b91aa1655c078136b72cd1b4e64d4f86a4"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 146.45839999999998,
+              "polygons": 3026
+            }
+          },
+          "failure_counts": {}
+        }
+      ]
+    },
+    {
+      "variant": "D",
+      "design": "apb",
+      "source_gds": {
+        "path": "outputs/gf180-density-production-d-apb-v2/filled.gds",
+        "sha256": "60c61fe5fe70f745c185721aa5ea7698e2bc2f47ccc37812c0f4c84de7cdfcd3"
+      },
+      "cells": 3656,
+      "cell_types": 36,
+      "power_terminals": 7312,
+      "top_ports": 30,
+      "exact_instance_placement_verified": true,
+      "independent_cell_masks_verified": true,
+      "original_metal_check": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-apb/original-metal.json",
+        "sha256": "048f0b00869eb5324527b8ee6e8de6b691d081f0137c0e3ea2a2a5c7daf9764f"
+      },
+      "preview_port_anchors": {
+        "path": "outputs/gf180-cd-power-windows-v2/d-apb/preview-port-connectivity.json",
+        "sha256": "6d98a43c27790ebbb1d0534b3fb48f0b70a5c6cdc235da14c868638c8887e397"
+      },
+      "controls": [
+        {
+          "case": "positive",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/positive.json",
+            "sha256": "483a7608d3e96b3479f3f7a3132da3f606f6f89465da3028c880e1391c94d78d"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/positive.gds",
+            "sha256": "1e59cf23b69b3acb5a436f1c37aebde79f9284560eddabb6b7293bb0929834ed"
+          },
+          "changed_masks": {},
+          "failure_counts": {}
+        },
+        {
+          "case": "vdd-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/vdd-port-open.json",
+            "sha256": "269ed1cd355c2521665bdb05e396f372ac9bfe334ebd0cd1f7c8e556f02612fe"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/vdd-port-open.gds",
+            "sha256": "7e49ef1165f15850a234c36cd8357aeb31c5d32b5333278be293e154a74885dc"
+          },
+          "changed_masks": {
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 3656
+          }
+        },
+        {
+          "case": "vss-port-open",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/vss-port-open.json",
+            "sha256": "dd65ada067780047b60c5356333475864ada3478ffc980d7bb3954861186c4ca"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/vss-port-open.gds",
+            "sha256": "af52c715daa5f4adbcf05d8b240c0e5aa39b736587cb6e9502b94b8bc46f6eb2"
+          },
+          "changed_masks": {
+            "(41, 0)": {
+              "area_um2": 1.0816,
+              "polygons": 16
+            },
+            "(81, 0)": {
+              "area_um2": 16.71,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "power-terminal-disconnected": 3656
+          }
+        },
+        {
+          "case": "signal-short",
+          "expected_metal_pass": false,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/signal-short.json",
+            "sha256": "1fd42ab22c8c269e5e555ad63271cf15f2cf2a9b7b3a020c187f0ff3d2edc540"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/signal-short.gds",
+            "sha256": "8cd881acb8b81021fd0499a2ba1e9dc4e8fb820e60a0457f44624568f18cdb69"
+          },
+          "changed_masks": {
+            "(42, 0)": {
+              "area_um2": 0.16799999999999998,
+              "polygons": 1
+            }
+          },
+          "failure_counts": {
+            "shorted-top-ports": 1
+          }
+        },
+        {
+          "case": "substrate-taps-open",
+          "expected_metal_pass": true,
+          "report": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/substrate-taps-open.json",
+            "sha256": "d7047b5a0e0c104203b86a0fcfd32ea19fbef9a0d58977ae4adf7cd6eb8b4586"
+          },
+          "gds": {
+            "path": "outputs/gf180-cd-power-windows-v2/d-apb/substrate-taps-open.gds",
+            "sha256": "9dfca36fa34589e9b1b75c00c71fbc779eb7425c64c38a559ecdcf839d643c9a"
+          },
+          "changed_masks": {
+            "(33, 0)": {
+              "area_um2": 146.45839999999998,
+              "polygons": 3026
+            }
+          },
+          "failure_counts": {}
+        }
+      ]
+    }
+  ],
+  "native_counter": {
+    "record": {
+      "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/record.json",
+      "sha256": "cde66a628951de1b373802afac8bdcb11cd5fb5ccaba6c21f8ae03a7bf422611"
+    },
+    "controls": [
+      {
+        "case": "positive",
+        "lvs_matched": true,
+        "metal_passed": true,
+        "combined_passed": true,
+        "gds": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/positive/fault.gds",
+          "sha256": "cc7a6f899fa81ae8583d800aa821f94ee94c8d878f3bdc76d4689f287f1ab335"
+        },
+        "comparison": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/positive/comparison.json",
+          "sha256": "d2b19d89d33007ed8f381e4a2ed8eeea22995e4e6eec464110043e72c719fe97"
+        }
+      },
+      {
+        "case": "vdd-port-open",
+        "lvs_matched": true,
+        "metal_passed": false,
+        "combined_passed": false,
+        "gds": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/vdd-port-open/fault.gds",
+          "sha256": "cdc66fa3eabfb35829ca1902f5663f677f3cb8dceaab0347daeb1b8aaa567840"
+        },
+        "comparison": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/vdd-port-open/comparison.json",
+          "sha256": "ddff632808da305b208f4ed5ee33e5aab6b9633ef4136b08dad44073857b9dd7"
+        }
+      },
+      {
+        "case": "vss-port-open",
+        "lvs_matched": true,
+        "metal_passed": false,
+        "combined_passed": false,
+        "gds": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/vss-port-open/fault.gds",
+          "sha256": "c90eac53d0a19749ea7dcd4c497dec5af5b64487028da631de9d8e6033c7020d"
+        },
+        "comparison": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/vss-port-open/comparison.json",
+          "sha256": "981fba29b571bbfd4f38c24ba821001ae5e04a0a1760c2e8355d297ca1135e67"
+        }
+      },
+      {
+        "case": "signal-short",
+        "lvs_matched": false,
+        "metal_passed": false,
+        "combined_passed": false,
+        "gds": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/signal-short/fault.gds",
+          "sha256": "eaee673b88f38bf0c080964110e4b5322e27d7054bb7e8580b363db8e3f57a44"
+        },
+        "comparison": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/signal-short/comparison.json",
+          "sha256": "3fe0a4f5385436392300f9456bb9b2593f0cba07f75d5ced64b71963587ba7f1"
+        }
+      },
+      {
+        "case": "substrate-taps-open",
+        "lvs_matched": false,
+        "metal_passed": true,
+        "combined_passed": false,
+        "gds": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/substrate-taps-open/fault.gds",
+          "sha256": "e1994e38949143b7a3e994132d3c81f1a3d82884938e06d71e5c155ee02122d0"
+        },
+        "comparison": {
+          "path": "outputs/gf180-cd-connectivity-faults-c-counter-v1/substrate-taps-open/comparison.json",
+          "sha256": "5279691c8421cbbcac4a38468b14edbdd40e92226cf92abc715ee3f6f8d5e937"
+        }
+      }
+    ],
+    "expected_transistors": 4184,
+    "top_pins": 8,
+    "ambiguous_internal_fillcap_nets": 1965,
+    "limitation": "The experimental substrate-aware LVS alone misses isolated power pads. Separate metal continuity detects them. Stock-deck chip-top VSS warning remains blocking."
+  },
+  "remaining": [
+    "Complete native substrate/device connectivity and fault controls for the larger references.",
+    "Post-fill RC extraction and full behavior/timing at original constraints.",
+    "Complete fill-rule scope and production integration on fresh Windows/Linux installs."
+  ],
+  "script": {
+    "path": "work/retain_gf180_cd_connectivity_checkpoint_v1.py",
+    "sha256": "20ea34fbef067d603519a7560e804e300b6d091a7de98ab08f4431b4755be45c"
+  },
+  "counter_archive": {
+    "path": "outputs/gf180-cd-connectivity-checkpoint-v1/counter-controls.tar.gz",
+    "sha256": "639e063eb369aa2f6249dc318624380936e8f97631a3554527b9e67c0d970553",
+    "bytes": 7741297,
+    "verified_members": 43
+  },
+  "manifest": {
+    "path": "outputs/gf180-cd-connectivity-checkpoint-v1/manifest.json",
+    "sha256": "d77bd6a1e4a1b02443ff35fc0d24eedb35e90e902272efdc56f5697e7134ffb5"
+  }
+}

@@ -1,0 +1,445 @@
+{
+  "schema": 1,
+  "id": "sky130-metal-resistors-linked-v1",
+  "date": "2026-10-25",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Finite source-model integration of straight M1-M4 resistors, linking real application exports and unmodified native extraction to independent analytical circuits. No continuous geometry, operating, accuracy, reliability, statistics, installed or manufacturing qualification.",
+  "package": {
+    "path": "icstudio/assets/pdks/sky130A",
+    "revision": "b26f7f28e659ddc1",
+    "manifest_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe"
+  },
+  "models": {
+    "m1": {
+      "model": "sky130_fd_pr__res_generic_m1",
+      "key": "sky130_fd_pr/res_generic_m1.sym",
+      "tc1": 0.003179,
+      "tc2": 3.094e-07,
+      "width_correction_m": -3.9e-08,
+      "gds_layer": 68
+    },
+    "m2": {
+      "model": "sky130_fd_pr__res_generic_m2",
+      "key": "sky130_fd_pr/res_generic_m2.sym",
+      "tc1": 0.003161,
+      "tc2": -7.272e-07,
+      "width_correction_m": -3.9e-08,
+      "gds_layer": 69
+    },
+    "m3": {
+      "model": "sky130_fd_pr__res_generic_m3",
+      "key": "sky130_fd_pr/res_generic_m3.sym",
+      "tc1": 0.003424,
+      "tc2": -7.739e-07,
+      "width_correction_m": -2.5e-08,
+      "gds_layer": 70
+    },
+    "m4": {
+      "model": "sky130_fd_pr__res_generic_m4",
+      "key": "sky130_fd_pr/res_generic_m4.sym",
+      "tc1": 0.003424,
+      "tc2": -7.739e-07,
+      "width_correction_m": -2.5e-08,
+      "gds_layer": 71
+    }
+  },
+  "sections": {
+    "tt": {
+      "include": "r+c/res_typical__cap_typical.spice",
+      "coefficients": {
+        "rm1": 0.125,
+        "tol_m1": 0.0,
+        "m1_dw": -3.9e-08,
+        "tc1rm1": 0.003179,
+        "tc2rm1": 3.094e-07,
+        "rm2": 0.125,
+        "tol_m2": 0.0,
+        "m2_dw": -3.9e-08,
+        "tc1rm2": 0.003161,
+        "tc2rm2": -7.272e-07,
+        "rm3": 0.047,
+        "tol_m3": 0.0,
+        "m3_dw": -2.5e-08,
+        "tc1rm3": 0.003424,
+        "tc2rm3": -7.739e-07,
+        "rm4": 0.047,
+        "tol_m4": 0.0,
+        "m4_dw": -2.5e-08,
+        "tc1rm4": 0.003424,
+        "tc2rm4": -7.739e-07,
+        "mc_mm_switch": 0,
+        "mc_pr_switch": 0
+      }
+    },
+    "ll": {
+      "include": "r+c/res_low__cap_low.spice",
+      "coefficients": {
+        "rm1": 0.111,
+        "tol_m1": 1.75e-08,
+        "m1_dw": -3.9e-08,
+        "tc1rm1": 0.003179,
+        "tc2rm1": 3.094e-07,
+        "rm2": 0.111,
+        "tol_m2": 1.75e-08,
+        "m2_dw": -3.9e-08,
+        "tc1rm2": 0.003161,
+        "tc2rm2": -7.272e-07,
+        "rm3": 0.0407,
+        "tol_m3": 4.55e-08,
+        "m3_dw": -2.5e-08,
+        "tc1rm3": 0.003424,
+        "tc2rm3": -7.739e-07,
+        "rm4": 0.0407,
+        "tol_m4": 4.55e-08,
+        "m4_dw": -2.5e-08,
+        "tc1rm4": 0.003424,
+        "tc2rm4": -7.739e-07,
+        "mc_mm_switch": 0,
+        "mc_pr_switch": 0
+      }
+    },
+    "hh": {
+      "include": "r+c/res_high__cap_high.spice",
+      "coefficients": {
+        "rm1": 0.139,
+        "tol_m1": -1.75e-08,
+        "m1_dw": -3.9e-08,
+        "tc1rm1": 0.003179,
+        "tc2rm1": 3.094e-07,
+        "rm2": 0.139,
+        "tol_m2": -1.75e-08,
+        "m2_dw": -3.9e-08,
+        "tc1rm2": 0.003161,
+        "tc2rm2": -7.272e-07,
+        "rm3": 0.0533,
+        "tol_m3": -4.55e-08,
+        "m3_dw": -2.5e-08,
+        "tc1rm3": 0.003424,
+        "tc2rm3": -7.739e-07,
+        "rm4": 0.0533,
+        "tol_m4": -4.55e-08,
+        "m4_dw": -2.5e-08,
+        "tc1rm4": 0.003424,
+        "tc2rm4": -7.739e-07,
+        "mc_mm_switch": 0,
+        "mc_pr_switch": 0
+      }
+    },
+    "hl": {
+      "include": "r+c/res_high__cap_low.spice",
+      "coefficients": {
+        "rm1": 0.145,
+        "tol_m1": -2.5e-08,
+        "m1_dw": -3.9e-08,
+        "tc1rm1": 0.003179,
+        "tc2rm1": 3.094e-07,
+        "rm2": 0.145,
+        "tol_m2": -2.5e-08,
+        "m2_dw": -3.9e-08,
+        "tc1rm2": 0.003161,
+        "tc2rm2": -7.272e-07,
+        "rm3": 0.056,
+        "tol_m3": -6.5e-08,
+        "m3_dw": -2.5e-08,
+        "tc1rm3": 0.003424,
+        "tc2rm3": -7.739e-07,
+        "rm4": 0.056,
+        "tol_m4": -6.5e-08,
+        "m4_dw": -2.5e-08,
+        "tc1rm4": 0.003424,
+        "tc2rm4": -7.739e-07,
+        "mc_mm_switch": 0,
+        "mc_pr_switch": 0
+      }
+    },
+    "lh": {
+      "include": "r+c/res_low__cap_high.spice",
+      "coefficients": {
+        "rm1": 0.105,
+        "tol_m1": 2.5e-08,
+        "m1_dw": -3.9e-08,
+        "tc1rm1": 0.003179,
+        "tc2rm1": 3.094e-07,
+        "rm2": 0.105,
+        "tol_m2": 2.5e-08,
+        "m2_dw": -3.9e-08,
+        "tc1rm2": 0.003161,
+        "tc2rm2": -7.272e-07,
+        "rm3": 0.038,
+        "tol_m3": 6.5e-08,
+        "m3_dw": -2.5e-08,
+        "tc1rm3": 0.003424,
+        "tc2rm3": -7.739e-07,
+        "rm4": 0.038,
+        "tol_m4": 6.5e-08,
+        "m4_dw": -2.5e-08,
+        "tc1rm4": 0.003424,
+        "tc2rm4": -7.739e-07,
+        "mc_mm_switch": 0,
+        "mc_pr_switch": 0
+      }
+    }
+  },
+  "sources": {
+    "icstudio/assets/pdks/sky130A/package.json": {
+      "sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+      "bytes": 915525
+    },
+    "icstudio/assets/pdks/sky130A/UPSTREAM-LOCK.json": {
+      "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c",
+      "bytes": 407
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/ngspice/sky130_fd_pr__model__r+c.model.spice": {
+      "sha256": "277930447149f1b40ffda6959a990e473bbda7bdf97ce6180f5e563fe5957eea",
+      "bytes": 9789
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice": {
+      "sha256": "fa39ed2a7845082fe57970d32c155cb9ac082c62b3c35fa75ffafd7f40f418d2",
+      "bytes": 6634
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/ngspice/all.spice": {
+      "sha256": "b06904c952ea8c16b11da7f4f0cd24414645dc5af38c381c52cbef5b55282875",
+      "bytes": 5264
+    },
+    "docs/qualification/sky130-mos-bias-sources-v1/device-details.rst": {
+      "sha256": "506021827f52b26673daf8b580f8d79d408724af3138a65695bde86e5c1c6e49",
+      "bytes": 45543
+    },
+    "docs/qualification/sky130-li-sources-v1/res_generic-table0.rst": {
+      "sha256": "97341fdc15c209037fb441ba083a3198bc12f4f5e9cbfe44cf5c27ed42d354d6",
+      "bytes": 1859
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_m1.sym": {
+      "sha256": "516e3094275f90b8663a4a24c1870ddccf561cd5ab4403ed1679d4d9b661e66b",
+      "bytes": 1309
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_m2.sym": {
+      "sha256": "439e062c3461967dacaf30c5cc4ef3129cf25a0d53e6ae1df1d9d8d9644f8ba7",
+      "bytes": 1309
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_m3.sym": {
+      "sha256": "1ba3e7e225bd52474357f043410cd7e7e36e44833c50c9f800f13988d0ff6030",
+      "bytes": 1309
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/xschem/sky130_fd_pr/res_generic_m4.sym": {
+      "sha256": "08666ecbfec802fc34e68a63efb3dbac981688343aee2b2ad43b7a58ee78a905",
+      "bytes": 1309
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_typical__cap_typical.spice": {
+      "sha256": "7c29723076a22fe5b080d245adb97451de5ad0812f0344f6bfe31c9697b71f0d",
+      "bytes": 937
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_low__cap_low.spice": {
+      "sha256": "8d8f19bfd7d9728508b0a45bfbfae293fed168b902cb2fc820fb40a7c2627ac0",
+      "bytes": 1003
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_high__cap_high.spice": {
+      "sha256": "38ec47a4a5fa0d5a23dcab8dee6c43086503204c71ea956e0d78471cadc909a4",
+      "bytes": 1022
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_high__cap_low.spice": {
+      "sha256": "fa31c9c9a72f46cd4666428ff3c338a2e912578914f77049d7d15980fb546b85",
+      "bytes": 976
+    },
+    "icstudio/assets/pdks/sky130A/libs.tech/ngspice/r+c/res_low__cap_high.spice": {
+      "sha256": "30bf08f792bb9c569f76b3fe3c81825551f5a0750a65208b49a2010ad9b765c3",
+      "bytes": 977
+    }
+  },
+  "engine_sources": {
+    "COPYING": {
+      "sha256": "df9e98a686fad462feeff23d780d733bce3d615e351938ac86ef8119d707da20",
+      "bytes": 45719,
+      "archive": "ngspice_42+ds.orig.tar.gz",
+      "archive_member": "tmprr37hlqb/COPYING"
+    },
+    "src/spicelib/devices/res/restemp.c": {
+      "sha256": "c1ef5a101e25220936468dcf1285514e6ddb4a5441670b2798e56d83cb9b6216",
+      "bytes": 3327,
+      "archive": "ngspice_42+ds.orig.tar.gz",
+      "archive_member": "tmprr37hlqb/src/spicelib/devices/res/restemp.c"
+    },
+    "src/spicelib/devices/res/resparam.c": {
+      "sha256": "be91791c25a29dfd882dfa6debcaca5f3b014047bba510c7340c41faa6b9bb0a",
+      "bytes": 2527,
+      "archive": "ngspice_42+ds.orig.tar.gz",
+      "archive_member": "tmprr37hlqb/src/spicelib/devices/res/resparam.c"
+    },
+    "src/spicelib/devices/res/res.c": {
+      "sha256": "ae4eb1aa8b7fff343db286e3a442eea64b1eddecb573742b48c8d2b16c82547e",
+      "bytes": 4347,
+      "archive": "ngspice_42+ds.orig.tar.gz",
+      "archive_member": "tmprr37hlqb/src/spicelib/devices/res/res.c"
+    },
+    "src/spicelib/devices/res/resnoise.c": {
+      "sha256": "522f5cf27a83b80c248f303455815201ec3bab90fead206bb3b4c8ae9f9d8df1",
+      "bytes": 7837,
+      "archive": "ngspice_42+ds.orig.tar.gz",
+      "archive_member": "tmprr37hlqb/src/spicelib/devices/res/resnoise.c"
+    },
+    "src/spicelib/analysis/nevalsrc.c": {
+      "sha256": "63c8d33b6891a9cffadae3f1e517757decd61b306c46d6d52cee1cc2d191a884",
+      "bytes": 11435,
+      "archive": "ngspice_42+ds.orig.tar.gz",
+      "archive_member": "tmprr37hlqb/src/spicelib/analysis/nevalsrc.c"
+    },
+    "src/include/ngspice/const.h": {
+      "sha256": "000d6dda4b539e748c8aeabcea866c866dd7f5145aa745dcb575eb2a83947551",
+      "bytes": 2106,
+      "archive": "ngspice_42+ds.orig.tar.gz",
+      "archive_member": "tmprr37hlqb/src/include/ngspice/const.h"
+    }
+  },
+  "experiment": {
+    "models": [
+      "m1",
+      "m2",
+      "m3",
+      "m4"
+    ],
+    "geometries_um": [
+      [
+        0.5,
+        0.5
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        5,
+        2
+      ]
+    ],
+    "rotations": [
+      0,
+      90
+    ],
+    "multiplicities": [
+      1,
+      3
+    ],
+    "sections": [
+      "tt",
+      "ll",
+      "hh",
+      "hl",
+      "lh"
+    ],
+    "temperatures_c": [
+      -40,
+      27,
+      125
+    ],
+    "load_ohm": 1,
+    "load_farad": 1e-09,
+    "dc_start_v": -0.001,
+    "dc_stop_v": 0.001,
+    "dc_step_v": 0.0001,
+    "ac_amplitude": 1,
+    "frequency_start_hz": 1000,
+    "frequency_stop_hz": 10000000000.0,
+    "points_per_decade": 3,
+    "pulse_low_v": 0.0001,
+    "pulse_high_v": 0.001,
+    "pulse_delay_s": 1e-09,
+    "pulse_period_s": 1e-08,
+    "pulse_width_s": 5e-09,
+    "pulse_edge_s": 1e-13,
+    "transient_step_s": 2e-11,
+    "transient_stop_s": 2.1e-08,
+    "noise_geometry_index": 1,
+    "noise_rotation": 0,
+    "noise_paths": [
+      "application",
+      "native",
+      "analytic"
+    ],
+    "faults": [
+      "wrong-width",
+      "wrong-length",
+      "wrong-model",
+      "wrong-multiplicity",
+      "disconnected-terminal"
+    ],
+    "context_controls": [
+      "wrong-section",
+      "wrong-temperature"
+    ],
+    "multiplicity_scope": "m=3 native path is three identical extracted two-terminal coupons in electrical parallel. No physical array qualification.",
+    "pilot": {
+      "models": [
+        "m1"
+      ],
+      "geometry_indices": [
+        1
+      ],
+      "sections": [
+        "tt"
+      ],
+      "temperatures_c": [
+        27
+      ]
+    }
+  },
+  "tolerances": {
+    "coefficient_relative": 1e-10,
+    "coefficient_absolute": 1e-24,
+    "frequency_relative": 1e-10,
+    "voltage_absolute": 1e-10,
+    "dc_relative": 1e-06,
+    "dc_absolute": 1e-10,
+    "ac_relative": 1e-06,
+    "ac_absolute": 1e-10,
+    "tran_relative": 0.0002,
+    "tran_absolute": 2e-08,
+    "noise_relative": 1e-06,
+    "noise_absolute": 1e-18,
+    "current_relative": 1e-06,
+    "current_absolute": 1e-12,
+    "fault_min_relative_difference": 0.0001
+  },
+  "analytical": {
+    "model_reference_temperature_c": 30,
+    "global_geometry_scale": 1e-06,
+    "boltzmann_j_per_k": 1.38064852e-23,
+    "celsius_to_kelvin": 273.15,
+    "resistance": "rsh * (L*scale - 2*short) / (W*scale - 2*narrow) * (1 + tc1*(T-30) + tc2*(T-30)^2) / m",
+    "narrowing": "narrow=dw=-(tol_mN+mN_dw)/2; short defaults zero; W/L are numerical micrometres and actual staged all.spice supplies scale=1e-6.",
+    "transfer": "H(s)=RL/(R+RL)/(1+s*(R||RL)*CL)",
+    "thermal_noise": "sqrt(4*kB*(T+273.15)*(R||RL)/(1+(2*pi*f*(R||RL)*CL)^2)); both R and RL contribute independent thermal noise; no flicker coefficient is present.",
+    "transient": "Exact first-order RC solution on each linear segment of the declared finite-rise pulse, starting from its DC operating point."
+  },
+  "unresolved": [
+    "Public generic-resistor documentation cautions against analog precision use.",
+    "Complete electrical geometry, bias/current density, temperature validity and reliability envelopes are not established by these selected points.",
+    "Sheet specification accuracy and measured/statistical/RF model validity remain unqualified.",
+    "Native extraction is a compact R device, not complete distributed interconnect RC.",
+    "Installed delivery acceptance is separate."
+  ],
+  "runtime": {
+    "profile": "Linux x86_64 Ubuntu ngspice42+ds-3build1 plus reviewed Magic/Netgen physical runtime",
+    "ngspice_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+    "source_binding": "Ubuntu HTTPS source metadata and exact payload/member hashes; no source-signature or reproducible-binary claim."
+  },
+  "engine_source_archives": [
+    {
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/ngspice_42+ds.orig.tar.gz",
+      "name": "ngspice_42+ds.orig.tar.gz",
+      "sha256": "cae144ba1d28a56a867e09b9d7665fdf71182e568300e379803786fb0c3165b7",
+      "bytes": 10740834
+    },
+    {
+      "url": "https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/ngspice_42+ds-3build1.debian.tar.xz",
+      "name": "ngspice_42+ds-3build1.debian.tar.xz",
+      "sha256": "dce5ec571f69f80bea74804eb4ad98e314e54c25a3cb86d121a8f1904a3be5c5",
+      "bytes": 28668
+    }
+  ],
+  "engine_source_metadata": {
+    "url": "https://archive.ubuntu.com/ubuntu/pool/universe/n/ngspice/ngspice_42+ds-3build1.dsc",
+    "sha256": "8ed142da8bd8b6c66ab49cf6d7b10e37df73cbb28e209c744c603b2621f84f8b",
+    "signature_verified": false
+  }
+}

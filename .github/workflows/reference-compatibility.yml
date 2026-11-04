@@ -2,13 +2,89 @@ name: Reference design compatibility
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full 40-character SHA of the selected branch or tag to qualify
+        required: true
+        type: string
   push:
-    branches: [main, experimental]
-  pull_request:
+    tags: ['v*']
+# Exhaustive evidence belongs to one immutable candidate. Routine merge checks
+# run in the fast workflow; a selected acceptance run must finish independently.
+concurrency:
+  group: ci-reference-compatibility-${{ github.run_id }}-${{ github.run_attempt }}
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the selected immutable candidate
+        run: python scripts/ci_candidate.py
+  rc-toolchain:
+    needs: candidate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      sha256: ${{ steps.pack.outputs.sha256 }}
+      artifact_name: ${{ steps.pack.outputs.artifact_name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install engine build dependencies once for all five RC corners
+        timeout-minutes: 20
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          exec > >(tee build/reference-toolchain-setup.log) 2>&1
+          trap 'status=$?; echo "Setup exit status: $status"; dpkg-query -W > build/reference-toolchain-packages.txt; exit "$status"' EXIT
+          python scripts/reference_toolchain.py apt-sources --output build/reference-apt-sources
+          apt_options=(-o "Dir::Etc::sourcelist=$PWD/build/reference-apt-sources/sources.list" -o "Dir::Etc::sourceparts=$PWD/build/reference-apt-sources/sources.list.d" -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo timeout --signal=TERM --kill-after=15s 300s apt-get "${apt_options[@]}" update --error-on=any
+          sudo timeout --signal=TERM --kill-after=15s 600s apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev
+      - name: Build the isolated patched extractor and pinned sparse solver once
+        run: |
+          python scripts/build_physical_engines.py --lock examples/gf180-rc-engine-lock.json --output build/gf180-engines
+          python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/modern-engines
+      - name: Bind installed files and exact build inputs to this candidate
+        id: pack
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+        run: |
+          python scripts/reference_toolchain.py pack --candidate "$CANDIDATE_SHA" --archive build/reference-toolchain.tar.gz
+          echo "artifact_name=reference-rc-toolchain-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.pack.outputs.artifact_name }}
+          path: |
+            build/reference-toolchain.tar.gz
+            build/reference-toolchain-manifest.json
+            build/reference-toolchain-packages.txt
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reference-rc-toolchain-build-${{ github.run_attempt }}
+          path: |
+            build/gf180-engines/*-build.log
+            build/gf180-engines/*-version.log
+            build/gf180-engines/source-lock.json
+            build/modern-engines/*-build.log
+            build/modern-engines/*-version.log
+            build/modern-engines/source-lock.json
+            build/reference-toolchain-packages.txt
+            build/reference-toolchain-setup.log
+            build/reference-apt-sources
+          compression-level: 1
+          if-no-files-found: warn
   modern-schematic:
+    needs: candidate
     runs-on: ubuntu-24.04
     timeout-minutes: 70
     steps:
@@ -60,7 +136,9 @@ jobs:
           compression-level: 1
           if-no-files-found: error
   bandgap-rc:
-    needs: bandgap-physical
+    # RC reads committed layouts and its own pinned PDK; it consumes no output
+    # from bandgap-physical. Both remain required for the whole workflow.
+    needs: rc-toolchain
     runs-on: ubuntu-24.04
     timeout-minutes: 210
     strategy:
@@ -78,15 +156,59 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install extraction and simulator build dependencies
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install runtime dependencies for fresh corner acceptance
+        # A stalled package-index request previously consumed this job's entire
+        # 210-minute extraction budget without running the qualification.
+        timeout-minutes: 20
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev libegl1 libopengl0
-          python -m pip install -r requirements.txt
-      - name: Build the isolated patched extractor and pinned sparse solver
+          set -euo pipefail
+          mkdir -p build
+          exec > >(tee build/reference-corner-setup.log) 2>&1
+          trap 'status=$?; echo "Setup exit status: $status"; dpkg-query -W > build/reference-corner-packages.txt; exit "$status"' EXIT
+          python scripts/reference_toolchain.py apt-sources --output build/reference-apt-sources
+          apt_options=(-o "Dir::Etc::sourcelist=$PWD/build/reference-apt-sources/sources.list" -o "Dir::Etc::sourceparts=$PWD/build/reference-apt-sources/sources.list.d" -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo timeout --signal=TERM --kill-after=15s 300s apt-get "${apt_options[@]}" update --error-on=any
+          sudo timeout --signal=TERM --kill-after=15s 600s apt-get "${apt_options[@]}" install -y tcl tk libx11-6 libxrender1 libxpm4 libcairo2 libglu1-mesa libreadline8t64 libklu2 libegl1 libopengl0
+          timeout --signal=TERM --kill-after=15s 300s python -m pip install --timeout 30 --retries 3 -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.rc-toolchain.outputs.artifact_name }}
+          path: build/rc-toolchain-artifact
+      - name: Validate complete producer payload and select compatible reuse or local rebuild
+        id: resolve
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+          TOOLCHAIN_SHA256: ${{ needs.rc-toolchain.outputs.sha256 }}
         run: |
-          python scripts/build_physical_engines.py --lock examples/gf180-rc-engine-lock.json --output build/gf180-engines
-          python scripts/build_physical_engines.py --lock examples/modern-schematic-engine-lock.json --only ngspice --output build/modern-engines
+          python scripts/reference_toolchain.py prepare --candidate "$CANDIDATE_SHA" --archive build/rc-toolchain-artifact/reference-toolchain.tar.gz --expected-sha256 "$TOOLCHAIN_SHA256"
+      - name: Install build dependencies only for a verified image-version mismatch
+        if: steps.resolve.outputs.needs_rebuild == 'true'
+        timeout-minutes: 20
+        run: |
+          set -euo pipefail
+          exec > >(tee build/reference-corner-build-setup.log) 2>&1
+          trap 'status=$?; echo "Build setup exit status: $status"; dpkg-query -W > build/reference-corner-build-packages.txt; exit "$status"' EXIT
+          apt_options=(-o "Dir::Etc::sourcelist=$PWD/build/reference-apt-sources/sources.list" -o "Dir::Etc::sourceparts=$PWD/build/reference-apt-sources/sources.list.d" -o Acquire::Retries=1 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30)
+          sudo timeout --signal=TERM --kill-after=15s 300s apt-get "${apt_options[@]}" update --error-on=any
+          sudo timeout --signal=TERM --kill-after=15s 600s apt-get "${apt_options[@]}" install -y build-essential pkg-config m4 autoconf automake libtool bison flex tcl-dev tk-dev libx11-dev libxrender-dev libxpm-dev libcairo2-dev libglu1-mesa-dev libreadline-dev libsuitesparse-dev
+      - name: Rebuild the same locked engines in this consumer's empty prefixes
+        if: steps.resolve.outputs.needs_rebuild == 'true'
+        timeout-minutes: 60
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+          TOOLCHAIN_SHA256: ${{ needs.rc-toolchain.outputs.sha256 }}
+        run: python scripts/reference_toolchain.py rebuild --candidate "$CANDIDATE_SHA" --archive build/rc-toolchain-artifact/reference-toolchain.tar.gz --expected-sha256 "$TOOLCHAIN_SHA256"
+      - name: Require verified installed identity, inventory and native engine probes
+        # This gate also runs when the conditional rebuild was skipped. An
+        # unresolved reuse miss cannot reach the unchanged qualification suite.
+        env:
+          CANDIDATE_SHA: ${{ github.sha }}
+          TOOLCHAIN_SHA256: ${{ needs.rc-toolchain.outputs.sha256 }}
+        run: |
+          python scripts/reference_toolchain.py ready --candidate "$CANDIDATE_SHA" --archive build/rc-toolchain-artifact/reference-toolchain.tar.gz --expected-sha256 "$TOOLCHAIN_SHA256"
+          dpkg-query -W > build/reference-corner-packages.txt
       - name: Require complete extraction, terminal equivalence, fill controls and post-RC startup
         run: python scripts/qualify_gf180_rc.py --open-pdks build/open-pdks --magic "$PWD/build/gf180-engines/installed/bin/magic" --ngspice "$PWD/build/modern-engines/installed/bin/ngspice" --corner "${{ matrix.corner }}" --out build/gf180-rc
       - uses: actions/upload-artifact@v4
@@ -101,9 +223,20 @@ jobs:
             build/modern-engines/*-build.log
             build/modern-engines/*-version.log
             build/modern-engines/source-lock.json
+            build/reference-toolchain-manifest.json
+            build/reference-toolchain-restored.json
+            build/reference-toolchain-mismatch.json
+            build/reference-toolchain-resolution.json
+            build/reference-toolchain-local.tar.gz
+            build/reference-corner-packages.txt
+            build/reference-corner-setup.log
+            build/reference-corner-build-packages.txt
+            build/reference-corner-build-setup.log
+            build/reference-apt-sources
           compression-level: 1
           if-no-files-found: error
   bandgap-schematic:
+    needs: candidate
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -135,6 +268,7 @@ jobs:
           compression-level: 1
           if-no-files-found: error
   bandgap-physical:
+    needs: candidate
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -151,7 +285,9 @@ jobs:
       - name: Install KLayout and the locked Python dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y klayout libegl1 libopengl0
+          curl -fL --retry 3 -o /tmp/klayout.deb https://www.klayout.org/downloads/Ubuntu-24/klayout_0.30.5-1_amd64.deb
+          echo '9f88fe45d1992fc9bd0ce986bbbe150ad198c6a59a86fc13343db822a5790e49  /tmp/klayout.deb' | sha256sum -c
+          sudo apt-get install -y /tmp/klayout.deb libegl1 libopengl0
           python -m pip install -r requirements.txt docopt jinja2
       - name: Qualify exchange, full DRC/LVS and deliberate physical faults
         env:

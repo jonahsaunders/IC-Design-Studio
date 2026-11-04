@@ -1,0 +1,200 @@
+"""Native electrical definitions and portable SPICE generation.
+
+No Xschem parser, source records, installation or template evaluator is used.
+Device programs contain explicit literal, parameter, terminal and instance
+tokens. SPICE expressions remain expressions for the selected simulator.
+"""
+import hashlib
+import json
+import re
+from pathlib import Path
+from .model import clone, validate, atomic_write, scalar
+
+
+def native(project):
+    return project.get('spice', {}).get('version') == 1
+
+
+def lvs_defaults(text, technology=None):
+    """Canonicalize only explicit, literal unit defaults of known PDK devices."""
+    changes=[]
+    def instance(match):
+        original=match[0];logical=re.sub(r'\n[ \t]*\+[ \t]*',' ',original)
+        if not re.search(r'(?i)\ssky130_fd_pr__cap_var_(?:lvt|hvt)(?=\s|$)',logical):return original
+        if len(re.findall(r'(?i)\sVM\s*=',logical))!=1:return original
+        # VM defaults to 1 in these PDK subcircuits. Never discard m, W/L,
+        # a non-unit VM, an expression, or a similarly named unknown model.
+        canonical,count=re.subn(r'(?i)[ \t]+VM[ \t]*=[ \t]*(?:1(?:\.0*)?|1(?:\.0*)?e[+-]?0)(?=\s|$)','',logical)
+        if count:changes.append(dict(instance=logical.split()[0],parameter='VM',default='1'))
+        return canonical if count else original
+    text=re.sub(r'(?im)^[ \t]*x\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text)
+    if (technology or {}).get('package_lock',{}).get('id')=='ihp-sg13g2':
+        text,ihp_changes=ihp_lvs_defaults(text,technology);changes.extend(ihp_changes)
+    return text,changes
+
+
+def ihp_lvs_defaults(text, technology):
+    """Follow the locked upstream core-MOS LVS format for statistical mm_ok.
+
+    IHP's simulation template enables mismatch; its LVS template has W/L/ng/m
+    only. Netgen's setup currently does not remove mm_ok. Never drop geometry,
+    multiplicity, unknown values, or parameters of other device classes.
+    """
+    from .model import file_digest
+    root=Path(technology['package_root']).resolve();files=technology['package_lock']['files']
+    proofs={};changes=[]
+    for model in ('sg13_lv_nmos','sg13_lv_pmos'):
+        entries=[b for b in technology['simulation']['catalog'].values()
+                 if b.get('model')==model and Path(b.get('source','')).stem==model and not b.get('unavailable')]
+        if len(entries)!=1:continue
+        entry=entries[0];rel=entry['source'];path=(root/rel).resolve()
+        if not path.is_relative_to(root) or not files.get(rel) or file_digest(path)!=files[rel]:
+            raise ValueError('The IHP LVS symbol is missing or changed.')
+        source=path.read_text(encoding='utf-8')
+        if ('lvs_format="M@name @pinlist @model w=@w l=@l ng=@ng m=@m"' in source
+                and 'format="@spiceprefix@name @pinlist @model w=@w l=@l ng=@ng m=@m mm_ok=@mm_ok"' in source):
+            proofs[model]=dict(source=rel,sha256=files[rel])
+    def instance(match):
+        original=match[0];logical=re.sub(r'\n[ \t]*\+[ \t]*',' ',original)
+        tokens=logical.split()
+        if len(tokens)<6 or tokens[5].lower() not in proofs:return original
+        if len(re.findall(r'(?i)\smm_ok\s*=',logical))!=1:return original
+        rewritten,count=re.subn(r'(?i)[ \t]+mm_ok[ \t]*=[ \t]*(?:0(?:\.0*)?|1(?:\.0*)?)(?=\s|$)','',logical)
+        if count:changes.append(dict(instance=tokens[0],parameter='mm_ok',reason='Statistical simulation flag omitted by the locked upstream LVS format',proof=proofs[tokens[5].lower()]))
+        return rewritten if count else original
+    return re.sub(r'(?im)^[ \t]*[xm]\S+[^\n]*(?:\n[ \t]*\+[^\n]*)*',instance,text),changes
+
+
+def render(device, child=None, mode='simulation'):
+    definition = device['native_spice']
+    if definition['type'] == 'program':
+        return definition['text']
+    output = []
+    from .native_vectors import signals
+    def terminal(pin):
+        return device['nets'][pin] if pin in device['nets'] else ' '.join(device['nets'][name] for name in signals(pin))
+    if mode not in ('simulation','lvs'):raise ValueError('Choose simulation or LVS emission.')
+    for token in definition.get('lvs_tokens',definition['tokens']) if mode=='lvs' else definition['tokens']:
+        kind, value = token['kind'], token.get('value', '')
+        if kind == 'literal': output.append(value)
+        elif kind == 'instance': output.append(device['name'])
+        elif kind == 'terminal': output.append(terminal(value))
+        elif kind == 'terminals': output.append(' '.join(terminal(p) for p in device['symbol']['pin_order']))
+        elif kind == 'cell': output.append(child['name'] if child else definition['model_name'])
+        elif kind == 'parameter':
+            if value not in definition['parameters']:
+                raise ValueError(device['name'] + ': missing native parameter ' + value)
+            output.append(str(definition['parameters'][value]))
+        else: raise ValueError('Unknown native device token: ' + kind)
+    text=''.join(output)
+    if mode=='lvs':text,_=lvs_defaults(text)
+    return text
+
+
+def validate_device(device):
+    definition = device.get('native_spice', {})
+    if definition.get('diode_geometry') not in (None,'pre46-scale-1e-6'):
+        raise ValueError('Unsupported explicit diode geometry convention.')
+    if definition.get('version') != 1 or definition.get('type') not in ('device', 'program'):
+        raise ValueError('Invalid native electrical definition for ' + device['name'])
+    if not device.get('symbol'):
+        raise ValueError('Native electrical definitions require an explicit symbol and terminal order.')
+    if definition['type'] == 'program':
+        if device['nets'] or not isinstance(definition.get('text'), str):
+            raise ValueError('A simulation program has text and no electrical terminals.')
+    else:
+        if not isinstance(definition.get('parameters'), dict) or not definition.get('tokens'):
+            raise ValueError('A native device needs parameters and an emission program.')
+        for key, value in definition['parameters'].items():
+            if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*', key) or not isinstance(value, str) or '\n' in value or '\r' in value:
+                raise ValueError('Invalid native device parameter: ' + str(key))
+            if 'tcleval' in value:
+                raise ValueError('Executable Xschem expressions must be migrated before editing this parameter.')
+        render(device, {'name': 'child'})
+        if 'lvs_tokens' in definition:render(device, {'name':'child'}, 'lvs')
+
+
+def asset_path(ident):
+    if not re.fullmatch(r'[a-f0-9]{24}', ident):
+        raise ValueError('Invalid native model asset identity.')
+    return 'models/' + ident + '.spice'
+
+
+def netlist(project, directory, mode='simulation'):
+    from .wiring import rebuild
+    from .interchange import source_spec, spice_name
+    from .design_ops import parameters, resolved_device
+    p = clone(project); validate(p)
+    root = Path(directory).resolve(); root.mkdir(parents=True, exist_ok=True)
+    assets = p['spice']['assets']
+    from .catalog_migration import check_embedded_catalog, emit
+    check_embedded_catalog(p)
+    for ident, asset in assets.items():
+        if hashlib.sha256(asset['text'].encode()).hexdigest() != asset['sha256']:
+            raise ValueError('Model checksum mismatch: ' + asset.get('name', ident))
+        atomic_write(root / asset_path(ident), asset['text'])
+    atomic_write(root / 'model-files.json', json.dumps({asset_path(k): v['name'] for k, v in assets.items()}, indent=2))
+    atomic_write(root / 'library-lock.json', json.dumps(p['spice'].get('library_lock', {}), indent=2))
+    by = {c['id']: c for c in p['cells']}; top = by[p['top']]
+    lines = ['* IC Design Studio native circuit: ' + p['name']]; definitions = set()
+    from .native_vectors import devices as vector_devices, ports as vector_ports, global_nets
+    if p.get('global_nets'):lines.append('.global '+' '.join(global_nets(p)))
+    if p.get('parameters'):
+        lines.append('.param ' + ' '.join(k + '=' + str(v) for k, v in p['parameters'].items()))
+    for c in [top] + [c for c in p['cells'] if c is not top]:
+        rebuild(c, p)
+        defaults = {**c.get('spice_parameters', {}), **c.get('parameters', {})}
+        if c is not top or mode=='lvs':
+            lines.append('.subckt ' + c['name'] + ' ' + ' '.join(vector_ports(c['ports'])) + ''.join(' ' + k + '=' + str(v) for k, v in defaults.items()))
+        elif defaults:
+            lines.append('.param ' + ' '.join(k + '=' + str(v) for k, v in defaults.items()))
+        context = parameters(c.get('parameters', {}), parameters(p.get('parameters', {})))
+        lines.extend(c.get('spice_statements', [])); commands = []
+        for original in vector_devices(c,p):
+            d = original; definition = d.get('native_spice')
+            if d.get('model_ref'):
+                line=emit(d,p['pdk'],mode)
+                if mode=='simulation' and d['model_ref'].get('diode_geometry')=='pre46-scale-1e-6':
+                    from .ngspice_compat import declare
+                    line=declare(line)
+                lines.append(line);continue
+            if definition:
+                if definition['type'] == 'program':
+                    if c is top or not definition.get('only_toplevel'):
+                        commands.append(definition['text'])
+                else:
+                    line=render(d, by.get(d.get('cell')), mode)
+                    if mode=='simulation' and definition.get('diode_geometry')=='pre46-scale-1e-6':
+                        from .ngspice_compat import declare
+                        line=declare(line)
+                    lines.append(line)
+                    if definition.get('definition'): definitions.add(definition['definition'])
+                continue
+            d = resolved_device(d, context); kind = d['kind']
+            if kind == 'X':
+                lines.append(d['name'] + ' ' + ' '.join(d['nets'][pin] for pin in vector_ports(by[d['cell']]['ports'])) + ' ' + by[d['cell']]['name'] + ''.join(' ' + k + '=' + str(v) for k, v in d.get('parameters', {}).items()))
+                continue
+            name = spice_name(d); nets = ' '.join(d['nets'].values())
+            if kind in ('R', 'C', 'L'): suffix = str(scalar(d['value']))
+            elif kind in ('V', 'I'): suffix = source_spec(d)
+            elif kind in ('NMOS', 'PMOS'):
+                pa = d['params']; model = 'studio_' + d['id']; polarity = -1 if kind == 'PMOS' else 1
+                definitions.add(f'.model {model} {kind} (LEVEL=1 VTO={polarity*scalar(pa["vto"])} KP={scalar(pa["kp"])} LAMBDA={scalar(pa["lambda"])})')
+                suffix = f'{model} W={scalar(pa["w"])} L={scalar(pa["l"])}'
+            else: raise ValueError(d['name'] + ': migrate or bind this device before native SPICE generation.')
+            lines.append(name + ' ' + nets + ' ' + suffix)
+        lines.extend(commands)
+        if c is not top or mode=='lvs': lines.append('.ends ' + c['name'])
+    lines.extend(sorted(definitions)); lines.append('.end')
+    text = '\n'.join(lines) + '\n'
+    if mode=='lvs':
+        from .native_analysis import circuit_text
+        text=circuit_text(text)+'.end\n'
+    atomic_write(root / 'source.cir', text)
+    return text
+
+
+def run(project, cid, settings, executable, directory, progress=lambda *_: None):
+    from .spice_program import run_program
+    return run_program(project, cid, settings, executable, directory, progress, netlist,
+                       'ngspice · native program', project['spice'].get('library_lock', {}), 'analysis_cases')

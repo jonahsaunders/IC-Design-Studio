@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "chunk": 4,
+  "status": "baseline_failed",
+  "source_commit": "1989dbfd7f023bb64bc6183988e43a82981d6175",
+  "backend": "b000d627695f07f908c22dd74210fbfea91b28e741eb7a27c1d58992e07330c5",
+  "deck_revision": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+  "deck_lock_sha256": "4ba84b61084fa7861424bbd096f91b28b096f17dafafc3bd77d2397e624b6eff",
+  "density_deck_sha256": "692a5043e191acc245954cf985eb1d35ca4701a4f710e990e789366e3b3717ea",
+  "rules": {
+    "PL.8": {
+      "layer": "poly2",
+      "native_minimum_percent": 14,
+      "condition": "if (poly2.area / CHIP.area) * 100 < 14",
+      "scope": "whole-layout extent",
+      "marker_behavior": "Emits existing layer polygons when the global density condition fails."
+    },
+    "M1.4": {
+      "layer": "metal1",
+      "native_minimum_percent": 30,
+      "condition": "if (metal1.area / CHIP.area) * 100 < 30",
+      "scope": "whole-layout extent",
+      "marker_behavior": "Emits existing layer polygons when the global density condition fails."
+    },
+    "M2.4": {
+      "layer": "metal2",
+      "native_minimum_percent": 30,
+      "condition": "if (metal2.area / CHIP.area) * 100 < 30",
+      "scope": "whole-layout extent",
+      "marker_behavior": "Emits existing layer polygons when the global density condition fails."
+    },
+    "M3.4": {
+      "layer": "metal3",
+      "native_minimum_percent": 30,
+      "condition": "if (metal3.area / CHIP.area) * 100 < 30",
+      "scope": "whole-layout extent",
+      "marker_behavior": "Emits existing layer polygons when the global density condition fails."
+    },
+    "M4.4": {
+      "layer": "metal4",
+      "native_minimum_percent": 30,
+      "condition": "if (metal4.area / CHIP.area) * 100 < 30",
+      "scope": "whole-layout extent",
+      "marker_behavior": "Emits existing layer polygons when the global density condition fails."
+    },
+    "M5.4": {
+      "layer": "metal5",
+      "native_minimum_percent": 30,
+      "condition": "if (metal5.area / CHIP.area) * 100 < 30",
+      "scope": "whole-layout extent",
+      "marker_behavior": "Emits existing layer polygons when the global density condition fails."
+    },
+    "MT.3": {
+      "layer": "top_metal",
+      "native_minimum_percent": 30,
+      "condition": "if (top_metal.area / CHIP.area) * 100 < 30",
+      "scope": "whole-layout extent",
+      "marker_behavior": "Emits existing layer polygons when the global density condition fails."
+    }
+  },
+  "counters": [
+    {
+      "system": "Linux",
+      "platform": "gf180",
+      "variant": "C",
+      "audit_sha256": "59b5b2bfac137064a76c21659a12cc7de90f874f3e9300339821035c0ee58d30",
+      "result_sha256": "e0f943f240291f69b3e8040c67fd82ecb6a3ad1b898cb7ae26a991097c1beb73",
+      "gds_sha256": "6b3be55039c5e8e8eb197b0217b5a66e06d0a66367478a98d94c879bdbc4c853",
+      "native_density_report_sha256": "f8531f17f28e79417aaf1b5e70ad573a2a84900ba301d0ef3e75eaf7196458c6",
+      "counts_by_rule": {
+        "PL.8": 104,
+        "M1.4": 139,
+        "M2.4": 161,
+        "M3.4": 137,
+        "M4.4": 8,
+        "M5.4": 3,
+        "MT.3": 3
+      }
+    },
+    {
+      "system": "Linux",
+      "platform": "gf180d",
+      "variant": "D",
+      "audit_sha256": "59b5b2bfac137064a76c21659a12cc7de90f874f3e9300339821035c0ee58d30",
+      "result_sha256": "cfd10c99f9e945a1f2b75d45bab8b1ff5c1c8dfecce49b8764c4c5b4995c517b",
+      "gds_sha256": "414ebb7ddcfd3c820acd559964c2b2ebeb49bcda70585097895ffae50a90d1e1",
+      "native_density_report_sha256": "f8531f17f28e79417aaf1b5e70ad573a2a84900ba301d0ef3e75eaf7196458c6",
+      "counts_by_rule": {
+        "PL.8": 104,
+        "M1.4": 139,
+        "M2.4": 161,
+        "M3.4": 137,
+        "M4.4": 8,
+        "M5.4": 3,
+        "MT.3": 3
+      }
+    },
+    {
+      "system": "Windows",
+      "platform": "gf180",
+      "variant": "C",
+      "audit_sha256": "0c73329863ce14cce0f7073ccd163a77b3d0fc6be44499049b8f5bda81d61315",
+      "result_sha256": "d8bb708ae57faa1ca38353c3a969b9d5a470da284deb6f70769f69535b3cfc75",
+      "gds_sha256": "7589420c464f9db007c24888fdd1fc3125ac4f229d74d5cb80d53b113cfc9c56",
+      "native_density_report_sha256": "7790d39baf69453bb1ce198acbf7060480fc70e2de242744e1076cf39973d6b6",
+      "counts_by_rule": {
+        "PL.8": 104,
+        "M1.4": 139,
+        "M2.4": 161,
+        "M3.4": 137,
+        "M4.4": 8,
+        "M5.4": 3,
+        "MT.3": 3
+      }
+    },
+    {
+      "system": "Windows",
+      "platform": "gf180d",
+      "variant": "D",
+      "audit_sha256": "0c73329863ce14cce0f7073ccd163a77b3d0fc6be44499049b8f5bda81d61315",
+      "result_sha256": "c9e3dfa4305bf9bc7ee93f873427e8f96561d64c5f8ba55e4aaf98d9d2410998",
+      "gds_sha256": "59195e9b290d008a55050cb522395cfc6f7b473570dbc942a7a6d5ed04e984ab",
+      "native_density_report_sha256": "7790d39baf69453bb1ce198acbf7060480fc70e2de242744e1076cf39973d6b6",
+      "counts_by_rule": {
+        "PL.8": 104,
+        "M1.4": 139,
+        "M2.4": 161,
+        "M3.4": 137,
+        "M4.4": 8,
+        "M5.4": 3,
+        "MT.3": 3
+      }
+    }
+  ],
+  "interpretation": "The 555 counter markers represent seven failed global rule labels, not 555 independent density windows. For 5LM, MT.3 and M5.4 both check Metal5. Marker count alone does not measure how far a layer falls below its density requirement.",
+  "next_batches": [
+    "Measure actual coverage against the deck extent and reconcile foundry dummy-poly/fill rules.",
+    "Implement legal dummy-poly fill with fixed layout extent and unchanged circuit connectivity.",
+    "Implement metal fill one layer at a time, preserving blockages and required exclusions.",
+    "Recheck every complete rule group, connectivity, extraction, unchanged-constraint timing and equivalence on filled C/D counter, UART and APB layouts."
+  ],
+  "limits": [
+    "No geometry changed by this analysis.",
+    "No density waiver or rule suppression authorized.",
+    "Native minimum comparisons do not replace the full foundry fill, maximum-density, spacing and reliability requirements."
+  ]
+}

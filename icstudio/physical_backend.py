@@ -8,7 +8,7 @@ import time
 import uuid
 from .model import atomic_write, clone, design_digest, digest, file_digest
 
-TOOLS=('magic','netgen','ngspice')
+TOOLS=('magic','netgen','ngspice','klayout')
 
 
 def available():
@@ -16,6 +16,21 @@ def available():
     runtime=digital_runtime.installed(); data=digital_runtime.manifest()
     if runtime and data and set(TOOLS)<=set(data.get('tools',[])):return runtime
     return None
+
+
+def _physical_models(job):
+    """Select bundled IHP models for an included saved-bench verification."""
+    settings=job['settings']
+    if settings.get('type')!='silicon' or not settings.get('testbench') or settings.get('verification_mode')=='drc_lvs':
+        return ()
+    project=job['project'];pdk=project['pdk']
+    if pdk.get('package_lock',{}).get('id')!='ihp-sg13g2':
+        return ()
+    from .osdi import managed_models, needs_managed_runtime
+    if not needs_managed_runtime(project):
+        return ()
+    from .digital_runtime import manifest
+    return managed_models(pdk,manifest())
 
 
 def prepare(job):
@@ -32,6 +47,7 @@ def prepare(job):
             raise ValueError('Managed physical verification requires a checksummed PDK package.')
         runtime=available()
         if not runtime:raise ValueError('Set up the included physical tools from Tools → Physical tools setup before verification.')
+        _physical_models(job)
     except (OSError,ValueError) as exc:
         # Preserve the normal queued preflight report for incomplete setup.
         # A synchronous exception would discard its stages and bench identity.
@@ -68,17 +84,27 @@ def stage(job, work, native_work, native_root):
         target=work/'pdk'/relative;target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copy2(path,target)
         if file_digest(target)!=sha:raise ValueError('PDK asset changed during transfer: '+relative)
+    from .ihp_resistor_assets import copy_linked_manifest
+    copy_linked_manifest(job['project'],source,work/'pdk')
     pdk['package_root']=str(PurePosixPath(native_work)/'pdk')
     settings=native['settings'];settings.pop('physical_runtime',None)
     settings['tools']={name:str(PurePosixPath(native_root)/'opt/icstudio/bin'/name) for name in TOOLS}
-    if settings.get('managed_osdi'):
+    managed_osdi=settings.get('managed_osdi')
+    if managed_osdi:
         from . import digital_runtime
         from .osdi import managed_models
         models=managed_models(pdk,digital_runtime.manifest())
+    else:
+        models=_physical_models(job)
+    if models:
         folder=PurePosixPath(native_root)/'opt/icstudio/osdi/ihp-sg13g2'
-        native['project']['simulation_runtime']={'osdi':[
+        runtime={'osdi':[
             dict(path=str(folder/m['output']),sha256=m['sha256'],system='Linux',machine='x86_64') for m in models]}
-        native['executable']=settings['tools']['ngspice']
+        if managed_osdi:
+            native['project']['simulation_runtime']=runtime
+            native['executable']=settings['tools']['ngspice']
+        else:
+            native['project'].setdefault('simulation_runtime',{}).update(runtime)
     native.pop('environment',None)
     return native
 
@@ -121,6 +147,20 @@ def dispatch(job, directory, progress):
         source=digital_runtime.payload_root()/'backend/icstudio'
         if not source.is_dir():source=Path(__file__).parent
         shutil.copytree(source,backend/'icstudio',ignore=shutil.ignore_patterns('assets','__pycache__','*.pyc','*.so','*.dll'))
+        from .ihp_resistor_assets import copy_assets
+        copy_assets(source,backend/'icstudio')
+        if job['settings'].get('lvs_extractor')=='ihp-klayout':
+            from .ihp_klayout_lvs import copy_assets
+            copy_assets(backend/'icstudio/assets/physical/ihp_klayout_lvs')
+            if job['settings'].get('drc_engine')=='ihp-public':
+                from .ihp_klayout_drc import copy_assets as copy_drc
+                copy_drc(backend/'icstudio/assets/physical/ihp_klayout_drc')
+        if job['settings'].get('lvs_extractor')=='gf180-hv-klayout':
+            from .gf180_hv_verification import copy_assets
+            copy_assets(backend/'icstudio/assets/physical/gf180_hv')
+        if job['settings'].get('lvs_extractor') in ('sky130-rf-nwell-klayout','sky130-rf-isolation-klayout'):
+            from .sky130_rf_verification import copy_assets
+            copy_assets(backend/'icstudio/assets/verification/sky130')
         atomic_write(backend/'entry.py','from icstudio.digital_backend import supervise\nfrom icstudio.physical_backend import native_run\nraise SystemExit(supervise(native_run))\n')
         atomic_write(work/'native-input.json',json.dumps(native))
         marker_path=digital_runtime.wsl(['--distribution',runtime['distro'],'--exec','wslpath','-a','-u',str(marker)]) if runtime['kind']=='wsl' else str(marker)

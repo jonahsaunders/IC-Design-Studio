@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "source_repository": "google/skywater-pdk-libs-sky130_fd_pr",
+  "source_commit": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+  "source_files": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "sky130_fd_pr__npn_05v5_W1p00L2p00.model.spice": "3263f5585abd00131564ab65a33da1f20660619a81aceb4e3212b62d95adcc33",
+    "sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0",
+    "sky130_fd_pr__npn_05v5__s.corner.spice": "8aa8e893fde54044f70bb1c5fad7ffdee9c3738b3370e97a05c85eadaea081ba",
+    "sky130_fd_pr__npn_05v5__f.corner.spice": "8150c2134c0ff3e9b7b190280d32a48d5451ceaa1dea62def6966ce42e7f8f3a"
+  },
+  "resistor_adapter": {
+    "id": "sky130A",
+    "revision": "b897a1bb4cffa3bc",
+    "manifest_sha256": "13f05bd9c9c9d583237515fddd8d6eff879813dce09ffab35406a923575a675e",
+    "files": 397
+  },
+  "original_bundled_model_sha256": "82488580473c62809bc20ac4a0c31c27e1d65cb7c01493482d6f13645c99a478",
+  "model_comparison": "Only the two already-present open_pdks mismatch-expression adaptations differ. Deterministic coefficients match the public model; mismatch remains unqualified.",
+  "change": "Copy original corner parameters and license notices; omit include lines to avoid replacing or duplicating existing locked models. Explicit NPN t/s/f selections accompany nominal/ss/ff for this test package.",
+  "scope": "Selected deterministic NPN integration; no mixed/mismatch/Monte Carlo corner, full envelope, physical or foundry qualification."
+}

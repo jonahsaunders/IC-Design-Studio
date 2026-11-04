@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "fd21187826747d29519f28da7c7ce070b85ca442be79dc17086e1f0bb04c7377",
+  "tests": 35,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "log_sha256": "debdba498f609144551f052b99395267a6258c63d7e57ba21bdfda45486d5dc6",
+  "source_files": {
+    "icstudio/digital_sky130_boundaries.py": "3ccfda72825de8b1dce28d665ab7fe0cdc8b36251ad15371449b7923808a16ae",
+    "icstudio/digital_sky130_pins.py": "413ef2626b803bf17c5f65339e5ffe2e9deb0c63f451befaa28a9f669dfe535b",
+    "tests/test_sky130_boundaries.py": "aaff3b39d708fae340b415f98733063f021ab9a314fde0abeafc2b6086cdf822",
+    "tests/test_sky130_pins.py": "b05b9bb9d209e0aa34bdb3439bf7a4d932e15eec0cf08deb0cc971604e0b8b07",
+    "tests/test_digital_macro.py": "0cc2e45e0632b38e919c794d1ecde54b9a56070f779530dd08e9d71f0eec08ea"
+  },
+  "elapsed_seconds": 1.4059999999990396
+}

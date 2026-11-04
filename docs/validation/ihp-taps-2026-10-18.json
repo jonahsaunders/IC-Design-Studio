@@ -1,0 +1,479 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "chunk": 7,
+  "status": "partial",
+  "chunk_complete": false,
+  "qualified": false,
+  "source_baseline": "957055a02ae1c3c4066c17522dd57f3ef879f5f4",
+  "scope": "Checksum-reviewed IHP ntap1/ptap1 schematic bindings, computed resistance and selected local electrical/editor acceptance. No complete device-family or physical qualification.",
+  "process": {
+    "revision": "c0a32344f73be40d",
+    "manifest_sha256": "f1bd520184204ce71add7b7b9bf640b7daae9987bd52230473d91141bc53859b"
+  },
+  "accepted": [
+    {
+      "root": "/var/tmp/icstudio-ihp-taps-20261018-v1/final",
+      "report_sha256": "1db2e50af2479d803ab6ea0544ca9486bae75ec7dd145e0c8a0ded726c88fe4d",
+      "audit_sha256": "02463016c4b24d257fd77f49b93936d643d9c7103f1794826429a88e5e25eb11",
+      "source_files_sha256": "25316038da6414a83e34af1db1e2d61a6b58ef0b37c8ffb4996c145d2e07f3d6",
+      "engine_sha256": "4c38c46c06cbe65d4111e392b93fd0b4a09250bd7f93bb3eed8f8f0af2bddcc9",
+      "cases": 9
+    },
+    {
+      "root": "/var/tmp/icstudio-ihp-taps-20261018-v1/managed-42",
+      "report_sha256": "b95b6066cbc0ec1d4c662810169ec480cab776dfd7908d079cd3258f5b5ac487",
+      "audit_sha256": "dbf1814c288a805191dfbbcce43917e4522c951c197dc1cac26518ea26a58a26",
+      "source_files_sha256": "25316038da6414a83e34af1db1e2d61a6b58ef0b37c8ffb4996c145d2e07f3d6",
+      "engine_sha256": "de0028325297f6c2171e04d7d1204b0f711b1d521e7183f9bcf9abf9121d50b7",
+      "cases": 1
+    }
+  ],
+  "totals": {
+    "cases": 10,
+    "comparisons": 50,
+    "vectors": 320,
+    "samples": 66020,
+    "faulted_devices": 200,
+    "raw_files": 120
+  },
+  "tests": {
+    "tap-packages-Windows-v4.log": {
+      "count": 28,
+      "status": "PASS",
+      "sha256": "b624e2b2a026b8c349351d108da07b84d49d5c30c11cb410e301f5f2ec98f928"
+    },
+    "tap-npn-compat-Windows-v1.log": {
+      "count": 5,
+      "status": "PASS",
+      "sha256": "333140dcd451b0421038b7302ae32a9fd8b0a9da68f5eb643139b09c36df6f7e"
+    },
+    "tap-npn-compat-Linux-v1.log": {
+      "count": 5,
+      "status": "PASS",
+      "sha256": "580aad2c07ccda7728881d35e87aa47590b249a8fdd86a7168ce934bde8b1c1d"
+    }
+  },
+  "source_files": {
+    "icstudio/ihp_taps.py": "e3ab2e62df3e0a0b6d261e06d9f7044ea2d5df9b9ecf13c85f95333b3868dbe8",
+    "icstudio/catalog.py": "a238bde22e6a3e3ebbef5a4b5aef10a73a931f1a4996b1713f9b0747932ea247",
+    "icstudio/pdk_import.py": "ada2c150a4159836bbb73eb383220a9632d8be4850b161bcfe3e0feb4fdc9857",
+    "icstudio/symbol_io.py": "eabf140a3e81f02b97b7651cf4bb034bdb17bc12b995cca786525446ef77f050",
+    "icstudio/project_ui.py": "b13401d724166a74feb90f4bed6fabe07dc68ddb7c274fbda5778a04704c4aa8",
+    "icstudio/workspace.py": "c29c40ac04925109ac2ef53cec5b9a3e7706759bc5f8ed758d3f168da7720ca1",
+    "scripts/ihp_tap_source.py": "61a401f538325db904ae03f0e20c34d6377c681212854bbcda80763cc3c367bc",
+    "scripts/prepare_ihp_taps.py": "4ac6bad63fa826c0c7fbe1233ed7187566c8b144395eef714dc677ace1c49a41",
+    "scripts/prepare_default_device_packages.py": "6124ac64df58258808bd3d1f30230930c9e8ddd4365c1ac47604487d8d33b7dc",
+    "scripts/device_qualification_source.py": "0553ee8c5cf7513decb41b156ee37060008abd21b696f913c03e50b073b0e4a2",
+    "scripts/qualify_ihp_taps.py": "424d5758aef0d4983248a85a1d0348f8295f537b75e8ef2e1a40d63494fd7a55",
+    "scripts/prepare_ihp_npn_qualification.py": "f70e45c463d0a139065371cdeeeff6014d1d8958bccdb0fe43b2f41e4f8b484d",
+    "tests/test_ihp_taps.py": "d29ac1abe99df7f2224a3e7b3f34c7f53dbf90e6fb810df1551e8080743925ba",
+    "tests/test_ihp_tap_qualification.py": "a315a0bb57376ba20fa2a982ae2f4dde29be8a644201ad2ba8f989a0b3bfcd48",
+    "tests/gui_ihp_taps.py": "cadeb0616997e8426ed1f38cb7870673a89a2d9e1f9c63d91e17869c1bf1ac84"
+  },
+  "windows_backend": {
+    "status": "PASS",
+    "process": {
+      "target": "ihp-sg13g2",
+      "revision": "c0a32344f73be40d",
+      "manifest_sha256": "f1bd520184204ce71add7b7b9bf640b7daae9987bd52230473d91141bc53859b"
+    },
+    "scope": "Windows staging, actual source backend on local Linux ngspice 42, and hash-verified artifact receipt. Not installed acceptance.",
+    "cases": [
+      {
+        "analysis": "dc",
+        "comparison": {
+          "status": "PASS",
+          "channels": 10,
+          "samples": 21,
+          "channel_errors": {
+            "outn0": 3.208012365487717e-08,
+            "outn1": 1.6205735847856982e-09,
+            "outn2": 1.6205735847856982e-09,
+            "outn3": 3.0283778985638405e-08,
+            "outn4": 0.0,
+            "outp0": 3.208012365487717e-08,
+            "outp1": 1.6205735847856982e-09,
+            "outp2": 1.6205735847856982e-09,
+            "outp3": 3.0283778985638405e-08,
+            "outp4": 0.0
+          },
+          "relative_tolerance": 1e-06,
+          "absolute_tolerance": 1e-10
+        },
+        "analytical": {
+          "status": "PASS",
+          "maximum_normalized_error": 3.2450562686621904e-08
+        },
+        "received_files": 51,
+        "result_sha256": "ebeac8fc8516e18c1ed089a8bd6dcd2ee5e1ced0a43cd197d80785b51d7e02de",
+        "input_sha256": "8f6680a491d1198ab1d3bd358a2acbef85e541847bdf78d8e9cc54b3e0359af0"
+      },
+      {
+        "analysis": "ac",
+        "comparison": {
+          "status": "PASS",
+          "channels": 10,
+          "samples": 26,
+          "channel_errors": {
+            "outn0": 3.252388534174042e-08,
+            "outn1": 1.4165716940593672e-09,
+            "outn2": 1.4165716940593672e-09,
+            "outn3": 3.078359303010837e-08,
+            "outn4": 0.0,
+            "outp0": 3.252388534174042e-08,
+            "outp1": 1.4165716940593672e-09,
+            "outp2": 1.4165716940593672e-09,
+            "outp3": 3.078359303010837e-08,
+            "outp4": 0.0
+          },
+          "relative_tolerance": 1e-06,
+          "absolute_tolerance": 1e-10
+        },
+        "analytical": {
+          "status": "PASS",
+          "maximum_normalized_error": 3.280374215124233e-08
+        },
+        "received_files": 51,
+        "result_sha256": "2c9d89ba8d9b7db2bc071ffec0d55e00977643e4a52ef8c6be9dab3d3d32abdd",
+        "input_sha256": "c1446a49c33358f4e30af1aaa9dc9550acd0597391e0c52683b74497087861f6"
+      },
+      {
+        "analysis": "tran",
+        "comparison": {
+          "status": "PASS",
+          "channels": 10,
+          "samples": 608,
+          "channel_errors": {
+            "outn0": 1.5559840708797518e-10,
+            "outn1": 8.001344530050057e-12,
+            "outn2": 8.001344530050057e-12,
+            "outn3": 1.4764443197363103e-10,
+            "outn4": 5.918225285131461e-13,
+            "outp0": 1.5559840708797518e-10,
+            "outp1": 8.001344530050057e-12,
+            "outp2": 8.001344530050057e-12,
+            "outp3": 1.4764443197363103e-10,
+            "outp4": 5.918225285131461e-13
+          },
+          "relative_tolerance": 0.0002,
+          "absolute_tolerance": 1e-08
+        },
+        "analytical": null,
+        "received_files": 51,
+        "result_sha256": "f4a018ad994b8070646b9c7d576c6856428ee8fbd8c2e99ca1c1da68a97a413c",
+        "input_sha256": "0a2afe3d4bd6df72e5f03608b3b164d201b229c6593b7bda25d2e0bddbf25b50"
+      },
+      {
+        "analysis": "noise-outn0",
+        "comparison": {
+          "status": "PASS",
+          "channels": 1,
+          "samples": 26,
+          "channel_errors": {
+            "outn0": 6.242411206002603e-08
+          },
+          "relative_tolerance": 1e-06,
+          "absolute_tolerance": 1e-18
+        },
+        "analytical": {
+          "status": "PASS",
+          "maximum_normalized_error": 0.17373783426770315
+        },
+        "received_files": 51,
+        "result_sha256": "5ad1364a24ef8acbfb54c445affaa780ded5a7efea1e85a9ca49a2108800f0ec",
+        "input_sha256": "3116c4b7cc2d8cc499c90f3547f8898823d3f479c8902afee4d85f035134e861"
+      },
+      {
+        "analysis": "noise-outp0",
+        "comparison": {
+          "status": "PASS",
+          "channels": 1,
+          "samples": 26,
+          "channel_errors": {
+            "outp0": 6.242411206002603e-08
+          },
+          "relative_tolerance": 1e-06,
+          "absolute_tolerance": 1e-18
+        },
+        "analytical": {
+          "status": "PASS",
+          "maximum_normalized_error": 0.17373783426770315
+        },
+        "received_files": 51,
+        "result_sha256": "2ace0e26f4a9e1912f721bec9b08dec87df3d9e84fcea742866bc5c8637c9057",
+        "input_sha256": "235dc726823e538c4cd9b32884b2fd0e3d0f90f46285c8b9722b02d988730313"
+      }
+    ]
+  },
+  "source_desktop": {
+    "Windows": {
+      "status": "PASS",
+      "scope": "Current-source offscreen desktop; placement, parameter editing, computed resistance, save/reopen/netlist. Not installed acceptance.",
+      "revision": "c0a32344f73be40d",
+      "checks": [
+        {
+          "model": "ntap1",
+          "initial_ohms": 262.84733397704105,
+          "edited_ohms": 40.83333333333334
+        },
+        {
+          "model": "ptap1",
+          "initial_ohms": 262.84733397704105,
+          "edited_ohms": 40.83333333333334
+        }
+      ],
+      "source_sha256": "cadeb0616997e8426ed1f38cb7870673a89a2d9e1f9c63d91e17869c1bf1ac84",
+      "saved_sha256": "96ec390c7ececa7494c661e72c0994f8162af3e9b0ed5d567bc0fc6404f4bdf8"
+    },
+    "Linux": {
+      "status": "PASS",
+      "scope": "Current-source offscreen desktop; placement, parameter editing, computed resistance, save/reopen/netlist. Not installed acceptance.",
+      "revision": "c0a32344f73be40d",
+      "checks": [
+        {
+          "model": "ntap1",
+          "initial_ohms": 262.84733397704105,
+          "edited_ohms": 40.83333333333334
+        },
+        {
+          "model": "ptap1",
+          "initial_ohms": 262.84733397704105,
+          "edited_ohms": 40.83333333333334
+        }
+      ],
+      "source_sha256": "cadeb0616997e8426ed1f38cb7870673a89a2d9e1f9c63d91e17869c1bf1ac84",
+      "saved_sha256": "6feef64a0e0ee845f60cf4492ae61f9d2a85dc831d3b24ecf65c3ff76ba416c2"
+    }
+  },
+  "layout_probe": {
+    "status": "failed",
+    "drc_count": 0,
+    "error": "Netgen did not establish a unique match with equivalent connected pins and no property errors. See lvs/lvs.log.",
+    "report_sha256": "53149dc7daac274607b3444b86c625c2b58caeb795b0664af4ec19b81dec7c19",
+    "scope": "Exploratory one-rectangle ntap layout; failed LVS is not qualification."
+  },
+  "retained_failures": [
+    "Editor probes exposed harness assumptions about registry JSON formatting, deferred widgets and numeric SPICE export; corrected before accepted runs.",
+    "Initial broad regression rejected the new default in the old NPN recipe. Historical-input reconstruction correction passes five focused tests per host.",
+    "The exploratory ntap layout passes DRC but fails strict LVS. Physical integration remains open."
+  ],
+  "limitations": [
+    "Sampled geometry, biases, frequencies and temperatures only; no continuous operating/reliability envelope.",
+    "Identical public electrical tap models require a separate emitted-identity check; numerical results cannot detect swapping their names.",
+    "No tap physical-extraction, latchup/ESD, measured calibration, statistical or installed-release acceptance.",
+    "Other required devices, complete upstream coverage and final installed acceptance keep chunk 7 incomplete."
+  ],
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-taps-and-ci-repair-2026-10-18/evidence.zip",
+    "sha256": "e05b8d2d1c30181b0884a9fb87f05c2ef6fac4c1b749cc919e88781b93bc17d7",
+    "bytes": 154651358,
+    "files": 40506,
+    "unique_contents": 9562,
+    "all_objects_verified": true
+  },
+  "restore_check": {
+    "status": "PASS",
+    "archive_sha256": "e05b8d2d1c30181b0884a9fb87f05c2ef6fac4c1b749cc919e88781b93bc17d7",
+    "root": "/var/tmp/icstudio-tap-archive-restore-20261018-v1",
+    "prefixes": {
+      "ihp-package": "package",
+      "final-source": "source",
+      "icstudio-ihp-taps-20261018-v1/final/nominal-27": "case"
+    },
+    "files_verified": 1954,
+    "restored_checker_tests": 5,
+    "restored_checker_exit": 0,
+    "scope": "Restored byte-exact model package, implementation and one complete electrical case; checker regression executed from restored sources. No new full electrical run claimed."
+  },
+  "full_regressions": {
+    "Linux": {
+      "v1": {
+        "discovered": 3064,
+        "skipped": 31,
+        "status": "FAIL",
+        "log_sha256": "61079811e468465b6049233de7a46e2142658bcba20f60788ff796a8254ab12a",
+        "skipped_tests": [
+          "test_counter_real_worker_results_stale_inputs_and_artifact_integrity (test_digital.IcarusIntegrationTests.test_counter_real_worker_results_stale_inputs_and_artifact_integrity) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_fault_and_timeout_never_publish_result (test_digital.IcarusIntegrationTests.test_fault_and_timeout_never_publish_result) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_tool_change_before_execution_is_rejected (test_digital.IcarusIntegrationTests.test_tool_change_before_execution_is_rejected) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_lint_and_timed_counter_simulation (test_digital.VerilatorIntegrationTests.test_lint_and_timed_counter_simulation) ... skipped 'Install Verilator or set ICSTUDIO_TEST_VERILATOR'",
+          "test_synthesis_and_gate_simulation (test_digital.YosysIntegrationTests.test_synthesis_and_gate_simulation) ... skipped 'Install Yosys or set ICSTUDIO_TEST_YOSYS'",
+          "test_equivalence_actual_mapped_netlist_and_fault (test_digital_implementation.DigitalImplementationTests.test_equivalence_actual_mapped_netlist_and_fault) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_hierarchical_apb_peripheral_maps_and_proves (test_digital_implementation.DigitalImplementationTests.test_hierarchical_apb_peripheral_maps_and_proves) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_mapped_cells_published_symbol_and_stale_rejection (test_digital_implementation.DigitalImplementationTests.test_mapped_cells_published_symbol_and_stale_rejection) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_physical_checkpoints_resume_gds_and_extracted_timing (test_digital_implementation.DigitalImplementationTests.test_physical_checkpoints_resume_gds_and_extracted_timing) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_timing_real_paths_clock_failure_and_unconstrained (test_digital_implementation.DigitalImplementationTests.test_timing_real_paths_clock_failure_and_unconstrained) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_uart_cases_coverage_and_failed_assertion (test_digital_implementation.DigitalRegressionTests.test_uart_cases_coverage_and_failed_assertion) ... skipped 'Install Icarus and Verilator with coverage'",
+          "test_native_setup_rejects_junction_target_and_parent_before_integrity_repair (test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_junction_target_and_parent_before_integrity_repair) ... skipped 'Directory junctions are Windows-specific'",
+          "test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions (test_digital_runtime.DigitalRuntimeTests.test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions) ... skipped 'Directory junctions are Windows-specific'",
+          "test_apb_protocol_fifo_interrupt_and_deliberate_fault (test_digital_workspace.PeripheralTests.test_apb_protocol_fifo_interrupt_and_deliberate_fault) ... skipped 'Install Icarus for peripheral acceptance'",
+          "test_legacy_source_current_boolean_survives_real_netlisting (test_external_exchange_engines.ExternalExchangeEngineTests.test_legacy_source_current_boolean_survives_real_netlisting) ... skipped 'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.'",
+          "test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence (test_external_exchange_engines.ExternalExchangeEngineTests.test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence) ... skipped 'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.'",
+          "test_analog_and_rtl_faults_are_detected (test_mixed_signal.MixedSignalEngineTests.test_analog_and_rtl_faults_are_detected) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_optional_sar_verification_can_be_disabled (test_mixed_signal.MixedSignalEngineTests.test_optional_sar_verification_can_be_disabled) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_real_closed_loop_and_captured_evidence (test_mixed_signal.MixedSignalEngineTests.test_real_closed_loop_and_captured_evidence) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_reset_and_two_conversions_preserve_analog_history (test_mixed_signal.MixedSignalEngineTests.test_reset_and_two_conversions_preserve_analog_history) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_real_windows_reader_releases_file_during_atomic_save (test_reliability.ReliabilityTests.test_real_windows_reader_releases_file_during_atomic_save) ... skipped 'Windows open handles deny atomic replacement'",
+          "test_actual_sky130_internal_path_and_extracted_names (test_saved_bias.SavedBiasTests.test_actual_sky130_internal_path_and_extracted_names) ... skipped 'Actual linked SKY130 and ngspice required'",
+          "test_each_fault_fails_and_repair_passes_reference_simulation (test_student_design_labs.StudentRepairRTLTests.test_each_fault_fails_and_repair_passes_reference_simulation) ... skipped 'Native Icarus required'",
+          "test_all_mixed_lessons_accept_the_documented_repairs (test_student_hub.StudentCapstoneTests.test_all_mixed_lessons_accept_the_documented_repairs) ... skipped 'Install ngspice/Icarus or set ICSTUDIO_TEST engine paths'",
+          "test_capstone_campaign_and_faults (test_student_hub.StudentCapstoneTests.test_capstone_campaign_and_faults) ... skipped 'Install ngspice/Icarus or set ICSTUDIO_TEST engine paths'",
+          "test_all_six_reference_benches_and_tamper_detection (test_student_hub.StudentDigitalTests.test_all_six_reference_benches_and_tamper_detection) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_broken_rtl_fails_actual_reference_simulation (test_student_hub.StudentDigitalTests.test_broken_rtl_fails_actual_reference_simulation) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_capture_reopen_and_tamper_detection_beyond_legacy_limit (test_windows_digital_paths.WindowsDigitalPathTests.test_capture_reopen_and_tamper_detection_beyond_legacy_limit) ... skipped 'Windows extended-length filesystem paths'",
+          "test_path_conversion_preserves_unc_and_existing_extended_paths (test_windows_digital_paths.WindowsDigitalPathTests.test_path_conversion_preserves_unc_and_existing_extended_paths) ... skipped 'Windows extended-length filesystem paths'",
+          "test_upstream_transfer_keeps_all_nested_artifacts (test_windows_digital_paths.WindowsDigitalPathTests.test_upstream_transfer_keeps_all_nested_artifacts) ... skipped 'Windows extended-length filesystem paths'",
+          "test_pythonw_restores_inherited_output_pipes (test_windows_stdio.WindowedWorkerTests.test_pythonw_restores_inherited_output_pipes) ... skipped 'Windows inherited pipe test'"
+        ],
+        "errors": [
+          "ERROR: test_package_preserves_models_and_installs_as_separate_revision (test_ihp_npn_qualification.IHPNpnQualificationTests.test_package_preserves_models_and_installs_as_separate_revision)"
+        ],
+        "passed": 3032
+      },
+      "v2": {
+        "discovered": 3064,
+        "skipped": 31,
+        "status": "PASS",
+        "log_sha256": "748dcc2ab38e4151413eea76fc8035c85029b6be7c135f4b10659fc683c8b1de",
+        "skipped_tests": [
+          "test_counter_real_worker_results_stale_inputs_and_artifact_integrity (test_digital.IcarusIntegrationTests.test_counter_real_worker_results_stale_inputs_and_artifact_integrity) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_fault_and_timeout_never_publish_result (test_digital.IcarusIntegrationTests.test_fault_and_timeout_never_publish_result) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_tool_change_before_execution_is_rejected (test_digital.IcarusIntegrationTests.test_tool_change_before_execution_is_rejected) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_lint_and_timed_counter_simulation (test_digital.VerilatorIntegrationTests.test_lint_and_timed_counter_simulation) ... skipped 'Install Verilator or set ICSTUDIO_TEST_VERILATOR'",
+          "test_synthesis_and_gate_simulation (test_digital.YosysIntegrationTests.test_synthesis_and_gate_simulation) ... skipped 'Install Yosys or set ICSTUDIO_TEST_YOSYS'",
+          "test_equivalence_actual_mapped_netlist_and_fault (test_digital_implementation.DigitalImplementationTests.test_equivalence_actual_mapped_netlist_and_fault) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_hierarchical_apb_peripheral_maps_and_proves (test_digital_implementation.DigitalImplementationTests.test_hierarchical_apb_peripheral_maps_and_proves) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_mapped_cells_published_symbol_and_stale_rejection (test_digital_implementation.DigitalImplementationTests.test_mapped_cells_published_symbol_and_stale_rejection) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_physical_checkpoints_resume_gds_and_extracted_timing (test_digital_implementation.DigitalImplementationTests.test_physical_checkpoints_resume_gds_and_extracted_timing) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_timing_real_paths_clock_failure_and_unconstrained (test_digital_implementation.DigitalImplementationTests.test_timing_real_paths_clock_failure_and_unconstrained) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_uart_cases_coverage_and_failed_assertion (test_digital_implementation.DigitalRegressionTests.test_uart_cases_coverage_and_failed_assertion) ... skipped 'Install Icarus and Verilator with coverage'",
+          "test_native_setup_rejects_junction_target_and_parent_before_integrity_repair (test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_junction_target_and_parent_before_integrity_repair) ... skipped 'Directory junctions are Windows-specific'",
+          "test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions (test_digital_runtime.DigitalRuntimeTests.test_partial_and_legacy_cleanup_reject_in_state_directory_and_parent_junctions) ... skipped 'Directory junctions are Windows-specific'",
+          "test_apb_protocol_fifo_interrupt_and_deliberate_fault (test_digital_workspace.PeripheralTests.test_apb_protocol_fifo_interrupt_and_deliberate_fault) ... skipped 'Install Icarus for peripheral acceptance'",
+          "test_legacy_source_current_boolean_survives_real_netlisting (test_external_exchange_engines.ExternalExchangeEngineTests.test_legacy_source_current_boolean_survives_real_netlisting) ... skipped 'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.'",
+          "test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence (test_external_exchange_engines.ExternalExchangeEngineTests.test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence) ... skipped 'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.'",
+          "test_analog_and_rtl_faults_are_detected (test_mixed_signal.MixedSignalEngineTests.test_analog_and_rtl_faults_are_detected) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_optional_sar_verification_can_be_disabled (test_mixed_signal.MixedSignalEngineTests.test_optional_sar_verification_can_be_disabled) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_real_closed_loop_and_captured_evidence (test_mixed_signal.MixedSignalEngineTests.test_real_closed_loop_and_captured_evidence) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_reset_and_two_conversions_preserve_analog_history (test_mixed_signal.MixedSignalEngineTests.test_reset_and_two_conversions_preserve_analog_history) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_real_windows_reader_releases_file_during_atomic_save (test_reliability.ReliabilityTests.test_real_windows_reader_releases_file_during_atomic_save) ... skipped 'Windows open handles deny atomic replacement'",
+          "test_actual_sky130_internal_path_and_extracted_names (test_saved_bias.SavedBiasTests.test_actual_sky130_internal_path_and_extracted_names) ... skipped 'Actual linked SKY130 and ngspice required'",
+          "test_each_fault_fails_and_repair_passes_reference_simulation (test_student_design_labs.StudentRepairRTLTests.test_each_fault_fails_and_repair_passes_reference_simulation) ... skipped 'Native Icarus required'",
+          "test_all_mixed_lessons_accept_the_documented_repairs (test_student_hub.StudentCapstoneTests.test_all_mixed_lessons_accept_the_documented_repairs) ... skipped 'Install ngspice/Icarus or set ICSTUDIO_TEST engine paths'",
+          "test_capstone_campaign_and_faults (test_student_hub.StudentCapstoneTests.test_capstone_campaign_and_faults) ... skipped 'Install ngspice/Icarus or set ICSTUDIO_TEST engine paths'",
+          "test_all_six_reference_benches_and_tamper_detection (test_student_hub.StudentDigitalTests.test_all_six_reference_benches_and_tamper_detection) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_broken_rtl_fails_actual_reference_simulation (test_student_hub.StudentDigitalTests.test_broken_rtl_fails_actual_reference_simulation) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_capture_reopen_and_tamper_detection_beyond_legacy_limit (test_windows_digital_paths.WindowsDigitalPathTests.test_capture_reopen_and_tamper_detection_beyond_legacy_limit) ... skipped 'Windows extended-length filesystem paths'",
+          "test_path_conversion_preserves_unc_and_existing_extended_paths (test_windows_digital_paths.WindowsDigitalPathTests.test_path_conversion_preserves_unc_and_existing_extended_paths) ... skipped 'Windows extended-length filesystem paths'",
+          "test_upstream_transfer_keeps_all_nested_artifacts (test_windows_digital_paths.WindowsDigitalPathTests.test_upstream_transfer_keeps_all_nested_artifacts) ... skipped 'Windows extended-length filesystem paths'",
+          "test_pythonw_restores_inherited_output_pipes (test_windows_stdio.WindowedWorkerTests.test_pythonw_restores_inherited_output_pipes) ... skipped 'Windows inherited pipe test'"
+        ],
+        "errors": [],
+        "passed": 3033
+      }
+    },
+    "Windows": {
+      "v1": {
+        "discovered": 3064,
+        "skipped": 39,
+        "status": "FAIL",
+        "log_sha256": "680a1ef05b25f1c5dde94c6adc553b8b8147a5c0dbeeca8e464b0d55d5cd9cec",
+        "skipped_tests": [
+          "test_full_job_root_and_aliased_artifact_path (test_artifact_paths.ArtifactPathTests.test_full_job_root_and_aliased_artifact_path) ... skipped 'Windows directory has no short-name alias'",
+          "test_short_job_root_and_full_artifact_path (test_artifact_paths.ArtifactPathTests.test_short_job_root_and_full_artifact_path) ... skipped 'Windows directory has no short-name alias'",
+          "test_counter_real_worker_results_stale_inputs_and_artifact_integrity (test_digital.IcarusIntegrationTests.test_counter_real_worker_results_stale_inputs_and_artifact_integrity) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_fault_and_timeout_never_publish_result (test_digital.IcarusIntegrationTests.test_fault_and_timeout_never_publish_result) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_tool_change_before_execution_is_rejected (test_digital.IcarusIntegrationTests.test_tool_change_before_execution_is_rejected) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_lint_and_timed_counter_simulation (test_digital.VerilatorIntegrationTests.test_lint_and_timed_counter_simulation) ... skipped 'Install Verilator or set ICSTUDIO_TEST_VERILATOR'",
+          "test_synthesis_and_gate_simulation (test_digital.YosysIntegrationTests.test_synthesis_and_gate_simulation) ... skipped 'Install Yosys or set ICSTUDIO_TEST_YOSYS'",
+          "test_linked_decks_are_materialized_before_sibling_platforms_are_pruned (test_digital_bundle.DigitalBundleTests.test_linked_decks_are_materialized_before_sibling_platforms_are_pruned) ... skipped 'Real symlinks are verified by the native Linux build'",
+          "test_equivalence_actual_mapped_netlist_and_fault (test_digital_implementation.DigitalImplementationTests.test_equivalence_actual_mapped_netlist_and_fault) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_hierarchical_apb_peripheral_maps_and_proves (test_digital_implementation.DigitalImplementationTests.test_hierarchical_apb_peripheral_maps_and_proves) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_mapped_cells_published_symbol_and_stale_rejection (test_digital_implementation.DigitalImplementationTests.test_mapped_cells_published_symbol_and_stale_rejection) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_physical_checkpoints_resume_gds_and_extracted_timing (test_digital_implementation.DigitalImplementationTests.test_physical_checkpoints_resume_gds_and_extracted_timing) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_timing_real_paths_clock_failure_and_unconstrained (test_digital_implementation.DigitalImplementationTests.test_timing_real_paths_clock_failure_and_unconstrained) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_uart_cases_coverage_and_failed_assertion (test_digital_implementation.DigitalRegressionTests.test_uart_cases_coverage_and_failed_assertion) ... skipped 'Install Icarus and Verilator with coverage'",
+          "test_builder_normalizes_docker_system_links_before_publication (test_digital_runtime.DigitalRuntimeTests.test_builder_normalizes_docker_system_links_before_publication) ... skipped 'Native tar symlink extraction is tested on Linux'",
+          "test_legacy_cleanup_rejects_symlinked_directory_and_parent (test_digital_runtime.DigitalRuntimeTests.test_legacy_cleanup_rejects_symlinked_directory_and_parent) ... skipped 'Symlink creation may require Windows administrator permission'",
+          "test_native_flow_restores_scripts_after_windows_transfer (test_digital_runtime.DigitalRuntimeTests.test_native_flow_restores_scripts_after_windows_transfer) ... skipped 'Unix executable permissions are restored inside Linux'",
+          "test_native_setup_canonicalizes_state_directory_alias_before_journaling (test_digital_runtime.DigitalRuntimeTests.test_native_setup_canonicalizes_state_directory_alias_before_journaling) ... skipped 'This Windows temporary directory has no short-name alias'",
+          "test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair (test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair) ... skipped 'Symlink creation may require Windows administrator permission'",
+          "test_native_supervisor_cancels_descendants_in_separate_sessions (test_digital_runtime.DigitalRuntimeTests.test_native_supervisor_cancels_descendants_in_separate_sessions) ... skipped 'Process-tree supervision requires Linux procfs'",
+          "test_partial_cleanup_rejects_symlinked_directory_and_parent (test_digital_runtime.DigitalRuntimeTests.test_partial_cleanup_rejects_symlinked_directory_and_parent) ... skipped 'Symlink creation may require Windows administrator permission'",
+          "test_retry_reclaims_partial_unpacking_after_worker_is_killed (test_digital_runtime.DigitalRuntimeTests.test_retry_reclaims_partial_unpacking_after_worker_is_killed) ... skipped 'Native Linux unpacking lifecycle'",
+          "test_apb_protocol_fifo_interrupt_and_deliberate_fault (test_digital_workspace.PeripheralTests.test_apb_protocol_fifo_interrupt_and_deliberate_fault) ... skipped 'Install Icarus for peripheral acceptance'",
+          "test_legacy_source_current_boolean_survives_real_netlisting (test_external_exchange_engines.ExternalExchangeEngineTests.test_legacy_source_current_boolean_survives_real_netlisting) ... skipped 'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.'",
+          "test_native_magic_cells_ports_and_moved_instance_roundtrip (test_external_exchange_engines.ExternalExchangeEngineTests.test_native_magic_cells_ports_and_moved_instance_roundtrip) ... skipped 'Set ICSTUDIO_TEST_MAGIC or install Magic for destination-tool tests.'",
+          "test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence (test_external_exchange_engines.ExternalExchangeEngineTests.test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence) ... skipped 'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.'",
+          "test_symlinks_rejected_when_platform_can_create_them (test_layout_development.RuleBundleTests.test_symlinks_rejected_when_platform_can_create_them) ... skipped 'Windows requires Developer Mode or symlink privilege for this fixture.'",
+          "test_analog_and_rtl_faults_are_detected (test_mixed_signal.MixedSignalEngineTests.test_analog_and_rtl_faults_are_detected) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_optional_sar_verification_can_be_disabled (test_mixed_signal.MixedSignalEngineTests.test_optional_sar_verification_can_be_disabled) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_real_closed_loop_and_captured_evidence (test_mixed_signal.MixedSignalEngineTests.test_real_closed_loop_and_captured_evidence) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_reset_and_two_conversions_preserve_analog_history (test_mixed_signal.MixedSignalEngineTests.test_reset_and_two_conversions_preserve_analog_history) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_timeout_terminates_engine_descendants (test_reliability.ReliabilityTests.test_timeout_terminates_engine_descendants) ... skipped 'POSIX process-group regression; Windows uses taskkill /T'",
+          "test_actual_sky130_internal_path_and_extracted_names (test_saved_bias.SavedBiasTests.test_actual_sky130_internal_path_and_extracted_names) ... skipped 'Actual linked SKY130 and ngspice required'",
+          "test_each_fault_fails_and_repair_passes_reference_simulation (test_student_design_labs.StudentRepairRTLTests.test_each_fault_fails_and_repair_passes_reference_simulation) ... skipped 'Native Icarus required'",
+          "test_all_mixed_lessons_accept_the_documented_repairs (test_student_hub.StudentCapstoneTests.test_all_mixed_lessons_accept_the_documented_repairs) ... skipped 'Install ngspice/Icarus or set ICSTUDIO_TEST engine paths'",
+          "test_capstone_campaign_and_faults (test_student_hub.StudentCapstoneTests.test_capstone_campaign_and_faults) ... skipped 'Install ngspice/Icarus or set ICSTUDIO_TEST engine paths'",
+          "test_all_six_reference_benches_and_tamper_detection (test_student_hub.StudentDigitalTests.test_all_six_reference_benches_and_tamper_detection) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_broken_rtl_fails_actual_reference_simulation (test_student_hub.StudentDigitalTests.test_broken_rtl_fails_actual_reference_simulation) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_changed_symlink_is_rechecked_and_cannot_escape_source_roots (test_xschem_paths.XschemPathTests.test_changed_symlink_is_rechecked_and_cannot_escape_source_roots) ... skipped \"Directory symlinks unavailable: [WinError 1314] A required privilege is not held by the client: 'C:\\\\\\\\Users\\\\\\\\jonah\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\tmp27vjqtzi\\\\\\\\input\\\\\\\\models' -> 'C:\\\\\\\\Users\\\\\\\\jonah\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\tmp27vjqtzi\\\\\\\\input\\\\\\\\linked'\""
+        ],
+        "errors": [
+          "ERROR: test_package_preserves_models_and_installs_as_separate_revision (test_ihp_npn_qualification.IHPNpnQualificationTests.test_package_preserves_models_and_installs_as_separate_revision)"
+        ],
+        "passed": 3024
+      },
+      "v2": {
+        "discovered": 3064,
+        "skipped": 39,
+        "status": "PASS",
+        "log_sha256": "13bffefea3c97943d8ab74cbb64cce3ab59d77a0fa61ed34ff14dd757b74c1de",
+        "skipped_tests": [
+          "test_full_job_root_and_aliased_artifact_path (test_artifact_paths.ArtifactPathTests.test_full_job_root_and_aliased_artifact_path) ... skipped 'Windows directory has no short-name alias'",
+          "test_short_job_root_and_full_artifact_path (test_artifact_paths.ArtifactPathTests.test_short_job_root_and_full_artifact_path) ... skipped 'Windows directory has no short-name alias'",
+          "test_counter_real_worker_results_stale_inputs_and_artifact_integrity (test_digital.IcarusIntegrationTests.test_counter_real_worker_results_stale_inputs_and_artifact_integrity) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_fault_and_timeout_never_publish_result (test_digital.IcarusIntegrationTests.test_fault_and_timeout_never_publish_result) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_tool_change_before_execution_is_rejected (test_digital.IcarusIntegrationTests.test_tool_change_before_execution_is_rejected) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_lint_and_timed_counter_simulation (test_digital.VerilatorIntegrationTests.test_lint_and_timed_counter_simulation) ... skipped 'Install Verilator or set ICSTUDIO_TEST_VERILATOR'",
+          "test_synthesis_and_gate_simulation (test_digital.YosysIntegrationTests.test_synthesis_and_gate_simulation) ... skipped 'Install Yosys or set ICSTUDIO_TEST_YOSYS'",
+          "test_linked_decks_are_materialized_before_sibling_platforms_are_pruned (test_digital_bundle.DigitalBundleTests.test_linked_decks_are_materialized_before_sibling_platforms_are_pruned) ... skipped 'Real symlinks are verified by the native Linux build'",
+          "test_equivalence_actual_mapped_netlist_and_fault (test_digital_implementation.DigitalImplementationTests.test_equivalence_actual_mapped_netlist_and_fault) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_hierarchical_apb_peripheral_maps_and_proves (test_digital_implementation.DigitalImplementationTests.test_hierarchical_apb_peripheral_maps_and_proves) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_mapped_cells_published_symbol_and_stale_rejection (test_digital_implementation.DigitalImplementationTests.test_mapped_cells_published_symbol_and_stale_rejection) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_physical_checkpoints_resume_gds_and_extracted_timing (test_digital_implementation.DigitalImplementationTests.test_physical_checkpoints_resume_gds_and_extracted_timing) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_timing_real_paths_clock_failure_and_unconstrained (test_digital_implementation.DigitalImplementationTests.test_timing_real_paths_clock_failure_and_unconstrained) ... skipped 'Set ICSTUDIO_TEST_ORFS and install Yosys for real implementation tests'",
+          "test_uart_cases_coverage_and_failed_assertion (test_digital_implementation.DigitalRegressionTests.test_uart_cases_coverage_and_failed_assertion) ... skipped 'Install Icarus and Verilator with coverage'",
+          "test_builder_normalizes_docker_system_links_before_publication (test_digital_runtime.DigitalRuntimeTests.test_builder_normalizes_docker_system_links_before_publication) ... skipped 'Native tar symlink extraction is tested on Linux'",
+          "test_legacy_cleanup_rejects_symlinked_directory_and_parent (test_digital_runtime.DigitalRuntimeTests.test_legacy_cleanup_rejects_symlinked_directory_and_parent) ... skipped 'Symlink creation may require Windows administrator permission'",
+          "test_native_flow_restores_scripts_after_windows_transfer (test_digital_runtime.DigitalRuntimeTests.test_native_flow_restores_scripts_after_windows_transfer) ... skipped 'Unix executable permissions are restored inside Linux'",
+          "test_native_setup_canonicalizes_state_directory_alias_before_journaling (test_digital_runtime.DigitalRuntimeTests.test_native_setup_canonicalizes_state_directory_alias_before_journaling) ... skipped 'This Windows temporary directory has no short-name alias'",
+          "test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair (test_digital_runtime.DigitalRuntimeTests.test_native_setup_rejects_symlinked_target_and_parent_before_integrity_repair) ... skipped 'Symlink creation may require Windows administrator permission'",
+          "test_native_supervisor_cancels_descendants_in_separate_sessions (test_digital_runtime.DigitalRuntimeTests.test_native_supervisor_cancels_descendants_in_separate_sessions) ... skipped 'Process-tree supervision requires Linux procfs'",
+          "test_partial_cleanup_rejects_symlinked_directory_and_parent (test_digital_runtime.DigitalRuntimeTests.test_partial_cleanup_rejects_symlinked_directory_and_parent) ... skipped 'Symlink creation may require Windows administrator permission'",
+          "test_retry_reclaims_partial_unpacking_after_worker_is_killed (test_digital_runtime.DigitalRuntimeTests.test_retry_reclaims_partial_unpacking_after_worker_is_killed) ... skipped 'Native Linux unpacking lifecycle'",
+          "test_apb_protocol_fifo_interrupt_and_deliberate_fault (test_digital_workspace.PeripheralTests.test_apb_protocol_fifo_interrupt_and_deliberate_fault) ... skipped 'Install Icarus for peripheral acceptance'",
+          "test_legacy_source_current_boolean_survives_real_netlisting (test_external_exchange_engines.ExternalExchangeEngineTests.test_legacy_source_current_boolean_survives_real_netlisting) ... skipped 'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.'",
+          "test_native_magic_cells_ports_and_moved_instance_roundtrip (test_external_exchange_engines.ExternalExchangeEngineTests.test_native_magic_cells_ports_and_moved_instance_roundtrip) ... skipped 'Set ICSTUDIO_TEST_MAGIC or install Magic for destination-tool tests.'",
+          "test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence (test_external_exchange_engines.ExternalExchangeEngineTests.test_xschem_executes_vector_and_tcl_semantics_and_retains_evidence) ... skipped 'Set ICSTUDIO_TEST_XSCHEM or install Xschem for destination-tool tests.'",
+          "test_symlinks_rejected_when_platform_can_create_them (test_layout_development.RuleBundleTests.test_symlinks_rejected_when_platform_can_create_them) ... skipped 'Windows requires Developer Mode or symlink privilege for this fixture.'",
+          "test_analog_and_rtl_faults_are_detected (test_mixed_signal.MixedSignalEngineTests.test_analog_and_rtl_faults_are_detected) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_optional_sar_verification_can_be_disabled (test_mixed_signal.MixedSignalEngineTests.test_optional_sar_verification_can_be_disabled) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_real_closed_loop_and_captured_evidence (test_mixed_signal.MixedSignalEngineTests.test_real_closed_loop_and_captured_evidence) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_reset_and_two_conversions_preserve_analog_history (test_mixed_signal.MixedSignalEngineTests.test_reset_and_two_conversions_preserve_analog_history) ... skipped 'Requires local ngspice, iverilog and vvp'",
+          "test_timeout_terminates_engine_descendants (test_reliability.ReliabilityTests.test_timeout_terminates_engine_descendants) ... skipped 'POSIX process-group regression; Windows uses taskkill /T'",
+          "test_actual_sky130_internal_path_and_extracted_names (test_saved_bias.SavedBiasTests.test_actual_sky130_internal_path_and_extracted_names) ... skipped 'Actual linked SKY130 and ngspice required'",
+          "test_each_fault_fails_and_repair_passes_reference_simulation (test_student_design_labs.StudentRepairRTLTests.test_each_fault_fails_and_repair_passes_reference_simulation) ... skipped 'Native Icarus required'",
+          "test_all_mixed_lessons_accept_the_documented_repairs (test_student_hub.StudentCapstoneTests.test_all_mixed_lessons_accept_the_documented_repairs) ... skipped 'Install ngspice/Icarus or set ICSTUDIO_TEST engine paths'",
+          "test_capstone_campaign_and_faults (test_student_hub.StudentCapstoneTests.test_capstone_campaign_and_faults) ... skipped 'Install ngspice/Icarus or set ICSTUDIO_TEST engine paths'",
+          "test_all_six_reference_benches_and_tamper_detection (test_student_hub.StudentDigitalTests.test_all_six_reference_benches_and_tamper_detection) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_broken_rtl_fails_actual_reference_simulation (test_student_hub.StudentDigitalTests.test_broken_rtl_fails_actual_reference_simulation) ... skipped 'Install Icarus or set ICSTUDIO_TEST_IVERILOG/VVP'",
+          "test_changed_symlink_is_rechecked_and_cannot_escape_source_roots (test_xschem_paths.XschemPathTests.test_changed_symlink_is_rechecked_and_cannot_escape_source_roots) ... skipped \"Directory symlinks unavailable: [WinError 1314] A required privilege is not held by the client: 'C:\\\\\\\\Users\\\\\\\\jonah\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\tmp2_r6fovr\\\\\\\\input\\\\\\\\models' -> 'C:\\\\\\\\Users\\\\\\\\jonah\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Temp\\\\\\\\tmp2_r6fovr\\\\\\\\input\\\\\\\\linked'\""
+        ],
+        "errors": [],
+        "passed": 3025
+      }
+    }
+  }
+}

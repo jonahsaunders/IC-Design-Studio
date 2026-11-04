@@ -1,0 +1,1506 @@
+{
+  "schema": 1,
+  "chunk": 5,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "observed_at": "2026-10-10T14:14:53.395339+00:00",
+  "source_baseline": "ae7903f9f290231a7dd6aa48d256ea95ef90c8fd",
+  "source_files": {
+    "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+    "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+    "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+    "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+    "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+    "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+    "examples/ihp-fill-rcx-source-lock.json": "71defbe5e04139757e7c346f3726471752ccc52d50919bab0d8d2833a940f176",
+    "docs/IHP_FILL_QUALIFICATION.md": "cfe536c2f017f759a7a046e8b6ab8318c801d51848ca49c943093c7edb833bd0",
+    "icstudio/digital_fill_spef.py": "7a813380b0c57a9afe81ae531cb3f9286faf1e223bb8a7fedf107f6cce8662d7",
+    "icstudio/digital_reports.py": "8aed459a5b08b2277884cab51bbe31b9cb3ed35215a58107787e17915102fa14",
+    "icstudio/digital_implementation.py": "98b2fe7441c770f7cf7fa9e062eed31ae4fcab37332d5f90f3128ba2e6f2de8e",
+    "icstudio/model.py": "695ef2e7ffe90fb2a28fd468bcf73b6fba98ab0cf898f6d1fbfac43d639b6249"
+  },
+  "previous_checkpoint": {
+    "path": "docs/validation/ihp-fill-checkpoint-2026-10-10.json",
+    "sha256": "ca64b788c556ad1077e01c0efd86658fbfb36ba2bc59caaf3291207ca864fcaf"
+  },
+  "scope": "Three original IHP filled blocks with corrected nominal metal coupling, independent finite-R model checks and matched timing. Active-fill model coverage and production integration remain incomplete.",
+  "tools": {
+    "openroad": {
+      "version": "26Q2-1164-g08f67ee5ec",
+      "sha256": "cc6e1144bbe55764009bc9297b980aef511826101c1d019935b737f738e86501"
+    },
+    "opensta": {
+      "sha256": "3787933baac49a89016cd777036ae855415f579a31b12eddfa5024beb3686640"
+    },
+    "magic": {
+      "version": "8.3.684",
+      "sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5"
+    }
+  },
+  "rejected_model": {
+    "schema": 1,
+    "status": "coupling-controls-failed",
+    "passed": false,
+    "qualified": false,
+    "rules_sha256": "ffda02d57a6ecb39b02268be9511d89ef072911f17bd2dcd095f3f3cbeb5a905",
+    "worker_sha256": "c52b39721a8c4065911ff241c2b824a232bef754dcf005fed12bc141d531750c",
+    "source_record_sha256": "72d95636c5711ab796b9074424b1ec9dd61630a8aa669835a57b38bc328413a0",
+    "controls": [
+      {
+        "layer": "Metal1",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001713952,
+            "spef_sha256": "5ab8bbadeaaf2965f1bf053da5e0a81300b8868410b402b1642b3ca0b327cab3"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00225994,
+            "spef_sha256": "7db43e9f913f632d131dcb637b5e5a24313879e393232edbf0969a03eb0ae136"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001713952,
+            "spef_sha256": "44fdea0a42848dc8bc1aa3b9eeb861dcf4c249677fc7c228dd41ce6a738ab084"
+          }
+        }
+      },
+      {
+        "layer": "Metal2",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00163096,
+            "spef_sha256": "3ddc95e5eeb8213908d82c7ec71b35a8d11b76fb425630e5bc2d02480b6796cd"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00234026,
+            "spef_sha256": "aafb2d8b016e8c556587ae5176e6acab263bc10104141e0b5be86b05adad8a14"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00163096,
+            "spef_sha256": "1498e728047e6e359a0f86c03ab877a6f15262432443a8a26d6935684eef0354"
+          }
+        }
+      },
+      {
+        "layer": "Metal3",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00156104,
+            "spef_sha256": "914ba2dd4171f63402dea15d99eb974e265fb933a99ba4037bf2f31e5f773131"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00229206,
+            "spef_sha256": "56a54b73a0e9c0ab8e19336f808eb3dd70f1c9f3afcfe39823bc1505b7e1e1c7"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00156104,
+            "spef_sha256": "3cf1041631e70d6f86e4c4cffd595e6645889a3537c85ab4e4e6594b3c67f2ba"
+          }
+        }
+      },
+      {
+        "layer": "Metal4",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001509544,
+            "spef_sha256": "6f93133df0db7640b02c98b2623976e6894f066b9dd1e431637e658b95bf0613"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00227272,
+            "spef_sha256": "670cbca4f78cea97cc3fdf3c0962bc0473934c11d8fab805a54d262b34e6010b"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001509544,
+            "spef_sha256": "e205c3568ef649015eed49d66d5db4de1b6ba3135b8e98374c4284e3098d6a4a"
+          }
+        }
+      },
+      {
+        "layer": "Metal5",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001487524,
+            "spef_sha256": "e2d052bfd6e8fa6e990113f83382645e56ce3189e73639e51f99091b70c2a27d"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00226224,
+            "spef_sha256": "f69f0fa395ee442e5e22904d7e2cded2460ca1da014d681614d823d5dc88ed45"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001487524,
+            "spef_sha256": "10d29292a2ada63fde4ce195b4ab442cbeb1f612c9d173c62841410923595ca7"
+          }
+        }
+      },
+      {
+        "layer": "TopMetal1",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001650724,
+            "spef_sha256": "5ccc6d07c96f48f7793678ff0beba1cce0c83e3d360fe03352d06363c5c38b90"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.0016838,
+            "signal_ground_pf": 0.001031238,
+            "spef_sha256": "fff60162c719e9455edb31433a4091b6d5d3a6b393dcaccaaf978a2ab15e43da"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001650724,
+            "spef_sha256": "4e49a7186cfaa6d35e1ab97bfafbac50df4c613ab616d30a8ba373642215e20c"
+          }
+        }
+      },
+      {
+        "layer": "TopMetal2",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001230164,
+            "spef_sha256": "77bd7afb3a4d6ccbec323c648a605ef2d8df0b9edf00b0f68aa52b19505c3713"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.00163208,
+            "signal_ground_pf": 0.000760008,
+            "spef_sha256": "4565842d84109cdaec2d672ae08b57d3971fcb6d63d45d7fc58348a2f27f19b8"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001230164,
+            "spef_sha256": "a26a4839347054f6806b7435bedf0496af205d5920b6b016e7def5f198dab540"
+          }
+        }
+      }
+    ],
+    "scope": "Seven-layer native near/far coupling response only. Not field accuracy, fill-width calibration or timing acceptance."
+  },
+  "selected_model": {
+    "schema": 1,
+    "status": "coupling-controls-passed",
+    "passed": true,
+    "qualified": false,
+    "rules_sha256": "479a65fb529a08756b6c91f122b9116f6ccacb6475413677ec654e2ba1a49c6c",
+    "worker_sha256": "c52b39721a8c4065911ff241c2b824a232bef754dcf005fed12bc141d531750c",
+    "source_record_sha256": "a458fe83d714aec740342f0b6952a3c1dda67a7134dfd23cc688b8144345abed",
+    "controls": [
+      {
+        "layer": "Metal1",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00223426,
+            "spef_sha256": "8cd0685d2855ac6ca768ad774d9b49370f36bc51864eaf18c2054964eab09316"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.0025945,
+            "signal_ground_pf": 0.001353676,
+            "spef_sha256": "4656a8e2a9f0a49838d31611a1bc6226b03afe3c1951e2291f8ccf4e82882de5"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00223426,
+            "spef_sha256": "19ca7e1869b9dd1096415bbfa368ddc3fb04064caf90f37ae7f3431587a79f83"
+          }
+        }
+      },
+      {
+        "layer": "Metal2",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00208136,
+            "spef_sha256": "a3f9aaae9f99a1107f2dae310e710ab251664efe95cb62855ffd45607704dec6"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.00355948,
+            "signal_ground_pf": 0.001164898,
+            "spef_sha256": "670c3d100cbc411335c37a15bf124416b8734fc12dd9c34720b1f40f3b8dd6ed"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00208136,
+            "spef_sha256": "eeb3d28078a160146cb927922aa98a6a4856e6847bbd623abf6c22511dbdb8ca"
+          }
+        }
+      },
+      {
+        "layer": "Metal3",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00172732,
+            "spef_sha256": "1c4602767a7880dd2a5d8a181099bbc6a432860a9ad053b7705d90f68df5019c"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.00334543,
+            "signal_ground_pf": 0.00094235,
+            "spef_sha256": "80f459fe1df32dfe8c4c1bf9f80c54ec6c1f35a16803388395431515a81450d1"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00172732,
+            "spef_sha256": "75bb52f2ccf68e4a76668c87ba7eff4537cdfac5b5de0e1795ac1a185d159bad"
+          }
+        }
+      },
+      {
+        "layer": "Metal4",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001952964,
+            "spef_sha256": "2d4c6cbad47c069839169551c7857f02c70e5f13024c505383cddee13875ebce"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.0040384,
+            "signal_ground_pf": 0.00103381,
+            "spef_sha256": "1eaa8cc1116ee011aa0e495d0f56f07c4d884ccf5111769db39269f298653368"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001952964,
+            "spef_sha256": "6ab58c1fd469bc7a195297677d538e2d5d4868590d88fc0deacc55af22d70317"
+          }
+        }
+      },
+      {
+        "layer": "Metal5",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00197466,
+            "spef_sha256": "d204702f35736878d99449ac097bb9442e4e92b8691fec61940247d88911fecd"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.00416255,
+            "signal_ground_pf": 0.001032526,
+            "spef_sha256": "bc7df3dbad706746a7e6d3b81f045b53a8704786f8980bd5fb62b2fa0cc4afb1"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00197466,
+            "spef_sha256": "5063e538fd78473c94fcae0428769bab91a8b24b83346d2a6111cde3532fa469"
+          }
+        }
+      },
+      {
+        "layer": "TopMetal1",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001712688,
+            "spef_sha256": "6d64eefaeb681b681c6973577482c952ac55ede849817d78565544b2fbe20c9d"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.00330928,
+            "signal_ground_pf": 0.001045556,
+            "spef_sha256": "1059360f6338aa67076db7420f5622eb10530a0783e029a390c30ab6aa5e2a93"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.001712688,
+            "spef_sha256": "e897f1a62fd6d530993aa20ce41e3fc61be570180b7e6cc8bb6b5d4220309638"
+          }
+        }
+      },
+      {
+        "layer": "TopMetal2",
+        "cases": {
+          "absent": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00140282,
+            "spef_sha256": "f2186a2d9992d812d2de249826818b36908c61ad15efb2dd50a7be8c34776717"
+          },
+          "near": {
+            "signal_to_fill_pf": 0.00236114,
+            "signal_ground_pf": 0.000824584,
+            "spef_sha256": "06e1a21247802a936d4e2d5b3c67cc0b1a76ca988c88e98047d77ba59fb7d9c5"
+          },
+          "far": {
+            "signal_to_fill_pf": 0.0,
+            "signal_ground_pf": 0.00140282,
+            "spef_sha256": "bab158e690624231227f65562e667e27b300b7f938e8b76c3746552479e6f452"
+          }
+        }
+      }
+    ],
+    "scope": "Seven-layer native near/far coupling response only. Not field accuracy, fill-width calibration or timing acceptance."
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "filled_gds_sha256": "e5158da77da10602b21dd80c85e0db2627a34c80610ecdd79ba84834d1286ed2",
+      "source_odb_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+      "source_spef_sha256": "c1d1745fe1d190596794ed44e66f46e4191d79240de2b6f4f11b0f9e0f6e4c49",
+      "native_record_sha256": "ead7ea146a21f427b1a508b3483db2f81913a57f7b5eb8fd3a474c0a6760676b",
+      "finite_rc_audit": {
+        "schema": 1,
+        "case": "counter",
+        "status": "finite-rc-reference-checks-passed",
+        "qualified": false,
+        "limits": {
+          "minimum_hz": 100000.0,
+          "maximum_hz": 50000000000.0,
+          "samples": 25,
+          "relative_added_admittance_matrix_error": 0.0001,
+          "independent_reduction_relative": 1e-10,
+          "independent_reduction_absolute_f": 1e-24,
+          "solve_relative_residual": 1e-10
+        },
+        "numpy": "2.3.5",
+        "script_sha256": "83e5b5cb9a0ddf934d39ff77fed53da0a6fef07ecc94d77abefbe8a73cb92d88",
+        "parser_sha256": "0f7b332cb3767de04f823c96f7d692b6701ae51123c98048d08983fa3b4ccdfb",
+        "source_spef_sha256": "c1d1745fe1d190596794ed44e66f46e4191d79240de2b6f4f11b0f9e0f6e4c49",
+        "reduction_sha256": "604fa06439064a11f885f1e6e31604b2bb9904fd4f6f796443d0933ef6a50221",
+        "timing_spef_sha256": "2f98b53acd3167c890e5805aa098b44a95fc97d560e5213fa242ee7026fb03ee",
+        "floating_nets": 8951,
+        "components": 457,
+        "observable_components": 7,
+        "boundary_nodes": 38,
+        "independent_maximum_absolute_difference_f": 4.388038785291878e-30,
+        "quasistatic_scale_f": 1.7242616976531045e-16,
+        "maximum_quasistatic_solve_residual": 5.12373762069674e-16,
+        "frequency_checks": [
+          {
+            "hz": 100000.0,
+            "relative_added_admittance_matrix_error": 1.5134437310405654e-11
+          },
+          {
+            "hz": 172765.52471486048,
+            "relative_added_admittance_matrix_error": 2.6147090031963947e-11
+          },
+          {
+            "hz": 298479.2653000101,
+            "relative_added_admittance_matrix_error": 4.5173157291389406e-11
+          },
+          {
+            "hz": 515669.26886062295,
+            "relative_added_admittance_matrix_error": 7.804364222473815e-11
+          },
+          {
+            "hz": 890898.71814034,
+            "relative_added_admittance_matrix_error": 1.3483250799615732e-10
+          },
+          {
+            "hz": 1539165.8450731211,
+            "relative_added_admittance_matrix_error": 2.3294408992576695e-10
+          },
+          {
+            "hz": 2659147.9484724943,
+            "relative_added_admittance_matrix_error": 4.024470792525077e-10
+          },
+          {
+            "hz": 4594090.906122943,
+            "relative_added_admittance_matrix_error": 6.952898081702239e-10
+          },
+          {
+            "hz": 7937005.259840991,
+            "relative_added_admittance_matrix_error": 1.2012210853742346e-09
+          },
+          {
+            "hz": 13712408.783810366,
+            "relative_added_admittance_matrix_error": 2.075295911132338e-09
+          },
+          {
+            "hz": 23690314.986396547,
+            "relative_added_admittance_matrix_error": 3.5853958702538204e-09
+          },
+          {
+            "hz": 40928696.99285123,
+            "relative_added_admittance_matrix_error": 6.194327988348944e-09
+          },
+          {
+            "hz": 70710678.11865474,
+            "relative_added_admittance_matrix_error": 1.0701663251630492e-08
+          },
+          {
+            "hz": 122163674.08112967,
+            "relative_added_admittance_matrix_error": 1.8488784669896644e-08
+          },
+          {
+            "hz": 211056712.53721526,
+            "relative_added_admittance_matrix_error": 3.194224584834687e-08
+          },
+          {
+            "hz": 364633236.8608554,
+            "relative_added_admittance_matrix_error": 5.5185188645603756e-08
+          },
+          {
+            "hz": 629960524.9474356,
+            "relative_added_admittance_matrix_error": 9.534098072844422e-08
+          },
+          {
+            "hz": 1088354606.4219246,
+            "relative_added_admittance_matrix_error": 1.6471634562369501e-07
+          },
+          {
+            "hz": 1880301546.5431967,
+            "relative_added_admittance_matrix_error": 2.8457305880742917e-07
+          },
+          {
+            "hz": 3248512833.1069837,
+            "relative_added_admittance_matrix_error": 4.916441382432485e-07
+          },
+          {
+            "hz": 5612310241.546849,
+            "relative_added_admittance_matrix_error": 8.49391575152734e-07
+          },
+          {
+            "hz": 9696137237.434288,
+            "relative_added_admittance_matrix_error": 1.4674558116290632e-06
+          },
+          {
+            "hz": 16751582375.32629,
+            "relative_added_admittance_matrix_error": 2.5352577325722026e-06
+          },
+          {
+            "hz": 28940959188.774498,
+            "relative_added_admittance_matrix_error": 4.3800513227607e-06
+          },
+          {
+            "hz": 50000000000.0,
+            "relative_added_admittance_matrix_error": 7.56721864130832e-06
+          }
+        ],
+        "direct_checks": [
+          {
+            "component": 0,
+            "floating_nodes": 137,
+            "boundary_nodes": 15,
+            "hz": 100000.0,
+            "relative_difference": 3.574269399144916e-17,
+            "solve_residual": 1.368728766027764e-16
+          },
+          {
+            "component": 0,
+            "floating_nodes": 137,
+            "boundary_nodes": 15,
+            "hz": 50000000000.0,
+            "relative_difference": 1.4297077596579663e-16,
+            "solve_residual": 4.955327447941111e-17
+          },
+          {
+            "component": 3,
+            "floating_nodes": 262,
+            "boundary_nodes": 4,
+            "hz": 100000.0,
+            "relative_difference": 1.6754387808491795e-18,
+            "solve_residual": 1.6140506005284e-16
+          },
+          {
+            "component": 3,
+            "floating_nodes": 262,
+            "boundary_nodes": 4,
+            "hz": 50000000000.0,
+            "relative_difference": 4.467836748939272e-18,
+            "solve_residual": 2.3373949436153727e-16
+          }
+        ],
+        "maximum_relative_error": 7.56721864130832e-06,
+        "resistance_fault": {
+          "multiplier": 1000000000.0,
+          "hz": 50000000000.0,
+          "relative_error": 0.1329613327010791,
+          "detected": true
+        },
+        "scope": "Exact captured native matrix and sampled frequency band only. Active fill, field calibration, timing and process qualification remain separate."
+      },
+      "reduction": {
+        "algorithm": "experimental-ihp-floating-fill-pcg-v1",
+        "sha256": "604fa06439064a11f885f1e6e31604b2bb9904fd4f6f796443d0933ef6a50221",
+        "maximum_iterations": 40,
+        "maximum_relative_solve_residual": 9.97957657959785e-13
+      },
+      "timing": {
+        "record_sha256": "649938931dbaf484410bc89d88845fa10571a44c4a16f34e7acfc37389f7a9bd",
+        "results": [
+          {
+            "state": "original",
+            "corner": "typ",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 48.192997,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.21874,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "83c569a01fbd2812b728dc378bb779dab44a7e28ce5578dd9fe1884a8f07b89b"
+          },
+          {
+            "state": "filled",
+            "corner": "typ",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 48.176609,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.220242,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "2f98b53acd3167c890e5805aa098b44a95fc97d560e5213fa242ee7026fb03ee"
+          },
+          {
+            "state": "fault",
+            "corner": "typ",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -2753.58252,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -2753.58,
+              "hold_worst_slack_ns": 0.220242,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "e391b3267d5db6cc07a475426658a3e8558669d0e4711a706076e42944ddb0e6"
+          },
+          {
+            "state": "original",
+            "corner": "slow",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 47.743572,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.404791,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "83c569a01fbd2812b728dc378bb779dab44a7e28ce5578dd9fe1884a8f07b89b"
+          },
+          {
+            "state": "filled",
+            "corner": "slow",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 47.717495,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.40677,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "2f98b53acd3167c890e5805aa098b44a95fc97d560e5213fa242ee7026fb03ee"
+          },
+          {
+            "state": "fault",
+            "corner": "slow",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -4319.836914,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -4319.84,
+              "hold_worst_slack_ns": 0.40677,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "e391b3267d5db6cc07a475426658a3e8558669d0e4711a706076e42944ddb0e6"
+          },
+          {
+            "state": "original",
+            "corner": "fast",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 48.435425,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.110673,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "83c569a01fbd2812b728dc378bb779dab44a7e28ce5578dd9fe1884a8f07b89b"
+          },
+          {
+            "state": "filled",
+            "corner": "fast",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 48.425049,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.111594,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "2f98b53acd3167c890e5805aa098b44a95fc97d560e5213fa242ee7026fb03ee"
+          },
+          {
+            "state": "fault",
+            "corner": "fast",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -1745.801147,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -1745.8,
+              "hold_worst_slack_ns": 0.111594,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "b75f028669361647876d3f2c5c0239e0eaace9b99931a825d549d8e2acc36f5c",
+            "constraints_sha256": "2b02050820ce4368c2be493aed9a45dfb4b0c00b6025f73fa703529b6eb574dd",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "e391b3267d5db6cc07a475426658a3e8558669d0e4711a706076e42944ddb0e6"
+          }
+        ]
+      }
+    },
+    {
+      "case": "uart",
+      "filled_gds_sha256": "0d5c6cb2955eaacabf38eb6627a3ef3b3138a26322592643566b0f2a129ce2d5",
+      "source_odb_sha256": "b06d07840926cfbd0d34031fd136ff7cc4741e35ca46d4b583e13f3dc780444c",
+      "source_spef_sha256": "613e6e3781f89e4950254533224d75a2de5c1891e9c53eb824925cb7647fdff8",
+      "native_record_sha256": "7ba754904ededfa52a3ddd7bf49fe8a723386afccbac80932d3ed99eee97b5b2",
+      "finite_rc_audit": {
+        "schema": 1,
+        "case": "uart",
+        "status": "finite-rc-reference-checks-passed",
+        "qualified": false,
+        "limits": {
+          "minimum_hz": 100000.0,
+          "maximum_hz": 50000000000.0,
+          "samples": 25,
+          "relative_added_admittance_matrix_error": 0.0001,
+          "independent_reduction_relative": 1e-10,
+          "independent_reduction_absolute_f": 1e-24,
+          "solve_relative_residual": 1e-10
+        },
+        "numpy": "2.3.5",
+        "script_sha256": "83e5b5cb9a0ddf934d39ff77fed53da0a6fef07ecc94d77abefbe8a73cb92d88",
+        "parser_sha256": "0f7b332cb3767de04f823c96f7d692b6701ae51123c98048d08983fa3b4ccdfb",
+        "source_spef_sha256": "613e6e3781f89e4950254533224d75a2de5c1891e9c53eb824925cb7647fdff8",
+        "reduction_sha256": "be498264c5d5804f61a3e378026874444598675a5eeb2c27e972da338cc0f604",
+        "timing_spef_sha256": "6517053fbc8e454ff41b2b9913c3dcf42cfb2d663b1dc949a5c2d06bbb931f11",
+        "floating_nets": 35226,
+        "components": 1570,
+        "observable_components": 176,
+        "boundary_nodes": 552,
+        "independent_maximum_absolute_difference_f": 9.01273584215006e-29,
+        "quasistatic_scale_f": 5.943676360545431e-15,
+        "maximum_quasistatic_solve_residual": 5.605763512800486e-16,
+        "frequency_checks": [
+          {
+            "hz": 100000.0,
+            "relative_added_admittance_matrix_error": 7.336004118950193e-12
+          },
+          {
+            "hz": 172765.52471486048,
+            "relative_added_admittance_matrix_error": 1.2674086009208078e-11
+          },
+          {
+            "hz": 298479.2653000101,
+            "relative_added_admittance_matrix_error": 2.1896451196621003e-11
+          },
+          {
+            "hz": 515669.26886062295,
+            "relative_added_admittance_matrix_error": 3.7829518803775634e-11
+          },
+          {
+            "hz": 890898.71814034,
+            "relative_added_admittance_matrix_error": 6.535636665844981e-11
+          },
+          {
+            "hz": 1539165.8450731211,
+            "relative_added_admittance_matrix_error": 1.1291326979203867e-10
+          },
+          {
+            "hz": 2659147.9484724943,
+            "relative_added_admittance_matrix_error": 1.9507520302892171e-10
+          },
+          {
+            "hz": 4594090.906122943,
+            "relative_added_admittance_matrix_error": 3.3702269810149525e-10
+          },
+          {
+            "hz": 7937005.259840991,
+            "relative_added_admittance_matrix_error": 5.822590327832287e-10
+          },
+          {
+            "hz": 13712408.783810366,
+            "relative_added_admittance_matrix_error": 1.0059428731876163e-09
+          },
+          {
+            "hz": 23690314.986396547,
+            "relative_added_admittance_matrix_error": 1.7379224831943246e-09
+          },
+          {
+            "hz": 40928696.99285123,
+            "relative_added_admittance_matrix_error": 3.0025308972282086e-09
+          },
+          {
+            "hz": 70710678.11865474,
+            "relative_added_admittance_matrix_error": 5.1873382593221144e-09
+          },
+          {
+            "hz": 122163674.08112967,
+            "relative_added_admittance_matrix_error": 8.961932162452521e-09
+          },
+          {
+            "hz": 211056712.53721526,
+            "relative_added_admittance_matrix_error": 1.548312912505078e-08
+          },
+          {
+            "hz": 364633236.8608554,
+            "relative_added_admittance_matrix_error": 2.674950927517274e-08
+          },
+          {
+            "hz": 629960524.9474356,
+            "relative_added_admittance_matrix_error": 4.6213930057898815e-08
+          },
+          {
+            "hz": 1088354606.4219246,
+            "relative_added_admittance_matrix_error": 7.984173875586918e-08
+          },
+          {
+            "hz": 1880301546.5431967,
+            "relative_added_admittance_matrix_error": 1.379389989029521e-07
+          },
+          {
+            "hz": 3248512833.1069837,
+            "relative_added_admittance_matrix_error": 2.383110352406268e-07
+          },
+          {
+            "hz": 5612310241.546849,
+            "relative_added_admittance_matrix_error": 4.117193104843908e-07
+          },
+          {
+            "hz": 9696137237.434288,
+            "relative_added_admittance_matrix_error": 7.113090270979081e-07
+          },
+          {
+            "hz": 16751582375.32629,
+            "relative_added_admittance_matrix_error": 1.2288967729435686e-06
+          },
+          {
+            "hz": 28940959188.774498,
+            "relative_added_admittance_matrix_error": 2.1231099576380577e-06
+          },
+          {
+            "hz": 50000000000.0,
+            "relative_added_admittance_matrix_error": 3.668002056823868e-06
+          }
+        ],
+        "direct_checks": [
+          {
+            "component": 0,
+            "floating_nodes": 687,
+            "boundary_nodes": 1,
+            "hz": 100000.0,
+            "relative_difference": 1.0368962655755366e-18,
+            "solve_residual": 9.188084601647724e-17
+          },
+          {
+            "component": 0,
+            "floating_nodes": 687,
+            "boundary_nodes": 1,
+            "hz": 50000000000.0,
+            "relative_difference": 0.0,
+            "solve_residual": 1.9064541650425329e-16
+          },
+          {
+            "component": 63,
+            "floating_nodes": 310,
+            "boundary_nodes": 51,
+            "hz": 100000.0,
+            "relative_difference": 1.0368962655755366e-18,
+            "solve_residual": 1.0120045463717216e-16
+          },
+          {
+            "component": 63,
+            "floating_nodes": 310,
+            "boundary_nodes": 51,
+            "hz": 50000000000.0,
+            "relative_difference": 4.147585062349299e-18,
+            "solve_residual": 1.4655391279769766e-16
+          }
+        ],
+        "maximum_relative_error": 3.668002056823868e-06,
+        "resistance_fault": {
+          "multiplier": 1000000000.0,
+          "hz": 50000000000.0,
+          "relative_error": 0.12393151983472778,
+          "detected": true
+        },
+        "scope": "Exact captured native matrix and sampled frequency band only. Active fill, field calibration, timing and process qualification remain separate."
+      },
+      "reduction": {
+        "algorithm": "experimental-ihp-floating-fill-pcg-v1",
+        "sha256": "be498264c5d5804f61a3e378026874444598675a5eeb2c27e972da338cc0f604",
+        "maximum_iterations": 58,
+        "maximum_relative_solve_residual": 9.991754235562162e-13
+      },
+      "timing": {
+        "record_sha256": "b5146970932a9ad8d3143085d326fef5b15ce10e34dce5eda8822136fad26a58",
+        "results": [
+          {
+            "state": "original",
+            "corner": "typ",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 5.616433,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.29496,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "6f733c633e4b49bfbaaae227e009a903bb315bf8f10465bb4cdd87256d8e74cf"
+          },
+          {
+            "state": "filled",
+            "corner": "typ",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 5.579891,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.297005,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "6517053fbc8e454ff41b2b9913c3dcf42cfb2d663b1dc949a5c2d06bbb931f11"
+          },
+          {
+            "state": "fault",
+            "corner": "typ",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -2819.61499,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -2819.61,
+              "hold_worst_slack_ns": 0.297005,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "2b699b3be6be440041952e2cf32a0960ce88d4d5f9272da7a02f606a56bd2773"
+          },
+          {
+            "state": "original",
+            "corner": "slow",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 3.00925,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.469387,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "6f733c633e4b49bfbaaae227e009a903bb315bf8f10465bb4cdd87256d8e74cf"
+          },
+          {
+            "state": "filled",
+            "corner": "slow",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 2.944024,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.472935,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "6517053fbc8e454ff41b2b9913c3dcf42cfb2d663b1dc949a5c2d06bbb931f11"
+          },
+          {
+            "state": "fault",
+            "corner": "slow",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -4387.713379,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -4387.71,
+              "hold_worst_slack_ns": 0.472935,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "2b699b3be6be440041952e2cf32a0960ce88d4d5f9272da7a02f606a56bd2773"
+          },
+          {
+            "state": "original",
+            "corner": "fast",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 7.136517,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.196048,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "6f733c633e4b49bfbaaae227e009a903bb315bf8f10465bb4cdd87256d8e74cf"
+          },
+          {
+            "state": "filled",
+            "corner": "fast",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 7.113118,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.19729,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "6517053fbc8e454ff41b2b9913c3dcf42cfb2d663b1dc949a5c2d06bbb931f11"
+          },
+          {
+            "state": "fault",
+            "corner": "fast",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -1814.484497,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -1814.48,
+              "hold_worst_slack_ns": 0.19729,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "f1654ed981095e8dd9d6b0d720880fdc332d77c107cce02d0aafc82b535cef17",
+            "constraints_sha256": "d8ed85981844204a98ff71cbc79f3826f483e498313d9d96a71d25dc9fa4faf7",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "2b699b3be6be440041952e2cf32a0960ce88d4d5f9272da7a02f606a56bd2773"
+          }
+        ]
+      }
+    },
+    {
+      "case": "apb",
+      "filled_gds_sha256": "ae45d079d2f2eb49572fb2859c6199f413ec6fc10096a400cc576d8d05b87a59",
+      "source_odb_sha256": "4ad90641f9c761f6fbebb7170b082a9c7d2a3300341d39dffa8cbea9d345b859",
+      "source_spef_sha256": "2c5b4b4b9ffee8020f25a3dbd94dc5c76d58640eddc168ea077c6d605f34fae6",
+      "native_record_sha256": "36a6119135e5c1db4ff6ce781dbee43a4ac557dbd0e3493ca8f0bf4b7c44ac7f",
+      "finite_rc_audit": {
+        "schema": 1,
+        "case": "apb",
+        "status": "finite-rc-reference-checks-passed",
+        "qualified": false,
+        "limits": {
+          "minimum_hz": 100000.0,
+          "maximum_hz": 50000000000.0,
+          "samples": 25,
+          "relative_added_admittance_matrix_error": 0.0001,
+          "independent_reduction_relative": 1e-10,
+          "independent_reduction_absolute_f": 1e-24,
+          "solve_relative_residual": 1e-10
+        },
+        "numpy": "2.3.5",
+        "script_sha256": "83e5b5cb9a0ddf934d39ff77fed53da0a6fef07ecc94d77abefbe8a73cb92d88",
+        "parser_sha256": "0f7b332cb3767de04f823c96f7d692b6701ae51123c98048d08983fa3b4ccdfb",
+        "source_spef_sha256": "2c5b4b4b9ffee8020f25a3dbd94dc5c76d58640eddc168ea077c6d605f34fae6",
+        "reduction_sha256": "66f36eb8e55b8bd8741d92e5bac7fb86f484c92ff182d62f205820d8cd873ca9",
+        "timing_spef_sha256": "d05750124df9e46db4e22a0a907e237afd721b73df29c7e4259e68145edf28af",
+        "floating_nets": 35177,
+        "components": 1567,
+        "observable_components": 262,
+        "boundary_nodes": 427,
+        "independent_maximum_absolute_difference_f": 4.610891991016814e-28,
+        "quasistatic_scale_f": 4.148214703946935e-15,
+        "maximum_quasistatic_solve_residual": 5.400221038879583e-16,
+        "frequency_checks": [
+          {
+            "hz": 100000.0,
+            "relative_added_admittance_matrix_error": 9.760295644547553e-12
+          },
+          {
+            "hz": 172765.52471486048,
+            "relative_added_admittance_matrix_error": 1.686242598402425e-11
+          },
+          {
+            "hz": 298479.2653000101,
+            "relative_added_admittance_matrix_error": 2.913245873095441e-11
+          },
+          {
+            "hz": 515669.26886062295,
+            "relative_added_admittance_matrix_error": 5.0330845188873567e-11
+          },
+          {
+            "hz": 890898.71814034,
+            "relative_added_admittance_matrix_error": 8.695434878398154e-11
+          },
+          {
+            "hz": 1539165.8450731211,
+            "relative_added_admittance_matrix_error": 1.5022713693903534e-10
+          },
+          {
+            "hz": 2659147.9484724943,
+            "relative_added_admittance_matrix_error": 2.595407013968365e-10
+          },
+          {
+            "hz": 4594090.906122943,
+            "relative_added_admittance_matrix_error": 4.4839685461687256e-10
+          },
+          {
+            "hz": 7937005.259840991,
+            "relative_added_admittance_matrix_error": 7.746751786837705e-10
+          },
+          {
+            "hz": 13712408.783810366,
+            "relative_added_admittance_matrix_error": 1.3383716372887988e-09
+          },
+          {
+            "hz": 23690314.986396547,
+            "relative_added_admittance_matrix_error": 2.3122447817968585e-09
+          },
+          {
+            "hz": 40928696.99285123,
+            "relative_added_admittance_matrix_error": 3.99476182996332e-09
+          },
+          {
+            "hz": 70710678.11865474,
+            "relative_added_admittance_matrix_error": 6.90157123664509e-09
+          },
+          {
+            "hz": 122163674.08112967,
+            "relative_added_admittance_matrix_error": 1.1923535760559726e-08
+          },
+          {
+            "hz": 211056712.53721526,
+            "relative_added_admittance_matrix_error": 2.0599759121294862e-08
+          },
+          {
+            "hz": 364633236.8608554,
+            "relative_added_admittance_matrix_error": 3.558928193590181e-08
+          },
+          {
+            "hz": 629960524.9474356,
+            "relative_added_admittance_matrix_error": 6.148600967880813e-08
+          },
+          {
+            "hz": 1088354606.4219246,
+            "relative_added_admittance_matrix_error": 1.0622662724780438e-07
+          },
+          {
+            "hz": 1880301546.5431967,
+            "relative_added_admittance_matrix_error": 1.835229899514744e-07
+          },
+          {
+            "hz": 3248512833.1069837,
+            "relative_added_admittance_matrix_error": 3.1706445656157985e-07
+          },
+          {
+            "hz": 5612310241.546849,
+            "relative_added_admittance_matrix_error": 5.477780720604317e-07
+          },
+          {
+            "hz": 9696137237.434288,
+            "relative_added_admittance_matrix_error": 9.463716604552552e-07
+          },
+          {
+            "hz": 16751582375.32629,
+            "relative_added_admittance_matrix_error": 1.6350039648717445e-06
+          },
+          {
+            "hz": 28940959188.774498,
+            "relative_added_admittance_matrix_error": 2.824723178676459e-06
+          },
+          {
+            "hz": 50000000000.0,
+            "relative_added_admittance_matrix_error": 4.8801478196140455e-06
+          }
+        ],
+        "direct_checks": [
+          {
+            "component": 0,
+            "floating_nodes": 680,
+            "boundary_nodes": 8,
+            "hz": 100000.0,
+            "relative_difference": 1.4856935481606628e-18,
+            "solve_residual": 8.191173806101543e-17
+          },
+          {
+            "component": 0,
+            "floating_nodes": 680,
+            "boundary_nodes": 8,
+            "hz": 50000000000.0,
+            "relative_difference": 1.485693548160705e-18,
+            "solve_residual": 1.1862086746535647e-16
+          },
+          {
+            "component": 53,
+            "floating_nodes": 307,
+            "boundary_nodes": 74,
+            "hz": 100000.0,
+            "relative_difference": 1.4856935481606628e-18,
+            "solve_residual": 4.763318537067124e-17
+          },
+          {
+            "component": 53,
+            "floating_nodes": 307,
+            "boundary_nodes": 74,
+            "hz": 50000000000.0,
+            "relative_difference": 2.9713870963297708e-18,
+            "solve_residual": 2.605162865926578e-17
+          }
+        ],
+        "maximum_relative_error": 4.8801478196140455e-06,
+        "resistance_fault": {
+          "multiplier": 1000000000.0,
+          "hz": 50000000000.0,
+          "relative_error": 0.18171920990339455,
+          "detected": true
+        },
+        "scope": "Exact captured native matrix and sampled frequency band only. Active fill, field calibration, timing and process qualification remain separate."
+      },
+      "reduction": {
+        "algorithm": "experimental-ihp-floating-fill-pcg-v1",
+        "sha256": "66f36eb8e55b8bd8741d92e5bac7fb86f484c92ff182d62f205820d8cd873ca9",
+        "maximum_iterations": 58,
+        "maximum_relative_solve_residual": 9.968010505840434e-13
+      },
+      "timing": {
+        "record_sha256": "d8eb6654d3045f16c801d6ab4cf45d36dda676be83297a419583d1c885a189ac",
+        "results": [
+          {
+            "state": "original",
+            "corner": "typ",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 15.825889,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.155239,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "63d70bf4bb79c81074c2c1770129472488cf7d5485e2d3bec00cd644a9a10c85"
+          },
+          {
+            "state": "filled",
+            "corner": "typ",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 15.799405,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.158736,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "d05750124df9e46db4e22a0a907e237afd721b73df29c7e4259e68145edf28af"
+          },
+          {
+            "state": "fault",
+            "corner": "typ",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -2827.432373,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -2827.43,
+              "hold_worst_slack_ns": 0.158736,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "968b0cfdcefc49a88d9a5c48874769eaad9aba3509e1240b5e14a821bb07a3c4",
+            "spef_sha256": "08f162d9f911d7ba0f0d254674025da46592b7ee2696f1af907e9665e585c6a5"
+          },
+          {
+            "state": "original",
+            "corner": "slow",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 14.482824,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.320373,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "63d70bf4bb79c81074c2c1770129472488cf7d5485e2d3bec00cd644a9a10c85"
+          },
+          {
+            "state": "filled",
+            "corner": "slow",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 14.40506,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.326827,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "d05750124df9e46db4e22a0a907e237afd721b73df29c7e4259e68145edf28af"
+          },
+          {
+            "state": "fault",
+            "corner": "slow",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -4394.805664,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -4394.81,
+              "hold_worst_slack_ns": 0.326827,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "ed1cff6e4d66d89d200e94c2213b8926a71c451218ca2df9b1157c98460e4b1d",
+            "spef_sha256": "08f162d9f911d7ba0f0d254674025da46592b7ee2696f1af907e9665e585c6a5"
+          },
+          {
+            "state": "original",
+            "corner": "fast",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 16.557207,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.061988,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "63d70bf4bb79c81074c2c1770129472488cf7d5485e2d3bec00cd644a9a10c85"
+          },
+          {
+            "state": "filled",
+            "corner": "fast",
+            "status": "PASS",
+            "summary": {
+              "setup_worst_slack_ns": 16.540577,
+              "setup_reported_violations": 0,
+              "setup_total_negative_slack_ns": 0.0,
+              "hold_worst_slack_ns": 0.06435,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "d05750124df9e46db4e22a0a907e237afd721b73df29c7e4259e68145edf28af"
+          },
+          {
+            "state": "fault",
+            "corner": "fast",
+            "status": "FAIL",
+            "summary": {
+              "setup_worst_slack_ns": -1819.934814,
+              "setup_reported_violations": 1,
+              "setup_total_negative_slack_ns": -1819.93,
+              "hold_worst_slack_ns": 0.06435,
+              "hold_reported_violations": 0,
+              "hold_total_negative_slack_ns": 0.0
+            },
+            "netlist_sha256": "aa9fc1a33cda8e4c54f74182b85fd02f43d2161e0a07d21826313e284760fe8f",
+            "constraints_sha256": "8ac500cc47115d0162f4cbcfa90efc08f1e4ba17e249065e7c4dbc9a13b378c8",
+            "library_sha256": "547c5fb3ef0eabe0362de7fb361ff736f6791987996b4b1af39b70deb569a72e",
+            "spef_sha256": "08f162d9f911d7ba0f0d254674025da46592b7ee2696f1af907e9665e585c6a5"
+          }
+        ]
+      }
+    }
+  ],
+  "os_audit": {
+    "schema": 1,
+    "status": "three-models-and-native-controls-reproduced",
+    "qualified": false,
+    "cases": [
+      {
+        "case": "counter",
+        "byte_identical": true,
+        "timing_spef_sha256": "2f98b53acd3167c890e5805aa098b44a95fc97d560e5213fa242ee7026fb03ee",
+        "reduction_sha256": "604fa06439064a11f885f1e6e31604b2bb9904fd4f6f796443d0933ef6a50221"
+      },
+      {
+        "case": "uart",
+        "byte_identical": true,
+        "timing_spef_sha256": "6517053fbc8e454ff41b2b9913c3dcf42cfb2d663b1dc949a5c2d06bbb931f11",
+        "reduction_sha256": "be498264c5d5804f61a3e378026874444598675a5eeb2c27e972da338cc0f604"
+      },
+      {
+        "case": "apb",
+        "byte_identical": true,
+        "timing_spef_sha256": "d05750124df9e46db4e22a0a907e237afd721b73df29c7e4259e68145edf28af",
+        "reduction_sha256": "66f36eb8e55b8bd8741d92e5bac7fb86f484c92ff182d62f205820d8cd873ca9"
+      }
+    ],
+    "test_log_sha256": "8b1e307f5dd2fbda406f17bd2bd970692e5be787ef1839cd81896f301fae1139"
+  },
+  "active_fill": {
+    "status": "model_coverage_gap",
+    "controls": {
+      "schema": 1,
+      "status": "active-fill-native-coverage-observed",
+      "qualified": false,
+      "engine_sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+      "technology": {
+        "ihp-sg13g2-cifin.tech": "d1ac75da97a8ef3c944f1088086f8e47a46f5a04024d3570b93e2e2617587ec1",
+        "ihp-sg13g2-cifout.tech": "e27c499850864e66ef3b8063132bdcf0a002925592bd60d871447fb3759eaa37",
+        "ihp-sg13g2-drc.tech": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402",
+        "ihp-sg13g2-extract.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+        "ihp-sg13g2-GDS.tech": "a6d27691ebd95cf63216b3f1ae43305602e3b62e49e0b04ffb448f3cca91fc6b",
+        "ihp-sg13g2.tech": "0a0e1666da3fa38d7faefe340576102ddc558727a3f6f7f666e92f50a1dc568d"
+      },
+      "cases": [
+        {
+          "state": "absent",
+          "imported_active_filler_area_um2": 0,
+          "node_lines": [
+            "node \"SIGNAL\" 1 3142.34 0 0 m1 0 0 0 0 400000 4400 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+            "substrate \"SUB\" 0 0 -1073741817 -1073741817 space 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+          ],
+          "files": {
+            "startup.tcl": "490204972d07439515b29fbc7d652d7a628eac6e08824554dc4bf674f6725dc2",
+            "input.gds": "3729e33d20426dd532ba828de4017601ad3d1807a49c2b6030e18e9a92fc65e5",
+            "extract.tcl": "84c9edb0feaa0358c0dd9479ac941d8917257d3de683b2ab084a3e970a74007d",
+            "extracted.spice": "76692dcc616d081e7db85884167aba2f11b65bb095247100d7a80335f9bfb099",
+            "engine.log": "b1acaf47d4466075ab1b60234a81dea681ad6b725c9f30d030563d5543a45462",
+            "imported.gds": "3b9e7d108d25fa195d97683760e35d2d3e5e3a3b594d999654b3263d2c84fa08",
+            "active_control.ext": "5dc24e095952a296c15ad5f5a12045ae5d3592dbc8dd9f5b089503e1c9851a3b"
+          }
+        },
+        {
+          "state": "filler",
+          "imported_active_filler_area_um2": 11.559999999999999,
+          "node_lines": [
+            "node \"SIGNAL\" 1 3142.34 0 0 m1 0 0 0 0 400000 4400 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+            "substrate \"SUB\" 0 0 -1073741817 -1073741817 space 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+          ],
+          "files": {
+            "startup.tcl": "490204972d07439515b29fbc7d652d7a628eac6e08824554dc4bf674f6725dc2",
+            "input.gds": "9eaf4c71f325de25166561a0cbb20d5bc42b37a73436ff5f82a876242dbd21a4",
+            "extract.tcl": "8fe5eed793926888368f5285cabbac559849b2ef6c3685846b3edee004a513c3",
+            "extracted.spice": "76692dcc616d081e7db85884167aba2f11b65bb095247100d7a80335f9bfb099",
+            "engine.log": "5c12c6e2c7bec49d182a67193017f03860b1ca7993a9eab2b6cd3ff85abf340d",
+            "imported.gds": "c2c74c34121e0e84d517dd1f78a220825eff0992c90a9891df2493074f3c8597",
+            "active_control.ext": "5dc24e095952a296c15ad5f5a12045ae5d3592dbc8dd9f5b089503e1c9851a3b"
+          }
+        },
+        {
+          "state": "drawing",
+          "imported_active_filler_area_um2": 0,
+          "node_lines": [
+            "node \"SIGNAL\" 1 2826.14 0 0 m1 0 0 0 0 400000 4400 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+            "node \"a_830_n70#\" 0 0 830 -70 ndif 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+            "substrate \"SUB\" 0 0 -1073741817 -1073741817 space 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+            "cap \"a_830_n70#\" \"SIGNAL\" 527.932"
+          ],
+          "files": {
+            "startup.tcl": "490204972d07439515b29fbc7d652d7a628eac6e08824554dc4bf674f6725dc2",
+            "input.gds": "9f2f5e22ab36907ec0d6527fdd0dd257285988be3e3ed753e2f04a6d681115cc",
+            "extract.tcl": "9ae194cd443a37e29eedf6175dfbb2d78d2a32b98425b2c7814b10497bce1312",
+            "extracted.spice": "7f8ee1e7bb437b05584841f05100929aacb17528372d7470d615ce366c4f62cd",
+            "engine.log": "80c8e53499e1d7e00cb602be710a51e04703b9f6509d0e70285133717fc99c5a",
+            "imported.gds": "9e208b58d56542d6e850231777178cbc5b5873dd6082701c8d33e137fdfed295",
+            "active_control.ext": "23811ad0e41c7c8daabfd23c01b6109369cdc440ea1ac1fc99537e998c6859de"
+          }
+        }
+      ]
+    },
+    "conclusion": "Purpose 22 is imported but its parasitics are absent from this vendor extraction model. No physical zero-effect claim."
+  },
+  "tests": {
+    "windows_focused": {
+      "count": 26,
+      "sha256": "454213b07bc788379c2fda399b8b3c88f62e8fcef6086019b09e0a8621cfe83d"
+    },
+    "linux_focused": {
+      "count": 26,
+      "sha256": "8b1e307f5dd2fbda406f17bd2bd970692e5be787ef1839cd81896f301fae1139"
+    }
+  },
+  "chunk_4_rechecked": {
+    "status": "reference_gate_complete",
+    "chunk": 4,
+    "chunk_complete": true,
+    "references": 6,
+    "process_qualification": "unqualified"
+  },
+  "remaining": [
+    "Resolve active-fill parasitic coverage and review fill-width model scope.",
+    "Bind the final accepted full-fill model to timing and electrical acceptance.",
+    "Supplemental manual-rule and boundary applicability coverage review.",
+    "Production-flow integration, exact-source binding and affected package/regression qualification."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-coupling-model-2026-10-10-v1\\evidence.tar.gz",
+    "sha256": "9c37b60ba7718c1208d45a03c92325c1245cba8f1b2a15f77fa5ef0abc117f64",
+    "bytes": 49211479,
+    "members": 1170,
+    "verified": true,
+    "manifest_sha256": "d6cb2de3a6f116123cd8cb7428bd23698e865d1c998ba293ed490d598a8f6611"
+  }
+}

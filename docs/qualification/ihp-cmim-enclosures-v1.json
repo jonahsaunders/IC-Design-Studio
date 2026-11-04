@@ -1,0 +1,123 @@
+{
+  "status": "SOURCE_REVIEW_AND_PREDECLARATION_ONLY",
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "source_sha256": {
+    "docs/qualification/ihp-cmim-applicability-v1/source-ledger.json": "9dd59dddde12f86f2b818ffe7eb721c25fd6b0faed2969f3a9a2940403f5aba7",
+    "icstudio/assets/pdks/ihp-sg13g2/package.json": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0",
+    "icstudio/assets/physical/ihp_klayout_drc/SOURCE.json": "31601ee4ca33750dd2f580f6a8fc519bb5dbe99d504e72759fd97d538f4f3863",
+    "icstudio/assets/physical/ihp_klayout_lvs/SOURCE.json": "7b23e1228bc8e10e0772bec55aa3de1443042e6a9a6e5cffd7a8548a3f4c28bf",
+    "docs/qualification/ihp-cmim-applicability-v1/main_drc_table.csv": "f3c864fdb1c056e9f5b0842968458cee55256477a17e1274bba5abec3e538534",
+    "docs/qualification/ihp-cmim-applicability-v1/extra_drc_table.csv": "09a0124fe7138234b4b2e686afef1cfeb6c104a70c7b7dffb28e5e2b6dc0826a",
+    "docs/qualification/ihp-cmim-applicability-v1/04_06_cap.rst": "aebaa8a397b6409798e8f3ed189c0811d78c80be36979852220790828ce79006",
+    "docs/qualification/ihp-cmim-applicability-v1/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "icstudio/assets/pdks/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-drc.tech": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402",
+    "icstudio/assets/pdks/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-cifin.tech": "d1ac75da97a8ef3c944f1088086f8e47a46f5a04024d3570b93e2e2617587ec1",
+    "icstudio/assets/pdks/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-cifout.tech": "b972c6d07557e0147462ad533aaf2f3aea14404437f800a1f8fc96ba13086dc8",
+    "icstudio/assets/pdks/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-cap.tcl": "c81143a75d036ea48b4b9054347e12d9f16ebb3739c39a36df2cc5f4d1d6f94b",
+    "icstudio/assets/physical/ihp_klayout_drc/rule_decks/beol/6_11_mim.drc": "0b41a9e4ff1342940920ff6763093aff39f986a8b2f7bfcf2b5dad47fa9da40d",
+    "icstudio/assets/physical/ihp_klayout_drc/rule_decks/beol/5_21_topvia1.drc": "2a749744b68134b5fd9686dcdf6180a0d3acbed5ecdb1e4d5ac8499f8071e813",
+    "icstudio/assets/physical/ihp_klayout_drc/rule_decks/sg13g2_maximal.drc": "d12e1947f570ce16f04dfd94769f2c38fdbda3920c5f7479272ef517864eae4b",
+    "icstudio/assets/physical/ihp_klayout_drc/rule_decks/layers_def.drc": "a71a4f6250b0220a5608c6d6cc6ef7a9b0a4a8f3f2820208216630528e163147",
+    "icstudio/assets/physical/ihp_klayout_drc/sg13g2_tech_mod.json": "229029e23785f3ae58c9645d47acfe326c56f0ec41d940bf9383c7063380f9ff",
+    "icstudio/assets/physical/ihp_klayout_lvs/rule_decks/cap_derivations.lvs": "2122ca992df4983e32dda8e85fdffabab2bc90eed0cebc1372c4069c78ef1157",
+    "icstudio/assets/physical/ihp_klayout_lvs/rule_decks/cap_connections.lvs": "adba1f9e036ec47b6f431615c1538073aafbab51087ba57dee6b0080699face6",
+    "icstudio/assets/physical/ihp_klayout_lvs/rule_decks/general_connections.lvs": "bb61656b3564cf08558b83cf27d09854049eb30b5b7ade6610045d43c4b53e97",
+    "icstudio/assets/physical/ihp_klayout_lvs/rule_decks/custom_mim_extractor.lvs": "2e4a47be7bf2ec9ba87611e2ab32e97d5369f726ded328d2e291d94e845f40dd"
+  },
+  "source_revisions": {
+    "documentation": "f79c1aa616361a5980994feffda1e2766a4b500b",
+    "package": "cfb96b74cf33877e",
+    "public_drc": "5e6d592e4002946a4616f798c357f0f3c06cf3b6"
+  },
+  "applicable_rules": {
+    "MIM.c": {
+      "minimum_nm": 600,
+      "operand": "MIM36/0 enclosed by Metal567/0, plus uncoveredMIM polygons"
+    },
+    "MIM.d": {
+      "minimum_nm": 360,
+      "operand": "TopVia1125/0 enclosed by MIM36/0; excludesVmim129/0"
+    },
+    "TV1.a": {
+      "exact_square_nm": 420
+    },
+    "TV1.b": {
+      "minimum_space_nm": 420
+    },
+    "TV1.c": {
+      "minimum_Metal5_enclosure_nm": 100
+    },
+    "TV1.d": {
+      "minimum_TopMetal1_enclosure_nm": 420
+    },
+    "MIM.h": {
+      "native_condition": "MIM must cover a contact from unionTopVia1+Vmim; presence condition, not aVmim360nm-enclosure rule"
+    }
+  },
+  "proposed_cases": {
+    "MIM.c": {
+      "MIM_box_nm": [
+        -3500,
+        -3500,
+        3500,
+        3500
+      ],
+      "modified_Metal5_right_nm": [
+        4080,
+        4100,
+        4120
+      ],
+      "enclosures_nm": [
+        580,
+        600,
+        620
+      ],
+      "expected_main_MIM_c": [
+        true,
+        false,
+        false
+      ],
+      "contacts": "Original25Vmim cuts unchanged"
+    },
+    "MIM.d": {
+      "remove": "AllVmim129/0",
+      "insert": "One420nm squareTopVia1125/0, y[-210,210]",
+      "cut_right_nm": [
+        3160,
+        3140,
+        3120
+      ],
+      "MIM_enclosures_nm": [
+        340,
+        360,
+        380
+      ],
+      "fixed_TopMetal1_right_nm": 3580,
+      "minimum_TV1_d_enclosure_nm": 420,
+      "expected_main_MIM_d": [
+        true,
+        false,
+        false
+      ]
+    },
+    "rotations_degrees": [
+      0,
+      90
+    ],
+    "common": "Ordinarycatalog Xsimulation preserved; independentlyderived physicalCsourceproof; original/appGDS+OASexactmasks/labels; allthreeDRCreports; completedunfilteredonecapcmim C1top/C2bottom w7u l7u A49p P28u m1 andstrictLVS evenforenclosure-negativegeometry."
+  },
+  "pilot_required": "Exact360nmTopVia1 case must firstdemonstrate connectedlegalnativegeometry; retainunexpectedotherfindings anddo notwaive them. Expectedfindingclasses arepredeclaredhypotheses, notobservations.",
+  "magic_scope": "cifin mapsVIA5+MIMCC insideMIM tomimcc, grows420/shrinks60; cifout emits129/0 contacts. Internal1140nm mimcc width composesTV1.a+2MIM.d anddoesnot independentlyestablisha published129/0 enclosurelimit. Magicroundtrip cannotprove125/0 maskpreservation.",
+  "contact_semantics": "LVS mim_via unionsVmim+TopVia1 withinMIM; connects upperplate toTopMetal1. Only topvia1_n_cap connectsMetal5directlytoTopMetal1. Publicdocumentation explicitlypermitsVmim instead ofTopVia1 andexcludesCuBEOL.",
+  "remaining": "This canclosefiniteenclosure/contactvariant sourcecapability; nofullfamily, electricalcalibration, reliability, arbitrarycontactarrays orinstalledclaims.",
+  "estimate": {
+    "chunk7_percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_metric": false
+  }
+}

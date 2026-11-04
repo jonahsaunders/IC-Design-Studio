@@ -27,7 +27,7 @@ class HubWorker(QThread):
 
 class ProjectHub(QDialog):
     def __init__(self,window,page='new',initial_kind=None):
-        super().__init__(window);self.window=window;self.worker=None;self.rows=[];self.checked={};self._filling=False
+        super().__init__(window);self.window=window;self.worker=None;self._operation_pending=False;self.rows=[];self.checked={};self._filling=False
         self.setWindowTitle('Project Hub · IC Design Studio');self.setWindowModality(Qt.WindowModal)
         self.setMinimumSize(600,380)
         t=palette(window.dark)
@@ -151,6 +151,10 @@ class ProjectHub(QDialog):
 
     def refresh(self,*_):
         if self.busy():return
+        self._refresh_contents()
+
+    def _refresh_contents(self):
+        """Refresh after an owned result while the public operation stays busy."""
         old=self.current_pdk();lock=self.window.project['pdk'].get('package_lock',{})
         key=old['key'] if old else self.window.settings.value('hub/last_pdk',lock.get('id','')+'@'+lock.get('revision',''))
         self._filling=True;self.pdks.clear();self.rows,notes=inventory(self.window.pdk_registry)
@@ -241,26 +245,37 @@ class ProjectHub(QDialog):
         self.create_button.setText('Install PDK & create project' if row['status']=='Available offline' else 'Create project');self.update_create()
 
     def update_create(self,*_):self.create_button.setEnabled(getattr(self,'ready',False) and bool(self.name.text().strip()) and not self.busy())
-    def busy(self):return bool(self.worker and self.worker.isRunning())
+    def busy(self):return bool(self._operation_pending or (self.worker and self.worker.isRunning()))
 
     def run_operation(self,fn,done,message):
         if self.busy():return
         self.state.setText(message);self.pages.setEnabled(False);self.nav.setEnabled(False);self.refresh_button.setEnabled(False)
         worker=HubWorker(fn,self);self.worker=worker;self.window._project_hub_worker=worker
-        def finished():
+        self._operation_pending=True
+        def restore_controls():
+            self._operation_pending=False
             self.pages.setEnabled(True);self.nav.setEnabled(True);self.refresh_button.setEnabled(True)
-            if worker.error:self.state.setText(worker.error);self.update_create();return
-            try:done(worker.result)
-            except (ValueError,OSError,KeyError) as exc:self.state.setText(str(exc))
             self.update_create()
-        worker.finished.connect(finished);worker.start()
+        def finished():
+            # Thread completion can precede delivery of this queued GUI callback.
+            # Keep close/create blocked until the result has been applied.
+            try:
+                if worker.error:self.state.setText(worker.error)
+                else:done(worker.result)
+            except (ValueError,OSError,KeyError) as exc:self.state.setText(str(exc))
+            finally:restore_controls()
+        worker.finished.connect(finished)
+        try:worker.start()
+        except Exception:
+            restore_controls()
+            raise
 
     def create_project(self):
         row=self.current_pdk()
         if not row or not self.ready or self.busy():return
         def done(result):
             # Candidate and PDK checks are complete before asking to save existing work.
-            self.refresh();self.select_pdk(row['key'])
+            self._refresh_contents();self.select_pdk(row['key'])
             if not self.window._replace_document():return
             self.window.set_project(result['project'])
             if result['cell']:self.window.cid=result['cell'];self.window._selected_testbench=result['testbench'];self.window.refresh(True)
@@ -277,7 +292,7 @@ class ProjectHub(QDialog):
             path=Path(row['path'])/'package.json'
             if digest(json.loads(path.read_text(encoding='utf-8')))!=digest(row['manifest']):raise ValueError('Package changed. Refresh before installing.')
             return self.window.pdk_registry.install(path)
-        def done(key):self.refresh();self.select_pdk(key);self.state.setText('Installed '+key+'. Your open project keeps its existing PDK.')
+        def done(key):self._refresh_contents();self.select_pdk(key);self.state.setText('Installed '+key+'. Your open project keeps its existing PDK.')
         self.run_operation(install,done,'Installing the selected included package offline…')
 
     def verify_selected(self):
@@ -291,7 +306,7 @@ class ProjectHub(QDialog):
         if not row:return
         folder=QFileDialog.getExistingDirectory(self,'Locate '+row['id'],row['path'])
         if not folder:return
-        def done(_):self.refresh();self.state.setText('Installation location updated. Existing project locks remain unchanged.')
+        def done(_):self._refresh_contents();self.state.setText('Installation location updated. Existing project locks remain unchanged.')
         self.run_operation(lambda:self.window.pdk_registry.relocate(row['key'],folder),done,'Checking the selected folder against the registered revision…')
 
     def open_setup(self):

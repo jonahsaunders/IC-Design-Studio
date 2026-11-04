@@ -1,0 +1,372 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "release_ready": false,
+  "installed_acceptance": false,
+  "full_mim_installed": false,
+  "scope": "Implemented installed public-DRC subgate; this evidence executes only source/custom-runtime bring-up on four original fresh GUI exports plus one deliberate geometry control. No frozen installed application, complete-chip, density, antenna, full device envelope or foundry acceptance is claimed.",
+  "gate": "MIM-INSTALLED/public-DRC source bring-up",
+  "source": {
+    "files_sha256": {
+      "scripts/qualify_installed_sky130_mim_public_drc.py": "74c40e51c350c96003e2842112a0480a271c9df39c296dc39aa345f1c5245578",
+      "tests/test_installed_mim_public_drc.py": "d31facb209b4772646b7ae01c31d6f2422f7d7a4cc24a5e687f0873210d1d68d"
+    },
+    "manifest_sha256": "fd66182367933ba88da9cb4c71d8d19c360ee671f49877cb2b71bfb245dfca73",
+    "unchanged": true,
+    "formatting_only_prior_variant": {
+      "scripts/qualify_installed_sky130_mim_public_drc.py": {
+        "before_sha256": "8a276eae6af4e8e8131fb002ac44abb7b3e02547213654ba8b03383b30953e02",
+        "after_sha256": "74c40e51c350c96003e2842112a0480a271c9df39c296dc39aa345f1c5245578",
+        "change": "CRLF to LF only"
+      },
+      "tests/test_installed_mim_public_drc.py": {
+        "before_sha256": "9fe6a50cc0277d3def19e834cab733881edfd08e6c705f77a2107f2b74441128",
+        "after_sha256": "d31facb209b4772646b7ae01c31d6f2422f7d7a4cc24a5e687f0873210d1d68d",
+        "change": "CRLF to LF only"
+      }
+    }
+  },
+  "gui_prerequisite": {
+    "record": "docs/validation/sky130-mim-installed-probe-source-2026-10-23.json",
+    "execution_id": "d0c66fc9b5cc46acaf5dbd8ebc9b203f",
+    "report_sha256": "45252f81b0fb011c0c23e365e3b8da5818417f1f2165ea908c8642aec28a666c",
+    "files_sha256": "ea3e26d5d09c0124aaebae8c670fe6b4214edced5ffbf98288a47f38c5a34e9c",
+    "fresh_gui_or_magic_netgen_rerun": false,
+    "scope": "Read-only re-audit of original four source GUI/native inputs; original identity retained."
+  },
+  "native": {
+    "execution_id": "dfb786f74ac94bc2b310d28ba5aedd91",
+    "record_sha256": "185d0792e6a7f280db933e24bce69c53196aff4ed507d296f309189240503dd1",
+    "files_sha256": "23c49d813d5c5a1f7a69fe0e32d6877dab12b10db9d09ca6fbd16dc929aaff0c",
+    "verification_sha256": "1fb16de5c5e4c92ae39b1096ed5a7f1e659ba1f5b6391712420c865a0fb50472",
+    "elapsed_seconds": 31.105534815986175,
+    "positive_layouts": 4,
+    "detected_geometry_controls": 1,
+    "categories_per_layout": 255,
+    "cases": [
+      {
+        "case": "p1-r0",
+        "top": "mim_p1_r0_d0c66fc9b5cc",
+        "markers": 0,
+        "violations": {},
+        "categories": 255,
+        "elapsed_seconds": 1.76748012797907,
+        "raw_sha256": "d46f34358898e6e88cea94ce434cdcd48c538555ea4fddd4c21ff9d63b481351",
+        "input_sha256": "1a88a2e6768020cb905ba6b55e07b3329cdcefd694c90f4f31a394b4b05c5329",
+        "original_gds_sha256": "1a88a2e6768020cb905ba6b55e07b3329cdcefd694c90f4f31a394b4b05c5329"
+      },
+      {
+        "case": "p1-r90",
+        "top": "mim_p1_r90_d0c66fc9b5cc",
+        "markers": 0,
+        "violations": {},
+        "categories": 255,
+        "elapsed_seconds": 1.817391865013633,
+        "raw_sha256": "ed3bcee62f7a1405e02c82eab0a4b70424f84fc67fa9b0b58a4a0ccd2829ef64",
+        "input_sha256": "b8c53e2f47a411ce7b34fdf8b2bbe7d598ee405d36d63ec63a2f75cfc4eb240a",
+        "original_gds_sha256": "b8c53e2f47a411ce7b34fdf8b2bbe7d598ee405d36d63ec63a2f75cfc4eb240a"
+      },
+      {
+        "case": "p2-r0",
+        "top": "mim_p2_r0_d0c66fc9b5cc",
+        "markers": 0,
+        "violations": {},
+        "categories": 255,
+        "elapsed_seconds": 1.7173156949866097,
+        "raw_sha256": "d10ed033b436e761c277fc72d01e2398d8d73c0a74c079dc5f2216757684aaac",
+        "input_sha256": "58db6024b4c1603893ede1912048e781670e7ffec076a7d49de75166f6e548bf",
+        "original_gds_sha256": "58db6024b4c1603893ede1912048e781670e7ffec076a7d49de75166f6e548bf"
+      },
+      {
+        "case": "p2-r90",
+        "top": "mim_p2_r90_d0c66fc9b5cc",
+        "markers": 0,
+        "violations": {},
+        "categories": 255,
+        "elapsed_seconds": 1.717683813010808,
+        "raw_sha256": "ed85e831c89bae483c4e3c3a64a5441d064a9bd3deef2412699f505492fa6a34",
+        "input_sha256": "9134c2daeb8cc33f3eccba4f2f638f00cbb45019f7724dd42db42ed4371510ff",
+        "original_gds_sha256": "9134c2daeb8cc33f3eccba4f2f638f00cbb45019f7724dd42db42ed4371510ff"
+      },
+      {
+        "case": "p2-r90-narrow-metal",
+        "top": "mim_p2_r90_d0c66fc9b5cc",
+        "markers": 3,
+        "violations": {
+          "MR_met1.AR.1": 1,
+          "MR_met1.WID.1": 2
+        },
+        "categories": 255,
+        "elapsed_seconds": 1.6173949009971693,
+        "raw_sha256": "7f04377c293e2fcc80f07de534f7053231228ac779a072d1ea0cb65e773e22ad",
+        "input_sha256": "fa63f78fd70745b90919a6a733f62938ab675bca425379a1136aa6213e82dbff",
+        "original_gds_sha256": "9134c2daeb8cc33f3eccba4f2f638f00cbb45019f7724dd42db42ed4371510ff"
+      }
+    ]
+  },
+  "policy": {
+    "deck_sha256": "aeba6ab5137923f2258714ab5d91ce99ca6a6f932bea55dedfe6f79aca697ba1",
+    "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "categories_sha256": "68c8729ce82d1081df6b850e7b162180c78539b1f72b1424ed519fc5edceca13",
+    "revision": "6c401ed5134a6466c7eed3e5524ebaacad4cea2a",
+    "flags": {
+      "feol": "true",
+      "beol": "true",
+      "offgrid": "true",
+      "seal": "false",
+      "floating_met": "false",
+      "sram_exclude": "false",
+      "info": "false"
+    },
+    "scope": "Existing generic public AL-backend block geometry: FEOL, BEOL, off-grid. Seal and floating-metal options remain disabled. Built-in upstream filters remain. Density, antenna, LVS, full-chip and full-foundry checks are separate."
+  },
+  "control": {
+    "input": "p2-r90",
+    "layer": [
+      68,
+      20
+    ],
+    "added_box_um": [
+      100,
+      100,
+      100.1,
+      100.1
+    ],
+    "width_um": 0.1,
+    "source_minimum_width_um": 0.14,
+    "required_category": "MR_met1.WID.1",
+    "observed_markers": 3,
+    "observed_rules": {
+      "MR_met1.AR.1": 1,
+      "MR_met1.WID.1": 2
+    },
+    "other_masks_and_labels_unchanged": true
+  },
+  "runtime": {
+    "engine_sha256": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+    "payload_sha256": "12f4135279aadc748673de1a6fb6801c68557681d152fd1c5de6b2a5aebf58cc",
+    "files_sha256": "90d30c7e15f20fbcbe83579a59d38b41f08a42a0c3123cdf2a4a5d12c9a9a501",
+    "runtime_sha256": "711bf6b67b9004440fc0e9fc7cda3f256f4eef417b2ffc7e702c3f5b7c53f8b3",
+    "files": 54396,
+    "before_after_equal": true
+  },
+  "independent": {
+    "status": "PASS",
+    "receipt_sha256": "c9b43dfde9f31973af00c84125bdd3a893db11648db4cc385db5f764ec0c7904",
+    "method_sha256": "c522b393695f484cebf7deb6121d178015a90224a0dbbea3574e8b9cb53786fb",
+    "full_live_original_path_audits": 1,
+    "copied_native_xml_gds_controls_rejected": 10,
+    "controls": [
+      {
+        "name": "wrong-top",
+        "status": "REJECTED",
+        "reason": "Wrong public report format/top.",
+        "file": "wrong-top.lyrdb",
+        "sha256": "9b5c4314ee82d5a9f0566fa0bf3444f575e32d2d83bf0779a019ddca4d1f6a80"
+      },
+      {
+        "name": "missing-category",
+        "status": "REJECTED",
+        "reason": "Public rule categories are missing, duplicated or changed.",
+        "file": "missing-category.lyrdb",
+        "sha256": "505e2cd92efe58ef40ee5aec1b305d6bf20bb8568285ba997acf811a70b4332b"
+      },
+      {
+        "name": "duplicate-category",
+        "status": "REJECTED",
+        "reason": "Public rule categories are missing, duplicated or changed.",
+        "file": "duplicate-category.lyrdb",
+        "sha256": "42fdc91a36610027f718bdea2141d08fa6987e1d032b1bfec6aa90780289f684"
+      },
+      {
+        "name": "unknown-category",
+        "status": "REJECTED",
+        "reason": "Unknown raw violation category.",
+        "file": "unknown-category.lyrdb",
+        "sha256": "4e4b3ff3afd836a008cef14467b8848dc403036c0b59178dce94abe7cde6528b"
+      },
+      {
+        "name": "missing-items",
+        "status": "REJECTED",
+        "reason": "Missing raw violation inventory.",
+        "file": "missing-items.lyrdb",
+        "sha256": "221099fde3cd06e423731faf15a10e074a7e6710fa8c977e66327d17f07d9d15"
+      },
+      {
+        "name": "hidden-positive-marker",
+        "status": "REJECTED",
+        "reason": "Copied positive raw contains a real violation.",
+        "file": "hidden-positive-marker.lyrdb",
+        "sha256": "7073f8cce6597df3324c807117fd8ad785645afe9a457c0437732679911e7317"
+      },
+      {
+        "name": "hidden-control-marker",
+        "status": "REJECTED",
+        "reason": "Copied raw no longer demonstrates the required width control.",
+        "file": "hidden-control-marker.lyrdb",
+        "sha256": "01df8f30e702071b2020eb52db249527634d5f1cff9119aa1753502ba7225f2a"
+      },
+      {
+        "name": "unintended-mask",
+        "status": "REJECTED",
+        "reason": "Control changed unintended masks: (69, 20)",
+        "file": "unintended-mask.gds",
+        "sha256": "6ffa6fb9886c2a82df7eaa7727adceea4803712bc9b9f8d2e044fa407d3edd57"
+      },
+      {
+        "name": "unintended-label",
+        "status": "REJECTED",
+        "reason": "Control altered text or ports.",
+        "file": "unintended-label.gds",
+        "sha256": "857e30d76ce03cc007deae450cf069ecda6f0fb8baf1aeeddd50fc8cffa344a5"
+      },
+      {
+        "name": "swapped-input",
+        "status": "REJECTED",
+        "reason": "Wrong named GUI GDS input.",
+        "file": "swapped-input.gds",
+        "sha256": "58db6024b4c1603893ede1912048e781670e7ffec076a7d49de75166f6e548bf"
+      }
+    ],
+    "original_inventory_unchanged": true,
+    "scope": "Each changed native XML/GDS copy is rehashed and checked by independent raw/geometry predicates, not falsely relabeled as a fresh native run.",
+    "relocated_full_audit_performed": false
+  },
+  "focused_tests": {
+    "Windows": {
+      "tests": 8,
+      "passed": 8,
+      "skipped": 0,
+      "seconds": 0.134,
+      "log_sha256": "c0eab4365cd5da7ea63db48d555a67e3be25e69d0a73ca35f83de7da6fdcd5c4"
+    },
+    "Linux": {
+      "tests": 8,
+      "passed": 8,
+      "skipped": 0,
+      "log_sha256": "08c509e249ed27901295fac7ec9044a89f8e3e919361fb2e7994ab43bf543670"
+    }
+  },
+  "earlier_attempts": [
+    {
+      "name": "source-pilot-v1",
+      "status": "FAIL",
+      "reason": "Full runtime identity rejected a changed Magic Git index before any KLayout execution; preserved exact failed source/result and changed metadata bytes."
+    },
+    {
+      "name": "source-pilot-v2",
+      "status": "PASS",
+      "seconds": 18.28510209399974,
+      "scope": "Prior CRLF source; preserved. Final LF variant differs only in line endings, not a Git identity defect."
+    },
+    {
+      "name": "Windows-sandbox",
+      "status": "FAIL",
+      "reason": "Sandbox temporary fixture permissions (WinError5); ordinary-account rerun passed without administrator access."
+    },
+    {
+      "name": "Windows-focused-v1",
+      "status": "FAIL",
+      "reason": "Harness launched from parent directory; corrected project working directory and retained log."
+    }
+  ],
+  "runtime_metadata_repair": {
+    "status": "PASS",
+    "scope": "Only exact expected Git index metadata bytes restored; engine/runtime archive identity unchanged.",
+    "prior": {
+      "path": "/opt/icstudio/physical/magic/.git/index",
+      "actual_sha256": "49298c38de784c9378d6205d442ba5a70c18e946f15eaf67e83d6934d6a65054",
+      "expected_sha256": "684f43f9f044a6e1d86d54b289dbbbf76ddadf254e21f67a7a46a44e50815060",
+      "bytes": 110774
+    },
+    "recovery": {
+      "archive": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\bundled-digital-payload\\runtime.tar.gz",
+      "archive_sha256": "479ab2d7898f92fa28bc465eb8dcced29a33a2c5720e550bec0da20e60bb0563",
+      "member": "opt/icstudio/physical/magic/.git/index",
+      "bytes": 110774,
+      "sha256": "684f43f9f044a6e1d86d54b289dbbbf76ddadf254e21f67a7a46a44e50815060",
+      "expected_sha256": "684f43f9f044a6e1d86d54b289dbbbf76ddadf254e21f67a7a46a44e50815060",
+      "matches_expected": true
+    },
+    "restored_sha256": "684f43f9f044a6e1d86d54b289dbbbf76ddadf254e21f67a7a46a44e50815060"
+  },
+  "archive": {
+    "status": "PASS",
+    "archive": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-installed-public-drc-2026-10-23-v1/evidence.zip",
+    "sha256": "996270a4502853c397b564a9e2e3335da3cf7484206d997a713eb026b7c58808",
+    "archive_bytes": 11067502,
+    "manifest_sha256": "36cc90f1c0e2e37a3c83af76d294345592658b1f588581e28558dfaa4ec80d6e",
+    "files": 11532,
+    "new_objects": 80,
+    "unique_recovery_objects": 4637,
+    "logical_bytes": 540808833,
+    "all_recovery_verified": true,
+    "priors": {
+      "gui": {
+        "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-installed-probe-2026-10-23-v1/evidence.zip",
+        "sha256": "f87b12919d6a4abdc713dd77e2a96a5f574a1b1b9fe4100b4b7bd8c6e9d60c7f"
+      },
+      "passive": {
+        "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-mim-passive-2026-10-23-v1/evidence.zip",
+        "sha256": "03a75a194d165ed5fad0486f5a9a1fec0a5daa7c751c23f72beb9a17c031d430"
+      },
+      "li": {
+        "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-li-linked-2026-10-23-v1/evidence.zip",
+        "sha256": "e704e889ab5a786fa2423c696fa23eeff9e6a4966dd8367470518d9c1d471d49"
+      }
+    },
+    "gui_dependency": {
+      "archive": "gui",
+      "prefix": "native/source-physical-v2/",
+      "original_root": "/var/tmp/icstudio-mim-installed-probe-20261023-v1/source-physical-v2"
+    },
+    "cleanup_performed": false,
+    "readback_scope": "Full live original-path audit plus complete archive byte recovery; no relocated full-audit claim."
+  },
+  "final_readback_archive": {
+    "status": "PASS",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-mim-installed-public-drc-2026-10-23-v1\\final-readback.zip",
+    "sha256": "3313268059be2c1a30ca4e7a9d69c132f5b52b0780224c08a68b5b455381c8f3",
+    "bytes": 4249,
+    "files": {
+      "independent-review.json": {
+        "sha256": "c9b43dfde9f31973af00c84125bdd3a893db11648db4cc385db5f764ec0c7904",
+        "bytes": 5250
+      },
+      "Windows-focused-LF.log": {
+        "sha256": "c0eab4365cd5da7ea63db48d555a67e3be25e69d0a73ca35f83de7da6fdcd5c4",
+        "bytes": 1507
+      },
+      "summary-v3.json": {
+        "sha256": "7d896a06f59dec306d83f4c32417982b442eddc8f643422a37530a75cedc4611",
+        "bytes": 1426
+      },
+      "Linux-focused-LF.log": {
+        "sha256": "08c509e249ed27901295fac7ec9044a89f8e3e919361fb2e7994ab43bf543670",
+        "bytes": 1494
+      }
+    },
+    "recovery_verified": true
+  },
+  "limits": [
+    "Installed packaged execution remains pending; source mode always reports installed=false, qualified=false and release_ready=false.",
+    "Full MIM-INSTALLED requires separately verified installed GUI/native, full electrical contexts and required controls.",
+    "Raw outputs and sources are recoverable at their original execution paths; no relocated full live audit is claimed.",
+    "Full recorded runtime inventory was checked before and after; this is not a hermetic host operating-system claim."
+  ],
+  "cleanup": {
+    "performed": false,
+    "reason": "Exact source/native roots retained pending integration and independent archival handoff."
+  },
+  "independent_archive": {
+    "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/chunk7-installed-mim-independent-review-2026-10-23-v1/evidence.zip",
+    "sha256": "cb9d322dad41fbd355df989c60b4abd29d45d203235edbe6fd9b710d2373c4f3",
+    "bytes": 152793,
+    "manifest_sha256": "4caaa308434bf506a93c1a51bc4cc8b4e6cd21a875a244111fa49d625e1f2616",
+    "final_readback_member": "public-final-lf/review.json",
+    "scope": "Peer owned actual copied XML/GDS controls, methods, logs and original/final independent readback; all recovery verified by peer."
+  }
+}

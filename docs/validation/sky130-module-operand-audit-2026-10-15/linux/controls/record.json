@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "1727094971a1a59520d111967f52f980fd8b59f879b99b85e4bc2d40129d4cbb",
+  "checker_sha256": "535db84ae8a5b9c6ea36b09ddd927a429178b90962435004a088712577c2c01a",
+  "cases": [
+    {
+      "case": "empty",
+      "gds_sha256": "f409e778d8194f598d56c7f49be7ddd50812d6cc038a55b4d7709d0f5dcf1837",
+      "report_sha256": "c28e9e5f1560a1d52cd29e7761ae706c11987bc467030c768ea6781c2e633f84",
+      "unreviewed": 0
+    },
+    {
+      "case": "physical_without_module",
+      "gds_sha256": "4cbd450e083901bb49680d4a1c441b169b07af20e34b4d43594383247293df38",
+      "report_sha256": "0a60efa084a514c9f70f88f13d55e3b49c4fe87e6675d9a7c8349b55d3469b93",
+      "unreviewed": 0
+    },
+    {
+      "case": "module_box",
+      "gds_sha256": "614acf25d5b09ec5f10b19c31a2b3d542c0af2df4f4a7cf84d9ed48bd9de08b7",
+      "report_sha256": "ad813cbdba14239d37e5e3385e8690a86f2ef18ee9e5b9c7a77b16069d641800",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_polygon",
+      "gds_sha256": "a6b8b8d262194f49ac4fd7d38e4435115772df32ea469059971a35e401c40639",
+      "report_sha256": "5340438de7760da9608ab08488a85339c1814beab610d0d664555ec642134451",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_path",
+      "gds_sha256": "535827b5f6ce5e9554fe74495dce1be34286abaf387b635788075ca80f55acca",
+      "report_sha256": "41973f3e550cba5833a8343e00ebdd4cc341229d271f55dfc7331a3727d13db3",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_text",
+      "gds_sha256": "e6a10fa95ca82e2cc2d82afc00b3290dc93733be223ca47aa87fe13eabcb3be5",
+      "report_sha256": "080bb2e1e23aac9be1a869b1ddcfc3157e29c27cee7be7f45e0ff7efb3e1bd2e",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_sliver",
+      "gds_sha256": "e16537c1b821c68ce6391a16432470297acc9fe3b68aac11bbd87edeb60cf73a",
+      "report_sha256": "8953b818de20d1314a78b0c914f957f538289450cd2127692b7fb6887d6d8d6c",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_hole",
+      "gds_sha256": "200b31a77a6c039684f73461c63f63057db6de462a756f536980fc1bd03fb8ce",
+      "report_sha256": "1a952e04be799f15a4b6e5cffec1e8c92608bc56ed6c874f90c72e82bc9564b5",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_nonmanhattan",
+      "gds_sha256": "93659f5526389cd8d62b9db60c3a0be7e72a9814cb8988f5e11db09723154b03",
+      "report_sha256": "b982da2a5415e27da95699133d0653053d5070a25558b783d67cd20c1731d7c5",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_rotated",
+      "gds_sha256": "3a84d300e7016ba48ecfd15f6fac4433377491c7530b47c52347f3acab98a577",
+      "report_sha256": "9cd55d3230109fedcb11eaae4eb64531fc82f7931744402970f7907f9a3af1c2",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_array",
+      "gds_sha256": "0673d7a7b84e02d65c7f2863c04767bd976ac66d0caebb9a2308426746da9586",
+      "report_sha256": "70ca41a2a3442409339d9c01e1a023b1a4d8cc16fd0be0a52ea3a9f6ebc2e745",
+      "unreviewed": 35
+    },
+    {
+      "case": "unrelated_annotations",
+      "gds_sha256": "525fc1321ec9f5bcb95434450d03f402d7d5583f726f32333fe0f2d41c8a8ee7",
+      "report_sha256": "e9c0d92f41ca490b1ab9597394cabdcb44f8be7a7adc8fdddb7e6591cd7b7c2f",
+      "unreviewed": 0
+    },
+    {
+      "case": "module_under_buildspace",
+      "gds_sha256": "c8f56ae730107ac06f7f08e85808be977208d3afbf4f26589790ee8d0022ecd6",
+      "report_sha256": "3f2dc69d2df2c59f5f5e7729762e227223fb0925f91d3de1e94d1f282a00e67c",
+      "unreviewed": 35
+    },
+    {
+      "case": "module_under_testchip",
+      "gds_sha256": "25bdf8a091636989ae0e3fdb240008dc51680333473ac2eee1a215c374f23785",
+      "report_sha256": "0ec38fd7b7ccc3697e2f1488c8c81a3e54deba7411f4cca3f67ba7b9baa279d0",
+      "unreviewed": 35
+    }
+  ],
+  "elapsed_seconds": 0.4567878320000034
+}

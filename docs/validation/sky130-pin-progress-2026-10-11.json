@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "scope": "Exact OpenDB boundary-pin export correction, with native physical checks and actual Runner/saved-result/macro-export execution on the three captured routed checkpoints.",
+  "source_files": {
+    "icstudio/digital_sky130_pins.py": "e7bbf52b7c0f3d727c758fe927b134bb23d734712c864eb05f96c68b9d984e63",
+    "icstudio/digital_sky130_pin_inventory.py": "3b2b236c02444d5084104621e93b5632dbf7681d81f691eab0f407022e495249",
+    "scripts/sky130_pin_coverage.py": "a17855958781008cb4ba73d8ca62a09681c62c160c49a6b2ee600e87f4bf696e",
+    "tests/test_sky130_pins.py": "d72ec483990f6d87c98e56b62ca30ecba2c8fd47c599e5679f775016fa47680b",
+    "icstudio/digital_flow.py": "3875b75a55c3e983f6e1cf587cbd5de3e18c3bbb40d54931872ff49f5c768600",
+    "icstudio/digital_physical.py": "ae83b932252be7899a10cdcad4eb030211cddb3524a7f18a08b7a5432f36a1b6",
+    "icstudio/digital_macro.py": "b5d887a0d3b1af4ca212e6fd5d4ab8f179969ad1740eb1978ac73447df0130ad"
+  },
+  "references": [
+    {
+      "case": "counter",
+      "ports": 8,
+      "original_x5_findings": 6,
+      "gds_sha256": "4832c2d52e14ec217bbf3dd14c34288d781a8b9edf252afa350136140daee872",
+      "export": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/counter-export.json",
+        "sha256": "336489dfafd18765111ff616a04e1960c2db2d6aa129b5e1570224e2a1be7337"
+      },
+      "inventory": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/counter-inventory.json",
+        "sha256": "31199f81d9a79015fe2689a937bd539e6950dc776adb83e9d1fbf5a651e1590d"
+      },
+      "geometry": {
+        "klayout": {
+          "path": "docs/validation/sky130-pin-export-2026-10-11/counter-klayout.json",
+          "sha256": "10fd892ccf6d4852c5b9685c5e21f075dfa0a8c874fe19171c5207a6b5ad3927"
+        },
+        "magic": {
+          "path": "docs/validation/sky130-pin-export-2026-10-11/counter-magic.json",
+          "sha256": "ee8272209afefe6853c125e6b76c731aed46975ee92945a19113c9b6dac65fff"
+        }
+      },
+      "lvs": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/counter-lvs.json",
+        "sha256": "6f1e8b6af0767b78acdb275a5d6be661127f6156ed43f10e0c2bacaede7b4194"
+      },
+      "antenna": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/counter-antenna.json",
+        "sha256": "895a157394e7e9f42a510fc4988ce2b7541438bda975b2bc49643d78143d7969"
+      },
+      "application": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/counter-application.json",
+        "sha256": "b023606f357658821a0bd0a96e3e29b9e83539121093cf3f00f6a25f458bbffd"
+      },
+      "x5": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/counter-x5.json",
+        "sha256": "c1ba6a62ae316366cfc546b8ad3c90272fc2b7c80217c1bf56ef8f1297cb165d"
+      }
+    },
+    {
+      "case": "uart",
+      "ports": 15,
+      "original_x5_findings": 13,
+      "gds_sha256": "e4815341c418f4630eaed1fc52a29b6c9865e6dc2411c14b8bc5ec216f123e45",
+      "export": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/uart-export.json",
+        "sha256": "92d844a0f17ff9b1d41d90e2fbc6b5ae3bd6c1dca5cdca6d7cfced4f2efe0129"
+      },
+      "inventory": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/uart-inventory.json",
+        "sha256": "c20d4d72ac25f9da0aab0101c34724d38481e806313f2e79adaeb40382b672dd"
+      },
+      "geometry": {
+        "klayout": {
+          "path": "docs/validation/sky130-pin-export-2026-10-11/uart-klayout.json",
+          "sha256": "3679a80355b5518c1afad6faae47b82e364e71687b7e38a076498d6c9a63279f"
+        },
+        "magic": {
+          "path": "docs/validation/sky130-pin-export-2026-10-11/uart-magic.json",
+          "sha256": "98e0b55288430bef4a947e7ed2cb9052b44d6335616e7842e3cd0f1561d5583a"
+        }
+      },
+      "lvs": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/uart-lvs.json",
+        "sha256": "a0f1df583b0a690fdc21a12ea28a2f4fe5a0293ec407f5a4950c27eccdd47c8f"
+      },
+      "antenna": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/uart-antenna.json",
+        "sha256": "f8ef6ed5e08da910509ec1b8a3800f19fa6c162cdf5e5a443ac12faa0f5024f9"
+      },
+      "application": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/uart-application.json",
+        "sha256": "cb3f599c63fbd7d38881d3a7d38fdcf18eba54e1d026e167550198be261c0feb"
+      },
+      "x5": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/uart-x5.json",
+        "sha256": "bc75a581195013cf4960342cde6f3c83f1b871dea731110bc665915fbe1e4ea7"
+      }
+    },
+    {
+      "case": "apb",
+      "ports": 30,
+      "original_x5_findings": 28,
+      "gds_sha256": "ee514670858619ef2065d02b149a87a55ca836bab93b56ac05a6fc235dea3111",
+      "export": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/apb-export.json",
+        "sha256": "21a9e5310160bfaaf15840f3c22de927d7c2bc3e7de7283464732653a160c979"
+      },
+      "inventory": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/apb-inventory.json",
+        "sha256": "9712e4b3dcaae117fd63ee07855d43ffd58df84277dbfee5442f6a52b51deb74"
+      },
+      "geometry": {
+        "klayout": {
+          "path": "docs/validation/sky130-pin-export-2026-10-11/apb-klayout.json",
+          "sha256": "4b11d9624990800fa1e437c44d8da32e32b12c7e00b0b7b166d56bf5c23b3f3f"
+        },
+        "magic": {
+          "path": "docs/validation/sky130-pin-export-2026-10-11/apb-magic.json",
+          "sha256": "bec3406678a739aef3b1e8088db703b5e167ea6d3aad25da6773b87f3812874c"
+        }
+      },
+      "lvs": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/apb-lvs.json",
+        "sha256": "e7a87009b49865fe084136c44b404ab4c2d9cb71e722812a0ec1e4995494c2ec"
+      },
+      "antenna": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/apb-antenna.json",
+        "sha256": "3b7329687323217c8431c8f922fd87f554c54f5591b32a662c32a5f3840390b3"
+      },
+      "application": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/apb-application.json",
+        "sha256": "b9eec9457dff2a41e377efa1cbcdbc33b5c5dfb2261f871d4a0f552cc540fe8b"
+      },
+      "x5": {
+        "path": "docs/validation/sky130-pin-export-2026-10-11/apb-x5.json",
+        "sha256": "ac3c866c85500307f200fe5c9f902e5e08358b17937796053d813e10aa3c238c"
+      }
+    }
+  ],
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-pin-export-2026-10-11/audit-win32.json",
+      "sha256": "5db3dbeae8e376662b20c047b3436bb057f97e5866c3df06b4d71f19da51256a"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-pin-export-2026-10-11/audit-linux.json",
+      "sha256": "2ed963abc3edc9eb6058ca281752e4fa3634f1f0451bdca4040fe35bd4531103"
+    }
+  },
+  "additional_rule_sources": {
+    "path": "docs/validation/sky130-pin-export-2026-10-11/additional-source-lock.json",
+    "sha256": "09dd4bfdd748cdedd63b6b5bdb083beea022b1c2f11c051c9bf0900b29335afc"
+  },
+  "error_catalog_inventory": {
+    "path": "docs/qualification/sky130-error-rule-inventory.json",
+    "sha256": "9b8ac023b0b0045639bf586e77b9540b51816be448d801f2a8b922c0af9524c9",
+    "error_records": 1556,
+    "scope": "Source inventory only. Additional dummy-fill/core/chip rules cannot be silently omitted; no execution claim follows from name matching."
+  },
+  "original_source_recovery": {
+    "path": "docs/validation/sky130-pin-export-2026-10-11/original-source-recovery.json",
+    "sha256": "acad8eb7c0d999f0c03889dbc63cc71c330ac7dbe1fed356bb1f45f2497e9741"
+  },
+  "historical_ihp_source": {
+    "path": "docs/validation/ihp-fill-tested-source-2026-10-11/manifest.json",
+    "sha256": "c6e0041e26764b5dc62f0284293c34fb5c60cb6c5a48f402705e9ed0d7893bbf",
+    "scope": "Preserves exact previously tested shared source. Current SKY130-specific hooks do not claim a new IHP native execution."
+  },
+  "limitations": [
+    "Native engine execution is Linux; Windows independently reproduces geometry and audits saved native evidence. This is not fresh consumer-installer qualification.",
+    "Actual application entry points were exercised on retained routed checkpoints. Place and route were not rerun for this pin-only correction.",
+    "The complete required rule ledger, accepted density/fill, post-fill connectivity/electrical checks and combined application gate remain open.",
+    "The installed density helper and public rule manual use distinct scopes and layer definitions. Candidate density values alone do not establish manual or foundry acceptance."
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-pin-export-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "e7e366a3097d72ba68828fc1ffe9a5a1c3e2ae89fd34eba9553548fe29b8760e",
+    "bytes": 18552716,
+    "files": 561,
+    "unique_blobs": 410,
+    "manifest_sha256": "2b7734d433ed4fb2fb1a43af97539f9b1048dc81a421f7f4ba8cb1f9b16fde03",
+    "scope": "SKY130 boundary-pin correction, actual application export and cross-OS readback. Not complete chunk 6 acceptance."
+  }
+}

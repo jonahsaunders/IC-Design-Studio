@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "status": "pin-metal-exported",
+  "top": "apb_fifo",
+  "source_gds_sha256": "65eea8f89ca27e2f141b71e5898e67395a516108aae428efa960e77e5b1ba9d8",
+  "gds_sha256": "ee514670858619ef2065d02b149a87a55ca836bab93b56ac05a6fc235dea3111",
+  "checkpoint_sha256": "715ff81201a28b1f05f2346cd3488141615b69d2c35d4d29faa20caae41b897a",
+  "ports": 30,
+  "layers": [
+    {
+      "layer": 67,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 68,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 69,
+      "pin_polygons": 1,
+      "added_polygons": 1,
+      "added_area_nm2": 47600
+    },
+    {
+      "layer": 70,
+      "pin_polygons": 27,
+      "added_polygons": 27,
+      "added_area_nm2": 2526000
+    },
+    {
+      "layer": 71,
+      "pin_polygons": 0,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    },
+    {
+      "layer": 72,
+      "pin_polygons": 26,
+      "added_polygons": 0,
+      "added_area_nm2": 0
+    }
+  ]
+}

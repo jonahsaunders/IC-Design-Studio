@@ -1,0 +1,10 @@
+* IC Design Studio parallel-varactor adapter, GPL-3.0-or-later.
+* Uses unchanged Apache-2.0 public SKY130 unit models; original notices retained.
+* VM is a positive parallel multiplier of the original VM=1 device.
+* Separate package contract; no model accuracy or physical qualification claim.
+.subckt icstudio_cap_var_hvt_parallel c0 c1 b w=.5 l=.5 copies=1
+Xunit c0 c1 b sky130_fd_pr__cap_var_hvt w={w} l={l} vm=1 m={copies}
+.ends icstudio_cap_var_hvt_parallel
+.subckt icstudio_cap_var_lvt_parallel c0 c1 b w=.5 l=.5 copies=1
+Xunit c0 c1 b sky130_fd_pr__cap_var_lvt w={w} l={l} vm=1 m={copies}
+.ends icstudio_cap_var_lvt_parallel

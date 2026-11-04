@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "engine": "Magic 8.3.684",
+  "source_revision": "0ec4fa67eade28cd0a4352c04df981840809427b",
+  "scope": "Unmodified public generator exports; standalone cross uses a dedicated conversion Tcl. DRC is disabled only during format conversion, not evidence of passing DRC.",
+  "files": {
+    "cross.gds": {
+      "sha256": "fe6f87725ddffb4cdb00ae88a58ede90ed69b5a367ce62c6b148f520796914a4",
+      "size": 12572
+    },
+    "cross.log": {
+      "sha256": "0c082f02f8260d02609d8d08ed74a197ee2a3b9d256dd225ec5cf82e98afa6e6",
+      "size": 1702
+    },
+    "seal-100x120.gds": {
+      "sha256": "4591e71e8afcce3763a6bd416d3fee7b7c90d885bb085be8c3bfb0982f36d5be",
+      "size": 33626
+    },
+    "seal-100x120.log": {
+      "sha256": "5122b8422b8699e85dfaa1435aa0da9ba36839a905c078a1674800f6dfa6dc19",
+      "size": 4953
+    },
+    "seal-100.005x150.005.gds": {
+      "sha256": "5d21bf6c739729299d3b408f15ad83d183dfd2a01dbb9d77049b87f551fd5a34",
+      "size": 33626
+    },
+    "seal-100.005x150.005.log": {
+      "sha256": "b792ff91e2d856b10968de82245cccbd26b36fa01b06765bfe8d50994212997b",
+      "size": 5345
+    },
+    "seal-400x300.gds": {
+      "sha256": "d43598a08b0ae891094662f0d45c3a323eef5508e8c1e0dc89a2305145046cc8",
+      "size": 33690
+    },
+    "seal-400x300.log": {
+      "sha256": "6639fb8174b72b06a12061efaed44ca7c167f441082e44fb086bf9aa01985bb6",
+      "size": 5145
+    },
+    "generation-driver.py.txt": {
+      "sha256": "cc4c8270e4151109d9897bf28335aaee82db0aa2630427b817e1270afc87768c",
+      "size": 1520
+    }
+  }
+}

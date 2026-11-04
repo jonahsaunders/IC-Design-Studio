@@ -1,0 +1,267 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "status": "acceptance_guard_passed_native_synthetic_rejected",
+  "scope": "Sampled full two-port passivity acceptance, independent native readback, source-desktop lifecycle and complete source regressions. No device envelope, intrinsic EM accuracy, installed release or tapeout qualification.",
+  "parent_commit": "654ef30931d28db3b80462b63a7d9525de593484",
+  "source_files": {
+    "icstudio/inductor_em.py": "636ecffd6bd9f845eaac7b9d24a3a100896eb78c2562e00f62248d7a5228b8d5",
+    "icstudio/openems_backend.py": "2e0dc89536aed30b532ae07f2ce4f898f0197517c306b338be30bba00ac1f492",
+    "icstudio/openems_waves.py": "0aea80e581087619aa067da81991c0c24d3d7cfbb4fe41d18d2c4f6203e092bc",
+    "scripts/audit_openems_waves.py": "6aa2b0a00bf1d426581449df92b3769e02b1b2f34769e68c2e51832c3485e812",
+    "tests/fixtures/openems_fake_driver.py": "4109c0e82aca316c98929d89cabdc1f028195cbcca80c5ff1e4992320aede5ed",
+    "tests/gui_openems.py": "1670a908dcfd732a88be81616c20f19fcc9d0178bb4e51d6645ffa6de4ddd3bc",
+    "tests/test_openems_waves.py": "5e9edeacda3c9d88b80cff9aa0a7afdc7af10f3101f8efe0da510da86f4db8ca",
+    ".github/workflows/analog-campaign-qualification.yml": "c47950f9051bc6ef72f588a519e6681a7eae7604108284a40860e369f62b97df",
+    ".github/workflows/build-desktop.yml": "3df03062c91564b43d202bc8bf6f1c2a2c8c611fea9ce34bffa38608b761504c",
+    ".github/workflows/digital-runtime.yml": "e406df52ff12a896622b1cbe25c8b7f1263db2affcba5ccbcc9ed39b234c5c77",
+    ".github/workflows/digital.yml": "48d153eddc36b6707cb75d61f234ab9beb9378d3c6d1a52f926ad05f1ef62946",
+    ".github/workflows/ihp-inductor-qualification.yml": "1d3c7af2b3a62d343b277fbf1b2af21384f4896f25525ec68dbb187e622d3335",
+    ".github/workflows/interoperability.yml": "23146586a09b68d29d0c7594e93b992055e5d665a91b705a195d36d690f9ce33",
+    ".github/workflows/physical-qualification.yml": "f7459cf1fe500fbde8c7ed77961c6af41d15fc989d5fd75b5abd6c8dcf2288f0",
+    ".github/workflows/reference-compatibility.yml": "5dc89bb24f35ec05fcd0c881f97ed39a47527820403d597e1fd6c94f9ae7cacc",
+    ".github/workflows/vga-playground.yml": "277de7c50d7631403c5d53770ae943542a4f4a678866a649453ddfb687fa9eb7"
+  },
+  "acceptance": {
+    "check": "sampled-two-port-power-v1",
+    "reference_ohm": 50,
+    "maximum_scattering_gain": 1,
+    "roundoff_allowance": 1e-09,
+    "unchanged_mesh_tolerance": 0.05,
+    "method": "Largest singular value of the full two-port scattering matrix at every sample; analytic application implementation independently compared with NumPy SVD. No clipping, fitting or rule relaxation.",
+    "scope_limit": "All incident vectors at each sampled frequency only; no passivity claim between samples or outside the band.",
+    "quick_previews_checked": true,
+    "older_structured_results": "Retained as stale when passivity evidence is absent; a new run is required."
+  },
+  "supersedes_acceptance_of": [
+    "docs/validation/openems-mesh-study-2026-10-21.json"
+  ],
+  "historical_files_unchanged": true,
+  "native_readbacks": {
+    "Windows": {
+      "synthetic-refined": {
+        "numerical_gate": "rejected",
+        "meshes": {
+          "base": {
+            "maximum_scattering_gain": 1.1930820113937073,
+            "maximum_singular_value": 1.1930820113937073,
+            "sampled_passivity": false
+          },
+          "fine": {
+            "maximum_scattering_gain": 1.151684121814109,
+            "maximum_singular_value": 1.151684121814109,
+            "sampled_passivity": false
+          }
+        },
+        "historical_saved_status": "Stale characterization: Full two-port passivity evidence is missing. Rerun the field solver with the current acceptance checks.",
+        "reprocessing_error": "The final two-port response is not passive at a sampled frequency. Positive differential resistance alone is insufficient. Review the fixture, port conversion and mesh; results were not attached.",
+        "passivity": {
+          "check": "sampled-two-port-power-v1",
+          "reference_ohm": 50.0,
+          "sample_count": 11,
+          "maximum_scattering_gain": 1.1516841218141087,
+          "frequency_hz": 1000000000000.0,
+          "roundoff_allowance": 1e-09,
+          "scope": "All incident vectors at each sampled frequency; no claim between samples or outside the band.",
+          "passed": false
+        }
+      },
+      "ihp-280-original": {
+        "numerical_gate": "rejected",
+        "meshes": {
+          "base": {
+            "maximum_scattering_gain": 0.9767101461957838,
+            "maximum_singular_value": 0.9767101461957838,
+            "sampled_passivity": true
+          },
+          "fine": {
+            "maximum_scattering_gain": 0.9770791478780547,
+            "maximum_singular_value": 0.9770791478780546,
+            "sampled_passivity": true
+          }
+        }
+      },
+      "ihp-180-original": {
+        "numerical_gate": "incomplete",
+        "meshes": {
+          "base": {
+            "maximum_scattering_gain": 0.9767073794936095,
+            "maximum_singular_value": 0.9767073794936095,
+            "sampled_passivity": true
+          }
+        }
+      }
+    },
+    "Linux": {
+      "synthetic-refined": {
+        "numerical_gate": "rejected",
+        "meshes": {
+          "base": {
+            "maximum_scattering_gain": 1.1930820113937073,
+            "maximum_singular_value": 1.1930820113937075,
+            "sampled_passivity": false
+          },
+          "fine": {
+            "maximum_scattering_gain": 1.151684121814109,
+            "maximum_singular_value": 1.151684121814109,
+            "sampled_passivity": false
+          }
+        },
+        "historical_saved_status": "Stale characterization: Full two-port passivity evidence is missing. Rerun the field solver with the current acceptance checks.",
+        "reprocessing_error": "The final two-port response is not passive at a sampled frequency. Positive differential resistance alone is insufficient. Review the fixture, port conversion and mesh; results were not attached.",
+        "passivity": {
+          "check": "sampled-two-port-power-v1",
+          "reference_ohm": 50.0,
+          "sample_count": 11,
+          "maximum_scattering_gain": 1.1516841218141085,
+          "frequency_hz": 1000000000000.0,
+          "roundoff_allowance": 1e-09,
+          "scope": "All incident vectors at each sampled frequency; no claim between samples or outside the band.",
+          "passed": false
+        }
+      },
+      "ihp-280-original": {
+        "numerical_gate": "rejected",
+        "meshes": {
+          "base": {
+            "maximum_scattering_gain": 0.9767101461957838,
+            "maximum_singular_value": 0.9767101461957838,
+            "sampled_passivity": true
+          },
+          "fine": {
+            "maximum_scattering_gain": 0.9770791478780547,
+            "maximum_singular_value": 0.9770791478780546,
+            "sampled_passivity": true
+          }
+        }
+      },
+      "ihp-180-original": {
+        "numerical_gate": "incomplete",
+        "meshes": {
+          "base": {
+            "maximum_scattering_gain": 0.9767073794936095,
+            "maximum_singular_value": 0.9767073794936093,
+            "sampled_passivity": true
+          }
+        }
+      }
+    }
+  },
+  "meaningful_fault_control": {
+    "impedance_ohm": [
+      [
+        2,
+        -4
+      ],
+      [
+        -4,
+        2
+      ]
+    ],
+    "differential_resistance_ohm": 12,
+    "common_mode_resistance_ohm": -2,
+    "maximum_gain": 1.0833333333333333,
+    "individual_entries_and_each_column_power_below_one": true,
+    "both_meshes_agree": true,
+    "rejected_with_mesh_check_on_and_off": true,
+    "source_gui_rejection_and_recovery": true
+  },
+  "tests": {
+    "Windows": {
+      "status": "passed",
+      "discovered": 3208,
+      "skipped": 63,
+      "seconds": 1440.907,
+      "log": "full-final-Windows.log",
+      "sha256": "e3b9c338302cf2ad186cf7a01e5b11ad075454d9182f39f2ece611a17a7e10c0"
+    },
+    "Linux": {
+      "status": "passed",
+      "discovered": 3208,
+      "skipped": 55,
+      "seconds": 650.984,
+      "log": "full-snapshot-Linux.log",
+      "sha256": "ea726a7622951a7f29d52b68c4ed602c889fd7bbfed4573b9a2f44a41ae44f2f"
+    }
+  },
+  "focused": {
+    "Windows": {
+      "tests": 47,
+      "seconds": 37.254,
+      "status": "passed"
+    },
+    "Linux": {
+      "tests": 47,
+      "seconds": 344.039,
+      "status": "passed"
+    },
+    "nested_gui_cases": 11
+  },
+  "linux_snapshot": {
+    "returncode": 0,
+    "source_unchanged": true,
+    "source_manifest_sha256": "24cdbfb46276ca694edb85a4f5e6fb31aa0b3fcd51510cc9eaa8ffe241af80d6",
+    "root": "/var/tmp/icstudio-chunk7-passivity-20261021-v1"
+  },
+  "all_python_sources_unchanged_since_test_snapshot": true,
+  "ci": {
+    "validator": "actionlint 1.7.12",
+    "all_workflows_valid": true,
+    "obsolete_branch_and_pr_checks_cancelled": true,
+    "reusable_workflows_have_distinct_prefixes": true,
+    "manual_tag_and_release_children_have_unique_run_groups": true,
+    "release_preparation_policy_unchanged": true,
+    "hosted_new_head": "Must be checked after push; local tests do not establish hosted package acceptance.",
+    "references": [
+      "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
+      "https://github.com/github/docs/blob/main/content/actions/reference/workflows-and-actions/reusing-workflow-configurations.md"
+    ]
+  },
+  "varactor_diagnosis": {
+    "original_merged_error_regions": 58,
+    "rule_categories": [
+      "NW.f",
+      "NW.c1",
+      "LU.d/LU.d1",
+      "NBL.a",
+      "NBL.b",
+      "NBL.e",
+      "NBL.f"
+    ],
+    "note": "Rule-specific rectangles overlap; their counts do not sum to merged error regions.",
+    "isolated_trial_counts": {
+      "public_context_exemptions": 60,
+      "tagged_well": 58,
+      "tagged_well_pvar": 76,
+      "tagged_well_pvar_psd": 76
+    },
+    "translated_trial_counts": {
+      "tagged_well": 39,
+      "tagged_well_pvar": 47,
+      "tagged_well_pvar_psd": 47
+    },
+    "translation_nm": [
+      -100240,
+      -340
+    ],
+    "recognition_observation": "Trial tagged SVaricap NWELL produces an empty mask at the original coordinates but the expected well after translating the annotation to the origin. Both optional and explicit input-layer forms reproduce it.",
+    "result": "All trials rejected; original masks, native findings and production rules unchanged.",
+    "reference": "https://opencircuitdesign.com/magic/techref/maint2.html"
+  },
+  "native_ihp_refinements": "Separate 280 and 180 um bulk studies are still running at this checkpoint; no outcome is claimed here.",
+  "evidence_archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\openems-passivity-2026-10-21-v1\\evidence.zip",
+    "sha256": "0cdc5b6d685d7902b1e2940d0fa95e831a36ddf429f3308b1e2ef38c96531222",
+    "bytes": 2509563,
+    "files": 450,
+    "every_member_reopened_and_verified": true
+  },
+  "remaining": [
+    "Converged and independently checked IHP native experiments; fixture/port/boundary and frequency/temperature accuracy studies.",
+    "Unresolved required compact models and complete device operating envelopes.",
+    "Unresolved large mixed-varactor full-native checks, wider physical/extracted coverage and final installed-release acceptance."
+  ]
+}

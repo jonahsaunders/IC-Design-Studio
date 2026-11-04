@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "candidate": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+  "run_id": 40387247059,
+  "artifact_id": 12700209580,
+  "artifact_sha256": "0c9e4a84ffff97e605fd9e951ac47b9a5413703c13806353212023d231ba8e46",
+  "source_bindings": 863,
+  "source_provenance": "Preserved owner-authenticated exact-candidate snapshot; no Git process in this reader",
+  "gui_manifest_files": 2450,
+  "electrical_manifest_files": 1992,
+  "native_jobs": 42,
+  "electrical_contexts": 30,
+  "electrical_analyses": 60,
+  "electrical_path_samples": 3870,
+  "gui_counts": {
+    "lifecycle": 30,
+    "native_layouts": 30,
+    "fresh_native_jobs": 42,
+    "queued_jobs": 43,
+    "width_faults": 5,
+    "drc_faults": 1,
+    "repairs": 6,
+    "blocked": 1,
+    "eco_models": 5,
+    "eco_transitions": 20,
+    "late_lock_rejections": 5
+  },
+  "original_roots": {
+    "gui": "D:\\a\\IC-Design-Studio\\IC-Design-Studio\\build\\windows-evidence\\metal-parallel\\probe",
+    "electrical": "D:\\a\\IC-Design-Studio\\IC-Design-Studio\\build\\windows-evidence\\metal-parallel-electrical",
+    "electrical_title_context": {
+      "root": "/D:/a/IC-Design-Studio/IC-Design-Studio/build/windows-evidence/metal-parallel-electrical",
+      "nonce": "0c4da89c3e124213af44d03f098ed55b"
+    }
+  },
+  "runtime_platform": "win32",
+  "physical_runtime": {
+    "kind": "wsl",
+    "distro": "ICStudio-Digital-4534eab007565e29-550fb9da",
+    "root": "\\\\wsl.localhost\\ICStudio-Digital-4534eab007565e29-550fb9da",
+    "sha256": "4534eab007565e29a11f679a4ea4e3f5c8221d7a5042ea33b9e707f6b3f139f5"
+  },
+  "scope": "Windows offline exact-candidate arrays: authenticated receipts and native raw components.\n\nNo engines or installed application are launched; hosted GUI/live-runtime gates\nremain distinct. Every original execution path is retained in the evidence.\n",
+  "qualified": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "signoff": false,
+  "live_installed_requalification": false,
+  "seconds": 12.110000000015134,
+  "method_sha256": "743bef9f33bb0d9b35cc83ed87de1dc3877d283cac474b47639169ca91deee79",
+  "date": "2026-10-28",
+  "hosted_windows_package_job": {
+    "id": 121807022096,
+    "status": "success",
+    "includes_release_archive_execution": true
+  },
+  "readback_receipt_sha256": "fb9da189c404410dd14510cb276c902611bc299a0fc60771f817da6f0c70677a",
+  "root_review_sha256": "c5db31090f62042bddedc064d209d012589f33d0606f90dbd0edb959400ad470",
+  "source_git_blob_bindings": 863,
+  "retained_artifact_bytes": 572641707,
+  "limits": "Offline exact-source/receipt/native/raw component readback. The original hosted installed and release-archive gates passed; this readback does not rerun GUI lifecycle/ECO, engines, or the full live electrical-deck auditor. Applies only to candidate53c17aa7; not the changed cbde80ed candidate or working tree.",
+  "retained_first_adapter_failure": "The first offline adapter compared backend JSON serialization bytes to the production canonical-object digest. The unchanged upstream evidence passes after matching its original digest definition; the failed attempt and its method are retained."
+}

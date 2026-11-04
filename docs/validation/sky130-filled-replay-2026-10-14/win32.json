@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "status": "final-filled-replay-audited-with-open-gates",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "win32",
+  "tests": 28,
+  "skipped": 0,
+  "data_sha256": "2d268e0e652ba53f77667f09109034981ee4453cab9beca56655ef59b3921fa0",
+  "tests_sha256": "3e748a78c04fcc01db6017a96a5376c03569d1bd217005421e4b7af8477cac1d",
+  "driver_sha256": "234db233b13f493a10cbe4ad4ea8c0b0ca0932f171c2b65aa2dd4c1608c66fca",
+  "prior_test_batch": {
+    "tests": 215,
+    "path": "outputs/sky130-synced-final-v1/win32/tests.log",
+    "sha256": "5bf3f324ac079cfa89412abe8a74ad33cfc5e032076afb88258ee33603dfd619"
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "klayout": "0.30.5",
+    "module": "dbcore.cp312-win_amd64.pyd",
+    "module_sha256": "097f87faf6b1c12bfa2116619b42c4739444765c97c164492d9fc70670345302"
+  },
+  "source_files": {
+    "scripts/check_sky130_filled_replay.py": "3b70b41abdff2032b0f7c41716466995d673a3cb43847e90200d21d9b16fe15a",
+    "scripts/sky130_density_windows.py": "abd286d12d149e453cbef2bd160a9394eb1b19a99a797ec4df0d41fda590b2b7",
+    "scripts/sky130_error_reconciliation.py": "2d3bf1af1ab8a2df1d46421f655f36cc9259c4974c729e7413f68f95bbb5385e",
+    "scripts/sky130_geometry_reconciliation.py": "dc0efc97952152c99a1d872aec21f42258c91234e71c6370175b3d5e41945110",
+    "scripts/sky130_grid_geometry.py": "0e24c568f582725ad034cf5fd4346a04756e69e0d34c00d47c959d1d5dcff28a",
+    "scripts/sky130_rule_execution.py": "c923d365f8eb5ad77e802230a1c29187829496f4e74e6969e06d9b17baa27d26",
+    "tests/test_sky130_filled_replay.py": "8bdb5621c4171fe8e10008dc7bc19f9a8093f853b52fb2328ffb2a4654a11ba7",
+    "tests/test_sky130_geometry_reconciliation.py": "4b04267d3c46040d549aac512f7dce3188128f24b27223fefb5c07b7a08026fb"
+  }
+}

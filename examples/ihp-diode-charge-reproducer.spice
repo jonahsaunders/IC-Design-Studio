@@ -1,0 +1,33 @@
+IHP intrinsic darea charge-boundary diagnostic (not a qualification circuit)
+* Copyright 2023 IHP PDK Authors
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* https://www.apache.org/licenses/LICENSE-2.0
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+* Model source: IHP-Open-PDK 5e6d592e4002946a4616f798c357f0f3c06cf3b6,
+* ihp-sg13g2/libs.tech/ngspice/models/diodes.lib.
+* MODIFICATION: rs=2.193E+005 is set to zero ONLY to expose the intrinsic
+* I(V)/Q(V) functions directly. All other darea parameters are retained.
+* This fixture must never replace the physical diode or a full circuit test.
+* Run ngspice -b on a COPY in a new output directory to retain earlier data.
+.MODEL darea D (tnom=27 is=2.315E-019 n=1.009 ik=1.434E-007 rs=0 cj0=9.371E-016 m=0.3036 vj=0.696 fc=0.5 bv=11.64 ibv=3.458E-007 tcv=0.001 nbv=48.9 isr=7.413E-019 xti=5.039 trs=0 trs2=0 tt=7.009E-007)
+VBIAS bias 0 0
+DTEST 0 bias darea area=11.56
+.temp -40
+.options reltol=1e-8 abstol=1e-18 vntol=1e-11 bypass=0
+.control
+set numdgt=17
+set wr_singlescale
+set wr_vecnames
+save i(VBIAS) @dtest[charge] @dtest[cd] @dtest[vd]
+dc VBIAS 0.06079640293959185 0.06083640293959185 1e-7
+wrdata curve.txt i(VBIAS) @dtest[charge] @dtest[cd] @dtest[vd]
+quit
+.endc
+.end

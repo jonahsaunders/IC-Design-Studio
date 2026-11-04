@@ -1,0 +1,890 @@
+########################################################################
+#
+# Copyright 2025 Volker Muehlhaus and IHP PDK Authors
+#
+# Licensed under the GNU General Public License, Version 3.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.gnu.org/licenses/gpl-3.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+########################################################################
+
+# Extract objects from layers in GDSII file
+
+__version__ = "1.3.0"
+
+import gdspy
+import numpy as np
+import os
+
+from shapely import STRtree, unary_union
+from shapely.geometry import Polygon as ShapelyPolygon
+from shapely.validation import make_valid
+
+# check that we have gdspy version 1.6.x or later
+# gdspy 1.4.2 is known for issues with our geometries
+
+version_str = gdspy.__version__
+major, minor, patch = version_str.split('.')
+if int(major) == 1:
+  if int(minor) < 6:
+    print('\nERROR: Your gdspy module version ', version_str, ' is too old. Please update to 1.6.13 or later!')
+    print('Consider using venv if you are not allowed to modify the global Python modules of your system.')
+    print('https://docs.python.org/3/library/venv.html')
+    exit(1)
+
+
+
+# ============= technology specific stuff ===============
+
+
+# ======================================
+
+class layer_bounding_box:
+  """
+    bounding box class is used to store xmin, xmax, ymin, ymax for one layer.
+    All instances of this are then managed by using all_bounding_box_list.
+  """
+  def __init__ (self, xmin, xmax, ymin, ymax):
+    """Create layer_bounding_box instance for one layer from xmin, xmax, ymin, ymax
+    Args:
+        xmin (float): coordinate
+        xmax (float): coordinate
+        ymin (float): coordinate
+        ymax (float): coordinate
+    """
+    self.xmin = xmin
+    self.xmax = xmax
+    self.ymin = ymin
+    self.ymax = ymax
+
+  def update (self, xmin, xmax, ymin, ymax):
+    """Update layer_bounding_box instance for one layer from additional polygon data, store new total bounding box
+    Args:
+        xmin (float): coordinate
+        xmax (float): coordinate
+        ymin (float): coordinate
+        ymax (float): coordinate
+    """
+    self.xmin = min(xmin, self.xmin)
+    self.xmax = max(xmax, self.xmax)
+    self.ymin = min(ymin, self.ymin)
+    self.ymax = max(ymax, self.ymax)
+
+
+
+class all_bounding_box_list:
+  """
+    stores bounding box instances for multiple layers
+    and global bounding box across all layers
+  """
+  def __init__ (self):
+    """_summary_
+    """
+    self.bounding_boxes = {}
+    # initialize values for bounding box calculation
+    self.xmin=float('inf')
+    self.ymin=float('inf')
+    self.xmax=float('-inf')
+    self.ymax=float('-inf')
+
+  def update (self, layer, xmin, xmax, ymin, ymax):
+    """Update all_bounding_box_list instance with additional polygon data
+    Args:
+        layer(int): GDSII layer number
+        xmin (float): coordinate
+        xmax (float): coordinate
+        ymin (float): coordinate
+        ymax (float): coordinate
+    """
+
+    if self.bounding_boxes.get(layer) is not None:
+      self.bounding_boxes[layer].update(xmin, xmax, ymin, ymax)
+    else:
+      self.bounding_boxes[layer] = layer_bounding_box(xmin, xmax, ymin, ymax)
+    # also update global values
+    self.xmin = min(self.xmin, xmin)   
+    self.xmax = max(self.xmax, xmax)   
+    self.ymin = min(self.ymin, ymin)   
+    self.ymax = max(self.ymax, ymax)   
+
+  def get_layer_bounding_box (self, layer):
+    """Return bounding box of one specific layer.     If layer not found, return global bounding box.
+    Args:
+        layer (int): GDSII layer number
+    Returns:
+        xmin, xmax, ymin, ymax (float)
+    """
+
+    xmin = self.xmin 
+    xmax = self.xmax
+    ymin = self.ymin
+    ymax = self.ymax
+    if layer is not None:
+      if self.bounding_boxes.get(layer) is not None:
+        bbox = self.bounding_boxes[int(layer)]
+        xmin = bbox.xmin 
+        xmax = bbox.xmax
+        ymin = bbox.ymin
+        ymax = bbox.ymax
+    return xmin, xmax, ymin, ymax  
+  
+  def merge (self, another_bounding_box_list):
+    """Combine this bounding box with another bounding box from another GDSII import.
+    Args:
+        another_bounding_box_list (all_bounding_box_list): data from other import, can be discarded after merge 
+    """
+
+    # combine this bounding box with another bounding box from another GDSII import
+    # combine the dictionaries with per-layer data
+    self.bounding_boxes.update (another_bounding_box_list.bounding_boxes)
+    # combine the overall total boundary
+    self.xmin = min(self.xmin, another_bounding_box_list.xmin)
+    self.xmax = max(self.xmax, another_bounding_box_list.xmax)
+    self.ymin = min(self.ymin, another_bounding_box_list.ymin)
+    self.ymax = max(self.ymax, another_bounding_box_list.ymax)
+
+
+# ============= polygons ===============
+
+class gds_polygon:
+  """
+    gds polygon object
+  """
+  
+  def __init__ (self, layernum):
+    """Initialize  polygon with empty vertex list, store layer number
+    Args:
+        layernum (int): GDSII layer number
+    """
+    self.pts_x = np.array([])
+    self.pts_y = np.array([])
+    self.pts   = np.array([])
+    self.layernum = layernum
+    self.is_port = False
+    self.is_via = False
+    self.fill_factor = 1.0   # via array fill factor, set by compute_via_fill_factors()
+    self.CSXpoly = None
+    
+  def add_vertex (self, x,y):
+    """Add one point (vertex) to the polygon
+    Args:
+        x (float): point x
+        y (float): point y
+    """
+    self.pts_x = np.append(self.pts_x, x)
+    self.pts_y = np.append(self.pts_y, y)
+
+  def process_pts (self):
+    """Process and update all points, update bounding box data fields
+    """
+    self.pts = [self.pts_x, self.pts_y]
+    self.xmin = np.min(self.pts_x)
+    self.xmax = np.max(self.pts_x)
+    self.ymin = np.min(self.pts_y)
+    self.ymax = np.max(self.pts_y)
+
+  def __str__ (self):
+    """Create string representation of polygon data, useful for debugging
+    Returns:
+        string: string representation of polygon data
+    """
+    # string representation 
+    mystr = 'Layer = ' + str(self.layernum) + ', Polygon = ' + str(self.pts) + ', Via = ' + str(self.is_via)
+    return mystr
+
+
+class all_polygons_list:
+  """
+  Class instance holds all polygon data (all polygons with their layer data etc)
+  """
+
+  def __init__ (self):
+    """Initialize empty list of polygons and empty bounding box dictionary
+    """
+    self.polygons = []
+    self.bounding_box = all_bounding_box_list() # manages bounding box per layer and global
+    # {layernum: unmerged via point arrays}, filled for via layers where via array merging ran
+    self.via_originals = {}
+
+  def compute_via_fill_factors (self):
+    """Set fill_factor on every polygon of a via layer that went through via array merging,
+    from its overlap with the unmerged vias. Polygons on other layers keep fill_factor 1.0.
+    """
+    unmerged_layers = []
+    for layernum, original_vias in self.via_originals.items():
+      layer_polys = [poly for poly in self.polygons if poly.layernum == layernum]
+      pieces = [np.column_stack((poly.pts_x, poly.pts_y)) for poly in layer_polys]
+      fill_factors, found_fraction = via_fill_factors(pieces, original_vias)
+      for poly, fill_factor in zip(layer_polys, fill_factors):
+        poly.fill_factor = fill_factor
+      # every bit of via area must end up in exactly one merged polygon
+      if abs(found_fraction - 1.0) > 0.01:
+        print(f'Warning: via fill factors on layer {layernum} account for {100*found_fraction:.1f}% '
+              f'of the original via area, expected 100%. Fill factors on this layer may be inaccurate.')
+      # nothing merged, every fill factor 1.0: often the vias in the file are already merged
+      if len(layer_polys) == len(original_vias) and all(abs(f - 1.0) < 1e-6 for f in fill_factors):
+        unmerged_layers.append(layernum)
+    if unmerged_layers:
+      print(f'Note: via array merging did not merge any vias on layer(s) {", ".join(str(n) for n in unmerged_layers)}, '
+            'all fill factors are 1.0 there. If the vias in this GDSII file are already merged (e.g. by '
+            'gds_prepare_for_EM or setupEM Tools > Simplify GDS), fill factor correction is not possible: '
+            'the original vias are not in the file, and the merged vias are treated as solid metal.')
+
+  def append (self, poly):
+    """Append one instance of gds_polygon
+    Args:
+        poly (gds_polygon): Data for one single polygon
+    """
+    # before we append, combine points in polygon from pts_x and pts_y into pts
+    poly.process_pts()
+    # add polygon to list
+    self.polygons.append (poly)
+
+  def add_rectangle (self, x1,y1,x2,y2, layernum, is_port=False, is_via=False):
+    """This function adds a rectangle, it can be called in code created manually. Not used in GDSII import.
+
+    Args:
+        x1 (float): point 1 x
+        y1 (float): point 1 y
+        x2 (float): point 2 x
+        y2 (float): point 2 y
+        layernum (int): layer number assigned to this rectangle
+        is_port (bool, optional): Treat as port polygon. Defaults to False.
+        is_via (bool, optional): Treat as via polygon. Defaults to False.
+    """
+    # append simple rectangle to list, this can also be done later, after reading GDSII file
+    poly = gds_polygon(layernum)
+    poly.add_vertex(x1,y1)
+    poly.add_vertex(x1,y2)
+    poly.add_vertex(x2,y2)
+    poly.add_vertex(x2,y1)
+    poly.is_port = is_port
+    poly.is_via = is_via
+    self.append(poly)
+
+    # need to update min and max here, for gds data that is done after reading file
+    self.bounding_box.update (layernum, min(x1,x2), max(x1,x2),min(y1,y2),max(y1,y2))
+
+
+  def add_polygon (self, xy, layernum, is_port=False, is_via=False):
+    """This function adds a polygon, it can be called in code created manually. Not used in GDSII import.
+    Polygon data structure must be [[x1,y1],[x2,y2],...[xn,yn]]
+
+    Args:
+        xy (list of [x,y]): polygon points
+        layernum (int): layer number assigned to this polygon
+        is_port (bool, optional): Treat as port polygon. Defaults to False.
+        is_via (bool, optional): Treat as via polygon. Defaults to False.
+    """
+    # append polygon array to list, this can also be done later, after reading GDSII file
+    # polygon data structure must be [[x1,y1],[x2,y2],...[xn,yn]]
+    xmin=float('inf')
+    ymin=float('inf')
+    xmax=float('-inf')
+    ymax=float('-inf')
+
+    poly = gds_polygon(layernum)
+    numpts = len(xy)
+    for pt in range(0, numpts):
+      pt = xy[pt]
+      x = pt[0]
+      y = pt[1]
+      poly.add_vertex(x,y)
+      # need to update min and max here, for gds data that is done after reading file
+      xmin = min(xmin, x)
+      xmax = max(xmax, x)
+      ymin = min(ymin, y)
+      ymax = max(ymax, y)      
+    # need to update min and max here, for gds data that is done after reading file
+    self.bounding_box.update (layernum, xmin, xmax, ymin, ymax)
+    self.append(poly)        
+
+
+  def set_bounding_box (self, xmin,xmax,ymin,ymax):
+    """Set the global bounding box, over all evaluated layers, to these values. No checks, force these values.
+
+    Args:
+        xmin (float): coordinate
+        xmax (float): coordinate
+        ymin (float): coordinate
+        ymax (float): coordinate
+    """
+    # global bounding box, over all evaluated layers
+    self.bounding_box.xmin = xmin
+    self.bounding_box.xmax = xmax
+    self.bounding_box.ymin = ymin
+    self.bounding_box.ymax = ymax
+
+
+  def get_layer_bounding_box (self, layer):
+    """Return bounding box for specific layer, returns global if layer not found
+    Args:
+        layer (int): layer number assigned to this polygon
+    Returns:
+        xmin, xmax, ymin, ymax (float)
+    """
+    return self.bounding_box.get_layer_bounding_box (layer)
+
+
+  def get_bounding_box (self):
+    """return global bounding box
+    Returns:
+        xmin, xmax, ymin, ymax (float)
+    """
+    return self.bounding_box.xmin, self.bounding_box.xmax, self.bounding_box.ymin, self.bounding_box.ymax 
+ 
+
+  def get_xmin (self):
+    # return global bounding box
+    return self.bounding_box.xmin
+
+  def get_xmax (self):
+    # return global bounding box
+    return self.bounding_box.xmax
+
+  def get_ymin (self):
+    # return global bounding box
+    return self.bounding_box.ymin
+
+  def get_ymax (self):
+    # return global bounding box
+    return self.bounding_box.ymax
+  
+
+  def merge (self, another_polygons_list):
+    """merge with another polygon list from another GDSII import
+    Args:
+        another_polygons_list (all_polygons_list): another polygon list, maybe from another GDSII import
+    """
+    
+    for polygon in another_polygons_list.polygons:
+      self.polygons.append(polygon)
+    for layernum, original_vias in another_polygons_list.via_originals.items():
+      self.via_originals.setdefault(layernum, []).extend(original_vias)
+    # also merge boundary information  
+    self.bounding_box.merge(another_polygons_list.bounding_box)          
+
+
+# ---------------------- via merging option --------------------
+
+
+
+def _store_layer_polygons (all_polygons, layerpolygons, target_layer):
+  """Convert raw gdspy polygon point arrays for one layer into gds_polygon objects,
+  append them to all_polygons and update its per-layer bounding box.
+
+  Args:
+      all_polygons (all_polygons_list): running result, updated in place
+      layerpolygons (list of ndarray): raw gdspy polygon point arrays for this layer
+      target_layer (int): layer number (offset already applied) to tag these polygons with
+  """
+
+  xmin=float('inf')
+  ymin=float('inf')
+  xmax=float('-inf')
+  ymax=float('-inf')
+
+  # Issue warning when very many polygons on layer
+  numpoly = len(layerpolygons)
+  if numpoly > 200:
+    print(f'Layer {target_layer} has {numpoly} polygons')
+    print(' ==> Consider via array merging by setting merge_polygon_size > 0')
+
+  # iterate over layer polygons
+  for polypoints in layerpolygons:
+
+    numvertices = int(polypoints.size/polypoints.ndim)
+
+    # new polygon, store layer number information
+    new_poly = gds_polygon(target_layer)
+
+    # get vertices
+    for vertex in range(numvertices):
+      x = polypoints[vertex,0]
+      y = polypoints[vertex,1]
+
+      new_poly.add_vertex(x,y)
+
+      # update bounding box information
+      xmin = min(x,xmin)
+      xmax = max(x,xmax)
+      ymin = min(y,ymin)
+      ymax = max(y,ymax)
+
+    # polygon is complete, process and add to list
+    all_polygons.append(new_poly)
+
+  # done with this layer, store bounding box for this layer
+  if numpoly > 0:
+    all_polygons.bounding_box.update(target_layer, xmin, xmax, ymin, ymax)
+
+
+def resolve_derived_layers (cell, derived_layers, layerlist, purposelist, layer_polygons_gds, layernumber_offset, all_polygons):
+  """Compute derived layers (boolean operations on other layers) and add requested ones to all_polygons.
+
+  Derived layers are processed in dependency order (a derived layer that uses another derived
+  layer as operand is computed after that operand). Operand layers that were not already
+  extracted as part of the requested layerlist are pulled from the GDSII cell on demand, so
+  operands do not need to be requested individually. If a derived layer has a non-zero
+  Oversize, the boolean result (or, with a single operand, that operand as-is) is grown
+  (positive) or shrunk (negative) by that distance before being cached/stored.
+
+  Args:
+      cell (gdspy.Cell): flattened top level cell being processed
+      derived_layers (derived_layers_list): derived layer definitions from util_stackup_reader
+      layerlist (list of int): layer numbers explicitly requested for output
+      purposelist (list of int): GDSII data types (purposes) to be processed
+      layer_polygons_gds (dict): {layer_num: list of ndarray} cache of raw gdspy polygons per
+          layer, already populated for natively-extracted layers, updated in place with results
+      layernumber_offset (int): offset applied to GDSII layer numbers, same as in read_gds
+      all_polygons (all_polygons_list): running result, updated in place for requested derived layers
+  """
+
+  # by_spec polygon lookup, used to pull operand layers that were not part of layerlist
+  LPPpolylist = cell.get_polygons(by_spec=True, depth=0)
+
+  def get_layer_polygons (layernum):
+    # already extracted (native layer from main loop, or previously computed derived layer)
+    if layernum in layer_polygons_gds:
+      return layer_polygons_gds[layernum]
+
+    # not yet extracted: treat as native GDSII layer and pull it on demand
+    layer_gds = layernum - layernumber_offset
+    found_polygons = []
+    for LPP in LPPpolylist:
+      layer = LPP[0]
+      purpose = LPP[1]
+      if (layer == layer_gds) and (purpose in purposelist):
+        found_polygons.extend(LPPpolylist[(layer, purpose)])
+
+    layer_polygons_gds[layernum] = found_polygons
+    return found_polygons
+
+  for derived in derived_layers.get_ordered():
+
+    target_layer = int(derived.layernum)
+    operation = 'not' if derived.operation == 'NOT' else derived.operation.lower()
+
+    operand_polygons = [get_layer_polygons(int(op)) for op in derived.operands]
+
+    # fold operands pairwise: (op1 <operation> op2) <operation> op3 ...
+    result = operand_polygons[0]
+    for next_operand in operand_polygons[1:]:
+      if len(result) == 0 or len(next_operand) == 0:
+        # gdspy.boolean() cannot handle an empty operand (e.g. a layer with no polygons
+        # in this cell) and raises IndexError internally - apply the boolean identity instead
+        if operation == 'and':
+          result = []
+        elif operation == 'not':
+          result = [] if len(result) == 0 else result
+        else:  # 'or'
+          result = next_operand if len(result) == 0 else result
+      else:
+        boolean_result = gdspy.boolean(result, next_operand, operation, max_points=199)
+        result = boolean_result.polygons if boolean_result is not None else []
+
+    # optionally grow (positive) or shrink (negative) the outline of the result
+    if derived.oversize != 0 and len(result) > 0:
+      offset_result = gdspy.offset(result, derived.oversize, join='miter', tolerance=2, precision=0.001, join_first=False, max_points=199)
+      result = offset_result.polygons
+
+    # cache result so later derived layers can use this derived layer as an operand
+    layer_polygons_gds[target_layer] = result
+
+    # only add to output if this derived layer was actually requested
+    if target_layer in layerlist:
+      _store_layer_polygons(all_polygons, result, target_layer)
+
+
+def merge_via_array (polygons, maxspacing):
+  """Used internally in processing data from gdspy, does not work on our own all_polygons_list class!
+
+  Args:
+      polygons (_type_): LPPpolylist data
+      maxspacing (float): offset for oversize/undersize of polygons during via array merge
+
+  Returns:
+      _type_: LPPpolylist data
+  """
+
+  # Via array merging consists of 3 steps: oversize, merge, undersize
+  # Value for oversize depends on via layer
+  # Oversized vias touch if each via is oversized by half spacing
+  
+  offset = maxspacing/2 + 0.01
+  
+  offsetpolygonset=gdspy.offset(polygons, offset, join='miter', tolerance=2, precision=0.001, join_first=False, max_points=199)
+  mergedpolygonset=gdspy.boolean(offsetpolygonset, None,"or", max_points=199)
+  mergedpolygonset=gdspy.offset(mergedpolygonset, -offset, join='miter', tolerance=2, precision=0.001, join_first=False, max_points=199)
+  
+  # offset and boolean return PolygonSet, we only need the list of polygons from that
+  return mergedpolygonset.polygons 
+
+
+def _shapely_polygons (geom):
+  """List of the polygons in a shapely geometry (Polygon, MultiPolygon or GeometryCollection)"""
+  if geom.is_empty:
+    return []
+  if geom.geom_type == 'Polygon':
+    return [geom] if geom.area > 0 else []
+  polygons = []
+  for part in getattr(geom, 'geoms', []):
+    polygons.extend(_shapely_polygons(part))
+  return polygons
+
+
+def metal_islands (polygons):
+  """Connected metal shapes ("islands") of the given polygons, after merging touching/overlapping ones
+
+  Args:
+      polygons (list of point arrays): metal polygons, one or more layers
+
+  Returns:
+      list of shapely Polygon
+  """
+  shapes = [make_valid(ShapelyPolygon(p)) for p in polygons if len(p) >= 3]
+  if not shapes:
+    return []
+  return _shapely_polygons(unary_union(shapes))
+
+
+def _best_island (shape, islands, tree):
+  """Index of the island with the largest overlap area with shape, None if no overlap"""
+  best_index = None
+  best_area = 0.0
+  for i in tree.query(shape, predicate='intersects'):
+    area = islands[i].intersection(shape).area
+    if area > best_area:
+      best_index, best_area = int(i), area
+  return best_index
+
+
+def _to_gdspy_points (polygon):
+  """shapely Polygon -> list of point arrays for gdspy, holes cut out with gdspy (keyholes)"""
+  exterior = np.array(polygon.exterior.coords[:-1])
+  if not polygon.interiors:
+    return [exterior]
+  holes = [np.array(ring.coords[:-1]) for ring in polygon.interiors]
+  result = gdspy.boolean([exterior], holes, "not", max_points=199)
+  return result.polygons if result is not None else []
+
+
+def split_bridging_via_merges (merged, original_vias, above_islands, below_islands, maxspacing):
+  """Via array merging must not connect different metal shapes: closely spaced via arrays that
+  connect different metal shapes above or below would merge into one via and short them.
+
+  Every connected region of the merged vias that overlaps more than one metal island above or
+  below is built again: its vias are grouped by the (island above, island below) pair they land
+  on, each group is merged on its own (same maxspacing), and the result is clipped to the overlap
+  of that island pair. Vias with no metal on a side that has metal elsewhere are kept unmerged.
+  All other regions keep their merged polygons unchanged.
+
+  Args:
+      merged (list of point arrays): result of merge_via_array()
+      original_vias (list of point arrays): unmerged vias
+      above_islands, below_islands (list of shapely Polygon): from metal_islands(), empty list if
+        this side is not known (then it is not used for grouping)
+      maxspacing (float): same as merge_via_array()
+
+  Returns:
+      list of point arrays: merged vias
+      int: number of merged via regions that were split
+      int: number of vias kept unmerged (no metal above or below)
+  """
+  if not merged or (not above_islands and not below_islands):
+    return merged, 0, 0
+
+  above_tree = STRtree(above_islands) if above_islands else None
+  below_tree = STRtree(below_islands) if below_islands else None
+
+  def count_islands (shape, islands, tree):
+    if tree is None:
+      return 0
+    return sum(1 for i in tree.query(shape, predicate='intersects') if islands[i].intersection(shape).area > 1e-9)
+
+  # connected regions of the merged vias (merge_via_array may fracture one region into several polygons)
+  pieces = [make_valid(ShapelyPolygon(p)) for p in merged]
+  regions = _shapely_polygons(unary_union(pieces))
+  bridging = [region for region in regions
+              if count_islands(region, above_islands, above_tree) > 1 or count_islands(region, below_islands, below_tree) > 1]
+  if not bridging:
+    return merged, 0, 0
+  bridging_tree = STRtree(bridging)
+
+  # keep the merged polygons of all regions that do not bridge metal shapes
+  result = [pts for pts, piece in zip(merged, pieces)
+            if not any(bridging[i].intersection(piece).area > 1e-9 for i in bridging_tree.query(piece, predicate='intersects'))]
+
+  # vias of the bridging regions, grouped by metal island pair (-1: this side is not known)
+  groups = {}
+  unmatched = 0
+  for via_pts in original_vias:
+    if len(via_pts) < 3:
+      continue
+    via = make_valid(ShapelyPolygon(via_pts))
+    if len(bridging_tree.query(via.representative_point(), predicate='intersects')) == 0:
+      continue  # merged into a region that is kept as it is
+    above = _best_island(via, above_islands, above_tree) if above_tree is not None else -1
+    below = _best_island(via, below_islands, below_tree) if below_tree is not None else -1
+    if above is None or below is None:
+      result.append(via_pts)  # floating via: keep unmerged
+      unmatched += 1
+    else:
+      groups.setdefault((above, below), []).append(via_pts)
+
+  for (above, below), vias in groups.items():
+    clip = above_islands[above] if above >= 0 else below_islands[below]
+    if above >= 0 and below >= 0:
+      clip = clip.intersection(below_islands[below])
+    clip_points = [pts for poly in _shapely_polygons(clip) for pts in _to_gdspy_points(poly)]
+    if not clip_points:
+      continue
+    clipped = gdspy.boolean(merge_via_array(vias, maxspacing), clip_points, "and", max_points=199)
+    if clipped is not None:
+      result.extend(clipped.polygons)
+
+  return result, len(bridging), unmatched
+
+
+
+def via_fill_factors (pieces, original_vias):
+  """Fill factor of each merged via polygon: the fraction of its area covered by the original,
+  unmerged vias (1.0 for a single unmerged via, < 1 where merging filled the gaps between vias).
+
+  Args:
+      pieces (list of point arrays): merged via polygons, [[x1,y1],[x2,y2],...] each
+      original_vias (list of point arrays): unmerged via polygons of the same layer
+
+  Returns:
+      list of float: fill factor per piece
+      float: fraction of the original via area found inside the pieces, 1.0 if nothing was lost
+  """
+
+  # Area intersection instead of a point-in-polygon test: stays correct for vias lying exactly
+  # on the merged outline, vias split across pieces by max_points fracturing, and duplicate or
+  # overlapping vias (unary_union counts shared area once, so the result never exceeds 1).
+  originals = [make_valid(ShapelyPolygon(p)) for p in original_vias]
+  tree = STRtree(originals)
+  fill_factors = []
+  covered_total = 0.0
+  for piece_pts in pieces:
+    piece = make_valid(ShapelyPolygon(piece_pts))  # gdspy keyhole rings can be invalid
+    if piece.area <= 1e-9:
+      fill_factors.append(1.0)
+      continue
+    nearby = [originals[i] for i in tree.query(piece, predicate='intersects')]
+    if not nearby:
+      # not a merge result (e.g. added by script after reading GDSII): solid via, not empty
+      fill_factors.append(1.0)
+      continue
+    covered = unary_union(nearby).intersection(piece).area
+    covered_total += covered
+    fill_factors.append(min(1.0, covered / piece.area))
+
+  via_area = unary_union(originals).area
+  return fill_factors, (covered_total / via_area if via_area > 0 else 1.0)
+
+
+
+# ----------- read GDSII file, return openEMS polygon list object -----------
+
+def read_gds(filename, layerlist, purposelist, metals_list, preprocess=False, merge_polygon_size=0, mirror=False, offset_x=0, offset_y=0, gds_boundary_layers=[], layernumber_offset=0, cellname="", derived_layers=None):
+  """
+  Read GDSII file and return polygon list object.
+
+  Args:
+      filename (str): Input filename.
+      layerlist (list of int): List of layer numbers to be processed.
+      purposelist (list of int): List of GDSII data types to be processed.
+      metals_list (metal_layers_list): Instance of class `metal_layers_list` defined in `util_stackup_reader`.
+      preprocess (bool, optional): Enable GDSII geometry preprocessing. Defaults to False.
+      merge_polygon_size (float, optional): Enable via array merging when value is > 0.
+      mirror (bool, optional): Mirror the geometry about the y-axis. Defaults to False.
+      offset_x (float, optional): Geometry offset in x direction. Defaults to 0.
+      offset_y (float, optional): Geometry offset in y direction. Defaults to 0.
+      gds_boundary_layers (list of int, optional): List of extra layers to evaluate for finite dielectric size. Defaults to [].
+      layernumber_offset (int, optional): Optional offset applied to GDSII layer numbers to avoid duplicates when reading multiple files. Defaults to 0.
+      derived_layers (derived_layers_list, optional): Derived layer definitions (boolean operations on
+          other layers) from `util_stackup_reader`. Defaults to None, in which case metals_list.derived_layers
+          is used if present (set automatically by read_substrate() when the XML has a DerivedLayers section).
+
+  Returns:
+      all_polygons_list: All polygon information data.
+  """
+
+  if derived_layers is None:
+    derived_layers = getattr(metals_list, 'derived_layers', None)
+
+  if os.path.isfile(filename):
+    print('Reading GDSII input file:', filename)
+  
+    input_library = gdspy.GdsLibrary(infile=filename)
+
+    if preprocess: 
+      # obsolete, cutouts are handles safely downstream after flattening
+      print('Ignoring obsolete pre-processing setting, no longer required')
+
+    # evaluate only first top level cell
+    toplevel_cell_list = input_library.top_level()
+    
+    # try to get cell named cellname, otherwise top level cell
+    cell = input_library.cells.get(cellname, toplevel_cell_list[0])
+    
+    all_polygons = all_polygons_list()
+
+    # cache of raw gdspy polygon arrays per layer number (offset applied), used to compute derived layers
+    layer_polygons_gds = {}
+
+    # metal islands per set of metal layer numbers, for via array merging (each metal is next to two via layers)
+    metal_islands_cache = {}
+
+    # flatten hierarchy below this cell
+    cell.flatten(single_layer=None, single_datatype=None, single_texttype=None)
+
+    # optional mirror and translation of entire cell
+    for poly in cell.polygons:
+      if mirror:
+        # optional mirror
+        poly = poly.mirror(p1=[0,0],p2=[0,1])
+      if (offset_x != 0) or (offset_y != 0):
+        # optional translation after mirror
+        poly = poly.translate(offset_x, offset_y)
+
+
+    # iterate over XML technology metal layers and (optional) dielectric layer boundary spec
+    extended_layer_list = layerlist
+    extended_layer_list.extend(gds_boundary_layers)
+
+    for layer_to_extract in extended_layer_list:
+      
+      # print ("Evaluating layer ", str(layer_to_extract))
+
+      # get layers used in cell
+      used_layers = cell.get_layers()
+
+      # Note on layer numbers:
+      # Used layer is the layer base number, layer_to_extract has the layer number offset from XML
+      # For this file, the layernumber_offset applies ALWAYS
+
+      # check if layer-to-extract is used in cell 
+      layer_to_extract_gds = layer_to_extract - layernumber_offset
+      if (layer_to_extract_gds in used_layers):  # use base layer number here to match GDSII
+              
+        # iterate over layer-purpose pairs (by_spec=true)
+        # do not descend into cell references (depth=0)
+        LPPpolylist = cell.get_polygons(by_spec=True, depth=0)
+
+        for LPP in LPPpolylist:
+          layer = LPP[0]   
+          purpose = LPP[1]
+          
+          # now get polygons for this one layer-purpose-pair
+          if (layer==layer_to_extract_gds) and (purpose in purposelist):
+            layerpolygons = LPPpolylist[(layer, purpose)]
+
+            # optional via array merging, only for via layers
+            metal = metals_list.getbylayernumber(layer_to_extract) # this is the layer number with offset, to match XML stackup
+            if metal != None:
+              if (merge_polygon_size>0) and metal.is_via:
+                # keep the unmerged vias, for the optional fill factor correction in simulation setup
+                all_polygons.via_originals.setdefault(layer + layernumber_offset, []).extend(layerpolygons)
+                originals = layerpolygons
+                layerpolygons = merge_via_array (layerpolygons, merge_polygon_size)
+
+                # merged vias must not connect different metal shapes above or below
+                def neighbor_islands (neighbors):
+                  layernums = tuple(sorted(set(int(n.layernum) for n in neighbors if n.is_metal)))
+                  if layernums not in metal_islands_cache:
+                    polygons = [p for num in layernums for purp in purposelist
+                                for p in LPPpolylist.get((num - layernumber_offset, purp), [])]
+                    metal_islands_cache[layernums] = metal_islands(polygons)
+                  return metal_islands_cache[layernums]
+
+                layerpolygons, num_split, num_floating = split_bridging_via_merges(
+                  layerpolygons, originals, neighbor_islands(metal.above), neighbor_islands(metal.below), merge_polygon_size)
+                if num_split > 0:
+                  print(f'Via array merging on {metal.name}: {num_split} merged via region(s) connected '
+                        'different metal shapes above or below, split by metal connectivity')
+                if num_floating > 0:
+                  print(f'Via array merging on {metal.name}: {num_floating} via(s) without metal above or '
+                        'below kept unmerged')
+
+            # cache raw polygons for this layer, so derived layers can use it as an operand
+            layer_polygons_gds[layer + layernumber_offset] = layerpolygons
+
+            _store_layer_polygons(all_polygons, layerpolygons, layer + layernumber_offset)
+
+    # ----------- derived layers: boolean operations on other layers -----------
+    if derived_layers is not None and len(derived_layers.derived_layers) > 0:
+      resolve_derived_layers(cell, derived_layers, layerlist, purposelist, layer_polygons_gds, layernumber_offset, all_polygons)
+
+    '''
+    # Re-evaluate bounding box if we have a bounding box specified in GDS file and evaluation is requested
+    if gds_boundary is not None:
+      spec = gds_boundary.split(":")
+      boundary_layer = int(spec[0])
+      if len(spec)>1:
+        # user has specified purpose explicitely
+        boundary_purpose_list = [int(spec[1])]
+      else:  
+        # use global purpose list
+        boundary_purpose_list = purposelist
+
+      # get layers used in cell
+      used_layers = cell.get_layers()
+
+      # check if layer-to-extract is used in cell 
+      if (boundary_layer in used_layers):
+        # reset previous bounding box and start all over again
+        xmin=float('inf')
+        ymin=float('inf')
+        xmax=float('-inf')
+        ymax=float('-inf')
+              
+        # iterate over layer-purpose pairs (by_spec=true)
+        # do not descend into cell references (depth=0)
+        LPPpolylist = cell.get_polygons(by_spec=True, depth=0)
+        for LPP in LPPpolylist:
+          layer = LPP[0]
+          purpose = LPP[1]
+          
+          # now get polygons for this one layer-purpose-pair
+          if (layer==boundary_layer) and (purpose in boundary_purpose_list):
+            layerpolygons = LPPpolylist[(layer, purpose)]
+           
+            # iterate over layer polygons
+            for polypoints in layerpolygons:
+              numvertices = int(polypoints.size/polypoints.ndim)
+
+              # get vertices
+              for vertex in range(numvertices):
+                x = polypoints[vertex,0]
+                y = polypoints[vertex,1]
+                
+                # update bounding box information
+                if x<xmin: xmin=x
+                if x>xmax: xmax=x
+                if y<ymin: ymin=y
+                if y>ymax: ymax=y
+    '''
+
+
+    # all_polygons.set_bounding_box (xmin,xmax,ymin,ymax)
+    
+    # done!
+    return all_polygons
+  
+  else:
+    print('GDSII input file not found: ', filename)
+    exit()
+ 
+
+

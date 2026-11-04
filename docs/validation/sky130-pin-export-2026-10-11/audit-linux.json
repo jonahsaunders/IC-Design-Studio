@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "status": "verified",
+  "platform": "linux",
+  "data_sha256": "970575621816cad0d64e14f53cb0c92eca2b45a2998ff732149d29bc79ffb820",
+  "tests": 34,
+  "tests_skipped": 0,
+  "driver_sha256": "f34265124e724ec8c52f71087f850d922425e5e88f5383a98d280685558a73d7",
+  "source_files": {
+    "icstudio/digital_sky130_pins.py": "e7bbf52b7c0f3d727c758fe927b134bb23d734712c864eb05f96c68b9d984e63",
+    "icstudio/digital_sky130_pin_inventory.py": "3b2b236c02444d5084104621e93b5632dbf7681d81f691eab0f407022e495249",
+    "scripts/sky130_pin_coverage.py": "a17855958781008cb4ba73d8ca62a09681c62c160c49a6b2ee600e87f4bf696e",
+    "tests/test_sky130_pins.py": "d72ec483990f6d87c98e56b62ca30ecba2c8fd47c599e5679f775016fa47680b",
+    "icstudio/digital_flow.py": "3875b75a55c3e983f6e1cf587cbd5de3e18c3bbb40d54931872ff49f5c768600",
+    "icstudio/digital_physical.py": "ae83b932252be7899a10cdcad4eb030211cddb3524a7f18a08b7a5432f36a1b6",
+    "icstudio/digital_macro.py": "b5d887a0d3b1af4ca212e6fd5d4ab8f179969ad1740eb1978ac73447df0130ad"
+  }
+}

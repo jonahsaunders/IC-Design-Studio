@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "tests": 7,
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "5fcb18dc44127b9ab9c53e5afdb1bd5cfb1d379cce63455ec3a18f85e2f40e4a",
+  "tests_sha256": "f7d68b6750cd34fb1daba561d7368d4e0dfaaddea79cb33555af6753431f6ec1",
+  "driver_sha256": "3cd45c2d36740e2b50b791b8efb0cd7a56f1682c9a51fbe5627c559d7d42138c",
+  "source_files": {
+    "scripts/sky130_waffle_density_review.py": "76e309ac6baee46826ecc18f7049083dc203f90e5e621d5de8aab89a70adbafa",
+    "tests/test_sky130_waffle_density.py": "691003e814c7c2157c881229cf68a72884df76233981f171a1fcc99149daba8f"
+  }
+}

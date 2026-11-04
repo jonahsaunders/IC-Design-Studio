@@ -22,6 +22,11 @@ def targets(p,cid):
             if d['kind'] in ('R','C','L') or d['kind'] in ('V','I') and d['source']['type']=='dc':candidates.append(d['name']+'.value')
             candidates += [d['name']+'.'+group+'.'+key for group in (('params',) if d['kind'] in ('NMOS','PMOS') else ('source',) if d['kind'] in ('V','I') else ()) for key in d.get(group,{}) if key!='type']
         for target in candidates:
+            if d['kind'] in ('NMOS','PMOS') and '.params.' in target:
+                from .catalog import binding_for
+                binding=binding_for(p['pdk'],d) or {}
+                if binding and target.rsplit('.',1)[1] not in ('w','l'):continue
+                if 'fixed' in binding.get('parameters',{}).get(target.rsplit('.',1)[1],{}):continue
             try:get_target(p,cid,target);out.append(target)
             except (ValueError,TypeError,KeyError):pass
     return out
@@ -61,7 +66,13 @@ def set_target(p, cid, target, value):
     elif field=='value' and d['kind'] in ('R','C','L','V','I'):
         if d['kind'] in ('V','I') and d['source']['type']!='dc':raise ValueError('A pulsed source uses source.high or source.low; its DC value is inactive.')
         d['value']=str(scalar(value))
-    elif len(parts)==3 and parts[1] in ('params','source') and parts[2] in d.get(parts[1],{}) and parts[2]!='type': d[parts[1]][parts[2]]=str(scalar(value))
+    elif len(parts)==3 and parts[1] in ('params','source') and parts[2] in d.get(parts[1],{}) and parts[2]!='type':
+        if parts[1]=='params' and d['kind'] in ('NMOS','PMOS'):
+            from .catalog import binding_for,_check_parameter
+            binding=binding_for(p['pdk'],d) or {};rule=binding.get('parameters',{}).get(parts[2],{})
+            if binding and parts[2] not in ('w','l'):raise ValueError('Generic MOS parameter is inactive for this PDK model: '+parts[2])
+            if 'fixed' in rule:_check_parameter(parts[2],scalar(value)*binding.get('parameter_scale',{}).get(parts[2],1),rule)
+        d[parts[1]][parts[2]]=str(scalar(value))
     else: raise ValueError('Unsupported numeric target: '+target)
 
 def get_target(p,cid,target):

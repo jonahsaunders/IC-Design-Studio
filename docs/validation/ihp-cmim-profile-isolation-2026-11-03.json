@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "status": "PASS_SOURCE_GUI_PROFILE_ISOLATION",
+  "hosted_failures": [
+    {
+      "run": 41681580250,
+      "job": 126089639738,
+      "candidate": "d767f711d301ace057ceb4706c80e733aedc0c00",
+      "status": "failed",
+      "step": "Test core",
+      "tests": 4200,
+      "skipped": 62,
+      "failures": 1,
+      "seconds": 2865.856,
+      "log_sha256": "c95c5c6cd593efe908858eea82587b54440b162003efaedc1af9182dcc437738",
+      "log_bytes": 2503060
+    },
+    {
+      "run": 41689153566,
+      "job": 126120095449,
+      "candidate": "04ce9bceefc4cd0591824351f275833ba9a01b7f",
+      "status": "failed",
+      "step": "Test core",
+      "tests": 4207,
+      "skipped": 62,
+      "failures": 1,
+      "seconds": 2909.65,
+      "log_sha256": "5018d3970e6b3cddcaa397c8161ed137a0501fc12815b6271cc128780c196e16",
+      "log_bytes": 2504839
+    }
+  ],
+  "fixed_source_sha256": {
+    "icstudio/ihp_cmim_desktop_probe.py": "71773794a683a62aeb5c06441d58405da03c67817d2fb5210673f01fb7ea282c",
+    "tests/test_ihp_cmim_desktop_probe.py": "232dc9a29c4d217e9502fa7df6690cbfeb4cfed0c713413525c293a283643876"
+  },
+  "cause": "The organization/application QSettings constructor uses the Windows registry. A real delayed workspace restore can switch to Layout and clear the probe selection before the width edit.",
+  "reproduction": {
+    "before_sha256": "b24258d6b62b2632d75201595dc2721540cdf10eaa8de10c94a4ed9ac1aa34db",
+    "after_sha256": "0cf4187314952aa7d2174e283f87b853ebf7a35581e5ced59da946134c77ef0f",
+    "original_diagnostic_sha256": "2ab8a7606d52fd1afb275fcebeb9314f6184572fe3182cd465294f7fd021c9df",
+    "hosted_profile_captured": false,
+    "isolated_fixture": true
+  },
+  "checks": {
+    "windows": [
+      {
+        "tests": 34,
+        "skipped": 0,
+        "seconds": 11.526,
+        "log_sha256": "82d56ee7d028950e3a582b619f1b19be6a229f1d91a5a7316b96d77d4e072778"
+      },
+      {
+        "tests": 27,
+        "skipped": 1,
+        "seconds": 1.767,
+        "log_sha256": "47cef864880e1f3219eabaf4da17ab45162de635ecc1796b89c12594c504d1a4"
+      },
+      {
+        "tests": 5,
+        "skipped": 0,
+        "seconds": 1.298,
+        "log_sha256": "537dac8d92f4ef7a085c8dccef689bf08bd52d9d06bdbe34dd370d6f75611347"
+      }
+    ],
+    "linux": [
+      {
+        "tests": 34,
+        "skipped": 0,
+        "seconds": 3.227,
+        "log_sha256": "7e5297100eb75dccd4f9b75e93ca764375d908f0a00ec3a4d0fcf15e015e4ca6"
+      },
+      {
+        "tests": 27,
+        "skipped": 0,
+        "seconds": 1.055,
+        "log_sha256": "23c63134fe031a46d7fe2c6bf628b618267b655395fcb7bc752a17ae5ec91b0c"
+      },
+      {
+        "tests": 5,
+        "skipped": 1,
+        "seconds": 0.008,
+        "log_sha256": "66d1839feca30774aab68054b229d6c4e15e79dde38bee2034361f21a8ef3d23"
+      }
+    ]
+  },
+  "native_source_files": 6965,
+  "native_manifest_sha256": "7c23a12d341a2aeb7b71fd7487f6764940780e9ac3c1e5ef5198b4ba23c10799",
+  "native_source_delta_sha256": "ee262a18383a24edc4ec2f7cf96e29ae967535b746db7ab14f6d1ef5a9cba57f",
+  "native_receipt_sha256": "cdc9f50fadc68225ee34894979157110e4e0dad582bc10a427612998b7b3fb54",
+  "release_check": {
+    "status": "passed",
+    "log_sha256": "b9fb00ffba423dbf6bc9f59f00a56f06bf90adc841c535d8b9bc8986e4f8ed50"
+  },
+  "independent_review_sha256": "5cab85125611c956759d053e80068d232eed357cc86ba5609acd3f8a89c1dd7e",
+  "installed_acceptance": false,
+  "full_family": false,
+  "qualified": false,
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/chunk7-cmim-profile-isolation-2026-11-03-v1",
+    "archive": "profile-isolation-evidence.zip",
+    "archive_sha256": "787e0150406f46a21a5aa69d9c2ff992c4e8a5c170cb4ad8ec7bc54f8527c817",
+    "files": 57,
+    "archive_bytes": 1235910,
+    "retention_sha256": "b54470687f5fe54b1b8e1139294ff3d8ed51bd4aef3ceb93ad2e6df4703dcd13"
+  }
+}

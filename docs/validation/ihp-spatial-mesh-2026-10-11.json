@@ -1,0 +1,215 @@
+{
+  "schema": 1,
+  "status": "native-spatial-mesh-progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "pdk_revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "cases": {
+    "counter": {
+      "ownership": {
+        "path": "outputs/ihp-route-trace-ownership-v5/counter/record.json",
+        "sha256": "cd97f63dc1f0ecb35a59cf8db138b921513e86ae8ca7e77c9aa4f72a8ba925e0"
+      },
+      "endpoint_map": {
+        "path": "outputs/ihp-spatial-endpoint-map-v2/counter/record.json",
+        "sha256": "0060baa4d557f6d9b305f42430ce3b4558dfc8983dbe7f27ed83887002e8debf"
+      },
+      "checked_signal_supports": 106303,
+      "unique_support_weights": 7124,
+      "unresolved": 0,
+      "ground": [
+        {
+          "variant": "original",
+          "evidence": {
+            "path": "outputs/ihp-ground-capture-v1/counter/original/ground-audit-v1.json",
+            "sha256": "c260719b64866b6463c75d3e60cee2912c5b84904760e68258852cb3d3e41ae4"
+          },
+          "signal_rows": 7291,
+          "signal_nodes": 28,
+          "unique_supports": 7291
+        },
+        {
+          "variant": "filled",
+          "evidence": {
+            "path": "outputs/ihp-ground-capture-v1/counter/filled/ground-audit-v1.json",
+            "sha256": "aca99b9a729c99da3f89f1c04153e29d178bd0133e9cf030d383c208bd4036dc"
+          },
+          "signal_rows": 7455,
+          "signal_nodes": 28,
+          "unique_supports": 7455
+        }
+      ]
+    },
+    "uart": {
+      "ownership": {
+        "path": "outputs/ihp-route-trace-ownership-v5/uart/record.json",
+        "sha256": "ffe25c676217afd2eacfbb30a376b0946c7de4e64c154bf6bcddb86861245c54"
+      },
+      "endpoint_map": {
+        "path": "outputs/ihp-spatial-endpoint-map-v2/uart/record.json",
+        "sha256": "14c2eab15a4934e1dd8233c369ac62230cc84d132ad73977952ecea93f721c7c"
+      },
+      "checked_signal_supports": 444212,
+      "unique_support_weights": 55594,
+      "unresolved": 0,
+      "ground": [
+        {
+          "variant": "original",
+          "evidence": {
+            "path": "outputs/ihp-ground-capture-v1/uart/original/ground-audit-v1.json",
+            "sha256": "bf5215dc874306c8d7b2ef9c80c1434468f84a473bbd579fbefe5f2cbeede25e"
+          },
+          "signal_rows": 109093,
+          "signal_nodes": 351,
+          "unique_supports": 109093
+        },
+        {
+          "variant": "filled",
+          "evidence": {
+            "path": "outputs/ihp-ground-capture-v1/uart/filled/ground-audit-v1.json",
+            "sha256": "e766ef9aa2f62352b7150d808ef75c03d08ccc1df5c511590f749f87b4e7a205"
+          },
+          "signal_rows": 109477,
+          "signal_nodes": 351,
+          "unique_supports": 109477
+        }
+      ]
+    },
+    "apb": {
+      "ownership": {
+        "path": "outputs/ihp-route-trace-ownership-v5/apb/record.json",
+        "sha256": "544d3a5bc0efd1ca7108160776a2209cb87eebf3a3aa60578c4408fa2708b784"
+      },
+      "endpoint_map": {
+        "path": "outputs/ihp-spatial-endpoint-map-v2/apb/record.json",
+        "sha256": "81039c965edd68727880c647ba0edadcb4a282c95201329b219650a80e1a5549"
+      },
+      "checked_signal_supports": 751143,
+      "unique_support_weights": 105156,
+      "unresolved": 0,
+      "ground": [
+        {
+          "variant": "original",
+          "evidence": {
+            "path": "outputs/ihp-ground-capture-v1/apb/original/ground-audit-v1.json",
+            "sha256": "6809826efdf800229d45be0d3fc08157c9921a690f72f5ef99ef94919c4c7fd5"
+          },
+          "signal_rows": 82259,
+          "signal_nodes": 262,
+          "unique_supports": 82259
+        },
+        {
+          "variant": "filled",
+          "evidence": {
+            "path": "outputs/ihp-ground-capture-v1/apb/filled/ground-audit-v1.json",
+            "sha256": "dcc901e9e16bce55dad6c450b86a04f26355eed875a13c20cd49037549d3ded9"
+          },
+          "signal_rows": 82696,
+          "signal_nodes": 262,
+          "unique_supports": 82696
+        }
+      ]
+    }
+  },
+  "tests": {
+    "win32": {
+      "evidence": {
+        "path": "outputs/ihp-fill-coverage-tests-win32-v26/record.json",
+        "sha256": "89ec2c4af1612be5ca72fc6afd0062a6a208dee565caf932a4fc20a5efa48eca"
+      },
+      "tests": 175,
+      "skips": 0,
+      "log_sha256": "092dc2c2e95635a267c3f97886f7b671c7db8766fdad8618d7d7bbf04799253f"
+    },
+    "linux": {
+      "evidence": {
+        "path": "outputs/ihp-fill-coverage-tests-linux-v26/record.json",
+        "sha256": "a25da2791de93411f814dbbc83849d051a51020fe87cb4800d73c308aa145ab1"
+      },
+      "tests": 175,
+      "skips": 0,
+      "log_sha256": "24a08dabbc8743e1954b457418c0b91a0bcb9f71fda5e385c56689d071b45a68"
+    }
+  },
+  "windows_replay": {
+    "path": "outputs/ihp-spatial-mesh-win32-v1/record.json",
+    "sha256": "1a06b238aec6bea621f36797dc267177382a806607f63bcfb68ab7ba6976f315"
+  },
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-spatial-mesh-2026-10-11-v1/evidence.tar.gz",
+    "sha256": "8455edbc537615886c8f79e22b5fdbc5b931aa7eebe288a128e04488c6481dd8",
+    "bytes": 532663919,
+    "logical_files": 6380,
+    "unique_blobs": 1932,
+    "manifest_sha256": "95e9d7b79787909edeabf3a3096ceb9935e1288cce8225e27bf1f008f34c92bd",
+    "verified": true
+  },
+  "production_binaries_unchanged": true,
+  "native_builds": {
+    "coupling": {
+      "path": "outputs/ihp-spatial-planes-build-v2/record.json",
+      "sha256": "d248ca28f42401004a9db43e2079d9fa27e90cca439c4d66de408298ad1bc947"
+    },
+    "mesh": {
+      "path": "outputs/ihp-resistance-mesh-build-v2/record.json",
+      "sha256": "362df5407311470cd3dd5a8272ce8e1210a551b63da2d7fe31bd8ccdb50a1178"
+    },
+    "ground": {
+      "path": "outputs/ihp-ground-trace-build-v1/record.json",
+      "sha256": "6e39c5afb1bf9ded617a01d69b2d88450d81c695ec524fbbf65646e38553fba9"
+    }
+  },
+  "counter_exact_resistor_replay": {
+    "path": "outputs/ihp-resistance-mesh-capture-v2/mesh-audit-v3.json",
+    "sha256": "4eaa02c6010889afb3301632fbc0bde8b9967e91ffde2bbb9145e7b5d597f774"
+  },
+  "unaccepted_resistor_replays": {
+    "uart": {
+      "path": "outputs/ihp-resistance-mesh-capture-v3/uart/terminal-resistance-v2.json",
+      "sha256": "830f6e0cab8e1f686e708f546981e8ceb4e5dbe4ce335acfc959e53be3b2f248"
+    },
+    "apb": {
+      "path": "outputs/ihp-resistance-mesh-capture-v3/apb/terminal-resistance-v2.json",
+      "sha256": "28485050676ae8ee8735d9d36e2ade3a633ef572f02ccf946840620cf449caf9"
+    }
+  },
+  "completed_filled_apb": {
+    "simulation": {
+      "path": "outputs/ihp-cell-keepout-waveform-v3/apb-typ-1610-fine/simulation.json",
+      "sha256": "0dc0f04263e0fae263c94af8d5545f65adde54a1b877e8c97735279492c4056f"
+    },
+    "tested_bits": 869,
+    "duration_ns": 1610,
+    "archive": {
+      "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-keepout-completion-2026-10-11-v1/apb-baseline.tar.gz",
+      "sha256": "6d75c325c828d87a38b516912bfd5e4d77e274bb5ccbb025bbd37cc714d350f8",
+      "files": {
+        ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+        "bench.spice": "68e22fe9d7e6c63e12719d502e223d1ea2948a6107dc752a2c15ea281cffa93e",
+        "capacitance.spice": "295d5560bfe111fc912dd0254ad0e41912627fe571c99a28bf6132edd40ba8f9",
+        "circuit.spice": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f",
+        "engine.log": "1f1630f72134461dcc5ecdc2ef5d7b08c50ea21496e26874fd404eee7e18bb69",
+        "expectations.json": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+        "simulation.json": "0dc0f04263e0fae263c94af8d5545f65adde54a1b877e8c97735279492c4056f",
+        "waveform-audit.json": "751930abc49eaca8c1b299fc263e91e8fc06e7f056c6a16701290f05404af9b1",
+        "waveform.txt": "32394ff0700abfe4bb04ec956d704632441522e26715b0ba88e743d539832306"
+      },
+      "verified": true
+    }
+  },
+  "rejected_internal_scaling_attempt": {
+    "path": "outputs/ihp-cell-keepout-waveform-v7/apb-typ-210-fine/simulation.json",
+    "sha256": "a5d3cb20ee7ed3e52a85d52a8c9aec1499dca244d8be73414db021f9b97f7a57"
+  },
+  "source_sha256": {
+    "scripts/ihp_spatial_mesh.py": "0380e027faec6aa214b36b0c6ec012324d0ae2917bc53100a10eec6851ebdd73",
+    "tests/test_ihp_spatial_mesh.py": "e5f908389e90ebc0495068dddfdedb709acebf9cdbb5b8b14ac9a0372b013265"
+  },
+  "scope": "All changed signal supports have verified conductor ownership and a local interpolation basis on captured native R networks. All six native signal ground totals reconcile, including area, edge, shielding and substrate relocation. Native signed extensions and name suffixes are explicit. Unit-sum interpolation corrects and records binary32 area-transfer roundoff; it does not change physical capacitors. These are location/accounting results, not complete capacitance projection or timing acceptance.",
+  "remaining": [
+    "Complete full UART and APB waveform convergence at the unchanged 1 ps limit. The full filled APB tight capture passes 869 output checks; its intermediate comparison remains running.",
+    "Resolve frozen resistor replay differences before model substitution. UART and APB maximum DC port matrix differences are 6.54504e-5 and 7.21906e-5; they are diagnostic, not accepted equivalence.",
+    "Respect nonuniform native fringe kernels and actual shield subregions when projecting capacitance. Bounding rectangles and uniform local weights alone do not qualify the complete projection.",
+    "Complete accepted nominal extraction/timing, integrate the accepted recipe into production, and repeat final export/package checks."
+  ]
+}

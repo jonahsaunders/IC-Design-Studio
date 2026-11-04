@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "fixture_repair_locally_verified_hosted_recheck_pending",
+  "scope": "Windows canonical-path mock correction only. The production package guard and native qualification sources are unchanged.",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "release_acceptance": false,
+  "hosted_failure": {
+    "schema": 1,
+    "run": 40045985456,
+    "candidate": "1896ee11322cb4441fd1acf372de16a77c058613",
+    "status": "failure",
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40045985456",
+    "platforms": [
+      {
+        "artifact": "source-feedback-Linux-fbe583c84de983968aa6e93009f44003d21be3a2",
+        "artifact_sha256": "81aaeda3bda13fdb566157b96c5dd5f035f72ee4798db94be6d0793c6be95436",
+        "tests": 384,
+        "counts": "skipped=2",
+        "source_bindings": 1352,
+        "source_report_sha256": "82879cb1cf4dbedfb46a706436103df046ce82ce7621bd326637a7a82e8f4645",
+        "status": "passed",
+        "merge_commit": "fbe583c84de983968aa6e93009f44003d21be3a2",
+        "seconds": 72.707
+      },
+      {
+        "artifact": "source-feedback-Windows-fbe583c84de983968aa6e93009f44003d21be3a2",
+        "artifact_sha256": "4662b3d68ac54638710f125c0c5e252e66e27c8d5246454f8e54d7c0779a367c",
+        "tests": 384,
+        "counts": "failures=1, skipped=15",
+        "source_bindings": 1352,
+        "source_report_sha256": "82879cb1cf4dbedfb46a706436103df046ce82ce7621bd326637a7a82e8f4645",
+        "status": "failed",
+        "merge_commit": "fbe583c84de983968aa6e93009f44003d21be3a2",
+        "seconds": 81.016
+      }
+    ],
+    "merge_commit": "fbe583c84de983968aa6e93009f44003d21be3a2",
+    "parents": [
+      "49c79957b4d6f4978127da612e167e5c75cda6b3",
+      "1896ee11322cb4441fd1acf372de16a77c058613"
+    ],
+    "all_candidate_source_bindings_verified": true,
+    "installed_acceptance": false,
+    "chunk_complete": false
+  },
+  "diagnosis": "Production resolves package root before testing asset links. The earlier mock compares against an unresolved alias and therefore fails to simulate the intended link.",
+  "certainty": "The retained hosted log does not expose its raw TEMP spelling. The exact committed assertion failure was independently reproduced with a real GetShortPathNameW DOCUME~1 alias, and the fixed actual test passes under that same alias mechanism.",
+  "fix": "Precompute canonical asset target and require rejection for both canonical root and real parent/../package alias, retaining every existing missing/changed/escaping check.",
+  "source_hashes": {
+    "tests/test_mim_desktop_probe.py": "93c8153f3ca40cf370e550bba69a878e8c60350f2266a91fdd1113d490136182",
+    "icstudio/mim_desktop_probe.py": "c000c1e92a4d38561ee7479765b163769c685fbfef5e9f00f99d1cb1b0ceb0d9"
+  },
+  "actual_windows_short_path_regression": {
+    "before": "1 failure, 0 errors, 0 skips",
+    "after": "1 pass, 0 skips"
+  },
+  "focused_tests": {
+    "windows": {
+      "tests": 4,
+      "skips": 0,
+      "seconds": 0.085
+    },
+    "linux": {
+      "tests": 4,
+      "skips": 0,
+      "seconds": 0.141
+    }
+  },
+  "production_unchanged": true,
+  "new_native_runs": 0,
+  "new_gui_runs": 0,
+  "failed_hosted_archive": {
+    "directory": "mim-installed-failed-feedback-40045985456-2026-10-23-v1",
+    "file": "evidence.zip",
+    "sha256": "9337ebaf839099d3d7aaf1f1a1eb505e332d35e32cea8491e4e23a39698084b6",
+    "bytes": 559604,
+    "files": 11,
+    "manifest_sha256": "73dea175f7990956b248a3646255d1b5e87a5d61d1f749572598e699e7b60dce",
+    "all_files_readback_verified": true
+  },
+  "independent_review_archive": {
+    "directory": "mim-temp-alias-test-review-2026-10-23-v1",
+    "file": "evidence.zip",
+    "sha256": "0c63550c149493de80677682cf60da0fc53952f62fa35d4b78b09097ed6e787a",
+    "bytes": 34264,
+    "review_sha256": "4ec095a96d45e33d0edf3cee0893f4ce8c7b38194a490e4847eb9667d5bc0058"
+  },
+  "next_gate": "Automatic feedback for the repair candidate, then one exact-candidate desktop acceptance dispatch."
+}

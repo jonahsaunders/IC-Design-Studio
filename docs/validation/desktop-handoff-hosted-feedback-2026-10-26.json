@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "candidate": "cbde80ed4ce85df9ad800e0b9b0c70e4d68cfd4a",
+  "merge": "0b62b959c678a0ca76c193b79bf48b0012ca757d",
+  "merge_parents": [
+    "49c79957b4d6f4978127da612e167e5c75cda6b3",
+    "cbde80ed4ce85df9ad800e0b9b0c70e4d68cfd4a"
+  ],
+  "run_id": 40409330802,
+  "source_bindings": 1415,
+  "exact_candidate_and_merge_source_blobs_verified": true,
+  "hosts": {
+    "Windows": {
+      "artifact_id": 12693470252,
+      "artifact_sha256": "b848225e0cfafcf92e7edb497cef161061333a71e29e2ce49108a0ef36a44a8d",
+      "tests": 682,
+      "skips": 19,
+      "elapsed_seconds": 229.0,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 121.25
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.875
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 32.593
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.578
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 11.5
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 46.688
+        }
+      ],
+      "status": "PASS"
+    },
+    "Linux": {
+      "artifact_id": 12692657659,
+      "artifact_sha256": "6dd5a43ad5526761b27ab7ab83c649f963582c06635619f64ce820d416ed3694",
+      "tests": 682,
+      "skips": 4,
+      "elapsed_seconds": 152.334,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 61.19
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.473
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 29.748
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 5.179
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.84
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 39.375
+        }
+      ],
+      "status": "PASS"
+    }
+  },
+  "scope": "Hosted focused source feedback only; full installed/release acceptance remains separately pending.",
+  "qualified": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "signoff": false,
+  "retention": {
+    "folder": "desktop-handoff-fixture-hosted-2026-10-26-v1",
+    "verification_sha256": "e9e75795cd9a168dbf6be35d03e1432d7f12f2f487108667c527dd6f00ade52f",
+    "method_sha256": "8de3984edec4e4feb3b76fb092314b4b32c0a7177ba91d3e066b475c606d0831"
+  },
+  "local_status_update_only": true
+}

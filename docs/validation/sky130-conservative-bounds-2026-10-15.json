@@ -1,0 +1,3298 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "conservative-bounds-and-ip-blockage-absence-reviewed",
+  "qualified": false,
+  "chunk_complete": false,
+  "inputs": {
+    "docs/qualification/sky130-error-rule-inventory.json": "9b8ac023b0b0045639bf586e77b9540b51816be448d801f2a8b922c0af9524c9",
+    "docs/qualification/sky130-layer-purposes.json": "3ccb42d63e7bbbe0c793c4541cc51c979c914588089793ab144c36fff3d673fb",
+    "docs/qualification/sky130-reference-rule-options.json": "6032f58d9fc467c7cdfb0d8ba16d03d9c0cd6fcd8b83ccb3dbc56f20b65dfdf9",
+    "docs/qualification/sky130-reference-voltage-contract.json": "ba5fec303fe2d7fb4b70b9b714564accedbef25afdc370cda6d3dddb51a33c38",
+    "docs/qualification/sky130-rule-inventory.json": "470a056e6ef613b60d4082c575f70f097ddb0d5b340a6dda0d6620eb20edb58f",
+    "docs/validation/sky130-boundary-export-2026-10-15.json": "f4dde4c80783eb58a044ae24d9bda3034f44b71201937da42ad420414042b17b",
+    "docs/validation/sky130-boundary-interactions-2026-10-15.json": "eb6884f3730351f977cd77c6e86fea072b1c86e4a4afef44bdc84b81ef1e3cee",
+    "docs/validation/sky130-core-context-2026-10-15.json": "b3fb813d1b15b33210be66ef61d0b5ce91e1918ac933426359df4bad02ccc1d6",
+    "docs/validation/sky130-device-intent-2026-10-14.json": "c8dc8265a41da92a9a8b66f6fad116b70f52e204f8460606fbb2da19459618b5",
+    "docs/validation/sky130-device-intent-audit-2026-10-14.json": "33b80e82e6b66e9fd1c7302b0eda9f35ad0d2db3007f70a5da3c81e8ac580921",
+    "docs/validation/sky130-esd-fuse-2026-10-14.json": "c1a05882f3f48607a245ae3d0d3812503bc67663d2fc641e06fbbfaae248f880",
+    "docs/validation/sky130-fill-progress-2026-10-11.json": "4de1c733c3b0b29e0c7770d46c68a3d8e68c185410e9c24c930dab1cfbe55dd3",
+    "docs/validation/sky130-filled-electrical-2026-10-14.json": "7425fc329525069e3080d4eef7567c67bc354f20128005b90c063f4343b232df",
+    "docs/validation/sky130-floating-review-2026-10-11.json": "2a07fef720a4938d83a71a0a7bd6d8d6547499b756d5306b0c02804e4e8ef929",
+    "docs/validation/sky130-floating-review-2026-10-11/data.json": "cbad4d8388453d9fbd55330a2fad21e88c6fdc688420557584fd2f91efad671e",
+    "docs/validation/sky130-geometry-reconciliation-2026-10-14.json": "6a61be0415cc68efd4e591428c1ac7e2531cac731e6396da953f4485104608d3",
+    "docs/validation/sky130-grid-catalog-2026-10-15.json": "fd51a2cb9cc93c26399b95ed6c5a11b916dc95ced93fdd1d257ec5fd71e63c94",
+    "docs/validation/sky130-isolation-options-2026-10-14.json": "5c284df0743c4207282d2c37f561a3e701d0d8ddfb3a6dfc2425b0364a11d33c",
+    "docs/validation/sky130-label-subjects-2026-10-15.json": "346291eb600c055674d5ed305de2109249b590ebcddb58aa388761591f66e495",
+    "docs/validation/sky130-local-hv-2026-10-15.json": "8056cb07c88e58be1fff098881c444e204ae85b53dc21bc570a35558e0c5de9a",
+    "docs/validation/sky130-marker-reconciliation-2026-10-14.json": "c88d19aa1893d6a4c7fd1f7031c105e81c2e7a3c0f7c69fac1467b262654d91e",
+    "docs/validation/sky130-nsm-reconciliation-2026-10-14.json": "24217feeb0fe116057334fd41fce3696e88441b76a6935a0d82031da87e63ca0",
+    "docs/validation/sky130-scope-corrections-2026-10-14.json": "15ce1eb3ca0237adfec577d2bb53de5761ea34dd63c1840256dd4ac9e4576465",
+    "docs/validation/sky130-selected-devices-2026-10-15.json": "728bcf21dbc246cfa25a87129098afebafa01a2663e210dc87691ea0f2919b81",
+    "docs/validation/sky130-selected-subjects-2026-10-14.json": "9757823897dcc17028442528caf1e32ba6a37292e33fe168e8bcebed88187719",
+    "docs/validation/sky130-selected-subjects-audit-2026-10-14.json": "344d54c2c95c120c32acec0dd49df18b128d7a46b479196b66e465e0d0feb262",
+    "docs/validation/sky130-standard-cell-wl-2026-10-15.json": "bfe5423c9e4efadf24e134f904e39eda4df016ebd60de9fc40ae33e80945d7fe",
+    "docs/validation/sky130-voltage-intent-2026-10-14.json": "8110a8b2a1a9c6cfed2ae8a76124d7f3b975598350444605f1c9b593802e3a46",
+    "docs/validation/sky130-voltage-intent-audit-2026-10-14.json": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
+    "docs/validation/sky130-vpp-geometry-2026-10-15.json": "7dc92a2f624aa7a04aae74735a46649398144308510d88fc2ff6e850582e8eaa",
+    "docs/validation/sky130-waffle-density-2026-10-14.json": "5fcb18dc44127b9ab9c53e5afdb1bd5cfb1d379cce63455ec3a18f85e2f40e4a"
+  },
+  "source_files": {
+    "scripts/sky130_conservative_bound_review.py": "781d610c757ebf51fd44d4d58b13433bf6e51092346f1b129ec3d9fe1794bc30",
+    "icstudio/digital_sky130_conservative_bounds.py": "d655b6b816ff46b7a2208c20739ec404bdb82a1369f80bc3788948632e7af322",
+    "tests/test_sky130_conservative_bounds.py": "44fa9ffa099fe8bfa79d7b446d8178389b43ddac3e46339fa9343b14763a7225",
+    "icstudio/digital_sky130_rules.py": "5b232c3e49c67fb5b165c80993e10a8c5d799cce63e6d342b5be3b2c103568ca",
+    "icstudio/digital_sky130_rule_worker.py": "668470db48dc36f69eb0b123f02037b60b11c6bde86bf82de43f03a93a15dd60",
+    "tests/test_sky130_application_rules.py": "397fc94b943cde6013b6de922c2b4fa915b21b99b014f0c37e1e9829d867c52c"
+  },
+  "proof": {
+    "source": {
+      "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+      "files": {
+        "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+        "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+        "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+        "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+      }
+    },
+    "bindings": {
+      "r1234": {
+        "record": {
+          "id": "r1234",
+          "record": 1219,
+          "rule": "metblk.1",
+          "description": "0.14 min. spacing of met1 & met1Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          68,
+          10
+        ],
+        "definition": [
+          "met1.be{68:10}",
+          "Metal1 blockage layer",
+          "",
+          "Metal 1 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1235": {
+        "record": {
+          "id": "r1235",
+          "record": 1220,
+          "rule": "metblk.1",
+          "description": "met1 must not overlap met1Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          68,
+          10
+        ],
+        "definition": [
+          "met1.be{68:10}",
+          "Metal1 blockage layer",
+          "",
+          "Metal 1 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1236": {
+        "record": {
+          "id": "r1236",
+          "record": 1221,
+          "rule": "metblk.3",
+          "description": "0.145 min. spacing of met1Block & met1Routing",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          68,
+          10
+        ],
+        "definition": [
+          "met1.be{68:10}",
+          "Metal1 blockage layer",
+          "",
+          "Metal 1 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1237": {
+        "record": {
+          "id": "r1237",
+          "record": 1222,
+          "rule": "metblk.1",
+          "description": "0.14 min. spacing of met2 & met2Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          69,
+          10
+        ],
+        "definition": [
+          "met2.be{69:10}",
+          "Metal2 blockage layer",
+          "",
+          "Metal 2 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1238": {
+        "record": {
+          "id": "r1238",
+          "record": 1223,
+          "rule": "metblk.1",
+          "description": "met2 must not overlap met2Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          69,
+          10
+        ],
+        "definition": [
+          "met2.be{69:10}",
+          "Metal2 blockage layer",
+          "",
+          "Metal 2 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1239": {
+        "record": {
+          "id": "r1239",
+          "record": 1224,
+          "rule": "metblk.3",
+          "description": "0.145 min. spacing of met2Block & met2Routing",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          69,
+          10
+        ],
+        "definition": [
+          "met2.be{69:10}",
+          "Metal2 blockage layer",
+          "",
+          "Metal 2 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1240": {
+        "record": {
+          "id": "r1240",
+          "record": 1225,
+          "rule": "metblk.1",
+          "description": "0.3 min. spacing of met3 & met3Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          70,
+          10
+        ],
+        "definition": [
+          "met3.be{70:10}",
+          "Metal3 blockage layer",
+          "",
+          "Metal 3 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1241": {
+        "record": {
+          "id": "r1241",
+          "record": 1226,
+          "rule": "metblk.1",
+          "description": "met3 must not overlap met3Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          70,
+          10
+        ],
+        "definition": [
+          "met3.be{70:10}",
+          "Metal3 blockage layer",
+          "",
+          "Metal 3 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1242": {
+        "record": {
+          "id": "r1242",
+          "record": 1227,
+          "rule": "metblk.3",
+          "description": "0.305 min. spacing of met3Block & met3Routing",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          70,
+          10
+        ],
+        "definition": [
+          "met3.be{70:10}",
+          "Metal3 blockage layer",
+          "",
+          "Metal 3 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1243": {
+        "record": {
+          "id": "r1243",
+          "record": 1228,
+          "rule": "metblk.1",
+          "description": "0.3 min. spacing of met4 & met4Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          71,
+          10
+        ],
+        "definition": [
+          "met4.be{71:10}",
+          "Metal4 blockage layer",
+          "",
+          "Metal 4 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1244": {
+        "record": {
+          "id": "r1244",
+          "record": 1229,
+          "rule": "metblk.1",
+          "description": "met4 must not overlap met4Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          71,
+          10
+        ],
+        "definition": [
+          "met4.be{71:10}",
+          "Metal4 blockage layer",
+          "",
+          "Metal 4 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1245": {
+        "record": {
+          "id": "r1245",
+          "record": 1230,
+          "rule": "metblk.3",
+          "description": "0.305 min. spacing of met4Block & met4Routing",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          71,
+          10
+        ],
+        "definition": [
+          "met4.be{71:10}",
+          "Metal4 blockage layer",
+          "",
+          "Metal 4 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1246": {
+        "record": {
+          "id": "r1246",
+          "record": 1231,
+          "rule": "metblk.1",
+          "description": "1.6 min. spacing of met5 & met5Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          72,
+          10
+        ],
+        "definition": [
+          "met5.be{72:10}",
+          "Metal5 blockage layer",
+          "",
+          "Metal 5 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1247": {
+        "record": {
+          "id": "r1247",
+          "record": 1232,
+          "rule": "metblk.1",
+          "description": "met5 must not overlap met5Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          72,
+          10
+        ],
+        "definition": [
+          "met5.be{72:10}",
+          "Metal5 blockage layer",
+          "",
+          "Metal 5 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1248": {
+        "record": {
+          "id": "r1248",
+          "record": 1233,
+          "rule": "metblk.3",
+          "description": "1.605 min. spacing of met5Block & met5Routing",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          72,
+          10
+        ],
+        "definition": [
+          "met5.be{72:10}",
+          "Metal5 blockage layer",
+          "",
+          "Metal 5 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1249": {
+        "record": {
+          "id": "r1249",
+          "record": 1234,
+          "rule": "metblk.2",
+          "description": "0.17 min. spacing of li1 & li1Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          67,
+          10
+        ],
+        "definition": [
+          "li1.be{67:10}",
+          "li1 blockage layer",
+          "",
+          "Li1 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1250": {
+        "record": {
+          "id": "r1250",
+          "record": 1235,
+          "rule": "metblk.2",
+          "description": "li1 must not overlap li1Block",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          67,
+          10
+        ],
+        "definition": [
+          "li1.be{67:10}",
+          "li1 blockage layer",
+          "",
+          "Li1 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r1251": {
+        "record": {
+          "id": "r1251",
+          "record": 1236,
+          "rule": "metblk.4",
+          "description": "0.17 min. spacing of li1Block & li1Routing",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "pair": [
+          67,
+          10
+        ],
+        "definition": [
+          "li1.be{67:10}",
+          "li1 blockage layer",
+          "",
+          "Li1 blockage layer used for IP integration (per CWR 137)",
+          "All",
+          "DRC"
+        ],
+        "proof": "Every raw shape on the mandatory block purpose is counted. Absence only; present blockages stay unreviewed."
+      },
+      "r471": {
+        "record": {
+          "id": "r471",
+          "record": 472,
+          "rule": "nsd.c1a",
+          "description": "0.38 min. width of nsdm (opposite parallel)",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "bound": {
+          "operation": "width",
+          "nm": 380
+        },
+        "proof": "All merged drawn implant widths satisfy 380 nm, including every opposite-parallel subset."
+      },
+      "r487": {
+        "record": {
+          "id": "r487",
+          "record": 488,
+          "rule": "psd.c1a",
+          "description": "0.38 min. width of psdm (opposite parallel)",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "bound": {
+          "operation": "width",
+          "nm": 380
+        },
+        "proof": "All merged drawn implant widths satisfy 380 nm, including every opposite-parallel subset."
+      },
+      "r520": {
+        "record": {
+          "id": "r520",
+          "record": 521,
+          "rule": "poly.c3",
+          "description": "poly.c3: 0.175 min. spacing of poly (except for poly.c2)",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "bound": {
+          "operation": "space",
+          "nm": 210
+        },
+        "proof": "All merged drawn poly spacing and notches satisfy 210 nm; this implies both 175 nm and 160 nm without invoking exceptions."
+      },
+      "r521": {
+        "record": {
+          "id": "r521",
+          "record": 522,
+          "rule": "poly.c2",
+          "description": "poly.c2: 0.160 min. spacing of poly for poly core gap",
+          "periphery_candidates": [],
+          "disposition": "unreviewed",
+          "coverage": "unestablished"
+        },
+        "bound": {
+          "operation": "space",
+          "nm": 210
+        },
+        "proof": "All merged drawn poly spacing and notches satisfy 210 nm; this implies both 175 nm and 160 nm without invoking exceptions."
+      }
+    },
+    "parents": {
+      "poly.X.1": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#1",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 1,
+        "rule": "poly.X.1",
+        "description": "All FETs would be checked for W/Ls as documented in spec 001-02735  (Exempt FETs that are pruned; exempt for W/L's inside :drc_tag:`areaid.sc` and inside cell name scs8*decap* and listed in the MRGA as a decap only W/L)",
+        "flags": [],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.X.1a": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#2",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 2,
+        "rule": "poly.X.1a",
+        "description": "Min & max dummy_poly L is equal to min L allowed for corresponding device type (exempt rule for dummy_poly in cells listed on Table H3)",
+        "flags": [],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.1a": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#3",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 3,
+        "rule": "poly.1a",
+        "description": "Width of poly",
+        "flags": [],
+        "value": "0.150",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.1b": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#4",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 4,
+        "rule": "poly.1b",
+        "description": "Min channel length (poly width) for pfet overlapping lvtn (exempt rule for dummy_poly in cells listed on Table H3)",
+        "flags": [],
+        "value": "0.350",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.2": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#5",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 5,
+        "rule": "poly.2",
+        "description": "Spacing of poly to poly except for poly.c2 and poly.c3; Exempt cell: sr_bltd_eq where it is same as poly.c2",
+        "flags": [],
+        "value": "0.210",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.3": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#6",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 6,
+        "rule": "poly.3",
+        "description": "Min poly resistor width",
+        "flags": [],
+        "value": "0.330",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.4": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#7",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 7,
+        "rule": "poly.4",
+        "description": "Spacing of poly on field to diff (parallel edges only)",
+        "flags": [
+          "P"
+        ],
+        "value": "0.075",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.5": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#8",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 8,
+        "rule": "poly.5",
+        "description": "Spacing of poly on field to tap",
+        "flags": [
+          "P"
+        ],
+        "value": "0.055",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.6": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#9",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 9,
+        "rule": "poly.6",
+        "description": "Spacing of poly on diff to abutting tap (min source)",
+        "flags": [
+          "P"
+        ],
+        "value": "0.300",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.7": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#10",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 10,
+        "rule": "poly.7",
+        "description": "Extension of diff beyond poly (min drain)",
+        "flags": [
+          "P"
+        ],
+        "value": "0.250",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.8": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#11",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 11,
+        "rule": "poly.8",
+        "description": "Extension of poly beyond diffusion (endcap)",
+        "flags": [
+          "P"
+        ],
+        "value": "0.130",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.9": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#12",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 12,
+        "rule": "poly.9",
+        "description": "Poly resistor spacing to poly or spacing (no overlap) to diff/tap",
+        "flags": [],
+        "value": "0.480",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.10": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#13",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 13,
+        "rule": "poly.10",
+        "description": "Poly can't overlap inner corners of diff",
+        "flags": [],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.11": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#14",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 14,
+        "rule": "poly.11",
+        "description": "No 90 deg turns of poly on diff",
+        "flags": [],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.12": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#15",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 15,
+        "rule": "poly.12",
+        "description": "(Poly NOT (nwell NOT hvi)) may not overlap tap; Rule exempted for cell name \"s8fgvr_n_fg2\" and gated_npn and inside UHVI.",
+        "flags": [
+          "P"
+        ],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.15": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#16",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 16,
+        "rule": "poly.15",
+        "description": "Poly must not overlap diff:rs",
+        "flags": [],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "poly.16": {
+        "id": "docs/rules/periphery/p028-poly_dotdash.csv#17",
+        "source": "docs/rules/periphery/p028-poly_dotdash.csv",
+        "source_sha256": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+        "record": 17,
+        "rule": "poly.16",
+        "description": "Inside RF FETs defined in Table H5, poly cannot overlap poly across multiple adjacent instances",
+        "flags": [],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.1": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#1",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 1,
+        "rule": "n/ psd.1",
+        "description": "Width of nsdm(psdm)",
+        "flags": [
+          "P"
+        ],
+        "value": "0.380",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.2": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#2",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 2,
+        "rule": "n/ psd.2",
+        "description": "Spacing of nsdm(psdm) to nsdm(psdm)",
+        "flags": [
+          "P"
+        ],
+        "value": "0.380",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.3": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#3",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 3,
+        "rule": "n/ psd.3",
+        "description": "Manual merge if less than minimum",
+        "flags": [],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.5a": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#4",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 4,
+        "rule": "n/ psd.5a",
+        "description": "Enclosure of diff by nsdm(psdm), except for butting edge",
+        "flags": [],
+        "value": "0.125",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.5b": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#5",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 5,
+        "rule": "n/ psd.5b",
+        "description": "Enclosure of tap by nsdm(psdm), except for butting edge",
+        "flags": [
+          "P"
+        ],
+        "value": "0.125",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.6": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#6",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 6,
+        "rule": "n/ psd.6",
+        "description": "Enclosure of diff/tap butting edge by nsdm (psdm)",
+        "flags": [],
+        "value": "0.000",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.7": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#7",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 7,
+        "rule": "n/ psd.7",
+        "description": "Spacing of NSDM/PSDM to opposite implant diff or tap (for non-abutting diff/tap edges)",
+        "flags": [],
+        "value": "0.130",
+        "unit": "µm",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.8": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#8",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 8,
+        "rule": "n/ psd.8",
+        "description": "Nsdm and psdm cannot overlap diff/tap regions of opposite doping",
+        "flags": [
+          "DE"
+        ],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.9": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#9",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 9,
+        "rule": "n/ psd.9",
+        "description": "Diff and tap must be enclosed by their corresponding implant layers. Rule exempted for\n  - diff inside \"advSeal_6um* OR cuPillarAdvSeal_6um*\" pcell for SKY130P*/SP8P*/SKY130DI-5R-CSMC flows\n  - diff rings around the die at min total L>1000 um and W=0.3 um\n  - gated_npn \n  - :drc_tag:`areaid.zer`.",
+        "flags": [
+          "DE"
+        ],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.10a": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#10",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 10,
+        "rule": "n/ psd.10a",
+        "description": "Min area of Nsdm",
+        "flags": [],
+        "value": "0.265",
+        "unit": "µm²",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.10b": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#11",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 11,
+        "rule": "n/ psd.10b",
+        "description": "Min area of Psdm",
+        "flags": [],
+        "value": "0.255",
+        "unit": "µm²",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "n/ psd.11": {
+        "id": "docs/rules/periphery/p032-n_psd_dotdash.csv#12",
+        "source": "docs/rules/periphery/p032-n_psd_dotdash.csv",
+        "source_sha256": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58",
+        "record": 12,
+        "rule": "n/ psd.11",
+        "description": "Min area of n/psdmHoles",
+        "flags": [],
+        "value": "0.265",
+        "unit": "µm²",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      }
+    },
+    "interpretation": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate."
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "original_gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "original_measurement": {
+        "schema": 1,
+        "recipe": "sky130-conservative-catalog-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+            "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+            "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+          }
+        },
+        "scope": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "counter",
+        "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+        "measurements": {
+          "layers": {
+            "nsdm": {
+              "raw_shapes": 3660,
+              "texts": 0,
+              "components": 360
+            },
+            "psdm": {
+              "raw_shapes": 3660,
+              "texts": 0,
+              "components": 359
+            },
+            "poly": {
+              "raw_shapes": 2065,
+              "texts": 0,
+              "components": 2038
+            }
+          },
+          "bound_findings": {
+            "nsdm": 0,
+            "psdm": 0,
+            "poly": 0
+          },
+          "blockages": {
+            "met1": 0,
+            "met2": 0,
+            "met3": 0,
+            "met4": 0,
+            "met5": 0,
+            "li1": 0
+          }
+        },
+        "rows": [
+          {
+            "id": "r471",
+            "rule": "nsd.c1a",
+            "layer": "nsdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r487",
+            "rule": "psd.c1a",
+            "layer": "psdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r520",
+            "rule": "poly.c3",
+            "layer": "poly",
+            "required_nm": 175,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r521",
+            "rule": "poly.c2",
+            "layer": "poly",
+            "required_nm": 160,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r1234",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1235",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1236",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1237",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1238",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1239",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1240",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1241",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1242",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1243",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1244",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1245",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1246",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1247",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1248",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1249",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1250",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1251",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "conservative-bounds-and-absence-pass"
+      },
+      "original_new_error_decisions": [
+        {
+          "id": "r471",
+          "rule": "nsd.c1a",
+          "layer": "nsdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r487",
+          "rule": "psd.c1a",
+          "layer": "psdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r520",
+          "rule": "poly.c3",
+          "layer": "poly",
+          "required_nm": 175,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r521",
+          "rule": "poly.c2",
+          "layer": "poly",
+          "required_nm": 160,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r1234",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1235",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1236",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1237",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1238",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1239",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1240",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1241",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1242",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1243",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1244",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1245",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1246",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1247",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1248",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1249",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1250",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1251",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        }
+      ],
+      "original_error_counts": {
+        "executed-reviewed": 409,
+        "absent-operand": 586,
+        "unreviewed": 463,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+      "corrected_conservative_bounds": {
+        "schema": 1,
+        "recipe": "sky130-conservative-catalog-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+            "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+            "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+          }
+        },
+        "scope": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "counter",
+        "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+        "measurements": {
+          "layers": {
+            "nsdm": {
+              "raw_shapes": 3660,
+              "texts": 0,
+              "components": 360
+            },
+            "psdm": {
+              "raw_shapes": 3660,
+              "texts": 0,
+              "components": 359
+            },
+            "poly": {
+              "raw_shapes": 2065,
+              "texts": 0,
+              "components": 2038
+            }
+          },
+          "bound_findings": {
+            "nsdm": 0,
+            "psdm": 0,
+            "poly": 0
+          },
+          "blockages": {
+            "met1": 0,
+            "met2": 0,
+            "met3": 0,
+            "met4": 0,
+            "met5": 0,
+            "li1": 0
+          }
+        },
+        "rows": [
+          {
+            "id": "r471",
+            "rule": "nsd.c1a",
+            "layer": "nsdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r487",
+            "rule": "psd.c1a",
+            "layer": "psdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r520",
+            "rule": "poly.c3",
+            "layer": "poly",
+            "required_nm": 175,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r521",
+            "rule": "poly.c2",
+            "layer": "poly",
+            "required_nm": 160,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r1234",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1235",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1236",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1237",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1238",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1239",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1240",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1241",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1242",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1243",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1244",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1245",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1246",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1247",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1248",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1249",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1250",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1251",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "conservative-bounds-and-absence-pass"
+      }
+    },
+    {
+      "case": "uart",
+      "original_gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "original_measurement": {
+        "schema": 1,
+        "recipe": "sky130-conservative-catalog-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+            "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+            "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+          }
+        },
+        "scope": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "uart_tx",
+        "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+        "measurements": {
+          "layers": {
+            "nsdm": {
+              "raw_shapes": 19086,
+              "texts": 0,
+              "components": 1795
+            },
+            "psdm": {
+              "raw_shapes": 19086,
+              "texts": 0,
+              "components": 1795
+            },
+            "poly": {
+              "raw_shapes": 15574,
+              "texts": 0,
+              "components": 15545
+            }
+          },
+          "bound_findings": {
+            "nsdm": 0,
+            "psdm": 0,
+            "poly": 0
+          },
+          "blockages": {
+            "met1": 0,
+            "met2": 0,
+            "met3": 0,
+            "met4": 0,
+            "met5": 0,
+            "li1": 0
+          }
+        },
+        "rows": [
+          {
+            "id": "r471",
+            "rule": "nsd.c1a",
+            "layer": "nsdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r487",
+            "rule": "psd.c1a",
+            "layer": "psdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r520",
+            "rule": "poly.c3",
+            "layer": "poly",
+            "required_nm": 175,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r521",
+            "rule": "poly.c2",
+            "layer": "poly",
+            "required_nm": 160,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r1234",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1235",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1236",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1237",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1238",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1239",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1240",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1241",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1242",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1243",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1244",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1245",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1246",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1247",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1248",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1249",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1250",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1251",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "conservative-bounds-and-absence-pass"
+      },
+      "original_new_error_decisions": [
+        {
+          "id": "r471",
+          "rule": "nsd.c1a",
+          "layer": "nsdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r487",
+          "rule": "psd.c1a",
+          "layer": "psdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r520",
+          "rule": "poly.c3",
+          "layer": "poly",
+          "required_nm": 175,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r521",
+          "rule": "poly.c2",
+          "layer": "poly",
+          "required_nm": 160,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r1234",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1235",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1236",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1237",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1238",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1239",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1240",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1241",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1242",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1243",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1244",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1245",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1246",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1247",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1248",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1249",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1250",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1251",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        }
+      ],
+      "original_error_counts": {
+        "executed-reviewed": 409,
+        "absent-operand": 586,
+        "unreviewed": 463,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+      "corrected_conservative_bounds": {
+        "schema": 1,
+        "recipe": "sky130-conservative-catalog-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+            "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+            "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+          }
+        },
+        "scope": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "uart_tx",
+        "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+        "measurements": {
+          "layers": {
+            "nsdm": {
+              "raw_shapes": 19086,
+              "texts": 0,
+              "components": 1795
+            },
+            "psdm": {
+              "raw_shapes": 19086,
+              "texts": 0,
+              "components": 1795
+            },
+            "poly": {
+              "raw_shapes": 15574,
+              "texts": 0,
+              "components": 15545
+            }
+          },
+          "bound_findings": {
+            "nsdm": 0,
+            "psdm": 0,
+            "poly": 0
+          },
+          "blockages": {
+            "met1": 0,
+            "met2": 0,
+            "met3": 0,
+            "met4": 0,
+            "met5": 0,
+            "li1": 0
+          }
+        },
+        "rows": [
+          {
+            "id": "r471",
+            "rule": "nsd.c1a",
+            "layer": "nsdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r487",
+            "rule": "psd.c1a",
+            "layer": "psdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r520",
+            "rule": "poly.c3",
+            "layer": "poly",
+            "required_nm": 175,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r521",
+            "rule": "poly.c2",
+            "layer": "poly",
+            "required_nm": 160,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r1234",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1235",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1236",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1237",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1238",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1239",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1240",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1241",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1242",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1243",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1244",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1245",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1246",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1247",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1248",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1249",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1250",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1251",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "conservative-bounds-and-absence-pass"
+      }
+    },
+    {
+      "case": "apb",
+      "original_gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "original_measurement": {
+        "schema": 1,
+        "recipe": "sky130-conservative-catalog-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+            "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+            "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+          }
+        },
+        "scope": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "apb_fifo",
+        "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+        "measurements": {
+          "layers": {
+            "nsdm": {
+              "raw_shapes": 18919,
+              "texts": 0,
+              "components": 1795
+            },
+            "psdm": {
+              "raw_shapes": 18919,
+              "texts": 0,
+              "components": 1795
+            },
+            "poly": {
+              "raw_shapes": 15951,
+              "texts": 0,
+              "components": 15868
+            }
+          },
+          "bound_findings": {
+            "nsdm": 0,
+            "psdm": 0,
+            "poly": 0
+          },
+          "blockages": {
+            "met1": 0,
+            "met2": 0,
+            "met3": 0,
+            "met4": 0,
+            "met5": 0,
+            "li1": 0
+          }
+        },
+        "rows": [
+          {
+            "id": "r471",
+            "rule": "nsd.c1a",
+            "layer": "nsdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r487",
+            "rule": "psd.c1a",
+            "layer": "psdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r520",
+            "rule": "poly.c3",
+            "layer": "poly",
+            "required_nm": 175,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r521",
+            "rule": "poly.c2",
+            "layer": "poly",
+            "required_nm": 160,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r1234",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1235",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1236",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1237",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1238",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1239",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1240",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1241",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1242",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1243",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1244",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1245",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1246",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1247",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1248",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1249",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1250",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1251",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "conservative-bounds-and-absence-pass"
+      },
+      "original_new_error_decisions": [
+        {
+          "id": "r471",
+          "rule": "nsd.c1a",
+          "layer": "nsdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r487",
+          "rule": "psd.c1a",
+          "layer": "psdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r520",
+          "rule": "poly.c3",
+          "layer": "poly",
+          "required_nm": 175,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r521",
+          "rule": "poly.c2",
+          "layer": "poly",
+          "required_nm": 160,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r1234",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1235",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1236",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1237",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1238",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1239",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1240",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1241",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1242",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1243",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1244",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1245",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1246",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1247",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1248",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1249",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1250",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1251",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        }
+      ],
+      "original_error_counts": {
+        "executed-reviewed": 409,
+        "absent-operand": 586,
+        "unreviewed": 463,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+      "corrected_conservative_bounds": {
+        "schema": 1,
+        "recipe": "sky130-conservative-catalog-bounds-v1",
+        "source": {
+          "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+          "files": {
+            "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+            "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+            "docs/rules/layers/table-c4b-layer-description.csv": "dcfeb27a76171a67ca6a905bdc6deab0ca4d801f5970a76b1ce90aebb97bb21f",
+            "docs/rules/periphery/p028-poly_dotdash.csv": "fb9fef64f61ae37352e06f35be256735f50550325f54707d331975294824bc24",
+            "docs/rules/periphery/p032-n_psd_dotdash.csv": "b3fdc0a63960d680f398d6fc43684f782b7518bd683a98f450a1d21c9c45bf58"
+          }
+        },
+        "scope": "Four catalog limits are satisfied only when broader drawn-geometry checks pass: all merged NSDM and PSDM widths at least 380 nm, and all merged poly spacing/notches at least 210 nm. No core-gap or opposite-parallel exception is used. A failed sufficient bound is unreviewed, not a claimed violation of the narrower foundry rule. Eighteen IP blockage obligations are absent only when their exact published block purposes contain no raw data. Present blockages remain unreviewed; generated routing operands and hierarchy semantics are not implemented. Generated masks, global grid/density and complete physical coverage remain separate.",
+        "qualified": false,
+        "chunk_complete": false,
+        "top": "apb_fifo",
+        "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+        "measurements": {
+          "layers": {
+            "nsdm": {
+              "raw_shapes": 18919,
+              "texts": 0,
+              "components": 1795
+            },
+            "psdm": {
+              "raw_shapes": 18919,
+              "texts": 0,
+              "components": 1795
+            },
+            "poly": {
+              "raw_shapes": 15951,
+              "texts": 0,
+              "components": 15868
+            }
+          },
+          "bound_findings": {
+            "nsdm": 0,
+            "psdm": 0,
+            "poly": 0
+          },
+          "blockages": {
+            "met1": 0,
+            "met2": 0,
+            "met3": 0,
+            "met4": 0,
+            "met5": 0,
+            "li1": 0
+          }
+        },
+        "rows": [
+          {
+            "id": "r471",
+            "rule": "nsd.c1a",
+            "layer": "nsdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r487",
+            "rule": "psd.c1a",
+            "layer": "psdm",
+            "required_nm": 380,
+            "bound": {
+              "operation": "width",
+              "nm": 380
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r520",
+            "rule": "poly.c3",
+            "layer": "poly",
+            "required_nm": 175,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r521",
+            "rule": "poly.c2",
+            "layer": "poly",
+            "required_nm": 160,
+            "bound": {
+              "operation": "space",
+              "nm": 210
+            },
+            "bound_findings": 0,
+            "disposition": "executed-reviewed"
+          },
+          {
+            "id": "r1234",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1235",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1236",
+            "subject": "met1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1237",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1238",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1239",
+            "subject": "met2_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1240",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1241",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1242",
+            "subject": "met3_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1243",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1244",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1245",
+            "subject": "met4_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1246",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1247",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1248",
+            "subject": "met5_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1249",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1250",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          },
+          {
+            "id": "r1251",
+            "subject": "li1_block",
+            "raw_shapes": 0,
+            "disposition": "absent-operand"
+          }
+        ],
+        "unreviewed": 0,
+        "status": "conservative-bounds-and-absence-pass"
+      }
+    }
+  ],
+  "remaining_original_batches": [
+    {
+      "id": "local_geometry",
+      "count": 1,
+      "ids": [
+        "r900"
+      ]
+    },
+    {
+      "id": "voltage",
+      "count": 0,
+      "ids": []
+    },
+    {
+      "id": "grid",
+      "count": 16,
+      "ids": [
+        "r35",
+        "r36",
+        "r37",
+        "r38",
+        "r39",
+        "r40",
+        "r41",
+        "r42",
+        "r150",
+        "r151",
+        "r152",
+        "r153",
+        "r154",
+        "r155",
+        "r156",
+        "r157"
+      ]
+    },
+    {
+      "id": "device_selection",
+      "count": 77,
+      "ids": [
+        "r396",
+        "r537",
+        "r543",
+        "r544",
+        "r545",
+        "r645",
+        "r646",
+        "r647",
+        "r648",
+        "r649",
+        "r650",
+        "r651",
+        "r652",
+        "r653",
+        "r654",
+        "r655",
+        "r656",
+        "r657",
+        "r658",
+        "r659",
+        "r660",
+        "r661",
+        "r662",
+        "r663",
+        "r664",
+        "r665",
+        "r666",
+        "r667",
+        "r668",
+        "r669",
+        "r670",
+        "r671",
+        "r672",
+        "r673",
+        "r674",
+        "r675",
+        "r676",
+        "r677",
+        "r678",
+        "r679",
+        "r680",
+        "r681",
+        "r682",
+        "r683",
+        "r684",
+        "r685",
+        "r686",
+        "r687",
+        "r688",
+        "r689",
+        "r690",
+        "r691",
+        "r692",
+        "r693",
+        "r694",
+        "r695",
+        "r696",
+        "r697",
+        "r698",
+        "r699",
+        "r700",
+        "r701",
+        "r702",
+        "r703",
+        "r704",
+        "r705",
+        "r908",
+        "r922",
+        "r923",
+        "r924",
+        "r928",
+        "r929",
+        "r930",
+        "r931",
+        "r1047",
+        "r1059",
+        "r1060"
+      ]
+    },
+    {
+      "id": "core_generated",
+      "count": 36,
+      "ids": [
+        "r258",
+        "r411",
+        "r416",
+        "r1024",
+        "r1029",
+        "r1030",
+        "r1031",
+        "r1032",
+        "r1033",
+        "r1034",
+        "r1035",
+        "r1036",
+        "r1038",
+        "r1473",
+        "r1474",
+        "r1475",
+        "r1476",
+        "r1477",
+        "r1478",
+        "r1479",
+        "r1480",
+        "r1481",
+        "r1482",
+        "r1483",
+        "r1484",
+        "r1487",
+        "r1488",
+        "r1489",
+        "r1490",
+        "r1491",
+        "r1492",
+        "r1493",
+        "r1494",
+        "r1495",
+        "r1496",
+        "r1497"
+      ]
+    },
+    {
+      "id": "module",
+      "count": 69,
+      "ids": [
+        "r261",
+        "r262",
+        "r263",
+        "r264",
+        "r265",
+        "r266",
+        "r267",
+        "r268",
+        "r269",
+        "r270",
+        "r271",
+        "r272",
+        "r273",
+        "r274",
+        "r275",
+        "r276",
+        "r277",
+        "r278",
+        "r279",
+        "r280",
+        "r281",
+        "r282",
+        "r283",
+        "r284",
+        "r285",
+        "r286",
+        "r287",
+        "r288",
+        "r289",
+        "r290",
+        "r291",
+        "r292",
+        "r293",
+        "r294",
+        "r295",
+        "r296",
+        "r297",
+        "r298",
+        "r299",
+        "r300",
+        "r301",
+        "r302",
+        "r303",
+        "r304",
+        "r305",
+        "r306",
+        "r307",
+        "r308",
+        "r309",
+        "r310",
+        "r311",
+        "r312",
+        "r313",
+        "r314",
+        "r315",
+        "r316",
+        "r317",
+        "r318",
+        "r319",
+        "r320",
+        "r321",
+        "r322",
+        "r323",
+        "r324",
+        "r325",
+        "r329",
+        "r330",
+        "r378",
+        "r927"
+      ]
+    },
+    {
+      "id": "frame_scribe",
+      "count": 156,
+      "ids": [
+        "r379",
+        "r390",
+        "r392",
+        "r988",
+        "r989",
+        "r990",
+        "r991",
+        "r992",
+        "r993",
+        "r994",
+        "r995",
+        "r996",
+        "r997",
+        "r998",
+        "r999",
+        "r1000",
+        "r1001",
+        "r1002",
+        "r1003",
+        "r1004",
+        "r1005",
+        "r1006",
+        "r1007",
+        "r1008",
+        "r1009",
+        "r1010",
+        "r1011",
+        "r1012",
+        "r1013",
+        "r1014",
+        "r1015",
+        "r1016",
+        "r1017",
+        "r1018",
+        "r1019",
+        "r1020",
+        "r1021",
+        "r1022",
+        "r1023",
+        "r1076",
+        "r1077",
+        "r1078",
+        "r1079",
+        "r1080",
+        "r1081",
+        "r1082",
+        "r1083",
+        "r1084",
+        "r1085",
+        "r1086",
+        "r1087",
+        "r1088",
+        "r1089",
+        "r1090",
+        "r1091",
+        "r1092",
+        "r1093",
+        "r1094",
+        "r1095",
+        "r1096",
+        "r1097",
+        "r1098",
+        "r1099",
+        "r1100",
+        "r1101",
+        "r1102",
+        "r1103",
+        "r1104",
+        "r1105",
+        "r1106",
+        "r1107",
+        "r1108",
+        "r1109",
+        "r1110",
+        "r1111",
+        "r1112",
+        "r1113",
+        "r1114",
+        "r1115",
+        "r1116",
+        "r1117",
+        "r1118",
+        "r1119",
+        "r1120",
+        "r1121",
+        "r1122",
+        "r1123",
+        "r1124",
+        "r1125",
+        "r1126",
+        "r1127",
+        "r1128",
+        "r1129",
+        "r1130",
+        "r1131",
+        "r1376",
+        "r1377",
+        "r1378",
+        "r1379",
+        "r1380",
+        "r1381",
+        "r1382",
+        "r1383",
+        "r1384",
+        "r1385",
+        "r1386",
+        "r1387",
+        "r1388",
+        "r1389",
+        "r1390",
+        "r1391",
+        "r1392",
+        "r1393",
+        "r1394",
+        "r1395",
+        "r1396",
+        "r1397",
+        "r1398",
+        "r1399",
+        "r1400",
+        "r1401",
+        "r1402",
+        "r1403",
+        "r1405",
+        "r1406",
+        "r1436",
+        "r1440",
+        "r1442",
+        "r1445",
+        "r1446",
+        "r1447",
+        "r1448",
+        "r1449",
+        "r1450",
+        "r1451",
+        "r1452",
+        "r1453",
+        "r1454",
+        "r1455",
+        "r1456",
+        "r1457",
+        "r1458",
+        "r1459",
+        "r1460",
+        "r1461",
+        "r1462",
+        "r1463",
+        "r1464",
+        "r1465",
+        "r1466",
+        "r1467",
+        "r1468",
+        "r1469",
+        "r1470",
+        "r1471",
+        "r1472"
+      ]
+    },
+    {
+      "id": "pad_via",
+      "count": 76,
+      "ids": [
+        "r836",
+        "r837",
+        "r838",
+        "r839",
+        "r840",
+        "r841",
+        "r842",
+        "r843",
+        "r844",
+        "r845",
+        "r1208",
+        "r1209",
+        "r1312",
+        "r1313",
+        "r1314",
+        "r1315",
+        "r1316",
+        "r1317",
+        "r1318",
+        "r1319",
+        "r1320",
+        "r1321",
+        "r1322",
+        "r1323",
+        "r1324",
+        "r1325",
+        "r1326",
+        "r1327",
+        "r1328",
+        "r1329",
+        "r1330",
+        "r1331",
+        "r1332",
+        "r1333",
+        "r1334",
+        "r1335",
+        "r1336",
+        "r1337",
+        "r1338",
+        "r1339",
+        "r1340",
+        "r1341",
+        "r1342",
+        "r1343",
+        "r1344",
+        "r1345",
+        "r1346",
+        "r1347",
+        "r1348",
+        "r1349",
+        "r1350",
+        "r1351",
+        "r1352",
+        "r1353",
+        "r1354",
+        "r1355",
+        "r1356",
+        "r1357",
+        "r1358",
+        "r1359",
+        "r1360",
+        "r1361",
+        "r1362",
+        "r1363",
+        "r1364",
+        "r1365",
+        "r1366",
+        "r1367",
+        "r1368",
+        "r1369",
+        "r1370",
+        "r1371",
+        "r1372",
+        "r1373",
+        "r1374",
+        "r1375"
+      ]
+    },
+    {
+      "id": "density_fill",
+      "count": 17,
+      "ids": [
+        "r1256",
+        "r1257",
+        "r1258",
+        "r1259",
+        "r1260",
+        "r1261",
+        "r1262",
+        "r1263",
+        "r1264",
+        "r1265",
+        "r1266",
+        "r1267",
+        "r1268",
+        "r1269",
+        "r1270",
+        "r1271",
+        "r1272"
+      ]
+    },
+    {
+      "id": "connectivity",
+      "count": 7,
+      "ids": [
+        "s11",
+        "s16",
+        "s21",
+        "s26",
+        "s31",
+        "s36",
+        "s41"
+      ]
+    },
+    {
+      "id": "routing_boundary",
+      "count": 8,
+      "ids": [
+        "r1252",
+        "r1253",
+        "r1254",
+        "r1255",
+        "s68",
+        "s69",
+        "s70",
+        "s71"
+      ]
+    }
+  ],
+  "scope": "Four limits are implied by passing stronger all-geometry checks; 18 explicit IP blockage subjects are absent. Failure of a sufficient bound leaves the actual rule unreviewed. Present blockage semantics and generated masks are not implemented. The original catalog retains 463 unreviewed records; chunk 6 remains incomplete."
+}

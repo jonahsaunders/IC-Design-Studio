@@ -201,6 +201,9 @@ class Canvas(DrawingCanvasMixin,GridMixin,EditorCanvasMixin,LabelCanvasMixin,Wir
         from .native_vectors import display_name
         context=symbol_context(device,self.tech)
         context['name']=display_name(device)
+        # Draw the user's designator once. The PDK's simulator prefix belongs
+        # to netlist emission; it is not an additional part of this label.
+        if device.get('model_ref'):context['spiceprefix']=''
         context['symname']=getattr(self,'cell_names',{}).get(device.get('cell'),context.get('symname',''))
         # The inspector retains the full library-qualified model identifier.
         # Its local name is enough on the already-bound symbol drawing.

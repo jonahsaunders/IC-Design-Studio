@@ -1,0 +1,293 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "isolation-integrated-and-reference-application-checks-pass",
+  "qualified": false,
+  "chunk_complete": false,
+  "source_baseline": "3bacf81b44b9bcad039c6ca889626ac67d5c61b0",
+  "source_files": {
+    "icstudio/digital.py": "30fa25fb7132aa8117aa4a964a79fc3b6efdf72667143174d4c7e6e22713375f",
+    "icstudio/digital_apb_example.py": "0eab253a16a2292d6ca32a602f0160ab5f5f531eed7981b3cda1b28714e9c288",
+    "icstudio/digital_backend.py": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6",
+    "icstudio/digital_cli.py": "8d32654db5cdc002926f9de14b7ae0a4d338ccc3dd728f25ea21fa6455fccd83",
+    "icstudio/digital_constraints.py": "9771a358129e78f7b7bd3dc2f08fa8fdc952d191b0f14b8873212945fc7005b6",
+    "icstudio/digital_constraints_ui.py": "a7b3a4f3b428469656d33294960d4d4a390675135b273f3ab9959b9382b42fa1",
+    "icstudio/digital_design.py": "72133fa3394e0b347ebaf81f83041fbeb30557c8e692a8471b9f2c0cb3dc2fad",
+    "icstudio/digital_editor.py": "462152c2fe423643ea203bbf5456fed342e6c33d59498636ea8953a17bfe14bd",
+    "icstudio/digital_examples.py": "9cb9e5cbf0afd01abc329a6dbcbc409680d9ddf6826073ca61297e513de55b25",
+    "icstudio/digital_fill_odb.py": "db29621e29665404d1745bfe7560f1dc82f9edc915ef48e7b2c6748a6024e658",
+    "icstudio/digital_fill_spef.py": "7a813380b0c57a9afe81ae531cb3f9286faf1e223bb8a7fedf107f6cce8662d7",
+    "icstudio/digital_flow.py": "855c59d78a340f09ee6ba484744b1bbd6877527bc492b27227163cc9da07ddfb",
+    "icstudio/digital_gf180_checks.py": "4445f1aeb56a701b9f77286fb49c7889f071f0e2ed6189b4f39d552a70d85a9e",
+    "icstudio/digital_gf180_fill.py": "163062aeb215fcdf05ac20f70d59690297dc4d70b84e692cb602015876f55436",
+    "icstudio/digital_gf180_rules.py": "12d52947ecc97f0b8af975806c1342c9f97d7c67b629b910cd9503e28cd15382",
+    "icstudio/digital_identity.py": "6ffebbc4794916d3aec84d26f33a407d7ab776bc681c76ee793d1fb993792446",
+    "icstudio/digital_ihp_fill.py": "fe90f6d0347b1183b456d4e6f06cf7f241664e21eb970880b4be64bcaf0d1352",
+    "icstudio/digital_ihp_fill_worker.py": "1d8f99775a2ea2b4d31c789c96d218b775a39a15d29fd6d76b3dde9bcf4b783a",
+    "icstudio/digital_ihp_geometry.py": "424adf96b98ef2c0da0044f07ac6013e20d848fc9063180072dfe8a0417b2b96",
+    "icstudio/digital_ihp_inventory.py": "691cd113eee5b342c7351a5ed3d9a9738a89c8b5f96ef972a33facc3373a0b7d",
+    "icstudio/digital_implementation.py": "98b2fe7441c770f7cf7fa9e062eed31ae4fcab37332d5f90f3128ba2e6f2de8e",
+    "icstudio/digital_inspection.py": "b515de8a5d8bba4cddad9a6f993b323933697e23f29195e8f98f4d204c90a6bb",
+    "icstudio/digital_layout.py": "490c6884d012a9f5348e5eef3bdbf25bc5012e9f452cb6926e24fe64d8243265",
+    "icstudio/digital_logic_ui.py": "70492458c40e98498cbe47ebd4fc0a9dbbde8912992601f39050742dcc83a7d8",
+    "icstudio/digital_lsp.py": "1555f1bde82376814d27558ecefa578389b9abe05c491c6e933e12a711c4e67f",
+    "icstudio/digital_lvs_engine.py": "306b50b2b70c0b0e4800273418f30f349f6d6ac7cacff00b5e8f2164c3198332",
+    "icstudio/digital_lvs_reference.py": "63d731488539cf4995f12f2c797f0919e1bea190ec00430a4b84f798307014b7",
+    "icstudio/digital_macro.py": "8effc00c6e73442fe3ea84234d0631a5ad153358e73a431b96ab8b48de734e71",
+    "icstudio/digital_mapping.py": "7890689f3b697c2ddd87e3cd240e4eb7307b99cce323f81b207fc40dd7b5b34d",
+    "icstudio/digital_odb.py": "83c80d8d35e2ac6edded3f022181df6d58d5111d02dca9c3b663d6446bb223cb",
+    "icstudio/digital_physical.py": "6d01df210afab330de1dfcd7281fbc36b38295ac48f7ca85daec12b0439a8cff",
+    "icstudio/digital_physical_checks.py": "b6727b27b061ed86e30666f40f04b0fc3d201577915b5453f7a13cbbf1b829ac",
+    "icstudio/digital_physical_engine.py": "f71d5d2b8d5c87ddb94761b6e27025b7db7235be3c20a6377cfc16cff87d7489",
+    "icstudio/digital_physical_ui.py": "99147597ccaca9ee1021622d4f7bfcafde1a9a66e379f9565fc5699187aee7d4",
+    "icstudio/digital_physical_view.py": "97cb2fd302523d198dfcd0da580c6884a8eb6ecf8402c95aa0a14f1d3053b7ba",
+    "icstudio/digital_planning.py": "73602bd3b1afb0aaab5243b5cbe655bda00de19dd7459713569275303b91a527",
+    "icstudio/digital_platform.py": "116dca61a91e498b91588991bfa211b407ca0023067fb8994b767f0a030866a4",
+    "icstudio/digital_qualification.py": "89995283c03fb8deca5da283e016dd506303efdedf6dabe26e947b26432c9b2e",
+    "icstudio/digital_rc.py": "40cb3cf355e14fe5badcfa45cd761c6c3dbfa69d18d4672e2f7f7fef49387ed4",
+    "icstudio/digital_recipes.py": "c602ef05777f79926d087f1a85523a72f735eadb318adef755f317b9911f51e6",
+    "icstudio/digital_regression.py": "65673f44e8fb586403257696c13fbfaccc2b692ee69e1029e9bb71e30b650f2e",
+    "icstudio/digital_reports.py": "8aed459a5b08b2277884cab51bbe31b9cb3ed35215a58107787e17915102fa14",
+    "icstudio/digital_runtime.py": "62609899c20959ff59d7673b2a801fbff50c6a63247c46798c9669076a5a2c3c",
+    "icstudio/digital_setup_probe.py": "3006e3c327d25f87bb984e4173637926ac32a812b589c725cd950132cb1380f0",
+    "icstudio/digital_setup_ui.py": "cbc4a5e21932d01e5932df27f787518f2ce6c43745a8a5e6fe88a9c1a3884c20",
+    "icstudio/digital_shell.py": "55bf0796bd46e4ed31eb2200d663cf6e5b846174cfcdd5de5d12dd96d6f22b13",
+    "icstudio/digital_sky130_antenna.py": "4222e6a560bf5c52fd1e8df1b9da0ff968de83d9f94f38055b98a1868a9d2fab",
+    "icstudio/digital_sky130_isolation.py": "89797bd6febce88062b2cdb725d1671a2eab907cb3f98507bb08873b42322834",
+    "icstudio/digital_sky130_isolation_lock.py": "36ca48ccfdec02b845bc87758589da6f361c0086522d735c852adfc133c75188",
+    "icstudio/digital_sky130_isolation_worker.py": "c713477c8f46c75c01d8e92e7a000ae13541cff684a5430b3bb69ad64182d56e",
+    "icstudio/digital_sky130_pins.py": "e7bbf52b7c0f3d727c758fe927b134bb23d734712c864eb05f96c68b9d984e63",
+    "icstudio/digital_sky130_pin_inventory.py": "3b2b236c02444d5084104621e93b5632dbf7681d81f691eab0f407022e495249",
+    "icstudio/digital_sky130_rules.py": "3672c5a87a7d2ca218c2685f63e8cc15dcb93060a65a7c3413e021b177c08f3e",
+    "icstudio/digital_sky130_rules_lock.py": "7f4463e6d1f184c649fb7be13c1e0717e538ba46d2efa4b3f40f51badff94fab",
+    "icstudio/digital_sky130_rule_worker.py": "2846309a442f05791d3d707112163305a485e6434b3f0b21d2fe6b1170976595",
+    "icstudio/digital_sky130_scope.py": "9f081c4229441aef29380b44e776d2890c20ec3df316d9a0b9dbfafa2864f95f",
+    "icstudio/digital_tools.py": "d53090a2d97f432899086846d2e2c10cc4d47bc60d78d7e3d51b06091a408660",
+    "icstudio/digital_trace_store.py": "f2b5be9e2c0d131496c707cd08073e9d452cc2ff69570f9dcb933c18b411113f",
+    "icstudio/digital_ui.py": "687e51dd51cddc0b0bf49d20de34f42d95b754cfe9c9e83caf68713c6c52b259",
+    "icstudio/digital_vga.py": "770fba42c61d20b05956b407e4d0152451b5aee377e923b554870ec79d1aef4f",
+    "icstudio/digital_vga_ui.py": "6b0c5f017cba7ecae1b2251fbce588a7477602f83a7d4f8a3117246b3256c649",
+    "icstudio/digital_waveform.py": "a1f48745cdb96e75a9bcab14646621df636272254da9fee45f43820716489ec4",
+    "icstudio/digital_wave_tools.py": "f6ac733f253fd287d1f506d76223cd580c26a63c48e80ee0926c40e10006e8c1",
+    "icstudio/digital_workspace.py": "9eff651934d4ecb602e1fef218d9a543d13b85569f312e9088a1e82311fa9124",
+    "icstudio/engines.py": "50565d2f2077a119fe77b25c79ef79729e3d0e4b3ee5dd4b37eae2c92caceafe",
+    "icstudio/gf180_cdl.py": "3faa3cfeb85d17e10f314def457c79f93371caf7612399a6fef517a715b0e924",
+    "icstudio/gf180_connectivity.py": "957f06a7457ac1d83042d411bb9bbf6d0fb75fa03b70016219dfe6d654713bbe",
+    "icstudio/fill_capacitance.py": "778c22d2e611b9562ad4d0f26c51994071cd03af57de31db6a6b9c3749143d0c",
+    "scripts/sky130_isolation_geometry.py": "7d6f8b1398711553b17f7d8107912438e99a885d228e3ffa22d4774cc2eda99c",
+    "scripts/prepare_sky130_isolation.py": "a4044f8c20d0fe4f1c1b4019614d7ec958f907869f3f282e87a566b2450293d7",
+    "scripts/build_digital_runtime.py": "7c4732c2362bd9ea7cfd880c00798d760329541c84e690682569948791963da4",
+    "packaging/digital/bundle_platforms.py": "db202331a76b29966dbbdf55ad87b0cfb50047c3e0c2ae2f77d93658e9bf2dfd",
+    "packaging/digital/Dockerfile": "3d200f80ab0c3ccf6b1f72083507e8223047129da55002f1d348fd247d126651",
+    "tests/test_sky130_application_isolation.py": "3ee4fa14ef04d596187ba907be193dcec6c3baf344ab25dc057e8f81738429f8"
+  },
+  "systems": {
+    "win32": {
+      "integration": {
+        "status": "PASS",
+        "platform": "win32",
+        "tests": 55,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "elapsed_seconds": 112.63999999999942,
+        "log_sha256": "030be00a9a23dd7979b4925574b0df3a0fe5de52ed560d92e8ec6aacfdc96974"
+      },
+      "compatibility": {
+        "status": "FAIL",
+        "platform": "win32",
+        "tests": 39,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1,
+        "elapsed_seconds": 9.34299999999348,
+        "log_sha256": "3e970b7006580fd3d4e8dcae75af45c586ea49d66d138d9644a882dd3f4ec7d7"
+      },
+      "compatibility_interpretation": "38 passed; one existing native-Linux symlink test skipped",
+      "evidence": {
+        "integration": {
+          "record.json": {
+            "path": "docs/validation/sky130-application-isolation-2026-10-14/win32/integration/record.json",
+            "sha256": "309d8295fd7bb01ff60f2571767d02fd160661d32780bb6e10aafabc6fd23074"
+          },
+          "tests.log": {
+            "path": "docs/validation/sky130-application-isolation-2026-10-14/win32/integration/tests.log",
+            "sha256": "030be00a9a23dd7979b4925574b0df3a0fe5de52ed560d92e8ec6aacfdc96974"
+          }
+        },
+        "compatibility": {
+          "record.json": {
+            "path": "docs/validation/sky130-application-isolation-2026-10-14/win32/compatibility/record.json",
+            "sha256": "959748bcea1b679fc1664994dc5528fc91495ed06f4890379e0b447b380458c1"
+          },
+          "tests.log": {
+            "path": "docs/validation/sky130-application-isolation-2026-10-14/win32/compatibility/tests.log",
+            "sha256": "3e970b7006580fd3d4e8dcae75af45c586ea49d66d138d9644a882dd3f4ec7d7"
+          }
+        }
+      }
+    },
+    "linux": {
+      "integration": {
+        "status": "PASS",
+        "platform": "linux",
+        "tests": 55,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "elapsed_seconds": 87.81189762299996,
+        "log_sha256": "da1cf57f72fea0f494eda2796e80216ae93dde2da67034b2929f63652cf359f6"
+      },
+      "compatibility": {
+        "status": "PASS",
+        "platform": "linux",
+        "tests": 39,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "elapsed_seconds": 3.3686268690000247,
+        "log_sha256": "2b9064cee323e0b7123f9528b98153c7a74ed71157672a30f0be56f9bdeeda93"
+      },
+      "compatibility_interpretation": "39 passed",
+      "evidence": {
+        "integration": {
+          "record.json": {
+            "path": "docs/validation/sky130-application-isolation-2026-10-14/linux/integration/record.json",
+            "sha256": "e80b04193fb826aa761220e37146e55338c3d0581500d80547531bc45a5fe1ec"
+          },
+          "tests.log": {
+            "path": "docs/validation/sky130-application-isolation-2026-10-14/linux/integration/tests.log",
+            "sha256": "da1cf57f72fea0f494eda2796e80216ae93dde2da67034b2929f63652cf359f6"
+          }
+        },
+        "compatibility": {
+          "record.json": {
+            "path": "docs/validation/sky130-application-isolation-2026-10-14/linux/compatibility/record.json",
+            "sha256": "349092c7afa366a31a1becec20388cf4146f25c130a41137ee030c9d83d15e9d"
+          },
+          "tests.log": {
+            "path": "docs/validation/sky130-application-isolation-2026-10-14/linux/compatibility/tests.log",
+            "sha256": "2b9064cee323e0b7123f9528b98153c7a74ed71157672a30f0be56f9bdeeda93"
+          }
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "application_status": "application-checks-and-export-pass",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "isolation_status": "NOT_REQUESTED",
+      "required_control": "FAIL",
+      "measured_noncontained_gates": 1120,
+      "evidence": {
+        "application": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/counter/application.json",
+          "sha256": "bc24c1dab3af5a5da11082ce17c0f723b166dddabeed1c52b900b33315ef33e9"
+        },
+        "isolation": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/counter/isolation.json",
+          "sha256": "f516a0663a0517070238975f720d4146344abe694a20b15310c1af1becfa34b9"
+        },
+        "required-control": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/counter/required-control.json",
+          "sha256": "3c590ed76e09f28ae80038f0c6e93394f37b435c6f6967fd32012eac254cd898"
+        }
+      }
+    },
+    {
+      "case": "uart",
+      "application_status": "application-checks-and-export-pass",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "isolation_status": "NOT_REQUESTED",
+      "required_control": "FAIL",
+      "measured_noncontained_gates": 8500,
+      "evidence": {
+        "application": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/uart/application.json",
+          "sha256": "b27462c2b261cdd675a590c704a01c8c6ecbfa47e11e636158f081c6b53ec13a"
+        },
+        "isolation": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/uart/isolation.json",
+          "sha256": "24eebca1169a94029ae422dd1fc2bfaa1d1bc08bbbc65358bc615150be46aab0"
+        },
+        "required-control": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/uart/required-control.json",
+          "sha256": "ef6c0b92d4720a86fa7431e1160d912d1bbe4e50e4422500ea51a03c60d4444c"
+        }
+      }
+    },
+    {
+      "case": "apb",
+      "application_status": "application-checks-and-export-pass",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "isolation_status": "NOT_REQUESTED",
+      "required_control": "FAIL",
+      "measured_noncontained_gates": 8571,
+      "evidence": {
+        "application": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/apb/application.json",
+          "sha256": "daf345668cd0570ca28f3d1d109e09a15d5095109170cfa98061cead82ac4a7e"
+        },
+        "isolation": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/apb/isolation.json",
+          "sha256": "741d463c76e6aac4479289ded7c5a70fa5ab020b08e5657f5e3374b3d51c8e98"
+        },
+        "required-control": {
+          "path": "docs/validation/sky130-application-isolation-2026-10-14/apb/required-control.json",
+          "sha256": "807dd4cec97f09d484837abbaff93f06b18cab6c5b4569a985ef0ddc99f98d60"
+        }
+      }
+    }
+  ],
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-parent-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-application-isolation-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "521e6aa0401a22453e307143504788f6e6abb9322a03e0292b8ee16253c47818",
+    "bytes": 17483870,
+    "files": 895,
+    "unique_local_blobs": 163,
+    "reused_parent_files": 704,
+    "manifest_sha256": "0b40d7ed2e9a44d500bfc2927c03de3fadf13b72acec5221550de76cd68f6596",
+    "parent": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-with-parent-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-electrical-2026-10-14-v1\\evidence.tar.gz",
+      "sha256": "e473b4d289a92a2dd196512ce20cc2a23ac5a5607715bfcbdeaf83e15e49983d",
+      "bytes": 22598988,
+      "files": 4465,
+      "unique_local_blobs": 727,
+      "reused_parent_files": 3382,
+      "manifest_sha256": "13f0993a6a28af4b28ba242ed45f5cb64bb6a31173243f9291c3d1f9a35f3b11",
+      "parent": {
+        "schema": 1,
+        "status": "readback-verified",
+        "layout": "sha256-addressed-blobs-v1",
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+        "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+        "bytes": 44401516,
+        "files": 842,
+        "unique_blobs": 386,
+        "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+      }
+    }
+  },
+  "scope": "Explicit x.29 policy in prepared SKY130 platforms, physical settings, Finish and export. Actual application entry points on unchanged filled counter/UART/APB plus Windows/Linux worker, failure, export and compatibility tests. Bulk mode is NOT_REQUESTED, never a passing isolation check.",
+  "limitations": [
+    "Nine periphery execution reviews, the undefined x.20 value and outstanding required catalog/density interpretations remain open.",
+    "The existing six-profile ledger and separate nominal timing/equivalence evidence keep their original scope.",
+    "No new placement, extraction, timing, built-runtime installation or foundry acceptance is claimed.",
+    "The Windows compatibility driver labels any skip FAIL. Its log shows 38 passes and one existing Linux-only symlink skip; that test passes on Linux. All 55 integration/regression tests pass without skips on both systems."
+  ],
+  "earlier_attempts": [
+    "The first run exposed invalid-input exception normalization and a UI test method typo. Both were corrected.",
+    "The second run detected a mismatch in the existing captured-input error message. Final sources pass those regression tests."
+  ]
+}

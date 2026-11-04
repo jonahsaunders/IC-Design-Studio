@@ -1,0 +1,13 @@
+{
+  "repository": "google/skywater-pdk-libs-sky130_fd_pr",
+  "commit": "f62031a1be9aefe902d6d54cddd6f59b57627436",
+  "license": "Apache-2.0",
+  "files": {
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "sky130_fd_pr__npn_05v5_W1p00L2p00.model.spice": "3263f5585abd00131564ab65a33da1f20660619a81aceb4e3212b62d95adcc33",
+    "sky130_fd_pr__npn_05v5__t.corner.spice": "69583cf1827826ed0f91f9e775e17dc3d23d70caa6e4a4c766bb433f47d6d8e0",
+    "sky130_fd_pr__npn_05v5__s.corner.spice": "8aa8e893fde54044f70bb1c5fad7ffdee9c3738b3370e97a05c85eadaea081ba",
+    "sky130_fd_pr__npn_05v5__f.corner.spice": "8150c2134c0ff3e9b7b190280d32a48d5451ceaa1dea62def6966ce42e7f8f3a"
+  },
+  "scope": "Unmodified public NPN corner sources and model retained to verify the exact bundled deterministic model coefficients; no extra bipolar model is enabled by their presence."
+}

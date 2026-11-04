@@ -1,0 +1,298 @@
+{
+  "schema": 1,
+  "date": "2026-11-02",
+  "status": "PASS_SOURCE_ORDINARY_CATALOG_REFERENCE",
+  "base_commit": "09c671c2be1cc473dd57e89b8a50cdf53454fcb3",
+  "scope": "Ordinary freshly placed IHP cap_cmim reference integration through the selected real physical checker; immutable finite source acceptance, not installed or whole-family qualification.",
+  "reproduced_before_fix": {
+    "cases": 2,
+    "routes": [
+      "magic",
+      "ihp-klayout"
+    ],
+    "geometry_passes": true,
+    "lvs_fails": true,
+    "source": "Published 09c application code and recorded predecessor source manifest",
+    "magic_cause": "Simulation-only mm_ok property mismatch",
+    "public_cause": "X/C class and pin mismatch with missing A/P"
+  },
+  "repair": {
+    "simulation_bytes_unchanged": true,
+    "magic": "Retain X and remove only source-defined literal Boolean mm_ok from physical comparison; no KLayout reader dependency.",
+    "public": "Use C; derive per-unit A=w*l and P=2*(w+l) from validated schematic dimensions; preserve ordered electrodes and m separately.",
+    "already_C": "Validate existing C and supplied A/P; compatible with public KLayout only.",
+    "source_binding": "Pinned unique catalog interface, symbol, model and public reader identities checked; unchanged references still retain proof.",
+    "strict_rules_and_tolerances_unchanged": true
+  },
+  "package": {
+    "id": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "native_source_selection": {
+    "contexts": 9,
+    "default_7um_magic": 1,
+    "default_7um_public_rotations": [
+      0,
+      90
+    ],
+    "retained_complete_boundary": 6,
+    "all_strict_lvs_pass": true,
+    "expected_oversize_MIM_g_failures": 2,
+    "complete_geometry_inputs_unchanged": true,
+    "source_files_unchanged": 6902,
+    "runtime_before_after_sha256": "58e3506350b6652ddee1ffe768fcc3255c0bd560c5f59d3dc745545b3ebd78f4",
+    "actual_source_desktop_current_result": true,
+    "selected_zero_finding_contexts": 7
+  },
+  "fault_controls": {
+    "native": {
+      "wrong-width": "Completed native property-error comparison with clean DRC.",
+      "swapped-reference": "Completed native top-level pin matching failure.",
+      "missing-contacts": "Completed unfiltered extraction loses the physical top port.",
+      "plate-short": "Completed unfiltered extraction merges both electrodes."
+    },
+    "malformed_reference_preflight": [
+      "unknown-property",
+      "duplicate-selector",
+      "contradictory-area"
+    ],
+    "independent_raw_circuit_mutations": [
+      "area",
+      "perimeter",
+      "multiplicity",
+      "terminals"
+    ],
+    "independent_source_controls": 30
+  },
+  "independent_review": {
+    "native_files": 2425,
+    "native_bytes": 135136497,
+    "raw_circuits_and_XML_and_written_masks_rechecked": true,
+    "source_baseline_failures_independently_confirmed": true,
+    "GUI_visually_reviewed": true,
+    "GUI_scope": "Readable current PASSED and MIM.g executed status; lower stage rows checked from retained text rather than claiming all rows visually fit.",
+    "windows_managed_captured_files": 1276,
+    "windows_managed_native_artifacts": 203
+  },
+  "regression": {
+    "windows": {
+      "tests": 153,
+      "skips": 8,
+      "source_files": 6592,
+      "source_unchanged": true
+    },
+    "linux": {
+      "tests": 153,
+      "skips": 6,
+      "source_files": 6902,
+      "source_unchanged": true
+    },
+    "initial_windows_harness_failure": "Missing tests directory in PYTHONPATH; retained first failure, corrected identical-source rerun.",
+    "initial_advisor_reader_failure": "Top header order was initially overconstrained; corrected to named-set equivalence while preserving strict device electrode order, original reader retained."
+  },
+  "source_files": {
+    "icstudio/native_spice.py": "5d4a3ae9ee4b92c851bf964b2c33bbd116c682d036428496d8008515efcdecc6",
+    "icstudio/catalog_migration.py": "7e57219168ff8ebc8d2754dda8be67dbe34ccdcc474bdeaa107012802c55cb57",
+    "icstudio/layout_verification.py": "7401ec385967d8adfa2cfb4b324d6c69904ee3b49ae3d92efd585ec070bfb0a8",
+    "scripts/ci_feedback.py": "fe325b9ec028cdbf929d65dc662e551223ccfe07c13ca2e5b5960b4d8b4a2f27",
+    "scripts/qualify_ihp_cmim_reference.py": "0dc24fcc1a4c226dee0cc3e533a0c77fff583753041af431acd66d730a54bc19",
+    "tests/test_ihp_cmim_lvs_reference.py": "682c917f48537300484de93967779a61f5aea9627955f41d084f8d8490218e90"
+  },
+  "receipts": {
+    "repair-source-manifest.json": "c0fb4eec686317724ff77ba48a9d51bdd3dd96651611e1866427044d09be2bd9",
+    "baseline-result.json": "f4216e3a9476d501487c1143b389f63654a025bafe166b91e4783e88caf036e5",
+    "baseline-report.json": "7c44d44580722e64125cceaf6652e66951f8f412c9be5d56051668c630e6202f",
+    "baseline-files.json": "ae3c3647b6f79d08247f8d9a303fac42b12a64e829cfef1021ebbea153597ca3",
+    "advisor-baseline-review.json": "a7172d9fc3d621c6aa410c79aadf4c810c728fa70fdcfe75ad1ffad5d057857c",
+    "advisor-bridge-controls-v2.json": "69110c7ad714cc20596ea1e22f4c728c9b4d1ceb07db1d9092e07210cfffd15f",
+    "repair-result.json": "4fbb2cd1b4d1e49a79eb6fcea1e7fd8f5d504789916fe7548d153b6cab17674a",
+    "repair-report.json": "02e3fa02e002ac9b1672db42d416595376fa4b5fe8fce8b335017aec4da3bea2",
+    "repair-native-review-verification.json": "dcc55d61b90aa952fa3974839e73501f159b2aedfabcddcaea11527ddf3d5280",
+    "advisor-native-review-v2.json": "63e63efd003eea82e01e9b5327feceaac26b2bd60ff2a7a077016e304d5de8dd",
+    "windows-regression-v1/result.json": "d68affaee5e187f46fa9286f8008650940249992e089914d0114b797c1fa72fd",
+    "windows-regression-v2/result.json": "ff6f2096932c2499177ce79230efddacb294a342f38d4f91fcf3f027caef29c0",
+    "linux-regression-result.json": "d532febf30952f4bf31acea5c3a93a9d33da1f3ed91dbdd29e085e8da8d2d878",
+    "native-retention.json": "d12d8d1f4d6fc8f197aa57719bd8192264f84ba708bd521e616f977873eb1800",
+    "windows-managed-cmim-v1-result.json": "5804c8d43a6727eaa2ccf59c5697af1027ee9e7595be55dae2d477c767aa0b5f",
+    "windows-managed-cmim-v1/files.json": "a8f0e8d922570d3a3c4091209be4094e9d54971ef5fe5663fd4c728e4a82e676",
+    "run_windows_managed_cmim.py": "3a795452b0185414517a8146a27d29525338e15802dfc73f96819cad6376fa88",
+    "advisor-managed-review-v1.json": "2f3acaa8843672e74ca0ffa2cc9a6977e1136294247c3f4b016b6b1bd7401800",
+    "advisor-final-review.json": "b4300cf03e3a0efb2e1b9621df67f10a85dad19f22ef266aa52cb54f01eee8be",
+    "advisor-retention-review.json": "85137ed157c7eddbff2fc6944923e397be7483f92a268ea6d122d4ecf4324c96",
+    "review-retention.json": "875123528f96cfcac1a2af9f397062d5f9b8055821d0d4544a2f4e78db7214d1"
+  },
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/ihp-cmim-catalog-reference-2026-11-02-v1",
+    "native_qualification": {
+      "files": 2426,
+      "sha256": "495ee8b7771c8df0f00c8b4b994e48d4dbcf18a8734a1b25cb9c8b423136e6a7",
+      "bytes": 15026547,
+      "all_digests_verified": true,
+      "crc_verified": true
+    },
+    "native_source_delta": {
+      "status": "PASS_FULL_RESTORED_READBACK",
+      "scope": "Retain and restore exact source, baseline, and Linux regression bytes.\n\nUses an independently verified content-addressed predecessor and a delta ZIP.\nNo original input is removed or modified. Run as the ordinary WSL user.\n",
+      "qualified": false,
+      "archive": "native-source-delta-v1.zip",
+      "archive_sha256": "4a8ef2760a147d28bfe7f1c5572dd93ca7bc42e8e98bf474645cc8ce7063ca35",
+      "archive_bytes": 904162,
+      "manifest_sha256": "32407fd6e9fc33468f6cd44432db7f09170712638f07f35e787d7a5d8afe3e93",
+      "predecessor_sha256": "e0bcff69bf17586e2db8fbd319b75287cfbeab530e5ac5c804f570fbf4d72136",
+      "source_manifest_sha256": "c0fb4eec686317724ff77ba48a9d51bdd3dd96651611e1866427044d09be2bd9",
+      "native_qualification_sha256": "495ee8b7771c8df0f00c8b4b994e48d4dbcf18a8734a1b25cb9c8b423136e6a7",
+      "logical_files": 7132,
+      "logical_bytes": 326609321,
+      "unique_objects": 5718,
+      "reused_objects": 5652,
+      "delta_objects": 66,
+      "restored_root": "/var/tmp/icstudio-cmim-reference-retained-restore-20261102-v1",
+      "all_restored_files_verified": true,
+      "originals_unchanged": true,
+      "seconds": 8.8350713539985,
+      "helper_sha256": "b2de54d8a8b446919c7265a91d08ec058f47be16ff19107cde5d2be3edb27b3c"
+    },
+    "review": {
+      "status": "PASS_FULL_READBACK",
+      "archive": "review-evidence-v1.zip",
+      "sha256": "db6c0faceeb810a04febe9012e4dc475969517b85da92cb086ac65a652113502",
+      "bytes": 10283583,
+      "files": 1381,
+      "logical_bytes": 37117518,
+      "manifest_sha256": "42e31223c1fbe5e5dbe5fb8a7e6dc261ba41027d67f33daa946a0ebdf44f7358",
+      "all_crc_and_sha256_verified": true,
+      "originals_unchanged": true
+    }
+  },
+  "unresolved_bindings": {
+    "count": 4,
+    "items": [
+      "SKY130 unsuffixed fixed-layout VPP",
+      "IHP bondpad",
+      "IHP inductor",
+      "IHP inductor3"
+    ],
+    "review_scope": "Bounded public primary-source inspection; no exact compatible electrical binding established, no exhaustive absence claim and no substitution made.",
+    "review_receipts": {
+      "ihp-binding-and-envelope-review.json": "7229f62361edac7972390f74eacf9010c6fe85694b6e3c80ff63cf71a4e6079e",
+      "vpp-source-review/review.json": "546998c4c7e8d651c069f2742b1a7a6dfca41e585044891c20dc14d197d313f5"
+    }
+  },
+  "limits": [
+    "Source-only integration. Exact new frozen Windows/Linux installed workflows remain unqualified.",
+    "A checked physical representation does not establish a continuous electrical geometry, bias, temperature, frequency, reliability or calibrated statistical envelope.",
+    "Imported complete 75 um geometry does not qualify the default PCell outside its recorded limits; no generator limits changed.",
+    "Positive fractional electrical multiplicity preservation is not fractional physical-copy qualification.",
+    "Explicit C references require public KLayout; automatic C-to-X conversion is not supported.",
+    "Plate/interconnect PEX, other physical classes and other device families remain separate.",
+    "Four required electrical bindings and applicable family requirements remain open."
+  ],
+  "family_status": "partial",
+  "matrix_device_status_promoted": false,
+  "installed_acceptance": false,
+  "full_family_acceptance": false,
+  "chunk_complete": false,
+  "windows_managed_source": {
+    "scope": "Two explicit Windows source-backend jobs using an existing verified WSL runtime.\n\nThe old setup receipt is never rewritten. Its old backend identity is reported\nas stale; this deliberately selected source-runtime reuse is not normal setup\nreadiness, installed-app acceptance, or a new runtime installation.\n",
+    "status": "PASS_WINDOWS_MANAGED_SOURCE_BACKEND",
+    "source_files_unchanged": 2820,
+    "runtime_identity_before": {
+      "sha256": "3f4275776fcb73d658265577dd0f5840171b5711fdb21cd1e675ed80a13c9f38",
+      "files_sha256": "90d30c7e15f20fbcbe83579a59d38b41f08a42a0c3123cdf2a4a5d12c9a9a501",
+      "manifest": "f7cb559e6e88d2e775e675bd5607a31df35223eb50aeb300b37840455fec6e7d"
+    },
+    "runtime_identity_unchanged": true,
+    "ready_record_unchanged": true,
+    "normal_setup_readiness": false,
+    "observed_setup_status": {
+      "state": "setup",
+      "message": "The digital runtime changed. Run setup again."
+    },
+    "cases": [
+      {
+        "route": "magic",
+        "status": "PASS_MANAGED_SOURCE",
+        "native_stages": 6,
+        "native_artifact_files": 25,
+        "simulation_statement_unchanged": true
+      },
+      {
+        "route": "ihp-klayout",
+        "status": "PASS_MANAGED_SOURCE",
+        "native_stages": 6,
+        "native_artifact_files": 178,
+        "simulation_statement_unchanged": true
+      }
+    ]
+  },
+  "desktop_acceptance_at_snapshot": {
+    "checked_at_utc": "2026-11-03 00:28:17 UTC",
+    "run_id": 41526912766,
+    "candidate": "cbf97057b9bda6121c9a00f501226f0ee81e5e06",
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41526912766",
+    "jobs": [
+      {
+        "id": 125556897177,
+        "name": "candidate",
+        "status": "completed",
+        "conclusion": "success",
+        "step": []
+      },
+      {
+        "id": 125557015221,
+        "name": "release-tools (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success",
+        "step": []
+      },
+      {
+        "id": 125557015225,
+        "name": "release-tools (windows-2022)",
+        "status": "completed",
+        "conclusion": "success",
+        "step": []
+      },
+      {
+        "id": 125557016096,
+        "name": "digital-runtime / candidate",
+        "status": "completed",
+        "conclusion": "success",
+        "step": []
+      },
+      {
+        "id": 125557210300,
+        "name": "digital-runtime / runtime",
+        "status": "completed",
+        "conclusion": "success",
+        "step": []
+      },
+      {
+        "id": 125562694695,
+        "name": "package (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success",
+        "step": []
+      },
+      {
+        "id": 125562694921,
+        "name": "package (windows-2022)",
+        "status": "in_progress",
+        "conclusion": null,
+        "step": [
+          "Build Windows installer"
+        ]
+      }
+    ]
+  },
+  "engineering_estimate": {
+    "chunk": 7,
+    "approximate_percent": 72,
+    "confidence": "low",
+    "uncertainty_percent": [
+      55,
+      80
+    ],
+    "basis": "Coarse reassessment after closing ordinary catalog reference failures through both actual Linux and Windows source routes; not a fraction of tests, devices or foundry signoff requirements."
+  }
+}

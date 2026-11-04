@@ -1,0 +1,9 @@
+# IHP cmim project-local source linkage
+
+This finite source experiment connects a saved application capacitor to a previously extracted 7 µm × 7 µm `cap_cmim` device and a separately constructed literal reference. It covers two physical rotations, the three distinct `cap_typ`, `cap_bcs`, and `cap_wcs` model sections, and independent excitation at each terminal: 12 contexts and 60 simulator executions. The fixture uses a project-local technology mapping that leaves every non-capacitor model at its existing nominal section. It does not establish a shipped global corner selector.
+
+All application and extracted-network terminal currents matched the literal reference within the retained 1e-15 A absolute plus 1e-6 relative limits. A source-derived complex admittance check also passed; its largest normalized error was 0.00920006. Both width and disconnected-drive controls were detected in every context. An independent reviewer replayed the complete 12-context readback. Separately, a positive copy and 24 rehashed corruption controls exercised the same reader using the retained one-context pilot.
+
+The native Linux source run used corrected ngspice 47 and six pinned IHP OSDI modules. The retained extraction is a device extraction, not parasitic extraction. These results do not establish installed behavior, Windows managed-backend behavior, the full device family, an operating envelope, or foundry qualification. The current tolerance cannot independently calibrate the model's 55 mΩ series resistance; its source and deck identity are checked instead.
+
+The complete evidence, including raw results, source and runtime identities, controls, and independent review, is retained at `IC-Design-Studio-evidence/ihp-cmim-project-local-source-2026-10-30-v1/source-evidence-v2.zip`, SHA-256 `9c083fa8c2a8d725d68c4959ca684edb6dba1e9008ad8139fd518236e201aa64`. Its content-addressed inventory and all 442 objects were verified.

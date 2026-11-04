@@ -1,0 +1,7 @@
+Unmodified public model documentation and characterization tables.
+SkyWater: Copyright 2020 The SkyWater PDK Authors.
+GlobalFoundries: Copyright 2022 GlobalFoundries PDK Authors.
+These files retain their Apache-2.0 licenses (sky130-LICENSE and gf180-LICENSE).
+Exact upstream paths, revisions and checksums are in sources.json.
+Local filenames were shortened; contents are unchanged.
+The application qualification runner is separate GPL-3.0 project code.

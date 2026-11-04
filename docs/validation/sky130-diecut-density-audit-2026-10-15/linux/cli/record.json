@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "platform": "linux",
+  "driver_sha256": "286299f63c8c0c1072312956012387de2e14f50f8ec61d3040069ed352a5ff52",
+  "cases": [
+    {
+      "case": "threshold-pass",
+      "returncode": 2,
+      "gds_sha256": "7a123ab8206537b03f9fc23955ccde1b5e7f7958c1f573fb53d3f92b7c20939c",
+      "report_sha256": "b2e998e5cfcb188838cb7b60561102c8aa71ad1705f2d6bafcc2a21a96a05f4e",
+      "triggered_observations": 0
+    },
+    {
+      "case": "threshold-finding",
+      "returncode": 2,
+      "gds_sha256": "2b37b1b97f117aec897e28806c6ba28529a8a2f2660352736b4f4d20a940e3d1",
+      "report_sha256": "dad656aaf069c14c0d88a63eacf9ff4237c7199f68472c77acba789fd59c523c",
+      "triggered_observations": 1
+    }
+  ],
+  "invalid_window_rejected": true
+}

@@ -1,0 +1,994 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "chunk": 7,
+  "chunk_complete": false,
+  "status": "sky130_hosted_repair_passed_windows_locale_fixture_repair_verified_locally",
+  "source_baseline": "bcdf4701368fb8632bb9c3bc7bb298e18e142a40",
+  "problem": "The pinned physical adapter recipe rescanned its inputs with a newer importer. New fixed-geometry and LI bindings changed the historical manifest, stopping all nine physical stages and Linux packaged acceptance.",
+  "repair": "Retain the original manifest, verify it against the unchanged qualification lock, and verify all source files before copying and again during copy. Current imported/default packages keep their newer mappings. Run the regression in the fast CI gate and rebuild the physical input before expensive release stages.",
+  "hosted_failures": {
+    "physical_run": 39074371001,
+    "desktop_run": 39074371033,
+    "physical_stages": 9,
+    "linux_desktop": "Same manifest mismatch after core tests passed.",
+    "windows_desktop": "Core tests passed. GitHub reports hosted runner lost communication during frozen digital acceptance. Cause remains undetermined; not claimed fixed by this repair."
+  },
+  "reproduction": {
+    "reproduced_before": "The generated adapter differs from the committed qualification lock.",
+    "base": {
+      "id": "sky130A",
+      "revision": "9a491f0ebd51a0aa",
+      "manifest_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+      "files": 441,
+      "all_files_verified": 441
+    },
+    "bipolar": {
+      "id": "sky130A",
+      "revision": "c74642ffb94da796",
+      "manifest_sha256": "84e80df44532a2311a84b438fac62b15afc652c1b774b94ec73229207a21981e",
+      "files": 442,
+      "all_files_verified": 442
+    },
+    "inverter": {
+      "exit": 0
+    },
+    "boundaries": {
+      "exit": 0
+    },
+    "bipolar-checks": {
+      "exit": 0
+    }
+  },
+  "tests": {
+    "Windows": {
+      "count": 68,
+      "status": "PASS",
+      "log_sha256": "f973e47966009971b789d778aec35da46f11a073209075c00b96270478e6a52d"
+    },
+    "Linux": {
+      "count": 68,
+      "status": "PASS",
+      "log_sha256": "85b1fe77f29a653d4b307748ee1680f942625a8064973e81ad1d44ccc9383a6d"
+    }
+  },
+  "physical_checks": {
+    "inverter": {
+      "status": "passed",
+      "report_sha256": "ef7dd6d0ec022f07661f714b74e32477b66eae9907546f231de3573f77b7e52f",
+      "cases": [
+        {
+          "name": "nominal",
+          "expected_failure_stage": null,
+          "design_hash": "ee053d490130a66ef309101782a1558afc8c16ffe9e27c4ca99dd122f60163dd",
+          "status": "passed",
+          "native_terminal_findings": [],
+          "engine_report": "nominal/report.json"
+        },
+        {
+          "name": "narrow-metal",
+          "expected_failure_stage": "drc",
+          "design_hash": "0d079dfe8498a15385a765ff7fcc75fde15171af4c97f1c33771f15f95ed63ad",
+          "status": "passed",
+          "native_terminal_findings": [],
+          "engine_report": "narrow-metal/report.json"
+        },
+        {
+          "name": "route-open",
+          "expected_failure_stage": "lvs",
+          "design_hash": "e4392eda596c52dc36aa2a47e8c950400846336cabb070542e8f7888ebbc1952",
+          "status": "passed",
+          "native_terminal_findings": [
+            "LVS.OPEN"
+          ],
+          "engine_report": "route-open/report.json"
+        },
+        {
+          "name": "wrong-channel-length",
+          "expected_failure_stage": "lvs",
+          "design_hash": "cebe0653a87dcf5a44e35f4c8b5cc82c6208229cdf614d712ff1a6b098570d10",
+          "status": "passed",
+          "native_terminal_findings": [],
+          "engine_report": "wrong-channel-length/report.json"
+        }
+      ]
+    },
+    "boundaries": {
+      "status": "passed",
+      "report_sha256": "90defc76c4e44d087faf75373e78de3cc9e9c21ed2f2a6ca435d807c00920778",
+      "cases": [
+        {
+          "name": "prerequisites",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "width_nm": 140,
+            "spacing_nm": 140
+          },
+          "elapsed_seconds": 0.014
+        },
+        {
+          "name": "width-135nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "failed",
+            "input_sha256": "a29c89c299f4ac34c148b7a2fef042625be845eae0e509bf7675fb9062991661",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "failed",
+              "count": 1,
+              "rules": {
+                "Metal1 width < 28 (met1.1)": 1
+              },
+              "findings": [
+                {
+                  "rule": "Metal1 width < 28 (met1.1)",
+                  "box": [
+                    27.0,
+                    0.0,
+                    28.0,
+                    400.0
+                  ]
+                }
+              ],
+              "coordinate_unit_um": 0.004999999888241291
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated"
+            ]
+          },
+          "elapsed_seconds": 0.344
+        },
+        {
+          "name": "width-140nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "passed",
+            "input_sha256": "cb07dcd89079ce309a2883876934a7a3d8263e71d2d54501a333cde8d69349a4",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "passed",
+              "count": 0,
+              "rules": {},
+              "findings": [],
+              "coordinate_unit_um": 0.009999999776482582
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated",
+              "No errors found."
+            ]
+          },
+          "elapsed_seconds": 0.291
+        },
+        {
+          "name": "width-145nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "passed",
+            "input_sha256": "411b18bdb8dd20f8671ad17f970c61e3fd148d8b176afc68eeb89edbeb42d68f",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "passed",
+              "count": 0,
+              "rules": {},
+              "findings": [],
+              "coordinate_unit_um": 0.004999999888241291
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated",
+              "No errors found."
+            ]
+          },
+          "elapsed_seconds": 0.297
+        },
+        {
+          "name": "spacing-135nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "failed",
+            "input_sha256": "4f2be6415f60a850062e16f4ec26e0573c2bf91c22fd8609a819ea02ef8a06ae",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "failed",
+              "count": 2,
+              "rules": {
+                "Metal1 spacing < 28 (met1.2)": 2
+              },
+              "findings": [
+                {
+                  "rule": "Metal1 spacing < 28 (met1.2)",
+                  "box": [
+                    127.0,
+                    0.0,
+                    128.0,
+                    400.0
+                  ]
+                },
+                {
+                  "rule": "Metal1 spacing < 28 (met1.2)",
+                  "box": [
+                    99.0,
+                    0.0,
+                    100.0,
+                    400.0
+                  ]
+                }
+              ],
+              "coordinate_unit_um": 0.004999999888241291
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated"
+            ]
+          },
+          "elapsed_seconds": 0.296
+        },
+        {
+          "name": "spacing-140nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "passed",
+            "input_sha256": "90542d938c4f8037270b5e1c46d32c10a8d85c1469b3c1ee2514207babc8b886",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "passed",
+              "count": 0,
+              "rules": {},
+              "findings": [],
+              "coordinate_unit_um": 0.009999999776482582
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated",
+              "No errors found."
+            ]
+          },
+          "elapsed_seconds": 0.283
+        },
+        {
+          "name": "spacing-145nm",
+          "required": true,
+          "status": "passed",
+          "details": {
+            "expected_design_drc": "passed",
+            "input_sha256": "c3c300899279641d7ae632404f68a9646cff116f0356f7ef4be2a19768c4006d",
+            "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+            "extracted_sha256": null,
+            "input_style": null,
+            "stream_pin_contract": null,
+            "demoted_nonpin_labels": [],
+            "drc": {
+              "status": "passed",
+              "count": 0,
+              "rules": {},
+              "findings": [],
+              "coordinate_unit_um": 0.004999999888241291
+            },
+            "conversion_feedback": "",
+            "diagnostics": [
+              "WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]",
+              "Warning: Calma reading is not undoable!  I hope that's OK.",
+              "CIF file read warning: Input off lambda grid by 1/2; grid redefined.",
+              "Warning:  snap setting is also changing units.  This usage is deprecated",
+              "No errors found."
+            ]
+          },
+          "elapsed_seconds": 0.302
+        }
+      ]
+    },
+    "bipolar-checks": {
+      "status": "passed",
+      "report_sha256": "6a6010e482fe68edf64d3b936ff6323e6df99a0d34ba4a9f6507a87ebab80f67",
+      "cases": [
+        {
+          "name": "m1",
+          "status": "passed",
+          "drc_count": 0,
+          "lvs_matched": true,
+          "expected_failure": null,
+          "extracted_sha256": "2328ccbb2d307d97ed6a91d74c180f0858702b04ad91bfee927b9e1f16ed826e",
+          "lvs_log_sha256": "5fae9c3f1bbce0eb43eba203592468127739a862683751b09c9ab034f76bd9b2"
+        },
+        {
+          "name": "m2",
+          "status": "passed",
+          "drc_count": 0,
+          "lvs_matched": true,
+          "expected_failure": null,
+          "extracted_sha256": "bee7ae90bec30b710ae20af50eeeb1ca60bf47626be1c343ff56d4081177f89d",
+          "lvs_log_sha256": "c73a1647e0d19aac71bb6e3e574f20ec862197a36a8762bf9fc2714c90f1c97e"
+        },
+        {
+          "name": "m16",
+          "status": "passed",
+          "drc_count": 0,
+          "lvs_matched": true,
+          "expected_failure": null,
+          "extracted_sha256": "97f3a088bcc62118929ff3aec596190fd4fbf3c4d7cc7d05e3b49cc8799548ae",
+          "lvs_log_sha256": "4cbe7086ec10b373b40a82ba519960f5e7162eb3ebd6bcf518a2c317740172a4"
+        },
+        {
+          "name": "wrong-emitter",
+          "status": "passed",
+          "drc_count": 1,
+          "lvs_matched": false,
+          "expected_failure": "lvs",
+          "extracted_sha256": "de8037b9d164669949f28ffab100cb60764ac4b5360ccb20afd493089a30d74e",
+          "lvs_log_sha256": "32495e47c24f76102c8f0d192f2738c93726528cef51446c2380a1e6cd45a6a0"
+        }
+      ]
+    }
+  },
+  "source_files": {
+    "scripts/prepare_sky130_qualification.py": "0ccfd8f6e2e9b3add864b5a0de44039e82e6af7f9b6baeb7af7d6243cb3cb83b",
+    "tests/test_sky130_qualification_package.py": "98a1fe597684bb6191961254a592783f9ba4ed3e48ba5753db22be15b849b23a",
+    "icstudio/assets/qualification/sky130-physical-v1/package.json": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417",
+    ".github/workflows/build-desktop.yml": "61b0eddb39e5ed1ea8409c3954dcab5d66c4e245d3233810735a0ac96ce8ae0e"
+  },
+  "limits": [
+    "Hosted status is the timestamped snapshot; pending checks are not treated as passes.",
+    "This repair does not complete device-family qualification or chunk 7.",
+    "The real physical checks cover the listed locked fixtures, not complete-chip signoff."
+  ],
+  "windows_reproduction": "Both manifests match Linux byte-for-byte, including all original asset hashes.",
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-taps-and-ci-repair-2026-10-18/evidence.zip",
+    "sha256": "e05b8d2d1c30181b0884a9fb87f05c2ef6fac4c1b749cc919e88781b93bc17d7",
+    "bytes": 154651358,
+    "files": 40506,
+    "unique_contents": 9562,
+    "all_objects_verified": true
+  },
+  "hosted_snapshot": {
+    "head": "957055a02ae1c3c4066c17522dd57f3ef879f5f4",
+    "as_of": "2026-10-18T16:29:33.592753+00:00",
+    "runs": [
+      {
+        "conclusion": "success",
+        "databaseId": 39135982184,
+        "event": "pull_request",
+        "name": "Digital flow",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982184"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135982216,
+        "event": "pull_request",
+        "name": "Reference design compatibility",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982216"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135982163,
+        "event": "pull_request",
+        "name": "Pinned SKY130 physical qualification",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982163"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135982157,
+        "event": "pull_request",
+        "name": "External tool interoperability",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982157"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135982151,
+        "event": "pull_request",
+        "name": "Verify VGA Playground",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982151"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135982149,
+        "event": "pull_request",
+        "name": "Statistical campaign qualification",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982149"
+      },
+      {
+        "conclusion": "failure",
+        "databaseId": 39135982198,
+        "event": "pull_request",
+        "name": "Build and verify desktop release",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982198"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978193,
+        "event": "push",
+        "name": "Reference design compatibility",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978193"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978164,
+        "event": "push",
+        "name": "Digital flow",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978164"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978158,
+        "event": "push",
+        "name": "Pinned SKY130 physical qualification",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158",
+        "jobs": [
+          {
+            "completedAt": "2026-10-18T14:27:32Z",
+            "conclusion": "success",
+            "databaseId": 117700455629,
+            "name": "qualify (bipolar)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455629",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:37:37Z",
+            "conclusion": "success",
+            "databaseId": 117700455758,
+            "name": "qualify (detector)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455758",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:28:56Z",
+            "conclusion": "success",
+            "databaseId": 117700455763,
+            "name": "qualify (inverter)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455763",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:27:32Z",
+            "conclusion": "success",
+            "databaseId": 117700455782,
+            "name": "qualify (hierarchy-rc)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455782",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T15:09:30Z",
+            "conclusion": "success",
+            "databaseId": 117700455809,
+            "name": "qualify (two-stage-opamp)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455809",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:37:07Z",
+            "conclusion": "success",
+            "databaseId": 117700455813,
+            "name": "qualify (analog-rc)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455813",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:31:17Z",
+            "conclusion": "success",
+            "databaseId": 117700455835,
+            "name": "qualify (public-layouts)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455835",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:31:24Z",
+            "conclusion": "success",
+            "databaseId": 117700455858,
+            "name": "qualify (devices)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455858",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:37:43Z",
+            "conclusion": "success",
+            "databaseId": 117700455892,
+            "name": "qualify (analog)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455892",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T15:12:22Z",
+            "conclusion": "success",
+            "databaseId": 117709929743,
+            "name": "detector-desktop",
+            "startedAt": "2026-10-18T15:09:45Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117709929743",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T15:24:49Z",
+            "conclusion": "success",
+            "databaseId": 117710576129,
+            "name": "sky130",
+            "startedAt": "2026-10-18T15:12:24Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117710576129",
+            "active_or_failed_steps": []
+          }
+        ]
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978229,
+        "event": "push",
+        "name": "External tool interoperability",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978229"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978191,
+        "event": "push",
+        "name": "Verify VGA Playground",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978191"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 39135978218,
+        "event": "push",
+        "name": "Statistical campaign qualification",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978218"
+      },
+      {
+        "conclusion": "failure",
+        "databaseId": 39135978232,
+        "event": "push",
+        "name": "Prepare desktop release",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978232"
+      },
+      {
+        "conclusion": "failure",
+        "databaseId": 39135978160,
+        "event": "push",
+        "name": "Build and verify desktop release",
+        "status": "completed",
+        "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160",
+        "jobs": [
+          {
+            "completedAt": "2026-10-18T14:26:36Z",
+            "conclusion": "success",
+            "databaseId": 117700455694,
+            "name": "release-tools (windows-2022)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455694",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:26:27Z",
+            "conclusion": "success",
+            "databaseId": 117700455898,
+            "name": "release-tools (ubuntu-24.04)",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455898",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T14:39:30Z",
+            "conclusion": "success",
+            "databaseId": 117700455914,
+            "name": "digital-runtime / runtime",
+            "startedAt": "2026-10-18T14:26:18Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455914",
+            "active_or_failed_steps": []
+          },
+          {
+            "completedAt": "2026-10-18T16:28:23Z",
+            "conclusion": "failure",
+            "databaseId": 117703367797,
+            "name": "package (windows-2022)",
+            "startedAt": "2026-10-18T14:42:32Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117703367797",
+            "active_or_failed_steps": [
+              "Test core"
+            ]
+          },
+          {
+            "completedAt": "2026-10-18T15:53:22Z",
+            "conclusion": "success",
+            "databaseId": 117703367826,
+            "name": "package (ubuntu-24.04)",
+            "startedAt": "2026-10-18T14:39:42Z",
+            "status": "completed",
+            "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117703367826",
+            "active_or_failed_steps": []
+          }
+        ]
+      }
+    ]
+  },
+  "hosted_snapshot_history": [
+    {
+      "head": "957055a02ae1c3c4066c17522dd57f3ef879f5f4",
+      "as_of": "2026-10-18T15:19:34.431320+00:00",
+      "runs": [
+        {
+          "conclusion": "success",
+          "databaseId": 39135982157,
+          "event": "pull_request",
+          "name": "External tool interoperability",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982157"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 39135982151,
+          "event": "pull_request",
+          "name": "Verify VGA Playground",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982151"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 39135982149,
+          "event": "pull_request",
+          "name": "Statistical campaign qualification",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982149"
+        },
+        {
+          "conclusion": "",
+          "databaseId": 39135982198,
+          "event": "pull_request",
+          "name": "Build and verify desktop release",
+          "status": "in_progress",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982198"
+        },
+        {
+          "conclusion": "",
+          "databaseId": 39135982163,
+          "event": "pull_request",
+          "name": "Pinned SKY130 physical qualification",
+          "status": "in_progress",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982163"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 39135982184,
+          "event": "pull_request",
+          "name": "Digital flow",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982184"
+        },
+        {
+          "conclusion": "",
+          "databaseId": 39135982216,
+          "event": "pull_request",
+          "name": "Reference design compatibility",
+          "status": "in_progress",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135982216"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 39135978229,
+          "event": "push",
+          "name": "External tool interoperability",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978229"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 39135978191,
+          "event": "push",
+          "name": "Verify VGA Playground",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978191"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 39135978218,
+          "event": "push",
+          "name": "Statistical campaign qualification",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978218"
+        },
+        {
+          "conclusion": "",
+          "databaseId": 39135978160,
+          "event": "push",
+          "name": "Build and verify desktop release",
+          "status": "in_progress",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160",
+          "jobs": [
+            {
+              "name": "release-tools (windows-2022)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:26:36Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455694",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "release-tools (ubuntu-24.04)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:26:27Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455898",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "digital-runtime / runtime",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:39:30Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117700455914",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "package (windows-2022)",
+              "status": "in_progress",
+              "conclusion": "",
+              "startedAt": "2026-10-18T14:42:32Z",
+              "completedAt": "0001-01-01T00:00:00Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117703367797",
+              "active_or_failed_steps": [
+                "Verify installed digital runtime on this operating system"
+              ]
+            },
+            {
+              "name": "package (ubuntu-24.04)",
+              "status": "in_progress",
+              "conclusion": "",
+              "startedAt": "2026-10-18T14:39:42Z",
+              "completedAt": "0001-01-01T00:00:00Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978160/job/117703367826",
+              "active_or_failed_steps": [
+                "Test live desktop collaboration with three editors"
+              ]
+            }
+          ]
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 39135978193,
+          "event": "push",
+          "name": "Reference design compatibility",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978193"
+        },
+        {
+          "conclusion": "success",
+          "databaseId": 39135978164,
+          "event": "push",
+          "name": "Digital flow",
+          "status": "completed",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978164"
+        },
+        {
+          "conclusion": "",
+          "databaseId": 39135978158,
+          "event": "push",
+          "name": "Pinned SKY130 physical qualification",
+          "status": "in_progress",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158",
+          "jobs": [
+            {
+              "name": "qualify (bipolar)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:27:32Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455629",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "qualify (detector)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:37:37Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455758",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "qualify (inverter)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:28:56Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455763",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "qualify (hierarchy-rc)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:27:32Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455782",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "qualify (two-stage-opamp)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T15:09:30Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455809",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "qualify (analog-rc)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:37:07Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455813",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "qualify (public-layouts)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:31:17Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455835",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "qualify (devices)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:31:24Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455858",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "qualify (analog)",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T14:26:18Z",
+              "completedAt": "2026-10-18T14:37:43Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117700455892",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "detector-desktop",
+              "status": "completed",
+              "conclusion": "success",
+              "startedAt": "2026-10-18T15:09:45Z",
+              "completedAt": "2026-10-18T15:12:22Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117709929743",
+              "active_or_failed_steps": []
+            },
+            {
+              "name": "sky130",
+              "status": "in_progress",
+              "conclusion": "",
+              "startedAt": "2026-10-18T15:12:24Z",
+              "completedAt": "0001-01-01T00:00:00Z",
+              "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978158/job/117710576129",
+              "active_or_failed_steps": [
+                "Run actions/upload-artifact@v4"
+              ]
+            }
+          ]
+        },
+        {
+          "conclusion": "",
+          "databaseId": 39135978232,
+          "event": "push",
+          "name": "Prepare desktop release",
+          "status": "in_progress",
+          "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/39135978232"
+        }
+      ]
+    }
+  ],
+  "windows_locale_repair": {
+    "failing_head": "957055a02ae1c3c4066c17522dd57f3ef879f5f4",
+    "run_id": 39135978160,
+    "failure": "Hosted Windows Python 3.12 used CP1252 to write a generated netlist containing a middle dot. The production UTF-8 reader correctly rejected that incorrectly encoded fixture.",
+    "fix": "Write and read temporary netlist fixtures explicitly as UTF-8. Add an early Windows saved-bias check with UTF-8 mode disabled, real ngspice and the exact linked SKY130 package. No test is disabled and the production decoder is unchanged.",
+    "baseline_full_suite": {
+      "discovered": 3051,
+      "errors": 1,
+      "skipped": 33
+    },
+    "reproduction": {
+      "utf8_mode": 0,
+      "preferred_encoding": "cp1252",
+      "before_errors": 1,
+      "after_tests_passed": 4,
+      "repository_tests_passed": 4,
+      "skipped": 0,
+      "before_log_sha256": "2a52bea330c1d112f8351bbce0676d109391b7f86a91bac770ddb4d34a28a60d",
+      "after_log_sha256": "0bb74c5bf577c04823a7db169697ed631d59758b203bd223c8519098a460ba3c",
+      "repository_log_sha256": "9f41e9ad836467df2780ce2401152deb70b70fe0a4e743307e48b23931f95f6c",
+      "package_sha256": "531c0a4263b839b693d171ad223d01f1484130113f0fcb9010bf99b4c2da9417"
+    },
+    "failed_hosted_log_sha256": "7e547eb82546b9eb210ed871ad4ff5043f6d28595467831945b9666ad44b8e2b",
+    "source_sha256": {
+      "tests/test_saved_bias.py": "57355fc04d1819ec5f9b2ac7d60d7e3d3a5ee5b5c02566448cbf0ee8412b6b09",
+      ".github/workflows/build-desktop.yml": "2637609cc756f02a07e30c2b43fddd0dcf182c1391c37f2dab5bb5bdecae469b"
+    },
+    "hosted_fix_status": "Awaiting a completed hosted run at the new commit; local success is not a hosted release pass."
+  },
+  "hosted_scope": "Both physical workflow runs and the Linux desktop release job pass at 957055a. The Windows desktop job fails one encoding-sensitive fixture; the dependent prepare-release run fails. The earlier runner-disconnection result remains separate.",
+  "hosted_snapshot_raw": {
+    "sha256": "d2a76f84a09b6789bacb3296c3b395eead265aa3172ee7f032813b590991e897",
+    "archive": "IC-Design-Studio-evidence/ihp-tap-layouts-2026-10-18/evidence.zip",
+    "member": "ihp-tap-layout-20261018-v1/hosted-before-taps.json"
+  }
+}

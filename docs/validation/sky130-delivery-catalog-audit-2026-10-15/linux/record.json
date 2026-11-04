@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "tests": 74,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "modules": [
+    "tests.test_sky130_delivery_catalog",
+    "tests.test_sky130_filled_replay",
+    "tests.test_sky130_catalog_queue",
+    "tests.test_sky130_selected_subjects",
+    "tests.test_sky130_local_hv_review",
+    "tests.test_sky130_standard_cell_wl",
+    "tests.test_sky130_grid_catalog"
+  ],
+  "log_sha256": "d16bba31c3ba6841dc319dc9d956a643fdf210971c1e12b0985e32506812f086",
+  "driver_sha256": "91a424e9c2f0f14e2c1e7fc2de9a5942deb3e63fb94d1a587b1c0047430cc6b1",
+  "elapsed_seconds": 35.569260455
+}

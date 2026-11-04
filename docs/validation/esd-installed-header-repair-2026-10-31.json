@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "status": "PASS_SOURCE_REPAIR",
+  "source_parent": "461a9b2627b997638a4fbdd91f24fabcf25099c9",
+  "failed_installed_candidate": "f633d2c875669634173936e57285860b62ff08c9",
+  "failed_run_id": 41096461030,
+  "scope": "Exact package-and-role ESD header contract repair, actual saved-deck regressions and source release-tool tests; not installed acceptance or full device-family qualification.",
+  "cause": "Current application/fault decks have five exact headers; independent literal reference has four. The old reader incorrectly selected headers by package alone.",
+  "original_reader_replay": {
+    "application_and_fault_decks_pass": 12,
+    "independent_decks_rejected": 4,
+    "error": "Model selection or ordering"
+  },
+  "corrected_decks": 16,
+  "staged_model_hashes_verified_per_host": 2608,
+  "staged_model_map_entries": 326,
+  "artifact_retrieval": {
+    "method": "Authenticated GitHub redirect, checked HTTP byte ranges and ZIP CRC; selected members independently bound to recorded manifests and execution receipts.",
+    "full_artifact_digest_verified": false,
+    "linux_artifact_id": 13012309468,
+    "windows_artifact_id": 13019951368
+  },
+  "protections": [
+    "closed package and role profiles",
+    "missing/extra/reordered headers rejected",
+    "crossed application/reference profiles rejected",
+    "incorrect corners and transistor terminals rejected",
+    "historical optional and prior-default profiles preserved",
+    "numerical/staging/source-parameter validation unchanged"
+  ],
+  "hosts": {
+    "Windows": {
+      "status": "PASS",
+      "selected_tests": 304,
+      "skips": 12,
+      "seconds": 50.937000000005355,
+      "log_sha256": "00d20888e472d7481f3cefff2f2348708e39f793bec652d988860abe37ed7350",
+      "sources_unchanged": true
+    },
+    "Linux": {
+      "status": "PASS",
+      "selected_tests": 304,
+      "skips": 1,
+      "seconds": 13.66504739700001,
+      "log_sha256": "9f98f857e57b673f4e13dcac2a897904cf7888ef5496c65f09e694616a97073a",
+      "sources_unchanged": true
+    }
+  },
+  "source_manifest_sha256": "b95d982bc6c28e900ac8d3b9f92b695c66d314442935df6ea28282cbd39af60c",
+  "source_files": {
+    "scripts/audit_sky130_esd_nvt.py": "4f721b245fc2b6b8dfe10bb748bbd32a2a85cc2bcbddad4e3766598aa4105ec8",
+    "scripts/ci_feedback.py": "d03c367c89187fe2f5bca51b35213ab4dd71ba1d056abffc852f35e4a055f4e0",
+    "tests/test_sky130_esd_nvt_audit.py": "b82580ae7df10a1928b1b9647cda0fc857448cc827e2e8df83759a296883f2a8",
+    "tests/test_esd_installed_header_regression.py": "e2fd69f409215d057e08bc38a3e4b0b402c39ebdeee3e151ef67e6bf287cf3dd",
+    "tests/fixtures/esd-installed-headers-v1.json": "3337f2f59e5f1f63efb77307844b91afe919649941eb485494140c3de97ae46d",
+    "tests/test_ci_feedback.py": "c3380c8439f6437e8beb4d2d2ee17d6e14774070edf74859f11c1dd066a62f55",
+    ".github/workflows/build-desktop.yml": "975146de3886ee5d035136fca82671aa32825b27aca0fe8ac2dbfc2edc00be34"
+  },
+  "prior_local_attempts": "The first two-host release-test wrapper omitted CI's tests import path; both retained failures identify missing test-only imports. Unchanged sources pass with the existing CI PYTHONPATH. Initial helper capture also encountered an unwritable default temporary folder; explicit short TEMP resolved it.",
+  "independent_review_sha256": "2ed3787d8ce3322438a4507ad2fde8cc14d570337e818265e1cadab56aede7b9",
+  "archive": "IC-Design-Studio-evidence/esd-installed-header-repair-2026-10-31-v1/source-repair-evidence-v1.zip",
+  "archive_sha256": "fa87ebbb67c7c7733a0af2be0f1f7869c57eaa77b87945c42183388b161b6067",
+  "archive_bytes": 9040655,
+  "publication_review_sha256": "c1b6cb351f469d0e46e32147d6831e3412008c761d31a7c796c44774a9f88292",
+  "archive_members": 97,
+  "evidence_members": 96,
+  "selected_post_failure_numerics": {
+    "scope": "Two retained conditions per host only: nominal DC at 0 C and nominal drain AC at 27 C. Diagnostic readback of failed f633d2c run; no fresh execution or full installed recovery.",
+    "maximum_normalized_error": 0.0,
+    "deliberate_dc_fault_classes_detected_per_host": 4,
+    "raw_and_log_members_bound": 32,
+    "archive": "IC-Design-Studio-evidence/esd-installed-header-repair-2026-10-31-v1/selected-numerics-diagnostic-v1.zip",
+    "archive_sha256": "2faeb1b41a77bf0f0a192f7d45df155fb78d93c17b149f7e2b4c3e5d44c09c88",
+    "independent_review_sha256": "8c535b3cc96ffc057496655c985e9c1fa840da33c3d3949f9a0b392329504e69",
+    "installed_acceptance": false
+  },
+  "installed_status": "Both original installed jobs remain failed. Fresh exact-candidate Windows and Linux installed acceptance is required.",
+  "chunk_complete": false,
+  "qualified": false
+}

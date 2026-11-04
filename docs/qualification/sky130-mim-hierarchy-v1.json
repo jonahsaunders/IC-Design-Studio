@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "id": "sky130-mim-hierarchy-v1",
+  "as_of": "2026-10-26",
+  "chunk": 7,
+  "qualified": false,
+  "full_family": false,
+  "release_ready": false,
+  "installed": false,
+  "signoff": false,
+  "chunk_complete": false,
+  "requirements": [
+    "MIM-PHYSICAL-CLASSES",
+    "MIM-EXTRACTED-RC"
+  ],
+  "scope": "Selected imported repeated-cell class; editable and exchanged hierarchy retained, private native verification input flattened with exact mask preservation. No direct hierarchical native extraction or distributed/parasitic accuracy claim.",
+  "source_baseline": "f081d172cb7132ca579c0bd3ff3e187ddbd1e35e",
+  "sources": {
+    "requirements": {
+      "path": "docs/qualification/sky130-mim-contract-v1.json",
+      "sha256": "b324813599a364c83e76e63f583e7b74da50ab8182640a1cb907796a3ce1c209"
+    },
+    "generator_1": {
+      "path": "icstudio/sky130_devices.py",
+      "sha256": "5c0675e4cea0be26e5eea5427fd211e7a3aa5035fe6a6dd2a2c9756270357111"
+    },
+    "generator_2": {
+      "path": "icstudio/sky130_mim2.py",
+      "sha256": "55fa6b60b07d0d785c0e9ef946b5170d609133c99ff88f5bdd48b4eac852259f"
+    },
+    "orientation_adapter": {
+      "path": "icstudio/sky130_mim2_extract.py",
+      "sha256": "37c82ac4496c13a0e59813bd232803b28614ee67edce363ebe843ab04e4bb8ab"
+    },
+    "verification_stream": {
+      "path": "icstudio/layout_verification.py",
+      "sha256": "5661ae55dbc64a14c42931c86114ed543b553f9c15711ba4ae44b98c621cfc23"
+    },
+    "physical_lock": {
+      "path": "examples/sky130-qualification-lock.json",
+      "sha256": "3763d0aeb03b0a976cba43cacaa1b7d75c3821a35f3f8a7db6470efb22f4ef57"
+    },
+    "physical_release": {
+      "path": "examples/sky130-reference-assets.json",
+      "sha256": "35b2b6c4da999f41ebafb8a4f414cff9911bf168c388d8ba70aae360a982fd2c"
+    },
+    "physical_pcell": {
+      "physical_asset": "libs.tech/magic/sky130A.tcl",
+      "sha256": "48d2111c3246cbbed88bca5cf479dd8edc4ce4629d5241cca4102368765da69a",
+      "upstream_release": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "url": "https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "license": "Existing public release with original notices retained; no relabeling or new vendor source copied."
+    },
+    "physical_technology": {
+      "physical_asset": "libs.tech/magic/sky130A.tech",
+      "sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "upstream_release": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "url": "https://github.com/chipfoundry/volare/releases/tag/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "license": "Existing public release with original notices retained; no relabeling or new vendor source copied."
+    }
+  },
+  "models": [
+    "sky130_fd_pr__cap_mim_m3_1",
+    "sky130_fd_pr__cap_mim_m3_2"
+  ],
+  "leaf": {
+    "top": "mim_leaf",
+    "width_um": 2,
+    "length_um": 10,
+    "multiplicity": 1,
+    "ports": [
+      "P",
+      "N"
+    ],
+    "origin": "Actual current application fixture placement/save/reopen/export. No synthetic replacement of positive masks and no installed-binary claim.",
+    "bounds": "This one legal 2x10 example lies inside both existing rectangular generator/orientation domains. Those bounds are not an electrical validity/accuracy envelope."
+  },
+  "parent": {
+    "top": "mim_pair",
+    "ports": [
+      "P1",
+      "N1",
+      "P2",
+      "N2"
+    ],
+    "cells": 2,
+    "instances": 2,
+    "pair0": [
+      [
+        0,
+        false,
+        0,
+        0
+      ],
+      [
+        90,
+        true,
+        40000,
+        0
+      ]
+    ],
+    "pair90": [
+      [
+        90,
+        false,
+        0,
+        0
+      ],
+      [
+        180,
+        true,
+        0,
+        40000
+      ]
+    ],
+    "direct_masks": 0,
+    "arrays": false,
+    "magnification": 1
+  },
+  "acceptance": {
+    "clean_cases": 4,
+    "native_capacitors": 8,
+    "native_fault_jobs": 8,
+    "exchange_controls": 10,
+    "native_drc_violations": 0,
+    "strict_lvs": "All six stages pass for clean cases, actual matched pin/interface and native unique match.",
+    "native_devices": "Exactly two distinct primitive X calls, selected model, W2 L10 unitm1, ordered P1/N1 and P2/N2. Never reconstructed from the reference.",
+    "normalization": "Retain original native EXT; prove each emitted device location maps to exactly one written electrode and only W/L tokens swap for the contact axis. Connectivity and all other EXT bytes unchanged.",
+    "streams": "GDS exact mask/hierarchy/label presentation; OASIS and its reimport preserve masks, cell graph, placements and label names/coordinates with text_presentation=False only for unsupported OASIS presentation fields.",
+    "source_guard": "Before/after exact source, PDK tree and strict Magic/Netgen launcher/payload/native/Tcl/import runtime identities. Complete retained inventory. No caches or reused native outcomes."
+  },
+  "native_faults": {
+    "merged-reference-terminal": {
+      "mutation": "Reference X2 P2 is changed to P1 only. Physical two-device graph remains correct.",
+      "expected": "Full DRC0, completed extraction and integrity, strict LVS graph/pin mismatch."
+    },
+    "missing-reference-instance": {
+      "mutation": "Reference X2 removed only; four-port declaration retained. Physical two-device graph remains correct.",
+      "expected": "Full DRC0, completed extraction and integrity, strict LVS device-count/graph mismatch."
+    },
+    "second-reference-width": {
+      "mutation": "Reference second leaf W2 becomes W3 only. Physical two-device W2/L10 graph remains correct.",
+      "expected": "Full DRC0, completed extraction and integrity, strict LVS selected-model W3 versus W2 property mismatch."
+    },
+    "physical-missing-instance": {
+      "mutation": "Delete only mirrored second parent occurrence, preserving shared leaf masks, all top labels and unchanged positive reference.",
+      "expected": "Full DRC0 and completed native extraction show exactly one selected W2/L10 unit on P1/N1. Reject either exact missing-interface failure for P1/N1-only header or completed strict LVS count/graph mismatch with retained four-port header. No arbitrary engine/setup/normalization error accepted."
+    }
+  },
+  "exchange_faults": [
+    "missing-instance",
+    "lost-mirror",
+    "lost-rotation",
+    "renamed-top-terminal",
+    "changed-leaf-mask"
+  ],
+  "pilot": {
+    "plates": [
+      1
+    ],
+    "clean_cases": 2,
+    "native_fault_jobs": 4,
+    "exchange_controls": 5
+  },
+  "exclusions": [
+    "Other sizes/arrays/stacked or shared electrodes/dummies/contact patterns",
+    "Public KLayout deck/full-chip rules/antenna/density",
+    "New electrical sampling or measured/silicon accuracy",
+    "Direct hierarchical native extraction",
+    "Distributed/substrate/top-sheet parasitics",
+    "Installed application and release acceptance",
+    "Whole-family or foundry signoff"
+  ],
+  "source_identity_note": "Additive reviewed files are bound individually by the execution source manifest; retained fixture Git metadata is historical and is not the executed source identity."
+}

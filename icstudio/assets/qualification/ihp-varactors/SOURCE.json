@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/IHP-GmbH/IHP-Open-PDK",
+  "commit": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "license": "Apache-2.0",
+  "verified_tree": "beb3a89679354eb0753f8f825c31265d924fc388",
+  "files": {
+    "sg13_hv_svaricap.gds": {
+      "git_blob_sha1": "dcd6bd1270328c157d663965c4db0ffa07ed3a65",
+      "sha256": "9dc6002cb1e3f22c42c4ef8a72907bd249d3ee175a15368b25f9873120f1f77a",
+      "bytes": 406520,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/cap_devices/layout/sg13_hv_svaricap.gds"
+    },
+    "sg13_hv_svaricap.cdl": {
+      "git_blob_sha1": "86d11ada9ba93a6e0c7709a51140a42e3c81fe66",
+      "sha256": "c652a899d4b3c24f33da1577f71bb03a08a13a0d1878e4db30a681daf43762fd",
+      "bytes": 3020,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/tech/lvs/testing/testcases/unit/cap_devices/netlist/sg13_hv_svaricap.cdl"
+    },
+    "SVaricap_code.py": {
+      "git_blob_sha1": "df6fcab4c4059bdf0855dcd56dbac3a8115b5f42",
+      "sha256": "276fd8eae4a8faf7a4a15b03909fe8b2c77574372359eb7a8f6e75f005d7d31f",
+      "bytes": 6972,
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/ihp/SVaricap_code.py"
+    },
+    "LICENSE": {
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357,
+      "source": "Unmodified IHP Apache-2.0 LICENSE; same pinned extraction bundle."
+    }
+  }
+}

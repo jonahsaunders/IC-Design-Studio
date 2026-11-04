@@ -1,0 +1,213 @@
+{
+  "schema": 1,
+  "date": "2026-10-30",
+  "status": "PASS",
+  "candidate": "f633d2c875669634173936e57285860b62ff08c9",
+  "tested_merge": "8d4e84f47beedfed6a40826405d56be2dd8cb278",
+  "verified_merge_parents": [
+    "49c79957b4d6f4978127da612e167e5c75cda6b3",
+    "f633d2c875669634173936e57285860b62ff08c9"
+  ],
+  "run_id": 41096477635,
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41096477635",
+  "jobs": [
+    {
+      "name": "source feedback (windows-2022)",
+      "databaseId": 124203439827,
+      "conclusion": "success"
+    },
+    {
+      "name": "source feedback (ubuntu-24.04)",
+      "databaseId": 124203440195,
+      "conclusion": "success"
+    },
+    {
+      "name": "PR feedback",
+      "databaseId": 124209241464,
+      "conclusion": "success"
+    }
+  ],
+  "hosts": {
+    "Linux": {
+      "schema": 1,
+      "status": "PASS",
+      "host": "Linux",
+      "run_id": 41096477635,
+      "candidate": "f633d2c875669634173936e57285860b62ff08c9",
+      "tested_commit": "8d4e84f47beedfed6a40826405d56be2dd8cb278",
+      "artifact_id": 12996033991,
+      "archive_sha256": "c79170389f56d69d4f9145efe4d11082f6ada2059cf436b3fd34bbc04e3428fa",
+      "archive_bytes": 17065657,
+      "archive_files": 1161,
+      "feedback_report_sha256": "b6fdb74cab316e2c38420998ff8d9b45cc7ebb39192780672d7be9eb5b85fe58",
+      "source_identity_files": 2038,
+      "syntax_files": 1474,
+      "source_seconds": 392.014,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 107.141
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 53.212
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 6.733
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.223
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.733
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.877
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.088
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 36.408
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 139.636
+        }
+      ],
+      "tests": {
+        "unit-contracts": {
+          "tests": 885,
+          "seconds": 105.152,
+          "skipped": 14
+        },
+        "package-contracts": {
+          "tests": 11,
+          "seconds": 53.091,
+          "skipped": 0
+        },
+        "runtime-release-contracts": {
+          "tests": 82,
+          "seconds": 6.507,
+          "skipped": 1
+        }
+      },
+      "ihp_gui_cases": 60,
+      "ihp_inventory_files": 896,
+      "ihp_inventory_sha256": "aeb03ac6a3a1aa29a5bc90abedf3b8aff27ed3307a608453012092236a2a9631",
+      "release_acceptance": false,
+      "qualified": false,
+      "chunk_complete": false,
+      "scope": "Independent hosted source artifact readback; installed acceptance remains separate.",
+      "full_readback_record_sha256": "1700ed936e6e448b003b7b9e920b69a72e2a7740147a7b7c4b6006ec5c34beab"
+    },
+    "Windows": {
+      "schema": 1,
+      "status": "PASS",
+      "host": "Windows",
+      "run_id": 41096477635,
+      "candidate": "f633d2c875669634173936e57285860b62ff08c9",
+      "tested_commit": "8d4e84f47beedfed6a40826405d56be2dd8cb278",
+      "artifact_id": 12996747833,
+      "archive_sha256": "76289a57e1edecb22242473730fbea88af23f8469942ab0e36fd7edd6e643e2e",
+      "archive_bytes": 16724866,
+      "archive_files": 1118,
+      "feedback_report_sha256": "d5d2b22e8c1055367c1232eeae3af4b9cc57f99c8693ad49502e16f9c8c44cd0",
+      "source_identity_files": 2038,
+      "syntax_files": 1474,
+      "source_seconds": 631.5,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 254.328
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 111.859
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 11.953
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.172
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 34.063
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 10.234
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 12.547
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 47.578
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 140.5
+        }
+      ],
+      "tests": {
+        "unit-contracts": {
+          "tests": 885,
+          "seconds": 251.474,
+          "skipped": 34
+        },
+        "package-contracts": {
+          "tests": 11,
+          "seconds": 111.736,
+          "skipped": 0
+        },
+        "runtime-release-contracts": {
+          "tests": 82,
+          "seconds": 11.697,
+          "skipped": 2
+        }
+      },
+      "ihp_gui_cases": 60,
+      "ihp_inventory_files": 895,
+      "ihp_inventory_sha256": "b9095e2d7e1f1dffedca703a893df8fa8204e28873810fe24abc9011a06b8fa8",
+      "release_acceptance": false,
+      "qualified": false,
+      "chunk_complete": false,
+      "scope": "Independent hosted source artifact readback; installed acceptance remains separate.",
+      "full_readback_record_sha256": "221cc2133dbd444aaa4ff0546a831865e84dadf2a8dcd3c4834672f7c5418c6b"
+    }
+  },
+  "scope": "Hosted merge/source acceptance with complete independent archive and IHP GUI inventory readback; exact packaged acceptance remains separate.",
+  "installed_acceptance": false,
+  "qualified": false,
+  "chunk_complete": false,
+  "desktop_run_id": 41096461030
+}

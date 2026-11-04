@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "win32",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "db37cbad636199bb261f6c1333d14227db340079b4c7e8fe4faeab6d58087bbf",
+  "tests": 84,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "log_sha256": "7192946d417ec508e4d642bbf959b243868ff85ed551ce6cb861c59cc10e4c35",
+  "source_files": {
+    "icstudio/digital_sky130_vpp.py": "290bd4855d64c8732075757ed4d9b8b2209554c99a9e849e96d35f649b24ffc6",
+    "tests/test_sky130_vpp.py": "86ddcc55d12907a04c2dabbff1eae02204a1577299155654f7b4a1bd81deec63",
+    "icstudio/digital_sky130_catalog_labels.py": "b4e13f719e97e90c0377c5d4cf413abe141d45cde17cb639fd4688a6a6120f10",
+    "tests/test_sky130_catalog_labels.py": "e84fe1147f2368cddbbd254df3814a8cbba960b5e3740b5459fe2c9f28ac291e",
+    "icstudio/digital_sky130_catalog_context.py": "5a8115233d16d2517b08fe20a8a82ddd751ef07853af11ecd84c66e84a178ac9",
+    "icstudio/digital_sky130_rules.py": "4ba16ea5987dfd277ffc51235036596610c958accaa0dd8a0397262f1b17da7e",
+    "icstudio/digital_sky130_rule_worker.py": "43aa554484cd5692b5c70cad008afac2c7174dd0bb913b16a2233084bffb99de",
+    "tests/test_sky130_catalog_context.py": "09a4ed47a75976116f2979c0bfea894298e2c817066a9fe98e33ba316e228386",
+    "tests/test_sky130_application_rules.py": "252b06029fbe673742d6b88b6228e64c11fe7fdd26e95a6758f8d87b3fd3dd89",
+    "icstudio/digital_sky130_boundaries.py": "3ccfda72825de8b1dce28d665ab7fe0cdc8b36251ad15371449b7923808a16ae",
+    "icstudio/digital_sky130_pins.py": "413ef2626b803bf17c5f65339e5ffe2e9deb0c63f451befaa28a9f669dfe535b",
+    "tests/test_sky130_boundaries.py": "aaff3b39d708fae340b415f98733063f021ab9a314fde0abeafc2b6086cdf822",
+    "tests/test_sky130_pins.py": "b05b9bb9d209e0aa34bdb3439bf7a4d932e15eec0cf08deb0cc971604e0b8b07",
+    "tests/test_digital_macro.py": "0cc2e45e0632b38e919c794d1ecde54b9a56070f779530dd08e9d71f0eec08ea"
+  },
+  "elapsed_seconds": 19.46900000000096
+}

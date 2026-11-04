@@ -1,0 +1,15 @@
+test_changed_published_source_bytes_are_rejected (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_changed_published_source_bytes_are_rejected) ... ok
+test_either_nonempty_operand_prevents_all_new_exclusions (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_either_nonempty_operand_prevents_all_new_exclusions) ... ok
+test_exact_sources_define_both_operands_and_only_38_records (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_exact_sources_define_both_operands_and_only_38_records) ... ok
+test_frame_diecut_and_hvtr_exclusions_stay_reopened (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_frame_diecut_and_hvtr_exclusions_stay_reopened) ... ok
+test_missing_boolean_fractional_negative_or_extra_measurements_fail (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_missing_boolean_fractional_negative_or_extra_measurements_fail) ... ok
+test_parent_measurement_identity_and_catalog_changes_fail (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_parent_measurement_identity_and_catalog_changes_fail) ... ok
+test_recursive_shape_types_and_array_instances_cannot_disappear (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_recursive_shape_types_and_array_instances_cannot_disappear) ... ok
+test_stale_case_top_gds_and_source_are_rejected (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_stale_case_top_gds_and_source_are_rejected) ... ok
+test_three_exact_layouts_change_only_the_reviewed_records (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_three_exact_layouts_change_only_the_reviewed_records) ... ok
+test_wrong_purpose_does_not_change_exact_operand_definition (tests.test_sky130_nsm_reconciliation.NsmReconciliationTests.test_wrong_purpose_does_not_change_exact_operand_definition) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.808s
+
+OK

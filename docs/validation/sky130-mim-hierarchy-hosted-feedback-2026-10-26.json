@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "status": "success",
+  "date": "2026-10-26",
+  "run": 40386174852,
+  "candidate": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+  "base": "49c79957b4d6f4978127da612e167e5c75cda6b3",
+  "merge": "d494024d9740ceb7281b43fc5fc17636c9c4f641",
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40386174852",
+  "required_feedback": "success",
+  "platforms": [
+    {
+      "platform": "Windows",
+      "status": "PASS",
+      "tests": 601,
+      "skips": 15,
+      "seconds": 203.266,
+      "source_bindings": 1402,
+      "artifact_id": 12680777170,
+      "artifact_sha256": "4b00024051643309ae641e1bda59c5fc1f3639adbe1dd575ee4d5e431aa601ba",
+      "artifact_bytes": 7320634,
+      "report_sha256": "7b37f66123b07e19e7b8cdc5b49667678037490bbb0b832827417b90e7968400",
+      "members": 218,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 96.953
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.969
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 32.297
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.656
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 11.25
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 45.75
+        }
+      ]
+    },
+    {
+      "platform": "Linux",
+      "status": "PASS",
+      "tests": 601,
+      "skips": 4,
+      "seconds": 120.757,
+      "source_bindings": 1402,
+      "artifact_id": 12681701063,
+      "artifact_sha256": "bd4a00177b508a25a78277207b0ca263443455298588d9d2a9f2c3e9fb015f2c",
+      "artifact_bytes": 7658187,
+      "report_sha256": "8aad6cf82b3afe829ca0d81ccb9dcda05315665be65c31dca34b12bea1806d1e",
+      "members": 260,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 42.365
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.871
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 26.932
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.525
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.288
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 32.943
+        }
+      ]
+    }
+  ],
+  "all_candidate_source_bindings_verified": true,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "member_manifest_sha256": "ee83803fe9ccedb08dc90bf190e8355b8de54fcd004e3189530df1106edda000",
+  "retained_folder": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-mim-hierarchy-hosted-2026-10-26-v1",
+  "scope": "Both hosted source feedback lanes and required aggregate pass for the immutable MiM hierarchy candidate and verified main merge. No installed or whole-family qualification claim."
+}

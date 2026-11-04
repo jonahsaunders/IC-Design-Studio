@@ -1,0 +1,184 @@
+{
+  "schema": 1,
+  "date": "2026-10-26",
+  "chunk": 7,
+  "status": "selected_opt_in_source_integration_passed",
+  "qualified": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "default_promoted": false,
+  "installed": false,
+  "signoff": false,
+  "scope": "Corrected public Xschem ESD symbol binding in a separately imported package; six finite geometry/multiplicity cases, 15 DC contexts and four nominal AC terminal excitations per host. Source integration only; no ESD protection ratings, continuous envelope, physical layout, measured accuracy or installed acceptance.",
+  "base_commit": "53c17aa78eb510715eaa28ed34e4f576a7fe7b40",
+  "source_delta": {
+    "icstudio/catalog.py": {
+      "before": "33aa52277f5961ec54c32e2319904094ac8ed0807f29b8768119bbf419366fc6",
+      "after": "ce8f4cd47a3048ad64a6893983b790e85663ca46a344bd71732cb669a0100e1c"
+    }
+  },
+  "source_snapshot": {
+    "files": 831,
+    "archive_sha256": "ff1f4e4302b4e062e3fce5d62746ee9b23f73e9d81061eaaeec8f97988f1b49f",
+    "manifest_sha256": "886f7c9e68cd0f9de98be9782b133c6403d1d23969184400e10f2195728cdccc"
+  },
+  "package": {
+    "base_sha256": "840f7af802b07346650c50a5967e532a4cb1716623cf0c9d6fd6c58eaf35fcbe",
+    "candidate_sha256": "5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a",
+    "revision": "ac43172dd991a7a5",
+    "old_assets_unchanged": 420,
+    "new_assets": 6,
+    "default_missing_bindings": 6
+  },
+  "source_review": {
+    "sha256": "43cda3a932950b6feb895ccb9b2e37b844aa4b83a4df0e0fca9a46d819186a02",
+    "public_symbol_correction": "https://github.com/StefanSchippers/xschem_sky130/commit/08367118f8ad7311b9264b856fb4d5f1f58b45f9",
+    "public_model_revision": "16f93a795d87ea2b393fe5c74d32674e111e44a2",
+    "source_bytes_unchanged": true,
+    "licenses": "Original Apache-2.0 notices retained; project adapter remains GPL-3.0."
+  },
+  "conditions": {
+    "w_um": 10,
+    "l_um": [
+      0.9,
+      2,
+      4
+    ],
+    "nf": 1,
+    "multipliers": [
+      1,
+      3
+    ],
+    "dc_sections": [
+      "nominal",
+      "ss",
+      "ff",
+      "sf",
+      "fs"
+    ],
+    "temperature_c": [
+      0,
+      27,
+      85
+    ],
+    "dc_gate_sweep_v": [
+      0,
+      1.2,
+      0.03
+    ],
+    "dc_drain_v": 0.6,
+    "dc_body_v": -0.15,
+    "ac_terminal_drives": [
+      "d",
+      "g",
+      "s",
+      "b"
+    ],
+    "ac_frequency_hz": [
+      1000,
+      1000000000
+    ],
+    "ac_points": 31,
+    "limits_are_integration_points_not_device_ratings": true
+  },
+  "producer_sha256": "561b457931473be23a930cf0fe4427a82105fb6ebc509452cc58d5984806a5e8",
+  "reader_sha256": "84216d1876cd33140bbe8e1cc63c37aa390ff6d4c3d89fcebf2b8cd6903f1779",
+  "hosts": {
+    "windows": {
+      "status": "PASS",
+      "schema": 2,
+      "execution_id": "2d9d9d7031d748079d9ec3348f4958e2",
+      "original_execution_root": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-esd-binding-20261026-v1\\windows-v2-full-v1",
+      "cases": 19,
+      "devices": 6,
+      "current_samples": 17736,
+      "fault_device_instances": 360,
+      "maximum_normalized_error": 0.0,
+      "qualified": false,
+      "default_promoted": false,
+      "chunk_complete": false,
+      "package_sha256": "5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a",
+      "producer_report_sha256": "775492c7df32ac79b525e1ca4aed4f54c462212a37181d69c1bc466ddb06650c",
+      "evidence_manifest_sha256": "d2be8080e6f62dde133229bf4539f2783592f2ba065282c27162818858f97bd5",
+      "source_count": 831,
+      "artifact_count": 32439,
+      "reader_sha256": "84216d1876cd33140bbe8e1cc63c37aa390ff6d4c3d89fcebf2b8cd6903f1779"
+    },
+    "linux": {
+      "status": "PASS",
+      "schema": 2,
+      "execution_id": "3c5bfc839559479199a75cf383061a16",
+      "original_execution_root": "/var/tmp/icstudio-esd-binding-20261026-v1/linux-v2-full-v1",
+      "cases": 19,
+      "devices": 6,
+      "current_samples": 17736,
+      "fault_device_instances": 360,
+      "maximum_normalized_error": 0.0,
+      "qualified": false,
+      "default_promoted": false,
+      "chunk_complete": false,
+      "package_sha256": "5315d2d6ad7618047eeeb48a15f81f221e6f42864647208acfb65124ee5c9c7a",
+      "producer_report_sha256": "180a4060c3d3a3d294e3bab9caeedd839d7288e03f69486bbfa7c1b5a17f8f10",
+      "evidence_manifest_sha256": "affd645fe414bcd4a298e7978d511b8fe60826cd02e9795bf8fd3649d6287dd2",
+      "source_count": 831,
+      "artifact_count": 32439,
+      "reader_sha256": "84216d1876cd33140bbe8e1cc63c37aa390ff6d4c3d89fcebf2b8cd6903f1779"
+    }
+  },
+  "native_executions_per_host": 98,
+  "independent_controls": {
+    "distinct_rehashed_mutations": 12,
+    "status": "PASS",
+    "receipt_sha256": "2bdebcd5044529fb8934d881c4b25bd82bdc54e7603fe0faf83668e7e5675d08"
+  },
+  "preserved_failures": [
+    "Initial 0.9um numeric-choice binary rounding rejection, corrected with unique relative-tolerance canonicalization and ambiguity rejection.",
+    "Earlier Windows exploration failed after a 49-minute execution gap; no sleep cause verified; native timeout/limits unchanged.",
+    "Earlier reader lacked unique execution context; version2 adds actual command/title/deck/raw/log identity.",
+    "Reader initially expected a Windows-only raw header and engineering-unit AC spelling; exact Linux42/app-reference profiles corrected without changing native outputs."
+  ],
+  "remaining": [
+    "Default promotion requires a new versioned package and preservation of installed family input identities.",
+    "Selected conditions do not establish ESD reliability, latch-up, physical structures, full operating envelopes or measured accuracy.",
+    "Existing missing legacy binding is not an invented 10.5V alias."
+  ],
+  "retention": {
+    "directory": "sky130-esd-nvt-2026-10-26-v1",
+    "archive": {
+      "status": "PASS",
+      "archive_sha256": "566e949808567ae9de6b763a547d21b071db81e6b7194d828965d16ab3f545a3",
+      "archive_bytes": 49293221,
+      "manifest_sha256": "793915d06c21baffeadd912178bce70126a7a498d4cb841711359b12f53fe96e",
+      "logical_files": 141055,
+      "logical_bytes": 14989497801,
+      "distinct_content": 3792,
+      "full_content_readback": true,
+      "source_dependency_sha256": "ff1f4e4302b4e062e3fce5d62746ee9b23f73e9d81061eaaeec8f97988f1b49f",
+      "exclusions": {
+        "directory_names": [
+          "__pycache__",
+          "copy",
+          "fault-copy",
+          "input-copy"
+        ],
+        "work_root_files": [
+          "integrate_batch.py",
+          "integrated-focused-v1.log",
+          "integration-copy-v1.json"
+        ]
+      },
+      "external_manifest_sha256": "0b8edbb6a1756eb320d6c7b671d49bcd5c75f6662111b8fce9a4e83bc7cd76bf",
+      "manifest_byte_formats": "manifest_sha256 binds exact LF ZIP member; external_manifest_sha256 binds adjacent CRLF JSON; parsed manifests verified equal."
+    },
+    "recovery": {
+      "receipt_sha256": "c89dc033225d7f486991a2199b840aeffb0ce191bfa6544bb40a15016da53106",
+      "both_final_hosts_independently_pass": true,
+      "logical_files": 66140,
+      "logical_bytes": 6985499317,
+      "distinct_restored_bytes": 246224198,
+      "repeated_bytes_avoided": 6739275119
+    },
+    "integrator_summary_sha256": "ec02a7a949c3881ba79a94b7debf9aa2cabc2b9e09c099fef8f1d2dd8f7daf05",
+    "retained_recovery_method_failure": "First recovery guard compared embedded LF manifest hash to adjacent CRLF bytes. Both exact hashes and JSON equality are now recorded; archive/native bytes were unchanged."
+  }
+}

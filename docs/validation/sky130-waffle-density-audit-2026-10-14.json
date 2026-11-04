@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "data": {
+    "path": "docs/validation/sky130-waffle-density-2026-10-14.json",
+    "sha256": "5fcb18dc44127b9ab9c53e5afdb1bd5cfb1d379cce63455ec3a18f85e2f40e4a"
+  },
+  "tests": {
+    "win32": {
+      "record.json": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/win32/density/record.json",
+        "sha256": "c7ee69acd95afc00e3bc66c15af992092b41a879e51573f559ed94234f08e2bb"
+      },
+      "tests.log": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/win32/density/tests.log",
+        "sha256": "f7d68b6750cd34fb1daba561d7368d4e0dfaaddea79cb33555af6753431f6ec1"
+      }
+    },
+    "linux": {
+      "record.json": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/linux/density/record.json",
+        "sha256": "e5b3be6986e4171c95c5df3f55c36dc2bebf25a5e55a923b2ca0a138166ddb70"
+      },
+      "tests.log": {
+        "path": "docs/validation/sky130-filled-electrical-2026-10-14/linux/density/tests.log",
+        "sha256": "98de593a2563bef4f282ab3bb4ac47a8ee59973bebd46d0d979e6ad164dea5bc"
+      }
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-parent-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-filled-electrical-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "e473b4d289a92a2dd196512ce20cc2a23ac5a5607715bfcbdeaf83e15e49983d",
+    "bytes": 22598988,
+    "files": 4465,
+    "unique_local_blobs": 727,
+    "reused_parent_files": 3382,
+    "manifest_sha256": "13f0993a6a28af4b28ba242ed45f5cb64bb6a31173243f9291c3d1f9a35f3b11",
+    "parent": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-scope-correction-2026-10-14-v1\\evidence.tar.gz",
+      "sha256": "c91887fe6ca5b3492baed7e461f300ac14cbb16945bf5aff11fd792fc930fedc",
+      "bytes": 44401516,
+      "files": 842,
+      "unique_blobs": 386,
+      "manifest_sha256": "1f62a0248c6486b6b9f8358477016ef8e15ec4b515d6023860294ec0a89c2465"
+    }
+  },
+  "source_files": {
+    "scripts/sky130_waffle_density_review.py": "76e309ac6baee46826ecc18f7049083dc203f90e5e621d5de8aab89a70adbafa",
+    "tests/test_sky130_waffle_density.py": "691003e814c7c2157c881229cf68a72884df76233981f171a1fcc99149daba8f"
+  },
+  "scope": "Forty-eight explicit catalog density records have measured empty waffle-drop antecedents on all three exact filled references. Both OS reproduce identical reports; seven tests pass per OS. Nonempty density rules, the unfinished VPP selector and all other decisions remain unqualified."
+}

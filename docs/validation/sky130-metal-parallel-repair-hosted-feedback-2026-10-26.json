@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "status": "success",
+  "date": "2026-10-26",
+  "run": 40380347903,
+  "candidate": "f081d172cb7132ca579c0bd3ff3e187ddbd1e35e",
+  "base": "49c79957b4d6f4978127da612e167e5c75cda6b3",
+  "merge": "b1b2187103c7c6a5eb2e7683482358c17fb7c80b",
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40380347903",
+  "required_feedback": "success",
+  "platforms": [
+    {
+      "platform": "Windows",
+      "status": "PASS",
+      "tests": 582,
+      "skips": 15,
+      "seconds": 204.547,
+      "source_bindings": 1398,
+      "artifact_id": 12676654836,
+      "artifact_sha256": "29860b32770cc2b9aa0e3a8e75327480e02e8fffcde5b5b9fa007400536e33fb",
+      "artifact_bytes": 7319940,
+      "report_sha256": "6e29448ae4f000dc4a24a92da4f065c19eac24e0bcd225e3189fb5d9020541c5",
+      "members": 218,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 96.172
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 5.032
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 32.515
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.766
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 11.578
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 47.031
+        }
+      ]
+    },
+    {
+      "platform": "Linux",
+      "status": "PASS",
+      "tests": 582,
+      "skips": 4,
+      "seconds": 131.343,
+      "source_bindings": 1398,
+      "artifact_id": 12678277107,
+      "artifact_sha256": "4c4015fdab098ee2c8d57d7f7464a162acf91221c216d0c344e8110943bcefe3",
+      "artifact_bytes": 7657423,
+      "report_sha256": "c09df2177187c6ae2b32f7398d67100d85a02c8271a89e86d8c3d261b04cf0d0",
+      "members": 260,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 47.487
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.273
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.583
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.776
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 9.037
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 35.857
+        }
+      ]
+    }
+  ],
+  "all_candidate_source_bindings_verified": true,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "member_manifest_sha256": "9ffc40ff2302be99100ef2df8532e022f7dc5deb0dac931bd7d9c4dbd8560ec6",
+  "retained_folder": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-metal-parallel-repair-hosted-2026-10-26-v1",
+  "scope": "Fresh hosted Windows/Linux source feedback and merge compatibility for the repaired immutable candidate. Earlier failed run40376754467 remains separate. No installed or full-family qualification claim."
+}

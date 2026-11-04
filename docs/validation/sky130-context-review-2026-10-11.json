@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "scope": "Twenty-eight additional measured absent-operand decisions and one explicitly advisory source requirement, with strengthened ultra-high-voltage and gate-direction guards. All 117 previously bound requirements rerun on each final layout; chunk 6 remains open.",
+  "data": {
+    "path": "docs/validation/sky130-context-review-2026-10-11/data.json",
+    "sha256": "1cd69fdfca41568854a46a3658eadc60621f8a5ff5b298c575f64236fb6baaab"
+  },
+  "audits": {
+    "win32": {
+      "path": "docs/validation/sky130-context-review-2026-10-11/win32.json",
+      "sha256": "76e1527339f342dcc756e90ffb51325e7f5e22a1fd8d8aa89b262a2d3b4bdab6"
+    },
+    "linux": {
+      "path": "docs/validation/sky130-context-review-2026-10-11/linux.json",
+      "sha256": "6ecaba2c20276d9af9aec3bc8c7723d27f05a65a257b681b2a18d5b0a0fc65b8"
+    }
+  },
+  "baseline_commit": "bf471e1",
+  "source_files": {
+    "scripts/sky130_raw_feol.py": "6a33521ce2ab76ca36a7eeda95d4b1018213e06eb9cd4ff2a895f05bf82d007c",
+    "scripts/sky130_low_voltage_geometry.py": "7751ceb802aafcfbb2e18b1068c2c641d422992c78ce6fc522c0915c62de3690",
+    "scripts/sky130_interconnect_geometry.py": "95c6bb9a5d5dafd6e54248349595310e501ac1c5d5ab5f42164fab5bd0713b34",
+    "scripts/sky130_rule_execution.py": "fdd3132ebca25b6f9225d1eceb7d61c72cb9abff2fc52fe1b84286a4297e0f20",
+    "scripts/sky130_block_applicability.py": "44e96eb5d7dcf7b1712c908e5b193c3f794ff67567db92770177527dbc24f395",
+    "tests/test_sky130_raw_feol.py": "df2f3a922135004ffa3523fa59c9570a4d060a19a33ef853443df6f3f5ad917e",
+    "tests/test_sky130_block_applicability.py": "5c6746b0ea925e1f431d0783a2e4eb7a7c739a2925900768ddbb2382f7cb7289",
+    "tests/test_sky130_low_voltage_geometry.py": "ea46325424cb3c1f774ee0f688a74756231fbedae290fc4529214617c6b9ac58",
+    "tests/test_sky130_interconnect_geometry.py": "f20e78eb16afec8e79b8b760de4c8b65368337b74467881eef735a9df3934e6c",
+    "tests/test_sky130_rule_execution.py": "a792cd8e93f54e97ee68ac3f3a31aebf99886a376ce92090137813b40ea2f4fc"
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-context-review-2026-10-11-v1\\evidence.tar.gz",
+    "sha256": "bd478521383559d139c0fb98e3e6a59cc656c07f1e7d77c0496955b4b9641164",
+    "bytes": 287103,
+    "files": 186,
+    "unique_blobs": 185,
+    "manifest_sha256": "6ec6e6b0a22f02ff2cc0478e23de437d749008b48e0006a47be50cdb7829e706",
+    "dependency": {
+      "schema": 1,
+      "status": "readback-verified",
+      "layout": "sha256-addressed-blobs-v1",
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-fill-progress-2026-10-11-v1\\evidence.tar.gz",
+      "sha256": "ccef87b3fdbd89009e33449fc1be84eb4e3899ada61163ae99007eef3b6307e0",
+      "bytes": 920448744,
+      "files": 1959,
+      "unique_blobs": 1399,
+      "manifest_sha256": "81f06b06441a6c9864cc93abcd90af2ab87b5658fef3a2953efcedb90c2da9b0",
+      "seconds": 162.43700000000536,
+      "scope": "SKY130 fill, failed attempts, final physical/native circuit checks, partial rule applicability and diode comparison. Not chunk 6 acceptance."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "absent-operand": 235,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 117,
+        "execution-review-required": 82,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 117
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "absent-operand": 235,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 117,
+        "execution-review-required": 82,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 117
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "absent-operand": 235,
+        "advisory": 28,
+        "definition-required": 1,
+        "executed-reviewed": 117,
+        "execution-review-required": 82,
+        "other-backend": 61,
+        "upstream-na": 77
+      },
+      "executed_requirements": 117
+    }
+  ],
+  "notes": [
+    "All 80 applicability, implant, geometry, interconnect and binding tests pass without skips on both operating systems; final execution ledgers are identical.",
+    "Photo-device rules require both deep nwell and areaid.po absent. Large-via options use only their exact areaid.mt-scoped requirements. Named-cell exceptions use literal published names and the one explicit trailing wildcard.",
+    "Analog-only rectangles, the UHVI angle exception, LVTN-selected PFETs and Var_channel contact spacing use their own measured operands.",
+    "The x.17 source explicitly says floating-label warnings are not a tapeout gate; the independent required x.22 connectivity rule remains open.",
+    "Both implant and low-voltage profiles reject the published UHVI 74/22 selector. The implant profile also rejects areaid.en and areaid.hl. Rectangular crossing gates require two opposite, not adjacent, diffusion ends.",
+    "All 601 periphery records remain: 117 executed-reviewed, 235 absent-operand, 77 upstream-NA, 28 advisory, 61 other-backend, 82 execution-review-required and one definition-required."
+  ]
+}

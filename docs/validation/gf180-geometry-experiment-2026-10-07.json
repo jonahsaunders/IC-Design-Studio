@@ -1,0 +1,113 @@
+{
+  "status": "main-rule geometry repair verified experimentally; density remains failed",
+  "scope": "GF180-C 5LM/9K/9t counter only. Original RTL, constraints and design settings retained; only the two captured platform recipes and their identities changed. Not integrated into the application or managed runtime.",
+  "implementation": {
+    "status": "implementation-passed; final-GDS DRC pending",
+    "scope": "Exploratory GF180-C geometry repair; no production or signoff claim.",
+    "original_input_sha256": "87384ab6ecc5d7a3dcd56b393ba4258270d456a1ee724f053aa0d959837005f7",
+    "original_platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922",
+    "new_platform_fingerprint": "f7c4a3d9e1b1eefafd0ee40faf0ad2b1972b74379a67d28ca00ae6d315b36d17",
+    "changes": [
+      {
+        "path": "gf180/openROAD/pdn/pdn_grid_strategy_9t_6M.cfg",
+        "before": "-split_cuts {Metal3 0.128}",
+        "after": "-split_cuts {Metal3 0.520}",
+        "before_sha256": "92f6fdbd12e900f95e159a146fbeae4d99d419ee778c158233a82946577ee0c1",
+        "after_sha256": "78971b000b024eca49e18456f68ac63d510c05245a5ad752b633ac051f882b10"
+      },
+      {
+        "path": "gf180/openROAD/tapcell.tcl",
+        "before": "-distance 100",
+        "after": "-distance 14",
+        "before_sha256": "df82d8f3904bc6de86e441be3766b9b6e8d9a7a22d1e9219faa9244d9b830638",
+        "after_sha256": "a327a990e6543beae316ed6df1bfd6ab3533b7170ea5797ec020396af097e7d3"
+      }
+    ],
+    "cases": [
+      {
+        "stage": "mapped",
+        "summary": "Mapped synthesis complete \u00b7 gf180 / typical",
+        "result_sha256": "4c5df927899c29d9edc62a2f0ed203a8326030b33fae7331e9d8155757b106e1"
+      },
+      {
+        "stage": "finish",
+        "summary": "Physical finish complete \u00b7 790 placed cells",
+        "result_sha256": "a67d4f2a53d90a1ac31066157ae2dbd4d13b796359cca67cc5efb7482a11dba4"
+      },
+      {
+        "stage": "timing",
+        "summary": "Timing PASS \u00b7 typical, slow, fast \u00b7 extracted SPEF",
+        "result_sha256": "fe1f080ebce6bfa9ed42b2ec9d6511e5a4dc2f441aaf39ba585973e81dffc1c3"
+      },
+      {
+        "stage": "equivalence",
+        "summary": "Equivalence PASS \u00b7 captured mapped netlist",
+        "result_sha256": "7a840ac330196b9fc67c08398aed541032cf7e63d8812b1f9f1a6a7cf16f1abf"
+      }
+    ]
+  },
+  "rule_check": {
+    "scope": "Exploratory unmodified pinned GF180-C deck execution on the captured 5LM/9K/9t counter; no signoff claim.",
+    "source_commit": "05e7b6adf19edf942969c1c9625f02fd87874f06",
+    "gds_sha256": "63f2944ce62ae29066bea5cd2b84563cb7a213e15c2b02a8d30e01be942ec4c0",
+    "command": [
+      "/usr/bin/python3",
+      "/audit/gf180-digital-pv/klayout/drc/run_drc.py",
+      "--path=/candidate/geometry-v2/finished/physical/results/gf180/counter/base/6_final.gds",
+      "--variant=C",
+      "--topcell=counter",
+      "--run_dir=/audit/gf180-geometry-v2-drc/drc",
+      "--thr=2",
+      "--mp=1",
+      "--density",
+      "--antenna"
+    ],
+    "exit": 1,
+    "reports": [
+      {
+        "path": "drc/6_final_antenna.lyrdb",
+        "sha256": "16bc08638588768ac2878fdc032425eb79b7be2b768a13dc73cf4014505e8551",
+        "markers": 0,
+        "categories": {}
+      },
+      {
+        "path": "drc/6_final_density.lyrdb",
+        "sha256": "f8531f17f28e79417aaf1b5e70ad573a2a84900ba301d0ef3e75eaf7196458c6",
+        "markers": 555,
+        "categories": {
+          "'PL.8'": 104,
+          "'M1.4'": 139,
+          "'M2.4'": 161,
+          "'M3.4'": 137,
+          "'M4.4'": 8,
+          "'M5.4'": 3,
+          "'MT.3'": 3
+        }
+      },
+      {
+        "path": "drc/6_final_main.lyrdb",
+        "sha256": "c57a3fc12bec96124ec67fb2f57f84c489702669f94ffc7da5f446223e1d9e5f",
+        "markers": 0,
+        "categories": {}
+      }
+    ],
+    "engine_log_sha256": "be0f16c597924c8d3838b7a2c7f5559d660cb75b6c242b9e0fb0a3fcb5dbaf8c"
+  },
+  "unchanged_deck_inventory_sha256": "4846ce439bf106a9f3a87d49d7dd812edabd35f4b4443b05cb099bb4797a313f",
+  "baseline_counts": {
+    "main": 2774,
+    "density": 552,
+    "antenna": 0
+  },
+  "candidate_counts": {
+    "main": 0,
+    "density": 555,
+    "antenna": 0
+  },
+  "archive": {
+    "name": "gf180-geometry-v2-evidence.tar.gz",
+    "sha256": "6f24d3f92e20ecbad729c3eedcc2c4694217b6f99b46adbe37344b7f73586868",
+    "bytes": 6783755
+  },
+  "audit_script_sha256": "fec142ea9693a2cc7120e97588565f90b1c2fb930e617e1f6ba3650fb8514231"
+}

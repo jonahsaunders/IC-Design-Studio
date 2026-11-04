@@ -1,0 +1,570 @@
+{
+  "schema": 1,
+  "status": "metal-module-both-os-controls-and-source-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T15:07:02.019521+00:00",
+  "source_base_commit": "2f1cc3e0e2c4b82766bb763d762beeb24372b2e3",
+  "backend": "0583747fe369d55998f263ad326cc8fc805a04793526f1cb585829cdcf15fa8c",
+  "implementation": {
+    "path": "work/IC-Design-Studio/icstudio/gf180_connectivity.py",
+    "sha256": "957f06a7457ac1d83042d411bb9bbf6d0fb75fa03b70016219dfe6d654713bbe"
+  },
+  "command": {
+    "path": "work/IC-Design-Studio/scripts/check_gf180_connectivity.py",
+    "sha256": "e27cd3d6881b898acae9a177c7ea437d8adbe0870ea521f926b7eb647b487088"
+  },
+  "tests": {
+    "full-windows-v1": {
+      "tests": 1579,
+      "skipped": 62,
+      "record": {
+        "path": "outputs/gf180-metal-module-full-windows-v1.log",
+        "sha256": "dbc7b83ae94a067b4a22118fcb584472c159a232ebad7c3ed9d10369ba7edd36"
+      }
+    },
+    "focused-windows-v3": {
+      "tests": 22,
+      "skipped": 0,
+      "record": {
+        "path": "outputs/gf180-metal-module-focused-windows-v3.log",
+        "sha256": "d418a52a6779db6431f53f628a9a32c21677a005f1b636e9c75692a49b6bcd32"
+      }
+    },
+    "focused-linux-v1": {
+      "tests": 22,
+      "skipped": 0,
+      "record": {
+        "path": "outputs/gf180-metal-module-focused-linux-v1.log",
+        "sha256": "e8db01fc4ddfe0b88dfe260fe8bca7658319a915927bc1476c140b737af8d1b5"
+      }
+    }
+  },
+  "scope": "Reusable written-metal continuity with independently derived complete 9-track power coverage. Six full layouts and thirty retained controls per OS, not combined native LVS or post-fill electrical qualification.",
+  "retained_failures": [
+    "Initial archive preflight treated a Linux /mnt/c path as a Windows Path before translation and stopped before creating an archive; v2 translates the original string first.",
+    "First Windows focused launch failed on sandbox native temporary-file access. The unchanged tests pass outside the sandbox with the declared writable temporary directory."
+  ],
+  "remaining": [
+    "Automatic finished-job dispatch and combined strict native LVS/metal acceptance.",
+    "Fresh installed-runtime acceptance.",
+    "Complete fill coverage and full before/filled transistor function and timing."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-metal-module-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "cb6e739874fdce70de0aa4fc8b04b3c4da61a889e4f454d185574d0ff1332167",
+    "bytes": 52039562,
+    "logical_files": 625,
+    "unique_objects": 574,
+    "verified": true
+  },
+  "systems": {
+    "windows": {
+      "record": {
+        "path": "outputs/gf180-metal-module-windows-v1/record.json",
+        "sha256": "dc1b5c374750e84e02a32333d09b3d70a48ceb3d8dd00179a8ed1eff3f3daa46"
+      },
+      "actual_layouts": 6,
+      "physical_controls": 30,
+      "placed_cells": 16592,
+      "power_terminals": 33184,
+      "metal_faults_rejected": 18,
+      "substrate_only_controls_outside_scope": 6,
+      "cases": [
+        {
+          "case": "c-counter",
+          "placed_cells": 801,
+          "power_terminals": 1602,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 801
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 801
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "c-uart",
+          "placed_cells": 3839,
+          "power_terminals": 7678,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3839
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3839
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "c-apb",
+          "placed_cells": 3656,
+          "power_terminals": 7312,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3656
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3656
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "d-counter",
+          "placed_cells": 801,
+          "power_terminals": 1602,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 801
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 801
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "d-uart",
+          "placed_cells": 3839,
+          "power_terminals": 7678,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3839
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3839
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "d-apb",
+          "placed_cells": 3656,
+          "power_terminals": 7312,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3656
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3656
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "record": {
+        "path": "outputs/gf180-metal-module-linux-v1/record.json",
+        "sha256": "3d1264e84aa15ef9b60c08e129282cea127b5320b94ce615c794c5c155bb8602"
+      },
+      "actual_layouts": 6,
+      "physical_controls": 30,
+      "placed_cells": 16592,
+      "power_terminals": 33184,
+      "metal_faults_rejected": 18,
+      "substrate_only_controls_outside_scope": 6,
+      "cases": [
+        {
+          "case": "c-counter",
+          "placed_cells": 801,
+          "power_terminals": 1602,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 801
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 801
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "c-uart",
+          "placed_cells": 3839,
+          "power_terminals": 7678,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3839
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3839
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "c-apb",
+          "placed_cells": 3656,
+          "power_terminals": 7312,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3656
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3656
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "d-counter",
+          "placed_cells": 801,
+          "power_terminals": 1602,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 801
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 801
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "d-uart",
+          "placed_cells": 3839,
+          "power_terminals": 7678,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3839
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3839
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        },
+        {
+          "case": "d-apb",
+          "placed_cells": 3656,
+          "power_terminals": 7312,
+          "controls": [
+            {
+              "case": "positive",
+              "passed": true,
+              "failure_counts": {}
+            },
+            {
+              "case": "vdd-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3656
+              }
+            },
+            {
+              "case": "vss-port-open",
+              "passed": false,
+              "failure_counts": {
+                "port-anchor-disconnected": 1,
+                "power-terminal-disconnected": 3656
+              }
+            },
+            {
+              "case": "signal-short",
+              "passed": false,
+              "failure_counts": {
+                "shorted-top-ports": 1
+              }
+            },
+            {
+              "case": "substrate-taps-open",
+              "passed": true,
+              "failure_counts": {}
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

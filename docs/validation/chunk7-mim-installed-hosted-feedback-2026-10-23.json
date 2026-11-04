@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "date": "2026-10-23",
+  "status": "hosted_pr_feedback_passed",
+  "scope": "Exact-candidate automatic merge feedback after the Windows test-fixture correction. Installed and full-family acceptance remain separate.",
+  "qualified": false,
+  "release_acceptance": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "verification": {
+    "schema": 1,
+    "run": 40046934529,
+    "candidate": "65614924f125200db068d66669af6fe102c71e45",
+    "status": "success",
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/40046934529",
+    "platforms": [
+      {
+        "artifact": "source-feedback-Windows-3990a351fca6d0eaef3f5b0e22ee1813e918b38b",
+        "artifact_sha256": "7839647453c14d45f4e22896416b8cc21aa970c8e7b0fc6029b64a57e2503f54",
+        "tests": 384,
+        "counts": "skipped=15",
+        "source_bindings": 1352,
+        "source_report_sha256": "31ca442a8b33e418022fcf916541aa267ee17c49c7bc1f34b1d129938e22a814",
+        "status": "passed",
+        "merge_commit": "3990a351fca6d0eaef3f5b0e22ee1813e918b38b",
+        "seconds": 135.469
+      },
+      {
+        "artifact": "source-feedback-Linux-3990a351fca6d0eaef3f5b0e22ee1813e918b38b",
+        "artifact_sha256": "3e180b18e6ddc9383b0314864f2e397d2e2de284bf75d988161970ef1ef4524e",
+        "tests": 384,
+        "counts": "skipped=2",
+        "source_bindings": 1352,
+        "source_report_sha256": "31ca442a8b33e418022fcf916541aa267ee17c49c7bc1f34b1d129938e22a814",
+        "status": "passed",
+        "merge_commit": "3990a351fca6d0eaef3f5b0e22ee1813e918b38b",
+        "seconds": 73.214
+      }
+    ],
+    "merge_commit": "3990a351fca6d0eaef3f5b0e22ee1813e918b38b",
+    "parents": [
+      "49c79957b4d6f4978127da612e167e5c75cda6b3",
+      "65614924f125200db068d66669af6fe102c71e45"
+    ],
+    "all_candidate_source_bindings_verified": true,
+    "installed_acceptance": false,
+    "chunk_complete": false
+  },
+  "archive": {
+    "directory": "mim-installed-feedback-40046934529-2026-10-23-v1",
+    "file": "evidence.zip",
+    "bytes": 599268,
+    "sha256": "328dc146e18e217ca409b5c5417fae92e3da950216d19c654e67dc218adadbe3",
+    "files": 8,
+    "manifest_sha256": "d21d91d3f908c8979c1ac152495de4b7c4dc053cd900c2c5ee87c774daed2942",
+    "all_files_readback_verified": true
+  },
+  "prior_failed_run": 40045985456,
+  "repair_record": "docs/validation/chunk7-mim-path-fixture-repair-2026-10-23.json"
+}

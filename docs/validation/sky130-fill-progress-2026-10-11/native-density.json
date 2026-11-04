@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "status": "independent-density-screen-agrees",
+  "qualified": false,
+  "chunk_complete": false,
+  "driver_sha256": "79e5993a503da8a7111b87df0e19d26be261a3d10e916391fd03b1421e975274",
+  "rows": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "die_um": [
+        0,
+        0,
+        200,
+        200
+      ],
+      "density": {
+        "fom": 0.3549918830394745,
+        "poly": 0.1567576825618744,
+        "li": 0.45109808444976807,
+        "m1": 0.36710184812545776,
+        "m2": 0.4177075922489166,
+        "m3": 0.359317809343338,
+        "m4": 0.3926082253456116,
+        "m5": 0.46628281474113464
+      },
+      "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "executable_sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5"
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "die_um": [
+        0,
+        0,
+        400,
+        400
+      ],
+      "density": {
+        "fom": 0.3550039231777191,
+        "poly": 0.2917350232601166,
+        "li": 0.5658447742462158,
+        "m1": 0.3682343661785126,
+        "m2": 0.4420608878135681,
+        "m3": 0.37218907475471497,
+        "m4": 0.4115089476108551,
+        "m5": 0.4550209641456604
+      },
+      "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "executable_sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5"
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "die_um": [
+        0,
+        0,
+        400,
+        400
+      ],
+      "density": {
+        "fom": 0.35499274730682373,
+        "poly": 0.3016499876976013,
+        "li": 0.5614364147186279,
+        "m1": 0.35704463720321655,
+        "m2": 0.41681748628616333,
+        "m3": 0.3536485731601715,
+        "m4": 0.3943867087364197,
+        "m5": 0.46017417311668396
+      },
+      "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+      "executable_sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5"
+    }
+  ],
+  "scope": "Native Magic and independent KLayout screening densities agree over the original die. This does not establish complete required density interpretation or foundry acceptance."
+}

@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "status": "full-rc-startup-failures-diagnosed-and-retained",
+  "qualified": false,
+  "observed_at": "2026-10-09T15:58:55.569256+00:00",
+  "source_commit": "967e014299702a4873a953e51722c65366af6580",
+  "full_rc_attempt": {
+    "path": "outputs/gf180-c-apb-full-rc-v2/record.json",
+    "sha256": "277cce878a85c4a94cc88f6ae188945b29bd1a6a30cb7da86d4dbd3409cacf22"
+  },
+  "status_diagnostic": {
+    "path": "outputs/gf180-apb-klu-status-v1/record.json",
+    "sha256": "968a9d78a3dd42f5a898ea11674d40f5df2aea7ba2c155a9bfc7936d5bb124d1"
+  },
+  "cases": [
+    {
+      "case": "c-apb-before",
+      "status": "native-failure",
+      "exit_code": 0,
+      "wall_seconds": 60.12556719779968,
+      "counts": {
+        "M": 0,
+        "X": 22486,
+        "D": 4,
+        "R": 284749,
+        "C": 130715,
+        "G": 409787,
+        "E": 21241,
+        "F": 0,
+        "H": 0,
+        "B": 0,
+        "V": 0,
+        "I": 0
+      },
+      "dut_sha256": "868856dcb95043813e49ff13f4b9b41e934f446d0334ed850091c15d543c0947",
+      "deck_sha256": "f9ea72e7f883e8fc037dfea9c2aa77ba23489d46862cde2b902f8d84fe9840bb",
+      "engine_log_sha256": "b9acadd177d0f22d524b0745fa7e236c677e1d22b6a4d50b5b099b056ecdb205"
+    },
+    {
+      "case": "c-apb-filled",
+      "status": "native-failure",
+      "exit_code": 0,
+      "wall_seconds": 75.16744184494019,
+      "counts": {
+        "M": 0,
+        "X": 22486,
+        "D": 4,
+        "R": 291106,
+        "C": 134953,
+        "G": 435659,
+        "E": 23360,
+        "F": 0,
+        "H": 0,
+        "B": 0,
+        "V": 0,
+        "I": 0
+      },
+      "dut_sha256": "9da6627b82f95e68ea787b4f0980016aa9d14a6549e125098e5fc1df75a90121",
+      "deck_sha256": "f9ea72e7f883e8fc037dfea9c2aa77ba23489d46862cde2b902f8d84fe9840bb",
+      "engine_log_sha256": "7a01cf1279f032ed6e5ad46f7b8e58d4a724a96e443e8597eddd73aba3a9aaa3"
+    }
+  ],
+  "diagnosis": [
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "ICSTUDIO_KLU_FAILURE status=-2 rank=-1 singular_col=-1 N=282249 memusage=5645080 mempeak=721105044",
+    "doAnalyses: TRAN:  Timestep too small; initial timepoint: trouble with diode_pd2nw_06v0-instance d.xdut.d0",
+    "tran simulation(s) aborted"
+  ],
+  "dependencies": {
+    "full_rc": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-affine-rc-2026-10-09-v1\\evidence.tar.gz",
+      "sha256": "088d5804c43de4d6fe8990d327fb6461c83b782f7808621612df9c23b5868bac",
+      "bytes": 631080990
+    },
+    "program": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-function-fixtures-2026-10-09-v1\\evidence.tar.gz",
+      "sha256": "79254d9bf7fbffd2b781fdb01bc1aceba661152b78e6622186f8cbf1fe94146b",
+      "bytes": 18253209
+    },
+    "simulator_and_nominal": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-device-c-apb-2026-10-09-v1\\evidence.tar.gz",
+      "sha256": "5a01c17eee971320749642d21211ad23d1a33310291a03930a8266dd89751de9",
+      "bytes": 24034637
+    }
+  },
+  "scope": "Both full RC models retain the unchanged complete program, all devices and all extracted elements. Startup failed before any usable waveform. Diagnostic status is not a circuit acceptance result.",
+  "remaining": [
+    "Resolve the observed startup/resource failure without dropping elements or weakening numerical limits.",
+    "Complete and independently audit both full before/filled programs.",
+    "All required timing, fill and installed-runtime acceptance."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\gf180-apb-startup-diagnostics-2026-10-09-v1\\evidence.tar.gz",
+    "sha256": "bc536561bd4612c3a9f0998c0d8baafb181ca85cfc514ac06d5b250629a00e00",
+    "bytes": 4449293,
+    "logical_files": 24,
+    "unique_objects": 23,
+    "verified": true
+  }
+}

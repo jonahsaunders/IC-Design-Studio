@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "status": "PASS_FINITE_SOURCE_WINDOWS_MANAGED_ROUTE",
+  "source_commit": "f633d2c875669634173936e57285860b62ff08c9",
+  "scope": "One asymmetric two-finger IHP LV NMOS extracted native-view fixture at mos_tt and 27 C, exercised through source Windows Studio and its managed Linux backend; DC and drain AC only.",
+  "results": {
+    "dc_points": 41,
+    "ac_points": 31,
+    "maximum_normalized_terminal_error": 0.0,
+    "dc_kcl_normalized_max": 1.2590806035439218e-07,
+    "ac_kcl_normalized_max": 3.94148918597229e-10,
+    "semantic_negative_controls": 15
+  },
+  "evidence": {
+    "archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-lv-windows-managed-source-2026-10-31-v1/ihp-lv-windows-managed-source-v1.zip",
+    "archive_sha256": "228be7223210c539b055ed574c4dd3c9a5bf9fa2be6d93aa28890d470fe2681f",
+    "archive_manifest_sha256": "a07718acb7823674b4fb9ea34a25f4ebd93040722c68bf446695e5743c9da6c8",
+    "retention_receipt_sha256": "81b6fe7782309877b4b9f6730891b0c910726f166a259c3a52a4e8d0ac5e0b69",
+    "expected_sha256": "2f3fc9db3475399adc99b8aba39b01cde550def36bab317d18cd018fbc8ca264",
+    "readback_sha256": "ed9904aa87f58540720b9b7fa9b4044ed7b0786a104f42bb1b85d3ab029f0d46",
+    "controls_sha256": "e5293661d1ea3d9e8bcd641dd2148136d7e95215de3b4a0e4a4ee58d24bfd539",
+    "independent_control_review": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-lv-windows-managed-source-2026-10-31-v1/independent-controls-review.json",
+    "independent_control_review_sha256": "a071177d237ac4aebb7bb702eee984ac00fc04b792d1acce9631d0061980d7e1"
+  },
+  "limits": [
+    "Actual frontend, host worker, backend inputs, runtime locks, returned artifacts and raw output were captured. Native argv, working directory and environment are reconstructed from pinned source rather than directly measured process receipts.",
+    "No native Windows OSDI, frozen or installed acceptance, PMOS, catalog-geometry equivalence, physical parasitic extraction calibration or full-family qualification is claimed.",
+    "Earlier representation failures, relative-path readback attempt and first copied-control retention failure are retained; no earlier failed run is relabeled as successful."
+  ]
+}

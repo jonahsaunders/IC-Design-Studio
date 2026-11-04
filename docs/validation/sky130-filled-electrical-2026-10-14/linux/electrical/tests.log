@@ -1,0 +1,19 @@
+test_both_passes_bind_final_inputs (tests.test_sky130_filled_electrical.FilledElectricalBindingsTests.test_both_passes_bind_final_inputs) ... ok
+test_changed_rtl_cannot_keep_the_old_pass (tests.test_sky130_filled_electrical.FilledElectricalBindingsTests.test_changed_rtl_cannot_keep_the_old_pass) ... ok
+test_incomplete_failed_or_only_summary_pass_is_rejected (tests.test_sky130_filled_electrical.FilledElectricalBindingsTests.test_incomplete_failed_or_only_summary_pass_is_rejected) ... ok
+test_old_netlist_or_missing_final_parasitics_cannot_pass (tests.test_sky130_filled_electrical.FilledElectricalBindingsTests.test_old_netlist_or_missing_final_parasitics_cannot_pass) ... ok
+test_pre_layout_constraints_or_additional_unexecuted_corners_are_rejected (tests.test_sky130_filled_electrical.FilledElectricalBindingsTests.test_pre_layout_constraints_or_additional_unexecuted_corners_are_rejected) ... ok
+test_settings_cannot_be_replaced_after_execution (tests.test_sky130_filled_electrical.FilledElectricalBindingsTests.test_settings_cannot_be_replaced_after_execution) ... ok
+test_wrong_design_or_technology_is_rejected (tests.test_sky130_filled_electrical.FilledElectricalBindingsTests.test_wrong_design_or_technology_is_rejected) ... ok
+test_wrong_upstream_result_stage_or_any_artifact_is_rejected (tests.test_sky130_filled_electrical.FilledElectricalBindingsTests.test_wrong_upstream_result_stage_or_any_artifact_is_rejected) ... ok
+test_actual_native_reports_reproduce_both_passes (tests.test_sky130_filled_electrical.NativeElectricalReplayTests.test_actual_native_reports_reproduce_both_passes) ... ok
+test_cached_or_failed_strategy_cannot_supply_a_proof (tests.test_sky130_filled_electrical.NativeElectricalReplayTests.test_cached_or_failed_strategy_cannot_supply_a_proof) ... ok
+test_induction_unknown_retains_trace_when_pdr_proves_the_partition (tests.test_sky130_filled_electrical.NativeElectricalReplayTests.test_induction_unknown_retains_trace_when_pdr_proves_the_partition) ... ok
+test_missing_proof_completion_or_new_counterexample_is_rejected (tests.test_sky130_filled_electrical.NativeElectricalReplayTests.test_missing_proof_completion_or_new_counterexample_is_rejected) ... ok
+test_positive_slack_does_not_hide_missing_extracted_interconnect (tests.test_sky130_filled_electrical.NativeElectricalReplayTests.test_positive_slack_does_not_hide_missing_extracted_interconnect) ... ok
+test_positive_summary_cannot_hide_a_failing_or_missing_path (tests.test_sky130_filled_electrical.NativeElectricalReplayTests.test_positive_summary_cannot_hide_a_failing_or_missing_path) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.113s
+
+OK

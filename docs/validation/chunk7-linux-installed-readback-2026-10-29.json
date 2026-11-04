@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "candidate": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+  "workflow_run": 40730809639,
+  "job_id": 123078037324,
+  "artifact_id": 12854134670,
+  "artifact_sha256": "bd454c51f29e409f69b04c80d0a72774840ffdc6acd5631929c4752cad641a4d",
+  "scope": "Independent Windows offline raw/component review of original hosted Linux installed evidence. Original paths, source/execution IDs and manifests remain immutable; no new native execution. External frozen executable/runtime bytes are not present in this checkpoint archive; their identity is established by the original exact-candidate installed gate, not independently rehashed here.",
+  "full_family": false,
+  "chunk_complete": false,
+  "native_resimulations": 0,
+  "ihp": {
+    "status": "PASS",
+    "execution_id": "129b5d67f8ba4a4090605a2fb78d4849",
+    "report_sha256": "55dd9f473ec1d7a0bbacb2c98a88ba7c72517bd62719fac7d04a03c2e7027eba",
+    "candidate_sources": 476,
+    "counts": {
+      "gui_layouts": 60,
+      "native_layouts": 60,
+      "native_controls": 165,
+      "fresh_managed_jobs": 225
+    },
+    "fault_counts": {
+      "positive": 60,
+      "terminal-open": 30,
+      "body-open": 30,
+      "terminal-short": 30,
+      "reference-width": 30,
+      "reference-model": 30,
+      "missing-via": 15
+    },
+    "gate_seconds": 1825.4859227029997,
+    "worker_sum_seconds": 1664.1883056619986,
+    "worker_min_seconds": 7.34429955700034,
+    "worker_max_seconds": 7.493099971999982,
+    "worker_mean_seconds": 7.396392469608883,
+    "source_masks_and_native_inputs_reconstructed": true,
+    "all_fresh_managed_receipts_and_raw_physics_verified": true
+  },
+  "esd": {
+    "status": "PASS",
+    "execution_id": "261bfb3a28d14211804d71b87057e46d",
+    "report_sha256": "bbc85c50cd077b340e0000cb52fa91c42ffc509cb100bdfe6636be2868af2485",
+    "candidate_sources": 469,
+    "cases": 19,
+    "native_executions": 98,
+    "fault_device_instances": 360,
+    "maximum_normalized_error": 0,
+    "gate_seconds": 727.9924752840002,
+    "old_saved_revision_preserved": true,
+    "actual_gui_and_native_result_vectors_reconstructed": true
+  },
+  "seconds": 174.31299999999464
+}

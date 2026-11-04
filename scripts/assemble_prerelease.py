@@ -5,12 +5,15 @@ import json
 from pathlib import Path
 import shutil
 import sys
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from icstudio import __version__
 from scripts.prepare_release_payload import checksum, require, validate_desktop_report, validate_installer
 from scripts.verify_packaged_vga import validate as validate_vga
+from scripts.release_pw2dn_evidence import from_zip as validate_pw2dn_zip, check_distribution as check_pw2dn_distribution
+from scripts.release_ihp_cmim_evidence import from_zip as validate_cmim_zip, check_distribution as check_cmim_distribution, same_receipt as same_cmim_receipt
 
 
 def validate_statistical_qualification(directory, commit, run_id):
@@ -74,6 +77,21 @@ def assemble(inputs, output, commit):
             path = record.parent / name
             require(path.is_file() and checksum(path) == expected, 'Missing or changed release asset: ' + name)
             files[name] = path
+        evidence_name = prefix + f'Evidence-{platform}.zip'
+        evidence_prefix = 'windows-evidence/pw2dn' if platform == 'Windows' else 'frozen-pw2dn-evidence'
+        with zipfile.ZipFile(files[evidence_name]) as evidence:
+            require(validate_pw2dn_zip(evidence, evidence_prefix, commit) == data.get('pw2dn'),
+                    'Release pw2dn receipts differ from platform evidence archive')
+            if platform == 'Windows':
+                require(json.loads(evidence.read(evidence_prefix + '/verification.json')) == data['installer'].get('pw2dn'),
+                        'Windows installer pw2dn receipt differs from platform evidence archive')
+            cmim_prefix = 'windows-evidence/ihp-cmim' if platform == 'Windows' else 'frozen-ihp-cmim-evidence'
+            cmim = validate_cmim_zip(evidence, cmim_prefix, commit)
+            require(same_cmim_receipt(cmim, data.get('ihp_cmim')), 'Release IHP CMIM evidence differs from platform validation')
+            if platform == 'Windows':
+                require(same_cmim_receipt(cmim, data['installer'].get('ihp_cmim')), 'Windows installer IHP CMIM receipt differs')
+        check_pw2dn_distribution(files[archive_name], platform, data['pw2dn'])
+        check_cmim_distribution(files[archive_name], platform, cmim)
         require(record.name not in files, 'Duplicate validation record')
         files[record.name] = record
     output.mkdir(parents=True)

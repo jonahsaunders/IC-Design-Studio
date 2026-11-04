@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "observed_utc": "2026-11-03 17:57:49 UTC",
+  "status": "PUBLISHED_NEW_ACCEPTANCE_RUNNING",
+  "candidate": "04ce9bceefc4cd0591824351f275833ba9a01b7f",
+  "branch": "experimental",
+  "remote_ref_verified": true,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "local_source_evidence": "chunk7-spacing-integration-2026-11-03.json",
+  "runs": [
+    {
+      "id": 41689153566,
+      "jobs": [
+        {
+          "name": "candidate",
+          "id": 126102823516,
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Run actions/checkout@v4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 41689154257,
+      "jobs": [
+        {
+          "name": "source feedback (ubuntu-24.04)",
+          "id": 126102818255,
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Run actions/checkout@v4"
+          ]
+        },
+        {
+          "name": "source feedback (windows-2022)",
+          "id": 126102818649,
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Check application, runner and test syntax before installing dependencies"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 41681580250,
+      "jobs": [
+        {
+          "name": "candidate",
+          "id": 126076336303,
+          "status": "completed",
+          "conclusion": "success",
+          "current": []
+        },
+        {
+          "name": "release-tools (windows-2022)",
+          "id": 126076592411,
+          "status": "completed",
+          "conclusion": "success",
+          "current": []
+        },
+        {
+          "name": "release-tools (ubuntu-24.04)",
+          "id": 126076592532,
+          "status": "completed",
+          "conclusion": "success",
+          "current": []
+        },
+        {
+          "name": "digital-runtime / candidate",
+          "id": 126076593305,
+          "status": "completed",
+          "conclusion": "success",
+          "current": []
+        },
+        {
+          "name": "digital-runtime / runtime",
+          "id": 126076870869,
+          "status": "completed",
+          "conclusion": "success",
+          "current": []
+        },
+        {
+          "name": "package (windows-2022)",
+          "id": 126089639738,
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Verify installed digital runtime on this operating system"
+          ]
+        },
+        {
+          "name": "package (ubuntu-24.04)",
+          "id": 126089639739,
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Verify public SKY130 RF candidate with the pinned Linux engine"
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Observed jobs only. Previous desktop run uses d767f711d301ace057ceb4706c80e733aedc0c00; its results do not qualify the new candidate. This observation is kept local for the next appropriate push to avoid restarting source feedback solely for status."
+}

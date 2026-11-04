@@ -5,6 +5,7 @@ requires the external design's source and layout to pass LVS. Neither outcome
 is a foundry signoff statement. Source files are never modified.
 """
 import argparse
+from concurrent.futures import ProcessPoolExecutor, as_completed
 import json
 import math
 from pathlib import Path
@@ -78,67 +79,87 @@ def geometry_equal(first, second, *, text_presentation=True):
                 checks=['region XOR', 'text and text transforms' if text_presentation else 'label strings and anchor positions', 'hierarchy and array transforms'])
 
 
-def simulations(project, reference, executable, output, compatibility='hsa'):
+def simulations(project, reference, executable, output, compatibility='hsa', workers=1):
     from icstudio.native_spice import netlist
-    from icstudio.spice_program import read_plot
     top = next(c for c in project['cells'] if c['id'] == project['top'])
     text = circuit_text(netlist(project, output / 'native-deck'))
     split = text.lower().index('.subckt ')
     native = '.subckt ' + top['name'] + ' ' + ' '.join(top['ports']) + '\n' + text[:split] + '.ends ' + top['name'] + '\n' + text[split:]
     other = circuit_text(normalized_diodes(reference, True, False))
-    from icstudio.ngspice_compat import declare,prepare as prepare_compatibility,MARKER
+    from icstudio.ngspice_compat import declare,MARKER
     # The locked source explicitly declares the legacy lvsdiode area convention.
     def declared(circuit):
         return '\n'.join(declare(line) if re.match(r'^D\S+\s+\S+\s+\S+\s+sky130_fd_pr__diode_pw2nd_05v5\b',line) else line for line in circuit.splitlines())+'\n'
     other=declared(other)
     if MARKER not in native:native=declared(native)
     models = ROOT / 'icstudio/assets/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice'
-    results = []
-    for code in range(16):
-        waves = []
-        for kind, circuit in (('native', native), ('reference', other)):
-            sub = re.search(r'(?im)^\.subckt\s+' + re.escape(top['name']) + r'\s+([^\n]+)', circuit)
-            ports = ['0' if p in ('avss', 'dvss') else p.replace('[', '_').replace(']', '') for p in sub[1].split()]
-            folder = output / f'{code:02d}-{kind}'; folder.mkdir(parents=True)
-            deck = '* Pinned detector DC functional sweep\n.lib "' + str(models) + '" tt\n' + circuit
-            deck += '\nXDUT ' + ' '.join(ports) + ' ' + top['name']
-            deck += '\nVavdd avdd 0 3\nVdvdd dvdd 0 1.8\nVena ena 0 1.8\nVbg vbg 0 1.2\nIbias avdd ibias 600n\nRload ovout 0 1meg\n'
-            deck += ''.join(f'Vbit{i} vtrip_{i} 0 {1.8 if code & (1 << i) else 0}\n' for i in range(4))
-            deck += '.temp 27\n.dc Vavdd 3 6 .01\n.save v(ovout)\n.end\n'
-            command=[executable, '-n', '-D', 'filetype=ascii']
-            if compatibility=='hsa':command += ['-D', 'ngbehavior=hsa']
-            deck=prepare_compatibility(deck,executable,folder)
-            if compatibility=='hsa':
-                from icstudio.dc_startup import seed_deck
-                deck=seed_deck(deck,lambda raw,deck:command+['-b','-r',str(raw),str(deck)],folder)
-            atomic_write(folder / 'input.cir', deck)
-            command += ['-b', '-r', str(folder / 'output.raw'), str(folder / 'input.cir')]
-            try: log = execute(command, folder, timeout=120)
-            except Exception as exc:
-                atomic_write(folder / 'engine-error.log', str(exc)); raise
-            atomic_write(folder / 'engine.log', log)
-            if re.search(r'(?im)^\s*error|unknown subckt|timestep too small|singular matrix', log): raise ValueError('Simulation diagnostic: ' + str(folder))
-            plot = read_plot(folder / 'output.raw')
-            if plot['plot_kind'] != 'dc' or len(plot['x']) != 301 or 'ovout' not in plot['traces']: raise ValueError('Incomplete functional sweep.')
-            rows = list(zip(plot['x'], plot['traces']['ovout']))
-            if not all(math.isfinite(v) for row in rows for v in row): raise ValueError('Nonfinite functional sweep.')
-            if rows[0][1] > .2 or rows[-1][1] < 1.6: raise ValueError('Detector did not switch across the supply sweep.')
-            waves.append(rows)
-        error = max(abs(a[1] - b[1]) for a, b in zip(*waves))
-        # Compare within the solver's default 0.1% relative accuracy, with
-        # a 2 µV floor near zero. A rail transition must occur on the same step.
-        if any(abs(a[1]-b[1])>max(2e-6,1e-3*abs(b[1])) for a,b in zip(*waves)):
-            raise ValueError(f'Code {code}: waveform differs beyond the declared solver tolerance ({error:g} V peak).')
-        trip = next(row[0] for row in waves[0] if row[1] >= .9)
-        reference_trip = next(row[0] for row in waves[1] if row[1] >= .9)
-        if abs(trip-reference_trip)>1e-8:raise ValueError('Detector trip steps differ from the reference.')
-        results.append(dict(code=code, trip_voltage=trip, max_reference_error=error, status='passed'))
-        atomic_write(output / 'completed-codes.json', json.dumps(results, indent=2))
+    if workers not in (1,2,3,4):raise ValueError('Choose one to four detector workers.')
+    jobs=[(code,native,other,top['name'],str(models),str(executable),str(output),compatibility) for code in range(16)]
+    results=[]
+    def completed(row):
+        results.append(row);results.sort(key=lambda r:r['code'])
+        atomic_write(output/'completed-codes.json',json.dumps(results,indent=2))
+        print(f"Detector code {row['code']:02d}: matched; {len(results)}/16 complete",flush=True)
+    if workers==1:
+        for job in jobs:completed(simulation_code(job))
+    else:
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            futures=[pool.submit(simulation_code,job) for job in jobs]
+            for future in as_completed(futures):completed(future.result())
+    if [r['code'] for r in results]!=list(range(16)):
+        raise ValueError('Missing or duplicate detector code results.')
     if any(b['trip_voltage'] <= a['trip_voltage'] for a, b in zip(results, results[1:])):
         raise ValueError('Trip thresholds are not strictly increasing.')
-    return dict(status='passed', compatibility=compatibility, dc_startup=compatibility=='hsa', corner='tt', temperature=27, dvdd=1.8, vbg=1.2,
+    return dict(status='passed', compatibility=compatibility, dc_startup=compatibility=='hsa', workers=workers, corner='tt', temperature=27, dvdd=1.8, vbg=1.2,
                 ibias=6e-7, supply_step=.01, tolerance=dict(relative=1e-3,absolute_voltage=2e-6,trip='same 10 mV step'), codes=results,
                 scope='Emitted-deck comparison in the declared compatibility mode; excludes transient timing, hysteresis, PVT and extracted simulation.')
+
+
+def simulation_code(job):
+    """Keep one code's application/reference solves isolated in their own files."""
+    from icstudio.spice_program import read_plot
+    from icstudio.ngspice_compat import prepare as prepare_compatibility
+    code,native,other,top,models,executable,output,compatibility=job
+    output=Path(output);waves=[]
+    for kind, circuit in (('native', native), ('reference', other)):
+        sub = re.search(r'(?im)^\.subckt\s+' + re.escape(top) + r'\s+([^\n]+)', circuit)
+        ports = ['0' if p in ('avss', 'dvss') else p.replace('[', '_').replace(']', '') for p in sub[1].split()]
+        folder = output / f'{code:02d}-{kind}'; folder.mkdir(parents=True)
+        deck = '* Pinned detector DC functional sweep\n.lib "' + str(models) + '" tt\n' + circuit
+        deck += '\nXDUT ' + ' '.join(ports) + ' ' + top
+        deck += '\nVavdd avdd 0 3\nVdvdd dvdd 0 1.8\nVena ena 0 1.8\nVbg vbg 0 1.2\nIbias avdd ibias 600n\nRload ovout 0 1meg\n'
+        deck += ''.join(f'Vbit{i} vtrip_{i} 0 {1.8 if code & (1 << i) else 0}\n' for i in range(4))
+        deck += '.temp 27\n.dc Vavdd 3 6 .01\n.save v(ovout)\n.end\n'
+        command=[executable, '-n', '-D', 'filetype=ascii']
+        if compatibility=='hsa':command += ['-D', 'ngbehavior=hsa']
+        deck=prepare_compatibility(deck,executable,folder)
+        if compatibility=='hsa':
+            from icstudio.dc_startup import seed_deck
+            deck=seed_deck(deck,lambda raw,deck:command+['-b','-r',str(raw),str(deck)],folder)
+        atomic_write(folder / 'input.cir', deck)
+        command += ['-b', '-r', str(folder / 'output.raw'), str(folder / 'input.cir')]
+        try: log = execute(command, folder, timeout=120)
+        except Exception as exc:
+            atomic_write(folder / 'engine-error.log', str(exc)); raise
+        atomic_write(folder / 'engine.log', log)
+        if re.search(r'(?im)^\s*error|unknown subckt|timestep too small|singular matrix', log): raise ValueError('Simulation diagnostic: ' + str(folder))
+        plot = read_plot(folder / 'output.raw')
+        if plot['plot_kind'] != 'dc' or len(plot['x']) != 301 or 'ovout' not in plot['traces']: raise ValueError('Incomplete functional sweep.')
+        rows = list(zip(plot['x'], plot['traces']['ovout']))
+        if not all(math.isfinite(v) for row in rows for v in row): raise ValueError('Nonfinite functional sweep.')
+        if any(not math.isclose(row[0],3+i*.01,rel_tol=0,abs_tol=1e-10) for i,row in enumerate(rows)):
+            raise ValueError('Detector sweep axis differs from the declared 3–6 V sweep.')
+        if rows[0][1] > .2 or rows[-1][1] < 1.6: raise ValueError('Detector did not switch across the supply sweep.')
+        waves.append(rows)
+    error = max(abs(a[1] - b[1]) for a, b in zip(*waves))
+    # Compare within the solver's default 0.1% relative accuracy, with
+    # a 2 µV floor near zero. A rail transition must occur on the same step.
+    if any(abs(a[1]-b[1])>max(2e-6,1e-3*abs(b[1])) for a,b in zip(*waves)):
+        raise ValueError(f'Code {code}: waveform differs beyond the declared solver tolerance ({error:g} V peak).')
+    trip = next(row[0] for row in waves[0] if row[1] >= .9)
+    reference_trip = next(row[0] for row in waves[1] if row[1] >= .9)
+    if abs(trip-reference_trip)>1e-8:raise ValueError('Detector trip steps differ from the reference.')
+    return dict(code=code, trip_voltage=trip, max_reference_error=error, status='passed')
 
 
 def qualify(args):
@@ -206,7 +227,7 @@ def qualify(args):
         report['checks']['layout_geometry'] = geometry_equal(out / 'magic-import/imported.gds', out / 'geometry-roundtrip.gds')
         report['cells'] = dict(schematic=len(p['cells']), layout=len(layout['cells']), attached=len(combined['layout_attachment']['cells']))
         publish()
-        report['checks']['simulation'] = simulations(p, ref, args.ngspice, out / 'simulation', args.compatibility)
+        report['checks']['simulation'] = simulations(p, ref, args.ngspice, out / 'simulation', args.compatibility, args.workers)
         publish()
         from scripts.open_project_bench import create
         from icstudio.engines import run_ngspice
@@ -268,6 +289,7 @@ def main():
     for key in ('source', 'pdk', 'out'): ap.add_argument('--' + key, type=Path, required=True)
     for key in ('magic', 'netgen', 'ngspice'): ap.add_argument('--' + key, default=shutil.which(key), required=not shutil.which(key))
     ap.add_argument('--require-consistent', action='store_true')
+    ap.add_argument('--workers',type=int,choices=range(1,5),default=2,help='Independent detector-code processes; waveforms and tolerances stay unchanged.')
     ap.add_argument('--compatibility', choices=('native','hsa'), default='hsa',
                     help='Explicit ngspice mode. HSA uses first-point DC startup; native is retained for independent comparison.')
     return qualify(ap.parse_args())

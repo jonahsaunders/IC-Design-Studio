@@ -1,0 +1,2362 @@
+{
+  "schema": 1,
+  "status": "physical-cell-keepout-progress-recorded",
+  "qualified": false,
+  "chunk_complete": false,
+  "pdk_revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+  "cases": {
+    "counter": {
+      "geometry": {
+        "path": "outputs/ihp-cell-keepout-v1/counter/record.json",
+        "sha256": "5ac9e35d1686d3ef3b73483c52281fd475f7e31c237e94b1fae9935c39f0e590",
+        "result": {
+          "schema": 1,
+          "status": "geometry-only-pass",
+          "qualified": false,
+          "invalid_for_acceptance": true,
+          "case": "counter",
+          "source_gds_sha256": "854b43acb14e15fdcedcb01e2482d4552733b6ea63ebc8492d7151468a489ba2",
+          "instances_sha256": "a6b5a2e7f0d9dc61856a440e758b12a69bdfbce07684c387c343f0077605b96c",
+          "functional_instances": 26,
+          "functional_cell_halo_nm": 9000,
+          "metal_spacing_um": 1.4,
+          "topmetal_width_um": 5.2,
+          "topmetal_height_um": 10.0,
+          "active_fill_type": "p-substrate",
+          "macro_sha256": {
+            "sg13g2_filler_ActGatP.lym": "ea36de0e0485bc876481a35a0ebae5039d8d47272e52f7b3488b7b1984278d11",
+            "sg13g2_filler_Metal.lym": "bf1fb2dcdba695ed87d0c7b8cfa5e9829e40e3239d2a43366d1cb88e7df95131",
+            "sg13g2_filler_TopMetal.lym": "85f428cb34955f4c31b172d4a6830d6bc56e640dc229160e6a11959b5b410b5c"
+          },
+          "deck_sha256": "46f21123f6439da8e46f2eb32035d4870c2125ee1a1684308937597c4d4d608a",
+          "script_sha256": "aacf670c68ddc3772b04675b2c9ff62d51d35aa4503aefce8e666afcb3030f6e",
+          "scope": "Separate physical candidate. Fixed 9 um cell keep-out exceeds the pinned native 8 um side halo. No inference of invariant internal capacitance without re-extraction.",
+          "markers": 0,
+          "categories": {},
+          "density_percent": {
+            "1": 40.05552975,
+            "5": 24.46868975,
+            "8": 39.314402125,
+            "10": 36.7678805,
+            "30": 37.6356575,
+            "50": 37.653095,
+            "67": 37.491346,
+            "126": 31.51456,
+            "134": 29.78448
+          },
+          "supplemental_passed": true,
+          "filled_gds_sha256": "6f2477d97385a67762441e0dd66b031e0b8e232617f27effbba6024269075550",
+          "added_polygons": {
+            "134/22": 125,
+            "126/22": 141,
+            "67/22": 2143,
+            "50/22": 2198,
+            "30/22": 2152,
+            "10/22": 2187,
+            "8/22": 745,
+            "1/22": 480,
+            "14/0": 480
+          },
+          "elapsed_seconds": 36.26715185300054,
+          "files": {
+            "full.lyrdb": "f6507dce26cc193bcb097622f0e0397cf18b2ac1020d67462cb437d3d51e9989",
+            "engine.log": "cf3461c835cf57222fbda2ed046df27d1fac0f70898f85e02425481d08244b83",
+            "fill-only.gds": "1c63f541a999f903c68e6db658a7e267a7f7fa489dd8651993371cc3d52a0eb4",
+            "filled.gds": "6f2477d97385a67762441e0dd66b031e0b8e232617f27effbba6024269075550",
+            "generation-input.gds": "470345cf01f0a5b817b4795e2353095bd1918778dbea217a7d052d86af7ba814",
+            "original.gds": "854b43acb14e15fdcedcb01e2482d4552733b6ea63ebc8492d7151468a489ba2",
+            "generate.drc": "88aa8d72c626af4b43b8740422b762a18d41aa39b3f9c8831c1215692ed51d98",
+            "supplemental.json": "b5fb4201ffc1a969698a4b77eed05f79f16eb67cb6dc6d1860f5ccb6219a15a9",
+            "sg13g2_maximal.lydrc": "46f21123f6439da8e46f2eb32035d4870c2125ee1a1684308937597c4d4d608a",
+            "generation.log": "5d07851c12b3f4083a9202a59c1cbeacfb9652c317a39c478d560a3777d416d0"
+          }
+        }
+      },
+      "connectivity": {
+        "path": "outputs/ihp-cell-keepout-lvs-v1/counter/record.json",
+        "sha256": "52e4a2ce98e5cc751a0752ba3e83cfd697c12f9f7ad7b283e9d764abc8d25430",
+        "result": {
+          "schema": 1,
+          "status": "native-device-and-port-match",
+          "qualified": false,
+          "invalid_for_acceptance": true,
+          "case": "counter",
+          "source_gds_sha256": "6f2477d97385a67762441e0dd66b031e0b8e232617f27effbba6024269075550",
+          "reference_record_sha256": "b1fb1537a0be79d4c20b1e567eea39ed228b596e9cc2bbbd6a9744bcc20d4c78",
+          "script_sha256": "8d193e4b175f2b100d61f1cea15ab069bdeb244be34df8b7380c220456a5169f",
+          "command": [
+            "/opt/icstudio/bin/klayout",
+            "-b",
+            "-r",
+            "/var/tmp/icstudio-ihp-cell-keepout-lvs-v1/counter/decks/sg13g2.lvs",
+            "-rd",
+            "input=/var/tmp/icstudio-ihp-cell-keepout-lvs-v1/counter/layout.gds",
+            "-rd",
+            "topcell=counter",
+            "-rd",
+            "report=/var/tmp/icstudio-ihp-cell-keepout-lvs-v1/counter/report.lvsdb",
+            "-rd",
+            "schematic=/var/tmp/icstudio-ihp-cell-keepout-lvs-v1/counter/reference-with-masters.cdl",
+            "-rd",
+            "target_netlist=/var/tmp/icstudio-ihp-cell-keepout-lvs-v1/counter/extracted.cir",
+            "-rd",
+            "run_mode=deep",
+            "-rd",
+            "no_simplify=true",
+            "-rd",
+            "no_series_res=true",
+            "-rd",
+            "no_parallel_res=true",
+            "-rd",
+            "top_lvl_pins=true",
+            "-rd",
+            "combine_devices=true",
+            "-rd",
+            "purge=false",
+            "-rd",
+            "purge_nets=true"
+          ],
+          "matched": true,
+          "port_labels_match": true,
+          "elapsed_seconds": 11.57150277799883,
+          "files": {
+            "engine.log": "5b875223c4cfd2890b6c464069f7b3a49813501384e7a783535ef25ae3800438",
+            "reference-with-masters.cdl": "a6da540a10af588b22713f9ece5ac80ee984f85f5e933b555f860fee121a4a44",
+            "label-audit.json": "cd776c3b8ebfe9874e36bef67575a52c7d360765fc2e8bca8f424de099b11a0a",
+            "report.lvsdb": "cfa946c3a65380c0ab444c85a37b15d2634ec11340be34dd6eddf4da1a518486",
+            "extracted.cir": "26b30d515a2b5f15d238816aef5ddea7ed4d877510ea5bc2d34706fe7dbe2e6e",
+            "layout.gds": "e282a81465a87c83edd3c00a3553267abf452f5147c5a2529395dca20d2f2b8d",
+            "audit.json": "e12b3478377b674a32bd46417fab8b89c4d2c9db7a7c6a65406dd3fd75e0a5d3",
+            "aliases.json": "998dd7b9dff692e3e0eb394551f2b593081df8365407a3b7dbd108942f1205d2",
+            "decks/sg13g2.lvs": "77e144ceb3ed8e3a48e6f36e4497be6cdd4354afda7df212df4e1b0cb89855c3",
+            "decks/run_lvs.py": "cff4fb35d99b02ac46aa3bf8c854567fd0ba85ac242a7165da88913c8d1e95d0",
+            "decks/rule_decks/general_connections.lvs": "c6814beda3a1fc9845480111c2d9bc520a59fa770bedb6eddbc7d0a4931470ce",
+            "decks/rule_decks/res_extraction.lvs": "9f39ff4f36fd86258553f8b0b1331f002ea71e91f84843de409df4fac9747a3b",
+            "decks/rule_decks/general_derivations.lvs": "c984c82263c6f81c54ea4d22b14c2e258db98d90ce6abe9a0c05c5eae369072e",
+            "decks/rule_decks/mos_extraction.lvs": "dea4df60fced945fb182e2d2e511a73b6b2863d70acfbbb9875e8535bc0caa49",
+            "decks/rule_decks/diode_connections.lvs": "be9b37c1a76d8a3a4cc00e80b1771e9922ece1ee6614f30db233bc2d6e51443e",
+            "decks/rule_decks/ind_derivations.lvs": "fdcfc1b87a23362d5a8d96015616bcc05639f61647ff10416051388b18769330",
+            "decks/rule_decks/bjt_extraction.lvs": "7dcc9d1d7701dc3e21d5f2b285178f0a2a0a80c45919af559a957e3d94b39f87",
+            "decks/rule_decks/custom_devices.lvs": "203cdb6276ada39a8bf646d01b8ea62fdb05ba369b26d1a1509b6af425aab308",
+            "decks/rule_decks/cap_extraction.lvs": "485f80021c3f927f3cdead717f0a98a0f78ea12e4fe50725e50cd326e3a7ad83",
+            "decks/rule_decks/custom_mim_extractor.lvs": "a0d25333fd0c8f8f109c8806a2330a77999e43f0dde942367b2d67e75b8e63d2",
+            "decks/rule_decks/diode_derivations.lvs": "e6686683dd77d3e4f93ee774fb63f7b64eeeb22b1d28fe0af7c2c5891e0a399a",
+            "decks/rule_decks/layers_definitions.lvs": "231da63d696f087cd0332fb4bd9daa4e0d3139a07dd901d121a4b9ab52ed4048",
+            "decks/rule_decks/mos_derivations.lvs": "a4013e16701e956dfb07534e264cd03f241840a44c4a23129d6e56513debc5ff",
+            "decks/rule_decks/rfmos_extraction.lvs": "114bafea13d39aff60411442efb768f45b9460068b0fa25f85e36762ee89e3cd",
+            "decks/rule_decks/mos_connections.lvs": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770",
+            "decks/rule_decks/rfmos_connections.lvs": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3",
+            "decks/rule_decks/res_derivations.lvs": "dcc7c413a7d1971cb2926a5aa9ad2025526f87601d3719a706050d59ff63237b",
+            "decks/rule_decks/rfmos_derivations.lvs": "5ae022be71ec90487ebf4636820563bc665815dfc12a36068b331d9571f54677",
+            "decks/rule_decks/cap_derivations.lvs": "4a144e5fdc04418e2935f59eaf66e35063fc2f4c41b2e50ac420ab390f11709e",
+            "decks/rule_decks/custom_combiner.lvs": "1e1128ddcbbb87e4193200e72d6e552ee873fe4b266cce6d35dca2a100c7c666",
+            "decks/rule_decks/diode_extraction.lvs": "d37c525ee550f8d0ccca0a3126489e692f855ecd8997dba55368f79d374e024f",
+            "decks/rule_decks/custom_extractor.lvs": "bf47227dff8d7d5d4fba86068156dda17364845bc5e41e737452c6a0f2b42a31",
+            "decks/rule_decks/tap_derivations.lvs": "fe838b2164245f5b0dc732875c26bfa0b96a31b7648c67f9267ddd2cc1d985b6",
+            "decks/rule_decks/esd_derivations.lvs": "a3d7932a874f9a7f38b9e9fc4c01eaaab57161d748d07c9383f0d325906a1dc6",
+            "decks/rule_decks/devices_connections.lvs": "8dec841c1d9c8fafd3a7dc15d59e4289860c4493819e6f901996cf9b9ccaec2b",
+            "decks/rule_decks/esd_connections.lvs": "6a2175e26079d3e2258bfa4453c497c6ed28eb20390335ffcbc25f9f410135f8",
+            "decks/rule_decks/esd_extraction.lvs": "3b2d2c1e389155dbc9b53d9a52363eb273bb5024937804724d41bd1a8c48afa0",
+            "decks/rule_decks/bjt_derivations.lvs": "abc2654097aaf06606bfe94e2f75baef9103f21ae201a1f312c3111193f7719e",
+            "decks/rule_decks/tap_extraction.lvs": "9b51de100f1866c4eebac3d125549fbff917e72a9af37279f79335d89f224d2f",
+            "decks/rule_decks/globals.lvs": "f6c58978f1c21c81efa3f2f6348327f32d72188620511e0f36bd70b30a0209fb",
+            "decks/rule_decks/res_connections.lvs": "998384a62f984e92ea67bc20127bf202baeb81f3d1576fb9e19cf77c78163e81",
+            "decks/rule_decks/bjt_connections.lvs": "0b3f536a25d8b8d5b37dc5eeb8e1bc8554e78694bb4398f6dd48ac3d9e528c8c",
+            "decks/rule_decks/custom_writer.lvs": "4bfb58e09a7cdf1f1267f9b9d40c32e998988179c5c5af4cad6aa334577dfd95",
+            "decks/rule_decks/custom_reader.lvs": "082b4976eb6a51816b6349a789d899f4d16dd1fae059c9d4c1a013036cad3b9b",
+            "decks/rule_decks/tap_connections.lvs": "b5a1ee6fec6ba442f1ad327a4f6b83aa6b967a4ce1d4b3ba5d3045a8e5ad5dd9",
+            "decks/rule_decks/ind_connections.lvs": "a38dbf6f321d06ec4fafa353430ec1254e0d883b9a9a4921bf789615927d73a2",
+            "decks/rule_decks/ind_extraction.lvs": "6f6b901384c089c9a8226a0cfa11c06db0a7e2ea701d294b4fb647fd3704b178",
+            "decks/rule_decks/cap_connections.lvs": "8f993c8ac2f2876beae4ae4a5b090fda6231b44d0f64657da747c2e9bf980987",
+            "decks/rule_decks/custom_classes.lvs": "6d7a61bc1fe28c9395dbd55b2698c15636df7e4cfa128fc6bce7f1f38e7fee7e"
+          }
+        }
+      },
+      "cell_capacitance": {
+        "path": "outputs/ihp-cell-environment-counter-geometry1-v2.json",
+        "sha256": "fcf53fcfbcaae236e2706f79660e5444460215450554f10acf815b0a33bde346",
+        "result": {
+          "schema": 1,
+          "status": "cell-capacitance-subnetwork-identical",
+          "qualified": false,
+          "internal_nodes": 100,
+          "protected_floating_nodes": 10,
+          "compared_pairs": 1293,
+          "maximum_raw_change_af": 0.0,
+          "native_overlap_residues": [],
+          "total_native_residue_change_af": 0.0,
+          "native_residue_limit_af": 1e-10,
+          "total_native_residue_limit_af": 1e-07,
+          "scope": "Native internal/floating-component capacitance invariance within explicitly recorded overlap-subtraction residue bounds. Capacitors are not removed from the physical model. Independent field accuracy, spatial wire distribution and timing remain separate checks.",
+          "case": "counter",
+          "source_sha256": {
+            "outputs/ihp-conserved-rc-counter-v3/original/native-original.ext": "077ccf3214b7c47889286f3fb3c4978c70549e98ab2b590367fa3d37b0ca2227",
+            "outputs/ihp-cell-keepout-flat-v1/counter/counter.ext": "433b5184e38fcdd1fd080dc8af251577cc2236c20ee1c4b85f0f45994697345b",
+            "outputs/ihp-distributed-model-counter-v7/original/record.json": "0caa9ba6f4e0a6f231f61a812b4bf7541240c9523d08319c7202bb6f148464fc",
+            "outputs/ihp-capacitance-views-counter-v1/labels.json": "7870cd8a0b65c59240582ef4884e8a1398a377c5a90c34644c71d4960544d2a8"
+          },
+          "protected_poly_nodes": [
+            "a_18560_30486#",
+            "a_18848_28974#",
+            "a_18856_14570#",
+            "a_18856_29690#",
+            "a_18856_31998#",
+            "a_19040_30486#",
+            "a_19232_32714#",
+            "a_19232_33510#",
+            "a_20096_32714#",
+            "a_20968_35022#"
+          ]
+        }
+      },
+      "generator_replay": {
+        "path": "outputs/ihp-keepout-generator-v1/counter/replay.json",
+        "sha256": "fa7b118c16aad24c01b8f247c0062a18e3b7fafaaaf61f45a1481845650bde1f",
+        "result": {
+          "schema": 1,
+          "status": "native-generator-physical-replay-pass",
+          "qualified": false,
+          "case": "counter",
+          "original_gds_sha256": "854b43acb14e15fdcedcb01e2482d4552733b6ea63ebc8492d7151468a489ba2",
+          "candidate_gds_sha256": "6f2477d97385a67762441e0dd66b031e0b8e232617f27effbba6024269075550",
+          "replayed_gds_sha256": "6f2477d97385a67762441e0dd66b031e0b8e232617f27effbba6024269075550",
+          "byte_identical": true,
+          "all_mask_regions_identical": true,
+          "all_transformed_labels_identical": true,
+          "generator_sha256": "cd5741455416b168172848011f820109657bbc2bf90a948b2be6f5405f83d127",
+          "native_geometry_markers": 0,
+          "source_record_sha256": "5ac9e35d1686d3ef3b73483c52281fd475f7e31c237e94b1fae9935c39f0e590",
+          "record_sha256": "eeb02364c2703f66a42a7e9011ff02402f511e74da22640911adcf40fbce9660",
+          "scope": "Checked-in generator reproduces physical masks and labels with native geometry recheck. Electrical and timing acceptance are separate gates."
+        }
+      }
+    },
+    "uart": {
+      "geometry": {
+        "path": "outputs/ihp-cell-keepout-v4/uart/record.json",
+        "sha256": "373ac2dbd82e9159bffa03b67100cc3263ff5444cc76355723183ee9fbc2203d",
+        "result": {
+          "schema": 1,
+          "status": "geometry-only-pass",
+          "qualified": false,
+          "invalid_for_acceptance": true,
+          "case": "uart",
+          "source_gds_sha256": "377fac7ad52784aa45528f9b536c444521fd5b357443020d04cbd500cab652ed",
+          "instances_sha256": "befe32ef5dc5d3d391e1cc150a360eb41a8d1539bd1eb761a48eb8c353418dd3",
+          "functional_instances": 341,
+          "functional_cell_halo_nm": 9000,
+          "metal_spacing_um": 1.35,
+          "topmetal_width_um": 8.0,
+          "topmetal_height_um": 10.0,
+          "active_fill_type": "p-substrate",
+          "macro_sha256": {
+            "sg13g2_filler_ActGatP.lym": "ea36de0e0485bc876481a35a0ebae5039d8d47272e52f7b3488b7b1984278d11",
+            "sg13g2_filler_Metal.lym": "bf1fb2dcdba695ed87d0c7b8cfa5e9829e40e3239d2a43366d1cb88e7df95131",
+            "sg13g2_filler_TopMetal.lym": "85f428cb34955f4c31b172d4a6830d6bc56e640dc229160e6a11959b5b410b5c"
+          },
+          "deck_sha256": "46f21123f6439da8e46f2eb32035d4870c2125ee1a1684308937597c4d4d608a",
+          "script_sha256": "c00d39b292ce56cdd07b9b995448d3ce2917e992481a74d0489822aa5ab106f0",
+          "scope": "Separate physical candidate. Fixed 9 um cell keep-out exceeds the pinned native 8 um side halo. No inference of invariant internal capacitance without re-extraction.",
+          "markers": 0,
+          "categories": {},
+          "density_percent": {
+            "1": 40.8718595625,
+            "5": 31.07116715625,
+            "8": 42.502028890625,
+            "10": 39.10517803125,
+            "30": 38.7884335625,
+            "50": 39.034806875,
+            "67": 38.9782296875,
+            "126": 30.4559,
+            "134": 28.76615
+          },
+          "supplemental_passed": true,
+          "filled_gds_sha256": "4b9373435ef80d7c6e537673a609ea5fd5a640bfdb8d70fa634836af39262ac7",
+          "added_polygons": {
+            "134/22": 371,
+            "126/22": 407,
+            "67/22": 7737,
+            "50/22": 7749,
+            "30/22": 7772,
+            "10/22": 7728,
+            "8/22": 1450,
+            "1/22": 1001,
+            "14/0": 1001
+          },
+          "elapsed_seconds": 101.37517819900313,
+          "files": {
+            "full.lyrdb": "402b7e43eb656396496bf4ec75811aa98762e945a193614386c50b7659b2777a",
+            "engine.log": "7ed168930518be4fcd366d6b0fbe1e333b5e8a6ffc148facee23bcb91007d0cb",
+            "fill-only.gds": "2c8e2e2919bfca28ba5c7b01863a48d4360685184e44f1c48014eff978fb5016",
+            "poly-protection.json": "803d6e1f743bc49af9af96b77da6f0dcf60eb84f81345facb3718a1e96b0215b",
+            "filled.gds": "4b9373435ef80d7c6e537673a609ea5fd5a640bfdb8d70fa634836af39262ac7",
+            "generation-input.gds": "aa7d5c90a07ff1ce447a21d878b9b1459c673b888adad5aa9709f5a956aa5385",
+            "original.gds": "377fac7ad52784aa45528f9b536c444521fd5b357443020d04cbd500cab652ed",
+            "generate.drc": "e96222caf86bf286e2790192954f18d62c91472320a30ff6fc24c3cf4aeca026",
+            "supplemental.json": "2f7a9f900c577f8b71ea209490edb67e67440d9da842eb896e3883216c9c4e8b",
+            "sg13g2_maximal.lydrc": "46f21123f6439da8e46f2eb32035d4870c2125ee1a1684308937597c4d4d608a",
+            "generation.log": "34707001c4213635284b093f3eb0fdd761804d789e84d5b04069b0ad6393ac82"
+          }
+        }
+      },
+      "connectivity": {
+        "path": "outputs/ihp-cell-keepout-lvs-v4/uart/record.json",
+        "sha256": "35cfedeec0a67f16adff794bba52ff57c8df078ffb1140eb25f17498bf143330",
+        "result": {
+          "schema": 1,
+          "status": "native-device-and-port-match",
+          "qualified": false,
+          "invalid_for_acceptance": true,
+          "case": "uart",
+          "source_gds_sha256": "4b9373435ef80d7c6e537673a609ea5fd5a640bfdb8d70fa634836af39262ac7",
+          "reference_record_sha256": "8ce7eed66067f8ae3953293433a1259aef227f643c5de41143406e15a15e0eda",
+          "script_sha256": "e05c49ecc814dc028603f6ad52200e42cc312010804fb5c01c1f95a02a1ee61c",
+          "command": [
+            "/opt/icstudio/bin/klayout",
+            "-b",
+            "-r",
+            "/var/tmp/icstudio-ihp-cell-keepout-lvs-v4/uart/decks/sg13g2.lvs",
+            "-rd",
+            "input=/var/tmp/icstudio-ihp-cell-keepout-lvs-v4/uart/layout.gds",
+            "-rd",
+            "topcell=uart_tx",
+            "-rd",
+            "report=/var/tmp/icstudio-ihp-cell-keepout-lvs-v4/uart/report.lvsdb",
+            "-rd",
+            "schematic=/var/tmp/icstudio-ihp-cell-keepout-lvs-v4/uart/reference-with-masters.cdl",
+            "-rd",
+            "target_netlist=/var/tmp/icstudio-ihp-cell-keepout-lvs-v4/uart/extracted.cir",
+            "-rd",
+            "run_mode=deep",
+            "-rd",
+            "no_simplify=true",
+            "-rd",
+            "no_series_res=true",
+            "-rd",
+            "no_parallel_res=true",
+            "-rd",
+            "top_lvl_pins=true",
+            "-rd",
+            "combine_devices=true",
+            "-rd",
+            "purge=false",
+            "-rd",
+            "purge_nets=true"
+          ],
+          "matched": true,
+          "port_labels_match": true,
+          "elapsed_seconds": 18.671283643998322,
+          "files": {
+            "engine.log": "521dbae46498478479a6838463675c6429f6ee379752459b584846f60d7d89e4",
+            "reference-with-masters.cdl": "236363ec3751ccd46008ec9981569409d2ea91ecdd1d4d1bd306b2499e9f9a33",
+            "label-audit.json": "1c5a088f429b9a250bad5017995d90081bddf2f024526efe20d25e84d2611436",
+            "report.lvsdb": "6883b533a544ff4cc1bec799fd6ebddcb2d78f7f56ba52bb45843e1624aaf514",
+            "extracted.cir": "3cc7ab5e0696319fc3c36c3e9a4bd97ab44f788e4ed525f9f649213574c347b9",
+            "layout.gds": "a3008d3300627268e34e8ef154917015fcc376dc8ad1ee944bf796330e34e873",
+            "audit.json": "81a27df5fdf74b483115282338afd5fcfd65c2e67c9e2334611f41e9f1648c4e",
+            "aliases.json": "af0dddbd71f70ba98484f5be5f7574b93f55640f20af3a5dc5c4048f7bc42050",
+            "decks/sg13g2.lvs": "77e144ceb3ed8e3a48e6f36e4497be6cdd4354afda7df212df4e1b0cb89855c3",
+            "decks/run_lvs.py": "cff4fb35d99b02ac46aa3bf8c854567fd0ba85ac242a7165da88913c8d1e95d0",
+            "decks/rule_decks/general_connections.lvs": "c6814beda3a1fc9845480111c2d9bc520a59fa770bedb6eddbc7d0a4931470ce",
+            "decks/rule_decks/res_extraction.lvs": "9f39ff4f36fd86258553f8b0b1331f002ea71e91f84843de409df4fac9747a3b",
+            "decks/rule_decks/general_derivations.lvs": "c984c82263c6f81c54ea4d22b14c2e258db98d90ce6abe9a0c05c5eae369072e",
+            "decks/rule_decks/mos_extraction.lvs": "dea4df60fced945fb182e2d2e511a73b6b2863d70acfbbb9875e8535bc0caa49",
+            "decks/rule_decks/diode_connections.lvs": "be9b37c1a76d8a3a4cc00e80b1771e9922ece1ee6614f30db233bc2d6e51443e",
+            "decks/rule_decks/ind_derivations.lvs": "fdcfc1b87a23362d5a8d96015616bcc05639f61647ff10416051388b18769330",
+            "decks/rule_decks/bjt_extraction.lvs": "7dcc9d1d7701dc3e21d5f2b285178f0a2a0a80c45919af559a957e3d94b39f87",
+            "decks/rule_decks/custom_devices.lvs": "203cdb6276ada39a8bf646d01b8ea62fdb05ba369b26d1a1509b6af425aab308",
+            "decks/rule_decks/cap_extraction.lvs": "485f80021c3f927f3cdead717f0a98a0f78ea12e4fe50725e50cd326e3a7ad83",
+            "decks/rule_decks/custom_mim_extractor.lvs": "a0d25333fd0c8f8f109c8806a2330a77999e43f0dde942367b2d67e75b8e63d2",
+            "decks/rule_decks/diode_derivations.lvs": "e6686683dd77d3e4f93ee774fb63f7b64eeeb22b1d28fe0af7c2c5891e0a399a",
+            "decks/rule_decks/layers_definitions.lvs": "231da63d696f087cd0332fb4bd9daa4e0d3139a07dd901d121a4b9ab52ed4048",
+            "decks/rule_decks/mos_derivations.lvs": "a4013e16701e956dfb07534e264cd03f241840a44c4a23129d6e56513debc5ff",
+            "decks/rule_decks/rfmos_extraction.lvs": "114bafea13d39aff60411442efb768f45b9460068b0fa25f85e36762ee89e3cd",
+            "decks/rule_decks/mos_connections.lvs": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770",
+            "decks/rule_decks/rfmos_connections.lvs": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3",
+            "decks/rule_decks/res_derivations.lvs": "dcc7c413a7d1971cb2926a5aa9ad2025526f87601d3719a706050d59ff63237b",
+            "decks/rule_decks/rfmos_derivations.lvs": "5ae022be71ec90487ebf4636820563bc665815dfc12a36068b331d9571f54677",
+            "decks/rule_decks/cap_derivations.lvs": "4a144e5fdc04418e2935f59eaf66e35063fc2f4c41b2e50ac420ab390f11709e",
+            "decks/rule_decks/custom_combiner.lvs": "1e1128ddcbbb87e4193200e72d6e552ee873fe4b266cce6d35dca2a100c7c666",
+            "decks/rule_decks/diode_extraction.lvs": "d37c525ee550f8d0ccca0a3126489e692f855ecd8997dba55368f79d374e024f",
+            "decks/rule_decks/custom_extractor.lvs": "bf47227dff8d7d5d4fba86068156dda17364845bc5e41e737452c6a0f2b42a31",
+            "decks/rule_decks/tap_derivations.lvs": "fe838b2164245f5b0dc732875c26bfa0b96a31b7648c67f9267ddd2cc1d985b6",
+            "decks/rule_decks/esd_derivations.lvs": "a3d7932a874f9a7f38b9e9fc4c01eaaab57161d748d07c9383f0d325906a1dc6",
+            "decks/rule_decks/devices_connections.lvs": "8dec841c1d9c8fafd3a7dc15d59e4289860c4493819e6f901996cf9b9ccaec2b",
+            "decks/rule_decks/esd_connections.lvs": "6a2175e26079d3e2258bfa4453c497c6ed28eb20390335ffcbc25f9f410135f8",
+            "decks/rule_decks/esd_extraction.lvs": "3b2d2c1e389155dbc9b53d9a52363eb273bb5024937804724d41bd1a8c48afa0",
+            "decks/rule_decks/bjt_derivations.lvs": "abc2654097aaf06606bfe94e2f75baef9103f21ae201a1f312c3111193f7719e",
+            "decks/rule_decks/tap_extraction.lvs": "9b51de100f1866c4eebac3d125549fbff917e72a9af37279f79335d89f224d2f",
+            "decks/rule_decks/globals.lvs": "f6c58978f1c21c81efa3f2f6348327f32d72188620511e0f36bd70b30a0209fb",
+            "decks/rule_decks/res_connections.lvs": "998384a62f984e92ea67bc20127bf202baeb81f3d1576fb9e19cf77c78163e81",
+            "decks/rule_decks/bjt_connections.lvs": "0b3f536a25d8b8d5b37dc5eeb8e1bc8554e78694bb4398f6dd48ac3d9e528c8c",
+            "decks/rule_decks/custom_writer.lvs": "4bfb58e09a7cdf1f1267f9b9d40c32e998988179c5c5af4cad6aa334577dfd95",
+            "decks/rule_decks/custom_reader.lvs": "082b4976eb6a51816b6349a789d899f4d16dd1fae059c9d4c1a013036cad3b9b",
+            "decks/rule_decks/tap_connections.lvs": "b5a1ee6fec6ba442f1ad327a4f6b83aa6b967a4ce1d4b3ba5d3045a8e5ad5dd9",
+            "decks/rule_decks/ind_connections.lvs": "a38dbf6f321d06ec4fafa353430ec1254e0d883b9a9a4921bf789615927d73a2",
+            "decks/rule_decks/ind_extraction.lvs": "6f6b901384c089c9a8226a0cfa11c06db0a7e2ea701d294b4fb647fd3704b178",
+            "decks/rule_decks/cap_connections.lvs": "8f993c8ac2f2876beae4ae4a5b090fda6231b44d0f64657da747c2e9bf980987",
+            "decks/rule_decks/custom_classes.lvs": "6d7a61bc1fe28c9395dbd55b2698c15636df7e4cfa128fc6bce7f1f38e7fee7e"
+          }
+        }
+      },
+      "cell_capacitance": {
+        "path": "outputs/ihp-cell-environment-uart-geometry4-v2.json",
+        "sha256": "37723614f8435d74a1c569ec0c6924d5e0016574fc90ab857b2229cab7aab3f0",
+        "result": {
+          "schema": 1,
+          "status": "cell-capacitance-subnetwork-identical",
+          "qualified": false,
+          "internal_nodes": 1328,
+          "protected_floating_nodes": 188,
+          "compared_pairs": 19630,
+          "maximum_raw_change_af": 0.0,
+          "native_overlap_residues": [],
+          "total_native_residue_change_af": 0.0,
+          "native_residue_limit_af": 1e-10,
+          "total_native_residue_limit_af": 1e-07,
+          "scope": "Native internal/floating-component capacitance invariance within explicitly recorded overlap-subtraction residue bounds. Capacitors are not removed from the physical model. Independent field accuracy, spatial wire distribution and timing remain separate checks.",
+          "case": "uart",
+          "source_sha256": {
+            "outputs/ihp-conserved-rc-uart-v3/original/native-original.ext": "e70fec4cd74e7cce757ea1959f175c4b528cadf16d28f4762e4fb4f122a0b55d",
+            "outputs/ihp-cell-keepout-flat-v4/uart/uart_tx.ext": "591ff25d883700d2d86f15d009528d160a5b5884786b910470c134163c2731c2",
+            "outputs/ihp-distributed-model-uart-v7/original/record.json": "d28c582f9693a3937aa61cda82ad0c2368309a089b1b94522030e52b6a4ae9cb",
+            "outputs/ihp-capacitance-views-uart-v1/labels.json": "c5fb13b860e949ad880090f6d6868ba8f3c08fa4f4e7095596847660003453d4"
+          },
+          "protected_poly_nodes": [
+            "a_31624_73538#",
+            "a_4064_43298#",
+            "a_48416_52370#",
+            "a_48416_53882#",
+            "a_48904_54678#",
+            "a_49096_53166#",
+            "a_49280_53166#",
+            "a_50816_51654#",
+            "a_50824_54678#",
+            "a_51112_56906#",
+            "a_51296_56906#",
+            "a_51592_52370#",
+            "a_51880_55394#",
+            "a_52160_50858#",
+            "a_52264_51654#",
+            "a_52448_51654#",
+            "a_53128_50142#",
+            "a_53312_50142#",
+            "a_53416_51654#",
+            "a_53888_53166#",
+            "a_53896_54678#",
+            "a_55048_50858#",
+            "a_55520_41786#",
+            "a_55624_51654#",
+            "a_55712_52370#",
+            "a_55808_45606#",
+            "a_55808_51654#",
+            "a_55816_48630#",
+            "a_56000_48630#",
+            "a_56008_53166#",
+            "a_56096_49346#",
+            "a_56192_42582#",
+            "a_56192_53166#",
+            "a_56200_52370#",
+            "a_56480_47118#",
+            "a_56488_47834#",
+            "a_56576_48630#",
+            "a_56672_47834#",
+            "a_56776_52370#",
+            "a_56864_50142#",
+            "a_56872_41070#",
+            "a_57544_38762#",
+            "a_58024_52370#",
+            "a_58208_47834#",
+            "a_58216_41786#",
+            "a_58784_41070#",
+            "a_58784_44810#",
+            "a_58792_40274#",
+            "a_58976_40274#",
+            "a_58976_42582#",
+            "a_58976_43298#",
+            "a_58984_38046#",
+            "a_59072_51654#",
+            "a_59168_41070#",
+            "a_59168_41786#",
+            "a_59176_50142#",
+            "a_59272_45606#",
+            "a_59360_50142#",
+            "a_59456_45606#",
+            "a_59552_37250#",
+            "a_59560_39558#",
+            "a_59656_44094#",
+            "a_59656_49346#",
+            "a_59840_52370#",
+            "a_59848_47118#",
+            "a_60032_37250#",
+            "a_60128_44810#",
+            "a_60232_46322#",
+            "a_60232_49346#",
+            "a_60320_52370#",
+            "a_60328_48630#",
+            "a_60416_46322#",
+            "a_60424_47118#",
+            "a_60608_47118#",
+            "a_60896_49346#",
+            "a_60904_51654#",
+            "a_61088_51654#",
+            "a_61184_47118#",
+            "a_61192_44810#",
+            "a_61288_50142#",
+            "a_61288_52370#",
+            "a_61376_49346#",
+            "a_61384_42582#",
+            "a_61384_44094#",
+            "a_61384_47834#",
+            "a_61472_50142#",
+            "a_61480_41786#",
+            "a_61568_47834#",
+            "a_61864_37250#",
+            "a_61952_49346#",
+            "a_62048_37250#",
+            "a_62048_47118#",
+            "a_62152_41786#",
+            "a_62240_40274#",
+            "a_62336_41070#",
+            "a_62336_41786#",
+            "a_62344_38762#",
+            "a_62528_38762#",
+            "a_62536_49346#",
+            "a_62624_47118#",
+            "a_62720_50142#",
+            "a_63008_45606#",
+            "a_63200_47118#",
+            "a_63496_45606#",
+            "a_63592_37250#",
+            "a_63688_44094#",
+            "a_63776_38762#",
+            "a_63872_42582#",
+            "a_63880_35738#",
+            "a_63880_48630#",
+            "a_64168_41070#",
+            "a_64456_40274#",
+            "a_64640_40274#",
+            "a_64648_44094#",
+            "a_64736_48630#",
+            "a_65128_44810#",
+            "a_65416_37250#",
+            "a_65504_47118#",
+            "a_65600_37250#",
+            "a_65608_50142#",
+            "a_65792_35738#",
+            "a_65888_40274#",
+            "a_65888_47834#",
+            "a_65896_35022#",
+            "a_65984_49346#",
+            "a_66080_35022#",
+            "a_66088_38046#",
+            "a_66088_44810#",
+            "a_66272_41786#",
+            "a_66272_44810#",
+            "a_66568_39558#",
+            "a_66664_38046#",
+            "a_66752_39558#",
+            "a_67048_46322#",
+            "a_67048_47834#",
+            "a_67432_39558#",
+            "a_67616_39558#",
+            "a_67808_37250#",
+            "a_67816_47118#",
+            "a_68008_41070#",
+            "a_68392_40274#",
+            "a_68480_41786#",
+            "a_68488_44810#",
+            "a_68576_40274#",
+            "a_68680_45606#",
+            "a_68776_50142#",
+            "a_68864_38762#",
+            "a_68864_45606#",
+            "a_68960_50142#",
+            "a_68968_42582#",
+            "a_68968_46322#",
+            "a_69160_44094#",
+            "a_69248_49346#",
+            "a_69344_44094#",
+            "a_69352_41070#",
+            "a_69536_41070#",
+            "a_69544_48630#",
+            "a_69632_42582#",
+            "a_69640_41786#",
+            "a_69736_46322#",
+            "a_69920_44810#",
+            "a_69920_46322#",
+            "a_69928_44094#",
+            "a_70024_47118#",
+            "a_70120_48630#",
+            "a_70592_44094#",
+            "a_70880_49346#",
+            "a_70984_38762#",
+            "a_70984_43298#",
+            "a_71168_43298#",
+            "a_71264_44094#",
+            "a_71744_41786#",
+            "a_71944_41070#",
+            "a_71944_45606#",
+            "a_72032_44810#",
+            "a_72232_39558#",
+            "a_72896_41070#",
+            "a_73280_42582#",
+            "a_75688_34226#",
+            "a_75784_40274#",
+            "a_75784_41070#",
+            "a_75784_41786#",
+            "a_75872_34226#",
+            "a_75872_35738#",
+            "a_75872_36534#",
+            "a_75872_38046#",
+            "a_75872_38762#",
+            "a_75872_39558#"
+          ]
+        }
+      },
+      "generator_replay": {
+        "path": "outputs/ihp-keepout-generator-v1/uart/replay.json",
+        "sha256": "32cbdc8f5664ed5a40a3a9a1edbb52c2c5724dd81608932f01254f47938d0f56",
+        "result": {
+          "schema": 1,
+          "status": "native-generator-physical-replay-pass",
+          "qualified": false,
+          "case": "uart",
+          "original_gds_sha256": "377fac7ad52784aa45528f9b536c444521fd5b357443020d04cbd500cab652ed",
+          "candidate_gds_sha256": "4b9373435ef80d7c6e537673a609ea5fd5a640bfdb8d70fa634836af39262ac7",
+          "replayed_gds_sha256": "4b9373435ef80d7c6e537673a609ea5fd5a640bfdb8d70fa634836af39262ac7",
+          "byte_identical": true,
+          "all_mask_regions_identical": true,
+          "all_transformed_labels_identical": true,
+          "generator_sha256": "cd5741455416b168172848011f820109657bbc2bf90a948b2be6f5405f83d127",
+          "native_geometry_markers": 0,
+          "source_record_sha256": "373ac2dbd82e9159bffa03b67100cc3263ff5444cc76355723183ee9fbc2203d",
+          "record_sha256": "6b64ea1ef4278e35c2e6eb11d7c7c08c73a056ffe5119f71c1a6ac4d3cd3168a",
+          "scope": "Checked-in generator reproduces physical masks and labels with native geometry recheck. Electrical and timing acceptance are separate gates."
+        }
+      }
+    },
+    "apb": {
+      "geometry": {
+        "path": "outputs/ihp-cell-keepout-v3/apb/record.json",
+        "sha256": "e0ca1b24db01ae26938819b45682ad91803cf5e6ae7b234b7674f83610506084",
+        "result": {
+          "schema": 1,
+          "status": "geometry-only-pass",
+          "qualified": false,
+          "invalid_for_acceptance": true,
+          "case": "apb",
+          "source_gds_sha256": "e73e135bb442f886e468c62a7c3ff0094d1abc2d1f442960d195e7bc09e637e4",
+          "instances_sha256": "2ebe828bce9a45ff19d11c3c5c362e144a31b0034342c258eda1c47d10556e15",
+          "functional_instances": 251,
+          "functional_cell_halo_nm": 9000,
+          "metal_spacing_um": 1.35,
+          "topmetal_width_um": 8.0,
+          "topmetal_height_um": 10.0,
+          "active_fill_type": "p-substrate",
+          "macro_sha256": {
+            "sg13g2_filler_ActGatP.lym": "ea36de0e0485bc876481a35a0ebae5039d8d47272e52f7b3488b7b1984278d11",
+            "sg13g2_filler_Metal.lym": "bf1fb2dcdba695ed87d0c7b8cfa5e9829e40e3239d2a43366d1cb88e7df95131",
+            "sg13g2_filler_TopMetal.lym": "85f428cb34955f4c31b172d4a6830d6bc56e640dc229160e6a11959b5b410b5c"
+          },
+          "deck_sha256": "46f21123f6439da8e46f2eb32035d4870c2125ee1a1684308937597c4d4d608a",
+          "script_sha256": "35cdd715944de95409f88117c206fd169d1eab49c04226bb5afa899ad7b1ff87",
+          "scope": "Separate physical candidate. Fixed 9 um cell keep-out exceeds the pinned native 8 um side halo. No inference of invariant internal capacitance without re-extraction.",
+          "markers": 0,
+          "categories": {},
+          "density_percent": {
+            "1": 40.7674370625,
+            "5": 31.188348140625,
+            "8": 42.510151453125,
+            "10": 37.672307265625,
+            "30": 36.8027678125,
+            "50": 37.6255971875,
+            "67": 37.6537515625,
+            "126": 29.5059,
+            "134": 26.36615
+          },
+          "supplemental_passed": true,
+          "filled_gds_sha256": "ebdf6a64b5c01b3b8a4f4ab79b1b6d3664bc6c39ee528fb18ee5510a18a2482d",
+          "added_polygons": {
+            "134/22": 323,
+            "126/22": 388,
+            "67/22": 7601,
+            "50/22": 7594,
+            "30/22": 7623,
+            "10/22": 7586,
+            "8/22": 1454,
+            "1/22": 982,
+            "14/0": 982
+          },
+          "elapsed_seconds": 93.55963077300112,
+          "files": {
+            "full.lyrdb": "4b470ed90b78e2596daf39d365c235efbec8b32e23385d1abf24c889179454a8",
+            "engine.log": "fba744629ce88c822283a29d79e86f9dda5ee0edb74065d166011022301fbe29",
+            "fill-only.gds": "506b2f74e07054e91c90fffbbe6f03a5c93a4413c8a992d3eed059fc3eb2b0b6",
+            "poly-protection.json": "deeee9547ea71455b910299e8e72649051cb176190c45bde877abbe8fb90d1f9",
+            "filled.gds": "ebdf6a64b5c01b3b8a4f4ab79b1b6d3664bc6c39ee528fb18ee5510a18a2482d",
+            "generation-input.gds": "0329afd55c9573128366a384e5543a6b77833ff612e4ea660d01caa54904fc0d",
+            "original.gds": "e73e135bb442f886e468c62a7c3ff0094d1abc2d1f442960d195e7bc09e637e4",
+            "generate.drc": "e96222caf86bf286e2790192954f18d62c91472320a30ff6fc24c3cf4aeca026",
+            "supplemental.json": "432846740d43e88314841813cf08e90eb13dbf2c8d0c442d792bed6af99be95d",
+            "sg13g2_maximal.lydrc": "46f21123f6439da8e46f2eb32035d4870c2125ee1a1684308937597c4d4d608a",
+            "generation.log": "0d47464a53b1ab51383f07e5ca317eb2b14d4d2ceb279ab8bd071259b1f77425"
+          }
+        }
+      },
+      "connectivity": {
+        "path": "outputs/ihp-cell-keepout-lvs-v3/apb/record.json",
+        "sha256": "88e5a6ef22541c6ff47a05d0fc1585f58aaecef5e11c767b9e8533c4772a22ab",
+        "result": {
+          "schema": 1,
+          "status": "native-device-and-port-match",
+          "qualified": false,
+          "invalid_for_acceptance": true,
+          "case": "apb",
+          "source_gds_sha256": "ebdf6a64b5c01b3b8a4f4ab79b1b6d3664bc6c39ee528fb18ee5510a18a2482d",
+          "reference_record_sha256": "51f5a556e2dc9fe7e5e6805923c48c411f0836acca238986131f8499136fc39b",
+          "script_sha256": "16a855813c03c37b54c3c197acf6035e3a4b600cedac61b78146a2f6fe157c8d",
+          "command": [
+            "/opt/icstudio/bin/klayout",
+            "-b",
+            "-r",
+            "/var/tmp/icstudio-ihp-cell-keepout-lvs-v3/apb/decks/sg13g2.lvs",
+            "-rd",
+            "input=/var/tmp/icstudio-ihp-cell-keepout-lvs-v3/apb/layout.gds",
+            "-rd",
+            "topcell=apb_fifo",
+            "-rd",
+            "report=/var/tmp/icstudio-ihp-cell-keepout-lvs-v3/apb/report.lvsdb",
+            "-rd",
+            "schematic=/var/tmp/icstudio-ihp-cell-keepout-lvs-v3/apb/reference-with-masters.cdl",
+            "-rd",
+            "target_netlist=/var/tmp/icstudio-ihp-cell-keepout-lvs-v3/apb/extracted.cir",
+            "-rd",
+            "run_mode=deep",
+            "-rd",
+            "no_simplify=true",
+            "-rd",
+            "no_series_res=true",
+            "-rd",
+            "no_parallel_res=true",
+            "-rd",
+            "top_lvl_pins=true",
+            "-rd",
+            "combine_devices=true",
+            "-rd",
+            "purge=false",
+            "-rd",
+            "purge_nets=true"
+          ],
+          "matched": true,
+          "port_labels_match": true,
+          "elapsed_seconds": 18.893880378000176,
+          "files": {
+            "engine.log": "b8ad424e902402c1bb7b9ad137513edb90f1d51596cf1cb748a32e61f39e0102",
+            "reference-with-masters.cdl": "efef18b859ee1226290a5f9801eb2c2d176e7b6bf2b5ee85ec7e0109d6d340e3",
+            "label-audit.json": "b5bc635cefd2ae46b19152be960a9370560690231fc3c4a471c68b38be4d1e2c",
+            "report.lvsdb": "cadd47b77cf2386fc941321a59bd0464851645ee685aebfe54f7b54ae448b280",
+            "extracted.cir": "c4e4221cfd83fa257569e5bc3e27a25ba917a02baaeb0202cf772b951e34c51b",
+            "layout.gds": "db0bde95e56395b2805b10b4b599f37dffa1dedb6cff926bdcf775a16db45c71",
+            "audit.json": "2cb8d83b0a56651f277749f467be43ab397aec7af0b1fa9458d2bc3d8696f699",
+            "aliases.json": "4e172a9aeaafb0bcd0810918988e3529d48136ddcd889bf16b37c0c06fe234a3",
+            "decks/sg13g2.lvs": "77e144ceb3ed8e3a48e6f36e4497be6cdd4354afda7df212df4e1b0cb89855c3",
+            "decks/run_lvs.py": "cff4fb35d99b02ac46aa3bf8c854567fd0ba85ac242a7165da88913c8d1e95d0",
+            "decks/rule_decks/general_connections.lvs": "c6814beda3a1fc9845480111c2d9bc520a59fa770bedb6eddbc7d0a4931470ce",
+            "decks/rule_decks/res_extraction.lvs": "9f39ff4f36fd86258553f8b0b1331f002ea71e91f84843de409df4fac9747a3b",
+            "decks/rule_decks/general_derivations.lvs": "c984c82263c6f81c54ea4d22b14c2e258db98d90ce6abe9a0c05c5eae369072e",
+            "decks/rule_decks/mos_extraction.lvs": "dea4df60fced945fb182e2d2e511a73b6b2863d70acfbbb9875e8535bc0caa49",
+            "decks/rule_decks/diode_connections.lvs": "be9b37c1a76d8a3a4cc00e80b1771e9922ece1ee6614f30db233bc2d6e51443e",
+            "decks/rule_decks/ind_derivations.lvs": "fdcfc1b87a23362d5a8d96015616bcc05639f61647ff10416051388b18769330",
+            "decks/rule_decks/bjt_extraction.lvs": "7dcc9d1d7701dc3e21d5f2b285178f0a2a0a80c45919af559a957e3d94b39f87",
+            "decks/rule_decks/custom_devices.lvs": "203cdb6276ada39a8bf646d01b8ea62fdb05ba369b26d1a1509b6af425aab308",
+            "decks/rule_decks/cap_extraction.lvs": "485f80021c3f927f3cdead717f0a98a0f78ea12e4fe50725e50cd326e3a7ad83",
+            "decks/rule_decks/custom_mim_extractor.lvs": "a0d25333fd0c8f8f109c8806a2330a77999e43f0dde942367b2d67e75b8e63d2",
+            "decks/rule_decks/diode_derivations.lvs": "e6686683dd77d3e4f93ee774fb63f7b64eeeb22b1d28fe0af7c2c5891e0a399a",
+            "decks/rule_decks/layers_definitions.lvs": "231da63d696f087cd0332fb4bd9daa4e0d3139a07dd901d121a4b9ab52ed4048",
+            "decks/rule_decks/mos_derivations.lvs": "a4013e16701e956dfb07534e264cd03f241840a44c4a23129d6e56513debc5ff",
+            "decks/rule_decks/rfmos_extraction.lvs": "114bafea13d39aff60411442efb768f45b9460068b0fa25f85e36762ee89e3cd",
+            "decks/rule_decks/mos_connections.lvs": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770",
+            "decks/rule_decks/rfmos_connections.lvs": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3",
+            "decks/rule_decks/res_derivations.lvs": "dcc7c413a7d1971cb2926a5aa9ad2025526f87601d3719a706050d59ff63237b",
+            "decks/rule_decks/rfmos_derivations.lvs": "5ae022be71ec90487ebf4636820563bc665815dfc12a36068b331d9571f54677",
+            "decks/rule_decks/cap_derivations.lvs": "4a144e5fdc04418e2935f59eaf66e35063fc2f4c41b2e50ac420ab390f11709e",
+            "decks/rule_decks/custom_combiner.lvs": "1e1128ddcbbb87e4193200e72d6e552ee873fe4b266cce6d35dca2a100c7c666",
+            "decks/rule_decks/diode_extraction.lvs": "d37c525ee550f8d0ccca0a3126489e692f855ecd8997dba55368f79d374e024f",
+            "decks/rule_decks/custom_extractor.lvs": "bf47227dff8d7d5d4fba86068156dda17364845bc5e41e737452c6a0f2b42a31",
+            "decks/rule_decks/tap_derivations.lvs": "fe838b2164245f5b0dc732875c26bfa0b96a31b7648c67f9267ddd2cc1d985b6",
+            "decks/rule_decks/esd_derivations.lvs": "a3d7932a874f9a7f38b9e9fc4c01eaaab57161d748d07c9383f0d325906a1dc6",
+            "decks/rule_decks/devices_connections.lvs": "8dec841c1d9c8fafd3a7dc15d59e4289860c4493819e6f901996cf9b9ccaec2b",
+            "decks/rule_decks/esd_connections.lvs": "6a2175e26079d3e2258bfa4453c497c6ed28eb20390335ffcbc25f9f410135f8",
+            "decks/rule_decks/esd_extraction.lvs": "3b2d2c1e389155dbc9b53d9a52363eb273bb5024937804724d41bd1a8c48afa0",
+            "decks/rule_decks/bjt_derivations.lvs": "abc2654097aaf06606bfe94e2f75baef9103f21ae201a1f312c3111193f7719e",
+            "decks/rule_decks/tap_extraction.lvs": "9b51de100f1866c4eebac3d125549fbff917e72a9af37279f79335d89f224d2f",
+            "decks/rule_decks/globals.lvs": "f6c58978f1c21c81efa3f2f6348327f32d72188620511e0f36bd70b30a0209fb",
+            "decks/rule_decks/res_connections.lvs": "998384a62f984e92ea67bc20127bf202baeb81f3d1576fb9e19cf77c78163e81",
+            "decks/rule_decks/bjt_connections.lvs": "0b3f536a25d8b8d5b37dc5eeb8e1bc8554e78694bb4398f6dd48ac3d9e528c8c",
+            "decks/rule_decks/custom_writer.lvs": "4bfb58e09a7cdf1f1267f9b9d40c32e998988179c5c5af4cad6aa334577dfd95",
+            "decks/rule_decks/custom_reader.lvs": "082b4976eb6a51816b6349a789d899f4d16dd1fae059c9d4c1a013036cad3b9b",
+            "decks/rule_decks/tap_connections.lvs": "b5a1ee6fec6ba442f1ad327a4f6b83aa6b967a4ce1d4b3ba5d3045a8e5ad5dd9",
+            "decks/rule_decks/ind_connections.lvs": "a38dbf6f321d06ec4fafa353430ec1254e0d883b9a9a4921bf789615927d73a2",
+            "decks/rule_decks/ind_extraction.lvs": "6f6b901384c089c9a8226a0cfa11c06db0a7e2ea701d294b4fb647fd3704b178",
+            "decks/rule_decks/cap_connections.lvs": "8f993c8ac2f2876beae4ae4a5b090fda6231b44d0f64657da747c2e9bf980987",
+            "decks/rule_decks/custom_classes.lvs": "6d7a61bc1fe28c9395dbd55b2698c15636df7e4cfa128fc6bce7f1f38e7fee7e"
+          }
+        }
+      },
+      "cell_capacitance": {
+        "path": "outputs/ihp-cell-environment-apb-geometry3-v2.json",
+        "sha256": "21dbc72acb320649ba9f1892f692562069fb5a9c861474aefd017f0cc8c81944",
+        "result": {
+          "schema": 1,
+          "status": "cell-capacitance-subnetwork-preserved",
+          "qualified": false,
+          "internal_nodes": 1261,
+          "protected_floating_nodes": 143,
+          "compared_pairs": 19013,
+          "maximum_raw_change_af": 3.76802e-17,
+          "native_overlap_residues": [
+            {
+              "nodes": [
+                "NET000108",
+                "a_47494_37589#"
+              ],
+              "before_af": 0.0,
+              "after_af": 3.76802e-17
+            }
+          ],
+          "total_native_residue_change_af": 3.76802e-17,
+          "native_residue_limit_af": 1e-10,
+          "total_native_residue_limit_af": 1e-07,
+          "scope": "Native internal/floating-component capacitance invariance within explicitly recorded overlap-subtraction residue bounds. Capacitors are not removed from the physical model. Independent field accuracy, spatial wire distribution and timing remain separate checks.",
+          "case": "apb",
+          "source_sha256": {
+            "outputs/ihp-conserved-rc-apb-v3/original/native-original.ext": "f7397973996311a4d8ebe7282d9eb87831eb80179cb9046820e62b683680b86e",
+            "outputs/ihp-cell-keepout-flat-v3/apb/apb_fifo.ext": "3ed2aa92ee4a6f6ca2401ccc12ebf02fd6032ec384c04aa5e683d751d51a5b20",
+            "outputs/ihp-distributed-model-apb-v7/original/record.json": "20543e87f9a66cc80a14a1b67c1c2a4242cb4d91b9f51b105ccae8e7927a2f46",
+            "outputs/ihp-capacitance-views-apb-v1/labels.json": "f1fb3c905c2e963d02cfefb6ff4f8f504ebfc8e2e0008205630ed46f2c80848a"
+          },
+          "protected_poly_nodes": [
+            "a_17216_38762#",
+            "a_17888_42582#",
+            "a_34024_37250#",
+            "a_34304_38762#",
+            "a_35656_35738#",
+            "a_35656_42582#",
+            "a_35840_35738#",
+            "a_36136_38762#",
+            "a_36320_34226#",
+            "a_36320_36534#",
+            "a_36328_44094#",
+            "a_36704_35738#",
+            "a_36712_44810#",
+            "a_36800_38046#",
+            "a_36808_34226#",
+            "a_36992_34226#",
+            "a_36992_39558#",
+            "a_37000_43298#",
+            "a_37000_72822#",
+            "a_37184_43298#",
+            "a_37184_72822#",
+            "a_37280_44810#",
+            "a_37672_41070#",
+            "a_37768_44810#",
+            "a_37856_41070#",
+            "a_38056_47118#",
+            "a_38624_35022#",
+            "a_38624_42582#",
+            "a_38632_47118#",
+            "a_38824_34226#",
+            "a_39008_34226#",
+            "a_39008_46322#",
+            "a_39016_45606#",
+            "a_39400_47834#",
+            "a_39488_34226#",
+            "a_39496_38046#",
+            "a_39680_31998#",
+            "a_39680_38046#",
+            "a_39680_44810#",
+            "a_39688_40274#",
+            "a_39872_35738#",
+            "a_39872_40274#",
+            "a_40064_42582#",
+            "a_40264_43298#",
+            "a_40744_38762#",
+            "a_40928_38762#",
+            "a_40928_47834#",
+            "a_41024_35738#",
+            "a_41032_32714#",
+            "a_41032_34226#",
+            "a_41128_38046#",
+            "a_41216_32714#",
+            "a_41216_34226#",
+            "a_41408_31202#",
+            "a_41416_47118#",
+            "a_41600_41070#",
+            "a_41600_47118#",
+            "a_41888_36534#",
+            "a_41984_31202#",
+            "a_42472_32714#",
+            "a_42472_36534#",
+            "a_42568_33510#",
+            "a_42752_33510#",
+            "a_42760_29690#",
+            "a_43048_28974#",
+            "a_43232_28974#",
+            "a_43240_33510#",
+            "a_43424_41786#",
+            "a_43432_6294#",
+            "a_43624_28974#",
+            "a_43720_13854#",
+            "a_43816_36534#",
+            "a_43904_13854#",
+            "a_43904_41786#",
+            "a_43912_33510#",
+            "a_44096_34226#",
+            "a_44192_35022#",
+            "a_44392_5498#",
+            "a_44872_42582#",
+            "a_44968_39558#",
+            "a_45064_28974#",
+            "a_45152_38046#",
+            "a_45640_36534#",
+            "a_46016_47118#",
+            "a_46312_44094#",
+            "a_46496_37250#",
+            "a_46888_36534#",
+            "a_47072_36534#",
+            "a_4744_38046#",
+            "a_47560_38046#",
+            "a_47656_46322#",
+            "a_48040_42582#",
+            "a_48136_36534#",
+            "a_4832_33510#",
+            "a_48608_44094#",
+            "a_48800_43298#",
+            "a_48896_38762#",
+            "a_49088_44094#",
+            "a_4928_38046#",
+            "a_50336_45606#",
+            "a_50536_46322#",
+            "a_50720_46322#",
+            "a_50920_39558#",
+            "a_51296_43298#",
+            "a_51304_44810#",
+            "a_51488_44810#",
+            "a_51584_40274#",
+            "a_51592_41786#",
+            "a_51776_41786#",
+            "a_51776_43298#",
+            "a_51880_41070#",
+            "a_52064_41070#",
+            "a_53608_44810#",
+            "a_53792_44810#",
+            "a_70216_35022#",
+            "a_70312_46322#",
+            "a_71264_41786#",
+            "a_73184_41786#",
+            "a_73568_45606#",
+            "a_74824_35022#",
+            "a_74824_45606#",
+            "a_74920_46322#",
+            "a_75008_35022#",
+            "a_75008_41786#",
+            "a_75008_45606#",
+            "a_75304_56906#",
+            "a_75488_56906#",
+            "a_75688_27462#",
+            "a_75688_31998#",
+            "a_75784_29690#",
+            "a_75784_31202#",
+            "a_75784_34226#",
+            "a_75784_43298#",
+            "a_75784_44094#",
+            "a_75784_47118#",
+            "a_75784_47834#",
+            "a_75872_27462#",
+            "a_75872_28178#",
+            "a_75872_28974#",
+            "a_75872_31998#",
+            "a_75872_32714#",
+            "a_8488_35022#",
+            "a_8768_38046#"
+          ]
+        }
+      },
+      "generator_replay": {
+        "path": "outputs/ihp-keepout-generator-v1/apb/replay.json",
+        "sha256": "afdc26f34a998d71fedce119fad36c5ee9790608cc4e13e8c9abc337a745c411",
+        "result": {
+          "schema": 1,
+          "status": "native-generator-physical-replay-pass",
+          "qualified": false,
+          "case": "apb",
+          "original_gds_sha256": "e73e135bb442f886e468c62a7c3ff0094d1abc2d1f442960d195e7bc09e637e4",
+          "candidate_gds_sha256": "ebdf6a64b5c01b3b8a4f4ab79b1b6d3664bc6c39ee528fb18ee5510a18a2482d",
+          "replayed_gds_sha256": "ebdf6a64b5c01b3b8a4f4ab79b1b6d3664bc6c39ee528fb18ee5510a18a2482d",
+          "byte_identical": true,
+          "all_mask_regions_identical": true,
+          "all_transformed_labels_identical": true,
+          "generator_sha256": "cd5741455416b168172848011f820109657bbc2bf90a948b2be6f5405f83d127",
+          "native_geometry_markers": 0,
+          "source_record_sha256": "e0ca1b24db01ae26938819b45682ad91803cf5e6ae7b234b7674f83610506084",
+          "record_sha256": "614e8a2098b92f681c3269b10ed542a79bfb4a7ef2bdfa7dad3d22ea8547317d",
+          "scope": "Checked-in generator reproduces physical masks and labels with native geometry recheck. Electrical and timing acceptance are separate gates."
+        }
+      }
+    }
+  },
+  "tests": {
+    "win32": {
+      "path": "outputs/ihp-fill-coverage-tests-win32-v23/record.json",
+      "sha256": "a2fa8b87e0007060ba27d8611ae0fd1f8d6d63c4a52e27c50498727481868ac4",
+      "result": {
+        "schema": 1,
+        "status": "pass",
+        "tests": 151,
+        "skips": 0,
+        "numpy": "2.3.5",
+        "scipy": "1.16.3",
+        "log_sha256": "f3e282438c8e4462e9366e8b0ffe542707d69ac34ab06970ce8324d05e665d68",
+        "source_files": {
+          "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+          "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+          "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+          "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+          "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+          "scripts/check_ihp_rcx_widths.py": "de0e6056b6abb36b69f489e745b9938d518c81a856f3ff4ef1e25f6aa02dc25d",
+          "scripts/check_ihp_waveform.py": "b4134c5960ce45805ae9680d394b7f0bbed47a169cae3650c3564ef846f28599",
+          "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+          "scripts/ihp_calibration_geometry.py": "884cda7fbec8a0e86d7f711b71a377c9590abeac6ea5adbe3ddfc3631db5dd20",
+          "scripts/ihp_cell_capacitance.py": "bf610eaf8affdb7a9a62e8adebc062259ad072d88a2abf7b4aa2dfae90f578f6",
+          "scripts/ihp_diode_charge_audit.py": "d4a77614ee05d43202c37b8cb31b2255329e97c702c9810bcf8f6847c815c590",
+          "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+          "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+          "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+          "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+          "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+          "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+          "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+          "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+          "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+          "scripts/ihp_native_spef.py": "7e9725b2bff7c7afde43a649bd8bd6a7eca9f9ea7adede05d89389231cfa8d13",
+          "scripts/ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "scripts/ihp_transformer_capacitance.py": "07ffab4c502f9b7402a4e8a6b40f761cc962911c80e30c841e84a0cb4a7896b8",
+          "scripts/ihp_waveform_convergence.py": "952940280b2b43495ce3df8ce72dc7ebf178662e143bc5d15f3f519f8a7f1d03",
+          "scripts/prepare_ihp_block_fill.py": "cd5741455416b168172848011f820109657bbc2bf90a948b2be6f5405f83d127",
+          "tests/test_ihp_block_fill.py": "24919209a6018970b8f4c1034fe69e48290e1852380408d9e34e9de5d6c63370",
+          "tests/test_ihp_calibration_geometry.py": "2b41aef07e4973c4ed662610433ade9c86546b517b18e4bdac6fbad8c1b91529",
+          "tests/test_ihp_cell_capacitance.py": "5ad50a4e4af139a53b3315e1cfbb207651af706ab1cf268f9844c687a862b2cf",
+          "tests/test_ihp_diode_charge_audit.py": "cf2baf7d2a058540596af153fbefdab784184feffebc2beac359bba35fcddb10",
+          "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+          "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+          "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+          "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+          "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+          "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+          "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+          "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+          "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+          "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+          "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+          "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+          "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+          "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+          "tests/test_ihp_native_spef.py": "784676e186181743b82fa7cb24a4aea7429a4819996e5c25794932aa32579cdb",
+          "tests/test_ihp_rcx_material.py": "d557993c69c70b8b8a6579c9a31780df12d5253e93e53b7526d686e919c971ca",
+          "tests/test_ihp_rcx_widths.py": "b275a6823052ffe06492ac00ff900034b8a6ac68754cdb395364bde029f83b1b",
+          "tests/test_ihp_transformer_capacitance.py": "18adc85d85118b4cd2141f7d9febf04c36b9d86f3507c2d29a8a0e7696bdda38",
+          "tests/test_ihp_waveform.py": "8ec4daae6ec70c2ec893189369e8055f82f9b71c1df0d09c65847e37a7ae46da",
+          "tests/test_ihp_waveform_convergence.py": "355451d48d02075c6e8986c817422f917b7af35bd370010f7f9646fc796b95b4"
+        }
+      }
+    },
+    "linux": {
+      "path": "outputs/ihp-fill-coverage-tests-linux-v23/record.json",
+      "sha256": "db420ee6eedc94f71ff3c8377e190bcb7b325177750363671ef67cb438a59921",
+      "result": {
+        "schema": 1,
+        "status": "pass",
+        "tests": 151,
+        "skips": 0,
+        "numpy": "2.3.5",
+        "scipy": "1.16.3",
+        "log_sha256": "79815b9f35d4c1e5de660c188dbe21f3cfece0ff73d3382f4aa4f3e19e0f6fec",
+        "source_files": {
+          "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+          "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+          "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+          "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+          "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+          "scripts/check_ihp_rcx_widths.py": "de0e6056b6abb36b69f489e745b9938d518c81a856f3ff4ef1e25f6aa02dc25d",
+          "scripts/check_ihp_waveform.py": "b4134c5960ce45805ae9680d394b7f0bbed47a169cae3650c3564ef846f28599",
+          "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+          "scripts/ihp_calibration_geometry.py": "884cda7fbec8a0e86d7f711b71a377c9590abeac6ea5adbe3ddfc3631db5dd20",
+          "scripts/ihp_cell_capacitance.py": "bf610eaf8affdb7a9a62e8adebc062259ad072d88a2abf7b4aa2dfae90f578f6",
+          "scripts/ihp_diode_charge_audit.py": "d4a77614ee05d43202c37b8cb31b2255329e97c702c9810bcf8f6847c815c590",
+          "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+          "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+          "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+          "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+          "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+          "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+          "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+          "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+          "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+          "scripts/ihp_native_spef.py": "7e9725b2bff7c7afde43a649bd8bd6a7eca9f9ea7adede05d89389231cfa8d13",
+          "scripts/ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "scripts/ihp_transformer_capacitance.py": "07ffab4c502f9b7402a4e8a6b40f761cc962911c80e30c841e84a0cb4a7896b8",
+          "scripts/ihp_waveform_convergence.py": "952940280b2b43495ce3df8ce72dc7ebf178662e143bc5d15f3f519f8a7f1d03",
+          "scripts/prepare_ihp_block_fill.py": "cd5741455416b168172848011f820109657bbc2bf90a948b2be6f5405f83d127",
+          "tests/test_ihp_block_fill.py": "24919209a6018970b8f4c1034fe69e48290e1852380408d9e34e9de5d6c63370",
+          "tests/test_ihp_calibration_geometry.py": "2b41aef07e4973c4ed662610433ade9c86546b517b18e4bdac6fbad8c1b91529",
+          "tests/test_ihp_cell_capacitance.py": "5ad50a4e4af139a53b3315e1cfbb207651af706ab1cf268f9844c687a862b2cf",
+          "tests/test_ihp_diode_charge_audit.py": "cf2baf7d2a058540596af153fbefdab784184feffebc2beac359bba35fcddb10",
+          "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+          "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+          "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+          "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+          "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+          "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+          "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+          "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+          "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+          "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+          "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+          "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+          "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+          "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+          "tests/test_ihp_native_spef.py": "784676e186181743b82fa7cb24a4aea7429a4819996e5c25794932aa32579cdb",
+          "tests/test_ihp_rcx_material.py": "d557993c69c70b8b8a6579c9a31780df12d5253e93e53b7526d686e919c971ca",
+          "tests/test_ihp_rcx_widths.py": "b275a6823052ffe06492ac00ff900034b8a6ac68754cdb395364bde029f83b1b",
+          "tests/test_ihp_transformer_capacitance.py": "18adc85d85118b4cd2141f7d9febf04c36b9d86f3507c2d29a8a0e7696bdda38",
+          "tests/test_ihp_waveform.py": "8ec4daae6ec70c2ec893189369e8055f82f9b71c1df0d09c65847e37a7ae46da",
+          "tests/test_ihp_waveform_convergence.py": "355451d48d02075c6e8986c817422f917b7af35bd370010f7f9646fc796b95b4"
+        }
+      }
+    }
+  },
+  "complete_stock_counter": {
+    "win32": {
+      "path": "outputs/ihp-keepout-counter-replay-win32-v1.json",
+      "sha256": "6b684046f869c56b31ddbe921ac1becb0dd725f20b4fb2996d187383fb7d168f",
+      "result": {
+        "schema": 1,
+        "status": "stock-counter-complete-comparisons-pass",
+        "qualified": false,
+        "chunk_complete": false,
+        "platform": "win32",
+        "canonical_report_sha256": "a5aa7d26fa087b4e0c8f85f4d1321957f8de674b869da7b7565be6f77a2ea93a",
+        "decoded_metrics_identical": true,
+        "external_native_paths_verified": false,
+        "results": {
+          "typ-original-convergence": {
+            "schema": 1,
+            "status": "convergence-pass",
+            "qualified": false,
+            "convergence_limit_ps": 1.0,
+            "transition_start_ns": 10.0,
+            "duration_ns": 900,
+            "matched_input_sha256": {
+              "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+              "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+              ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+              "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d"
+            },
+            "settings": [
+              {
+                "reltol": 1e-05,
+                "abstol": 1e-12,
+                "vntol": 1e-08,
+                "output_step": 2e-11,
+                "maximum_step": 5e-11
+              },
+              {
+                "reltol": 5e-06,
+                "abstol": 5e-13,
+                "vntol": 5e-09,
+                "output_step": 1e-11,
+                "maximum_step": 2.5e-11
+              }
+            ],
+            "captured_file_sha256": [
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "bench.spice": "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+                "waveform.txt": "e25fec59cc39c47c990ee50a1752040ec5f1e1267d8a68c15aadee7f911bdefe",
+                "engine.log": "20d18c337a6757c752a68cdb70fbf7d4cdcf860219e0e3f78aa0d1fbb079fbe1"
+              },
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "bench.spice": "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc",
+                "waveform.txt": "c632b40bf5d6d73dd7f1436cdd7166a13aa29e8d0b6aaafea018bdfcd9aa5794",
+                "engine.log": "e8ad7e428bf4d48a1d5865c350bea041c917e93836cf6164d540b43ececac948"
+              }
+            ],
+            "bench_sha256": [
+              "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+              "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc"
+            ],
+            "waveform_audits": [
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "e25fec59cc39c47c990ee50a1752040ec5f1e1267d8a68c15aadee7f911bdefe",
+                "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "engine_log_sha256": "20d18c337a6757c752a68cdb70fbf7d4cdcf860219e0e3f78aa0d1fbb079fbe1",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              },
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "c632b40bf5d6d73dd7f1436cdd7166a13aa29e8d0b6aaafea018bdfcd9aa5794",
+                "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "engine_log_sha256": "e8ad7e428bf4d48a1d5865c350bea041c917e93836cf6164d540b43ececac948",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              }
+            ],
+            "channels": [
+              {
+                "channel": {
+                  "node": "NET000015"
+                },
+                "baseline_edges": 17,
+                "tighter_edges": 17,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.4200039771785644
+              },
+              {
+                "channel": {
+                  "node": "NET000016"
+                },
+                "baseline_edges": 8,
+                "tighter_edges": 8,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.4247758716475228
+              },
+              {
+                "channel": {
+                  "node": "NET000017"
+                },
+                "baseline_edges": 4,
+                "tighter_edges": 4,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.46051341830176845
+              },
+              {
+                "channel": {
+                  "node": "NET000018"
+                },
+                "baseline_edges": 2,
+                "tighter_edges": 2,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.34016590195343005
+              }
+            ],
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 0.46051341830176845,
+            "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+          },
+          "typ-filled-convergence": {
+            "schema": 1,
+            "status": "convergence-pass",
+            "qualified": false,
+            "convergence_limit_ps": 1.0,
+            "transition_start_ns": 10.0,
+            "duration_ns": 900,
+            "matched_input_sha256": {
+              "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+              "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+              ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+              "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d"
+            },
+            "settings": [
+              {
+                "reltol": 1e-05,
+                "abstol": 1e-12,
+                "vntol": 1e-08,
+                "output_step": 2e-11,
+                "maximum_step": 5e-11
+              },
+              {
+                "reltol": 5e-06,
+                "abstol": 5e-13,
+                "vntol": 5e-09,
+                "output_step": 1e-11,
+                "maximum_step": 2.5e-11
+              }
+            ],
+            "captured_file_sha256": [
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "bench.spice": "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+                "waveform.txt": "29fe3629763afe1b5dfc0155d800af69c1cbd5802943250926a72ae41e0dae18",
+                "engine.log": "795bec2fb0b1c1d77666037b1b305da7dd70fa49924767232885e355dd5dba62"
+              },
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "bench.spice": "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc",
+                "waveform.txt": "518b49c8830ca585f45620c1528169d730dbc5369e12174871c798a9e9d9bb5d",
+                "engine.log": "c6571d8e135912bcea06d4d5c482dde2cb3ba80c943674b71dabad5a20ccaebf"
+              }
+            ],
+            "bench_sha256": [
+              "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+              "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc"
+            ],
+            "waveform_audits": [
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "29fe3629763afe1b5dfc0155d800af69c1cbd5802943250926a72ae41e0dae18",
+                "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "engine_log_sha256": "795bec2fb0b1c1d77666037b1b305da7dd70fa49924767232885e355dd5dba62",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              },
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "518b49c8830ca585f45620c1528169d730dbc5369e12174871c798a9e9d9bb5d",
+                "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "engine_log_sha256": "c6571d8e135912bcea06d4d5c482dde2cb3ba80c943674b71dabad5a20ccaebf",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              }
+            ],
+            "channels": [
+              {
+                "channel": {
+                  "node": "NET000015"
+                },
+                "baseline_edges": 17,
+                "tighter_edges": 17,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.4672080898429718
+              },
+              {
+                "channel": {
+                  "node": "NET000016"
+                },
+                "baseline_edges": 8,
+                "tighter_edges": 8,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.45124540942131325
+              },
+              {
+                "channel": {
+                  "node": "NET000017"
+                },
+                "baseline_edges": 4,
+                "tighter_edges": 4,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.44361914828070914
+              },
+              {
+                "channel": {
+                  "node": "NET000018"
+                },
+                "baseline_edges": 2,
+                "tighter_edges": 2,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.37652628781565955
+              }
+            ],
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 0.4672080898429718,
+            "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+          },
+          "typ-matched": {
+            "status": "matched-output-transitions",
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 11.678661576258348,
+            "original_waveform_sha256": "e25fec59cc39c47c990ee50a1752040ec5f1e1267d8a68c15aadee7f911bdefe",
+            "filled_waveform_sha256": "29fe3629763afe1b5dfc0155d800af69c1cbd5802943250926a72ae41e0dae18",
+            "scope": "Descriptive before/after fill shift; setup and hold timing are separate gates."
+          },
+          "fast-original-convergence": {
+            "schema": 1,
+            "status": "convergence-pass",
+            "qualified": false,
+            "convergence_limit_ps": 1.0,
+            "transition_start_ns": 10.0,
+            "duration_ns": 900,
+            "matched_input_sha256": {
+              "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+              "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+              ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+              "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821"
+            },
+            "settings": [
+              {
+                "reltol": 1e-05,
+                "abstol": 1e-12,
+                "vntol": 1e-08,
+                "output_step": 2e-11,
+                "maximum_step": 5e-11
+              },
+              {
+                "reltol": 5e-06,
+                "abstol": 5e-13,
+                "vntol": 5e-09,
+                "output_step": 1e-11,
+                "maximum_step": 2.5e-11
+              }
+            ],
+            "captured_file_sha256": [
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "bench.spice": "8665eeb82fe9c3bd96c5b4e38cd1923eb518af365956186fe6196eb33d3d0cb1",
+                "waveform.txt": "1fb25c6c72dfd5afbffbe6114ec366009e2303266f75dfbdd5099933fd996cf6",
+                "engine.log": "ae8b7e9ca53c84e049c7687f146b0cbca74e7ac5b9fffce876db2dd8d564d61f"
+              },
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "bench.spice": "bad3d84577cdc5c4087d640c74bd31cad83d64dfd72cc8a1bf99353471a69996",
+                "waveform.txt": "1e9ffbc6e3abed0c3bd87c57d89809c5951203e9f000f0d88e41e69a38fb6fdf",
+                "engine.log": "042db9864919129a21dfbe4493ba148f2774f77734ed307c9e2e653049d204bf"
+              }
+            ],
+            "bench_sha256": [
+              "8665eeb82fe9c3bd96c5b4e38cd1923eb518af365956186fe6196eb33d3d0cb1",
+              "bad3d84577cdc5c4087d640c74bd31cad83d64dfd72cc8a1bf99353471a69996"
+            ],
+            "waveform_audits": [
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "1fb25c6c72dfd5afbffbe6114ec366009e2303266f75dfbdd5099933fd996cf6",
+                "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "engine_log_sha256": "ae8b7e9ca53c84e049c7687f146b0cbca74e7ac5b9fffce876db2dd8d564d61f",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              },
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "1e9ffbc6e3abed0c3bd87c57d89809c5951203e9f000f0d88e41e69a38fb6fdf",
+                "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "engine_log_sha256": "042db9864919129a21dfbe4493ba148f2774f77734ed307c9e2e653049d204bf",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              }
+            ],
+            "channels": [
+              {
+                "channel": {
+                  "node": "NET000015"
+                },
+                "baseline_edges": 17,
+                "tighter_edges": 17,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.26267540490551144
+              },
+              {
+                "channel": {
+                  "node": "NET000016"
+                },
+                "baseline_edges": 8,
+                "tighter_edges": 8,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.2768323618554885
+              },
+              {
+                "channel": {
+                  "node": "NET000017"
+                },
+                "baseline_edges": 4,
+                "tighter_edges": 4,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.2641239739703679
+              },
+              {
+                "channel": {
+                  "node": "NET000018"
+                },
+                "baseline_edges": 2,
+                "tighter_edges": 2,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.2576857819938899
+              }
+            ],
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 0.2768323618554885,
+            "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+          },
+          "fast-filled-convergence": {
+            "schema": 1,
+            "status": "convergence-pass",
+            "qualified": false,
+            "convergence_limit_ps": 1.0,
+            "transition_start_ns": 10.0,
+            "duration_ns": 900,
+            "matched_input_sha256": {
+              "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+              "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+              ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+              "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821"
+            },
+            "settings": [
+              {
+                "reltol": 1e-05,
+                "abstol": 1e-12,
+                "vntol": 1e-08,
+                "output_step": 2e-11,
+                "maximum_step": 5e-11
+              },
+              {
+                "reltol": 5e-06,
+                "abstol": 5e-13,
+                "vntol": 5e-09,
+                "output_step": 1e-11,
+                "maximum_step": 2.5e-11
+              }
+            ],
+            "captured_file_sha256": [
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "bench.spice": "8665eeb82fe9c3bd96c5b4e38cd1923eb518af365956186fe6196eb33d3d0cb1",
+                "waveform.txt": "ed6c14fe46de04b7a190ed95c089ae21ceb66df8226a885c97e275967f826189",
+                "engine.log": "761b8ab2ab686c7eb55e8b1e3c828d34df8144f05954ab46cd81c28aa2812e92"
+              },
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "bench.spice": "bad3d84577cdc5c4087d640c74bd31cad83d64dfd72cc8a1bf99353471a69996",
+                "waveform.txt": "1fad7bea6b8e1a74ee2d6abf2cc9c8f3df2cf5deaadcaa599ae62187939d6693",
+                "engine.log": "6bdf02ea46b286c3df0daeabd76288585e5c414c7f5c7115c49361bed9508ed8"
+              }
+            ],
+            "bench_sha256": [
+              "8665eeb82fe9c3bd96c5b4e38cd1923eb518af365956186fe6196eb33d3d0cb1",
+              "bad3d84577cdc5c4087d640c74bd31cad83d64dfd72cc8a1bf99353471a69996"
+            ],
+            "waveform_audits": [
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "ed6c14fe46de04b7a190ed95c089ae21ceb66df8226a885c97e275967f826189",
+                "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "engine_log_sha256": "761b8ab2ab686c7eb55e8b1e3c828d34df8144f05954ab46cd81c28aa2812e92",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              },
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "1fad7bea6b8e1a74ee2d6abf2cc9c8f3df2cf5deaadcaa599ae62187939d6693",
+                "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "engine_log_sha256": "6bdf02ea46b286c3df0daeabd76288585e5c414c7f5c7115c49361bed9508ed8",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              }
+            ],
+            "channels": [
+              {
+                "channel": {
+                  "node": "NET000015"
+                },
+                "baseline_edges": 17,
+                "tighter_edges": 17,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.23850044169286674
+              },
+              {
+                "channel": {
+                  "node": "NET000016"
+                },
+                "baseline_edges": 8,
+                "tighter_edges": 8,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.24904144416071228
+              },
+              {
+                "channel": {
+                  "node": "NET000017"
+                },
+                "baseline_edges": 4,
+                "tighter_edges": 4,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.24903558168686565
+              },
+              {
+                "channel": {
+                  "node": "NET000018"
+                },
+                "baseline_edges": 2,
+                "tighter_edges": 2,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.23482153736322164
+              }
+            ],
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 0.24904144416071228,
+            "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+          },
+          "fast-matched": {
+            "status": "matched-output-transitions",
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 7.499080583106354,
+            "original_waveform_sha256": "1fb25c6c72dfd5afbffbe6114ec366009e2303266f75dfbdd5099933fd996cf6",
+            "filled_waveform_sha256": "ed6c14fe46de04b7a190ed95c089ae21ceb66df8226a885c97e275967f826189",
+            "scope": "Descriptive before/after fill shift; setup and hold timing are separate gates."
+          }
+        },
+        "bindings": {
+          "outputs/ihp-original-stock-waveform-v1/counter-typ-900-baseline": "0d53fa882467775950a2cefee1959ee1fc059d77518ae65eed979751d90f540d",
+          "outputs/ihp-original-stock-waveform-v1/counter-typ-900-fine": "85d3975253a63525f091cceb826297906d89cef50f301909caa24e3309493748",
+          "outputs/ihp-cell-keepout-waveform-v1/counter-typ-900-baseline": "372324ce1046c7ccdd9db1740b6fe450209513c11ce0918bbeeba29d2aadbcef",
+          "outputs/ihp-cell-keepout-waveform-v1/counter-typ-900-fine": "d37da5f26a020e6a40bcad100bf4007abe4a9d1f38d7c398ef6b380d74f45ec0",
+          "outputs/ihp-original-stock-waveform-v1/counter-fast-900-baseline": "237420925ddc853e512c3845f7660eaf9926e7bbddead7ab9905ecda9ff507e3",
+          "outputs/ihp-original-stock-waveform-v1/counter-fast-900-fine": "d6383f5c953abbc8e998924b9de3066c2df37174d4fadbd2087a5f3d773d75e4",
+          "outputs/ihp-cell-keepout-waveform-v1/counter-fast-900-baseline": "fcb1c09a5a2ccd78221fad33181ff2c8568ae5b0a6a95736ad1ba4b9d29dd6cf",
+          "outputs/ihp-cell-keepout-waveform-v1/counter-fast-900-fine": "c60904b55c88b370659772de716ae27b0ed3663f99548fcc9514ba6e1f52470e"
+        },
+        "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+        "unchanged_pinned_spice_files": 40
+      }
+    },
+    "linux": {
+      "path": "outputs/ihp-keepout-counter-replay-linux-v1.json",
+      "sha256": "35522b6564bb23b70b2b68ca6edce268b6593a834cc3b105f938a0e9a20b726f",
+      "result": {
+        "schema": 1,
+        "status": "stock-counter-complete-comparisons-pass",
+        "qualified": false,
+        "chunk_complete": false,
+        "platform": "linux",
+        "canonical_report_sha256": "a5aa7d26fa087b4e0c8f85f4d1321957f8de674b869da7b7565be6f77a2ea93a",
+        "decoded_metrics_identical": true,
+        "external_native_paths_verified": true,
+        "results": {
+          "typ-original-convergence": {
+            "schema": 1,
+            "status": "convergence-pass",
+            "qualified": false,
+            "convergence_limit_ps": 1.0,
+            "transition_start_ns": 10.0,
+            "duration_ns": 900,
+            "matched_input_sha256": {
+              "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+              "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+              ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+              "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d"
+            },
+            "settings": [
+              {
+                "reltol": 1e-05,
+                "abstol": 1e-12,
+                "vntol": 1e-08,
+                "output_step": 2e-11,
+                "maximum_step": 5e-11
+              },
+              {
+                "reltol": 5e-06,
+                "abstol": 5e-13,
+                "vntol": 5e-09,
+                "output_step": 1e-11,
+                "maximum_step": 2.5e-11
+              }
+            ],
+            "captured_file_sha256": [
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "bench.spice": "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+                "waveform.txt": "e25fec59cc39c47c990ee50a1752040ec5f1e1267d8a68c15aadee7f911bdefe",
+                "engine.log": "20d18c337a6757c752a68cdb70fbf7d4cdcf860219e0e3f78aa0d1fbb079fbe1"
+              },
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "bench.spice": "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc",
+                "waveform.txt": "c632b40bf5d6d73dd7f1436cdd7166a13aa29e8d0b6aaafea018bdfcd9aa5794",
+                "engine.log": "e8ad7e428bf4d48a1d5865c350bea041c917e93836cf6164d540b43ececac948"
+              }
+            ],
+            "bench_sha256": [
+              "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+              "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc"
+            ],
+            "waveform_audits": [
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "e25fec59cc39c47c990ee50a1752040ec5f1e1267d8a68c15aadee7f911bdefe",
+                "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "engine_log_sha256": "20d18c337a6757c752a68cdb70fbf7d4cdcf860219e0e3f78aa0d1fbb079fbe1",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              },
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "c632b40bf5d6d73dd7f1436cdd7166a13aa29e8d0b6aaafea018bdfcd9aa5794",
+                "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "engine_log_sha256": "e8ad7e428bf4d48a1d5865c350bea041c917e93836cf6164d540b43ececac948",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              }
+            ],
+            "channels": [
+              {
+                "channel": {
+                  "node": "NET000015"
+                },
+                "baseline_edges": 17,
+                "tighter_edges": 17,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.4200039771785644
+              },
+              {
+                "channel": {
+                  "node": "NET000016"
+                },
+                "baseline_edges": 8,
+                "tighter_edges": 8,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.4247758716475228
+              },
+              {
+                "channel": {
+                  "node": "NET000017"
+                },
+                "baseline_edges": 4,
+                "tighter_edges": 4,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.46051341830176845
+              },
+              {
+                "channel": {
+                  "node": "NET000018"
+                },
+                "baseline_edges": 2,
+                "tighter_edges": 2,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.34016590195343005
+              }
+            ],
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 0.46051341830176845,
+            "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+          },
+          "typ-filled-convergence": {
+            "schema": 1,
+            "status": "convergence-pass",
+            "qualified": false,
+            "convergence_limit_ps": 1.0,
+            "transition_start_ns": 10.0,
+            "duration_ns": 900,
+            "matched_input_sha256": {
+              "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+              "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+              ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+              "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d"
+            },
+            "settings": [
+              {
+                "reltol": 1e-05,
+                "abstol": 1e-12,
+                "vntol": 1e-08,
+                "output_step": 2e-11,
+                "maximum_step": 5e-11
+              },
+              {
+                "reltol": 5e-06,
+                "abstol": 5e-13,
+                "vntol": 5e-09,
+                "output_step": 1e-11,
+                "maximum_step": 2.5e-11
+              }
+            ],
+            "captured_file_sha256": [
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "bench.spice": "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+                "waveform.txt": "29fe3629763afe1b5dfc0155d800af69c1cbd5802943250926a72ae41e0dae18",
+                "engine.log": "795bec2fb0b1c1d77666037b1b305da7dd70fa49924767232885e355dd5dba62"
+              },
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "bench.spice": "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc",
+                "waveform.txt": "518b49c8830ca585f45620c1528169d730dbc5369e12174871c798a9e9d9bb5d",
+                "engine.log": "c6571d8e135912bcea06d4d5c482dde2cb3ba80c943674b71dabad5a20ccaebf"
+              }
+            ],
+            "bench_sha256": [
+              "307ca08f7c30a0ed0f7e39f59cee54a7db07dee2650981d234bbb8726afccb28",
+              "038716bf708ef6791545c979db8513ec5814d1f4188d72aa9aeff2fd8030f5dc"
+            ],
+            "waveform_audits": [
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "29fe3629763afe1b5dfc0155d800af69c1cbd5802943250926a72ae41e0dae18",
+                "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "engine_log_sha256": "795bec2fb0b1c1d77666037b1b305da7dd70fa49924767232885e355dd5dba62",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              },
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "518b49c8830ca585f45620c1528169d730dbc5369e12174871c798a9e9d9bb5d",
+                "expectations_sha256": "886cf99ec83e3977c64fab2ada6222232b95c652346177a2eabb58fcecb9e84d",
+                "engine_log_sha256": "c6571d8e135912bcea06d4d5c482dde2cb3ba80c943674b71dabad5a20ccaebf",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              }
+            ],
+            "channels": [
+              {
+                "channel": {
+                  "node": "NET000015"
+                },
+                "baseline_edges": 17,
+                "tighter_edges": 17,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.4672080898429718
+              },
+              {
+                "channel": {
+                  "node": "NET000016"
+                },
+                "baseline_edges": 8,
+                "tighter_edges": 8,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.45124540942131325
+              },
+              {
+                "channel": {
+                  "node": "NET000017"
+                },
+                "baseline_edges": 4,
+                "tighter_edges": 4,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.44361914828070914
+              },
+              {
+                "channel": {
+                  "node": "NET000018"
+                },
+                "baseline_edges": 2,
+                "tighter_edges": 2,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.37652628781565955
+              }
+            ],
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 0.4672080898429718,
+            "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+          },
+          "typ-matched": {
+            "status": "matched-output-transitions",
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 11.678661576258348,
+            "original_waveform_sha256": "e25fec59cc39c47c990ee50a1752040ec5f1e1267d8a68c15aadee7f911bdefe",
+            "filled_waveform_sha256": "29fe3629763afe1b5dfc0155d800af69c1cbd5802943250926a72ae41e0dae18",
+            "scope": "Descriptive before/after fill shift; setup and hold timing are separate gates."
+          },
+          "fast-original-convergence": {
+            "schema": 1,
+            "status": "convergence-pass",
+            "qualified": false,
+            "convergence_limit_ps": 1.0,
+            "transition_start_ns": 10.0,
+            "duration_ns": 900,
+            "matched_input_sha256": {
+              "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+              "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+              ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+              "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821"
+            },
+            "settings": [
+              {
+                "reltol": 1e-05,
+                "abstol": 1e-12,
+                "vntol": 1e-08,
+                "output_step": 2e-11,
+                "maximum_step": 5e-11
+              },
+              {
+                "reltol": 5e-06,
+                "abstol": 5e-13,
+                "vntol": 5e-09,
+                "output_step": 1e-11,
+                "maximum_step": 2.5e-11
+              }
+            ],
+            "captured_file_sha256": [
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "bench.spice": "8665eeb82fe9c3bd96c5b4e38cd1923eb518af365956186fe6196eb33d3d0cb1",
+                "waveform.txt": "1fb25c6c72dfd5afbffbe6114ec366009e2303266f75dfbdd5099933fd996cf6",
+                "engine.log": "ae8b7e9ca53c84e049c7687f146b0cbca74e7ac5b9fffce876db2dd8d564d61f"
+              },
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "42fcec4bbb5987fc982d1b613868e9f6fea41ab5b3297e39acc49e726edcf27e",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "bench.spice": "bad3d84577cdc5c4087d640c74bd31cad83d64dfd72cc8a1bf99353471a69996",
+                "waveform.txt": "1e9ffbc6e3abed0c3bd87c57d89809c5951203e9f000f0d88e41e69a38fb6fdf",
+                "engine.log": "042db9864919129a21dfbe4493ba148f2774f77734ed307c9e2e653049d204bf"
+              }
+            ],
+            "bench_sha256": [
+              "8665eeb82fe9c3bd96c5b4e38cd1923eb518af365956186fe6196eb33d3d0cb1",
+              "bad3d84577cdc5c4087d640c74bd31cad83d64dfd72cc8a1bf99353471a69996"
+            ],
+            "waveform_audits": [
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "1fb25c6c72dfd5afbffbe6114ec366009e2303266f75dfbdd5099933fd996cf6",
+                "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "engine_log_sha256": "ae8b7e9ca53c84e049c7687f146b0cbca74e7ac5b9fffce876db2dd8d564d61f",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              },
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "1e9ffbc6e3abed0c3bd87c57d89809c5951203e9f000f0d88e41e69a38fb6fdf",
+                "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "engine_log_sha256": "042db9864919129a21dfbe4493ba148f2774f77734ed307c9e2e653049d204bf",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              }
+            ],
+            "channels": [
+              {
+                "channel": {
+                  "node": "NET000015"
+                },
+                "baseline_edges": 17,
+                "tighter_edges": 17,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.26267540490551144
+              },
+              {
+                "channel": {
+                  "node": "NET000016"
+                },
+                "baseline_edges": 8,
+                "tighter_edges": 8,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.2768323618554885
+              },
+              {
+                "channel": {
+                  "node": "NET000017"
+                },
+                "baseline_edges": 4,
+                "tighter_edges": 4,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.2641239739703679
+              },
+              {
+                "channel": {
+                  "node": "NET000018"
+                },
+                "baseline_edges": 2,
+                "tighter_edges": 2,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.2576857819938899
+              }
+            ],
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 0.2768323618554885,
+            "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+          },
+          "fast-filled-convergence": {
+            "schema": 1,
+            "status": "convergence-pass",
+            "qualified": false,
+            "convergence_limit_ps": 1.0,
+            "transition_start_ns": 10.0,
+            "duration_ns": 900,
+            "matched_input_sha256": {
+              "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+              "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+              ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+              "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821"
+            },
+            "settings": [
+              {
+                "reltol": 1e-05,
+                "abstol": 1e-12,
+                "vntol": 1e-08,
+                "output_step": 2e-11,
+                "maximum_step": 5e-11
+              },
+              {
+                "reltol": 5e-06,
+                "abstol": 5e-13,
+                "vntol": 5e-09,
+                "output_step": 1e-11,
+                "maximum_step": 2.5e-11
+              }
+            ],
+            "captured_file_sha256": [
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "bench.spice": "8665eeb82fe9c3bd96c5b4e38cd1923eb518af365956186fe6196eb33d3d0cb1",
+                "waveform.txt": "ed6c14fe46de04b7a190ed95c089ae21ceb66df8226a885c97e275967f826189",
+                "engine.log": "761b8ab2ab686c7eb55e8b1e3c828d34df8144f05954ab46cd81c28aa2812e92"
+              },
+              {
+                "circuit.spice": "f2c4ae93d887690b7739fc2aac238f13b67d5647b05289568b5987578e3fe6bb",
+                "capacitance.spice": "ec7ba6fd44791e9a927eeee1a906a0a6e6fb1225f371198c2482fbc7b2b86d41",
+                ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+                "expectations.json": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "bench.spice": "bad3d84577cdc5c4087d640c74bd31cad83d64dfd72cc8a1bf99353471a69996",
+                "waveform.txt": "1fad7bea6b8e1a74ee2d6abf2cc9c8f3df2cf5deaadcaa599ae62187939d6693",
+                "engine.log": "6bdf02ea46b286c3df0daeabd76288585e5c414c7f5c7115c49361bed9508ed8"
+              }
+            ],
+            "bench_sha256": [
+              "8665eeb82fe9c3bd96c5b4e38cd1923eb518af365956186fe6196eb33d3d0cb1",
+              "bad3d84577cdc5c4087d640c74bd31cad83d64dfd72cc8a1bf99353471a69996"
+            ],
+            "waveform_audits": [
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "ed6c14fe46de04b7a190ed95c089ae21ceb66df8226a885c97e275967f826189",
+                "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "engine_log_sha256": "761b8ab2ab686c7eb55e8b1e3c828d34df8144f05954ab46cd81c28aa2812e92",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              },
+              {
+                "schema": 1,
+                "status": "pass",
+                "qualified": false,
+                "complete_waveform": true,
+                "tested_bits": 72,
+                "failed_bits": 0,
+                "failures": [],
+                "duration_ns": 900,
+                "waveform_sha256": "1fad7bea6b8e1a74ee2d6abf2cc9c8f3df2cf5deaadcaa599ae62187939d6693",
+                "expectations_sha256": "109b2e8f78eb749824cfaeb4647be88f2291be1085e9e8e7672a5ff83eef4821",
+                "engine_log_sha256": "6bdf02ea46b286c3df0daeabd76288585e5c414c7f5c7115c49361bed9508ed8",
+                "scope": "Complete digital output samples at the declared voltage; timing and model coverage require separate checks."
+              }
+            ],
+            "channels": [
+              {
+                "channel": {
+                  "node": "NET000015"
+                },
+                "baseline_edges": 17,
+                "tighter_edges": 17,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.23850044169286674
+              },
+              {
+                "channel": {
+                  "node": "NET000016"
+                },
+                "baseline_edges": 8,
+                "tighter_edges": 8,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.24904144416071228
+              },
+              {
+                "channel": {
+                  "node": "NET000017"
+                },
+                "baseline_edges": 4,
+                "tighter_edges": 4,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.24903558168686565
+              },
+              {
+                "channel": {
+                  "node": "NET000018"
+                },
+                "baseline_edges": 2,
+                "tighter_edges": 2,
+                "same_direction_sequence": true,
+                "maximum_edge_change_ps": 0.23482153736322164
+              }
+            ],
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 0.24904144416071228,
+            "scope": "Complete source-matched output-function and 50%-supply edge convergence after 10 ns. External models, engines, startup, field accuracy and static timing require separate evidence."
+          },
+          "fast-matched": {
+            "status": "matched-output-transitions",
+            "matched_edges": 31,
+            "maximum_edge_change_ps": 7.499080583106354,
+            "original_waveform_sha256": "1fb25c6c72dfd5afbffbe6114ec366009e2303266f75dfbdd5099933fd996cf6",
+            "filled_waveform_sha256": "ed6c14fe46de04b7a190ed95c089ae21ceb66df8226a885c97e275967f826189",
+            "scope": "Descriptive before/after fill shift; setup and hold timing are separate gates."
+          }
+        },
+        "bindings": {
+          "outputs/ihp-original-stock-waveform-v1/counter-typ-900-baseline": "0d53fa882467775950a2cefee1959ee1fc059d77518ae65eed979751d90f540d",
+          "outputs/ihp-original-stock-waveform-v1/counter-typ-900-fine": "85d3975253a63525f091cceb826297906d89cef50f301909caa24e3309493748",
+          "outputs/ihp-cell-keepout-waveform-v1/counter-typ-900-baseline": "372324ce1046c7ccdd9db1740b6fe450209513c11ce0918bbeeba29d2aadbcef",
+          "outputs/ihp-cell-keepout-waveform-v1/counter-typ-900-fine": "d37da5f26a020e6a40bcad100bf4007abe4a9d1f38d7c398ef6b380d74f45ec0",
+          "outputs/ihp-original-stock-waveform-v1/counter-fast-900-baseline": "237420925ddc853e512c3845f7660eaf9926e7bbddead7ab9905ecda9ff507e3",
+          "outputs/ihp-original-stock-waveform-v1/counter-fast-900-fine": "d6383f5c953abbc8e998924b9de3066c2df37174d4fadbd2087a5f3d773d75e4",
+          "outputs/ihp-cell-keepout-waveform-v1/counter-fast-900-baseline": "fcb1c09a5a2ccd78221fad33181ff2c8568ae5b0a6a95736ad1ba4b9d29dd6cf",
+          "outputs/ihp-cell-keepout-waveform-v1/counter-fast-900-fine": "c60904b55c88b370659772de716ae27b0ed3663f99548fcc9514ba6e1f52470e"
+        },
+        "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+        "unchanged_pinned_spice_files": 40
+      }
+    }
+  },
+  "cell_audit_linux_replay": {
+    "path": "outputs/ihp-cell-environment-linux-replay-v2.json",
+    "sha256": "775e30da2bac05b86e94910676d3f68239518c93f0c78c9d10bf31bc073d700b",
+    "result": {
+      "schema": 1,
+      "status": "all-complete-cell-audits-identical",
+      "qualified": false,
+      "reports": {
+        "counter": {
+          "path": "outputs/ihp-cell-environment-counter-geometry1-v2.json",
+          "sha256": "fcf53fcfbcaae236e2706f79660e5444460215450554f10acf815b0a33bde346",
+          "decoded_identical": true
+        },
+        "uart": {
+          "path": "outputs/ihp-cell-environment-uart-geometry4-v2.json",
+          "sha256": "37723614f8435d74a1c569ec0c6924d5e0016574fc90ab857b2229cab7aab3f0",
+          "decoded_identical": true
+        },
+        "apb": {
+          "path": "outputs/ihp-cell-environment-apb-geometry3-v2.json",
+          "sha256": "21dbc72acb320649ba9f1892f692562069fb5a9c861474aefd017f0cc8c81944",
+          "decoded_identical": true
+        }
+      }
+    }
+  },
+  "failed_apb_default_integration": {
+    "path": "outputs/ihp-cell-keepout-waveform-v3/apb-typ-1610-baseline/simulation.json",
+    "sha256": "26e74828740ef530c1e1019ae5df7f2a62283b637acb837c68b74754792c2d32",
+    "result": {
+      "schema": 1,
+      "status": "failed",
+      "qualified": false,
+      "invalid_for_acceptance": true,
+      "case": "apb",
+      "corner": "typ",
+      "level": "baseline",
+      "expected_end_ns": 1610,
+      "full_workload_ns": 1610,
+      "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+      "model_record_sha256": "724e5d9cc62a888cd50bd12afb05092d9db62c8f3461146595ef0415c38df005",
+      "script_sha256": "4a4390d4258de810b032542e9f1eae4bd65363de19aaf8d31e90a50c516c2c6f",
+      "external_resource_sha256": {
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/capacitors_mod.lib": "ff9eb4cc9fdccc0645d9db0bd37e25e9fee2a633765910a7f55ac2084c49695f",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/capacitors_mod_mismatch.lib": "6c550362c762362e276f0ed0a4f875616ab6a9de853f1a8f6851b52676ea6f77",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/capacitors_stat.lib": "68d2ef41174bcfae5997b355c4fd3dbe4f2b8ec4be30ff79d474052b3be1715a",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cap_cmomf.lib": "410001def252a236f221442efcea6353874d1614db593db4142ea3b8a499a207",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cap_cmomi.lib": "ae6270ea4abf6ad409065d6d24df2a9aa5b121cba3d6facbc14d6a3ceb7b424f",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cornerCAP.lib": "4fc4a0f17ca2aef66ca38c2d2e7cead3307b69508d304ed073129565ec1c3e56",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cornerDIO.lib": "28e747e8f7437a3f539c5cc36f50c9d17c57c03ed463a4c9ee8f0a93a823fe0b",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cornerHBT.lib": "bae3d705445de8d6b8de4aa798a0e3e5e7cab617d6495d9c56473bc5377de462",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cornerMOSCAP.lib": "68f3fc5450d6185cc45360662a0ca9d2640a31db3a082bc2af7ec589d2bfd807",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cornerMOShv.lib": "5a1f862dc304fdfe2fb9758b15d54809a688d83c3ce981dad2e8473b3e93481a",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cornerMOSlv.lib": "03d505847c880d233b341be115a1e5460edf4d8e9b3e8a7df791a52fa4455d67",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/cornerRES.lib": "c6d749e72cfa2e06e4a14fac3f5662541bf6197b89265ecbedd632fd3503c425",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/diodes.lib": "66fa37819fa8a5c8af4dbb85f11208c3e38faa49c117de55c35a1538786715e8",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/record.json": "3919916bfa573ebb5f7beb2c8173fab4faf08e06e8df99155302fadd5f017bac",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/resistors_mod.lib": "7c77da0c0419c8a332550da3f934f530262bd452734090db827b68ff88d09c43",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/resistors_mod_mismatch.lib": "ce5ea8559df174fbdad8192e45e5d65772ae3af90af61ba295419b2cb5154b29",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/resistors_stat.lib": "9e34411ed09a569323adec8181e4bdd6832af279c9e05b181f00cb2e5d696db6",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_bondpad.lib": "19b3edd62d507bfaf03633b3dc3e89b4ab4d43187a309e8fc665cc5af28a0a4f",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_dschottky_nbl1_mod.lib": "c3552c165acd21524043ff9a9b3938c71565722466e9568cf6b109408d5ff6da",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_dschottky_nbl1_stat.lib": "730c857bbaabb0c7876eb21b9b60a6882955db388956d082615763559c61d262",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_esd.lib": "4a4fb26a87f64bc6ed807f161cc7b3afaeb8d5ca7230b08ebba728e805caa925",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_hbt_mod.lib": "ae9288f885dd30fab24b07ed1e7e02e69eac9154022a0a6da576985183b0bd79",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_hbt_mod_mismatch.lib": "e7b462e4aa4fbcb00d8f618f7780fea87d65918f2faa4e86c1412d6262371357",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_hbt_stat.lib": "80d1893eb06a3417d05400335d8e58c8309b9c80061ca96ceff8f8fd68c9a7db",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moscap_mismatch.lib": "347786491f820dc1b74720f543dea2ec2d84ee0c3c8bafd8bb334563bd4487da",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moscap_mod.lib": "4873c91eb09fbd167d3239683535d7cb72c6a66ff7419a08ef2817e80c4d2f8d",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moscap_mod_mismatch.lib": "a8f5c79bb5327569e6fb7fdc3c4e64995f817fbdbc00931f4e3b19151d0cf112",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moscap_parm.lib": "52e62c52e7097b3da032ba44127dd478821ee5263b065621f5cf45fc7ffc0490",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moscap_stat.lib": "38bb882ac751c3e33da6deeb55d00a7526f2057ad3baab9b4f91945361dff817",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moshv_mismatch.lib": "2e9612bdb8252c281f422511039dc9b3ea983892aec89f8ef3361592e68fed09",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moshv_mod.lib": "58ce3084c253f2d3753c3b95386e8f4b81dcadfed4f4503dce56862a556c3328",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moshv_mod_mismatch.lib": "75c30f6975aad4cfe95af7c80fcea142ab0df6c9d7667c09120c7d0c9b814801",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moshv_parm.lib": "eea5bbed39184cb1e2654ae29425a9ed6ee2f2341d6cb76c472591c75237bd35",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moshv_stat.lib": "cd30f22637e41fdbbaba506ebe0f17746b8438027e4651a7a87b241a39d68903",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moslv_mismatch.lib": "2d3251e2d42eadb0f8af152a4915fdc60a68bceb95a2d17a52f90cfb34b7e63e",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moslv_mod.lib": "84ec57080b9dd4666417f05db6f7b34c8dd3f12118929f9b308018613bece16e",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moslv_mod_mismatch.lib": "fac66b4344da4e31dece9a95c32d7af5aac7b40a60b4e029201e1904fb4e8acd",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moslv_parm.lib": "cbf10b8453a18bb70b8ad0d6e40faa0937338e699b5460947a94900db6c92a6e",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_moslv_stat.lib": "8d807e0ae41be381e655bf51f0eecf72269c8eaa022a2da59a1c90b0772e229a",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_svaricaphv_mod.lib": "b6ae39c7334c75c222ecdee9d6b04c9be48657e91351429aebac47d1192a9abb",
+        "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/ihp-spice-reference/sg13g2_svaricaphv_mod_mismatch.lib": "509495437667afc2ee96ebb9fe5836ffeb7d18df1db24245c90662fbf09283cd",
+        "/opt/icstudio/osdi/ihp-sg13g2/cap_cmomi.osdi": "8179caebc4f384cd1d00dd12b9e8893716d5ee9e8f517b5ca72c4cec85172567",
+        "/opt/icstudio/osdi/ihp-sg13g2/cap_cmomf.osdi": "fdbd14050be21abcfc771757ba55cb3fbc5e23437d5ed2b4e45366a9bb3a05d3",
+        "/opt/icstudio/osdi/ihp-sg13g2/psp103_nqs.osdi": "33dc9a8caa13977cdd77eb76b00c76200d8897f873d2497894dabfd327318fd6",
+        "/opt/icstudio/osdi/ihp-sg13g2/psp103.osdi": "24c016572d59fb079fda4f3a1c0aa4c8999d931e8ee335f180066f13ddd70ff4",
+        "/opt/icstudio/osdi/ihp-sg13g2/r3_cmc.osdi": "3ecc382b6804bd50c178ca5a8e4fbe6c0158c4454f2003a544a19326d26a695d",
+        "/opt/icstudio/osdi/ihp-sg13g2/mosvar.osdi": "c3ea91ef33db66959cbd81b370d37aa1c70b9b36fbd6cef83c768c505e9b88a5"
+      },
+      "convergence_limit_ps": 1.0,
+      "scope": "Actual physical P+ fill with complete-cell poly keep-out, native re-extraction, stock simulator and unchanged PDK/MOS models. Numerical convergence, timing calibration and production integration remain separate gates.",
+      "startup": "Powered reset with physical-node Newton hints; actual operating point solved before transient",
+      "error": "ValueError('The native simulator reported an incomplete analysis.')",
+      "elapsed_seconds": 233.37511153800006,
+      "files": {
+        "bench.spice": "f43e4f9bf26f3cb4a97c194a4486248540704871151926dc6e3c63faa7b5f7b6",
+        "engine.log": "c51fc0c3b08cb4673fe2d518a0b5a815a89911eb59e4670d76c7005f07a780e4",
+        "waveform.txt": "135da28406a82c32ea894aa8887e6330836cbe9ec87a1977071972127547e635",
+        "expectations.json": "f0e55c5807003cd0e52c98aa5cbadaeaa8042773493de55d72e40ae5aaf9c972",
+        "capacitance.spice": "295d5560bfe111fc912dd0254ad0e41912627fe571c99a28bf6132edd40ba8f9",
+        ".spiceinit": "4f989b2ccc180f50d329b9eae44b2269f2241303c57fa94cc008dc7e3cd4e6e5",
+        "circuit.spice": "74c6889f60f0c068330af3f7b9ffb0db4eff382f023a11d36973e2e97d80476f"
+      }
+    }
+  },
+  "sources": {
+    "scripts/prepare_ihp_block_fill.py": "cd5741455416b168172848011f820109657bbc2bf90a948b2be6f5405f83d127",
+    "scripts/ihp_cell_capacitance.py": "bf610eaf8affdb7a9a62e8adebc062259ad072d88a2abf7b4aa2dfae90f578f6",
+    "tests/test_ihp_block_fill.py": "24919209a6018970b8f4c1034fe69e48290e1852380408d9e34e9de5d6c63370",
+    "tests/test_ihp_cell_capacitance.py": "5ad50a4e4af139a53b3315e1cfbb207651af706ab1cf268f9844c687a862b2cf"
+  },
+  "archive": {
+    "path": "/mnt/c/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/ihp-cell-keepout-2026-10-11-v1/evidence.tar.gz",
+    "sha256": "0bbe76111e81ccca777220e0a8039bc6e2fca3b40e86b1bbd8556040a90dfb9e",
+    "bytes": 322527633,
+    "logical_files": 1985,
+    "unique_blobs": 1377,
+    "verified": true,
+    "manifest_sha256": "bc462693ec6b7a5c7d4c50a236e9d9f4137ab0c30b0faaab1e39d7a250978834"
+  },
+  "excluded_running_cases": [
+    "outputs/ihp-cell-keepout-waveform-v3/apb-typ-1610-fine",
+    "outputs/ihp-cell-keepout-waveform-v4/uart-typ-1290-baseline",
+    "outputs/ihp-cell-keepout-waveform-v4/uart-typ-1290-fine"
+  ],
+  "scope": "Physical P+ active filler in ordinary PWell, explicit purpose-preserving electrical views, complete-cell keep-out, original circuit geometry and resistance retained, ideal substrate. The counter passes nominal/cold stock-engine output and convergence checks. No unmodified-resistor re-extraction identity or accepted spatial field accuracy is inferred.",
+  "remaining": [
+    "Complete matched UART and APB full-resistance workloads and convergence at the unchanged 1 ps limit. APB default integration failed at 90.02 ns; tighter comparisons are running.",
+    "Accepted nominal routed-block extraction and timing handoff with explicit cell capacitance and spatial endpoint accounting.",
+    "Production integration, final export binding, and affected production/package checks."
+  ]
+}

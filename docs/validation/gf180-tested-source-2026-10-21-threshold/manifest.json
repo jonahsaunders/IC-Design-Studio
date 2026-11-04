@@ -1,0 +1,187 @@
+{
+  "schema": 1,
+  "source_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+  "backend_sha256": "eb22e7c53b3380f0765e2e6629ed8c6ca2ddb19dee5c49b6a0bb187a596736c0",
+  "scope": "historical-tested-source-only",
+  "files": {
+    "digital_flow.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_flow.py.txt",
+      "sha256": "8bf30f22ff9185c7036c5611d30345ad8834b208a590b52f12b932e536e40cbe"
+    },
+    "digital_identity.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_identity.py.txt",
+      "sha256": "76412de592149cdb08291ee9e3e1b31374c77c87101e1e775d06fe4971e246ec"
+    },
+    "digital_macro.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_macro.py.txt",
+      "sha256": "b885b0177014792a87052092c640b32e0adfa2ec84df117342238a47e2abf5ac"
+    },
+    "digital_physical.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_physical.py.txt",
+      "sha256": "660ef87bb312ec019a5dacea8a3315d3dfac4ab6dedd643decff939650959b3b"
+    },
+    "digital_physical_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_physical_ui.py.txt",
+      "sha256": "42fa1791436bd3c98875a5ba66dc33165048d06989ae55c23738346fddfeb06e"
+    },
+    "digital_platform.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_platform.py.txt",
+      "sha256": "a9b9db78cd93a165197b7fda644065b30f540784ca0fbcfd8a716dec04b2e61b"
+    },
+    "digital_rc.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_rc.py.txt",
+      "sha256": "cdab3d0d91982e95701ee2a8a6cf2b487317c26b27901b0a57d3226844a1f719"
+    },
+    "digital_runtime.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/digital_runtime.py.txt",
+      "sha256": "8a11b3be62af512ebcb4d4f4ea9f17396678b42058ca2cfe2443f95acfd0bd6c"
+    },
+    "digital_backend.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16/digital_backend.py.txt",
+      "sha256": "93af7cd1eecc6baadcf75e2b58bffa8176b13188e84c066270d366c318b7dbf6"
+    },
+    "pdk_import.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-mim/pdk_import.py.txt",
+      "sha256": "b6a6723ef2f2c3a30ef013cd1afe58996c1b64a3381320f69bc935e5ce75bad0"
+    },
+    "interchange.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/interchange.py.txt",
+      "sha256": "29993ee82c62651d08334f94aebffac2b6c162681f5b6ef429c8c556dde34616"
+    },
+    "native_spice.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/native_spice.py.txt",
+      "sha256": "5f841b2b1fbc9151770e011929bb54253e48a1fe2277f474f7e35c7962bbebaf"
+    },
+    "ngspice_compat.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/ngspice_compat.py.txt",
+      "sha256": "8ea16d8e5ff6a6aa947f0ae635097e9895131738491b4d5674ae7aca0ed5a50b"
+    },
+    "catalog.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-16-runtime/catalog.py.txt",
+      "sha256": "9ec02006afb2835c3be9ddb3db5ad03540b382f0d6ad53559295229505a0fc81"
+    },
+    "analog_optimizer.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/analog_optimizer.py.txt",
+      "sha256": "e81ec268c0cc79300d5f82c4f205edd9e9479e91a13563a834e2fc3af4ea4155"
+    },
+    "project_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/project_ui.py.txt",
+      "sha256": "063eab0b10d459bbcacea1b7a0c647bb5e3193dbf6242f45ab2bb0ec0e29ec43"
+    },
+    "studies.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-fixed/studies.py.txt",
+      "sha256": "52f37c4e1a220f60fe11de1fc3f771b719de7f4cd21869106a83cf837ef0e000"
+    },
+    "gf180_layout.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-mos-boundaries/gf180_layout.py.txt",
+      "sha256": "744555609e25e0e70aa5f58f950d327eb224682f23ed4c19cc8b3c834876032a"
+    },
+    "ihp_layout.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-mos-boundaries/ihp_layout.py.txt",
+      "sha256": "c9cf94b535a57aac4d677be853b1156c01c58f25e8322132b7cfed56b82cf284"
+    },
+    "layout_verification.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-diode-layouts/layout_verification.py.txt",
+      "sha256": "8754f0a9a0da11033f8d1241bb126a7b9403831e79b5090dc4bd4e4f88c8f717"
+    },
+    "menu_map.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/menu_map.py.txt",
+      "sha256": "4765514d333af8534057932d74e0665ae92de5e9f886e4ffc83d3faed2412072"
+    },
+    "physical_backend.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/physical_backend.py.txt",
+      "sha256": "4013dd9a3af04e1d0bea76427e362b0e5ab948c5b212cbd3fd157ddac9a63cda"
+    },
+    "silicon_flow.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/silicon_flow.py.txt",
+      "sha256": "cd823f62851480290af67a2011415dfe8cde7e0e81790b55238e3d6b94ae20db"
+    },
+    "silicon_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-bipolar-layouts/silicon_ui.py.txt",
+      "sha256": "baba7d04f3793b2bc253d50ad58cda2921de2d84878d737386975825e01e62cd"
+    },
+    "catalog_migration.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-thermal-ui/catalog_migration.py.txt",
+      "sha256": "f95a1b5ee94f15b9052604067d37580a15cde7bc3ef8258c4db1e13bf28ccd8a"
+    },
+    "workspace.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-17-thermal-ui/workspace.py.txt",
+      "sha256": "e67b603dc6ed9a70e7637ce948f561477d1e860c3d71e2be06e1ae50dd4b5b5e"
+    },
+    "symbol_io.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-taps/symbol_io.py.txt",
+      "sha256": "74efe59765639d3da5e0dbec79564a87ee6b17c5a361dc1d92f9c29083550fe6"
+    },
+    "canvas.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-hv/canvas.py.txt",
+      "sha256": "7eca313a5132facbbf33fef64371559064132fb696334b261943af0c959cc0ed"
+    },
+    "verification_navigation.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-tap-layout/verification_navigation.py.txt",
+      "sha256": "e711dde5b8cac3bd985495514a1500855c73f58babb4e1e03de0081c732dc400"
+    },
+    "engines.py": {
+      "path": "docs/validation/retained-engine-source-2026-10-18/engines.py.txt",
+      "sha256": "50565d2f2077a119fe77b25c79ef79729e3d0e4b3ee5dd4b37eae2c92caceafe"
+    },
+    "sky130_flow.py": {
+      "path": "docs/validation/retained-engine-source-2026-10-18/sky130_flow.py.txt",
+      "sha256": "c06e2755cd3fc7a5a30d0ec1d58346d9a7b4cb2e835db7661176089aa32696cd"
+    },
+    "pdks.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-18-paths/pdks.py.txt",
+      "sha256": "275334010a5156b7e11f4f763746b35996e564af2a8b59576d71035965590623"
+    },
+    "em_profile_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-em/em_profile_ui.py.txt",
+      "sha256": "74f5e0ba4f92b8e4b9dc85174d56b41def56bc613701e483693b0a5ca6cc71c8"
+    },
+    "layout_edit.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-em/layout_edit.py.txt",
+      "sha256": "c94420b4aafcc90fc18dc225f227e4a27fbbd456218a0ba4c82ec24ac0e4d136"
+    },
+    "openems_backend.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-em/openems_backend.py.txt",
+      "sha256": "2242af22ce30b60952f27b520c969b809109e9c695fb7a1993c6a0ad4fba042c"
+    },
+    "openems_ui.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-em/openems_ui.py.txt",
+      "sha256": "d110fd3a4416fe1b2bf989bfe0f98f67868a09dda5068e7dbf66a6b60193ba05"
+    },
+    "inductor_em.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-waves/inductor_em.py.txt",
+      "sha256": "5f07f47c809a78f4477bfc5faf6b15b245633f8e773feb7c7003a652a676ec7f"
+    },
+    "external_tools.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics/external_tools.py.txt",
+      "sha256": "8e4131b26d09b0f56381ca1439fe854f2585141d3f402a14c0c5f3fd9cb04fff"
+    },
+    "physical_runtime_probe.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics/physical_runtime_probe.py.txt",
+      "sha256": "7cc634223f4967efcedc66db193e55c4db9e98462716b12cb16047969fabf13d"
+    },
+    "process_mos.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-threshold/process_mos.py.txt",
+      "sha256": "ead3ad5ef09812c9f7d08ec5bb7c1431a068e69812244d82c976105306278da7"
+    },
+    "sky130_layout.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-21-threshold/sky130_layout.py.txt",
+      "sha256": "cd8835d93fa322b0761ecb27ad2c563c11f3c3855782b6c5633256ef146e1d3b"
+    }
+  },
+  "explanation": "Preserve the exact previously accepted source bytes before the SKY130 threshold-generator and explicit width/readout extension. Historical source only; no claim that this new application ran the old GF180 production gate.",
+  "checker_files": {
+    "scripts/check_gf180_fill_closure.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/check_gf180_fill_closure.py.txt",
+      "sha256": "917a334ea3e9863c30a9a9ccff184cdac74ebe0756641566ee7c057ec65c92b1"
+    },
+    "scripts/check_pdk_qualification.py": {
+      "path": "docs/validation/gf180-tested-source-2026-10-09/check_pdk_qualification.py.txt",
+      "sha256": "746e1de81d9feee5d365122f394232b6b273dabb788670fe5bd6b934567e358c"
+    }
+  },
+  "previous_snapshot": {
+    "path": "docs/validation/gf180-tested-source-2026-10-21-diagnostics.json",
+    "sha256": "fe0026c7fdf5c663770da04501f170003ea9fcc915ba35f01fe34cad562c3aad"
+  }
+}

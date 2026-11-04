@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "chunk": 6,
+  "status": "in_progress",
+  "qualified": false,
+  "chunk_complete": false,
+  "data": {
+    "path": "docs/validation/sky130-nsm-reconciliation-2026-10-14.json",
+    "sha256": "24217feeb0fe116057334fd41fce3696e88441b76a6935a0d82031da87e63ca0"
+  },
+  "audits": {
+    "win32": {
+      "record.json": {
+        "path": "docs/validation/sky130-nsm-review-2026-10-14/audit-win32.json",
+        "sha256": "751b79919f630bd1a867eef1910b423d5ae0a7e3efdbaedf70456268e755a992"
+      },
+      "tests.log": {
+        "path": "docs/validation/sky130-nsm-review-2026-10-14/tests-win32.log",
+        "sha256": "4102c72dd13bdc69441d3a7e1e135c1b13a05a7c702b9513d4da25bf9a390f98"
+      }
+    },
+    "linux": {
+      "record.json": {
+        "path": "docs/validation/sky130-nsm-review-2026-10-14/audit-linux.json",
+        "sha256": "f7cf226cac32fb46c248dde14d8498a67e7fdfa6d33995b01a95b08efa8b2ead"
+      },
+      "tests.log": {
+        "path": "docs/validation/sky130-nsm-review-2026-10-14/tests-linux.log",
+        "sha256": "bde9b262179992edead3128a1fe36c6994a975edbd47f57e19004548e484201a"
+      }
+    }
+  },
+  "source_files": {
+    "scripts/sky130_nsm_reconciliation.py": "cb4f837576497e8bc7578c61f328900b1bda8f49491eed60fd72631bf79834b2",
+    "tests/test_sky130_nsm_reconciliation.py": "45fbd65d612a11327b0792e7814c539814cd41f7bc654192cb185bcd44e824ea"
+  },
+  "tests": {
+    "win32": {
+      "run": 10,
+      "passed": 10,
+      "skipped": 0
+    },
+    "linux": {
+      "run": 10,
+      "passed": 10,
+      "skipped": 0
+    }
+  },
+  "archive": {
+    "schema": 1,
+    "status": "readback-verified",
+    "layout": "sha256-addressed-blobs-with-committed-inputs-v1",
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\sky130-nsm-review-2026-10-14-v1\\evidence.tar.gz",
+    "sha256": "1884dc83eb1e93bb4b43581277e942486c23ec55374dcd3ba1292ff34a97202a",
+    "bytes": 32220,
+    "files": 16,
+    "unique_blobs": 10,
+    "manifest_sha256": "de713a78084ea8a6115ffd5d95913d81f843eb79939e8006ce55c65ebade4b84",
+    "input_reference": {
+      "repository": "https://github.com/jonahsaunders/IC-Design-Studio",
+      "commit": "5c5b674addbdea2beaffb9ae7218a95646579133",
+      "path": "tests/fixtures/sky130-filled-references-v1.zip",
+      "sha256": "8db9401bc73e117db9d72dcccb03ac7700016b5a5c61e518c14cb5a0ec3542fa",
+      "note": "The committed portable fixture contains all three unchanged measured GDS files and the exact published sources. This archive contains new measurements and audit sources; recover its immutable inputs from that commit."
+    }
+  },
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "counts": {
+        "unreviewed": 1123,
+        "executed-reviewed": 356,
+        "absent-operand": 77
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "counts": {
+        "unreviewed": 1123,
+        "executed-reviewed": 356,
+        "absent-operand": 77
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "counts": {
+        "unreviewed": 1123,
+        "executed-reviewed": 356,
+        "absent-operand": 77
+      },
+      "periphery_counts": {
+        "execution-review-required": 17,
+        "upstream-na": 77,
+        "executed-reviewed": 135,
+        "absent-operand": 274,
+        "advisory": 36,
+        "definition-required": 1,
+        "other-backend": 61
+      }
+    }
+  ],
+  "scope": "Fresh Windows/Linux recursive measurement of both source-defined nitride-seal operands on all three unchanged filled references. Exactly 38 catalog records gain absent-operand decisions. No non-empty seal rules, boundary rules, native/full-profile rerun, application change or chunk completion is claimed."
+}

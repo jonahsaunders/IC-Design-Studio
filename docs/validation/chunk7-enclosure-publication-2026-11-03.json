@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "observed_utc": "2026-11-03 18:47:58 UTC",
+  "status": "PUBLISHED_SOURCE_FEEDBACK_RUNNING",
+  "candidate": "71fb99166af8a1cb4a209b9d5f8fb14809b7d0db",
+  "branch": "experimental",
+  "remote_ref_verified": true,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "chunk_estimate_percent": 74,
+  "estimate_confidence": "low; subjective range 55–82%",
+  "local_source_evidence": [
+    "ihp-cmim-enclosures-2026-11-03.json",
+    "ihp-cmim-public-reproduction-2026-11-03.json"
+  ],
+  "independent_publication_review": {
+    "path": "C:/Users/jonah/Documents/Codex/2026-10-06/go/work/chunk7-enclosure-publication-review-20261103-v1/publication-review.json",
+    "sha256": "0aff57dfbaaacd74484f221a7e3ebcbca86cdb1d1caf7ad1cd926634c58c51f2",
+    "retained_archive": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/chunk7-enclosure-publication-2026-11-03-v1/publication-review.zip",
+    "archive_sha256": "c2cf837c6eb5a0464fb82971506198b38a5f74828fa5c83f5d3c8c474d4e7cd6"
+  },
+  "runs": [
+    {
+      "id": 41696983923,
+      "candidate": "71fb99166af8a1cb4a209b9d5f8fb14809b7d0db",
+      "jobs": [
+        {
+          "id": 126129994278,
+          "name": "source feedback (windows-2022)",
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Install pinned Python dependencies"
+          ],
+          "failures": []
+        },
+        {
+          "id": 126129994731,
+          "name": "source feedback (ubuntu-24.04)",
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Run focused contracts and GUI smoke checks"
+          ],
+          "failures": []
+        }
+      ]
+    },
+    {
+      "id": 41689153566,
+      "candidate": "04ce9bceefc4cd0591824351f275833ba9a01b7f",
+      "jobs": [
+        {
+          "id": 126102823516,
+          "name": "candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126103398376,
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126103398499,
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126103398895,
+          "name": "digital-runtime / candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126103936143,
+          "name": "digital-runtime / runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126120095209,
+          "name": "package (ubuntu-24.04)",
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Verify public SKY130 RF candidate with the pinned Linux engine"
+          ],
+          "failures": []
+        },
+        {
+          "id": 126120095449,
+          "name": "package (windows-2022)",
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Verify installed digital runtime on this operating system"
+          ],
+          "failures": []
+        }
+      ]
+    },
+    {
+      "id": 41681580250,
+      "candidate": "d767f711d301ace057ceb4706c80e733aedc0c00",
+      "jobs": [
+        {
+          "id": 126076336303,
+          "name": "candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126076592411,
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126076592532,
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126076593305,
+          "name": "digital-runtime / candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126076870869,
+          "name": "digital-runtime / runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        },
+        {
+          "id": 126089639738,
+          "name": "package (windows-2022)",
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Verify public SKY130 RF candidate and automatic runtime checks"
+          ],
+          "failures": []
+        },
+        {
+          "id": 126089639739,
+          "name": "package (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failures": []
+        }
+      ]
+    }
+  ],
+  "scope": [
+    "New source feedback has not completed.",
+    "Older candidates' desktop results do not transfer installed acceptance to this commit.",
+    "No complete-family status, unavailable binding, or mandatory chunk gate changed."
+  ]
+}

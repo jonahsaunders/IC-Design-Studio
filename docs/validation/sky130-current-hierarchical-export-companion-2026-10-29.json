@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "id": "sky130-current-hierarchical-export-companion-2026-10-29",
+  "status": "PASS_SOURCE_COMPANION",
+  "date": "2026-10-29",
+  "chunk": 7,
+  "qualified": false,
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "signoff": false,
+  "scope": "Additive source-only regression of the already accepted selected two-occurrence imported resistor class, using exact candidate package 5dda725c94efe3c2 and executing the emitted application child hierarchy in a wrapper. The earlier accepted 2026-10-28 electrical class is not reopened, replaced, strengthened or newly closed by this record.",
+  "source": {
+    "metadata_commit": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+    "qualification": "W2 verified source snapshot contained uncommitted changes; exact file identities, not commit alone, bind execution.",
+    "full_snapshot_manifest_sha256": "f12b67ba604f92286cf45c892354af98dad308291876bb91bdffa59b3f567962",
+    "full_snapshot_manifest_files": 6767,
+    "selected_source_files": 907,
+    "selected_source_receipt_sha256": "70a044da43b88fd1d4e562cb02c49d20ac82749fe066e52c7d9ff420b19f1489",
+    "simulation_package_revision": "5dda725c94efe3c2",
+    "simulation_package_manifest_sha256": "125cde7c313ee18a05a7ec5c280d514b99aea521d6b39476e44f486ae494153b",
+    "li_contract_sha256": "1d675dd4fa66d7d386c149a92d83df6e6562708df3eefd528bcff01b7da658e2",
+    "metal_contract_sha256": "0ee0f901911cf1d7ed60e53abb907195089881b8847e6f51d30105498bc17c3a"
+  },
+  "physical_dependency": {
+    "evidence": "sky130-metal-hierarchy-2026-10-26",
+    "source": "e3fa0cc60da18cee8359817bb5321923587abc50 plus its separately retained qualification files",
+    "execution_id": "1d0493c6d82e4fa7b5ad4d1ff84cc5b5",
+    "archive_sha256": "f160341c8a956a4ee2f6e0a60beaed9b9822fdf6202ce0b4ba7c66ffd7e65fe9",
+    "archive_manifest_sha256": "df0e39c580c9a4a7995804b6d9e827e6cd334840baf60bac9d134553dfb058d9",
+    "selection": "All ten original extractions, exact four-port graph, W/L and model verified; no new native DRC/LVS execution or relabeling of historical physical source/package."
+  },
+  "contract": {
+    "sha256": "4f9f850cfc1b67b703cd5bf80c8de82c10d47aa8018003614b795031d3714dbd",
+    "predecessor_sha256": "6612718821abc4cc5e70c519b2b500ff0bcef20acd29eaac766af3cfc2fb42cb",
+    "analyses_per_section": 5,
+    "frequencies_hz": [
+      1000,
+      10000,
+      100000,
+      1000000,
+      10000000
+    ],
+    "tolerance": "Fixed source integration tolerances; no source validity limits inferred.",
+    "archive_member": "candidate/docs/qualification/sky130-metal-hierarchy-electrical-v2.json",
+    "predecessor_archive_member": "candidate/docs/qualification/sky130-metal-hierarchy-electrical-v1.json",
+    "location_note": "These companion contracts exist only inside the separately retained evidence archive. Their names collide conceptually with, and do not replace, the repository October 28 v1 contract."
+  },
+  "per_host": {
+    "native_executions": 25,
+    "terminal_current_observations": 37800,
+    "detected_fault_instances": 250,
+    "faults": [
+      "crossed second terminal",
+      "omitted second instance",
+      "second width 2.4 um",
+      "second model fixed alternate",
+      "0.1 ohm finite cross-node bridge"
+    ],
+    "check": "Each of four independent voltage-source currents and applied voltages is compared against independently calculated network currents, KCL and exact source-defined model coefficients. Full actual application hierarchy and archived native graph are checked; literal network faults are not physical DRC fault executions.",
+    "selected_electrical_contexts": 50
+  },
+  "hosts": {
+    "windows": {
+      "execution_id": "d98ee3e6b31f49bea79eb66a6535e26f",
+      "engine": "ngspice 46",
+      "engine_sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453",
+      "report_sha256": "7430c37744562e1ed0f025ca82b4fe4729fb0c84ed936a0283e0e6c8aad31410",
+      "producer_manifest_sha256": "004c0fcade1548df956f0a048184f16ac8eea319decac9ff73fdbfe77ab2c467",
+      "prelaunch_expected_sha256": "3953c9ec793d7b0fd0bd207099cc34c52da4366b6ef824619f6c86762e837e5c",
+      "native_command_seconds": 160.971,
+      "execution_window_seconds": 161.304232
+    },
+    "linux": {
+      "execution_id": "3999ff2abf324b6190ae50b042b41548",
+      "engine": "ngspice 42",
+      "engine_sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45",
+      "report_sha256": "70c1c4643ab7fd4a48c1c1a82160ffd993d5ef3d65aa6a39a7aaec5d8481fff3",
+      "producer_manifest_sha256": "49b41086aa4ebf2bf86e546fbcf247287ce9847ad6887b847e039c8c930a85b0",
+      "prelaunch_expected_sha256": "563efcfe4db7e90bb65588ace3eb9742adf56bfd508d9e774b28dcef630245ff",
+      "native_command_seconds": 77.695397,
+      "execution_window_seconds": 77.725881
+    }
+  },
+  "independent": {
+    "reader_sha256": "0b455e7fc3edef51e585294d3aead149c61efab414f8e5c0f07f00a75b5dc0f6",
+    "both_host_reread": "Separate reviewer reran the full corrected auditor on each original host capture without new simulation.",
+    "rehash_corruption_controls": {
+      "status": "PASS",
+      "baseline": "rebased complete copy passed",
+      "rejected_cases": 32,
+      "seconds": 58.905184453,
+      "report_sha256": "b71b36da53cdd6719319dfbea7713556cf8b90c4b2a4dd9c66df11a6f2aef4f7",
+      "report_path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-hierarchy-electrical-challenges-2026-10-29-v1/reader0b-full-controls.json",
+      "archive_sha256": "96437b41cefa3ddd2b5f137e139255ecbb9ca405d83711ede8150e87dd7839c1",
+      "archive_manifest_sha256": "33a8db352bbdb019235d91a3b7c61d79712ff46ffa64a40c2b9077331a9d489a",
+      "archive_bytes": 14065736,
+      "logical_files": 14105,
+      "unique_objects": 2153,
+      "all_objects_and_index_verified": true,
+      "original_inventory_unchanged": true,
+      "scope": "Full copied Linux evidence with local files, report and manifest hashes repaired; external source, physical archive and contract anchors preserved. Includes simulator errors, nonzero and Boolean exit codes, aborted/missing completion, actual app/native, current/KCL/frequency, staged model, deck and runtime mutations.",
+      "archive_path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-hierarchy-electrical-challenges-2026-10-29-v1/reader0b-complete-controls.zip"
+    },
+    "both_host_reread_receipt_sha256": "4c8ff4dac7a14dde2712f286d918d39da054b435a97279b61a25a21cd3325ad6",
+    "both_host_reread_receipt": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-hierarchy-electrical-2026-10-29-v2/hierarchy-final-scientific-review.json",
+    "review_scope_correction": {
+      "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-hierarchy-electrical-2026-10-29-v2/hierarchy-existing-acceptance-comparison-correction-v2.json",
+      "sha256": "35846557e26795fd6d3eef40fe166a1eb5134c6f82c95599c02c92cc58e7906c",
+      "meaning": "Supersedes the earlier erroneous inference of a newly open class gap, while preserving the factual both-host readback and corruption-control results.",
+      "previous_version_sha256": "dcc894b77701a0b66db645b3d4d89c9d40dfce68299e97fc5a8acbee5e984891"
+    }
+  },
+  "archive": {
+    "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-hierarchy-electrical-2026-10-29-v2/evidence.zip",
+    "sha256": "924b60003ab54ee3ca268dad5069135e1abe88464415e8de39416af73cf145cd",
+    "manifest_sha256": "e9d12723a62aea6716af3b5b4ee26ccd203c390b4a3934b34fdd7588b593a992",
+    "bytes": 57143159,
+    "logical_files": 1836,
+    "unique_objects": 1304,
+    "all_objects_and_index_verified": true,
+    "receipt_sha256": "9fe081243d6683a3c6d66f08d026cd9bf9362d35853137b088d75d03f369e130",
+    "scope": "Both corrected companion source producer sets, exact source/contract/fixture/runtime identities and the entire earlier preliminary companion archive; every indexed object verified and permanent copy hash checked. Existing October 28 evidence remains separate."
+  },
+  "preliminary": {
+    "original_ac_selection": "The first exploratory two-point linear AC command produced only one frequency on Windows ngspice 46. The failure and v1 contract are retained; the v2 pre-execution contract uses exactly five ordered decade points over the same 1 kHz to 10 MHz span. No failed result was relabeled.",
+    "stale_capture": "The first Windows prelaunch identity capture was superseded after reviewed reader hardening; no acceptance ran under it.",
+    "time_to_first_failure": "Not instrumented; no value inferred.",
+    "first_full_runs": "Initial 25-run captures and first reader passed selected numerical checks, but independent rehashed controls exposed accepted injected Error and nonzero exit metadata. Those captures are retained as preliminary in the nested earlier archive, never accepted under the strengthened reader. Both hosts were freshly captured and rerun with explicit integer zero return codes and checked completion/error logs.",
+    "bytecode_caveat": "The earlier Linux W2 source import did not explicitly disable bytecode, so Python may have created or refreshed untracked __pycache__ files. No cleanup or inspection was done; the 907 selected source hashes matched before and after. The corrected rerun used -B and PYTHONDONTWRITEBYTECODE=1.",
+    "time_to_close_contract_row": "Not instrumented; no value inferred.",
+    "prior_class_status": "The October 28 selected hierarchy electrical result was already accepted. The initial new inference of a newly open class gap was wrong; the corrected companion does not promote the class."
+  },
+  "reproducibility_limits": [
+    "The original prelaunch receipts bind the 907-file selected source closure and actual simulator executable, initializer, native environment and Linux loaded ELF dependencies before and after. They do not bind the Python interpreter or installed Python/PySide package versions before launch.",
+    "Separate interpreter/module observations after the earlier preliminary runs are retained in the prior archive folder, labeled post-run. The corrected run did not independently capture Python or PySide versions before launch; no retroactive prelaunch claim is made.",
+    "Analytical reference verifies source compact-model equations; it does not independently calibrate resistance against measured silicon."
+  ],
+  "percent_note": "No change to the parent chunk 7 estimate: this is narrower companion evidence for an already accepted source class, not family completion.",
+  "portable_controls": {
+    "tests_per_host": 9,
+    "windows": "PASS",
+    "linux": "PASS",
+    "fixture_sha256": "393df6e3d5cadb3f7f4c56567a2c0b6764cd632184e4e0c7c843768debfbdb1c",
+    "scope": "Archive-only portable test and verified exploratory fixture; not added to repository test discovery. Original bytes are checked before temporary path-only rebasing.",
+    "tests_archive_member": "candidate/tests/test_sky130_metal_hierarchy_electrical.py",
+    "fixture_archive_member": "candidate/docs/qualification/sky130-metal-hierarchy-electrical-v3-fixtures.zip"
+  },
+  "producer_sha256": "04a5d2600b7806c69c8efe9c06e519a3f026576a784ffd4c3158b3af9725a140",
+  "input_helper_sha256": "0443958437a1f9fe445714b5890be2d037a651ac17a6885aa3357fb94094ce7c",
+  "comparison_to_earlier_accepted_record": {
+    "evidence": "docs/validation/sky130-metal-hierarchy-electrical-2026-10-28.json",
+    "evidence_sha256": "50b1fc5905cdae3004d33125b7e370774efb60f3c224048d1415b6158ddf5188",
+    "common": "Five LI/M1-M4 models, two original rotations, two 2x5 um occurrences, five passive sections and 27 C: the same 50 selected contexts and historical physical archive.",
+    "earlier": {
+      "simulation_package_revision": "b26f7f28e659ddc1",
+      "dc": "Four independent terminal-basis sweeps at -1 mV, 0 and +1 mV.",
+      "ac": "Four terminal bases at 1 mV small-signal normalization over eight frequencies from 1 kHz to 10 GHz.",
+      "current_absolute_a": 1e-12,
+      "current_relative": 1e-06,
+      "native_runs_per_host": 450,
+      "application": "Saved/emitted hierarchy independently inspected; numerically resolved flattened application subcircuit executed.",
+      "controls": "Actual native-extraction cross/missing/width mutations, wrong section and 17 rehashed evidence controls."
+    },
+    "companion": {
+      "simulation_package_revision": "5dda725c94efe3c2",
+      "dc": "One simultaneous four-terminal voltage vector.",
+      "ac": "Four terminal bases at unit small-signal normalization over five frequencies from 1 kHz to 10 MHz.",
+      "current_absolute_a": 1e-10,
+      "current_relative": 1e-06,
+      "native_runs_per_host": 25,
+      "application": "The actual emitted child subcircuit and two X calls are wrapped after removal of exact external model directives and executed.",
+      "controls": "Literal wrong-model and finite-conductive-bridge controls, plus separate literal cross/missing/width controls and 32 rehashed evidence controls."
+    },
+    "interpretation": "The prior DC/AC selection and current absolute bound are broader and stricter; this companion neither substitutes for prior acceptance nor narrows any gate. Counts and run times are not a like-for-like performance comparison."
+  },
+  "additional_capability": "Compatibility evidence for the new candidate package and direct native execution of the emitted application hierarchy, plus literal wrong-model/finite-bridge and completion-log controls. No full-family, device-status or gate promotion.",
+  "scope_correction": {
+    "path": "C:/Users/jonah/Documents/Codex/IC-Design-Studio-evidence/sky130-metal-hierarchy-electrical-2026-10-29-v2/scope-correction-2026-10-29.json",
+    "sha256": "ba516ca349e2740af269ac4c3e07d64b9972bcea8ea8bce13f643d2b3e62e17b",
+    "superseded_validation_draft_sha256": "1f61fabc9989b1a5663a06388ee1afa7fabe6418870358135d5a1c4af491acda",
+    "superseded_integration_manifest_sha256": "83ac945c19d438b56921ea2a9e9d9b91816513bc63dc3adbfa2b0df12748adaf",
+    "meaning": "The earlier draft and proposed colliding file transfers are retained as superseded; none of the colliding files was copied."
+  }
+}

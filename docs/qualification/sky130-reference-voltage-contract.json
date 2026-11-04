@@ -1,0 +1,530 @@
+{
+  "schema": 1,
+  "origin": "qualification-reference-design-contract",
+  "qualified": false,
+  "scope": "New explicit nominal design intent for the three fixed HD reference blocks. Supplies are ideal and all external signal pins stay within 0–1.8 V. This is a declared interface requirement, not measured analog performance, PVT coverage, transient overvoltage or a contract for arbitrary user designs.",
+  "cases": [
+    {
+      "schema": 1,
+      "case": "counter",
+      "mode": "nominal-single-domain-hd",
+      "top": "counter",
+      "checkpoint_sha256": "10de8332ad78bba19e93e78eb5247040d74b8a8cd0b186dde19484254577ca9d",
+      "gds_sha256": "4158b6503dc07e85f1e9e7b375a3d654cd9b64dc0498ed9fb680874e973c1ac2",
+      "supplies": {
+        "VDD": "1.8",
+        "VSS": "0"
+      },
+      "power_net_hv": [],
+      "ports": {
+        "VDD": {
+          "net": "VDD",
+          "direction": "INOUT",
+          "sig_type": "POWER",
+          "range_v": [
+            "1.8",
+            "1.8"
+          ]
+        },
+        "VSS": {
+          "net": "VSS",
+          "direction": "INOUT",
+          "sig_type": "GROUND",
+          "range_v": [
+            "0",
+            "0"
+          ]
+        },
+        "clk": {
+          "net": "clk",
+          "direction": "INPUT",
+          "sig_type": "CLOCK",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "count[0]": {
+          "net": "count[0]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "count[1]": {
+          "net": "count[1]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "count[2]": {
+          "net": "count[2]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "count[3]": {
+          "net": "count[3]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "reset": {
+          "net": "reset",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        }
+      }
+    },
+    {
+      "schema": 1,
+      "case": "uart",
+      "mode": "nominal-single-domain-hd",
+      "top": "uart_tx",
+      "checkpoint_sha256": "27ec03d13a0264feea11df78633ca56d7f068ed74b1f06478f3fe9db058d2d32",
+      "gds_sha256": "c9282fb9602ac9dbab5299032be1d4b68751bb611747d276d40435e93c37afea",
+      "supplies": {
+        "VDD": "1.8",
+        "VSS": "0"
+      },
+      "power_net_hv": [],
+      "ports": {
+        "VDD": {
+          "net": "VDD",
+          "direction": "INOUT",
+          "sig_type": "POWER",
+          "range_v": [
+            "1.8",
+            "1.8"
+          ]
+        },
+        "VSS": {
+          "net": "VSS",
+          "direction": "INOUT",
+          "sig_type": "GROUND",
+          "range_v": [
+            "0",
+            "0"
+          ]
+        },
+        "busy": {
+          "net": "busy",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "clk": {
+          "net": "clk",
+          "direction": "INPUT",
+          "sig_type": "CLOCK",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "data[0]": {
+          "net": "data[0]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "data[1]": {
+          "net": "data[1]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "data[2]": {
+          "net": "data[2]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "data[3]": {
+          "net": "data[3]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "data[4]": {
+          "net": "data[4]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "data[5]": {
+          "net": "data[5]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "data[6]": {
+          "net": "data[6]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "data[7]": {
+          "net": "data[7]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "reset": {
+          "net": "reset",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "send": {
+          "net": "send",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "tx": {
+          "net": "tx",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        }
+      }
+    },
+    {
+      "schema": 1,
+      "case": "apb",
+      "mode": "nominal-single-domain-hd",
+      "top": "apb_fifo",
+      "checkpoint_sha256": "cd1a997dac190164ab96bac0ae0eaee91865ff2ed0f983865daa644cae60bf7d",
+      "gds_sha256": "5039221b72bfd052d3f82781f5403fb67df4261ea20add5c2047191321fe9d78",
+      "supplies": {
+        "VDD": "1.8",
+        "VSS": "0"
+      },
+      "power_net_hv": [],
+      "ports": {
+        "VDD": {
+          "net": "VDD",
+          "direction": "INOUT",
+          "sig_type": "POWER",
+          "range_v": [
+            "1.8",
+            "1.8"
+          ]
+        },
+        "VSS": {
+          "net": "VSS",
+          "direction": "INOUT",
+          "sig_type": "GROUND",
+          "range_v": [
+            "0",
+            "0"
+          ]
+        },
+        "clk": {
+          "net": "clk",
+          "direction": "INPUT",
+          "sig_type": "CLOCK",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "irq": {
+          "net": "irq",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "paddr[0]": {
+          "net": "paddr[0]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "paddr[1]": {
+          "net": "paddr[1]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "paddr[2]": {
+          "net": "paddr[2]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "paddr[3]": {
+          "net": "paddr[3]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "penable": {
+          "net": "penable",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "prdata[0]": {
+          "net": "prdata[0]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "prdata[1]": {
+          "net": "prdata[1]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "prdata[2]": {
+          "net": "prdata[2]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "prdata[3]": {
+          "net": "prdata[3]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "prdata[4]": {
+          "net": "prdata[4]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "prdata[5]": {
+          "net": "prdata[5]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "prdata[6]": {
+          "net": "prdata[6]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "prdata[7]": {
+          "net": "prdata[7]",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pready": {
+          "net": "net",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "psel": {
+          "net": "psel",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pslverr": {
+          "net": "pslverr",
+          "direction": "OUTPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwdata[0]": {
+          "net": "pwdata[0]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwdata[1]": {
+          "net": "pwdata[1]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwdata[2]": {
+          "net": "pwdata[2]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwdata[3]": {
+          "net": "pwdata[3]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwdata[4]": {
+          "net": "pwdata[4]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwdata[5]": {
+          "net": "pwdata[5]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwdata[6]": {
+          "net": "pwdata[6]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwdata[7]": {
+          "net": "pwdata[7]",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "pwrite": {
+          "net": "pwrite",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        },
+        "reset": {
+          "net": "reset",
+          "direction": "INPUT",
+          "sig_type": "SIGNAL",
+          "range_v": [
+            "0",
+            "1.8"
+          ]
+        }
+      }
+    }
+  ]
+}

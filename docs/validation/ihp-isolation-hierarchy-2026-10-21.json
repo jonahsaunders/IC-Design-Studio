@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "date": "2026-10-21",
+  "chunk": 7,
+  "chunk_complete": false,
+  "qualified": false,
+  "default_promoted": false,
+  "source_baseline": "9090aa70fb44bd6c69bb65e1188555d3411a2796",
+  "status": "sampled_repeated_isolated_transistor_connectivity_passed",
+  "scope": "Two instances of one shared hierarchical transistor/tap/isolation cell, including a rotated/reflected instance and four whole-circuit orientations. Full public main/maximal DRC, unfiltered native extraction and strict Netgen. No continuous geometry, electrical envelope, installed-release or tapeout qualification.",
+  "process": {
+    "target": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "source_files": {
+    "scripts/qualify_ihp_isolation_hierarchy.py": "be48881e829a82e34ea33092f39a01a50553de323433387bc6c8aed9309f74f6",
+    "tests/test_ihp_isolation_hierarchy.py": "802650f9da4fcb321f8fe89bc471c5d70449c4333493aa394d0feaefd8598b46",
+    ".github/workflows/ihp-inductor-qualification.yml": "74181ab8bc9c3b27ce9ca5cb22c29083714d4e23390571c6a88d8d8e9714ff80",
+    "scripts/qualify_ihp_isolation_context.py": "343ff1808ba1f69bddcb3a2a89b5f17038d10f17b72c7f233be0f74aeae761fb",
+    "scripts/qualify_ihp_isolation_layouts.py": "983548e94e350c456e679c4706041f09ec4d67413b0a58df4548e781ee15114a",
+    "icstudio/ihp_isolation_lvs.py": "fcde5617da4b8389d126c1dd24cd8b90d71047dada5b6c9fd9c160b43ae00f36",
+    "icstudio/ihp_tap_lvs.py": "cb66eeafb40c76d3be5744226ff1e0e9a1b6ae9261048f583dd93eab9ee30ff7",
+    "icstudio/ihp_klayout_lvs.py": "39e0deef03402e0bc83fdce78532dea915e7d7459bd38453f5c7d6b34c8eea7b",
+    "icstudio/layout_verification.py": "d025f2d288b0136401dbdb121da6227b9a380cdba63d14c1fe9c379c067ddd08"
+  },
+  "source_manifest_sha256": "0b712ddf645d789df0af46da2faba74d22d3d1643ba00c065b81f98c2e2516c7",
+  "native": {
+    "status": "PASS",
+    "layouts": 4,
+    "rotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "devices_per_circuit": 6,
+    "distinct_internal_bodies": 2,
+    "detected_faults": 6,
+    "faults": [
+      "merged-body",
+      "crossed-tap",
+      "crossed-well",
+      "crossed-gate",
+      "second-tap-area",
+      "second-isolation-area"
+    ],
+    "required_fault_outcome": "Native graph mismatch, unmatched pin or geometry-property error; DRC, extraction and integrity must still pass.",
+    "implementation_unchanged": true,
+    "record_sha256": "8df8739d2e7289b7c94efa08407b353ff760af0114adffe2b0d72f36a8688cad"
+  },
+  "independent_audit": {
+    "status": "PASS",
+    "layouts": 4,
+    "detected_faults": 6,
+    "native_graphs": 10,
+    "artifact_bindings": 1300,
+    "stream_layer_comparisons": 104,
+    "windows_receipts": 356,
+    "source_unchanged": true,
+    "qualification_sha256": "8df8739d2e7289b7c94efa08407b353ff760af0114adffe2b0d72f36a8688cad"
+  },
+  "focused_tests": {
+    "Windows": {
+      "status": "PASS",
+      "tests": 3,
+      "skips": 0,
+      "log_sha256": "33f537695e5e9ebd217d9795a376cfe4ed6a60fae56ffe36ac7a0bacd6b5f6f2"
+    },
+    "Linux": {
+      "status": "PASS",
+      "tests": 3,
+      "skips": 0,
+      "log_sha256": "918eef3da78bb4176a7035aea5089bb5ba04971cb9b31a5cb40f4aa0e5900cce"
+    }
+  },
+  "windows_local_backend": {
+    "status": "PASS",
+    "cases": 2,
+    "artifact_receipts": 356,
+    "record_sha256": "e23abeb3cf6563ad203ebb1aceb002a486ddfe8fb293b8212028fc7a79237b2b",
+    "scope": "Source Windows staging and local native execution/receipt, not installed acceptance."
+  },
+  "archive": {
+    "path": "IC-Design-Studio-evidence/ihp-isolation-physical-2026-10-21-v2/hierarchy.zip",
+    "sha256": "045aa49b8c05b5e13cc3686a90490851fb2d78d7bae8910dc773a0db1faf2695",
+    "bytes": 4064929,
+    "path_bindings": 4000,
+    "unique_objects": 1112,
+    "primary_archive_sha256": "975f5cb959fb8e0ff6f96731d00f27fd991f009dd2bb34e549f56c1d75d04e1a",
+    "all_objects_verified": true
+  },
+  "restored_replay": {
+    "status": "PASS",
+    "archive_sha256": "045aa49b8c05b5e13cc3686a90490851fb2d78d7bae8910dc773a0db1faf2695",
+    "primary_archive_sha256": "975f5cb959fb8e0ff6f96731d00f27fd991f009dd2bb34e549f56c1d75d04e1a",
+    "restored_files": 2399,
+    "restored_inputs_unchanged": true,
+    "valid_circuit": true,
+    "merged_body_rejected": true,
+    "reports": {
+      "valid": "b4ace9da42a67b10212ace8ef405b8aec8c8987580095f9eebab323485a2193e",
+      "merged_body": "0bf19dca6cc82f1bfb60c5c1c8ee0d77d8994dcd689c963b66c33330ab2b1668"
+    }
+  },
+  "audit_harness_correction": "The initial independent readback demanded graph-mismatch wording for every control. Native crossed-pin and geometry controls correctly report failed pin matching/property errors. The first replay also required the graph mismatch to be the final log line; Netgen reports the ten-versus-eleven-net mismatch followed by failed symmetry pin matching. Corrected readback requires the specific native graph/pin/property failure, and restored replay requires the actual ten-versus-eleven-net mismatch. No native result or acceptance threshold was changed; failed harness outputs are retained.",
+  "remaining": [
+    "Full IHP isolation geometry/options and electrical operating envelope.",
+    "Seven unavailable nonutility default catalog bindings and remaining device-family qualification.",
+    "Complete semantic process-option inventory and exact final installed-release acceptance."
+  ]
+}

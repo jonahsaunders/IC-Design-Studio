@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "source_manifest_sha256": "7540b8ac3241f339361bc83d5d154025dd0db6b374ebb1092dbe4db137b59de3",
+  "source_revision": "3abac20fcb57e184",
+  "source_url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/magic/ihp-sg13g2-cifout.tech",
+  "base_sha256": "e27c499850864e66ef3b8063132bdcf0a002925592bd60d871447fb3759eaa37",
+  "corrected_sha256": "b972c6d07557e0147462ad533aaf2f3aea14404437f800a1f8fc96ba13086dc8",
+  "change": "Copy the existing MIM-contact and top-metal sets into fresh CIF planes before their connectivity traversal. The rule, distance and extraction remain unchanged.",
+  "scope": "Local MIM DRC implementation correction; each layout still requires full DRC/LVS. No complete PDK or foundry qualification.",
+  "license": "Upstream Apache-2.0 notice and license retained. Local modification identified in the rule file and this record."
+}

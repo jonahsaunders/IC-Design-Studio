@@ -1,0 +1,118 @@
+{
+  "status": "PASS_PUBLIC_PLATE_REPRODUCTION",
+  "native_cases": 14,
+  "windows_focused": 4,
+  "linux_focused": 4,
+  "public_default_without_external_archive": true,
+  "installed_acceptance": false,
+  "full_family": false,
+  "qualified": false,
+  "native_source_receipt_sha256": "63d7e4535824a39e2f51ed037b2f78567f7a2d4bcd56e68475b2f3639831651b",
+  "native_comparison_sha256": "655f7070872fc236d2086995122be8587e0d1f5e8a506625fcdc8e36d6c251ac",
+  "windows_replay_sha256": "a3e2a1b0d0e4464375c7b3c23230d717f4a3f4e404e18ac836f1dd7db5e2a56a",
+  "all_replays_semantically_equal": true,
+  "historical_numeric_results_unchanged": true,
+  "selected_physical_members_unchanged": true,
+  "historical_comparison_sha256": "302ed66b6722be3ce5244aca6dbf320e36a27e8e8ab3b4aeab2901fb691e3360",
+  "source_files": 6940,
+  "source_manifest_sha256": "090c8e18beb79498e2089e2fc57345db847222c56a5980ed6497136c9f76429c",
+  "source_delta_sha256": "80717e33e6a3fb7529389316839d96acc242178cb81ae307351b0e8081658098",
+  "base_source_manifest_sha256": "9385fb5898b701758fc209845669bbe49385770a5b88d178692409653721d692",
+  "source_recovery_parent_archives_sha256": {
+    "original named source ZIP": "11b644b0fb01704cbce62f0a74f137bbbf2fd9362b93b8eb384380becce5ac99",
+    "v3 named source delta": "2b65ba7e3c7eb9d00305cbbacd00fe526a8d1fc0bbc52b1dc1b637712e9033d1",
+    "v4 named source delta": "b03aae7c153264dbfdcbf45e85cf599f8d505cb31b13091de851fc027601d2bd",
+    "spacing integrated source delta": "45a3497f69f2943ba023ba24a0f5e11a828c23c67efb37f5ddad726cab4bfedf",
+    "caller source delta": "d1c17515d506c77bb3a1e4cd0aa4bb695b93f93ceef038e488d4d498ac30f085"
+  },
+  "exact_overlay_sha256": {
+    "scripts/check_ihp_cmim_process_control.py": "a4d3cef46331632c24ba44f0de0039bc77427e2c9f0c051d9e3ac77bd21c6898",
+    "scripts/qualify_ihp_cmim_process_control.py": "a31a18757cb9e2f9618ea0584d7ae26e0b6959a13996efc09163474c470ad62d",
+    "tests/test_ihp_cmim_process_control.py": "94c3d43d5092c5b8b7c037f6c8517fd6d8aaf51cd3b309e54d9158c1dd111b1c",
+    "docs/qualification/ihp-cmim-plate-evidence-v1/SOURCE.json": "06d7d7853c3c7721c3c9c86e0dbc220ce9b489aa4ceb199ee3fdede0c084fc55",
+    "docs/qualification/ihp-cmim-plate-evidence-v1/physical-evidence.zip": "5de4278a2b44047881d9b37482edf5b9e6ec0aabb47b30449e6a727b4b572f8e"
+  },
+  "default_native_commands": {
+    "focused.log": {
+      "command": [
+        "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "tests.test_ihp_cmim_process_control",
+        "-v"
+      ],
+      "returncode": 0,
+      "log_sha256": "79006d9c13daca35386c9590a76b454c61ef97ee1fbc87ef01f22155bc66b591"
+    },
+    "producer.log": {
+      "command": [
+        "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+        "-B",
+        "-m",
+        "scripts.qualify_ihp_cmim_process_control",
+        "--out",
+        "/var/tmp/icstudio-cmim-plate-public-20261103-v1/results",
+        "--ngspice",
+        "/opt/icstudio/bin/ngspice",
+        "--native-binary",
+        "/usr/bin/ngspice"
+      ],
+      "returncode": 0,
+      "log_sha256": "d4fa73353415ea628acafb0bf429ed16e4e753e059bfdc01813dc03396b678fa"
+    },
+    "native-replay.json": {
+      "command": [
+        "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+        "-B",
+        "-m",
+        "scripts.check_ihp_cmim_process_control",
+        "--evidence",
+        "/var/tmp/icstudio-cmim-plate-public-20261103-v1/results"
+      ],
+      "returncode": 0,
+      "log_sha256": "655f7070872fc236d2086995122be8587e0d1f5e8a506625fcdc8e36d6c251ac"
+    }
+  },
+  "native_measurement_setup_controls": 4,
+  "schema": 1,
+  "date": "2026-11-03",
+  "chunk_complete": false,
+  "scope": "Public-checkout reproduction of the finite nominal IHP capacitor comparison; selected historical physical evidence is replayed, not re-extracted.",
+  "integration_baseline": "04ce9bceefc4cd0591824351f275833ba9a01b7f",
+  "source_identity": "Executed bytes are identified by the archived base manifest and exact overlay, not the baseline commit alone.",
+  "public_archive": {
+    "path": "docs/qualification/ihp-cmim-plate-evidence-v1/physical-evidence.zip",
+    "sha256": "5de4278a2b44047881d9b37482edf5b9e6ec0aabb47b30449e6a727b4b572f8e",
+    "bytes": 75922,
+    "original_native_members": 12,
+    "license_members": 2,
+    "manifest_sha256": "06d7d7853c3c7721c3c9c86e0dbc220ce9b489aa4ceb199ee3fdede0c084fc55",
+    "parent_archive_sha256": "495ee8b7771c8df0f00c8b4b994e48d4dbcf18a8734a1b25cb9c8b423136e6a7",
+    "parent_scope": "The parent digest records provenance. The subset alone does not verify omitted parent contents."
+  },
+  "independent_review": {
+    "subset_source_and_both_archive_mapping_sha256": "3ff958f8fa0531b6019ca65308fd6500de73f7b2bda7cb1fb79eae2027709dda",
+    "native_raw_math_sha256": "520d055cadf5c656b640fda5e930c8ee399590c283dea1ed6ecca372138f6e1f",
+    "default_cli_and_source_receipts_sha256": "20fb073789855713b64198a802a73425abfa46b5a04d419e23244da8264c2c48",
+    "retention": {
+      "directory": "IC-Design-Studio-evidence/ihp-cmim-enclosures-2026-11-03-v1",
+      "archive": "independent-review.zip",
+      "sha256": "94c27b1cd872766254065f2b703cf91a2351da4bf5730ce9c5682f7eb5355380",
+      "members": 78,
+      "retention_sha256": "07e0f969550ecf7f6520cd6bd0ee08a92c05a3833759f449a32291ee096a5d90",
+      "scope": "Sealed independent enclosure and public-default reviews share this compact archive; their distinct receipts retain their own scope."
+    }
+  },
+  "retained_original_archive_compatibility_sha256": "388acdcaf9e5437f6c3512cee0344122395993862821ad47d69040e931878602",
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/chunk7-public-plate-reproduction-2026-11-03-v1",
+    "archive": "public-plate-reproduction.zip",
+    "sha256": "61561563c9a7c6150fa9dec5ba3579e5da50f12c0af15f7853db181149fff994",
+    "bytes": 551827,
+    "files": 102,
+    "retention_sha256": "bd3742d071689e0705c68ec20808d07be20d485639059c395c6652e78132ab14",
+    "complete_crc_sha256_readback": true
+  },
+  "remaining": "No calibrated voltage/temperature target tolerances, continuous operating/reliability limits, additional physical classes or new installed acceptance are established. Original model discrepancy remains unchanged."
+}

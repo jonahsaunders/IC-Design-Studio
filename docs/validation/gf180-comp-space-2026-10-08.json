@@ -1,0 +1,705 @@
+{
+  "schema_version": 1,
+  "status": "comp-space-absence-controls-passed; chunk-4-incomplete",
+  "qualified": false,
+  "observed_at": "2026-10-08T16:18:25.634846+00:00",
+  "application_backend": "cd6a3cd4e4b280c812456e0113ddb0b46dde728e76f8a80a9e25400856f030ef",
+  "sources": {
+    "scripts/check_gf180_fill.py": "e870d090d58a890e1abad59b5a87fbca514415a7a885a446bbdde652c27fd10e",
+    "scripts/gf180_comp_sites.py": "785cd0c3ef3f7fa762cf1e9788bde8e81aed12199d43c19b25c82971c0d686be",
+    "scripts/gf180_fill_patterns.py": "2169684c257b583279fa507d55c1a5ef138223f1207be8f3b3a376e1c99c1c4a",
+    "tests/test_gf180_fill_checks.py": "14df548b3dd51ea1171fafb25e1a4eb0ab346102a749f5bcd05a7f4fcbfe3493",
+    "tests/test_gf180_fill_patterns.py": "ad0678198f40fd7700c243a5b85e74ac8b2d758d5a2236c1514a5c6819030bbd",
+    "tests/test_gf180_fill_sites.py": "da8322d0c4ecc94b5d66d56383d4847318da4ea96fdb82aae928193ed42a38c4",
+    "examples/gf180-counter-fill-pattern.json": "244a6947ad702019dd098fa8679e368a205a00814b4c70a2b60c44cd53bd7c5d",
+    "examples/gf180-fill-pattern-lock.json": "cf88c12b2f7c28abe82db779bafa9e24a239b9e72304923cdda7b81e3f0558e5",
+    "examples/gf180-fill-manual-lock.json": "96db8b10b3564eed4589e304e1f5a9dc5b10c9f426f1dd0b19d105a03fa996e1",
+    "examples/gf180-fill-coverage-lock.json": "e76113dd556fd192c5b7a21744602ce57e2cf7f6e5623046c33b15dcbaee7bac",
+    "examples/gf180-boundary-manual-lock.json": "17daeb675e6c87afaf19d2319e85a8f3ff991b218e21d19c36ebd07717dca593",
+    "docs/PDK_QUALIFICATION_PLAN.md": "6af1fdc9647d237f3f529bf807f7acd067cecb805258db984d9e939079f12680",
+    "docs/validation/gf180-unfilled-functional-2026-10-08.json": "9cfa90d35817ec6ca95b417f22d19e8a990c980b1d06c85090d9274adad1d694"
+  },
+  "both_os": {
+    "windows": {
+      "process": {
+        "path": "outputs/gf180-comp-space-windows-v1/process.json",
+        "sha256": "9c73c92f53e5b39db885ada3c31a8e7fc1a144cb6a8bb2ca92f154b86df4ffa0"
+      },
+      "tests": 44,
+      "failures": 0,
+      "skips": 0,
+      "cases": {
+        "reference-C": {
+          "report": {
+            "path": "outputs/gf180-comp-space-windows-v1/reference-C.json",
+            "sha256": "481457e23fc229ac2c43cc86748874ce73be0a2a9f458dd743245bff5ed407a2"
+          },
+          "checks": 104,
+          "failed": 0,
+          "exit_code": 2,
+          "comp_placement_space": {
+            "die": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                0,
+                0,
+                200000,
+                200000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": false,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "possible_origins_unqualified",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 1,
+              "possible_origin_area_um2": 9432.832075,
+              "possible_origin_boxes_nm": [
+                [
+                  0,
+                  0,
+                  195000,
+                  195000
+                ]
+              ]
+            },
+            "declared_core": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                20000,
+                20000,
+                180000,
+                180000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": true,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "no_legal_square_from_circuit_clearances",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 0,
+              "possible_origin_area_um2": 0.0,
+              "possible_origin_boxes_nm": []
+            }
+          }
+        },
+        "reference-D": {
+          "report": {
+            "path": "outputs/gf180-comp-space-windows-v1/reference-D.json",
+            "sha256": "2fa39f34af46798075786611fe35e87e72c9e42fb89133d61131197550d43ec7"
+          },
+          "checks": 104,
+          "failed": 0,
+          "exit_code": 2,
+          "comp_placement_space": {
+            "die": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                0,
+                0,
+                200000,
+                200000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": false,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "possible_origins_unqualified",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 1,
+              "possible_origin_area_um2": 9432.832075,
+              "possible_origin_boxes_nm": [
+                [
+                  0,
+                  0,
+                  195000,
+                  195000
+                ]
+              ]
+            },
+            "declared_core": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                20000,
+                20000,
+                180000,
+                180000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": true,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "no_legal_square_from_circuit_clearances",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 0,
+              "possible_origin_area_um2": 0.0,
+              "possible_origin_boxes_nm": []
+            }
+          }
+        },
+        "shifted5nm-C": {
+          "report": {
+            "path": "outputs/gf180-comp-space-windows-v1/shifted5nm-C.json",
+            "sha256": "1bf26a8862e20e334e59066edae76e53749e55a27b6b5255b28a1ce8cca8f6ac"
+          },
+          "checks": 104,
+          "failed": 1,
+          "exit_code": 1,
+          "comp_placement_space": {
+            "die": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                0,
+                0,
+                200000,
+                200000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": false,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "possible_origins_unqualified",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 1,
+              "possible_origin_area_um2": 9432.832075,
+              "possible_origin_boxes_nm": [
+                [
+                  0,
+                  0,
+                  195000,
+                  195000
+                ]
+              ]
+            },
+            "declared_core": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                20000,
+                20000,
+                180000,
+                180000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": true,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "no_legal_square_from_circuit_clearances",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 0,
+              "possible_origin_area_um2": 0.0,
+              "possible_origin_boxes_nm": []
+            }
+          }
+        },
+        "shifted5nm-D": {
+          "report": {
+            "path": "outputs/gf180-comp-space-windows-v1/shifted5nm-D.json",
+            "sha256": "9f6716630838656b7bce0fda1f332fc701706d73267f3159b047875a2058de66"
+          },
+          "checks": 104,
+          "failed": 1,
+          "exit_code": 1,
+          "comp_placement_space": {
+            "die": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                0,
+                0,
+                200000,
+                200000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": false,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "possible_origins_unqualified",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 1,
+              "possible_origin_area_um2": 9432.832075,
+              "possible_origin_boxes_nm": [
+                [
+                  0,
+                  0,
+                  195000,
+                  195000
+                ]
+              ]
+            },
+            "declared_core": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                20000,
+                20000,
+                180000,
+                180000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": true,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "no_legal_square_from_circuit_clearances",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 0,
+              "possible_origin_area_um2": 0.0,
+              "possible_origin_boxes_nm": []
+            }
+          }
+        }
+      }
+    },
+    "linux": {
+      "process": {
+        "path": "outputs/gf180-comp-space-linux-v1/process.json",
+        "sha256": "8da077dc6693e45bc6a273b6071eb7d632d34289ee007426b7e4b99fbbca28df"
+      },
+      "tests": 44,
+      "failures": 0,
+      "skips": 0,
+      "cases": {
+        "reference-C": {
+          "report": {
+            "path": "outputs/gf180-comp-space-linux-v1/reference-C.json",
+            "sha256": "481457e23fc229ac2c43cc86748874ce73be0a2a9f458dd743245bff5ed407a2"
+          },
+          "checks": 104,
+          "failed": 0,
+          "exit_code": 2,
+          "comp_placement_space": {
+            "die": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                0,
+                0,
+                200000,
+                200000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": false,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "possible_origins_unqualified",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 1,
+              "possible_origin_area_um2": 9432.832075,
+              "possible_origin_boxes_nm": [
+                [
+                  0,
+                  0,
+                  195000,
+                  195000
+                ]
+              ]
+            },
+            "declared_core": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                20000,
+                20000,
+                180000,
+                180000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": true,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "no_legal_square_from_circuit_clearances",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 0,
+              "possible_origin_area_um2": 0.0,
+              "possible_origin_boxes_nm": []
+            }
+          }
+        },
+        "reference-D": {
+          "report": {
+            "path": "outputs/gf180-comp-space-linux-v1/reference-D.json",
+            "sha256": "2fa39f34af46798075786611fe35e87e72c9e42fb89133d61131197550d43ec7"
+          },
+          "checks": 104,
+          "failed": 0,
+          "exit_code": 2,
+          "comp_placement_space": {
+            "die": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                0,
+                0,
+                200000,
+                200000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": false,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "possible_origins_unqualified",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 1,
+              "possible_origin_area_um2": 9432.832075,
+              "possible_origin_boxes_nm": [
+                [
+                  0,
+                  0,
+                  195000,
+                  195000
+                ]
+              ]
+            },
+            "declared_core": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                20000,
+                20000,
+                180000,
+                180000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": true,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "no_legal_square_from_circuit_clearances",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 0,
+              "possible_origin_area_um2": 0.0,
+              "possible_origin_boxes_nm": []
+            }
+          }
+        },
+        "shifted5nm-C": {
+          "report": {
+            "path": "outputs/gf180-comp-space-linux-v1/shifted5nm-C.json",
+            "sha256": "1bf26a8862e20e334e59066edae76e53749e55a27b6b5255b28a1ce8cca8f6ac"
+          },
+          "checks": 104,
+          "failed": 1,
+          "exit_code": 1,
+          "comp_placement_space": {
+            "die": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                0,
+                0,
+                200000,
+                200000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": false,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "possible_origins_unqualified",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 1,
+              "possible_origin_area_um2": 9432.832075,
+              "possible_origin_boxes_nm": [
+                [
+                  0,
+                  0,
+                  195000,
+                  195000
+                ]
+              ]
+            },
+            "declared_core": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                20000,
+                20000,
+                180000,
+                180000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": true,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "no_legal_square_from_circuit_clearances",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 0,
+              "possible_origin_area_um2": 0.0,
+              "possible_origin_boxes_nm": []
+            }
+          }
+        },
+        "shifted5nm-D": {
+          "report": {
+            "path": "outputs/gf180-comp-space-linux-v1/shifted5nm-D.json",
+            "sha256": "9f6716630838656b7bce0fda1f332fc701706d73267f3159b047875a2058de66"
+          },
+          "checks": 104,
+          "failed": 1,
+          "exit_code": 1,
+          "comp_placement_space": {
+            "die": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                0,
+                0,
+                200000,
+                200000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": false,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "possible_origins_unqualified",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 1,
+              "possible_origin_area_um2": 9432.832075,
+              "possible_origin_boxes_nm": [
+                [
+                  0,
+                  0,
+                  195000,
+                  195000
+                ]
+              ]
+            },
+            "declared_core": {
+              "dummy_size_nm": 5000,
+              "bounds_nm": [
+                20000,
+                20000,
+                180000,
+                180000
+              ],
+              "clearance_nm": {
+                "circuit_comp": 3500,
+                "circuit_poly": 1500
+              },
+              "strict_clearance_underestimate_margin_nm": 5,
+              "qualified": false,
+              "no_legal_square_proven": true,
+              "scope": "Absence under DCF.4/5 circuit clearances only; a nonempty complement is not legal-site, boundary or complete DCF.1a acceptance.",
+              "status": "no_legal_square_from_circuit_clearances",
+              "circuit_rectangles": {
+                "comp": 4574,
+                "poly": 4228
+              },
+              "possible_origin_regions": 0,
+              "possible_origin_area_um2": 0.0,
+              "possible_origin_boxes_nm": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "source_revision": "de3240d7529a6970437ac3344820aaae7839f215",
+  "scope": "Conservative absence proof for additional 5 um COMP squares under circuit COMP/poly clearances. Nonempty origin regions, non-Manhattan geometry, degenerate origin domains, full DCF.1a, boundary scope, post-fill timing and process acceptance remain unqualified.",
+  "boundary_source_discrepancy": {
+    "rule": "DCF.7a",
+    "main_table_um": 26,
+    "appendix_um": 8,
+    "main_source": {
+      "path": "outputs/gf180-pattern-sources-v1/manual-reference/docs/physical_verification/design_manual/tables_clear/51_Dummy_COMP_136.csv",
+      "sha256": "07d5d19b694fbec7aa4ef40a11c76e077215dc7a7ab33b0ea16fdf0077dc824e"
+    },
+    "appendix_source": {
+      "path": "outputs/gf180-boundary-sources-v1/manual-reference/docs/physical_verification/design_manual/tables_clear/70_not_coded_rules_187.csv",
+      "sha256": "11ade9eda921014d44af273a12e4e226138ad04d9a1cd51332b62c8c9a34ed89"
+    },
+    "handling": "A 26 um minimum would satisfy both stated minima. No boundary check is accepted without actual scribe/frame geometry; no waiver or reticle dimension is inferred."
+  },
+  "reference_scope": {
+    "gds": {
+      "path": "outputs/gf180-density-m1-fill-v2.gds",
+      "sha256": "56da04f91676c3f7640ced0ee7d1341fdc9ba908f93a12a6e8e6d7133e735465"
+    },
+    "original_implementation_input": {
+      "path": "outputs/gf180-counter-reference-transient-v1/implementation-input.json",
+      "sha256": "0c8d864f5b56c53f00b28965e0e2a38272ea1f1baaa2a54ebe4bb9912701f199"
+    },
+    "die_um": [
+      0,
+      0,
+      200,
+      200
+    ],
+    "core_um": [
+      20,
+      20,
+      180,
+      180
+    ],
+    "guard_ring_marker_polygons": 0,
+    "scribe_frame_geometry": "Not declared in the captured implementation input; a core is not a replacement die boundary."
+  },
+  "remaining": [
+    "Declared die/prime-die/scribe scope verified against the complete-chip floorplan",
+    "DCF.1a empty-field coverage and local COMP density",
+    "DCF/DPF scribe/frame scope and COMP-to-pad RF guideline",
+    "DCF exclusion-edge tie/fill rows",
+    "Embedded-memory fill coverage beyond supported MTPMARK; vendor implant layers are unsupported",
+    "Foundry acceptance limits for local metal density and clipped die-edge windows",
+    "Independent full native geometry, antenna and final-layout LVS",
+    "Post-fill extraction, timing and foundry acceptance"
+  ],
+  "both_os_reports_and_fault_geometry_byte_identical": true,
+  "full_windows_suite": {
+    "tests": 1501,
+    "skips": 62,
+    "failures": 0,
+    "seconds": 316.754,
+    "process": {
+      "path": "outputs/gf180-comp-space-suite-v1/process.json",
+      "sha256": "f68d71029dadcc549d242f86ad74be386d6b3bc0a13d781c19086984c23ee86f"
+    },
+    "log": {
+      "path": "outputs/gf180-comp-space-suite-v1/tests.log",
+      "sha256": "8b70c0c78aeb9f95288719ab5fca6d3afc697b1b8edb4da2ff08d3f38f0d0a80"
+    }
+  },
+  "axial_gap_diagnostic": {
+    "record": {
+      "path": "outputs/gf180-comp-gap-sweep-v1/report.json",
+      "sha256": "bf8ba32f366fcd8e7671247cfd64b981883202038e06251345087818f49b8926"
+    },
+    "scope": "437 horizontal and 486 vertical sweep events locate 19 bounded axial-gap regions. The sampled-grid diagnostic is not used as the absence proof."
+  },
+  "independent_unfilled_transient": {
+    "path": "outputs/gf180-completed-before-audit-v2/record.json",
+    "sha256": "9cfa90d35817ec6ca95b417f22d19e8a990c980b1d06c85090d9274adad1d694"
+  },
+  "precision_colamd_observation": {
+    "record": {
+      "path": "outputs/gf180-comp-space-checkpoint-v2/colamd-snapshot.json",
+      "sha256": "9dc6331f9c4872786fb20b24aa575c7a269562c79ce726fd58381761c808ad96"
+    },
+    "exec_session": 76921,
+    "status": "running",
+    "cases": {
+      "before": {
+        "status": "running",
+        "progress": {
+          "wall_seconds": 7058.528673887253,
+          "cpu_seconds": 5345.48,
+          "last_reported_simulation_seconds": 3.57507e-07,
+          "observed_unix_seconds": 1791476298.3656614
+        }
+      },
+      "filled": {
+        "status": "running",
+        "progress": {
+          "wall_seconds": 7058.219635009766,
+          "cpu_seconds": 5317.51,
+          "last_reported_simulation_seconds": 2.22159e-07,
+          "observed_unix_seconds": 1791476298.371104
+        }
+      }
+    },
+    "scope": "Observation only; complete native waveforms and independent functional acceptance are still required."
+  },
+  "archive": {
+    "path": "outputs/gf180-comp-space-checkpoint-v2/evidence.tar.gz",
+    "sha256": "391ac5afac232105457aeb69849fa6a75f92427b88f1aa0fe37dfd9a4d95218a",
+    "bytes": 3960658,
+    "verified_members": 92
+  },
+  "manifest": {
+    "path": "outputs/gf180-comp-space-checkpoint-v2/manifest.json",
+    "sha256": "07dcfd83d3b6979f69227b52c68dc094960230c9b15cc83701d432ac4843c545"
+  }
+}

@@ -1,0 +1,16 @@
+diff --git a/extract/ExtCouple.c b/extract/ExtCouple.c
+--- a/extract/ExtCouple.c
++++ b/extract/ExtCouple.c
+@@ -1536,9 +1536,10 @@ extSideOverlapHalo(
+ 	    {
+ 		efflength = (cfrac - sov.so_coupfrac) * (double)length;
+ 		cap += e->ec_cap * efflength;
+-
+-		subfrac += sov.so_subfrac;	/* Just add the shielded fraction */
+ 	    }
++            /* Substrate shielding is geometric even when both tiles share
++             * one extracted net.  Only their mutual capacitance vanishes. */
++            subfrac += sov.so_subfrac;
+ 	}
+     }
+ 

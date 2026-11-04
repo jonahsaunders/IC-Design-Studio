@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "repository": "https://github.com/VolkerMuehlhaus/openems_ihp_sg13g2",
+  "commit": "0f87e9d069de3e88bdfdc5bb30d4a0958f045d32",
+  "license": "GPL-3.0",
+  "files": [
+    {
+      "file": "LICENSE",
+      "upstream_path": "LICENSE",
+      "git_blob": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7",
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "bytes": 35149
+    },
+    {
+      "file": "UPSTREAM.md",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/README.md",
+      "git_blob": "f53f0d6bf9a9b7ad83315bf7b247691829b2f9fe",
+      "sha256": "7b820cc64b0b014fa42129789c582bd1b3a1e30755a21198656de12b92c8c520",
+      "bytes": 21340
+    },
+    {
+      "file": "coil.gds",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/L6n2_with_ports.gds",
+      "git_blob": "3e563d6f76ce9de3b1e4bbb39b59dd0ec6ba5982",
+      "sha256": "4e0c7203a37c6a3c0eb36587f385c12d47967335233082c5c72e04b87b5b132e",
+      "bytes": 10154
+    },
+    {
+      "file": "measured.s2p",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/meas_L5_6n2_THRU_deemb.S2P",
+      "git_blob": "bbc0b9b989de5c5ab8e1610a4fc91da4188dc1ea",
+      "sha256": "cbfb4cfcd777ca9f958de4f1db7d43caeee2ab18dc9523f8b9350fa3ecc274cd",
+      "bytes": 34542
+    },
+    {
+      "file": "planar.xml",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/openEMS_SG13G2_200um.xml",
+      "git_blob": "70c5646e92eee449c68c97470e927b214b65c50f",
+      "sha256": "34303d14d0efa02964f05891deca5500a6e7482909a96378425cbf7f47ba74a5",
+      "bytes": 5757
+    },
+    {
+      "file": "passicut.xml",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/openEMS_SG13G2_200um_passicut.xml",
+      "git_blob": "86ecd749389708ae885bda23fe428516ae6ecbb9",
+      "sha256": "a478fc82d184479ed87d890a025897901c47cce60c50d8ded4612b197f18ad80",
+      "bytes": 6178
+    },
+    {
+      "file": "original-workflow.py",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/run_L6n2_mergecorrection_passicut_sweep.py",
+      "git_blob": "f888e40c0f144242628a461d645253e021754cd3",
+      "sha256": "b7c8fa115022baa8afcc5d2e76a1db9a0b306b7b35c06008a8baae80cf5c6cf4",
+      "bytes": 8703
+    },
+    {
+      "file": "palace-2um.s2p",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/results/palace_L6n2_with_ports_2um_passicut.s2p",
+      "git_blob": "b2bf7f8f7d1529a280cc8b68539a73ecd2a34f75",
+      "sha256": "766d03eb80dfb49042740e0001170640ab5798a716b5724a979bba0a6577c490",
+      "bytes": 25011
+    },
+    {
+      "file": "openems-1um.s2p",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/results/run_L6n2_mergecorrection_passicut_sweep_mesh1_limit-60.s2p",
+      "git_blob": "e8c4578d7d42542f1fcb5f778b98ee1eaf61899c",
+      "sha256": "98f9fa6a5ad31518dd50752930e0ab85e138f7455999541791a7fc27fb94bdb6",
+      "bytes": 48002
+    },
+    {
+      "file": "openems-2um.s2p",
+      "upstream_path": "more_examples/measured_vs_simulated/more_accurate_models_L6n2/results/run_L6n2_mergecorrection_passicut_sweep_mesh2_limit-60.s2p",
+      "git_blob": "56ff85e3eb20c10e12490c3efb43415c728264dd",
+      "sha256": "1dc507cefc4fb6d759008fb2b5741343b82435b51a35df39ed0491ea1aeece64",
+      "bytes": 47989
+    }
+  ],
+  "scope": "Unmodified public L6n2 measurement, geometry, stackups and published solver references. No fresh simulation or default model qualification is implied."
+}

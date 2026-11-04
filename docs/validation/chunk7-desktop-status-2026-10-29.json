@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "observed_date": "2026-10-29",
+  "candidate": "bd6449ebaa2fb3f3823a630f29989bae44789cb6",
+  "remote_branch_verified": "experimental",
+  "desktop_run": 40730809639,
+  "jobs": [
+    {
+      "id": 122966292100,
+      "name": "candidate",
+      "status": "completed",
+      "conclusion": "success",
+      "failed_steps": []
+    },
+    {
+      "id": 122966502394,
+      "name": "release-tools (windows-2022)",
+      "status": "completed",
+      "conclusion": "success",
+      "failed_steps": []
+    },
+    {
+      "id": 122966502587,
+      "name": "digital-runtime / candidate",
+      "status": "completed",
+      "conclusion": "success",
+      "failed_steps": []
+    },
+    {
+      "id": 122966502669,
+      "name": "release-tools (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "failed_steps": []
+    },
+    {
+      "id": 122966598049,
+      "name": "digital-runtime / runtime",
+      "status": "completed",
+      "conclusion": "success",
+      "failed_steps": []
+    },
+    {
+      "id": 122981041620,
+      "name": "package (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "failed_steps": []
+    },
+    {
+      "id": 122981041838,
+      "name": "package (windows-2022)",
+      "status": "completed",
+      "conclusion": "success",
+      "failed_steps": []
+    },
+    {
+      "id": 123078037324,
+      "name": "installed-acceptance (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "failed_steps": []
+    },
+    {
+      "id": 123078037409,
+      "name": "installed-acceptance (windows-2022)",
+      "status": "completed",
+      "conclusion": "failure",
+      "failed_steps": [
+        {
+          "name": "Verify installed Windows app",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 12
+        }
+      ]
+    }
+  ],
+  "previous_candidate": {
+    "commit": "95ab31ddf46282cda9aef8a4772de33c86913870",
+    "run": 40696505171,
+    "jobs": [
+      {
+        "id": 122844592797,
+        "name": "candidate",
+        "conclusion": "success"
+      },
+      {
+        "id": 122844680405,
+        "name": "release-tools (ubuntu-24.04)",
+        "conclusion": "success"
+      },
+      {
+        "id": 122844680409,
+        "name": "release-tools (windows-2022)",
+        "conclusion": "success"
+      },
+      {
+        "id": 122844680975,
+        "name": "digital-runtime / candidate",
+        "conclusion": "success"
+      },
+      {
+        "id": 122844760962,
+        "name": "digital-runtime / runtime",
+        "conclusion": "success"
+      },
+      {
+        "id": 122854299780,
+        "name": "package (windows-2022)",
+        "conclusion": "success"
+      },
+      {
+        "id": 122854299857,
+        "name": "package (ubuntu-24.04)",
+        "conclusion": "success"
+      },
+      {
+        "id": 122959075698,
+        "name": "installed-acceptance (ubuntu-24.04)",
+        "conclusion": "success"
+      },
+      {
+        "id": 122959075841,
+        "name": "installed-acceptance (windows-2022)",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "windows_failure": {
+    "job": 123078037409,
+    "checker": "scripts/verify_frozen_ihp_resistors.py",
+    "error": "Parent control deadline exceeded.",
+    "stage": "IHP resistor frozen managed native acceptance",
+    "earlier_optional_esd": "passed",
+    "scope": "Failure remains failed. Earlier stages do not establish complete Windows acceptance."
+  },
+  "linux_readback": "Job success observed; independent raw checkpoint review in progress.",
+  "full_installed_acceptance": false,
+  "chunk_complete": false,
+  "estimate_percent": 70,
+  "estimate_interval": [
+    55,
+    80
+  ]
+}

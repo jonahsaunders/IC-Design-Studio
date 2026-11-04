@@ -1,0 +1,3688 @@
+{
+  "schema": 1,
+  "chunk": 5,
+  "status": "in_progress",
+  "chunk_complete": false,
+  "qualified": false,
+  "observed_at": "2026-10-10T21:03:17.556655+00:00",
+  "source_baseline": "4ad13d9b0415c127d04a96c0b17db68ca80b0cff",
+  "source_files": {
+    ".github/workflows/build-desktop.yml": "8963ab8887af3e28d5a28259eb0fe8fc09f9c8a1880d49442a9b9178b866c156",
+    "docs/IHP_FILL_QUALIFICATION.md": "b5273246b48a8900ad6dab80403ad2a67a862b86e392bb3f15fa6c64a43678b4",
+    "requirements-qualification.txt": "c36503d2374eb60566499c65237b08e1cc6d36f87cb5bbea294a600d55c12c69",
+    "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+    "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+    "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+    "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+    "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+    "scripts/check_ihp_rcx_widths.py": "de0e6056b6abb36b69f489e745b9938d518c81a856f3ff4ef1e25f6aa02dc25d",
+    "scripts/check_ihp_waveform.py": "d757f9060ac7ec85cf0fb274f7bccd8312c6fd66f678e22bbe3934e0f90143cc",
+    "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+    "scripts/ihp_calibration_geometry.py": "884cda7fbec8a0e86d7f711b71a377c9590abeac6ea5adbe3ddfc3631db5dd20",
+    "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+    "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+    "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+    "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+    "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+    "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+    "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+    "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+    "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+    "scripts/ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+    "scripts/ihp_transformer_capacitance.py": "07ffab4c502f9b7402a4e8a6b40f761cc962911c80e30c841e84a0cb4a7896b8",
+    "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+    "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+    "tests/test_ihp_calibration_geometry.py": "2b41aef07e4973c4ed662610433ade9c86546b517b18e4bdac6fbad8c1b91529",
+    "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+    "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+    "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+    "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+    "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+    "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+    "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+    "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+    "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+    "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+    "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+    "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+    "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+    "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+    "tests/test_ihp_rcx_material.py": "d557993c69c70b8b8a6579c9a31780df12d5253e93e53b7526d686e919c971ca",
+    "tests/test_ihp_rcx_widths.py": "b275a6823052ffe06492ac00ff900034b8a6ac68754cdb395364bde029f83b1b",
+    "tests/test_ihp_transformer_capacitance.py": "18adc85d85118b4cd2141f7d9febf04c36b9d86f3507c2d29a8a0e7696bdda38",
+    "tests/test_ihp_waveform.py": "02670d5c1539783e517e4746104bd54d5424c8d3025c2d1d24b662152b37015d"
+  },
+  "tests": {
+    "win32": {
+      "schema": 1,
+      "status": "pass",
+      "tests": 108,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "14fb1872a698eee0d59ba5cb4efc37cf4681b855c78f7ebfc7c01a07b7ceaeaa",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/check_ihp_rcx_widths.py": "de0e6056b6abb36b69f489e745b9938d518c81a856f3ff4ef1e25f6aa02dc25d",
+        "scripts/check_ihp_waveform.py": "d757f9060ac7ec85cf0fb274f7bccd8312c6fd66f678e22bbe3934e0f90143cc",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_calibration_geometry.py": "884cda7fbec8a0e86d7f711b71a377c9590abeac6ea5adbe3ddfc3631db5dd20",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+        "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "scripts/ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+        "scripts/ihp_transformer_capacitance.py": "07ffab4c502f9b7402a4e8a6b40f761cc962911c80e30c841e84a0cb4a7896b8",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_calibration_geometry.py": "2b41aef07e4973c4ed662610433ade9c86546b517b18e4bdac6fbad8c1b91529",
+        "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+        "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+        "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+        "tests/test_ihp_rcx_material.py": "d557993c69c70b8b8a6579c9a31780df12d5253e93e53b7526d686e919c971ca",
+        "tests/test_ihp_rcx_widths.py": "b275a6823052ffe06492ac00ff900034b8a6ac68754cdb395364bde029f83b1b",
+        "tests/test_ihp_transformer_capacitance.py": "18adc85d85118b4cd2141f7d9febf04c36b9d86f3507c2d29a8a0e7696bdda38",
+        "tests/test_ihp_waveform.py": "02670d5c1539783e517e4746104bd54d5424c8d3025c2d1d24b662152b37015d"
+      }
+    },
+    "linux": {
+      "schema": 1,
+      "status": "pass",
+      "tests": 108,
+      "skips": 0,
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "log_sha256": "18b0389ca4762a80dd0cd3fd395a0cf6ec4642240769702e5aa6901971687fcb",
+      "source_files": {
+        "scripts/check_ihp_fill_coupling.py": "b1acf2bc261c2f091c021468c27d3f3b7f03fa1246b65ce5030e1d51079912f4",
+        "scripts/check_ihp_fill_rules.py": "0710a5e6eab1d8b69d09ad26fcafe4e9d13de5529f01bac8c37c8bf45477ff35",
+        "scripts/check_ihp_flat_capacitance.py": "76070113042626e15a3596473e5c752a26d0fbc363cfc1765be01a37a612e701",
+        "scripts/check_ihp_lvs.py": "bc812c69e938c190d55e86efb2bff6f436040c1e4deac90d2b5687cb8a1919ed",
+        "scripts/check_ihp_magic_warnings.py": "67e88619ad746efc5011bbe7a67986468d59e926cdd3573a23251a913eaffb53",
+        "scripts/check_ihp_rcx_widths.py": "de0e6056b6abb36b69f489e745b9938d518c81a856f3ff4ef1e25f6aa02dc25d",
+        "scripts/check_ihp_waveform.py": "d757f9060ac7ec85cf0fb274f7bccd8312c6fd66f678e22bbe3934e0f90143cc",
+        "scripts/compile_ihp_osdi.py": "e3a69220c32d61a1bf7183e82b4170a3420cbbfc506b81918e6f729998ee69d7",
+        "scripts/ihp_calibration_geometry.py": "884cda7fbec8a0e86d7f711b71a377c9590abeac6ea5adbe3ddfc3631db5dd20",
+        "scripts/ihp_distributed_capacitance.py": "61965a01e88fd12c8a9d1f18910047178ac8bc3d19bdb044b06797b8550ac375",
+        "scripts/ihp_fill_capacitance_input.py": "8d001ebbc876fe5d32a6bb2c27f9be42e0c7d532ec9aa73f3ec424f4cafc65ad",
+        "scripts/ihp_fill_reduction.py": "e1ceae09a96ad1394b7b8877c1dfc0a2576d1f891263ddcafa84fe5c02f8b5ec",
+        "scripts/ihp_fill_spef.py": "b443e49c5e6b462bc2ea1e6ff040b5058770984587242d8637876400a26a13f0",
+        "scripts/ihp_floating_poly.py": "be346029a03b6d51352e1e8f1ab4bd276ced317ca32d1bade6e2e390e99caa4a",
+        "scripts/ihp_lvs_reference.py": "166b05618b44706b8541ac0088f3bead5583dde8e6bffabdccfa72e068d0ff54",
+        "scripts/ihp_magic_export.py": "81a7e3d351c22ed701fdd3873fe3efe73cfa39122c3bbaf5c5177c5510d4e1ef",
+        "scripts/ihp_magic_rc_points.py": "8b23ff79a1f4f5488bed6b788e82152c9f4d4086d01ea0fe0adf0cb7ee01a214",
+        "scripts/ihp_native_capacitance.py": "66f016d314255bb9e63cc29f7d4c5566afcfc575fc45619a781260202500991a",
+        "scripts/ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+        "scripts/ihp_transformer_capacitance.py": "07ffab4c502f9b7402a4e8a6b40f761cc962911c80e30c841e84a0cb4a7896b8",
+        "scripts/prepare_ihp_block_fill.py": "b8f26b0375108d70100eaf29d8699fc02374564efe4e98c3b27ed186b15cb237",
+        "tests/test_ihp_block_fill.py": "26ca4c08f0cbabdfbd82d69ce7621028b8f89ac97cfc227ef735906490bd859c",
+        "tests/test_ihp_calibration_geometry.py": "2b41aef07e4973c4ed662610433ade9c86546b517b18e4bdac6fbad8c1b91529",
+        "tests/test_ihp_distributed_capacitance.py": "cf3d8922fa47d0605fe8d70a6bbcfc10d61598906d5fb338bfbed7438a2666ff",
+        "tests/test_ihp_fill_capacitance_input.py": "482b42191c0f43c5a5d462c2d786b1202d5ab59fc3ab68f478d380f38c1781be",
+        "tests/test_ihp_fill_coupling.py": "5dc9739a3247053a32f3affc14056ff17cfe3798646c464397bf70f7f4b7736c",
+        "tests/test_ihp_fill_reduction.py": "77578f5baf29452d7a1bf947e13b8a0db654542ba1e0226e238d87d121fd5a22",
+        "tests/test_ihp_fill_rules.py": "967134e6027c7a0c5179c9d9b74b0f589f958814f27b912fe79785b26cfaba1d",
+        "tests/test_ihp_fill_spef.py": "7fdb1af15f62e56dbc31f854b3e4c7381ab2c6d82ff5dbfc49bf83794d1cf8c0",
+        "tests/test_ihp_flat_capacitance.py": "71dedbbd02c3cad2cdcdfff12d8aa3a9911b62ac0bc01bac171092f1be9cd3d0",
+        "tests/test_ihp_floating_poly.py": "d705e97b3c13d2ef243614ddde87aac48f984057e70013ef1bf05e0c5b475f0f",
+        "tests/test_ihp_lvs_ports.py": "c9eda2c681160ae6cfd68cd1d63ddddc6aeaaba8a383bcc2ed55d69755c7e93a",
+        "tests/test_ihp_lvs_reference.py": "9a06995a29a84aa24775ad7aa2b1d6421f90b92606a16b37acecddf3a4ba5e6b",
+        "tests/test_ihp_magic_export.py": "4f0d64a3639e439e3ec66203b157ef6f3f8a223298c9cfa0f0ff2c9aa2e25456",
+        "tests/test_ihp_magic_rc_points.py": "e4326df8ab72add25be3f4583226c02e34c9140354f0f8bf55d17167d04869a0",
+        "tests/test_ihp_magic_warnings.py": "1d5cf7a0721f492913df50ce5a09a603bd967b831317522456bd56d317158cd4",
+        "tests/test_ihp_native_capacitance.py": "d89b7f9aa1d11798c927a2a84c105b0e6415b008405b8c43f559e4a5bc95a91a",
+        "tests/test_ihp_rcx_material.py": "d557993c69c70b8b8a6579c9a31780df12d5253e93e53b7526d686e919c971ca",
+        "tests/test_ihp_rcx_widths.py": "b275a6823052ffe06492ac00ff900034b8a6ac68754cdb395364bde029f83b1b",
+        "tests/test_ihp_transformer_capacitance.py": "18adc85d85118b4cd2141f7d9febf04c36b9d86f3507c2d29a8a0e7696bdda38",
+        "tests/test_ihp_waveform.py": "02670d5c1539783e517e4746104bd54d5424c8d3025c2d1d24b662152b37015d"
+      }
+    }
+  },
+  "scope": "Exact calibration geometry, conserved native imports and actual-width nominal resistance controls; short-wire capacitance accuracy, complete full-RC performance, convergence and production integration remain incomplete.",
+  "previous_checkpoint": {
+    "path": "docs/validation/ihp-width-waveform-progress-2026-10-10.json",
+    "sha256": "fe1d0f15ab5f712a5d650c9fe5d29037ffeef0a58975b507cdc94464ac65eec4"
+  },
+  "fill_width_coverage": [
+    {
+      "schema": 1,
+      "status": "width-coverage-passed",
+      "passed": true,
+      "qualified": false,
+      "fill_widths_nm": {
+        "Metal1": [
+          1000,
+          3500
+        ],
+        "Metal2": [
+          1000,
+          3500
+        ],
+        "Metal3": [
+          1000,
+          3500
+        ],
+        "Metal4": [
+          1000,
+          3500
+        ],
+        "Metal5": [
+          1000,
+          3500
+        ],
+        "TopMetal1": [
+          5000
+        ],
+        "TopMetal2": [
+          5000
+        ]
+      },
+      "missing": [],
+      "scope": "Exact nominal table points for every represented fill width. Does not establish native response, field accuracy, active-fill coverage or timing.",
+      "rules_sha256": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+      "represented_sha256": "7945ae54f6483fff094992e711f2905a4f4bcb7681063174ea4237e251bf3c8e",
+      "case": "counter"
+    },
+    {
+      "schema": 1,
+      "status": "width-coverage-passed",
+      "passed": true,
+      "qualified": false,
+      "fill_widths_nm": {
+        "Metal1": [
+          1000,
+          3500
+        ],
+        "Metal2": [
+          1000,
+          3500
+        ],
+        "Metal3": [
+          1000,
+          3500
+        ],
+        "Metal4": [
+          1000,
+          3500
+        ],
+        "Metal5": [
+          1000,
+          3500
+        ],
+        "TopMetal1": [
+          5000
+        ],
+        "TopMetal2": [
+          5000
+        ]
+      },
+      "missing": [],
+      "scope": "Exact nominal table points for every represented fill width. Does not establish native response, field accuracy, active-fill coverage or timing.",
+      "rules_sha256": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+      "represented_sha256": "9a43fe47f882f1b84107ce53b07ec5eddb94b91139c92b4a3a5f3c236b7a1725",
+      "case": "uart"
+    },
+    {
+      "schema": 1,
+      "status": "width-coverage-passed",
+      "passed": true,
+      "qualified": false,
+      "fill_widths_nm": {
+        "Metal1": [
+          1000,
+          3500
+        ],
+        "Metal2": [
+          1000,
+          3500
+        ],
+        "Metal3": [
+          1000,
+          3500
+        ],
+        "Metal4": [
+          1000,
+          3500
+        ],
+        "Metal5": [
+          1000,
+          3500
+        ],
+        "TopMetal1": [
+          5000
+        ],
+        "TopMetal2": [
+          5000
+        ]
+      },
+      "missing": [],
+      "scope": "Exact nominal table points for every represented fill width. Does not establish native response, field accuracy, active-fill coverage or timing.",
+      "rules_sha256": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+      "represented_sha256": "1c814626cef9ac99b10a3400afe21197077872d43420d33c61e476ba03c26043",
+      "case": "apb"
+    }
+  ],
+  "native_width_controls": {
+    "schema": 1,
+    "status": "native-width-material-controls-passed",
+    "qualified": false,
+    "driver_sha256": "f6be41230ba03e84dc3b90536c4972c027d7867c6d66be279228324d687602a9",
+    "rules_sha256": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+    "material": {
+      "schema": 1,
+      "source_sha256": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+      "extraction_style": "ngspice()",
+      "sheet_ohms": {
+        "Metal1": 0.11,
+        "Metal2": 0.088,
+        "Metal3": 0.088,
+        "Metal4": 0.088,
+        "Metal5": 0.088,
+        "TopMetal1": 0.018,
+        "TopMetal2": 0.011
+      }
+    },
+    "cases": [
+      {
+        "name": "Metal1-160-absent",
+        "layer": "Metal1",
+        "width_nm": 160,
+        "state": "absent",
+        "resistance_ohm": 13.75,
+        "expected_resistance_ohm": 13.75,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.001122592,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "d6cbe38d4f01308d105a5e5da32531659d4760b1a41d6558b5341bbc16dbf9c1",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "d25c654e8d2d00d8f872d69c0b4439996dfe8afe6b8c7593033e386ef2c4fa12",
+          "request.json": "c8b5accf0c544280c716d89d94d99489fc224998d28d2528febda37decbe2178",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "ffcfb4c774b339f53b0c77e930fd9ccab1a5402b51ca026858e2135c07d6e95c",
+          "represented.json": "1736a5550715e38f8e65058753f81a33d2561e207398217077e3a904f15ac4f7",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "98b8ac2fc319d37ce18709e667f063fbe8f466bec444498a528bb14764571d56",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal1-160-near",
+        "layer": "Metal1",
+        "width_nm": 160,
+        "state": "near",
+        "resistance_ohm": 13.75,
+        "expected_resistance_ohm": 13.75,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000794308,
+        "coupling_pf": 0.000766867,
+        "files": {
+          "represented.def": "1d48809b4b1c2da4d9592cf3be5222ab74237d706ae580f5d6604b6b62dae6e2",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "8ef49a77e51a56f8c48f41487207f0381af43edfc5ce9f7e99d22679461896bb",
+          "request.json": "19d47315f646b5c83053d3982efb99b10ac8fb776b916c8c1d2bdf07c5935a0c",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "83bddd9579c6701d760356fb0fdc2d7401a8ff7d0686db73bbd25774eaaa8d0b",
+          "represented.json": "171553fa9416df92bee7e1388415d05161656543c78774224d71dbc8005cbd44",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "3bd3a409d2359b7776389db913e4ed02ae0e40f86ee251718acd960fcdc122d3",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal1-320-absent",
+        "layer": "Metal1",
+        "width_nm": 320,
+        "state": "absent",
+        "resistance_ohm": 6.875,
+        "expected_resistance_ohm": 6.875,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.00125096,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "5f69ebb35578ae9d9c5707060108012d7bd8a7731b80f7f92f82f88b5f9fa677",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "fcdbc490b7cc8493fa097a5493e5310485a8117a2d954b97a6e993e93304c45a",
+          "request.json": "ca4e724b0e268008b1bd542805ede641260c564d74c6282f15ec81026f3291d2",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "edbe6b7d9a1e9ef45f1b924538f3e8ef5d510074b20b87768794043a245f2b9e",
+          "represented.json": "968c44654d1070840b653e3a2bed67442da9c71d24265bc090dd0756fea03c71",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "d2c415ea7deff0cfc64d59303bd6cb7a781c57892efa62b3e5826954ffeb891c",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal1-320-near",
+        "layer": "Metal1",
+        "width_nm": 320,
+        "state": "near",
+        "resistance_ohm": 6.875,
+        "expected_resistance_ohm": 6.875,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000922676,
+        "coupling_pf": 0.000766867,
+        "files": {
+          "represented.def": "f85ead5b1c7e304928b8c3583029408b76c24df70d2828ada18b0ac00bbf67f9",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "eed398bdd7f9f76632ce0eacd9e751ecf9561dcf95da6ccd365a4ca9ffcd52da",
+          "request.json": "f345e124c9f43b26d0b5d96b8b71f18fdd816d88d7a89305b7043d6f962bb4ec",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "e864fbf19de2339de8f0d7989bfcf7ac8cb913b81e436cd1fb10fd89d19f7552",
+          "represented.json": "151c625cb600afe07eb5653a2b854ca6aa128b61f124c833d7200f15f45be18b",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "ee435f3dfb4af04dd6e90cbfe7c348074462ae18dc30747b3e35f9c4a1d99732",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal1-1000-absent",
+        "layer": "Metal1",
+        "width_nm": 1000,
+        "state": "absent",
+        "resistance_ohm": 2.2,
+        "expected_resistance_ohm": 2.2,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.001800412,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "a1690b4f0551c259973009621e1d351306d713b4daa3840417624085d6adb184",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "7227247ba6cee2b975f35b93385d4989466ca7bec538bfab6c4d3e59a48ec162",
+          "request.json": "59d07e58e1557f9f860792d03c4f882f9d0b2f65c63609cde77621c3f9c47799",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "ea3c39f1b25c96dd27855b2a18b25babbc03c0e2f281c44b799e51a4dd8c85b1",
+          "represented.json": "ebd1c6a4075c7c7e79eb92f68ec65619b3bc2bfe125737ef653fbe9cbc53e48b",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "c477291cf236ac9a6823679f71d31d7b8aefec50998cea6cc51cf5286242bc29",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal1-1000-near",
+        "layer": "Metal1",
+        "width_nm": 1000,
+        "state": "near",
+        "resistance_ohm": 2.2,
+        "expected_resistance_ohm": 2.2,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.001472126,
+        "coupling_pf": 0.000766867,
+        "files": {
+          "represented.def": "2644d74fa263f51c004b06ae4642f33b3b10cc54c9804f5405791342dd2a889c",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "45861bda1f25749fa919f43b6490c0b5690b4a1991c7c5e8b4ea0378a843e5d0",
+          "request.json": "b130c801bb8bbdd22fcbe0f5cd8d3bdb33865a7fae33aec6c8d5e7107a8ab7cf",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "8110f2fdd55e5dd211d01432bb5722edcaf394f5648e0c160adfc5a99ceb784d",
+          "represented.json": "63d454813726122deb4a90c7f82363278dbd8ddcd081898930d47cc28669b34f",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "8d9a3c023d796aeb59c052680cd537e61904cd3da327464818bce1816c7b9031",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal1-3500-absent",
+        "layer": "Metal1",
+        "width_nm": 3500,
+        "state": "absent",
+        "resistance_ohm": 0.628571,
+        "expected_resistance_ohm": 0.6285714285714286,
+        "resistance_relative_error": 6.818181818024627e-07,
+        "ground_pf": 0.00388894,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "aab2c0aff1abd2cfbad6a073236f59ac52f32f1c721412bb4530b0fa3a5c656b",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "c56568ec8cf4f9f021dd3ae97ae563e37cb7095b6931535c28487aaee5ee0cb8",
+          "request.json": "660c6ea9ba05760490569b50dc3eb1a48796b4ed8ca23cd93b06375308ad68b8",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "e423855c3a21052a76dc39ebbd4e3a801381107a51430122434e710d3ebce78f",
+          "represented.json": "f98a83c6e0d23d8b385ce11d782b439f94ac07349412b0a71639710e6d008560",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "a93df8754ae1f772473445c9629b6bc372f7cc9215303c24a61dba4576e702fc",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal1-3500-near",
+        "layer": "Metal1",
+        "width_nm": 3500,
+        "state": "near",
+        "resistance_ohm": 0.628571,
+        "expected_resistance_ohm": 0.6285714285714286,
+        "resistance_relative_error": 6.818181818024627e-07,
+        "ground_pf": 0.00356066,
+        "coupling_pf": 0.000766867,
+        "files": {
+          "represented.def": "997f835a4cfbae72d69881bb566caac8f129e373eaf3665043f9aa48aeb46e70",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "14bcbabea6f79cb9c43acd046bd7be4c1f7c7825f0fbefd6ea8db9181fc2fa7f",
+          "request.json": "fb19b51a7ca64f5c23540c06f8f693a9968f50a5ed97c860db63239120c67298",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "fdb17b4f2e4429de2db472249cfec0e8bafe60bce029a8e9b83ce90c35b5f41c",
+          "represented.json": "0e83fb76e3251e1fdd8496ccda6ff679a883e08ec6abf5a1b24e06577812bc53",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "081a65f935c856a40345f1089c06ad34771ab3cef161b870b1c1879054af12fe",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal2-200-absent",
+        "layer": "Metal2",
+        "width_nm": 200,
+        "state": "absent",
+        "resistance_ohm": 8.8,
+        "expected_resistance_ohm": 8.8,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000744028,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "51fc012163a3083ffffca153853f1412156ecdaf528bfb7207f050faf3d8edf7",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "6d5016558b4df593d061ba434bdb278b73a42dd249108e61faebef2fd1b2d5a0",
+          "request.json": "c26c88b8ced522532b466fb820e60ba6f7b942d4f5c24d856b39544c874077c7",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "cf85662cc4f84c6532ac7da8d6faed1b5dcb6ee782031985a9e2e2cd0274a937",
+          "represented.json": "5000f0db25224442fa477dd32245657c5870dceece45c30f196205c582702e8e",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "60771b93ddee9db0b5ac4cda5e492483399b7d0ceabfa105b467e11d76891c17",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal2-200-near",
+        "layer": "Metal2",
+        "width_nm": 200,
+        "state": "near",
+        "resistance_ohm": 8.8,
+        "expected_resistance_ohm": 8.8,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000495056,
+        "coupling_pf": 0.00116872,
+        "files": {
+          "represented.def": "887de3b5d579385397c1af684dc64c571514abf38429532e9ea89636e40a57a1",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "79f6227e13d0069003334e7c6c8ffa1f76d95ce7335d5cf132852bb5a75c9148",
+          "request.json": "8f2142b080bc810f4ec19939011a48b316ef0fb5456a4ce9376946bbca2171cb",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "8176181e467271616b1bbcb3b93c8f95aa8f1aaec17b16f3eb80d51e00f56a1f",
+          "represented.json": "39ef47ecab3bdeb0b08d77c93f9897727735a373b4729e8dd1a2b72729c0b454",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "f71c7db1a37a2500fcbd077fc94f066a00eeb3aba2456f6b0ec9e35d3fedfecf",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal2-400-absent",
+        "layer": "Metal2",
+        "width_nm": 400,
+        "state": "absent",
+        "resistance_ohm": 4.4,
+        "expected_resistance_ohm": 4.4,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000831092,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "7502ca19dd6183d2a16e074bffe1d2ed4df3cffbd570afbf6c99073914576683",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "2499b01f5c4a4b83d130929bda5129799b2480caf69c6341b293c558b873adcf",
+          "request.json": "1ff000671e2e68b34da1222c4e7385d75085ecf3c59fd37f76f6eeb4a1d42b43",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "a3acc04d3fd4a4b74baf1a48cb93e39c144b791f61d7b8026290c3c2f425cddb",
+          "represented.json": "bca26e7baaff327305d42f124b09b9b0d8980f349c152fe5f62561a0bd60937e",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "ae458648b43811797c0b18d931a681dcd92bc17d8642523533210045cbb6cdc2",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal2-400-near",
+        "layer": "Metal2",
+        "width_nm": 400,
+        "state": "near",
+        "resistance_ohm": 4.4,
+        "expected_resistance_ohm": 4.4,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000582122,
+        "coupling_pf": 0.00116872,
+        "files": {
+          "represented.def": "e4835a36873b3b225996d205a449c3c4c6e3db33b760b031611327bf24ab557b",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "6d5fb8b1a6959cddd146e17e3a45e716cb64fc7f949e6a8cb3e0cd1d883988f0",
+          "request.json": "985c2ae5d6a5cc78db538e15125dd435e385bf593c9b6baafa91a360afaa123a",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "843385b32a1ae32939a2141095409d4df64a73d222f6eba30be85cf855d1032e",
+          "represented.json": "eddd03c57774c372bb4d6fb70957e3c14bad8164288808ab8a4a8e957501b526",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "b6445eb3a7ceb0c8ad19e4669dcd4aa9f49acbf8250f515acddf2d76169a241f",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal2-1000-absent",
+        "layer": "Metal2",
+        "width_nm": 1000,
+        "state": "absent",
+        "resistance_ohm": 1.76,
+        "expected_resistance_ohm": 1.76,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.001094104,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "8ef047d3ed765d22dbfac666cfc05b4433af7ad70597e6aee6cb51ae7b905d8d",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "35c1ba78d2a74fb0607ba5a228eeb156235fd2e2d5b47aedda77656a4b120c8c",
+          "request.json": "334b1d6b3a80d539fedd0e9c65355888ce63f9ec0e4bb2f90ddc6711484700de",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "14f8e3cc00f7aa36fe52cc6cba686cdf6ae00033e58f1e7b7b4d6940379a8544",
+          "represented.json": "0a5f8a966234c9d25f33e61c844f32e8969cf713d9055f593f0a1f26e9d03897",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "1139117cf90e592a45e0b2f78849b9bcdc347555e65bdb567979f3b928bac6f1",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal2-1000-near",
+        "layer": "Metal2",
+        "width_nm": 1000,
+        "state": "near",
+        "resistance_ohm": 1.76,
+        "expected_resistance_ohm": 1.76,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000845134,
+        "coupling_pf": 0.00116872,
+        "files": {
+          "represented.def": "dd35e67abf72a337092c3264e0306a272d572600f75e360decd380a1ffb6cda7",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "49fb4ad91fa214e1948eae3b9801bced8e424190954c1fe3a36e60e93b43814d",
+          "request.json": "36a5e9d5b20d820e3300936d0d63b8096e00c1070ff33c3b7b87fc67db5e017d",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "5d54527377bef130aa241adb8922a717944b2f7985f671afee339c61b0924806",
+          "represented.json": "3a36a06c063128d940f0de5ae5fcce74a3ffdecc5a8a0f7c106eac1cf101e5b2",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "b5d36e3769c8737fba73af82bfd6a356f047544c38a697759e3a5f0ee99de144",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal2-3500-absent",
+        "layer": "Metal2",
+        "width_nm": 3500,
+        "state": "absent",
+        "resistance_ohm": 0.502857,
+        "expected_resistance_ohm": 0.5028571428571429,
+        "resistance_relative_error": 2.8409090913061874e-07,
+        "ground_pf": 0.0022251,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "9e6a0cf83d31b2d1143a498849c60906556f76e11751979f869375e748b0cc81",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "24e223fec0efd1fde5cb0a46ec6d22e4b1b5d00c253020d80f3a70ea5e65d01c",
+          "request.json": "7f23e3d01dbdec43d0ac31907fd4a46283f6fbe45a77bce8186a7eea774e64ed",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "b47179693f3e1324d2353b4ebb8be450533437722982809347f780d99c764ccf",
+          "represented.json": "a26f431a52218851187fdce0e9e94761309ff92643f3861d3b875297181af35c",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "a4d8ddddb67fa251149cd473790c0e2f8a64a44446ce60231463d600e4e49462",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal2-3500-near",
+        "layer": "Metal2",
+        "width_nm": 3500,
+        "state": "near",
+        "resistance_ohm": 0.502857,
+        "expected_resistance_ohm": 0.5028571428571429,
+        "resistance_relative_error": 2.8409090913061874e-07,
+        "ground_pf": 0.001976132,
+        "coupling_pf": 0.00116872,
+        "files": {
+          "represented.def": "30009c51d8caab367ffc86272ad305933defc56e9ae6243107047008a8445e88",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "e83645b4e451454d9fcbc3a1606f1637c5337b768511486ddd17a455802caa57",
+          "request.json": "5a6d47d69c8469d79caca8efb49429ce247f7c65f5cdfc021bea5e90fd61fa85",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "36aaa99c45c74228eb8b687208eafce1f32891a68ef04d7f8b502c346cd9425c",
+          "represented.json": "1893d1eabea5a3fdf978ff940bce41c46d2aba2d6f781924398e26b500a863e2",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "e88ba2a8ff89eb612f5490738a46d7875b5397a3a7193ceb61e41f2fa62e10a9",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal3-200-absent",
+        "layer": "Metal3",
+        "width_nm": 200,
+        "state": "absent",
+        "resistance_ohm": 8.8,
+        "expected_resistance_ohm": 8.8,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.00049472,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "da6975e92e11541d0a998467044e12899e517bd3d659a2bd8f15fc6c2583d4b5",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "1ee77ec0d32d583dbc08c8f795930ebe928b77dc63030ad3cf09a0718fe22541",
+          "request.json": "f054f750121e1ff39f28e2b90795008480366dd93a298829d7d2665e67e6271c",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "a1a9a23be49dfdde310b7e26f617826a0d1f5aab9e1c22e61d36de359b3b1d4b",
+          "represented.json": "4c4383c1ed2409982b2eb217b07b81f3e120d4382d62aa56c8f93a13a0daac32",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "63fb73e9cc3cd90962643c3bc5fad5a94780ffdc9320f3a8442cea6e95cafe1e",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal3-200-near",
+        "layer": "Metal3",
+        "width_nm": 200,
+        "state": "near",
+        "resistance_ohm": 8.8,
+        "expected_resistance_ohm": 8.8,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.00032543,
+        "coupling_pf": 0.00111948,
+        "files": {
+          "represented.def": "095ee46ee7060064dc527dfc648cd5ee8e36f06b380fa66e7a4da305ecd94ac9",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "91ac296b035a11e7fa7636054cb10d9338b077d9f4463fefe6a1587f307d1a02",
+          "request.json": "ed1896eeca14ab7808a135a1b9f0e5380ea5b67da40d59484648a3be894d10d6",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "0b56df189b6741fec75ae598c4b060d4be4c26a13ea72248e4c15f25a97fdd63",
+          "represented.json": "e340bee146f167dbe0c4481553b8e715b80d93e8b441d66b9e4f154f3b02c4fa",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "68f46022a720e9599bee8bc373231dcd8bf8109a12c4f4eaa70e102cbf4339fe",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal3-400-absent",
+        "layer": "Metal3",
+        "width_nm": 400,
+        "state": "absent",
+        "resistance_ohm": 4.4,
+        "expected_resistance_ohm": 4.4,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000555624,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "3708f06564bffba8db4404a02d41c7b4f38c056b6989770c0e6292e7f4281311",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "b4ba8ddfe82ce4d76ee1666d3ea0842599ee62ec8ecd7e76678c73a41c9293b1",
+          "request.json": "e4c22476b07e10e80bfda48a2e90715ded6c0705c304cb4ce5d915352abd7180",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "e34b9d4a760321f6fb5676011c3fd9e2a01ec254da95731afe015d0bbfa13b00",
+          "represented.json": "72692cc0832f34b52f865de88507f3135f6d33f7b6332b59e8e0004934df3bdb",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "e92f9ee210152cbd6eaf3df4c924a2de0d18e98ef16f78f4243afdde12af7f76",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal3-400-near",
+        "layer": "Metal3",
+        "width_nm": 400,
+        "state": "near",
+        "resistance_ohm": 4.4,
+        "expected_resistance_ohm": 4.4,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000386332,
+        "coupling_pf": 0.00111947,
+        "files": {
+          "represented.def": "9347584c5f696d8db0b2307f482316d9d3d02cef784cf0a9f21ea740d508fe5f",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "9797ba3b7c080a714f3bf2b018bbacd97bb9e72e348240b94a798856f1114eff",
+          "request.json": "a3e037c1e220b78b8cc32dba2a7c0b8e587328d03e86566910b54bd17ad0857c",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "c986278d0ce06b02aa8736d42a451cd31ff10e802e0f3b14fdd7ec8e39495c81",
+          "represented.json": "45adea5f7d7dbc168e1eb89c8bfbd438f009cee8af83c1df88212b2515c65505",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "3fc35db1c4c164848a62a4c0420169dea138dc2561adcade32319be8d4d3ee77",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal3-1000-absent",
+        "layer": "Metal3",
+        "width_nm": 1000,
+        "state": "absent",
+        "resistance_ohm": 1.76,
+        "expected_resistance_ohm": 1.76,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000739964,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "6c91033d47721ab8f973ab0f0f046a9d5cccaf9a42d33d275b3f39937fa321ae",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "86d557ffed7527c83928bf17bca34d8d8fe014439b53f01e1876e7c9ff72fd4e",
+          "request.json": "460829b9998d4e63bc7ec765d5c8ea83f37ccc36a3d2e9806db4b2c232a4dde7",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "bc8b0477e945541c8b77ac9a3165cc6e7eef4e86b62d5734fff1c05589a54556",
+          "represented.json": "6cba0cfc9f1df33442e878b69174e2c1bb50799458e19f4fa710f101fc892be9",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "f4227afc249c42ccf41d84bd2f6b5119e7131dd4bb8172198dc2f24c8692d272",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal3-1000-near",
+        "layer": "Metal3",
+        "width_nm": 1000,
+        "state": "near",
+        "resistance_ohm": 1.76,
+        "expected_resistance_ohm": 1.76,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000570672,
+        "coupling_pf": 0.00111948,
+        "files": {
+          "represented.def": "707e46537ec42bac90cb0f4af292cc6c6d069a16cc8842fcf9df8f98d10fbb67",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "66f4a37bb28f9528694692e4e5304e3b6dcd87ce8b00cffa3b064b0d68ad2551",
+          "request.json": "13ddfa5dd46d565b5393584b5373aa5c644a2c20d2e60c7a2887cbb9f981bdee",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "ac7e4b07b8287386e11179ee724f3f83ba3a83e294bfc7cf78ae9fc11ceb149a",
+          "represented.json": "5298523048d050dca3b22ce127ead0106c4f0d9cd41e9c614c63fe16f84dec2f",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "26d2dea9fceadbf4839ed40ea29164ce4e58a43e8df30b8de299a01722e11f3d",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal3-3500-absent",
+        "layer": "Metal3",
+        "width_nm": 3500,
+        "state": "absent",
+        "resistance_ohm": 0.502857,
+        "expected_resistance_ohm": 0.5028571428571429,
+        "resistance_relative_error": 2.8409090913061874e-07,
+        "ground_pf": 0.001539672,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "8434bdd4808de8b871dcdce1cc29f35e76c90735213f70c39d2754b06cb22560",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "0d8d775d417772b8abef7aaed722d8d21672d2fcc19ed6f88da90eeae6a5617e",
+          "request.json": "815abb21438add23a6b722fbc69942bb1322d24d4f6a3c5f7f1342b6f6bcdd62",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "e90c4f0aa8a48deaa7745a32b523e8ea55e5657bbd9daa14bd4c6768bfef4986",
+          "represented.json": "6e2d2d02c39198ca1782e460982e99f0dc83ea7d25231a56213c70cdc5dae994",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "36ae79a167eb873828a4c83dd85181d708e8b8bcda409264492aa22b44273532",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal3-3500-near",
+        "layer": "Metal3",
+        "width_nm": 3500,
+        "state": "near",
+        "resistance_ohm": 0.502857,
+        "expected_resistance_ohm": 0.5028571428571429,
+        "resistance_relative_error": 2.8409090913061874e-07,
+        "ground_pf": 0.001370384,
+        "coupling_pf": 0.00111948,
+        "files": {
+          "represented.def": "8deadf7c6ca9219914026e9698fadd0b906512aa7115a5f01f7f70dae8b910bc",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "7ac3207a0426ce4f82e19d05a335e3b077eeb71a054c28a3538fc8e1221cc653",
+          "request.json": "3db0d6916fda4608226af6da874f2cd02223c082246adce1a49c6d13d075e2cb",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "3bb8a2b7fc0ae60ec6952cc8b838358290cd68f6b61edf15990d661b34a81a13",
+          "represented.json": "fe4a47794593f9048bd84be751ee4e0d83267308fa555e1fad8c3a9bbc8fff01",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "9b1c469d58869e9a93f03876a13926022a6c154746bc9b6ce99f99f1da9e5cbb",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal4-200-absent",
+        "layer": "Metal4",
+        "width_nm": 200,
+        "state": "absent",
+        "resistance_ohm": 8.8,
+        "expected_resistance_ohm": 8.8,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000361298,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "6f6f627ba079e20f551621de3617b58cce4de14b63138468ea8057b915e2d11c",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "ef92d23cb7679099ec9cdc86acf002e6e8fc4f9306502f4c254847857b5e7451",
+          "request.json": "9675c1a9fb3dea11ad6d06267f58ce8264d16d16acf10f0875ac600f95667cf8",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "69d12a4da61ba17c8c92812237968f5a05f5dd081b3b67e902260f3a4755c611",
+          "represented.json": "3cae95e53815137da5a16bf1e5333da9a1cebea15c81c608e8071d11328276a2",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "fc38d1cdbf18876991856c0b1f95a661f639d652ef2004b2874e49bae2b1664a",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal4-200-near",
+        "layer": "Metal4",
+        "width_nm": 200,
+        "state": "near",
+        "resistance_ohm": 8.8,
+        "expected_resistance_ohm": 8.8,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000237562,
+        "coupling_pf": 0.00126529,
+        "files": {
+          "represented.def": "4194a54580bb6175408dda102093d8a9a2d2d3b562a55f1eb64cc6bb823e6fff",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "0100874c599d0f94e80ed648235de88b7d065454e4b8a9e3634f708573462270",
+          "request.json": "a9dd1ecb242df97da052273d8b3dc10a785fbc0e475eead643d2a2ca55eb9bae",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "8992490ad8c2345201e7310df159cb6309a6c322be98ec5b62b4f925bdd60468",
+          "represented.json": "5a1958ba6ac8d9a80b4a3b86ac758d20479c848b876889e589a91034a17513ed",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "bc75d26b52711b29dfaa36977c278519fb6dbb889b67d8b2e88a02184524a531",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal4-400-absent",
+        "layer": "Metal4",
+        "width_nm": 400,
+        "state": "absent",
+        "resistance_ohm": 4.4,
+        "expected_resistance_ohm": 4.4,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.00040908,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "e41b07214758b0a5062fc90167a5f565af1319c4b7f5bf8167fd878978f1a47b",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "ba5424b1b98e3db7fd7010f65666a52de7b80f3d13bf21a5cb6ad752dcccb413",
+          "request.json": "7cacde57ecc8a26222b9e5e430fd310564b67702d983f291ae9e3c8cd3228422",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "2f8347530c1c0438a5b94515658943f1cc8b7f75aa95584ad34308deaa8c1311",
+          "represented.json": "2d0fd8ab30d6c02326ae5a9afc024dc655255d4067790ce164f78beb66469690",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "dfec76181f1ff1d116e77f6dc50cec77e64427c4c19076d43e7b6be3904353ac",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal4-400-near",
+        "layer": "Metal4",
+        "width_nm": 400,
+        "state": "near",
+        "resistance_ohm": 4.4,
+        "expected_resistance_ohm": 4.4,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000285344,
+        "coupling_pf": 0.00126529,
+        "files": {
+          "represented.def": "c4f7638c8898f79a32660c5894397442883e635c1ef7c4c3ad538a3213a9f25d",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "85d40e26e197cfd5ef667e89f24924ba31cae94511ac2541b522c5c5bde9c7de",
+          "request.json": "37fb692d75931280ada8ff3674f72e5e0ba0d8797740705853c7b216d70e4d42",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "38d569c412e20bbfbbdcd13c82eddc60b19e999b96de12ca34146ec345c91826",
+          "represented.json": "2861aa872304286bacbc41498dc1064de8a75e11579d04c5a476ddcceffab630",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "d8e81e080dbe86f88446639daddaf02f5342841c8d13d9982cf3b3fcaa013de5",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal4-1000-absent",
+        "layer": "Metal4",
+        "width_nm": 1000,
+        "state": "absent",
+        "resistance_ohm": 1.76,
+        "expected_resistance_ohm": 1.76,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000553944,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "d7066244de843b9dfb1040ab89751ea3e58252fecb217a6d1c6938e038683efb",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "cc56af8426071e307e68e2485da5baec8cb5fa39096aacc9b4824d402d6e720e",
+          "request.json": "67aa32910685c8b7b6306c044f58901fc73118b12c81d5ddc97cae5222dc32f9",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "24b07db34e1e20ab1d92cd96c4776ebc846a2db79932f7cea99762b7a8e0afb3",
+          "represented.json": "7e178425feded9a482291328c702f07eec8998f25e7ec31055f73aacd8e2b163",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "79745afb5eacb430f105a50f614725ecaeac0dc3163ff2fc3de67966abf5645c",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal4-1000-near",
+        "layer": "Metal4",
+        "width_nm": 1000,
+        "state": "near",
+        "resistance_ohm": 1.76,
+        "expected_resistance_ohm": 1.76,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000430208,
+        "coupling_pf": 0.00126529,
+        "files": {
+          "represented.def": "836a405704319408bfe0dc0349d8cc68562bd40492f8648bac42fb6d00839cb0",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "6f1110983f5f37b818085dc0e6085b7449302f2005ac610a0bce23227c695408",
+          "request.json": "4e90405b40701eaff76990da2bdb94b8d27370d99c469791a8208b07b818ece8",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "450619cb62daee0b3c3eb526a9ce7cb20650c91e4cb61c9e3fdaa92b974f9ca4",
+          "represented.json": "52a7aeae364bbf53c6ec017279ec38bdff235355f164b7e66800edb04f4ba8e5",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "4bad0d18600ed740c2fbd1524c5de2d0cac3b6ca335cd2c40dfb96bf04478f5f",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal4-3500-absent",
+        "layer": "Metal4",
+        "width_nm": 3500,
+        "state": "absent",
+        "resistance_ohm": 0.502857,
+        "expected_resistance_ohm": 0.5028571428571429,
+        "resistance_relative_error": 2.8409090913061874e-07,
+        "ground_pf": 0.00118688,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "ee8536a7280e28551ad66f598b906c5cf249a7427db23660aec319954d29c45e",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "b4cbdaef373e043f2e1f9d069b7649c5bdcefad50fe1b5babc0995228ea753a3",
+          "request.json": "077c48d178347ab1407a321d5bf80e49870ae886600511eb886cd5af5189b182",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "a7576332e2c2aee139a4c3af81dac9ff7885ae65dd018a4c9509dd8200a41f3b",
+          "represented.json": "004e7d6ad7b2cdfcda8bc6f1b06fbfe8a0ffa6e318e5e2501ce9908fbd1b48f5",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "9339bad3ae910b58ed72fdb5e1ca6cc0e63f8461b5af09a45a069799565d2877",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal4-3500-near",
+        "layer": "Metal4",
+        "width_nm": 3500,
+        "state": "near",
+        "resistance_ohm": 0.502857,
+        "expected_resistance_ohm": 0.5028571428571429,
+        "resistance_relative_error": 2.8409090913061874e-07,
+        "ground_pf": 0.001063144,
+        "coupling_pf": 0.00126529,
+        "files": {
+          "represented.def": "6511cea547e9a74837538ef464a482c373ae33b55aca9e5362d7e44e76368ea3",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "3c98696f6a3795709f683727fb137492fb7abfd60f87837bef68f7b4d3a5cea8",
+          "request.json": "d6b1b9a70e44638e4a205ff4831f1169ac4f0ed5710e33fe090f69f98244aab8",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "e072ea2d452acfc005dbd068ed205f32f70c6246292d00d6a84d2bbf00a33767",
+          "represented.json": "d4d3aaf108d96737ae540de774d2f9e7eace46d344418a40ea46b8e50c2d3d18",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "2bbf7bda1e7193ec89eb14ba7c36a8f095829c367808f937930dd12399c179a5",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal5-200-absent",
+        "layer": "Metal5",
+        "width_nm": 200,
+        "state": "absent",
+        "resistance_ohm": 8.8,
+        "expected_resistance_ohm": 8.8,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000281668,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "b58efffdd07273b45202f7aa2e7d8ba4717a6843585f0914df01624adff6a901",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "abe065443b7f829f8d034590903a6f84ff87bcf56addf53d20ddd0b4fb25dd5a",
+          "request.json": "851948222e1677ddbe82ea89daf05329590a22d30c55287ac52d8ec97b95f72a",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "ddea3178b7cdf30e2977605b80bd598d0a5dd25625942313022955a3bc4354b2",
+          "represented.json": "82dd6bf7810e53aaa8b794967ffe0d029358441661ddcbfc5357780a195ea9b1",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "59ea9ddf709bb840401b2d3992d863222c7d7b887dc19d2dbff2c0793e2bdb0e",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal5-200-near",
+        "layer": "Metal5",
+        "width_nm": 200,
+        "state": "near",
+        "resistance_ohm": 8.8,
+        "expected_resistance_ohm": 8.8,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.0001857168,
+        "coupling_pf": 0.00127225,
+        "files": {
+          "represented.def": "24ffad01641ba022e38e39412231e15dd57a31a19c9d3a6303001c4a9b8d32df",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "f9e7d9eed495dcedc071c0f66c876980c2324afe140d4d229353a20e46d21e00",
+          "request.json": "b10f9ba3a210a4314ee9eeaab55ea4afef87eb5b2215562293257c46af67240a",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "ed8dde892c313dbbb639170142972ee2ab2b9217f3ca695e9b0f7bc4ef986237",
+          "represented.json": "e08fec551e3e176a695e998f46010b184a98c1f6938297120d239f1a55626925",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "37c0b11910818102b5da393637a92acf4e5117872a58b548c22c673c400bf4d5",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal5-400-absent",
+        "layer": "Metal5",
+        "width_nm": 400,
+        "state": "absent",
+        "resistance_ohm": 4.4,
+        "expected_resistance_ohm": 4.4,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000321562,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "3f9bb5832ac2604203f0dc938c714b8e849b16a6ea28d38d7f289cd27beb8bda",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "11372b78d95db562337353328a88ab0cbf34ce45f159bd9fa97b05621446d485",
+          "request.json": "b1669994853a2e5b69d026c59708d2c811d39538c3b4eb48364f1cdabf3f42b5",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "c44f02dcae265e58bbfd1b1d4574852ebcd385aeac4589dc199ef80942b5ab4b",
+          "represented.json": "c0ffe8578455f0d94c647d0c52974523300532eb6c27ab80dd3b7871dc5830cc",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "82c0f63ce9d30400cb0e0a47d7688d53bc6c2ba139eaa88a8634632da7b95bc3",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal5-400-near",
+        "layer": "Metal5",
+        "width_nm": 400,
+        "state": "near",
+        "resistance_ohm": 4.4,
+        "expected_resistance_ohm": 4.4,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.00022561,
+        "coupling_pf": 0.00127225,
+        "files": {
+          "represented.def": "d448de2597ebc519b05e6e73c0025458061fd400c1a5b0c629da111ff07a29fa",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "9b7085c4bffeafa619156296943b6dc2252846d57e61723ddd0c52f189598f27",
+          "request.json": "848d6f6b0ac62cd7771a8125ff2c255bf4a80909fa82a50e3f79aef256de4764",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "48ff57f9e3767a2164fd75ac4770c0d0ab6399bd54cc2b7f4f491ad2535e95a3",
+          "represented.json": "f5783d49fd403b23ba9582b49ff855b6b4101b1f5f405317c292ee7cec7de70f",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "efc4c369a66b9770e547dc6179f4224ba34bfbe2a54b1dda0c9638c1ca8d11cf",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal5-1000-absent",
+        "layer": "Metal5",
+        "width_nm": 1000,
+        "state": "absent",
+        "resistance_ohm": 1.76,
+        "expected_resistance_ohm": 1.76,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000442672,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "6d6ee522c8b4a8a2ac3f6e2b7a2b27e87f6d0b800b1bcddb5527119bc1a9dcaa",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "4b3106e939808c607b786ad9e61fb2b4c701b3ca709fe6d913bf5ff3bc90622e",
+          "request.json": "881abd692c45dd7be2e80a05ba97471dc961b71ac130228c36c092e96b8d4497",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "1190c0f5c5aa8d61c04e3ddfab0f38558b5f4cbab4fa8cef6ec760931899700d",
+          "represented.json": "61dd046cef51a2a7d4572d575ba8fb48ffda28d82571921aa5d37f8dced0cb85",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "d2543a87f06fde6077375ef808ccda74fa9550117037fb61ba15c084c7bb3a34",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal5-1000-near",
+        "layer": "Metal5",
+        "width_nm": 1000,
+        "state": "near",
+        "resistance_ohm": 1.76,
+        "expected_resistance_ohm": 1.76,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000346722,
+        "coupling_pf": 0.00127225,
+        "files": {
+          "represented.def": "320be524011c53250a88ec8473e561308459609ed30f723185b362b39ba384b2",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "8eff19bd1b4d2242be792dcce7c95458629be8b1ef1c7605dbc8d2c62600f964",
+          "request.json": "2524b9e214e81b09f2d4c6147cb4f0ee8c132289f35caac2bf1d3ceaa8cb3669",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "5c5a1935e77d3d257ac87c557bfc7f78cb412337ec77ceecb06ae924c1f55b88",
+          "represented.json": "b51d77df40f5c052e28c1e3eebeb236720575f4a34ffabf41a9b29fa9b6da5a8",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "409fac58d495b8e4f7350a56b8718c84190ac1f90a7505bc85cc63de1c86248e",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal5-3500-absent",
+        "layer": "Metal5",
+        "width_nm": 3500,
+        "state": "absent",
+        "resistance_ohm": 0.502857,
+        "expected_resistance_ohm": 0.5028571428571429,
+        "resistance_relative_error": 2.8409090913061874e-07,
+        "ground_pf": 0.000975084,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "dccd2b222b10567b986a0772b5e88cdfeeee86d6d12ef9ae197e1a28f568cfd8",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "5954d96d5e71c1a9ba597e6ef2c9457614f035a0f9683d1f8cd5a71921dd614f",
+          "request.json": "bb7309f23a77d40e311c81c6750e585e38c6c57581b9e34e5bbe54aa0c690e37",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "dbe9f666c669fc69d7f722eec4b2d1018c2e58a8083f29048b0a4a6f8ad69c9c",
+          "represented.json": "6d902b8affaf416c220ff2a4b8f443852db6c39335f7f980d0d066c25d36d8a7",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "9cbc5bd9be105c7e2374fc034d55b821cd03a40f0aae732c36450ca25a47d191",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "Metal5-3500-near",
+        "layer": "Metal5",
+        "width_nm": 3500,
+        "state": "near",
+        "resistance_ohm": 0.502857,
+        "expected_resistance_ohm": 0.5028571428571429,
+        "resistance_relative_error": 2.8409090913061874e-07,
+        "ground_pf": 0.000879134,
+        "coupling_pf": 0.00127225,
+        "files": {
+          "represented.def": "7c371ce669e5a7d27463a98297a0eca0e0a3d2fe9a2794636ba58cfbe59f814d",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "9150c4557d63bafa4109eb18ffb1476121562ab0f5fe61d50ced9171e5dbb204",
+          "request.json": "ca6e12743e014c724a234eeeb253af70c58a65ae737eb20c663c0a433169df71",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "279b197f49984460cbdb9e6f996684d1be6bacc1a6237f75123a37974107d2a7",
+          "represented.json": "0bf8b23a4d671ce3325b8a5c47f365fc81205558379c13edd242cc0700218b0d",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "41736e7514e2ff91a77a591eab071a1aea94425c887fb86ac65b19de3aea69da",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal1-1640-absent",
+        "layer": "TopMetal1",
+        "width_nm": 1640,
+        "state": "absent",
+        "resistance_ohm": 0.219512,
+        "expected_resistance_ohm": 0.21951219512195122,
+        "resistance_relative_error": 8.888888888280988e-07,
+        "ground_pf": 0.001695712,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "79be6841cd8b7c52b085ee5f07f01ea99c47e59a28e69e06f6edabd830112931",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "7b227b8bf975e47f4d43fb5999c164723356f7d25977427654b766c21ddde3ad",
+          "request.json": "61a3f06d5688dc10273313ce43b8dd95a2bb3cbf834fe19390c4689b136bbcbc",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "7391f0e10c3362ed7b6c324ec14f0c4c070eaef71ab0ee80ea601632382ebafe",
+          "represented.json": "c207545e5c38a220415341ad3f403b23472b8ff61f8c93de27ed5a1154c9c9bf",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "cd4282365c611168b687dbfa14ce4da3c29b67fff3d52aacc080714ec724b002",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal1-1640-near",
+        "layer": "TopMetal1",
+        "width_nm": 1640,
+        "state": "near",
+        "resistance_ohm": 0.219512,
+        "expected_resistance_ohm": 0.21951219512195122,
+        "resistance_relative_error": 8.888888888280988e-07,
+        "ground_pf": 0.001035252,
+        "coupling_pf": 0.00081905,
+        "files": {
+          "represented.def": "2d4889ebf81747aee66bc16709abd08524dcea1e3f047e670c3fb4634bc1bbc4",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "c59b6463f2544a217cb055fa8806adcfead5f3e7115f587f75bc2d4783098e82",
+          "request.json": "9b1edcca560b796fed4c96798d8268937eaf7f16baa2dfcc524518d96055f3c0",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "b88fc2481cf5e82b0101c576e99e598a55d7ac36c9898d49cc27f3d8cd880699",
+          "represented.json": "b5466152076496aff02cf3407a7125e99bf8f12299d99336f6a83ab18580e2c9",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "9948badc39b88337001765125d706afd787f05127d818c937996b8ebdda32f06",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal1-3280-absent",
+        "layer": "TopMetal1",
+        "width_nm": 3280,
+        "state": "absent",
+        "resistance_ohm": 0.109756,
+        "expected_resistance_ohm": 0.10975609756097561,
+        "resistance_relative_error": 8.888888888280988e-07,
+        "ground_pf": 0.001896416,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "9f4e546a04bbd0e78b8dab1687f28287557476da4df20677010f4d7177e261e2",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "6592a4473c5a50d9bbfc6d86d675580a9f8665cc844dcde56c493b38dea27c83",
+          "request.json": "58b4fc381c0935b0587f15db758c6d3ca2fbb8a42760f3691e0b7c0801099fd2",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "dc5337d5d6d44d0d93107928e713137cc06fa569c9c73c1a458f9c95ccffbc95",
+          "represented.json": "d42ce58a4a62c9fdbd0aeb20f7d03c0e1da6196779a3609aa7512a4562e12ec4",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "fca5ac22b69a071e263d4a3fabbb6ddb64da03ef6b7f74fd79c3523b30d8c472",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal1-3280-near",
+        "layer": "TopMetal1",
+        "width_nm": 3280,
+        "state": "near",
+        "resistance_ohm": 0.109756,
+        "expected_resistance_ohm": 0.10975609756097561,
+        "resistance_relative_error": 8.888888888280988e-07,
+        "ground_pf": 0.001235954,
+        "coupling_pf": 0.00081905,
+        "files": {
+          "represented.def": "5b01891ede332bdea0e511dc12a956fa516c71a91250c934e311bbeb1c48602c",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "49c86d85cfc400f7ebe613528d86c9e64623fcd10ef763048ab75d3b1004a9e6",
+          "request.json": "fb7f0c6d0961a340a7f10516bf1236bc345a6579f54be6152bf70f190b9f20f7",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "a0b36c9a06c05cd1a1078449e1adf023e6582aa8958c3cd655213a9584bc2140",
+          "represented.json": "953b020169461ef8ed99a3747ec2ca8f355b9ed51aff6c23342c1d321e801c67",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "f9712f8ab92de787bcb691099425ef85bfc15cd8a7a643a3cb8759b26c21b60f",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal1-5000-absent",
+        "layer": "TopMetal1",
+        "width_nm": 5000,
+        "state": "absent",
+        "resistance_ohm": 0.072,
+        "expected_resistance_ohm": 0.072,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.00210724,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "fc4936ae4fe6fe50ac9647bcf6fe3808909df0df162a8853b9a7242d239f9cc5",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "834a13eb435f65a80123c75837b21dc69ae974cbf8cb67bd703bff6b16b71c07",
+          "request.json": "503c3bea8b9991761f625efdb9876c3d917dc34e8625dc2e1f762191037a81d4",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "a4604cca75ea3dd07ce974120f311479690b6dbce321e2da381a91f291b963b0",
+          "represented.json": "a883efb70dc6df81b3aa4dec5bacdb93de028f4a51a1546a19d599693461c29b",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "b46962fa5c0463f9d5ccce75d0e1b420f538b8bc038964513a811b0e00f978b7",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal1-5000-near",
+        "layer": "TopMetal1",
+        "width_nm": 5000,
+        "state": "near",
+        "resistance_ohm": 0.072,
+        "expected_resistance_ohm": 0.072,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.001446784,
+        "coupling_pf": 0.00081905,
+        "files": {
+          "represented.def": "4031d5972636451198817362847ca8c7908a7ac06f4317440624a838f2805789",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "f54d857bc8267ab41a3aeb01bb1620045b91fd2df508938ec03b5ba225e6dbd1",
+          "request.json": "125fdfbf8728cefd9abb7b6191b5529c65601a842cef3bfbb2c6e41ffa393adb",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "96f8a4211981199ceee0f78ca02fdc9d579d019a9dc52ce46816ef39bb89306f",
+          "represented.json": "273273b590be42b4e89812d7c5754c41a9204d5b213de3469778e48a62eec257",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "06e6c4c857765f45e05ddc085791e633cd656d61e444b2187d540a3ba77c1b3f",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal2-2000-absent",
+        "layer": "TopMetal2",
+        "width_nm": 2000,
+        "state": "absent",
+        "resistance_ohm": 0.11,
+        "expected_resistance_ohm": 0.11,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.00138892,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "def7c1e611c9a1b7f1fb4934ae3552884839bea029dbe6114756dc4003b14b00",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "f9314ba836da6409af7cc25a1ab7cb587cf30b3d29bc7af2caa7064ddbc70ffe",
+          "request.json": "0d40a72f8abd7dfa30780c92c40be4f78558402485597041569f8eaa72a1027b",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "434b7d5ba5de31cb595165c001cd919b0edcb6afcba5e3d3954b1bcf89a91fee",
+          "represented.json": "252dfe4d20032c7c513d308ce193e661503dae8959181f01054d4dbb28fb129a",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "12a14eb0b3a3b054a01727cccb8c5831387fa57aa01d9c57f0411502e25815de",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal2-2000-near",
+        "layer": "TopMetal2",
+        "width_nm": 2000,
+        "state": "near",
+        "resistance_ohm": 0.11,
+        "expected_resistance_ohm": 0.11,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000816464,
+        "coupling_pf": 0.000584378,
+        "files": {
+          "represented.def": "41b49948de0e737232c6005e323cf6a8a231e0896bc0253a48a48ae2abadf1fd",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "58e6b6cd7d8332b6b85c1ef91a629cb13f8a4cb262faa87d470157955e0873f2",
+          "request.json": "9e0d33fad669136f1c3ccded84df0d90e41a169f51b12c5d8d401e369b37f818",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "a2db98fc83e821a81dcedfb4bff47dd356f4847a9b69582a821fa108a4a0fc8b",
+          "represented.json": "9fcbb997a2370a9e9386a99e23cad42f06529e0c0e76c6eecab0aebed182b569",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "595855ebd5712d553cf3fbe2b1c7ebb9e896133a75bac04c4930d350df06e078",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal2-4000-absent",
+        "layer": "TopMetal2",
+        "width_nm": 4000,
+        "state": "absent",
+        "resistance_ohm": 0.055,
+        "expected_resistance_ohm": 0.055,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.001531092,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "968c1c2551299ce1aea02355c3512e66dc113633e675dead9e84e5c558c91915",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "5ff1eaa15a7fa6bee7d787889760239cea1f7746ab7d6af69349125e54902ec0",
+          "request.json": "1cbc6fe18230f10d9cf657cb9778401b5ec5b0c6db6896c45371a885518594d0",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "6777d392d6943f9ccbccf6ea51cdedeebf2733872e6260964b9bfee5928f40bb",
+          "represented.json": "67884d26d199b1b56eabfef45d6e239af9500d97e391b91ff1aa5b902c459459",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "d7899dcc9dffb9b87f132e287604f8b31d89ac2a5d25e99bfd4967f36eec499a",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal2-4000-near",
+        "layer": "TopMetal2",
+        "width_nm": 4000,
+        "state": "near",
+        "resistance_ohm": 0.055,
+        "expected_resistance_ohm": 0.055,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.000958636,
+        "coupling_pf": 0.000584378,
+        "files": {
+          "represented.def": "c2b1ddfcf41b787a42203adf31536a5f8f985141b40bc3c0fe82e94378632e3e",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "1f1c4bc0659f68d5efae154db1e7f9bcafe61c2486cea9931fa6deec147bae26",
+          "request.json": "b10765529d6720889bb6570cb52e20916fcc8ed4db6ed999362fc0b7fdcddd13",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "981178f57694260b12303646c5b4cf274f09184f29247ad4c3f422f4a217c642",
+          "represented.json": "097632d3cd3dcd2d72162ab128d8394ffc5c22f4408a8f899cc1e91db4772545",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "5eb2a89dcda8a78045e6c50c0c3351c5516dfd2498b262e10e682515a2a6bf51",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal2-5000-absent",
+        "layer": "TopMetal2",
+        "width_nm": 5000,
+        "state": "absent",
+        "resistance_ohm": 0.044,
+        "expected_resistance_ohm": 0.044,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.001602276,
+        "coupling_pf": 0.0,
+        "files": {
+          "represented.def": "d447322e210f6bd554ffc956597b69c74151064cbba68a9ccb1e33367a18d1f7",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "22502b3062f3e4e3579e6418aff421ec0b56e102e423f3cd0644b501b8728823",
+          "request.json": "552ca8e8844ab3dde7784a441ffddb8c4c4aa55b1963f038ff304ccc2d60dc56",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "dd7129cfbd6d0b727d1ed1924a421fc91759f287f9155fecd375057184a3d855",
+          "represented.json": "b8141259af378bed332a8a123cafffa88e285622adc7edfe87528dedcd44f9f5",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "32a75dabfa0e7a5c9eb77403afc59aff11eee6f386e946d4cc3637994de8eea4",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      },
+      {
+        "name": "TopMetal2-5000-near",
+        "layer": "TopMetal2",
+        "width_nm": 5000,
+        "state": "near",
+        "resistance_ohm": 0.044,
+        "expected_resistance_ohm": 0.044,
+        "resistance_relative_error": 0.0,
+        "ground_pf": 0.001029822,
+        "coupling_pf": 0.000584378,
+        "files": {
+          "represented.def": "bcb75c1ed3d65da07673787d6608d7e527ada54ffd464fdd3188d4857077669d",
+          "rules": "cf7a285a2033f02dae23916452e053833a9c4f6095ef0facd7f534510b1ea51a",
+          "parasitics.spef": "5fd69666de3ce225cf52d814c6ae5af4ad01b1e6596983ebce0f72906dd11e6f",
+          "request.json": "1a288df7c53c5ed71ce1cb54101be20c002a40dec34031489e98ca65322df266",
+          "material-binding.json": "c25d7b6cc7f7fc51ff1675924172c4ad1384642d6dbf5beb76198c83bfa1741b",
+          "engine.log": "7b59f5af0e01c4f8702031eda3425190940f9136363d39141137c3029ac5095f",
+          "represented.json": "392677c83b6e59b44c82e926a5f35bde3ef93ee7473bbe9ca23c47a890d56a43",
+          "material.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+          "represented.odb": "ab0ec71e58024f1f30b42d964844922ab33d46ac23adf49adf4691faf40514eb",
+          "before.def": "a909b427c4e7804c5e21d96ee5a8f0b2adf7c55c96095a86d8f746039d27ffa4",
+          "worker.py": "145779cc7bb77bc99118627f14c58bdda96cb8c6bb7d91b63d33f9af643bc92a",
+          "ihp_rcx_material.py": "595c5802ce49dce5ae9c2d1aa0a42c1d2112aba6d512dccb71313d4537c9d1d2",
+          "original.odb": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2"
+        }
+      }
+    ],
+    "absolute_resistance_relative_tolerance": 1e-05,
+    "scope": "Native same-length width and nearby-fill response using explicit nominal sheet values; not independent field-model calibration.",
+    "fill_width_coverage": {
+      "schema": 1,
+      "status": "width-coverage-passed",
+      "passed": true,
+      "qualified": false,
+      "fill_widths_nm": {
+        "Metal1": [
+          1000,
+          3500
+        ],
+        "Metal2": [
+          1000,
+          3500
+        ],
+        "Metal3": [
+          1000,
+          3500
+        ],
+        "Metal4": [
+          1000,
+          3500
+        ],
+        "Metal5": [
+          1000,
+          3500
+        ],
+        "TopMetal1": [
+          5000
+        ],
+        "TopMetal2": [
+          5000
+        ]
+      },
+      "missing": [],
+      "scope": "Exact nominal table points for every represented fill width. Does not establish native response, field accuracy, active-fill coverage or timing."
+    },
+    "comparisons": [
+      {
+        "layer": "Metal1",
+        "widths_nm": [
+          160,
+          320
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal1",
+        "widths_nm": [
+          320,
+          1000
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal1",
+        "widths_nm": [
+          1000,
+          3500
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal2",
+        "widths_nm": [
+          200,
+          400
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal2",
+        "widths_nm": [
+          400,
+          1000
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal2",
+        "widths_nm": [
+          1000,
+          3500
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal3",
+        "widths_nm": [
+          200,
+          400
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal3",
+        "widths_nm": [
+          400,
+          1000
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal3",
+        "widths_nm": [
+          1000,
+          3500
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal4",
+        "widths_nm": [
+          200,
+          400
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal4",
+        "widths_nm": [
+          400,
+          1000
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal4",
+        "widths_nm": [
+          1000,
+          3500
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal5",
+        "widths_nm": [
+          200,
+          400
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal5",
+        "widths_nm": [
+          400,
+          1000
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "Metal5",
+        "widths_nm": [
+          1000,
+          3500
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "TopMetal1",
+        "widths_nm": [
+          1640,
+          3280
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "TopMetal1",
+        "widths_nm": [
+          3280,
+          5000
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "TopMetal2",
+        "widths_nm": [
+          2000,
+          4000
+        ],
+        "ground_capacitance_increased": true
+      },
+      {
+        "layer": "TopMetal2",
+        "widths_nm": [
+          4000,
+          5000
+        ],
+        "ground_capacitance_increased": true
+      }
+    ]
+  },
+  "geometry_and_value_audits": {
+    "ihp-isolated-calibration-v2": {
+      "geometry-audit": {
+        "schema": 1,
+        "passed": true,
+        "qualified": false,
+        "checked_nets": 119897,
+        "implicit_substrate": null,
+        "failed_nets": 0,
+        "failures": [],
+        "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy.",
+        "native_ext_sha256": "e19e4f784c36332b3ae69409b6d77f96a48bae19d403229b3db128e37068805c",
+        "wire_geometry_sha256": "e1e99d4cf1086dd848dddd462fe060bc94a54ce1bd19d672cd4ca1837a3c93e9"
+      },
+      "value-audit": {
+        "schema": 1,
+        "passed": true,
+        "qualified": false,
+        "checks": [
+          {
+            "kind": "ground",
+            "passed": true,
+            "expected_entries": 119897,
+            "actual_entries": 119897,
+            "failed_entries": 0,
+            "maximum_error_ff": 4.7607422004602995e-07,
+            "maximum_relative_error": 5.812359640383185e-08,
+            "failures": []
+          },
+          {
+            "kind": "coupling",
+            "passed": true,
+            "expected_entries": 713220,
+            "actual_entries": 713220,
+            "failed_entries": 0,
+            "maximum_error_ff": 4.559326178821266e-07,
+            "maximum_relative_error": 5.9204732024973324e-08,
+            "failures": []
+          },
+          {
+            "kind": "resistance",
+            "passed": true,
+            "expected_entries": 119897,
+            "actual_entries": 119897,
+            "failed_entries": 0,
+            "maximum_error_ff": 1.3732910133512632e-06,
+            "maximum_relative_error": 4.968824503495642e-08,
+            "failures": []
+          }
+        ],
+        "source_sha256": {
+          "blk.ext": "e19e4f784c36332b3ae69409b6d77f96a48bae19d403229b3db128e37068805c",
+          "patterns.spef": "517531987ae0e3724f952338ee54020f21569fcaa3f9df248b30541769a975e1",
+          "patterns.def": "377b28d1c9750adb0b0752ce6f68c5067876e8316ef8701fc57105a9880ae78f",
+          "calibration.lef": "f0153515225655c05bbd0137ccf6b7e81622726866dc954fcc36fe73cf58b29d"
+        },
+        "scope": "All imported capacitors and wire resistors must conserve raw native capacitances and sheet-based rectangle resistances within 1e-6 relative plus 1e-9 absolute (fF or ohms), allowing native float32 storage."
+      }
+    },
+    "ihp-dense-calibration-v3": {
+      "geometry-audit": {
+        "schema": 1,
+        "passed": true,
+        "qualified": false,
+        "checked_nets": 355710,
+        "implicit_substrate": null,
+        "failed_nets": 0,
+        "failures": [],
+        "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy.",
+        "native_ext_sha256": "f392cf7c5363647ec2c6e6560e013b02c2b175fb4c68de7546a6b65a368ebbf9",
+        "wire_geometry_sha256": "128926d351a2a6940e276c9caa1c0bf9d884bfce227dff0812e6ecf419b5430d"
+      },
+      "value-audit": {
+        "schema": 1,
+        "passed": true,
+        "qualified": false,
+        "checks": [
+          {
+            "kind": "ground",
+            "passed": true,
+            "expected_entries": 355710,
+            "actual_entries": 355710,
+            "failed_entries": 0,
+            "maximum_error_ff": 8.300781253467449e-07,
+            "maximum_relative_error": 5.871260042711782e-08,
+            "failures": []
+          },
+          {
+            "kind": "coupling",
+            "passed": true,
+            "expected_entries": 2223537,
+            "actual_entries": 2223537,
+            "failed_entries": 0,
+            "maximum_error_ff": 1.855468745759481e-06,
+            "maximum_relative_error": 5.940780406413902e-08,
+            "failures": []
+          },
+          {
+            "kind": "resistance",
+            "passed": true,
+            "expected_entries": 355710,
+            "actual_entries": 355710,
+            "failed_entries": 0,
+            "maximum_error_ff": 7.470703110357135e-06,
+            "maximum_relative_error": 5.609419282240339e-08,
+            "failures": []
+          }
+        ],
+        "source_sha256": {
+          "blk.ext": "f392cf7c5363647ec2c6e6560e013b02c2b175fb4c68de7546a6b65a368ebbf9",
+          "patterns.spef": "956849157eebafeadb0a1bc6fe9919afaf34d7528f629ba945b3803e282a3719",
+          "patterns.def": "544d3abe1624de3631e892b4d9249ea36b75283cf60ada55ca9aff0555aeb42a",
+          "calibration.lef": "ef4b56677f8a4f3b0bd4a1fab04657744868f86fa6229abdfc0156ac2b1b56c1"
+        },
+        "scope": "All imported capacitors and wire resistors must conserve raw native capacitances and sheet-based rectangle resistances within 1e-6 relative plus 1e-9 absolute (fF or ohms), allowing native float32 storage."
+      }
+    }
+  },
+  "short_wire_consistency": {
+    "schema": 1,
+    "status": "reference-consistency-failed",
+    "qualified": false,
+    "driver_sha256": "006090e8f53f369699a951abe893684a649a5df2b90b7389364073ea670b2d23",
+    "source_record_sha256": "d7cf32e7cfd896330b89fa72f5244d2aabce6d2eb9a61993b9eb187f014674de",
+    "capacitance_relative_tolerance": 0.05,
+    "cases": [
+      {
+        "name": "Metal1-160-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0017081199999999998,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.00171144,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.0019436573542843671,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "1567100ac32540d1b4bbb5ee78201dc947841eff6d7d97cc0c67110a89203f67"
+      },
+      {
+        "name": "Metal1-160-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00108617,
+          "coupling_pf": 0.000638556
+        },
+        "rcx": {
+          "ground_pf": 0.001089984,
+          "coupling_pf": 0.000642139
+        },
+        "relative_errors": {
+          "ground_pf": 0.00351142086413736,
+          "coupling_pf": 0.005611097538821941
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "f6b917bb0adad191cbf79bbdbe6a93cebcc8cc120be8a1edb2abcf53626cb8f5"
+      },
+      {
+        "name": "Metal1-320-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00183283,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001839808,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.0038072270750697523,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "57dc1efb15d48b8ff7be85b2afedb36c5ef48111908c9371b2445d03dbc47b46"
+      },
+      {
+        "name": "Metal1-320-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0012108800000000001,
+          "coupling_pf": 0.000638556
+        },
+        "rcx": {
+          "ground_pf": 0.001218352,
+          "coupling_pf": 0.000642139
+        },
+        "relative_errors": {
+          "ground_pf": 0.006170718816067566,
+          "coupling_pf": 0.005611097538821941
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "85a7096b68c4731c6f82d37c431709e0576889a9f444168451aabb5619ca4a86"
+      },
+      {
+        "name": "Metal2-200-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0014785599999999999,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001478696,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 9.19813872959363e-05,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "8e42952e83d9837503dc27f5c0888f12398f10f2dbb4eab720366b092b4df1af"
+      },
+      {
+        "name": "Metal2-200-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0008622749999999999,
+          "coupling_pf": 0.000871936
+        },
+        "rcx": {
+          "ground_pf": 0.000862098,
+          "coupling_pf": 0.000884188
+        },
+        "relative_errors": {
+          "ground_pf": 0.00020527094024513914,
+          "coupling_pf": 0.014051490017616075
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "8fb36220e678d7b3f24a12bc285e1abd7fc109103a123819092e84ccff831abb"
+      },
+      {
+        "name": "Metal2-400-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0015651999999999999,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001565764,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.00036033733708173976,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "1a88c9799f294c3a4551655311d47f7e1d2f368f0077ad182c65c50f475de73b"
+      },
+      {
+        "name": "Metal2-400-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0009489139999999999,
+          "coupling_pf": 0.000871936
+        },
+        "rcx": {
+          "ground_pf": 0.000949166,
+          "coupling_pf": 0.000884187
+        },
+        "relative_errors": {
+          "ground_pf": 0.00026556674261324353,
+          "coupling_pf": 0.014050343144450972
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "8907d34d45019f9e4309b83716f1d3000fe2bed6c2e6a32162278ac6fdc0a3bc"
+      },
+      {
+        "name": "Metal3-200-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0013145999999999998,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001314728,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 9.736802069082451e-05,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "0775953365e3095fc035310e99b0dc31f0f75cf7ffb742ae217cada2420052e2"
+      },
+      {
+        "name": "Metal3-200-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.000735206,
+          "coupling_pf": 0.000819109
+        },
+        "rcx": {
+          "ground_pf": 0.00073515,
+          "coupling_pf": 0.00083108
+        },
+        "relative_errors": {
+          "ground_pf": 7.616912810837206e-05,
+          "coupling_pf": 0.014614660564100657
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "71f151845a27023db4197770e09283723809918b55dfd6f322f2141214b10f1f"
+      },
+      {
+        "name": "Metal3-400-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00137511,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001375624,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.0003737882787560043,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "0c612056f01bb4629094c8770b558532e05b500287ba8399ea97db277a399bee"
+      },
+      {
+        "name": "Metal3-400-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0007957229999999999,
+          "coupling_pf": 0.000819109
+        },
+        "rcx": {
+          "ground_pf": 0.00079605,
+          "coupling_pf": 0.000831082
+        },
+        "relative_errors": {
+          "ground_pf": 0.00041094702553534646,
+          "coupling_pf": 0.01461710224158197
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "ddd01a068e01658b5915de8f85ab83cab432d9e407dc6d6a3648a93b97f0c3d1"
+      },
+      {
+        "name": "Metal4-200-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00121075,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.00121086,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 9.0852777204109e-05,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "7e0deffc5e75da443d8aa7372f8eb0ca12bfb52a94b3ebbea40f2460ec28877f"
+      },
+      {
+        "name": "Metal4-200-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0006621299999999999,
+          "coupling_pf": 0.00099052
+        },
+        "rcx": {
+          "ground_pf": 0.00066212,
+          "coupling_pf": 0.00100296
+        },
+        "relative_errors": {
+          "ground_pf": 1.5102774379549544e-05,
+          "coupling_pf": 0.012559059887735868
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "787e7539da7ad3d46d028738003f13efa202ff20e2a31caf8d58d438a599a690"
+      },
+      {
+        "name": "Metal4-400-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00125817,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001258644,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.0003767376427668001,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "9f6830d0e4f0afebd1e052641011647d836bdd9e7f0de60dc52183520478aaf7"
+      },
+      {
+        "name": "Metal4-400-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.000709555,
+          "coupling_pf": 0.00099052
+        },
+        "rcx": {
+          "ground_pf": 0.000709902,
+          "coupling_pf": 0.00100296
+        },
+        "relative_errors": {
+          "ground_pf": 0.0004890389046656729,
+          "coupling_pf": 0.012559059887735868
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "7ac48b06ae35eb1d670ce61311c56a29d6a050f85b08ea9a6ae37700cdea55be"
+      },
+      {
+        "name": "Metal5-200-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0011406300000000001,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001140748,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.00010345160130786901,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "113af937c2ae0de1c7c6da02b31aedd5a71d6f0af4a0d53f4f0f7432fbd02be0"
+      },
+      {
+        "name": "Metal5-200-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.000615062,
+          "coupling_pf": 0.00102171
+        },
+        "rcx": {
+          "ground_pf": 0.000615078,
+          "coupling_pf": 0.00103367
+        },
+        "relative_errors": {
+          "ground_pf": 2.601363764953568e-05,
+          "coupling_pf": 0.011705865656595371
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "85c33b825fc592a6ece36c2440cc7a762f04404bf6d120b7293c44c8419900d0"
+      },
+      {
+        "name": "Metal5-400-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00118019,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001180644,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.00038468382209644325,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "c71d39ae1b6e5d47b96fa1135dbf67ba4b68f9f40f6504770687f0d8a1f51364"
+      },
+      {
+        "name": "Metal5-400-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0006546169999999999,
+          "coupling_pf": 0.00102171
+        },
+        "rcx": {
+          "ground_pf": 0.000654974,
+          "coupling_pf": 0.00103367
+        },
+        "relative_errors": {
+          "ground_pf": 0.0005453570561109178,
+          "coupling_pf": 0.011705865656595371
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "c8e35550425cd5f0e1d0ef199e93c686393206b33433f644c62639384fa4f937"
+      },
+      {
+        "name": "TopMetal1-1640-absent",
+        "passed": false,
+        "native": {
+          "ground_pf": 0.00180322,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001695712,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.0596200130876986,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "586da122498405bee5bb91db4f2f1753bd2f8d8adb7c05adb902af30b42188f6"
+      },
+      {
+        "name": "TopMetal1-1640-near",
+        "passed": false,
+        "native": {
+          "ground_pf": 0.00108242,
+          "coupling_pf": 0.0019306199999999999
+        },
+        "rcx": {
+          "ground_pf": 0.000974954,
+          "coupling_pf": 0.001956
+        },
+        "relative_errors": {
+          "ground_pf": 0.09928308789564122,
+          "coupling_pf": 0.013146035988438998
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "08aa35d2fbd61224bccb23367cc13ee6a22b649884da1491edd6d559e6c91ea7"
+      },
+      {
+        "name": "TopMetal1-3280-absent",
+        "passed": false,
+        "native": {
+          "ground_pf": 0.00211113,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001896416,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.10170572158038593,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "489a0dd943a752e37601ab9b154136a955488690ee59995ae883be9f654b7f61"
+      },
+      {
+        "name": "TopMetal1-3280-near",
+        "passed": false,
+        "native": {
+          "ground_pf": 0.00139033,
+          "coupling_pf": 0.0019306199999999999
+        },
+        "rcx": {
+          "ground_pf": 0.001175656,
+          "coupling_pf": 0.001956
+        },
+        "relative_errors": {
+          "ground_pf": 0.15440506930009423,
+          "coupling_pf": 0.013146035988438998
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "004855147a2d048d64ef4a92bab2fb2d681c0359ae3b51de7e50ffa4246beb40"
+      },
+      {
+        "name": "TopMetal2-2000-absent",
+        "passed": false,
+        "native": {
+          "ground_pf": 0.0015010199999999998,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.00138892,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.07468254919987727,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "36856d78a2f08d3c31e8c4a6b3017ce2167790e4a0cb36410b23f85c367fc7f9"
+      },
+      {
+        "name": "TopMetal2-2000-near",
+        "passed": false,
+        "native": {
+          "ground_pf": 0.0008903479999999999,
+          "coupling_pf": 0.000951142
+        },
+        "rcx": {
+          "ground_pf": 0.000778246,
+          "coupling_pf": 0.000951142
+        },
+        "relative_errors": {
+          "ground_pf": 0.1259080718999761,
+          "coupling_pf": 0.0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "46f2bedb774229e4e7b14dc993b6b01c3086a398025c20673f1ef237ec347db8"
+      },
+      {
+        "name": "TopMetal2-4000-absent",
+        "passed": false,
+        "native": {
+          "ground_pf": 0.0017550399999999998,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.001531092,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.12760278968000727,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "deb719e543cd4ae89b69d22ddcbfa8030987f45cb1db2bcfd5320567a545192f"
+      },
+      {
+        "name": "TopMetal2-4000-near",
+        "passed": false,
+        "native": {
+          "ground_pf": 0.0011443699999999998,
+          "coupling_pf": 0.000951142
+        },
+        "rcx": {
+          "ground_pf": 0.000920418,
+          "coupling_pf": 0.000951142
+        },
+        "relative_errors": {
+          "ground_pf": 0.19569894352351058,
+          "coupling_pf": 0.0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "8b05d1eeb98cfff672cffc745700e4b46242a4bf7e9c8759ad613ac94cddc634"
+      }
+    ],
+    "scope": "A 5% nominal-reference interpolation consistency check against the same pinned Magic model. Not independent field calibration or corner qualification.",
+    "elapsed_seconds": 1.392823566000061,
+    "files": {
+      "TopMetal2_4000_near.ext": "8b05d1eeb98cfff672cffc745700e4b46242a4bf7e9c8759ad613ac94cddc634",
+      "Metal4_400_near.ext": "7ac48b06ae35eb1d670ce61311c56a29d6a050f85b08ea9a6ae37700cdea55be",
+      "Metal2_200_near.ext": "8fb36220e678d7b3f24a12bc285e1abd7fc109103a123819092e84ccff831abb",
+      "startup.tcl": "a7f555d2516ea82e7214366741cb469934551a0fda3a7e029dbfae6550c57eb2",
+      "ihp-sg13g2-GDS.tech": "a6d27691ebd95cf63216b3f1ae43305602e3b62e49e0b04ffb448f3cca91fc6b",
+      "controls.gds": "cbfb513f347bd950b1d6c92d3a5af45193d345fb01ec7ee8878d56965b05c0bb",
+      "extract.tcl": "79639625e9e0484a5bd6db9e9f31521d5d95c0b9594821640f1cce79ce4b018c",
+      "TopMetal2_4000_absent.ext": "deb719e543cd4ae89b69d22ddcbfa8030987f45cb1db2bcfd5320567a545192f",
+      "Metal3_400_absent.ext": "0c612056f01bb4629094c8770b558532e05b500287ba8399ea97db277a399bee",
+      "TopMetal1_3280_near.ext": "004855147a2d048d64ef4a92bab2fb2d681c0359ae3b51de7e50ffa4246beb40",
+      "Metal5_400_absent.ext": "c71d39ae1b6e5d47b96fa1135dbf67ba4b68f9f40f6504770687f0d8a1f51364",
+      "Metal5_400_near.ext": "c8e35550425cd5f0e1d0ef199e93c686393206b33433f644c62639384fa4f937",
+      "Metal1_320_near.ext": "85a7096b68c4731c6f82d37c431709e0576889a9f444168451aabb5619ca4a86",
+      "ihp-sg13g2-extract.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+      "gds.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Metal3_200_near.ext": "71f151845a27023db4197770e09283723809918b55dfd6f322f2141214b10f1f",
+      "controls.json": "a40e6ae64f1594bc424992e7157940812b6cef5127943507bcd61156c4dcf904",
+      "Metal1_160_near.ext": "f6b917bb0adad191cbf79bbdbe6a93cebcc8cc120be8a1edb2abcf53626cb8f5",
+      "Metal2_400_absent.ext": "1a88c9799f294c3a4551655311d47f7e1d2f368f0077ad182c65c50f475de73b",
+      "extraction.log": "f01784d2095b5a77c42dcfc94e4159aaad7da789366dd22e3b69163412a1c9c8",
+      "ihp-sg13g2-cifout.tech": "e27c499850864e66ef3b8063132bdcf0a002925592bd60d871447fb3759eaa37",
+      "Metal4_200_near.ext": "787e7539da7ad3d46d028738003f13efa202ff20e2a31caf8d58d438a599a690",
+      "ihp-sg13g2-cifin.tech": "d1ac75da97a8ef3c944f1088086f8e47a46f5a04024d3570b93e2e2617587ec1",
+      "ihp-sg13g2.tech": "0a0e1666da3fa38d7faefe340576102ddc558727a3f6f7f666e92f50a1dc568d",
+      "Metal3_200_absent.ext": "0775953365e3095fc035310e99b0dc31f0f75cf7ffb742ae217cada2420052e2",
+      "Metal1_320_absent.ext": "57dc1efb15d48b8ff7be85b2afedb36c5ef48111908c9371b2445d03dbc47b46",
+      "Metal5_200_near.ext": "85c33b825fc592a6ece36c2440cc7a762f04404bf6d120b7293c44c8419900d0",
+      "TopMetal1_1640_absent.ext": "586da122498405bee5bb91db4f2f1753bd2f8d8adb7c05adb902af30b42188f6",
+      "TopMetal1_3280_absent.ext": "489a0dd943a752e37601ab9b154136a955488690ee59995ae883be9f654b7f61",
+      "TopMetal2_2000_absent.ext": "36856d78a2f08d3c31e8c4a6b3017ce2167790e4a0cb36410b23f85c367fc7f9",
+      "Metal2_200_absent.ext": "8e42952e83d9837503dc27f5c0888f12398f10f2dbb4eab720366b092b4df1af",
+      "Metal1_160_absent.ext": "1567100ac32540d1b4bbb5ee78201dc947841eff6d7d97cc0c67110a89203f67",
+      "Metal4_200_absent.ext": "7e0deffc5e75da443d8aa7372f8eb0ca12bfb52a94b3ebbea40f2460ec28877f",
+      "Metal3_400_near.ext": "ddd01a068e01658b5915de8f85ab83cab432d9e407dc6d6a3648a93b97f0c3d1",
+      "Metal2_400_near.ext": "8907d34d45019f9e4309b83716f1d3000fe2bed6c2e6a32162278ac6fdc0a3bc",
+      "TopMetal1_1640_near.ext": "08aa35d2fbd61224bccb23367cc13ee6a22b649884da1491edd6d559e6c91ea7",
+      "Metal4_400_absent.ext": "9f6830d0e4f0afebd1e052641011647d836bdd9e7f0de60dc52183520478aaf7",
+      "TopMetal2_2000_near.ext": "46f2bedb774229e4e7b14dc993b6b01c3086a398025c20673f1ef237ec347db8",
+      "ihp-sg13g2-drc.tech": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402",
+      "Metal5_200_absent.ext": "113af937c2ae0de1c7c6da02b31aedd5a71d6f0af4a0d53f4f0f7432fbd02be0"
+    }
+  },
+  "long_wire_consistency": {
+    "schema": 1,
+    "status": "reference-consistency-passed",
+    "qualified": false,
+    "driver_sha256": "006090e8f53f369699a951abe893684a649a5df2b90b7389364073ea670b2d23",
+    "source_record_sha256": "9b7b3608bf53649428d48ff278af1d6aaa7ba4f31fea6f3e4e1f940a172147a9",
+    "capacitance_relative_tolerance": 0.05,
+    "cases": [
+      {
+        "name": "Metal1-160-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0169671,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.0171144,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.008681507152076717,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "002a86f8156ae9fd557e82dbf86c00458b925df3dcfafb29af7cb5c23acb1742"
+      },
+      {
+        "name": "Metal1-160-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0107476,
+          "coupling_pf": 0.00638556
+        },
+        "rcx": {
+          "ground_pf": 0.01089984,
+          "coupling_pf": 0.00642139
+        },
+        "relative_errors": {
+          "ground_pf": 0.014165022888831036,
+          "coupling_pf": 0.005611097538821941
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "efd4f44817f0e056f22035d7940c062cd7740d13eaf03cd903bd08ff4f367479"
+      },
+      {
+        "name": "Metal1-320-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0181003,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01839808,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.016451661022192976,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "1587ac0f8b1f1e62b358a1cee325aeaefc82f8c796e057a88623008328de50e7"
+      },
+      {
+        "name": "Metal1-320-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.011880799999999999,
+          "coupling_pf": 0.00638556
+        },
+        "rcx": {
+          "ground_pf": 0.01218352,
+          "coupling_pf": 0.00642139
+        },
+        "relative_errors": {
+          "ground_pf": 0.025479765672345334,
+          "coupling_pf": 0.005611097538821941
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "b79e48ee83eb70ad5a9caad7cc9214b5d6c26a6b1dec5ab4365d19b270c2a12c"
+      },
+      {
+        "name": "Metal2-200-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0146603,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01478696,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.008639659488550722,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "d1a23f7893f55dd8a6ef89675a73dc1373d0dfcdbec0834f688daa3da3a91d24"
+      },
+      {
+        "name": "Metal2-200-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00849748,
+          "coupling_pf": 0.00871936
+        },
+        "rcx": {
+          "ground_pf": 0.00862098,
+          "coupling_pf": 0.00884188
+        },
+        "relative_errors": {
+          "ground_pf": 0.014533720585397036,
+          "coupling_pf": 0.014051490017615853
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "d03bf0b1e2dbc4e1da45ff085c84b014af2be81116040eaf56fbdedd21029c45"
+      },
+      {
+        "name": "Metal2-400-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.015401399999999999,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01565764,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.01663744854363891,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "f77a409a5a91957c0e3b658c975c2c98f2983a0fe15ea994357934ae86bd3fb7"
+      },
+      {
+        "name": "Metal2-400-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0092386,
+          "coupling_pf": 0.00871936
+        },
+        "rcx": {
+          "ground_pf": 0.00949166,
+          "coupling_pf": 0.00884187
+        },
+        "relative_errors": {
+          "ground_pf": 0.02739159612928388,
+          "coupling_pf": 0.014050343144450972
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "272fded4db6b8a1a1a770a69a38ab5bf356edbdee25a364e44a83d479d218ac8"
+      },
+      {
+        "name": "Metal3-200-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0130331,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01314728,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.008760770653183148,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "cfa5c01e0adb006a6837378333270cb50457237b79db4906371bc38e6548d385"
+      },
+      {
+        "name": "Metal3-200-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0072391899999999995,
+          "coupling_pf": 0.00819109
+        },
+        "rcx": {
+          "ground_pf": 0.0073515,
+          "coupling_pf": 0.0083108
+        },
+        "relative_errors": {
+          "ground_pf": 0.015514166640190563,
+          "coupling_pf": 0.014614660564100879
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "27fa1813adae5cb6e99ae3914f855cf6bec38ae6d1792039b4c0873f15b63cf6"
+      },
+      {
+        "name": "Metal3-400-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.013525399999999998,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01375624,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.017067147736850696,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "7dac3e3140baf5c6eb907015e837796178fe657b0100d1a3f17145ab895dbc70"
+      },
+      {
+        "name": "Metal3-400-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00773149,
+          "coupling_pf": 0.00819109
+        },
+        "rcx": {
+          "ground_pf": 0.0079605,
+          "coupling_pf": 0.00831082
+        },
+        "relative_errors": {
+          "ground_pf": 0.029620422454145423,
+          "coupling_pf": 0.01461710224158197
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "24aad2e5ba83a69224187e5cd810e3ecfc1a517c30765dae9ead5725e6a61c47"
+      },
+      {
+        "name": "Metal4-200-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0120028,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.0121086,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.008814609924351124,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "94cd0fa29dee4245da2f4d75358bae495259bd6962e5125b85f26bd0135f5596"
+      },
+      {
+        "name": "Metal4-200-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0065166,
+          "coupling_pf": 0.0099052
+        },
+        "rcx": {
+          "ground_pf": 0.0066212,
+          "coupling_pf": 0.0100296
+        },
+        "relative_errors": {
+          "ground_pf": 0.016051315102967756,
+          "coupling_pf": 0.012559059887735646
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "0125ac30f11808e267ff6f87f4c5fb47ef2740320d513a6e8d040deb8280d56a"
+      },
+      {
+        "name": "Metal4-400-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0123723,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01258644,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.017308018719235818,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "9f7df661ed37bf64848b664044ccaf7e44ca888716c4fcdceac2c3208525af63"
+      },
+      {
+        "name": "Metal4-400-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00688616,
+          "coupling_pf": 0.0099052
+        },
+        "rcx": {
+          "ground_pf": 0.00709902,
+          "coupling_pf": 0.0100296
+        },
+        "relative_errors": {
+          "ground_pf": 0.030911277112352975,
+          "coupling_pf": 0.012559059887735646
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "ec0243a92a4fb2b0b817043b01b8b1233060c94ef84f2594f7f3b2e647b1859f"
+      },
+      {
+        "name": "Metal5-200-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0113073,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01140748,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.00885976316185122,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "fe3f4db0963aa4226d494914b0c793c8bf17e269ea348618326cf1badbcc7a87"
+      },
+      {
+        "name": "Metal5-200-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.006051529999999999,
+          "coupling_pf": 0.0102171
+        },
+        "rcx": {
+          "ground_pf": 0.00615078,
+          "coupling_pf": 0.0103367
+        },
+        "relative_errors": {
+          "ground_pf": 0.01640081103456481,
+          "coupling_pf": 0.011705865656595371
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "c9a78fc4ba7c9df01c1adcbef17d05ce8d899b6e6bbfa0036acf99fa5f291539"
+      },
+      {
+        "name": "Metal5-400-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0116037,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01180644,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.01747201323715708,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "6c797c90b212128d9400d1724c4a1280ae3ca298729e794d1967dad65f4fec26"
+      },
+      {
+        "name": "Metal5-400-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00634798,
+          "coupling_pf": 0.0102171
+        },
+        "rcx": {
+          "ground_pf": 0.00654974,
+          "coupling_pf": 0.0103367
+        },
+        "relative_errors": {
+          "ground_pf": 0.03178333895191865,
+          "coupling_pf": 0.011705865656595371
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "453a93663cc8dbc91539c366b01f2803914a196a51e9c7f16a803793b8d50d97"
+      },
+      {
+        "name": "TopMetal1-1640-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0169287,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01695712,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.0016788058149768137,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "9b31280eb8be7672cb5c3a708e73943173bbb39273d13e6fdc91f0bfcb1d2fe0"
+      },
+      {
+        "name": "TopMetal1-1640-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.009720669999999999,
+          "coupling_pf": 0.0193062
+        },
+        "rcx": {
+          "ground_pf": 0.00974954,
+          "coupling_pf": 0.01956
+        },
+        "relative_errors": {
+          "ground_pf": 0.00296995988959603,
+          "coupling_pf": 0.013146035988438998
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "271d0e0fd40f3d3fd7d0e32a56978b1bbb2b2afff99cc1421f50215237e8707c"
+      },
+      {
+        "name": "TopMetal1-3280-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0189042,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01896416,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.0031717819320575824,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "d8d6cba04b790d003266fc7b9f9fa200479c324d1d4e9c7a4b46984313c8e9e6"
+      },
+      {
+        "name": "TopMetal1-3280-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0116962,
+          "coupling_pf": 0.0193062
+        },
+        "rcx": {
+          "ground_pf": 0.01175656,
+          "coupling_pf": 0.01956
+        },
+        "relative_errors": {
+          "ground_pf": 0.005160650467673111,
+          "coupling_pf": 0.013146035988438998
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "a529aa1e0b1586026f4450c39ba4ffd4b0e695d5bd3b22ff54fb0e8b5e6d1dcf"
+      },
+      {
+        "name": "TopMetal2-2000-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.013887899999999998,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.0138892,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 9.360666479474311e-05,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "c48b5dbbe3f53f8ed145e485390c7dbdd91a2d596271c2730c706d008873de5e"
+      },
+      {
+        "name": "TopMetal2-2000-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.0077811799999999995,
+          "coupling_pf": 0.00951142
+        },
+        "rcx": {
+          "ground_pf": 0.00778246,
+          "coupling_pf": 0.00951142
+        },
+        "relative_errors": {
+          "ground_pf": 0.0001644994718024151,
+          "coupling_pf": 0.0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "fd00792f2deed756ab7ddc44c730196061abea5291995b3bffb03873c97fad01"
+      },
+      {
+        "name": "TopMetal2-4000-absent",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.015305799999999998,
+          "coupling_pf": 0.0
+        },
+        "rcx": {
+          "ground_pf": 0.01531092,
+          "coupling_pf": 0.0
+        },
+        "relative_errors": {
+          "ground_pf": 0.00033451371375581296,
+          "coupling_pf": 0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 1,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "5208f155ab66d3649cc03c641a9b4d55a712c0525b29f05fee4ff87bdab33e1f"
+      },
+      {
+        "name": "TopMetal2-4000-near",
+        "passed": true,
+        "native": {
+          "ground_pf": 0.00919908,
+          "coupling_pf": 0.00951142
+        },
+        "rcx": {
+          "ground_pf": 0.00920418,
+          "coupling_pf": 0.00951142
+        },
+        "relative_errors": {
+          "ground_pf": 0.000554403266413539,
+          "coupling_pf": 0.0
+        },
+        "geometry": {
+          "schema": 1,
+          "passed": true,
+          "qualified": false,
+          "checked_nets": 2,
+          "implicit_substrate": "SUB",
+          "failed_nets": 0,
+          "failures": [],
+          "scope": "Exact metal, area and perimeter of every isolated rectangular calibration wire; not field-model accuracy."
+        },
+        "ext_sha256": "19a5696193359d228f050cc10b95f0804438ba430ed0701b1f166d9e5b5a6ad0"
+      }
+    ],
+    "scope": "A 5% nominal-reference interpolation consistency check against the same pinned Magic model. Not independent field calibration or corner qualification.",
+    "elapsed_seconds": 1.1889843310000288,
+    "files": {
+      "TopMetal2_4000_near.ext": "19a5696193359d228f050cc10b95f0804438ba430ed0701b1f166d9e5b5a6ad0",
+      "Metal4_400_near.ext": "ec0243a92a4fb2b0b817043b01b8b1233060c94ef84f2594f7f3b2e647b1859f",
+      "Metal2_200_near.ext": "d03bf0b1e2dbc4e1da45ff085c84b014af2be81116040eaf56fbdedd21029c45",
+      "startup.tcl": "a7f555d2516ea82e7214366741cb469934551a0fda3a7e029dbfae6550c57eb2",
+      "ihp-sg13g2-GDS.tech": "a6d27691ebd95cf63216b3f1ae43305602e3b62e49e0b04ffb448f3cca91fc6b",
+      "controls.gds": "72a18fe3abf5d956683f3c91b77fac8103a42b9779585be10c7f9a6205ebcc43",
+      "extract.tcl": "79639625e9e0484a5bd6db9e9f31521d5d95c0b9594821640f1cce79ce4b018c",
+      "TopMetal2_4000_absent.ext": "5208f155ab66d3649cc03c641a9b4d55a712c0525b29f05fee4ff87bdab33e1f",
+      "Metal3_400_absent.ext": "7dac3e3140baf5c6eb907015e837796178fe657b0100d1a3f17145ab895dbc70",
+      "TopMetal1_3280_near.ext": "a529aa1e0b1586026f4450c39ba4ffd4b0e695d5bd3b22ff54fb0e8b5e6d1dcf",
+      "Metal5_400_absent.ext": "6c797c90b212128d9400d1724c4a1280ae3ca298729e794d1967dad65f4fec26",
+      "Metal5_400_near.ext": "453a93663cc8dbc91539c366b01f2803914a196a51e9c7f16a803793b8d50d97",
+      "Metal1_320_near.ext": "b79e48ee83eb70ad5a9caad7cc9214b5d6c26a6b1dec5ab4365d19b270c2a12c",
+      "ihp-sg13g2-extract.tech": "1b57f6763dfd4d1ad3c6a897883bf1f62ffe91031a97765a0666bfaf2012be68",
+      "gds.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Metal3_200_near.ext": "27fa1813adae5cb6e99ae3914f855cf6bec38ae6d1792039b4c0873f15b63cf6",
+      "controls.json": "cb397fc61bfbe1c28e07ce0d399ade55e0509b1aea853d5d4671e5b15d8ed48a",
+      "Metal1_160_near.ext": "efd4f44817f0e056f22035d7940c062cd7740d13eaf03cd903bd08ff4f367479",
+      "Metal2_400_absent.ext": "f77a409a5a91957c0e3b658c975c2c98f2983a0fe15ea994357934ae86bd3fb7",
+      "extraction.log": "f01784d2095b5a77c42dcfc94e4159aaad7da789366dd22e3b69163412a1c9c8",
+      "ihp-sg13g2-cifout.tech": "e27c499850864e66ef3b8063132bdcf0a002925592bd60d871447fb3759eaa37",
+      "Metal4_200_near.ext": "0125ac30f11808e267ff6f87f4c5fb47ef2740320d513a6e8d040deb8280d56a",
+      "ihp-sg13g2-cifin.tech": "d1ac75da97a8ef3c944f1088086f8e47a46f5a04024d3570b93e2e2617587ec1",
+      "ihp-sg13g2.tech": "0a0e1666da3fa38d7faefe340576102ddc558727a3f6f7f666e92f50a1dc568d",
+      "Metal3_200_absent.ext": "cfa5c01e0adb006a6837378333270cb50457237b79db4906371bc38e6548d385",
+      "Metal1_320_absent.ext": "1587ac0f8b1f1e62b358a1cee325aeaefc82f8c796e057a88623008328de50e7",
+      "Metal5_200_near.ext": "c9a78fc4ba7c9df01c1adcbef17d05ce8d899b6e6bbfa0036acf99fa5f291539",
+      "TopMetal1_1640_absent.ext": "9b31280eb8be7672cb5c3a708e73943173bbb39273d13e6fdc91f0bfcb1d2fe0",
+      "TopMetal1_3280_absent.ext": "d8d6cba04b790d003266fc7b9f9fa200479c324d1d4e9c7a4b46984313c8e9e6",
+      "TopMetal2_2000_absent.ext": "c48b5dbbe3f53f8ed145e485390c7dbdd91a2d596271c2730c706d008873de5e",
+      "Metal2_200_absent.ext": "d1a23f7893f55dd8a6ef89675a73dc1373d0dfcdbec0834f688daa3da3a91d24",
+      "Metal1_160_absent.ext": "002a86f8156ae9fd557e82dbf86c00458b925df3dcfafb29af7cb5c23acb1742",
+      "Metal4_200_absent.ext": "94cd0fa29dee4245da2f4d75358bae495259bd6962e5125b85f26bd0135f5596",
+      "Metal3_400_near.ext": "24aad2e5ba83a69224187e5cd810e3ecfc1a517c30765dae9ead5725e6a61c47",
+      "Metal2_400_near.ext": "272fded4db6b8a1a1a770a69a38ab5bf356edbdee25a364e44a83d479d218ac8",
+      "TopMetal1_1640_near.ext": "271d0e0fd40f3d3fd7d0e32a56978b1bbb2b2afff99cc1421f50215237e8707c",
+      "Metal4_400_absent.ext": "9f7df661ed37bf64848b664044ccaf7e44ca888716c4fcdceac2c3208525af63",
+      "TopMetal2_2000_near.ext": "fd00792f2deed756ab7ddc44c730196061abea5291995b3bffb03873c97fad01",
+      "ihp-sg13g2-drc.tech": "bec75c6c8aeb9720edcdfdcf1e2c132d9be4af42801dd61b45715d6c6ec68402",
+      "Metal5_200_absent.ext": "fe3f4db0963aa4226d494914b0c793c8bf17e269ea348618326cf1badbcc7a87"
+    }
+  },
+  "numerical_diagnostics": {
+    "apb_original_complete_capture_accepted": false,
+    "reason": "Four timestamps coincide at the native nine-significant-digit serialization precision; the strict monotonicity guard rejects this capture.",
+    "diagnostic": {
+      "schema": 1,
+      "qualified": false,
+      "status": "diagnostic-only",
+      "waveform_sha256": "aa074af4db1abdfa167f2c9c24b89ddd6062e4b56932aa7dd65e4fca7c764319",
+      "rows": 32447,
+      "end_ns": 1610.0,
+      "backwards_times": [],
+      "duplicate_pairs": 4,
+      "maximum_duplicate_voltage_change": 3.5699999998417553e-06,
+      "examples": [
+        {
+          "row": 23643,
+          "time_s": 1.18002e-06,
+          "maximum_voltage_change": 1.8121089999999937e-08
+        },
+        {
+          "row": 24842,
+          "time_s": 1.23002e-06,
+          "maximum_voltage_change": 3.5699999998417553e-06
+        },
+        {
+          "row": 26518,
+          "time_s": 1.31002e-06,
+          "maximum_voltage_change": 1.745186000000054e-08
+        },
+        {
+          "row": 31429,
+          "time_s": 1.55002e-06,
+          "maximum_voltage_change": 1.4940309999999536e-08
+        }
+      ],
+      "diagnostic_tested_bits": 869,
+      "diagnostic_failed_bits": 0,
+      "failures": [],
+      "scope": "Diagnose the rejected full-duration native waveform; does not establish acceptance of timestamp-quantized data."
+    },
+    "interrupted_runs": [
+      {
+        "name": "ihp-full-rc-reset-v12/uart-original-1290",
+        "status": "interrupted",
+        "last_reported_time_ns": 425.522
+      },
+      {
+        "name": "ihp-full-rc-reset-v12/uart-filled-1290",
+        "status": "interrupted",
+        "last_reported_time_ns": 30.1272
+      },
+      {
+        "name": "ihp-full-rc-reset-v12/apb-filled-1610",
+        "status": "interrupted",
+        "last_reported_time_ns": 70.0223
+      },
+      {
+        "name": "ihp-uart-cap-completion-v1",
+        "status": "interrupted",
+        "last_reported_time_ns": 605.0429999999999
+      }
+    ]
+  },
+  "pending_runs": [
+    "ihp-uart-cap-completion-v2",
+    "ihp-full-rc-reset-v18/uart-original-1290",
+    "ihp-full-rc-reset-v18/uart-filled-1290",
+    "ihp-full-rc-reset-v18/apb-original-1610",
+    "ihp-full-rc-reset-v18/apb-filled-1610"
+  ],
+  "ci": {
+    "baseline": "4ad13d9b0415c127d04a96c0b17db68ca80b0cff",
+    "packaging": "Failed because the IHP distributed-capacitance tests require NumPy. The workflow now installs pinned qualification dependencies; its rerun remains pending.",
+    "bandgap_physical": "Failed; no full-release acceptance claimed."
+  },
+  "chunk_4_rechecked": {
+    "status": "reference_gate_complete",
+    "chunk": 4,
+    "chunk_complete": true,
+    "references": 6,
+    "process_qualification": "unqualified"
+  },
+  "remaining": [
+    "Resolve finite-wire capacitance accuracy, calibrate all actual fill widths and repeat native extraction/reduction/timing.",
+    "Complete matched full-duration UART/APB full-RC and numerical convergence; resolve remaining cold-start scope.",
+    "Integrate the accepted recipe into production, bind exports and pass affected regression/package checks."
+  ],
+  "archive": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-calibration-progress-2026-10-10-v1\\evidence.tar.gz",
+    "sha256": "70cb22611856310dd00ad8766d970b00b71d4376f60221d19ef745c4cf0302fe",
+    "bytes": 196163093,
+    "logical_files": 2445,
+    "unique_blobs": 1185,
+    "verified": true,
+    "manifest_sha256": "32cadf7fb65f0876b05be992ba1fb3520cdf85d4ffc963699f5e2222afcfbd3d",
+    "format": "content-addressed-tar-v1",
+    "restore": "The included file-manifest.json maps logical files to sha256/<digest> members. Accepted calibration GDS, merged EXT, SPEF and geometry are included. Redundant per-pattern EXT files and large raw rejected pattern sets are excluded; their recipes, logs and captured hashes remain. Continuing runs are not accepted or archived here."
+  }
+}

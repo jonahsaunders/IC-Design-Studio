@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "status": "PASS_VERIFIED_STORAGE_CLEANUP",
+  "user_date": "2026-11-02",
+  "completed_utc": "2026-11-02T14:51:49.863655+00:00",
+  "files_removed": 65785,
+  "directories_removed": 6127,
+  "file_allocation_removed_bytes": 4768768872,
+  "recovery_archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\storage-retained-historical-outputs-2026-11-02-v1\\historical-outputs-v1.zip",
+  "recovery_archive_sha256": "319d0fdf988909d54ab43d46c8105c47772f21afc1dce0bbf6ddf89577e84bee",
+  "recovery_archive_allocated_bytes": 197775360,
+  "recovery_objects_verified": 22405,
+  "protected_boundaries": 20,
+  "protected_boundary_reasons": {
+    "protected name": 18,
+    "source archive": 2
+  },
+  "observed_file_deletion_window_delta_bytes": 4516450304,
+  "observed_empty_directory_window_delta_bytes": 15314944,
+  "initial_c_free_bytes": 876596776960,
+  "final_c_free_bytes": 880893603840,
+  "overall_c_free_change_bytes": 4296826880,
+  "measurement_note": "File allocation, recovery archive cost, deletion windows and full-pass volume change are separate. Net C: delta includes retained archives/audits and can be affected by background activity.",
+  "prior_summary": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\storage-cleanup-2026-10-31-v5\\cleanup-summary.json",
+  "prior_summary_sha256": "0a74cc8c87355343e813f93b4822e94212f74899eb8967af6fc5175c5b83ed88",
+  "combined_last_four_passes_net_gain_bytes": 42204856320,
+  "audit_archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\storage-cleanup-2026-11-02-v1\\cleanup-audit.zip",
+  "audit_archive_sha256": "f145a5101daf01d66da05ea3232ec1b65e09597e8c58784b2c0fef09ee809380",
+  "audit_archive_bytes": 5888381,
+  "audit_payloads_verified": 43,
+  "preserved": [
+    "Active IC Design Studio checkout and runtimes",
+    "Registered Linux environment and disk",
+    "Twenty excluded source/archive boundaries",
+    "Original bytes of every removed test-output file",
+    "Existing scientific archives and previous cleanup audits",
+    "Personal documents and downloads"
+  ],
+  "other_findings": [
+    "Two apparent old runtime duplicates already share one physical file with three hardlinks; preserved, with no reclaimable-byte claim.",
+    "pip/npm caches total about 41 KB; left intact."
+  ],
+  "windows_administrator_used": false,
+  "linux_disk_modified": false,
+  "qualification_status_changed": false,
+  "chunk7_estimate_percent": 70,
+  "chunk7_estimate_confidence": "Low; range 55\u201380%",
+  "final_postcheck": {
+    "status": "PASS_FINAL_REMOVAL_AND_PRESERVATION_CHECK",
+    "selected_files_absent": 65785,
+    "journal_exactly_matches_plan": true,
+    "directories_removed": 6127,
+    "opaque_boundaries_present_without_traversal": 20,
+    "recovery_archives_unchanged": true,
+    "protected_directory_contents_read": false
+  },
+  "final_postcheck_sha256": "28042cf5772aa4034ceccf1f974f231e2d10df61e7d166bd82105445686fbe31",
+  "cleanup_summary": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\storage-cleanup-2026-11-02-v1\\cleanup-summary.json",
+  "cleanup_summary_sha256": "09ab897da5230ce88662a82801a3a098ce2bb17ee9a650480b6fc18fe3b8ead5",
+  "code_commit": "51201ee9f3964f0a1c73df22402d342bab9a35ca",
+  "publication": "Local documentation for next appropriate project push; no scientific tests or hosted acceptance rerun."
+}

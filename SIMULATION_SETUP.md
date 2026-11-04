@@ -44,7 +44,7 @@ There is no qualified macOS desktop package.
 
 On Windows, install 64-bit Python 3.12 and run `launch-windows.bat`. It creates
 an isolated environment under `%LOCALAPPDATA%\ICStudio`, installs the pinned
-Python requirements, stages the checksum-pinned ngspice 42 runtime when needed,
+Python requirements, stages the checksum-pinned ngspice 46 runtime when needed,
 and checks a real divider simulation before launch. Failed or interrupted
 downloads are retried; an incomplete setup stops launch. A source archive may
 include staged Windows ngspice files, but a Git clone does not include its native
@@ -63,7 +63,7 @@ install Icarus, the managed digital runtime, VGA assets or openEMS.
 For offline Windows provisioning from an already downloaded official archive:
 
 ```sh
-python scripts/stage_windows_ngspice.py --archive path/to/ngspice-42_64.7z --ensure
+python scripts/stage_windows_ngspice.py --archive path/to/ngspice-46_64.7z --ensure
 ```
 
 The archive must match the pinned SHA-256. Optional XSPICE code-model plugins
@@ -110,9 +110,18 @@ label alone does not establish qualification for arbitrary device classes or lay
 For physical checks, use **Tools → Physical tools setup…** for included
 Magic/Netgen/ngspice or explicit custom tools, and supply matching locked physical
 PDK assets/decks. The managed digital runtime separately carries the full SKY130
-HD standard-cell platform for RTL implementation. Bundled IHP analyses and
-imported programs automatically select its matching runtime when no custom OSDI
-libraries are configured. See [PDK setup](docs/PDK_GUIDE.md).
+HD standard-cell platform for RTL implementation. Direct IHP operating-point,
+transient, DC, AC and noise analyses, plus imported
+programs, automatically select the matching included runtime when no custom OSDI
+libraries are configured. Included physical saved-testbench verification also
+selects the verified matching models after **Physical tools setup**. DRC/LVS-only
+checks do not require these simulation libraries; explicit model selections are
+preserved and still must match the selected execution platform.
+
+Ordinary electrical saved-testbench and characterization actions currently use
+locally configured ngspice and require compatible local OSDI models. Their layout
+comparison path also uses local physical tools. They do not inherit the automatic
+included physical-verification handoff. See [PDK setup](docs/PDK_GUIDE.md).
 
 ## DC startup and inductor analysis
 

@@ -1,0 +1,10 @@
+{
+  "status": "FAIL",
+  "platform": "win32",
+  "tests": 39,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 1,
+  "elapsed_seconds": 9.34299999999348,
+  "log_sha256": "3e970b7006580fd3d4e8dcae75af45c586ea49d66d138d9644a882dd3f4ec7d7"
+}

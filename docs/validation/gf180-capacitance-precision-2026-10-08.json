@@ -1,0 +1,160 @@
+{
+  "schema": 1,
+  "status": "bounded-native-repeatability-and-export-checks-passed; chunk-4-incomplete",
+  "qualified": false,
+  "observed_at": "2026-10-08T12:55:46.709798+00:00",
+  "source_backend": "cd6a3cd4e4b280c812456e0113ddb0b46dde728e76f8a80a9e25400856f030ef",
+  "source_base_commit": "455369ab6275e64347193e36f9a816f82e8c6dfd",
+  "scope": "GF180 C before/filled reference precision candidate. Default engine/runtime unchanged. General extraction accuracy, post-fill timing and production C/D acceptance remain open.",
+  "candidate_lock": {
+    "path": "work/IC-Design-Studio/examples/gf180-cap-precision-engine-lock.json",
+    "sha256": "e56e5944609c80fee341fbf8e3973fad9e73e77979f4b9a1b2db451b5a15e95f"
+  },
+  "candidate_patch": {
+    "path": "work/IC-Design-Studio/packaging/physical/magic-gf180-cap-precision.patch",
+    "sha256": "6fd0757033c45dc5b2b114c9d1f26e2317e87eb2b994f8efe565cc9f5d6e9138"
+  },
+  "native_arithmetic": {
+    "record": {
+      "path": "outputs/gf180-cap-arithmetic-production-v1/report.json",
+      "sha256": "27f31a9440709d045e5930b31ca42e7772f6fb1285be077e5a226fca548835ae"
+    },
+    "cases_per_engine": 24,
+    "baseline_passed": 6,
+    "candidate_passed": 24,
+    "limits": {
+      "accumulator_relative": 1e-12,
+      "node_relative": 8e-08,
+      "reason": "Double accumulator accuracy and final float rounding; frozen before execution."
+    },
+    "candidate_permutations_identical": true
+  },
+  "repeatability": {
+    "record": {
+      "path": "outputs/gf180-cap-precision-release-repeat-audit-v1.json",
+      "sha256": "db858b43736d56d3330dfc9777595e7e92fed15bd490dfd5ff219df81fe05c2b"
+    },
+    "extractions_per_geometry": 3,
+    "cases": [
+      {
+        "design": "before",
+        "rnodes": 37513,
+        "repeat_matches": {
+          "repeat-one": {
+            "all_raw_resistance_records": true,
+            "all_raw_capacitance_records": true
+          },
+          "repeat-two": {
+            "all_raw_resistance_records": true,
+            "all_raw_capacitance_records": true
+          }
+        },
+        "prior_raw_capacitance_records_preserved": true,
+        "prior_physical_graph_preserved": true,
+        "weight_fault_detected": true
+      },
+      {
+        "design": "filled",
+        "rnodes": 39335,
+        "repeat_matches": {
+          "repeat-one": {
+            "all_raw_resistance_records": true,
+            "all_raw_capacitance_records": true
+          },
+          "repeat-two": {
+            "all_raw_resistance_records": true,
+            "all_raw_capacitance_records": true
+          }
+        },
+        "prior_raw_capacitance_records_preserved": true,
+        "prior_physical_graph_preserved": true,
+        "weight_fault_detected": true
+      }
+    ],
+    "changed_weights_from_previous_candidate": {
+      "before": 8947,
+      "filled": 8989
+    },
+    "scope": "Exact printed records under unique graph bijection; baseline raw capacitance and physical R/device records preserved. This intentionally improves the derived weight values."
+  },
+  "production_exports": {
+    "linux": {
+      "path": "outputs/gf180-cap-precision-export-linux-v1/report.json",
+      "sha256": "66f32261b7bccbce1d77ca97f98dc4c7d39186b283d044e35f2a0591f16f1308"
+    },
+    "windows": {
+      "path": "outputs/gf180-cap-precision-export-windows-v1/report.json",
+      "sha256": "8feba71e355c82d0ebbf3d6297040a12e9d824879f3329b30046e1c0e213bd6d"
+    },
+    "identical_artifacts_per_geometry": 7,
+    "devices_per_geometry": 4184,
+    "ports_per_geometry": 8,
+    "before_resistors": 46757,
+    "filled_resistors": 47668,
+    "before_capacitors": 24459,
+    "filled_capacitors": 26281,
+    "floating_fill_conductors": 911
+  },
+  "regression": {
+    "tests": 1477,
+    "seconds": 272.844,
+    "skips": 62,
+    "failures": 0,
+    "process": {
+      "path": "outputs/gf180-cap-precision-suite-v1/process.json",
+      "sha256": "5c73be92ce86adb4cae6792f5dfbdd197eb370ad868c4d6f4cc39290b9c5a58e"
+    },
+    "log": {
+      "path": "outputs/gf180-cap-precision-suite-v1/tests.log",
+      "sha256": "5a6a25de9ba5bec5d544a6f8bec16c97ca60d3325d69d44604c8361cd8ea14a8"
+    }
+  },
+  "retained_attempts": [
+    "Float replay v1 incorrectly included intrinsic ground C and missed internal-net # names; v2 incorrectly grouped port/supply nodes after the preceding killnode. Corrected v3 uses unique raw-net bases. Earlier reports remain diagnostic failures, not native acceptance evidence.",
+    "Hosted log capture v1 failed on Windows text decoding; v2 retains original bytes.",
+    "Earlier full transient hit its wall guard at 503.926 of 900 ns: 38305.6165 wall seconds versus 5242.15 CPU seconds. No full waveform pass."
+  ],
+  "transient": {
+    "snapshot": {
+      "path": "outputs/gf180-cap-precision-checkpoint-v1/transient-snapshot.json",
+      "sha256": "16a25b522071f1c129be0832d6cc56ebe8819cc271f8910c2179e7af8a9bddb3"
+    },
+    "status_at_snapshot": "running",
+    "scope": "Earlier frozen export source; live retries use CPU limits plus a separate longer wall guard. A later pass would not automatically qualify the precision candidate."
+  },
+  "hosted": {
+    "source": "455369ab6275e64347193e36f9a816f82e8c6dfd",
+    "states": {
+      "SUCCESS": 46,
+      "FAILURE": 2,
+      "SKIPPED": 2
+    },
+    "snapshot": {
+      "path": "outputs/gf180-precision-hosted-v2/snapshot.json",
+      "sha256": "384b9fc71a2aef457ac9faf0964be96a67b9481fdb9e3500fdf2f7a40077cfcb"
+    },
+    "failed_reference": {
+      "path": "outputs/gf180-precision-hosted-v2/bandgap-physical/qualification.json",
+      "sha256": "31aaa53e9690af26ebc6241f5c3b44919eb560601e7a20a689fe6f91e1e3606d"
+    },
+    "finding": "Bandgap physical references fail strict LVS. The core-original report matches the device graph but retains a blocking chip-top VSS must-connect extraction warning. Both dependent RC jobs were skipped."
+  },
+  "remaining": [
+    "Complete required fill rules, local/edge acceptance, pattern and boundary/scribe scope.",
+    "Full post-fill circuit behavior and timing on the accepted extraction source.",
+    "Production C/D counter, UART and APB acceptance on both OSes.",
+    "Polygon/direct-overlap/corner extraction coverage and independent field accuracy.",
+    "Resolve hosted bandgap connectivity failure without weakening strict LVS.",
+    "Chunks 5-12 and complete public-release/tapeout qualification."
+  ],
+  "archive": {
+    "path": "outputs/gf180-cap-precision-checkpoint-v1/evidence.tar.gz",
+    "sha256": "988bfe45301a7076a5b2ff439691727358d8daae03c35e3fc1ca382ec4377bc8",
+    "bytes": 37532949,
+    "verified_members": 558,
+    "manifest": {
+      "path": "outputs/gf180-cap-precision-checkpoint-v1/manifest.json",
+      "sha256": "c84e6c931eedbe186b144c86f43d78a35e660f505d2ef29e7c100c3157cc0ff2"
+    }
+  }
+}

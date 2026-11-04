@@ -1,7 +1,8 @@
 """Bounded GF180MCU C/D 3.3 V MOS geometry, using each variant's locked decks.
 
 Native GDS drawing datatype 0 and port datatype 10 are process-specific.
-W=1..10 um, L=.28..2 um, 5 nm grid, nf=m=mult=1. All four terminals are contacted.
+Total W=.22..10 um, L=.28..10 um, 5 nm grid, nf=1..8, m=1..16.
+Each finger must be at least .22 um wide. All four terminals are contacted.
 """
 from .model import clone, uid, scalar, validate, digest, file_digest
 from .catalog import binding_for, parameter_values, create_device, link_technology
@@ -43,16 +44,22 @@ def specification(tech, d):
     if not b or b['model'] != MODELS.get(d['kind']) or set(d['nets']) != {'d','g','s','b'}:
         raise ValueError('Select a standard four-terminal GF180 nfet_03v3 or pfet_03v3.')
     values = parameter_values(b,d)
-    if any(values.get(k,1) != 1 for k in ('nf','m','mult')):
-        raise ValueError('GF180 native geometry supports one finger and multiplicity one.')
+    if values.get('mult',1) != 1:
+        raise ValueError('Use the explicit GF180 m parallel-copy binding.')
     from .process_mos import dimensions
     geometry = dimensions(tech, d, b)
+    from .process_mos_parallel import count
+    if (geometry['multiplicity'] != 1 or values.get('m',1) != 1) and b.get('emit_parameters',{}).get('m') != 'm':
+        raise ValueError('Use the explicit GF180 m parallel-copy binding.')
+    count(geometry['multiplicity'])
     size = {}
-    for k,minimum,maximum in (('w',1000,10000),('l',280,2000)):
+    for k,minimum,maximum in (('w',220,10000),('l',280,10000)):
         raw = (geometry['total_width'] if k == 'w' else geometry['length'])*1e9; n = round(raw)
         if abs(raw-n)>1e-6 or n%5 or not minimum<=n<=maximum:
             raise ValueError(f'{d["name"]}: {k.upper()} must be {minimum/1000:g}–{maximum/1000:g} µm on the 5 nm grid.')
         size[k] = n
+    from .process_mos_fingers import dimensions as finger_dimensions
+    finger_dimensions(size['w'],geometry['fingers'],220)
     return {'api': API,'model_ref': clone(d.get('model_ref')),'model':b['model'], 'kind':d['kind'],
             'dimensions_nm':size,'values':values,'nets':clone(d['nets'])}
 
@@ -60,23 +67,33 @@ def specification(tech, d):
 def mos(tech,d,x=0,y=0):
     spec = specification(tech,d); ls = layers(tech); w,l = [spec['dimensions_nm'][k] for k in ('w','l')]
     if any(type(v) is not int or v%5 for v in (x,y)): raise ValueError('Place devices on the 5 nm grid.')
+    if spec['values'].get('nf',1) != 1:
+        from .process_mos_fingers import generate as fingers
+        from .process_mos_parallel import generate as parallel
+        return parallel(tech,d,fingers(tech,d,x,y,spec,ls),ls,spec['values'].get('m',1))
     shapes=[]; pins=[]
     def box(key,a,b,c,e,net=''):
         s=rect(ls[key],x+a,y+b,c-a,e-b,d['id'],net);s['generated_device']=d['id'];shapes.append(s)
-    box('diff',-800,0,l+800,w)
-    box('psdm' if d['kind']=='PMOS' else 'nsdm',-1100,-300,l+1100,w+300)
     gate=5*round(l/10);cy=5*round(w/10)
+    bottom,top=min(0,cy-350),max(w,cy+350)
+    box('diff',-800,0,l+800,w)
+    box('psdm' if d['kind']=='PMOS' else 'nsdm',-1100,bottom-300,l+1100,top+300)
     box('poly',0,-1000,l,w+300);box('poly',gate-250,-1050,gate+250,-550)
     box('diff',-2850,cy-350,-2150,cy+350)
     box('nsdm' if d['kind']=='PMOS' else 'psdm',-3150,cy-650,-1850,cy+650)
-    if d['kind']=='PMOS':box('nwell',-3450,-1500,l+1400,w+700)
+    if w<700:
+        # Append after the body tap so its regeneration role remains stable.
+        box('diff',-800,cy-350,-300,cy+350)
+        box('diff',l+300,cy-350,l+800,cy+350)
+    if d['kind']=='PMOS':box('nwell',-3450,-1500,l+1400,top+700)
     for pin,px,py in (('s',-500,cy),('d',l+500,cy),('g',gate,-800),('b',-2500,cy)):
         # 0.22 um GDS contact becomes the Magic contact with its 5 nm surround.
         box('contact',px-110,py-110,px+110,py+110)
         box('m1',px-200,py-200,px+200,py+200,d['nets'][pin])
         pins.append({'id':uid(),'device_id':d['id'],'pin':pin,'layer':ls['m1'],'point':[x+px,y+py]})
     from .layout_eco import roles
-    return roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}})
+    from .process_mos_parallel import generate
+    return generate(tech,d,roles({'shapes':shapes,'pins':pins,'record':{'device_id':d['id'],'spec':spec,'origin':[x,y]}}),ls,spec['values'].get('m',1))
 
 
 def install_mos(p,cid,did,x=0,y=0):
@@ -107,6 +124,9 @@ def generate_inverter(p,cid,replace=False):
         if not replace or not c.get('inverter_layout'):raise ValueError('Review regeneration before replacing an existing generated inverter layout.')
     for key in ('shapes','layout_pins','layout_texts','layout_ports','pdk_layouts','layout_instances'):c[key]=[]
     prepare(p['pdk']);ls=layers(p['pdk']);py=specification(p['pdk'],n)['dimensions_nm']['w']+6000
+    from .process_mos_parallel import inverter_separation
+    from .process_adapters import adapter
+    py=inverter_separation(p['pdk'],n,q,adapter(p['pdk']).implementation(),py)
     for d,y in ((n,0),(q,py)):install_mos(p,cid,d['id'],0,y)
     pins={(v['device_id'],v['pin']):v['point'] for v in c['layout_pins']}
     def wire(key,points,net):

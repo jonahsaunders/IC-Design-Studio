@@ -1,0 +1,456 @@
+{
+  "schema": 1,
+  "chunk": 7,
+  "date": "2026-10-28",
+  "status": "partial",
+  "qualified": false,
+  "chunk_complete": false,
+  "full_family": false,
+  "installed_acceptance": false,
+  "scope": "Selected three-model IHP straight resistor editor, source GUI lifecycle and native physical-reference integration; exact frozen gate pending.",
+  "source_metadata_commit": "a5148eca440e04f4c93d1f9400f80d131e211cd0",
+  "candidate": "Local integrated changes; exact file hashes, not the metadata commit, identify this uncommitted candidate.",
+  "package": {
+    "id": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "source_manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0",
+    "semantic_manifest_sha256": "5cb4aca37ed4192eadd82d686a1d5fc97072b018e7c45d21f062333a3361eebd"
+  },
+  "scope_contract": {
+    "models": [
+      "rsil",
+      "rppd",
+      "rhigh"
+    ],
+    "width_length_um": [
+      [
+        0.5,
+        0.5
+      ],
+      [
+        0.5,
+        20
+      ],
+      [
+        20,
+        0.5
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        7,
+        2
+      ]
+    ],
+    "terminal_access": [
+      "Metal1",
+      "Metal2"
+    ],
+    "rotations": [
+      0,
+      90
+    ],
+    "m": 1,
+    "b": 0,
+    "guard_vias": 0
+  },
+  "original_gui_source": {
+    "status": "PASS",
+    "gui_layouts": 60,
+    "seconds": 64.42855296299967,
+    "installed_acceptance": false,
+    "native_execution": false,
+    "report_sha256": "de50107858bffba40d1819fab88b797132a4c569ac395ddc5ee0f110d1fc3395",
+    "inventory_sha256": "b9b007f2d80f34dd4f6bff2f4f573ada10dca02fe285ed32ac439f5ad4aed69b",
+    "retained_archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-resistor-source-gui-v5-2026-10-28-v1\\evidence.zip",
+    "archive_sha256": "a371318b9455907c75ee15bc6ca7dadd26f608db5fa1eb92e3bcf576cabe047a",
+    "archive_bytes": 8352751,
+    "recoverable_logical_files": 1400,
+    "unique_objects": 1205,
+    "original_app_python_files": 463,
+    "readback_sha256": "10b4df12a3c42d8f260bc581965bc9335127758c507c0f163cf96bd8204ead05",
+    "historical_scope": "Original sourceGUI v5 retains its own earlier source closure. Later backend and LVS projection are separately identified.",
+    "reader_sidecar_sha256": "cf2dfb330a0d520d9dc9a406c724f3422765f03ee2ded3b5717cad32313eef9d",
+    "reader_sidecar_bytes": 144890,
+    "semantic_receipt_sha256": "f58cef9ba4e0ec9a1392dba3b861981c53929ab806f7bab6d140a0f2eca4a7f3",
+    "root_archive_readback_sha256": "f0a5fbe68060cfcaaf94bc1872b736ea3028b49cf10d839c650adaa470c394f0"
+  },
+  "managed_source_pilots": [
+    {
+      "status": "PASS",
+      "gate": "ihp-resistor-staged-source-gui-native-pilot",
+      "installed_acceptance": false,
+      "qualified": false,
+      "release_ready": false,
+      "full_family": false,
+      "gui_source_report_sha256": "de50107858bffba40d1819fab88b797132a4c569ac395ddc5ee0f110d1fc3395",
+      "source_case": "rhigh-g0-v1-r0",
+      "source_project_sha256": "0d3f87266888276ed3c798967b5bd78317aae3f1e65b48ee5e8eeae450869719",
+      "uid": 1000,
+      "native_positive_layouts": 1,
+      "native_controls": 6,
+      "seconds": 7.808999558001233,
+      "results": [
+        {
+          "fault": null,
+          "status": "passed",
+          "report_sha256": "d86fdd11a83b7be678e51346c88d385474fc882ad3a39ba7fff522e663eb8002"
+        },
+        {
+          "fault": "terminal-open",
+          "status": "failed",
+          "report_sha256": "af91e3b80abfaeba4ed4d54441035b4ec49338b7f3960df8bb1a6a0b74ffa040"
+        },
+        {
+          "fault": "body-open",
+          "status": "failed",
+          "report_sha256": "622dc69acc4070f1b0908082673d2d1807cae6f9a7ca61ab6572c6466d0eaec1"
+        },
+        {
+          "fault": "terminal-short",
+          "status": "failed",
+          "report_sha256": "dbe5b57c4cdfd9ca31904f73f6e0487e25508d8fef6c71ee98c9a0eef814468b"
+        },
+        {
+          "fault": "reference-width",
+          "status": "failed",
+          "report_sha256": "6623d8a8daa3a34deda2b23381db4ad00529ea3dbefc614aa371941e2612351f"
+        },
+        {
+          "fault": "reference-model",
+          "status": "failed",
+          "report_sha256": "0f4dd2ffe7da1dc2a68e1d913b5108c782458fe4e6dfd45a5e7fbbfcfa5923ed"
+        },
+        {
+          "fault": "missing-via",
+          "status": "failed",
+          "report_sha256": "da7c9544cbcf2828556dbae581123fffde699347bb175970cbf07a11169a2c87"
+        }
+      ]
+    },
+    {
+      "status": "PASS",
+      "gate": "ihp-resistor-staged-source-gui-native-pilot",
+      "installed_acceptance": false,
+      "qualified": false,
+      "release_ready": false,
+      "full_family": false,
+      "gui_source_report_sha256": "de50107858bffba40d1819fab88b797132a4c569ac395ddc5ee0f110d1fc3395",
+      "source_case": "rsil-g0-v1-r0",
+      "source_project_sha256": "7d87d1e612d95062440f5d6276715337d8c4e01b351d7883cf3c62d85b84ac7c",
+      "uid": 1000,
+      "native_positive_layouts": 1,
+      "native_controls": 6,
+      "seconds": 7.4283632959995884,
+      "results": [
+        {
+          "fault": null,
+          "status": "passed",
+          "report_sha256": "c490675324f6774ae33322f2d784e2309f1c322079563c5a03417cb2fed72afc"
+        },
+        {
+          "fault": "terminal-open",
+          "status": "failed",
+          "report_sha256": "5f1de8eae33e5f550de432a319126692e3f0424ffb891a1ce59fd71390067efc"
+        },
+        {
+          "fault": "body-open",
+          "status": "failed",
+          "report_sha256": "d852053cd37f3d74208337909e4f5386469ebe0dfe167a20b4182aa045f7f9ae"
+        },
+        {
+          "fault": "terminal-short",
+          "status": "failed",
+          "report_sha256": "15aa0b82f5cea217aa02a6b3047b9927aed8efa9c1aec4bb6c4f9ce08a60aab6"
+        },
+        {
+          "fault": "reference-width",
+          "status": "failed",
+          "report_sha256": "a6f92cf79d0572b4483d505d14cdcf668e9a211fd685a3a792c94907a5f2bc8b"
+        },
+        {
+          "fault": "reference-model",
+          "status": "failed",
+          "report_sha256": "3ed6a0a29c1c2ee86398dc65b45b00d4306ac8b73dec51eeff04358c2ded43f3"
+        },
+        {
+          "fault": "missing-via",
+          "status": "failed",
+          "report_sha256": "1138da1d991b84f536cd5432f28efe857a4ed91f4d2ea9757c8c99d5d2c986fe"
+        }
+      ]
+    }
+  ],
+  "pilot_timing_scope": "Staged native supervisor/Magic/Netgen and independent validator only. Frozen dispatch and per-job runtime identity cost were not included; installed deadline remains unmeasured.",
+  "integrated_backend": {
+    "icstudio/ihp_resistor_assets.py": "490f3a2a27ca04a4e20c50d1142b6165ea08528c67f8b34d2ea29cc8d91b2e0e",
+    "icstudio/digital_backend.py": "e3f08b9da0b8164216ad2a92fcf77e662c1eae6397e9236571038e4c905a7c59",
+    "icstudio/physical_backend.py": "713a6b4caf45ff35eb7d22894b0ac9a2fa9f6883b76602009ca7f4d163752dc5",
+    "icstudio/native_spice.py": "dd628292207e1e67c73ed6bd450acdd51ea633c422a29c51391f2db7cad879d4",
+    "scripts/verify_frozen_ihp_resistors.py": "36151385bff6673df57a48a9d28e1778b1fa86f08268e4d2c5d18f72d653c077",
+    "tests/test_ihp_resistor_backend_assets.py": "9d069167569d781d67d854d9ddeef2701dde5f5266d5127d9dc937a3985e5e76",
+    "tests/test_ihp_resistor_lvs_reference.py": "39fc17f9ecc22d905ae01b40d6b75d2042bee65ce86df08b4c870a68063ad1b8",
+    "tests/test_frozen_ihp_resistor_gate.py": "f716f239f34bf3517e4b12d015ecb7198424a06de8be380ffd4cdfbe9fcb1461"
+  },
+  "source_feedback": {
+    "status": "PASS",
+    "record": "docs/validation/chunk7-ihp-integration-2026-10-28.json",
+    "record_sha256": "6cb0295b4dd0ae525517e3048aa6c376234a22f9aa0183feba327c7c0c35b3a1",
+    "hosts": {
+      "Windows": {
+        "tests": 821,
+        "skipped": 34,
+        "unit_seconds": 155.592,
+        "source_seconds": 384.157,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 156.969
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 4.281
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 30.297
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 9.015
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 8.891
+          },
+          {
+            "name": "metal-resistor-parallel-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 39.343
+          },
+          {
+            "name": "ihp-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 132.469
+          }
+        ]
+      },
+      "Linux": {
+        "tests": 821,
+        "skipped": 14,
+        "unit_seconds": 38.1,
+        "source_seconds": 190.365,
+        "stages": [
+          {
+            "name": "unit-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 39.146
+          },
+          {
+            "name": "release-contracts",
+            "returncode": 0,
+            "elapsed_seconds": 1.718
+          },
+          {
+            "name": "menu-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 23.741
+          },
+          {
+            "name": "project-hub-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 3.321
+          },
+          {
+            "name": "metal-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 5.728
+          },
+          {
+            "name": "metal-resistor-parallel-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 22.752
+          },
+          {
+            "name": "ihp-resistor-editor-smoke",
+            "returncode": 0,
+            "elapsed_seconds": 91.843
+          }
+        ]
+      }
+    },
+    "gui": {
+      "Windows": {
+        "cases": 60,
+        "seconds": 126.57799999997951,
+        "execution_id": "c6c6037374d445f4914ed271b7ffccc4",
+        "files_sha256": "571766c9192b2c16043928ff489449d35c3978d742b8e0e6f7351709dfabae09",
+        "installed_acceptance": false
+      },
+      "Linux": {
+        "cases": 60,
+        "seconds": 87.19842448099371,
+        "execution_id": "e75568a31f344b2181d786500f62b429",
+        "files_sha256": "4d15ca58017eda11b34fccd5ced7a0ce0f9b1aabdc581e7702396cd9415da760",
+        "installed_acceptance": false
+      }
+    }
+  },
+  "installed_gate": {
+    "status": "pending",
+    "required_positive_layouts": 60,
+    "required_native_controls": 165,
+    "required_fresh_managed_jobs": 225,
+    "exact_candidate_required": true,
+    "timing_limit": "3600seconds is a scheduling deadline checked before native jobs; a final job has its own300second timeout and final hashing follows. Linux65minute outer step may fail a near-boundary run. Hosted timing has not been measured; no skipped jobs or acceptance weakening."
+  },
+  "provenance": "Public pinned IHP sources; original Apache-2.0 license, lock and derivation distributed with template assets. No private package or external signoff service.",
+  "remaining": [
+    "Fresh Windows and Linux installed acceptance",
+    "Full operating/statistical/reliability envelopes",
+    "Continuous and additional physical geometry classes",
+    "Other required devices and unavailable bindings"
+  ],
+  "staged_source_native_matrix": {
+    "status": "PASS",
+    "gate": "ihp-resistor-full-staged-source-gui-native",
+    "installed_acceptance": false,
+    "qualified": false,
+    "release_ready": false,
+    "full_family": false,
+    "source_gui_report_sha256": "de50107858bffba40d1819fab88b797132a4c569ac395ddc5ee0f110d1fc3395",
+    "source_files_sha256": "41ae7002b5578c04295b7c72758490f7272825fe8cd27f5b878ee3f8d2203768",
+    "reader_sha256": "7114713e7ff10c9fb5cebb10bbe3a13403567436d411abfbe2da567cdc7f7016",
+    "uid": 1000,
+    "native_positive_layouts": 60,
+    "native_controls": 165,
+    "native_jobs": 225,
+    "seconds": 245.68656028700207,
+    "managed_host_dispatch_exercised": false,
+    "full_runtime_identity_cost_measured": false,
+    "scope": "Actual225 staged native workers/receipts and final parent native validator from actual source GUI layouts. Frozen host dispatcher, installed executable and managed runtime full-file rehash cost remain unexecuted.",
+    "report_sha256": "ef688442d884021ca14b2e527fcd26e7717ba25d48580462dc1897d5e74ce9b7",
+    "report_path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\chunk7-ihp-resistor-installed-20261028-v1\\source-native-full.json",
+    "retention": {
+      "archive": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\ihp-resistor-source-native-2026-10-28-v1\\source-native225-evidence.zip",
+      "sha256": "ee01acc1608742156cae6d5e0f9e73d14d8329a829ca671cd3438b91b19e30ae",
+      "bytes": 32036446,
+      "manifest_sha256": "a0bfb3e921cf51f47a1981034e75521b515887594bf984406a8f5d827d238d4b",
+      "logical_files": 175855,
+      "unique_objects": 4974,
+      "publication_sha256": "9aa6144fa00e4a55c5d98f6e23bcd188739fbe7221b372cd84f45261cef8fb27",
+      "windows_full225_replay_sha256": "071bdc3ec8dc23233e56e59d6bdc8671c97bc6148de8b81a2dd8e1acbabdb518",
+      "all_objects_and_publication_files_verified_by_root": true
+    }
+  },
+  "windows_native_receipt_readback": {
+    "status": "PASS",
+    "gate": "ihp-parent-windows-native-receipt-readback",
+    "native_execution": false,
+    "installed_acceptance": false,
+    "qualified": false,
+    "reader_sha256": "36151385bff6673df57a48a9d28e1778b1fa86f08268e4d2c5d18f72d653c077",
+    "cases": [
+      {
+        "case": "positive",
+        "status": "passed"
+      },
+      {
+        "case": "terminal-open",
+        "status": "failed"
+      },
+      {
+        "case": "body-open",
+        "status": "failed"
+      },
+      {
+        "case": "terminal-short",
+        "status": "failed"
+      },
+      {
+        "case": "reference-width",
+        "status": "failed"
+      },
+      {
+        "case": "reference-model",
+        "status": "failed"
+      },
+      {
+        "case": "missing-via",
+        "status": "failed"
+      }
+    ]
+  },
+  "integration_corrections": {
+    "initial_snapshot_sha256": "501bdd498f0b732aabfdd504c19aa454850690e6c602fc244efb45843affd5a9",
+    "initial_feedback": "Both-host820-test unit stage failed at the unchanged historical GF180 acceptance binding; failed output retained.",
+    "historical_source": "Captured original sky130_devices_ui.py Git blob, changed only the historical source-snapshot pointer; no acceptance or qualification status changed.",
+    "windows_native_paths": "Use POSIX paths for Linux-worker tool/settings/assets receipts on both host platforms; original executed source225 reader retained separately.",
+    "files": {
+      "scripts/verify_frozen_ihp_resistors.py": {
+        "before": "7114713e7ff10c9fb5cebb10bbe3a13403567436d411abfbe2da567cdc7f7016",
+        "after": "36151385bff6673df57a48a9d28e1778b1fa86f08268e4d2c5d18f72d653c077"
+      },
+      "tests/test_frozen_ihp_resistor_gate.py": {
+        "before": "d5b69fd92cde307a93b3240b60ae6030b4a12bf8f2874fc79c74f66fe4fa3a36",
+        "after": "f716f239f34bf3517e4b12d015ecb7198424a06de8be380ffd4cdfbe9fcb1461"
+      },
+      "docs/qualification/pdk-matrix.json": {
+        "before": "8cb900448bce9ca3d16fced4eb4af8a0d71f8e2cf05377d5119c873dce76bc31",
+        "after": "c13c8a7f436595195effc1e195a91aa061ecb9edc0544fec8918a8aef7e5aa66"
+      },
+      "docs/validation/gf180-tested-source-2026-10-28-ihp-resistor/manifest.json": {
+        "before": null,
+        "after": "7a3315cff850f5c726163d3a9be51fd29a94b25a445ac482489b8c3a4ba3a66f"
+      },
+      "docs/validation/gf180-tested-source-2026-10-28-ihp-resistor/sky130_devices_ui.py.txt": {
+        "before": null,
+        "after": "220fa96ab00d90ceda1740c7ccecb30156ec946ea8a1d894c452320215972858"
+      }
+    }
+  },
+  "current_editor_sources": {
+    "icstudio/ihp_resistors.py": "a12aae04cbd8733560238849f6813e1b72a287cb9ad0de2ef60ad487a6efef50",
+    "icstudio/ihp_layout.py": "48a7718dae8f828625f4d8cf3e9e9bce87413c29b500639a2eac3a9ab99b7d30",
+    "icstudio/silicon_ui.py": "d4ac9c259da2b70c81a83250c43b306345f7bfcccc9ca2ba2b9febc88c8ee166",
+    "icstudio/sky130_devices_ui.py": "d6734aa8dbe0efaf8d2654bcd657f2c6e0e1330d6e95736e5fc05b7a353f9610",
+    "icstudio/ihp_resistor_desktop_probe.py": "ed8af95485d7b72ae0aee66a530acf5b8d9544da240e62c0edb035103f70495d",
+    "icstudio/__main__.py": "59c856e023b84fdadaf6d3434da8fe2a8c59e005b34a1feae83de3f9be1bfae0"
+  },
+  "line_ending_restoration": {
+    "files": {
+      "icstudio/ihp_layout.py": {
+        "before": "bced8a5ab949a6a5f431b987e733c76e14aab0d2c5e288a63c73aa35921ccb12",
+        "after": "48a7718dae8f828625f4d8cf3e9e9bce87413c29b500639a2eac3a9ab99b7d30",
+        "original_line_ending": "LF",
+        "candidate_line_ending": "CRLF",
+        "final_line_ending": "LF",
+        "ast_unchanged": true
+      },
+      "icstudio/silicon_ui.py": {
+        "before": "4315cb6b1ed346eefe94afa7482254b4d4e59f85beba0b24dd1ba0a48c31481b",
+        "after": "d4ac9c259da2b70c81a83250c43b306345f7bfcccc9ca2ba2b9febc88c8ee166",
+        "original_line_ending": "LF",
+        "candidate_line_ending": "CRLF",
+        "final_line_ending": "LF",
+        "ast_unchanged": true
+      },
+      "icstudio/sky130_devices_ui.py": {
+        "before": "3d6fd7f5840191db69e7400e8f30b1ae5800ef27c6ed4ad7557cc386cd7adbad",
+        "after": "d6734aa8dbe0efaf8d2654bcd657f2c6e0e1330d6e95736e5fc05b7a353f9610",
+        "original_line_ending": "LF",
+        "candidate_line_ending": "CRLF",
+        "final_line_ending": "LF",
+        "ast_unchanged": true
+      }
+    },
+    "scope": "Restore originalLF conventions only; exactCRLF-to-LF byte transformation and identicalASTs. Prior passed CRLF snapshotec6ee520 and all original native/source proofs retain their identities."
+  }
+}

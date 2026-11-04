@@ -1,0 +1,240 @@
+{
+  "status": "PASS_HOSTED_SOURCE_FEEDBACK_READBACK",
+  "run": 41696983923,
+  "pull_request_head": "71fb99166af8a1cb4a209b9d5f8fb14809b7d0db",
+  "tested_merge": "b41b5e7651f82a5e2e23965d9f40d7081e7423d1",
+  "merge_parents": [
+    "49c79957b4d6f4978127da612e167e5c75cda6b3",
+    "71fb99166af8a1cb4a209b9d5f8fb14809b7d0db"
+  ],
+  "source_bindings": 2232,
+  "all_source_bindings_verified": true,
+  "artifact_membership_sha256": "5119a409e521e2e4e649a02ec717173ba6a3a42b48d855cde27a79bdd313c426",
+  "source_manifest_sha256": "0ce2c9253e9d7690769ac46cf0fd3c272dba90a9e6e40b22eded98b833b92094",
+  "hosts": {
+    "windows": {
+      "artifact": 13261493340,
+      "archive_sha256": "5f3acb189611a06705ca3c8cf7f659d5429354bc0437da7bcaf6b4d20db5669d",
+      "archive_bytes": 17063347,
+      "members": 1248,
+      "archive_crc_verified": true,
+      "report_sha256": "4665577bda5db2d85cca5be33a107c1828c2bf950c8872f68aa8f04a89b98055",
+      "syntax_files": 1503,
+      "seconds": 687.219,
+      "tests": 1087,
+      "skipped": 37,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 155.64
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 117.297
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 122.922
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 17.891
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 5.265
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 35.797
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.86
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 11.641
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 48.437
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 155.407
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.344
+        }
+      ],
+      "counts": {
+        "unit-contracts": {
+          "tests": 646,
+          "skipped": 27,
+          "seconds": 152.913
+        },
+        "device-contracts": {
+          "tests": 346,
+          "skipped": 8,
+          "seconds": 116.557
+        },
+        "package-contracts": {
+          "tests": 11,
+          "skipped": 0,
+          "seconds": 122.773
+        },
+        "runtime-release-contracts": {
+          "tests": 84,
+          "skipped": 2,
+          "seconds": 17.62
+        }
+      },
+      "logs": {
+        "ci-feedback/unit-contracts.log": "410f711faf2f2ade2fc52ef39f88032b5c0bcbbd05643f405587c9c77aebdb3e",
+        "ci-feedback/device-contracts.log": "15cc4f8e7faf937ec08eab8c3fd78585fe9cbcac4eade92b7f7c039d0be2357d",
+        "ci-feedback/package-contracts.log": "aa47214cb0f860e133e29d900ac8a6b817ab4d5abadbebfda1defb0033aa4222",
+        "ci-feedback/runtime-release-contracts.log": "12b5a033a63a21d703316e72366c123b15d9232ccdf3616b14fef4c25102be25",
+        "ci-feedback/release-contracts.log": "47e16147d634e733e5f52dd68d345d437314aeff6dbf51e657fce27a43aff7b1",
+        "ci-feedback/menu-smoke.log": "b2e199d7fadcb9b0749ff03d0d985c2fa4d2fd5490170c7bad63ee1c33b459c5",
+        "ci-feedback/project-hub-smoke.log": "11804f89cf6bb119906c6605b350e52bbef6a0eb493ab340bd11dbe9fafc4750",
+        "ci-feedback/metal-resistor-editor-smoke.log": "143ce5beeabda248f7b95d29570f369a4af9cc0a1b1d087625cf372cd8e809fb",
+        "ci-feedback/metal-resistor-parallel-smoke.log": "5cf8c7bbbe90d79c9b531c8a7f8d691fdd2976282a251333b23cb4bef2d5eef2",
+        "ci-feedback/ihp-resistor-editor-smoke.log": "80667fa1a52c80a5c0c075fe4f70646585983d40dcdec8e93e37ac08f2158380",
+        "ci-feedback/ihp-capacitor-corner-smoke.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "linux": {
+      "artifact": 13262685294,
+      "archive_sha256": "4da5f7b1b2c819839ba3e6b4b6ab124fcc9e354c69713d8a6473197ba4388415",
+      "archive_bytes": 17403530,
+      "members": 1291,
+      "archive_crc_verified": true,
+      "report_sha256": "8cc4851a8cc4778f1adef98076c25b971d451b9ec8c98d77d6601a0c13939652",
+      "syntax_files": 1503,
+      "seconds": 370.645,
+      "tests": 1087,
+      "skipped": 17,
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 69.702
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 33.495
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 47.137
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 6.931
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.87
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.285
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.628
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.489
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 34.312
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 129.741
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.421
+        }
+      ],
+      "counts": {
+        "unit-contracts": {
+          "tests": 646,
+          "skipped": 14,
+          "seconds": 67.557
+        },
+        "device-contracts": {
+          "tests": 346,
+          "skipped": 2,
+          "seconds": 33.036
+        },
+        "package-contracts": {
+          "tests": 11,
+          "skipped": 0,
+          "seconds": 47.039
+        },
+        "runtime-release-contracts": {
+          "tests": 84,
+          "skipped": 1,
+          "seconds": 6.735
+        }
+      },
+      "logs": {
+        "ci-feedback/unit-contracts.log": "3fecd82b7ce0b0b75d5b96735733bc0d4371ecda65da533988e66f17c4588095",
+        "ci-feedback/device-contracts.log": "ae39ca49ed38ef1922b49ef4a57cc89685c0dae483ad5c27048f88538fab3981",
+        "ci-feedback/package-contracts.log": "fc1c3fd785688bbbab246712c41c0c0a710d194b2d551d07a43745218f723fa0",
+        "ci-feedback/runtime-release-contracts.log": "30fe273737a5eb994506952835df8bda160fff3b3bebcfdece6d318a6b56f78b",
+        "ci-feedback/release-contracts.log": "6b8a7318f6e57672ca53e3ab8735b8ee536e02b2e6151a0b409dd7b9976fd31f",
+        "ci-feedback/menu-smoke.log": "87ee6efb92085de695456f13803d954a44fae71aa9794a340e543a5a9214b164",
+        "ci-feedback/project-hub-smoke.log": "b7cdc6f30315f05bd34a6b203c1b4054249ed37637d61c1a6c250247a226383d",
+        "ci-feedback/metal-resistor-editor-smoke.log": "3506b1780891298edf7a69bb7f67b615ff2eb132c3b88f99a6f8d4e49db3bbba",
+        "ci-feedback/metal-resistor-parallel-smoke.log": "5abe53bec29ccf9673515cef399b5b44a43868ad6fc1e9da654591e7b64fcd66",
+        "ci-feedback/ihp-resistor-editor-smoke.log": "9eb5a04e0ca4592267caf65c2f15fbd1d8072cbb883c801f6a23970af55ed2fd",
+        "ci-feedback/ihp-capacitor-corner-smoke.log": "caeb11f6473c6c7125dd27478e588b85ffd6b31784e9adb1371a60f1661eb00f"
+      }
+    }
+  },
+  "separate_fixture_blob_hashes": {
+    "docs/qualification/ihp-cmim-enclosures-v1.json": "8f82d1ba570a7e831a55e751700b04d9f3e35a0bc007acdf7639c223dfda501b",
+    "docs/qualification/ihp-cmim-plate-evidence-v1/SOURCE.json": "06d7d7853c3c7721c3c9c86e0dbc220ce9b489aa4ceb199ee3fdede0c084fc55",
+    "docs/qualification/ihp-cmim-plate-evidence-v1/physical-evidence.zip": "5de4278a2b44047881d9b37482edf5b9e6ec0aabb47b30449e6a727b4b572f8e"
+  },
+  "installed_acceptance": false,
+  "full_family": false,
+  "chunk_complete": false,
+  "scope": "Hosted source feedback on the exact synthetic merge. The three additional fixture identities were compared independently with the pull-request head.",
+  "aggregate_job": 126137152121,
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/chunk7-71fb-hosted-feedback-2026-11-03-v1",
+    "retention_sha256": "a593223404a261583ad7a97216481603bb31ab1b67768efd1b4ac3c29f657bd2",
+    "verification_sha256": "c3d32ff451c7d4724eea350df1f06bdf922b742164caed332304ff9eccfd2f44",
+    "complete_archive_crc_sha256_readback": true
+  }
+}

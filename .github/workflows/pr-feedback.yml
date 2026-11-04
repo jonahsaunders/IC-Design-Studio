@@ -1,0 +1,57 @@
+name: Fast source feedback
+on:
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: feedback-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  feedback:
+    name: source feedback (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      # Default checkout tests GitHub's synthetic merge, not only the PR head.
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Check application, runner and test syntax before installing dependencies
+        run: python -c "from scripts.ci_feedback import check_syntax; print(check_syntax(), 'Python sources compiled')"
+      - name: Install desktop libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libegl1 libopengl0
+      - name: Install pinned Python dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run focused contracts and GUI smoke checks
+        run: python scripts/ci_feedback.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-feedback-${{ runner.os }}-${{ github.sha }}
+          path: |
+            build/ci-feedback
+            build/menu-audit
+            build/project-hub-evidence
+          if-no-files-found: ignore
+  required-feedback:
+    name: PR feedback
+    if: always()
+    needs: feedback
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require both source feedback platforms
+        env:
+          FEEDBACK_RESULT: ${{ needs.feedback.result }}
+        run: test "$FEEDBACK_RESULT" = success

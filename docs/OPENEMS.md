@@ -37,6 +37,26 @@ and never fills them with guessed foundry values.
 
 ![openEMS simulation controls](images/dev23/openems-setup.png)
 
+## Public IHP top-metal profile
+
+For the pinned IHP SG13G2 package, **Set up physical layers… → Load public IHP
+top-metal profile** fills the review table from the bundled, source-locked
+Apache-2.0 inputs. Choose the 280 µm bulk substrate or the 180 µm bulk substrate
+from the upstream `SG13G2_200um.xml` file, then press **Apply**. The latter file's
+name describes the public stack option; its bulk silicon is 180 µm. All five
+substrate, epitaxial, oxide, passivation and air slabs retain their original values.
+
+This profile maps only **TopMetal1.drawing, TopVia2.drawing and
+TopMetal2.drawing**. Other drawn layers, including fill and slits, require their
+own physical interpretation and prevent automatic simulation until resolved.
+The source reference and checksum travel with the saved profile. Applying it
+supports undo/redo and changes no schematic device or compact model. The public
+`inductor` and `inductor3` compact-model catalog entries remain unavailable.
+
+These are nominal public material inputs. No frequency/temperature calibration,
+intrinsic-coil accuracy, full-stack coverage or tapeout qualification follows
+from loading them. See [IHP profile validation](IHP_EM_PROFILE.md).
+
 ## Custom installations and source builds
 
 An existing installation can be selected under **Advanced settings → Solver
@@ -77,6 +97,25 @@ that would pass through another conductor is rejected. The other five boundaries
 use MUR absorption, with the chosen side/bottom margin. Air fills space outside
 the declared slabs.
 
+Both excitations now retain the incoming and outgoing waves at **both** ports.
+The converter solves `B = S A`; it does not assume that the unpowered port has
+zero incoming wave. Singular or ill-conditioned incident matrices are rejected.
+This corrects a demonstrated negative-resistance artifact in the earlier IHP
+experiment, without de-embedding the ports or changing any convergence limit.
+Older structured openEMS characterizations remain saved but show as stale and
+require a new solver run. The read-only `scripts/audit_openems_waves.py` command
+compares retained native probes with an independent voltage/current conversion;
+its report cannot be attached as a new characterization.
+
+The audit also reads the actual voltage and current coordinates from the native
+probe headers. It records their displacement from the requested positions and
+rejects different positions between the two excitations of one mesh. Missing,
+malformed or non-meter coordinate headers fail the audit. These coordinates
+include the solver's expected staggered-grid snapping and enlargement of current
+loops; displacement alone is not a failed device or a correction to its response.
+See the upstream [probe placement](https://docs.openems.de/en/latest/concepts/probes.html)
+and [staggered mesh](https://docs.openems.de/en/latest/concepts/mesh.html) explanations.
+
 **Results include this fixture.** There is no de-embedding. Reference clearance,
 side/bottom margins and boundary reflections can change L, Q and resonance. Study
 them separately before using results as an intrinsic coil model. A finer-mesh
@@ -107,10 +146,43 @@ bands; do not treat a time-limit exit as a converged measurement.
 **Verify with a finer mesh** defaults on: two terminal excitations at the base
 mesh, then two at a 0.7 mesh scale, each in a fresh process. Every solver log must
 confirm the requested energy decay. Exit code zero alone is insufficient. The
+application also stops as soon as openEMS reports that it truncated the requested
+excitation pulse. Increase the time-step allowance for that model and band before
+retrying; an energy-decay message cannot override this failure. The
 application compares complex differential Z and R at every sample against the
 finer result, with a 1 mΩ denominator floor. Both changes must meet the selected
 tolerance before automatic attachment. Disabling this check is allowed and is
 recorded as **mesh convergence NOT checked**.
+
+The final two-port response must also be passive at every sampled frequency.
+With both ports referenced to real 50 Ω, the largest singular value of the full
+S matrix must not exceed one, allowing only `1e-9` numerical roundoff. Positive
+differential resistance, individual S entries below one, or two agreeing meshes
+do not establish this condition. Both verified runs and quick previews use this
+check; no response is clipped or fitted to pass. This sampled check does not
+establish passivity between samples or outside the selected band.
+
+The earlier synthetic refinement passed the impedance comparison but fails this
+full-network check. Its saved characterization is retained as stale. Structured
+results without current passivity evidence also require a new run. See the
+[acceptance audit](validation/openems-passivity-2026-10-21.json).
+
+The release execution smoke test now uses a 50 µm side/bottom margin instead of
+5 µm. The production driver finishes both excitations and passes the unchanged
+passivity check for that larger synthetic fixture; the saved project reopens as
+current on Windows and Linux. The original 5 µm fixture is still rejected. The
+top reference plane expands with the domain, so these are distinct numerical
+fixtures. This existing one-mesh CI test establishes execution only. It does not
+replace the two-mesh study or establish device accuracy. The probe command's
+`--margin-um` option keeps the chosen margin in the run identity.
+
+The separate [completed two-mesh run](validation/ihp-em-refinement-2026-10-21.json)
+of that 50 µm production-driver fixture passes with 3.71% Z change, 4.94% R change
+and maximum fine-mesh scattering gain 0.98288. It retains 97,980 base cells and
+242,112 fine cells, all four native logs and independent voltage/current audits
+on both hosts. Its saved characterization reopens as current. This is numerical
+acceptance of the declared synthetic fixture; IHP accuracy, boundary independence
+and operating-envelope qualification remain separate.
 
 **Cancel run**, closing either dialog, a wall-time limit or application shutdown
 stops the current external process and prevents later excitations or imports.
@@ -127,7 +199,9 @@ manifest/GDS/XML exchange, per-excitation XML/probes/logs, and, on success,
 `results.json` plus `results.s2p`. Results record model/driver hashes, versions,
 fixture dimensions, material approximation, solver settings, mesh sizes and
 convergence evidence. Failed mesh comparison leaves `mesh-comparison.json` and raw
-excitation data for inspection. Studio does not upload process or PDK artifacts.
+excitation data for inspection. A completed passivity check leaves `passivity.json`
+on either pass or failure; it records the worst sampled gain and its frequency.
+Studio does not upload process or PDK artifacts.
 
 The [validation record](validation/openems.json) distinguishes numerical conversion
 and lifecycle fixtures from actual native solver execution. These checks do not

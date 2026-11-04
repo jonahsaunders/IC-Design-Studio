@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "case": "li-fault",
+  "status": "native-measurement-complete",
+  "qualified": false,
+  "gds_sha256": "448c3dff1079d37c600d27bc7502991288cb0b8b8ca8b12240785943f676f3bf",
+  "deck_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "source_job_sha256": null,
+  "die_area_um": [
+    -1,
+    -1,
+    2,
+    102
+  ],
+  "density_denominator": "explicit-original-die-box",
+  "supersedes": "v1 density used cell bounding box; poly fault was missed by native antenna checker",
+  "executable_sha256": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+  "driver_sha256": "e54915578743539424acaa1c0458c6e8f6130d353c8f3549eb78ed4385472232",
+  "command": [
+    "/opt/icstudio/physical/installed/bin/magic",
+    "-dnull",
+    "-noconsole",
+    "-rcfile",
+    "/var/tmp/icstudio-sky130-antenna-density-v2/li-fault/startup.tcl",
+    "/var/tmp/icstudio-sky130-antenna-density-v2/li-fault/run.tcl"
+  ],
+  "scope": "Native antenna diagnostic and density measurements on the original declared footprint. Rule completeness, process interpretation and density acceptance are not implied.",
+  "antenna_output": "Reading extract file.\nBuilding flattened netlist.\nRunning antenna checks.\nCell: ANTENNA\nAntenna violation detected at plane locali\nEffective antenna ratio 1179.19 > limit 400\nGate rect (65 0) to (80 60)\nAntenna rect (55 100) to (90 114)\nantennacheck finished.\n",
+  "feedback_count": 7,
+  "density": {
+    "fom_all": 0.002912621246650815,
+    "poly_all": 0.0013106795959174633,
+    "li_all": 0.054728154093027115,
+    "m1_all": 0.0,
+    "m2_all": 0.0,
+    "m3_all": 0.0,
+    "m4_all": 0.0,
+    "m5_all": 0.0
+  },
+  "seconds": 0.416389951002202,
+  "files": {
+    "startup.tcl": "91fcdce1be549fbdc187c8427b1e7aa04d427e40c43dae5f359a971feaa63410",
+    "input.gds": "448c3dff1079d37c600d27bc7502991288cb0b8b8ca8b12240785943f676f3bf",
+    "antenna-feedback.txt": "00ddb262a32cc63b0a8c07c884271f32e420615c2e8058218aded3ae896f0efd",
+    "engine.log": "31055a7556cd7b8098d105317d68b7e1772f01cb91f76464fe1a821a8242c92d",
+    "ANTENNA.ext": "2267650c24944271fd557549a78a4e7429c13b2b67753218f12f95c0ef562424",
+    "sky130A.tech": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+    "run.tcl": "fdba2e94835196c4894fb1baa500441a8a67821e0bed89dd3014a4694ed563af"
+  }
+}

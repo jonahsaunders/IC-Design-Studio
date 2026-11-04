@@ -1,0 +1,206 @@
+{
+  "status": "PASS_COMBINED_SOURCE_REGRESSION",
+  "installed_acceptance": false,
+  "qualified": false,
+  "source_manifest_sha256": "edfd66c991f22e878c83267b4661d0820f16570701601ed09f670e08dee787b2",
+  "source_files": 6938,
+  "named_source_bytes": 320296630,
+  "archive_hashes": {
+    "source-snapshot.zip": "11b644b0fb01704cbce62f0a74f137bbbf2fd9362b93b8eb384380becce5ac99",
+    "source-delta-v3.zip": "2b65ba7e3c7eb9d00305cbbacd00fe526a8d1fc0bbc52b1dc1b637712e9033d1",
+    "source-delta-v4.zip": "b03aae7c153264dbfdcbf45e85cf599f8d505cb31b13091de851fc027601d2bd",
+    "source-delta.zip": "45a3497f69f2943ba023ba24a0f5e11a828c23c67efb37f5ddad726cab4bfedf"
+  },
+  "source_recovery_verified": true,
+  "base_commit": "d767f711d301ace057ceb4706c80e733aedc0c00",
+  "linux": {
+    "result_sha256": "f8d3bb52e1366c46f2c2fa56659805158415b76ef3aa761f5edb5ed067bbd505",
+    "focused": {
+      "tests": 68,
+      "skipped": 0,
+      "seconds": 3.033,
+      "log_sha256": "9676ba7598ed782848f523a3cd4dbe0beae85602e90c5bdc2854c3ab42d337b8"
+    },
+    "tests": 4205,
+    "skipped": 57,
+    "seconds": 846.513,
+    "compiled_core_sha256": "e6f3319c241230f5fce8ded582edee980a078669d1d39630b2e86366cd9a28d9",
+    "logs": {
+      "build": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "native-load": "a2c2c01f29675d7279c3f5552b5fa57d35f3fab7f840e8a71225091a4558afd3",
+      "focused": "9676ba7598ed782848f523a3cd4dbe0beae85602e90c5bdc2854c3ab42d337b8",
+      "full-core": "f9e5ae8d478059dbe2634d522a9c1fb8d5b8017e85dc20809ee0dfa2cdfe8545"
+    }
+  },
+  "windows": {
+    "result_sha256": "a1a9273a1dedd97fbe95dbd3dafadec5ba9b863ed7b893eae88e5909faa3d202",
+    "focused": {
+      "tests": 68,
+      "skipped": 1,
+      "seconds": 19.653,
+      "log_sha256": "582f7ca11b6df9fe3891a0c1fede92a95532d1ec51785dfac64cc2eec3977237"
+    },
+    "tests": 1074,
+    "skipped": 38,
+    "stages": 11,
+    "seconds": 744.532,
+    "syntax_files": 1500,
+    "logs": {
+      "unit-contracts": "03e9e48989fcfab5e83cbd677a5e628ce3114db05c4ea9ea2abacd226ec4c094",
+      "device-contracts": "dc4f0ad332c650ac1530faedc495d8ead0229255a4f1ff6487f77716420b482a",
+      "package-contracts": "17079ab78df025309d8d4021145fe5f14fa0f20e3d34ad57cfa6b934546ce3d4",
+      "runtime-release-contracts": "89f9d8ee9da40c168c0a2da6cc52bce25ed0411575060c9306e219b61d4c9d4f",
+      "release-contracts": "85ac389d96b5bbbe6a7c8f6e1d580798398b9094a08f1d4ba29de9c4abc05d5b",
+      "menu-smoke": "b2e199d7fadcb9b0749ff03d0d985c2fa4d2fd5490170c7bad63ee1c33b459c5",
+      "project-hub-smoke": "11804f89cf6bb119906c6605b350e52bbef6a0eb493ab340bd11dbe9fafc4750",
+      "metal-resistor-editor-smoke": "d5ff96c3defc08e33a7cb60afe4d7f4e0521381aa5a0f8ab898d6e7083dde97d",
+      "metal-resistor-parallel-smoke": "26dd6faba434b6739f3293a09f2358be8ece042e09ce364b405745d89b578cd6",
+      "ihp-resistor-editor-smoke": "f41642c5555178784f8edc2aebf4ffda57377258d37b2aea16790d0b1d6cac99",
+      "ihp-capacitor-corner-smoke": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "retained_build_sha256": {
+      "menu-audit/checks.json": "fd77384f4e447a1d73d2ca72ee3328d14c0e448deac16db6dbc6091ad3b3e986",
+      "menu-audit/menus.json": "66c6b8f08e42fc7be8af48f94daf426e5dcd3b01c17d43ccf6c8cd5d4c4da96b",
+      "menu-audit/tabs.json": "38a811563929c80630d38deec062af4fbd271c26c8adaf7d3cb8015c5b70de97",
+      "project-hub-evidence/new-project.png": "509b4fddebd636f922f1c316eec8f9d99b176eddba47bd615d52036e0df7eb30",
+      "project-hub-evidence/pdks-available.png": "73ee1640998202ea3b243414e140bd1f3f710c050cc092638f8894856cb98fbd",
+      "project-hub-evidence/pdks-installed.png": "81dd552753c06948a566138f49e58c9ad3ca4a3e2d23d831c72f1c056e140261",
+      "project-hub-evidence/projects.png": "96e2c8c20af88dd6ccd60974e8ce06ca330a6f3b722edb537fe2df531990d40a",
+      "project-hub-evidence/result.json": "8cbeab60264c0b23e2bfce7feeb275c6f6101b79e2f3ab8fb43fdad6e64730b5"
+    }
+  },
+  "schema": 1,
+  "date": "2026-11-03",
+  "chunk_complete": false,
+  "independent_readback_sha256": "a969f5e48ce6a5f222b419ccbd9218003ca92307c24601cc13d2bcdac2727293",
+  "scope": "Combined evidence: exact frozen 6938-file full Linux/Windows source regression plus separately tested six-file caller overlay. Documentation changes are independent. No claim that the full suite was rerun after the caller overlay, or that this is installed acceptance.",
+  "windows_outer_wrapper": {
+    "status": "FAIL_LIVE_CHECKOUT_ADVANCED",
+    "cause": "Live checkout advanced by six intentionally separate caller/test changes after the test snapshot was frozen. The immutable clone and all eleven stage results independently verify unchanged. Original outer failure is retained, not converted to a successful exit."
+  },
+  "retention": {
+    "directory": "IC-Design-Studio-evidence/chunk7-spacing-integrated-2026-11-03-v1",
+    "archive": "integrated-evidence.zip",
+    "sha256": "c5a96b18691575468031f70fbc96940c1996b49dada1de2cd565c9574f855194",
+    "bytes": 18097958,
+    "members": 1264,
+    "retention_sha256": "56ce4a459a72130317615a552523c057845c6a2a978e2db5112dd423806fe3eb",
+    "all_members_readback_verified": true,
+    "source_recovery": "Exact original base ZIP and two predecessor deltas retained as hardlinks; this archive contains the current delta and manifests."
+  },
+  "caller_supplement": {
+    "status": "PASS_SOURCE_CALLER_SUPPLEMENT",
+    "qualified": false,
+    "installed_acceptance": false,
+    "source_files": 6938,
+    "original_sources_unchanged": true,
+    "tested_sources_unchanged": true,
+    "base_source_manifest_sha256": "edfd66c991f22e878c83267b4661d0820f16570701601ed09f670e08dee787b2",
+    "source_replacements": {
+      "scripts/qualify_ihp_topvia.py": "b9844a5e4082cdf99381858164e7689d30a71dcd3cb02bfa15532efc338d98f0",
+      "scripts/qualify_ihp_hv_mos_layouts.py": "fa9a533efcf4926e0e73bcdec96d3c8bc618eeb444124d504901c6f0bcf70085",
+      "icstudio/verification_navigation.py": "63e6876e41e1fd4e95f8ea498c11ac53e49ef16236a70037bfb3daade9c7907c",
+      "tests/test_ihp_em_profile.py": "3e1550cdc81fd65686db0bc77303fd14346d1e96083ba502e8e4484a01f73988",
+      "tests/test_ihp_hv_mos_layouts.py": "9afa0f4115ce21123fc6c3fd08d6361c70924c659f0ee678752b594d921e9572",
+      "tests/test_layout_release.py": "3be2d621f5679e2c54d9fa85937cd71c33246ef637cff8d398d61ca0ee59ee9a"
+    },
+    "selected_runtime_files_sha256": {
+      "/opt/icstudio/bin/klayout": "17c0ac7fad216669ae38aa2ff4be332ca01ce4573002883195671f9405b0c0c9",
+      "/opt/icstudio/bin/magic": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223",
+      "/opt/icstudio/bin/netgen": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3",
+      "/usr/bin/klayout": "12f4135279aadc748673de1a6fb6801c68557681d152fd1c5de6b2a5aebf58cc",
+      "/usr/bin/tclsh8.6": "08fc0602422887d601fd1a3c08d611b3c81d7c9e2817834f21e7f65a814fd299",
+      "/opt/icstudio/physical/installed/bin/magic": "4b74020f201fd8b09b4984614249f3602dd1f4b2a3731e087dfe88eeacc887c5",
+      "/opt/icstudio/physical/installed/lib/netgen/tcl/netgen.tcl": "1144b712f1dac844d13b8e2499c66d8061bbe699cb68850f32690e17ed99c109"
+    },
+    "selected_runtime_files_unchanged": true,
+    "retained_fixture_sha256": {
+      "coupon.icproj": "7b31acd097b4d7bf71810caef96a7861c0d7489bcaa7c02f9317d9a6254f619a",
+      "drc/metal-spacing/findings.lyrdb": "ae43fede715654d08e9f786d46b8ff0cdd6b01b8bfc5b14612a48bdcc7b44d8c"
+    },
+    "checks": {
+      "focused": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-B",
+          "-m",
+          "unittest",
+          "test_ihp_em_profile",
+          "test_ihp_hv_mos_layouts",
+          "test_layout_release",
+          "-v"
+        ],
+        "returncode": 0,
+        "log_sha256": "53c2a44cdce753773f3cad7d254d7b8bdb9b6696b99948d0344894cb641d91a1"
+      },
+      "topvia": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-B",
+          "scripts/qualify_ihp_topvia.py",
+          "--klayout",
+          "/opt/icstudio/bin/klayout",
+          "--output",
+          "/var/tmp/icstudio-spacing-callers-20261103-v1/topvia"
+        ],
+        "returncode": 0,
+        "log_sha256": "ccdff75ea54c26a1be99cc14060bb5a52227f41907cab951b77e2f89ec97f7ce"
+      },
+      "hv-body": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-B",
+          "/var/tmp/icstudio-spacing-callers-20261103-v1/probe_callers.py",
+          "body",
+          "/var/tmp/icstudio-spacing-callers-20261103-v1/hv-body"
+        ],
+        "returncode": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "navigation": {
+        "command": [
+          "/var/tmp/icstudio-fulltest-env-20261017-v1/bin/python",
+          "-B",
+          "/var/tmp/icstudio-spacing-callers-20261103-v1/probe_callers.py",
+          "navigation",
+          "/var/tmp/icstudio-spacing-callers-20261103-v1/navigation"
+        ],
+        "returncode": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "result_sha256": "4df67456a481a0524dad477d03510378d86ac0c332f28fec77457382fbd4751c",
+    "overlay_manifest_sha256": "9385fb5898b701758fc209845669bbe49385770a5b88d178692409653721d692",
+    "source_delta_sha256": "d1c17515d506c77bb3a1e4cd0aa4bb695b93f93ceef038e488d4d498ac30f085",
+    "native_tests": {
+      "focused": 42,
+      "topvia_cases": 7,
+      "hv_positives": 2,
+      "hv_body_open_faults": 2,
+      "retained_navigation_markers": 2
+    },
+    "native_scope": "Two legal via fixtures and five actual geometric faults; selected one-unit n/p HV positives and only-body-disconnected extraction failures; archived actual two-marker navigation. No new full-family qualification.",
+    "windows": {
+      "focused_tests": 42,
+      "seconds": 8.372,
+      "log_sha256": "1e0eaabde6f1b33e9cd959edd760b0ac394ac94dc8ea931c3fe17b51e2b19e12",
+      "final_navigation_test": "The stronger two-marker/object-association test also passed separately before the native 42-test run."
+    },
+    "source_review_sha256": "75603688d621123013115a0bd621f495a3ef64bc01f4b9619a6b7effd35bec26",
+    "retention": {
+      "directory": "IC-Design-Studio-evidence/chunk7-spacing-callers-2026-11-03-v1",
+      "caller-review-evidence.zip": "6cbd6e069ae54ec072790a6fecf2000dac55fa83fc7860a4d3708f60acd455ad",
+      "native-evidence.zip": "6167defe31bc7599c198f1fb8c1f8b3408a2db74456af903c5b0ade16ac5bae5",
+      "native_members": 1194,
+      "native_bytes": 3816234,
+      "retention_sha256": "5e9d3a890633de2a2e9200031d7fb58a3741bd87c559cdedc3c445fa262bec5d",
+      "native_retention_sha256": "1fa3b680b7978deb0fe18fa237ae7d1ea6e1aa6619f1a003e47081ba28fb6b62",
+      "all_members_readback_verified": true
+    },
+    "independent_native_review": {
+      "sha256": "97d336cbe6741f112930f0f83fba26ccd0c3545915c57f96b083aea7cdfe3b29",
+      "retained_path": "IC-Design-Studio-evidence/chunk7-spacing-callers-2026-11-03-v1/native-review.json",
+      "scope": "All 1190 result-bound files, six current source hashes, seven exact via mask geometries, all 33 raw DRC reports and four HV extraction/LVS contexts independently read back."
+    }
+  }
+}

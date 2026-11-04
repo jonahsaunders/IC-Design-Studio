@@ -1,0 +1,549 @@
+{
+  "date": "2026-10-07",
+  "status": "passed within the managed Windows/WSL reference scope; full release and tapeout unqualified",
+  "source_commit": "81856bf46002d17ec4715b044e5a994ba0ccb839",
+  "backend_sha256": "e3648cc28222e9378ca6ac33afa97b1d88ae25d12fb9eb151163250fa83a6e56",
+  "scope": "Fresh private WSL installation and Windows-managed dispatch, 26 installation checks, 15 timing pairs, three macro exports and nine native baseline/fault-control cases on SKY130, GF180 and IHP counters. Final streamed-GDS rules and final desktop packages remain separate and unqualified.",
+  "acceptance": {
+    "runtime": {
+      "kind": "wsl",
+      "distro": "ICStudio-Digital-78858bfa0ff14234-8d5f7b9a",
+      "root": "\\\\wsl.localhost\\ICStudio-Digital-78858bfa0ff14234-8d5f7b9a",
+      "sha256": "78858bfa0ff142345c06a37811799e672c273126af0a601703b182757c839c32"
+    },
+    "manifest": "e5aa6e35b978a56401c5e5a3c00b92b228b8d79d10c5ced9b1797db1678e7f07",
+    "backend": "e3648cc28222e9378ca6ac33afa97b1d88ae25d12fb9eb151163250fa83a6e56",
+    "checked": "2026-10-07T12:58:14+00:00",
+    "evidence": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\physical-check-windows-state\\checks\\4b3b17d244bc4c60a7750c227fd47020",
+    "platforms": [
+      "sky130hd",
+      "gf180",
+      "ihp-sg13g2"
+    ],
+    "platform_corners": {
+      "sky130hd": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": [
+          "minimum",
+          "nominal",
+          "maximum"
+        ]
+      },
+      "gf180": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": []
+      },
+      "ihp-sg13g2": {
+        "library_corners": [
+          "typical",
+          "slow",
+          "fast"
+        ],
+        "interconnect_corners": []
+      }
+    }
+  },
+  "platforms": [
+    {
+      "name": "sky130hd",
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_checks": {
+        "schema": 1,
+        "status": "PASS",
+        "issues": [],
+        "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks.",
+        "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+        "top": "counter",
+        "checks": {
+          "schema": 1,
+          "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+          "top": "counter",
+          "signal_inputs": 41,
+          "missing_gate_models": [],
+          "unrouted_inputs": [],
+          "unconnected_power_pins": [],
+          "routing_layers": [
+            {
+              "name": "li1",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "met1",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "met2",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "met3",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "met4",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "met5",
+              "has_antenna_rule": true
+            }
+          ],
+          "antenna": {
+            "error": "",
+            "violating_nets": 0
+          },
+          "power": [
+            {
+              "net": "VDD",
+              "kind": "POWER",
+              "terminals": 6352,
+              "special_wires": 1,
+              "error": ""
+            },
+            {
+              "net": "VSS",
+              "kind": "GROUND",
+              "terminals": 6352,
+              "special_wires": 1,
+              "error": ""
+            }
+          ]
+        },
+        "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+      },
+      "macro_export": "782ad2515b42754eab053a127caed5e42649cb0e035965271cc3d930effc5fed"
+    },
+    {
+      "name": "gf180",
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_checks": {
+        "schema": 1,
+        "status": "PASS",
+        "issues": [],
+        "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks.",
+        "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+        "top": "counter",
+        "checks": {
+          "schema": 1,
+          "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+          "top": "counter",
+          "signal_inputs": 38,
+          "missing_gate_models": [],
+          "unrouted_inputs": [],
+          "unconnected_power_pins": [],
+          "routing_layers": [
+            {
+              "name": "Metal1",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "Metal2",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "Metal3",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "Metal4",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "Metal5",
+              "has_antenna_rule": true
+            }
+          ],
+          "antenna": {
+            "error": "",
+            "violating_nets": 0
+          },
+          "power": [
+            {
+              "net": "VDD",
+              "kind": "POWER",
+              "terminals": 375,
+              "special_wires": 1,
+              "error": ""
+            },
+            {
+              "net": "VSS",
+              "kind": "GROUND",
+              "terminals": 375,
+              "special_wires": 1,
+              "error": ""
+            }
+          ]
+        },
+        "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+      },
+      "macro_export": "1640b37c1a7ba2115352926c1e60cb1875f3580905d68b5e35d4b666f12e08e1"
+    },
+    {
+      "name": "ihp-sg13g2",
+      "router_checks": {
+        "detailed_route_drc_errors": [
+          0
+        ],
+        "scope": "Router rule checks; not foundry DRC/LVS"
+      },
+      "physical_checks": {
+        "schema": 1,
+        "status": "PASS",
+        "issues": [],
+        "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks.",
+        "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+        "top": "counter",
+        "checks": {
+          "schema": 1,
+          "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+          "top": "counter",
+          "signal_inputs": 43,
+          "missing_gate_models": [],
+          "unrouted_inputs": [],
+          "unconnected_power_pins": [],
+          "routing_layers": [
+            {
+              "name": "Metal1",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "Metal2",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "Metal3",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "Metal4",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "Metal5",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "TopMetal1",
+              "has_antenna_rule": true
+            },
+            {
+              "name": "TopMetal2",
+              "has_antenna_rule": true
+            }
+          ],
+          "antenna": {
+            "error": "",
+            "violating_nets": 0
+          },
+          "power": [
+            {
+              "net": "VDD",
+              "kind": "POWER",
+              "terminals": 1976,
+              "special_wires": 1,
+              "error": ""
+            },
+            {
+              "net": "VSS",
+              "kind": "GROUND",
+              "terminals": 1976,
+              "special_wires": 1,
+              "error": ""
+            }
+          ]
+        },
+        "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+      },
+      "macro_export": "5920673742b7d1ae4f654154eb4c8ea757d8b157d8bc737e93697da32f452dce"
+    }
+  ],
+  "control_qualification": {
+    "schema": 1,
+    "status": "passed",
+    "scope": "Final OpenDB default-oxide LEF antenna rules and all declared POWER/GROUND net connectivity. Model/rule presence is checked; deck adequacy, streamed-GDS DRC/LVS, density, ERC, ESD/latch-up, IR drop and electromigration are not qualified by these checks.",
+    "negative_control_scope": "Isolated damaged OpenDB copies with unchanged source rules; not valid designs.",
+    "source_files": {
+      "qualify_digital_physical_checks.py": "547aed8a75a4bfae8b683f2f65ea91fbfac7b9a98fb2801f3c436c2ec82e6530",
+      "digital_physical_checks.py": "21772a144cd1c8ec0c731290cbdb30a025e9ebbbce8d3f356c8f199c324cce86",
+      "digital_physical_engine.py": "a16f4c69964dce0de519ee21788d9b9504eec4cd61b9900e43f03e1bcd2bbbdf"
+    },
+    "cases": [
+      {
+        "platform": "sky130hd",
+        "case": "baseline",
+        "status": "passed",
+        "expected_check_status": "PASS",
+        "source": {
+          "input_sha256": "de775ea016768482eef05f58ed80bd885bf4be0f7b90e2fd3469970582f29cc3",
+          "result_sha256": "5a20fb6d633787517f231026d315f625f327a58b6abd9a6642fc5399206d89d3",
+          "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+          "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+        },
+        "mutation": null,
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/sky130hd/baseline/checks/check.py"
+        ],
+        "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+        "result_sha256": "eaed658ddef670b3239c99999b5d6c9cac1d250865ceb31f9240edc3785096e1",
+        "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+      },
+      {
+        "platform": "sky130hd",
+        "case": "removed-grid",
+        "status": "passed",
+        "expected_check_status": "FAIL",
+        "source": {
+          "input_sha256": "de775ea016768482eef05f58ed80bd885bf4be0f7b90e2fd3469970582f29cc3",
+          "result_sha256": "5a20fb6d633787517f231026d315f625f327a58b6abd9a6642fc5399206d89d3",
+          "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+          "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+        },
+        "mutation": {
+          "net": "VDD",
+          "removed_special_wires": 1
+        },
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/sky130hd/removed-grid/checks/check.py"
+        ],
+        "checkpoint_sha256": "8eb8ba56a99a4e3ccc92b653d308b47fe1e9871e7f6f8f16baadd6d9e4d88a77",
+        "result_sha256": "ac16d59286a0f4164a80b1e853056bf112c2558fee9b7d77452637b14394f3c0",
+        "log_sha256": "b139d4de699dd5059f2e9de0a37f11c24160256dd9c87cdef66965f805fd92f8"
+      },
+      {
+        "platform": "sky130hd",
+        "case": "antenna-route",
+        "status": "passed",
+        "expected_check_status": "FAIL",
+        "source": {
+          "input_sha256": "de775ea016768482eef05f58ed80bd885bf4be0f7b90e2fd3469970582f29cc3",
+          "result_sha256": "5a20fb6d633787517f231026d315f625f327a58b6abd9a6642fc5399206d89d3",
+          "checkpoint_sha256": "77915c5131e98c988c4a9a89cf93f406302a907a718c961447fea5f35d01e3f5",
+          "platform_fingerprint": "f7f9afb684817161ef4438506f37187c254e3dba8d5671ad101d1b0db54b2ca0"
+        },
+        "mutation": {
+          "net": "net2",
+          "instance": "_08_",
+          "pin": "A1",
+          "layer": "li1",
+          "routing_length_um": 60000
+        },
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/sky130hd/antenna-route/checks/check.py"
+        ],
+        "checkpoint_sha256": "3813d906df7b91885729d4f98fa32b8111c1ec266820f606624e95290c793e31",
+        "result_sha256": "1eeb2d8090c4fb83ae8e5fd33507c2e3a4eb6b389f0893f3aa0a1dc04a2210c0",
+        "log_sha256": "995eb0025488c334fad211de176ab2b7a3eaf3d330374d52b883d6e599835c95"
+      },
+      {
+        "platform": "gf180",
+        "case": "baseline",
+        "status": "passed",
+        "expected_check_status": "PASS",
+        "source": {
+          "input_sha256": "ff2d6a8df9c8f6a225182e839f9ba713bf51250b07968b3e7fa192ddbd4de2b8",
+          "result_sha256": "a9bbc82d5a57fde8443a0fe23b9400004cfef2330b28b6bcaced9af8ac3de786",
+          "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+          "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+        },
+        "mutation": null,
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/gf180/baseline/checks/check.py"
+        ],
+        "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+        "result_sha256": "55b61b64701b20d26b58432ac3c283c3906b8db56e5553501c6cb3f1ad7a63a8",
+        "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+      },
+      {
+        "platform": "gf180",
+        "case": "removed-grid",
+        "status": "passed",
+        "expected_check_status": "FAIL",
+        "source": {
+          "input_sha256": "ff2d6a8df9c8f6a225182e839f9ba713bf51250b07968b3e7fa192ddbd4de2b8",
+          "result_sha256": "a9bbc82d5a57fde8443a0fe23b9400004cfef2330b28b6bcaced9af8ac3de786",
+          "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+          "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+        },
+        "mutation": {
+          "net": "VDD",
+          "removed_special_wires": 1
+        },
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/gf180/removed-grid/checks/check.py"
+        ],
+        "checkpoint_sha256": "e34492159244ab48d27ebe58f97e49a38cea484ac2c1f1a2fe23b9c05d0d83e0",
+        "result_sha256": "bb4cefa43a5089e1bf5a27e5fdb97e4d11296d65d31a611298182d578706b2f5",
+        "log_sha256": "a6ec8d8722f882123417cbe02a32b9049de61685b03ed761864a338955af9d6e"
+      },
+      {
+        "platform": "gf180",
+        "case": "antenna-route",
+        "status": "passed",
+        "expected_check_status": "FAIL",
+        "source": {
+          "input_sha256": "ff2d6a8df9c8f6a225182e839f9ba713bf51250b07968b3e7fa192ddbd4de2b8",
+          "result_sha256": "a9bbc82d5a57fde8443a0fe23b9400004cfef2330b28b6bcaced9af8ac3de786",
+          "checkpoint_sha256": "19ee7692dbf7e03796a6e3c01fde9fd1f7c077e82793e9123989db0bdbf7300d",
+          "platform_fingerprint": "6e116940694423069e0b41c9b51f329e6a7698b97fece76629e5e4b6f2f05922"
+        },
+        "mutation": {
+          "net": "net1",
+          "instance": "_09_",
+          "pin": "I",
+          "layer": "Metal1",
+          "routing_length_um": 60000
+        },
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/gf180/antenna-route/checks/check.py"
+        ],
+        "checkpoint_sha256": "81e5d39bbaf8a17a8a4c5d5391b2f25ddf5a5d1cae99b21fd156f18d49db13cc",
+        "result_sha256": "42b461d4d2938dff0d847b7407a67079c41c06f61fa75844adf4bfa5f06ab700",
+        "log_sha256": "2bd43275aa47ad6805751ce9b748992f4318f4d39d054e8f87f103346934fe9f"
+      },
+      {
+        "platform": "ihp-sg13g2",
+        "case": "baseline",
+        "status": "passed",
+        "expected_check_status": "PASS",
+        "source": {
+          "input_sha256": "625d0b5df37e4ce2e1d8393d0083bf24d8dddf005087622f863121b5e5730ad0",
+          "result_sha256": "46da0536cf483aedda27008a2fd90efc1382ed6e533b6c6bd61864808b98001c",
+          "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+          "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+        },
+        "mutation": null,
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/ihp-sg13g2/baseline/checks/check.py"
+        ],
+        "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+        "result_sha256": "89c57e7ac3636b8ae8cacfcff542bee09c9e87efaa26c28a0100c7c5e2729bc2",
+        "log_sha256": "630708a27b8af202da305e6b25da858af3e563957dba5ad0dd35dc37272337e7"
+      },
+      {
+        "platform": "ihp-sg13g2",
+        "case": "removed-grid",
+        "status": "passed",
+        "expected_check_status": "FAIL",
+        "source": {
+          "input_sha256": "625d0b5df37e4ce2e1d8393d0083bf24d8dddf005087622f863121b5e5730ad0",
+          "result_sha256": "46da0536cf483aedda27008a2fd90efc1382ed6e533b6c6bd61864808b98001c",
+          "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+          "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+        },
+        "mutation": {
+          "net": "VDD",
+          "removed_special_wires": 1
+        },
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/ihp-sg13g2/removed-grid/checks/check.py"
+        ],
+        "checkpoint_sha256": "e0bbf39f00e65535a313fdd4ba618991f40d4e346289084adee74806f98df9f3",
+        "result_sha256": "8ae5ea82a288116edc0be5b966ec00eb6864b5756e63c7c29c36ede7bb4b1441",
+        "log_sha256": "03aa1b639eacda970a01cd5de6675eb96402bbd315456d6b5895e90aeec3dcfa"
+      },
+      {
+        "platform": "ihp-sg13g2",
+        "case": "antenna-route",
+        "status": "passed",
+        "expected_check_status": "FAIL",
+        "source": {
+          "input_sha256": "625d0b5df37e4ce2e1d8393d0083bf24d8dddf005087622f863121b5e5730ad0",
+          "result_sha256": "46da0536cf483aedda27008a2fd90efc1382ed6e533b6c6bd61864808b98001c",
+          "checkpoint_sha256": "f63d183cd886d609077ddf1e49f89e77c657f9d44f278484de85327abd7189a2",
+          "platform_fingerprint": "f66bfbfc0db0642c1c3cf11358d9c67a3c6f8525e2b9f75015f77cb69437e266"
+        },
+        "mutation": {
+          "net": "net4",
+          "instance": "_10_",
+          "pin": "A",
+          "layer": "Metal1",
+          "routing_length_um": 60000
+        },
+        "command": [
+          "/opt/icstudio/bin/openroad",
+          "-no_init",
+          "-exit",
+          "-python",
+          "/mnt/c/Users/jonah/Documents/Codex/2026-10-06/go/work/physical-check-controls-Windows/ihp-sg13g2/antenna-route/checks/check.py"
+        ],
+        "checkpoint_sha256": "7010ff9abcf338e06d7a4a40d351517bcc6c50f4aceaeb284b1e484bb48b37ec",
+        "result_sha256": "1927415893c6f48c791c1fc82afd86fb6a4fb36cccb4b2d1e036f13b6d77d8a4",
+        "log_sha256": "240bdf23ee9b8054fac895ca9c4f66f528f87d23d7700d6624d63bd236b1a8f1"
+      }
+    ],
+    "engine": {
+      "path": "/opt/icstudio/bin/openroad",
+      "sha256": "cc6e1144bbe55764009bc9297b980aef511826101c1d019935b737f738e86501",
+      "version": "26Q2-1164-g08f67ee5ec"
+    }
+  },
+  "evidence": [
+    {
+      "name": "physical-check-audit-Windows.json",
+      "sha256": "4526f9cf144186085b253c83646b9760ce9204f3721a5d5ba5d2bb2a971dbbf4",
+      "bytes": 482517
+    },
+    {
+      "name": "physical-check-evidence-Windows.tar.gz",
+      "sha256": "f9d006fdca1479ab7335182d4bd6b1dce445c0c286a7f93a9539e7f713bcef92",
+      "bytes": 29586618
+    },
+    {
+      "name": "physical-check-controls-Windows.tar.gz",
+      "sha256": "a7e7f73f476841dbdac941fa2dc620aaebbeeb1a6f91da8e3355829656f36024",
+      "bytes": 2071139
+    }
+  ],
+  "audit_script_sha256": "f08736680ba162598d5e277c16b64c4d6fba5652688cd4470e89445e816162db",
+  "audit_note": "The first audit compared the macro summary with the full report and failed. The corrected audit separately verifies the exact summary fields, complete exported report, and all exported file hashes; the original audit log is retained."
+}

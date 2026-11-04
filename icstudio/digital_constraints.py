@@ -104,7 +104,7 @@ def apply(config, value, path='constraints.sdc'):
 def synthesis_settings(config):
     """A conservative single delay budget; full SDC stays with STA/physical tools."""
     explicit = config.get('synthesis', {})
-    if not isinstance(explicit, dict) or set(explicit) - {'delay_ns', 'driving_cell', 'load_pf', 'frontend'}:
+    if not isinstance(explicit, dict) or set(explicit) - {'delay_ns', 'driving_cell', 'load_pf', 'frontend', 'mapping'}:
         raise ValueError('Unknown synthesis option.')
     value = config.get('constraints')
     result = {'frontend': explicit.get('frontend', 'verilog')}
@@ -131,6 +131,10 @@ def synthesis_settings(config):
         number(result['load_pf'], 'Synthesis output load')
     if result.get('driving_cell') and not IDENT.fullmatch(result['driving_cell']):
         raise ValueError('Invalid synthesis driving cell.')
+    if result.get('mapping','default') not in ('default','speed'):
+        raise ValueError('Choose default or timing-oriented logic mapping.')
+    if result.get('mapping')=='speed' and not result.get('driving_cell'):
+        raise ValueError('Timing-oriented mapping requires an input driving cell from the selected Liberty library.')
     return result
 
 

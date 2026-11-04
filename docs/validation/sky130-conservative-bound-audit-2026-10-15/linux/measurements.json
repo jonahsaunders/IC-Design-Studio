@@ -1,0 +1,513 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "platform": "linux",
+  "driver_sha256": "9d9bfbf8c4345260b545116696dc2161bcf0209fd9920f2c853bd2fc6826adab",
+  "qualified": false,
+  "chunk_complete": false,
+  "data_sha256": "62d872f2703c9a17f2eb7e7831e279bd1cd0087073b74f733fa9d750f8454719",
+  "cases": {
+    "counter": {
+      "original_counts": {
+        "executed-reviewed": 409,
+        "absent-operand": 586,
+        "unreviewed": 463,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_checks": [
+        {
+          "id": "r471",
+          "rule": "nsd.c1a",
+          "layer": "nsdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r487",
+          "rule": "psd.c1a",
+          "layer": "psdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r520",
+          "rule": "poly.c3",
+          "layer": "poly",
+          "required_nm": 175,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r521",
+          "rule": "poly.c2",
+          "layer": "poly",
+          "required_nm": 160,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r1234",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1235",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1236",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1237",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1238",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1239",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1240",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1241",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1242",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1243",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1244",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1245",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1246",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1247",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1248",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1249",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1250",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1251",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        }
+      ]
+    },
+    "uart": {
+      "original_counts": {
+        "executed-reviewed": 409,
+        "absent-operand": 586,
+        "unreviewed": 463,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_checks": [
+        {
+          "id": "r471",
+          "rule": "nsd.c1a",
+          "layer": "nsdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r487",
+          "rule": "psd.c1a",
+          "layer": "psdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r520",
+          "rule": "poly.c3",
+          "layer": "poly",
+          "required_nm": 175,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r521",
+          "rule": "poly.c2",
+          "layer": "poly",
+          "required_nm": 160,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r1234",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1235",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1236",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1237",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1238",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1239",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1240",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1241",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1242",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1243",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1244",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1245",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1246",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1247",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1248",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1249",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1250",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1251",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        }
+      ]
+    },
+    "apb": {
+      "original_counts": {
+        "executed-reviewed": 409,
+        "absent-operand": 586,
+        "unreviewed": 463,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      },
+      "corrected_checks": [
+        {
+          "id": "r471",
+          "rule": "nsd.c1a",
+          "layer": "nsdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r487",
+          "rule": "psd.c1a",
+          "layer": "psdm",
+          "required_nm": 380,
+          "bound": {
+            "operation": "width",
+            "nm": 380
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r520",
+          "rule": "poly.c3",
+          "layer": "poly",
+          "required_nm": 175,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r521",
+          "rule": "poly.c2",
+          "layer": "poly",
+          "required_nm": 160,
+          "bound": {
+            "operation": "space",
+            "nm": 210
+          },
+          "bound_findings": 0,
+          "disposition": "executed-reviewed"
+        },
+        {
+          "id": "r1234",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1235",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1236",
+          "subject": "met1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1237",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1238",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1239",
+          "subject": "met2_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1240",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1241",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1242",
+          "subject": "met3_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1243",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1244",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1245",
+          "subject": "met4_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1246",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1247",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1248",
+          "subject": "met5_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1249",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1250",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        },
+        {
+          "id": "r1251",
+          "subject": "li1_block",
+          "raw_shapes": 0,
+          "disposition": "absent-operand"
+        }
+      ]
+    }
+  },
+  "elapsed_seconds": 5.770331968000001
+}

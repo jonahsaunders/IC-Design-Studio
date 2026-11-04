@@ -1,0 +1,2216 @@
+{
+  "schema": 1,
+  "status": "source-dependency-review",
+  "chunk": 6,
+  "qualified": false,
+  "chunk_complete": false,
+  "new_coverage_decisions": 0,
+  "private_package_available": false,
+  "private_package_basis": "User confirmed no private foundry package is available on 2026-10-15.",
+  "checkpoint": {
+    "path": "docs/validation/sky130-dummy-partners-2026-10-15.json",
+    "sha256": "90cf555faf23a7a49ba95edb421e2278145402141242f86aadaf004da9b4aab3"
+  },
+  "scope": "Planning and source review only. Every listed requirement remains unresolved. These are dependencies to establish, not proof that each record requires private code. Stronger public definitions or sufficient bounds can still resolve individual records. No obligation moves to a later chunk.",
+  "cases": [
+    {
+      "case": "counter",
+      "gds_sha256": "bb990fb995dcf7d05613c63d8f2e27a32d072db5024b60e840086039a5bed682",
+      "counts": {
+        "executed-reviewed": 441,
+        "absent-operand": 715,
+        "unreviewed": 302,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      }
+    },
+    {
+      "case": "uart",
+      "gds_sha256": "23ddc5daacd4b46dda12801a191f2f68a67b305da1988115845a076f976e19f2",
+      "counts": {
+        "executed-reviewed": 441,
+        "absent-operand": 715,
+        "unreviewed": 302,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      }
+    },
+    {
+      "case": "apb",
+      "gds_sha256": "55eb17e58330b23b3d1f437232ab1cc942540c7916ec3ff31ec6dbc088c3f8b2",
+      "counts": {
+        "executed-reviewed": 441,
+        "absent-operand": 715,
+        "unreviewed": 302,
+        "standard-cell-wl-exempt": 90,
+        "advisory": 8
+      }
+    }
+  ],
+  "unresolved_catalog_records": 302,
+  "groups": [
+    {
+      "id": "huge_pad",
+      "count": 1,
+      "needed": "Resolve pad.mk construction and the catalog minimum-area versus manual maximum-area wording.",
+      "records": [
+        {
+          "id": "r900",
+          "rule": "pad.3",
+          "description": "hugepad with area less than 30000.0 not allowed",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "metop",
+      "count": 16,
+      "needed": "Identify metop1 through metop8, their raw or generated purposes and process-option applicability before binding grid and angle checks.",
+      "records": [
+        {
+          "id": "r35",
+          "rule": "x.1b",
+          "description": "off 0.005 grid metop1 vertex",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r36",
+          "rule": "x.1b",
+          "description": "off 0.005 grid metop2 vertex",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r37",
+          "rule": "x.1b",
+          "description": "off 0.005 grid metop3 vertex",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r38",
+          "rule": "x.1b",
+          "description": "off 0.005 grid metop4 vertex",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r39",
+          "rule": "x.1b",
+          "description": "off 0.005 grid metop5 vertex",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r40",
+          "rule": "x.1b",
+          "description": "off 0.005 grid metop6 vertex",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r41",
+          "rule": "x.1b",
+          "description": "off 0.005 grid metop7 vertex",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r42",
+          "rule": "x.1b",
+          "description": "off 0.005 grid metop8 vertex",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r150",
+          "rule": "x.3a",
+          "description": "non-octagonal metop1 edge",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r151",
+          "rule": "x.3a",
+          "description": "non-octagonal metop2 edge",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r152",
+          "rule": "x.3a",
+          "description": "non-octagonal metop3 edge",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r153",
+          "rule": "x.3a",
+          "description": "non-octagonal metop4 edge",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r154",
+          "rule": "x.3a",
+          "description": "non-octagonal metop5 edge",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r155",
+          "rule": "x.3a",
+          "description": "non-octagonal metop6 edge",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r156",
+          "rule": "x.3a",
+          "description": "non-octagonal metop7 edge",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r157",
+          "rule": "x.3a",
+          "description": "non-octagonal metop8 edge",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "rf_devices",
+      "count": 27,
+      "needed": "Supply or independently establish the RF fixed-layout model map, Table H5 and complete recognition predicates, including malformed candidates.",
+      "records": [
+        {
+          "id": "r537",
+          "rule": "dnwell.6",
+          "description": "rfNMOS must be enclosed by dnwell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r680",
+          "rule": "diff.13",
+          "description": "sky130rf_pshort_W0p84_L0p15_2F_cell should be rectangular",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r681",
+          "rule": "diff.13",
+          "description": "0.84 min. width of sky130rf_pshort_W0p84_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r682",
+          "rule": "diff.13",
+          "description": "0.84 max. width of sky130rf_pshort_W0p84_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r683",
+          "rule": "diff.13",
+          "description": "1.11 min. length of sky130rf_pshort_W0p84_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r684",
+          "rule": "diff.13",
+          "description": "1.11 max. length of sky130rf_pshort_W0p84_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r685",
+          "rule": "diff.13",
+          "description": "sky130rf_pshort_W1p68_L0p15_2F_cell should be rectangular",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r686",
+          "rule": "diff.13",
+          "description": "1.11 min. width of sky130rf_pshort_W1p68_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r687",
+          "rule": "diff.13",
+          "description": "1.11 max. width of sky130rf_pshort_W1p68_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r688",
+          "rule": "diff.13",
+          "description": "1.68 min. length of sky130rf_pshort_W1p68_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r689",
+          "rule": "diff.13",
+          "description": "1.68 max. length of sky130rf_pshort_W1p68_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r690",
+          "rule": "diff.13",
+          "description": "sky130rf_pshort_W1p68_L0p15_4F_cell should be rectangular",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r691",
+          "rule": "diff.13",
+          "description": "1.68 min. width of sky130rf_pshort_W1p68_L0p15_4F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r692",
+          "rule": "diff.13",
+          "description": "1.68 max. width of sky130rf_pshort_W1p68_L0p15_4F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r693",
+          "rule": "diff.13",
+          "description": "1.97 min. length of sky130rf_pshort_W1p68_L0p15_4F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r694",
+          "rule": "diff.13",
+          "description": "1.97 max. length of sky130rf_pshort_W1p68_L0p15_4F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r695",
+          "rule": "diff.13",
+          "description": "sky130rf_pshort_W3p0_L0p15_2F_cell should be rectangular",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r696",
+          "rule": "diff.13",
+          "description": "1.11 min. width of sky130rf_pshort_W3p0_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r697",
+          "rule": "diff.13",
+          "description": "1.11 max. width of sky130rf_pshort_W3p0_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r698",
+          "rule": "diff.13",
+          "description": "3 min. length of sky130rf_pshort_W3p0_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r699",
+          "rule": "diff.13",
+          "description": "3 max. length of sky130rf_pshort_W3p0_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r700",
+          "rule": "diff.13",
+          "description": "sky130rf_pshort_W5p0_L0p15_2F_cell should be rectangular",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r701",
+          "rule": "diff.13",
+          "description": "1.11 min. width of sky130rf_pshort_W5p0_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r702",
+          "rule": "diff.13",
+          "description": "1.11 max. width of sky130rf_pshort_W5p0_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r703",
+          "rule": "diff.13",
+          "description": "5 min. length of sky130rf_pshort_W5p0_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r704",
+          "rule": "diff.13",
+          "description": "5 max. length of sky130rf_pshort_W5p0_L0p15_2F_cell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r705",
+          "rule": "poly.16",
+          "description": "Poly of the RF FETs defined in Table H5 cannot overlap",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "fet_validity",
+      "count": 3,
+      "needed": "Establish the complete valid nfet/pfet and FGR native-device recognition rules, not just nominal model names.",
+      "records": [
+        {
+          "id": "r543",
+          "rule": "poly.x.1",
+          "description": "This is an invalid nfet",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r544",
+          "rule": "poly.x.1",
+          "description": "This is an invalid pfet",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r545",
+          "rule": "poly.x.1",
+          "description": "This nhvnative is only allow in the FGR",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "extended_drain",
+      "count": 2,
+      "needed": "Resolve the catalog/manual nwell-over-poly versus selected-drain difference and the deFetPoly/polyGap construction.",
+      "records": [
+        {
+          "id": "r908",
+          "rule": "denmos.8",
+          "description": "90 degree angles are not permitted for nwell over poly",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r930",
+          "rule": "extd.3",
+          "description": "deFetPoly must overlap polyGap",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "core_extent",
+      "count": 1,
+      "needed": "Establish FOM, advanced-seal exclusion and COREID construction for enclosure.",
+      "records": [
+        {
+          "id": "r258",
+          "rule": "x.9",
+          "description": "FOM outside advSeal_6um must be enclosed by COREID",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "implant_masks",
+      "count": 33,
+      "needed": "Establish core/periphery implant targets and generated CLHVTPM, CLLVTNM, CLNTM and CLHVNTM construction, including edit/polarity and exception rules.",
+      "records": [
+        {
+          "id": "r411",
+          "rule": "hvtp.c1",
+          "description": "Min/Max enclosure of nwell by hvtp",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r416",
+          "rule": "lvtn.4b",
+          "description": "0.18 min. enclosure of Gate in Periphery outside UHVI layer by \"lvtn\" in periphery",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1024",
+          "rule": "ncm.x.3",
+          "description": "ncm_CORE not tech_CD must not overlap \"ndiff\" in periphery",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1029",
+          "rule": "ncm.c8",
+          "description": "0.235 min. enclosure of PDIFF by ncm_CORE not tech_CD",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1030",
+          "rule": "ncm.c9",
+          "description": "0.235 min. spacing of ncm_CORE not tech_CD & ndiff",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1031",
+          "rule": "ncm.c9",
+          "description": "ncm_CORE not tech_CD must not overlap ndiff",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1032",
+          "rule": "ncm.c10",
+          "description": "0.38 min. spacing of nwellOutCore & ncm_CORE not tech_CD",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1033",
+          "rule": "ldntm.c1",
+          "description": "0.7 min. width of ldntmCore",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1034",
+          "rule": "ldntm.c2",
+          "description": "0.7 min. spacing/notch of ldntmCore",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1035",
+          "rule": "ldntm.c3",
+          "description": "enclosure of ndiff by ldntm must be more than  0.180",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1036",
+          "rule": "ldntm.c4",
+          "description": "0.125 min. enclosure of nFet by ldntmCore",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1038",
+          "rule": "ldntm.c6",
+          "description": "0.18 min. spacing of ldntmCoreExempt & pdiff",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1473",
+          "rule": "chvtpm.1",
+          "description": "0.38 min. width of CLHVTPM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1474",
+          "rule": "chvtpm.2a",
+          "description": "0.38 min. spacing/notch of CLHVTPM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1475",
+          "rule": "chvtpm.3",
+          "description": "0 min. enclosure of ((LVnwell not overlapping Var_channel) NOT lvtn) by CLHVTPM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1477",
+          "rule": "clvtnm.1",
+          "description": "0.38 min. width of clvtnm in periphery",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1478",
+          "rule": "clvtnm.2",
+          "description": "0.38 min. spacing/notch of CLLVTNM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1479",
+          "rule": "cntm.2",
+          "description": "0.7 min. spacing/notch of CLNTM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1480",
+          "rule": "cntm.1",
+          "description": "0.84 min. width of CLNTM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1481",
+          "rule": "cntm.3",
+          "description": "0 min. enclosure of nwell by CLNTM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1482",
+          "rule": "cntm.3",
+          "description": "nwell must be enclosed by CLNTM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1483",
+          "rule": "cntm.4a",
+          "description": "0 min. enclosure of hvitmp by CLNTM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1484",
+          "rule": "cntm.4a",
+          "description": "hvitmp must be enclosed by CLNTM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1487",
+          "rule": "chvntm.1",
+          "description": "0.7 min. width of CLHVNTM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1488",
+          "rule": "chvntm.2a",
+          "description": "0.7 min. spacing/notch of CLHVNTM",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1489",
+          "rule": "chvntm.4",
+          "description": "0.185 min. spacing of CLHVNTM & NDIFFnoHV",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1490",
+          "rule": "chvntm.4",
+          "description": "CLHVNTM must not overlap NDIFFnoHV",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1491",
+          "rule": "chvntm.5",
+          "description": "0.185 min. spacing of CLHVNTM & PDIFF_noENID",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1492",
+          "rule": "chvntm.5",
+          "description": "CLHVNTM must not overlap PDIFF_noENID",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1494",
+          "rule": "chvntm.6a",
+          "description": "0.185 min. spacing of CLHVNTM & p+tap (except along the diff butting edge)",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1495",
+          "rule": "chvntm.6a",
+          "description": "CLHVNTM must not overlap ptap",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1496",
+          "rule": "chvntm.6b",
+          "description": "CLHVNTM must not overlap p+diff along diff butting edge (ESDnWellTap excluded)",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1497",
+          "rule": "chvntm.7",
+          "description": "ESDnWellTapHV must be enclosed by CLHVNTM",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "module_enclosure",
+      "count": 34,
+      "needed": "Establish q0/q1 and selected-device targets plus required module enclosure/context. An absent module does not prove enclosure.",
+      "records": [
+        {
+          "id": "r262",
+          "rule": "x.12b",
+          "description": "0.635 min. enclosure of q0nwellnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r264",
+          "rule": "x.12b",
+          "description": "0.135 min. enclosure of q0diffnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r266",
+          "rule": "x.12b",
+          "description": "3.15 min. enclosure of q0dnwellnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r268",
+          "rule": "x.12b",
+          "description": "0.135 min. enclosure of q0tapnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r270",
+          "rule": "x.12b",
+          "description": "0.19 min. enclosure of q0lvtnnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r272",
+          "rule": "x.12b",
+          "description": "0.19 min. enclosure of q0hvtpnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r274",
+          "rule": "x.12b",
+          "description": "0.35 min. enclosure of q0hvinotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r276",
+          "rule": "x.12b",
+          "description": "0.25 min. enclosure of q0tunmnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r278",
+          "rule": "x.12b",
+          "description": "0.105 min. enclosure of q0polynotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r280",
+          "rule": "x.12b",
+          "description": "0.135 min. enclosure of q0npcnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r282",
+          "rule": "x.12b",
+          "description": "0.19 min. enclosure of q0nsdmnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r284",
+          "rule": "x.12b",
+          "description": "0.19 min. enclosure of q0psdmnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r286",
+          "rule": "x.12b",
+          "description": "0.085 min. enclosure of q0licon1notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r288",
+          "rule": "x.12b",
+          "description": "0.085 min. enclosure of q0li1notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r290",
+          "rule": "x.12b",
+          "description": "0.095 min. enclosure of q0mconnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r292",
+          "rule": "x.12b",
+          "description": "0.07 min. enclosure of q0met1notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r294",
+          "rule": "x.12b",
+          "description": "0.085 min. enclosure of q0vianotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r296",
+          "rule": "x.12b",
+          "description": "0.07 min. enclosure of q0met2notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r298",
+          "rule": "x.12b",
+          "description": "0.1 min. enclosure of q0via2notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r300",
+          "rule": "x.12b",
+          "description": "0.15 min. enclosure of q0met3notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r302",
+          "rule": "x.12b",
+          "description": "0.1 min. enclosure of q0via3notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r304",
+          "rule": "x.12b",
+          "description": "0.15 min. enclosure of q0met4notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r306",
+          "rule": "x.12b",
+          "description": "0.4 min. enclosure of q0via4notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r308",
+          "rule": "x.12b",
+          "description": "0.8 min. enclosure of q0met5notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r310",
+          "rule": "x.12b",
+          "description": "2 min. enclosure of q0nsmnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r312",
+          "rule": "x.12b",
+          "description": "0.635 min. enclosure of q0padnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r314",
+          "rule": "x.12b",
+          "description": "0.35 min. enclosure of q0ldntmnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r316",
+          "rule": "x.12b",
+          "description": "0.19 min. enclosure of q0hvntmnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r318",
+          "rule": "x.12b",
+          "description": "0.19 min. enclosure of q0ncmnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r320",
+          "rule": "x.12b",
+          "description": "5 min. enclosure of q0rdlnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r322",
+          "rule": "x.12b",
+          "description": "0.19 min. enclosure of q0hvtrnotBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r324",
+          "rule": "x.12e",
+          "description": "0.14 min. enclosure of q1met1notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r330",
+          "rule": "x.12e",
+          "description": "0.2 min. enclosure of q1met4notBuildSpace by moduleCutAREA",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r927",
+          "rule": "depmos.13",
+          "description": "pvhv_depmos13 must be enclosed by moduleCutAREA",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "advanced_seal",
+      "count": 1,
+      "needed": "Establish the advSeal_6um/SEALID_6um selector and required overlap. Drawn 81:1 alone does not establish this PCell variant.",
+      "records": [
+        {
+          "id": "r390",
+          "rule": "x.26",
+          "description": "SEALID_6um must overlap diff",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "frame_enclosure",
+      "count": 18,
+      "needed": "Establish frameBndr and NSM3a exemptions, final-mask companions and complete boundary context. Missing frame geometry cannot pass enclosure.",
+      "records": [
+        {
+          "id": "r988",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of diff_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r989",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of tap_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r990",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of fomDummyDRC_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r991",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of FOMmk_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r992",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of poly_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r993",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of P1Mmk_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r994",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of li1_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r995",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of LI1Mmk_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r996",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met1_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r997",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of MM1mk_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r998",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met2_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r999",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of MM2Mk_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1000",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met3_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1001",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of MM3mk_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1002",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met4_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1003",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of MM4mk_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1004",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of met5_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1005",
+          "rule": "nsm.3a",
+          "description": "3 min. enclosure of MM5mk_not_NSM3a_exempt by frameBndr",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "alignment",
+      "count": 56,
+      "needed": "Establish Nikon cross construction, required presence and final-mask polarities; empty cross data cannot satisfy required marks.",
+      "records": [
+        {
+          "id": "r1076",
+          "rule": "cfom.nikon",
+          "description": "FOMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1077",
+          "rule": "cfom.nikon",
+          "description": "FOMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1078",
+          "rule": "cdnm.nikon",
+          "description": "DNMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1079",
+          "rule": "cdnm.nikon",
+          "description": "DNMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1080",
+          "rule": "cnwm.nikon",
+          "description": "NWMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1081",
+          "rule": "cnwm.nikon",
+          "description": "NWMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1082",
+          "rule": "chvtpm.nikon",
+          "description": "HVTPMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1083",
+          "rule": "chvtpm.nikon",
+          "description": "HVTPMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1084",
+          "rule": "clvtnm.nikon",
+          "description": "LVTNMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1085",
+          "rule": "clvtnm.nikon",
+          "description": "LVTNMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1086",
+          "rule": "clvom.nikon",
+          "description": "LVOMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1087",
+          "rule": "clvom.nikon",
+          "description": "LVOMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1088",
+          "rule": "cp1m.nikon",
+          "description": "P1Mmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1089",
+          "rule": "cp1m.nikon",
+          "description": "P1Mmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1090",
+          "rule": "cntm.nikon",
+          "description": "NTMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1091",
+          "rule": "cntm.nikon",
+          "description": "NTMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1092",
+          "rule": "chvntm.nikon",
+          "description": "HVNTMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1093",
+          "rule": "chvntm.nikon",
+          "description": "HVNTMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1094",
+          "rule": "cldntm.nikon",
+          "description": "LDNTMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1095",
+          "rule": "cldntm.nikon",
+          "description": "LDNTMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1096",
+          "rule": "cnpc.nikon",
+          "description": "NPCMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1097",
+          "rule": "cnpc.nikon",
+          "description": "NPCMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1098",
+          "rule": "cnsdm.nikon",
+          "description": "NSDMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1099",
+          "rule": "cnsdm.nikon",
+          "description": "NSDMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1100",
+          "rule": "cpsdm.nikon",
+          "description": "PSDMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1101",
+          "rule": "cpsdm.nikon",
+          "description": "PSDMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1102",
+          "rule": "clicm1.nikon",
+          "description": "LICM1mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1103",
+          "rule": "clicm1.nikon",
+          "description": "LICM1mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1104",
+          "rule": "cli1m.nikon",
+          "description": "LI1Mmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1105",
+          "rule": "cli1m.nikon",
+          "description": "LI1Mmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1106",
+          "rule": "cctm1.nikon",
+          "description": "CTM1mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1107",
+          "rule": "cctm1.nikon",
+          "description": "CTM1mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1108",
+          "rule": "cmm1.nikon",
+          "description": "MM1mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1109",
+          "rule": "cmm1.nikon",
+          "description": "MM1mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1110",
+          "rule": "cviam.nikon",
+          "description": "VIMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1111",
+          "rule": "cviam.nikon",
+          "description": "VIMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1112",
+          "rule": "cmm2.nikon",
+          "description": "MM2mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1113",
+          "rule": "cmm2.nikon",
+          "description": "MM2mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1114",
+          "rule": "cnsm.nikon",
+          "description": "NSMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1115",
+          "rule": "cnsm.nikon",
+          "description": "NSMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1116",
+          "rule": "cpdm.nikon",
+          "description": "PDMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1117",
+          "rule": "cpdm.nikon",
+          "description": "PDMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1118",
+          "rule": "cviam2.nikon",
+          "description": "VIM2mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1119",
+          "rule": "cviam2.nikon",
+          "description": "VIM2mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1120",
+          "rule": "cmm3.nikon",
+          "description": "MM3mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1121",
+          "rule": "cmm3.nikon",
+          "description": "MM3mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1122",
+          "rule": "cviam3.nikon",
+          "description": "VIM3mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1123",
+          "rule": "cviam3.nikon",
+          "description": "VIM3mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1124",
+          "rule": "cmm4.nikon",
+          "description": "MM4mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1125",
+          "rule": "cmm4.nikon",
+          "description": "MM4mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1126",
+          "rule": "cviam4.nikon",
+          "description": "VIM4mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1127",
+          "rule": "cviam4.nikon",
+          "description": "VIM4mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1128",
+          "rule": "cmm5.nikon",
+          "description": "MM5mk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1129",
+          "rule": "cmm5.nikon",
+          "description": "MM5mk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1130",
+          "rule": "crpm.nikon",
+          "description": "RPMmk in the nikon cross has the wrong polarity",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1131",
+          "rule": "crpm.nikon",
+          "description": "RPMmk is missing from the nikon cross in the layout.",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "scribe_masks",
+      "count": 14,
+      "needed": "Establish generated-mask operands and scribe-junction context for the size/distance restrictions. Drawn-layer bounds remain separate.",
+      "records": [
+        {
+          "id": "r1390",
+          "rule": "scribe.5",
+          "description": "Wide mm1mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1391",
+          "rule": "scribe.5",
+          "description": "Wide mm2mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1392",
+          "rule": "scribe.5",
+          "description": "Wide mm3mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1393",
+          "rule": "scribe.5",
+          "description": "Wide p1mmk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1394",
+          "rule": "scribe.5",
+          "description": "Wide fommk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1395",
+          "rule": "scribe.5",
+          "description": "Wide ctm1mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1396",
+          "rule": "scribe.5",
+          "description": "Wide licm1mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1397",
+          "rule": "scribe.5",
+          "description": "Wide li1mmk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1398",
+          "rule": "scribe.5",
+          "description": "Wide vimmk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1399",
+          "rule": "scribe.5",
+          "description": "Wide vim2mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1400",
+          "rule": "scribe.5",
+          "description": "Wide mm4mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1401",
+          "rule": "scribe.5",
+          "description": "Wide mm5mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1402",
+          "rule": "scribe.5",
+          "description": "Wide vim3mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1403",
+          "rule": "scribe.5",
+          "description": "Wide vim4mk >= 10.0x10.0um within 150.0 of scribe junction",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "test_pads",
+      "count": 25,
+      "needed": "Establish EUTESTPAD, ETESTPAD and UTESTPAD selectors and module grouping; marker absence alone is not a complete selector.",
+      "records": [
+        {
+          "id": "r1405",
+          "rule": "scribe.6d",
+          "description": "mconOrVia must not overlap EUTESTPAD",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1406",
+          "rule": "scribe.6e",
+          "description": "EUTESTPAD must be enclosed by areaid module cut AND areaid etest",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1447",
+          "rule": "scribe.8",
+          "description": "Etest-pad-67 and Etest-pad-35 should not exist in the same module",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1448",
+          "rule": "scribe.9",
+          "description": "Etest pad Width and Length is either 67.00 um or 35.00um",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1449",
+          "rule": "scribe.10",
+          "description": "Min/Max Spacing between Etest pad (67um*67um) with in same module should be 90.5um",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1450",
+          "rule": "scribe.10",
+          "description": "Min/MaxSpacing between Etest pad (67um*67um)with in same module should be 90.5um",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1451",
+          "rule": "scribe.11",
+          "description": "Min/Max Spacing between Etest pad (35um*35um) with in same module should be 55um",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1452",
+          "rule": "scribe.11",
+          "description": "Min/MaxSpacing between Etest pad (35um*35um)with in same module should be 55um",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1453",
+          "rule": "scribe.12",
+          "description": "7.5 min. enclosure of ETESTPAD by areaid module cut",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1454",
+          "rule": "scribe.13",
+          "description": "2.50um min. enclosure of Etest pad by met1",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1455",
+          "rule": "scribe.13",
+          "description": "2.5 min. enclosure of ETESTPAD_met1 by met1",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1456",
+          "rule": "scribe.13",
+          "description": "2.50um min. enclosure of Etest pad by met2",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1457",
+          "rule": "scribe.13",
+          "description": "2.5 min. enclosure of ETESTPAD_met2 by met2",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1458",
+          "rule": "scribe.13",
+          "description": "2.50um min. enclosure of Etest pad by met3",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1459",
+          "rule": "scribe.13",
+          "description": "2.5 min. enclosure of ETESTPAD_met3 by met3",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1460",
+          "rule": "scribe.13",
+          "description": "2.50um min. enclosure of Etest pad by met4",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1461",
+          "rule": "scribe.13",
+          "description": "2.5 min. enclosure of ETESTPAD_met4 by met4",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1462",
+          "rule": "scribe.13",
+          "description": "2.50um min. enclosure of Etest pad by met5",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1463",
+          "rule": "scribe.13",
+          "description": "2.5 min. enclosure of ETESTPAD_met5 by met5",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1464",
+          "rule": "scribe.14",
+          "description": "Minimum Utest pad Width and Length is 10um",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1465",
+          "rule": "scribe.15",
+          "description": "Min Spacing between Utest pad opening should be 15um",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1466",
+          "rule": "scribe.16",
+          "description": "Min Spacing between Utest pad and Etest pad opening should be 7um",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1467",
+          "rule": "scribe.17",
+          "description": "2.5 min. enclosure of UTESTPAD by met5",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1468",
+          "rule": "scribe.18",
+          "description": "Spacing of E-test pad opening to E-test pad opening in the same module must all be equal",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1469",
+          "rule": "scribe.18",
+          "description": "Spacing of E-test pad opening to E-test pad opening in the same module must all be equal",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "scribe_extent",
+      "count": 3,
+      "needed": "Establish realScribeLine, edge/pad-strip construction, pdm operands and the allowed pad exceptions.",
+      "records": [
+        {
+          "id": "r1470",
+          "rule": "scribe.19",
+          "description": "76 min. width of realScribeLine",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1471",
+          "rule": "scribe.20",
+          "description": "Pad.dg is to be drawn from 3.0um from scribe edge to 13.0um from scribe edge",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1472",
+          "rule": "scribe.21",
+          "description": "Scribe must not enclose pdm.dg nor pdm.mk except for etest pads, die pad rings",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "via_top",
+      "count": 10,
+      "needed": "Establish ViaTop for the selected process/metal stack. C3 top_padVia is a different named operand; do not alias it without evidence.",
+      "records": [
+        {
+          "id": "r836",
+          "rule": "viatop.1",
+          "description": "viatop should be rectangular",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r837",
+          "rule": "viatop.1",
+          "description": "0.42 min. width of viatop",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r838",
+          "rule": "viatop.1",
+          "description": "0.42 max. length of viatop",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r839",
+          "rule": "viatop.2",
+          "description": "0.42 min. spacing/notch of viatop",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r840",
+          "rule": "viatop.3",
+          "description": "Only min square ViaTop's are allowed",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r841",
+          "rule": "viatop.4",
+          "description": "0.29 min. enclosure of viatop by met5",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r842",
+          "rule": "viatop.4",
+          "description": "viatop must be enclosed by met5",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r843",
+          "rule": "viatop.5",
+          "description": "ViaTop must not be placed over Pad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r844",
+          "rule": "viatop.6",
+          "description": "10.00 min. spacing of viatop to pad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r845",
+          "rule": "viatop.7",
+          "description": "viatop connected to gate must be connected to antenna diode",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "pad_variants",
+      "count": 46,
+      "needed": "Establish package/pad variant and under-pad selectors, grouping, shielding connections and scribe relationships.",
+      "records": [
+        {
+          "id": "r1208",
+          "rule": "pad.20",
+          "description": "met1 shielding pad, must not float",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1209",
+          "rule": "pad.20",
+          "description": "met1 shielding pad, must not connected to pad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1314",
+          "rule": "pad.16",
+          "description": "Hermetic package pads are not supported inthis flow",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1315",
+          "rule": "pad.4/4a",
+          "description": "2.7 min. enclosure of bondpadNormal by met5",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1316",
+          "rule": "pad.5",
+          "description": "Zero Spacing between lower level met4 ring and Advanced Bondpad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1317",
+          "rule": "pad.6",
+          "description": "5 min. spacing of smallGroupingY & met5OutsidePad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1318",
+          "rule": "pad.7",
+          "description": "10 min. spacing of largeGroupingY & met5OutsidePad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1319",
+          "rule": "pad.6",
+          "description": "5 min. spacing of smallGroupingX & met5OutsidePad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1320",
+          "rule": "pad.7",
+          "description": "10 min. spacing of largeGroupingX & met5OutsidePad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1321",
+          "rule": "pad.6",
+          "description": "5 min. spacing of smallGroupingY & met4OutsidePad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1322",
+          "rule": "pad.7",
+          "description": "10 min. spacing of largeGroupingY & met4OutsidePad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1323",
+          "rule": "pad.6",
+          "description": "5 min. spacing of smallGroupingX & met4OutsidePad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1324",
+          "rule": "pad.7",
+          "description": "10 min. spacing of largeGroupingX & met4OutsidePad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1325",
+          "rule": "pad.10",
+          "description": "bondpadNormalNoprobe must not overlap met4",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1332",
+          "rule": "pad.14",
+          "description": "16.99 min. enclosure of anyPadPlastic by solid_seal",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1334",
+          "rule": "pad.17",
+          "description": "1.5 min. spacing/notch of met1UndPadMetOnly",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1335",
+          "rule": "pad.18",
+          "description": "0.14 min width of met1 under pad metal",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1336",
+          "rule": "pad.17",
+          "description": "1.5 min. spacing/notch of met2UndPadMetOnly",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1337",
+          "rule": "pad.18",
+          "description": "0.14 min width of met2 under pad metal",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1338",
+          "rule": "pad.17",
+          "description": "1.5 min. spacing/notch of met3UndPadMetOnly",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1339",
+          "rule": "pad.18",
+          "description": "0.3 min width of met3 under pad metal",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1343",
+          "rule": "pad.2.1",
+          "description": "60 min width  of padPLFP in x direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1344",
+          "rule": "pad.3.1",
+          "description": "60 min length of padPLFP in y direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1345",
+          "rule": "pad.4.1",
+          "description": "60 min width  of padPLSTG in x direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1346",
+          "rule": "pad.5.1",
+          "description": "60 min length of padPLSTG in y direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1347",
+          "rule": "pad.6.1",
+          "description": "60 min width  of padPLHP in x direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1348",
+          "rule": "pad.6.1",
+          "description": "60 min length of padPLHP in y direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1349",
+          "rule": "pad.6.1a",
+          "description": "58 min width  of padPLHPcu in x direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1350",
+          "rule": "pad.6.1b",
+          "description": "60 min length of padPLHPcu in y direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1351",
+          "rule": "pad.6.1a/b",
+          "description": "58x60 min dimensions of padPLHPcu which are not within 50 of other pad",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1352",
+          "rule": "pad.7.1",
+          "description": "50 min width  of padPLWLBI in x direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1353",
+          "rule": "pad.8.1",
+          "description": "60 min length of padPLWLBI in y direction",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1354",
+          "rule": "pad.2/3.1",
+          "description": "bondpadCuPillarSz should be rectangular",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1355",
+          "rule": "pad.2/3.1",
+          "description": "39 min. width of bondpadCuPillarSz",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1356",
+          "rule": "pad.2/3.1",
+          "description": "39 max. length of bondpadCuPillarSz",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1357",
+          "rule": "pad.1.2",
+          "description": "8 min space of padPLFP in x direction to padPLFP/HP/STG/WLBI",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1358",
+          "rule": "pad.2.2",
+          "description": "15 min space of padPLHPorg in x direction to padPLHP/STG/WLBI",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1359",
+          "rule": "pad.2.2a",
+          "description": "7 min space of padPLHPcu in x direction to padPLHPcu/STG/WLBI",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1360",
+          "rule": "pad.3.2",
+          "description": "50 min space of padPLWLBI in x direction to padPLSTG/WLBI",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1361",
+          "rule": "pad.4.2",
+          "description": "30 min space of padPLSTG in x direction to padPLSTG",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1363",
+          "rule": "pad.6.2",
+          "description": "39.8 min. spacing of padCenterSTGinDieXy",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1364",
+          "rule": "pad.6.2",
+          "description": "39.8 min. spacing of padCenterSTGinDieYy",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1365",
+          "rule": "pad.5.2.4",
+          "description": "9 min. spacing of padSTGinDieXsp & bondPadSTG",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1366",
+          "rule": "pad.7.2.1",
+          "description": "284 min space of padPLSTG in x direction to adjacent scribe",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1367",
+          "rule": "pad.7.2.2",
+          "description": "200 min space of padPLFP  in x direction to adjacent scribe",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1368",
+          "rule": "pad.7.2.2",
+          "description": "200 min space of padPLWLBI in x direction to adjacent scribe",
+          "disposition": "unreviewed"
+        }
+      ]
+    },
+    {
+      "id": "dummy_fom",
+      "count": 12,
+      "needed": "Establish fomDummyDRC, its relationship to published dummy 22:23 and native fill 23:28, and its remaining geometry/enclosure targets. The five known empty-partner proofs do not construct it.",
+      "records": [
+        {
+          "id": "r1256",
+          "rule": "fomdmy.1",
+          "description": "0.5 min. width of fomDummyDRC",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1257",
+          "rule": "fomdmy.1a",
+          "description": "max width of fom dummy 25.0",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1258",
+          "rule": "fomdmy.2",
+          "description": "0.4 min. spacing/notch of fomDummyDRC",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1263",
+          "rule": "fomdmy.7",
+          "description": "0.13 min. spacing of fomDummyDRC & nsdm",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1264",
+          "rule": "fomdmy.7",
+          "description": "fomDummyDRC must not overlap nsdm",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1265",
+          "rule": "fomdmy.7",
+          "description": "0.13 min. spacing of fomDummyDRC & psdm",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1266",
+          "rule": "fomdmy.7",
+          "description": "fomDummyDRC must not overlap psdm",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1267",
+          "rule": "fomdmy.8",
+          "description": "0.18 min. enclosure of fomDummyDRC by nwell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1268",
+          "rule": "fomdmy.9",
+          "description": "0.34 min. spacing of fomDummyDRC & nwell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1269",
+          "rule": "fomdmy.10",
+          "description": "0.43 min. enclosure of fomDummyDRC by HVnwell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1270",
+          "rule": "fomdmy.11",
+          "description": "0.33 min. spacing of fomDummyDRC & HVnwell",
+          "disposition": "unreviewed"
+        },
+        {
+          "id": "r1271",
+          "rule": "fomdmy.12",
+          "description": "0.5 min. enclosure of fomDummyDRC by FRAMEID",
+          "disposition": "unreviewed"
+        }
+      ]
+    }
+  ],
+  "independent_obligations": [
+    {
+      "id": "pin_spacing",
+      "source_row": {
+        "id": "docs/rules/periphery/p018-x_dotdash.csv#35",
+        "source": "docs/rules/periphery/p018-x_dotdash.csv",
+        "source_sha256": "0efaf5099bc464a782f0c05a2850673ae940272c16fa22ec519057171f2f1567",
+        "record": 35,
+        "rule": "x.20",
+        "description": "Min spacing between pins on the same layer (center to center); Check enabled by switch \"IP_block\"",
+        "flags": [],
+        "value": "",
+        "unit": "",
+        "disposition": "unreviewed",
+        "coverage": "unestablished",
+        "candidates": []
+      },
+      "needed": "Published x.20 omits the numeric center-to-center spacing limit; keep the definition-required state."
+    },
+    {
+      "id": "required_density",
+      "source_rows": [
+        {
+          "id": "docs/rules/periphery/p038-m1_dotdash.csv#1",
+          "rule": "m1.-",
+          "description": "| Algorithm should flag errors, for met1, if ANY of the following is true:\n| An entire 700x700 window is covered by cmm1 waffleDrop, and metX PD < 70% for same window.\n| 80-100% of 700x700 window is covered by cmm1 waffleDrop, and metX PD < 65% for same window.\n| 60-80% of 700x700 window is covered by cmm1 waffleDrop, and metX PD < 60% for same window.\n| 50-60% of 700x700 window is covered by cmm1 waffleDrop, and metX PD < 50% for same window.\n| 40-50% of 700x700 window is covered by cmm1 waffleDrop, and metX PD < 40% for same window.\n| 30-40% of 700x700 window is covered by cmm1 waffleDrop, and metX PD < 30% for same window.\n| Exclude cells whose area is below 40Kum2. NOTE: Required for IP, Recommended for Chip-level.",
+          "flags": [
+            "RC"
+          ],
+          "value": "",
+          "unit": "",
+          "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675"
+        },
+        {
+          "id": "docs/rules/periphery/p038-m1_dotdash.csv#11",
+          "rule": "m1.pd.1",
+          "description": "Min MM1_oxide_Pattern_density",
+          "flags": [
+            "RR",
+            "AL"
+          ],
+          "value": "0.7",
+          "unit": "\\-",
+          "source_sha256": "3cd3bb93c13b72f75113ac4fa78e344ae185cf758c489858323fddc0273a5675"
+        },
+        {
+          "id": "docs/rules/periphery/p040-m2_dotdash.csv#1",
+          "rule": "m2.-",
+          "description": "| Algorithm should flag errors, for met2, if ANY of the following is true:\n| An entire 700x700 window is covered by cmm2 waffleDrop, and metX PD < 70% for same window.\n| 80-100% of 700x700 window is covered by cmm2 waffleDrop, and metX PD < 65% for same window.\n| 60-80% of 700x700 window is covered by cmm2 waffleDrop, and metX PD < 60% for same window.\n| 50-60% of 700x700 window is covered by cmm2 waffleDrop, and metX PD < 50% for same window.\n| 40-50% of 700x700 window is covered by cmm2 waffleDrop, and metX PD < 40% for same window.\n| 30-40% of 700x700 window is covered by cmm2 waffleDrop, and metX PD < 30% for same window.\n| Exclude cells whose area is below 40Kum2. Required for IP, Recommended for Chip-level.",
+          "flags": [
+            "RC"
+          ],
+          "value": "",
+          "unit": "",
+          "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e"
+        },
+        {
+          "id": "docs/rules/periphery/p040-m2_dotdash.csv#11",
+          "rule": "m2.pd.1",
+          "description": "Min MM2_oxide_Pattern_density",
+          "flags": [
+            "RR"
+          ],
+          "value": "0.7",
+          "unit": "\\-",
+          "source_sha256": "edd28e2d9e3740575bf9e44df7dd31ab6443b376ff6e8978c2b9210647a5d24e"
+        },
+        {
+          "id": "docs/rules/periphery/p042-m3_dotdash.csv#1",
+          "rule": "m3.-",
+          "description": "| Algorithm should flag errors, for met3, if ANY of the following is true:\n| An entire 700x700 window is covered by cmm3 waffleDrop, and metX PD < 70% for same window.\n| 80-100% of 700x700 window is covered by cmm3 waffleDrop, and metX PD < 65% for same window.\n| 60-80% of 700x700 window is covered by cmm3 waffleDrop, and metX PD < 60% for same window.\n| 50-60% of 700x700 window is covered by cmm3 waffleDrop, and metX PD < 50% for same window.\n| 40-50% of 700x700 window is covered by cmm3 waffleDrop, and metX PD < 40% for same window.\n| 30-40% of 700x700 window is covered by cmm3 waffleDrop, and metX PD < 30% for same window.\n| Exclude cells whose area is below 40Kum2. NOTE: Required for IP, Recommended for Chip-level.",
+          "flags": [
+            "RC"
+          ],
+          "value": "",
+          "unit": "",
+          "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55"
+        },
+        {
+          "id": "docs/rules/periphery/p042-m3_dotdash.csv#13",
+          "rule": "m3.pd.1",
+          "description": "Min MM3_oxide_Pattern_density",
+          "flags": [
+            "RR"
+          ],
+          "value": "0.7",
+          "unit": "\\-",
+          "source_sha256": "6dc78a855fd347f0c9c0625316cbbadd7c2923a14b5552ce505b62df12639f55"
+        },
+        {
+          "id": "docs/rules/periphery/p044-m4_dotdash.csv#1",
+          "rule": "m4.-",
+          "description": "| Algorithm should flag errors, for met4, if ANY of the following is true:\n| An entire 700x700 window is covered by cmm4 waffleDrop, and metX PD < 70% for same window.\n| 80-100% of 700x700 window is covered by cmm4 waffleDrop, and metX PD < 65% for same window.\n| 60-80% of 700x700 window is covered by cmm4 waffleDrop, and metX PD < 60% for same window.\n| 50-60% of 700x700 window is covered by cmm4 waffleDrop, and metX PD < 50% for same window.\n| 40-50% of 700x700 window is covered by cmm4 waffleDrop, and metX PD < 40% for same window.\n| 30-40% of 700x700 window is covered by cmm4 waffleDrop, and metX PD < 30% for same window.\n| Exclude cells whose area is below 40Kum2. Required for IP, Recommended for Chip-level.",
+          "flags": [
+            "RC"
+          ],
+          "value": "",
+          "unit": "",
+          "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06"
+        },
+        {
+          "id": "docs/rules/periphery/p044-m4_dotdash.csv#10",
+          "rule": "m4.pd.1",
+          "description": "Min MM4_oxide_Pattern_density",
+          "flags": [
+            "RR"
+          ],
+          "value": "0.7",
+          "unit": "\\-",
+          "source_sha256": "f25981fd9accb2426482320aa5c648c718f418c7a17546de0265c122565cef06"
+        }
+      ],
+      "needed": "Bind final-mask/oxide operands, complete window origin/step/edge policy and the small-cell exclusion. Explicit-window numerical predicates and empty waffle-drop operands do not establish full density acceptance."
+    }
+  ],
+  "local_search": {
+    "scope": "Case-insensitive literal searches of all 165 authenticated UTF-8 source files captured in the pinned fixture. Matches identify mentions, not necessarily definitions. No claim about all public repositories is made.",
+    "source_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "source_lock_sha256": "8025621eeab07f39b23c80e74096ff56281a883b299b1141ab6431ec98b2fab7",
+    "bundle_sha256": "8db9401bc73e117db9d72dcccb03ac7700016b5a5c61e518c14cb5a0ec3542fa",
+    "inspected_files": 165,
+    "hits": {
+      "fomDummyDRC": [
+        {
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+          "lines": [
+            948,
+            949,
+            982,
+            1000,
+            1242,
+            1244,
+            1245,
+            1246,
+            1247,
+            1248,
+            1249,
+            1250,
+            1251,
+            1252,
+            1253,
+            1254,
+            1255,
+            1256,
+            1257,
+            1258
+          ],
+          "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv"
+        }
+      ],
+      "CLNTM": [
+        {
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+          "lines": [
+            1465,
+            1466,
+            1467,
+            1468,
+            1469,
+            1470,
+            1471,
+            1472
+          ],
+          "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv"
+        }
+      ],
+      "fixed_layout_model_map": [
+        {
+          "path": "docs/rules/periphery-rules.rst",
+          "sha256": "a4fec57aa417caa1b52d67b684a6b17dfc1ed0b69724ffe121de421bd938d44e",
+          "lines": [
+            445
+          ],
+          "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery-rules.rst"
+        },
+        {
+          "path": "docs/rules/periphery/p020-dnwell_dotdash.csv",
+          "sha256": "79367014b4c65e56864124f506390a43eace955a8a38fc11ac523868c864da27",
+          "lines": [
+            10
+          ],
+          "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/p020-dnwell_dotdash.csv"
+        },
+        {
+          "path": "docs/rules/periphery/periphery.csv",
+          "sha256": "432c56b98213cb308c21a23f939f51f87539cf081b7dbd476f5dc837f61d6311",
+          "lines": [
+            91
+          ],
+          "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/periphery/periphery.csv"
+        }
+      ],
+      "metop8": [
+        {
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+          "lines": [
+            44,
+            159
+          ],
+          "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv"
+        }
+      ],
+      "ViaTop": [
+        {
+          "path": "docs/rules/errors.csv",
+          "sha256": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+          "lines": [
+            829,
+            830,
+            831,
+            832,
+            833,
+            834,
+            835,
+            836,
+            837,
+            838
+          ],
+          "url": "https://raw.githubusercontent.com/google/skywater-pdk/7198cf647113f56041e02abf3eb623692820c5e1/docs/rules/errors.csv"
+        }
+      ]
+    }
+  },
+  "current_public_search": {
+    "path": "docs/validation/sky130-public-source-search-2026-10-15.json",
+    "sha256": "4340b978ac65b8758be71cffd4caaf71d6bfa23f29f5ec0abed89effcc80b504"
+  },
+  "acceptance_needed": "An authoritative definition or independently validated equivalent for the selected PDK revision/stack; tests on both valid and deliberately malformed nonempty examples; reference/application replay; then reconcile exact affected records. A source assertion alone is not a pass.",
+  "generator_sha256": "ca359037cefaeddfb2258380c2f230d09d2fc06c904f6e99fb1a6004764b356b"
+}

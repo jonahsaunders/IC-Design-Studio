@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "status": "native-circuit-invariance-audited",
+  "qualified": false,
+  "chunk_complete": false,
+  "platform": "win32",
+  "data_sha256": "6da191ab62b4fe82ec2a82e87bbb99077cab3704c0cdac7142c8008455f3f22d",
+  "driver_sha256": "61e5ec945c775897cd7e3aa950d1e9199041bac253d17921e1ff84db310ef182"
+}

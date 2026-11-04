@@ -1,0 +1,24 @@
+{
+  "repository": "fossi-foundation/skywater-pdk-libs-sky130_fd_sc_hd",
+  "revision": "9cb2d7cb8ed4619094263614039a61b6b2d22a88",
+  "files": {
+    "cells/diode/sky130_fd_sc_hd__diode_2.spice": {
+      "git_blob": "3c599fb6ac055ea83849de983a09cfa1f3eb9bcb",
+      "sha256": "67b980af74314791f0ea796118c740730958e5cb7083d58acab20c17781bee45",
+      "bytes": 842,
+      "url": "https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_sc_hd/blob/9cb2d7cb8ed4619094263614039a61b6b2d22a88/cells/diode/sky130_fd_sc_hd__diode_2.spice"
+    },
+    "cells/diode/sky130_fd_sc_hd__diode_2.gds": {
+      "git_blob": "04975d1daf1a3190f24d4e40d3808c199a789a6b",
+      "sha256": "7198f35a0a4bde6ba7155242c567b21644b04696c39734b604490c09e6709c90",
+      "bytes": 3572,
+      "url": "https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_sc_hd/blob/9cb2d7cb8ed4619094263614039a61b6b2d22a88/cells/diode/sky130_fd_sc_hd__diode_2.gds"
+    },
+    "LICENSE": {
+      "git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "url": "https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_sc_hd/blob/9cb2d7cb8ed4619094263614039a61b6b2d22a88/LICENSE"
+    }
+  }
+}

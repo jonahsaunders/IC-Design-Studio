@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "recipe": "sky130-vpp-selected-geometry-v1",
+  "source": {
+    "revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "files": {
+      "docs/rules/errors.csv": "d613c19c0f5de3938980ce98b0e50e0cfb9b537b2cfdb32a3b9b4b03236ef9ed",
+      "docs/rules/gds_layers.csv": "a424c152e2d300992f743f17abdb6fb72402c4c9a4bbdcdbab439757fd0c89b5",
+      "docs/rules/periphery/p037-vpp_dotdash.csv": "1836055617d1b99c5d84028dfa6ff43555aaf7b9249c6747415ef5e6c0be9ef6"
+    }
+  },
+  "scope": "Selected rules on merged capacitor drawing 82:64: 1.43 um minimum width, no straddling nwell or dnwell, and 1.5 um enclosure for capacitors overlapping nwell. An outside-nwell capacitor leaves the enclosure requirement unreviewed; missing nwell never proves exemption. Manhattan polygons and exact orthogonal paths. Density operands are measured per connected capacitor region without selecting device exceptions or claiming density acceptance. Other VPP rules remain separate.",
+  "qualified": false,
+  "chunk_complete": false,
+  "top": "nwell_cross",
+  "gds_sha256": "202988e9df0ec5e1cf37a85342e87d073c3e436d81dc599a6f4a89c5b3b7034c",
+  "measurements": {
+    "raw_shapes": {
+      "capacitor": 1,
+      "nwell": 1,
+      "dnwell": 0,
+      "poly": 0,
+      "diff": 0,
+      "met3": 0,
+      "met4": 0,
+      "met5": 0
+    },
+    "components": 1,
+    "violations": {
+      "r1145": 0,
+      "r1151": 1,
+      "r1152": 0,
+      "r1153": 1
+    },
+    "density": [
+      {
+        "bounds_nm": [
+          0,
+          0,
+          1430,
+          1430
+        ],
+        "area_nm2": 2044900,
+        "covered_nm2": {
+          "met3": 0,
+          "met4": 0,
+          "met5": 0,
+          "gate": 0
+        }
+      }
+    ],
+    "nwell_context": {
+      "contained": 0,
+      "outside": 0,
+      "straddling": 1
+    }
+  },
+  "violations": 2,
+  "status": "FAIL",
+  "rows": [
+    {
+      "id": "r1145",
+      "rule": "vpp.1",
+      "violations": 0,
+      "disposition": "executed-reviewed"
+    },
+    {
+      "id": "r1151",
+      "rule": "vpp.4",
+      "violations": 1,
+      "disposition": "failed"
+    },
+    {
+      "id": "r1152",
+      "rule": "vpp.4",
+      "violations": 0,
+      "disposition": "executed-reviewed"
+    },
+    {
+      "id": "r1153",
+      "rule": "vpp.8",
+      "violations": 1,
+      "disposition": "failed"
+    }
+  ],
+  "density": {
+    "status": "measurement-only",
+    "acceptance_established": false,
+    "observations": [
+      {
+        "bounds_nm": [
+          0,
+          0,
+          1430,
+          1430
+        ],
+        "area_nm2": 2044900,
+        "ratios": {
+          "met3": {
+            "numerator_nm2": 0,
+            "denominator_nm2": 2044900,
+            "ordinary_limit": [
+              1,
+              4
+            ],
+            "comparison": "maximum",
+            "within_ordinary_limit": true
+          },
+          "met4": {
+            "numerator_nm2": 0,
+            "denominator_nm2": 2044900,
+            "ordinary_limit": [
+              3,
+              10
+            ],
+            "comparison": "maximum",
+            "within_ordinary_limit": true
+          },
+          "met5": {
+            "numerator_nm2": 0,
+            "denominator_nm2": 2044900,
+            "ordinary_limit": [
+              2,
+              5
+            ],
+            "comparison": "maximum",
+            "within_ordinary_limit": true
+          },
+          "gate": {
+            "numerator_nm2": 0,
+            "denominator_nm2": 2044900,
+            "ordinary_limit": [
+              87,
+              100
+            ],
+            "comparison": "minimum",
+            "within_ordinary_limit": false
+          }
+        }
+      }
+    ],
+    "unresolved_rules": [
+      "vpp.5a",
+      "vpp.5b",
+      "vpp.5c",
+      "vpp.11"
+    ]
+  }
+}
