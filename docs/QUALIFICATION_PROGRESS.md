@@ -5,6 +5,43 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+Both reviewed changes are published on `experimental`: the multiplicity milestone
+as `6e998477` and the desktop profile repair as `39b24815`. The fresh
+[desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41745895103)
+has passed both release-tool checks, the runtime build and clean installation;
+both packaging jobs are running. [Source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41745872768)
+passes all three jobs. [Independent retained verification](validation/chunk7-39b2-hosted-feedback-2026-11-03.json)
+binds all 2,238 source files to actual synthetic merge `b4e1838`, all 2,529
+archive members, and eleven stages/1,097 tests per host (37 Windows and 17 Linux
+skips). The actual seeded GUI regression passes on both hosts. The
+[timestamped publication observation](validation/chunk7-profile-publication-2026-11-03.json)
+records the exact candidate and current stages. No new installed pass is claimed.
+
+**Saved-testbench reference and single-unit capacitance-graph source gate closed.**
+The [reviewed application repair](IHP_CMIM_SAVED_BENCH.md) retains the original
+simulation netlist and uses a separately source-bound Magic LVS reference.
+It also retains the original hierarchical export, which moved a substrate edge,
+and selects a same-process flat export only after checking every edge and the
+intrinsic device against raw extraction. The managed route authenticates the
+same pinned saved contract without requiring an unstaged `package.json` file.
+The [source acceptance record](validation/ihp-cmim-saved-bench-2026-11-03.json)
+passes the complete eight-stage workflow at both rotations and detects actual
+wrong-width and reversed-wire LVS faults. Independent review checks all 450
+native files, literal masks/labels, source/model bindings and six raw AC points.
+Windows runs 137 focused tests with one expected skip; Linux runs 61 with none.
+A real Windows-to-WSL direct source dispatch verifies 163 staged PDK inputs,
+142 returned artifacts and three AC points. Its old setup receipt is explicitly
+unchanged: this checks transfer/dispatch outside normal GUI readiness and does
+not establish normal setup or installed acceptance. All 6,978 native source
+files remain unchanged. Compact evidence and independent review are retained.
+
+The bounded graph keeps SUB internal and floating. Actual simulator convergence
+warnings and transient operating-point recovery remain explicit; correct linear
+AC does not establish a physical DC operating point. General arrays, mixed-device
+hierarchy, calibrated accuracy and operating/reliability envelopes remain open.
+These newer source changes are outside the running `39b24815` desktop candidate.
+Chunk 7 stays **74%**, low confidence **55–82%**; no full-family gate was promoted.
+
 The earlier reviewed batch is published as `71fb991`. It adds reproducible
 IHP capacitor enclosure/contact checks (12 boundary cases and six deliberate
 faults), an independent reader, and a 76 KB public physical-evidence subset

@@ -1,5 +1,6 @@
 """Saved-testbench physical verification over a selected circuit hierarchy."""
 from pathlib import Path
+import hashlib
 import json,re,shutil
 from .model import clone,validate,design_digest,digest,file_digest,now,atomic_write,save_project
 from .testbenches import get,native_subcircuit,simulate
@@ -10,6 +11,38 @@ from .sky130_flow import subcircuit
 from .native_vectors import ports as electrical_ports
 
 VERIFICATION_STAGES = [*STAGES, 'integrity']
+
+
+def prepare_lvs_reference(directory, technology, expected_source_sha256):
+    """Retain the simulation source and a separately bound Magic comparison."""
+    from .native_spice import lvs_defaults
+    directory=Path(directory);source=(directory/'schematic.spice').read_bytes()
+    if hashlib.sha256(source).hexdigest()!=expected_source_sha256:
+        raise ValueError('Schematic reference changed before LVS projection.')
+    comparison,defaults=lvs_defaults(source.decode('utf-8'),technology,lvs_extractor='magic')
+    data=comparison.encode('utf-8');target=directory/'schematic-lvs.spice'
+    record={'schema':1,'extractor':'magic','source_sha256':expected_source_sha256,
+            'comparison_sha256':hashlib.sha256(data).hexdigest(),'defaults':defaults}
+    atomic_write(target,data)
+    atomic_write(directory/'lvs-reference.json',json.dumps(record,indent=2,allow_nan=False).encode('utf-8'))
+    return target,record
+
+
+def check_lvs_reference(directory, technology, record):
+    """Recheck comparison, original bytes and source-bound projection after LVS."""
+    from .native_spice import lvs_defaults
+    directory=Path(directory)
+    expected=json.dumps(record,indent=2,allow_nan=False).encode('utf-8')
+    if (directory/'lvs-reference.json').read_bytes()!=expected:
+        raise ValueError('LVS reference projection evidence changed.')
+    source=(directory/'schematic.spice').read_bytes();comparison=(directory/'schematic-lvs.spice').read_bytes()
+    if (hashlib.sha256(source).hexdigest()!=record['source_sha256'] or
+            hashlib.sha256(comparison).hexdigest()!=record['comparison_sha256']):
+        raise ValueError('Original or comparison LVS reference changed.')
+    repeated,defaults=lvs_defaults(source.decode('utf-8'),technology,lvs_extractor='magic')
+    if repeated.encode('utf-8')!=comparison or defaults!=record['defaults']:
+        raise ValueError('Source-bound LVS reference projection changed.')
+    return record
 
 
 def simulation_deck(directory, mode):
@@ -53,10 +86,12 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
     if out.exists() and any(out.iterdir()):raise ValueError('Choose a new or empty verification directory.')
     out.mkdir(parents=True,exist_ok=True);t=clone(get(p,testbench));cid=t['dut_cell'];by={c['id']:c for c in p['cells']};c=by[cid]
     report={'schema':2,'app_version':__import__('icstudio').__version__,'created':now(),'status':'running','cell_id':cid,'cell_name':c['name'],'testbench_id':t['id'],'testbench_name':t['name'],'testbench':t,'design_hash':design_digest(p),'revision':p['revision'],'stages':[],'qualification':'Saved-testbench process verification. Qualification applies only to the recorded circuit, extraction model and operating condition; no fabrication signoff.'};resolved={};assets={};generated={};choice={}
+    cmim_unit=None;cmim_sources={};schematic=None
     def publish():atomic_write(out/'report.json',json.dumps(report,indent=2,allow_nan=False))
     def stage(name,fn):
         return record_stage(report,name,fn,publish,progress)
     def preflight():
+        nonlocal cmim_unit,cmim_sources,schematic
         if blocked_reason:raise ValueError(blocked_reason)
         validate(p)
         from .physical_extraction import normalize_extraction
@@ -86,22 +121,32 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
         from .pdks import model_lines
         model_lines(p['pdk'],t['analysis'].get('corner','nominal'))
         assets.update(process.engine_assets(p['pdk']))
+        if process.id=='ihp-sg13g2' and choice['mode']=='capacitance':
+            from .ihp_cmim_capacitance import applicable
+            schematic=native_subcircuit(p,cid)
+            cmim_unit,cmim_sources=applicable(p,c,schematic,Path(assets['technology']))
+            if cmim_unit:
+                report['qualification']+=' The checked graph covers one flat IHP cap_cmim unit. Internal SUB remains floating, so this does not establish a physical DC operating point.'
         for name in ('magic','netgen','ngspice'):
             candidate=tools.get(name,'') or name;f=Path(shutil.which(candidate) or candidate)
             if not f.is_file():raise ValueError('Configure '+name+' in Engine diagnostics & paths.')
             resolved[name]=str(f.resolve());atomic_write(out/(name+'-version.log'),execute([resolved[name],'-batch'] if name=='netgen' else [resolved[name],'--version'],out,timeout=15))
-        save_project(p,out/'input.icproj');atomic_write(out/'testbench.json',json.dumps(t,indent=2));locks={str(f):file_digest(f) for f in assets.values()};atomic_write(out/'physical-assets-lock.json',json.dumps(locks,indent=2))
+        save_project(p,out/'input.icproj');atomic_write(out/'testbench.json',json.dumps(t,indent=2));locks={str(f):file_digest(f) for f in assets.values()}
         from .physical import connectivity
         findings=[]
         for key in reachable(p,cid):findings += [{**i,'cell_id':key} for i in connectivity(p,key)['issues']]
         atomic_write(out/'connection-findings.json',json.dumps(findings,indent=2))
+        locks.update(cmim_sources)
+        atomic_write(out/'physical-assets-lock.json',json.dumps(locks,indent=2))
         return {'assets':locks,'tools':{n:{'path':v,'sha256':file_digest(v),'version_file':n+'-version.log','version_sha256':file_digest(out/(n+'-version.log'))} for n,v in resolved.items()},'corner':t['analysis'].get('corner','nominal'),'electrical_cells':[by[i]['name'] for i in reachable(p,cid)],'physical_cells':[by[i]['name'] for i in reachable(p,cid,True)],'connection_findings':len(findings)}
     try:
         stage('preflight',preflight)
         physical=clone(p);physical.pop('testbenches',None);physical.pop('test_plans',None);physical['top']=cid;physical['cells']=[clone(by[key]) for key in reachable(p,cid,True)]
         from .interchange import export_layout
-        export_layout(physical,out/'layout.gds');atomic_write(out/'schematic.spice',native_subcircuit(p,cid))
+        export_layout(physical,out/'layout.gds');atomic_write(out/'schematic.spice',schematic if schematic is not None else native_subcircuit(p,cid))
         generated.update({name:file_digest(out/name) for name in ('layout.gds','schematic.spice','input.icproj','testbench.json')})
+        if cmim_unit:
+            generated['physical-assets-lock.json']=file_digest(out/'physical-assets-lock.json')
         def simulation(directory,source,interface=None):
             r=simulate(p,t,resolved['ngspice'],out/directory,source,interface);m=r['measurements'];m.update(specifications=r.get('specifications',[]),diagnostics=r.get('diagnostics'),analysis=clone(r['settings']),effective_analysis=r.get('effective_analysis'),waveform_file=directory+'/result.json',waveform_sha256=file_digest(out/directory/'result.json'));report['stages'][-1]['evidence']=m
             if m['status']!='passed':raise ValueError('; '.join(i['name']+': '+i.get('error','failed') for i in m['measurements'] if i['status']!='passed'))
@@ -131,6 +176,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
         def extract(name,cap=False):
             from .external_tools import extraction_commands
             selected=choice['mode'] if cap else 'lvs'
+            check_cmim=cmim_unit is not None and selected=='capacitance'
             if selected=='calibrated_rc':
                 from .physical_extraction import calibrated_network
                 network,extracted=calibrated_network(p,cid,choice,t['analysis'].get('corner','nominal'))
@@ -143,41 +189,72 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
                 report['conditions']['rc_corner']=network['corner']
             else:
                 commands,profile=extraction_commands(selected)
-                magic(name,commands+'ext2spice -o extracted.spice')
+                commands+='ext2spice -o extracted.spice'
+                if check_cmim:
+                    from .ihp_cmim_capacitance import FLAT_COMMANDS
+                    commands+=FLAT_COMMANDS
+                magic(name,commands)
                 if selected=='rc':
                     normalization=out/name/'rc-normalization.json'
                     profile['capacitance_normalization']=json.loads(normalization.read_text())
                     # Both raw engine output and the exact corrected export
                     # belong to this run's immutable integrity boundary.
                     generated.update({name+'/'+part.name:file_digest(part) for part in (out/name).iterdir() if part.is_file()})
-            atomic_write(out/name/'profile.json',json.dumps(profile,indent=2))
             f=out/name/'extracted.spice';text=f.read_text();interface,_,_=subcircuit(text,c['name'])
             from .external_tools import check_extracted_interface
             check_extracted_interface(f,c['name'],electrical_ports(c['ports']),p['pdk'])
             simulated,pruning=simulation_deck(out/name,selected)
+            if check_cmim:
+                from .ihp_cmim_capacitance import compare
+                directory=out/name;raw=c['name']+'.ext';simulated=directory/'extracted-flat.spice'
+                members=(raw,'extracted.spice',simulated.name,'startup.tcl','run.tcl','console.log')
+                evidence={part:(directory/part).read_bytes() for part in members}
+                hashes={part:hashlib.sha256(data).hexdigest() for part,data in evidence.items()}
+                flat=evidence[simulated.name].decode('utf-8')
+                proof=compare(evidence[raw].decode('utf-8'),evidence['extracted.spice'].decode('utf-8'),flat,
+                              evidence['console.log'].decode('utf-8'),cmim_unit)
+                check_extracted_interface(simulated,c['name'],electrical_ports(c['ports']),p['pdk'])
+                proof.update(files=hashes,source_sha256=generated['schematic.spice'])
+                proof_path=directory/'cmim-capacitance.json'
+                atomic_write(proof_path,json.dumps(proof,indent=2,allow_nan=False))
+                generated.update({name+'/'+part:sha for part,sha in hashes.items()})
+                generated[name+'/'+proof_path.name]=file_digest(proof_path)
+                profile['cmim_capacitance']={'file':name+'/'+proof_path.name,
+                                            'sha256':generated[name+'/'+proof_path.name],
+                                            'hierarchical_export':proof['hierarchical_export'],
+                                            'simulation_export':proof['simulation_export']}
             if pruning is not None:
                 check_extracted_interface(simulated,c['name'],electrical_ports(c['ports']),p['pdk'])
                 profile['electrical_simulation']=pruning
-                atomic_write(out/name/'profile.json',json.dumps(profile,indent=2))
                 generated.update({name+'/'+part:file_digest(out/name/part) for part in ('electrical.spice','electrical.spice.islands.json')})
-            caps=len(re.findall(r'^C\S+\s',text,re.I|re.M))
+            atomic_write(out/name/'profile.json',json.dumps(profile,indent=2))
+            caps=len(re.findall(r'^C\S+\s',flat if check_cmim else text,re.I|re.M))
             resistors=len(re.findall(r'^R\S+\s',text,re.I|re.M))
             if cap and not caps:raise ValueError('No parasitic capacitor declarations were extracted.')
             if selected=='rc':
                 baseline=next(s['evidence']['resistors'] for s in report['stages'] if s['name']=='lvs_extraction')
                 if resistors<=baseline:raise ValueError('Process RC extraction added no distributed resistors. Check the Magic technology resistance model or explicitly choose capacitance extraction.')
-            generated.update({name+'/'+part:file_digest(out/name/part) for part in ('extracted.spice','profile.json')})
+            if not check_cmim:
+                generated[name+'/extracted.spice']=file_digest(f)
+            generated[name+'/profile.json']=file_digest(out/name/'profile.json')
             return {'deck':name+'/extracted.spice','sha256':file_digest(f),'capacitors':caps,'resistors':resistors,
                     'simulation_deck':name+'/'+simulated.name,'simulation_sha256':file_digest(simulated),
                     'mode':selected,'profile':profile,'profile_file':name+'/profile.json',
                     'profile_sha256':generated[name+'/profile.json'],'subcircuits':re.findall(r'^\.subckt (\S+)',text,re.M|re.I)}
         stage('lvs_extraction',lambda:extract('lvs-extraction'))
         def lvs():
-            log=netgen_lvs(resolved['netgen'],out/'schematic.spice',c['name'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')
+            comparison,projection=prepare_lvs_reference(out,p['pdk'],generated['schematic.spice'])
+            report['lvs_reference']=projection
+            generated.update({name:file_digest(out/name) for name in ('schematic-lvs.spice','lvs-reference.json')})
+            log=netgen_lvs(resolved['netgen'],comparison,c['name'],out/'lvs-extraction/extracted.spice',c['name'],assets['setup'],out/'lvs')
+            check_lvs_reference(out,p['pdk'],projection)
             require_lvs_match(log)
-            return {'unique_match':True,'log':'lvs/lvs.log'}
+            return {'unique_match':True,'log':'lvs/lvs.log','reference_projection':projection}
         stage('lvs',lvs);parasitics=stage('capacitance_extraction',lambda:extract('parasitics',True))
         simulated=out/parasitics['simulation_deck']
+        if cmim_unit:
+            preflight_evidence=report['stages'][0]['evidence']
+            verify_integrity(out,generated,preflight_evidence['assets'],preflight_evidence['tools'])
         interface,_,_=subcircuit(simulated.read_text(),c['name']);stage('post_layout_simulation',lambda:simulation('post-layout',simulated,interface))
         def integrity():
             from .pdks import model_lines

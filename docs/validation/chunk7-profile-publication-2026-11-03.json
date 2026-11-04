@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "observed_utc": "2026-11-04 01:02:41 UTC",
+  "status": "PUBLISHED_PROFILE_SOURCE_FEEDBACK_PASSED_DESKTOP_RUNNING",
+  "candidate": "39b24815a96b5b6140825a1c8371adde80f877c0",
+  "preceding_multiplicity_commit": "6e998477e7aa1d61bbf3c1fcb888fb8c23a5d594",
+  "branch": "experimental",
+  "remote_ref_verified": true,
+  "local_source_evidence": "ihp-cmim-profile-isolation-2026-11-03.json",
+  "publication_review_sha256": "c354be866e37d542ce413359db5b55dbdb58c5968a37d6dc2c6bb0c60b92a24c",
+  "runs": [
+    {
+      "id": 41745895103,
+      "jobs": [
+        {
+          "id": 126298668190,
+          "name": "candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failed": []
+        },
+        {
+          "id": 126298734037,
+          "name": "release-tools (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failed": []
+        },
+        {
+          "id": 126298734205,
+          "name": "release-tools (windows-2022)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failed": []
+        },
+        {
+          "id": 126298734319,
+          "name": "digital-runtime / candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failed": []
+        },
+        {
+          "id": 126298819611,
+          "name": "digital-runtime / runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failed": []
+        },
+        {
+          "id": 126308667320,
+          "name": "package (ubuntu-24.04)",
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Verify public SKY130 RF candidate with the pinned Linux engine"
+          ],
+          "failed": []
+        },
+        {
+          "id": 126308667536,
+          "name": "package (windows-2022)",
+          "status": "in_progress",
+          "conclusion": null,
+          "current": [
+            "Verify installed digital runtime on this operating system"
+          ],
+          "failed": []
+        }
+      ]
+    },
+    {
+      "id": 41745872768,
+      "jobs": [
+        {
+          "id": 126298794380,
+          "name": "source feedback (ubuntu-24.04)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failed": []
+        },
+        {
+          "id": 126298795062,
+          "name": "source feedback (windows-2022)",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failed": []
+        },
+        {
+          "id": 126302063674,
+          "name": "PR feedback",
+          "status": "completed",
+          "conclusion": "success",
+          "current": [],
+          "failed": []
+        }
+      ]
+    }
+  ],
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "estimate_percent": 74,
+  "uncertainty": "Low confidence; subjective range 55–82%.",
+  "prior_failed_candidates": [
+    "d767f711d301ace057ceb4706c80e733aedc0c00",
+    "04ce9bceefc4cd0591824351f275833ba9a01b7f"
+  ],
+  "scope": "Published profile repair passes independently verified synthetic-merge source feedback. Exact selected desktop candidate has passed runtime build/clean installation and is running package jobs. Later reviewed saved-bench source repair is distinct and has no new hosted or installed acceptance.",
+  "hosted_source_evidence": "chunk7-39b2-hosted-feedback-2026-11-03.json"
+}

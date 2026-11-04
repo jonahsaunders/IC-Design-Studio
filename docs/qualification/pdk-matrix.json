@@ -24242,7 +24242,8 @@
           "ihp-cmim-public-reproduction-2026-11-03",
           "ihp-cmim-enclosures-2026-11-03",
           "ihp-cmim-multiplicity-physical-2026-11-03",
-          "ihp-cmim-multiplicity-electrical-2026-11-03"
+          "ihp-cmim-multiplicity-electrical-2026-11-03",
+          "ihp-cmim-saved-bench-2026-11-03"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -25888,6 +25889,11 @@
       "path": "docs/validation/ihp-cmim-catalog-reference-2026-11-02.json",
       "sha256": "fa1f8d4a25739f09b27df9f3eb56a963ca123678952029774dcf1d834bd79e4c",
       "scope_limit": "Finite ordinary IHP cap_cmim source reference integration: actual Magic/public native jobs and Windows managed handoffs. No installed, continuous-envelope, full-family or chunk-7 qualification."
+    },
+    "ihp-cmim-saved-bench-2026-11-03": {
+      "path": "docs/validation/ihp-cmim-saved-bench-2026-11-03.json",
+      "sha256": "e287bc5dc77433b32e52b45b46b9eab2c276b49c104bf54dd65e2a5faa72f85f",
+      "scope_limit": "Source saved-bench reference and one flat unit capacitance-graph/finite AC repair; direct Windows managed transfer, two rotations and two strict LVS faults. Floating-substrate warnings retained. No calibrated/DC/normal-setup/installed/full-family qualification."
     }
   },
   "execution_acceptance": {
@@ -25903,8 +25909,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-11-03-yosys/manifest.json",
-        "sha256": "42529c7a3f5959a8d3c5fe19fb253810b12cba1eace942bda28cbbe860b682c6"
+        "path": "docs/validation/gf180-tested-source-2026-11-03-saved-bench/manifest.json",
+        "sha256": "f9fae3c031e56c908f9f83297cccb8e13de77222a65288c9ce9edd2e1d7aebd1"
       }
     },
     "5": {

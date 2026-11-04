@@ -84,3 +84,18 @@ three deterministic capacitor sections. Both-host readback passes. This adds
 integer count and parallel series-resistance integration evidence; arbitrary
 arrays, nested/statistical multiplicity, PEX, physical validity and installed
 acceptance remain separate. Operating/reliability and calibration gaps remain.
+
+The [saved-testbench reference and capacitance-graph repair](IHP_CMIM_SAVED_BENCH.md)
+now completes a separate finite source integration gate for one ordinary flat
+7 × 7 micrometre unit at both rotations. The original simulation reference and
+hierarchical native export are retained; source-bound Magic LVS and a checked
+flat export preserve the intrinsic device and all three parasitic edges.
+Wrong geometry/wiring remain native failures. The Windows managed source handoff
+is separately verified without requiring an unstaged package manifest file.
+This source handoff explicitly bypasses normal GUI readiness with its old setup
+receipt retained; it does not qualify normal setup or installed delivery.
+The selected graph has a floating internal substrate. Native convergence warnings
+and transient operating-point recovery remain explicit, so the verified linear
+AC response is not a physical DC operating-point or calibrated PEX claim.
+General physical classes, mixed devices, hierarchy, arrays, distributed resistance,
+operating/reliability and calibration requirements remain unresolved.

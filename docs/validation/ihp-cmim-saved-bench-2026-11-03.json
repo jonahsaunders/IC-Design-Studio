@@ -1,0 +1,246 @@
+{
+  "schema": 1,
+  "date": "2026-11-03",
+  "status": "PASS_BOUNDED_SOURCE_SAVED_BENCH_LVS_AND_CAPACITANCE_GRAPH",
+  "base_commit": "39b24815a96b5b6140825a1c8371adde80f877c0",
+  "scope": "One flat ordinary catalog IHP cap_cmim unit, m=1, 7x7 micrometres, two rotations; source LVS and parasitic-capacitance graph/finite linear AC integration only.",
+  "source_hashes": {
+    "icstudio/hierarchical_flow.py": "ec6c87b063f29e1eb5c996acac5e651a5dffe4e5ae6d014baac8557d1fc89562",
+    "tests/test_hierarchical_lvs_reference.py": "25e5a407995955861ca186c7c05ae91775283d8a56a6becef88b0bd968d811e5",
+    "scripts/ci_feedback.py": "33939a7bf6f68e5a3400289f330f32c1d0c365d1c6690b7bd5b5bc9c42a62109",
+    "icstudio/ihp_cmim_capacitance.py": "7b4912328dff95ec0508fcb8435df4b1fa7ad7c19b8bc603c855b6aa91cf6ad6",
+    "tests/test_ihp_cmim_capacitance.py": "ae66b2bdd531d65264882cb69956a34e6dd5be93ea04edcc7eb5714775e28f58",
+    "tests/fixtures/ihp-cmim-capacitance-v1/SOURCE.json": "c185a29709974efdd4b339ec17c7998d886e09d8d92bf9868596aa102818921d",
+    "tests/fixtures/ihp-cmim-capacitance-v1/LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "tests/fixtures/ihp-cmim-capacitance-v1/coupon.ext": "3716d89e1d16877efc932b553907569d65a190d686eed9eb269f0d16a07efa0b",
+    "tests/fixtures/ihp-cmim-capacitance-v1/flat.spice": "92f37a00653fecf7614d1177a55434ae2a7fd5f81838029c4796060a40455e3f",
+    "tests/fixtures/ihp-cmim-capacitance-v1/hierarchical.spice": "e55958863c1e2fcf2d52a73a0074bcc450b99623ad9c64a3bb856951751fb3d7"
+  },
+  "source_snapshot": {
+    "files": 6978,
+    "manifest_sha256": "2dadf70fa37663510b6ffb771438443e43894ff3a96004ce4997f8caec08b661",
+    "all_files_unchanged": true,
+    "recovery": "Retained multiplicity-v2 base plus exact HEAD and reviewed source deltas; no whole runtime duplication."
+  },
+  "package": {
+    "target": "ihp-sg13g2",
+    "revision": "cfb96b74cf33877e",
+    "manifest_sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0"
+  },
+  "closed_defects": [
+    "Saved-bench LVS incorrectly compared simulation-only mm_ok. A separate source-bound Magic reference preserves original simulation and strict geometry/pin checking.",
+    "The hierarchical Magic export moved top-to-substrate capacitance onto the bottom plate. A same-process flat native export is selected only after independent graph, intrinsic-device, ordered-interface and source checks.",
+    "Managed staging omits package.json. The guard reconstructs and pins the exact saved package semantic contract, retaining actual technology/symbol/model byte checks."
+  ],
+  "applicability": {
+    "one_flat_catalog_unit": true,
+    "multiplicity": 1,
+    "unmodified_shipped_package_configuration": true,
+    "minimum_positive_native_edge_af": 1,
+    "unknown_records_hierarchy_aliases_mixed_devices_rejected": true,
+    "general_arrays_supported_by_this_gate": false
+  },
+  "native": {
+    "receipt_sha256": "73742a665cdfe858b8cc56e5c8947cc544a18c1fb7397caf67276915b569725a",
+    "independent_reader_sha256": "4970a06d3f451ef3a9332dba27baa103acddd0fe00fe49050fffb3e53b798c69",
+    "files_independently_verified": 450,
+    "positive_cases": 2,
+    "strict_lvs_fault_cases": 2,
+    "case_results": [
+      {
+        "name": "positive-0",
+        "lvs": "passed",
+        "raw_edges_verified": true,
+        "intrinsic_count": 1,
+        "numeric_max_relative_error": 8.042697424877661e-09,
+        "floating_substrate_warnings_retained": true,
+        "raw_ext_sha256": "eee02c387bbda10c3d5d76819583f0c43fd08b034281563347f79d5a8eaea077",
+        "flat_spice_sha256": "92f37a00653fecf7614d1177a55434ae2a7fd5f81838029c4796060a40455e3f",
+        "schematic_sha256": "2f750b929536b50a1e1266350378ab0afbb031bc51e853b8327428aa08e26fdb",
+        "current_raw_sha256": "763cfc9f123358ec3806ba03d7d1f499997f49923c5f45f84d1e1aabcd4329c7"
+      },
+      {
+        "name": "positive-90",
+        "lvs": "passed",
+        "raw_edges_verified": true,
+        "intrinsic_count": 1,
+        "numeric_max_relative_error": 8.042697424877661e-09,
+        "floating_substrate_warnings_retained": true,
+        "raw_ext_sha256": "f32eb5a6176ac16a2ec44ad7dc7c8596f49d9e6aa796e412828dcce0a2d70f6b",
+        "flat_spice_sha256": "92f37a00653fecf7614d1177a55434ae2a7fd5f81838029c4796060a40455e3f",
+        "schematic_sha256": "5be0d89ecea5a297a104e84992a487b2e5e380910d5d44dca718a788f2bcdd80",
+        "current_raw_sha256": "dcc95a1472da9342e582048547bb1989ec4674a5df417e5185250d3d17006b25"
+      },
+      {
+        "name": "wrong-width-0",
+        "lvs": "failed",
+        "later": "not_run",
+        "native_lvs_sha256": "0cbae0683b5ce0bf07d6a3edf9c5d93dfdcce0a1ef6597f11a7c13d58c5f2bbe",
+        "schematic_sha256": "5ca841e93350e076d8ee6944fc67fbf4f5bef178901e713a316f175ed57e024b"
+      },
+      {
+        "name": "wrong-wire-0",
+        "lvs": "failed",
+        "later": "not_run",
+        "native_lvs_sha256": "31c6caf5741571fe93d74884cf9ca6681a0afd8b8ed2d329377b010de23f6117",
+        "schematic_sha256": "86943e9574e6c2dbd083c59a54b6baea7aa7dc1d16b76cd2cbbb576727578c96"
+      }
+    ],
+    "conditions": {
+      "model_corner": "nominal",
+      "temperature": 27,
+      "analysis": {
+        "type": "ac",
+        "stop": "100u",
+        "step": "200n",
+        "start": "100k",
+        "end": "1meg",
+        "points": 2,
+        "source": "V1",
+        "dc_start": "0",
+        "dc_stop": "1.8",
+        "dc_step": "0.01",
+        "temperature": 27,
+        "corner": "nominal"
+      },
+      "sources": [
+        {
+          "name": "VIN",
+          "kind": "V",
+          "value": "0",
+          "source": {
+            "type": "dc",
+            "low": "0",
+            "high": "1.8",
+            "period": "20u",
+            "delay": "0",
+            "duty": "0.5",
+            "ac": "1"
+          },
+          "nets": {
+            "p": "vin",
+            "n": "0"
+          }
+        }
+      ]
+    },
+    "ac_samples_per_positive": 3,
+    "maximum_relative_current_error": 8.042697424877661e-09,
+    "substrate": "Unchanged internal floating SUB; no product leakage or ground added.",
+    "warnings": "Actual engine logs retain singular-matrix/stepping warnings followed by transient operating-point recovery. Correct finite linear AC does not establish a unique physical DC operating point."
+  },
+  "tests": {
+    "windows": {
+      "tests": 137,
+      "skipped": 1,
+      "skip_reasons": [
+        "Directory symlink creation is not assumed on Windows."
+      ],
+      "seconds": 7.657,
+      "receipt_sha256": "f711b1907aa956b728ee1441896e797ce294e348a4e818feb2a0dcc2c5089cb1",
+      "log_sha256": "33a38aed70389818a49dd2e31d7910f42a42da95790b718ff3b044a7508f202e",
+      "guarded_files_unchanged": 33
+    },
+    "linux": {
+      "tests": 61,
+      "skipped": 0,
+      "receipt_sha256": "1a5f8f20cdd45f7fe14a0b8a0073e7eb7bace45cdeedc8e0b16f257fe76be099",
+      "log_sha256": "2ebff0d2cfbe84daa5d7897d5ac9928bb76bd022ab6200603d6796ded89e06e0",
+      "source_files_unchanged": 6978
+    }
+  },
+  "windows_managed_source": {
+    "receipt_sha256": "d93b3541b502d942cd3a19d572505a8582ba8f64f59c2ef2b906e32a8cee05dc",
+    "direct_dispatch": true,
+    "normal_setup_readiness": false,
+    "installed_acceptance": false,
+    "staged_pdk_assets": 163,
+    "package_json_staged": false,
+    "returned_artifacts_verified": 142,
+    "ac_samples": 3,
+    "maximum_relative_current_error": 8.042697424877661e-09,
+    "runtime_archive_sha256": "3f4275776fcb73d658265577dd0f5840171b5711fdb21cd1e675ed80a13c9f38",
+    "runtime_identity_unchanged": true,
+    "ready_record_unchanged_sha256": "539822139274e97cdc2a2b2ad1a62ece810457edfff89f0325a2b19478afa392",
+    "observed_setup_status": {
+      "state": "setup",
+      "message": "The digital runtime changed. Run setup again."
+    },
+    "scope": "Real source dispatch/stage/receive outside normal GUI readiness gating, using an existing runtime. Its stale setup receipt is retained unchanged; this is not normal setup or installed acceptance."
+  },
+  "separate_numerical_control": {
+    "receipt_sha256": "cd6fdd97e67a35167b10902222db08d694a5873443064912a20246d56d37eb89",
+    "boundary": "Explicit 1 teraohm SUB-to-ground path added only in separate diagnostic copies and included in the analytical equations.",
+    "samples": 12,
+    "faults": [
+      "dropped top-substrate edge",
+      "omitted intrinsic device",
+      "duplicate intrinsic device"
+    ],
+    "scope": "Diagnostic only; does not replace the original application boundary. Raw-to-SPICE quantization is bounded separately from simulator-to-written-network error."
+  },
+  "independent_review": {
+    "model": "Astra",
+    "receipt_sha256": "72757962c3b970eaa6e392af2c80677ff6f896933a872942441191d6cd78a38e",
+    "source_and_native_approved": true,
+    "scope": "Source integration for one shipped ordinary flat cap_cmim unit m=1, with directnative7um-square evidence at0/90deg andactualWindowsmanagedsource dispatch. Arbitrarysafe names/dimensions testedatcontractlevel, not fullphysicalenvelope."
+  },
+  "retention": {
+    "directory": "C:\\Users\\jonah\\Documents\\Codex\\IC-Design-Studio-evidence\\chunk7-ihp-cmim-saved-bench-2026-11-03-v1",
+    "native": {
+      "archive": "native-evidence.zip",
+      "sha256": "08f895b1f66433d776db758c9eba80d2a6bd66a2daa83ee28524185d450afc29",
+      "bytes": 6550578,
+      "logical_files": 2740,
+      "unique_objects": 687,
+      "retention_sha256": "32debd30eb4d4e0e92e7d76ac9bf24e8b10eb71ac2a299295c5f611fede9c132"
+    },
+    "advisory": {
+      "archive": "advisory-evidence.zip",
+      "sha256": "b7e241ca39b58189c86505f8d25a8453808cd057e3f14f9db5a279cc2ae1d75a",
+      "files": 16,
+      "retention_sha256": "0ec3a77dc0e9a454cdde9dc5005379e141fe58ba62c949fc43266d91a950aaa7"
+    },
+    "initial_unit_history": {
+      "archive": "root-unit-history.zip",
+      "sha256": "9f42a29d3b75f229edf006e29611791a90f48cc1678e0d56f5f27bbb64ef7b69",
+      "files": 3,
+      "retention_sha256": "6afed960a70da8e293c6894a0363c1b76450a8702669bfb4a8244b16b77f8f36"
+    },
+    "crc_sha_originals_verified": true
+  },
+  "original_failures_retained": [
+    "Initial source-bench setup omitted required OSDI configuration; separate corrected run uses verified managed models.",
+    "Original mm_ok Netgen mismatch and subsequent application passed reports with corrupted PEX graph remain unchanged.",
+    "Preliminary direct-native guard versions and managed-metadata defect retain distinct source identities.",
+    "Initial test-stimulus no-op failures and sandboxed Windows junction prerequisite failure remain separately recorded.",
+    "Initial diagnostic comparison and review-parser corrections remain distinct from final verified readback."
+  ],
+  "limitations": [
+    "No calibrated PEX or field accuracy.",
+    "No physical DC operating-point, safe operating/reliability envelope, voltage coefficient, statistical calibration or lifetime qualification.",
+    "No general hierarchy, mixed-device, multiplicity/array or distributed resistance acceptance.",
+    "No new hosted, normal GUI readiness or frozen installed acceptance for this local source batch."
+  ],
+  "installed_acceptance": false,
+  "complete_family": false,
+  "chunk_complete": false,
+  "estimate_percent": 74,
+  "estimate_uncertainty": "Low confidence; subjective range 55-82%.",
+  "historical_acceptance_preservation": {
+    "4": {
+      "previous_snapshot": {
+        "path": "docs/validation/gf180-tested-source-2026-11-03-yosys/manifest.json",
+        "sha256": "42529c7a3f5959a8d3c5fe19fb253810b12cba1eace942bda28cbbe860b682c6"
+      },
+      "new_snapshot": {
+        "path": "docs/validation/gf180-tested-source-2026-11-03-saved-bench/manifest.json",
+        "sha256": "f9fae3c031e56c908f9f83297cccb8e13de77222a65288c9ce9edd2e1d7aebd1"
+      },
+      "accepted_commit": "2fe3c277c666089b21b4ebf39aecd62a76a3ae8d",
+      "source_sha256": "dd30dbd93a1ef9fbfc2f3ade72e446fee308cc2fdb8eb1dc6628c4c8aa45ce28",
+      "git_blob": "e1278b1e3f00c533d2e6e440d65233dc64f77f34"
+    }
+  },
+  "historical_acceptance_note": "Only the GF180 record binds hierarchical_flow.py. Its exact original source is retained. The IHP acceptance and previous source snapshot remain unchanged; an unnecessary extra IHP entry was rejected by the unchanged validator and removed before publication."
+}

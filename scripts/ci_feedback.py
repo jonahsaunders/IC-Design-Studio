@@ -22,10 +22,11 @@ UNIT_MODULES = (
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_sky130_li_linked',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
     'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
-    'test_ihp_capacitor_corners', 'test_ihp_cmim_boundary', 'test_ihp_cmim_lvs_reference',
+    'test_ihp_capacitor_corners', 'test_ihp_cmim_boundary', 'test_ihp_cmim_lvs_reference', 'test_hierarchical_lvs_reference',
     'test_ihp_metal_spacing', 'test_ihp_klayout_drc', 'test_ihp_cmim_process_control', 'test_ihp_cmim_enclosures',
     'test_ihp_cmim_multiplicity', 'test_ihp_cmim_multiplicity_electrical',
     'test_ihp_cmim_desktop_probe', 'test_frozen_ihp_cmim', 'test_release_ihp_cmim_evidence', 'test_ci_windows_native_identity',
+    'test_ihp_cmim_capacitance',
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
@@ -109,6 +110,10 @@ def source_identity(root=ROOT):
     fixture = root / 'tests/fixtures/esd-installed-headers-v1.json'
     if fixture.is_file():
         files.append(fixture)
+    for name in ('SOURCE.json', 'LICENSE', 'coupon.ext', 'hierarchical.spice', 'flat.spice'):
+        fixture = root / 'tests/fixtures/ihp-cmim-capacitance-v1' / name
+        if fixture.is_file():
+            files.append(fixture)
     for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy',
                    'sky130-esd-nvt-source-v1', 'sky130-esd-predecessor-v1', 'sky130-pw2dn-predecessor-v1'):
         files += [p for p in (root / 'icstudio/assets/qualification' / folder).glob('*') if p.is_file()]
