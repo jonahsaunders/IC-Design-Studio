@@ -5,6 +5,51 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+The latest reviewed batch is published as `71fb991`. It adds reproducible
+IHP capacitor enclosure/contact checks (12 boundary cases and six deliberate
+faults), an independent reader, and a 76 KB public physical-evidence subset
+for the process-control comparison. Fresh native reproduction passes all
+14 electrical cases and four altered-input controls; Windows independently
+replays the evidence. The [publication observation](validation/chunk7-enclosure-publication-2026-11-03.json)
+records the exact source and independent review. Its
+[source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41696983923)
+passes all three jobs. [Retained verification](validation/chunk7-71fb-hosted-feedback-2026-11-03.json)
+binds both archives and 2,232 source files to synthetic merge `b41b5e7`; each
+host passes eleven stages and 1,087 tests (37 Windows and 17 Linux skips).
+At 19:39 UTC both older desktop candidates have passed Linux packaging.
+The `04ce9bce` Windows runtime step has passed and GUI checks are running;
+`d767f71` Windows is running its full core tests. No new installed acceptance
+or complete-family promotion is claimed. The estimate remains 74% because
+mandatory family requirements are still unresolved. The older publication
+observation keeps its original timestamp and pending states.
+
+**Selected physical multiplicity and linked electrical milestone completed.**
+The [reusable workflow](IHP_CMIM_MULTIPLICITY.md) now checks ordinary catalog
+m=2 against two explicit units and actual unfiltered extraction. Four physical
+positives at two rotations and six meaningful physical/reference faults pass
+independent readback. Six electrical runs cover three deterministic capacitor
+sections, with 162 route/point observations against independent RC equations.
+Windows and Linux reproduce the exact complete electrical report; 50 focused
+tests pass on each host (one existing Windows platform skip). A real cross-host
+derived-error mismatch was corrected with deterministic arithmetic, preserving
+exact report equality and numerical thresholds. Original failures are retained.
+Independent review and compact archive readback are complete. The 6,965-file
+source snapshots remain unchanged. These finite class/linkage checks do not
+close the remaining family applicability, calibration, PEX or installed gates.
+
+The older `d767f71` Windows package has now failed one of 4,200 core tests
+(62 skips), with a missing `modelparam:w` inspector field. An isolated
+reproduction shows that the intended private profile can still read host
+settings, allowing delayed workspace restoration to clear the selected device.
+The hosted profile itself was not retained; this is a reproduced explanation,
+not a direct recovery of those settings. A narrowly
+scoped explicit-profile repair is in progress; no original hosted failure is
+relabelled. Both candidates' Linux package jobs have passed. A fresh check at
+00:10 UTC on November 4 (November 3 locally) shows that `04ce9bce` has also
+failed its Windows core suite; its exact failure is being checked. Installed
+acceptance was skipped downstream on both runs. Fresh repaired-candidate
+acceptance remains required. Chunk 7 remains **74%**, low confidence **55–82%**.
+
 The [completed desktop acceptance](validation/chunk7-selected-installed-acceptance-2026-11-03.json)
 passes all nine jobs at exact candidate `cbf9705`, including both installed
 applications and execution of their release archives. Windows passes the repaired

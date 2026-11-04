@@ -315,9 +315,11 @@
       "latest_metal_spacing_supplement_evidence": "docs/validation/ihp-metal-spacing-supplement-2026-11-03.json",
       "latest_metal_spacing_integration_evidence": "docs/validation/chunk7-spacing-integration-2026-11-03.json",
       "latest_cmim_process_control_evidence": "docs/validation/ihp-cmim-process-control-2026-11-03.json",
-      "latest_hosted_source_feedback_evidence": "docs/validation/chunk7-04ce-hosted-feedback-2026-11-03.json",
+      "latest_hosted_source_feedback_evidence": "docs/validation/chunk7-71fb-hosted-feedback-2026-11-03.json",
       "latest_cmim_public_reproduction_evidence": "docs/validation/ihp-cmim-public-reproduction-2026-11-03.json",
-      "latest_cmim_enclosure_evidence": "docs/validation/ihp-cmim-enclosures-2026-11-03.json"
+      "latest_cmim_enclosure_evidence": "docs/validation/ihp-cmim-enclosures-2026-11-03.json",
+      "latest_cmim_multiplicity_physical_evidence": "docs/validation/ihp-cmim-multiplicity-physical-2026-11-03.json",
+      "latest_cmim_multiplicity_electrical_evidence": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -24237,7 +24239,9 @@
           "ihp-cmim-isolated-spacing-2026-11-03",
           "ihp-cmim-process-control-2026-11-03",
           "ihp-cmim-public-reproduction-2026-11-03",
-          "ihp-cmim-enclosures-2026-11-03"
+          "ihp-cmim-enclosures-2026-11-03",
+          "ihp-cmim-multiplicity-physical-2026-11-03",
+          "ihp-cmim-multiplicity-electrical-2026-11-03"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -25833,6 +25837,21 @@
       "path": "docs/validation/chunk7-04ce-hosted-feedback-2026-11-03.json",
       "sha256": "e2c7c6d0e0473b443f2662159a969a0e8c6236e0bfafa2520274850f4aaaf4b9",
       "scope_limit": "Complete Windows/Linux source feedback artifacts at the exact synthetic merge for 04ce9bce only; no later working-tree or installed qualification."
+    },
+    "ihp-cmim-multiplicity-physical-2026-11-03": {
+      "path": "docs/validation/ihp-cmim-multiplicity-physical-2026-11-03.json",
+      "sha256": "92d8d6e0c888c73409def0d09524839cb01a5fbbe05f15e61912c409f02c49ad",
+      "scope_limit": "Two contacted shared-electrode 7um units: ordinary m2 and explicit m1 pairs at two rotations, six actual physical/reference faults and independent both-host readback. No arbitrary array, installed or complete-family qualification."
+    },
+    "ihp-cmim-multiplicity-electrical-2026-11-03": {
+      "path": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json",
+      "sha256": "68a70e35c7457323cadde3ddff16b6966dab3c7178d49f811dd98aa67452d6d7",
+      "scope_limit": "Exact captured catalog references and raw two-unit extraction versus literal RC: six native runs, three deterministic capacitor sections, finite numerical checks and exact Windows replay. No PEX, operating/reliability, statistical or installed qualification."
+    },
+    "chunk7-71fb-hosted-feedback-2026-11-03": {
+      "path": "docs/validation/chunk7-71fb-hosted-feedback-2026-11-03.json",
+      "sha256": "ac129b96f9bf136fa9306741b6eaec1dcf4630dd66f802138a3dd6eb09169d58",
+      "scope_limit": "Complete source-feedback archive readback and 2232 Git source bindings at the exact synthetic merge for 71fb991; 1087 tests per host, no later source or installed acceptance."
     },
     "ihp-cmim-enclosures-2026-11-03": {
       "path": "docs/validation/ihp-cmim-enclosures-2026-11-03.json",

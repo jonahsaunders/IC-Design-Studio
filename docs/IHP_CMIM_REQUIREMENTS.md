@@ -73,3 +73,14 @@ comparison](IHP_CMIM_PROCESS_CONTROL.md) now ships its small authenticated
 historical electrode input, so a public checkout no longer requires the
 separately retained full archive. Calibration and operating/reliability
 requirements remain unresolved.
+
+
+The November 3 [physical multiplicity workflow](IHP_CMIM_MULTIPLICITY.md) closes
+the selected two-unit shared-electrode linkage: ordinary catalog m=2 and two
+explicit m=1 references pass at both rotations; six reference/physical faults
+are detected. Their actual captured references and raw extracted units agree
+with independent literal RC at the declared finite numerical conditions across
+three deterministic capacitor sections. Both-host readback passes. This adds
+integer count and parallel series-resistance integration evidence; arbitrary
+arrays, nested/statistical multiplicity, PEX, physical validity and installed
+acceptance remain separate. Operating/reliability and calibration gaps remain.
