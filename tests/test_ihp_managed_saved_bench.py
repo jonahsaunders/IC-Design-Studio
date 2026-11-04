@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from icstudio import physical_backend
-from icstudio.model import example
+from icstudio.model import example, file_digest
 from scripts.qualify_standard_mos import load_technology
 
 
@@ -98,6 +98,23 @@ class IhpManagedSavedBenchTests(unittest.TestCase):
             self.assertEqual(staged['project'].get('simulation_runtime'),
                              request['project'].get('simulation_runtime'))
             self.assertNotIn('managed_osdi', staged['settings'])
+
+    def test_missing_or_empty_saved_bench_preserves_ordinary_asset_staging(self):
+        for fields in ({}, {'testbench': None}, {'testbench': ''}):
+            with (self.subTest(fields=fields), tempfile.TemporaryDirectory() as temporary,
+                  patch.object(physical_backend, 'available', return_value=RUNTIME),
+                  patch('icstudio.digital_runtime.manifest', side_effect=AssertionError)):
+                request = self.job()
+                request['settings'].pop('testbench')
+                request['settings'].update(fields)
+                self.assertIs(physical_backend.prepare(request), request)
+                self.assertEqual(request['settings']['physical_runtime'], RUNTIME)
+                work = Path(temporary)
+                staged = physical_backend.stage(request, work, '/var/tmp/test', '/')
+                asset = 'libs.tech/magic/icstudio-ihp-sg13g2.tech'
+                self.assertEqual(file_digest(work / 'pdk' / asset),
+                                 self.tech['package_lock']['files'][asset])
+                self.assertNotIn('simulation_runtime', staged['project'])
 
     def test_custom_and_non_ihp_selection_keep_existing_policy(self):
         custom = self.job(physical_toolchain='custom')

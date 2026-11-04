@@ -19,9 +19,9 @@ def available():
 
 
 def _physical_models(job):
-    """Select bundled IHP models for an included physical simulation."""
+    """Select bundled IHP models for an included saved-bench verification."""
     settings=job['settings']
-    if settings.get('type')!='silicon' or settings.get('verification_mode')=='drc_lvs':
+    if settings.get('type')!='silicon' or not settings.get('testbench') or settings.get('verification_mode')=='drc_lvs':
         return ()
     project=job['project'];pdk=project['pdk']
     if pdk.get('package_lock',{}).get('id')!='ihp-sg13g2':

@@ -88,3 +88,9 @@ unconfigured GUI verification for this combined source remain pending,
 as does installed acceptance. The earlier failure and configured control
 remain separate evidence. Electrical saved-testbench and characterization
 actions still require their separately configured local tools and models.
+
+The [boundary correction](validation/ihp-managed-handoff-boundary-2026-11-03.json)
+requires a selected saved testbench before automatic IHP model lookup. Plain
+asset transfers retain their original source-integrity checks without needing
+an installed simulation runtime. Both hosted regression failures and the
+subsequent focused correction checks are retained separately.

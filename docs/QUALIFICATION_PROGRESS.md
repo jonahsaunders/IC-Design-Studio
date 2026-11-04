@@ -5,6 +5,21 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**[Current model-handoff correction](validation/ihp-managed-handoff-boundary-2026-11-03.json).**
+The published `2d371303` source exposed an overbroad model requirement in both
+[hosted feedback runs](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41762196988):
+a plain resistor-asset transfer unexpectedly required simulation models. The
+correction now requires an actual saved testbench, matching the supported IHP
+simulation route. The original failing test is unchanged. Without an ambient
+runtime payload, Windows passes 58 focused tests (one skip), native Linux passes
+40, and independent review passes eight. These suites overlap. Both original
+hosted failures remain recorded as failures; the superseded desktop candidate
+was cancelled and its local setup deliberately interrupted without Ready or GUI
+acceptance. Fresh ordinary setup, GUI and hosted acceptance for this correction
+remain pending. At 02:46 UTC, older `39b24815` had passed Windows core and
+interface checks and was building its installer; Linux packaging had passed.
+No complete-family gate changed; the engineering estimate remains 74%.
+
 **Latest publication observation (2026-11-04 01:26:29 UTC).** The saved-testbench
 repair is now published as [`1c34cf41`](https://github.com/jonahsaunders/IC-Design-Studio/commit/1c34cf41026d9a1e3dd55808b1b51be8a4ec88be).
 All three [fresh source-feedback jobs](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41752333923)
