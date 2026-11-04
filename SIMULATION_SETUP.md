@@ -110,9 +110,18 @@ label alone does not establish qualification for arbitrary device classes or lay
 For physical checks, use **Tools → Physical tools setup…** for included
 Magic/Netgen/ngspice or explicit custom tools, and supply matching locked physical
 PDK assets/decks. The managed digital runtime separately carries the full SKY130
-HD standard-cell platform for RTL implementation. Bundled IHP analyses and
-imported programs automatically select its matching runtime when no custom OSDI
-libraries are configured. See [PDK setup](docs/PDK_GUIDE.md).
+HD standard-cell platform for RTL implementation. Direct IHP operating-point,
+transient, DC, AC and noise analyses, plus imported
+programs, automatically select the matching included runtime when no custom OSDI
+libraries are configured. Included physical saved-testbench verification also
+selects the verified matching models after **Physical tools setup**. DRC/LVS-only
+checks do not require these simulation libraries; explicit model selections are
+preserved and still must match the selected execution platform.
+
+Ordinary electrical saved-testbench and characterization actions currently use
+locally configured ngspice and require compatible local OSDI models. Their layout
+comparison path also uses local physical tools. They do not inherit the automatic
+included physical-verification handoff. See [PDK setup](docs/PDK_GUIDE.md).
 
 ## DC startup and inductor analysis
 

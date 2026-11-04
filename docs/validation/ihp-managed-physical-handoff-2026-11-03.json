@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "status": "REVIEWED_SOURCE_REPAIRS_NORMAL_ACCEPTANCE_PENDING",
+  "base_commit": "1c34cf41026d9a1e3dd55808b1b51be8a4ec88be",
+  "source_sha256": {
+    "icstudio/digital_platform.py": "7a2271e4a4fa1c5f88f7cc1952b71423d6e1a937d9c7df0e1c5cc5926047b42e",
+    "tests/test_wsl_platform_capture.py": "7a908c842cdbec94f94c5381c2cd8fbe68b87f6ec32713de9b0b8a444f8d8106",
+    "scripts/ci_feedback.py": "3fc8d8c7e949eb88c3a621b96919647fbe125f01cf2db3ff651a9c6adb313e1d",
+    "icstudio/physical_backend.py": "8a949fb4e330d0285a276e9133bed3257b3ccdcc1beeba910c4b5a8f7861fc22",
+    "tests/test_ihp_managed_saved_bench.py": "9c1d6adb50b7fddb7b51b616611104abe0baf645209da7c4962b350c79258a5d"
+  },
+  "scope": "Included physical IHP saved-testbench simulation and bounded Windows WSL platform capture; source-level fixes only in this record.",
+  "model_handoff": {
+    "behavior": "Validate matching managed models before handoff and attach to the native physical job only, preserving explicit selections and unrelated runtime metadata.",
+    "exclusions": [
+      "DRC/LVS-only jobs",
+      "custom tools",
+      "non-IHP PDKs",
+      "automatic local electrical saved-testbench and characterization routes"
+    ],
+    "windows_tests": {
+      "tests": 155,
+      "skipped": 1,
+      "receipt": {
+        "location": "chunk7-cmim-setup-gui-20261103-v2\\receipt.json",
+        "store": "work",
+        "sha256": "153cbde226fdb03d3cc740d27685f17fcf44f0a6d2c7cc41aaed75a919f82844"
+      }
+    },
+    "linux_tests": {
+      "tests": 93,
+      "skipped": 2,
+      "disjoint_runs": [
+        54,
+        39
+      ],
+      "archive": {
+        "location": "chunk7-ihp-model-handoff-linux-2026-11-03-v1\\focused-evidence.zip",
+        "store": "persistent-evidence",
+        "sha256": "a0137a708801d144e3965dcf5660922fc59f3758c873c4056be3a2d6df0cc33f"
+      }
+    },
+    "source_review": {
+      "location": "chunk7-silicon-osdi-advisor-20261103-v1\\source-review.json",
+      "store": "work",
+      "sha256": "aa7bcb70333518eacba95ab51ca1701ec8449b0473995b46e03fbe57eb4c68d9"
+    },
+    "baseline": "An ordinary setup passed 34 digital and seven physical checks. The real GUI default project then failed for missing OSDI models; the explicitly configured native-path control passed eight stages. The latter control is not ordinary explicit-file loading.",
+    "baseline_receipt": {
+      "location": "chunk7-cmim-setup-gui-20261103-v1\\gui-before-v3\\receipt.json",
+      "store": "work",
+      "sha256": "42afeb8d103895b59dba33c12e1392f28cfd72c7da536dc51c258e79475b3e12"
+    }
+  },
+  "capture_retry": {
+    "behavior": "Only Windows wsl.localhost capture retries PermissionError, up to three complete copy-and-target-hash attempts; source is rehashed before each retry.",
+    "unchanged_guards": [
+      "full platform verification",
+      "source and target checksum requirements",
+      "immediate checksum-mismatch failure",
+      "immediate non-PermissionError failure",
+      "ordinary-user permissions",
+      "solver deadlines"
+    ],
+    "windows_tests": {
+      "tests": 51,
+      "skipped": 1
+    },
+    "linux_tests": {
+      "tests": 51,
+      "skipped": 0
+    },
+    "archive": {
+      "location": "chunk7-wsl-capture-retry-2026-11-03-v1\\evidence.zip",
+      "store": "persistent-evidence",
+      "sha256": "2d8b0167be22b117fa59daff97ee9622be0d949dd0075a5907d5d161e5fb3e89"
+    },
+    "retention": {
+      "location": "chunk7-wsl-capture-retry-2026-11-03-v1\\retention.json",
+      "store": "persistent-evidence",
+      "sha256": "32921edf5a0be122dc563e7d6854d89118243985f9aeab6088a34b17b49913d6"
+    },
+    "source_review": {
+      "location": "chunk7-wsl-capture-advisor-20261103-v1\\source-review.json",
+      "store": "work",
+      "sha256": "99a960c3259bd84ee8a904e0d61fb0d8f2113612d03988c8c0ca157ba26cd683"
+    },
+    "observed_failure": {
+      "location": "chunk7-cmim-setup-gui-20261103-v2\\setup-result.json",
+      "store": "work",
+      "sha256": "8f6997e8b06e94d63cdda0d221c2d584449d9f0d524706577547cabe2f759377"
+    },
+    "unchanged_request_replay": {
+      "location": "chunk7-cmim-setup-gui-20261103-v2\\equivalence-replay.json",
+      "store": "work",
+      "sha256": "5acc1f119c5599935ddc03bb963de894f4a3178c29db643b42d47eb7cf49ea91"
+    },
+    "causality": "Original OS denial cause remains undetermined. Successful unchanged request replay preceded the retry patch and is not evidence that the patch cured the observed denial. Retry behavior is established by injected controls."
+  },
+  "acceptance": {
+    "combined_ordinary_setup": "pending",
+    "unconfigured_normal_gui": "pending",
+    "installed": "pending",
+    "foundry_signoff": false,
+    "full_family_qualified": false
+  },
+  "test_counts_overlap_between_suites": true,
+  "chunk7_estimate": {
+    "percent": 74,
+    "confidence": "low",
+    "range": [
+      55,
+      82
+    ],
+    "measured_fraction": false
+  }
+}

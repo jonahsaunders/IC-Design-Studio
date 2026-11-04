@@ -5,7 +5,9 @@ import json
 import gzip
 import re
 import shutil
-from pathlib import Path
+import sys
+import time
+from pathlib import Path, PureWindowsPath
 
 from .digital import relative_path
 from .model import atomic_write, clone, file_digest, digest
@@ -285,12 +287,39 @@ def liberty_files(platform, staged_root, destination, corner=None):
     return result
 
 
+def _wsl_capture_destination(path):
+    """Limit transient capture retries to Windows' WSL localhost share."""
+    if sys.platform != 'win32':
+        return False
+    drive = PureWindowsPath(path).drive
+    return bool(re.fullmatch(r'(?:\\\\\?\\UNC\\|\\\\)wsl\.localhost\\[^\\]+', drive, re.IGNORECASE))
+
+
+def _capture_file(source, target, record):
+    attempts = 3 if _wsl_capture_destination(target) else 1
+    for attempt in range(attempts):
+        if attempt and file_digest(source) != record['sha256']:
+            raise ValueError('Platform changed during capture: '+record['path'])
+        try:
+            shutil.copy2(source, target)
+            actual = file_digest(target)
+        except PermissionError:
+            if attempt + 1 == attempts:
+                raise
+            print('Warning: WSL platform capture was temporarily denied; retrying '
+                  +record['path']+' (attempt '+str(attempt + 2)+' of '+str(attempts)+').', file=sys.stderr)
+            time.sleep(0.1)
+            continue
+        if actual != record['sha256']:
+            raise ValueError('Platform changed during capture: '+record['path'])
+        return
+
+
 def stage(platform, destination):
     verify(platform); destination=Path(destination);destination.mkdir(parents=True,exist_ok=True)
     for record in platform['files']:
         target=destination/record['path'];target.parent.mkdir(parents=True,exist_ok=True)
-        shutil.copy2(Path(platform['root'])/record['path'],target)
-        if file_digest(target)!=record['sha256']:raise ValueError('Platform changed during capture: '+record['path'])
+        _capture_file(Path(platform['root'])/record['path'],target,record)
 
 
 def pin_flow(path):

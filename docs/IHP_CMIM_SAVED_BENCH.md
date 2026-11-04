@@ -76,3 +76,15 @@ archives. It also verifies a real Windows-to-WSL source dispatch with the same
 staged inputs. That diagnostic invokes dispatch directly while retaining an
 old setup receipt; it does not establish normal GUI readiness or installed
 acceptance. The separately running desktop candidate predates this source repair.
+
+## Included model handoff
+
+The [reviewed follow-up](validation/ihp-managed-physical-handoff-2026-11-03.json)
+selects the matching included IHP models for physical saved-testbench
+simulation. It preserves explicit model selections and the physical job
+route; DRC/LVS-only jobs do not gain a simulation-model requirement.
+Focused Windows and native Linux checks pass. Final ordinary setup and
+unconfigured GUI verification for this combined source remain pending,
+as does installed acceptance. The earlier failure and configured control
+remain separate evidence. Electrical saved-testbench and characterization
+actions still require their separately configured local tools and models.

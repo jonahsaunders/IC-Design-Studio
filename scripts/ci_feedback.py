@@ -26,7 +26,7 @@ UNIT_MODULES = (
     'test_ihp_metal_spacing', 'test_ihp_klayout_drc', 'test_ihp_cmim_process_control', 'test_ihp_cmim_enclosures',
     'test_ihp_cmim_multiplicity', 'test_ihp_cmim_multiplicity_electrical',
     'test_ihp_cmim_desktop_probe', 'test_frozen_ihp_cmim', 'test_release_ihp_cmim_evidence', 'test_ci_windows_native_identity',
-    'test_ihp_cmim_capacitance',
+    'test_ihp_cmim_capacitance', 'test_ihp_managed_saved_bench', 'test_physical_backend', 'test_wsl_platform_capture',
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',

@@ -5,11 +5,45 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**Latest publication observation (2026-11-04 01:26:29 UTC).** The saved-testbench
+repair is now published as [`1c34cf41`](https://github.com/jonahsaunders/IC-Design-Studio/commit/1c34cf41026d9a1e3dd55808b1b51be8a4ec88be).
+All three [fresh source-feedback jobs](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41752333923)
+pass. The [paired independent artifact audit](validation/chunk7-1c34-hosted-feedback-2026-11-03.json)
+verifies all 2,246 source bindings, 2,537 archive members, eleven stages and
+1,113 tests per host (37 Windows / 17 Linux skips), including all sixteen new
+regressions. Candidate and synthetic merge share the exact Git tree.
+The separate `39b24815`
+desktop candidate has passed Linux packaging; at 02:34 UTC Windows is in its
+full core tests, with no failed steps observed. Installed acceptance is unfinished.
+That older candidate does not cover the newer saved-testbench changes.
+Ordinary setup and real GUI follow-through are also in progress in the existing
+task-private runtime state, to examine automatic IHP model selection without
+bypassing readiness. No new normal-GUI or installed pass is claimed. This paragraph
+records the observation time above; the published `1c34cf41` changes and the
+later source candidate remain distinct.
+
+**[Reviewed local follow-through](validation/ihp-managed-physical-handoff-2026-11-03.json) (pending final acceptance).** A genuine ordinary
+setup passed all 34 digital and seven physical checks on the existing runtime.
+The normal source GUI then reproduced an unconfigured IHP saved-testbench
+simulation failure, while the explicitly configured control passed all eight
+stages. The reviewed automatic physical-model handoff passes 155 Windows tests
+(one skip) and 93 Linux tests (two skips), without overriding explicit choices
+or adding model requirements to DRC/LVS-only checks. Its first final setup
+attempt failed on a Windows WSL file-transfer permission error; the exact
+captured equivalence request subsequently passed unchanged. The underlying OS
+cause remains undetermined. A reviewed, three-attempt transfer retry preserves
+mandatory source/target hashes and passes 51 focused tests per host (one Windows
+skip). The combined frozen source still requires a fresh normal setup and GUI
+pass. No readiness record was fabricated and the failed attempt stays failed.
+These source repairs are part of this publication candidate. The separate electrical
+saved-testbench and characterization routes still require compatible locally
+configured models; this physical handoff does not qualify their automatic use.
+
 Both reviewed changes are published on `experimental`: the multiplicity milestone
 as `6e998477` and the desktop profile repair as `39b24815`. The fresh
 [desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41745895103)
 has passed both release-tool checks, the runtime build and clean installation;
-both packaging jobs are running. [Source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41745872768)
+Linux packaging has now passed; Windows core tests are still running. [Source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/41745872768)
 passes all three jobs. [Independent retained verification](validation/chunk7-39b2-hosted-feedback-2026-11-03.json)
 binds all 2,238 source files to actual synthetic merge `b4e1838`, all 2,529
 archive members, and eleven stages/1,097 tests per host (37 Windows and 17 Linux

@@ -18,6 +18,21 @@ def available():
     return None
 
 
+def _physical_models(job):
+    """Select bundled IHP models for an included physical simulation."""
+    settings=job['settings']
+    if settings.get('type')!='silicon' or settings.get('verification_mode')=='drc_lvs':
+        return ()
+    project=job['project'];pdk=project['pdk']
+    if pdk.get('package_lock',{}).get('id')!='ihp-sg13g2':
+        return ()
+    from .osdi import managed_models, needs_managed_runtime
+    if not needs_managed_runtime(project):
+        return ()
+    from .digital_runtime import manifest
+    return managed_models(pdk,manifest())
+
+
 def prepare(job):
     """Resolve an included or unconfigured physical job on Linux and Windows."""
     if job['settings'].get('type')!='silicon':return job
@@ -32,6 +47,7 @@ def prepare(job):
             raise ValueError('Managed physical verification requires a checksummed PDK package.')
         runtime=available()
         if not runtime:raise ValueError('Set up the included physical tools from Tools → Physical tools setup before verification.')
+        _physical_models(job)
     except (OSError,ValueError) as exc:
         # Preserve the normal queued preflight report for incomplete setup.
         # A synchronous exception would discard its stages and bench identity.
@@ -73,14 +89,22 @@ def stage(job, work, native_work, native_root):
     pdk['package_root']=str(PurePosixPath(native_work)/'pdk')
     settings=native['settings'];settings.pop('physical_runtime',None)
     settings['tools']={name:str(PurePosixPath(native_root)/'opt/icstudio/bin'/name) for name in TOOLS}
-    if settings.get('managed_osdi'):
+    managed_osdi=settings.get('managed_osdi')
+    if managed_osdi:
         from . import digital_runtime
         from .osdi import managed_models
         models=managed_models(pdk,digital_runtime.manifest())
+    else:
+        models=_physical_models(job)
+    if models:
         folder=PurePosixPath(native_root)/'opt/icstudio/osdi/ihp-sg13g2'
-        native['project']['simulation_runtime']={'osdi':[
+        runtime={'osdi':[
             dict(path=str(folder/m['output']),sha256=m['sha256'],system='Linux',machine='x86_64') for m in models]}
-        native['executable']=settings['tools']['ngspice']
+        if managed_osdi:
+            native['project']['simulation_runtime']=runtime
+            native['executable']=settings['tools']['ngspice']
+        else:
+            native['project'].setdefault('simulation_runtime',{}).update(runtime)
     native.pop('environment',None)
     return native
 
