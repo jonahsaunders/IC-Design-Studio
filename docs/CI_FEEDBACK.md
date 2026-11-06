@@ -1,5 +1,18 @@
 # Source feedback and selected acceptance candidates
 
+The November 6 [historical-source repair](validation/chunk7-retained-platform-source-repair-2026-11-06.json)
+adds retained SKY130 catalog authentication and current platform-staging tests
+to fast feedback. The historical baseline, audit and all 121 source/input paths
+join the before/after source inventory. The standalone runner resolves its
+repository imports without relying on an ambient Python import path.
+
+Windows timing exposed two overfull stages. The complete ordered unit selection
+now runs in four nonoverlapping groups: core, IHP, remaining physical contracts,
+and device contracts. All tests still execute exactly once, and each child keeps
+its original 300-second deadline. All 13 final local stages pass on both hosts;
+the retained failed attempts remain failed. Hosted and installed acceptance are
+separate requirements.
+
 The November 3 [source repair](validation/chunk7-desktop-source-repair-2026-11-03.json)
 adds the actual recovery-to-widget test order and the real long-path Yosys
 regression to fast feedback. Linux digital children with Yosys use a deterministic

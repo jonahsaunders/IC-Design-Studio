@@ -10,6 +10,9 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
+if __package__ in (None, ''):
+    sys.path.insert(0, str(ROOT))
+
 UNIT_MODULES = (
     'test_ci_candidate', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
     'test_core', 'test_lifecycle', 'test_workflows', 'test_project_pdk',
@@ -18,6 +21,7 @@ UNIT_MODULES = (
     'test_digital.DigitalChildEnvironmentTests', 'test_digital.YosysIntegrationTests',
     'test_analog.AnalogTests.test_capabilities_do_not_trust_catalog_or_metadata',
     'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
+    'test_sky130_retained_catalog', 'test_digital_platforms',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_sky130_li_linked',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
@@ -60,9 +64,14 @@ UNIT_MODULES = (
 
 
 # Keep the complete selection above auditable while bounding each subprocess.
-# The former single unit stage exceeded 300 seconds on ordinary Windows.
+# Physical coverage outgrew the original unit stage on ordinary Windows.
+# Preserve the complete ordered selection and the existing per-child deadline.
+_IHP_STAGE_START = UNIT_MODULES.index('test_ihp_hv_mos_layouts')
+_PHYSICAL_STAGE_START = UNIT_MODULES.index('test_resistor_layout_qualification')
 _DEVICE_STAGE_START = UNIT_MODULES.index('test_sky130_metal_editor')
-UNIT_STAGE_MODULES = UNIT_MODULES[:_DEVICE_STAGE_START]
+UNIT_STAGE_MODULES = UNIT_MODULES[:_IHP_STAGE_START]
+IHP_STAGE_MODULES = UNIT_MODULES[_IHP_STAGE_START:_PHYSICAL_STAGE_START]
+PHYSICAL_STAGE_MODULES = UNIT_MODULES[_PHYSICAL_STAGE_START:_DEVICE_STAGE_START]
 DEVICE_STAGE_MODULES = UNIT_MODULES[_DEVICE_STAGE_START:]
 
 
@@ -104,6 +113,15 @@ def check_syntax(root=ROOT):
 
 def source_identity(root=ROOT):
     files = python_sources(root)
+    # Retained qualification tests authenticate historical inputs separately
+    # from live application code. Bind that complete selection to this run too.
+    from scripts import sky130_retained_catalog as retained
+    baseline = root / retained.BASELINE
+    if baseline.is_file():
+        prior = json.loads(baseline.read_bytes())
+        names = {retained.BASELINE, retained.AUDIT, *prior['inputs'],
+                 *(retained.SNAPSHOTS.get(name, name) for name in prior['source_files'])}
+        files += [root / name for name in names]
     fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
     if fixture.is_file():
         files.append(fixture)
@@ -197,6 +215,10 @@ def stages(output=ROOT / 'build/ci-feedback'):
     return [
         ('unit-contracts', [sys.executable, '-m', 'unittest',
                             *('tests.' + name for name in UNIT_STAGE_MODULES), '-v']),
+        ('ihp-contracts', [sys.executable, '-m', 'unittest',
+                          *('tests.' + name for name in IHP_STAGE_MODULES), '-v']),
+        ('physical-contracts', [sys.executable, '-m', 'unittest',
+                               *('tests.' + name for name in PHYSICAL_STAGE_MODULES), '-v']),
         ('device-contracts', [sys.executable, '-m', 'unittest',
                               *('tests.' + name for name in DEVICE_STAGE_MODULES), '-v']),
         ('package-contracts', [sys.executable, '-m', 'unittest',
