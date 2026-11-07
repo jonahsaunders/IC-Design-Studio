@@ -1,5 +1,39 @@
 # PDK qualification in twelve chunks
 
+The [schematic inventory and header correction](validation/chunk7-schematic-integration-2026-11-07.json)
+adds fourteen literal views with 307 affected tests per host and identical
+complete audits. It preserves valid multiline headers and all prior source
+diagnostics. Nineteen embedded-code/property views remain explicit gaps with
+corrected explanations; 134 total inventory entries and all original device
+qualification requirements remain unresolved.
+
+The subsequent [legacy-symbol batch](validation/chunk7-legacy-symbol-integration-2026-11-07.json)
+adds nine reviewed source views and 145 facts, with 283 affected tests per host
+and byte-identical complete audits. All previous items remain unchanged;
+148 inventory gaps, missing model bindings and the original device qualification
+requirements remain open. Missing headers and unresolved references are retained.
+
+The subsequent [checker/layer source batch](validation/chunk7-cvc-physical-integration-2026-11-07.json)
+adds eight reviewed source views, with 257 affected tests per host and identical
+complete audits. The inventory retains 157 unresolved source gaps; source facts
+do not establish missing model bindings, operating limits or physical acceptance.
+
+The November 7 [versioned source-disposition follow-through](SOURCE_DISPOSITION_AUDIT.md)
+adds complete pinned IRSIM/XCircuit declaration accounting and corrected Tcl
+source locations. Both hosts pass 217 affected tests and produce identical full
+reports. Thirty previously opaque views are now enumerated; 165 other inventory
+gaps, required model bindings and all device/operating/physical/installed gates
+remain open. The original completion criteria below are unchanged.
+
+The November 7 [SKY130 release inventory](SKY130_RELEASE_INVENTORY.md) covers all
+seven pinned archives. The [GF180/IHP semantic inventory](UPSTREAM_SEMANTIC_INVENTORY.md)
+adds the complete GF180 parent/submodule graph and declared model, cell, layout
+and process interfaces. Both complete reports reproduce byte-for-byte on native
+Linux, with [88 affected tests per host](validation/chunk7-source-inventory-integration-2026-11-07.json).
+The malformed old-GF section ending, unknown library options, missing required
+models and unproved runtime mappings remain explicit. Source-completeness rows
+remain partial; all device and chunk-7 completion gates are unchanged.
+
 The November 3 [selected installed milestone](validation/chunk7-selected-installed-acceptance-2026-11-03.json) closes both earlier Windows/Linux reader blockers at `cbf9705`; all nine desktop jobs pass. Newer IHP capacitor code still requires its own installed acceptance. Complete family applicability, remaining physical classes and four missing bindings keep chunk 7 open. Earlier pending observations below are historical.
 
 The November 2 [complete imported IHP capacitor boundary](IHP_MIM_G_BOUNDARY.md) closes the selected maximum-area physical submilestone and verifies truthful coverage reporting in both source-desktop routes. Full device applicability, other geometry classes and installed acceptance remain separate; the chunk-7 gate is unchanged.

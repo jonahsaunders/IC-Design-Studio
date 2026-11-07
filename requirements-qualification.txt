@@ -1,3 +1,4 @@
-# Independent matrix reference solvers used by physical qualification tests.
+# Independent reference solvers and authenticated source-archive audits.
 numpy==2.3.5
 scipy==1.16.3
+zstandard==0.23.0

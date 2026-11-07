@@ -99,6 +99,39 @@ class ReleaseCmimTests(unittest.TestCase):
                     with self.subTest(extra=extra), self.assertRaises(ValueError): gate.from_zip(z, 'gate', COMMIT)
                 else: self.assertEqual(gate.from_zip(z, 'gate', COMMIT), aggregation_receipt('Windows'))
 
+    def test_linux_case_distinct_resources_retain_exact_archive_identity(self):
+        receipt = aggregation_receipt('Linux')
+        contents = {'ICDesignStudio': b'app',
+                    '_internal/icstudio/assets/terminfo/2/2621A': b'upper',
+                    '_internal/icstudio/assets/terminfo/2/2621a': b'lower'}
+        receipt['distribution_files'] = {name: hashlib.sha256(data).hexdigest()
+                                         for name, data in contents.items()}
+        receipt['executable_sha256'] = receipt['distribution_files']['ICDesignStudio']
+        receipt['distribution_links'] = {'_internal/Alias': 'icstudio/assets/terminfo/2/2621A',
+                                         '_internal/alias': 'icstudio/assets/terminfo/2/2621a'}
+        self.assertIs(gate.validate_receipt(receipt, COMMIT), receipt)
+        path = self.root/'case-sensitive.tar.gz'
+        def archive(changed=None, duplicate=False):
+            with tarfile.open(path, 'w:gz') as z:
+                for name, data in {**contents, **(changed or {})}.items():
+                    info = tarfile.TarInfo('ICDesignStudio/'+name); info.size = len(data)
+                    z.addfile(info, io.BytesIO(data))
+                    if duplicate: z.addfile(info, io.BytesIO(data))
+                for name, target in receipt['distribution_links'].items():
+                    info = tarfile.TarInfo('ICDesignStudio/'+name)
+                    info.type = tarfile.SYMTYPE; info.linkname = target; z.addfile(info)
+        archive(); gate.check_distribution(path, 'Linux', receipt)
+        for changed in ({'_internal/icstudio/assets/terminfo/2/2621a': b'upper'},
+                        {'_internal/icstudio/assets/terminfo/2/2621b': b'extra'}):
+            archive(changed)
+            with self.assertRaises(ValueError): gate.check_distribution(path, 'Linux', receipt)
+        archive(duplicate=True)
+        with self.assertRaisesRegex(ValueError, 'duplicate'): gate.check_distribution(path, 'Linux', receipt)
+        bad = copy.deepcopy(receipt); bad['distribution_links']['_internal/Alias'] = 'icstudio/assets/Terminfo/2/2621A'
+        with self.assertRaises(ValueError): gate.validate_receipt(bad, COMMIT)
+        bad = copy.deepcopy(receipt); bad['platform'] = 'Windows'
+        with self.assertRaisesRegex(ValueError, 'duplicate'): gate.validate_receipt(bad, COMMIT)
+
     def test_zip_link_and_size_limit_reject_before_readback(self):
         for linked in (True, False):
             stream = io.BytesIO()

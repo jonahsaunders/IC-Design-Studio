@@ -50,6 +50,54 @@ def required(path, top):
     return needed
 
 
+def shared_contacts(bottom, capacitors, cuts):
+    """Partition a shared plate's external contacts by unique axis projection.
+
+    Contacts inside any capacitor are top contacts, including those belonging
+    to another unit. No nearest-contact or schematic orientation is assumed.
+    """
+    import klayout.db as db
+    covered = []
+    for cap in capacitors.each():
+        region = db.Region(cap)
+        if (region & bottom).is_empty():
+            continue
+        if not (region-bottom).is_empty() or cap.area() != cap.bbox().area():
+            raise ValueError('Shared MiM bottom must wholly contain separate rectangular electrodes.')
+        covered.append(cap.bbox())
+    assigned = {tuple((b.left,b.bottom,b.right,b.top)): [] for b in covered}
+    for cut in cuts.each():
+        region = db.Region(cut)
+        if (region & bottom).is_empty():
+            continue
+        if not (region-bottom).is_empty():
+            raise ValueError('A shared MiM contact straddles the bottom electrode boundary.')
+        if (region-capacitors).is_empty():
+            continue
+        if not (region & capacitors).is_empty():
+            raise ValueError('A MiM contact straddles the electrode boundary.')
+        via = cut.bbox(); matches = []
+        for box in covered:
+            horizontal = ((via.right < box.left or via.left > box.right)
+                          and via.top >= box.bottom and via.bottom <= box.top)
+            vertical = ((via.top < box.bottom or via.bottom > box.top)
+                        and via.right >= box.left and via.left <= box.right)
+            if horizontal != vertical:
+                matches.append((tuple((box.left,box.bottom,box.right,box.top)),
+                                'x' if horizontal else 'y'))
+        if len(matches) != 1:
+            raise ValueError('Shared MiM bottom contact must identify exactly one electrode by axis projection.')
+        key, axis = matches[0]
+        assigned[key].append((axis, [via.left,via.bottom,via.right,via.top]))
+    result = {}
+    for key, contacts in assigned.items():
+        axes = {axis for axis, _ in contacts}
+        if axes not in ({'x'}, {'y'}):
+            raise ValueError('Each shared MiM electrode needs a nonempty collinear bottom-contact group.')
+        result[key] = (next(iter(axes)), [box for _, box in contacts])
+    return result
+
+
 def electrodes(path, top, model=MODEL):
     import klayout.db as db
     layout, regions = masks(path, top, model); dbu = layout.dbu; rows = []
@@ -68,8 +116,14 @@ def electrodes(path, top, model=MODEL):
             if len(bottom) != 1:
                 raise ValueError('MiM orientation requires one continuous bottom electrode.')
             bottom = db.Region(bottom[0])
-            if len(list((regions['cap'] & bottom).each())) != 1:
-                raise ValueError('Shared MiM bottom electrodes need a separate extraction adapter.')
+            shared = len(list((regions['cap'] & bottom).each()))
+            if shared != 1:
+                assignments = shared_contacts(bottom, regions['cap'], regions['cut'])
+                axis, contacts = assignments[tuple(row['box'])]
+                row.update(axis=axis, bottom_contacts=contacts, shared_bottom_electrodes=shared,
+                           convention='Unique bottom-contact axis projection per electrode; contacts inside any capacitor marker are top contacts.')
+                rows.append(row)
+                continue
             axes = set(); contacts = []; contact_region = db.Region()
             for cut in regions['cut'].each():
                 region = db.Region(cut)
@@ -164,6 +218,9 @@ def normalize(gds, top, technology, directory, log):
                  gds_sha256=file_digest(gds),native_coordinate_nm=scale,gds_dbu_um=dbu,
                  electrodes=rows,changes=changes,native_sha256=file_digest(path),
                  scope='Nonsquare capm/cap2m correction is bounded to 2–30 µm on the 5 nm grid (first plate at most 5:1), one bottom electrode per capacitor. Correct unambiguous contact axes; reflection-symmetric four-sided contacts retain native global X/Y without a unique-orientation or RF-resistance claim. True squares retain native dimensions without inheriting these correction bounds or an electrical-validity qualification. Connectivity and all other native values are unchanged.')
+    if any(row.get('shared_bottom_electrodes', 1) > 1 for row in rows):
+        proof['scope'] = proof['scope'].replace('one bottom electrode per capacitor.',
+            'each capacitor wholly inside one continuous bottom electrode. Shared bottom plates require a uniquely attributable, nonempty collinear contact group for every electrode.')
     if (directory/'native-original.ext').exists():
         raise ValueError('MiM extraction was already normalized.')
     (directory/'native-original.ext').write_bytes(original)

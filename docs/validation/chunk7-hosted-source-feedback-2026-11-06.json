@@ -1,0 +1,181 @@
+{
+  "schema": 1,
+  "date": "2026-11-06",
+  "status": "PASS_HOSTED_SOURCE_FEEDBACK",
+  "candidate": "19dfbe2af822f1ea60ce1606007aeec2e1b9f388",
+  "merge_commit": "c82f78e096aa3f379e1fd64e11aa55fe8e765aa4",
+  "merge_tree_matches_candidate": true,
+  "run_id": 42303681050,
+  "run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42303681050",
+  "pr_url": "https://github.com/jonahsaunders/IC-Design-Studio/pull/69",
+  "scope": "Required PR source feedback, including historical-source repair and deterministic scheduler controls. Not installed acceptance or full-family qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "lanes": {
+    "windows": {
+      "status": "passed",
+      "tests": 1165,
+      "skips": 37,
+      "seconds": 617.11,
+      "source_files_verified": 2295,
+      "report_sha256": "1d4ca8c950588632094dbadfecb42778c7ac45fe345c31cc094ee890649f6fa1",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 35.0
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 68.234
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 70.266
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 121.093
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 105.641
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 12.75
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.719
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 31.203
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.531
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.75
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 36.234
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 110.36
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.484
+        }
+      ]
+    },
+    "linux": {
+      "status": "passed",
+      "tests": 1165,
+      "skips": 17,
+      "seconds": 331.177,
+      "source_files_verified": 2295,
+      "report_sha256": "944e343798021093364b25d04a63aa2b38b17f4433e7ef44b328257120f6cdbb",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 14.297
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 35.094
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 25.624
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 29.987
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 41.613
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 5.878
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.47
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 25.721
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.973
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 6.73
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 28.028
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 106.071
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.319
+        }
+      ]
+    }
+  },
+  "retention": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-hosted-source-evidence.zip",
+    "sha256": "89d2f59de8014b7b5c97375f23629c792cef446a552c44c2e1f2d3ee27f54219",
+    "bytes": 34899592,
+    "members": 2526,
+    "all_members_verified": true
+  },
+  "full_desktop": {
+    "run_id": 42303725949,
+    "status": "failed_release_archive_checks_both_hosts",
+    "candidate": "19dfbe2af822f1ea60ce1606007aeec2e1b9f388",
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42303725949",
+    "followup": "docs/validation/chunk7-release-archive-repair-2026-11-07.json"
+  }
+}

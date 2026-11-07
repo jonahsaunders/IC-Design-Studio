@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "scope": "Unmodified native pilot2 first-plate shared-bottom 90-degree coupon outputs; regression input, no installed or family qualification.",
+  "producer_base": "5b20e6c667112964fc7857b65bde2a68ec5e35bf",
+  "source_manifest_sha256": "7bcc5b8880085745e94004bbaed5e0f73b9c3d2099bba601f68cb9f64e1fd94a",
+  "files": {
+    "job/layout.gds": "41cd1b38256c68d7a69b52e6b3398dc4a50f67cecb3741aae65395a91003fef7",
+    "job/lvs-extraction/native-original.ext": "58565e177ceb77dc1d045e50b8640e27e8bb0afa52422f00cd2ee31f0c50d052",
+    "job/lvs-extraction/device_coupon.ext": "9cfdd0da849efcfafbf2cc94dada204f12d9eb2a3cae45e3cbfb2d44168d3533",
+    "job/lvs-extraction/extracted.spice": "cf208d253287a7e5e98fa1de21d731f7f34dc5ae3870dabde88ee083f4068430",
+    "job/lvs-extraction/mim-orientation.json": "059077d892afaf2cafcb94e5d2419cd3134b209dbb4fdc966fa885d696b44cc3",
+    "job/lvs/lvs.log": "a764a94510aeeb6dd4f0754cae68cbd9cfbe2dca08a628e90a007e9152b60f1b"
+  }
+}

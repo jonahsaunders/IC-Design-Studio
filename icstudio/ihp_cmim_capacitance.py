@@ -1,4 +1,4 @@
-"""Check Magic's flat capacitance export for one ordinary IHP MiM unit."""
+"""Check Magic's flat capacitance export for ordinary parallel IHP MiM units."""
 from collections import Counter
 from dataclasses import dataclass
 from decimal import Decimal
@@ -22,7 +22,8 @@ INTEGER = re.compile(r'-?[0-9]{1,16}')
 NUMBER = re.compile(r'([+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]{1,2})?)(meg|[tgkmunpf]?)', re.I)
 EXPONENT = {'': 0, 't': 12, 'g': 9, 'meg': 6, 'k': 3, 'm': -3, 'u': -6, 'n': -9,
             'p': -12, 'f': -15}
-SCOPE = 'IHP cap_cmim capacitance requires a flat two-port DUT with one ordinary catalog unit (m=1).'
+SCOPE = ('IHP cap_cmim capacitance requires a flat two-port DUT with ordinary catalog units '
+         'sharing ordered electrodes and positive integer multiplicity.')
 
 
 @dataclass(frozen=True)
@@ -32,6 +33,21 @@ class Unit:
     terminals: tuple
     width: Decimal
     length: Decimal
+
+
+@dataclass(frozen=True)
+class Parallel:
+    top: str
+    ports: tuple
+    terminals: tuple
+    # Sorted (width, length, count) groups, without expanding large multipliers.
+    units: tuple
+
+
+def intrinsic_units(unit):
+    if isinstance(unit, Unit):
+        return Counter({(unit.width, unit.length): 1})
+    return Counter({(w, l): count for w, l, count in unit.units})
 
 
 def number(text, units=False):
@@ -66,11 +82,13 @@ def device_row(row, terminals, source=False):
         if not separator or key in params or key not in allowed:
             raise ValueError('Unsupported or repeated IHP cap_cmim intrinsic parameter.')
         params[key] = number(value, units=True)
+    multiplicity = params.get('m', Decimal(1))
     if (not {'w', 'l'} <= params.keys() or (source and params.keys() != allowed)
             or min(params['w'], params['l']) <= 0
-            or params.get('m', 1) != 1 or params.get('mm_ok', 1) not in (0, 1)):
+            or multiplicity <= 0 or multiplicity != multiplicity.to_integral_value()
+            or params.get('mm_ok', 1) not in (0, 1)):
         raise ValueError(SCOPE)
-    return params['w'], params['l']
+    return params['w'], params['l'], int(multiplicity)
 
 
 def applicable(project, cell, schematic, selected_technology):
@@ -86,12 +104,12 @@ def applicable(project, cell, schematic, selected_technology):
         return None, {}
     technology = project['pdk']
     devices = cell['devices']
-    if len(devices) != 1 or cell.get('layout_instances'):
+    if not devices or cell.get('layout_instances'):
         raise ValueError(SCOPE)
-    device = devices[0]
-    if (device['kind'] != 'PDK' or (device.get('model_ref') or {}).get('device') != DEVICE
-            or device.get('native_spice') or device.get('array')):
-        raise ValueError(SCOPE)
+    for device in devices:
+        if (device['kind'] != 'PDK' or (device.get('model_ref') or {}).get('device') != DEVICE
+                or device.get('native_spice') or device.get('array')):
+            raise ValueError(SCOPE)
     root = Path(technology['package_root']).resolve()
     lock = technology['package_lock']
     # Managed verification stages the locked assets and the project PDK, not
@@ -104,7 +122,7 @@ def applicable(project, cell, schematic, selected_technology):
     if (digest(manifest) != PACKAGE_SHA256
             or selected_technology.resolve() != root / MAGIC_FILES[0]):
         raise ValueError('IHP cap_cmim capacitance requires the pinned catalog and Magic technology.')
-    catalog = binding_for(technology, device)
+    catalog = binding_for(technology, devices[0])
     bound = {}
     for name in (*MAGIC_FILES, catalog['source'], catalog['model_source']):
         path = (root / name).resolve()
@@ -113,15 +131,40 @@ def applicable(project, cell, schematic, selected_technology):
         bound[str(path)] = lock['files'][name]
     top = cell['name']
     ports = tuple(electrical_ports(cell['ports']))
-    terminals = tuple(device['nets'].get(pin, '') for pin in ('c0', 'c1'))
+    terminals = tuple(devices[0]['nets'].get(pin, '') for pin in ('c0', 'c1'))
     if (len(ports) != 2 or len({name.casefold() for name in (*ports, 'SUB')}) != 3
             or set(terminals) != set(ports) or not all(IDENT.fullmatch(name) for name in (top, *ports))):
         raise ValueError(SCOPE)
     rows = spice_rows(schematic, top, ports)
-    if len(rows) != 1:
-        raise ValueError(SCOPE)
-    width, length = device_row(rows[0], terminals, source=True)
-    return Unit(top, ports, terminals, width, length), bound
+    # Bind every source instance and parameter to the current ordinary project,
+    # independently of the captured source supplied by the caller. In particular,
+    # a stale source with the same total area or multiplicity is insufficient.
+    from .catalog_migration import emit
+    expected, observed, units = {}, {}, Counter()
+    def signature(row):
+        return (*row[1:4], *sorted(row[4:]))
+    for device in devices:
+        if tuple(device['nets'].get(pin, '') for pin in ('c0', 'c1')) != terminals:
+            raise ValueError(SCOPE)
+        row = emit(device, technology, 'simulation').split()
+        width, length, count = device_row(row, terminals, source=True)
+        key = row[0].casefold()
+        if key in expected:
+            raise ValueError('Repeated IHP cap_cmim catalog instance.')
+        expected[key] = (row[0], signature(row))
+        units[width, length] += count
+    for row in rows:
+        device_row(row, terminals, source=True)
+        key = row[0].casefold()
+        if key in observed:
+            raise ValueError('Repeated IHP cap_cmim source instance.')
+        observed[key] = (row[0], signature(row))
+    if observed != expected:
+        raise ValueError('IHP cap_cmim source instances or parameters differ from the ordinary catalog project.')
+    if sum(units.values()) == 1:
+        width, length = next(iter(units))
+        return Unit(top, ports, terminals, width, length), bound
+    return Parallel(top, ports, terminals, tuple((w, l, n) for (w, l), n in sorted(units.items()))), bound
 
 
 def raw_graph(text, unit):
@@ -134,6 +177,7 @@ def raw_graph(text, unit):
     }
     counts = Counter()
     native_ports, nodes, graph = {}, {}, {}
+    devices, locations = Counter(), set()
     quoted = {f'"{name}"': name for name in (*unit.ports, 'SUB')}
     layers = dict(zip(unit.terminals, ('m6', 'm5')))
     for line in text.splitlines():
@@ -171,11 +215,14 @@ def raw_graph(text, unit):
               and re.fullmatch(r'[0-9]{1,16},[0-9]{1,16}', row[15])
               and re.fullmatch(r'w=[0-9]{1,16}', row[7]) and re.fullmatch(r'l=[0-9]{1,16}', row[8])):
             width, length = (Decimal(v[2:] + 'e-8') for v in row[7:9])
-            if (width, length) != (unit.width, unit.length):
-                raise ValueError('IHP cap_cmim raw intrinsic dimensions differ from the schematic.')
+            location = tuple(int(value) for value in row[3:7])
+            if location in locations:
+                raise ValueError('Repeated IHP cap_cmim raw intrinsic device location.')
+            locations.add(location)
+            devices[width, length] += 1
         else:
             raise ValueError('Unsupported IHP cap_cmim raw extraction record: ' + kind)
-    if (metadata or counts['timestamp'] != 1 or counts['device'] != 1
+    if (metadata or counts['timestamp'] != 1 or devices != intrinsic_units(unit)
             or native_ports != {name: i for i, name in enumerate(unit.ports, 1)}
             or set(nodes) != set(quoted.values()) or nodes['SUB'] != 0):
         raise ValueError('Incomplete IHP cap_cmim raw device, interface or metadata.')
@@ -188,7 +235,7 @@ def raw_graph(text, unit):
 def spice_graph(text, unit):
     names, graph = set(), {}
     nodes = {*unit.ports, 'SUB'}
-    devices = 0
+    devices = Counter()
     for row in spice_rows(text, unit.top, unit.ports):
         instance = row[0]
         key = instance.casefold()
@@ -196,9 +243,8 @@ def spice_graph(text, unit):
             raise ValueError('Invalid or repeated IHP cap_cmim SPICE instance.')
         names.add(key)
         if key[0] == 'x':
-            devices += 1
-            if device_row(row, unit.terminals) != (unit.width, unit.length):
-                raise ValueError('IHP cap_cmim exported intrinsic dimensions differ from the schematic.')
+            width, length, count = device_row(row, unit.terminals)
+            devices[width, length] += count
         elif key[0] == 'c' and len(row) == 4 and set(row[1:3]) <= nodes:
             pair = edge(*row[1:3])
             value = number(row[3], units=True)
@@ -209,8 +255,8 @@ def spice_graph(text, unit):
             graph[pair] = Decimal((sign, digits, exponent + 18))
         else:
             raise ValueError('Unsupported IHP cap_cmim SPICE record: ' + instance)
-    if devices != 1:
-        raise ValueError('IHP cap_cmim SPICE must contain one intrinsic unit.')
+    if devices != intrinsic_units(unit):
+        raise ValueError('IHP cap_cmim SPICE intrinsic dimensions or multiplicities differ from the schematic.')
     return graph
 
 
@@ -233,10 +279,18 @@ def compare(raw, hierarchical, flat, log, unit):
         if error > half_step + want * Decimal('2e-7'):
             raise ValueError('IHP cap_cmim flat capacitance differs from the raw edge ' + '–'.join(pair))
         errors[pair] = error
-    return {
+    identity = {
         'schema': 1, 'scope': 'one flat IHP cap_cmim catalog unit',
-        'ports': list(unit.ports), 'intrinsic_terminals': list(unit.terminals),
         'width_m': str(unit.width), 'length_m': str(unit.length), 'multiplicity': 1,
+    } if isinstance(unit, Unit) else {
+        'schema': 2, 'scope': 'flat parallel IHP cap_cmim catalog units',
+        'multiplicity': sum(intrinsic_units(unit).values()),
+        'intrinsic_units': [{'width_m': str(w), 'length_m': str(l), 'multiplicity': count}
+                            for (w, l), count in sorted(intrinsic_units(unit).items())],
+    }
+    return {
+        **identity,
+        'ports': list(unit.ports), 'intrinsic_terminals': list(unit.terminals),
         'package_semantic_sha256': PACKAGE_SHA256,
         'native_grid_um': scales[0], 'substrate': 'floating internal SUB',
         'hierarchical_export': {'file': 'extracted.spice', 'hierarchy': True},

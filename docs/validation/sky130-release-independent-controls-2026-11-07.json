@@ -1,0 +1,172 @@
+{
+  "scope": "Independent bounded adversarial declaration/comparison controls and native Windows KLayout raw readback. This does not claim whole-corpus, electrical, extracted, operating-envelope or installed acceptance.",
+  "status": "PASS",
+  "inventory_parser_sha256": "ba09da230ff0e71cbcd295505e67b9eb01c02c8e5576463d8923ab751d8c5b46",
+  "klayout_version": "0.30.5",
+  "checks": [
+    {
+      "name": "quoted_liberty_cell_not_declared",
+      "passed": true
+    },
+    {
+      "name": "quoted_liberty_pin_not_declared",
+      "passed": true
+    },
+    {
+      "name": "quoted_liberty_attribute_not_used",
+      "passed": true
+    },
+    {
+      "name": "quoted_verilog_module_not_declared",
+      "passed": true
+    },
+    {
+      "name": "escaped_verilog_name_retained_and_canonicalized",
+      "passed": true
+    },
+    {
+      "name": "automatic_verilog_lifetime_not_cell_identity",
+      "passed": true
+    },
+    {
+      "name": "unterminated_string_rejected",
+      "passed": true
+    },
+    {
+      "name": "valid_inline_lef_not_omitted",
+      "passed": true
+    },
+    {
+      "name": "valid_lef_header_comment_not_omitted",
+      "passed": true
+    },
+    {
+      "name": "unclosed_lef_pin_rejected",
+      "passed": true
+    },
+    {
+      "name": "empty_gds_rejected",
+      "passed": true
+    },
+    {
+      "name": "stray_gds_structure_rejected",
+      "passed": true
+    },
+    {
+      "name": "unresolved_bus_cannot_claim_agreement",
+      "passed": true
+    },
+    {
+      "name": "internal_timing_pin_preserved_without_false_external_requirement",
+      "passed": true
+    },
+    {
+      "name": "real_missing_external_pin_still_reported",
+      "passed": true
+    },
+    {
+      "name": "missing_selected_corner_cell_explicit",
+      "passed": true
+    },
+    {
+      "name": "unknown_present_library_is_not_marked_absent",
+      "passed": true
+    },
+    {
+      "name": "real_required_missing_vpp_still_blocks",
+      "passed": true
+    },
+    {
+      "name": "non_electrical_control_classification_is_narrow",
+      "passed": true
+    },
+    {
+      "name": "native_raw_sky130A/libs.ref/sky130_fd_io/gds/sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um.gds",
+      "passed": true
+    },
+    {
+      "name": "native_raw_sky130A/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds",
+      "passed": true
+    },
+    {
+      "name": "native_raw_sky130A/libs.ref/sky130_sram_macros/gds/sram_1rw1r_32_256_8_sky130.gds",
+      "passed": true
+    },
+    {
+      "name": "native_raw_sky130A/libs.ref/sky130_fd_io/lef/sky130_fd_io.lef",
+      "passed": true
+    },
+    {
+      "name": "native_raw_sky130A/libs.ref/sky130_fd_sc_hvl/lef/sky130_fd_sc_hvl.lef",
+      "passed": true
+    },
+    {
+      "name": "native_raw_sky130A/libs.ref/sky130_sram_macros/lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef",
+      "passed": true
+    }
+  ],
+  "raw_readback": [
+    {
+      "archive": "sky130_fd_io.tar.zst",
+      "archive_sha256": "feaa2d40837ff272e6f3b9512b11b8c61c4356ccb939e2fd75443a50af66cb47",
+      "member": "sky130A/libs.ref/sky130_fd_io/gds/sky130_ef_io__connect_vcchib_vccd_and_vswitch_vddio_slice_20um.gds",
+      "sha256": "f113fa5b09779ea1961d624e218a82bca553fd2578c3582855bdbb478bcaf6a1",
+      "bytes": 56714,
+      "kind": ".gds",
+      "count": 1,
+      "names_agree": true
+    },
+    {
+      "archive": "sky130_fd_sc_hvl.tar.zst",
+      "archive_sha256": "2df7826900912a7986017604c16c0ab1caa1996a3c5e267bc0c6be695c0dcc11",
+      "member": "sky130A/libs.ref/sky130_fd_sc_hvl/gds/sky130_fd_sc_hvl.gds",
+      "sha256": "0c0db7c92e49518277e2bd8396b06c8faed96a7f80e0e163d0b2af4944699bd2",
+      "bytes": 1244856,
+      "kind": ".gds",
+      "count": 70,
+      "names_agree": true
+    },
+    {
+      "archive": "sky130_sram_macros.tar.zst",
+      "archive_sha256": "465c05a0626de37f0e87f7b0ed0fc36bbf69746327641fcf240902d940f29298",
+      "member": "sky130A/libs.ref/sky130_sram_macros/gds/sram_1rw1r_32_256_8_sky130.gds",
+      "sha256": "3d102bc90c1a0a05e74fbdea547315b864cbef6467e04faec3d1c9e01869bf60",
+      "bytes": 12810898,
+      "kind": ".gds",
+      "count": 154,
+      "names_agree": true
+    },
+    {
+      "archive": "sky130_fd_io.tar.zst",
+      "archive_sha256": "feaa2d40837ff272e6f3b9512b11b8c61c4356ccb939e2fd75443a50af66cb47",
+      "member": "sky130A/libs.ref/sky130_fd_io/lef/sky130_fd_io.lef",
+      "sha256": "cbab7c45dfe2c5b89580d64c7511d47836086375bf27ee064eea064402a2eb90",
+      "bytes": 3163743,
+      "kind": ".lef",
+      "count": 21,
+      "names_agree": true
+    },
+    {
+      "archive": "sky130_fd_sc_hvl.tar.zst",
+      "archive_sha256": "2df7826900912a7986017604c16c0ab1caa1996a3c5e267bc0c6be695c0dcc11",
+      "member": "sky130A/libs.ref/sky130_fd_sc_hvl/lef/sky130_fd_sc_hvl.lef",
+      "sha256": "f2d3fef36e8a033abc8a1a7057ffa4c4d64541b59d77876e5ba8594e1bc3196f",
+      "bytes": 387377,
+      "kind": ".lef",
+      "count": 69,
+      "names_agree": true
+    },
+    {
+      "archive": "sky130_sram_macros.tar.zst",
+      "archive_sha256": "465c05a0626de37f0e87f7b0ed0fc36bbf69746327641fcf240902d940f29298",
+      "member": "sky130A/libs.ref/sky130_sram_macros/lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef",
+      "sha256": "e35072ac14a991285619477f13c80fd3837e76ef7ed354ae6ab80d9232ce7a2e",
+      "bytes": 26311,
+      "kind": ".lef",
+      "count": 1,
+      "names_agree": true
+    }
+  ],
+  "qualified": false,
+  "chunk_complete": false
+}

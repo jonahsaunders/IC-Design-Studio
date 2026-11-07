@@ -89,6 +89,11 @@ class FrozenIhpSchedulerTests(unittest.TestCase):
 import json,pathlib,sys,time,uuid
 folder=pathlib.Path(sys.argv[1]);mode=sys.argv[2];case=sys.argv[3];fault=sys.argv[4]
 started=time.monotonic();(folder/'started').write_text('started')
+if mode=='overlap':
+    sibling=pathlib.Path(sys.argv[5])
+    limit=time.monotonic()+5
+    while not sibling.exists() and time.monotonic()<limit:time.sleep(.005)
+    if not sibling.exists():raise SystemExit(11)
 if mode=='fail':
     sibling=pathlib.Path(sys.argv[5])
     limit=time.monotonic()+5
@@ -118,6 +123,10 @@ value=dict(case=case,fault=None if fault=='None' else fault,started=started,ende
         self.assertEqual(threading.get_ident(),self.parent_thread)
         self.prepared.append((row['case'],fault));folder.mkdir(parents=True,exist_ok=False)
         mode=self.modes.get(row['case'],'ok');sibling=self.root/'native/b-g0-v0-r90/positive/started'
+        pair=getattr(self,'overlap_pair',())
+        if (row['case'],fault) in pair:
+            peer=next(item for item in pair if item!=(row['case'],fault))
+            mode='overlap';sibling=self.root/'native'/peer[0]/(peer[1] or 'positive')/'started'
         command=[sys.executable,'-c',self.CHILD,str(folder),mode,row['case'],str(fault),str(sibling)]
         attempt=dict(status='RUNNING',command=command);gate.write(folder/'invocation.json',attempt)
         return {},{},{},command,attempt,time.monotonic()
@@ -139,6 +148,9 @@ value=dict(case=case,fault=None if fault=='None' else fault,started=started,ende
             if case.endswith('-r0'):
                 expected.extend((case,fault) for fault in ('terminal-open','body-open','terminal-short','reference-width','reference-model'))
                 if '-v1-' in case:expected.append((case,'missing-via'))
+        # Require actual overlap without assuming process startup fits inside
+        # the short synthetic workload on a busy Windows host.
+        self.overlap_pair=expected[:2]
         jobs=self.run_matrix(rows)
         self.assertEqual(len(jobs),225);self.assertEqual(sum(j['fault'] is None for j in jobs),60)
         self.assertEqual([(j['case'],j['fault']) for j in jobs],expected)
@@ -149,6 +161,16 @@ value=dict(case=case,fault=None if fault=='None' else fault,started=started,ende
         for _,change in sorted([(j['started'],1) for j in jobs]+[(j['ended'],-1) for j in jobs]):
             active+=change;maximum=max(maximum,active)
         self.assertEqual(maximum,2);self.assertEqual(active,0)
+    def test_overlap_fixture_rejects_a_serial_scheduler(self):
+        import subprocess
+        cases=('a-g0-v0-r90','b-g0-v0-r90')
+        self.overlap_pair=[(case,None) for case in cases]
+        executor=gate.ThreadPoolExecutor
+        with patch.object(gate,'ThreadPoolExecutor',side_effect=lambda **_:executor(max_workers=1)):
+            with self.assertRaises(subprocess.CalledProcessError) as failed:
+                self.run_matrix(self.rows(cases))
+        self.assertEqual(failed.exception.returncode,11)
+        self.assertFalse(self.audited)
     def test_worker_failure_cancels_sibling_and_never_launches_third(self):
         import subprocess
         cases=('a-g0-v0-r90','b-g0-v0-r90','c-g0-v0-r90');self.modes={cases[0]:'fail',cases[1]:'cancel'}

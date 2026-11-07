@@ -65,18 +65,21 @@ def validate_receipt(value, commit):
             all(type(n) is int for n in counts.values()), 'incomplete or mistyped finite selection')
     files = value.get('distribution_files')
     require(isinstance(files, dict) and bool(files), 'missing distributed resource closure')
+    # Linux runtime resources include distinct, case-sensitive terminfo names.
+    # Compare using the target filesystem's semantics, independent of this host.
+    identity = str.casefold if value['platform'] == 'Windows' else str
     names = set()
     for name, sha in files.items():
         safe(name)
-        require(name.casefold() not in names and isinstance(sha, str) and
+        require(identity(name) not in names and isinstance(sha, str) and
                 re.fullmatch('[0-9a-f]{64}', sha) is not None, 'duplicate resource or invalid digest')
-        names.add(name.casefold())
+        names.add(identity(name))
     links = value.get('distribution_links')
     require(isinstance(links, dict), 'missing complete resource link inventory')
     for name, target in links.items():
         safe(name)
-        require(name.casefold() not in names, 'colliding resource link')
-        names.add(name.casefold())
+        require(identity(name) not in names, 'colliding resource link')
+        names.add(identity(name))
         visited = {name}
         destination = link_destination(name, target)
         while destination in links:

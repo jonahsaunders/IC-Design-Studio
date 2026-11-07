@@ -5,6 +5,12 @@ comparison reference and a checked capacitance export. The original simulation
 netlist remains unchanged. These checks address application integration; they
 do not qualify the complete capacitor family or establish physical calibration.
 
+The November 7 [parallel-network extension](IHP_CMIM_PARALLEL.md) adds ordinary
+integer multiplicity and explicit parallel units with the same ordered
+electrodes. It checks each width/length/count group and the complete native
+graph. The single-unit evidence and numerical limits recorded below retain
+their original scope; they are not evidence for the later extension.
+
 ## Simulation and LVS references
 
 The catalog emits an X instance with ordered electrodes, dimensions, multiplicity

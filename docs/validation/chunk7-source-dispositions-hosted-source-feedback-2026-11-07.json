@@ -1,0 +1,333 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "PASS_HOSTED_SOURCE_FEEDBACK",
+  "candidate": "b81278c333cba36e02f400229d1e442f1c43abfd",
+  "candidate_tree": "8db1d6706edb038a375ed7c6bffae3dfd351c9b4",
+  "merge_commit": "b202c1984c157d1d8540e54f31aca6584597aec2",
+  "merge_tree": "8db1d6706edb038a375ed7c6bffae3dfd351c9b4",
+  "merge_tree_matches_candidate": true,
+  "merge_parents": [
+    "b8372151e8664ba66b52005731e906cc1eac6214",
+    "b81278c333cba36e02f400229d1e442f1c43abfd"
+  ],
+  "run_id": 42404966150,
+  "run_attempt": 1,
+  "run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42404966150",
+  "scope": "Required PR source checks for the source-disposition inventory checkpoint, including supplemental source grammars, complete SLIB enumeration, authenticated input bindings and both unchanged thirteen-stage platform lanes. Inventory gaps remain explicit. Native whole-source replay and immutable installed desktop evidence remain separate; this record does not claim source-completeness or device qualification.",
+  "qualified": false,
+  "chunk_complete": false,
+  "inventory_complete": false,
+  "installed_acceptance": false,
+  "lanes": {
+    "linux": {
+      "status": "passed",
+      "tests": 1326,
+      "skips": 17,
+      "seconds": 360.494,
+      "syntax_files": 1534,
+      "source_files_verified": 2345,
+      "source_inventory_sha256": "e1b15011f39fc473a1fa88ef91417898a4f90cc78a580ea003a61681ea210295",
+      "candidate_git_blob_identities_verified": true,
+      "report_sha256": "46ea9b848775b2c7aaed617afdf14826bf3d6e8f3b724328569e6cd8f6250801",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 19.054,
+          "tests": 246,
+          "skips": 3,
+          "log_sha256": "a8efbc77310a032c0a12c27065587037b79e3504f6e32fac0c572677361218dd",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 38.205,
+          "tests": 219,
+          "skips": 1,
+          "log_sha256": "f9e3d4e70c1131cb4fe262fee6aba3d595b5cf8c90efdab4c2cfdda0c89f3188",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 31.441,
+          "tests": 300,
+          "skips": 10,
+          "log_sha256": "0ca7f22b2252fa6bd93f5a92a87a86aea85389762b2314eee98afa218c74810c",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 31.745,
+          "tests": 461,
+          "skips": 2,
+          "log_sha256": "292be2125b09e4bec7a6a5f15cfc3c7fe1d0be407b0707dadd7039d9dca49cc1",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 42.626,
+          "tests": 11,
+          "skips": 0,
+          "log_sha256": "4f0bd6967d700cec103b4112db421dcddd80548cf61aad5f07a89ce6e1ee5d12",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 7.032,
+          "tests": 89,
+          "skips": 1,
+          "log_sha256": "d21b43d703056444fd55053afa3e27c98cffccddf858bbe768248d19eff7d63a",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.621,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "b985277f63d98f2aae80b5bfde1d3c7b9b61a0ed42e42243da09bcbd54cda67c",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 26.325,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "87ee6efb92085de695456f13803d954a44fae71aa9794a340e543a5a9214b164",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 4.274,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "b7cdc6f30315f05bd34a6b203c1b4054249ed37637d61c1a6c250247a226383d",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.632,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "63060d7b6304e5ccf9d6ff20a7a0e1c0ba7e1c2289e499b464fa230eda6a8b63",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 30.182,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "3a4d8bfd65e0c67f0c22ff5456dc1ccdad76fe0b4aa3150f59fd33ef6541c3db",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 113.48,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "2d022858c23a50f3ae441ea99b2fd4c2263477343dc66e4caa84fe70858e58d9",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.219,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "caeb11f6473c6c7125dd27478e588b85ffd6b31784e9adb1371a60f1661eb00f",
+          "deadline_seconds": 300
+        }
+      ]
+    },
+    "windows": {
+      "status": "passed",
+      "tests": 1326,
+      "skips": 37,
+      "seconds": 577.078,
+      "syntax_files": 1534,
+      "source_files_verified": 2345,
+      "source_inventory_sha256": "e1b15011f39fc473a1fa88ef91417898a4f90cc78a580ea003a61681ea210295",
+      "candidate_git_blob_identities_verified": true,
+      "report_sha256": "d600ed6da9fee2085cbd899dbe680f55b6de5724f24c676f9e04aa5c09571f4b",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 34.828,
+          "tests": 246,
+          "skips": 16,
+          "log_sha256": "aa8a459ef353bdac394cd72bacffe1c2614d842fbdf2de71f3979fde27f53e66",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 55.688,
+          "tests": 219,
+          "skips": 0,
+          "log_sha256": "cda41f88c978f4de4f38e25c93537037a19eb7bbc99dfdca5e80ec0f7216aec1",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 69.531,
+          "tests": 300,
+          "skips": 11,
+          "log_sha256": "ced3faf07a1002497bc97b3fcf51d9d1939564e9d53dec6734e9d0f224f548af",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 105.359,
+          "tests": 461,
+          "skips": 8,
+          "log_sha256": "c8bde5f0329bf5500ed78a23a5f6b19789a915bdd5d718c7ba370f6c2e84e61f",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 95.5,
+          "tests": 11,
+          "skips": 0,
+          "log_sha256": "2e947f4fa635c7e4005d46d58bd60d281f57ad339292227ed977333702bc18a7",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 15.922,
+          "tests": 89,
+          "skips": 2,
+          "log_sha256": "5354023788dc37f44d2a61e184f69175904e60daea351cc9945759d524fbd941",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 3.735,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "68c0de5660998215eb437521c4686832aa7794c79376f33489af41add4fe2e38",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 29.828,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "b2e199d7fadcb9b0749ff03d0d985c2fa4d2fd5490170c7bad63ee1c33b459c5",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 7.203,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "11804f89cf6bb119906c6605b350e52bbef6a0eb493ab340bd11dbe9fafc4750",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.687,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "111918b98214d44dfe5e3008134a989da58939296f6dfee114cbddf154e93b2c",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 36.125,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "05f14e5904a87ad63c09e7564292737d83aacfbe13456172c27f01ba18ecc3d4",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 108.375,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "6554d1b0a3196356490d790767c0f034657e96bf26ecddf38160f0c446b4bb0b",
+          "deadline_seconds": 300
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.437,
+          "tests": 0,
+          "skips": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "deadline_seconds": 300
+        }
+      ]
+    }
+  },
+  "test_counts_source": "Observed from each actual stage log; no forecast substituted.",
+  "raw_artifacts": [
+    {
+      "id": 13587507131,
+      "name": "source-feedback-Windows-b202c1984c157d1d8540e54f31aca6584597aec2",
+      "bytes": 16883948,
+      "sha256": "f481fdd232b0251552582ce3b34b9c8caad3bee38656bbe870957290d1b642e1",
+      "upstream_digest": "sha256:f481fdd232b0251552582ce3b34b9c8caad3bee38656bbe870957290d1b642e1",
+      "upstream_digest_verified": true,
+      "reused_verified_download": false,
+      "zip_integrity_verified": true,
+      "extracted_member_files": 1240,
+      "complete_member_extraction_verified": true,
+      "member_bytes_sha256_verified": true
+    },
+    {
+      "id": 13586838680,
+      "name": "source-feedback-Linux-b202c1984c157d1d8540e54f31aca6584597aec2",
+      "bytes": 17415839,
+      "sha256": "e7627507a2b2a6cf7ac42528accae68d57c4ef0cfa24f02b489cbb05573b4e6f",
+      "upstream_digest": "sha256:e7627507a2b2a6cf7ac42528accae68d57c4ef0cfa24f02b489cbb05573b4e6f",
+      "upstream_digest_verified": true,
+      "reused_verified_download": false,
+      "zip_integrity_verified": true,
+      "extracted_member_files": 1293,
+      "complete_member_extraction_verified": true,
+      "member_bytes_sha256_verified": true
+    }
+  ],
+  "complete_extraction_root": "C:\\Users\\jonah\\Documents\\Codex\\c7t1106\\hsb812",
+  "extraction_scope": "Raw ZIP digest and archive integrity are checked separately from complete extraction and every member byte readback.",
+  "preparation_failures": [
+    {
+      "path": "preparation/01-default-network-metadata-failure.json",
+      "sha256": "49905d97bf85bb233cf23b9201332445952f3026ef497ba1f3f07d4e9e89ad18"
+    }
+  ],
+  "retention": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-source-dispositions-hosted-source-evidence.zip",
+    "sha256": "a34863a8abf09e832873183110f6d3e2e4f5946a3536feae09c377ba78c7825e",
+    "bytes": 62531197,
+    "members": 2540,
+    "all_members_verified": true
+  },
+  "full_desktop": {
+    "run_id": 42379707594,
+    "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+    "scope": "Separate immutable desktop candidate; no desktop result is inferred from this hosted source run."
+  }
+}

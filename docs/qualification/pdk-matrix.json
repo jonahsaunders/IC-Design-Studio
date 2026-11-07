@@ -1,6 +1,6 @@
 {
   "schema": 6,
-  "as_of": "2026-10-30",
+  "as_of": "2026-11-07",
   "source_baseline": "52049be725eda34922bc921dfdea6cbf14da0952",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -320,7 +320,13 @@
       "latest_cmim_enclosure_evidence": "docs/validation/ihp-cmim-enclosures-2026-11-03.json",
       "latest_cmim_multiplicity_physical_evidence": "docs/validation/ihp-cmim-multiplicity-physical-2026-11-03.json",
       "latest_cmim_multiplicity_electrical_evidence": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json",
-      "latest_cmim_profile_repair_evidence": "docs/validation/ihp-cmim-profile-isolation-2026-11-03.json"
+      "latest_cmim_profile_repair_evidence": "docs/validation/ihp-cmim-profile-isolation-2026-11-03.json",
+      "latest_source_inventory_evidence": [
+        "chunk7-schematic-integration-2026-11-07"
+      ],
+      "latest_cmim_parallel_saved_bench_evidence": "docs/validation/ihp-cmim-parallel-2026-11-07.json",
+      "latest_mos_grouping_evidence": "docs/validation/mos-grouping-2026-11-07.json",
+      "latest_sky130_mim_shared_bottom_evidence": "docs/validation/sky130-mim-shared-2026-11-07.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -19546,12 +19552,21 @@
       "target": "sky130A",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "Complete file inventory now covers the named pinned IHP repository and all five submodules, GF180 primitive repository and SKY130 common/primitive archives. Semantic device/process-option disposition, other GF180 repositories and SKY130 libraries, and execution qualification remain open; file presence or identical package bytes do not establish support.",
+      "remaining": "The versioned report additionally enumerates fourteen literal schematic views and corrects nineteen remaining embedded-source gap explanations. Other production inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
         "upstream-views-2026-10-20",
-        "sky130-rf-default-2026-10-23"
+        "sky130-rf-default-2026-10-23",
+        "sky130-release-inventory-2026-11-07",
+        "chunk7-required-binding-semantics-2026-11-07",
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07",
+        "chunk7-xcircuit-irsim-integration-2026-11-07",
+        "chunk7-cvc-physical-integration-2026-11-07",
+        "chunk7-legacy-symbol-integration-2026-11-07",
+        "chunk7-schematic-integration-2026-11-07"
       ]
     },
     "sky130A:tool-install": {
@@ -19839,11 +19854,19 @@
       "target": "gf180mcuC",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "Complete file inventory now covers the named pinned IHP repository and all five submodules, GF180 primitive repository and SKY130 common/primitive archives. Semantic device/process-option disposition, other GF180 repositories and SKY130 libraries, and execution qualification remain open; file presence or identical package bytes do not establish support.",
+      "remaining": "The versioned report additionally enumerates fourteen literal schematic views and corrects nineteen remaining embedded-source gap explanations. Other production inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
-        "upstream-views-2026-10-20"
+        "upstream-views-2026-10-20",
+        "upstream-semantics-inventory-2026-11-07",
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07",
+        "chunk7-xcircuit-irsim-integration-2026-11-07",
+        "chunk7-cvc-physical-integration-2026-11-07",
+        "chunk7-legacy-symbol-integration-2026-11-07",
+        "chunk7-schematic-integration-2026-11-07"
       ]
     },
     "gf180mcuC:tool-install": {
@@ -20126,11 +20149,19 @@
       "target": "gf180mcuD",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "Complete file inventory now covers the named pinned IHP repository and all five submodules, GF180 primitive repository and SKY130 common/primitive archives. Semantic device/process-option disposition, other GF180 repositories and SKY130 libraries, and execution qualification remain open; file presence or identical package bytes do not establish support.",
+      "remaining": "The versioned report additionally enumerates fourteen literal schematic views and corrects nineteen remaining embedded-source gap explanations. Other production inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
-        "upstream-views-2026-10-20"
+        "upstream-views-2026-10-20",
+        "upstream-semantics-inventory-2026-11-07",
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07",
+        "chunk7-xcircuit-irsim-integration-2026-11-07",
+        "chunk7-cvc-physical-integration-2026-11-07",
+        "chunk7-legacy-symbol-integration-2026-11-07",
+        "chunk7-schematic-integration-2026-11-07"
       ]
     },
     "gf180mcuD:tool-install": {
@@ -20423,10 +20454,19 @@
       "target": "ihp-sg13g2",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "Complete file inventory now covers the named pinned IHP repository and all five submodules, GF180 primitive repository and SKY130 common/primitive archives. Semantic device/process-option disposition, other GF180 repositories and SKY130 libraries, and execution qualification remain open; file presence or identical package bytes do not establish support.",
+      "remaining": "The versioned report additionally enumerates fourteen literal schematic views and corrects nineteen remaining embedded-source gap explanations. Other production inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
-        "upstream-views-2026-10-20"
+        "upstream-views-2026-10-20",
+        "upstream-semantics-inventory-2026-11-07",
+        "chunk7-required-binding-semantics-2026-11-07",
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07",
+        "chunk7-xcircuit-irsim-integration-2026-11-07",
+        "chunk7-cvc-physical-integration-2026-11-07",
+        "chunk7-legacy-symbol-integration-2026-11-07",
+        "chunk7-schematic-integration-2026-11-07"
       ]
     },
     "ihp-sg13g2:tool-install": {
@@ -20465,7 +20505,9 @@
           "sky130-mim-bias-boundaries-2026-10-23",
           "sky130-mim-physical-scope-2026-10-23",
           "sky130-mim-windows-preflight-2026-10-23",
-          "sky130-mim-hierarchy-electrical-2026-10-26"
+          "sky130-mim-hierarchy-electrical-2026-10-26",
+          "sky130-mim-shared-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -20488,7 +20530,9 @@
           "sky130-mim-bias-boundaries-2026-10-23",
           "sky130-mim-physical-scope-2026-10-23",
           "sky130-mim-windows-preflight-2026-10-23",
-          "sky130-mim-hierarchy-electrical-2026-10-26"
+          "sky130-mim-hierarchy-electrical-2026-10-26",
+          "sky130-mim-shared-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -22343,7 +22387,9 @@
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
           "mos-finger-layouts-2026-10-23",
-          "gf180-mos-specifications-2026-10-23"
+          "gf180-mos-specifications-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -22636,7 +22682,9 @@
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
           "mos-finger-layouts-2026-10-23",
-          "gf180-mos-specifications-2026-10-23"
+          "gf180-mos-specifications-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -23472,7 +23520,9 @@
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
           "mos-finger-layouts-2026-10-23",
-          "gf180-mos-specifications-2026-10-23"
+          "gf180-mos-specifications-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -23765,7 +23815,9 @@
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
           "mos-finger-layouts-2026-10-23",
-          "gf180-mos-specifications-2026-10-23"
+          "gf180-mos-specifications-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -24243,7 +24295,9 @@
           "ihp-cmim-enclosures-2026-11-03",
           "ihp-cmim-multiplicity-physical-2026-11-03",
           "ihp-cmim-multiplicity-electrical-2026-11-03",
-          "ihp-cmim-saved-bench-2026-11-03"
+          "ihp-cmim-saved-bench-2026-11-03",
+          "ihp-cmim-parallel-2026-11-07",
+          "chunk7-cmim-parallel-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/cap_cmomf.sym": {
@@ -24715,7 +24769,9 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "ihp-hv-mos-layouts-2026-10-23"
+          "ihp-hv-mos-layouts-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/sg13_hv_pmos.sym": {
@@ -24731,7 +24787,9 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "ihp-hv-mos-layouts-2026-10-23"
+          "ihp-hv-mos-layouts-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/sg13_hv_rf_nmos.sym": {
@@ -24782,7 +24840,9 @@
           "mos-physical-boundaries-2026-10-17",
           "ihp-isolation-hierarchy-2026-10-21",
           "mos-parallel-layouts-2026-10-23",
-          "mos-finger-layouts-2026-10-23"
+          "mos-finger-layouts-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -24802,7 +24862,9 @@
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
-          "mos-finger-layouts-2026-10-23"
+          "mos-finger-layouts-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -25208,7 +25270,7 @@
     "sky130-voltage-intent-audit-2026-10-14": {
       "path": "docs/validation/sky130-voltage-intent-audit-2026-10-14.json",
       "sha256": "f3aa296d1291b40a9b96054ca414732365408b261bbd38149148cb4bd2e2b776",
-      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0Ã¢â‚¬â€œ1.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
+      "scope_limit": "Conditional absence of HV targets in the three exact nominal 0\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531.8 V HD reference contracts. No transient voltages, supply integrity, arbitrary designs, nonempty HV propagation, foundry ERC or complete physical qualification is established."
     },
     "sky130-isolation-options-audit-2026-10-14": {
       "path": "docs/validation/sky130-isolation-options-audit-2026-10-14.json",
@@ -25778,7 +25840,7 @@
     "sky130-metal-parallel-2026-10-26": {
       "path": "docs/validation/sky130-metal-parallel-2026-10-26.json",
       "sha256": "88ba1362d7339c11a264cd475270a9710abed26a5798fc0d092ab09f1bf9830a",
-      "scope_limit": "Selected source physical parallel-array editing and DC/AC integration for five SKY130 resistor models, counts 1–16: 280 clean layouts, 25 native faults, 30 actual-array electrical contexts. No full-family envelope, calibrated accuracy, array transient/noise, installed or signoff qualification."
+      "scope_limit": "Selected source physical parallel-array editing and DC/AC integration for five SKY130 resistor models, counts 1\u201316: 280 clean layouts, 25 native faults, 30 actual-array electrical contexts. No full-family envelope, calibrated accuracy, array transient/noise, installed or signoff qualification."
     },
     "sky130-metal-parallel-installed-source-2026-10-26": {
       "path": "docs/validation/sky130-metal-parallel-installed-source-2026-10-26.json",
@@ -25894,6 +25956,81 @@
       "path": "docs/validation/ihp-cmim-saved-bench-2026-11-03.json",
       "sha256": "e287bc5dc77433b32e52b45b46b9eab2c276b49c104bf54dd65e2a5faa72f85f",
       "scope_limit": "Source saved-bench reference and one flat unit capacitance-graph/finite AC repair; direct Windows managed transfer, two rotations and two strict LVS faults. Floating-substrate warnings retained. No calibrated/DC/normal-setup/installed/full-family qualification."
+    },
+    "sky130-release-inventory-2026-11-07": {
+      "path": "docs/validation/sky130-release-inventory-2026-11-07.json",
+      "sha256": "2f1ec30526c9f30beb46122f2bf9db1e84c691261b215c98d88ed1eb557cbbaf",
+      "scope_limit": "Pinned source identities and declared-interface reconciliation only; device behavior, full envelopes, extracted connectivity and installed-release acceptance remain separate. Explicit source diagnostics and missing required models remain open."
+    },
+    "upstream-semantics-inventory-2026-11-07": {
+      "path": "docs/validation/upstream-semantics-inventory-2026-11-07.json",
+      "sha256": "c5fefed6c1178d25968927f49917e944f9ae7d25c2df731a3ea850fdeea2951c",
+      "scope_limit": "Pinned source identities and declared-interface reconciliation only; device behavior, full envelopes, extracted connectivity and installed-release acceptance remain separate. Explicit source diagnostics and missing required models remain open."
+    },
+    "chunk7-required-binding-semantics-2026-11-07": {
+      "path": "docs/validation/chunk7-required-binding-semantics-2026-11-07.json",
+      "sha256": "424fba5cd3503bcd3cfcbd5f883fc58e0a6eebe57eeb680239d2fa8cfccd5599",
+      "scope_limit": "Source identity and terminal semantics only. No required binding resolved; no model, adapter or qualification promotion."
+    },
+    "ihp-cmim-parallel-2026-11-07": {
+      "path": "docs/validation/ihp-cmim-parallel-2026-11-07.json",
+      "sha256": "495bc2eb53edda562ac1bbfa079335b0347e45defb457a8964a6e3092c07bbc5",
+      "scope_limit": "Four finite native Linux parallel saved-bench cases and three native LVS faults; complete graph and finite AC readback. No installed parallel, general-array, operating-envelope or full-family qualification."
+    },
+    "chunk7-cmim-parallel-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-cmim-parallel-integration-2026-11-07.json",
+      "sha256": "c9e602b741450e323159e3a1d2a45f086085941dacfdc9955682fa8089faa3ee",
+      "scope_limit": "Exact captured final source:255 affected tests per host,49 independent bounded controls and retained native readback. Original failed/pre-correction snapshots remain separate; no installed or full-family qualification."
+    },
+    "mos-grouping-2026-11-07": {
+      "path": "docs/validation/mos-grouping-2026-11-07.json",
+      "sha256": "da778724cda01a03f4d79ab25f8b614aab37d0ba89e26230351402101289cb42",
+      "scope_limit": "Application finger/copy grouping associated with native terminal classes, including separate native LVS results and saved-bench stop-before-PEX. Finite NMOS/PMOS native examples; no model-accuracy, operating-envelope, calibrated extraction or installed/family claim."
+    },
+    "sky130-mim-shared-2026-11-07": {
+      "path": "docs/validation/sky130-mim-shared-2026-11-07.json",
+      "sha256": "c0ab7269b78def69a116509e9c45e714321e3841860e8cedad7d082097659104",
+      "scope_limit": "Unambiguous per-electrode contact ownership on shared bottom metal, with four finite native positives and six intended faults. No arbitrary shared-plate RC, stacked/dummy/hierarchical, electrical-envelope or installed/family claim."
+    },
+    "chunk7-mos-shared-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-mos-shared-integration-2026-11-07.json",
+      "sha256": "bce5ca92dff5c9fc2d8853c51ad2ddaf8b6cb0a2c71c3e819b12e8ae201bfbe9",
+      "scope_limit": "Final combined source checks on Windows and native Linux, independent geometry/reader controls and retained finite native proof. Superseded attempts remain separate. No installed or full-family qualification."
+    },
+    "upstream-semantics-inventory-2026-11-07-v2": {
+      "path": "docs/validation/upstream-semantics-inventory-2026-11-07-v2.json",
+      "sha256": "2b041605ee763e835bb6ba688612be3571f238d1688e39bf25e20d16b03f49cc",
+      "scope_limit": "Declaration inventory and bounded source replay only. Explicit production gaps and malformed-source diagnostics remain visible; all model, physical, electrical and installed acceptance gates retain their existing scope."
+    },
+    "source-dispositions-2026-11-07": {
+      "path": "docs/validation/source-dispositions-2026-11-07.json",
+      "sha256": "78fcc901eec80e73e380587dfcb4bfc5b9d2c555a88fd5f6c74f57e405bbda1a",
+      "scope_limit": "Declaration inventory and bounded source replay only. Explicit production gaps and malformed-source diagnostics remain visible; all model, physical, electrical and installed acceptance gates retain their existing scope."
+    },
+    "chunk7-source-dispositions-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-source-dispositions-integration-2026-11-07.json",
+      "sha256": "06b3c08de95b2b203e67effab4c52b1e0ad742fd58efe8abdd790fa8bb2e63df",
+      "scope_limit": "Declaration inventory and bounded source replay only. Explicit production gaps and malformed-source diagnostics remain visible; all model, physical, electrical and installed acceptance gates retain their existing scope."
+    },
+    "chunk7-xcircuit-irsim-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-xcircuit-irsim-integration-2026-11-07.json",
+      "sha256": "a88003254e3f2c1a28ffc585aa425b18994bc1f457c40b58d40bda420aef4601",
+      "scope_limit": "Bounded declaration inventory and complete cross-host source replay only; unresolved source gaps and all device, physical, electrical and installed qualification remain open."
+    },
+    "chunk7-cvc-physical-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-cvc-physical-integration-2026-11-07.json",
+      "sha256": "6fb85d21645a11d1509beb6c9d7b80e136890fc2fcead9cfc269ad0477325b7d",
+      "scope_limit": "Bounded checker/layer declarations and complete cross-host replay only. No model, envelope, geometry, electrical or installed acceptance promotion."
+    },
+    "chunk7-legacy-symbol-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-legacy-symbol-integration-2026-11-07.json",
+      "sha256": "3f6012531297e575a36698bfbd82175ef56d3f04683e09e944beb5bb3c2dad00",
+      "scope_limit": "Bounded source-symbol declarations and complete cross-host replay only; no model, electrical, physical, operating-range or installed acceptance promotion."
+    },
+    "chunk7-schematic-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-schematic-integration-2026-11-07.json",
+      "sha256": "7a261ecd2f7e3f14711e8bf34791ecf3cd631856b1723c029b74d5ad219b367e",
+      "scope_limit": "Literal schematic source accounting and header preservation only. Embedded-source gaps, model/electrical/physical/installed qualification remain open."
     }
   },
   "execution_acceptance": {
@@ -25909,8 +26046,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/gf180-tested-source-2026-11-03-saved-bench/manifest.json",
-        "sha256": "f9fae3c031e56c908f9f83297cccb8e13de77222a65288c9ce9edd2e1d7aebd1"
+        "path": "docs/validation/chunk7-openems-retained-source-2026-11-07/chunk4-manifest.json",
+        "sha256": "8f0940a7e89809e20b137c6b0c63a644d65883312918329370d083dc0f7db8e2"
       }
     },
     "5": {

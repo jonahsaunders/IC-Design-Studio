@@ -361,6 +361,19 @@ def run(p,cid,output,tools,selected,progress=lambda *_:None,blocked_reason=None,
             require_lvs_match(log);return dict(unique_match=True,log='lvs/lvs.log')
         try:stage('lvs',lvs)
         except (ValueError,OSError) as exc:failures.append(str(exc))
+        if report['stages'][-1]['status']=='passed':
+            from .mos_grouping import run as check_mos_grouping
+            grouping,group_files=check_mos_grouping(out/'mos-grouping',p['pdk'],out/'schematic.spice',
+                ref['top'],out/'layout.gds',out/'lvs-extraction/extracted.spice',
+                resolved.get('magic',{}).get('path',''),assets.get('original-technology',assets['technology']),
+                comparison=out/'schematic-lvs.spice',netgen=resolved.get('netgen',{}).get('path',''),setup=assets['setup'])
+            if grouping['status']!='NOT_APPLICABLE':report['mos_grouping']=grouping
+            files.update(group_files)
+            pre['assets'].update(grouping.get('model_sources',{}))
+            if grouping['status'] in ('FAIL','NOT_CHECKED'):
+                message='MOS grouping '+('was not checked: ' if grouping['status']=='NOT_CHECKED' else 'failed: ')+grouping['reason']
+                report['qualification']+=' '+message
+                failures.append(message)
         stage('integrity',lambda:verify_integrity(out,files,pre['assets'],resolved))
         report['status']='failed' if failures else 'passed'
         if failures:report['error']='; '.join(failures)

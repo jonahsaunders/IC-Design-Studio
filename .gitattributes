@@ -3,6 +3,16 @@
 # Disabling newline conversion does not disable Git's text diffs.
 * -text
 
+# Preserve the authenticated Windows receipt and original native fixture bytes.
+docs/validation/chunk7-cmim-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/SOURCE_DISPOSITION_AUDIT.md whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-linux-cmim-readback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-pending-2026-11-07-175346Z.json whitespace=cr-at-eol
+docs/validation/chunk7-mos-shared-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/source-dispositions-2026-11-07.json whitespace=cr-at-eol
+tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/extracted.spice whitespace=-blank-at-eof
+tests/fixtures/sky130-mim-shared-v1/job/lvs/lvs.log -whitespace
+
 # Preserve the exact archived Windows serialization of this source-only receipt.
 docs/validation/sky130-mim-installed-electrical-source-2026-10-23.json whitespace=cr-at-eol
 
@@ -92,3 +102,19 @@ tests/fixtures/sky130-mim1-orientation-v1/**/*.log -whitespace
 # The default RF wrapper and retained public originals keep their locked bytes.
 icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-rf-ps2nw/*.spice -whitespace
 icstudio/assets/pdks/sky130A/libs.tech/ngspice/icstudio-rf-ps2nw/original/*.spice -whitespace
+
+# Preserve the exact Windows bytes bound by the November 7 inventory reviews.
+docs/SKY130_RELEASE_INVENTORY.md whitespace=cr-at-eol
+docs/validation/chunk7-required-binding-semantics-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-source-inventory-provenance-2026-11-07.json whitespace=cr-at-eol
+docs/validation/sky130-release-independent-controls-2026-11-07.json whitespace=cr-at-eol
+
+# Keep captured CMIM receipt line endings and native export terminator intact.
+docs/validation/chunk7-fa01ffb5-installed-pending-2026-11-07.json whitespace=cr-at-eol
+docs/validation/ihp-cmim-parallel-2026-11-07.json whitespace=cr-at-eol
+tests/fixtures/ihp-cmim-parallel-v1/SOURCE.json whitespace=cr-at-eol
+tests/fixtures/ihp-cmim-parallel-v1/hierarchical.spice whitespace=-blank-at-eof
+docs/validation/chunk7-source-dispositions-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-linux-result-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-xcircuit-irsim-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-cvc-physical-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol

@@ -1,0 +1,411 @@
+{
+  "schema": 1,
+  "date": "2026-11-06",
+  "chunk": 7,
+  "status": "BOUNDED_SOURCE_REVIEW_COMPLETE_BLOCKERS_REMAIN",
+  "source_baseline": "b8372151e8664ba66b52005731e906cc1eac6214",
+  "qualified": false,
+  "chunk_complete": false,
+  "package_changed": false,
+  "native_runs": 0,
+  "sky130": {
+    "repository": "fossi-foundation/skywater-pdk-libs-sky130_fd_pr",
+    "previous_revision": "16f93a795d87ea2b393fe5c74d32674e111e44a2",
+    "revision": "29b55153fd9f4badef05a02667184b81789d1f61",
+    "comparison_url": "https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_pr/compare/16f93a795d87ea2b393fe5c74d32674e111e44a2...29b55153fd9f4badef05a02667184b81789d1f61",
+    "changed_files": [
+      {
+        "path": "combined_models/continuous/models_global.spice",
+        "git_blob": "db504a225733cfbb7c4e55bc64ad784df195eb8f",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_cap_high.spice",
+        "git_blob": "95baa0d5a97c9108ca5f52b44d0fe7b12661eacd",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_cap_low.spice",
+        "git_blob": "3f9433129a992618da7721e7c1f92f11f6548ee6",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_cap_nom.spice",
+        "git_blob": "8d7dae2103f0231abf7dd60117cb64156328a507",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_fet_ff.spice",
+        "git_blob": "cee885662274a85d20c21f0362f44d4aaeed6d12",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_fet_fs.spice",
+        "git_blob": "5179022347f5d00e606023da444d2048daf43590",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_fet_sf.spice",
+        "git_blob": "5bda8fbd474864bffe54d4edbf2cd487397b5d50",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_fet_ss.spice",
+        "git_blob": "ef1d45a05c05552da00b71b26aa1757c91814256",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_fet_tt.spice",
+        "git_blob": "ac296b8226b85cd1643201085bf8f425092cb622",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_res_high.spice",
+        "git_blob": "f4f8ad5359d5340041ed39bd098a56fae562a7b5",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_res_low.spice",
+        "git_blob": "b50cdaee3e18eab99a31ecf5dc6729aa2d2f2f65",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/continuous/parameters_res_nom.spice",
+        "git_blob": "8e5aa57f53c799b49a78b27a85ac7bc0f32bf6e7",
+        "status": "modified"
+      },
+      {
+        "path": "combined_models/parameters/critical.spice",
+        "git_blob": "2aa3ebbde0f10a65c5a9a51c5a295fe21334ca6c",
+        "status": "modified"
+      },
+      {
+        "path": "models/parameters/critical.spice",
+        "git_blob": "94a391705926336d7917e5663afc6ae03981e5f2",
+        "status": "modified"
+      }
+    ],
+    "finding": "The 14 changed files concern continuous/corner Monte Carlo parameters. They do not modify the inspected VPP cell directory or establish the missing unsuffixed model identity. New statistical behavior requires separate review before any package update.",
+    "vpp_model": {
+      "url": "https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_pr/blob/29b55153fd9f4badef05a02667184b81789d1f61/cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.model.spice",
+      "git_blob": "a22a2156c5dc4bd06b2ad9f2b434d28a35ae0a9d",
+      "interface": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv c0 c1 b m5",
+      "unchanged_since_previous_review": true
+    },
+    "inspected_directory": [
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.cdl",
+        "git_blob": "94f1bc8ec62dbc84f22e59320d448e24ac4e4280",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.gds",
+        "git_blob": "976d3a15434ecb4a13cb61df1f3497a44962577a",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.magic.lef",
+        "git_blob": "ad886a740cc128c330ff498de5256c70b75bba53",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.model.spice",
+        "git_blob": "a22a2156c5dc4bd06b2ad9f2b434d28a35ae0a9d",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.netlist.tsv",
+        "git_blob": "2678b8504b2a39faced31b9ab0de99b7b575f723",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.spice",
+        "git_blob": "cc56f3a418e0143aa85e9c3b517037fc53c080fc",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.svg",
+        "git_blob": "ff0728e9a67c6ec4c559a34e3426a61930cbdfa4",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv__base.model.spice",
+        "git_blob": "056631fc80976e0ea61ed58801a2a5a8dbeabfbf",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.gds",
+        "git_blob": "53c24fe9669baa7d44201ba91e1e2b313061e7b3",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.magic.lef",
+        "git_blob": "09579116408eca2520303ab9134d5acd0d8c009f",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.spice",
+        "git_blob": "159f4b0b1fa6b67069789a1681d2911469fbbc19",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.svg",
+        "git_blob": "76729a24853e54f638fd1773c1d435d7382c87be",
+        "type": "file"
+      },
+      {
+        "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/tests",
+        "git_blob": "2c43734c0536f05709571306026d0bf3ba43193b",
+        "type": "dir"
+      }
+    ],
+    "missing_binding": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5.sym"
+  },
+  "ihp": {
+    "repository": "IHP-GmbH/IHP-Open-PDK",
+    "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "main_matches_retained_source_lock": true,
+    "bondpad": {
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/5e6d592e4002946a4616f798c357f0f3c06cf3b6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib",
+      "git_blob": "9cf626f18307791aafd63c343e4cb6c177a951a2",
+      "finding": "The model is still an empty subcircuit explicitly described upstream as a placeholder. It does not provide electrical bondpad behavior."
+    },
+    "dev_revision": "f658ac22974185eb65f27e06caa72aa72ecf6d17",
+    "dev_model_directory": {
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/tree/f658ac22974185eb65f27e06caa72aa72ecf6d17/ihp-sg13g2/libs.tech/ngspice/models",
+      "added_paths": [],
+      "changed_paths": [
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib",
+          "git_blob": "467a38c29653271ef7659cee36d185668e4c0399"
+        },
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib",
+          "git_blob": "2604926a635c364c6b28d6112602a89667cc4ddf"
+        },
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/diodes.lib",
+          "git_blob": "7cf088c5b156ce3403372687d105a29375493d01"
+        },
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/resistors_mod.lib",
+          "git_blob": "cd872f4ce5b7ac98a88ad4146595bd27e91b09e6"
+        },
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/resistors_stat.lib",
+          "git_blob": "f10d1db8130ea8c522e0e5911c9012c4f50d7ed8"
+        },
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_mod.lib",
+          "git_blob": "3a0792a3533320c300250affe67ff61108aeb632"
+        },
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_stat.lib",
+          "git_blob": "614ba614d21250d2b01a0c29919998142cbddd39"
+        },
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/sg13g2_svaricaphv_mod_mismatch.lib",
+          "git_blob": "3574a02b953ed84f1666e3d7ce2e4acba52cad96"
+        }
+      ],
+      "bondpad_git_blob": "9cf626f18307791aafd63c343e4cb6c177a951a2"
+    },
+    "missing_bindings": [
+      "sg13g2_pr/bondpad.sym",
+      "sg13g2_pr/inductor.sym",
+      "sg13g2_pr/inductor3.sym"
+    ],
+    "scope": "Main and dev revisions and ngspice model-directory inventories rechecked. Dev adds no filenames to that directory, and its bondpad blob is identical. The eight changed model files and other model locations were not exhaustively searched for inductor definitions; no authoritative replacement was established."
+  },
+  "gf180": {
+    "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr",
+    "previous_revision": "4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+    "revision": "5e4be8726e2ae8be099c4131f697a353d6457874",
+    "comparison_url": "https://github.com/fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr/compare/4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c...5e4be8726e2ae8be099c4131f697a353d6457874",
+    "changed_files": [
+      {
+        "path": "cells/klayout/scripts/fill_comp.rb",
+        "git_blob": "25eed2b1ac552ae866efeaf1ee3916693db907f7",
+        "status": "modified"
+      },
+      {
+        "path": "cells/klayout/scripts/fill_metal.rb",
+        "git_blob": "a4c3552e935a0b48781cb19941d6359a8cdf5895",
+        "status": "modified"
+      },
+      {
+        "path": "cells/klayout/scripts/fill_poly2.rb",
+        "git_blob": "90451832e5e51f9769ea885184245544aac7014f",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet3_03v3.sym",
+        "git_blob": "5af81e95547c7b655a155e4eea3c9798a3c4b8d2",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet3_03v3_dss.sym",
+        "git_blob": "547b0891a0772cee73a512ade3adc71e433e24f9",
+        "status": "added"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet3_05v0.sym",
+        "git_blob": "16bc2e618beded9d19877d5713ca6af26bc69896",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet3_06v0.sym",
+        "git_blob": "0e206e9af89e011003b6de9d102e3aeed87eaace",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet3_06v0_dss.sym",
+        "git_blob": "08a0dcb26a2eb7ad2bfc4d42194ad4b778145062",
+        "status": "added"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet3_06v0_nvt.sym",
+        "git_blob": "c46d860cb6a37162f610399b9d8dac8e99a6fe76",
+        "status": "added"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet3_10v0_asym.sym",
+        "git_blob": "308442eb46f67a02786048cc0b340f8e98b9c79a",
+        "status": "added"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet_03v3.sym",
+        "git_blob": "6b208985c2489e27a64888710d9c06cef7f7d347",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet_03v3_dss.sym",
+        "git_blob": "db8b030e0a3794df10ba18a3ef3916aca5c71aba",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet_05v0.sym",
+        "git_blob": "376793fa448e9416d593413d97402afde1e7d1a0",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet_06v0.sym",
+        "git_blob": "b206c1f547b83350c7d50c098549554994f0a946",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/nfet_06v0_dss.sym",
+        "git_blob": "557906c624924f4634ce1829c275288d3fb5ff1a",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet3_03v3.sym",
+        "git_blob": "5d22af861f8ea6e0304b7dcd8e880eb66fa415b0",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet3_03v3_dss.sym",
+        "git_blob": "bb581eeb8421fffd16bb6319826cb3c6caa4a77e",
+        "status": "added"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet3_05v0.sym",
+        "git_blob": "8650a3021f46d3097d51a59453d3acfc229446d5",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet3_06v0.sym",
+        "git_blob": "e2c59ba2c61b567a0bbe98a18e8cfd5ed4198755",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet3_06v0_dss.sym",
+        "git_blob": "379d8e80e22995ef511ff3fe9041a933104263af",
+        "status": "added"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet3_10v0_asym.sym",
+        "git_blob": "3e2272f1405ce92d8fc253a2fdce3d93ab21e6cc",
+        "status": "added"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet_03v3.sym",
+        "git_blob": "60926e47098404c083a088df586c3e5a44dc8f3a",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet_03v3_dss.sym",
+        "git_blob": "d5ee0137970dda99650497e852364bda45fb519f",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet_05v0.sym",
+        "git_blob": "affb97d1786e271c15e7ef5448fb025d5f0ef235",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet_06v0.sym",
+        "git_blob": "65c93d53f4536ca8d1e684b49cb4a9a517297bc1",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pfet_06v0_dss.sym",
+        "git_blob": "f33aefa8ad15a9e2a235d97b957dd905d4938b56",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pnp_05p00x00p42.sym",
+        "git_blob": "24f818261d9a37e134b00a14424d7d312a68e925",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pnp_05p00x05p00.sym",
+        "git_blob": "483f7a056b22ce8366322b2e53c5e6fecf35639f",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pnp_10p00x00p42.sym",
+        "git_blob": "007164238bae7ea6de88dc471bc3ab28598ba407",
+        "status": "modified"
+      },
+      {
+        "path": "cells/xschem/gf180mcu_fd_pr/pnp_10p00x10p00.sym",
+        "git_blob": "a501ac1df392eade80e6dc49f39b97731f6f15e8",
+        "status": "modified"
+      }
+    ],
+    "finding": "The 30 changed paths in this comparison are KLayout fill scripts and Xschem symbols; none changes official model/specification files or supplies the missing spec_all_fets.nl threshold-extraction definition. Symbol updates do not resolve the retained fast-corner discrepancies."
+  },
+  "additional_ihp_review": {
+    "observed_at_utc": "2026-11-06T23:56:34Z",
+    "measurement_request": {
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/issues/1284",
+      "state": "open",
+      "updated_at": "2026-10-17T18:24:29Z",
+      "comments": 0,
+      "finding": "Request for inductor/capacitor measurements, documentation and test structures; no attached data or model supplied in the inspected body or empty comments collection. No issue content imported."
+    },
+    "documentation": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "main_revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "latest_revision": "9aff7327f8191a6fe3e590ed9a668a0ca2a35c25",
+      "comparison_url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/compare/f79c1aa616361a5980994feffda1e2766a4b500b...9aff7327f8191a6fe3e590ed9a668a0ca2a35c25",
+      "finding": "The comparison changes no docs/process_specs file. Inspected current process-control text retains selected voltage/temperature conditions and interconnect-current estimates, not a complete device envelope. The new capacitor page describes MOM model-development results and explicitly does not establish a replacement for delivered symbols.",
+      "previous_local_assessment": "docs/qualification/ihp-cmim-applicability-v1/source-ledger.json",
+      "inspected_paths": [
+        "docs/process_specs/01_general.rst",
+        "docs/process_specs/02_process_control_params.rst",
+        "docs/process_specs/tables/curr_dens_params.csv",
+        "docs/contents/device_libraries/capacitors.rst"
+      ],
+      "models_imported": false
+    }
+  },
+  "remaining_requirements": [
+    "Four unavailable electrical bindings.",
+    "Source-backed device operating/reliability applicability and calibration.",
+    "Remaining physical/extracted classes and applicable statistical/RF behavior.",
+    "Fresh exact-candidate installed Windows/Linux acceptance."
+  ],
+  "limitations": "Bounded comparison and exact-file review. No exhaustive absence claim, substituted model, adjusted tolerance, or new qualification is inferred."
+}

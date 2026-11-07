@@ -1,0 +1,332 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "BOUNDED_SOURCE_PASS",
+  "scope": "Shared-bottom SKY130 MiM orientation and finite native import/DRC/LVS proof; no electrical, installed or family qualification.",
+  "qualified": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "gates_changed": false,
+  "base_commit": "5b20e6c667112964fc7857b65bde2a68ec5e35bf",
+  "frozen_owned_sources": {
+    "icstudio/sky130_mim2_extract.py": "593adee6f23d4f450a2097175e70937967b718d3e90f74b9ad92443dde1f1548",
+    "scripts/qualify_sky130_mim_shared.py": "eb0828403f6128197a9048bc3ec4e7d45ff380cf298807e22ac8dca0814821fa",
+    "scripts/audit_sky130_mim_shared.py": "ce021979a712c4e426014865d74fd24c352759206b156f30016eb3b0c14510f9",
+    "tests/test_sky130_mim_shared.py": "dd46cfa5dd5c0328479ab9c9a1da11915c0dca7a8bbc99590c209084a0c19ad1"
+  },
+  "frozen_fixture_files": {
+    "tests/fixtures/sky130-mim-shared-v1/job/layout.gds": "41cd1b38256c68d7a69b52e6b3398dc4a50f67cecb3741aae65395a91003fef7",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs/lvs.log": "a764a94510aeeb6dd4f0754cae68cbd9cfbe2dca08a628e90a007e9152b60f1b",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/device_coupon.ext": "9cfdd0da849efcfafbf2cc94dada204f12d9eb2a3cae45e3cbfb2d44168d3533",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/extracted.spice": "cf208d253287a7e5e98fa1de21d731f7f34dc5ae3870dabde88ee083f4068430",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/mim-orientation.json": "059077d892afaf2cafcb94e5d2419cd3134b209dbb4fdc966fa885d696b44cc3",
+    "tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/native-original.ext": "58565e177ceb77dc1d045e50b8640e27e8bb0afa52422f00cd2ee31f0c50d052",
+    "tests/fixtures/sky130-mim-shared-v1/SOURCE.json": "12aa3aa6e26b8fd46df6680aea1677ed43f8e02b0141c4c19ee3e2f7e126f21f"
+  },
+  "reproduction": {
+    "record": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\sky-mim-class-scout\\native-v1\\scout.json",
+      "sha256": "2c090b7e951735346109087e46fc50adb5ab3f44026f1e9ead381f935ab08ace"
+    },
+    "ordinary_application": "Both existing shared-bottom constructions fail lvs_extraction at the blanket shared guard.",
+    "independent_native": "Both have zero Magic/public DRC violations, two correctly dimensioned ordered P/N native intrinsic units and strict Netgen LVS match.",
+    "construction": "Existing two-unit 2x10um masks plus one same-net lower-metal bridge; no altered capacitor markers, contacts or upper routing."
+  },
+  "implementation": {
+    "capability": "Partition each continuous bottom plate external contact by unique axis projection to exactly one wholly contained rectangular capacitor, requiring a nonempty collinear group for every unit.",
+    "preserved": "Existing isolated/ring behavior, square dispatch, pinned technology/PCell identities, nonsquare 2-30um/5nm limits and first-plate5:1 aspect check.",
+    "not_inferred": "These bounds are generator/application checks, not new model-validity limits or shared-plate resistance calibration."
+  },
+  "native_development": {
+    "directory": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\sky-mim-shared-pilot2\\evidence",
+    "native_directory": "/var/tmp/icstudio-sky-mim-shared-20261107-pilot2/evidence",
+    "source_construction": "Immutable Git base plus only four owned source overlays; no moving MOS implementation.",
+    "source_manifest": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\sky-mim-shared-pilot2\\manifest.json",
+      "sha256": "7bcc5b8880085745e94004bbaed5e0f73b9c3d2099bba601f68cb9f64e1fd94a"
+    },
+    "source_files_verified_before_and_after": 7056,
+    "report": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\sky-mim-shared-pilot2\\evidence\\report.json",
+      "sha256": "d72a1dd646ebaa762e4b48c750e49cea9b7fe717b0b1d2b5bd78d1c53c11f752"
+    },
+    "verification": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\sky-mim-shared-pilot2\\evidence\\verification.json",
+      "sha256": "9d9aeb49719f12c57da1f9ff0ea477c93a9953a1197a895e988053c530c49078"
+    },
+    "results": {
+      "status": "PASS",
+      "qualified": false,
+      "installed_acceptance": false,
+      "files_verified": 319,
+      "positive_cases": 4,
+      "missing_contact_controls": 2,
+      "native_reference_faults": 4,
+      "cases": [
+        {
+          "plate": 1,
+          "angle": 0,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 0,
+          "native_sha256": "31eebc83211f9cb216740c7c186bc9d8e6c7d1105680ef108cad0c3d680a8251",
+          "corrected_sha256": "31eebc83211f9cb216740c7c186bc9d8e6c7d1105680ef108cad0c3d680a8251"
+        },
+        {
+          "plate": 1,
+          "angle": 90,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 2,
+          "native_sha256": "58565e177ceb77dc1d045e50b8640e27e8bb0afa52422f00cd2ee31f0c50d052",
+          "corrected_sha256": "9cfdd0da849efcfafbf2cc94dada204f12d9eb2a3cae45e3cbfb2d44168d3533"
+        },
+        {
+          "plate": 2,
+          "angle": 0,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 0,
+          "native_sha256": "525748e4c26dfe0fea79bd6da94eeacb5ada20d9469ced65ea76eac1fddea3c5",
+          "corrected_sha256": "525748e4c26dfe0fea79bd6da94eeacb5ada20d9469ced65ea76eac1fddea3c5"
+        },
+        {
+          "plate": 2,
+          "angle": 90,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 2,
+          "native_sha256": "7a8a14e8385ac1ca87547c2d7f42da0ceb8e4c0ceac33959584faf50dc2540a2",
+          "corrected_sha256": "14c52e7a475b945763ae8b521910b5514fbfb841a844194b8268709434e5c52f"
+        }
+      ]
+    },
+    "finite_selection": "Both constructions, two 2x10um units, 0/90 degrees. At90degrees exactly two W/L token corrections; at0degrees raw/corrected bytes identical.",
+    "reader_revision": "Original guarded pilot2 reader. Final reader review below explicitly substitutes only the historical source guard; fresh final combined execution is separate."
+  },
+  "preserved_preparation_failure": {
+    "directory": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\sky-mim-shared-pilot1\\evidence",
+    "report": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\sky-mim-shared-pilot1\\evidence\\report.json",
+      "sha256": "a722b5ae094a764bc61b33966e80c942b107455cf0f8c7476094f44c6450ae32"
+    },
+    "reason": "An all-current tracked overlay captured sibling MOS hooks but omitted its untracked module; all four positive jobs failed with missing icstudio.mos_grouping after native LVS. Not accepted or relabeled.",
+    "resolution": "Fresh pilot2 source built from immutable5b20e6c plus only owned MiM overlays."
+  },
+  "focused_tests": {
+    "module": "tests.test_sky130_mim_shared",
+    "methods": 15,
+    "status": "PASS",
+    "host": "Windows ordinary user",
+    "temp": "C:/Users/jonah/Documents/Codex/c7t1106"
+  },
+  "independent_review": {
+    "record": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\mim-shared-bottom-independent-review\\shared-bottom-final-independent-review.json",
+      "sha256": "c2d27273668c82a4281abcb3aca06ad6b3c44e5050d0ee26535e8a19f99a2446"
+    },
+    "classifier_controls": 73,
+    "reader_controls": 10,
+    "status": "PASS_BOUNDED_REVIEW",
+    "historical_source_guard_substituted": true,
+    "current_source_native_acceptance": false,
+    "preserved_failures": [
+      "Aggregate contact counts accepted balanced double/unowned contacts; repaired per-cut ownership.",
+      "Summarized public DRC category/flag claims were insufficient; final reader checks actual pinned categories, settings, command and completion."
+    ]
+  },
+  "final_integration": {
+    "status": "FINAL_SHARED_NATIVE_PASS",
+    "record": "docs/validation/chunk7-mos-shared-integration-2026-11-07.json",
+    "native_directory": "/var/tmp/icstudio-grouping-shared-integration-20261107-v2/shared-native",
+    "copied_directory": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v2\\shared-native",
+    "source_manifest": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v2\\source-manifest.json",
+      "sha256": "92272e41610f2e32eadab6c324f0aef35641136e86528490fc425dc8ffe82ce3"
+    },
+    "source_files_verified_before_after": 7065,
+    "source_unchanged": true,
+    "closure": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v2\\shared-native-closure.json",
+      "sha256": "d51304237960a2dc842476a90dd8eb18be54444ccc30428b086a5f967770c121"
+    },
+    "report": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v2\\shared-native\\report.json",
+      "sha256": "dd40f2e36ac447b4e2972107804a9316192855004adbf7f3e139a292e7aba5c6"
+    },
+    "verification": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v2\\shared-native\\verification.json",
+      "sha256": "a3ff28509d0147c5940c07ad04db5193b13e540ae3b1667774bd0ae8c7d42455"
+    },
+    "log": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v2\\shared-native.log",
+      "sha256": "a0966565d0792a48fd551df22cd28b430320b0159ea74955efb4863e58902b55"
+    },
+    "windows_readback": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v2\\shared-native-windows-readback.json",
+      "sha256": "4521a47196f24c9e8cc5e4abf0491d07ceda19a1f4c75cc3d89d8fc5a96aad6d"
+    },
+    "source_guard_substituted": false,
+    "seconds": 17.483206356002484,
+    "deadline_seconds": 300,
+    "only_change_from_v1": {
+      "added": {
+        "tests/fixtures/sky130-mim-shared-v1/job/lvs/lvs.log": "a764a94510aeeb6dd4f0754cae68cbd9cfbe2dca08a628e90a007e9152b60f1b"
+      },
+      "changed_existing": [],
+      "deleted": []
+    },
+    "results": {
+      "status": "PASS",
+      "qualified": false,
+      "installed_acceptance": false,
+      "files_verified": 319,
+      "positive_cases": 4,
+      "missing_contact_controls": 2,
+      "native_reference_faults": 4,
+      "cases": [
+        {
+          "plate": 1,
+          "angle": 0,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 0,
+          "native_sha256": "1ea6b28debcb9ca6a505e38913bfd4eaab00ef3b1fc80013f9cdfb13190dd779",
+          "corrected_sha256": "1ea6b28debcb9ca6a505e38913bfd4eaab00ef3b1fc80013f9cdfb13190dd779"
+        },
+        {
+          "plate": 1,
+          "angle": 90,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 2,
+          "native_sha256": "e99f22825dd2fc6eb19cf12a64cca0f5c48c96cd19e50d7034fcd8d9a70e2713",
+          "corrected_sha256": "967df9db99383242267fb22187c109373ab89a0e8d41678cf68204d372f493c7"
+        },
+        {
+          "plate": 2,
+          "angle": 0,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 0,
+          "native_sha256": "6ad4c35284d49e9087be1f7a6a5f0a9dc7644d0e8a7522698ca42aaf456b91c1",
+          "corrected_sha256": "6ad4c35284d49e9087be1f7a6a5f0a9dc7644d0e8a7522698ca42aaf456b91c1"
+        },
+        {
+          "plate": 2,
+          "angle": 90,
+          "intrinsic_units": 2,
+          "written_shared_bottom_components": 1,
+          "normalization_changes": 2,
+          "native_sha256": "90da1d0d42c4afd256f8d11b4cd1199db0d58a421f6e61d8ae55602fa2cd7209",
+          "corrected_sha256": "83776b5cef4c7ff3f7cdeead78d67096e8706fc4412a566a330d78cba374cbaa"
+        }
+      ]
+    },
+    "note": "Fresh v2 combined guarded source/native acceptance. The separate parent integration record owns affected Windows/Linux suite outcomes; no installed or electrical claim."
+  },
+  "remaining": [
+    "Mixed per-unit X/Y directions have geometric controls only, not this finite native proof.",
+    "Stacked overlap, dummy devices, ambiguous contact coverage and arbitrary imported routing.",
+    "Direct hierarchical native extraction and distributed/substrate/top-sheet accuracy.",
+    "Complete electrical validity/accuracy limits, statistical and reliability calibration."
+  ],
+  "chunk7_engineering_estimate": {
+    "percent": 74,
+    "confidence": "low",
+    "conditional_range_percent": [
+      55,
+      82
+    ],
+    "changed_by_this_record": false,
+    "verified_acceptance": false
+  },
+  "preserved_combined_attempts": [
+    {
+      "status": "NATIVE_PASS_COMBINED_SUITE_FIXTURE_OMISSION",
+      "record": "docs/validation/chunk7-mos-shared-integration-2026-11-07.json",
+      "native_directory": "/var/tmp/icstudio-grouping-shared-integration-20261107-v1/shared-native",
+      "copied_directory": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v1\\shared-native",
+      "source_manifest": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v1\\source-manifest.json",
+        "sha256": "80da39a71eb0e8ff3b15fa7a198bce3bca01278fb0df43d1b71ce3d910d58b4c"
+      },
+      "source_files_verified_before_after": 7064,
+      "source_unchanged": true,
+      "closure": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v1\\shared-native-closure.json",
+        "sha256": "f422058faa44e51ae892943aa4dbb7ffa80de35ac08247744cf219855291706b"
+      },
+      "report": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v1\\shared-native\\report.json",
+        "sha256": "cf4dcbac3eea5ce6144571a1e86b9d26bd80f4eada78258122560a8108f941aa"
+      },
+      "verification": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v1\\shared-native\\verification.json",
+        "sha256": "a387fc33c568e092bef9bbb835b2975560325d36762efe1818967b94e6ae8442"
+      },
+      "log": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v1\\shared-native.log",
+        "sha256": "606f28fc044d7991bdd53ae583359fc6d665aaa135d4e523c1b3e22c87940f82"
+      },
+      "windows_readback": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\grouping-shared-integration-v1\\shared-native-windows-readback.json",
+        "sha256": "45fdce36be1898c471753b8893b1574dba72ab6dca6d7502e2e12e3049f22827"
+      },
+      "source_guard_substituted": false,
+      "seconds": 17.434021070999734,
+      "deadline_seconds": 300,
+      "results": {
+        "status": "PASS",
+        "qualified": false,
+        "installed_acceptance": false,
+        "files_verified": 319,
+        "positive_cases": 4,
+        "missing_contact_controls": 2,
+        "native_reference_faults": 4,
+        "cases": [
+          {
+            "plate": 1,
+            "angle": 0,
+            "intrinsic_units": 2,
+            "written_shared_bottom_components": 1,
+            "normalization_changes": 0,
+            "native_sha256": "8f365f913372ebf9c074e6a183531f9fd800ceb8915455d4a07678ab73d9527a",
+            "corrected_sha256": "8f365f913372ebf9c074e6a183531f9fd800ceb8915455d4a07678ab73d9527a"
+          },
+          {
+            "plate": 1,
+            "angle": 90,
+            "intrinsic_units": 2,
+            "written_shared_bottom_components": 1,
+            "normalization_changes": 2,
+            "native_sha256": "dd8df2f000ff58ca0eadb49b1c8593bab7d9611051606eda7d1bb13855f1d76a",
+            "corrected_sha256": "fd4b441ff019ac96675dba0e3825733ced053e150c3a126506b6eaeb0b7aa877"
+          },
+          {
+            "plate": 2,
+            "angle": 0,
+            "intrinsic_units": 2,
+            "written_shared_bottom_components": 1,
+            "normalization_changes": 0,
+            "native_sha256": "4733075f143c1ea5ff5e2f46dc34876c60beef7973bd57cb2fc6ff45e7190a57",
+            "corrected_sha256": "4733075f143c1ea5ff5e2f46dc34876c60beef7973bd57cb2fc6ff45e7190a57"
+          },
+          {
+            "plate": 2,
+            "angle": 90,
+            "intrinsic_units": 2,
+            "written_shared_bottom_components": 1,
+            "normalization_changes": 2,
+            "native_sha256": "60f2777167a7ac774e7833be3a9c5e2ece5da276cbbba713a80c62fcb4f304b9",
+            "corrected_sha256": "c6b1e052728d0eb54b4fc1a80092be8420145651edd290e2025ae2fec612d7a5"
+          }
+        ]
+      },
+      "note": "Fresh combined guarded source/native acceptance. The separate parent integration record owns affected Windows/Linux suite outcomes; no installed or electrical claim.",
+      "accepted_as_final_integration": false,
+      "failure": "The global *.log ignore omitted the authentic fixture job/lvs/lvs.log from the v1 source snapshot. The Linux physical test suite failed on that missing input; v1 native execution itself passed.",
+      "resolution": "Root explicitly stages the unchanged authentic fixture log and freezes v2. Exactly one source file added; zero existing files changed/deleted. Final suites/native repeat under v2."
+    }
+  ]
+}

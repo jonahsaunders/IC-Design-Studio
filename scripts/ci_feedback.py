@@ -10,6 +10,9 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
+if __package__ in (None, ''):
+    sys.path.insert(0, str(ROOT))
+
 UNIT_MODULES = (
     'test_ci_candidate', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
     'test_core', 'test_lifecycle', 'test_workflows', 'test_project_pdk',
@@ -18,19 +21,20 @@ UNIT_MODULES = (
     'test_digital.DigitalChildEnvironmentTests', 'test_digital.YosysIntegrationTests',
     'test_analog.AnalogTests.test_capabilities_do_not_trust_catalog_or_metadata',
     'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
+    'test_sky130_retained_catalog', 'test_digital_platforms',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
-    'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_sky130_li_linked',
+    'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
     'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
     'test_ihp_capacitor_corners', 'test_ihp_cmim_boundary', 'test_ihp_cmim_lvs_reference', 'test_hierarchical_lvs_reference',
     'test_ihp_metal_spacing', 'test_ihp_klayout_drc', 'test_ihp_cmim_process_control', 'test_ihp_cmim_enclosures',
     'test_ihp_cmim_multiplicity', 'test_ihp_cmim_multiplicity_electrical',
     'test_ihp_cmim_desktop_probe', 'test_frozen_ihp_cmim', 'test_release_ihp_cmim_evidence', 'test_ci_windows_native_identity',
-    'test_ihp_cmim_capacitance', 'test_ihp_managed_saved_bench', 'test_physical_backend', 'test_wsl_platform_capture', 'test_ihp_backend_packaging',
+    'test_ihp_cmim_capacitance', 'test_ihp_cmim_parallel', 'test_ihp_managed_saved_bench', 'test_physical_backend', 'test_wsl_platform_capture', 'test_ihp_backend_packaging',
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
-    'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_contact_topology',
+    'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_shared', 'test_sky130_mim_contact_topology',
     'test_mim_desktop_probe', 'test_frozen_mim', 'test_sky130_pw2dn_native_probe',
     'test_frozen_esd', 'test_frozen_esd_default', 'test_sky130_esd_default_candidate', 'test_sky130_mos_voltage_contract', 'test_sky130_mos_voltage_source', 'test_sky130_contract_versions',
     'test_metal_hierarchy_electrical', 'test_sky130_mim_conditioning',
@@ -56,13 +60,23 @@ UNIT_MODULES = (
     'test_sky130_mim_hierarchy_electrical', 'test_sky130_mim_hierarchy_electrical_audit',
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
+    'test_ihp_l2n0_reference', 'test_sky130_release_inventory', 'test_upstream_semantics',
+    'test_source_dispositions', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
+    'test_cvc_models', 'test_physical_layers',
+    'test_legacy_symbols',
+    'test_schematic_views',
 )
 
 
 # Keep the complete selection above auditable while bounding each subprocess.
-# The former single unit stage exceeded 300 seconds on ordinary Windows.
+# Physical coverage outgrew the original unit stage on ordinary Windows.
+# Preserve the complete ordered selection and the existing per-child deadline.
+_IHP_STAGE_START = UNIT_MODULES.index('test_ihp_hv_mos_layouts')
+_PHYSICAL_STAGE_START = UNIT_MODULES.index('test_resistor_layout_qualification')
 _DEVICE_STAGE_START = UNIT_MODULES.index('test_sky130_metal_editor')
-UNIT_STAGE_MODULES = UNIT_MODULES[:_DEVICE_STAGE_START]
+UNIT_STAGE_MODULES = UNIT_MODULES[:_IHP_STAGE_START]
+IHP_STAGE_MODULES = UNIT_MODULES[_IHP_STAGE_START:_PHYSICAL_STAGE_START]
+PHYSICAL_STAGE_MODULES = UNIT_MODULES[_PHYSICAL_STAGE_START:_DEVICE_STAGE_START]
 DEVICE_STAGE_MODULES = UNIT_MODULES[_DEVICE_STAGE_START:]
 
 
@@ -78,7 +92,7 @@ PACKAGE_MODULES = (
 # Independent bounded stage avoids adding new portable release and runtime
 # checks to the already substantial unit/package stages.
 RUNTIME_RELEASE_MODULES = (
-    'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
+    'test_openems_runtime', 'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
     'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
     'test_release_qualification', 'test_publish_prerelease',
 )
@@ -104,16 +118,44 @@ def check_syntax(root=ROOT):
 
 def source_identity(root=ROOT):
     files = python_sources(root)
+    files += [p for p in (root / 'tests/fixtures/ihp-l2n0-reference-v1').glob('*') if p.is_file()]
+    # Semantic inventories consume authenticated upstream graphs and the exact
+    # release asset list; bind those inputs alongside their runners and tests.
+    for name in ('upstream-view-inputs-2026-10-20.json.gz',
+                 'upstream-views-2026-10-20.json.gz',
+                 'sky130-release-inputs-2026-11-07.json',
+                 'upstream-semantics-gf-inputs-2026-11-07.json.gz',
+                 'source-dispositions-companion-inputs-2026-11-07.json.gz',
+                 'upstream-semantics-inventory-2026-11-07-v2.json.gz',
+                 'sky130-release-inventory-2026-11-07.json.gz'):
+        source = root / 'docs/qualification' / name
+        if source.is_file():
+            files.append(source)
+    matrix = root / 'docs/qualification/pdk-matrix.json'
+    if matrix.is_file(): files.append(matrix)
+    files += [p for p in (root / 'docs/validation/chunk7-openems-retained-source-2026-11-07').glob('*')
+              if p.is_file()]
+    # Retained qualification tests authenticate historical inputs separately
+    # from live application code. Bind that complete selection to this run too.
+    from scripts import sky130_retained_catalog as retained
+    baseline = root / retained.BASELINE
+    if baseline.is_file():
+        prior = json.loads(baseline.read_bytes())
+        names = {retained.BASELINE, retained.AUDIT, *prior['inputs'],
+                 *(retained.SNAPSHOTS.get(name, name) for name in prior['source_files'])}
+        files += [root / name for name in names]
     fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
     if fixture.is_file():
         files.append(fixture)
     fixture = root / 'tests/fixtures/esd-installed-headers-v1.json'
     if fixture.is_file():
         files.append(fixture)
-    for name in ('SOURCE.json', 'LICENSE', 'coupon.ext', 'hierarchical.spice', 'flat.spice'):
-        fixture = root / 'tests/fixtures/ihp-cmim-capacitance-v1' / name
-        if fixture.is_file():
-            files.append(fixture)
+    for folder in ('ihp-cmim-capacitance-v1', 'ihp-cmim-parallel-v1'):
+        for name in ('SOURCE.json', 'LICENSE', 'coupon.ext', 'hierarchical.spice', 'flat.spice'):
+            fixture = root / 'tests/fixtures' / folder / name
+            if fixture.is_file():
+                files.append(fixture)
+    files += [p for p in (root / 'tests/fixtures/sky130-mim-shared-v1').rglob('*') if p.is_file()]
     for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy',
                    'sky130-esd-nvt-source-v1', 'sky130-esd-predecessor-v1', 'sky130-pw2dn-predecessor-v1'):
         files += [p for p in (root / 'icstudio/assets/qualification' / folder).glob('*') if p.is_file()]
@@ -197,6 +239,10 @@ def stages(output=ROOT / 'build/ci-feedback'):
     return [
         ('unit-contracts', [sys.executable, '-m', 'unittest',
                             *('tests.' + name for name in UNIT_STAGE_MODULES), '-v']),
+        ('ihp-contracts', [sys.executable, '-m', 'unittest',
+                          *('tests.' + name for name in IHP_STAGE_MODULES), '-v']),
+        ('physical-contracts', [sys.executable, '-m', 'unittest',
+                               *('tests.' + name for name in PHYSICAL_STAGE_MODULES), '-v']),
         ('device-contracts', [sys.executable, '-m', 'unittest',
                               *('tests.' + name for name in DEVICE_STAGE_MODULES), '-v']),
         ('package-contracts', [sys.executable, '-m', 'unittest',

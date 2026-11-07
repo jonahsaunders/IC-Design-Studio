@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "model": "sky130_fd_pr__cap_mim_m3_1",
+  "models": [
+    "sky130_fd_pr__cap_mim_m3_1"
+  ],
+  "technology_sha256": "5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e",
+  "pcell_sha256": "48d2111c3246cbbed88bca5cf479dd8edc4ce4629d5241cca4102368765da69a",
+  "source_convention": "sky130::cap_device: W along the bottom-contact direction; L perpendicular.",
+  "gds_sha256": "41cd1b38256c68d7a69b52e6b3398dc4a50f67cecb3741aae65395a91003fef7",
+  "native_coordinate_nm": 10,
+  "gds_dbu_um": 0.001,
+  "electrodes": [
+    {
+      "model": "sky130_fd_pr__cap_mim_m3_1",
+      "box": [
+        -24000,
+        0,
+        -14000,
+        2000
+      ],
+      "axis": "y",
+      "bottom_contacts": [
+        [
+          -19500,
+          3000,
+          -19300,
+          3200
+        ],
+        [
+          -19100,
+          3000,
+          -18900,
+          3200
+        ],
+        [
+          -18700,
+          3000,
+          -18500,
+          3200
+        ],
+        [
+          -19500,
+          3400,
+          -19300,
+          3600
+        ],
+        [
+          -19100,
+          3400,
+          -18900,
+          3600
+        ],
+        [
+          -18700,
+          3400,
+          -18500,
+          3600
+        ],
+        [
+          -19500,
+          3800,
+          -19300,
+          4000
+        ],
+        [
+          -19100,
+          3800,
+          -18900,
+          4000
+        ],
+        [
+          -18700,
+          3800,
+          -18500,
+          4000
+        ]
+      ],
+      "shared_bottom_electrodes": 2,
+      "convention": "Unique bottom-contact axis projection per electrode; contacts inside any capacitor marker are top contacts."
+    },
+    {
+      "model": "sky130_fd_pr__cap_mim_m3_1",
+      "box": [
+        -10000,
+        0,
+        0,
+        2000
+      ],
+      "axis": "y",
+      "bottom_contacts": [
+        [
+          -5500,
+          3000,
+          -5300,
+          3200
+        ],
+        [
+          -5100,
+          3000,
+          -4900,
+          3200
+        ],
+        [
+          -4700,
+          3000,
+          -4500,
+          3200
+        ],
+        [
+          -5500,
+          3400,
+          -5300,
+          3600
+        ],
+        [
+          -5100,
+          3400,
+          -4900,
+          3600
+        ],
+        [
+          -4700,
+          3400,
+          -4500,
+          3600
+        ],
+        [
+          -5500,
+          3800,
+          -5300,
+          4000
+        ],
+        [
+          -5100,
+          3800,
+          -4900,
+          4000
+        ],
+        [
+          -4700,
+          3800,
+          -4500,
+          4000
+        ]
+      ],
+      "shared_bottom_electrodes": 2,
+      "convention": "Unique bottom-contact axis projection per electrode; contacts inside any capacitor marker are top contacts."
+    }
+  ],
+  "changes": [
+    {
+      "electrode": 1,
+      "before": "device csubckt sky130_fd_pr__cap_mim_m3_1 -1000 0 -999 1 w=1000 l=200 \"None\" \"P\" 2208 0 \"N\" 0 1250000,6000",
+      "after": "device csubckt sky130_fd_pr__cap_mim_m3_1 -1000 0 -999 1 w=200 l=1000 \"None\" \"P\" 2208 0 \"N\" 0 1250000,6000"
+    },
+    {
+      "electrode": 0,
+      "before": "device csubckt sky130_fd_pr__cap_mim_m3_1 -2400 0 -2399 1 w=1000 l=200 \"None\" \"P\" 2208 0 \"N\" 0 1250000,6000",
+      "after": "device csubckt sky130_fd_pr__cap_mim_m3_1 -2400 0 -2399 1 w=200 l=1000 \"None\" \"P\" 2208 0 \"N\" 0 1250000,6000"
+    }
+  ],
+  "native_sha256": "58565e177ceb77dc1d045e50b8640e27e8bb0afa52422f00cd2ee31f0c50d052",
+  "scope": "Nonsquare capm/cap2m correction is bounded to 2\u201330 \u00b5m on the 5 nm grid (first plate at most 5:1), each capacitor wholly inside one continuous bottom electrode. Shared bottom plates require a uniquely attributable, nonempty collinear contact group for every electrode. Correct unambiguous contact axes; reflection-symmetric four-sided contacts retain native global X/Y without a unique-orientation or RF-resistance claim. True squares retain native dimensions without inheriting these correction bounds or an electrical-validity qualification. Connectivity and all other native values are unchanged.",
+  "corrected_sha256": "9cfdd0da849efcfafbf2cc94dada204f12d9eb2a3cae45e3cbfb2d44168d3533"
+}

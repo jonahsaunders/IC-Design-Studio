@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "reviewed_not_a_required_binding",
+  "repository": "https://github.com/gdsfactory/IHP",
+  "revision": "fc668efa7708bab1a539f019b272f8dd439b3b6d",
+  "license": "Apache-2.0 root LICENSE; original IHP notice in bondpad file. Review covers only listed files, not third-party model directories.",
+  "files": [
+    {
+      "path": "ihp/models/ngspice/models/ihp_inductor_rl.lib",
+      "git_blob": "66e8cb49abfe2e493900b56537fcd2ccad9ec1e2",
+      "sha256": "1eab9fb558d4310137ab07c68a2e5448bae82c3caff0a4a27b59809a1dbbb8ae",
+      "bytes": 495,
+      "url": "https://github.com/gdsfactory/IHP/blob/fc668efa7708bab1a539f019b272f8dd439b3b6d/ihp/models/ngspice/models/ihp_inductor_rl.lib"
+    },
+    {
+      "path": "ihp/models/sax/inductors.py",
+      "git_blob": "a1b8063199ad46b74dc10c646d0e34e3af30042f",
+      "sha256": "f14984217fa824bc3eb434b832f46fbdf5a70cf19ef520869fe6355bdcb13ce0",
+      "bytes": 2409,
+      "url": "https://github.com/gdsfactory/IHP/blob/fc668efa7708bab1a539f019b272f8dd439b3b6d/ihp/models/sax/inductors.py"
+    },
+    {
+      "path": "ihp/models/ngspice/models/sg13g2_bondpad.lib",
+      "git_blob": "db9ba83975554fdfde44ce9e1ab33f24370c520f",
+      "sha256": "32907cc836303840c58fdb44816a7ae47d64b12b96bda804247f7c86eb4fb764",
+      "bytes": 908,
+      "url": "https://github.com/gdsfactory/IHP/blob/fc668efa7708bab1a539f019b272f8dd439b3b6d/ihp/models/ngspice/models/sg13g2_bondpad.lib"
+    },
+    {
+      "path": "LICENSE",
+      "git_blob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357,
+      "url": "https://github.com/gdsfactory/IHP/blob/fc668efa7708bab1a539f019b272f8dd439b3b6d/LICENSE"
+    },
+    {
+      "path": "docs/materials.md",
+      "git_blob": "cc5dc6a610799999ff493fe82c46f5f2181e0d1f",
+      "sha256": "c3be1b7544c53e2cab8ae0fe5c84999b499416bff7bdcaeef5562a64ba46b848",
+      "bytes": 4148,
+      "url": "https://github.com/gdsfactory/IHP/blob/fc668efa7708bab1a539f019b272f8dd439b3b6d/docs/materials.md"
+    }
+  ],
+  "imported_into_application": false,
+  "executed": false,
+  "qualified": false,
+  "chunk_complete": false,
+  "findings": [
+    "ihp_inductor_rl is an explicitly package-authored two-terminal series R-L approximation, not an IHP-released compact model. The caller supplies L and R; it lacks the catalog substrate terminal and geometry-dependent calibrated parasitics.",
+    "The SAX inductor3 function returns the same two-port series impedance. Its suggestion to split two series elements does not establish measured center-tap/substrate coupling or the required four-terminal electrical behavior.",
+    "The bondpad subcircuit contains parameters but no electrical elements and remains a placeholder.",
+    "RF material cards trace nominal constants to an already-public Palace stack. Their documentation explicitly lacks a frequency validity band and temperature dependence; they do not supply the missing full operating/reliability envelope.",
+    "These licensed examples may support explicitly scoped educational or solver experiments. They cannot replace the four required missing bindings or change existing qualification gates."
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "chunk": 7,
+  "source_baseline": "c04c993af82de0a97769b34a61355daa948dc7c0",
+  "status": "EXACT_SOURCE_SEMANTIC_REVIEW_NO_REQUIRED_BINDING_ESTABLISHED",
+  "qualified": false,
+  "chunk_complete": false,
+  "package_changed": false,
+  "models_imported": false,
+  "native_runs": 0,
+  "scope": "Narrow follow-through on missing binding identity, terminal semantics and possible upstream conversion. The broader current source inventories are separate; no exhaustive absence claim is made here.",
+  "sources": [
+    {
+      "label": "upstream_nhv_model",
+      "repository": "fossi-foundation/skywater-pdk-libs-sky130_fd_pr",
+      "revision": "29b55153fd9f4badef05a02667184b81789d1f61",
+      "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.model.spice",
+      "git_blob": "a22a2156c5dc4bd06b2ad9f2b434d28a35ae0a9d",
+      "sha256": "2bb6db3a27902e6e3f95c4184f28347650bfdca806fe0a3e5b4f3d658243c060",
+      "url": "https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_pr/blob/29b55153fd9f4badef05a02667184b81789d1f61/cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.model.spice"
+    },
+    {
+      "label": "current_xschem_symbol",
+      "repository": "StefanSchippers/xschem_sky130",
+      "revision": "2bfd7d654e12492d47986b78e68bb770e633b5da",
+      "path": "sky130_fd_pr/vpp_cap.sym",
+      "git_blob": "5b9ce3a6def5f533ebbd2916ea6cb1ca5ef38423",
+      "sha256": "3a375a4ac0865a9bb920d908c7202f85a57a8ba012e870b114cb1e166785d2cf",
+      "url": "https://github.com/StefanSchippers/xschem_sky130/blob/2bfd7d654e12492d47986b78e68bb770e633b5da/sky130_fd_pr/vpp_cap.sym"
+    },
+    {
+      "label": "physical_cdl",
+      "repository": "fossi-foundation/skywater-pdk-libs-sky130_fd_pr",
+      "revision": "29b55153fd9f4badef05a02667184b81789d1f61",
+      "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.cdl",
+      "git_blob": "94f1bc8ec62dbc84f22e59320d448e24ac4e4280",
+      "sha256": "d5e8ee3b0af5e84d14c79585d3e7eb4255730c5f3c1d4fd0888c616dac43aa75",
+      "url": "https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_pr/blob/29b55153fd9f4badef05a02667184b81789d1f61/cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.cdl"
+    },
+    {
+      "label": "open_pdks_rename_models",
+      "repository": "fossi-foundation/open-pdks",
+      "revision": "c6df28c1fccb05c286aa0a15e9c4c7dcd8502607",
+      "path": "sky130/custom/scripts/rename_models.py",
+      "git_blob": "f110628bb98df4941fe2d0f8759aadfec543f540",
+      "sha256": "1f09c43c066b8622216bb768e6c5c74ab83cfca76154ab9a34fb06f8e0eb4012",
+      "url": "https://github.com/fossi-foundation/open-pdks/blob/c6df28c1fccb05c286aa0a15e9c4c7dcd8502607/sky130/custom/scripts/rename_models.py"
+    },
+    {
+      "label": "open_pdks_rename_cells",
+      "repository": "fossi-foundation/open-pdks",
+      "revision": "c6df28c1fccb05c286aa0a15e9c4c7dcd8502607",
+      "path": "sky130/custom/scripts/rename_cells.py",
+      "git_blob": "2916d3f99e5bf462164db836306ef15985458135",
+      "sha256": "ae547e6fb5349d0030afcf2ceb2d716a2b97ad2f945b5ac61489c36bc91b1c6a",
+      "url": "https://github.com/fossi-foundation/open-pdks/blob/c6df28c1fccb05c286aa0a15e9c4c7dcd8502607/sky130/custom/scripts/rename_cells.py"
+    },
+    {
+      "label": "open_pdks_makefile",
+      "repository": "fossi-foundation/open-pdks",
+      "revision": "c6df28c1fccb05c286aa0a15e9c4c7dcd8502607",
+      "path": "sky130/Makefile.in",
+      "git_blob": "2f6658c1fcc0a995f0c6032f63ca0ba20e5e6cce",
+      "sha256": "f099a75241966514bb5807c6f75d44a95c820ae51060b9c8015766c12315cdd8",
+      "url": "https://github.com/fossi-foundation/open-pdks/blob/c6df28c1fccb05c286aa0a15e9c4c7dcd8502607/sky130/Makefile.in"
+    }
+  ],
+  "symbol_history": [
+    {
+      "repository": "StefanSchippers/xschem_sky130",
+      "revision": "9de89bd02e8c10dd0292c96b11f217198f552492",
+      "date": "2020-10-26",
+      "path": "sky130_fd_pr/vpp_cap.sym",
+      "git_blob": "4285a4c075df3d70cd1a4e72d9cb1992af13d51b",
+      "url": "https://github.com/StefanSchippers/xschem_sky130/commit/9de89bd02e8c10dd0292c96b11f217198f552492",
+      "evidence": "GitHub commit patch adds the symbol with unsuffixed choice in available_models, W/L parameters, and c0 c1 top sub terminals. The missing spelling was present in the original symbol addition; this application did not invent it."
+    },
+    {
+      "repository": "StefanSchippers/xschem_sky130",
+      "revision": "cde2cf2b44a64c51b5d7e85b8b5e1ec6a874240f",
+      "date": "2023-10-18",
+      "path": "sky130_fd_pr/vpp_cap.sym",
+      "git_blob": "d9f5ee6b44dc01176d1f6aae5b26741c7c1a8788",
+      "url": "https://github.com/StefanSchippers/xschem_sky130/commit/cde2cf2b44a64c51b5d7e85b8b5e1ec6a874240f",
+      "evidence": "GitHub commit patch removes W/L and replaces the top/sub terminals with b. It replaces available_models with capacitance display attributes, retaining the unsuffixed name at 340.9 fF. It supplies no _nhv alias or model-identity correction."
+    }
+  ],
+  "sky130": {
+    "device": "sky130_fd_pr/vpp_cap__sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5.sym",
+    "model": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+    "package_revision": "47dbd4fe43bfa7e4",
+    "package_manifest_sha256": "0c19e0ea5718a841045b597022d13f2dcb57e35cf8be9757b254fb465f2a35c4",
+    "source_symbol_sha256": "48aa348373dc6dd1549023c2b974d868452a5e6cdf248a13e287c418a861a69e",
+    "pin_order": [
+      "c0",
+      "c1",
+      "sub",
+      "top"
+    ],
+    "parameters": {
+      "mult": {
+        "default": "1",
+        "derived": false,
+        "integer": false,
+        "positive": true
+      }
+    },
+    "emit_parameters": {
+      "m": "mult",
+      "mult": "mult"
+    },
+    "unavailable": "The source symbol lists this model, but its definition is absent from the locked simulation libraries. No substitute is selected.",
+    "available_nhv_model": {
+      "name": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv",
+      "simulation_terminals": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ],
+      "component_statements": 12,
+      "component_references_to_declared_b": 0,
+      "internal_calls": [
+        {
+          "instance": "xvpp1",
+          "nodes": [
+            "c0",
+            "c1",
+            "c1"
+          ],
+          "model": "sky130_fd_pr__cap_vpp_04p4x04p6_m1m2_noshield_o1nhv"
+        },
+        {
+          "instance": "xvpp2",
+          "nodes": [
+            "c1",
+            "c0",
+            "c1",
+            "c1"
+          ],
+          "model": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv__base"
+        }
+      ],
+      "interpretation": "The four-terminal simulation declaration does not establish independent substrate response: b is unused by all twelve component statements and both internal body connections use c1. This is source-topology inspection, not a measured or simulated operating result.",
+      "packaged_sha256": "356505bb281f7cb2ec5df0fa2b7b3a209bd16ae93392adee1d4493dffde7f4be",
+      "packaged_internal_model_interfaces": [
+        {
+          "path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_04p4x04p6_m1m2_noshield_o1nhv.model.spice",
+          "sha256": "474aab67df14122e62ecfb615ece7b255d52bc72962b1f43d5531c4dfd1a835a",
+          "terminals": [
+            "c0",
+            "c1",
+            "b"
+          ]
+        },
+        {
+          "path": "libs.ref/sky130_fd_pr/spice/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv__base.model.spice",
+          "sha256": "64ea406efdc8dfa768a35c9bc573d12cb1e3aee43fcd361783e552dfa4ead7e2",
+          "terminals": [
+            "d",
+            "g",
+            "s",
+            "b"
+          ]
+        }
+      ],
+      "packaged_vs_upstream": "All twelve component statements match exactly. Complete file bytes differ because the packaged source has its retained statistical-expression conversion; current upstream source is not represented as a new package import."
+    },
+    "physical_view": {
+      "terminals": [
+        "C0",
+        "C1",
+        "MET5"
+      ],
+      "model_call_nodes": [
+        "C0",
+        "C1",
+        "C1",
+        "MET5"
+      ],
+      "interpretation": "The CDL wrapper ties the model body argument to C1. Its three-terminal order differs from the current generic Xschem c0 c1 b order; neither interface may be substituted by terminal count."
+    },
+    "current_xschem": {
+      "terminals": [
+        "c0",
+        "c1",
+        "b"
+      ],
+      "available_models_attribute_present": false,
+      "unsuffixed_display_value_f": 3.409e-13,
+      "interpretation": "This is a display attribute for a still-unsuffixed identity. It does not provide a .subckt, replacement terminal map, or evidence that the _nhv device is equivalent."
+    },
+    "open_pdks_conversion": {
+      "primitive_recipe_lines": [
+        1507,
+        1521
+      ],
+      "reviewed_filters": [
+        "sky130/custom/scripts/rename_models.py",
+        "sky130/custom/scripts/rename_cells.py"
+      ],
+      "finding": "The primitive Makefile invokes these filters. Their substitutions alter include paths only; neither supplies an unsuffixed-to-_nhv model alias or rewrites the terminal contract."
+    },
+    "correction_decision": "No scientifically justified correction of the required unsuffixed binding is established. A separately named _nhv catalog entry could be studied as new scope, but cannot close this required historical entry or silently modify saved revisions."
+  },
+  "ihp": {
+    "entries": [
+      {
+        "device": "sg13g2_pr/bondpad.sym",
+        "source": "libs.tech/xschem/sg13g2_pr/bondpad.sym",
+        "source_symbol_sha256": "140eeaf6c2d10eaa099616f6b547b5d178d6932b4e11c50d925763310bf5ce7f",
+        "model": "bondpad",
+        "unavailable": "Model is absent from the selected ngspice library closure."
+      },
+      {
+        "device": "sg13g2_pr/inductor.sym",
+        "source": "libs.tech/xschem/sg13g2_pr/inductor.sym",
+        "source_symbol_sha256": "7b4542146a127904be4ddb5069d3cd414936470593499abd9c204e3b90621b4e",
+        "model": "inductor",
+        "unavailable": "Model is absent from the selected ngspice library closure."
+      },
+      {
+        "device": "sg13g2_pr/inductor3.sym",
+        "source": "libs.tech/xschem/sg13g2_pr/inductor3.sym",
+        "source_symbol_sha256": "56c6db7b7fbeae03d3162cc9eeb41e99ee15f7ad4d826f465072e86bbf7cbad7",
+        "model": "inductor3",
+        "unavailable": "Model is absent from the selected ngspice library closure."
+      }
+    ],
+    "source_review": "The existing public-source and GDSFactory reviews remain authoritative. The concurrent complete-source inventory separately checks additional model locations. This narrow review does not repeat the known placeholder/series-RL dead ends.",
+    "symbol_contracts": {
+      "bondpad": {
+        "terminals": [
+          "pad"
+        ],
+        "parameters": [
+          "size",
+          "shape",
+          "padtype"
+        ]
+      },
+      "inductor": {
+        "terminals": [
+          "p",
+          "m",
+          "XXX"
+        ],
+        "visible_labels": [
+          "LA",
+          "LB",
+          "B"
+        ],
+        "parameters": [
+          "w",
+          "s",
+          "d",
+          "nr_r",
+          "m"
+        ],
+        "note": "The third source pin is literally named XXX while displayed as B. This label mismatch is not a released substrate model or sufficient basis for a binding."
+      },
+      "inductor3": {
+        "terminals": [
+          "LA",
+          "LC",
+          "LB",
+          "B"
+        ],
+        "parameters": [
+          "w",
+          "s",
+          "d",
+          "nr_r",
+          "m"
+        ]
+      }
+    }
+  },
+  "exact_missing_inputs": [
+    "SKY130: an authoritative unsuffixed electrical definition, or an explicit source-backed correction declaring intended _nhv identity, physical view, terminal/body/shield map and parameters; then relevant operating/statistical/reliability applicability and physical/extracted validation.",
+    "IHP bondpad: a nonempty released electrical model with defined pad/reference behavior, size/shape/padtype applicability, source identity and reusable license; then the required operating/reliability and extracted evidence.",
+    "IHP inductor: a released parameterized electrical model covering the symbol's two coil ends and body/reference, with w/s/d/nr_r/m semantics, frequency/temperature/geometry limits and validation uncertainty.",
+    "IHP inductor3: a released parameterized electrical model covering LA/LC/LB and body/reference, with center-tap and substrate behavior, w/s/d/nr_r/m semantics, frequency/temperature/geometry limits and validation uncertainty."
+  ],
+  "verification": {
+    "source_blob_hashes_verified": 6,
+    "current_package_manifest_verified": true,
+    "upstream_and_packaged_component_statements_match": true,
+    "source_files_executed": false,
+    "production_files_modified": false,
+    "scope": "Byte identities and source topology only. No solver, physical extraction, operating-envelope validation, or new family acceptance is claimed."
+  },
+  "engineering_estimate": {
+    "percent": 74,
+    "range_percent": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "verified_acceptance": false,
+    "changed": false
+  },
+  "related_records": [
+    "docs/validation/chunk7-vpp-history-review-2026-11-07.json",
+    "docs/validation/chunk7-public-source-review-2026-11-06.json",
+    "docs/validation/chunk7-gdsfactory-source-review-2026-11-07.json"
+  ]
+}

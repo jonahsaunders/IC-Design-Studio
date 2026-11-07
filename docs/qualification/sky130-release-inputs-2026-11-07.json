@@ -1,0 +1,93 @@
+{
+  "schema": 1,
+  "release_id": 76339333,
+  "repository": "chipfoundry/volare",
+  "tag": "sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+  "authentication": "GitHub release/asset identities and retrieval hashes. Original three archives match existing repository pins; the other four are newly pinned. Upstream asset digest fields are absent; no independent release signature is claimed.",
+  "archives": [
+    {
+      "name": "common.tar.zst",
+      "id": 123929774,
+      "bytes": 16569606,
+      "url": "https://github.com/chipfoundry/volare/releases/download/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392/common.tar.zst",
+      "api_url": "https://api.github.com/repos/chipfoundry/volare/releases/assets/123929774",
+      "created_at": "2023-08-31T11:22:14Z",
+      "updated_at": "2023-08-31T11:22:15Z",
+      "upstream_digest": null,
+      "pinned_sha256": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406",
+      "sha256": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406"
+    },
+    {
+      "name": "sky130_fd_io.tar.zst",
+      "id": 123929776,
+      "bytes": 50685688,
+      "url": "https://github.com/chipfoundry/volare/releases/download/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392/sky130_fd_io.tar.zst",
+      "api_url": "https://api.github.com/repos/chipfoundry/volare/releases/assets/123929776",
+      "created_at": "2023-08-31T11:22:18Z",
+      "updated_at": "2023-08-31T11:22:19Z",
+      "upstream_digest": null,
+      "pinned_sha256": null,
+      "sha256": "feaa2d40837ff272e6f3b9512b11b8c61c4356ccb939e2fd75443a50af66cb47"
+    },
+    {
+      "name": "sky130_fd_pr.tar.zst",
+      "id": 123929779,
+      "bytes": 14015443,
+      "url": "https://github.com/chipfoundry/volare/releases/download/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392/sky130_fd_pr.tar.zst",
+      "api_url": "https://api.github.com/repos/chipfoundry/volare/releases/assets/123929779",
+      "created_at": "2023-08-31T11:22:19Z",
+      "updated_at": "2023-08-31T11:22:20Z",
+      "upstream_digest": null,
+      "pinned_sha256": "41dc9098541ed3329eba4ec7f5dfd1422eb09e94b623ea1f6dc3895f9ccebf63",
+      "sha256": "41dc9098541ed3329eba4ec7f5dfd1422eb09e94b623ea1f6dc3895f9ccebf63"
+    },
+    {
+      "name": "sky130_fd_sc_hd.tar.zst",
+      "id": 123929788,
+      "bytes": 166744319,
+      "url": "https://github.com/chipfoundry/volare/releases/download/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392/sky130_fd_sc_hd.tar.zst",
+      "api_url": "https://api.github.com/repos/chipfoundry/volare/releases/assets/123929788",
+      "created_at": "2023-08-31T11:22:24Z",
+      "updated_at": "2023-08-31T11:22:27Z",
+      "upstream_digest": null,
+      "pinned_sha256": "d4081b3c0fbfa2afe31dba789c03157ad137ea08b11910e2c8b3ec81b2a61bf6",
+      "sha256": "d4081b3c0fbfa2afe31dba789c03157ad137ea08b11910e2c8b3ec81b2a61bf6"
+    },
+    {
+      "name": "sky130_fd_sc_hvl.tar.zst",
+      "id": 123929780,
+      "bytes": 54171210,
+      "url": "https://github.com/chipfoundry/volare/releases/download/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392/sky130_fd_sc_hvl.tar.zst",
+      "api_url": "https://api.github.com/repos/chipfoundry/volare/releases/assets/123929780",
+      "created_at": "2023-08-31T11:22:21Z",
+      "updated_at": "2023-08-31T11:22:22Z",
+      "upstream_digest": null,
+      "pinned_sha256": null,
+      "sha256": "2df7826900912a7986017604c16c0ab1caa1996a3c5e267bc0c6be695c0dcc11"
+    },
+    {
+      "name": "sky130_ml_xx_hd.tar.zst",
+      "id": 123929786,
+      "bytes": 9225,
+      "url": "https://github.com/chipfoundry/volare/releases/download/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392/sky130_ml_xx_hd.tar.zst",
+      "api_url": "https://api.github.com/repos/chipfoundry/volare/releases/assets/123929786",
+      "created_at": "2023-08-31T11:22:23Z",
+      "updated_at": "2023-08-31T11:22:23Z",
+      "upstream_digest": null,
+      "pinned_sha256": null,
+      "sha256": "3b27c44c9de9f3e4ba8477b5f42c2bb9bc5bb21aa387b564091b744b2b0b07c7"
+    },
+    {
+      "name": "sky130_sram_macros.tar.zst",
+      "id": 123929775,
+      "bytes": 30345017,
+      "url": "https://github.com/chipfoundry/volare/releases/download/sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392/sky130_sram_macros.tar.zst",
+      "api_url": "https://api.github.com/repos/chipfoundry/volare/releases/assets/123929775",
+      "created_at": "2023-08-31T11:22:16Z",
+      "updated_at": "2023-08-31T11:22:17Z",
+      "upstream_digest": null,
+      "pinned_sha256": null,
+      "sha256": "465c05a0626de37f0e87f7b0ed0fc36bbf69746327641fcf240902d940f29298"
+    }
+  ]
+}
