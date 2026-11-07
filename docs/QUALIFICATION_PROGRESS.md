@@ -5,12 +5,27 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**Current hosted candidate:** `fa01ffb566ba1fa1903dec58dabd9838a901712d`
+is published in [draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
+Its [source checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379665001)
+pass on both hosts. The [retained receipt](validation/chunk7-fa01ffb5-hosted-source-feedback-2026-11-07.json)
+verifies the merge tree equals the candidate tree and all 2,299 bound source files
+match. Each host passes 1,172 tests in 13 stages (37 Windows / 17 Linux skips),
+in 553.515 / 312.689 seconds; every child remains below 300 seconds.
+The [full desktop rerun](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379707594)
+is pending. At the November 7 handoff, candidate verification, both release-tool
+jobs and both digital-runtime jobs pass; Windows and Linux package jobs are
+running. Installed and archive acceptance remain unverified for this candidate.
+This documentation-only follow-through publishes the source receipt without
+restarting the immutable desktop run. Full chunk completion still requires the
+missing bindings and family applicability evidence described below.
+
 **November 7 release-archive follow-through:** candidate `19dfbe2` passes both
 package jobs and both installed-app test sequences, including the new IHP
 capacitor checker gate. Full desktop run `42303725949` nevertheless fails both
 release-archive checks. Linux rejects 25 valid case-distinct terminfo filename
 pairs; Windows detects a changed solver Python bytecode cache in the installed
-tree. These failures remain retained. A local repair uses target-specific path
+tree. These failures remain retained. The published repair uses target-specific path
 identity and prevents solver imports from writing bytecode; exact archive hashes,
 Windows alias rejection and all existing qualification gates remain required.
 The original GF180-tested solver launcher is retained byte-for-byte in a new
@@ -20,8 +35,8 @@ The [repair and retained failures](validation/chunk7-release-archive-repair-2026
 include independent raw readback of 432 installed-capacitor evidence files per
 host. Final local feedback passes all 13 stages and 1,172 tests per host (38
 Windows / 16 Linux skips), in 625.077 / 233.106 seconds. All 7,004 snapshot files
-remain unchanged during each run. Fresh hosted acceptance of the repair is
-pending. This closes neither full-family
+remain unchanged during each run. Hosted source feedback passes as recorded
+above; fresh installed and release-archive acceptance is pending. This closes neither full-family
 qualification nor release acceptance; the estimate remains 74% (55–82%, low).
 
 **November 6 hosted source follow-through:** exact candidate
@@ -44,8 +59,8 @@ tests previously blocked by `setUpClass` and three new regression tests.
 Both installed-app jobs began at approximately 01:50 UTC on November 7
 (`128261874515` Windows, `128261874621` Linux). Their application checks pass,
 but their final release assembly fails; neither complete job is accepted.
-This post-push receipt/tracker update is local while that
-repair is verified; the published PR remains at the failed candidate.
+The source and failure records accompany the November 7 repair; acceptance of
+that later candidate is recorded separately.
 Chunk 7 remains approximately 74% (55–82%, low confidence), with no family or
 matrix promotion.
 
