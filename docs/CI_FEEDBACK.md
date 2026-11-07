@@ -1,5 +1,31 @@
 # Source feedback and selected acceptance candidates
 
+The November 7 source-inventory additions join the existing bounded unit stages.
+Fast feedback checks declaration parsing, source changes, missing views and
+misleading model matches; complete archive/blob audits remain separately
+retained evidence. The exact upstream graph and release metadata are included
+in before/after source identity. All original stages and deadlines remain.
+
+The November 7 [release-archive repair](validation/chunk7-release-archive-repair-2026-11-07.json)
+adds a real solver bytecode-mutation control to the required runtime stage and
+binds the exact historical GF180 launcher snapshot into source feedback. Linux
+distribution names retain case-sensitive identity; Windows alias rejection and
+complete archive byte checks remain required. Local source success does not
+replace fresh exact-candidate release-archive acceptance.
+
+The November 6 [historical-source repair](validation/chunk7-retained-platform-source-repair-2026-11-06.json)
+adds retained SKY130 catalog authentication and current platform-staging tests
+to fast feedback. The historical baseline, audit and all 121 source/input paths
+join the before/after source inventory. The standalone runner resolves its
+repository imports without relying on an ambient Python import path.
+
+Windows timing exposed two overfull stages. The complete ordered unit selection
+now runs in four nonoverlapping groups: core, IHP, remaining physical contracts,
+and device contracts. All tests still execute exactly once, and each child keeps
+its original 300-second deadline. All 13 final local stages pass on both hosts;
+the retained failed attempts remain failed. Hosted and installed acceptance are
+separate requirements.
+
 The November 3 [source repair](validation/chunk7-desktop-source-repair-2026-11-03.json)
 adds the actual recovery-to-widget test order and the real long-path Yosys
 regression to fast feedback. Linux digital children with Yosys use a deterministic
@@ -81,7 +107,8 @@ creation and start timestamps for those additional measurements. Compare time
 to first useful failure and time to close a device family's remaining gates;
 smaller test counts alone do not establish faster qualification or completion.
 
-To reproduce the source lane locally, install `requirements.txt` and run
+To reproduce the source lane locally, install `requirements.txt` and
+`requirements-qualification.txt`, then run
 `python scripts/ci_feedback.py`. Native external engines are deliberately outside
 this lane; the selected acceptance workflows retain their existing commands,
 fault controls, raw evidence and release gates.

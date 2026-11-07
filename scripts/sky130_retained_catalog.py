@@ -25,6 +25,10 @@ SNAPSHOTS.update({name:'docs/validation/sky130-retained-integration-source-2026-
 # Preserve the exact tested converter; current mask-read safety is tested separately.
 SNAPSHOTS['icstudio/engines.py']='docs/validation/retained-engine-source-2026-10-18/engines.py.txt'
 
+# The baseline predates bounded WSL capture retries. Authenticate its original
+# platform staging source, while current capture behavior is tested separately.
+SNAPSHOTS['icstudio/digital_platform.py']='docs/validation/sky130-retained-platform-source-2026-11-06/digital_platform.py.txt'
+
 def require(condition,message):
     if not condition:raise ValueError(message)
 

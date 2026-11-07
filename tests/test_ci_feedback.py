@@ -4,6 +4,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 import tempfile
 from types import SimpleNamespace
 import unittest
@@ -23,6 +24,53 @@ def workflow(name):
 
 
 class FeedbackTests(unittest.TestCase):
+    def test_checked_in_semantic_inputs_authenticate_before_feedback(self):
+        import gzip
+        from scripts.inventory_sky130_release import verified_metadata
+        from scripts.inventory_upstream_semantics import load_sources
+        inputs = ROOT / 'docs/qualification'
+        verified_metadata(json.loads((inputs / 'sky130-release-inputs-2026-11-07.json').read_bytes()))
+        # Reconstruct the actual committed Git graphs, not only synthetic
+        # fixtures. Missing or altered metadata must fail before a CI snapshot.
+        files, closure = load_sources(inputs / 'upstream-view-inputs-2026-10-20.json.gz',
+                                      inputs / 'upstream-semantics-gf-inputs-2026-11-07.json.gz')
+        self.assertTrue(files)
+        self.assertTrue(closure['gf_parent_graph']['repositories'])
+        historical = json.loads(gzip.decompress((inputs / 'upstream-views-2026-10-20.json.gz').read_bytes()))
+        self.assertTrue(historical['files'])
+
+    def test_semantic_source_graphs_and_release_inputs_are_bound(self):
+        names = ('upstream-view-inputs-2026-10-20.json.gz',
+                 'upstream-views-2026-10-20.json.gz',
+                 'sky130-release-inputs-2026-11-07.json',
+                 'upstream-semantics-gf-inputs-2026-11-07.json.gz')
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = root / 'docs/qualification'
+            source.mkdir(parents=True)
+            for name in names:
+                (source / name).write_bytes(b'original authenticated input')
+            before = source_identity(root)
+            self.assertEqual(set(before), {'docs/qualification/' + name for name in names})
+            for name in names:
+                with self.subTest(name=name):
+                    path = source / name
+                    path.write_bytes(b'changed source metadata')
+                    self.assertNotEqual(source_identity(root), before)
+                    path.unlink()
+                    self.assertNotEqual(source_identity(root), before)
+                    path.write_bytes(b'original authenticated input')
+                    self.assertEqual(source_identity(root), before)
+
+    def test_standalone_runner_can_bind_retained_inputs_without_pythonpath(self):
+        command = [sys.executable, '-I', '-c',
+                   "import runpy; from pathlib import Path; "
+                   "runner=runpy.run_path(" + repr(str(ROOT / 'scripts/ci_feedback.py')) + "); "
+                   "assert any(name.endswith('/digital_platform.py.txt') "
+                   "for name in runner['source_identity']())"]
+        result = subprocess.run(command, cwd=ROOT.parent, capture_output=True, text=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_failed_stage_and_source_mutation_retain_failed_evidence(self):
         for failure in ('stage', 'package', 'device', 'source'):
             with self.subTest(failure=failure), tempfile.TemporaryDirectory() as folder:
@@ -63,16 +111,27 @@ class FeedbackTests(unittest.TestCase):
             root = Path(folder)
             nested = root / 'scripts/qualification/sky130_mim_conditioning/replay.py'
             fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
+            cmim = [root / 'tests/fixtures' / kind / name
+                    for kind in ('ihp-cmim-capacitance-v1', 'ihp-cmim-parallel-v1')
+                    for name in ('SOURCE.json', 'LICENSE', 'coupon.ext', 'hierarchical.spice', 'flat.spice')]
             nested.parent.mkdir(parents=True)
             fixture.parent.mkdir(parents=True)
             nested.write_text('x = 1\n')
-            fixture.write_bytes(b'original fixture')
+            for path in [fixture, *cmim]:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'original fixture')
             before = source_identity(root)
-            self.assertEqual(set(before), {nested.relative_to(root).as_posix(),
-                                           fixture.relative_to(root).as_posix()})
+            self.assertEqual(set(before), {path.relative_to(root).as_posix()
+                                           for path in [nested, fixture, *cmim]})
             self.assertEqual(check_syntax(root), 1)
-            fixture.write_bytes(b'changed fixture')
-            self.assertNotEqual(source_identity(root), before)
+            for path in [fixture, *cmim]:
+                with self.subTest(fixture=path.relative_to(root).as_posix()):
+                    path.write_bytes(b'changed fixture')
+                    self.assertNotEqual(source_identity(root), before)
+                    path.unlink()
+                    self.assertNotEqual(source_identity(root), before)
+                    path.write_bytes(b'original fixture')
+                    self.assertEqual(source_identity(root), before)
             nested.write_text('def invalid(:\n')
             with self.assertRaises(SyntaxError):
                 check_syntax(root)
@@ -130,30 +189,31 @@ class FeedbackTests(unittest.TestCase):
             self.assertTrue((ROOT / 'tests' / (name.split('.')[0] + '.py')).is_file(), name)
         commands = stages()
         self.assertEqual([name for name, _ in commands],
-                         ['unit-contracts', 'device-contracts', 'package-contracts', 'runtime-release-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
+                         ['unit-contracts', 'ihp-contracts', 'physical-contracts', 'device-contracts', 'package-contracts', 'runtime-release-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
                           'metal-resistor-editor-smoke', 'metal-resistor-parallel-smoke',
                           'ihp-resistor-editor-smoke', 'ihp-capacitor-corner-smoke'])
         self.assertIn('test_ihp_capacitor_corners', UNIT_MODULES)
         self.assertIn('test_pdk_qualification_matrix', UNIT_MODULES)
+        self.assertIn('test_sky130_retained_catalog', UNIT_MODULES)
+        self.assertIn('test_digital_platforms', UNIT_MODULES)
         self.assertIn('test_release_acceptance', UNIT_MODULES)
 
     def test_unit_split_preserves_each_expanded_test_exactly_once(self):
         commands=dict(stages())
         before=['tests.'+name for name in UNIT_MODULES]
-        first=commands['unit-contracts'][3:-1];second=commands['device-contracts'][3:-1]
-        self.assertTrue(first);self.assertTrue(second)
-        self.assertEqual(first+second,before)
+        groups=[commands[name][3:-1] for name in ('unit-contracts','ihp-contracts','physical-contracts','device-contracts')]
+        self.assertTrue(all(groups))
+        self.assertEqual(sum(groups,[]),before)
         def ids(suite):
             for item in suite:
                 if isinstance(item,unittest.TestSuite):yield from ids(item)
                 else:yield item.id()
         original=list(ids(unittest.defaultTestLoader.loadTestsFromNames(before)))
-        one=list(ids(unittest.defaultTestLoader.loadTestsFromNames(first)))
-        two=list(ids(unittest.defaultTestLoader.loadTestsFromNames(second)))
-        self.assertEqual(one+two,original)
-        self.assertFalse(set(one)&set(two))
+        expanded=[list(ids(unittest.defaultTestLoader.loadTestsFromNames(group))) for group in groups]
+        self.assertEqual(sum(expanded,[]),original)
         self.assertEqual(len(original),len(set(original)))
-        self.assertFalse(any('_FailedTest' in name for name in original))
+        self.assertFalse(any('_FailedTest' in name for name in original),
+                         '\n'.join(unittest.defaultTestLoader.errors))
 
     def test_required_package_checks_are_separate_complete_and_nonoverlapping(self):
         self.assertFalse(set(UNIT_MODULES) & set(PACKAGE_MODULES))
@@ -165,7 +225,7 @@ class FeedbackTests(unittest.TestCase):
         self.assertNotIn('test_default_device_packages', UNIT_MODULES)
 
     def test_runtime_release_checks_remain_required_separate_and_unique(self):
-        expected = {'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
+        expected = {'test_openems_runtime', 'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
                     'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
                     'test_release_qualification', 'test_publish_prerelease'}
         self.assertEqual(set(RUNTIME_RELEASE_MODULES), expected)

@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+  "status": "PASS_WINDOWS_PACKAGE_JOB",
+  "run_id": 42379707594,
+  "job_id": 128429020474,
+  "job_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379707594/job/128429020474",
+  "scope": "Completed Windows package job and full core suite only. Both installed jobs and final release-archive acceptance are not established by this receipt. The later L2n0 reference audit is outside this candidate.",
+  "core": {
+    "tests": 4270,
+    "seconds": 2018.076,
+    "skipped": 62,
+    "step": {
+      "name": "Test core",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 50,
+      "started_at": "2026-11-07T15:22:03Z",
+      "completed_at": "2026-11-07T15:55:49Z"
+    }
+  },
+  "log_sha256": "d530ccb69f524f3f860e2827985f2660e9da5704747fd010cf9004f0988369a8",
+  "log_bytes": 5978613,
+  "qualified": false,
+  "chunk_complete": false,
+  "full_desktop_acceptance": false,
+  "installed_acceptance": false,
+  "retention": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-fa01ffb5-windows-package-evidence.zip",
+    "sha256": "71bd8a89666f57fab53fc5782b2b6b7fe572fdd47bb00c9d08ba9e268606c8df",
+    "bytes": 651119,
+    "members": 6,
+    "all_members_verified": true
+  }
+}

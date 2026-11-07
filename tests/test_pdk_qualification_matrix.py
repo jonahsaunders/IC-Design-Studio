@@ -1,6 +1,8 @@
 """Coverage failures must not silently shrink the public qualification target."""
 import copy
+from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 from scripts.check_pdk_qualification import (
     MATRIX, TARGETS, HOSTED_TOOLCHAIN_STEPS, read, validate, validate_toolchain_record,
@@ -17,6 +19,27 @@ class QualificationMatrixTests(unittest.TestCase):
         self.assertEqual(report['status'], 'matrix_consistent')
         self.assertEqual(report['process_qualification'], 'unqualified')
         self.assertEqual(report['device_entries'], 302)
+
+    def test_retained_solver_source_is_bound_and_cannot_change_or_disappear(self):
+        from scripts.check_pdk_qualification import ROOT
+        from scripts.ci_feedback import source_identity
+        manifest = self.matrix['execution_acceptance']['4']['historical_source_snapshot']
+        captured = read(ROOT/manifest['path'])['files']['openems_runtime.py']
+        target = (ROOT/captured['path']).resolve()
+        identities = source_identity()
+        self.assertEqual(identities[captured['path']], captured['sha256'])
+        self.assertEqual(identities[manifest['path']], manifest['sha256'])
+        original = Path.read_bytes
+        for missing in (False, True):
+            def read_bytes(path):
+                if path.resolve() == target:
+                    if missing: raise FileNotFoundError(str(path))
+                    return original(path)+b'\nchanged historical source\n'
+                return original(path)
+            with self.subTest(missing=missing), patch.object(Path, 'read_bytes', read_bytes):
+                with self.assertRaises(FileNotFoundError if missing else ValueError):
+                    validate(self.matrix)
+        self.assertEqual(validate(self.matrix)['status'], 'matrix_consistent')
 
     def test_density_reference_record_cannot_complete_missing_fill_coverage(self):
         matrix = copy.deepcopy(self.matrix)

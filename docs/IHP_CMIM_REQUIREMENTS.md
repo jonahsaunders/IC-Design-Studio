@@ -99,3 +99,12 @@ and transient operating-point recovery remain explicit, so the verified linear
 AC response is not a physical DC operating-point or calibrated PEX claim.
 General physical classes, mixed devices, hierarchy, arrays, distributed resistance,
 operating/reliability and calibration requirements remain unresolved.
+
+The November 7 [parallel saved-testbench extension](IHP_CMIM_PARALLEL.md)
+addresses the application guard that previously rejected ordinary integer
+multiplicity before extraction. The guarded flat-network path now binds the
+captured schematic to the project and checks every intrinsic width/length/count
+group against both raw extraction and native exports. Its finite two-unit
+source verification is recorded separately from the earlier single-unit and
+installed results. It does not establish general-array, hierarchical,
+statistical, operating-envelope or calibrated-PEX acceptance.

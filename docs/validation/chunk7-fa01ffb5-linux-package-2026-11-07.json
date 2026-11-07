@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+  "status": "PASS_LINUX_PACKAGE_JOB",
+  "run_id": 42379707594,
+  "job_id": 128429020638,
+  "job_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379707594/job/128429020638",
+  "scope": "Completed Linux package job and full core suite only. Windows package, both installed jobs and final release-archive acceptance are not established by this receipt. The later L2n0 reference audit is outside this candidate.",
+  "core": {
+    "tests": 4270,
+    "seconds": 1161.313,
+    "skipped": 49,
+    "step": {
+      "name": "Test core",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 50,
+      "started_at": "2026-11-07T14:45:29Z",
+      "completed_at": "2026-11-07T15:04:54Z"
+    }
+  },
+  "log_sha256": "a7bcaee243868bdea9393d079e711f93ca330a36ec52431367dac14b5900118e",
+  "log_bytes": 2782539,
+  "qualified": false,
+  "chunk_complete": false,
+  "full_desktop_acceptance": false,
+  "installed_acceptance": false,
+  "retention": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-fa01ffb5-linux-package-evidence.zip",
+    "sha256": "ea8b247248b1fb0d619bf55ec828ccfdfa4b134f28581c6d71118b01bc430f02",
+    "bytes": 468265,
+    "members": 6,
+    "all_members_verified": true
+  }
+}

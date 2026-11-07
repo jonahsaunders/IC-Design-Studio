@@ -1,5 +1,14 @@
 # PDK qualification in twelve chunks
 
+The November 7 [SKY130 release inventory](SKY130_RELEASE_INVENTORY.md) covers all
+seven pinned archives. The [GF180/IHP semantic inventory](UPSTREAM_SEMANTIC_INVENTORY.md)
+adds the complete GF180 parent/submodule graph and declared model, cell, layout
+and process interfaces. Both complete reports reproduce byte-for-byte on native
+Linux, with [88 affected tests per host](validation/chunk7-source-inventory-integration-2026-11-07.json).
+The malformed old-GF section ending, unknown library options, missing required
+models and unproved runtime mappings remain explicit. Source-completeness rows
+remain partial; all device and chunk-7 completion gates are unchanged.
+
 The November 3 [selected installed milestone](validation/chunk7-selected-installed-acceptance-2026-11-03.json) closes both earlier Windows/Linux reader blockers at `cbf9705`; all nine desktop jobs pass. Newer IHP capacitor code still requires its own installed acceptance. Complete family applicability, remaining physical classes and four missing bindings keep chunk 7 open. Earlier pending observations below are historical.
 
 The November 2 [complete imported IHP capacitor boundary](IHP_MIM_G_BOUNDARY.md) closes the selected maximum-area physical submilestone and verifies truthful coverage reporting in both source-desktop routes. Full device applicability, other geometry classes and installed acceptance remain separate; the chunk-7 gate is unchanged.
