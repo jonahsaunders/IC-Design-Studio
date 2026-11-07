@@ -126,7 +126,7 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
             schematic=native_subcircuit(p,cid)
             cmim_unit,cmim_sources=applicable(p,c,schematic,Path(assets['technology']))
             if cmim_unit:
-                report['qualification']+=' The checked graph covers one flat IHP cap_cmim unit. Internal SUB remains floating, so this does not establish a physical DC operating point.'
+                report['qualification']+=' The checked graph covers a flat parallel network of IHP cap_cmim units. Internal SUB remains floating, so this does not establish a physical DC operating point.'
         for name in ('magic','netgen','ngspice'):
             candidate=tools.get(name,'') or name;f=Path(shutil.which(candidate) or candidate)
             if not f.is_file():raise ValueError('Configure '+name+' in Engine diagnostics & paths.')

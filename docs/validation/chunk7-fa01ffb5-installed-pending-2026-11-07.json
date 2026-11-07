@@ -1,0 +1,318 @@
+{
+  "schema": 1,
+  "status": "PENDING",
+  "chunk": 7,
+  "chunk_complete": false,
+  "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+  "run_id": 42379707594,
+  "run_attempt": 1,
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379707594",
+  "observed_utc": "2026-11-07T16:55:31.186785+00:00",
+  "scope": "Immutable fa01ffb5 hosted desktop acceptance only; newer application fixes and source inventories are outside this run.",
+  "hosted_nine_job_acceptance_complete": false,
+  "hosted_successful_jobs": 7,
+  "installed_jobs": {
+    "Windows": {
+      "id": 128457154752,
+      "status": "in_progress",
+      "conclusion": null,
+      "started_at": "2026-11-07T16:18:06Z",
+      "completed_at": null,
+      "active_steps": [
+        {
+          "name": "Qualify included digital engines through the frozen desktop",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 12,
+          "started_at": "2026-11-07T16:30:51Z",
+          "completed_at": null
+        }
+      ],
+      "last_steps": [
+        {
+          "name": "Prepare Windows Linux support for the included runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-07T16:30:12Z",
+          "completed_at": "2026-11-07T16:30:42Z"
+        },
+        {
+          "name": "Configure Windows virtual desktop for native DPI checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-07T16:30:42Z",
+          "completed_at": "2026-11-07T16:30:51Z"
+        },
+        {
+          "name": "Install Linux libraries for frozen execution",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-11-07T16:30:51Z",
+          "completed_at": "2026-11-07T16:30:51Z"
+        }
+      ]
+    },
+    "Linux": {
+      "id": 128457154772,
+      "status": "in_progress",
+      "conclusion": null,
+      "started_at": "2026-11-07T16:18:06Z",
+      "completed_at": null,
+      "active_steps": [
+        {
+          "name": "Verify frozen Linux MiM public geometry and full selected electrical workflow",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 18,
+          "started_at": "2026-11-07T16:49:17Z",
+          "completed_at": null
+        }
+      ],
+      "last_steps": [
+        {
+          "name": "Verify frozen Linux app under X11 with a window manager at 150 percent scaling",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-07T16:44:00Z",
+          "completed_at": "2026-11-07T16:44:43Z"
+        },
+        {
+          "name": "Verify frozen Linux physical workflow",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-07T16:44:43Z",
+          "completed_at": "2026-11-07T16:46:30Z"
+        },
+        {
+          "name": "Verify frozen Linux MiM editor and native layout workflow",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-07T16:46:30Z",
+          "completed_at": "2026-11-07T16:49:17Z"
+        }
+      ]
+    }
+  },
+  "failures": [],
+  "retained_jobs": [
+    {
+      "id": 128424545596,
+      "name": "candidate",
+      "status": "completed",
+      "conclusion": "success",
+      "retained_files": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424545596.json",
+          "bytes": 1790,
+          "sha256": "0d9c5cbad8b119c81653222ea5b3d51906f65b1264dd345675a19fbf2e33e9ab"
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424545596.log",
+          "bytes": 10740,
+          "sha256": "eb82c1f5c9995151790124bcc7b967f156ec3c0c0eea79df69616ffef7c7c9f4"
+        }
+      ]
+    },
+    {
+      "id": 128424734530,
+      "name": "release-tools (windows-2022)",
+      "status": "completed",
+      "conclusion": "success",
+      "retained_files": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424734530.json",
+          "bytes": 2356,
+          "sha256": "5c2ace6c6637029042be3cfbc88a9e49e168505887fec72e566e06aaea79177e"
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424734530.log",
+          "bytes": 86035,
+          "sha256": "331817f0299ddab1074a692bf2a8195daa96e950fe605f22ef5d993ae0ffc010"
+        }
+      ]
+    },
+    {
+      "id": 128424734616,
+      "name": "release-tools (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "retained_files": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424734616.json",
+          "bytes": 2356,
+          "sha256": "9310642fff51b878de3e78d25967f54c9f9b61929caa4baa6f19563179b1e86d"
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424734616.log",
+          "bytes": 83397,
+          "sha256": "d347b40a16b96eeb7731b9645ce2b05c8b72a85b4ccf26f50b196e155e1dc09a"
+        }
+      ]
+    },
+    {
+      "id": 128424734757,
+      "name": "digital-runtime / candidate",
+      "status": "completed",
+      "conclusion": "success",
+      "retained_files": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424734757.json",
+          "bytes": 1808,
+          "sha256": "4121df0c2328349ee00b399ef1ad3eee122f96129e4e36941bb52740a6dae8c3"
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424734757.log",
+          "bytes": 11624,
+          "sha256": "9b119a36b5ea1dc819bfc15cac6b367a81a818095216b3d17d8213fccc51758a"
+        }
+      ]
+    },
+    {
+      "id": 128424780842,
+      "name": "digital-runtime / runtime",
+      "status": "completed",
+      "conclusion": "success",
+      "retained_files": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424780842.json",
+          "bytes": 3800,
+          "sha256": "dac36eb77e34856309f8f115e5db06f06eb92740b02cf49a4072ef3f071dee8f"
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128424780842.log",
+          "bytes": 1696796,
+          "sha256": "5e1cbcadefec90e17d1083b6a7d924db2e37faa85efac9920f5bc108afa437df"
+        }
+      ]
+    },
+    {
+      "id": 128429020474,
+      "name": "package (windows-2022)",
+      "status": "completed",
+      "conclusion": "success",
+      "retained_files": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128429020474.json",
+          "bytes": 32382,
+          "sha256": "857fde1fceb3b9a5a0b5da3cfef011d8d92e5f86186e349753f8af9b90ea3119"
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128429020474.log",
+          "bytes": 5978613,
+          "sha256": "d530ccb69f524f3f860e2827985f2660e9da5704747fd010cf9004f0988369a8"
+        }
+      ]
+    },
+    {
+      "id": 128429020638,
+      "name": "package (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "retained_files": [
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128429020638.json",
+          "bytes": 32382,
+          "sha256": "28514c46b5810db9c2970a6a7f9cc9f3fff96de5873fb10d1d7f66e0ef6ab372"
+        },
+        {
+          "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\jobs\\128429020638.log",
+          "bytes": 2782539,
+          "sha256": "a7bcaee243868bdea9393d079e711f93ca330a36ec52431367dac14b5900118e"
+        }
+      ]
+    },
+    {
+      "id": 128457154752,
+      "name": "installed-acceptance (windows-2022)",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 128457154772,
+      "name": "installed-acceptance (ubuntu-24.04)",
+      "status": "in_progress",
+      "conclusion": null
+    }
+  ],
+  "metadata_snapshot": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\metadata-history\\20261107T165529903Z",
+    "sha256": {
+      "run": "6317915f3ea761ffb9d73c192003163cfb80bc79899073d08df424ddbe6a53cf",
+      "jobs": "1119f24532134d84339d9cb6c5e8e5112a5a28d6fa8a81a26a2ebfb7cf675fcb",
+      "artifacts": "85d3058450fd066bb8fc97f460cc2719b67f3ce68f1e51bd77200b33337a5df1"
+    }
+  },
+  "exact_candidate_reader_and_release_sources": {
+    "commit": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+    "run_id": 42379707594,
+    "files": [
+      {
+        "path": "scripts/release_ihp_cmim_evidence.py",
+        "bytes": 12232,
+        "sha256": "4b5f7485d2ff3cb4b0a662aaa4ed38ee304ef512b1325b5c5b468269631e5aa9",
+        "git_blob_sha1": "2bdd3bc2aa6dfdfbad52e295965dddf6ea541442",
+        "working_copy_matches_candidate": true
+      },
+      {
+        "path": "scripts/verify_frozen_ihp_cmim.py",
+        "bytes": 56728,
+        "sha256": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d",
+        "git_blob_sha1": "dba05f84b3112409cf46a4270687fc3a2aaeca4d",
+        "working_copy_matches_candidate": true
+      },
+      {
+        "path": "scripts/verify_frozen_ihp_resistors.py",
+        "bytes": 49972,
+        "sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f",
+        "git_blob_sha1": "143f695cfe3ae17b36ad25a37939ba0a5577f596",
+        "working_copy_matches_candidate": true
+      },
+      {
+        "path": "scripts/verify_frozen_mim.py",
+        "bytes": 39777,
+        "sha256": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57",
+        "git_blob_sha1": "586a0e22b547190336059c98ceb0c85560bbe05e",
+        "working_copy_matches_candidate": true
+      },
+      {
+        "path": ".github/workflows/build-desktop.yml",
+        "bytes": 75016,
+        "sha256": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587",
+        "git_blob_sha1": "3d5d0c3589b19efbd64b3177d7d57ccb165f4d4e",
+        "working_copy_matches_candidate": true
+      },
+      {
+        "path": "scripts/prepare_release_payload.py",
+        "bytes": 10698,
+        "sha256": "b5f1760b04160b899fd9d263e837cc7f85fd93e88f49e7f49523589059a3724c",
+        "git_blob_sha1": "4e296cf5a350bc7abc9c14e36e363e0da114d3b2",
+        "working_copy_matches_candidate": true
+      },
+      {
+        "path": "scripts/release_pw2dn_evidence.py",
+        "bytes": 15393,
+        "sha256": "3c94ecfdd4ba373cc6846f9459a19fd640eb09343b5ad3482fdf7101175ee194",
+        "git_blob_sha1": "0108a7c3ff0d6662ccd30964c92a2b5ccc9486e7",
+        "working_copy_matches_candidate": true
+      }
+    ]
+  },
+  "selected_member_independent_readback": {
+    "status": "PENDING",
+    "required_hosts": [
+      "Windows",
+      "Linux"
+    ]
+  },
+  "full_artifact_digests_locally_verified": false,
+  "full_release_archives_locally_verified": false,
+  "retention_scope": "Completed full raw job logs are retained with SHA-256. Planned selected CMIM members and release receipts will receive ZIP CRC32 and SHA-256 checks; that is distinct from downloading and hashing entire multi-gigabyte artifacts.",
+  "continuation": "Both existing installed jobs remain running under the original workflow limits. Monitoring continues independently of newer code preparation and pushes.",
+  "qualification_boundary": "No full device-family, operating-envelope, extracted-connectivity or chunk-completion promotion follows from this pending record."
+}

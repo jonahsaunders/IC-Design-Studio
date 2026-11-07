@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "scope": "Native Magic flat two-unit 7x7 micrometre parallel CMIM graph; regression bytes only, no broader qualification.",
+  "base_commit": "590daef062cf002d5b71e382ec5eaa5f63e4c51e",
+  "package_semantic_sha256": "5cb4aca37ed4192eadd82d686a1d5fc97072b018e7c45d21f062333a3361eebd",
+  "generator": "scripts.qualify_ihp_mim_layout.generate + scripts.qualify_ihp_cmim_multiplicity.two_units",
+  "source_snapshot_files": 7041,
+  "source_snapshot_manifest_sha256": "8d5dc2ee7f4a597094aca864e39c2dcc13e6b6191073ffd6e34cc07c4e1d337d",
+  "native": "Magic 8.3.684, verified native Linux snapshot",
+  "members": {
+    "coupon.ext": "8ee791dbed9b7930fa73760dc3281c3ebdcd5045839f92c8d1ab647a62068218",
+    "flat.spice": "a875d1505f2409f31e4eb9e059dfa1856ecd6100011eefd3b3273df543d79154",
+    "hierarchical.spice": "ade75bd0ccc93a3c5e1cbd259923663cb5376bbeab25d3cd08f37514c070ac0f",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+  },
+  "notices": "Generated extraction facts from IHP Apache-2.0 technology; original license retained in LICENSE."
+}

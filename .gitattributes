@@ -98,3 +98,9 @@ docs/SKY130_RELEASE_INVENTORY.md whitespace=cr-at-eol
 docs/validation/chunk7-required-binding-semantics-2026-11-07.json whitespace=cr-at-eol
 docs/validation/chunk7-source-inventory-provenance-2026-11-07.json whitespace=cr-at-eol
 docs/validation/sky130-release-independent-controls-2026-11-07.json whitespace=cr-at-eol
+
+# Keep captured CMIM receipt line endings and native export terminator intact.
+docs/validation/chunk7-fa01ffb5-installed-pending-2026-11-07.json whitespace=cr-at-eol
+docs/validation/ihp-cmim-parallel-2026-11-07.json whitespace=cr-at-eol
+tests/fixtures/ihp-cmim-parallel-v1/SOURCE.json whitespace=cr-at-eol
+tests/fixtures/ihp-cmim-parallel-v1/hierarchical.spice whitespace=-blank-at-eof

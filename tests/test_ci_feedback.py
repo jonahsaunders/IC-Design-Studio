@@ -111,16 +111,27 @@ class FeedbackTests(unittest.TestCase):
             root = Path(folder)
             nested = root / 'scripts/qualification/sky130_mim_conditioning/replay.py'
             fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
+            cmim = [root / 'tests/fixtures' / kind / name
+                    for kind in ('ihp-cmim-capacitance-v1', 'ihp-cmim-parallel-v1')
+                    for name in ('SOURCE.json', 'LICENSE', 'coupon.ext', 'hierarchical.spice', 'flat.spice')]
             nested.parent.mkdir(parents=True)
             fixture.parent.mkdir(parents=True)
             nested.write_text('x = 1\n')
-            fixture.write_bytes(b'original fixture')
+            for path in [fixture, *cmim]:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'original fixture')
             before = source_identity(root)
-            self.assertEqual(set(before), {nested.relative_to(root).as_posix(),
-                                           fixture.relative_to(root).as_posix()})
+            self.assertEqual(set(before), {path.relative_to(root).as_posix()
+                                           for path in [nested, fixture, *cmim]})
             self.assertEqual(check_syntax(root), 1)
-            fixture.write_bytes(b'changed fixture')
-            self.assertNotEqual(source_identity(root), before)
+            for path in [fixture, *cmim]:
+                with self.subTest(fixture=path.relative_to(root).as_posix()):
+                    path.write_bytes(b'changed fixture')
+                    self.assertNotEqual(source_identity(root), before)
+                    path.unlink()
+                    self.assertNotEqual(source_identity(root), before)
+                    path.write_bytes(b'original fixture')
+                    self.assertEqual(source_identity(root), before)
             nested.write_text('def invalid(:\n')
             with self.assertRaises(SyntaxError):
                 check_syntax(root)
