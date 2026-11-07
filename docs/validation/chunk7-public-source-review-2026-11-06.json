@@ -376,6 +376,31 @@
     ],
     "finding": "The 30 changed paths in this comparison are KLayout fill scripts and Xschem symbols; none changes official model/specification files or supplies the missing spec_all_fets.nl threshold-extraction definition. Symbol updates do not resolve the retained fast-corner discrepancies."
   },
+  "additional_ihp_review": {
+    "observed_at_utc": "2026-11-06T23:56:34Z",
+    "measurement_request": {
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/issues/1284",
+      "state": "open",
+      "updated_at": "2026-10-17T18:24:29Z",
+      "comments": 0,
+      "finding": "Request for inductor/capacitor measurements, documentation and test structures; no attached data or model supplied in the inspected body or empty comments collection. No issue content imported."
+    },
+    "documentation": {
+      "repository": "IHP-GmbH/IHP-Open-PDK-docs",
+      "main_revision": "f79c1aa616361a5980994feffda1e2766a4b500b",
+      "latest_revision": "9aff7327f8191a6fe3e590ed9a668a0ca2a35c25",
+      "comparison_url": "https://github.com/IHP-GmbH/IHP-Open-PDK-docs/compare/f79c1aa616361a5980994feffda1e2766a4b500b...9aff7327f8191a6fe3e590ed9a668a0ca2a35c25",
+      "finding": "The comparison changes no docs/process_specs file. Inspected current process-control text retains selected voltage/temperature conditions and interconnect-current estimates, not a complete device envelope. The new capacitor page describes MOM model-development results and explicitly does not establish a replacement for delivered symbols.",
+      "previous_local_assessment": "docs/qualification/ihp-cmim-applicability-v1/source-ledger.json",
+      "inspected_paths": [
+        "docs/process_specs/01_general.rst",
+        "docs/process_specs/02_process_control_params.rst",
+        "docs/process_specs/tables/curr_dens_params.csv",
+        "docs/contents/device_libraries/capacitors.rst"
+      ],
+      "models_imported": false
+    }
+  },
   "remaining_requirements": [
     "Four unavailable electrical bindings.",
     "Source-backed device operating/reliability applicability and calibration.",

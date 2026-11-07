@@ -1,9 +1,53 @@
 # Chunks 1–12: progress and forecast
 
-Updated November 6, 2026. Chunk 7 is approximately **74% complete**, with low
+Updated November 7, 2026. Chunk 7 is approximately **74% complete**, with low
 confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
+
+**November 7 release-archive follow-through:** candidate `19dfbe2` passes both
+package jobs and both installed-app test sequences, including the new IHP
+capacitor checker gate. Full desktop run `42303725949` nevertheless fails both
+release-archive checks. Linux rejects 25 valid case-distinct terminfo filename
+pairs; Windows detects a changed solver Python bytecode cache in the installed
+tree. These failures remain retained. A local repair uses target-specific path
+identity and prevents solver imports from writing bytecode; exact archive hashes,
+Windows alias rejection and all existing qualification gates remain required.
+The original GF180-tested solver launcher is retained byte-for-byte in a new
+historical manifest; changed or missing copies fail the matrix check. The
+original production record and its scope remain unchanged.
+The [repair and retained failures](validation/chunk7-release-archive-repair-2026-11-07.json)
+include independent raw readback of 432 installed-capacitor evidence files per
+host. Final local feedback passes all 13 stages and 1,172 tests per host (38
+Windows / 16 Linux skips), in 625.077 / 233.106 seconds. All 7,004 snapshot files
+remain unchanged during each run. Fresh hosted acceptance of the repair is
+pending. This closes neither full-family
+qualification nor release acceptance; the estimate remains 74% (55–82%, low).
+
+**November 6 hosted source follow-through:** exact candidate
+`19dfbe2af822f1ea60ce1606007aeec2e1b9f388` in [draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69)
+passes [both hosted source lanes and the required PR check](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42303681050).
+The [retained hosted receipt](validation/chunk7-hosted-source-feedback-2026-11-06.json)
+verifies that GitHub's merge tree equals the candidate tree and all 2,295 bound
+source files match. Each host ran 1,165 tests in all 13 stages (37 Windows / 17
+Linux skips); source execution took 617.110 / 331.177 seconds, respectively,
+with every child below its unchanged 300-second deadline. Both downloaded
+artifact sets are retained and independently rehashed. This resolves the local
+timing uncertainty for hosted source feedback. Exact-candidate
+[full desktop acceptance](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42303725949)
+has completed with release-archive failures described above. Both package jobs pass completely (Linux `128196735691`,
+Windows `128196735570`), including both full core suites and installer assembly.
+The retained logs report 4,267 core tests on each host (49 Linux / 62 Windows
+skips), taking 934.224 / 3045.564 seconds, with no historical catalog error.
+The difference from the earlier 4,254-test failure includes ten
+tests previously blocked by `setUpClass` and three new regression tests.
+Both installed-app jobs began at approximately 01:50 UTC on November 7
+(`128261874515` Windows, `128261874621` Linux). Their application checks pass,
+but their final release assembly fails; neither complete job is accepted.
+This post-push receipt/tracker update is local while that
+repair is verified; the published PR remains at the failed candidate.
+Chunk 7 remains approximately 74% (55–82%, low confidence), with no family or
+matrix promotion.
 
 **November 6: the latest desktop failure is reproduced and repaired in source.**
 Exact candidate `b8372151e8664ba66b52005731e906cc1eac6214` failed both hosted
@@ -27,8 +71,9 @@ failures remain retained. A two-process rendezvous replaces the synthetic
 scheduler's timing assumption; an intentionally serialized executor must fail.
 Four bounded contract groups preserve the complete ordered test
 selection, every assertion and the original 300-second child deadlines.
-Fresh hosted and installed acceptance of this repair is still pending; local
-source success does not replace those gates.
+The hosted source results above supersede the earlier source-feedback pending
+state. Desktop acceptance failed final release assembly as noted above; local
+source success does not replace that gate.
 
 The [bounded current-source review](validation/chunk7-public-source-review-2026-11-06.json)
 checks current SKY130/GF180 changes and IHP main/dev model inventories. It does
@@ -40,6 +85,11 @@ The existing October 21 reproduction keeps its scope; this is not new calibratio
 coverage. New upstream GPL stackups and CPU/GPU examples are identified with
 their compatibility limits for future work. No duplicate reference bundle or
 unverified replacement model is added.
+The additional pinned SemiMod/DMT importer is explicitly GPL-3.0-or-later, but
+processes IHP's existing measurements and supplies no new temperature/reliability
+definition. Its license and source hashes are recorded; it was not executed.
+IHP's open measurement-data request #1284 supplies no data attachments, and the
+latest documentation branch leaves the reviewed process specifications unchanged.
 Required operating/reliability applicability, calibration and remaining
 physical/extracted classes remain unresolved. Chunk 7 stays **74%**, low
 confidence **55–82%**; no device, family or matrix status is promoted.

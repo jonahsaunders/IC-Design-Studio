@@ -1,5 +1,12 @@
 # Source feedback and selected acceptance candidates
 
+The November 7 [release-archive repair](validation/chunk7-release-archive-repair-2026-11-07.json)
+adds a real solver bytecode-mutation control to the required runtime stage and
+binds the exact historical GF180 launcher snapshot into source feedback. Linux
+distribution names retain case-sensitive identity; Windows alias rejection and
+complete archive byte checks remain required. Local source success does not
+replace fresh exact-candidate release-archive acceptance.
+
 The November 6 [historical-source repair](validation/chunk7-retained-platform-source-repair-2026-11-06.json)
 adds retained SKY130 catalog authentication and current platform-staging tests
 to fast feedback. The historical baseline, audit and all 121 source/input paths

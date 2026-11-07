@@ -163,5 +163,44 @@
     "No released parameterized inductor/inductor3 model established.",
     "Unsuffixed SKY130 VPP to _nhv equivalence remains unestablished.",
     "Required reliability, statistical applicability and operating limits remain unresolved."
-  ]
+  ],
+  "additional_source_review": {
+    "schema": 1,
+    "date": "2026-11-06",
+    "revision": "8608d27eef5a4832af22d9eb64c7f97fc096c6e3",
+    "repository": "https://gitlab.com/dmt-development/ihp_sg13g2_compact_models",
+    "files": [
+      {
+        "path": "LICENSE",
+        "sha256": "d5071b423d88594beeb8e51d39bb4e391501f9322371668be3dcb2ce6cb76b30",
+        "git_blob": "8386bd8fed329fa7476b6e34cafdfe1130f6b77c",
+        "bytes": 35103,
+        "url": "https://gitlab.com/dmt-development/ihp_sg13g2_compact_models/-/blob/8608d27eef5a4832af22d9eb64c7f97fc096c6e3/LICENSE"
+      },
+      {
+        "path": "README.md",
+        "sha256": "2e9b036a5eead4263a26240ef23c6bee727385f2c3e3100f3e15d95373c9944f",
+        "git_blob": "b261b5af226968a7a8202ba2ff04ee53e8e2bd15",
+        "bytes": 14746,
+        "url": "https://gitlab.com/dmt-development/ihp_sg13g2_compact_models/-/blob/8608d27eef5a4832af22d9eb64c7f97fc096c6e3/README.md"
+      },
+      {
+        "path": "create_dutlib/create_dut_lib.py",
+        "sha256": "59daa3399c2786b56e02b24cb47b543082e8163c7e29fea00c5e390e63454016",
+        "git_blob": "4a29e57519e028508656c0852b567e9f8c51f8da",
+        "bytes": 10415,
+        "url": "https://gitlab.com/dmt-development/ihp_sg13g2_compact_models/-/blob/8608d27eef5a4832af22d9eb64c7f97fc096c6e3/create_dutlib/create_dut_lib.py"
+      }
+    ],
+    "license": "GPL-3.0-or-later in the inspected importer, Copyright 2023 SemiMod; original GPLv3 license verified.",
+    "scope": "License and data-origin review only; no importer or solver executed, and no model or measurement data imported into application packages.",
+    "finding": "The importer downloads IHP-Open-PDK/libs.doc/meas. It is a processing helper for that upstream dataset, not a separate measurement campaign. It assigns HBT data to T300K and extracts MOS temperature from filenames, so it does not establish a new operating-temperature or reliability envelope.",
+    "compatibility": [
+      "Importer fetches an unpinned moving main archive and destructively rearranges its own downloaded copy; a future integration must pin input bytes and preserve originals.",
+      "The 2024 README documents older PSP/ngspice/Xyce behavior, so simulator compatibility needs current review.",
+      "Third-party PSP Verilog-A files were not copied or covered by the inspected importer license."
+    ],
+    "qualified": false,
+    "chunk_complete": false
+  }
 }

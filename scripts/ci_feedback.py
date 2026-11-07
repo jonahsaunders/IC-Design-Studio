@@ -87,7 +87,7 @@ PACKAGE_MODULES = (
 # Independent bounded stage avoids adding new portable release and runtime
 # checks to the already substantial unit/package stages.
 RUNTIME_RELEASE_MODULES = (
-    'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
+    'test_openems_runtime', 'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
     'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
     'test_release_qualification', 'test_publish_prerelease',
 )
@@ -113,6 +113,10 @@ def check_syntax(root=ROOT):
 
 def source_identity(root=ROOT):
     files = python_sources(root)
+    matrix = root / 'docs/qualification/pdk-matrix.json'
+    if matrix.is_file(): files.append(matrix)
+    files += [p for p in (root / 'docs/validation/chunk7-openems-retained-source-2026-11-07').glob('*')
+              if p.is_file()]
     # Retained qualification tests authenticate historical inputs separately
     # from live application code. Bind that complete selection to this run too.
     from scripts import sky130_retained_catalog as retained

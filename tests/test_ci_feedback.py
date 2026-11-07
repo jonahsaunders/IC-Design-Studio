@@ -175,7 +175,7 @@ class FeedbackTests(unittest.TestCase):
         self.assertNotIn('test_default_device_packages', UNIT_MODULES)
 
     def test_runtime_release_checks_remain_required_separate_and_unique(self):
-        expected = {'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
+        expected = {'test_openems_runtime', 'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
                     'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
                     'test_release_qualification', 'test_publish_prerelease'}
         self.assertEqual(set(RUNTIME_RELEASE_MODULES), expected)

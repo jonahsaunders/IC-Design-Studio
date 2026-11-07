@@ -2,6 +2,9 @@
 import json
 import os
 from pathlib import Path
+import py_compile
+import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -10,6 +13,29 @@ from icstudio import openems_runtime as runtime
 
 
 class RuntimeTests(unittest.TestCase):
+    def test_solver_imports_preserve_stale_bytecode_and_do_not_create_caches(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = root/'cached_solver.py'; source.write_text('VALUE = 1\n')
+            cached = Path(py_compile.compile(str(source), doraise=True))
+            original = cached.read_bytes()
+            previous = source.stat().st_mtime
+            source.write_text('VALUE = 22\n')
+            os.utime(source, (previous + 5, previous + 5))
+            (root/'fresh_solver.py').write_text('VALUE = 33\n')
+            command = [sys.executable, '-c',
+                       'import cached_solver, fresh_solver; '
+                       'assert (cached_solver.VALUE, fresh_solver.VALUE) == (22, 33)']
+            env = runtime.environment(sys.executable)
+            subprocess.run(command, cwd=root, env=env, check=True, timeout=30)
+            self.assertEqual(cached.read_bytes(), original)
+            self.assertEqual(list((root/'__pycache__').iterdir()), [cached])
+            # A normal import must expose both mutations in the same fixture.
+            env.pop('PYTHONDONTWRITEBYTECODE')
+            subprocess.run(command, cwd=root, env=env, check=True, timeout=30)
+            self.assertNotEqual(cached.read_bytes(), original)
+            self.assertEqual(len(list((root/'__pycache__').iterdir())), 2)
+
     def test_missing_saved_path_falls_back_to_relocated_bundle(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)/'App with spaces'/'openems'

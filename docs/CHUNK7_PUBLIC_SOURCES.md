@@ -32,6 +32,29 @@ responses; it supplies neither measurement uncertainty nor an arbitrary-geometry
 or three-terminal accuracy bound. These sources are indexed for future use,
 without changing application packages or historical evidence.
 
+The additional [SemiMod/DMT measurement importer](https://gitlab.com/dmt-development/ihp_sg13g2_compact_models/-/blob/8608d27eef5a4832af22d9eb64c7f97fc096c6e3/create_dutlib/create_dut_lib.py)
+has an explicit GPL-3.0-or-later notice, Copyright 2023 SemiMod. Its exact license,
+README and source hashes are recorded in the inventory. It processes measurements
+downloaded from IHP's existing `libs.doc/meas` tree; it is not a separate
+measurement campaign. HBT data are assigned to T300K, and MOS temperatures come
+from filenames. It adds no new full-temperature or reliability definition.
+The helper is reusable with its notices, but its moving-branch download and
+in-place data rearrangement need adaptation before integration with this
+repository's immutable evidence workflow. It was inspected, not executed.
+Third-party PSP Verilog-A code is outside this selected-file license review.
+
+IHP's [measurement-data request #1284](https://github.com/IHP-GmbH/IHP-Open-PDK/issues/1284)
+is still open with no comments or data attachments at this review. It requests
+inductor/capacitor measurements, documentation and test structures; it does not
+provide those inputs. The [latest documentation branch](https://github.com/IHP-GmbH/IHP-Open-PDK-docs/tree/9aff7327f8191a6fe3e590ed9a668a0ca2a35c25)
+adds device and electromagnetic guidance, but its process-specification files
+are unchanged from the already-reviewed main revision. The published voltage
+conditions and interconnect-current estimates retain their stated applicability;
+they do not define a complete device operating or reliability envelope. Its MOM
+development notes explicitly distinguish development results from replacements
+for delivered capacitor symbols. These findings are recorded as source leads,
+without importing issue content or changing model bindings.
+
 ## Remaining definitions
 
 The four required unavailable bindings remain IHP `bondpad`, `inductor`,
