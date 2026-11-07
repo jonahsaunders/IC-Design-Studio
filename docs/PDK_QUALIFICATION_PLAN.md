@@ -1,5 +1,12 @@
 # PDK qualification in twelve chunks
 
+The [schematic inventory and header correction](validation/chunk7-schematic-integration-2026-11-07.json)
+adds fourteen literal views with 307 affected tests per host and identical
+complete audits. It preserves valid multiline headers and all prior source
+diagnostics. Nineteen embedded-code/property views remain explicit gaps with
+corrected explanations; 134 total inventory entries and all original device
+qualification requirements remain unresolved.
+
 The subsequent [legacy-symbol batch](validation/chunk7-legacy-symbol-integration-2026-11-07.json)
 adds nine reviewed source views and 145 facts, with 283 affected tests per host
 and byte-identical complete audits. All previous items remain unchanged;

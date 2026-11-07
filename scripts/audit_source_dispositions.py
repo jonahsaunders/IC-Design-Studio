@@ -550,17 +550,9 @@ def veriloga_extra(text):
 def schematic_views(text):
     if re.match(r'\s*v\s+\{xschem\b',text):
         from icstudio.xschem_io import records,properties
-        rows=[];lines=text.splitlines(keepends=True);preamble=True;comment=False
-        for index,line in enumerate(lines):
-            stripped=line.strip()
-            if index==0 or not stripped:continue
-            if preamble and stripped.startswith('*'):comment=True;lines[index]='\n';continue
-            if preamble and stripped=='}' and comment:
-                rows.append(dict(kind='source-diagnostic',name='unmatched-header-comment-close',line=index+1,
-                                 reason='An orphan brace follows the initial star-comment preamble. It is retained as a source defect; subsequent typed declarations are inventoried without asserting importability.',
-                                 blocks_device_qualification=True));lines[index]='\n';preamble=False;continue
-            preamble=False
-        for index,record in enumerate(records(''.join(lines))):
+        from scripts.inventory_schematic_views import preserve_version_header
+        prepared,rows=preserve_version_header(text)
+        for index,record in enumerate(records(prepared)):
             if record[0]=='C':
                 props=properties(record[-1])
                 rows.append(dict(kind='xschem-instance',name=props.get('name','(unnamed)'),symbol_reference=record[1],record=index,
@@ -605,6 +597,9 @@ def supplemental_views(row,raw):
     from scripts.inventory_legacy_symbols import legacy_symbol_views
     legacy=legacy_symbol_views(row,text)
     if legacy is not None:return legacy
+    from scripts.inventory_schematic_views import reviewed_schematic_views
+    schematic=reviewed_schematic_views(row,text)
+    if schematic is not None:return schematic
     physical=physical_views(row,text)
     if physical is not None:return physical
     if suffix=='.lps':
@@ -790,7 +785,7 @@ def main():
     parser.add_argument('--companion-inputs',type=Path,default=ROOT/'docs/qualification/source-dispositions-companion-inputs-2026-11-07.json.gz')
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args();require(not args.output.exists(),'choose a new output path')
-    paths=[Path(__file__),ROOT/'scripts/inventory_source_configs.py',ROOT/'scripts/inventory_xcircuit.py',ROOT/'scripts/inventory_cvc_models.py',ROOT/'scripts/inventory_physical_layers.py',ROOT/'scripts/inventory_legacy_symbols.py',ROOT/'scripts/inventory_upstream_semantics.py',ROOT/'scripts/inventory_sky130_release.py',ROOT/'scripts/inventory_upstream_views.py',ROOT/'scripts/inventory_device_models.py',ROOT/'scripts/inventory_veriloga_models.py',ROOT/'scripts/reconcile_primitive_inventory.py',ROOT/'icstudio/model.py',ROOT/'icstudio/xschem_io.py',ROOT/'icstudio/digital_platform.py']
+    paths=[Path(__file__),ROOT/'scripts/inventory_source_configs.py',ROOT/'scripts/inventory_xcircuit.py',ROOT/'scripts/inventory_cvc_models.py',ROOT/'scripts/inventory_physical_layers.py',ROOT/'scripts/inventory_legacy_symbols.py',ROOT/'scripts/inventory_schematic_views.py',ROOT/'scripts/inventory_upstream_semantics.py',ROOT/'scripts/inventory_sky130_release.py',ROOT/'scripts/inventory_upstream_views.py',ROOT/'scripts/inventory_device_models.py',ROOT/'scripts/inventory_veriloga_models.py',ROOT/'scripts/reconcile_primitive_inventory.py',ROOT/'icstudio/model.py',ROOT/'icstudio/xschem_io.py',ROOT/'icstudio/digital_platform.py']
     original=ROOT/'docs/qualification/upstream-view-inputs-2026-10-20.json.gz';gf=ROOT/'docs/qualification/upstream-semantics-gf-inputs-2026-11-07.json.gz'
     paths += [original,gf,args.companion_inputs]+[ROOT/value[0] for value in REPORTS.values()]
     before={str(p):file_digest(p) for p in paths}

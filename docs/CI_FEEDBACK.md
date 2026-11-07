@@ -29,6 +29,12 @@ power attributes, model names and numeric tokens; unsupported source routes,
 executable records and malformed input remain rejected. Complete raw-source
 replay and qualification remain separate, with all stage deadlines unchanged.
 
+Schematic inventory checks now preserve valid multiline version headers and
+enumerate the reviewed generated/literal views. Tests retain all historical
+orphan-header declarations and reject embedded-code or unreviewed properties,
+wrong source identities and hidden records. The finite source allowlist does
+not establish symbol/model equivalence or application importability.
+
 The November 7 [release-archive repair](validation/chunk7-release-archive-repair-2026-11-07.json)
 adds a real solver bytecode-mutation control to the required runtime stage and
 binds the exact historical GF180 launcher snapshot into source feedback. Linux

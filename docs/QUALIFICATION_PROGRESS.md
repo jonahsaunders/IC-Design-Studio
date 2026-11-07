@@ -5,6 +5,29 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 7 schematic inventory and header correction:** the
+[fifth disposition report](qualification/source-dispositions-2026-11-07-v5.json.gz)
+enumerates eight generated schematic views and six versioned literal views,
+adding 24,080 facts and reducing unresolved inventory entries to **134**.
+All 751,773 previous items remain unchanged; the full report now contains
+775,853 items across the same 43,671 source identities.
+
+The parser now preserves valid multiline Xschem headers. Eighteen embedded
+Verilog views and one IHP launcher/simulator-property view remain gaps with
+accurate explanations; their unsupported content is not marked complete.
+All 75 historical orphan-header sources keep exactly the same diagnostics
+and declaration lists. Literal placement, dimensions, labels and references
+do not establish connectivity, model bindings or device qualification.
+
+The [cross-host integration](validation/chunk7-schematic-integration-2026-11-07.json)
+passes 307 affected tests per host (one Windows skip, none on Linux). All 7,106
+frozen files over `0e103b5` remain unchanged. Complete reports match byte for
+byte after 431.938 seconds on Windows and 274.175 seconds on native Linux,
+within the unchanged 900-second limit. Independent raw-field, routing and full
+report comparisons pass. The original scratch probe error remains separate
+from accepted results. All original qualification gates and the engineering
+estimate of 74%, low confidence (55–82%), remain unchanged.
+
 **November 7 legacy-symbol inventory:** the
 [fourth disposition report](qualification/source-dispositions-2026-11-07-v4.json.gz)
 enumerates eight pinned headerless Xschem symbols and one Qucs component view:
@@ -24,7 +47,12 @@ full-report comparisons pass. The original numeric-token finding, reverted
 line-ending change and test-harness import-path failure remain separately
 retained. No source-completeness, device, operating-range, physical or installed
 gate is promoted. The engineering estimate remains 74%, low confidence
-(55–82%). This local checkpoint follows with the next code/evidence push.
+(55–82%). This batch is published as
+`0e103b56b614b3ec7ef63f76cd964bbecbeddae1` in
+[draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
+Its [exact-candidate hosted checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42410356947)
+are running. This post-publication status note remains local for the next
+appropriate code/evidence push.
 
 **November 7 checker and physical-layer inventory:** the
 [third disposition report](qualification/source-dispositions-2026-11-07-v3.json.gz)

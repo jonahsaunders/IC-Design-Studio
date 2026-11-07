@@ -64,6 +64,7 @@ UNIT_MODULES = (
     'test_source_dispositions', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
     'test_cvc_models', 'test_physical_layers',
     'test_legacy_symbols',
+    'test_schematic_views',
 )
 
 
