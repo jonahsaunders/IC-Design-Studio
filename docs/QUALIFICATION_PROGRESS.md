@@ -20,6 +20,29 @@ This documentation-only follow-through publishes the source receipt without
 restarting the immutable desktop run. Full chunk completion still requires the
 missing bindings and family applicability evidence described below.
 
+**November 7 additional source check:** the
+[GDSFactory review](validation/chunk7-gdsfactory-source-review-2026-11-07.json)
+verifies five pinned Apache-2.0 source files. Its coil models are two-terminal
+series R-L approximations, including the function named `inductor3`; the pad
+remains an empty placeholder. Its RF material definitions do not supply a full
+frequency or temperature envelope. No missing binding is resolved or model
+imported. This follow-through is local while hosted acceptance runs. The current
+matrix check passes consistency for 302 entries and still reports unqualified.
+
+**November 7 new measured source:** the [IHP L2n0 reference](IHP_L2N0_REFERENCE.md)
+retains two measured dies and both original/simplified layouts directly from
+IHP under Apache-2.0. All eight upstream file identities are verified. The
+application parser agrees with independent complex matrix conversion, and both
+layouts survive project save/reopen and GDS/OASIS exchange. The one-port export
+discrepancy and missing applicability/uncertainty definitions remain explicit;
+this is a new reference import, not a new solver run or catalog model binding.
+The [separate reference validation](validation/ihp-l2n0-reference-2026-11-07.json)
+passes 30 affected tests and both complete audits on each host (one Windows
+symlink skip, no Linux skips); all 7,019 captured source files remain unchanged.
+This reference-only addition postdates desktop candidate `fa01ffb5` and does
+not inherit its pending installed or archive acceptance.
+No family is promoted; the estimate remains 74% (55–82%, low confidence).
+
 **November 7 release-archive follow-through:** candidate `19dfbe2` passes both
 package jobs and both installed-app test sequences, including the new IHP
 capacitor checker gate. Full desktop run `42303725949` nevertheless fails both

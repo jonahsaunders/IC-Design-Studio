@@ -60,6 +60,7 @@ UNIT_MODULES = (
     'test_sky130_mim_hierarchy_electrical', 'test_sky130_mim_hierarchy_electrical_audit',
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
+    'test_ihp_l2n0_reference',
 )
 
 
@@ -113,6 +114,7 @@ def check_syntax(root=ROOT):
 
 def source_identity(root=ROOT):
     files = python_sources(root)
+    files += [p for p in (root / 'tests/fixtures/ihp-l2n0-reference-v1').glob('*') if p.is_file()]
     matrix = root / 'docs/qualification/pdk-matrix.json'
     if matrix.is_file(): files.append(matrix)
     files += [p for p in (root / 'docs/validation/chunk7-openems-retained-source-2026-11-07').glob('*')
