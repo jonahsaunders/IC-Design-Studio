@@ -13,6 +13,11 @@ and quoted text that could be mistaken for declarations. Complete raw-source
 replays remain separate; an unresolved production format cannot pass merely
 because its filename was inventoried.
 
+IRSIM device declarations and XCircuit library/configuration readers now join
+these same bounded stages. Controls distinguish literal declarations from
+comments, strings and unsupported executable constructs, retain template-pin
+diagnostics, and verify source locations. No stage or deadline is relaxed.
+
 The November 7 [release-archive repair](validation/chunk7-release-archive-repair-2026-11-07.json)
 adds a real solver bytecode-mutation control to the required runtime stage and
 binds the exact historical GF180 launcher snapshot into source feedback. Linux

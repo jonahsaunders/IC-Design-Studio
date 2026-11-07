@@ -114,3 +114,5 @@ docs/validation/chunk7-fa01ffb5-installed-pending-2026-11-07.json whitespace=cr-
 docs/validation/ihp-cmim-parallel-2026-11-07.json whitespace=cr-at-eol
 tests/fixtures/ihp-cmim-parallel-v1/SOURCE.json whitespace=cr-at-eol
 tests/fixtures/ihp-cmim-parallel-v1/hierarchical.spice whitespace=-blank-at-eof
+docs/validation/chunk7-source-dispositions-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-linux-result-2026-11-07.json whitespace=cr-at-eol

@@ -75,6 +75,48 @@ class SourceConfigTests(unittest.TestCase):
         self.assertEqual([r['name'] for r in rows],['lambda','n-channel'])
         with self.assertRaises(ValueError):reader.parameter_file('lambda NaN')
 
+    def test_irsim_device_declarations_are_source_facts(self):
+        rows=reader.parameter_file('device nfet Nfet_A\ndevice pfet pfet_b\ndevice capacitor cap_c 2.0E-7\ndevice resistor res_d -1.25\n')
+        self.assertEqual(rows,[
+            dict(kind='simulator-device-declaration',name='Nfet_A',device_type='nfet',declared_value=None,declared_value_literal=None,line=1),
+            dict(kind='simulator-device-declaration',name='pfet_b',device_type='pfet',declared_value=None,declared_value_literal=None,line=2),
+            dict(kind='simulator-device-declaration',name='cap_c',device_type='capacitor',declared_value=2e-7,declared_value_literal='2.0E-7',line=3),
+            dict(kind='simulator-device-declaration',name='res_d',device_type='resistor',declared_value=-1.25,declared_value_literal='-1.25',line=4)])
+
+    def test_irsim_numeric_literal_survives_float_rounding(self):
+        rows=reader.parameter_file('device resistor tiny 1e-400\ndevice capacitor exact 0.12345678901234567890123456789\n')
+        self.assertEqual(rows[0]['declared_value_literal'],'1e-400')
+        self.assertEqual(rows[1]['declared_value_literal'],'0.12345678901234567890123456789')
+        self.assertEqual(rows[0]['declared_value'],0.0)
+
+    def test_irsim_comments_do_not_create_devices(self):
+        rows=reader.parameter_file('; device nfet decoy\n# device pfet absent\nlambda .005 ; device nfet ignored\ndevice nfet actual ; device pfet second\n')
+        self.assertEqual([r['name'] for r in rows],['lambda','actual'])
+        self.assertEqual(rows[-1]['line'],4)
+
+    def test_irsim_device_arity_and_type_are_explicit(self):
+        for text in ('device','device nfet','device bjt unknown','device nfet n 1',
+                     'device pfet p 1','device capacitor c','device resistor r',
+                     'device capacitor c 1 trailing','device resistor r 1 2'):
+            with self.subTest(text=text),self.assertRaises(ValueError):reader.parameter_file(text)
+
+    def test_irsim_device_names_and_values_are_literal_and_finite(self):
+        for text in ('device nfet "quoted"','device nfet $dynamic','device nfet cell[0]',
+                     'device resistor r NaN','device resistor r Infinity','device resistor r 1e400',
+                     'device resistor r 0x10','device resistor r 1_000','device capacitor c 2u',
+                     'device resistor r (1+2)','device resistor r "1"','device nfet n;\ndevice $kind other'):
+            with self.subTest(text=text),self.assertRaises(ValueError):reader.parameter_file(text)
+
+    def test_irsim_duplicate_and_case_ambiguous_devices_fail(self):
+        for text in ('device nfet n\ndevice nfet n','device nfet n\ndevice pfet n',
+                     'device nfet n\ndevice nfet N'):
+            with self.subTest(text=text),self.assertRaises(ValueError):reader.parameter_file(text)
+
+    def test_irsim_existing_parameter_and_resistance_fields_unchanged(self):
+        rows=reader.parameter_file('lambda .005\ndevice nfet n\nresistance n-channel static .8 .2 3335\n')
+        self.assertEqual(rows[0],dict(kind='simulator-parameter',name='lambda',value=.005,line=1))
+        self.assertEqual(rows[2],dict(kind='simulator-resistance-setting',name='n-channel',mode='static',values=[.8,.2,3335.0],line=3))
+
     def test_qflow_static_template_and_conditions(self):
         rows=reader.qflow_shell('#ifdef METALS4\nset flopcell=LIBRARY__dff ;# comment\n#endif\n')
         self.assertEqual({r['name'] for r in rows},{'METALS4','flopcell'})

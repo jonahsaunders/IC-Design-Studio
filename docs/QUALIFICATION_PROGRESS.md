@@ -5,6 +5,26 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 7 IRSIM/XCircuit completion within the source inventory:** the
+[second disposition report](qualification/source-dispositions-2026-11-07-v2.json.gz)
+enumerates all 22 pinned IRSIM configuration files and all eight XCircuit
+library/configuration files. These 30 previously opaque views now contribute
+6,540 source-linked facts; 165 other inventory gaps remain. Independent raw
+readback verifies 484 IRSIM device declarations, 288 XCircuit objects and 1,146
+pin labels, while retaining ten template/pin discrepancies and both literal
+numeric-variable reads. No simulator binding or operating limit is inferred.
+
+The [cross-host integration](validation/chunk7-xcircuit-irsim-integration-2026-11-07.json)
+passes 217 affected tests per host (one Windows skip, none on Linux), with all
+7,089 frozen files unchanged over `b81278c`. Both complete audits produce the
+same report bytes: 512.641 seconds on Windows and 262.975 seconds on native
+Linux, each within its original 900-second audit limit. Independent comparison
+preserves every previous item except 1,115 corrected source-line fields across
+23 Tcl files, each checked against its authenticated raw line. Normal and
+optimized-Python raw-population and rejection controls also pass. This is source
+accounting, not electrical, physical, installed or full-family acceptance.
+The engineering estimate remains 74%, low confidence (55–82%).
+
 **November 7 source-completeness follow-through:** checking the
 original inventory criterion exposed declarations that earlier source-file
 counts did not enumerate. The new versioned GF/IHP inventory adds all 458 GF
@@ -28,12 +48,26 @@ preserved separately from successful follow-through, and the Windows producer's
 unretained terminal result is explicit. The original completion conditions
 and 74% engineering estimate remain unchanged.
 
+This checkpoint is published as `b81278c333cba36e02f400229d1e442f1c43abfd`
+in [draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
+Its [exact-candidate hosted source checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42404966150)
+pass both hosts and the required PR check: 1,326 tests each in all 13 unchanged
+stages (37 Windows / 17 Linux skips). The retained
+[hosted receipt](validation/chunk7-source-dispositions-hosted-source-feedback-2026-11-07.json)
+verifies all 2,345 source bindings, candidate/merge-tree equality, both artifact
+ZIP digests and every extracted member. This post-publication tracker/receipt
+follow-up accompanies the next appropriate code/evidence push; it does not
+restart the installed run.
+
 The [separate Linux installed CMIM readback](validation/chunk7-fa01ffb5-installed-linux-cmim-readback-2026-11-07.json)
 passes for immutable `fa01ffb5`: 432 selected raw capacitor files and 14 additional
 integrity receipts are verified, with all 7,005 candidate source files unchanged.
-At 18:49:51 UTC, Linux release-archive verification and Windows installed-app
-checks remain in progress, with no failed step. Selected ZIP-member verification
-does not establish either full archive digest or completion of the nine-job run.
+The [final Linux installed result](validation/chunk7-fa01ffb5-installed-linux-result-2026-11-07.json)
+records Linux success at the 19:29:15 UTC observation. Eight of nine jobs now
+pass; Windows installed-app checks remain in progress with no failed step.
+Selected release-validation readback binds the CMIM result to its independent
+raw evidence. Selected ZIP-member verification does not establish full archive
+digests or completion of the nine-job run.
 
 **November 7 MOS grouping and shared-bottom capacitor repairs:** the ordinary
 layout and saved-testbench flows now reject incorrect MOS finger/copy grouping
@@ -91,7 +125,7 @@ is not included in the immutable `fa01ffb5`
 installed run below. Complete device and installed parallel qualification remain
 open; the engineering estimate stays 74% (55–82%, low confidence).
 
-**Current published inventory candidate:** `590daef062cf002d5b71e382ec5eaa5f63e4c51e`
+**Earlier published inventory candidate:** `590daef062cf002d5b71e382ec5eaa5f63e4c51e`
 is in [draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
 Its [required hosted source checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42390973114)
 pass on Windows and Linux, along with the required PR check. The

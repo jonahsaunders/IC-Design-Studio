@@ -1,0 +1,1115 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "chunk": 7,
+  "base": "b81278c333cba36e02f400229d1e442f1c43abfd",
+  "status": "PASS_CROSS_HOST_DECLARATION_REPLAY",
+  "qualified": false,
+  "chunk_complete": false,
+  "inventory_complete": false,
+  "inventory_audit_status": "GAPS",
+  "scope": "IRSIM device declarations and XCircuit library/configuration declarations, plus corrected lexical source locations. Complete authenticated source audits agree byte for byte on both hosts; all device, operating-range, physical and installed gates remain separate.",
+  "source_manifest_sha256": "c8c4f5c97f7608e017d462f95224544432e6d4b1ace7dbd01e8c3b92028863a8",
+  "hosts": {
+    "windows": {
+      "platform": "Windows",
+      "base": "b81278c333cba36e02f400229d1e442f1c43abfd",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "source": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio",
+      "files_verified": 7089,
+      "source_unchanged": true,
+      "source_manifest_sha256": "c8c4f5c97f7608e017d462f95224544432e6d4b1ace7dbd01e8c3b92028863a8",
+      "tests": 217,
+      "tests_seconds": 19.725,
+      "tests_result": 0,
+      "skips": [
+        "'Directory symlink creation is not assumed on Windows.'"
+      ],
+      "commands": [
+        {
+          "name": "tests",
+          "returncode": 0,
+          "seconds": 21.09299999999348,
+          "deadline_seconds": 300,
+          "log_sha256": "de7404e2e95f60661e63f6a2824b7ecc3796484c7376cabd295e88ea1ce15179"
+        },
+        {
+          "name": "dispositions",
+          "returncode": 1,
+          "seconds": 512.6410000000033,
+          "deadline_seconds": 900,
+          "log_sha256": "c823e5bff7598185216e71e4e10019d056d8720e9a665a867821eb362f6ba817"
+        }
+      ],
+      "audit": {
+        "status": "GAPS",
+        "returncode": 1,
+        "sha256": "8c114278e9397fccabc260af7d3933f6e179a80075b89658ea8ea139b8bbccbe",
+        "counts": {
+          "by_kind": {
+            "analog_catalog": 99,
+            "build-condition": 73,
+            "build-environment": 16,
+            "build-export": 4,
+            "build-include": 3,
+            "build-process-option": 34,
+            "build-target-template": 228,
+            "build-variable": 290,
+            "bus": 1032,
+            "cell": 7858,
+            "cell-definition": 138,
+            "cell-list-entry": 2578,
+            "cell-list-view": 30,
+            "conditional-json-option": 7,
+            "conditional-json-setting": 40,
+            "configuration-condition": 118,
+            "csv-data-record": 1685,
+            "csv-field-declarations": 116,
+            "digital-circuit-view": 29,
+            "digital-element": 151,
+            "documentation-or-reference": 7086,
+            "dynamic-registration": 2,
+            "em-stackup-Dielectric": 49,
+            "em-stackup-ELayers": 11,
+            "em-stackup-Layer": 164,
+            "em-stackup-Material": 207,
+            "em-stackup-Substrate": 11,
+            "empty-or-documentation-python-module": 6,
+            "extracted-device": 660,
+            "extraction-include": 1,
+            "extraction-literal": 88,
+            "gds-structure": 13901,
+            "generated-fill-cell": 14,
+            "identifiers": 9036,
+            "json-cell": 7038,
+            "json-pg_pin": 13740,
+            "json-pin": 28524,
+            "klayout-macro": 18,
+            "lef-macro": 665,
+            "libraries": 9824,
+            "library": 205,
+            "macro-assignment": 13479,
+            "macro-option-declaration": 24,
+            "macro-option-key": 2466,
+            "macro-option-reference": 108,
+            "magic-cell": 3,
+            "magic-cell-reference": 3,
+            "magic-label": 192,
+            "magic-layer-section": 12,
+            "magic-port": 192,
+            "magic-property": 3,
+            "magic-technology": 3,
+            "measurement-and-sweep-data": 149,
+            "model": 1210,
+            "model-include": 506,
+            "model-section": 320,
+            "netlist-pcell-mapping": 35,
+            "notice": 19,
+            "operating_conditions": 205,
+            "outside-gf-companion-route": 626,
+            "pcell-parameters": 304,
+            "pcell-registration": 288,
+            "pg_pin": 14718,
+            "physical-declaration": 1054,
+            "pin": 34744,
+            "placement-layer": 166,
+            "placement-overhang": 271,
+            "placement-parameter": 528,
+            "placement-spacing": 272,
+            "placement-via": 138,
+            "placement-width": 301,
+            "process-metadata": 4,
+            "process-option": 34,
+            "process-variant": 4,
+            "process_options": 414,
+            "published-workflow-output": 9,
+            "python-declaration": 3237,
+            "python-import": 1711,
+            "qflow-setting": 1150,
+            "qucs-component": 122,
+            "qucs-model": 242,
+            "qucs-netlist-template": 278,
+            "qucs-parameter": 579,
+            "qucs-schematic-instance": 1377,
+            "qucs-schematic-symbol-declaration": 535,
+            "qucs-symbol-reference": 121,
+            "rc-configuration": 112,
+            "rc-density-end": 28,
+            "rc-distance-table": 2356,
+            "rc-metal-table": 3100,
+            "rc-widths": 744,
+            "routing-track": 222,
+            "ruby-class": 80,
+            "ruby-command-literal": 52,
+            "ruby-def": 384,
+            "ruby-mapping-or-dependency": 1044,
+            "ruby-module": 4,
+            "simulator-device-declaration": 484,
+            "simulator-parameter": 288,
+            "simulator-resistance-setting": 140,
+            "slib-symbol": 458,
+            "source-diagnostic": 76,
+            "source-symlink": 3,
+            "source-view": 32455,
+            "subckt": 6154,
+            "symbol": 1586,
+            "tcl-case-option": 106,
+            "tcl-command-reference": 13296,
+            "tcl-dynamic-variable": 46,
+            "tcl-namespace-reference": 4,
+            "tcl-pcell-default": 409,
+            "tcl-procedure": 296,
+            "tcl-source-reference": 79,
+            "tcl-switch-option": 85,
+            "tcl-variable": 3482,
+            "technology-xml-setting": 26399,
+            "validation-or-ci": 3311,
+            "verilog-module": 2004,
+            "verilog-primitive": 25,
+            "veriloga-module": 108,
+            "veriloga-paramset": 22,
+            "veriloga-preprocessor": 470,
+            "xcircuit-dependency-declaration": 14,
+            "xcircuit-library": 6,
+            "xcircuit-library-declaration": 8,
+            "xcircuit-library-reference": 8,
+            "xcircuit-library-search": 2,
+            "xcircuit-model-token-reference": 254,
+            "xcircuit-netlist-template": 552,
+            "xcircuit-object-reference": 18,
+            "xcircuit-palette-instance": 20,
+            "xcircuit-parameter": 2146,
+            "xcircuit-parameter-option": 880,
+            "xcircuit-pin-label": 1146,
+            "xcircuit-symbol": 288,
+            "xcircuit-template-pin-diagnostic": 10,
+            "xschem-instance": 457640,
+            "yaml-list-entry": 97,
+            "yaml-setting": 208
+          },
+          "dispositions": {
+            "inapplicable": 275147,
+            "supported": 210,
+            "unimplemented": 642056
+          },
+          "files": 43671,
+          "inventory_gaps": 165,
+          "items": 751144
+        },
+        "cross_host_comparison": "PENDING_SEPARATE_COMPARISON"
+      }
+    },
+    "linux": {
+      "platform": "Linux",
+      "base": "b81278c333cba36e02f400229d1e442f1c43abfd",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "source": "/var/tmp/icstudio-xcircuit-source-integration-20261107-v1/source",
+      "files_verified": 7089,
+      "source_unchanged": true,
+      "source_manifest_sha256": "c8c4f5c97f7608e017d462f95224544432e6d4b1ace7dbd01e8c3b92028863a8",
+      "tests": 217,
+      "tests_seconds": 5.97,
+      "tests_result": 0,
+      "skips": [],
+      "commands": [
+        {
+          "name": "tests",
+          "returncode": 0,
+          "seconds": 6.368446041000425,
+          "deadline_seconds": 300,
+          "log_sha256": "a74015d6a25f3632048e31cca200ebd175e30652f092da8d0e4e77e184026ba2"
+        },
+        {
+          "name": "dispositions",
+          "returncode": 1,
+          "seconds": 262.97472130999813,
+          "deadline_seconds": 900,
+          "log_sha256": "154743ef581e69377eef73f0013307890668827bf0e135f43a31e7720323f30b"
+        }
+      ],
+      "audit": {
+        "status": "GAPS",
+        "returncode": 1,
+        "sha256": "8c114278e9397fccabc260af7d3933f6e179a80075b89658ea8ea139b8bbccbe",
+        "counts": {
+          "by_kind": {
+            "analog_catalog": 99,
+            "build-condition": 73,
+            "build-environment": 16,
+            "build-export": 4,
+            "build-include": 3,
+            "build-process-option": 34,
+            "build-target-template": 228,
+            "build-variable": 290,
+            "bus": 1032,
+            "cell": 7858,
+            "cell-definition": 138,
+            "cell-list-entry": 2578,
+            "cell-list-view": 30,
+            "conditional-json-option": 7,
+            "conditional-json-setting": 40,
+            "configuration-condition": 118,
+            "csv-data-record": 1685,
+            "csv-field-declarations": 116,
+            "digital-circuit-view": 29,
+            "digital-element": 151,
+            "documentation-or-reference": 7086,
+            "dynamic-registration": 2,
+            "em-stackup-Dielectric": 49,
+            "em-stackup-ELayers": 11,
+            "em-stackup-Layer": 164,
+            "em-stackup-Material": 207,
+            "em-stackup-Substrate": 11,
+            "empty-or-documentation-python-module": 6,
+            "extracted-device": 660,
+            "extraction-include": 1,
+            "extraction-literal": 88,
+            "gds-structure": 13901,
+            "generated-fill-cell": 14,
+            "identifiers": 9036,
+            "json-cell": 7038,
+            "json-pg_pin": 13740,
+            "json-pin": 28524,
+            "klayout-macro": 18,
+            "lef-macro": 665,
+            "libraries": 9824,
+            "library": 205,
+            "macro-assignment": 13479,
+            "macro-option-declaration": 24,
+            "macro-option-key": 2466,
+            "macro-option-reference": 108,
+            "magic-cell": 3,
+            "magic-cell-reference": 3,
+            "magic-label": 192,
+            "magic-layer-section": 12,
+            "magic-port": 192,
+            "magic-property": 3,
+            "magic-technology": 3,
+            "measurement-and-sweep-data": 149,
+            "model": 1210,
+            "model-include": 506,
+            "model-section": 320,
+            "netlist-pcell-mapping": 35,
+            "notice": 19,
+            "operating_conditions": 205,
+            "outside-gf-companion-route": 626,
+            "pcell-parameters": 304,
+            "pcell-registration": 288,
+            "pg_pin": 14718,
+            "physical-declaration": 1054,
+            "pin": 34744,
+            "placement-layer": 166,
+            "placement-overhang": 271,
+            "placement-parameter": 528,
+            "placement-spacing": 272,
+            "placement-via": 138,
+            "placement-width": 301,
+            "process-metadata": 4,
+            "process-option": 34,
+            "process-variant": 4,
+            "process_options": 414,
+            "published-workflow-output": 9,
+            "python-declaration": 3237,
+            "python-import": 1711,
+            "qflow-setting": 1150,
+            "qucs-component": 122,
+            "qucs-model": 242,
+            "qucs-netlist-template": 278,
+            "qucs-parameter": 579,
+            "qucs-schematic-instance": 1377,
+            "qucs-schematic-symbol-declaration": 535,
+            "qucs-symbol-reference": 121,
+            "rc-configuration": 112,
+            "rc-density-end": 28,
+            "rc-distance-table": 2356,
+            "rc-metal-table": 3100,
+            "rc-widths": 744,
+            "routing-track": 222,
+            "ruby-class": 80,
+            "ruby-command-literal": 52,
+            "ruby-def": 384,
+            "ruby-mapping-or-dependency": 1044,
+            "ruby-module": 4,
+            "simulator-device-declaration": 484,
+            "simulator-parameter": 288,
+            "simulator-resistance-setting": 140,
+            "slib-symbol": 458,
+            "source-diagnostic": 76,
+            "source-symlink": 3,
+            "source-view": 32455,
+            "subckt": 6154,
+            "symbol": 1586,
+            "tcl-case-option": 106,
+            "tcl-command-reference": 13296,
+            "tcl-dynamic-variable": 46,
+            "tcl-namespace-reference": 4,
+            "tcl-pcell-default": 409,
+            "tcl-procedure": 296,
+            "tcl-source-reference": 79,
+            "tcl-switch-option": 85,
+            "tcl-variable": 3482,
+            "technology-xml-setting": 26399,
+            "validation-or-ci": 3311,
+            "verilog-module": 2004,
+            "verilog-primitive": 25,
+            "veriloga-module": 108,
+            "veriloga-paramset": 22,
+            "veriloga-preprocessor": 470,
+            "xcircuit-dependency-declaration": 14,
+            "xcircuit-library": 6,
+            "xcircuit-library-declaration": 8,
+            "xcircuit-library-reference": 8,
+            "xcircuit-library-search": 2,
+            "xcircuit-model-token-reference": 254,
+            "xcircuit-netlist-template": 552,
+            "xcircuit-object-reference": 18,
+            "xcircuit-palette-instance": 20,
+            "xcircuit-parameter": 2146,
+            "xcircuit-parameter-option": 880,
+            "xcircuit-pin-label": 1146,
+            "xcircuit-symbol": 288,
+            "xcircuit-template-pin-diagnostic": 10,
+            "xschem-instance": 457640,
+            "yaml-list-entry": 97,
+            "yaml-setting": 208
+          },
+          "dispositions": {
+            "inapplicable": 275147,
+            "supported": 210,
+            "unimplemented": 642056
+          },
+          "files": 43671,
+          "inventory_gaps": 165,
+          "items": 751144
+        },
+        "cross_host_comparison": "PENDING_SEPARATE_COMPARISON"
+      }
+    }
+  },
+  "report_path": "docs/qualification/source-dispositions-2026-11-07-v2.json.gz",
+  "report_sha256": "8c114278e9397fccabc260af7d3933f6e179a80075b89658ea8ea139b8bbccbe",
+  "counts": {
+    "by_kind": {
+      "analog_catalog": 99,
+      "build-condition": 73,
+      "build-environment": 16,
+      "build-export": 4,
+      "build-include": 3,
+      "build-process-option": 34,
+      "build-target-template": 228,
+      "build-variable": 290,
+      "bus": 1032,
+      "cell": 7858,
+      "cell-definition": 138,
+      "cell-list-entry": 2578,
+      "cell-list-view": 30,
+      "conditional-json-option": 7,
+      "conditional-json-setting": 40,
+      "configuration-condition": 118,
+      "csv-data-record": 1685,
+      "csv-field-declarations": 116,
+      "digital-circuit-view": 29,
+      "digital-element": 151,
+      "documentation-or-reference": 7086,
+      "dynamic-registration": 2,
+      "em-stackup-Dielectric": 49,
+      "em-stackup-ELayers": 11,
+      "em-stackup-Layer": 164,
+      "em-stackup-Material": 207,
+      "em-stackup-Substrate": 11,
+      "empty-or-documentation-python-module": 6,
+      "extracted-device": 660,
+      "extraction-include": 1,
+      "extraction-literal": 88,
+      "gds-structure": 13901,
+      "generated-fill-cell": 14,
+      "identifiers": 9036,
+      "json-cell": 7038,
+      "json-pg_pin": 13740,
+      "json-pin": 28524,
+      "klayout-macro": 18,
+      "lef-macro": 665,
+      "libraries": 9824,
+      "library": 205,
+      "macro-assignment": 13479,
+      "macro-option-declaration": 24,
+      "macro-option-key": 2466,
+      "macro-option-reference": 108,
+      "magic-cell": 3,
+      "magic-cell-reference": 3,
+      "magic-label": 192,
+      "magic-layer-section": 12,
+      "magic-port": 192,
+      "magic-property": 3,
+      "magic-technology": 3,
+      "measurement-and-sweep-data": 149,
+      "model": 1210,
+      "model-include": 506,
+      "model-section": 320,
+      "netlist-pcell-mapping": 35,
+      "notice": 19,
+      "operating_conditions": 205,
+      "outside-gf-companion-route": 626,
+      "pcell-parameters": 304,
+      "pcell-registration": 288,
+      "pg_pin": 14718,
+      "physical-declaration": 1054,
+      "pin": 34744,
+      "placement-layer": 166,
+      "placement-overhang": 271,
+      "placement-parameter": 528,
+      "placement-spacing": 272,
+      "placement-via": 138,
+      "placement-width": 301,
+      "process-metadata": 4,
+      "process-option": 34,
+      "process-variant": 4,
+      "process_options": 414,
+      "published-workflow-output": 9,
+      "python-declaration": 3237,
+      "python-import": 1711,
+      "qflow-setting": 1150,
+      "qucs-component": 122,
+      "qucs-model": 242,
+      "qucs-netlist-template": 278,
+      "qucs-parameter": 579,
+      "qucs-schematic-instance": 1377,
+      "qucs-schematic-symbol-declaration": 535,
+      "qucs-symbol-reference": 121,
+      "rc-configuration": 112,
+      "rc-density-end": 28,
+      "rc-distance-table": 2356,
+      "rc-metal-table": 3100,
+      "rc-widths": 744,
+      "routing-track": 222,
+      "ruby-class": 80,
+      "ruby-command-literal": 52,
+      "ruby-def": 384,
+      "ruby-mapping-or-dependency": 1044,
+      "ruby-module": 4,
+      "simulator-device-declaration": 484,
+      "simulator-parameter": 288,
+      "simulator-resistance-setting": 140,
+      "slib-symbol": 458,
+      "source-diagnostic": 76,
+      "source-symlink": 3,
+      "source-view": 32455,
+      "subckt": 6154,
+      "symbol": 1586,
+      "tcl-case-option": 106,
+      "tcl-command-reference": 13296,
+      "tcl-dynamic-variable": 46,
+      "tcl-namespace-reference": 4,
+      "tcl-pcell-default": 409,
+      "tcl-procedure": 296,
+      "tcl-source-reference": 79,
+      "tcl-switch-option": 85,
+      "tcl-variable": 3482,
+      "technology-xml-setting": 26399,
+      "validation-or-ci": 3311,
+      "verilog-module": 2004,
+      "verilog-primitive": 25,
+      "veriloga-module": 108,
+      "veriloga-paramset": 22,
+      "veriloga-preprocessor": 470,
+      "xcircuit-dependency-declaration": 14,
+      "xcircuit-library": 6,
+      "xcircuit-library-declaration": 8,
+      "xcircuit-library-reference": 8,
+      "xcircuit-library-search": 2,
+      "xcircuit-model-token-reference": 254,
+      "xcircuit-netlist-template": 552,
+      "xcircuit-object-reference": 18,
+      "xcircuit-palette-instance": 20,
+      "xcircuit-parameter": 2146,
+      "xcircuit-parameter-option": 880,
+      "xcircuit-pin-label": 1146,
+      "xcircuit-symbol": 288,
+      "xcircuit-template-pin-diagnostic": 10,
+      "xschem-instance": 457640,
+      "yaml-list-entry": 97,
+      "yaml-setting": 208
+    },
+    "dispositions": {
+      "inapplicable": 275147,
+      "supported": 210,
+      "unimplemented": 642056
+    },
+    "files": 43671,
+    "inventory_gaps": 165,
+    "items": 751144
+  },
+  "cross_host_report_bytes_identical": true,
+  "delta": {
+    "path": "irsim-xcircuit-full-report-independent-delta.json",
+    "sha256": "73bfe4db8f0c09fa1a427b895c8b182110013c888c864bab53f271a17a2e24c2",
+    "closed_source_gaps": [
+      "sky130A/libs.tech/irsim/sky130A_1v62_27.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v62_n40.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v62_n5.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v80_125.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v80_27.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v80_n40.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v80_n5.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v98_125.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v98_27.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v98_n40.prm",
+      "sky130A/libs.tech/irsim/sky130A_1v98_n5.prm",
+      "sky130A/libs.tech/xcircuit/ngspice.lps",
+      "sky130A/libs.tech/xcircuit/sky130A.xcircuitrc",
+      "sky130A/libs.tech/xcircuit/sky130_fd_pr.lps",
+      "sky130A/libs.tech/xcircuit/sky130_fd_sc_hd.lps",
+      "sky130B/libs.tech/irsim/sky130B_1v62_27.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v62_n40.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v62_n5.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v80_125.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v80_27.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v80_n40.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v80_n5.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v98_125.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v98_27.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v98_n40.prm",
+      "sky130B/libs.tech/irsim/sky130B_1v98_n5.prm",
+      "sky130B/libs.tech/xcircuit/ngspice.lps",
+      "sky130B/libs.tech/xcircuit/sky130B.xcircuitrc",
+      "sky130B/libs.tech/xcircuit/sky130_fd_pr.lps",
+      "sky130B/libs.tech/xcircuit/sky130_fd_sc_hd.lps"
+    ],
+    "added_source_gaps": [],
+    "previous_items_preserved_except_source_locations": true,
+    "location_corrections": [
+      {
+        "after": 217,
+        "after_kinds": {
+          "tcl-command-reference": 118,
+          "tcl-procedure": 12,
+          "tcl-source-reference": 3,
+          "tcl-variable": 84
+        },
+        "before": 217,
+        "before_kinds": {
+          "tcl-command-reference": 118,
+          "tcl-procedure": 12,
+          "tcl-source-reference": 3,
+          "tcl-variable": 84
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "gf180-open-pdks:common/pdk.tcl"
+      },
+      {
+        "after": 297,
+        "after_kinds": {
+          "tcl-command-reference": 152,
+          "tcl-procedure": 8,
+          "tcl-switch-option": 14,
+          "tcl-variable": 123
+        },
+        "before": 297,
+        "before_kinds": {
+          "tcl-command-reference": 152,
+          "tcl-procedure": 8,
+          "tcl-switch-option": 14,
+          "tcl-variable": 123
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/callbacks/cmomi_cb.tcl"
+      },
+      {
+        "after": 391,
+        "after_kinds": {
+          "tcl-command-reference": 265,
+          "tcl-procedure": 3,
+          "tcl-switch-option": 16,
+          "tcl-variable": 107
+        },
+        "before": 391,
+        "before_kinds": {
+          "tcl-command-reference": 265,
+          "tcl-procedure": 3,
+          "tcl-switch-option": 16,
+          "tcl-variable": 107
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/callbacks/diode_cb.tcl"
+      },
+      {
+        "after": 214,
+        "after_kinds": {
+          "tcl-command-reference": 152,
+          "tcl-procedure": 5,
+          "tcl-switch-option": 3,
+          "tcl-variable": 54
+        },
+        "before": 214,
+        "before_kinds": {
+          "tcl-command-reference": 152,
+          "tcl-procedure": 5,
+          "tcl-switch-option": 3,
+          "tcl-variable": 54
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/callbacks/isolbox_cb.tcl"
+      },
+      {
+        "after": 159,
+        "after_kinds": {
+          "tcl-command-reference": 82,
+          "tcl-procedure": 14,
+          "tcl-variable": 63
+        },
+        "before": 159,
+        "before_kinds": {
+          "tcl-command-reference": 82,
+          "tcl-procedure": 14,
+          "tcl-variable": 63
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/callbacks/parameters.tcl"
+      },
+      {
+        "after": 511,
+        "after_kinds": {
+          "tcl-command-reference": 324,
+          "tcl-dynamic-variable": 2,
+          "tcl-procedure": 3,
+          "tcl-switch-option": 14,
+          "tcl-variable": 168
+        },
+        "before": 511,
+        "before_kinds": {
+          "tcl-command-reference": 324,
+          "tcl-dynamic-variable": 2,
+          "tcl-procedure": 3,
+          "tcl-switch-option": 14,
+          "tcl-variable": 168
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/callbacks/res_cb.tcl"
+      },
+      {
+        "after": 219,
+        "after_kinds": {
+          "tcl-command-reference": 118,
+          "tcl-procedure": 18,
+          "tcl-switch-option": 11,
+          "tcl-variable": 72
+        },
+        "before": 219,
+        "before_kinds": {
+          "tcl-command-reference": 118,
+          "tcl-procedure": 18,
+          "tcl-switch-option": 11,
+          "tcl-variable": 72
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/klayout/python/sg13g2_pycell_lib/callbacks/util.tcl"
+      },
+      {
+        "after": 741,
+        "after_kinds": {
+          "tcl-command-reference": 577,
+          "tcl-dynamic-variable": 9,
+          "tcl-pcell-default": 67,
+          "tcl-procedure": 24,
+          "tcl-switch-option": 4,
+          "tcl-variable": 60
+        },
+        "before": 741,
+        "before_kinds": {
+          "tcl-command-reference": 577,
+          "tcl-dynamic-variable": 9,
+          "tcl-pcell-default": 67,
+          "tcl-procedure": 24,
+          "tcl-switch-option": 4,
+          "tcl-variable": 60
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/magic/ihp-sg13g2-bjt.tcl"
+      },
+      {
+        "after": 507,
+        "after_kinds": {
+          "tcl-command-reference": 350,
+          "tcl-dynamic-variable": 7,
+          "tcl-pcell-default": 44,
+          "tcl-procedure": 17,
+          "tcl-switch-option": 8,
+          "tcl-variable": 81
+        },
+        "before": 507,
+        "before_kinds": {
+          "tcl-command-reference": 350,
+          "tcl-dynamic-variable": 7,
+          "tcl-pcell-default": 44,
+          "tcl-procedure": 17,
+          "tcl-switch-option": 8,
+          "tcl-variable": 81
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/magic/ihp-sg13g2-dio.tcl"
+      },
+      {
+        "after": 465,
+        "after_kinds": {
+          "tcl-command-reference": 285,
+          "tcl-dynamic-variable": 3,
+          "tcl-pcell-default": 70,
+          "tcl-procedure": 52,
+          "tcl-source-reference": 8,
+          "tcl-switch-option": 2,
+          "tcl-variable": 45
+        },
+        "before": 465,
+        "before_kinds": {
+          "tcl-command-reference": 285,
+          "tcl-dynamic-variable": 3,
+          "tcl-pcell-default": 70,
+          "tcl-procedure": 52,
+          "tcl-source-reference": 8,
+          "tcl-switch-option": 2,
+          "tcl-variable": 45
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/magic/ihp-sg13g2-fix.tcl"
+      },
+      {
+        "after": 303,
+        "after_kinds": {
+          "tcl-command-reference": 206,
+          "tcl-dynamic-variable": 4,
+          "tcl-pcell-default": 20,
+          "tcl-procedure": 14,
+          "tcl-switch-option": 2,
+          "tcl-variable": 57
+        },
+        "before": 303,
+        "before_kinds": {
+          "tcl-command-reference": 206,
+          "tcl-dynamic-variable": 4,
+          "tcl-pcell-default": 20,
+          "tcl-procedure": 14,
+          "tcl-switch-option": 2,
+          "tcl-variable": 57
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/magic/ihp-sg13g2-ind.tcl"
+      },
+      {
+        "after": 411,
+        "after_kinds": {
+          "tcl-command-reference": 377,
+          "tcl-procedure": 9,
+          "tcl-variable": 25
+        },
+        "before": 411,
+        "before_kinds": {
+          "tcl-command-reference": 377,
+          "tcl-procedure": 9,
+          "tcl-variable": 25
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/magic/ihp-sg13g2-misc.tcl"
+      },
+      {
+        "after": 205,
+        "after_kinds": {
+          "tcl-command-reference": 140,
+          "tcl-dynamic-variable": 3,
+          "tcl-pcell-default": 5,
+          "tcl-procedure": 5,
+          "tcl-switch-option": 2,
+          "tcl-variable": 50
+        },
+        "before": 205,
+        "before_kinds": {
+          "tcl-command-reference": 140,
+          "tcl-dynamic-variable": 3,
+          "tcl-pcell-default": 5,
+          "tcl-procedure": 5,
+          "tcl-switch-option": 2,
+          "tcl-variable": 50
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/magic/ihp-sg13g2-pad.tcl"
+      },
+      {
+        "after": 1286,
+        "after_kinds": {
+          "tcl-command-reference": 758,
+          "tcl-dynamic-variable": 16,
+          "tcl-pcell-default": 197,
+          "tcl-procedure": 56,
+          "tcl-switch-option": 9,
+          "tcl-variable": 250
+        },
+        "before": 1286,
+        "before_kinds": {
+          "tcl-command-reference": 758,
+          "tcl-dynamic-variable": 16,
+          "tcl-pcell-default": 197,
+          "tcl-procedure": 56,
+          "tcl-switch-option": 9,
+          "tcl-variable": 250
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/magic/ihp-sg13g2-res.tcl"
+      },
+      {
+        "after": 549,
+        "after_kinds": {
+          "tcl-command-reference": 364,
+          "tcl-dynamic-variable": 2,
+          "tcl-pcell-default": 6,
+          "tcl-procedure": 11,
+          "tcl-variable": 166
+        },
+        "before": 549,
+        "before_kinds": {
+          "tcl-command-reference": 364,
+          "tcl-dynamic-variable": 2,
+          "tcl-pcell-default": 6,
+          "tcl-procedure": 11,
+          "tcl-variable": 166
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "ihp-sg13g2:ihp-sg13g2/libs.tech/magic/ihp-sg13g2-via.tcl"
+      },
+      {
+        "after": 179,
+        "after_kinds": {
+          "tcl-command-reference": 121,
+          "tcl-procedure": 7,
+          "tcl-variable": 51
+        },
+        "before": 179,
+        "before_kinds": {
+          "tcl-command-reference": 121,
+          "tcl-procedure": 7,
+          "tcl-variable": 51
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "sky130A/libs.tech/magic/bump_bond_generator/bump_bond.tcl"
+      },
+      {
+        "after": 57,
+        "after_kinds": {
+          "tcl-command-reference": 22,
+          "tcl-source-reference": 27,
+          "tcl-variable": 8
+        },
+        "before": 57,
+        "before_kinds": {
+          "tcl-command-reference": 22,
+          "tcl-source-reference": 27,
+          "tcl-variable": 8
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "sky130A/libs.tech/magic/sky130A.magicrc"
+      },
+      {
+        "after": 346,
+        "after_kinds": {
+          "configuration-condition": 2,
+          "tcl-command-reference": 247,
+          "tcl-variable": 97
+        },
+        "before": 346,
+        "before_kinds": {
+          "configuration-condition": 2,
+          "tcl-command-reference": 247,
+          "tcl-variable": 97
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "sky130A/libs.tech/netgen/setup.tcl"
+      },
+      {
+        "after": 346,
+        "after_kinds": {
+          "configuration-condition": 2,
+          "tcl-command-reference": 247,
+          "tcl-variable": 97
+        },
+        "before": 346,
+        "before_kinds": {
+          "configuration-condition": 2,
+          "tcl-command-reference": 247,
+          "tcl-variable": 97
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "sky130A/libs.tech/netgen/sky130A_setup.tcl"
+      },
+      {
+        "after": 179,
+        "after_kinds": {
+          "tcl-command-reference": 121,
+          "tcl-procedure": 7,
+          "tcl-variable": 51
+        },
+        "before": 179,
+        "before_kinds": {
+          "tcl-command-reference": 121,
+          "tcl-procedure": 7,
+          "tcl-variable": 51
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "sky130B/libs.tech/magic/bump_bond_generator/bump_bond.tcl"
+      },
+      {
+        "after": 57,
+        "after_kinds": {
+          "tcl-command-reference": 22,
+          "tcl-source-reference": 27,
+          "tcl-variable": 8
+        },
+        "before": 57,
+        "before_kinds": {
+          "tcl-command-reference": 22,
+          "tcl-source-reference": 27,
+          "tcl-variable": 8
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "sky130B/libs.tech/magic/sky130B.magicrc"
+      },
+      {
+        "after": 346,
+        "after_kinds": {
+          "configuration-condition": 2,
+          "tcl-command-reference": 247,
+          "tcl-variable": 97
+        },
+        "before": 346,
+        "before_kinds": {
+          "configuration-condition": 2,
+          "tcl-command-reference": 247,
+          "tcl-variable": 97
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "sky130B/libs.tech/netgen/setup.tcl"
+      },
+      {
+        "after": 346,
+        "after_kinds": {
+          "configuration-condition": 2,
+          "tcl-command-reference": 247,
+          "tcl-variable": 97
+        },
+        "before": 346,
+        "before_kinds": {
+          "configuration-condition": 2,
+          "tcl-command-reference": 247,
+          "tcl-variable": 97
+        },
+        "category": "line-location-only",
+        "changed_fields": [
+          "line"
+        ],
+        "source": "sky130B/libs.tech/netgen/sky130B_setup.tcl"
+      }
+    ]
+  },
+  "independent_readbacks": [
+    {
+      "path": "irsim-xcircuit-independent-integrated-normal.json",
+      "sha256": "f819964a2944742ba5d620446d51766d89d0e93848c2e078eb9c859207dc0387"
+    },
+    {
+      "path": "irsim-xcircuit-independent-integrated-optimized.json",
+      "sha256": "b53abddf2107c4cbffd10f2c9f0fbea3459882937cb74ab6d016a07455b07f9c"
+    },
+    {
+      "path": "irsim-xcircuit-full-report-independent-delta.json",
+      "sha256": "73bfe4db8f0c09fa1a427b895c8b182110013c888c864bab53f271a17a2e24c2"
+    },
+    {
+      "path": "irsim-xcircuit-line-delta-independent-readback.json",
+      "sha256": "48bee770781f3d88b72321204da6b852255b96b1d0e303eb825476fc9a6142dd"
+    }
+  ],
+  "source_facts": {
+    "irsim_members": 22,
+    "irsim_device_declarations": 484,
+    "xcircuit_members": 8,
+    "xcircuit_objects": 288,
+    "pin_label_declarations": 1146,
+    "template_pin_discrepancies_retained": 10,
+    "literal_numeric_variable_reads_retained": 2
+  },
+  "limitations": [
+    "Literal template/model identifiers are not established simulator bindings.",
+    "XCircuit source label order is not inferred electrical terminal order.",
+    "Generic XCircuit load references absent from the pinned release remain unresolved dependencies.",
+    "IRSIM settings do not establish device operating or reliability limits."
+  ],
+  "original_source_completeness_definition_preserved": true,
+  "initial_environment_failure": {
+    "path": "wsl-initial-environment-failure.json",
+    "sha256": "e73487adc62452694185fd061f41f5df5bc230c0b150617d39166811a55644dd"
+  },
+  "post_execution_changes": "Only this report, integration evidence, matrix references and documentation are added after the tested snapshot. No runtime code changed."
+}

@@ -89,12 +89,34 @@ def magic_cell(text, path):
 
 
 def parameter_file(text):
-    rows=[]
+    rows=[];seen_devices=set()
     for line,value in enumerate(text.splitlines(),1):
         value=value.split(';',1)[0].strip()
         if not value or value.startswith('#'):continue
         words=value.split()
-        if words[0]=='resistance':
+        if words[0]=='device':
+            # Inventory the literal forms in the pinned IRSIM views. Values are
+            # source facts, not operating limits or an electrical acceptance.
+            require(len(words)>=3,'incomplete simulator device declaration')
+            device_type,name=words[1:3]
+            arity={'nfet':3,'pfet':3,'capacitor':4,'resistor':4}
+            require(device_type in arity and len(words)==arity[device_type],
+                    'unsupported simulator device type or arity')
+            require(re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*',name),
+                    'nonliteral simulator device name')
+            require(name.casefold() not in seen_devices,
+                    'duplicate or case-ambiguous simulator device name')
+            seen_devices.add(name.casefold())
+            declared_value=None;declared_value_literal=None
+            if len(words)==4:
+                require(re.fullmatch(r'[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?',words[3]),
+                        'nonliteral simulator device value')
+                declared_value_literal=words[3]
+                declared_value=number(words[3])
+            rows.append(dict(kind='simulator-device-declaration',name=name,
+                             device_type=device_type,declared_value=declared_value,
+                             declared_value_literal=declared_value_literal,line=line))
+        elif words[0]=='resistance':
             require(len(words)==6,'invalid resistance configuration')
             rows.append(dict(kind='simulator-resistance-setting',name=words[1],mode=words[2],
                              values=[number(w) for w in words[3:]],line=line))
@@ -192,7 +214,7 @@ def tcl_commands(text, list_mode=False):
             if not as_list and c=='#' and not words:
                 end=text.find('\n',i);i=n if end<0 else end;continue
             if not words:command_line=line
-            start=i;expanded=not as_list and text.startswith('{*}',i) and i+3<n and text[i+3] not in spaces
+            start=i;start_line=line;expanded=not as_list and text.startswith('{*}',i) and i+3<n and text[i+3] not in spaces
             if expanded:i+=3;c=text[i]
             quoted=c in '{"';brace=c=='{';kind='brace' if brace else 'quote' if quoted else 'bare'
             if quoted:i+=1
@@ -222,14 +244,14 @@ def tcl_commands(text, list_mode=False):
                 require(i==n or text[i] in spaces or stop and text[i]==']',
                         'characters after quoted Tcl word at line '+str(line))
             value=('{*}' if expanded else '')+text[begin:end]
-            words.append(dict(value=value,kind=kind,line=command_line,raw=text[start:i],substitutions=substitutions))
+            words.append(dict(value=value,kind=kind,line=command_line,start_line=start_line,raw=text[start:i],substitutions=substitutions))
         require(not stop,'unterminated Tcl command substitution')
         if words:commands.append((command_line,words))
         return commands,i,line
     return parse(0,1,as_list=list_mode)[0]
 
 
-def tcl_views(text):
+def tcl_views(text, *, xcircuit=False):
     rows=directives(text)
     def expression_substitutions(value,scope,base):
         for _,group in tcl_commands(value):
@@ -244,6 +266,12 @@ def tcl_views(text):
                     script(substitution['body'],scope,base+substitution['line']-1)
             widget=re.fullmatch(r'\$\{[A-Za-z_]\w*\}(?:\.[A-Za-z_]\w*)+',head) is not None
             require(widget or bool(head) and not re.search(r'[$\[\]\\{}"\s]',head),'dynamic Tcl command')
+            if xcircuit:
+                require(head in {'set','global','if','catch','config','library','namespace','proc','return','*','/','format','case'},'unreviewed XCircuit RC command '+head)
+                if head=='config':
+                    require(len(words)==4 and values[1:3]==['search','libraries'],'unreviewed XCircuit config operation')
+                elif head=='namespace':
+                    require(len(words)==3 and values[1]=='path' and words[2]['kind']=='brace','unreviewed XCircuit namespace operation')
             if widget:
                 require(len(values)>=3 and (values[1]=='add' and values[2] in ('command','cascade','separator')
                         or len(values)>=4 and values[1]=='insert' and values[2].isdigit() and values[3] in ('command','separator')),
@@ -253,7 +281,7 @@ def tcl_views(text):
                 if '-command' in values:
                     pos=values.index('-command')+1
                     require(pos<len(words) and words[pos]['kind'] in ('quote','brace') and not re.search(r'[$\[\\]',values[pos]),'dynamic widget callback')
-                    script(values[pos],scope,line-1)
+                    script(values[pos],scope,base+words[pos]['start_line']-1)
                 continue
             if head in ('eval','uplevel','apply','tailcall','interp','coroutine','yieldto','after','fileevent','trace','bind'):
                 raise ValueError('Source configuration: dynamic Tcl script '+head)
@@ -275,13 +303,30 @@ def tcl_views(text):
                 arguments=[w for _,group in tcl_commands(values[2],list_mode=True) for w in group]
                 rows.append(dict(kind='tcl-procedure',name=values[1],scope=scope,
                                  arguments=[fact(w['value']) for w in arguments],arguments_sha256=digest(values[2]),line=line))
-                script(values[3],scope+[values[1]],line-1);continue
+                script(values[3],scope+[values[1]],base+words[3]['start_line']-1);continue
             elif head in ('source','addpath'):
                 require(len(values)>=2,'missing Tcl source path')
                 rows.append(dict(kind='tcl-source-reference',name=fact(values[-1]),operation=head,scope=scope,line=line))
+            elif head=='library' and xcircuit:
+                literal=lambda word:bool(re.fullmatch(r'[A-Za-z_][A-Za-z0-9_:.-]*',word['value'])) and not word['substitutions']
+                if len(words)==3 and values[1]=='make':
+                    require(literal(words[2]),'nonliteral XCircuit library identity')
+                    rows.append(dict(kind='xcircuit-library-declaration',name=values[2],operation='make',scope=scope,line=line))
+                elif len(words)==4 and re.fullmatch(r'[1-9][0-9]*',values[1]) and values[2]=='load':
+                    require(literal(words[3]),'nonliteral XCircuit library reference')
+                    rows.append(dict(kind='xcircuit-library-reference',name=values[3],operation='load',library_index=values[1],scope=scope,line=line))
+                else:raise ValueError('Source configuration: unsupported XCircuit library operation')
             else:
                 rows.append(dict(kind='tcl-command-reference',name=head,scope=scope,line=line,
                                  arguments=[fact(v) for v in values[1:]]))
+            if xcircuit and head=='config':
+                rows.append(dict(kind='xcircuit-library-search',name='libraries',scope=scope,line=line,
+                                 expression_sha256=digest(values[3]),referenced_variables=re.findall(r'\$([A-Za-z_][A-Za-z0-9_]*)',values[3]),
+                                 paths_resolved=False))
+            if xcircuit and head=='namespace':
+                paths=[word for _,group in tcl_commands(values[2],list_mode=True) for word in group]
+                require(bool(paths) and all(re.fullmatch(r'::[A-Za-z_][A-Za-z0-9_:]*',word['value']) for word in paths),'nonliteral XCircuit namespace path')
+                for word in paths:rows.append(dict(kind='tcl-namespace-reference',name=word['value'],operation='path',scope=scope,line=line))
             if head=='return' and scope and scope[-1].endswith('_defaults') and len(words)==2 and words[1]['kind']=='brace':
                 parts=[w['value'] for _,group in tcl_commands(values[1],list_mode=True) for w in group]
                 require(len(parts)%2==0,'incomplete literal PCell defaults')
@@ -289,18 +334,18 @@ def tcl_views(text):
                     rows.append(dict(kind='tcl-pcell-default',name=key,value=fact(value),scope=scope,line=line))
             if head=='expr':
                 for word in words[1:]:
-                    if word['kind']=='brace':expression_substitutions(word['value'],scope,line-1)
+                    if word['kind']=='brace':expression_substitutions(word['value'],scope,base+word['start_line']-1)
             bodies=[]
             if head=='namespace' and len(values)>=4 and values[1]=='eval':
                 require(len(words)==4 and words[3]['kind']=='brace' and re.fullmatch(r'[A-Za-z_:][\w:.-]*',values[2]),'dynamic Tcl namespace body')
-                script(values[3],scope+[values[2]],line-1)
+                script(values[3],scope+[values[2]],base+words[3]['start_line']-1)
             elif head=='dict' and len(values)>=3 and values[1] in ('for','filter','map','update','with'):
                 # Only the script forms of dict filter execute the final word.
                 if values[1]!='filter' or len(values)>=4 and values[3]=='script':bodies=[len(words)-1]
             elif head in ('foreach','lmap','while'):bodies=[len(words)-1]
             elif head=='for':
                 require(len(words)==5,'invalid Tcl for');bodies=[1,3,4]
-                if words[2]['kind']=='brace':expression_substitutions(values[2],scope,line-1)
+                if words[2]['kind']=='brace':expression_substitutions(values[2],scope,base+words[2]['start_line']-1)
             elif head=='catch':bodies=[1]
             elif head=='try':
                 bodies=[1];pos=2
@@ -319,11 +364,26 @@ def tcl_views(text):
                     elif bodies:
                         # Tcl permits the final else keyword to be omitted.
                         require(pos==len(words)-1,'ambiguous Tcl conditional tail');bodies.append(pos);pos+=1;break
-                    if words[pos]['kind']=='brace':expression_substitutions(values[pos],scope,line-1)
+                    if words[pos]['kind']=='brace':expression_substitutions(values[pos],scope,base+words[pos]['start_line']-1)
                     pos+=1
                     if pos<len(words) and values[pos]=='then':pos+=1
                     require(pos<len(words),'missing Tcl conditional body');bodies.append(pos);pos+=1
                 require(pos==len(words),'invalid Tcl conditional')
+            elif head=='case':
+                require(len(words)>=5 and values[2]=='in' and words[2]['kind']=='bare','unsupported Tcl case form')
+                pairs=words[3:]
+                require(len(pairs)%2==0,'incomplete Tcl case alternatives')
+                seen=set()
+                for index,(pattern,child) in enumerate(zip(pairs[::2],pairs[1::2])):
+                    require(re.fullmatch(r'[A-Za-z0-9_:.+-]+',pattern['value']) and not pattern['substitutions'],'nonliteral Tcl case alternative')
+                    require(pattern['value'] not in seen,'duplicate Tcl case alternative');seen.add(pattern['value'])
+                    require(child['kind']=='brace','dynamic Tcl case body')
+                    source_line=base+pattern['start_line']
+                    condition=dict(kind='literal-case-alternative',name=pattern['value'],selector_sha256=digest(values[1]),case_line=line,alternative_index=index,selection_evaluated=False)
+                    rows.append(dict(kind='tcl-case-option',name=pattern['value'],scope=scope,line=source_line,body_sha256=digest(child['value']),**{k:v for k,v in condition.items() if k not in ('kind','name')}))
+                    start=len(rows)
+                    script(child['value'],scope,base+child['start_line']-1)
+                    for row in rows[start:]:row['conditional_context']=[condition]+row.get('conditional_context',[])
             elif head=='switch':
                 pos=1
                 while pos<len(words) and values[pos] in ('-exact','-glob','-regexp','-nocase','--'):
@@ -331,21 +391,22 @@ def tcl_views(text):
                     if end:break
                 require(pos<len(words) and (values[pos]=='-' or not values[pos].startswith('-')),'unreviewed Tcl switch option')
                 pos+=1
-                pairs=words[pos:]
+                pairs=words[pos:];alternative_base=base
                 if len(pairs)==1:
                     require(pairs[0]['kind']=='brace','dynamic Tcl switch alternatives')
+                    alternative_base=base+pairs[0]['start_line']-1
                     pairs=[w for _,group in tcl_commands(pairs[0]['value'],list_mode=True) for w in group]
                 require(bool(pairs) and len(pairs)%2==0,'incomplete Tcl switch alternatives')
                 for pattern,child in zip(pairs[::2],pairs[1::2]):
                     rows.append(dict(kind='tcl-switch-option',name=fact(pattern['value']),scope=scope,line=line))
                     if child['value']=='-':continue
                     require(child['kind']=='brace','dynamic Tcl switch body')
-                    script(child['value'],scope,line-1)
+                    script(child['value'],scope,alternative_base+child['start_line']-1)
             for pos in bodies:
                 require(pos<len(words) and words[pos]['kind']=='brace','nonliteral Tcl nested script')
-                script(values[pos],scope,line-1)
+                script(values[pos],scope,base+words[pos]['start_line']-1)
             if head=='while' and len(words)>1 and words[1]['kind']=='brace':
-                expression_substitutions(values[1],scope,line-1)
+                expression_substitutions(values[1],scope,base+words[1]['start_line']-1)
     script(text,[])
     return rows
 
@@ -359,5 +420,6 @@ def config_views(path,text):
     if suffix=='.prm':return parameter_file(text)
     if suffix=='.par':return qflow_parameters(text)
     if suffix=='.sh' and '/qflow/' in '/'+path:return qflow_shell(text)
+    if suffix=='.xcircuitrc':return tcl_views(text,xcircuit=True)
     if suffix in ('.tcl','.magicrc','.bindkeys'):return tcl_views(text)
     return None

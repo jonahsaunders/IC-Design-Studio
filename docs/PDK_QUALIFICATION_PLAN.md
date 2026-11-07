@@ -1,5 +1,12 @@
 # PDK qualification in twelve chunks
 
+The November 7 [versioned source-disposition follow-through](SOURCE_DISPOSITION_AUDIT.md)
+adds complete pinned IRSIM/XCircuit declaration accounting and corrected Tcl
+source locations. Both hosts pass 217 affected tests and produce identical full
+reports. Thirty previously opaque views are now enumerated; 165 other inventory
+gaps, required model bindings and all device/operating/physical/installed gates
+remain open. The original completion criteria below are unchanged.
+
 The November 7 [SKY130 release inventory](SKY130_RELEASE_INVENTORY.md) covers all
 seven pinned archives. The [GF180/IHP semantic inventory](UPSTREAM_SEMANTIC_INVENTORY.md)
 adds the complete GF180 parent/submodule graph and declared model, cell, layout

@@ -322,9 +322,7 @@
       "latest_cmim_multiplicity_electrical_evidence": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json",
       "latest_cmim_profile_repair_evidence": "docs/validation/ihp-cmim-profile-isolation-2026-11-03.json",
       "latest_source_inventory_evidence": [
-        "upstream-semantics-inventory-2026-11-07-v2",
-        "source-dispositions-2026-11-07",
-        "chunk7-source-dispositions-integration-2026-11-07"
+        "chunk7-xcircuit-irsim-integration-2026-11-07"
       ],
       "latest_cmim_parallel_saved_bench_evidence": "docs/validation/ihp-cmim-parallel-2026-11-07.json",
       "latest_mos_grouping_evidence": "docs/validation/mos-grouping-2026-11-07.json",
@@ -19554,7 +19552,7 @@
       "target": "sky130A",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned full source-disposition report enumerates additional SLIB, Liberty JSON, symbol, schematic, model/plugin and process/configuration declarations and records unresolved production views as explicit inventory gaps. Those gaps, four required missing model bindings across the supported targets, complete application equivalence and all device/electrical/physical/installed gates remain open. Source-file counts alone do not establish declaration completeness.",
+      "remaining": "The versioned full disposition report now enumerates 30 previously opaque IRSIM/XCircuit views, retains original template discrepancies, and corrects lexical source locations. Other explicit production inventory gaps, four required missing model bindings, complete application equivalence and device/electrical/physical/installed gates remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -19564,7 +19562,8 @@
         "chunk7-required-binding-semantics-2026-11-07",
         "upstream-semantics-inventory-2026-11-07-v2",
         "source-dispositions-2026-11-07",
-        "chunk7-source-dispositions-integration-2026-11-07"
+        "chunk7-source-dispositions-integration-2026-11-07",
+        "chunk7-xcircuit-irsim-integration-2026-11-07"
       ]
     },
     "sky130A:tool-install": {
@@ -19852,7 +19851,7 @@
       "target": "gf180mcuC",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned full source-disposition report enumerates additional SLIB, Liberty JSON, symbol, schematic, model/plugin and process/configuration declarations and records unresolved production views as explicit inventory gaps. Those gaps, four required missing model bindings across the supported targets, complete application equivalence and all device/electrical/physical/installed gates remain open. Source-file counts alone do not establish declaration completeness.",
+      "remaining": "The versioned full disposition report now enumerates 30 previously opaque IRSIM/XCircuit views, retains original template discrepancies, and corrects lexical source locations. Other explicit production inventory gaps, four required missing model bindings, complete application equivalence and device/electrical/physical/installed gates remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -19860,7 +19859,8 @@
         "upstream-semantics-inventory-2026-11-07",
         "upstream-semantics-inventory-2026-11-07-v2",
         "source-dispositions-2026-11-07",
-        "chunk7-source-dispositions-integration-2026-11-07"
+        "chunk7-source-dispositions-integration-2026-11-07",
+        "chunk7-xcircuit-irsim-integration-2026-11-07"
       ]
     },
     "gf180mcuC:tool-install": {
@@ -20143,7 +20143,7 @@
       "target": "gf180mcuD",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned full source-disposition report enumerates additional SLIB, Liberty JSON, symbol, schematic, model/plugin and process/configuration declarations and records unresolved production views as explicit inventory gaps. Those gaps, four required missing model bindings across the supported targets, complete application equivalence and all device/electrical/physical/installed gates remain open. Source-file counts alone do not establish declaration completeness.",
+      "remaining": "The versioned full disposition report now enumerates 30 previously opaque IRSIM/XCircuit views, retains original template discrepancies, and corrects lexical source locations. Other explicit production inventory gaps, four required missing model bindings, complete application equivalence and device/electrical/physical/installed gates remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -20151,7 +20151,8 @@
         "upstream-semantics-inventory-2026-11-07",
         "upstream-semantics-inventory-2026-11-07-v2",
         "source-dispositions-2026-11-07",
-        "chunk7-source-dispositions-integration-2026-11-07"
+        "chunk7-source-dispositions-integration-2026-11-07",
+        "chunk7-xcircuit-irsim-integration-2026-11-07"
       ]
     },
     "gf180mcuD:tool-install": {
@@ -20444,7 +20445,7 @@
       "target": "ihp-sg13g2",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned full source-disposition report enumerates additional SLIB, Liberty JSON, symbol, schematic, model/plugin and process/configuration declarations and records unresolved production views as explicit inventory gaps. Those gaps, four required missing model bindings across the supported targets, complete application equivalence and all device/electrical/physical/installed gates remain open. Source-file counts alone do not establish declaration completeness.",
+      "remaining": "The versioned full disposition report now enumerates 30 previously opaque IRSIM/XCircuit views, retains original template discrepancies, and corrects lexical source locations. Other explicit production inventory gaps, four required missing model bindings, complete application equivalence and device/electrical/physical/installed gates remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "upstream-views-2026-10-20",
@@ -20452,7 +20453,8 @@
         "chunk7-required-binding-semantics-2026-11-07",
         "upstream-semantics-inventory-2026-11-07-v2",
         "source-dispositions-2026-11-07",
-        "chunk7-source-dispositions-integration-2026-11-07"
+        "chunk7-source-dispositions-integration-2026-11-07",
+        "chunk7-xcircuit-irsim-integration-2026-11-07"
       ]
     },
     "ihp-sg13g2:tool-install": {
@@ -25997,6 +25999,11 @@
       "path": "docs/validation/chunk7-source-dispositions-integration-2026-11-07.json",
       "sha256": "06b3c08de95b2b203e67effab4c52b1e0ad742fd58efe8abdd790fa8bb2e63df",
       "scope_limit": "Declaration inventory and bounded source replay only. Explicit production gaps and malformed-source diagnostics remain visible; all model, physical, electrical and installed acceptance gates retain their existing scope."
+    },
+    "chunk7-xcircuit-irsim-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-xcircuit-irsim-integration-2026-11-07.json",
+      "sha256": "a88003254e3f2c1a28ffc585aa425b18994bc1f457c40b58d40bda420aef4601",
+      "scope_limit": "Bounded declaration inventory and complete cross-host source replay only; unresolved source gaps and all device, physical, electrical and installed qualification remain open."
     }
   },
   "execution_acceptance": {
