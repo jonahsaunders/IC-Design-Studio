@@ -41,6 +41,13 @@ passes 30 affected tests and both complete audits on each host (one Windows
 symlink skip, no Linux skips); all 7,019 captured source files remain unchanged.
 This reference-only addition postdates desktop candidate `fa01ffb5` and does
 not inherit its pending installed or archive acceptance.
+The first hosted reference run `42383838452` fails both source lanes at module
+loading: fast feedback installed desktop dependencies but omitted the existing
+pinned numerical qualification dependencies. Those failures are retained.
+Fast feedback now installs `requirements-qualification.txt` as the full core
+suite already does, and reports import errors directly. The 23 affected local
+checks pass; fresh hosted verification is required. No check is skipped to
+accommodate the missing dependency.
 No family is promoted; the estimate remains 74% (55–82%, low confidence).
 
 **November 7 release-archive follow-through:** candidate `19dfbe2` passes both

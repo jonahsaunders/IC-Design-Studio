@@ -163,7 +163,8 @@ class FeedbackTests(unittest.TestCase):
         expanded=[list(ids(unittest.defaultTestLoader.loadTestsFromNames(group))) for group in groups]
         self.assertEqual(sum(expanded,[]),original)
         self.assertEqual(len(original),len(set(original)))
-        self.assertFalse(any('_FailedTest' in name for name in original))
+        self.assertFalse(any('_FailedTest' in name for name in original),
+                         '\n'.join(unittest.defaultTestLoader.errors))
 
     def test_required_package_checks_are_separate_complete_and_nonoverlapping(self):
         self.assertFalse(set(UNIT_MODULES) & set(PACKAGE_MODULES))
