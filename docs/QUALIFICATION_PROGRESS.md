@@ -5,6 +5,26 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 7 checker and physical-layer inventory:** the
+[third disposition report](qualification/source-dispositions-2026-11-07-v3.json.gz)
+enumerates two CVC checker files and six physical-layer/stack files, closing
+eight more previously opaque views with 484 source facts. The full inventory
+now retains 43,671 source identities, 751,628 linked items and **157 explicit
+gaps**. All 751,144 previous items and all remaining gaps are unchanged.
+Independent raw readback preserves the repeated ITF layer, the XS active-device
+exclusion and the unevaluated Python lookup; none supplies a missing simulator
+model or a qualified operating limit.
+
+The [cross-host integration](validation/chunk7-cvc-physical-integration-2026-11-07.json)
+passes 257 affected tests on each host (one Windows skip, none on Linux), with
+all 7,096 frozen files unchanged over `96ad7a5`. Complete reports match byte for
+byte: 449.500 seconds on Windows and 259.585 seconds on native Linux, within the
+unchanged 900-second audit deadline. Normal and optimized-Python tests, exact
+path/revision rejection controls and independent raw-field checks pass. The
+initial copied-reader temporary-folder errors remain separate from final
+acceptance. All completion gates and the 74% estimate (low confidence, 55–82%)
+remain unchanged.
+
 **November 7 IRSIM/XCircuit completion within the source inventory:** the
 [second disposition report](qualification/source-dispositions-2026-11-07-v2.json.gz)
 enumerates all 22 pinned IRSIM configuration files and all eight XCircuit
@@ -24,6 +44,18 @@ preserves every previous item except 1,115 corrected source-line fields across
 optimized-Python raw-population and rejection controls also pass. This is source
 accounting, not electrical, physical, installed or full-family acceptance.
 The engineering estimate remains 74%, low confidence (55–82%).
+
+This batch is published as `96ad7a50f1d06dfdeb5ff078dbe584b3c1a97589`
+in [draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
+Its [exact-candidate hosted checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42407324784)
+pass both hosts and the required PR check: 1,377 tests each in all 13 unchanged
+stages (37 Windows / 17 Linux skips). The
+[retained receipt](validation/chunk7-xcircuit-irsim-hosted-source-feedback-2026-11-07.json)
+verifies all 2,348 source identities against a complete isolated 7,092-file
+candidate, exact merge-tree equality and every downloaded artifact member.
+This allows later working-tree development without changing the accepted
+candidate. The post-publication tracker/receipt follows with the checker/layer
+batch; no installed workflow is restarted.
 
 **November 7 source-completeness follow-through:** checking the
 original inventory criterion exposed declarations that earlier source-file
@@ -68,6 +100,11 @@ pass; Windows installed-app checks remain in progress with no failed step.
 Selected release-validation readback binds the CMIM result to its independent
 raw evidence. Selected ZIP-member verification does not establish full archive
 digests or completion of the nine-job run.
+
+At 19:56:43 UTC, the separate immutable Windows installed-app verification
+has passed and checkpoint upload is in progress. Windows release-archive
+assembly/execution and the overall nine-job result remain pending; no result
+for newer application repairs is inferred.
 
 **November 7 MOS grouping and shared-bottom capacitor repairs:** the ordinary
 layout and saved-testbench flows now reject incorrect MOS finger/copy grouping

@@ -1,5 +1,10 @@
 # PDK qualification in twelve chunks
 
+The subsequent [checker/layer source batch](validation/chunk7-cvc-physical-integration-2026-11-07.json)
+adds eight reviewed source views, with 257 affected tests per host and identical
+complete audits. The inventory retains 157 unresolved source gaps; source facts
+do not establish missing model bindings, operating limits or physical acceptance.
+
 The November 7 [versioned source-disposition follow-through](SOURCE_DISPOSITION_AUDIT.md)
 adds complete pinned IRSIM/XCircuit declaration accounting and corrected Tcl
 source locations. Both hosts pass 217 affected tests and produce identical full

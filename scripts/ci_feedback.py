@@ -62,6 +62,7 @@ UNIT_MODULES = (
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
     'test_ihp_l2n0_reference', 'test_sky130_release_inventory', 'test_upstream_semantics',
     'test_source_dispositions', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
+    'test_cvc_models', 'test_physical_layers',
 )
 
 
