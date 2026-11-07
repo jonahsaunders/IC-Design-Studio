@@ -5,6 +5,27 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 7 legacy-symbol inventory:** the
+[fourth disposition report](qualification/source-dispositions-2026-11-07-v4.json.gz)
+enumerates eight pinned headerless Xschem symbols and one Qucs component view:
+nine previously opaque sources and 145 additional facts. All 751,628 previous
+items remain exactly unchanged; the complete report has 43,671 source identities,
+751,773 items and **148 explicit inventory gaps**. Pins, bus references and
+extra power attributes remain distinct. The Qucs identifiers `C_IHP`, `cmim`
+and `cparasitic` do not establish model equivalence or resolve the external
+symbol reference.
+
+The [cross-host integration](validation/chunk7-legacy-symbol-integration-2026-11-07.json)
+passes 283 affected tests per host (one Windows skip, none on Linux). All 7,101
+frozen files over `f62b9ff` remain unchanged. Complete reports match byte for
+byte after 498.000 seconds on Windows and 279.747 seconds on native Linux,
+within the unchanged 900-second limit. Independent raw-source, routing and
+full-report comparisons pass. The original numeric-token finding, reverted
+line-ending change and test-harness import-path failure remain separately
+retained. No source-completeness, device, operating-range, physical or installed
+gate is promoted. The engineering estimate remains 74%, low confidence
+(55–82%). This local checkpoint follows with the next code/evidence push.
+
 **November 7 checker and physical-layer inventory:** the
 [third disposition report](qualification/source-dispositions-2026-11-07-v3.json.gz)
 enumerates two CVC checker files and six physical-layer/stack files, closing
@@ -24,6 +45,17 @@ path/revision rejection controls and independent raw-field checks pass. The
 initial copied-reader temporary-folder errors remain separate from final
 acceptance. All completion gates and the 74% estimate (low confidence, 55–82%)
 remain unchanged.
+
+This checker/layer batch is published as
+`f62b9ff5f034e2bfcd7560c07ea4f3c31a0dcb7b` in
+[draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
+Its [exact-candidate hosted checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42408853850)
+pass both platforms and the required PR check: 1,417 tests per host in all 13
+unchanged stages (37 Windows / 17 Linux skips). The
+[retained receipt](validation/chunk7-cvc-physical-hosted-source-feedback-2026-11-07.json)
+verifies all 2,352 source identities against the complete isolated 7,099-file
+candidate, exact merge-tree equality, both artifact digests and every extracted
+member. This post-publication evidence follows with the legacy-symbol batch.
 
 **November 7 IRSIM/XCircuit completion within the source inventory:** the
 [second disposition report](qualification/source-dispositions-2026-11-07-v2.json.gz)

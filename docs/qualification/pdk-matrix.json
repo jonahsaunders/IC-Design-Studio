@@ -322,7 +322,7 @@
       "latest_cmim_multiplicity_electrical_evidence": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json",
       "latest_cmim_profile_repair_evidence": "docs/validation/ihp-cmim-profile-isolation-2026-11-03.json",
       "latest_source_inventory_evidence": [
-        "chunk7-cvc-physical-integration-2026-11-07"
+        "chunk7-legacy-symbol-integration-2026-11-07"
       ],
       "latest_cmim_parallel_saved_bench_evidence": "docs/validation/ihp-cmim-parallel-2026-11-07.json",
       "latest_mos_grouping_evidence": "docs/validation/mos-grouping-2026-11-07.json",
@@ -19552,7 +19552,7 @@
       "target": "sky130A",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned full disposition report additionally enumerates two CVC checker views and six physical-layer/stack views, preserving source diagnostics. Other explicit production inventory gaps, four missing required model bindings, complete application equivalence and all device/electrical/physical/installed qualification remain open.",
+      "remaining": "The versioned report additionally enumerates nine pinned legacy symbol views while preserving absent headers, power/bus distinctions and unresolved model/reference bindings. Remaining production inventory gaps, four missing required model bindings, complete application equivalence and all device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -19564,7 +19564,8 @@
         "source-dispositions-2026-11-07",
         "chunk7-source-dispositions-integration-2026-11-07",
         "chunk7-xcircuit-irsim-integration-2026-11-07",
-        "chunk7-cvc-physical-integration-2026-11-07"
+        "chunk7-cvc-physical-integration-2026-11-07",
+        "chunk7-legacy-symbol-integration-2026-11-07"
       ]
     },
     "sky130A:tool-install": {
@@ -19852,7 +19853,7 @@
       "target": "gf180mcuC",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned full disposition report additionally enumerates two CVC checker views and six physical-layer/stack views, preserving source diagnostics. Other explicit production inventory gaps, four missing required model bindings, complete application equivalence and all device/electrical/physical/installed qualification remain open.",
+      "remaining": "The versioned report additionally enumerates nine pinned legacy symbol views while preserving absent headers, power/bus distinctions and unresolved model/reference bindings. Remaining production inventory gaps, four missing required model bindings, complete application equivalence and all device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -19862,7 +19863,8 @@
         "source-dispositions-2026-11-07",
         "chunk7-source-dispositions-integration-2026-11-07",
         "chunk7-xcircuit-irsim-integration-2026-11-07",
-        "chunk7-cvc-physical-integration-2026-11-07"
+        "chunk7-cvc-physical-integration-2026-11-07",
+        "chunk7-legacy-symbol-integration-2026-11-07"
       ]
     },
     "gf180mcuC:tool-install": {
@@ -20145,7 +20147,7 @@
       "target": "gf180mcuD",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned full disposition report additionally enumerates two CVC checker views and six physical-layer/stack views, preserving source diagnostics. Other explicit production inventory gaps, four missing required model bindings, complete application equivalence and all device/electrical/physical/installed qualification remain open.",
+      "remaining": "The versioned report additionally enumerates nine pinned legacy symbol views while preserving absent headers, power/bus distinctions and unresolved model/reference bindings. Remaining production inventory gaps, four missing required model bindings, complete application equivalence and all device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -20155,7 +20157,8 @@
         "source-dispositions-2026-11-07",
         "chunk7-source-dispositions-integration-2026-11-07",
         "chunk7-xcircuit-irsim-integration-2026-11-07",
-        "chunk7-cvc-physical-integration-2026-11-07"
+        "chunk7-cvc-physical-integration-2026-11-07",
+        "chunk7-legacy-symbol-integration-2026-11-07"
       ]
     },
     "gf180mcuD:tool-install": {
@@ -20448,7 +20451,7 @@
       "target": "ihp-sg13g2",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned full disposition report additionally enumerates two CVC checker views and six physical-layer/stack views, preserving source diagnostics. Other explicit production inventory gaps, four missing required model bindings, complete application equivalence and all device/electrical/physical/installed qualification remain open.",
+      "remaining": "The versioned report additionally enumerates nine pinned legacy symbol views while preserving absent headers, power/bus distinctions and unresolved model/reference bindings. Remaining production inventory gaps, four missing required model bindings, complete application equivalence and all device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "upstream-views-2026-10-20",
@@ -20458,7 +20461,8 @@
         "source-dispositions-2026-11-07",
         "chunk7-source-dispositions-integration-2026-11-07",
         "chunk7-xcircuit-irsim-integration-2026-11-07",
-        "chunk7-cvc-physical-integration-2026-11-07"
+        "chunk7-cvc-physical-integration-2026-11-07",
+        "chunk7-legacy-symbol-integration-2026-11-07"
       ]
     },
     "ihp-sg13g2:tool-install": {
@@ -26013,6 +26017,11 @@
       "path": "docs/validation/chunk7-cvc-physical-integration-2026-11-07.json",
       "sha256": "6fb85d21645a11d1509beb6c9d7b80e136890fc2fcead9cfc269ad0477325b7d",
       "scope_limit": "Bounded checker/layer declarations and complete cross-host replay only. No model, envelope, geometry, electrical or installed acceptance promotion."
+    },
+    "chunk7-legacy-symbol-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-legacy-symbol-integration-2026-11-07.json",
+      "sha256": "3f6012531297e575a36698bfbd82175ef56d3f04683e09e944beb5bb3c2dad00",
+      "scope_limit": "Bounded source-symbol declarations and complete cross-host replay only; no model, electrical, physical, operating-range or installed acceptance promotion."
     }
   },
   "execution_acceptance": {

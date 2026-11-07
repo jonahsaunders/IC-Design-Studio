@@ -1,5 +1,11 @@
 # PDK qualification in twelve chunks
 
+The subsequent [legacy-symbol batch](validation/chunk7-legacy-symbol-integration-2026-11-07.json)
+adds nine reviewed source views and 145 facts, with 283 affected tests per host
+and byte-identical complete audits. All previous items remain unchanged;
+148 inventory gaps, missing model bindings and the original device qualification
+requirements remain open. Missing headers and unresolved references are retained.
+
 The subsequent [checker/layer source batch](validation/chunk7-cvc-physical-integration-2026-11-07.json)
 adds eight reviewed source views, with 257 affected tests per host and identical
 complete audits. The inventory retains 157 unresolved source gaps; source facts

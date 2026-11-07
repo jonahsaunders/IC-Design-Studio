@@ -63,6 +63,7 @@ UNIT_MODULES = (
     'test_ihp_l2n0_reference', 'test_sky130_release_inventory', 'test_upstream_semantics',
     'test_source_dispositions', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
     'test_cvc_models', 'test_physical_layers',
+    'test_legacy_symbols',
 )
 
 

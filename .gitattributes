@@ -117,3 +117,4 @@ tests/fixtures/ihp-cmim-parallel-v1/hierarchical.spice whitespace=-blank-at-eof
 docs/validation/chunk7-source-dispositions-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
 docs/validation/chunk7-fa01ffb5-installed-linux-result-2026-11-07.json whitespace=cr-at-eol
 docs/validation/chunk7-xcircuit-irsim-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-cvc-physical-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol

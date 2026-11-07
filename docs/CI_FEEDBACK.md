@@ -23,6 +23,12 @@ join the unit stage. Tests preserve literal values and duplicate declarations,
 reject unsupported grammar or source routes, and keep runtime/physical claims
 separate from declaration accounting.
 
+The legacy-symbol reader adds bounded headerless Xschem and Qucs component
+declarations to the same stage. Controls distinguish pins, bus references,
+power attributes, model names and numeric tokens; unsupported source routes,
+executable records and malformed input remain rejected. Complete raw-source
+replay and qualification remain separate, with all stage deadlines unchanged.
+
 The November 7 [release-archive repair](validation/chunk7-release-archive-repair-2026-11-07.json)
 adds a real solver bytecode-mutation control to the required runtime stage and
 binds the exact historical GF180 launcher snapshot into source feedback. Linux
