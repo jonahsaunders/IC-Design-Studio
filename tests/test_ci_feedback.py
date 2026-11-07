@@ -38,12 +38,23 @@ class FeedbackTests(unittest.TestCase):
         self.assertTrue(closure['gf_parent_graph']['repositories'])
         historical = json.loads(gzip.decompress((inputs / 'upstream-views-2026-10-20.json.gz').read_bytes()))
         self.assertTrue(historical['files'])
+        from scripts.audit_source_dispositions import COMPANION_ROOTS, COMPANION_PINS, REPORTS, checked_report
+        from scripts.inventory_upstream_views import verified_closure
+        companion_files, _ = verified_closure(json.loads(gzip.decompress(
+            (inputs / 'source-dispositions-companion-inputs-2026-11-07.json.gz').read_bytes())),
+            roots=COMPANION_ROOTS, repositories=COMPANION_PINS)
+        self.assertTrue(companion_files)
+        for relative, digest in REPORTS.values():
+            checked_report(ROOT / relative, digest)
 
     def test_semantic_source_graphs_and_release_inputs_are_bound(self):
         names = ('upstream-view-inputs-2026-10-20.json.gz',
                  'upstream-views-2026-10-20.json.gz',
                  'sky130-release-inputs-2026-11-07.json',
-                 'upstream-semantics-gf-inputs-2026-11-07.json.gz')
+                 'upstream-semantics-gf-inputs-2026-11-07.json.gz',
+                 'source-dispositions-companion-inputs-2026-11-07.json.gz',
+                 'upstream-semantics-inventory-2026-11-07-v2.json.gz',
+                 'sky130-release-inventory-2026-11-07.json.gz')
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             source = root / 'docs/qualification'

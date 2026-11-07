@@ -8,12 +8,77 @@ from pathlib import Path
 from scripts.inventory_upstream_semantics import (
     authenticated_bytes, dependency_edges, dispositions, extraction, interpret, gds_interfaces,
     lef, liberty, parse_spice_interfaces, pcells, process_options,
-    reconcile_libraries, source_kind, symbol, verilog,
+    reconcile_libraries, slib_symbols, source_kind, symbol, verilog,
 )
 from scripts.reconcile_primitive_inventory import git_hash
 
 
 class UpstreamSemanticsTests(unittest.TestCase):
+    def test_slib_preserves_declared_identity_case_and_pin_sequence(self):
+        text = '''/* symbol("fake") { pin("NO",0,0,R); } */
+symbol ("Adder_2") {
+ set_minimum_boundary (-120*SCALE,-40*SCALE,120*SCALE,40*SCALE);
+ line (-100*SCALE,-40*SCALE,-100*SCALE,40*SCALE);
+ pin ("Z",130*SCALE,20*SCALE,ANY_ROTATION);
+ pin ("a",-130*SCALE,-20*SCALE,ANY_ROTATION);
+ pin ("A",-130*SCALE,20*SCALE,ANY_ROTATION);
+} // pin("BAD",0,0,R);
+'''
+        rows = interpret('slib-symbol', text, 'misleading_filename.slib')
+        self.assertEqual([r['name'] for r in rows], ['Adder_2'])
+        self.assertEqual(rows[0]['terminals'], ['Z', 'a', 'A'])
+        self.assertEqual([p['declaration_index'] for p in rows[0]['terminal_declarations']], [0, 1, 2])
+        self.assertEqual(rows[0]['terminal_declarations'][0]['line'], 5)
+        self.assertEqual(rows[0]['terminal_order'], 'source-declaration-order-not-electrical-port-order')
+        self.assertFalse(rows[0]['graphical_expressions_evaluated'])
+        self.assertNotIn('pins', rows[0])
+
+    def test_slib_multiple_symbols_are_all_retained(self):
+        rows = slib_symbols('symbol("first"){pin("D[1]",0,0,R);} symbol("second"){pin("B",0,0,R);}')
+        self.assertEqual([(r['name'], r['terminals']) for r in rows], [('first', ['D[1]']), ('second', ['B'])])
+
+    def test_slib_dynamic_or_unknown_calls_are_explicit_errors(self):
+        for text in ('symbol(dynamic){}', 'symbol("C"){pin(dynamic,0,0,R);}',
+                     'symbol("C"){generate_pins();}', 'symbol("C"){system("execute");}',
+                     'symbol("C"){pin("P",position(),0,R);}',
+                     'if(enabled){symbol("C"){pin("P",0,0,R);}}'):
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                slib_symbols(text)
+
+    def test_slib_duplicate_and_truncated_records_fail(self):
+        for text in ('symbol("C"){} symbol("C"){}',
+                     'symbol("C"){pin("P",0,0,R);pin("P",1,0,R);}',
+                     'symbol("C"){pin("P",0,0,R);', 'symbol("C"){pin("P",0,,R);}',
+                     'symbol("C"){pin("P",0,0);}', 'symbol("C"){pin("P",0,0,R)}',
+                     'symbol("C"){} /* unterminated', 'symbol("C){pin("P",0,0,R);}',
+                     '/* symbol("decoy"){} */'):
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                slib_symbols(text)
+
+    def test_slib_quoted_pin_decoy_and_escaped_identity_do_not_create_pins(self):
+        with self.assertRaises(ValueError):
+            slib_symbols('symbol("C"){text("pin(\\\"FAKE\\\",0,0,R)",0,0);pin("P",0,0,R);}')
+        with self.assertRaises(ValueError):
+            slib_symbols(r'symbol("C"){pin("\u0050",0,0,R);}')
+
+    def test_slib_library_view_preserves_order_without_support_claim(self):
+        item = slib_symbols('symbol("C"){pin("B",0,0,R);pin("A",0,0,R);}')[0]
+        item.update(id='symbol:0', source='gf180-ecosystem:libraries/L/latest/a.slib',
+                    family='gf180-ecosystem', library_scope='L')
+        row = reconcile_libraries([item], dict(profiles={}))[0]
+        self.assertEqual(row['views'], {'slib-symbol': ['symbol:0']})
+        self.assertEqual([p['name'] for p in row['symbol_terminal_declarations'][0]['pins']], ['B', 'A'])
+        self.assertEqual(row['disposition'], 'unimplemented')
+        self.assertIn('subckt', row['missing_views'])
+        entry = dict(model='C', prefix='X', source='a.slib', pin_order=['B','A'], emit_parameters={}, unavailable='')
+        package = dict(by_blob={'blob':['a.slib']}, catalog_names={'c':{'device':entry}},
+                       catalog_sources={'a.slib':{'device':entry}}, active_index={})
+        result = dispositions(dict(family='gf180-ecosystem', git_blob_sha1='blob'), item,
+                              {'gf180mcuC':package, 'gf180mcuD':package})
+        for target in ('gf180mcuC', 'gf180mcuD'):
+            self.assertEqual(result[target]['disposition'], 'unimplemented')
+            self.assertIn('not an electrical port order', result[target]['reason'])
+
     def test_gds_block_padding_is_narrowly_validated(self):
         def record(kind,dtype=0,data=b''):
             return struct.pack('>HBB',4+len(data),kind,dtype)+data
@@ -129,7 +194,7 @@ class Device:
         self.assertIn('terminal_mapping',rows[0])
 
     def test_all_production_view_types_selected(self):
-        for path,kind in [('cells/a.lib','liberty'),('libs.ref/a.cdl','cdl'),('libs.ref/a.lef','lef'),('libs.ref/a.gds','gds'),('libs.ref/a.v','verilog'),('libs.tech/verilog-a/a.va','veriloga')]:
+        for path,kind in [('cells/a.lib','liberty'),('cells/a.slib','slib-symbol'),('libs.ref/a.cdl','cdl'),('libs.ref/a.lef','lef'),('libs.ref/a.gds','gds'),('libs.ref/a.v','verilog'),('libs.tech/verilog-a/a.va','veriloga')]:
             self.assertEqual(source_kind(dict(path=path)),kind)
         self.assertIsNone(source_kind(dict(path='tests/a.spice')))
 

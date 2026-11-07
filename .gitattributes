@@ -5,6 +5,11 @@
 
 # Preserve the authenticated Windows receipt and original native fixture bytes.
 docs/validation/chunk7-cmim-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/SOURCE_DISPOSITION_AUDIT.md whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-linux-cmim-readback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-pending-2026-11-07-175346Z.json whitespace=cr-at-eol
+docs/validation/chunk7-mos-shared-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/source-dispositions-2026-11-07.json whitespace=cr-at-eol
 tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/extracted.spice whitespace=-blank-at-eof
 tests/fixtures/sky130-mim-shared-v1/job/lvs/lvs.log -whitespace
 

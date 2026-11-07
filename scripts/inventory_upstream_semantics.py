@@ -59,6 +59,8 @@ def source_kind(row):
         return 'gds'
     if p.endswith('.sym'):
         return 'symbol'
+    if p.endswith('.slib'):
+        return 'slib-symbol'
     if p.endswith(('.va', '.vams')) or ('verilog-a/' in p and p.endswith(('.include', '.inc', '.h'))):
         return 'veriloga'
     if p.endswith(('.spice', '.ngspice', '.xyce', '.sp', '.spi', '.gc')):
@@ -127,6 +129,116 @@ def strip_c_comments(text):
     # Strings remain intact; comment removal preserves source line references.
     return re.sub(r'"(?:\\.|[^"\\])*"|/\*.*?\*/|//[^\n]*',
                   lambda m: m[0] if m[0].startswith('"') else re.sub(r'[^\n]', ' ', m[0]), text, flags=re.S)
+
+
+def slib_symbols(text):
+    """Read literal symbol/pin declarations without evaluating graphical calls.
+
+    Pin order here is the order of source declarations, not a SPICE port order.
+    Every token is consumed; unsupported calls and dynamic identifiers fail as
+    explicit source gaps instead of silently omitting possible interfaces.
+    """
+    token = re.compile(r'(?P<space>\s+)|(?P<comment>/\*.*?\*/|//[^\n]*)|'
+                       r'(?P<string>"(?:\\.|[^"\\])*")|(?P<name>[A-Za-z_$][A-Za-z0-9_$]*)|'
+                       r'(?P<number>(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?)|'
+                       r'(?P<punct>[(){};,*/+\-])', re.S)
+    tokens = []
+    offset = 0
+    while offset < len(text):
+        match = token.match(text, offset)
+        if match is None or text.startswith('/*', offset) and match.lastgroup != 'comment':
+            raise ValueError('Unsupported or unterminated .slib token at line ' + str(text.count('\n', 0, offset) + 1))
+        if match.lastgroup not in ('space', 'comment'):
+            tokens.append((match.lastgroup, match[0], offset))
+        offset = match.end()
+    cursor = 0
+
+    def take(value=None, kind=None):
+        nonlocal cursor
+        if cursor >= len(tokens):
+            raise ValueError('Truncated .slib declaration.')
+        item = tokens[cursor]
+        if value is not None and item[1] != value or kind is not None and item[0] != kind:
+            raise ValueError('Unexpected .slib declaration token: ' + item[1])
+        cursor += 1
+        return item
+
+    def arguments():
+        take('(')
+        args, current, depth = [], [], 0
+        while True:
+            item = take()
+            value = item[1]
+            if value == ')' and depth == 0:
+                if current:
+                    args.append(current)
+                elif args:
+                    raise ValueError('Empty .slib argument.')
+                return args
+            if value == ',' and depth == 0:
+                if not current:
+                    raise ValueError('Empty .slib argument.')
+                args.append(current)
+                current = []
+                continue
+            if value in ('{', '}', ';'):
+                raise ValueError('Unreviewed .slib argument syntax.')
+            if value == '(':
+                if current and current[-1][0] == 'name':
+                    raise ValueError('Dynamic .slib argument call is not interpreted.')
+                depth += 1
+            elif value == ')':
+                depth -= 1
+            current.append(item)
+
+    def identifier(arg):
+        if len(arg) != 1 or arg[0][0] != 'string':
+            raise ValueError('Dynamic .slib symbol/pin identifier is not interpreted.')
+        value = arg[0][1][1:-1]
+        if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_.$\[\]:/\-]*', value):
+            raise ValueError('Unreviewed .slib literal identifier.')
+        return value
+
+    # These calls describe graphics only. Their expressions are never executed
+    # or inferred to be electrical interface declarations.
+    graphical = {'set_minimum_boundary', 'line'}
+    rows, identities = [], set()
+    while cursor < len(tokens):
+        start = take('symbol', 'name')
+        args = arguments()
+        if len(args) != 1:
+            raise ValueError('Unexpected .slib symbol arguments.')
+        name = identifier(args[0])
+        if name in identities:
+            raise ValueError('Duplicate .slib symbol identifier: ' + name)
+        identities.add(name)
+        take('{')
+        pins, pin_names, calls = [], set(), Counter()
+        while cursor < len(tokens) and tokens[cursor][1] != '}':
+            call = take(kind='name')
+            args = arguments()
+            take(';')
+            calls[call[1]] += 1
+            if call[1] == 'pin':
+                if len(args) != 4:
+                    raise ValueError('Unexpected .slib pin arguments.')
+                pin = identifier(args[0])
+                if pin in pin_names:
+                    raise ValueError('Duplicate .slib pin identifier: ' + pin)
+                pin_names.add(pin)
+                pins.append(dict(name=pin, declaration_index=len(pins), line=text.count('\n', 0, call[2]) + 1))
+            elif call[1] not in graphical:
+                raise ValueError('Unreviewed .slib call: ' + call[1])
+            elif len(args) != 4:
+                raise ValueError('Unexpected .slib graphical arguments.')
+        take('}')
+        rows.append(dict(kind='slib-symbol', name=name, line=text.count('\n', 0, start[2]) + 1,
+                         terminals=[pin['name'] for pin in pins], terminal_declarations=pins,
+                         terminal_order='source-declaration-order-not-electrical-port-order',
+                         source_calls=dict(sorted(calls.items())), graphical_expressions_evaluated=False))
+    if not rows:
+        raise ValueError('No .slib symbol declaration.')
+    return rows
 
 
 def string_mask(text, single=False):
@@ -473,6 +585,8 @@ def interpret(kind, text, path):
         rows = symbol(text)
         rows[0]['name'] = PurePosixPath(path).stem
         return rows
+    if kind == 'slib-symbol':
+        return slib_symbols(text)
     if kind == 'verilog':
         return verilog(text)
     if kind == 'veriloga':
@@ -628,6 +742,8 @@ def dispositions(row, interface, bundled):
             reason = 'Empty subcircuit declares an interface without electrical behavior.'
         elif interface['kind'].startswith('pcell') or interface['kind'] == 'dynamic-registration':
             reason = 'Upstream generator interface is inventoried; no complete application mapping/parameter-domain qualification is established by source presence.'
+        elif interface['kind'] == 'slib-symbol':
+            reason = 'Literal symbol and pin declarations are inventoried; this graphical declaration order is not an electrical port order or an established application symbol adapter.'
         elif interface['kind'] in ('extracted-device', 'physical-declaration'):
             reason = 'Extraction declaration is inventoried; source naming/layer roles alone do not establish the complete application terminal mapping.'
         else:
@@ -670,7 +786,7 @@ def reconcile_libraries(interfaces, profiles=None):
         if not library:
             continue
         kind = r['kind']
-        if kind in ('subckt', 'cell', 'lef-macro', 'verilog-module', 'gds-structure'):
+        if kind in ('subckt', 'cell', 'lef-macro', 'verilog-module', 'gds-structure', 'slib-symbol'):
             cells[(r['family'], library, r['name'])][kind].append(r['id'])
     rows = []
     case_candidates = defaultdict(list)
@@ -696,6 +812,9 @@ def reconcile_libraries(interfaces, profiles=None):
                             for r in declarations.values() if r['kind'] == 'cell']
         rows.append(dict(family=family, library=library, name=name, views=dict(views), terminal_declarations=pins,
                          liberty_terminal_declarations=liberty_terminals,
+                         symbol_terminal_declarations=[dict(source=r['source'], interface=r['id'],
+                             pins=r['terminal_declarations'], terminal_order=r['terminal_order'])
+                             for r in declarations.values() if r['kind'] == 'slib-symbol'],
                          missing_views=[kind for kind in ('subckt', 'cell', 'lef-macro', 'verilog-module', 'gds-structure') if kind not in views],
                          case_distinct_candidates=sorted(n for n in case_candidates[(family,library,name.casefold())] if n != name),
                          cdl_lef_terminal_set_mismatches=mismatches, selected_digital_library=selected,

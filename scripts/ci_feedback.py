@@ -61,6 +61,7 @@ UNIT_MODULES = (
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
     'test_ihp_l2n0_reference', 'test_sky130_release_inventory', 'test_upstream_semantics',
+    'test_source_dispositions', 'test_source_configs',
 )
 
 
@@ -120,7 +121,10 @@ def source_identity(root=ROOT):
     for name in ('upstream-view-inputs-2026-10-20.json.gz',
                  'upstream-views-2026-10-20.json.gz',
                  'sky130-release-inputs-2026-11-07.json',
-                 'upstream-semantics-gf-inputs-2026-11-07.json.gz'):
+                 'upstream-semantics-gf-inputs-2026-11-07.json.gz',
+                 'source-dispositions-companion-inputs-2026-11-07.json.gz',
+                 'upstream-semantics-inventory-2026-11-07-v2.json.gz',
+                 'sky130-release-inventory-2026-11-07.json.gz'):
         source = root / 'docs/qualification' / name
         if source.is_file():
             files.append(source)

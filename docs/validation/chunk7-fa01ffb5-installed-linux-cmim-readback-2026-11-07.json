@@ -1,0 +1,338 @@
+{
+  "schema": 1,
+  "status": "LINUX_SELECTED_CMIM_READBACK_PASS",
+  "chunk": 7,
+  "chunk_complete": false,
+  "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+  "run_id": 42379707594,
+  "run_attempt": 1,
+  "platform": "Linux",
+  "installed_job_id": 128457154772,
+  "observed_hosted_state_utc": "2026-11-07T18:49:51.227580+00:00",
+  "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379707594",
+  "scope": "Finite Linux installed ordinary-catalog IHP CMIM selected-member independent readback for exact fa01ffb5.",
+  "readback_receipt": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\cmim-readback-linux.json",
+    "bytes": 4502,
+    "sha256": "21b1363b4734141ce2cc2150799faf96f2ab8a3443a486233ef15f1481f3983e"
+  },
+  "independent_readback": {
+    "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+    "run_id": 42379707594,
+    "scope": "Independent complete selected-member raw IHP CMIM installed-gate readback. This is not a full artifact or release-distribution digest verification.",
+    "full_artifact_digest_verified": false,
+    "full_release_archive_verified": false,
+    "chunk_complete": false,
+    "reader_source": {
+      "commit": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+      "run_id": 42379707594,
+      "files": [
+        {
+          "path": "scripts/release_ihp_cmim_evidence.py",
+          "bytes": 12232,
+          "sha256": "4b5f7485d2ff3cb4b0a662aaa4ed38ee304ef512b1325b5c5b468269631e5aa9",
+          "git_blob_sha1": "2bdd3bc2aa6dfdfbad52e295965dddf6ea541442",
+          "working_copy_matches_candidate": true
+        },
+        {
+          "path": "scripts/verify_frozen_ihp_cmim.py",
+          "bytes": 56728,
+          "sha256": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d",
+          "git_blob_sha1": "dba05f84b3112409cf46a4270687fc3a2aaeca4d",
+          "working_copy_matches_candidate": true
+        },
+        {
+          "path": "scripts/verify_frozen_ihp_resistors.py",
+          "bytes": 49972,
+          "sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f",
+          "git_blob_sha1": "143f695cfe3ae17b36ad25a37939ba0a5577f596",
+          "working_copy_matches_candidate": true
+        },
+        {
+          "path": "scripts/verify_frozen_mim.py",
+          "bytes": 39777,
+          "sha256": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57",
+          "git_blob_sha1": "586a0e22b547190336059c98ceb0c85560bbe05e",
+          "working_copy_matches_candidate": true
+        },
+        {
+          "path": ".github/workflows/build-desktop.yml",
+          "bytes": 75016,
+          "sha256": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587",
+          "git_blob_sha1": "3d5d0c3589b19efbd64b3177d7d57ccb165f4d4e",
+          "working_copy_matches_candidate": true
+        },
+        {
+          "path": "scripts/prepare_release_payload.py",
+          "bytes": 10698,
+          "sha256": "b5f1760b04160b899fd9d263e837cc7f85fd93e88f49e7f49523589059a3724c",
+          "git_blob_sha1": "4e296cf5a350bc7abc9c14e36e363e0da114d3b2",
+          "working_copy_matches_candidate": true
+        },
+        {
+          "path": "scripts/release_pw2dn_evidence.py",
+          "bytes": 15393,
+          "sha256": "3c94ecfdd4ba373cc6846f9459a19fd640eb09343b5ad3482fdf7101175ee194",
+          "git_blob_sha1": "0108a7c3ff0d6662ccd30964c92a2b5ccc9486e7",
+          "working_copy_matches_candidate": true
+        }
+      ]
+    },
+    "immutable_source_snapshot": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\fa-source-input",
+      "commit": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+      "tree": "1e40946f88765d3fdf8f68750f7d4d8f31a84c07",
+      "files_verified": 7005,
+      "manifest_sha256": "65ec2c3c402cdc13b4af26c933f1fa6efa6b2ecb571057f53b66f1ab6e783836"
+    },
+    "readback_runtime": {
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "klayout": "0.30.5"
+    },
+    "hosts": {
+      "Linux": {
+        "status": "PASS",
+        "counts": {
+          "gui_layouts": 1,
+          "fresh_managed_jobs": 2
+        },
+        "execution_id": "e44129ee5bba496ca704381ba0186275",
+        "distribution_files": 17399,
+        "distribution_links": 170,
+        "raw_files": 432,
+        "verification_sha256": "e99f70d582fecb8add3bb389e13541c1973a24c9e92e5c4e31469acded6d2e23",
+        "artifact_id": 13585468720,
+        "full_artifact_digest_verified": false
+      }
+    },
+    "immutable_imported_application_dependencies": {
+      "scripts.release_ihp_cmim_evidence": {
+        "path": "scripts/release_ihp_cmim_evidence.py",
+        "sha256": "4b5f7485d2ff3cb4b0a662aaa4ed38ee304ef512b1325b5c5b468269631e5aa9"
+      },
+      "scripts.verify_frozen_ihp_cmim": {
+        "path": "scripts/verify_frozen_ihp_cmim.py",
+        "sha256": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d"
+      },
+      "scripts.verify_frozen_ihp_resistors": {
+        "path": "scripts/verify_frozen_ihp_resistors.py",
+        "sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f"
+      },
+      "scripts.verify_frozen_mim": {
+        "path": "scripts/verify_frozen_mim.py",
+        "sha256": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57"
+      }
+    },
+    "both_hosts_read_back": false
+  },
+  "immutable_candidate_source": {
+    "manifest": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\fa-source-input-manifest.json",
+      "bytes": 1971344,
+      "sha256": "65ec2c3c402cdc13b4af26c933f1fa6efa6b2ecb571057f53b66f1ab6e783836"
+    },
+    "commit": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+    "tree": "1e40946f88765d3fdf8f68750f7d4d8f31a84c07",
+    "full_source_files": 7005,
+    "full_source_bytes": 320937434,
+    "full_archive_tree_and_extracted_files_verified_against_git_blobs": true,
+    "full_source_rechecked_before_and_after_readback": true,
+    "full_source_rechecked_at_retention": true,
+    "explicit_pythonpath": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\fa-source-input",
+    "actual_imported_application_closure": {
+      "scripts.release_ihp_cmim_evidence": {
+        "path": "scripts/release_ihp_cmim_evidence.py",
+        "sha256": "4b5f7485d2ff3cb4b0a662aaa4ed38ee304ef512b1325b5c5b468269631e5aa9"
+      },
+      "scripts.verify_frozen_ihp_cmim": {
+        "path": "scripts/verify_frozen_ihp_cmim.py",
+        "sha256": "90a9c582974922fac3e59da88709823e97a9a93c78c0c5b01374164d3fefcb1d"
+      },
+      "scripts.verify_frozen_ihp_resistors": {
+        "path": "scripts/verify_frozen_ihp_resistors.py",
+        "sha256": "fadb2211556a22d98ff456e732600fd2aa9f898b5d6cb642dd403f897bd8928f"
+      },
+      "scripts.verify_frozen_mim": {
+        "path": "scripts/verify_frozen_mim.py",
+        "sha256": "fc3aa7256ef03dadc388cdd9f37a4585db9503ffe93acc25ba6941d56045fb57"
+      }
+    },
+    "isolation_preflight": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\source-isolation-probe.json",
+      "bytes": 3727,
+      "sha256": "66e5eea25d9de1ac320d65d5c3b7d31b68d396076dea939a6f938cf7755513f2"
+    },
+    "separate_source_preparation_issue_history": {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\source-preparation-issues.json",
+      "bytes": 1239,
+      "sha256": "d2495e98a9196d7ce4e2c7ac44112b8320ee3e8f48c4a78e3c92b162b0845502"
+    }
+  },
+  "selected_artifact_evidence": {
+    "cmim-selected": {
+      "receipt": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\Linux-cmim-selected-receipt.json",
+        "bytes": 43499190,
+        "sha256": "51b14a86240a7d1846d968f7c313f445e9fc84e359565ebb3ae3bf86a505eb34"
+      },
+      "artifact_id": 13585468720,
+      "artifact_name": "desktop-installed-checkpoint-Linux",
+      "artifact_bytes": 1708815839,
+      "github_reported_artifact_digest": "sha256:bcbde1d7e9b5787f4c539954bec01ca0f65e6198d55bb2da45ca45cb47222655",
+      "artifact_digest_locally_verified": false,
+      "archive_member_count": 145930,
+      "selected_members": 432,
+      "selected_raw_bytes": 49971656,
+      "transferred_range_bytes": 52751294,
+      "all_selected_member_crc32_sha256_rechecked": true,
+      "scope": "Complete raw CMIM prefix, independently semantically read back."
+    },
+    "selected": {
+      "receipt": {
+        "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\Linux-selected-receipt.json",
+        "bytes": 43394520,
+        "sha256": "371336f4ebdea22dc279005498411526107ee960d6235d92896c0a8b966b1b4d"
+      },
+      "artifact_id": 13585468720,
+      "artifact_name": "desktop-installed-checkpoint-Linux",
+      "artifact_bytes": 1708815839,
+      "github_reported_artifact_digest": "sha256:bcbde1d7e9b5787f4c539954bec01ca0f65e6198d55bb2da45ca45cb47222655",
+      "artifact_digest_locally_verified": false,
+      "archive_member_count": 145930,
+      "selected_members": 14,
+      "selected_raw_bytes": 8463712,
+      "transferred_range_bytes": 39119806,
+      "all_selected_member_crc32_sha256_rechecked": true,
+      "scope": "Fourteen selected qualification receipts retained with integrity checks; no separate raw electrical/native re-execution is inferred."
+    }
+  },
+  "hosted_run_status": "in_progress",
+  "hosted_successful_jobs": 7,
+  "hosted_nine_job_acceptance_complete": false,
+  "installed_jobs": {
+    "Windows": {
+      "id": 128457154752,
+      "status": "in_progress",
+      "conclusion": null,
+      "started_at": "2026-11-07T16:18:06Z",
+      "completed_at": null,
+      "active_steps": [
+        {
+          "name": "Verify installed Windows app",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 13,
+          "started_at": "2026-11-07T17:16:36Z",
+          "completed_at": null
+        }
+      ],
+      "last_steps": [
+        {
+          "name": "Configure Windows virtual desktop for native DPI checks",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-07T16:30:42Z",
+          "completed_at": "2026-11-07T16:30:51Z"
+        },
+        {
+          "name": "Install Linux libraries for frozen execution",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-11-07T16:30:51Z",
+          "completed_at": "2026-11-07T16:30:51Z"
+        },
+        {
+          "name": "Qualify included digital engines through the frozen desktop",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-07T16:30:51Z",
+          "completed_at": "2026-11-07T17:16:36Z"
+        }
+      ]
+    },
+    "Linux": {
+      "id": 128457154772,
+      "status": "in_progress",
+      "conclusion": null,
+      "started_at": "2026-11-07T16:18:06Z",
+      "completed_at": null,
+      "active_steps": [
+        {
+          "name": "Assemble and execute Linux release archives",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 30,
+          "started_at": "2026-11-07T18:33:33Z",
+          "completed_at": null
+        }
+      ],
+      "last_steps": [
+        {
+          "name": "Verify frozen Linux actual-array electrical workflow and independent readback",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-11-07T18:19:50Z",
+          "completed_at": "2026-11-07T18:26:06Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-11-07T18:26:06Z",
+          "completed_at": "2026-11-07T18:33:33Z"
+        },
+        {
+          "name": "Assemble and execute Windows release archives",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 29,
+          "started_at": "2026-11-07T18:33:33Z",
+          "completed_at": "2026-11-07T18:33:33Z"
+        }
+      ]
+    }
+  },
+  "failed_steps": [],
+  "metadata_snapshot": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\metadata-history\\20261107T184948094Z",
+    "sha256": {
+      "run": "273f640c2d428a0b2f9ee430c5e6218810d951245c308dd1fbb376bd59126393",
+      "jobs": "479594f4d19a05c5e4e93e2913af32dde776813c36053a4e47da78867efc5c89",
+      "artifacts": "2512bc235b6f9deb69de07f99b6924e8499cf9b2d268b303f605564405b21645"
+    }
+  },
+  "linux_release_archive_job_complete": false,
+  "release_validation_binding_complete": false,
+  "windows_selected_readback_complete": false,
+  "full_artifact_digests_locally_verified": false,
+  "full_release_archives_locally_verified": false,
+  "helpers": [
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\fetch_selected.py",
+      "bytes": 6163,
+      "sha256": "24c3c7173ac3a91c82f5b1dae2baed78f21c90ae16108b2e4d562b378f531eed"
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\readback_cmim.py",
+      "bytes": 5917,
+      "sha256": "f50a8112fcd4e72f00d841d3403ea24a17d1a24d76e976784c6c0571a0a528fb"
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\desktop-fa01ffb5-followthrough\\record_linux_readback.py",
+      "bytes": 6480,
+      "sha256": "3fc022095363736892187cecddf8d01dcb3f966d177e4cd6166be4611eba5a62"
+    }
+  ],
+  "boundaries": [
+    "Linux checkpoint upload and finite selected CMIM readback passed. The Linux job is still assembling/executing release archives; Windows installed-app acceptance remains running.",
+    "All 432 CMIM members were rechecked using the immutable fa source and actual imported dependency closure; newer source commits and moving core imports are excluded.",
+    "ZIP CRC32 and retained SHA-256 are verified for selected members. The 1,708,815,839-byte complete checkpoint digest is a GitHub declaration, not a local full-archive verification.",
+    "Fourteen other checkpoint receipts are retained and integrity-checked. Their summary claims are not promoted to new independent raw native/electrical acceptance.",
+    "This finite gate does not establish full model-family behavior, terminal/parameter coverage, operating envelopes, missing required model bindings or chunk completion."
+  ]
+}

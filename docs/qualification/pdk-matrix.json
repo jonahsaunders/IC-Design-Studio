@@ -322,8 +322,9 @@
       "latest_cmim_multiplicity_electrical_evidence": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json",
       "latest_cmim_profile_repair_evidence": "docs/validation/ihp-cmim-profile-isolation-2026-11-03.json",
       "latest_source_inventory_evidence": [
-        "sky130-release-inventory-2026-11-07",
-        "upstream-semantics-inventory-2026-11-07"
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07"
       ],
       "latest_cmim_parallel_saved_bench_evidence": "docs/validation/ihp-cmim-parallel-2026-11-07.json",
       "latest_mos_grouping_evidence": "docs/validation/mos-grouping-2026-11-07.json",
@@ -19553,14 +19554,17 @@
       "target": "sky130A",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "All seven pinned SKY130 release archives now have complete file enumeration and declared-view/option reconciliation, including 428 selected HD cell comparisons. Eight upstream unknown standard-cell options per process remain explicit. Required VPP identity, local-adapter equivalence, full tool behavior, electrical/physical qualification and exact runtime applicability remain open; declaration agreement is not LVS or an operating envelope.",
+      "remaining": "The versioned full source-disposition report enumerates additional SLIB, Liberty JSON, symbol, schematic, model/plugin and process/configuration declarations and records unresolved production views as explicit inventory gaps. Those gaps, four required missing model bindings across the supported targets, complete application equivalence and all device/electrical/physical/installed gates remain open. Source-file counts alone do not establish declaration completeness.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
         "upstream-views-2026-10-20",
         "sky130-rf-default-2026-10-23",
         "sky130-release-inventory-2026-11-07",
-        "chunk7-required-binding-semantics-2026-11-07"
+        "chunk7-required-binding-semantics-2026-11-07",
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07"
       ]
     },
     "sky130A:tool-install": {
@@ -19848,12 +19852,15 @@
       "target": "gf180mcuC",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The complete pinned GF180 parent and seven submodule graphs join the separately selected primitive revision. Production model/symbol/PCell/extraction, Liberty/LEF/CDL/Verilog/GDS declarations and C/D options are inventoried. Explicit malformed-source diagnostics, unproven per-cell/interface mappings, exact installed-library equivalence, tool behavior and execution qualification remain open.",
+      "remaining": "The versioned full source-disposition report enumerates additional SLIB, Liberty JSON, symbol, schematic, model/plugin and process/configuration declarations and records unresolved production views as explicit inventory gaps. Those gaps, four required missing model bindings across the supported targets, complete application equivalence and all device/electrical/physical/installed gates remain open. Source-file counts alone do not establish declaration completeness.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
         "upstream-views-2026-10-20",
-        "upstream-semantics-inventory-2026-11-07"
+        "upstream-semantics-inventory-2026-11-07",
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07"
       ]
     },
     "gf180mcuC:tool-install": {
@@ -20136,12 +20143,15 @@
       "target": "gf180mcuD",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The complete pinned GF180 parent and seven submodule graphs join the separately selected primitive revision. Production model/symbol/PCell/extraction, Liberty/LEF/CDL/Verilog/GDS declarations and C/D options are inventoried. Explicit malformed-source diagnostics, unproven per-cell/interface mappings, exact installed-library equivalence, tool behavior and execution qualification remain open.",
+      "remaining": "The versioned full source-disposition report enumerates additional SLIB, Liberty JSON, symbol, schematic, model/plugin and process/configuration declarations and records unresolved production views as explicit inventory gaps. Those gaps, four required missing model bindings across the supported targets, complete application equivalence and all device/electrical/physical/installed gates remain open. Source-file counts alone do not establish declaration completeness.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
         "upstream-views-2026-10-20",
-        "upstream-semantics-inventory-2026-11-07"
+        "upstream-semantics-inventory-2026-11-07",
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07"
       ]
     },
     "gf180mcuD:tool-install": {
@@ -20434,12 +20444,15 @@
       "target": "ihp-sg13g2",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The pinned IHP repository and all five submodules have a complete file ledger and declared production model/symbol/PCell/extraction/Liberty/LEF/CDL/Verilog/GDS interface inventory. Bondpad, inductor and inductor3 remain unavailable. Dynamic tool behavior, unproven terminal/parameter mappings, exact installed-library equivalence and complete electrical/physical applicability remain open.",
+      "remaining": "The versioned full source-disposition report enumerates additional SLIB, Liberty JSON, symbol, schematic, model/plugin and process/configuration declarations and records unresolved production views as explicit inventory gaps. Those gaps, four required missing model bindings across the supported targets, complete application equivalence and all device/electrical/physical/installed gates remain open. Source-file counts alone do not establish declaration completeness.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "upstream-views-2026-10-20",
         "upstream-semantics-inventory-2026-11-07",
-        "chunk7-required-binding-semantics-2026-11-07"
+        "chunk7-required-binding-semantics-2026-11-07",
+        "upstream-semantics-inventory-2026-11-07-v2",
+        "source-dispositions-2026-11-07",
+        "chunk7-source-dispositions-integration-2026-11-07"
       ]
     },
     "ihp-sg13g2:tool-install": {
@@ -25969,6 +25982,21 @@
       "path": "docs/validation/chunk7-mos-shared-integration-2026-11-07.json",
       "sha256": "bce5ca92dff5c9fc2d8853c51ad2ddaf8b6cb0a2c71c3e819b12e8ae201bfbe9",
       "scope_limit": "Final combined source checks on Windows and native Linux, independent geometry/reader controls and retained finite native proof. Superseded attempts remain separate. No installed or full-family qualification."
+    },
+    "upstream-semantics-inventory-2026-11-07-v2": {
+      "path": "docs/validation/upstream-semantics-inventory-2026-11-07-v2.json",
+      "sha256": "2b041605ee763e835bb6ba688612be3571f238d1688e39bf25e20d16b03f49cc",
+      "scope_limit": "Declaration inventory and bounded source replay only. Explicit production gaps and malformed-source diagnostics remain visible; all model, physical, electrical and installed acceptance gates retain their existing scope."
+    },
+    "source-dispositions-2026-11-07": {
+      "path": "docs/validation/source-dispositions-2026-11-07.json",
+      "sha256": "78fcc901eec80e73e380587dfcb4bfc5b9d2c555a88fd5f6c74f57e405bbda1a",
+      "scope_limit": "Declaration inventory and bounded source replay only. Explicit production gaps and malformed-source diagnostics remain visible; all model, physical, electrical and installed acceptance gates retain their existing scope."
+    },
+    "chunk7-source-dispositions-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-source-dispositions-integration-2026-11-07.json",
+      "sha256": "06b3c08de95b2b203e67effab4c52b1e0ad742fd58efe8abdd790fa8bb2e63df",
+      "scope_limit": "Declaration inventory and bounded source replay only. Explicit production gaps and malformed-source diagnostics remain visible; all model, physical, electrical and installed acceptance gates retain their existing scope."
     }
   },
   "execution_acceptance": {

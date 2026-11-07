@@ -6,6 +6,13 @@ misleading model matches; complete archive/blob audits remain separately
 retained evidence. The exact upstream graph and release metadata are included
 in before/after source identity. All original stages and deadlines remain.
 
+The source-disposition follow-through also binds the authenticated companion
+graphs and both reviewed declaration reports. Its bounded tests cover omitted
+symbol/configuration formats, missing target dispositions, changed source links,
+and quoted text that could be mistaken for declarations. Complete raw-source
+replays remain separate; an unresolved production format cannot pass merely
+because its filename was inventoried.
+
 The November 7 [release-archive repair](validation/chunk7-release-archive-repair-2026-11-07.json)
 adds a real solver bytecode-mutation control to the required runtime stage and
 binds the exact historical GF180 launcher snapshot into source feedback. Linux

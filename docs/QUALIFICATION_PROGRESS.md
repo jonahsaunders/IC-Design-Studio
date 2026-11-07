@@ -5,6 +5,36 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 7 source-completeness follow-through:** checking the
+original inventory criterion exposed declarations that earlier source-file
+counts did not enumerate. The new versioned GF/IHP inventory adds all 458 GF
+SLIB symbols and 1,672 declared pins; independent readback matches every original
+blob. Its complete Windows run retains the prior malformed-source diagnostic
+and makes no device-qualification claim. Additional readers now enumerate
+Liberty JSON, Qucs-S/Digital views, GNUCAP plugin/parameter declarations, and
+configuration and extraction inputs. The [full disposition report](SOURCE_DISPOSITION_AUDIT.md)
+accounts for 43,671 source identities and 744,604 linked items, with **195
+explicit inventory gaps**. Independent readback verifies the entire source/item
+linkage, target sets and gap status. Three parallel agents handled the source
+audit, independent review and immutable desktop evidence.
+
+The [combined source verification](validation/chunk7-source-dispositions-integration-2026-11-07.json)
+passes 166 affected tests per host (one Windows skip, none on Linux), with all
+7,081 captured files unchanged over base `18a1d63`. Both complete native Linux
+reports match their Windows artifacts byte for byte. The disposition replay
+takes 256.558 seconds and retains its expected `GAPS` exit; no inventory or
+device gate is promoted. The original missing-reference comparison race is
+preserved separately from successful follow-through, and the Windows producer's
+unretained terminal result is explicit. The original completion conditions
+and 74% engineering estimate remain unchanged.
+
+The [separate Linux installed CMIM readback](validation/chunk7-fa01ffb5-installed-linux-cmim-readback-2026-11-07.json)
+passes for immutable `fa01ffb5`: 432 selected raw capacitor files and 14 additional
+integrity receipts are verified, with all 7,005 candidate source files unchanged.
+At 18:49:51 UTC, Linux release-archive verification and Windows installed-app
+checks remain in progress, with no failed step. Selected ZIP-member verification
+does not establish either full archive digest or completion of the nine-job run.
+
 **November 7 MOS grouping and shared-bottom capacitor repairs:** the ordinary
 layout and saved-testbench flows now reject incorrect MOS finger/copy grouping
 even when native LVS passes. The [separate grouping proof](MOS_GROUPING_VERIFICATION.md)
@@ -23,8 +53,20 @@ all 7,065 captured files unchanged and every stage below its 300-second limit.
 Independent review passes 13 synthetic MOS geometry/parser controls and 83 MiM
 geometry/reader controls. The initial Linux fixture-packaging omission and
 earlier development failures remain separate from final acceptance. This source
-change is prepared for draft PR #69; it is not part of the immutable `fa01ffb5`
-installed run. No full-family status, model-validity limit or installed claim
+change is published as `18a1d631fe45d5da9a08b092f7376c59a3940d15` in
+[draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
+Its [hosted source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42398510807)
+passes both hosts and the required PR check. The
+[retained receipt](validation/chunk7-mos-shared-hosted-source-feedback-2026-11-07.json)
+verifies 1,260 tests per host in all 13 unchanged stages (37 Windows / 17 Linux
+skips), all 2,338 source bindings, and a synthetic merge tree identical to the
+candidate. Both raw artifact ZIP digests and every extracted member are verified.
+It is not part of the immutable `fa01ffb5` installed run.
+The [dated separate desktop observation](validation/chunk7-fa01ffb5-installed-pending-2026-11-07-175346Z.json)
+at 17:53:46 UTC retains seven successful jobs, Windows installed-app checks
+and Linux resistor editor/native-layout checks in progress, with no failed step.
+This post-publication tracker/hosted/pending-receipt follow-up accompanies the
+source-disposition checkpoint. No full-family status, model-validity limit or installed claim
 is promoted. The engineering estimate remains 74% (55–82%, low confidence).
 
 **November 7 parallel-capacitor repair:** ordinary IHP `cap_cmim` multiplicity
