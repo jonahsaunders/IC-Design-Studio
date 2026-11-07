@@ -23,7 +23,7 @@ UNIT_MODULES = (
     'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
     'test_sky130_retained_catalog', 'test_digital_platforms',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
-    'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_sky130_li_linked',
+    'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
     'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
     'test_ihp_capacitor_corners', 'test_ihp_cmim_boundary', 'test_ihp_cmim_lvs_reference', 'test_hierarchical_lvs_reference',
@@ -34,7 +34,7 @@ UNIT_MODULES = (
     'test_resistor_layout_qualification', 'test_sky130_metal_resistor_layouts',
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
-    'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_contact_topology',
+    'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_shared', 'test_sky130_mim_contact_topology',
     'test_mim_desktop_probe', 'test_frozen_mim', 'test_sky130_pw2dn_native_probe',
     'test_frozen_esd', 'test_frozen_esd_default', 'test_sky130_esd_default_candidate', 'test_sky130_mos_voltage_contract', 'test_sky130_mos_voltage_source', 'test_sky130_contract_versions',
     'test_metal_hierarchy_electrical', 'test_sky130_mim_conditioning',
@@ -148,6 +148,7 @@ def source_identity(root=ROOT):
             fixture = root / 'tests/fixtures' / folder / name
             if fixture.is_file():
                 files.append(fixture)
+    files += [p for p in (root / 'tests/fixtures/sky130-mim-shared-v1').rglob('*') if p.is_file()]
     for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy',
                    'sky130-esd-nvt-source-v1', 'sky130-esd-predecessor-v1', 'sky130-pw2dn-predecessor-v1'):
         files += [p for p in (root / 'icstudio/assets/qualification' / folder).glob('*') if p.is_file()]

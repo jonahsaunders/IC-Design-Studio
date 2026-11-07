@@ -5,6 +5,28 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 7 MOS grouping and shared-bottom capacitor repairs:** the ordinary
+layout and saved-testbench flows now reject incorrect MOS finger/copy grouping
+even when native LVS passes. The [separate grouping proof](MOS_GROUPING_VERIFICATION.md)
+binds each physical diffusion group to its model and nets, supports retained
+internal-net correspondence, and stops a failed saved bench before PEX and
+post-layout simulation. Fourteen primary native cases and eight separate PMOS
+cases produce the expected outcomes across GF180 C/D and IHP LV/HV; native LVS
+remains separately reported. The [shared-bottom MiM extension](SKY130_MIM_SHARED.md)
+removes a blanket rejection of unambiguous connected lower plates. Four native
+layouts pass and six contact/reference faults reject; independent readback
+verifies 319 native files on both hosts.
+
+The [final combined source checks](validation/chunk7-mos-shared-integration-2026-11-07.json)
+pass 575 selected tests per host (12 Windows / 11 Linux explicit skips), with
+all 7,065 captured files unchanged and every stage below its 300-second limit.
+Independent review passes 13 synthetic MOS geometry/parser controls and 83 MiM
+geometry/reader controls. The initial Linux fixture-packaging omission and
+earlier development failures remain separate from final acceptance. This source
+change is prepared for draft PR #69; it is not part of the immutable `fa01ffb5`
+installed run. No full-family status, model-validity limit or installed claim
+is promoted. The engineering estimate remains 74% (55–82%, low confidence).
+
 **November 7 parallel-capacitor repair:** ordinary IHP `cap_cmim` multiplicity
 previously failed saved-testbench preflight. The [reviewed extension](IHP_CMIM_PARALLEL.md)
 now checks the project-bound intrinsic dimensions/counts and the complete native
@@ -15,9 +37,15 @@ stages; three wrong-count/width controls fail LVS. Independent readback verifies
 passes 255 affected tests per host (one explicit skip each), in 80.963 seconds
 on Windows and 33.711 seconds on native Linux. All 7,048 captured files remain
 unchanged, and 49 independent controls pass. Initial reader failures and the
-superseded pre-UTF-8 snapshot remain separate. This change is based on `590daef`
-and is submitted with this tracker update in draft PR #69; fresh hosted source
-feedback remains separate. It is not included in the immutable `fa01ffb5`
+superseded pre-UTF-8 snapshot remain separate. The change is published as
+`5b20e6c667112964fc7857b65bde2a68ec5e35bf` in draft PR #69.
+Its [hosted source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42394651926)
+passes both hosts and the required PR check: 1,235 tests each in all 13 stages
+(37 Windows / 17 Linux skips). The [retained receipt](validation/chunk7-cmim-hosted-source-feedback-2026-11-07.json)
+verifies all 2,326 source bindings and a merge tree identical to the candidate.
+Both original artifact ZIP digests and all extracted members are verified.
+This post-publication receipt accompanies the MOS/shared-bottom repair. The fix
+is not included in the immutable `fa01ffb5`
 installed run below. Complete device and installed parallel qualification remain
 open; the engineering estimate stays 74% (55–82%, low confidence).
 

@@ -3,6 +3,11 @@
 # Disabling newline conversion does not disable Git's text diffs.
 * -text
 
+# Preserve the authenticated Windows receipt and original native fixture bytes.
+docs/validation/chunk7-cmim-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+tests/fixtures/sky130-mim-shared-v1/job/lvs-extraction/extracted.spice whitespace=-blank-at-eof
+tests/fixtures/sky130-mim-shared-v1/job/lvs/lvs.log -whitespace
+
 # Preserve the exact archived Windows serialization of this source-only receipt.
 docs/validation/sky130-mim-installed-electrical-source-2026-10-23.json whitespace=cr-at-eol
 

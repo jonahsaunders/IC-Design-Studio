@@ -325,7 +325,9 @@
         "sky130-release-inventory-2026-11-07",
         "upstream-semantics-inventory-2026-11-07"
       ],
-      "latest_cmim_parallel_saved_bench_evidence": "docs/validation/ihp-cmim-parallel-2026-11-07.json"
+      "latest_cmim_parallel_saved_bench_evidence": "docs/validation/ihp-cmim-parallel-2026-11-07.json",
+      "latest_mos_grouping_evidence": "docs/validation/mos-grouping-2026-11-07.json",
+      "latest_sky130_mim_shared_bottom_evidence": "docs/validation/sky130-mim-shared-2026-11-07.json"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -20476,7 +20478,9 @@
           "sky130-mim-bias-boundaries-2026-10-23",
           "sky130-mim-physical-scope-2026-10-23",
           "sky130-mim-windows-preflight-2026-10-23",
-          "sky130-mim-hierarchy-electrical-2026-10-26"
+          "sky130-mim-hierarchy-electrical-2026-10-26",
+          "sky130-mim-shared-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sky130_fd_pr/cap_mim_m3_2.sym": {
@@ -20499,7 +20503,9 @@
           "sky130-mim-bias-boundaries-2026-10-23",
           "sky130-mim-physical-scope-2026-10-23",
           "sky130-mim-windows-preflight-2026-10-23",
-          "sky130-mim-hierarchy-electrical-2026-10-26"
+          "sky130-mim-hierarchy-electrical-2026-10-26",
+          "sky130-mim-shared-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sky130_fd_pr/cap_var_hvt.sym": {
@@ -22354,7 +22360,9 @@
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
           "mos-finger-layouts-2026-10-23",
-          "gf180-mos-specifications-2026-10-23"
+          "gf180-mos-specifications-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -22647,7 +22655,9 @@
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
           "mos-finger-layouts-2026-10-23",
-          "gf180-mos-specifications-2026-10-23"
+          "gf180-mos-specifications-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -23483,7 +23493,9 @@
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
           "mos-finger-layouts-2026-10-23",
-          "gf180-mos-specifications-2026-10-23"
+          "gf180-mos-specifications-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "symbols/nfet_03v3_dss.sym": {
@@ -23776,7 +23788,9 @@
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
           "mos-finger-layouts-2026-10-23",
-          "gf180-mos-specifications-2026-10-23"
+          "gf180-mos-specifications-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "symbols/pfet_03v3_dss.sym": {
@@ -24728,7 +24742,9 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "ihp-hv-mos-layouts-2026-10-23"
+          "ihp-hv-mos-layouts-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/sg13_hv_pmos.sym": {
@@ -24744,7 +24760,9 @@
           "device-corrections-2026-10-16",
           "mos-variants-2026-10-17",
           "default-device-packages-2026-10-17",
-          "ihp-hv-mos-layouts-2026-10-23"
+          "ihp-hv-mos-layouts-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/sg13_hv_rf_nmos.sym": {
@@ -24795,7 +24813,9 @@
           "mos-physical-boundaries-2026-10-17",
           "ihp-isolation-hierarchy-2026-10-21",
           "mos-parallel-layouts-2026-10-23",
-          "mos-finger-layouts-2026-10-23"
+          "mos-finger-layouts-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/sg13_lv_pmos.sym": {
@@ -24815,7 +24835,9 @@
           "mos-boundaries-2026-10-17",
           "mos-physical-boundaries-2026-10-17",
           "mos-parallel-layouts-2026-10-23",
-          "mos-finger-layouts-2026-10-23"
+          "mos-finger-layouts-2026-10-23",
+          "mos-grouping-2026-11-07",
+          "chunk7-mos-shared-integration-2026-11-07"
         ]
       },
       "sg13g2_pr/sg13_lv_rf_nmos.sym": {
@@ -25932,6 +25954,21 @@
       "path": "docs/validation/chunk7-cmim-parallel-integration-2026-11-07.json",
       "sha256": "c9e602b741450e323159e3a1d2a45f086085941dacfdc9955682fa8089faa3ee",
       "scope_limit": "Exact captured final source:255 affected tests per host,49 independent bounded controls and retained native readback. Original failed/pre-correction snapshots remain separate; no installed or full-family qualification."
+    },
+    "mos-grouping-2026-11-07": {
+      "path": "docs/validation/mos-grouping-2026-11-07.json",
+      "sha256": "da778724cda01a03f4d79ab25f8b614aab37d0ba89e26230351402101289cb42",
+      "scope_limit": "Application finger/copy grouping associated with native terminal classes, including separate native LVS results and saved-bench stop-before-PEX. Finite NMOS/PMOS native examples; no model-accuracy, operating-envelope, calibrated extraction or installed/family claim."
+    },
+    "sky130-mim-shared-2026-11-07": {
+      "path": "docs/validation/sky130-mim-shared-2026-11-07.json",
+      "sha256": "c0ab7269b78def69a116509e9c45e714321e3841860e8cedad7d082097659104",
+      "scope_limit": "Unambiguous per-electrode contact ownership on shared bottom metal, with four finite native positives and six intended faults. No arbitrary shared-plate RC, stacked/dummy/hierarchical, electrical-envelope or installed/family claim."
+    },
+    "chunk7-mos-shared-integration-2026-11-07": {
+      "path": "docs/validation/chunk7-mos-shared-integration-2026-11-07.json",
+      "sha256": "bce5ca92dff5c9fc2d8853c51ad2ddaf8b6cb0a2c71c3e819b12e8ae201bfbe9",
+      "scope_limit": "Final combined source checks on Windows and native Linux, independent geometry/reader controls and retained finite native proof. Superseded attempts remain separate. No installed or full-family qualification."
     }
   },
   "execution_acceptance": {

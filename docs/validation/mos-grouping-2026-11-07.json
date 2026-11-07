@@ -1,0 +1,148 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "chunk": 7,
+  "status": "source_mos_grouping_contract_passed",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "full_family_promoted": false,
+  "scope": "Source application acceptance for literal standard GF180 C/D 3.3 V and IHP LV/HV MOS physical grouping. Twenty-two finite native cases in two separately retained producers; no full operating-envelope or electrical-accuracy qualification.",
+  "problem": "The public native comparator can pass wrong nf/ng and equivalent wrong physical-copy grouping. The current application now checks terminal-associated physical groups separately and preserves the actual native LVS result.",
+  "source_baseline": "5b20e6c667112964fc7857b65bde2a68ec5e35bf",
+  "source_manifest": {
+    "path": "work/grouping-shared-integration-v2/source-manifest.json",
+    "sha256": "92272e41610f2e32eadab6c324f0aef35641136e86528490fc425dc8ffe82ce3"
+  },
+  "source_files": {
+    "icstudio/mos_grouping.py": "7b57b4609eb160032ef95a6bcf29410f101d00419c010dcfc3466a18d11dcfa6",
+    "icstudio/layout_verification.py": "11d0baa65b23becbd6c8253ce27fc38ebb68fb810cf77d7b24f46b74cef64b7e",
+    "icstudio/hierarchical_flow.py": "519a6ea1c44f2491fb8030fd9f21fa08897f9492a12b3fb3455241f9ea663b07",
+    "scripts/qualify_mos_finger_layouts.py": "742198b3df98f546162bfba498a5dc61444f9265e97e97cbb173d593039e8021",
+    "scripts/qualify_ihp_hv_mos_layouts.py": "0e90d28084ae39698806443db7728217172b2abd9fce6709588d65ac5c5dc838",
+    "tests/test_mos_grouping.py": "ab2177a0a61e2530ca9544c1751d9f605eff16fbab9fb05306a8602671a6ef9c"
+  },
+  "snapshot_files": 7065,
+  "source_identity": "Exact combined native v2 snapshot: baseline plus retained overlay. Every manifest file was checked before and after execution and again during primary evidence retention.",
+  "primary_native": {
+    "status": "PASS",
+    "cases": 14,
+    "matching_cases": 7,
+    "wrong_finger_controls": 7,
+    "native_lvs_passes": 14,
+    "polarity": "NMOS",
+    "variants": [
+      "GF180 C",
+      "GF180 D",
+      "IHP LV",
+      "IHP HV"
+    ],
+    "conditions": {
+      "width_um": 3.015,
+      "length_um": 1.005,
+      "fingers": 3,
+      "parallel_copies": 2,
+      "wrong_reference_fingers": 4
+    },
+    "coverage": [
+      "90-degree legal 5 nm geometry",
+      "ordinary Magic DRC/LVS",
+      "public IHP KLayout DRC/extraction",
+      "connected internal node renamed by extraction",
+      "saved/reopened ordinary catalog testbench"
+    ],
+    "saved_bench": "Matching GF180 C bench completes schematic simulation, native checks, capacitance extraction and post-layout simulation. Wrong nf retains native LVS passed, verifies failure evidence, and stops before PEX and post-layout simulation.",
+    "internal_mapping": "Actual source node N maps to native a_0_n200# through a retained native legal-node partition; no forced equivalence.",
+    "receipt": {
+      "path": "work/grouping-shared-integration-v2/mos-native/receipt.json",
+      "sha256": "e7fec1e8637d5513506a1da579d1108199360bea07b4b76a25800a336ab2709b"
+    },
+    "producer_inventory": {
+      "path": "work/grouping-shared-integration-v2/mos-native/files.json",
+      "sha256": "9de0dfd69842b22bc23bce1d7325f11c91d7a8777cae7332c53fa9b786308480"
+    },
+    "readback": {
+      "path": "work/grouping-shared-integration-v2/mos-native-readback.json",
+      "sha256": "3f6668eb393a4e5056c18824f15a080773c4290680849cca6565ff88ba83d622"
+    },
+    "producer_files": 819,
+    "independent_evidence_bindings": 1318,
+    "runner": {
+      "path": "work/run_mos_grouping_native.py",
+      "sha256": "99118ac57e4ee001f92f147bb159af8e930e0b18701f90de3ad6d25ecd56ff78"
+    },
+    "reader": {
+      "path": "work/retain_mos_grouping_native_v2.py",
+      "sha256": "93a887a336bb294fde8267db21a983daec69e082efea4c109fbae4d89e9defed"
+    },
+    "closure": "work/grouping-shared-integration-v2/mos-native-closure; complete baseline source and combined overlay are retained by the integration bundle."
+  },
+  "separate_pmos_supplement": {
+    "status": "PASS",
+    "cases": 8,
+    "matching_cases": 4,
+    "wrong_finger_controls": 4,
+    "native_lvs_passes": 8,
+    "scope": "Independent ordinary Magic/Netgen PMOS checks for GF180 C/D and IHP LV/HV at the same W/L/finger/copy settings and 90 degrees. No additional saved-bench or public-checker sweep.",
+    "raw_audit": "Each actual native netlist and written mask has six channels in two groups of three; matching and wrong-reference runs preserve their independent native LVS/integrity outcomes.",
+    "receipt": {
+      "path": "work/grouping-shared-integration-v2/pmos-supplement/receipt.json",
+      "sha256": "b732c50df63a86f95a8dae8676d5ee678f53482c79c8f0c40aeb44d0758d51ac"
+    },
+    "closure": {
+      "path": "work/grouping-shared-integration-v2/pmos-supplement-closure.json",
+      "sha256": "f71f32f4e95be02563d1f654ae19bdbbedcf068a44b87f2cba0de75f4fada16d"
+    },
+    "readback": {
+      "path": "work/grouping-shared-integration-v2/pmos-supplement-windows-readback.json",
+      "sha256": "b5c8d25aaedac6cb6fc43b0b4f95b23fcaf2258656558e00ef3d0238c24ffa8c"
+    },
+    "files_verified": 268,
+    "runner": {
+      "path": "work/run_pmos_grouping_supplement.py",
+      "sha256": "09af779b4085d16595fa657403f8f3e3796f4029463e03c32245a3510af14f5b"
+    }
+  },
+  "independent_synthetic_controls": {
+    "status": "PASS",
+    "count": 13,
+    "scope": "Five synthetic geometry/terminal controls plus eight synthetic native-correspondence parser controls. These are not native-engine acceptance.",
+    "records": [
+      {
+        "path": "work/mos-grouping-independent-review/review-7b57b4609eb1.json",
+        "sha256": "94c2bbe03fb0208c2944fbc8bed10abf2f02b3bbf7639149370be41a8c411f91"
+      },
+      {
+        "path": "work/mos-grouping-independent-review/correspondence-7b57b4609eb1.json",
+        "sha256": "26abf5c3e5ac8abdc8e374db9ea0b569d5a2f4c8aac4a50846148bd2d60617d3"
+      }
+    ],
+    "key_negative": "Swapped per-net groups are rejected despite identical global group totals and identical channel counts/dimensions on each net; partial native-site overlap and mixed-terminal physical groups are rejected."
+  },
+  "preserved_history": [
+    {
+      "path": "work/closure-mos-native-probe-v1",
+      "scope": "Initial reproduced current-flow defect: matching and wrong-ng references both passed native/application verification; independent channel readback rejected only the wrong reference."
+    },
+    {
+      "path": "work/mos-grouping-native-dev1",
+      "scope": "Initial GF package-check preparation failure retained. The sparse package is extended by the existing ordinary layer adapter; subsequent source preserves original identities and permits added drawing layers."
+    },
+    {
+      "path": "work/mos-grouping-native-dev3",
+      "scope": "Initial floating internal-gate fixture failed native LVS itself. It was replaced by an actually connected internal-node fixture; the old failure remains."
+    },
+    {
+      "path": "work/grouping-shared-integration-v1/mos-native",
+      "scope": "Primary native checks passed; the parent source-suite snapshot omitted one authentic ignored fixture log. V2 adds that file, has identical executable bytes, and repeats the exact native selection."
+    }
+  ],
+  "limits": [
+    "Literal flat standard-MOS interpretation only; unsupported expressions, hierarchy, RF or ambiguous native correspondence retain visible NOT_CHECKED rather than a grouping pass.",
+    "Native LVS remains a separate result; public technology and comparison decks are unmodified.",
+    "No full geometry/operating/statistical/reliability envelope, calibrated extraction, model accuracy, installed release, foundry signoff or full device-family qualification.",
+    "Configured tool launcher hashes and native version logs are retained; this is not a new complete installed-runtime acceptance.",
+    "Four required unavailable bindings and the GF180 threshold-definition/fast-corner specification gaps remain open."
+  ],
+  "redistribution": "No third-party source is newly imported into the repository by this change. Referenced PDK inputs retain their existing licenses/notices; this record retains generated facts and source/evidence identities."
+}

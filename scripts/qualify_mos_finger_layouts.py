@@ -63,6 +63,17 @@ def channel_audit(path,target,polarity,size):
     return result
 
 
+def require_grouping_rejection(report):
+    """The app contract rejects the fault while native LVS remains unchanged."""
+    stages={row['name']:row for row in report['stages']}
+    if (report.get('status')!='failed' or stages.get('lvs',{}).get('status')!='passed'
+            or stages.get('integrity',{}).get('status')!='passed'
+            or not stages['integrity'].get('evidence',{}).get('verified')
+            or report.get('mos_grouping',{}).get('status') not in ('FAIL','NOT_CHECKED')
+            or not report.get('mos_grouping',{}).get('reason')):
+        raise ValueError('Expected a retained application MOS grouping rejection with native LVS still passed.')
+
+
 def shared_diffusion_audit(stream,target,polarity,size):
     """Read actual masks, without relying on generated shape roles or metadata."""
     import klayout.db as db
@@ -143,20 +154,20 @@ def execute(target,polarity,size,out,tools,pilot):
             if fault=='reference-fingers':
                 # Document the native comparator's known omission. Independent
                 # readback must reject the same-W but wrong-finger reference.
-                if report['status']!='passed':raise ValueError('Finger-control native result changed; inspect before claiming independent rejection.')
+                require_grouping_rejection(report)
                 wrong=list(size);wrong[2]+=1
                 try:channel_audit(dest/'lvs-extraction/extracted.spice',target,polarity,wrong)
                 except ValueError:method='independent_native_channel_count_and_dimensions'
                 else:raise ValueError('Wrong finger count was not detected by native channel readback.')
             elif fault=='reference-grouping':
-                if report['status']!='passed':raise ValueError('Inspect changed native grouping-control result.')
+                require_grouping_rejection(report)
                 width,length,fingers,copies=size;wrong=(float(Decimal(str(width))/fingers),length,1,fingers*copies)
                 channel_audit(dest/'lvs-extraction/extracted.spice',target,polarity,wrong)
                 try:shared_diffusion_audit(dest/'layout.gds',target,polarity,wrong)
                 except ValueError:method='independent_exported_diffusion_groups'
                 else:raise ValueError('Wrong physical copy/finger grouping was not detected.')
             elif not rejected(report,dest):raise ValueError('Native connectivity/size checking did not detect '+fault)
-            row['faults'].append(dict(fault=fault,detected=True,method=method,native_status=report['status'],report_sha256=file_digest(dest/'report.json')))
+            row['faults'].append(dict(fault=fault,detected=True,method=method,native_status=next(s['status'] for s in report['stages'] if s['name']=='lvs'),application_status=report['status'],mos_grouping=report.get('mos_grouping',{}).get('status'),report_sha256=file_digest(dest/'report.json')))
         row['status']='PASS'
     except Exception as exc:row.update(status='FAIL',error=str(exc),traceback=traceback.format_exc())
     (folder/'result.json').write_bytes((json.dumps(row,indent=2)+'\n').encode());return row
@@ -198,21 +209,21 @@ def inverter(target,counts,out,tools):
                (('n',(nf,.5,nf,nm)),('p',(pf,.5,pf,pm)))}
         wrong=text.replace(f'{key}={nf} m={nm}',f'{key}={nf+1} m={nm}',1)
         result=run(p,c['id'],folder/'wrong-fingers',tools,reference(wrong,'finger_inverter'))
-        if result['status']!='passed':raise ValueError('Inspect changed native finger-control behavior.')
+        require_grouping_rejection(result)
         try:inverter_audit(folder/'wrong-fingers/lvs-extraction/extracted.spice',target,(nf+1,pf,nm,pm))
         except ValueError:pass
         else:raise ValueError('Inverter finger fault escaped independent native channel checking.')
         check_pol,fingers,copies,model=('n',nf,nm,nmodel) if nf>1 else ('p',pf,pm,pmodel)
         grouped=text.replace(f'{model} w={fingers}u l=.5u {key}={fingers} m={copies}',f'{model} w=1u l=.5u {key}=1 m={fingers*copies}')
         group_result=run(p,c['id'],folder/'wrong-grouping',tools,reference(grouped,'finger_inverter'))
-        if group_result['status']!='passed':raise ValueError('Inspect changed native grouping-control behavior.')
+        require_grouping_rejection(group_result)
         inverter_audit(folder/'wrong-grouping/lvs-extraction/extracted.spice',target,counts)
         try:shared_diffusion_audit(folder/'wrong-grouping/layout.gds',target,check_pol,(1,.5,1,fingers*copies))
         except ValueError:pass
         else:raise ValueError('Inverter wrong physical grouping escaped exported-mask checking.')
         row.update(status='PASS',native=proof,report_sha256=file_digest(folder/'valid/report.json'),fault_detected=True,
-            physical=masks,fault_method='independent_native_channel_count_and_dimensions',fault_native_status=result['status'],fault_report_sha256=file_digest(folder/'wrong-fingers/report.json'),
-            grouping_fault_detected=True,grouping_fault_method='independent_exported_diffusion_groups',grouping_fault_native_status=group_result['status'],grouping_fault_report_sha256=file_digest(folder/'wrong-grouping/report.json'))
+            physical=masks,fault_method='application_contract_and_independent_channel_check',fault_native_status='passed',fault_application_status=result['status'],fault_report_sha256=file_digest(folder/'wrong-fingers/report.json'),
+            grouping_fault_detected=True,grouping_fault_method='application_contract_and_independent_mask_check',grouping_fault_native_status='passed',grouping_fault_application_status=group_result['status'],grouping_fault_report_sha256=file_digest(folder/'wrong-grouping/report.json'))
     except Exception as exc:row.update(status='FAIL',error=str(exc),traceback=traceback.format_exc())
     (folder/'result.json').write_bytes((json.dumps(row,indent=2)+'\n').encode());return row
 

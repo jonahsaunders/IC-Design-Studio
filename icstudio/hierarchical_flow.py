@@ -250,7 +250,21 @@ def run(p,testbench,output,tools,progress=lambda *_:None,physical_extraction=Non
             check_lvs_reference(out,p['pdk'],projection)
             require_lvs_match(log)
             return {'unique_match':True,'log':'lvs/lvs.log','reference_projection':projection}
-        stage('lvs',lvs);parasitics=stage('capacitance_extraction',lambda:extract('parasitics',True))
+        stage('lvs',lvs)
+        from .mos_grouping import run as check_mos_grouping
+        grouping,group_files=check_mos_grouping(out/'mos-grouping',p['pdk'],out/'schematic.spice',
+            c['name'],out/'layout.gds',out/'lvs-extraction/extracted.spice',resolved['magic'],assets['technology'],
+            comparison=out/'schematic-lvs.spice',netgen=resolved['netgen'],setup=assets['setup'])
+        if grouping['status']!='NOT_APPLICABLE':report['mos_grouping']=grouping
+        generated.update(group_files)
+        report['stages'][0]['evidence']['assets'].update(grouping.get('model_sources',{}))
+        if grouping['status'] in ('FAIL','NOT_CHECKED'):
+            message='MOS grouping '+('was not checked: ' if grouping['status']=='NOT_CHECKED' else 'failed: ')+grouping['reason']
+            report['qualification']+=' '+message
+            preflight_evidence=report['stages'][0]['evidence']
+            report['mos_grouping_integrity']=verify_integrity(out,generated,preflight_evidence['assets'],preflight_evidence['tools'])
+            raise ValueError(message)
+        parasitics=stage('capacitance_extraction',lambda:extract('parasitics',True))
         simulated=out/parasitics['simulation_deck']
         if cmim_unit:
             preflight_evidence=report['stages'][0]['evidence']

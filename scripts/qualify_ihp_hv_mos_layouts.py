@@ -261,7 +261,8 @@ def execute(polarity,size,output,tools,pilot):
             for engine in ('magic','ihp-klayout'):
                 dest=folder/(fault+'-'+engine);report=verify(altered(p,fault),dest,tools,selected(polarity,size,fault),engine);method='native_lvs'
                 if fault in ('reference-fingers','reference-grouping'):
-                    if report['status']!='passed':raise ValueError('Inspect changed native finger/grouping behavior.')
+                    from scripts.qualify_mos_finger_layouts import require_grouping_rejection
+                    require_grouping_rejection(report)
                     width,length,fingers,copies=size
                     wrong=(width,length,fingers+1,copies) if fault=='reference-fingers' else (float(Decimal(str(width))/fingers),length,1,fingers*copies)
                     checker=channels if fault=='reference-fingers' else masks
@@ -295,7 +296,7 @@ def execute(polarity,size,output,tools,pilot):
                     if not disconnected_body(report,dest,polarity,size):raise ValueError('Expected completed extraction with only body connectivity lost.')
                     method='native_disconnected_body_and_port'
                 elif not ordinary_fault(report,dest):raise ValueError('Native comparison missed '+fault+': '+str(report.get('error')))
-                row['faults'].append(dict(fault=fault,engine=engine,detected=True,method=method,native_status=report['status'],report_sha256=file_digest(dest/'report.json')))
+                row['faults'].append(dict(fault=fault,engine=engine,detected=True,method=method,native_status=next(s['status'] for s in report['stages'] if s['name']=='lvs'),application_status=report['status'],mos_grouping=report.get('mos_grouping',{}).get('status'),report_sha256=file_digest(dest/'report.json')))
         row['status']='PASS'
     except Exception as e:row.update(status='FAIL',error=str(e),traceback=traceback.format_exc())
     (folder/'record.json').write_bytes((json.dumps(row,indent=2)+'\n').encode());return row
