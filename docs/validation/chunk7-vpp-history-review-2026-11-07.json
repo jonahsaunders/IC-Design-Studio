@@ -1,0 +1,192 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "HISTORICAL_REVIEW_NO_REQUIRED_BINDING_ESTABLISHED",
+  "qualified": false,
+  "chunk_complete": false,
+  "package_changed": false,
+  "repository": "fossi-foundation/skywater-pdk-libs-sky130_fd_pr",
+  "current_revision": "29b55153fd9f4badef05a02667184b81789d1f61",
+  "historical_snapshots": [
+    {
+      "revision": "33b768728f29f1858f8b15b0c966d09790c70ff7",
+      "contents_url": "https://api.github.com/repos/fossi-foundation/skywater-pdk-libs-sky130_fd_pr/contents/cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5?ref=33b768728f29f1858f8b15b0c966d09790c70ff7",
+      "unsuffixed_model_file_present": false,
+      "files": [
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.cdl",
+          "git_blob": "27dbf433f10ddc22aa905896cef1d2debb073ad1"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.gds",
+          "git_blob": "632497a67ce113efd2ce3fe94a21b080145cd0e7"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.magic.lef",
+          "git_blob": "ad886a740cc128c330ff498de5256c70b75bba53"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.netlist.tsv",
+          "git_blob": "91ebc1097d0a8acf07fc6ff17aa9afc260a4fe5e"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.spice",
+          "git_blob": "cc56f3a418e0143aa85e9c3b517037fc53c080fc"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.svg",
+          "git_blob": "4e5b4ff210ef0a238ac2d5b93d931d83cb01c67c"
+        }
+      ]
+    },
+    {
+      "revision": "77429bf815f96e5ba3cdb48b7fb6c1ff58074b18",
+      "contents_url": "https://api.github.com/repos/fossi-foundation/skywater-pdk-libs-sky130_fd_pr/contents/cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5?ref=77429bf815f96e5ba3cdb48b7fb6c1ff58074b18",
+      "unsuffixed_model_file_present": false,
+      "files": [
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.cdl",
+          "git_blob": "94f1bc8ec62dbc84f22e59320d448e24ac4e4280"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.gds",
+          "git_blob": "976d3a15434ecb4a13cb61df1f3497a44962577a"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.magic.lef",
+          "git_blob": "ad886a740cc128c330ff498de5256c70b75bba53"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.model.spice",
+          "git_blob": "fa377df3769b365e27359cd6c5efaab0b65f5a09"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.netlist.tsv",
+          "git_blob": "2678b8504b2a39faced31b9ab0de99b7b575f723"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.spice",
+          "git_blob": "cc56f3a418e0143aa85e9c3b517037fc53c080fc"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.svg",
+          "git_blob": "ff0728e9a67c6ec4c559a34e3426a61930cbdfa4"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv__base.model.spice",
+          "git_blob": "8662a0b64a847ecf363ca5491e6c693eedf6c96d"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.gds",
+          "git_blob": "53c24fe9669baa7d44201ba91e1e2b313061e7b3"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.magic.lef",
+          "git_blob": "09579116408eca2520303ab9134d5acd0d8c009f"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.spice",
+          "git_blob": "159f4b0b1fa6b67069789a1681d2911469fbbc19"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.svg",
+          "git_blob": "76729a24853e54f638fd1773c1d435d7382c87be"
+        }
+      ]
+    },
+    {
+      "revision": "d717cd4d8d93cce6a8d7534f6a40432f0045039f",
+      "contents_url": "https://api.github.com/repos/fossi-foundation/skywater-pdk-libs-sky130_fd_pr/contents/cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5?ref=d717cd4d8d93cce6a8d7534f6a40432f0045039f",
+      "unsuffixed_model_file_present": false,
+      "files": [
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.cdl",
+          "git_blob": "94f1bc8ec62dbc84f22e59320d448e24ac4e4280"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.gds",
+          "git_blob": "976d3a15434ecb4a13cb61df1f3497a44962577a"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.magic.lef",
+          "git_blob": "ad886a740cc128c330ff498de5256c70b75bba53"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.model.spice",
+          "git_blob": "fa377df3769b365e27359cd6c5efaab0b65f5a09"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.netlist.tsv",
+          "git_blob": "2678b8504b2a39faced31b9ab0de99b7b575f723"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.spice",
+          "git_blob": "cc56f3a418e0143aa85e9c3b517037fc53c080fc"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.svg",
+          "git_blob": "ff0728e9a67c6ec4c559a34e3426a61930cbdfa4"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv__base.model.spice",
+          "git_blob": "8662a0b64a847ecf363ca5491e6c693eedf6c96d"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.gds",
+          "git_blob": "53c24fe9669baa7d44201ba91e1e2b313061e7b3"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.magic.lef",
+          "git_blob": "09579116408eca2520303ab9134d5acd0d8c009f"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.spice",
+          "git_blob": "159f4b0b1fa6b67069789a1681d2911469fbbc19"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhvtop.svg",
+          "git_blob": "76729a24853e54f638fd1773c1d435d7382c87be"
+        },
+        {
+          "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/tests",
+          "git_blob": "cb83d79d553f82b08ec2dbcfee4c873a97a5fec2"
+        }
+      ]
+    }
+  ],
+  "current_interfaces": {
+    "simulation": {
+      "file": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.model.spice",
+      "git_blob": "a22a2156c5dc4bd06b2ad9f2b434d28a35ae0a9d",
+      "terminals": [
+        "c0",
+        "c1",
+        "b",
+        "m5"
+      ]
+    },
+    "layout_cdl": {
+      "file": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5/sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5_nhv.cdl",
+      "git_blob": "94f1bc8ec62dbc84f22e59320d448e24ac4e4280",
+      "terminals": [
+        "C0",
+        "C1",
+        "MET5"
+      ],
+      "internal_model_connections": [
+        "C0",
+        "C1",
+        "C1",
+        "MET5"
+      ]
+    }
+  },
+  "findings": [
+    "The current simulation model has FOUR terminals; the extracted-layout CDL has THREE external terminals and ties the model body to C1. The missing-binding decision is not based on a claim that the simulation model has only three pins.",
+    "The three inspected 2020 snapshots already use the _nhv name. No unsuffixed model file is present in these snapshots; the first snapshot does not yet contain a model.spice file.",
+    "Current Xschem comments still list the unsuffixed name; they do not establish its equivalence to the _nhv model or permit silently changing a saved symbol's model/terminal behavior.",
+    "This review does not establish the missing catalog binding. It is a bounded history/interface review, not proof that no suitable model exists anywhere."
+  ],
+  "xschem_reference": "https://github.com/StefanSchippers/xschem_sky130/blob/2bfd7d654e12492d47986b78e68bb770e633b5da/sky130_fd_pr/vpp_cap.sym",
+  "scope": "No upstream code or model imported, no simulation executed, no qualification status changed."
+}

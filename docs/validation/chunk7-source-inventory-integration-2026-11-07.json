@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "chunk": 7,
+  "base": "c04c993af82de0a97769b34a61355daa948dc7c0",
+  "status": "PASS_CROSS_HOST_INVENTORY_REPLAY",
+  "qualified": false,
+  "chunk_complete": false,
+  "acceptance_scope": "Affected parser/source contracts and deterministic complete input replay on Windows and native Linux. Upstream diagnostics remain blocking; no device or installed-release qualification.",
+  "source_manifest_sha256": "33b18280910852bf26382f00275d01600d4da9a19bc4a2458c011de7d73b07b7",
+  "hosts": {
+    "windows": {
+      "platform": "Windows",
+      "base": "c04c993af82de0a97769b34a61355daa948dc7c0",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "source": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio",
+      "files_verified": 7038,
+      "source_unchanged": true,
+      "source_manifest_sha256": "33b18280910852bf26382f00275d01600d4da9a19bc4a2458c011de7d73b07b7",
+      "tests": 88,
+      "tests_result": 0,
+      "commands": [
+        {
+          "name": "tests",
+          "returncode": 0,
+          "seconds": 4.297000000020489,
+          "deadline_seconds": 300,
+          "log_sha256": "bc73d1dc0f7b80b0c534af33d22bb92416767242945dcbcee5ae5af27cfa2a00"
+        }
+      ],
+      "audits": [],
+      "skipped": 1,
+      "unittest_seconds": 4.045
+    },
+    "linux": {
+      "platform": "Linux",
+      "base": "c04c993af82de0a97769b34a61355daa948dc7c0",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "source": "/var/tmp/icstudio-semantic-integration-20261107-v1/source",
+      "files_verified": 7038,
+      "source_unchanged": true,
+      "source_manifest_sha256": "33b18280910852bf26382f00275d01600d4da9a19bc4a2458c011de7d73b07b7",
+      "tests": 88,
+      "tests_result": 0,
+      "commands": [
+        {
+          "name": "tests",
+          "returncode": 0,
+          "seconds": 2.018677394997212,
+          "deadline_seconds": 300,
+          "log_sha256": "60d3a9a826908919262ffafe425bdc5095cb5d09c1c3e7ad7fcf16f45100bd9a"
+        },
+        {
+          "name": "sky",
+          "returncode": 0,
+          "seconds": 191.83802205100073,
+          "deadline_seconds": 900,
+          "log_sha256": "d6f8c38ccaf8b6fdb4f22facc45fb89fd94df3d050758844fd8ba360e91e4e71"
+        },
+        {
+          "name": "gf-ihp",
+          "returncode": 1,
+          "seconds": 68.05147927899816,
+          "deadline_seconds": 900,
+          "log_sha256": "e34648fdb0b1d1178f5f510023c5d350a9ca8e5bea3dcd352735b837e9374c7d"
+        }
+      ],
+      "audits": [
+        {
+          "name": "sky",
+          "status": "PASS",
+          "returncode": 0,
+          "sha256": "49f83a308acda1ccdc5c2320ab34ef896b02bcf78c7823190057c822c9fb3848",
+          "windows_report": "docs/qualification/sky130-release-inventory-2026-11-07.json.gz",
+          "byte_identical": true
+        },
+        {
+          "name": "gf-ihp",
+          "status": "GAPS",
+          "returncode": 1,
+          "sha256": "89d39f48f7a8ee2b7115a8c400347764cabaa87e9f3a0d20b8be2dc47c238738",
+          "windows_report": "docs/qualification/upstream-semantics-inventory-2026-11-07.json.gz",
+          "byte_identical": true
+        }
+      ],
+      "skipped": 0,
+      "unittest_seconds": 1.816
+    }
+  },
+  "validated_snapshot_bytes_current_at_integration_start": true,
+  "post_validation_evidence_updates": [
+    "docs/validation/sky130-release-inventory-2026-11-07.json",
+    "docs/validation/upstream-semantics-inventory-2026-11-07.json",
+    "docs/qualification/pdk-matrix.json"
+  ],
+  "snapshot_scope": "The source manifest describes base plus the retained validated-snapshot overlay. Finalized validation receipts and matrix references are separately retained under candidate and hashed in the retention manifest; they are evidence follow-through, not newly executed implementation."
+}

@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "review": "Independent bounded final artifact provenance and retained-content review",
+  "status": "PASS",
+  "electrical_qualification": false,
+  "blanket_underlying_source_license_clearance": false,
+  "artifacts": [
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\docs\\qualification\\sky130-release-inventory-2026-11-07.json.gz",
+      "sha256": "49f83a308acda1ccdc5c2320ab34ef896b02bcf78c7823190057c822c9fb3848",
+      "bytes": 2221774
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\docs\\qualification\\upstream-semantics-inventory-2026-11-07.json.gz",
+      "sha256": "89d39f48f7a8ee2b7115a8c400347764cabaa87e9f3a0d20b8be2dc47c238738",
+      "bytes": 4681636
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\scripts\\inventory_sky130_release.py",
+      "sha256": "ba09da230ff0e71cbcd295505e67b9eb01c02c8e5576463d8923ab751d8c5b46",
+      "bytes": 32599
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\scripts\\inventory_upstream_semantics.py",
+      "sha256": "9e5d48341cd99d3c94169df28ca508e0675607025e5e53baa62ec10a72673cf3",
+      "bytes": 55074
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\docs\\SKY130_RELEASE_INVENTORY.md",
+      "sha256": "564a48af98b7c2163b44a53ac3ab9294a3a5637a0771666b0b48c3d90a0832f8",
+      "bytes": 7790
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\docs\\UPSTREAM_SEMANTIC_INVENTORY.md",
+      "sha256": "42b8f36992f43d5f22dc007f8091a493fddb8a2b41fda68f95996d4867681323",
+      "bytes": 8011
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\docs\\qualification\\sky130-release-inputs-2026-11-07.json",
+      "sha256": "09d5652894f9b48f15b3529798f32ebad8700225bd2725b304f77a10c31b183b",
+      "bytes": 4572
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\docs\\qualification\\upstream-semantics-gf-inputs-2026-11-07.json.gz",
+      "sha256": "f39b1a4e8da2910c1282c0cfcb2fd3ede15aceab70fc35499e2b8e852a7c34fa",
+      "bytes": 859660
+    }
+  ],
+  "results": {
+    "sky": {
+      "status": "PASS",
+      "qualified": false,
+      "chunk_complete": false,
+      "raw_source_condition_arrays": 0,
+      "forbidden_excerpt_fields": {},
+      "retained_pcell_string_literals": 0,
+      "longest_pcell_string_literal": 0,
+      "descriptive_pcell_string_literals": 0,
+      "files": 12823,
+      "declared_scope_complete": true,
+      "archives": 7,
+      "notice_records": 4,
+      "limitations": [
+        "Declared identifiers/pin sets are not extracted connectivity or a working implementation.",
+        "Liberty operating conditions are characterization points, not complete device ratings.",
+        "Verilog header identities and conditional macro names are retained without source text or preprocessing/elaboration.",
+        "Primitive model-bin, helper, layout and catalog identities are not silently aliased.",
+        "Unavailable or unselected libraries are explicit dispositions, not acceptance waivers.",
+        "Tool scripts and generators are inventoried but not executed or semantically qualified.",
+        "Full terminal/parameter/model, operating-envelope, layout, extracted-connectivity and installed-release gates remain."
+      ]
+    },
+    "gf_ihp": {
+      "status": "GAPS",
+      "qualified": false,
+      "chunk_complete": false,
+      "raw_source_condition_arrays": 0,
+      "forbidden_excerpt_fields": {},
+      "retained_pcell_string_literals": 3328,
+      "longest_pcell_string_literal": 21,
+      "descriptive_pcell_string_literals": 0,
+      "files": 29520,
+      "parsed_sources": 11707,
+      "interfaces": 84756,
+      "parse_gaps": 0,
+      "blocking_source_diagnostics": 1,
+      "semantic_qualification_complete": false,
+      "timing_candidate_rows": 410,
+      "timing_candidates_still_unimplemented": true,
+      "profile_associated_timing_candidates": 12,
+      "notice_records": 16,
+      "disposition_scope": "Supported means an exact-byte available catalog interface, not full device qualification. Unimplemented includes unproven equivalence. No unknown is relabeled inapplicable.",
+      "limitations": [
+        "No operating envelope is inferred from PCell dimensions or Liberty PVT.",
+        "Conditional definitions and dynamic registrations are retained without execution.",
+        "Other-source-context and physical/reference files remain explicit; source interface parsing is not complete tool behavior interpretation.",
+        "SPICE terminal order and LEF pin sets are compared without assuming their aliases or bus syntax are interchangeable.",
+        "Liberty pin/pg_pin/bus contexts are attached to cells; bus expansion and timing arc semantics remain unqualified.",
+        "GF parent-linked primitive 9f992d5 and currently selected primitive 4d0b4ce remain separate source identities."
+      ]
+    }
+  },
+  "notice_validation": {
+    "gf_notice_source_identities": 16,
+    "gf_recognized_license_texts": {
+      "Apache-2.0": 12,
+      "GPL": 1,
+      "MIT": 1,
+      "ECL-2.0": 1
+    },
+    "sky_named_notice_identities": 4,
+    "all_notice_identities_match_previously_authenticated_original_bytes": true
+  },
+  "scoped_unintended_import_check": {
+    "paths": [
+      "docs",
+      "scripts",
+      "tests",
+      "icstudio",
+      ".github"
+    ],
+    "untracked_files": 17,
+    "raw_source_archive_extensions": [],
+    "exact_original_source_byte_matches": [],
+    "protected_directory_not_traversed": "tmpuxoell2b"
+  },
+  "prior_independent_evidence": [
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\inventory-independent-review\\sky-independent-controls-ba09da230ff0.json",
+      "sha256": "2bfc4bffce0c89cc6cc51ff35abd72fcbbaf436d5d7df3347579decdfde9ebd4"
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\inventory-independent-review\\gf-ihp-independent-controls-9e5d48341cd9-v2.json",
+      "sha256": "61d6266f86b9179d21698e015e08eaf1e2abfc75e99ab5c8fd8c91690d5ee762"
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\inventory-independent-review\\gf-padded-gds-independent-controls.json",
+      "sha256": "551acc01c049360a978d6186a371757202946fa7c1783d31b29c30e1e2d0a7a4"
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\inventory-independent-review\\gf-notice-identities.json",
+      "sha256": "b24d514d39edbb526c695247945b5baaf36064379df578818001bec369b69aaf"
+    },
+    {
+      "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\work\\inventory-independent-review\\sky-source-notice-spotcheck.json",
+      "sha256": "6c894ec5c6a8d8fa47643731c2820410599a0ddbe96409386ca54b9d367bc2c7"
+    }
+  ],
+  "review_boundaries": [
+    "Generated declaration facts and hashes are distinguished from reusable upstream implementations.",
+    "Named notice identities are not a complete license determination for every file in mixed-license upstream archives.",
+    "GF source-input artifact retains public Git metadata and base64 .gitmodules configuration provenance; it is not a model-body bundle.",
+    "Source inventory PASS is distinct from electrical, layout/extraction, timing-runtime and installed-release qualification.",
+    "Earlier parser/native readback receipts identify their own source hashes and are not relabeled as a new full native replay.",
+    "No model or alias was supplied for the four required missing electrical bindings; original completion gates remain."
+  ]
+}

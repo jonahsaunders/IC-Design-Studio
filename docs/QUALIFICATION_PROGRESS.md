@@ -5,20 +5,70 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
-**Current hosted candidate:** `fa01ffb566ba1fa1903dec58dabd9838a901712d`
+**Previous published source candidate:** `c04c993af82de0a97769b34a61355daa948dc7c0`
 is published in [draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
+Its [source checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42384096028)
+pass on Windows and Linux, including the new licensed L2n0 reference. The
+[retained receipt](validation/chunk7-c04c993-hosted-source-feedback-2026-11-07.json)
+verifies the merge tree equals the candidate tree and all 2,310 bound source
+files match. Each host passes 1,175 tests in the original 13 bounded stages
+(37 Windows / 17 Linux skips), in 661.438 / 317.625 seconds. Every child remains
+below 300 seconds. The original dependency-setup failures and both successful
+artifact sets are retained together. This receipt accompanies the source-inventory
+integration described below.
+
+**Separate full-desktop candidate:** `fa01ffb566ba1fa1903dec58dabd9838a901712d`
+predates the reference-only addition and remains immutable during acceptance.
 Its [source checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379665001)
 pass on both hosts. The [retained receipt](validation/chunk7-fa01ffb5-hosted-source-feedback-2026-11-07.json)
 verifies the merge tree equals the candidate tree and all 2,299 bound source files
 match. Each host passes 1,172 tests in 13 stages (37 Windows / 17 Linux skips),
 in 553.515 / 312.689 seconds; every child remains below 300 seconds.
 The [full desktop rerun](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42379707594)
-is pending. At the November 7 handoff, candidate verification, both release-tool
-jobs and both digital-runtime jobs pass; Windows and Linux package jobs are
-running. Installed and archive acceptance remain unverified for this candidate.
-This documentation-only follow-through publishes the source receipt without
-restarting the immutable desktop run. Full chunk completion still requires the
+is pending. At 16:19 UTC on November 7, candidate verification, both release-tool
+jobs, both digital-runtime jobs and both package jobs pass. The
+[Linux package receipt](validation/chunk7-fa01ffb5-linux-package-2026-11-07.json)
+retains the completed raw log: 4,270 core tests pass in 1161.313 seconds with 49
+explicit skips. The [Windows package receipt](validation/chunk7-fa01ffb5-windows-package-2026-11-07.json)
+retains 4,270 passing core tests in 2018.076 seconds with 62 skips, completed
+installer assembly and the immutable handoff. Both installed jobs have started;
+their completion and final archive acceptance remain unverified for this candidate.
+The earlier source receipt was published separately without restarting this
+immutable desktop run. Full chunk completion still requires the
 missing bindings and family applicability evidence described below.
+
+**November 7 source-completeness integration:** three
+parallel agents extended the [complete SKY130 release inventory](SKY130_RELEASE_INVENTORY.md),
+the [GF180/IHP interface inventory](UPSTREAM_SEMANTIC_INVENTORY.md), and
+independent parser/source review. SKY130 covers all seven archives and 12,823
+files, including external pin-set comparisons for 428 selected HD cells. Its
+final audit, 25 focused Windows tests and 25 independent checks pass. The report
+retains generated facts, source hashes and notice identities; copied headers,
+prose and expressions were replaced with fingerprints. The GF180 parent and
+all seven submodule graphs are added alongside the separately selected primitive
+revision. GF180/IHP covers 29,520 file entries, 11,707 authenticated sources and
+84,756 interface records, with all 641 selected GDS files interpreted. There are
+zero parser gaps and one retained old-GF `.endl` mismatch; the report correctly
+remains `GAPS`, not complete semantic acceptance.
+The [combined verification](validation/chunk7-source-inventory-integration-2026-11-07.json)
+passes 88 affected tests per host (one Windows skip, no Linux skips). Both full
+reports reproduce byte-for-byte on native Linux; all 7,038 captured files remain
+unchanged. SKY130 and GF180/IHP replays take 191.838 and 68.051 seconds. The
+[independent provenance review](validation/chunk7-source-inventory-provenance-2026-11-07.json)
+verifies 20 notice identities and the generated-content boundary. Original
+snapshot bytes and finalized evidence are retained separately. These additions
+are prepared for PR #69; fresh hosted source feedback remains separate.
+Explicit missing models, malformed-source diagnostics, unknown library
+options and unproven runtime mappings remain open. This is source coverage,
+not full device acceptance; the estimate remains 74% (55–82%, low confidence).
+
+**November 7 historical-source follow-through:** the
+[VPP history review](validation/chunk7-vpp-history-review-2026-11-07.json)
+checks three original 2020 snapshots. None supplies the missing unsuffixed model.
+The current `_nhv` simulation model has four terminals, while its layout CDL
+exposes three and ties the body to C1; these interfaces must not be conflated.
+No authoritative equivalence to the missing catalog entry is established.
+The required binding remains unavailable, with no model or alias imported.
 
 **November 7 additional source check:** the
 [GDSFactory review](validation/chunk7-gdsfactory-source-review-2026-11-07.json)
@@ -26,7 +76,7 @@ verifies five pinned Apache-2.0 source files. Its coil models are two-terminal
 series R-L approximations, including the function named `inductor3`; the pad
 remains an empty placeholder. Its RF material definitions do not supply a full
 frequency or temperature envelope. No missing binding is resolved or model
-imported. This follow-through is local while hosted acceptance runs. The current
+imported. This review is published in `c9a81a0`. The current
 matrix check passes consistency for 302 entries and still reports unqualified.
 
 **November 7 new measured source:** the [IHP L2n0 reference](IHP_L2N0_REFERENCE.md)
@@ -46,8 +96,8 @@ loading: fast feedback installed desktop dependencies but omitted the existing
 pinned numerical qualification dependencies. Those failures are retained.
 Fast feedback now installs `requirements-qualification.txt` as the full core
 suite already does, and reports import errors directly. The 23 affected local
-checks pass; fresh hosted verification is required. No check is skipped to
-accommodate the missing dependency.
+checks pass; the fresh hosted verification at `c04c993` passes on both hosts as
+recorded above. No check is skipped to accommodate the missing dependency.
 No family is promoted; the estimate remains 74% (55–82%, low confidence).
 
 **November 7 release-archive follow-through:** candidate `19dfbe2` passes both

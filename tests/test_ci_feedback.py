@@ -24,6 +24,44 @@ def workflow(name):
 
 
 class FeedbackTests(unittest.TestCase):
+    def test_checked_in_semantic_inputs_authenticate_before_feedback(self):
+        import gzip
+        from scripts.inventory_sky130_release import verified_metadata
+        from scripts.inventory_upstream_semantics import load_sources
+        inputs = ROOT / 'docs/qualification'
+        verified_metadata(json.loads((inputs / 'sky130-release-inputs-2026-11-07.json').read_bytes()))
+        # Reconstruct the actual committed Git graphs, not only synthetic
+        # fixtures. Missing or altered metadata must fail before a CI snapshot.
+        files, closure = load_sources(inputs / 'upstream-view-inputs-2026-10-20.json.gz',
+                                      inputs / 'upstream-semantics-gf-inputs-2026-11-07.json.gz')
+        self.assertTrue(files)
+        self.assertTrue(closure['gf_parent_graph']['repositories'])
+        historical = json.loads(gzip.decompress((inputs / 'upstream-views-2026-10-20.json.gz').read_bytes()))
+        self.assertTrue(historical['files'])
+
+    def test_semantic_source_graphs_and_release_inputs_are_bound(self):
+        names = ('upstream-view-inputs-2026-10-20.json.gz',
+                 'upstream-views-2026-10-20.json.gz',
+                 'sky130-release-inputs-2026-11-07.json',
+                 'upstream-semantics-gf-inputs-2026-11-07.json.gz')
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            source = root / 'docs/qualification'
+            source.mkdir(parents=True)
+            for name in names:
+                (source / name).write_bytes(b'original authenticated input')
+            before = source_identity(root)
+            self.assertEqual(set(before), {'docs/qualification/' + name for name in names})
+            for name in names:
+                with self.subTest(name=name):
+                    path = source / name
+                    path.write_bytes(b'changed source metadata')
+                    self.assertNotEqual(source_identity(root), before)
+                    path.unlink()
+                    self.assertNotEqual(source_identity(root), before)
+                    path.write_bytes(b'original authenticated input')
+                    self.assertEqual(source_identity(root), before)
+
     def test_standalone_runner_can_bind_retained_inputs_without_pythonpath(self):
         command = [sys.executable, '-I', '-c',
                    "import runpy; from pathlib import Path; "

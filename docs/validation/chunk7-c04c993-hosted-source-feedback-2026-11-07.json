@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "PASS_HOSTED_SOURCE_FEEDBACK",
+  "candidate": "c04c993af82de0a97769b34a61355daa948dc7c0",
+  "merge_commit": "e9087af00db4e82cc9f1b9322646b40a2bc7d974",
+  "merge_tree_matches_candidate": true,
+  "run_id": 42384096028,
+  "run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42384096028",
+  "scope": "Required PR source feedback with the separately licensed IHP L2n0 reference, parser and layout exchange controls. No fresh EM solver execution, installed or full-family acceptance.",
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "fresh_solver_execution": false,
+  "lanes": {
+    "linux": {
+      "status": "passed",
+      "tests": 1175,
+      "skips": 17,
+      "seconds": 317.625,
+      "source_files_verified": 2310,
+      "report_sha256": "2938d77b36e77a0a04c6883dcd5e6ba9423a6084624562188f0849c7c9ad09cb",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 16.807
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 33.084
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 24.517
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 29.027
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 40.955
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 5.977
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 2.419
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 24.567
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.672
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 6.529
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 27.325
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 97.434
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 2.169
+        }
+      ]
+    },
+    "windows": {
+      "status": "passed",
+      "tests": 1175,
+      "skips": 37,
+      "seconds": 661.438,
+      "source_files_verified": 2310,
+      "report_sha256": "8ad2ff2501b7044ee9331e43bb7c5adb86bd8f4a5f08c014f19829f02b968f2f",
+      "stages": [
+        {
+          "name": "unit-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 35.844
+        },
+        {
+          "name": "ihp-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 63.375
+        },
+        {
+          "name": "physical-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 74.765
+        },
+        {
+          "name": "device-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 116.313
+        },
+        {
+          "name": "package-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 114.0
+        },
+        {
+          "name": "runtime-release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 11.469
+        },
+        {
+          "name": "release-contracts",
+          "returncode": 0,
+          "elapsed_seconds": 4.141
+        },
+        {
+          "name": "menu-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 32.141
+        },
+        {
+          "name": "project-hub-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 8.468
+        },
+        {
+          "name": "metal-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 10.797
+        },
+        {
+          "name": "metal-resistor-parallel-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 45.969
+        },
+        {
+          "name": "ihp-resistor-editor-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 136.671
+        },
+        {
+          "name": "ihp-capacitor-corner-smoke",
+          "returncode": 0,
+          "elapsed_seconds": 3.047
+        }
+      ]
+    }
+  },
+  "prior_failure": {
+    "run_id": 42383838452,
+    "candidate": "c9a81a0455e986a7d178d8d0c881e2496268eb63",
+    "lanes": {
+      "linux": {
+        "status": "failed",
+        "report_sha256": "b402e1fb95c91db10168b350dff5c7d7891b26ec12f446e559138c1068914913",
+        "observed": "Unit selection contains a failed module import; original assertion omitted the underlying exception.",
+        "diagnosis": "The new audit imports NumPy, which was absent from the workflow install inputs. The repaired environment installs the existing qualification pins."
+      },
+      "windows": {
+        "status": "failed",
+        "report_sha256": "7eb37440361043025f25851b51c84631a7fdcb981be8fc9f4d9647331e73fca9",
+        "observed": "Unit selection contains a failed module import; original assertion omitted the underlying exception.",
+        "diagnosis": "The new audit imports NumPy, which was absent from the workflow install inputs. The repaired environment installs the existing qualification pins."
+      }
+    },
+    "correction": "Install existing pinned requirements-qualification.txt alongside desktop requirements; include import diagnostics. No test omitted or deadline relaxed."
+  },
+  "retention": {
+    "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-11-06\\can-x20\\outputs\\chunk7-c04c993-hosted-source-evidence.zip",
+    "sha256": "7e7784b6f530e64566fb3e29f7ef60b2cd562a8aee0bc75ef4133c64ff6b9702",
+    "bytes": 34154386,
+    "members": 1984,
+    "all_members_verified": true
+  },
+  "full_desktop": {
+    "run_id": 42379707594,
+    "candidate": "fa01ffb566ba1fa1903dec58dabd9838a901712d",
+    "scope": "Separate earlier application candidate; does not execute this later reference audit."
+  }
+}

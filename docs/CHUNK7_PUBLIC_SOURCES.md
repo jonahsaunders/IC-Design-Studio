@@ -58,6 +58,32 @@ without importing issue content or changing model bindings.
 
 ## Remaining definitions
 
+The [complete SKY130 release inventory](SKY130_RELEASE_INVENTORY.md) and
+[GF180/IHP interface inventory](UPSTREAM_SEMANTIC_INVENTORY.md) retain generated
+declaration facts, fingerprints and exact source/notice identities. The
+[independent content review](validation/chunk7-source-inventory-provenance-2026-11-07.json)
+checks the final reports and 20 notice identities. No model bodies, source prose
+or generator implementations are imported by these inventories. Mixed upstream
+licenses remain separate; identifying a source does not grant blanket reuse
+permission or establish a missing device model.
+
+The [SKY130 VPP history review](validation/chunk7-vpp-history-review-2026-11-07.json)
+checks three original 2020 snapshots and the current model/layout declarations.
+The `_nhv` simulation model has four terminals; its layout CDL exposes three
+and connects the model body to C1. None of those historical snapshots supplies
+the missing unsuffixed model file. This leaves device identity and terminal
+semantics unresolved; a four-pin model declaration alone does not establish
+equivalence to the missing catalog entry. No model or alias is imported.
+
+The separate [binding-semantic review](validation/chunk7-required-binding-semantics-2026-11-07.json)
+also checks the original Xschem symbol and its 2023 interface change. The
+unsuffixed name was already present upstream in 2020; the later edit does not
+establish an alias to `_nhv`. The available model's declared body terminal is
+unused internally, while its physical CDL and current symbol expose different
+three-terminal interfaces. Current open-pdks rename filters supply no missing
+model equivalence. These exact-source findings prevent a misleading substitution;
+they provide no new electrical qualification.
+
 The November 7 [GDSFactory source review](validation/chunk7-gdsfactory-source-review-2026-11-07.json)
 also checks five exact files at revision `fc668efa7708bab1a539f019b272f8dd439b3b6d`
 under its Apache-2.0 license. Its `ihp_inductor_rl` and SAX models are reusable
