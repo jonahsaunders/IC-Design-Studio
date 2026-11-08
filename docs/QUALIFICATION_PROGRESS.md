@@ -6,8 +6,10 @@ fraction or verified full-family acceptance. The change from 72% reflects closur
 of the two previously blocked installed workflows on both required platforms.
 
 **November 8 blocker-focused work:** PR #69 was merged into `experimental`
-as `62da73a718fa0758bfc42e1738088d06b6ce7319`. Work continues locally on
-`codex/chunk7-blockers-20261108` with three agents. The estimate remains **74%**,
+as `62da73a718fa0758bfc42e1738088d06b6ce7319`. Work continues on
+`codex/chunk7-blockers-20261108` with three agents. Candidate
+`2c6df3053fe60630d68f19208f4ce890a1626795` is published in
+[draft PR #70](https://github.com/jonahsaunders/IC-Design-Studio/pull/70). The estimate remains **74%**,
 low confidence (55-82%); no full-family completion is claimed.
 
 The [resumed source replay](validation/chunk7-embedded-reference-integration-2026-11-08.json)
@@ -38,7 +40,7 @@ remains unavailable and is not aliased to `_nhv`.
 The installed-case work reproduced a real delivery defect: managed staging
 omitted `package.json`, which MOS grouping authentication requires. The original
 full pilot passed all 17 capacitor cases and failed at the first MOS grouping
-case after native DRC/LVS passed. A scratch fix preserves the existing manifest
+case after native DRC/LVS passed. The integrated fix preserves the existing manifest
 and its saved lock; independent staging checks pass on all three affected
 packages, and the formerly failing managed MOS case now passes. The corrected source pilot now passes all 35 expected outcomes in 326.593
 seconds, with independent raw readback, 70 GUI export checks and 35 offline
@@ -49,8 +51,19 @@ observations do not replace installed acceptance.
 
 Four required model bindings, complete operating/reliability envelopes,
 calibration and remaining source/physical/installed gates still prevent chunk 7
-completion. This is local work pending a new reviewed candidate; no new release
-or full-family acceptance has been published.
+completion. [Source feedback](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42509942355)
+and [packaged desktop acceptance](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42509955844)
+were launched for this exact candidate. Both source lanes exposed one obsolete
+CMIM regression that required the managed manifest to be absent. The
+[corrected regression](validation/chunk7-cmim-staging-regression-2026-11-08.json)
+checks exact manifest delivery and preserves CMIM independence by deleting only
+that manifest and requiring identical results, including the original tamper
+controls. The full 229-test IHP group passes on both hosts (90.547 seconds on
+Windows, 25.162 seconds on native Linux; unchanged 300-second deadline). Both
+original failure artifacts are retained. The superseded desktop run was
+cancelled because its full suite includes the same obsolete assertion.
+Replacement hosted and packaged acceptance remains pending; no new release
+or full-family acceptance is claimed.
 
 **November 7 schematic inventory and header correction:** the
 [fifth disposition report](qualification/source-dispositions-2026-11-07-v5.json.gz)

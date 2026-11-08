@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "date": "2026-11-08",
+  "status": "PASS_CMIM_STAGING_REGRESSION_REPAIR",
+  "base": "2c6df3053fe60630d68f19208f4ce890a1626795",
+  "installed_acceptance": false,
+  "qualified": false,
+  "chunk_complete": false,
+  "change": "Assert the exact manifest and unchanged saved lock delivered by managed staging, then remove only the manifest and verify identical CMIM unit/asset results. Existing catalog, lock and native-deck tamper checks remain.",
+  "source_test": {
+    "path": "tests/test_ihp_cmim_capacitance.py",
+    "sha256": "9bbc1da85b0df83b25c6b9069699950f7e5e525054bb860677ecca8e1c7009da"
+  },
+  "hosts": {
+    "windows": {
+      "platform": "Windows",
+      "base": "2c6df3053fe60630d68f19208f4ce890a1626795",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "source": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio",
+      "files_verified": 7158,
+      "source_unchanged": true,
+      "source_manifest_sha256": "8f978067df2fc1d3ee5d088718fb41b0b51e5a3423c1d193f6c819dfa91eb572",
+      "stages_sha256": "eafc3bf7d2ee8d082345eea8722715b66dfe3f9bf439b92694c2d4fe84e25c33",
+      "stages": [
+        {
+          "stage": "ihp-contracts",
+          "tests": 229,
+          "tests_seconds": 89.953,
+          "returncode": 0,
+          "seconds": 90.54700000002049,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "09ccb3610a26267a0f77e8574548c89a3797e1a35e04a4a18cb3a685dfb3ed2e"
+        }
+      ],
+      "tests": 229,
+      "returncode": 0
+    },
+    "linux": {
+      "platform": "Linux",
+      "base": "2c6df3053fe60630d68f19208f4ce890a1626795",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "source": "/var/tmp/icstudio-cmim-staging-regression-20261108-v1/source",
+      "files_verified": 7158,
+      "source_unchanged": true,
+      "source_manifest_sha256": "8f978067df2fc1d3ee5d088718fb41b0b51e5a3423c1d193f6c819dfa91eb572",
+      "stages_sha256": "eafc3bf7d2ee8d082345eea8722715b66dfe3f9bf439b92694c2d4fe84e25c33",
+      "stages": [
+        {
+          "stage": "ihp-contracts",
+          "tests": 229,
+          "tests_seconds": 24.646,
+          "returncode": 0,
+          "seconds": 25.161720607007737,
+          "deadline_seconds": 300,
+          "skips": [
+            "'Windows PowerShell required'"
+          ],
+          "log_sha256": "53296740cff9e429d30d402ec523996b278bc93242fafa74410ffe730200712b"
+        }
+      ],
+      "tests": 229,
+      "returncode": 0
+    }
+  },
+  "source_manifest_sha256": "8f978067df2fc1d3ee5d088718fb41b0b51e5a3423c1d193f6c819dfa91eb572",
+  "files_verified": 7158,
+  "original_failure": {
+    "run_id": 42509942355,
+    "candidate": "2c6df3053fe60630d68f19208f4ce890a1626795",
+    "both_hosts": true,
+    "tests_per_failed_stage": 229,
+    "assertion": "test_managed_backend_stages_exact_pdk_without_package_json expected a missing manifest",
+    "receipt_sha256": "89b7a88a3c5ce6286df0e3c14d5385ce6b5d7ed17543e32074a9d767209e5ebf",
+    "archive": "chunk7-blockers-source-failure-2026-11-08.zip",
+    "archive_sha256": "f34abe6398185a71a727f1366b5697cf068c9b7b1e8e6bf7f885fa8684a78e10",
+    "scope": "Both complete artifacts retained; source failure is not reclassified as a pass."
+  },
+  "superseded_desktop": {
+    "run_id": 42509955844,
+    "conclusion": "cancelled",
+    "reason": "The same obsolete regression is selected by the desktop full test suite; replacement candidate must run all gates."
+  }
+}

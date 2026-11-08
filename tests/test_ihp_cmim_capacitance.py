@@ -120,7 +120,7 @@ class CmimCapacitanceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'pinned catalog'):
             applicable(project, cell, source, tech_file)
 
-    def test_managed_backend_stages_exact_pdk_without_package_json(self):
+    def test_managed_backend_preserves_manifest_and_cmim_works_without_it(self):
         technology = self.technology
         manifest = Path(technology['package_root']) / 'package.json'
         self.assertEqual(digest(json.loads(manifest.read_bytes())), PACKAGE_SHA256)
@@ -134,10 +134,16 @@ class CmimCapacitanceTests(unittest.TestCase):
             work = Path(temporary).resolve()
             staged = stage(job, work, work.as_posix(), '/native-runtime')['project']
             package = work / 'pdk'
-            self.assertFalse((package / 'package.json').exists())
+            self.assertEqual((package / 'package.json').read_bytes(), manifest.read_bytes())
+            self.assertEqual(staged['pdk']['package_lock'], technology['package_lock'])
             unit, assets = applicable(staged, staged['cells'][0], source, package / MAGIC_FILES[0])
             self.assertEqual(unit, COUPON)
             self.assertEqual(len(assets), 7)
+            # CMIM authenticates the saved catalog and locked assets independently.
+            # Carrying the manifest for MOS must not make it a CMIM requirement.
+            (package / 'package.json').unlink()
+            self.assertEqual(applicable(staged, staged['cells'][0], source,
+                                       package / MAGIC_FILES[0]), (unit, assets))
             for owner, key, altered in (
                 ('technology', 'unexpected', 'injected'),
                 ('package_lock', 'revision', 'changed'),
