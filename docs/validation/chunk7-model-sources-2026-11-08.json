@@ -1,0 +1,538 @@
+{
+  "schema": 1,
+  "date": "2026-11-08",
+  "base": "62da73a718fa0758bfc42e1738088d06b6ce7319",
+  "status": "PASS_FINITE_MODEL_SOURCE_INTEGRATION",
+  "qualified": false,
+  "chunk_complete": false,
+  "full_operating_envelope": false,
+  "required_missing_bindings_resolved": false,
+  "source_manifest_sha256": "596e430e94ad17bea7b88c75e8bc5ea33098bd1e6e94e38c6ad638c580e8c439",
+  "files_verified": 7136,
+  "hosts": {
+    "windows": {
+      "platform": "Windows",
+      "base": "62da73a718fa0758bfc42e1738088d06b6ce7319",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "source": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio",
+      "files_verified": 7136,
+      "source_unchanged": true,
+      "source_manifest_sha256": "596e430e94ad17bea7b88c75e8bc5ea33098bd1e6e94e38c6ad638c580e8c439",
+      "stages_sha256": "2a8a6cc1a8e91568c3f88d1cc9078a9bc2030ae7839b47aa06d601dda21743b6",
+      "stages": [
+        {
+          "stage": "models",
+          "tests": 45,
+          "tests_seconds": 112.728,
+          "returncode": 0,
+          "seconds": 113.25,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "f5268f859a43180e47c83651457cafd3c3dd4bc67ab4986434bf04e64422687e"
+        },
+        {
+          "stage": "packages",
+          "tests": 8,
+          "tests_seconds": 191.318,
+          "returncode": 0,
+          "seconds": 191.53100000001723,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "2c3278ec5f120c0f7cd2a20145595d2f4fd423f50ad3cff2095dcb13d9370f82"
+        },
+        {
+          "stage": "integration",
+          "tests": 34,
+          "tests_seconds": 21.49,
+          "returncode": 0,
+          "seconds": 21.76600000000326,
+          "deadline_seconds": 300,
+          "skips": [
+            "'Directory symlink creation is not assumed on Windows.'"
+          ],
+          "log_sha256": "61fa685a7ac8ddecd88e3591fa8d0a1613b569691a5931a2b5d162f75e0c42e5"
+        }
+      ],
+      "tests": 87,
+      "returncode": 0
+    },
+    "linux": {
+      "platform": "Linux",
+      "base": "62da73a718fa0758bfc42e1738088d06b6ce7319",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "source": "/var/tmp/icstudio-model-source-integration-20261108-v1/source",
+      "files_verified": 7136,
+      "source_unchanged": true,
+      "source_manifest_sha256": "596e430e94ad17bea7b88c75e8bc5ea33098bd1e6e94e38c6ad638c580e8c439",
+      "stages_sha256": "2a8a6cc1a8e91568c3f88d1cc9078a9bc2030ae7839b47aa06d601dda21743b6",
+      "stages": [
+        {
+          "stage": "models",
+          "tests": 45,
+          "tests_seconds": 23.822,
+          "returncode": 0,
+          "seconds": 24.108506383010536,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "ab1882018750c0de1274c90530f52d36d73367393db0dbf01181b35be449847b"
+        },
+        {
+          "stage": "packages",
+          "tests": 8,
+          "tests_seconds": 35.029,
+          "returncode": 0,
+          "seconds": 35.127252546997624,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "c209b130aa282bbf92317202b287b4f625cc6a4db13e6a46c3c12a90e550baff"
+        },
+        {
+          "stage": "integration",
+          "tests": 34,
+          "tests_seconds": 5.248,
+          "returncode": 0,
+          "seconds": 5.380046678998042,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "b30b9047e67a36f016db7cdd5244915ef0e55e8bcbfe7960c5cf0404983be976"
+        }
+      ],
+      "tests": 87,
+      "returncode": 0
+    }
+  },
+  "applied_files": [
+    {
+      "path": "docs/IHP_CT_REFERENCE.md",
+      "before_sha256": null,
+      "after_sha256": "0ea6aef9ad9abbc4361f1b010f06a3fd73d487bd939ccf2da51c0c8ea900880f"
+    },
+    {
+      "path": "icstudio/three_port_reference.py",
+      "before_sha256": null,
+      "after_sha256": "8d7f60147421d47be4a1eafaf280c8d10cafcb73e37671520dbce48288b0cf49"
+    },
+    {
+      "path": "scripts/audit_ihp_ct_reference.py",
+      "before_sha256": null,
+      "after_sha256": "77f9b1093767aab9085d85f787e4e5c946378cd4dac41c073079205c5bd9a464"
+    },
+    {
+      "path": "tests/fixtures/ihp-ct-reference-v1/fit-log.txt",
+      "before_sha256": null,
+      "after_sha256": "c90818c4d868abb49d79ffc33de17d0536e1b97695fe895b0aa9c21cc8f8e58b"
+    },
+    {
+      "path": "tests/fixtures/ihp-ct-reference-v1/fitted.s3p",
+      "before_sha256": null,
+      "after_sha256": "d8644ad5252f01a94b9caad6d5badacde3503a85aa2805c3339ac7f0d01fadbe"
+    },
+    {
+      "path": "tests/fixtures/ihp-ct-reference-v1/fitted.sp",
+      "before_sha256": null,
+      "after_sha256": "a6243c60fa2fbb70f5b7111ec94af1753c36e4e66b4504feddd1b3668cdd9efe"
+    },
+    {
+      "path": "tests/fixtures/ihp-ct-reference-v1/LICENSE",
+      "before_sha256": null,
+      "after_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "tests/fixtures/ihp-ct-reference-v1/NOTICES.txt",
+      "before_sha256": null,
+      "after_sha256": "87d114b4cd2d2ab7537cd2442236a79b862e7395503029a083ce35cd7fd90246"
+    },
+    {
+      "path": "tests/fixtures/ihp-ct-reference-v1/reference.s3p",
+      "before_sha256": null,
+      "after_sha256": "db2fa14c306f76c71aa5ba21f65c5f7eec4ddace80f3862cbded03513eab2362"
+    },
+    {
+      "path": "tests/fixtures/ihp-ct-reference-v1/SOURCE.json",
+      "before_sha256": null,
+      "after_sha256": "ec527cb7043bbae8e1b6a4e7b5f2ef88e27c923d3696287fbb2d3130cddf8c93"
+    },
+    {
+      "path": "tests/fixtures/ihp-ct-reference-v1/UPSTREAM.md",
+      "before_sha256": null,
+      "after_sha256": "477989f6ccca7ca4aa15236ac3b3145d9f62e22a1217898c5afb859dc7f82280"
+    },
+    {
+      "path": "tests/test_ihp_ct_reference.py",
+      "before_sha256": null,
+      "after_sha256": "5854961256b744122014f052d992564f609ba36281bfb14f5e0d888420d1f672"
+    },
+    {
+      "path": "scripts/prepare_alternate_models.py",
+      "before_sha256": "713e91400801b34e4f60a9c4d353564d494270888e1683f846785efeba715c4a",
+      "after_sha256": "a311c195afd03f327921849780cdb4c68075209f61dedf65b3359fdd45dee95e"
+    },
+    {
+      "path": "scripts/prepare_default_device_packages.py",
+      "before_sha256": "75917d72126a7d3c579aaa00a1678380eb73554a1bf3a777d3b921ac64315da7",
+      "after_sha256": "913fba5725fbebaef99256236938e723b0b19ea631cbc074d18b10143aaef062"
+    },
+    {
+      "path": "tests/test_alternate_models.py",
+      "before_sha256": "9b048f6bd4536e0d608fd311e5d2be1940a36c7305f0d274b23a1e5c69c1d606",
+      "after_sha256": "dd5a0d4e38ca84a7b377e41c38624106b8fdee73f9476cceddbe17e9386b9887"
+    },
+    {
+      "path": "scripts/prepare_sky130_vpp_descriptions.py",
+      "before_sha256": null,
+      "after_sha256": "89304e85953f0eae8178342a34d08b7da079e0e2e6a08425126890ca1d5d3b58"
+    },
+    {
+      "path": "scripts/qualification_sky130_vpp_voltage.py",
+      "before_sha256": null,
+      "after_sha256": "acabdf72068166f2c71d9ddc04fac9877025d56602385f3e0d34d3e8aa5f0875"
+    },
+    {
+      "path": "tests/test_sky130_vpp_applicability.py",
+      "before_sha256": null,
+      "after_sha256": "e8bdbf3298acc297bf172a7a90d81aca624df674ccc38b117857e54a8dfbb2fa"
+    },
+    {
+      "path": "docs/qualification/sky130-vpp-voltage-v1/contract.json",
+      "before_sha256": null,
+      "after_sha256": "5f859be9fae8a362b76bf8e84960c3326097301f83a00c66006fc38837b598bd"
+    },
+    {
+      "path": "docs/qualification/sky130-vpp-voltage-v1/source-lock.json",
+      "before_sha256": null,
+      "after_sha256": "2051fe4d464f66a3bf92c957da76a11966b5c9d9d77f657508d2f43b663be8d0"
+    },
+    {
+      "path": "docs/qualification/sky130-vpp-voltage-v1/sources/docs/rules/device-details/cap_vpp/cap_vpp-table0.rst",
+      "before_sha256": null,
+      "after_sha256": "f9e66a54dc6ea093db51b51c5d58a9c70230d1ef4538d80008dc39fa1f8716ad"
+    },
+    {
+      "path": "docs/qualification/sky130-vpp-voltage-v1/sources/docs/rules/device-details/cap_vpp/index.rst",
+      "before_sha256": null,
+      "after_sha256": "2dfd8816663aa70e365e65e9e9c38cd3475d8b0efd1c087e19d474c784398ca7"
+    },
+    {
+      "path": "docs/qualification/sky130-vpp-voltage-v1/sources/LICENSE",
+      "before_sha256": null,
+      "after_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "scripts/ci_feedback.py",
+      "before_sha256": "0da3d4cc9d44bbe4634f6cce56c4bab99fb06c2b5bb2b5f60fa939215f2c5df1",
+      "after_sha256": "43312118a76422d957b94eb54bfebddbd88d123a0906d904239dae6808dfaff0"
+    }
+  ],
+  "ihp_center_tap": {
+    "source_revision": "e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320",
+    "license": "GPL-3.0 as supplied in original upstream LICENSE",
+    "original_files": 6,
+    "source_manifest": "tests/fixtures/ihp-ct-reference-v1/SOURCE.json",
+    "documentation": "docs/IHP_CT_REFERENCE.md",
+    "component_receipt_sha256": "8536f7ff4bc20b96f521865acb5df3220ae8dacfad9155d9898c497cf77e6564",
+    "native_hosts": {
+      "windows": {
+        "schema": 1,
+        "status": "PASS_SOURCE_AND_NATIVE_CIRCUIT_READBACK",
+        "source_commit": "e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320",
+        "source_manifest_sha256": "ec527cb7043bbae8e1b6a4e7b5f2ef88e27c923d3696287fbb2d3130cddf8c93",
+        "source_files": {
+          "scripts/audit_ihp_ct_reference.py": "77f9b1093767aab9085d85f787e4e5c946378cd4dac41c073079205c5bd9a464",
+          "icstudio/three_port_reference.py": "8d7f60147421d47be4a1eafaf280c8d10cafcb73e37671520dbce48288b0cf49"
+        },
+        "samples": 82,
+        "band_hz": [
+          10000000.0,
+          60000000000.0
+        ],
+        "port_order": [
+          "p1",
+          "p2",
+          "ct"
+        ],
+        "common_reference": "0",
+        "circuit": {
+          "passive_elements": 41,
+          "mutual_couplings": 4,
+          "minimum_inductance_eigenvalue_h": 5.3832199999999945e-12,
+          "minimum_sampled_conductance_eigenvalue_s": 2.2169516770530867e-09
+        },
+        "comparisons": {
+          "maximum_printed_circuit_vs_full_precision_fit_s_absolute": 5.795058361174075e-07,
+          "maximum_fit_vs_original_em_s_absolute": 0.029117014776096496,
+          "rms_fit_vs_original_em_s_absolute_by_entry": [
+            [
+              0.010168331058682815,
+              0.010161558376551534,
+              0.00250825232803754
+            ],
+            [
+              0.010161558376551985,
+              0.010912371880355739,
+              0.00248562833822954
+            ],
+            [
+              0.002508252328037543,
+              0.0024856283382298575,
+              0.0010463010793170906
+            ]
+          ]
+        },
+        "conditions": {
+          "differential_current_ct_open": {
+            "first_ohm": [
+              1.6524674000309005,
+              0.03159716917434707
+            ],
+            "last_ohm": [
+              24.63419586420217,
+              338.4571027633277
+            ]
+          },
+          "differential_current_ct_grounded": {
+            "first_ohm": [
+              1.6524674001504007,
+              0.03159715736922019
+            ],
+            "last_ohm": [
+              24.67058722871902,
+              338.57117795165414
+            ]
+          },
+          "differential_voltage_ct_grounded": {
+            "first_ohm": [
+              1.6207308728111298,
+              0.0316791886379652
+            ],
+            "last_ohm": [
+              24.62735941743111,
+              338.5244487674518
+            ]
+          },
+          "center_tap_ends_grounded": {
+            "first_ohm": [
+              0.496563044428023,
+              0.0045817036477859155
+            ],
+            "last_ohm": [
+              1.8907224352345238,
+              19.392909361066025
+            ]
+          },
+          "first_end_others_grounded": {
+            "first_ohm": [
+              0.7843635364618184,
+              0.012675616851444806
+            ],
+            "last_ohm": [
+              5.91650725853429,
+              64.38049646423775
+            ]
+          },
+          "second_end_others_grounded": {
+            "first_ohm": [
+              1.0352403868436035,
+              0.013723752148312314
+            ],
+            "last_ohm": [
+              6.518297264422461,
+              65.65600510259725
+            ]
+          }
+        },
+        "comparison_scope": "Fit-to-EM differences are descriptive. They are not calibration uncertainty or operating/reliability limits.",
+        "fresh_spice_execution": false,
+        "native_spice_response_verified": true,
+        "measurement": false,
+        "original_em_reproduced": false,
+        "catalog_binding_resolved": false,
+        "qualified": false,
+        "chunk_complete": false,
+        "limitations": [
+          "No original Palace deck, mesh-convergence proof or independently authenticated GDS is included.",
+          "No measurement calibration, uncertainty or independently excited body-terminal response is established.",
+          "The fixed response does not define parameterized w/s/d/nr_r/m behavior.",
+          "Frequency sample limits are not temperature, voltage/current, reliability or statistical applicability limits.",
+          "No full required catalog binding or chunk qualification is claimed."
+        ],
+        "native": {
+          "engine": {
+            "path": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio\\icstudio\\assets\\runtime\\ngspice\\ngspice.exe",
+            "sha256": "86c9ea5f645ca919e305639fa7bdb522355364c424d14e197f1ade617feb3453"
+          },
+          "source_files": {
+            "scripts/audit_ihp_ct_reference.py": "77f9b1093767aab9085d85f787e4e5c946378cd4dac41c073079205c5bd9a464",
+            "icstudio/three_port_reference.py": "8d7f60147421d47be4a1eafaf280c8d10cafcb73e37671520dbce48288b0cf49"
+          },
+          "maximum_y_absolute_error_s": 3.58766985720938e-15,
+          "maximum_s_absolute_error": 5.509319558484913e-14,
+          "excitations": 3,
+          "complex_entries_per_sample": 9
+        }
+      },
+      "linux": {
+        "schema": 1,
+        "status": "PASS_SOURCE_AND_NATIVE_CIRCUIT_READBACK",
+        "source_commit": "e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320",
+        "source_manifest_sha256": "ec527cb7043bbae8e1b6a4e7b5f2ef88e27c923d3696287fbb2d3130cddf8c93",
+        "source_files": {
+          "scripts/audit_ihp_ct_reference.py": "77f9b1093767aab9085d85f787e4e5c946378cd4dac41c073079205c5bd9a464",
+          "icstudio/three_port_reference.py": "8d7f60147421d47be4a1eafaf280c8d10cafcb73e37671520dbce48288b0cf49"
+        },
+        "samples": 82,
+        "band_hz": [
+          10000000.0,
+          60000000000.0
+        ],
+        "port_order": [
+          "p1",
+          "p2",
+          "ct"
+        ],
+        "common_reference": "0",
+        "circuit": {
+          "passive_elements": 41,
+          "mutual_couplings": 4,
+          "minimum_inductance_eigenvalue_h": 5.3832199999999945e-12,
+          "minimum_sampled_conductance_eigenvalue_s": 2.2169516770530867e-09
+        },
+        "comparisons": {
+          "maximum_printed_circuit_vs_full_precision_fit_s_absolute": 5.795058361174075e-07,
+          "maximum_fit_vs_original_em_s_absolute": 0.029117014776096496,
+          "rms_fit_vs_original_em_s_absolute_by_entry": [
+            [
+              0.010168331058682815,
+              0.010161558376551534,
+              0.00250825232803754
+            ],
+            [
+              0.010161558376551985,
+              0.010912371880355739,
+              0.00248562833822954
+            ],
+            [
+              0.002508252328037543,
+              0.0024856283382298575,
+              0.0010463010793170906
+            ]
+          ]
+        },
+        "conditions": {
+          "differential_current_ct_open": {
+            "first_ohm": [
+              1.6524674000309005,
+              0.03159716917434707
+            ],
+            "last_ohm": [
+              24.63419586420217,
+              338.4571027633277
+            ]
+          },
+          "differential_current_ct_grounded": {
+            "first_ohm": [
+              1.6524674001504007,
+              0.03159715736922019
+            ],
+            "last_ohm": [
+              24.67058722871902,
+              338.57117795165414
+            ]
+          },
+          "differential_voltage_ct_grounded": {
+            "first_ohm": [
+              1.6207308728111298,
+              0.0316791886379652
+            ],
+            "last_ohm": [
+              24.62735941743111,
+              338.5244487674518
+            ]
+          },
+          "center_tap_ends_grounded": {
+            "first_ohm": [
+              0.496563044428023,
+              0.0045817036477859155
+            ],
+            "last_ohm": [
+              1.8907224352345238,
+              19.392909361066025
+            ]
+          },
+          "first_end_others_grounded": {
+            "first_ohm": [
+              0.7843635364618184,
+              0.012675616851444806
+            ],
+            "last_ohm": [
+              5.91650725853429,
+              64.38049646423775
+            ]
+          },
+          "second_end_others_grounded": {
+            "first_ohm": [
+              1.0352403868436035,
+              0.013723752148312314
+            ],
+            "last_ohm": [
+              6.518297264422461,
+              65.65600510259725
+            ]
+          }
+        },
+        "comparison_scope": "Fit-to-EM differences are descriptive. They are not calibration uncertainty or operating/reliability limits.",
+        "fresh_spice_execution": false,
+        "native_spice_response_verified": true,
+        "measurement": false,
+        "original_em_reproduced": false,
+        "catalog_binding_resolved": false,
+        "qualified": false,
+        "chunk_complete": false,
+        "limitations": [
+          "No original Palace deck, mesh-convergence proof or independently authenticated GDS is included.",
+          "No measurement calibration, uncertainty or independently excited body-terminal response is established.",
+          "The fixed response does not define parameterized w/s/d/nr_r/m behavior.",
+          "Frequency sample limits are not temperature, voltage/current, reliability or statistical applicability limits.",
+          "No full required catalog binding or chunk qualification is claimed."
+        ],
+        "native": {
+          "engine": {
+            "path": "/usr/bin/ngspice",
+            "sha256": "820658317b0b54035208da41936fd6871ce924036e5ea4113a4168b821b7fc45"
+          },
+          "source_files": {
+            "scripts/audit_ihp_ct_reference.py": "77f9b1093767aab9085d85f787e4e5c946378cd4dac41c073079205c5bd9a464",
+            "icstudio/three_port_reference.py": "8d7f60147421d47be4a1eafaf280c8d10cafcb73e37671520dbce48288b0cf49"
+          },
+          "maximum_y_absolute_error_s": 3.58766985720938e-15,
+          "maximum_s_absolute_error": 5.509319558484913e-14,
+          "excitations": 3,
+          "complex_entries_per_sample": 9
+        }
+      }
+    },
+    "scope": "One simulated fixed-geometry three-port reference, explicit common return, independent MNA/native response agreement. No fourth body response, measured calibration, parameterized binding or operating/reliability envelope."
+  },
+  "sky130_vpp": {
+    "license": "Apache-2.0",
+    "source_revision": "7198cf647113f56041e02abf3eb623692820c5e1",
+    "contract": "docs/qualification/sky130-vpp-voltage-v1/contract.json",
+    "documentation": "docs/SKY130_VPP_APPLICABILITY.md",
+    "component_receipt_sha256": "f3c645696d549ed74882c9ad25007374775ac7fe2bfaee3dba4dba2d52ee3349",
+    "available_bindings_screened": 9,
+    "quantity": "abs(V(c0)-V(c1)) <= 5.5 V",
+    "evidence_kind": "source-defined static applicability screen",
+    "corrected_new_package_generation": true,
+    "bundled_manifest_changed": false,
+    "scope": "Plate differential only. Body/shield/common-mode/temperature/reliability/absolute limits remain unknown. Unsuffixed missing model stays unavailable; no _nhv alias. Historical package reconstruction remains exact."
+  },
+  "evidence_archives": [
+    {
+      "file": "chunk7-ihp-center-tapped-reference-2026-11-08.zip",
+      "sha256": "3553160ba42aaabc6ed3927f871eb5e976c263ed0ea2404a396c15e0b4e1eed9"
+    },
+    {
+      "file": "sky130-vpp-applicability-2026-11-08.zip",
+      "sha256": "b1e21426fa6c3e6908a8f4e6c01ab9766f908099af0bf18419ad0a5fb3d89acf"
+    }
+  ]
+}

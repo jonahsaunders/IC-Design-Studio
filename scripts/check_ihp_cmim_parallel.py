@@ -92,9 +92,9 @@ def netlist(text, source=False):
     return units, graph
 
 
-def read_native(folder):
+def read_native(folder, *, job_name="job"):
     expected = Counter({(Decimal('7e-6'), Decimal('7e-6')): 2})
-    raw = folder/'job/parasitics/coupon.ext'
+    raw = folder/job_name/'parasitics/coupon.ext'
     # Discover the actual stage name once; no arbitrary alternate source is accepted.
     require(raw.is_file(), 'missing native PEX raw graph')
     units, graph, locations, ports, nodes = Counter(), {}, set(), {}, set()
@@ -150,9 +150,9 @@ def read_native(folder):
     return {'intrinsic_units': 2, 'raw_edges_af': [{'nodes':list(e),'value':str(v)} for e,v in sorted(graph.items())]}
 
 
-def currents(folder, graph):
+def currents(folder, graph, *, job_name="job"):
     """Read actual ASCII complex vectors, then independently solve this circuit."""
-    text = (folder/'job/post-layout/deck.raw').read_text(encoding='utf-8')
+    text = (folder/job_name/'post-layout/deck.raw').read_text(encoding='utf-8')
     require('Flags: complex\n' in text and 'No. Variables: 3\n' in text and
             re.search(r'No\. Points: 3\s*\n', text), 'native AC dimensions')
     header, body = text.split('Values:\n')
@@ -162,7 +162,7 @@ def currents(folder, graph):
     require(len(rows) == 9, 'native AC sample count')
     # The exported capacitor values have five fractional SI digits. Use the
     # independently parsed actual simulation deck for its numerical prediction.
-    _, flat = netlist((folder/'job/parasitics/extracted-flat.spice').read_text(encoding='utf-8'))
+    _, flat = netlist((folder/job_name/'parasitics/extracted-flat.spice').read_text(encoding='utf-8'))
     edges = {e:float(v)*1e-18 for e,v in flat.items()}
     extra = edges['C1','C2'] + edges['C1','SUB']*edges['C2','SUB']/(edges['C1','SUB']+edges['C2','SUB'])
     model = ROOT/'icstudio/assets/pdks/ihp-sg13g2/libs.tech/ngspice/models'

@@ -1,0 +1,198 @@
+{
+  "schema": 3,
+  "created": "2026-11-08T18:02:15+00:00",
+  "status": "passed",
+  "mode": "drc_lvs",
+  "cell_id": "c527923ba99d4628",
+  "cell_name": "parallel_coupon",
+  "design_hash": "d609e433d023dd7a79a4d745145e30f51121fe473ddca535c0704cfbb829c8f5",
+  "stages": [
+    {
+      "name": "preflight",
+      "status": "passed",
+      "evidence": {
+        "assets": {
+          "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/magic/gf180mcuC.tech": "5eb8eafee3b744052f0438ab83ea9f8ced3099963f8f84a9de73f5519d12e861",
+          "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/netgen/gf180mcuC_setup.tcl": "cf050e6302f93967c27fe797f8647d75ef5f22c7b806c32b324d2eaf77480949",
+          "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/package.json": "18fab103156296ebaf8d90fd6fdfb0d5914c481aea26f08cec6f1c69e5063994",
+          "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9"
+        },
+        "tools": {
+          "magic": {
+            "path": "/opt/icstudio/bin/magic",
+            "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223"
+          },
+          "netgen": {
+            "path": "/opt/icstudio/bin/netgen",
+            "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+          }
+        },
+        "reference": {
+          "top": "parallel_coupon",
+          "ports": [
+            "D",
+            "G",
+            "S",
+            "B"
+          ],
+          "sha256": "d26970fde6b97c5e18db1f52d43c6070612cc7cdacfdc916c9cd747b1befa956"
+        },
+        "model_defaults": []
+      }
+    },
+    {
+      "name": "layout_export",
+      "status": "passed",
+      "evidence": {
+        "source_sha256": "e959ab0c3d84bf542543a2627cfd680d203c2bde5ef7d963cf9087b8eff33250",
+        "sha256": "5f2de4959eaee5fc9947207196b74a923152c00096c6273eefcecdb5792cd3d9",
+        "source_cells": 1,
+        "geometry": "Exact flattened region XOR on every layer/datatype",
+        "removed_noninterface_labels": 0,
+        "ports": [
+          "D",
+          "G",
+          "S",
+          "B"
+        ],
+        "retained_recognition_labels": 0,
+        "interface": "Explicit top pin labels checked; legacy top labels selected by schematic terminals.",
+        "hierarchy": "Flattened only in private verification input; original project and stream retained."
+      }
+    },
+    {
+      "name": "drc",
+      "status": "passed",
+      "evidence": {
+        "violations": 0,
+        "style": "drc(full)",
+        "native_violations": 0,
+        "supplemental_contact_width": null
+      }
+    },
+    {
+      "name": "lvs_extraction",
+      "status": "passed",
+      "evidence": {
+        "deck": "lvs-extraction/extracted.spice",
+        "sha256": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+        "settings": {
+          "hierarchy": true,
+          "blackbox": false,
+          "merge": "none",
+          "scale": false,
+          "capacitance_threshold": "infinite",
+          "resistance_threshold": "infinite",
+          "distributed_resistance": false
+        }
+      }
+    },
+    {
+      "name": "lvs",
+      "status": "passed",
+      "evidence": {
+        "unique_match": true,
+        "log": "lvs/lvs.log"
+      }
+    },
+    {
+      "name": "integrity",
+      "status": "passed",
+      "evidence": {
+        "files": {
+          "input.icproj": "14af64ce01609a15fa6d0f33e09c279a3e083bb8bf37cbb9354f1ecf3daef854",
+          "schematic.spice": "d26970fde6b97c5e18db1f52d43c6070612cc7cdacfdc916c9cd747b1befa956",
+          "schematic-lvs.spice": "d26970fde6b97c5e18db1f52d43c6070612cc7cdacfdc916c9cd747b1befa956",
+          "original.gds": "e959ab0c3d84bf542543a2627cfd680d203c2bde5ef7d963cf9087b8eff33250",
+          "layout.gds": "5f2de4959eaee5fc9947207196b74a923152c00096c6273eefcecdb5792cd3d9",
+          "drc/console.log": "5a7d96883a84d8ce3d13e5050b1fa26eac14d9085ab26b8a7496ddafef10404c",
+          "lvs-extraction/console.log": "f3cedb7ffd536d947d4754a3472c03b9147026300fb3dab29a3a552f48fff46a",
+          "lvs-extraction/extracted.spice": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+          "lvs/lvs.log": "bd909e886c01f13f6c97494c2a831f770198adad370cec0f63806c4f675dcb43",
+          "mos-grouping/startup.tcl": "eb02f33f5e21b74282e96b553d1234ccfd6345b63511896a5327bf7cfd6a35f5",
+          "mos-grouping/run.tcl": "5f4961ba3789ca6f232cd3b4ff62421e667325f8bb6e007921964481734843cc",
+          "mos-grouping/console.log": "281d35fa2a4e56087d62d6abe624fd3aa76e0e8ae8250d8ab9e467fa65376c46",
+          "mos-grouping/extracted.spice": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+          "mos-grouping/proof.json": "53ce2169297c1186666aa1ace19089ea13beb58c327f4cece2e3647dc12f0ae3",
+          "mos-grouping/parallel_coupon.ext": "b45791e1bb2bf8b51b16ef2e37ddd346d2d55bd8051ce5f2c2227f37ac85171f"
+        },
+        "assets": {
+          "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/magic/gf180mcuC.tech": "5eb8eafee3b744052f0438ab83ea9f8ced3099963f8f84a9de73f5519d12e861",
+          "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/netgen/gf180mcuC_setup.tcl": "cf050e6302f93967c27fe797f8647d75ef5f22c7b806c32b324d2eaf77480949",
+          "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/package.json": "18fab103156296ebaf8d90fd6fdfb0d5914c481aea26f08cec6f1c69e5063994",
+          "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9"
+        },
+        "tools": {
+          "magic": {
+            "path": "/opt/icstudio/bin/magic",
+            "sha256": "359bd5dbfccf21114b2f18e2ffa008debf159bd0d1ab78e01738d2af9500b223"
+          },
+          "netgen": {
+            "path": "/opt/icstudio/bin/netgen",
+            "sha256": "209cc0bab75420d13094a99de13e94af05d735e744e06d817fac022ac74401d3"
+          }
+        },
+        "verified": true
+      }
+    }
+  ],
+  "qualification": "Process DRC and strict LVS for the recorded layout, schematic reference and PDK. No simulation, antenna/density signoff or fabrication signoff.",
+  "drc_engine": "magic",
+  "lvs_extractor": "magic",
+  "reference": {
+    "top": "parallel_coupon",
+    "ports": [
+      "D",
+      "G",
+      "S",
+      "B"
+    ],
+    "sha256": "d26970fde6b97c5e18db1f52d43c6070612cc7cdacfdc916c9cd747b1befa956"
+  },
+  "magic_drc_style": "drc(full)",
+  "reference_defaults": [],
+  "drc_count": 0,
+  "magic_drc_count": 0,
+  "mos_grouping": {
+    "schema": 1,
+    "status": "PASS",
+    "scope": "Exact literal standard MOS channel dimensions, finger counts and physical diffusion groups, associated with model and terminals. Native LVS is separate; no operating-envelope, RC, statistical or model-accuracy qualification.",
+    "native_lvs": "Preserved separately; this proof does not change its result.",
+    "source_sha256": "d26970fde6b97c5e18db1f52d43c6070612cc7cdacfdc916c9cd747b1befa956",
+    "stream_sha256": "5f2de4959eaee5fc9947207196b74a923152c00096c6273eefcecdb5792cd3d9",
+    "native_sha256": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+    "target": "gf180mcuC",
+    "model_sources": {
+      "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/package.json": "18fab103156296ebaf8d90fd6fdfb0d5914c481aea26f08cec6f1c69e5063994",
+      "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/magic/gf180mcuC.tech": "5eb8eafee3b744052f0438ab83ea9f8ced3099963f8f84a9de73f5519d12e861",
+      "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/netgen/gf180mcuC_setup.tcl": "cf050e6302f93967c27fe797f8647d75ef5f22c7b806c32b324d2eaf77480949",
+      "/var/tmp/icstudio-physical/54ba0fec4f7047329c9bc43c502f4822/pdk/libs.tech/ngspice/sm141064.ngspice": "c08ee93073665b6c1f43a3523bb38d5b561bcee2b7e056a927175f5da8e96ba9"
+    },
+    "channels": 6,
+    "groups": 2,
+    "native_grid_um": "0.005",
+    "group_contracts": [
+      {
+        "model": "nfet_03v3",
+        "gate": "g",
+        "body": "b",
+        "drain_source": [
+          "d",
+          "s"
+        ],
+        "channel_width_m": "0.000001005",
+        "length_m": "0.000001005",
+        "fingers": 3,
+        "copies": 2
+      }
+    ],
+    "files": {
+      "startup.tcl": "eb02f33f5e21b74282e96b553d1234ccfd6345b63511896a5327bf7cfd6a35f5",
+      "run.tcl": "5f4961ba3789ca6f232cd3b4ff62421e667325f8bb6e007921964481734843cc",
+      "console.log": "281d35fa2a4e56087d62d6abe624fd3aa76e0e8ae8250d8ab9e467fa65376c46",
+      "extracted.spice": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b",
+      "parallel_coupon.ext": "b45791e1bb2bf8b51b16ef2e37ddd346d2d55bd8051ce5f2c2227f37ac85171f"
+    }
+  },
+  "findings": []
+}

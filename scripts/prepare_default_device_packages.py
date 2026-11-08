@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from icstudio.model import file_digest
 from scripts.device_qualification_source import PROMOTED,HISTORICAL_PROMOTED,PREVIOUS,INTERMEDIATE,SKY130_ESD_DEFAULT,previous_devices
-from scripts.prepare_alternate_models import BASE as ALTERNATE_BASE,prepare as alternate_package
+from scripts.prepare_alternate_models import BASE as ALTERNATE_BASE,prepare_historical as alternate_package
 from scripts.sky130_li_source import BASE as LI_BASE
 from scripts.sky130_mim_source import BASE as MIM_BASE
 from scripts.sky130_rf_source import BASE as RF_BASE

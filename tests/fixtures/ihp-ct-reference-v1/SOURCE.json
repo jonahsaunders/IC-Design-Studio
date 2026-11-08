@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "repository": "VolkerMuehlhaus/lumpedmodel",
+  "commit": "e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320",
+  "license": "GPL-3.0 as supplied in the upstream repository LICENSE",
+  "files": [
+    {
+      "file": "LICENSE",
+      "source_path": "LICENSE",
+      "url": "https://github.com/VolkerMuehlhaus/lumpedmodel/blob/e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320/LICENSE",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "git_blob": "f288702d2fa16d3cdf0035b15a9fcbc552cd88e7"
+    },
+    {
+      "file": "UPSTREAM.md",
+      "source_path": "inductor_fit/README.md",
+      "url": "https://github.com/VolkerMuehlhaus/lumpedmodel/blob/e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320/inductor_fit/README.md",
+      "bytes": 21454,
+      "sha256": "477989f6ccca7ca4aa15236ac3b3145d9f62e22a1217898c5afb859dc7f82280",
+      "git_blob": "34f1b701c1782f4af0c97e738fda326f34d92940"
+    },
+    {
+      "file": "reference.s3p",
+      "source_path": "inductor_fit/examples/final_inductor3_N2_do82.29_w4_s4.s3p",
+      "url": "https://github.com/VolkerMuehlhaus/lumpedmodel/blob/e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320/inductor_fit/examples/final_inductor3_N2_do82.29_w4_s4.s3p",
+      "bytes": 30849,
+      "sha256": "db2fa14c306f76c71aa5ba21f65c5f7eec4ddace80f3862cbded03513eab2362",
+      "git_blob": "ede44baa0c0f3e31996c6fe13b40f23e014c1352"
+    },
+    {
+      "file": "fitted.sp",
+      "source_path": "inductor_fit/examples/final_inductor3_N2_do82.29_w4_s4_model.sp",
+      "url": "https://github.com/VolkerMuehlhaus/lumpedmodel/blob/e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320/inductor_fit/examples/final_inductor3_N2_do82.29_w4_s4_model.sp",
+      "bytes": 2542,
+      "sha256": "a6243c60fa2fbb70f5b7111ec94af1753c36e4e66b4504feddd1b3668cdd9efe",
+      "git_blob": "bbfbd8eda8226da6165a20b3147bf6b336287368"
+    },
+    {
+      "file": "fitted.s3p",
+      "source_path": "inductor_fit/examples/final_inductor3_N2_do82.29_w4_s4_model.s3p",
+      "url": "https://github.com/VolkerMuehlhaus/lumpedmodel/blob/e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320/inductor_fit/examples/final_inductor3_N2_do82.29_w4_s4_model.s3p",
+      "bytes": 30378,
+      "sha256": "d8644ad5252f01a94b9caad6d5badacde3503a85aa2805c3339ac7f0d01fadbe",
+      "git_blob": "8ecd15d8c6f566540263a7be4b4efad76a43ba01"
+    },
+    {
+      "file": "fit-log.txt",
+      "source_path": "inductor_fit/examples/final_inductor3_N2_do82.29_w4_s4.txt",
+      "url": "https://github.com/VolkerMuehlhaus/lumpedmodel/blob/e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320/inductor_fit/examples/final_inductor3_N2_do82.29_w4_s4.txt",
+      "bytes": 4530,
+      "sha256": "c90818c4d868abb49d79ffc33de17d0536e1b97695fe895b0aa9c21cc8f8e58b",
+      "git_blob": "c21ffb05526d638930d66420acd31dacdedf52ba"
+    }
+  ],
+  "notices_sha256": "87d114b4cd2d2ab7537cd2442236a79b862e7395503029a083ce35cd7fd90246",
+  "generator": {
+    "path": "inductor_fit/inductor_fit.py",
+    "git_blob": "8ab07b16d37a7340666098a1cf2b3d335bbbc23c",
+    "sha256": "282dd15f1a37345bf9db22ff062c77b1085d5edbc491ba5464f6a2dd4c20068e",
+    "copied": false,
+    "executed": false,
+    "notice": "Copyright (C) 2026 Volker Muehlhaus; GPL-3.0-or-later"
+  },
+  "kind": "One simulated three-port reference and its upstream fitted circuit; not a measurement or catalog binding.",
+  "port_order": [
+    "p1",
+    "p2",
+    "ct"
+  ],
+  "common_reference_node": "0",
+  "separate_body_terminal": false,
+  "documented_geometry": {
+    "process": "IHP SG13G2",
+    "turns": 2,
+    "outer_diameter_um": 82.29,
+    "width_um": 4,
+    "spacing_um": 4,
+    "source": "UPSTREAM.md description only; original GDS and solver inputs are outside this fixture"
+  },
+  "limitations": [
+    "No original Palace deck, mesh-convergence proof or independently authenticated GDS is included.",
+    "No measurement calibration, uncertainty or independently excited body-terminal response is established.",
+    "The fixed response does not define parameterized w/s/d/nr_r/m behavior.",
+    "Frequency sample limits are not temperature, voltage/current, reliability or statistical applicability limits.",
+    "No full required catalog binding or chunk qualification is claimed."
+  ]
+}

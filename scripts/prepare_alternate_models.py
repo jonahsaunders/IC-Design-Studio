@@ -24,7 +24,7 @@ def alias_key(key,model):
     return key.removesuffix('.sym')+'__'+model+'.sym'
 
 
-def expand(package,review):
+def _expand(package,review,*,historical_descriptions):
     """Require reviewed interfaces; never infer terminal meaning from count."""
     catalog=package['technology']['simulation']['catalog']
     definitions={d['id']:d for d in review['definitions']};added=[]
@@ -34,6 +34,10 @@ def expand(package,review):
         if key in catalog:raise ValueError('Alternate identity already exists.')
         entry=clone(catalog[parent]);entry['label']=model.removeprefix('sky130_fd_pr__')+' ('+Path(parent).stem+')'
         entry['model']=model;entry['alternate_of']=parent
+        if parent=='sky130_fd_pr/vpp_cap.sym' and not historical_descriptions:
+            from scripts.prepare_sky130_vpp_descriptions import INHERITED
+            if entry['notes'].count(INHERITED)!=1:raise ValueError('Changed inherited default VPP description.')
+            entry['notes'].remove(INHERITED)
         # Keep declarations on their original source view, not every derived view.
         entry['symbol']['attributes'].pop('available_models',None)
         entry['notes'].append('Explicit source-listed electrical model choice. Physical geometry, metal-option applicability and full operating range are not qualified by this binding.')
@@ -76,8 +80,11 @@ def expand(package,review):
     return added
 
 
-@base_input
-def prepare(source,output):
+def expand(package,review):
+    return _expand(package,review,historical_descriptions=False)
+
+
+def _prepare(source,output,*,historical_descriptions):
     source,output=Path(source).resolve(),Path(output).resolve()
     if output.exists():raise ValueError('Choose a new package directory; the output already exists.')
     original_hash=file_digest(source/'package.json')
@@ -86,7 +93,7 @@ def prepare(source,output):
     package=json.loads((source/'package.json').read_bytes())
     review=inventory(source)
     if review['status']!='PASS':raise ValueError('Base model closure is incomplete.')
-    added=expand(package,review)
+    added=_expand(package,review,historical_descriptions=historical_descriptions)
     output.mkdir(parents=True)
     for rel,h in package['files'].items():
         src=(source/rel).resolve();dest=(output/rel).resolve()
@@ -103,6 +110,17 @@ def prepare(source,output):
     return dict(revision=package['revision'],manifest_sha256=file_digest(output/'package.json'),
                 base_manifest_sha256=original_hash,added=len(added),available=sum(r['status']=='AVAILABLE' for r in added),
                 unavailable=sum(r['status']=='UNAVAILABLE' for r in added))
+
+
+@base_input
+def prepare(source,output):
+    return _prepare(source,output,historical_descriptions=False)
+
+
+@base_input
+def prepare_historical(source,output):
+    """Reproduce the frozen pre-description-fix package for retained recipes."""
+    return _prepare(source,output,historical_descriptions=True)
 
 
 if __name__=='__main__':

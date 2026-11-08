@@ -1,0 +1,272 @@
+{
+  "schema": 1,
+  "date": "2026-11-08",
+  "base": "62da73a718fa0758bfc42e1738088d06b6ce7319",
+  "status": "PASS_DEVICE_CLASS_SOURCE_INTEGRATION",
+  "installed_acceptance": false,
+  "qualified": false,
+  "chunk_complete": false,
+  "source_manifest_sha256": "88adf09577fb37ef0d97a3578d51776e55e58f6a7b5ab4a5e5f286096f62a9c0",
+  "files_verified": 7155,
+  "hosts": {
+    "windows": {
+      "platform": "Windows",
+      "base": "62da73a718fa0758bfc42e1738088d06b6ce7319",
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "source": "C:\\Users\\jonah\\Documents\\Codex\\2026-10-06\\go\\work\\IC-Design-Studio",
+      "files_verified": 7155,
+      "source_unchanged": true,
+      "source_manifest_sha256": "88adf09577fb37ef0d97a3578d51776e55e58f6a7b5ab4a5e5f286096f62a9c0",
+      "stages_sha256": "19774670ea2fff92f87e63071eae8cce656f01e4e4dc0aef6d2563175e0e62db",
+      "stages": [
+        {
+          "stage": "device_classes",
+          "tests": 44,
+          "tests_seconds": 14.671,
+          "returncode": 0,
+          "seconds": 14.98399999999674,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "246519e52521ce154aee8529371a19f354cc2acf0fcf70c18017a3a0e01e7d35"
+        },
+        {
+          "stage": "readers",
+          "tests": 64,
+          "tests_seconds": 44.462,
+          "returncode": 0,
+          "seconds": 44.85999999998603,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "d948b8c41374de55e6818ed5e32cba7e1833115b34e7d8108857f7f02bd071c7"
+        },
+        {
+          "stage": "integration",
+          "tests": 97,
+          "tests_seconds": 41.521,
+          "returncode": 0,
+          "seconds": 41.875,
+          "deadline_seconds": 300,
+          "skips": [
+            "'Directory symlink creation is not assumed on Windows.'",
+            "'POSIX unsafe-link fixture exercised on Linux'",
+            "'POSIX input-link fixture exercised on Linux'",
+            "'POSIX input-link fixture exercised on Linux'",
+            "'Case-sensitive Linux payload tamper fixture'",
+            "'Case-sensitive Linux runtime fixture'",
+            "'POSIX symlink and mode transport exercised on Linux'",
+            "'Case-sensitive Linux fixture checks Windows consumer policy'",
+            "'Case-sensitive Linux fixture checks Windows producer policy'"
+          ],
+          "log_sha256": "c00648e15bd052ffd585cad32e0407aa4ba7061d3d8488c1662a62abc34213bc"
+        }
+      ],
+      "tests": 205,
+      "returncode": 0
+    },
+    "linux": {
+      "platform": "Linux",
+      "base": "62da73a718fa0758bfc42e1738088d06b6ce7319",
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "source": "/var/tmp/icstudio-device-class-integration-20261108-v1/source",
+      "files_verified": 7155,
+      "source_unchanged": true,
+      "source_manifest_sha256": "88adf09577fb37ef0d97a3578d51776e55e58f6a7b5ab4a5e5f286096f62a9c0",
+      "stages_sha256": "19774670ea2fff92f87e63071eae8cce656f01e4e4dc0aef6d2563175e0e62db",
+      "stages": [
+        {
+          "stage": "device_classes",
+          "tests": 44,
+          "tests_seconds": 1.189,
+          "returncode": 0,
+          "seconds": 1.4160043519950705,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "63536c30eb53b5fb1414317197cc612719a7d2ef1c83dbeb8c39ec45c2af3f3a"
+        },
+        {
+          "stage": "readers",
+          "tests": 64,
+          "tests_seconds": 23.183,
+          "returncode": 0,
+          "seconds": 23.45770684600575,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "32150f7e561a59ef03569d011cd050eb01aae96fbd267054c010db44974cf80c"
+        },
+        {
+          "stage": "integration",
+          "tests": 97,
+          "tests_seconds": 7.354,
+          "returncode": 0,
+          "seconds": 7.5307590659940615,
+          "deadline_seconds": 300,
+          "skips": [],
+          "log_sha256": "8793fb18b9ea094f60ff53fdbcbf91bc6cc6886f674ccbd188248618189510ae"
+        }
+      ],
+      "tests": 205,
+      "returncode": 0
+    }
+  },
+  "applied_files": [
+    {
+      "path": "icstudio/__main__.py",
+      "before_sha256": "bab80e61a15e0ec67c65340a1bb0847e5fb1896bafa715601f7127ee6ab14d84",
+      "sha256": "66af256ad33364d35550c18f10805df987ffc2810769494dbab0721a66777c82"
+    },
+    {
+      "path": "icstudio/device_class_desktop_probe.py",
+      "before_sha256": null,
+      "sha256": "a5d3ca9418848f01c2863c33fe9d75be42f76058a347bb0c67d23be466529d27"
+    },
+    {
+      "path": "icstudio/physical_backend.py",
+      "before_sha256": "d95db8cb58bed305f8efece9a67104a1e7826f592ca97ce5f534ea7fc4a9d297",
+      "sha256": "0d4b2e2a6944a10cd8bc58e76d2fd8c1efc963e65768f84244c8162f11fc92c0"
+    },
+    {
+      "path": "scripts/audit_sky130_mim_shared.py",
+      "before_sha256": "ce021979a712c4e426014865d74fd24c352759206b156f30016eb3b0c14510f9",
+      "sha256": "5ccdd0f2a6d0f8e49f5f0532b19f3c0ecee0b65e0260e813c3b5e82e16658bb3"
+    },
+    {
+      "path": "scripts/check_ihp_cmim_parallel.py",
+      "before_sha256": "f826a4625a2d1557db915256f8fcf714e02f44901f85e831418e600974e99207",
+      "sha256": "b840474c0404a8c8f2ae3fb7d02410bd5dcf7095572de0040bd9efdf6e393869"
+    },
+    {
+      "path": "scripts/prepare_frozen_device_classes.py",
+      "before_sha256": null,
+      "sha256": "54209a534655bb947051df4833c0352784fa3ab2a3d05e62b6d43b8e48a67b0e"
+    },
+    {
+      "path": "scripts/verify_frozen_device_classes.py",
+      "before_sha256": null,
+      "sha256": "6e9df1fa79986237a902e425f5c6728caac7ca04be4d70ada2bfdbeac010e505"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/layout.gds",
+      "before_sha256": null,
+      "sha256": "5f2de4959eaee5fc9947207196b74a923152c00096c6273eefcecdb5792cd3d9"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/lvs/lvs.log",
+      "before_sha256": null,
+      "sha256": "bd909e886c01f13f6c97494c2a831f770198adad370cec0f63806c4f675dcb43"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/lvs-extraction/extracted.spice",
+      "before_sha256": null,
+      "sha256": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/mos-grouping/console.log",
+      "before_sha256": null,
+      "sha256": "281d35fa2a4e56087d62d6abe624fd3aa76e0e8ae8250d8ab9e467fa65376c46"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/mos-grouping/extracted.spice",
+      "before_sha256": null,
+      "sha256": "b4150b479b8c4630c42d881c54c69d491b326ca9242a0e670a941dc5fa47694b"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/mos-grouping/parallel_coupon.ext",
+      "before_sha256": null,
+      "sha256": "b45791e1bb2bf8b51b16ef2e37ddd346d2d55bd8051ce5f2c2227f37ac85171f"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/mos-grouping/proof.json",
+      "before_sha256": null,
+      "sha256": "53ce2169297c1186666aa1ace19089ea13beb58c327f4cece2e3647dc12f0ae3"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/mos-grouping/run.tcl",
+      "before_sha256": null,
+      "sha256": "5f4961ba3789ca6f232cd3b4ff62421e667325f8bb6e007921964481734843cc"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/mos-grouping/startup.tcl",
+      "before_sha256": null,
+      "sha256": "eb02f33f5e21b74282e96b553d1234ccfd6345b63511896a5327bf7cfd6a35f5"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/report.json",
+      "before_sha256": null,
+      "sha256": "63c42f1e67c93a55576b34c6c1c9d648b03c111b3717a81f04cdd3cde87977ea"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/schematic.spice",
+      "before_sha256": null,
+      "sha256": "d26970fde6b97c5e18db1f52d43c6070612cc7cdacfdc916c9cd747b1befa956"
+    },
+    {
+      "path": "tests/fixtures/frozen-device-class-mos-v1/SOURCE.json",
+      "before_sha256": null,
+      "sha256": "76308ce8ff0ed1eb4a2c7e48aba6109bda0081958d1b128a2cd1b7135e266d53"
+    },
+    {
+      "path": "tests/test_frozen_device_classes.py",
+      "before_sha256": null,
+      "sha256": "8e576be9fef217d93de9c84ee61ae49a885f74c69b53b155a0f977194abe25ef"
+    },
+    {
+      "path": "tests/test_managed_mos_manifest.py",
+      "before_sha256": null,
+      "sha256": "678efbd6b938588e19749d3a86e0f821ff6d926d6e5f768eaa04015d3ec062b9"
+    },
+    {
+      "path": ".github/workflows/build-desktop.yml",
+      "before_sha256": "e13032acca5550860bfba43dd2e6067312233ae63bb9347b485e1044f7f7d587",
+      "sha256": "ee6037b3c48d3bb03d0e4cceb0601641581a543a68fdde8e78c21adc3d0c843b"
+    },
+    {
+      "path": "scripts/verify_windows.ps1",
+      "before_sha256": "19341a138dea230abac429c373bb0a218162a11c790855ea95fb0f38029dd5b8",
+      "sha256": "ceda500692db98c7c8308534e529d131abf80ebea0a7c42f388b2c8514ce91e5"
+    },
+    {
+      "path": "scripts/ci_feedback.py",
+      "before_sha256": "43312118a76422d957b94eb54bfebddbd88d123a0906d904239dae6808dfaff0",
+      "sha256": "46090cc4dc9915370b1b4a5f8daea9b4ccb9b47b7fd53b18a267a04f5b55d1b9"
+    }
+  ],
+  "source_pilot": {
+    "path": "docs/validation/frozen-device-class-source-pilot-2026-11-08.json",
+    "sha256": "130b8be5dd2ae71e16258ddb2143039aae3a1949694d792ac83ec8b6152d1d66",
+    "cases": 35,
+    "seconds": 326.593
+  },
+  "independent_reviews": [
+    {
+      "path": "device-class-final-outer-review.json",
+      "sha256": "f59017c200024742fff537643285e4efe56e9357f79e371a05546aea8398d88d"
+    },
+    {
+      "path": "device-class-workflow-independent-review-v2/review.json",
+      "sha256": "7f5e3a26fc269b76eaffe03ca12affac2b22092f95dd438b00e20b9da65b18f7"
+    },
+    {
+      "path": "review_managed_mos_manifest_fix_20261108.json",
+      "sha256": "03108ca4e3d5507f225016f2f312b5125b96b34c70da18b4276fdcddd0a4006d"
+    }
+  ],
+  "fixed_behavior": "Managed physical jobs preserve the existing saved-lock-bound package manifest, allowing the reviewed MOS grouping authenticator to run after native DRC/LVS. Invalid or changed manifest bytes still fail.",
+  "installed_case_population": {
+    "ihp_parallel_cmim": 7,
+    "sky130_shared_bottom_mim": 10,
+    "ordinary_mos": 16,
+    "saved_mos": 2
+  },
+  "workflow": {
+    "required_windows_installer_step": true,
+    "required_linux_frozen_step": true,
+    "source_and_release_tools_tests_required": true,
+    "all_evidence_roots_retained": true
+  },
+  "retained_boundaries": [
+    "All prior acceptance criteria, native stages and timeouts remain unchanged.",
+    "The 35-case pilot uses source code and an authenticated existing runtime; it is not a fresh frozen installation.",
+    "Original first-MOS failure and earlier preparation observations remain separately retained.",
+    "Full model/family/operating/reliability/public-rule/calibration requirements remain open."
+  ]
+}

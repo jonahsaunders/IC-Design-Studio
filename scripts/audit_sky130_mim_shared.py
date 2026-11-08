@@ -88,9 +88,9 @@ def raw_graph(text,model,plate):
             float(cap[3])>0,'native coupling topology/value')
 
 
-def native(folder,plate,angle):
-    directory=folder/'job/lvs-extraction';model=f'sky130_fd_pr__cap_mim_m3_{plate}'
-    observed=geometry(folder/'job/layout.gds',plate,angle)
+def native(folder,plate,angle, *, job_name="job"):
+    directory=folder/job_name/'lvs-extraction';model=f'sky130_fd_pr__cap_mim_m3_{plate}'
+    observed=geometry(folder/job_name/'layout.gds',plate,angle)
     original=(directory/'native-original.ext').read_text(encoding='utf-8')
     corrected=(directory/'device_coupon.ext').read_text(encoding='utf-8')
     raw_graph(original,model,plate)
@@ -131,15 +131,15 @@ def native(folder,plate,angle):
     require(proof['native_sha256']==sha(directory/'native-original.ext') and proof['corrected_sha256']==sha(directory/'device_coupon.ext'), 'normalization provenance')
     require(proof['schema']==1 and proof['model']==model and proof['models']==[model] and
             proof['native_coordinate_nm']==10 and proof['gds_dbu_um']==.001 and
-            proof['gds_sha256']==sha(folder/'job/layout.gds') and
+            proof['gds_sha256']==sha(folder/job_name/'layout.gds') and
             proof['technology_sha256']=='5ee53b96094fe144145bf1216627672747366ec9bef9f2f848304a9a0c77427e' and
             proof['pcell_sha256']=='48d2111c3246cbbed88bca5cf479dd8edc4ce4629d5241cca4102368765da69a','pinned native inputs/grid')
     require([(r['before'],r['after']) for r in proof['changes']]==[(a.rstrip(),b.rstrip()) for a,b in zip(old,new) if a!=b], 'normalization change evidence')
     actual=sorted((row['box'],sorted(row['bottom_contacts'])) for row in proof['electrodes'])
     require(actual==observed and all(row['model']==model and row['axis']==('x' if angle==0 else 'y') and row['shared_bottom_electrodes']==2
                                    for row in proof['electrodes']),'orientation contact ownership evidence')
-    require('Property errors were found.' not in (folder/'job/lvs/lvs.log').read_text(encoding='utf-8') and
-            'Final result: Circuits match uniquely.' in (folder/'job/lvs/lvs.log').read_text(encoding='utf-8'),'strict native LVS')
+    require('Property errors were found.' not in (folder/job_name/'lvs/lvs.log').read_text(encoding='utf-8') and
+            'Final result: Circuits match uniquely.' in (folder/job_name/'lvs/lvs.log').read_text(encoding='utf-8'),'strict native LVS')
     return {'plate':plate,'angle':angle,'intrinsic_units':2,'written_shared_bottom_components':1,
             'normalization_changes':sum(a!=b for a,b in zip(old,new)),
             'native_sha256':sha(directory/'native-original.ext'),'corrected_sha256':sha(directory/'device_coupon.ext')}

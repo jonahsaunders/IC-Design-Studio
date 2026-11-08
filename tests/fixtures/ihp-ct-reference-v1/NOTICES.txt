@@ -1,0 +1,18 @@
+This directory retains six unmodified files from VolkerMuehlhaus/lumpedmodel,
+revision e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320. Original paths and byte identities
+are recorded in SOURCE.json. Files are renamed only as recorded there.
+
+The upstream repository supplies the GNU General Public License, version 3,
+retained verbatim as LICENSE. Preserve it and upstream attribution with these
+files. The separate upstream fitter source (not copied into this fixture) says
+Copyright (C) 2026 Volker Muehlhaus and GPL version 3 or later.
+The authored reader/audit is separate work; retaining this fixture does not
+relicense other project files.
+
+The raw S3P is documented upstream as one Palace-simulated IHP SG13G2
+center-tapped inductor, not a measurement. The fitted SPICE file uses p1, p2, ct
+and global node 0. It exposes no independent body terminal, geometry parameters
+or temperature/current/voltage qualification. Its 10 MHz to 60 GHz sample band
+is not an operating or reliability limit. The original Palace geometry,
+de-embedding, mesh convergence and measurement uncertainty are not supplied
+by this selected fixture.

@@ -1,0 +1,3 @@
+.subckt parallel_coupon D G S B
+X1 D G S B nfet_03v3 w=3.015u l=1.005u nf=3 m=2
+.ends parallel_coupon

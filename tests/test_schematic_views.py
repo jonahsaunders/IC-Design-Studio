@@ -69,7 +69,7 @@ class SchematicViewsTests(unittest.TestCase):
         from scripts import audit_source_dispositions as audit
         path='sky130A/libs.tech/xschem/mips_cpu/dmem.sch';row=dict(family='sky130A',repository=reader.SKY_REPOSITORY,repository_path=path,path=path,archive='common.tar.zst',mode='100644')
         _,records,gaps,_=audit.supplemental([row],{},None,reader=lambda _:V.replace('V {}','V {reg hidden;}').encode())
-        self.assertEqual(records[0]['accounting'],'inventory-gap');self.assertEqual(len(gaps),1);self.assertIn('unenumerated embedded source block V',gaps[0]['error']);self.assertNotIn('Unterminated',gaps[0]['error'])
+        self.assertEqual(records[0]['accounting'],'inventory-gap');self.assertEqual(len(gaps),1);self.assertIn('Reviewed embedded schematic source bytes changed',gaps[0]['error']);self.assertNotIn('Unterminated',gaps[0]['error'])
     def test_ihp_gap_does_not_mislabel_valid_header(self):
         from scripts import audit_source_dispositions as audit
         row=dict(family='ihp-sg13g2',repository=reader.IHP_REPOSITORY,repository_path=reader.IHP_PATH,path=reader.IHP_PATH,mode='100644')

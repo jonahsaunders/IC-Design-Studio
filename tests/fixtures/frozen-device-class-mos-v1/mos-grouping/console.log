@@ -1,0 +1,25 @@
+
+Magic 8.3 revision 684 - Compiled on Tue Oct  6 22:55:21 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=10240]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Input style import: scaleFactor=10, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    obsactive mvobsactive filldiff fillpoly m1hole obsm1 fillm1 obsv1 m2hole obsm2 fillm2 obsv2 m3hole obsm3 fillm3 m4hole obsm4 fillm4 m5hole obsm5 fillm5 glass fillblock lvstext obscomment 
+Using technology "gf180mcuC", version aa3fc215a80d32437b8cca1cb3fdee819d18c4c9
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 6.0
+Library name: LIB
+Reading "parallel_coupon".
+CIF file read warning: Input off lambda grid by 1/2; grid redefined.
+Extracting parallel_coupon into parallel_coupon.ext:
+Processing parallel_coupon
+exttospice finished.
+STUDIO_MOS_CIF_SCALE 0.004999999888241291
+STUDIO_MAGIC_COMPLETE

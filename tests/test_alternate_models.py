@@ -6,7 +6,7 @@ from icstudio.model import clone,file_digest
 from icstudio.catalog import create_device
 from icstudio.interchange import spice
 from icstudio.ngspice_compat import MODELS,MARKER,convert,legacy_catalog,legacy_symbol
-from scripts.prepare_alternate_models import BASE,expand,alias_key,prepare
+from scripts.prepare_alternate_models import BASE,expand,alias_key,prepare,prepare_historical
 from scripts.alternate_model_source import base_models,PROMOTED
 from scripts.inventory_device_models import inventory
 from scripts.qualify_alternate_models import probes,fixture,compare_dc
@@ -116,7 +116,7 @@ class AlternateModelTests(unittest.TestCase):
         for target in BASE:
             with self.subTest(target=target),tempfile.TemporaryDirectory() as tmp:
                 root=Path(tmp);source=ROOT/'icstudio/assets/pdks'/target
-                result=prepare(source,root/'package');self.assertEqual(result['manifest_sha256'],PROMOTED[target])
+                result=prepare_historical(source,root/'package');self.assertEqual(result['manifest_sha256'],PROMOTED[target])
                 registry=PDKRegistry(root/'registry');old=registry.install(self.roots[target]/'package.json')
                 p=example('empty');p['pdk']=registry.technology(old);save_project(p,root/'saved.icproj')
                 new=registry.install(root/'package/package.json');self.assertNotEqual(old,new)

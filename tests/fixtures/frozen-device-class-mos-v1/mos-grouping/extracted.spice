@@ -1,0 +1,11 @@
+* NGSPICE file created from parallel_coupon.ext - technology: gf180mcuC
+
+.subckt parallel_coupon D G S B
+X0 D G S B nfet_03v3 ad=0.9045p pd=3.81u as=0.603p ps=2.205u w=1.005u l=1.005u
+X1 D G S B nfet_03v3 ad=0.9045p pd=3.81u as=0.603p ps=2.205u w=1.005u l=1.005u
+X2 S G D B nfet_03v3 ad=0.603p pd=2.205u as=0.603p ps=2.205u w=1.005u l=1.005u
+X3 D G S B nfet_03v3 ad=0.603p pd=2.205u as=0.9045p ps=3.81u w=1.005u l=1.005u
+X4 S G D B nfet_03v3 ad=0.603p pd=2.205u as=0.603p ps=2.205u w=1.005u l=1.005u
+X5 D G S B nfet_03v3 ad=0.603p pd=2.205u as=0.9045p ps=3.81u w=1.005u l=1.005u
+.ends
+

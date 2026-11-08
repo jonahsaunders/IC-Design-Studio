@@ -39,7 +39,7 @@ jobs:
       - name: Install the pinned layout reader for release evidence
         run: python -m pip install klayout==0.30.5
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_release_ihp_cmim_evidence tests.test_frozen_ihp_cmim tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_esd_installed_header_regression tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff tests.test_ci_hosted_storage tests.test_ci_windows_native_identity -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_release_ihp_cmim_evidence tests.test_frozen_ihp_cmim tests.test_frozen_device_classes tests.test_managed_mos_manifest tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_esd_installed_header_regression tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff tests.test_ci_hosted_storage tests.test_ci_windows_native_identity -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
@@ -800,6 +800,7 @@ jobs:
             build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
             build/windows-evidence/ihp-cmim
+            build/windows-evidence/device-classes
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -816,6 +817,7 @@ jobs:
             build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
             build/frozen-ihp-cmim-evidence
+            build/frozen-device-class-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -1034,6 +1036,13 @@ jobs:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
           ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
         run: python scripts/verify_frozen_ihp_cmim.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 900 --out build/frozen-ihp-cmim-evidence
+      - name: Verify frozen Linux capacitor arrays and grouped MOS layouts
+        if: runner.os == 'Linux'
+        timeout-minutes: 35
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_device_classes.py --executable dist/ICDesignStudio/ICDesignStudio --distribution-root dist/ICDesignStudio --candidate "$ICSTUDIO_EXPECTED_COMMIT" --physical-pdk build/physical-adapter/sky130A --output build/frozen-device-class-evidence
       - name: Verify frozen Linux IHP resistor editor and managed native layouts
         if: runner.os == 'Linux'
         timeout-minutes: 65
@@ -1141,6 +1150,7 @@ jobs:
             build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
             build/windows-evidence/ihp-cmim
+            build/windows-evidence/device-classes
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -1157,6 +1167,7 @@ jobs:
             build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
             build/frozen-ihp-cmim-evidence
+            build/frozen-device-class-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -1264,6 +1275,7 @@ jobs:
             build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
             build/windows-evidence/ihp-cmim
+            build/windows-evidence/device-classes
             build/windows-evidence/metal-resistors
             build/windows-evidence/metal-resistors-electrical
             build/windows-evidence/metal-resistors-acceptance.json
@@ -1280,6 +1292,7 @@ jobs:
             build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
             build/frozen-ihp-cmim-evidence
+            build/frozen-device-class-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json
@@ -1320,6 +1333,7 @@ jobs:
             build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
             build/frozen-ihp-cmim-evidence
+            build/frozen-device-class-evidence
             build/frozen-metal-resistor-evidence
             build/frozen-metal-resistor-electrical-evidence
             build/frozen-metal-resistor-workflow-evidence/acceptance.json

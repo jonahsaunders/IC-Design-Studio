@@ -118,3 +118,18 @@ docs/validation/chunk7-source-dispositions-hosted-source-feedback-2026-11-07.jso
 docs/validation/chunk7-fa01ffb5-installed-linux-result-2026-11-07.json whitespace=cr-at-eol
 docs/validation/chunk7-xcircuit-irsim-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
 docs/validation/chunk7-cvc-physical-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+docs/validation/chunk7-legacy-symbol-hosted-source-feedback-2026-11-07.json whitespace=cr-at-eol
+
+# Preserve licensed originals and byte-hashed native reference evidence.
+docs/validation/chunk7-model-sources-2026-11-08.json whitespace=cr-at-eol
+tests/fixtures/ihp-ct-reference-v1/** -whitespace
+docs/qualification/sky130-vpp-voltage-v1/sources/** -whitespace
+tests/fixtures/frozen-device-class-mos-v1/** -whitespace
+
+# Preserve the tested desktop workflow line endings.
+.github/workflows/build-desktop.yml whitespace=cr-at-eol
+docs/validation/chunk7-fa01ffb5-installed-result-2026-11-07.json whitespace=cr-at-eol
+docs/validation/frozen-device-class-source-pilot-2026-11-08.json whitespace=cr-at-eol
+# Keep the source bytes authenticated by the retained cross-host model replay.
+icstudio/three_port_reference.py whitespace=-blank-at-eof
+scripts/audit_ihp_ct_reference.py whitespace=-blank-at-eof

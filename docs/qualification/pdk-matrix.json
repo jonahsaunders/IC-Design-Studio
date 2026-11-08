@@ -1,6 +1,6 @@
 {
   "schema": 6,
-  "as_of": "2026-11-07",
+  "as_of": "2026-11-08",
   "source_baseline": "52049be725eda34922bc921dfdea6cbf14da0952",
   "claim": "Qualification matrix and bounded reference evidence. No process is tapeout qualified. Chunk 6 qualifies the user-approved public-check baseline only; historical passes retain their original design/source/PDK scope.",
   "chunks": {
@@ -322,11 +322,13 @@
       "latest_cmim_multiplicity_electrical_evidence": "docs/validation/ihp-cmim-multiplicity-electrical-2026-11-03.json",
       "latest_cmim_profile_repair_evidence": "docs/validation/ihp-cmim-profile-isolation-2026-11-03.json",
       "latest_source_inventory_evidence": [
-        "chunk7-schematic-integration-2026-11-07"
+        "chunk7-embedded-reference-integration-2026-11-08"
       ],
       "latest_cmim_parallel_saved_bench_evidence": "docs/validation/ihp-cmim-parallel-2026-11-07.json",
       "latest_mos_grouping_evidence": "docs/validation/mos-grouping-2026-11-07.json",
-      "latest_sky130_mim_shared_bottom_evidence": "docs/validation/sky130-mim-shared-2026-11-07.json"
+      "latest_sky130_mim_shared_bottom_evidence": "docs/validation/sky130-mim-shared-2026-11-07.json",
+      "latest_finite_model_source_evidence": "chunk7-model-sources-2026-11-08",
+      "latest_device_class_delivery_evidence": "chunk7-device-class-integration-2026-11-08"
     },
     "8": {
       "name": "Qualify extraction and corners",
@@ -19552,7 +19554,7 @@
       "target": "sky130A",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned report additionally enumerates fourteen literal schematic views and corrects nineteen remaining embedded-source gap explanations. Other production inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
+      "remaining": "The versioned report additionally enumerates eighteen embedded schematic views and nine positively reviewed text reference/provenance roles. Other inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -19566,7 +19568,8 @@
         "chunk7-xcircuit-irsim-integration-2026-11-07",
         "chunk7-cvc-physical-integration-2026-11-07",
         "chunk7-legacy-symbol-integration-2026-11-07",
-        "chunk7-schematic-integration-2026-11-07"
+        "chunk7-schematic-integration-2026-11-07",
+        "chunk7-embedded-reference-integration-2026-11-08"
       ]
     },
     "sky130A:tool-install": {
@@ -19854,7 +19857,7 @@
       "target": "gf180mcuC",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned report additionally enumerates fourteen literal schematic views and corrects nineteen remaining embedded-source gap explanations. Other production inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
+      "remaining": "The versioned report additionally enumerates eighteen embedded schematic views and nine positively reviewed text reference/provenance roles. Other inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -19866,7 +19869,8 @@
         "chunk7-xcircuit-irsim-integration-2026-11-07",
         "chunk7-cvc-physical-integration-2026-11-07",
         "chunk7-legacy-symbol-integration-2026-11-07",
-        "chunk7-schematic-integration-2026-11-07"
+        "chunk7-schematic-integration-2026-11-07",
+        "chunk7-embedded-reference-integration-2026-11-08"
       ]
     },
     "gf180mcuC:tool-install": {
@@ -20149,7 +20153,7 @@
       "target": "gf180mcuD",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned report additionally enumerates fourteen literal schematic views and corrects nineteen remaining embedded-source gap explanations. Other production inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
+      "remaining": "The versioned report additionally enumerates eighteen embedded schematic views and nine positively reviewed text reference/provenance roles. Other inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "alternate-models-2026-10-17",
@@ -20161,7 +20165,8 @@
         "chunk7-xcircuit-irsim-integration-2026-11-07",
         "chunk7-cvc-physical-integration-2026-11-07",
         "chunk7-legacy-symbol-integration-2026-11-07",
-        "chunk7-schematic-integration-2026-11-07"
+        "chunk7-schematic-integration-2026-11-07",
+        "chunk7-embedded-reference-integration-2026-11-08"
       ]
     },
     "gf180mcuD:tool-install": {
@@ -20454,7 +20459,7 @@
       "target": "ihp-sg13g2",
       "test": "source-completeness",
       "status": "partial",
-      "remaining": "The versioned report additionally enumerates fourteen literal schematic views and corrects nineteen remaining embedded-source gap explanations. Other production inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
+      "remaining": "The versioned report additionally enumerates eighteen embedded schematic views and nine positively reviewed text reference/provenance roles. Other inventory gaps, four missing required bindings, complete application equivalence and device/electrical/physical/installed qualification remain open.",
       "historical_evidence": [
         "fixed-geometry-and-model-inventory-2026-10-17",
         "upstream-views-2026-10-20",
@@ -20466,7 +20471,8 @@
         "chunk7-xcircuit-irsim-integration-2026-11-07",
         "chunk7-cvc-physical-integration-2026-11-07",
         "chunk7-legacy-symbol-integration-2026-11-07",
-        "chunk7-schematic-integration-2026-11-07"
+        "chunk7-schematic-integration-2026-11-07",
+        "chunk7-embedded-reference-integration-2026-11-08"
       ]
     },
     "ihp-sg13g2:tool-install": {
@@ -26031,6 +26037,21 @@
       "path": "docs/validation/chunk7-schematic-integration-2026-11-07.json",
       "sha256": "7a261ecd2f7e3f14711e8bf34791ecf3cd631856b1723c029b74d5ad219b367e",
       "scope_limit": "Literal schematic source accounting and header preservation only. Embedded-source gaps, model/electrical/physical/installed qualification remain open."
+    },
+    "chunk7-embedded-reference-integration-2026-11-08": {
+      "path": "docs/validation/chunk7-embedded-reference-integration-2026-11-08.json",
+      "sha256": "fd7beaacea76df6e5ad2c26acaabf21e354431126cb3cce8a16ad4e47b5ef91b",
+      "scope_limit": "Embedded source declarations and exact documentary/provenance roles only. No behavioral/model/electrical/physical/installed qualification promotion."
+    },
+    "chunk7-model-sources-2026-11-08": {
+      "path": "docs/validation/chunk7-model-sources-2026-11-08.json",
+      "sha256": "4b6ad553effad95d44364ac570387727aed0b6d03438165f14bec0f3e076a3a7",
+      "scope_limit": "Finite simulated three-port reference and exact VPP plate-voltage applicability only; no required binding or full-family gate promotion."
+    },
+    "chunk7-device-class-integration-2026-11-08": {
+      "path": "docs/validation/chunk7-device-class-integration-2026-11-08.json",
+      "sha256": "d45d274fe2b00326c25229e5442d7d764762dbb7ee62771f0abc3af1efea0dc9",
+      "scope_limit": "Managed manifest delivery repair and finite source-development/reader integration; new frozen Windows/Linux acceptance is required."
     }
   },
   "execution_acceptance": {

@@ -1,9 +1,56 @@
 # Chunks 1–12: progress and forecast
 
-Updated November 7, 2026. Chunk 7 is approximately **74% complete**, with low
+Updated November 8, 2026. Chunk 7 is approximately **74% complete**, with low
 confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
+
+**November 8 blocker-focused work:** PR #69 was merged into `experimental`
+as `62da73a718fa0758bfc42e1738088d06b6ce7319`. Work continues locally on
+`codex/chunk7-blockers-20261108` with three agents. The estimate remains **74%**,
+low confidence (55-82%); no full-family completion is claimed.
+
+The [resumed source replay](validation/chunk7-embedded-reference-integration-2026-11-08.json)
+closes 27 explicitly reviewed source-inventory gaps with 958 facts. The complete
+report contains 776,811 items and **107 remaining inventory gaps**. All 775,853
+previous items and remaining gap records are unchanged. Both hosts pass 356
+affected tests; complete audits match byte for byte (609.313 seconds on Windows,
+276.621 seconds on native Linux, within the unchanged 900-second deadline).
+The interrupted November 7 attempts remain separate. The initial scratch
+comparison's repository-path join was corrected before accepting the full delta.
+
+The [finite model-source integration](validation/chunk7-model-sources-2026-11-08.json)
+passes 87 tests per host, including all eight exact default-package reconstruction
+tests. It adds an original three-port reader and an independently checked fixed
+IHP center-tapped example: all nine responses at 82 frequencies agree between
+the retained circuit in Windows/Linux ngspice and independent MNA. Six unchanged
+GPL source files, the complete license and attribution are retained. This does
+not supply a parameterized four-terminal catalog binding or measured calibration.
+
+The same integration retains Apache-2.0 SKY130 documents and an executable
+`abs(V(c0)-V(c1)) <= 5.5 V` check for nine available exact VPP bindings. Body,
+shield, common-mode, temperature and reliability applicability remain unknown.
+New alternate-package generation no longer copies the default-only dimensions
+and M5 description into every VPP choice; the bundled historical revision and
+its exact reconstruction remain unchanged. The missing unsuffixed VPP choice
+remains unavailable and is not aliased to `_nhv`.
+
+The installed-case work reproduced a real delivery defect: managed staging
+omitted `package.json`, which MOS grouping authentication requires. The original
+full pilot passed all 17 capacitor cases and failed at the first MOS grouping
+case after native DRC/LVS passed. A scratch fix preserves the existing manifest
+and its saved lock; independent staging checks pass on all three affected
+packages, and the formerly failing managed MOS case now passes. The corrected source pilot now passes all 35 expected outcomes in 326.593
+seconds, with independent raw readback, 70 GUI export checks and 35 offline
+source reconstructions. The integrated implementation passes 205 affected
+tests per host. Both desktop workflows now require the new installed checks;
+fresh frozen Windows/Linux acceptance remains pending. These source-development
+observations do not replace installed acceptance.
+
+Four required model bindings, complete operating/reliability envelopes,
+calibration and remaining source/physical/installed gates still prevent chunk 7
+completion. This is local work pending a new reviewed candidate; no new release
+or full-family acceptance has been published.
 
 **November 7 schematic inventory and header correction:** the
 [fifth disposition report](qualification/source-dispositions-2026-11-07-v5.json.gz)
@@ -28,6 +75,14 @@ report comparisons pass. The original scratch probe error remains separate
 from accepted results. All original qualification gates and the engineering
 estimate of 74%, low confidence (55–82%), remain unchanged.
 
+The schematic checkpoint is published as
+`31698709c487f36262663861ea2254cab22092b9` in
+[draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
+Its [exact-candidate hosted checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42411635964)
+passed both platforms and the required PR check. The full artifact-retention
+collector was interrupted by the November 7 pause, so no completed local
+artifact readback is claimed for this run. PR #69 is now merged.
+
 **November 7 legacy-symbol inventory:** the
 [fourth disposition report](qualification/source-dispositions-2026-11-07-v4.json.gz)
 enumerates eight pinned headerless Xschem symbols and one Qucs component view:
@@ -51,8 +106,13 @@ gate is promoted. The engineering estimate remains 74%, low confidence
 `0e103b56b614b3ec7ef63f76cd964bbecbeddae1` in
 [draft PR #69](https://github.com/jonahsaunders/IC-Design-Studio/pull/69).
 Its [exact-candidate hosted checks](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42410356947)
-are running. This post-publication status note remains local for the next
-appropriate code/evidence push.
+pass both platforms and the required PR check: 1,443 tests per host in all 13
+unchanged stages (37 Windows / 17 Linux skips). The local
+[retained receipt](validation/chunk7-legacy-symbol-hosted-source-feedback-2026-11-07.json)
+verifies all 2,354 source identities against the complete isolated 7,104-file
+candidate, exact merge-tree equality, both artifact digests and every extracted
+member. The receipt and this status note remain local for the next appropriate
+code/evidence push; they are not part of the published schematic checkpoint.
 
 **November 7 checker and physical-layer inventory:** the
 [third disposition report](qualification/source-dispositions-2026-11-07-v3.json.gz)

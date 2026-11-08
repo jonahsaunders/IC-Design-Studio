@@ -1,7 +1,7 @@
 import sys
 
 def main():
-    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server','--campaign','--esd-acceptance','--ihp-resistor-acceptance','--ihp-cmim-acceptance','--pw2dn-acceptance'):
+    if len(sys.argv)>1 and sys.argv[1] in ('--worker','--cli','--digital-setup','--collaboration-server','--campaign','--esd-acceptance','--ihp-resistor-acceptance','--ihp-cmim-acceptance','--device-class-acceptance','--pw2dn-acceptance'):
         from .windows_stdio import connect
         connect()
     if '--digital-setup' in sys.argv:
@@ -37,6 +37,9 @@ def main():
     if '--ihp-cmim-acceptance' in sys.argv:
         from .ihp_cmim_desktop_probe import main as probe
         return probe(sys.argv[sys.argv.index('--ihp-cmim-acceptance')+1:])
+    if '--device-class-acceptance' in sys.argv:
+        from .device_class_desktop_probe import main as probe
+        return probe(sys.argv[sys.argv.index('--device-class-acceptance')+1:])
     if '--mim-acceptance' in sys.argv:
         from .mim_desktop_probe import main as probe
         return probe(sys.argv[sys.argv.index('--mim-acceptance')+1:])

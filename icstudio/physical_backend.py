@@ -1,5 +1,7 @@
 """Run a captured physical job in Studio's verified Linux/WSL runtime."""
+import hashlib
 import json
+import math
 import os
 from pathlib import Path, PurePosixPath, PureWindowsPath
 import shutil
@@ -69,6 +71,47 @@ def prepare_simulation(job):
     return job
 
 
+def copy_grouping_manifest(technology, source, destination):
+    """Carry existing package identity needed by native MOS grouping.
+
+    The saved lock authenticates this infrastructure transfer. The grouping
+    checker still independently enforces its reviewed full package semantics.
+    Missing manifests remain missing; no manifest is synthesized or relocked.
+    """
+    from .mos_grouping import PACKAGE_HASHES
+    from .ihp_resistor_assets import unlinked
+    lock=technology.get('package_lock',{})
+    if lock.get('id') not in PACKAGE_HASHES:return None
+    path=unlinked(Path(source)/'package.json')
+    if not path.exists():return None
+    if not path.is_file():raise ValueError('Nonregular MOS package manifest.')
+    raw=path.read_bytes();expected=hashlib.sha256(raw).hexdigest()
+    def pairs(items):
+        result={}
+        for name,value in items:
+            if name in result:raise ValueError('Duplicate MOS package manifest field.')
+            result[name]=value
+        return result
+    def invalid(value):raise ValueError('Nonfinite MOS package manifest value.')
+    document=json.loads(raw,object_pairs_hook=pairs,parse_constant=invalid)
+    def finite(value):
+        if isinstance(value,float) and not math.isfinite(value):invalid(value)
+        if isinstance(value,dict):
+            for child in value.values():finite(child)
+        elif isinstance(value,list):
+            for child in value:finite(child)
+    finite(document)
+    if not isinstance(document,dict) or any(document.get(k)!=lock.get(k) for k in ('id','revision','files')):
+        raise ValueError('MOS package manifest differs from saved package lock.')
+    target=unlinked(Path(destination)/'package.json');target.parent.mkdir(parents=True,exist_ok=True)
+    if target.exists() and (not target.is_file() or file_digest(target)!=expected):
+        raise ValueError('Conflicting native MOS package manifest.')
+    target.write_bytes(raw)
+    if file_digest(path)!=expected or file_digest(target)!=expected:
+        raise ValueError('MOS package manifest changed during transfer.')
+    return expected
+
+
 def stage(job, work, native_work, native_root):
     native=clone(job); pdk=native['project']['pdk']
     source=Path(pdk.get('package_root','')).resolve()
@@ -84,6 +127,7 @@ def stage(job, work, native_work, native_root):
         target=work/'pdk'/relative;target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copy2(path,target)
         if file_digest(target)!=sha:raise ValueError('PDK asset changed during transfer: '+relative)
+    copy_grouping_manifest(pdk,source,work/'pdk')
     from .ihp_resistor_assets import copy_linked_manifest
     copy_linked_manifest(job['project'],source,work/'pdk')
     pdk['package_root']=str(PurePosixPath(native_work)/'pdk')
