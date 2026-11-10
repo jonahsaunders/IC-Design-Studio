@@ -35,12 +35,36 @@ def checked(root, relative, expected):
 
 def number(value):
     # Bound representation work; these are parser bounds, not physical ratings.
-    require(type(value) in (int, float), 'VPP coordinates must be finite numeric volts, excluding booleans.')
+    require(type(value) in (int, float, Decimal), 'VPP coordinates must be finite numeric volts, excluding booleans.')
+    if isinstance(value, Decimal):
+        require(value.is_finite(), 'VPP coordinates must be finite numeric volts.')
+        parts = value.as_tuple()
+        require(len(parts.digits) <= 1100 and -1100 <= parts.exponent <= 309 and
+                value.adjusted() <= 309, 'VPP numeric literal exceeds parser bounds.')
+        return value
     if isinstance(value, int):
         require(value.bit_length() <= 1024, 'VPP numeric literal exceeds parser bounds.')
         return Decimal(value)
     require(math.isfinite(value), 'VPP coordinates must be finite numeric volts.')
     return Decimal.from_float(value)
+
+
+def decimal_literal(token):
+    # Keep JSON decimal coordinates exact, including underflow and values closer
+    # to a boundary than one binary-float ULP. Bounds limit parsing, not ratings.
+    require(len(token) <= 2048, 'VPP numeric literal exceeds parser bounds.')
+    return number(Decimal(token))
+
+
+def exact_json(value):
+    """Emit finite Decimal values as exact JSON numbers, never rounded floats."""
+    if isinstance(value, Decimal):
+        return str(number(value))
+    if isinstance(value, dict):
+        return '{'+', '.join(json.dumps(key)+': '+exact_json(item) for key, item in value.items())+'}'
+    if isinstance(value, (list, tuple)):
+        return '['+', '.join(exact_json(item) for item in value)+']'
+    return json.dumps(value, allow_nan=False)
 
 
 class VppVoltageContract:
@@ -102,7 +126,10 @@ class VppVoltageContract:
         # Preserve representable one-ULP violations and common-mode subtraction;
         # no voltage tolerance or conversion to a lower-precision float is used.
         with localcontext() as context:
-            context.prec = 1100
+            # Include every decimal position in the subtraction, not merely
+            # 1100 significant digits: a tiny opposite plate can cross 5.5 V.
+            context.prec = max(1100, max(first.adjusted(), second.adjusted()) -
+                               min(first.as_tuple().exponent, second.as_tuple().exponent) + 2)
             differential = first-second
             within = abs(differential) <= Decimal(self.contract['quantity']['upper'])
         current = self._authenticate()
@@ -132,9 +159,9 @@ if __name__ == '__main__':
     parser.add_argument('--input', type=Path, required=True)
     args = parser.parse_args()
     require(args.input.stat().st_size <= 1024*1024, 'VPP point input exceeds parser bounds.')
-    points = json.loads(args.input.read_bytes())
+    points = json.loads(args.input.read_bytes(), parse_float=decimal_literal)
     require(isinstance(points, list) and 0 < len(points) <= 1000, 'Expected 1–1000 VPP points.')
     contract = VppVoltageContract(args.contract, args.package)
     results = [contract.screen(point) for point in points]
-    print(json.dumps(dict(schema=1, results=results, qualified=False, chunk_complete=False), indent=2, allow_nan=False))
+    print(exact_json(dict(schema=1, results=results, qualified=False, chunk_complete=False)))
     raise SystemExit(0 if all(row['plate_voltage_status'] == 'WITHIN_DOCUMENTED_LIMITS' for row in results) else 2)

@@ -1,5 +1,13 @@
 # Source feedback and selected acceptance candidates
 
+The November 10 exact-candidate repair adds the physical verifier's identity,
+stale-output and executable-mutation regressions to the existing unit stage.
+Linux and Windows callers provide an explicit selected commit, independently
+checked against HEAD before and after the frozen probe. General UI source
+identity lookup is no longer used as an acceptance authority. Clean/frozen
+build checks, all prior stages and all timeouts remain required. The retained
+failed Linux run is not converted into a pass by a source-only repair.
+
 The November 7 source-inventory additions join the existing bounded unit stages.
 Fast feedback checks declaration parsing, source changes, missing views and
 misleading model matches; complete archive/blob audits remain separately

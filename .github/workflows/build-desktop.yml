@@ -990,7 +990,7 @@ jobs:
         timeout-minutes: 20
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
-        run: python scripts/verify_frozen_physical.py --executable dist/ICDesignStudio/ICDesignStudio --pdk build/physical-adapter/sky130A --out build/frozen-physical-evidence
+        run: python scripts/verify_frozen_physical.py --executable dist/ICDesignStudio/ICDesignStudio --pdk build/physical-adapter/sky130A --out build/frozen-physical-evidence --expected-commit "${{ github.sha }}"
       - name: Verify frozen Linux MiM editor and native layout workflow
         if: runner.os == 'Linux'
         timeout-minutes: 30

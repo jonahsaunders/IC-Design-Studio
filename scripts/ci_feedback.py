@@ -14,7 +14,7 @@ if __package__ in (None, ''):
     sys.path.insert(0, str(ROOT))
 
 UNIT_MODULES = (
-    'test_ci_candidate', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
+    'test_ci_candidate', 'test_frozen_physical', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
     'test_core', 'test_lifecycle', 'test_workflows', 'test_project_pdk',
     'test_pdk_templates', 'test_student_physical',
     'test_document.RecoveryQueueTests', 'test_layout_verification',

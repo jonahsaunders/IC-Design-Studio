@@ -1,5 +1,7 @@
 """Source-bound description/voltage controls; no simulator acceptance claimed."""
 import copy
+from decimal import Decimal
+from fractions import Fraction
 import hashlib
 import importlib.util
 import json
@@ -7,6 +9,8 @@ import math
 import os
 from pathlib import Path
 import shutil
+import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -182,6 +186,72 @@ class VppVoltageTests(unittest.TestCase):
 
     def test_float_subtraction_overflow_cannot_hide_out_of_bounds(self):
         self.assertEqual(self.point(vc0=1.7e308, vc1=-1.7e308)['plate_voltage_status'], 'OUTSIDE_DOCUMENTED_LIMITS')
+
+    def test_exact_decimal_boundary_and_parser_bounds(self):
+        for first, second in ((Decimal('5.5000000000000000001'), 0),
+                              (Decimal('-5.5000000000000000001'), 0),
+                              (Decimal('5.5'), Decimal('-1e-1100')),
+                              (Decimal('1e-1100'), Decimal('-5.5'))):
+            self.assertEqual(self.point(vc0=first, vc1=second)['plate_voltage_status'],
+                             'OUTSIDE_DOCUMENTED_LIMITS')
+        for value in (Decimal('NaN'), Decimal('Infinity'), Decimal('-Infinity'),
+                      Decimal('1e-1101'), Decimal('1e310'), Decimal('0e1000000000'),
+                      Decimal('0.'+'1'*1101)):
+            with self.subTest(value=str(value)):
+                with self.assertRaisesRegex(ValueError, 'finite|parser bounds'):
+                    self.point(vc0=value)
+        with self.assertRaisesRegex(ValueError, 'parser bounds'):
+            voltage.decimal_literal('0.'+'0'*2048+'1')
+
+    def test_cli_preserves_exact_json_coordinates_and_classifies_difference(self):
+        cases = (
+            ('5.5000000000000000001', '0', 2),
+            ('-5.5000000000000000001', '0', 2),
+            ('5.5', '-1e-400', 2),
+            ('1e-1100', '-5.5', 2),
+            ('100000000000000000005.5', '100000000000000000000', 0),
+            ('100000000000000000005.5000000000000000001', '100000000000000000000', 2),
+            ('-100000000000000000005.5', '-100000000000000000000', 0),
+            ('5.4999999999999999999', '0', 0),
+            ('0', '5.5', 0),
+        )
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder)/'points.json'
+            for first, second, expected in cases:
+                with self.subTest(first=first, second=second):
+                    source.write_text('[{"catalog_key":'+json.dumps(self.key)+
+                                      ',"vc0":'+first+',"vc1":'+second+'}]', encoding='utf-8')
+                    run = subprocess.run([sys.executable, str(DRAFT/'scripts/qualification_sky130_vpp_voltage.py'),
+                                          '--contract', str(CONTRACT), '--package', str(PACKAGE),
+                                          '--input', str(source)], capture_output=True, text=True, timeout=30)
+                    self.assertEqual(run.returncode, expected, run.stderr)
+                    report = json.loads(run.stdout, parse_float=Decimal, parse_int=Decimal)
+                    row = report['results'][0]
+                    self.assertEqual(row['coordinates_v'], {'c0': Decimal(first), 'c1': Decimal(second)})
+                    # Independent rational arithmetic verifies the exact emitted
+                    # difference, without the implementation's Decimal context.
+                    self.assertEqual(Fraction(row['signed_plate_difference_v']),
+                                     Fraction(first)-Fraction(second))
+                    self.assertEqual(row['plate_voltage_status'],
+                                     'OUTSIDE_DOCUMENTED_LIMITS' if expected else 'WITHIN_DOCUMENTED_LIMITS')
+                    self.assertFalse(row['qualified']); self.assertFalse(row['chunk_complete'])
+                    self.assertEqual(row['common_mode_status'], 'NOT_ESTABLISHED')
+
+    def test_cli_rejects_unbounded_and_nonfinite_literals_without_results(self):
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder)/'points.json'
+            for literal in ('1e-1101', '1e310', '0e1000000000', 'NaN', 'Infinity',
+                            'true', '"5.5"', '0.'+'1'*1101):
+                with self.subTest(literal=literal[:30]):
+                    source.write_text('[{"catalog_key":'+json.dumps(self.key)+
+                                      ',"vc0":'+literal+',"vc1":0}]', encoding='utf-8')
+                    run = subprocess.run([sys.executable, str(DRAFT/'scripts/qualification_sky130_vpp_voltage.py'),
+                                          '--contract', str(CONTRACT), '--package', str(PACKAGE),
+                                          '--input', str(source)], capture_output=True, text=True, timeout=30)
+                    self.assertNotEqual(run.returncode, 0)
+                    self.assertNotEqual(run.returncode, 2)
+                    self.assertEqual(run.stdout, '')
+                    self.assertRegex(run.stderr, 'finite|parser bounds')
 
     def test_source_changed_after_construction_rejects(self):
         with tempfile.TemporaryDirectory() as folder:

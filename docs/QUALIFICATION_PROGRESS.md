@@ -1,9 +1,48 @@
 # Chunks 1–12: progress and forecast
 
-Updated November 8, 2026. Chunk 7 is approximately **74% complete**, with low
+Updated November 10, 2026. Chunk 7 is approximately **74% complete**, with low
 confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
+
+**November 10 exact-candidate and VPP repair:** work continues from PR #70
+candidate `3dcf4484a109b5a083898815eaaee6f8cd1116d7`. The completed
+[desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42511675151)
+passed eight of nine jobs, including Windows installed acceptance. Linux failed
+its host-side physical identity comparison, so subsequent Linux device-class
+and installed gates did not run. The authenticated Linux diagnostic archive
+retains all five passing physical probe checks and the exact clean frozen
+candidate. The host's comparison value and failing Git operation were not
+retained; a reproduced status-query timeout shows how general UI identity
+lookup can discard a successfully read commit. This is a diagnosed verifier
+failure, not a new installed pass or permission to relabel the failed run.
+
+The verifier now requires an explicit full candidate, checks Git HEAD before
+and after execution, and retains the clean/frozen-build and executable guards.
+Both platform callers pass their selected candidate. Fresh-output and
+executable-mutation controls prevent stale or changed evidence from passing;
+Git and GUI deadlines are unchanged. Failed comparisons now retain expected
+and reported identities. These changes require fresh hosted/installed acceptance.
+
+A separate executable VPP defect is repaired: JSON
+`5.5000000000000000001 V` against zero was rounded down to `5.5 V` and falsely
+accepted. Exact bounded decimal parsing/output and subtraction now preserve
+sub-float boundary violations, very small opposite-plate values and large
+common-mode cancellation. The original source/model identity and all unknown
+applicability dimensions remain unchanged. This is a correctness repair to a
+static plate-voltage screen, not a new model or operating-envelope qualification.
+
+All thirteen local source-feedback stages pass in 369.8 seconds: 1,576 tests
+with 17 explicit skips, GUI smoke checks and unchanged source identities.
+The complete unit-test discovery is still running at this prepared-source snapshot;
+no full-suite or fresh installed pass is claimed.
+
+The [repair record](validation/chunk7-exact-candidate-vpp-repair-2026-11-10.json)
+separates retained historical evidence, current source verification and pending
+installed acceptance. Four absent required bindings, complete operating and
+reliability envelopes, calibration, 107 remaining inventory gaps and the other
+physical/extracted requirements remain open. Chunk 7 stays **74%**, low
+confidence **55–82%**; no family or completion gate is promoted.
 
 **November 8 blocker-focused work:** PR #69 was merged into `experimental`
 as `62da73a718fa0758bfc42e1738088d06b6ce7319`. Work continues on
