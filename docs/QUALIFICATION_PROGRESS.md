@@ -34,8 +34,13 @@ static plate-voltage screen, not a new model or operating-envelope qualification
 
 All thirteen local source-feedback stages pass in 369.8 seconds: 1,576 tests
 with 17 explicit skips, GUI smoke checks and unchanged source identities.
-The complete unit-test discovery is still running at this prepared-source snapshot;
-no full-suite or fresh installed pass is claimed.
+The exact published repair `77ef33a7894e6c0a21d06925597a3624312e9f0b`
+then passes all 4,674 local tests (80 explicit skips) in 1,159.5 seconds.
+Fresh hosted Windows feedback exposed a test-fixture path alias mismatch:
+Windows TEMP uses a short name while the verifier correctly resolves the long
+path. Canonicalizing the fixture root preserves every production guard and
+passes all eleven affected tests locally; fresh hosted replay remains pending.
+No fresh installed pass is claimed.
 
 The [repair record](validation/chunk7-exact-candidate-vpp-repair-2026-11-10.json)
 separates retained historical evidence, current source verification and pending

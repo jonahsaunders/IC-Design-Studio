@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "date": "2026-11-10",
-  "status": "SOURCE_FEEDBACK_PASS_FULL_SUITE_RUNNING",
+  "status": "LOCAL_SOURCE_PASS_HOSTED_WINDOWS_TEST_PATH_FAILURE",
   "base": "3dcf4484a109b5a083898815eaaee6f8cd1116d7",
   "branch": "codex/chunk7-blockers-20261108",
   "chunk": 7,
@@ -89,11 +89,21 @@
     "Preserve exact bounded JSON decimals in VPP plate-voltage screening and output; enough subtraction precision to reject small violations and underflow/cancellation without changing the source-derived 5.5 V limit."
   ],
   "source_checks": {
-    "status": "aggregate passed; full suite running",
+    "status": "local aggregate and full suite passed; hosted Windows fixture path correction required",
     "focused_physical_tests": 11,
     "focused_vpp_tests": 21,
     "independent_review": "Windows required-argument regression identified, fixed and independently rechecked; both platform callers covered. Independent 11 physical and 21 VPP tests pass; no remaining blocking finding.",
-    "full_unit_suite": "running",
+    "full_unit_suite": {
+      "status": "passed",
+      "candidate": "77ef33a7894e6c0a21d06925597a3624312e9f0b",
+      "command": "QT_QPA_PLATFORM=offscreen .venv/bin/python -m unittest discover -s tests -v",
+      "tests": 4674,
+      "skipped": 80,
+      "seconds": 1159.51,
+      "exit_code": 0,
+      "log_sha256": "48c595ffe24b7da4c0eff1d5cffbc60059fc408f251e283f1ff2a2ce0a501a14",
+      "source_unchanged": true
+    },
     "aggregate_source_feedback": {
       "status": "passed",
       "command": ".venv/bin/python scripts/ci_feedback.py --output build/chunk7-repair-evidence/source-feedback",
@@ -262,5 +272,35 @@
     "tests/test_sky130_vpp_applicability.py": "eeac83b2ac1dc4ea9affb810958ce3617ae30ea379e8349a4ce7363f79c8371b",
     "tests/test_frozen_physical.py": "b14ab2fccc714a07edae2b49416ff72a65e6e606505869cbcb52a71463843dee"
   },
-  "publication_scope": "Prepared source repair. Fresh hosted source and installed acceptance for the repaired candidate remain separate and pending."
+  "publication_scope": "Prepared source repair. Fresh hosted source and installed acceptance for the repaired candidate remain separate and pending.",
+  "publication": {
+    "candidate": "77ef33a7894e6c0a21d06925597a3624312e9f0b",
+    "branch": "codex/chunk7-blockers-20261108",
+    "tree": "99b4d4806161e0c2cdd64801b4910ba150bba06e",
+    "pr": 70,
+    "draft": true,
+    "verified_via": [
+      "GitHub PR head readback",
+      "git ls-remote",
+      "fetched Git tree equals tested local index"
+    ]
+  },
+  "hosted_repair_feedback": {
+    "run_id": 42815809106,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42815809106",
+    "windows_job_id": 129828485498,
+    "windows_status": "failure",
+    "windows_detail": "Four new physical-gate fixture command assertions compare Windows TEMP short-path spelling with production-resolved long paths. Production checks do not fail. Canonicalize the test fixture root, preserving exact command comparison.",
+    "linux_status": "pending"
+  },
+  "windows_fixture_repair": {
+    "status": "local affected tests passed; fresh hosted replay pending",
+    "source": "tests/test_frozen_physical.py",
+    "source_sha256": "cb2f7e9d3c99b427df9187acb0719a0722ff3aebc2469f8f9732e90fc52ca423",
+    "change": "Canonicalize TemporaryDirectory root before asserting the exact production command; preserve all semantic, candidate, executable and timeout assertions.",
+    "tests": 11,
+    "skips": 0,
+    "log_sha256": "05881569d7c1bce17bfbf0918bd42cccc2f608a14bb3f45e9bee590440e6ba27",
+    "full_suite_scope": "4674-test pass above applies to candidate77ef33a before this test-fixture-only path correction."
+  }
 }

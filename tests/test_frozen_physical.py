@@ -107,7 +107,7 @@ class PhysicalInvocationTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         self.exe = self.root/'app'
         self.exe.write_bytes(b'fixture executable')
         self.pdk = self.root/'pdk'
