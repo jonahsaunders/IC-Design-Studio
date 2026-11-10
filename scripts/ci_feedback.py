@@ -23,7 +23,7 @@ UNIT_MODULES = (
     'test_digital_bundle', 'test_digital_runtime', 'test_digital_rc',
     'test_sky130_retained_catalog', 'test_digital_platforms',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
-    'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked',
+    'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked', 'test_sky130_li_array_dynamic',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
     'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
     'test_ihp_capacitor_corners', 'test_ihp_cmim_boundary', 'test_ihp_cmim_lvs_reference', 'test_hierarchical_lvs_reference',
@@ -61,12 +61,13 @@ UNIT_MODULES = (
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
     'test_ihp_l2n0_reference', 'test_sky130_release_inventory', 'test_upstream_semantics',
-    'test_source_dispositions', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
+    'test_source_dispositions', 'test_source_disposition_cache', 'test_source_disposition_reconstruction', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
     'test_cvc_models', 'test_physical_layers',
     'test_legacy_symbols',
     'test_schematic_views',
     'test_verilog_fragments',
     'test_source_references',
+    'test_klayout_wrappers',
     'test_ihp_ct_reference', 'test_sky130_vpp_applicability',
 )
 
@@ -122,6 +123,7 @@ def check_syntax(root=ROOT):
 def source_identity(root=ROOT):
     files = python_sources(root)
     files += [p for p in (root / 'tests/fixtures/ihp-l2n0-reference-v1').glob('*') if p.is_file()]
+    files += [p for p in (root / 'docs/qualification/klayout-wrapper-sources-v1').rglob('*') if p.is_file()]
     # Semantic inventories consume authenticated upstream graphs and the exact
     # release asset list; bind those inputs alongside their runners and tests.
     for name in ('upstream-view-inputs-2026-10-20.json.gz',
@@ -130,7 +132,9 @@ def source_identity(root=ROOT):
                  'upstream-semantics-gf-inputs-2026-11-07.json.gz',
                  'source-dispositions-companion-inputs-2026-11-07.json.gz',
                  'upstream-semantics-inventory-2026-11-07-v2.json.gz',
-                 'sky130-release-inventory-2026-11-07.json.gz'):
+                 'sky130-release-inventory-2026-11-07.json.gz',
+                 'source-dispositions-2026-11-08-v1.json.gz',
+                 'source-dispositions-2026-11-10-v1.delta.json.gz'):
         source = root / 'docs/qualification' / name
         if source.is_file():
             files.append(source)
@@ -170,7 +174,7 @@ def source_identity(root=ROOT):
                  'sky130-mim-contract-v3.json', 'sky130-mim-bias-source-map-v3.json'):
         contract = root / 'docs/qualification' / name
         if contract.is_file(): files.append(contract)
-    for prefix in ('sky130-li-contract', 'sky130-metal-installed',
+    for prefix in ('sky130-li-contract', 'sky130-li-array-dynamic', 'sky130-metal-installed',
                    'sky130-metal-parallel-installed', 'sky130-metal-resistor-parallel',
                    'sky130-metal-resistors-linked'):
         for version in ('v1', 'v2', 'v3'):

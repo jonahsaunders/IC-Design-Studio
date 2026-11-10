@@ -1,5 +1,8 @@
 import ast, contextlib, copy, io, json, math, pathlib, shutil, tempfile, unittest
-from scripts.qualification_sky130_mos_voltage_core import ROOT, VoltageScreen
+from decimal import Decimal, localcontext
+from fractions import Fraction
+from unittest import mock
+from scripts.qualification_sky130_mos_voltage_core import ROOT, VoltageScreen, main, exact_json
 
 P='sky130_fd_pr__'
 class SourceVoltageTests(unittest.TestCase):
@@ -91,5 +94,121 @@ class SourceVoltageTests(unittest.TestCase):
         self.assertEqual(len(old),11)
         for name,(drain,gate,body,_) in old.items():
             self.assertEqual(self.screen.rows[P+name]['model_voltage_limits_v'],dict(vds=list(drain),vgs=list(gate),vbs=list(body)))
+
+class ExactJsonVoltageTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls): cls.screen=VoltageScreen()
+
+    def run_cli(self, model='nfet_01v8', **coordinates):
+        fields=dict(vds='1', vgs='1', vbs='0', temperature_c='27')
+        fields.update(coordinates)
+        raw='[{"model":'+json.dumps(P+model)+','+','.join(
+            json.dumps(k)+':'+v for k,v in fields.items())+'}]'
+        with tempfile.TemporaryDirectory() as td:
+            path=pathlib.Path(td)/'points.json';path.write_text(raw)
+            stream=io.StringIO()
+            with mock.patch('sys.argv', ['screen',str(path)]),contextlib.redirect_stdout(stream):
+                code=main()
+        return code,json.loads(stream.getvalue(),parse_float=Decimal)['results'][0]
+
+    def test_json_nonzero_underflow_cannot_select_either_extended_drain(self):
+        for model,drain,gate in [('nfet_g5v0d16v0','16','1e-400'),
+                                 ('pfet_g5v0d16v0','-16','-1e-400')]:
+            with self.subTest(model=model):
+                code,r=self.run_cli(model,vds=drain,vgs=gate)
+                self.assertEqual(code,2)
+                self.assertEqual(r['drain_predicate'],'ordinary_or_conducting_limit')
+                self.assertEqual(r['coordinates_v']['vgs'],Decimal(gate))
+                self.assertNotEqual(r['coordinates_v']['vgs'],0)
+                for zero in ('0','-0.0','0e-400','-0e-400'):
+                    code,r=self.run_cli(model,vds=drain,vgs=zero)
+                    self.assertEqual(code,0)
+                    self.assertEqual(r['drain_predicate'],'exact_zero_gate_extended_drain_limit')
+                    self.assertFalse(r['qualified'])
+                    self.assertEqual(r['soa_status'],'SOURCE_REQUIRED_NOT_ESTABLISHED')
+
+    def test_every_source_decimal_boundary_against_independent_rational_oracle(self):
+        # Fraction arithmetic is exact and independent of Decimal's current
+        # precision. Probe beyond binary resolution on both sides of all axes.
+        rows=json.loads((ROOT/'gap-acceptance-table.json').read_bytes(),parse_float=Fraction)['models']
+        visits=0
+        for row in rows:
+            limits=row['model_voltage_limits_v']
+            if not limits: continue
+            for axis,(lower,upper) in limits.items():
+                for edge,direction in ((lower,-1),(upper,1)):
+                    with localcontext() as ctx:
+                        ctx.prec=100
+                        exact=Decimal(edge.numerator)/Decimal(edge.denominator) if isinstance(edge,Fraction) else Decimal(edge)
+                        outside=exact+Decimal(direction)*Decimal('1e-70')
+                    for value in (exact,outside):
+                        kwargs={k:'0' for k in limits}
+                        # An ordinary, nonzero gate ensures conditional drain
+                        # ranges do not replace the ordinary source bounds.
+                        kwargs['vgs']='0.1' if 'nfet' in row['model'] else '-0.1'
+                        kwargs[axis]=str(value)
+                        with self.subTest(model=row['model'],axis=axis,value=str(value)),localcontext() as ctx:
+                            ctx.prec=3
+                            code,r=self.run_cli(row['model'].removeprefix(P),**kwargs)
+                        expected=lower <= Fraction(value) <= upper
+                        violation=any(v['axis']==axis for v in r['violations'])
+                        self.assertEqual(violation,not expected)
+                        self.assertEqual(r['coordinates_v'][axis],value)
+                    visits+=1
+        self.assertEqual(visits,102)
+
+    def test_extended_drain_decimal_boundaries_and_exact_cancellation_residue(self):
+        for model,edge,sign in [('nfet_g5v0d16v0',16,1),('pfet_g5v0d16v0',-16,-1)]:
+            with localcontext() as ctx:
+                ctx.prec=100
+                outside=Decimal(edge)+Decimal(sign)*Decimal('1e-70')
+            code,r=self.run_cli(model,vds=str(outside),vgs='0')
+            self.assertEqual(code,2)
+            self.assertEqual(r['drain_predicate'],'exact_zero_gate_extended_drain_limit')
+            self.assertTrue(any(v['axis']=='vds' for v in r['violations']))
+            # Input coordinates are already source-relative, not terminal
+            # potentials. Preserve a residual that binary subtraction would lose.
+            residual=Fraction(10**70+sign,10**70)-1
+            with localcontext() as ctx:
+                ctx.prec=100
+                gate=Decimal(residual.numerator)/Decimal(residual.denominator)
+            code,r=self.run_cli(model,vds=str(edge),vgs=str(gate))
+            self.assertEqual(code,2)
+            self.assertEqual(Fraction(r['coordinates_v']['vgs']),residual)
+            self.assertEqual(r['drain_predicate'],'ordinary_or_conducting_limit')
+
+    def test_signed_decimal_and_integer_extremes_remain_exact(self):
+        for literal in ('1e400','-1e400',str(10**400)):
+            code,r=self.run_cli(vds=literal)
+            self.assertEqual(code,2)
+            self.assertEqual(Fraction(r['coordinates_v']['vds']),Fraction(literal))
+        for literal in ('1.9500000000000000000000000000000000000001',):
+            code,r=self.run_cli(vds=literal)
+            self.assertEqual(code,2)
+            self.assertEqual(r['coordinates_v']['vds'],Decimal(literal))
+        code,r=self.run_cli('pfet_01v8',vds='-1.9500000000000000000000000000000000000001',vgs='-1')
+        self.assertEqual(code,2)
+        code,r=self.run_cli(vbs='-1e-400',temperature_c='27.000000000000000000000000000000000001')
+        self.assertEqual(code,0)
+        self.assertFalse(r['temperature_is_historical_sample_point'])
+        self.assertEqual(r['temperature_validity_status'],'NOT_ESTABLISHED')
+
+    def test_decimal_nonfinite_and_json_constants_fail_closed(self):
+        for value in (Decimal('NaN'),Decimal('sNaN'),Decimal('Infinity'),Decimal('-Infinity')):
+            with self.assertRaises(ValueError):
+                self.screen.check(dict(model=P+'nfet_01v8',vds=value,vgs=1,vbs=0,temperature_c=27))
+            with self.assertRaises(ValueError):exact_json(value)
+        for value in ('NaN','Infinity','-Infinity','true','"1"'):
+            with self.assertRaises(ValueError):self.run_cli(vds=value)
+
+    def test_decimal_ambiguous_model_and_fifth_terminal_stay_unknown(self):
+        code,r=self.run_cli('esd_nfet_01v8',vgs='1e-400')
+        self.assertEqual(code,2)
+        self.assertEqual(r['three_axis_status'],'BLOCKED')
+        self.assertFalse(r['qualified'])
+        code,r=self.run_cli('nfet_20v0_iso',vds='22.0',vgs='5.5',vbs='-2.0')
+        self.assertEqual(code,0)
+        self.assertEqual(r['all_terminal_voltage_status'],'NOT_ESTABLISHED')
+        self.assertFalse(r['qualified'])
 
 if __name__=='__main__':unittest.main(verbosity=2)

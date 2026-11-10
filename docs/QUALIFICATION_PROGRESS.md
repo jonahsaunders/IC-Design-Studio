@@ -5,6 +5,55 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 10 remaining-gate follow-through:** a separate MOS static-screen
+repair preserves nonzero decimal gate voltages such as `1e-400 V`, which
+previously underflowed to zero and incorrectly selected the 16 V drain
+allowance. All 102 source-boundary visits are compared with independent
+rational arithmetic; the existing float behavior, authenticated limits and
+unknown applicability dimensions remain intact. The
+[MOS record](validation/chunk7-mos-exact-number-repair-2026-11-10.json) retains
+26 focused passing tests and does not claim electrical or installed acceptance.
+
+Six exact Apache-2.0 KLayout wrapper/stub sources now have a bounded static
+reader: 84 declaration facts including 20 literal dependencies, with logger and
+license-only files explicitly supplying no device rules. The
+[wrapper record](validation/chunk7-klayout-wrapper-inventory-2026-11-10.json)
+retains 177 affected passing tests and independent source-identity readback.
+The [complete authenticated replay](validation/chunk7-complete-source-inventory-2026-11-10.json)
+finishes in 467.259 seconds within the unchanged 900-second deadline. It retains
+all 776,811 previous facts, adds exactly 84 reviewed facts and removes precisely
+six gaps: **776,895 items and 101 remaining inventory gaps**. Every remaining gap
+record and source identity is unchanged. The historical report is preserved.
+A small authenticated storage delta reconstructs the exact complete report
+byte-for-byte; this is source enumeration, not device qualification.
+
+The [current model-source review](validation/chunk7-missing-model-review-2026-11-10.json)
+checks new official and third-party leads but leaves all four exact bindings
+unavailable. The third-party coil's missing substrate terminal, fixed coupling
+and unresolved licensing/calibration prevent treating it as an equivalent
+catalog model. The separate
+[official HBT update assessment](validation/chunk7-hbt-update-applicability-2026-11-10.json)
+finds that the newest upstream mismatch fix changes mechanisms absent from the
+bundled nominal model; no blind model replacement is made. Complete limits,
+calibration and physical/installed gates remain open. Estimate stays **74%**,
+low confidence **55-82%**. A separate [LI array dynamic record](validation/sky130-li-array-dynamic-2026-11-10.json)
+retains 24 passing application/native/analytic transient and noise-density
+processes over four historical arrays, 27,282 positive raw samples and six
+successfully detected deliberate faults. The corrected ngspice47 runtime and
+actual Linux dependencies are authenticated. Independent raw replay passes;
+compact evidence retains all raw outputs, exact sources and applicable notices.
+This is finite model linkage using historical physical inputs, not fresh
+extraction, calibration, reliability limits or installed acceptance. Combined
+source feedback remains separate from the preceding published repair's suite.
+
+The [follow-through validation record](validation/chunk7-follow-through-validation-2026-11-10.json)
+separates exact source snapshots: the MOS/wrapper batch passes all 4,693 tests
+(80 explicit skips) in 1,220.499 seconds. The combined cache/dynamic snapshot
+passes all thirteen stages with 1,621 tests and 17 skips in 382.308 seconds.
+Final storage-only and portability changes pass their affected required stages
+and a second full byte-for-byte report reconstruction. Fresh hosted and
+installed acceptance for the newly published candidate remains pending.
+
 **November 10 exact-candidate and VPP repair:** work continues from PR #70
 candidate `3dcf4484a109b5a083898815eaaee6f8cd1116d7`. The completed
 [desktop run](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42511675151)
@@ -39,7 +88,10 @@ then passes all 4,674 local tests (80 explicit skips) in 1,159.5 seconds.
 Fresh hosted Windows feedback exposed a test-fixture path alias mismatch:
 Windows TEMP uses a short name while the verifier correctly resolves the long
 path. Canonicalizing the fixture root preserves every production guard and
-passes all eleven affected tests locally; fresh hosted replay remains pending.
+passes all eleven affected tests locally. Corrected candidate
+`d119d88f8ea5a31abd8804cf8a4c8dbf5545d918` then passes both hosted
+Windows and Ubuntu source-feedback jobs and their aggregate in
+[run 42817018280](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42817018280).
 No fresh installed pass is claimed.
 
 The [repair record](validation/chunk7-exact-candidate-vpp-repair-2026-11-10.json)

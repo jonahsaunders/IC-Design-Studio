@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "date": "2026-11-10",
-  "status": "LOCAL_SOURCE_PASS_HOSTED_WINDOWS_TEST_PATH_FAILURE",
+  "status": "LOCAL_SOURCE_AND_CORRECTED_HOSTED_SOURCE_PASS_INSTALLED_PENDING",
   "base": "3dcf4484a109b5a083898815eaaee6f8cd1116d7",
   "branch": "codex/chunk7-blockers-20261108",
   "chunk": 7,
@@ -89,7 +89,7 @@
     "Preserve exact bounded JSON decimals in VPP plate-voltage screening and output; enough subtraction precision to reject small violations and underflow/cancellation without changing the source-derived 5.5 V limit."
   ],
   "source_checks": {
-    "status": "local aggregate and full suite passed; hosted Windows fixture path correction required",
+    "status": "local aggregate and full suite passed; Windows fixture correction passed on both hosted platforms",
     "focused_physical_tests": 11,
     "focused_vpp_tests": 21,
     "independent_review": "Windows required-argument regression identified, fixed and independently rechecked; both platform callers covered. Independent 11 physical and 21 VPP tests pass; no remaining blocking finding.",
@@ -227,7 +227,30 @@
       "machine": "x86_64",
       "python": "3.12.14"
     },
-    "release_materials_check": "passed"
+    "release_materials_check": "passed",
+    "hosted_corrected_candidate": {
+      "candidate": "d119d88f8ea5a31abd8804cf8a4c8dbf5545d918",
+      "run_id": 42817018280,
+      "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42817018280",
+      "jobs": [
+        {
+          "id": 129832561377,
+          "name": "source feedback (windows-2022)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129832561908,
+          "name": "source feedback (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 129839174198,
+          "name": "PR feedback",
+          "conclusion": "success"
+        }
+      ],
+      "installed_acceptance": false
+    }
   },
   "limitations": [
     "No fresh frozen/native acceptance on this repaired candidate has run.",

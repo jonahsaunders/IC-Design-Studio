@@ -594,6 +594,9 @@ def supplemental_views(row,raw):
     if embedded is not None:return embedded
     reference=source_reference_views(row,raw)
     if reference is not None:return reference
+    from scripts.inventory_klayout_wrappers import klayout_wrapper_views
+    wrapper=klayout_wrapper_views(row,raw)
+    if wrapper is not None:return wrapper
     text=raw.decode('utf-8-sig')
     from scripts.inventory_cvc_models import cvc_views
     from scripts.inventory_physical_layers import physical_views
@@ -791,7 +794,7 @@ def main():
     parser.add_argument('--companion-inputs',type=Path,default=ROOT/'docs/qualification/source-dispositions-companion-inputs-2026-11-07.json.gz')
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args();require(not args.output.exists(),'choose a new output path')
-    paths=[Path(__file__),ROOT/'scripts/inventory_source_configs.py',ROOT/'scripts/inventory_xcircuit.py',ROOT/'scripts/inventory_cvc_models.py',ROOT/'scripts/inventory_physical_layers.py',ROOT/'scripts/inventory_legacy_symbols.py',ROOT/'scripts/inventory_schematic_views.py',ROOT/'scripts/inventory_verilog_fragments.py',ROOT/'scripts/inventory_source_references.py',ROOT/'scripts/inventory_upstream_semantics.py',ROOT/'scripts/inventory_sky130_release.py',ROOT/'scripts/inventory_upstream_views.py',ROOT/'scripts/inventory_device_models.py',ROOT/'scripts/inventory_veriloga_models.py',ROOT/'scripts/reconcile_primitive_inventory.py',ROOT/'icstudio/model.py',ROOT/'icstudio/xschem_io.py',ROOT/'icstudio/digital_platform.py']
+    paths=[Path(__file__),ROOT/'scripts/inventory_klayout_wrappers.py',ROOT/'scripts/inventory_source_configs.py',ROOT/'scripts/inventory_xcircuit.py',ROOT/'scripts/inventory_cvc_models.py',ROOT/'scripts/inventory_physical_layers.py',ROOT/'scripts/inventory_legacy_symbols.py',ROOT/'scripts/inventory_schematic_views.py',ROOT/'scripts/inventory_verilog_fragments.py',ROOT/'scripts/inventory_source_references.py',ROOT/'scripts/inventory_upstream_semantics.py',ROOT/'scripts/inventory_sky130_release.py',ROOT/'scripts/inventory_upstream_views.py',ROOT/'scripts/inventory_device_models.py',ROOT/'scripts/inventory_veriloga_models.py',ROOT/'scripts/reconcile_primitive_inventory.py',ROOT/'icstudio/model.py',ROOT/'icstudio/xschem_io.py',ROOT/'icstudio/digital_platform.py']
     original=ROOT/'docs/qualification/upstream-view-inputs-2026-10-20.json.gz';gf=ROOT/'docs/qualification/upstream-semantics-gf-inputs-2026-11-07.json.gz'
     paths += [original,gf,args.companion_inputs]+[ROOT/value[0] for value in REPORTS.values()]
     before={str(p):file_digest(p) for p in paths}

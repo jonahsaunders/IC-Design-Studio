@@ -24,6 +24,27 @@ def workflow(name):
 
 
 class FeedbackTests(unittest.TestCase):
+    def test_klayout_wrapper_sources_and_license_are_bound(self):
+        self.assertEqual(UNIT_MODULES.count('test_klayout_wrappers'), 1)
+        self.assertEqual(UNIT_MODULES.count('test_sky130_li_array_dynamic'), 1)
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            names = ('source-lock.json', 'Apache-2.0.txt', 'README.md',
+                     'sources/example/rule_decks/devices_connections.lvs')
+            paths = [root/'docs/qualification/klayout-wrapper-sources-v1'/name for name in names]
+            for path in paths:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'original exact source')
+            before = source_identity(root)
+            self.assertEqual(set(before), {p.relative_to(root).as_posix() for p in paths})
+            for path in paths:
+                path.write_bytes(b'changed source')
+                self.assertNotEqual(source_identity(root), before)
+                path.unlink()
+                self.assertNotEqual(source_identity(root), before)
+                path.write_bytes(b'original exact source')
+                self.assertEqual(source_identity(root), before)
+
     def test_checked_in_semantic_inputs_authenticate_before_feedback(self):
         import gzip
         from scripts.inventory_sky130_release import verified_metadata
@@ -48,13 +69,17 @@ class FeedbackTests(unittest.TestCase):
             checked_report(ROOT / relative, digest)
 
     def test_semantic_source_graphs_and_release_inputs_are_bound(self):
+        self.assertEqual(UNIT_MODULES.count('test_source_disposition_cache'), 1)
+        self.assertEqual(UNIT_MODULES.count('test_source_disposition_reconstruction'), 1)
         names = ('upstream-view-inputs-2026-10-20.json.gz',
                  'upstream-views-2026-10-20.json.gz',
                  'sky130-release-inputs-2026-11-07.json',
                  'upstream-semantics-gf-inputs-2026-11-07.json.gz',
                  'source-dispositions-companion-inputs-2026-11-07.json.gz',
                  'upstream-semantics-inventory-2026-11-07-v2.json.gz',
-                 'sky130-release-inventory-2026-11-07.json.gz')
+                 'sky130-release-inventory-2026-11-07.json.gz',
+                 'source-dispositions-2026-11-08-v1.json.gz',
+                 'source-dispositions-2026-11-10-v1.delta.json.gz')
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             source = root / 'docs/qualification'
@@ -269,13 +294,15 @@ class FeedbackTests(unittest.TestCase):
             root = Path(folder)
             archive = root / 'packaging/ngspice/ngspice-linux47-corrected-v1.zip'
             contract = root / 'docs/qualification/sky130-li-contract-v3.json'
+            dynamic_contract = root / 'docs/qualification/sky130-li-array-dynamic-v1.json'
             package = root / 'icstudio/assets/pdks/sky130A/package.json'
             asset = package.parent / 'libs/models/pw2dn.spice'
-            for path in (archive, contract, asset): path.parent.mkdir(parents=True, exist_ok=True)
+            for path in (archive, contract, dynamic_contract, asset): path.parent.mkdir(parents=True, exist_ok=True)
             archive.write_bytes(b'runtime'); contract.write_bytes(b'contract'); asset.write_bytes(b'model')
+            dynamic_contract.write_bytes(b'dynamic contract')
             package.write_text(json.dumps({'files': {'libs/models/pw2dn.spice': 'a' * 64}}))
             before = source_identity(root)
-            for path in (archive, contract, asset, package):
+            for path in (archive, contract, dynamic_contract, asset, package):
                 name = path.relative_to(root).as_posix()
                 self.assertIn(name, before)
                 original = path.read_bytes(); path.write_bytes(original + b' ')

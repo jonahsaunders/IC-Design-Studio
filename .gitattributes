@@ -133,3 +133,6 @@ docs/validation/frozen-device-class-source-pilot-2026-11-08.json whitespace=cr-a
 # Keep the source bytes authenticated by the retained cross-host model replay.
 icstudio/three_port_reference.py whitespace=-blank-at-eof
 scripts/audit_ihp_ct_reference.py whitespace=-blank-at-eof
+
+# Preserve exact upstream wrapper/stub source trailing blank lines.
+docs/qualification/klayout-wrapper-sources-v1/sources/** whitespace=-blank-at-eof

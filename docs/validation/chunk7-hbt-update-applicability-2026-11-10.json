@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "as_of": "2026-11-10",
+  "scope": "Read-only source applicability assessment, not a package migration or native behavioral validation.",
+  "qualified": false,
+  "chunk_complete": false,
+  "current_bundled_package": {
+    "revision": "cfb96b74cf33877e",
+    "files": {
+      "icstudio/assets/pdks/ihp-sg13g2/package.json": {
+        "sha256": "da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0",
+        "bytes": 357679
+      },
+      "icstudio/assets/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib": {
+        "sha256": "bae3d705445de8d6b8de4aa798a0e3e5e7cab617d6495d9c56473bc5377de462",
+        "bytes": 3975
+      },
+      "icstudio/assets/pdks/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_mod.lib": {
+        "sha256": "ae9288f885dd30fab24b07ed1e7e02e69eac9154022a0a6da576985183b0bd79",
+        "bytes": 20057
+      },
+      "icstudio/assets/pdks/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_mod_mismatch.lib": {
+        "sha256": "e7b462e4aa4fbcb00d8f618f7780fea87d65918f2faa4e86c1412d6262371357",
+        "bytes": 20486
+      }
+    },
+    "nominal_subcircuits": [
+      "npn13G2",
+      "npn13G2_5t",
+      "npn13G2l",
+      "npn13G2l_5t",
+      "npn13G2v",
+      "npn13G2v_5t",
+      "pnpMPA"
+    ],
+    "nominal_expression_observation": "No agauss, mm_ok or is_fac_mm expressions occur in the bundled nominal sg13g2_hbt_mod.lib.",
+    "separate_mismatch_expression": ".param qarea='agauss(1, 0.1, (mm_ok != 1 ? 0 : 1))'",
+    "separate_mismatch_occurrences": 6,
+    "corner_observation": "hbt_typ/hbt_bcs/hbt_wcs include sg13g2_hbt_mod.lib; corresponding mismatch sections include the separate sg13g2_hbt_mod_mismatch.lib."
+  },
+  "official_upstream": {
+    "repository": "IHP-GmbH/IHP-Open-PDK",
+    "pull_request": 1352,
+    "pull_request_url": "https://github.com/IHP-GmbH/IHP-Open-PDK/pull/1352",
+    "title": "hbt: fix unwanted mismatch variations in repeated simulations",
+    "merged_at": "2026-11-10T11:29:09Z",
+    "merge_commit": "a44583ac8d74fb13a121c32ff84430b4d414e6f6",
+    "previous_dev_commit": "f658ac22974185eb65f27e06caa72aa72ecf6d17",
+    "comparison_url": "https://github.com/IHP-GmbH/IHP-Open-PDK/compare/f658ac22974185eb65f27e06caa72aa72ecf6d17...a44583ac8d74fb13a121c32ff84430b4d414e6f6",
+    "files": [
+      {
+        "path": "ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib",
+        "git_blob": "e8f737ee662cf654340ff8932596b5dfff708d76",
+        "source_url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/a44583ac8d74fb13a121c32ff84430b4d414e6f6/ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib"
+      },
+      {
+        "path": "ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_mod.lib",
+        "git_blob": "baae5842bc875f60f54693ba58c8e6aa5098049d",
+        "source_url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/a44583ac8d74fb13a121c32ff84430b4d414e6f6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_mod.lib"
+      }
+    ],
+    "diff_observations": {
+      "changed_files": 2,
+      "nominal_hbt_subcircuit_blocks_changed": 6,
+      "old_example": ".param is_mm  ='agauss(1, 0.038, (mm_ok != 1 ? 0 : 1))'",
+      "new_example": ".param is_mm  ='agauss(1, is_var_mm  , (mm_ok != 1 ? 0 : 1))'",
+      "unchanged_following_factor": ".param is_fac_mm  ='1+mm_ok*(is_mm  -1)/sqrt(m*Nx)'",
+      "new_corner_parameters": [
+        "is_var_mm",
+        "ibei_var_mm",
+        "iben_var_mm",
+        "cje_var_mm",
+        "cjc_var_mm",
+        "cjcp_var_mm",
+        "re_var_mm",
+        "rcx_var_mm",
+        "rbx_var_mm",
+        "tf_var_mm"
+      ],
+      "new_corner_values": "All ten are zero in nominal and hbt_typ_stat sections. Mismatch sections receive the previous literal magnitudes: 0.038, 0.130, 0.010, 0.017, 0.010, 0.028, 0.055, 0.010, 0.010, 0.010."
+    }
+  },
+  "applicability_conclusion": {
+    "demonstrated_current_deterministic_package_bug": false,
+    "reason": "The previous-dev expressions targeted by this fix are absent from the current bundled nominal library. The newer upstream model structure already differs from the bundled package. The patch addresses a source-reported later-upstream repeatability issue, not a demonstrated reproduction in this bundled deterministic package.",
+    "current_mismatch_behavior": "Not executed in this assessment. Absence of the nominal expressions does not establish correctness or calibration of separate mismatch/statistical models.",
+    "imported_or_cherry_picked": false,
+    "statistical_qualification": false,
+    "required_before_migration": [
+      "Review complete intervening source/model/interface/parameter changes from bundled revision to proposed pinned target, not only the latest two-file merge.",
+      "Authenticate complete licensed include/model closure and create a separately versioned package with regenerated provenance and contracts.",
+      "Run pinned native repeated nominal simulations across applicable corners and models, with fresh-process and repeated-in-process controls.",
+      "Verify explicit mismatch enable/disable, seed reproducibility and intended variation independently; retain raw decks, logs, outputs and fault controls.",
+      "Treat silicon calibration, correlation and valid operating/reliability envelopes as separate evidence requirements."
+    ]
+  },
+  "unexecuted_li_array_next_cohort": {
+    "status": "PLANNING_ONLY_NOT_IMPLEMENTED_OR_EXECUTED",
+    "purpose": "Extend actual-array native-extracted electrical linkage to transient and thermal noise, which are not established by the existing array DC/AC cohort.",
+    "selection": {
+      "model": "sky130_fd_pr__res_generic_l1",
+      "unit_width_um": 2,
+      "unit_length_um": 5,
+      "multiplicities": [
+        3,
+        16
+      ],
+      "rotations_degrees": [
+        0,
+        90
+      ],
+      "temperature_c": 27,
+      "passive_section": "typical"
+    },
+    "existing_evidence_not_to_repeat_as_progress": "The accepted single-unit linked and 280-layout metal-resistor array DC/AC cohorts are not new acceptance.",
+    "proposed_checks": [
+      "Actual application-exported array reference versus fresh native-extracted complete network versus independently constructed literal reference.",
+      "Transient waveform comparison with declared load/stimulus, tolerances and finite time grid.",
+      "Thermal-noise density/integrated-noise comparison with declared measurement port, source/load, frequency band, temperature and independent expectation.",
+      "Missing-unit, broken-branch and one-unit-width perturbations must be detected for their intended electrical/physical reason, not a tool failure.",
+      "Independent raw-artifact audit with exact model/tool/source/layout/extraction/runner identities and altered-evidence controls."
+    ],
+    "prerequisites": [
+      "Authenticate and make executable the pinned native ngspice/Magic/Netgen runtime; these binaries were not available on local PATH at inspection.",
+      "Retain fresh complete native DRC/LVS/extraction evidence for each selected actual array, or explicitly authenticate reusable evidence without calling it a new physical run.",
+      "Version/review new dynamic acceptance contract, runner, independent auditor and tests before execution.",
+      "Use a clean exact candidate identity and preserve source/package/runtime hashes and all raw simulator/extractor artifacts."
+    ],
+    "not_closed_by_this_cohort": [
+      "LI2 unsupported/contact segmentation interpretation",
+      "Complete geometry, bias/current/power, temperature and reliability envelopes",
+      "Measured sheet-resistance conditions and nominal source discrepancy",
+      "Silicon-calibrated noise/matching statistics",
+      "Full process/layout coverage",
+      "Final installed Linux/Windows acceptance"
+    ]
+  }
+}

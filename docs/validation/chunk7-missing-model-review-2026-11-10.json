@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "chunk": 7,
+  "source_baseline": "77ef33a7894e6c0a21d06925597a3624312e9f0b",
+  "status": "CURRENT_SOURCE_RECHECK_NO_EXACT_REQUIRED_BINDING_ESTABLISHED",
+  "qualified": false,
+  "chunk_complete": false,
+  "package_changed": false,
+  "models_imported": false,
+  "native_runs": 0,
+  "qualification_gates_changed": false,
+  "scope": "Read-only current public source investigation followed by this documentation-only record. Absence statements are restricted to reviewed sources, not universal absence. No remote model assets were installed, imported into the package, or executed. Parent owns progress tracker updates.",
+  "prior_records": [
+    "docs/CHUNK7_PUBLIC_SOURCES.md",
+    "docs/validation/chunk7-public-source-review-2026-11-06.json",
+    "docs/validation/chunk7-required-binding-semantics-2026-11-07.json",
+    "docs/validation/chunk7-gdsfactory-source-review-2026-11-07.json",
+    "docs/IHP_CT_REFERENCE.md"
+  ],
+  "method": "GitHub connector reads of current branches, directory trees, exact-revision file contents, comparisons, issue bodies/comments and code searches; web discovery followed by direct source reads. Prior semantic records supply explicitly identified inherited interface findings.",
+  "sources": [
+    {
+      "repository": "IHP-GmbH/IHP-Open-PDK",
+      "main_revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "reviewed_dev_revision": "a44583ac8d74fb13a121c32ff84430b4d414e6f6",
+      "dev_commit_date": "2026-11-10T11:29:08Z",
+      "license": "Apache-2.0 headers in reviewed bondpad files",
+      "files": [
+        {
+          "path": "ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib",
+          "git_blob": "9cf626f18307791aafd63c343e4cb6c177a951a2",
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/a44583ac8d74fb13a121c32ff84430b4d414e6f6/ihp-sg13g2/libs.tech/ngspice/models/sg13g2_bondpad.lib"
+        },
+        {
+          "path": "ihp-sg13g2/libs.tech/xyce/models/sg13g2_bondpad.lib",
+          "git_blob": "9cf626f18307791aafd63c343e4cb6c177a951a2",
+          "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/blob/a44583ac8d74fb13a121c32ff84430b4d414e6f6/ihp-sg13g2/libs.tech/xyce/models/sg13g2_bondpad.lib"
+        }
+      ],
+      "observed": "Both files contain .subckt bondpad PAD, parameters size=80u shape=0 padtype=0, and .ends with no electrical elements. Comments explicitly identify a placeholder."
+    },
+    {
+      "repository": "fossi-foundation/skywater-pdk-libs-sky130_fd_pr",
+      "revision": "29b55153fd9f4badef05a02667184b81789d1f61",
+      "license": "Apache-2.0 source license recorded in prior public-source review",
+      "path": "cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+      "url": "https://github.com/fossi-foundation/skywater-pdk-libs-sky130_fd_pr/tree/29b55153fd9f4badef05a02667184b81789d1f61/cells/cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+      "observed": "Current main unchanged. Reviewed cell directory has 13 entries, containing _nhv and _nhvtop assets plus tests; no unsuffixed model definition.",
+      "model_blob": "a22a2156c5dc4bd06b2ad9f2b434d28a35ae0a9d",
+      "cdl_blob": "94f1bc8ec62dbc84f22e59320d448e24ac4e4280",
+      "base_blob": "056631fc80976e0ea61ed58801a2a5a8dbeabfbf",
+      "inherited_semantics": "Prior exact-byte semantic review records _nhv four-terminal c0 c1 b m5 model; three-terminal CDL ties body to C1. This does not establish equivalence to unsuffixed catalog device."
+    },
+    {
+      "repository": "fossi-foundation/open-pdks",
+      "revision": "5740c4a81c42f9fe4af5ef2ee258a99151053d28",
+      "compared_to": "c6df28c1fccb05c286aa0a15e9c4c7dcd8502607",
+      "url": "https://github.com/fossi-foundation/open-pdks/compare/c6df28c1fccb05c286aa0a15e9c4c7dcd8502607...5740c4a81c42f9fe4af5ef2ee258a99151053d28",
+      "observed": "Comparison changes only VERSION, gf180mcu/gf180mcu.json and sky130/sky130.json. No changed conversion script or added VPP alias in this delta."
+    },
+    {
+      "repository": "eskiyerli/ihp_pdk",
+      "branch": "master",
+      "revision": "1113b50d701f580228a430ec479aa5f0e3c3aaa9",
+      "commit_date": "2026-10-18T21:49:43Z",
+      "license_scope": "Reviewed inductor files carry Apache-2.0 headers. README separately lists Apache-2.0 core PDK, Commons Clause restrictions for Revolution Semiconductor components, and IHP process-information licensing. No general repository-wide permissive clearance is inferred; file-specific licensing must be resolved before import.",
+      "files": [
+        {
+          "path": "models/xyce/inductors.lib",
+          "git_blob": "36fd81e06ff3890504906160c889496b4023d4d9",
+          "url": "https://github.com/eskiyerli/ihp_pdk/blob/1113b50d701f580228a430ec479aa5f0e3c3aaa9/models/xyce/inductors.lib",
+          "observed": "Defines inductor2 PLUS MINUS and inductor3 PLUS MINUS CT. Modified Wheeler geometry formula, parameters w/s/d/nr_r/m plus f_eval default 5GHz; substrate branches terminate at global node 0. Center-tapped model uses fixed K12=0.8. Model file supplies no calibration data or validity envelope."
+        },
+        {
+          "path": "models/vacask/models/inductors.lib",
+          "git_blob": "3ee3aa71444d146885a737aefd176c041164bd56",
+          "url": "https://github.com/eskiyerli/ihp_pdk/blob/1113b50d701f580228a430ec479aa5f0e3c3aaa9/models/vacask/models/inductors.lib",
+          "observed": "Converted analytical models retain global-ground substrate; center-tapped implementation omits the Xyce mutual-coupling element. Implementations are not electrically equivalent."
+        },
+        {
+          "path": "models/xyce/sg13g2_bondpad.lib",
+          "git_blob": "9cf626f18307791aafd63c343e4cb6c177a951a2",
+          "url": "https://github.com/eskiyerli/ihp_pdk/blob/1113b50d701f580228a430ec479aa5f0e3c3aaa9/models/xyce/sg13g2_bondpad.lib",
+          "observed": "Same Git blob as official empty bondpad placeholder."
+        },
+        {
+          "path": "models/vacask/models/sg13g2_bondpad.lib",
+          "git_blob": "1f15f09b01356752ea1c8950c3894b6144e781f6",
+          "url": "https://github.com/eskiyerli/ihp_pdk/blob/1113b50d701f580228a430ec479aa5f0e3c3aaa9/models/vacask/models/sg13g2_bondpad.lib",
+          "observed": "Empty subckt bondpad(pad), with size/shape/padtype parameters; placeholder comment retained."
+        }
+      ],
+      "readme_url": "https://github.com/eskiyerli/ihp_pdk/blob/1113b50d701f580228a430ec479aa5f0e3c3aaa9/README.md",
+      "history": "Path history attributes Xyce inductor addition to 7b13799582d5e8d033a903a82ac07c50926464f8, 2026-09-12; commit description mentions Modified Wheeler parameter extraction, not foundry calibration.",
+      "disposition": "Newly reviewed analytical candidate only. No catalog binding or qualification established. No calibration tests found in inspected model files, history or tree; this is not a claim that no validation exists elsewhere."
+    },
+    {
+      "repository": "VolkerMuehlhaus/lumpedmodel",
+      "revision": "e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320",
+      "url": "https://github.com/VolkerMuehlhaus/lumpedmodel/tree/e92d2f0a8c7dbf057ae6fb382894dccfa1fb6320",
+      "observed": "Current main unchanged from retained fixed center-tap reference.",
+      "inherited_limits": "Prior retained reference is GPLv3 original-source material for one geometry, three ports p1/p2/ct and global-ground substrate. It is not a calibrated parameterized four-terminal catalog binding; see docs/IHP_CT_REFERENCE.md."
+    }
+  ],
+  "required_bindings": [
+    {
+      "model": "sky130_fd_pr__cap_vpp_11p3x11p8_l1m1m2m3m4_shieldm5",
+      "package": "sky130A",
+      "catalog_contract": "c0,c1,sub,top; positive mult parameter",
+      "blocker": "Exact unsuffixed definition or authoritative identity mapping not found in reviewed current primitive/open-pdks/xschem sources. _nhv suffix and terminal semantics cannot be silently substituted.",
+      "smallest_external_input": "Authoritative licensed unsuffixed definition with terminal/parameter contract, or explicit authoritative equivalence statement and terminal mapping to an available definition; then exact binding tests and qualification evidence."
+    },
+    {
+      "model": "bondpad",
+      "package": "IHP",
+      "catalog_contract": "pad; size,shape,padtype",
+      "blocker": "Official and Reveda files remain electrically empty placeholders.",
+      "smallest_external_input": "Licensed nonempty electrical implementation for stated pad geometry/type parameters, with units, reference/return-node semantics, applicable bounds and validation evidence."
+    },
+    {
+      "model": "inductor",
+      "package": "IHP",
+      "catalog_contract": "Source pins p,m,XXX (displayed LA,LB,B); w,s,d,nr_r,m",
+      "blocker": "No matching parameterized substrate-terminal model found in reviewed official closure. Reveda inductor2 has only two explicit terminals and global-ground substrate; name and interface differ, calibration unestablished.",
+      "smallest_external_input": "Licensed geometry-dependent model or validated extraction data preserving winding and independent substrate semantics for catalog geometry parameters, with validity envelope and provenance."
+    },
+    {
+      "model": "inductor3",
+      "package": "IHP",
+      "catalog_contract": "LA,LC,LB,B; LC center tap; w,s,d,nr_r,m",
+      "blocker": "No matching four-terminal model found in reviewed official closure. Existing fitted reference is fixed geometry; Reveda PLUS/MINUS/CT model omits independent B and uses uncalibrated fixed coupling, with a non-equivalent VACASK conversion.",
+      "smallest_external_input": "Licensed validated geometry-dependent center-tapped model or extraction dataset preserving independent substrate terminal and explicit LA/LC/LB/B mapping, coupling behavior and validity envelope."
+    }
+  ],
+  "issue_checks": [
+    {
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/issues/1284",
+      "observed": "Open, zero comments, updated 2026-10-17T18:24:29Z. Request for inductor/capacitor measurements and documentation; no contributed dataset in reviewed issue."
+    },
+    {
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/issues/685#issuecomment-5778961368",
+      "observed": "Latest reviewed comment, updated 2026-09-22, states symbols were added but lumped models had not been released."
+    },
+    {
+      "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/issues/1101",
+      "observed": "Closed, updated 2026-10-16; three reviewed comments discuss extracting/customizing individual models. Closure itself supplies no released parameterized model or measurements."
+    }
+  ],
+  "separate_upstream_lead": {
+    "repository": "IHP-GmbH/IHP-Open-PDK",
+    "revision": "a44583ac8d74fb13a121c32ff84430b4d414e6f6",
+    "compared_to": "f658ac22974185eb65f27e06caa72aa72ecf6d17",
+    "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/compare/f658ac22974185eb65f27e06caa72aa72ecf6d17...a44583ac8d74fb13a121c32ff84430b4d414e6f6",
+    "pull_request": 1352,
+    "subject": "hbt: fix unwanted mismatch variations in repeated simulations",
+    "files": [
+      {
+        "path": "ihp-sg13g2/libs.tech/ngspice/models/cornerHBT.lib",
+        "git_blob": "e8f737ee662cf654340ff8932596b5dfff708d76"
+      },
+      {
+        "path": "ihp-sg13g2/libs.tech/ngspice/models/sg13g2_hbt_mod.lib",
+        "git_blob": "baae5842bc875f60f54693ba58c8e6aa5098049d"
+      }
+    ],
+    "observed": "Only these two files change in reviewed delta. Introduces mismatch-variance parameters in corners and uses them instead of literal agauss magnitudes in HBT model definitions.",
+    "disposition": "Separate statistical/RF applicability lead passed to parent. Not a missing pad/coil binding and not imported; package update would require independent validation."
+  },
+  "legitimate_next_steps": [
+    "Retain these negative and candidate findings without changing unavailable status.",
+    "If pursuing third-party analytical inductors, request provenance, calibration datasets, substrate contract and file-specific licensing; any experiment must be separately named and must not replace unavailable catalog entries.",
+    "Investigate the new official HBT mismatch delta in the statistical/RF lane against locked package behavior before deciding on a source update."
+  ],
+  "uncertainty": "Public search is bounded and cannot prove universal model absence. Source declarations and electrical inspection establish the stated interface discrepancies, not foundry accuracy or manufacturing qualification."
+}

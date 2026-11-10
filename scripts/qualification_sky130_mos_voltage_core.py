@@ -5,6 +5,7 @@ No simulator is run. Exact model names and signed source-relative volts required
 """
 import argparse
 import hashlib
+from decimal import Decimal
 import json
 import math
 from pathlib import Path
@@ -15,7 +16,7 @@ LOCK_SHA = '7a57cc833225664e09665a43880b410de9ce70d65e80d1f268b74e3967f0a0f1'
 
 def digest(path): return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def load_contract(root=ROOT):
+def load_contract(root=ROOT, *, parse_float=float):
     root=Path(root)
     if digest(root/'gap-acceptance-table.json') != CONTRACT_SHA:
         raise ValueError('Changed reviewed model contract')
@@ -28,17 +29,33 @@ def load_contract(root=ROOT):
     for identity in lock['model_nominal_examples']:
         if digest(root/identity['file']) != identity['sha256']:
             raise ValueError('Changed nominal parameter example')
-    contract=json.loads((root/'gap-acceptance-table.json').read_bytes())
+    contract=json.loads((root/'gap-acceptance-table.json').read_bytes(), parse_float=parse_float)
     return {row['model']:row for row in contract['models']}
 
 def number(value):
-    if type(value) not in (int,float) or not math.isfinite(value):
+    valid_type=type(value) in (int,float,Decimal)
+    finite=(value.is_finite() if type(value) is Decimal else
+            math.isfinite(value) if type(value) is float else True)
+    if not valid_type or not finite:
         raise ValueError('Coordinates and temperature must be finite numeric values, excluding booleans')
     return value
+
+def exact_json(value):
+    """Retain decimal JSON coordinates as numbers, without binary rounding."""
+    if type(value) is Decimal:
+        return str(number(value))
+    if isinstance(value, dict):
+        return '{'+', '.join(json.dumps(k)+': '+exact_json(v) for k,v in value.items())+'}'
+    if isinstance(value, (list, tuple)):
+        return '['+', '.join(exact_json(v) for v in value)+']'
+    return json.dumps(value, allow_nan=False)
 
 class VoltageScreen:
     def __init__(self, root=ROOT):
         self.rows=load_contract(root)
+        # Decode the authenticated source literals independently of binary float
+        # rounding. Existing Python float callers retain their original semantics.
+        self.decimal_rows=load_contract(root, parse_float=Decimal)
 
     def check(self, point):
         if set(point) != {'model','vds','vgs','vbs','temperature_c'}:
@@ -60,12 +77,14 @@ class VoltageScreen:
         if bounds is None:
             return result
         bounds={axis:list(pair) for axis,pair in bounds.items()}
+        exact_bounds=dict(self.decimal_rows[model]['model_voltage_limits_v'])
         result['drain_predicate']='ordinary_or_conducting_limit'
         if row['off_state_vds_v'] is not None and coords['vgs']==0:
             bounds['vds']=row['off_state_vds_v']
+            exact_bounds['vds']=self.decimal_rows[model]['off_state_vds_v']
             result['drain_predicate']='exact_zero_gate_extended_drain_limit'
         for axis,value in coords.items():
-            lower,upper=bounds[axis]
+            lower,upper=exact_bounds[axis] if type(value) is Decimal else bounds[axis]
             if not lower <= value <= upper:
                 result['violations'].append({'axis':axis,'value_v':value,'allowed_v':[lower,upper]})
         result['three_axis_status']='OUTSIDE_DOCUMENTED_LIMITS' if result['violations'] else 'WITHIN_DOCUMENTED_LIMITS'
@@ -80,12 +99,12 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('input',type=Path)
     args=parser.parse_args()
-    points=json.loads(args.input.read_bytes())
+    points=json.loads(args.input.read_bytes(), parse_float=Decimal)
     if not isinstance(points,list) or not points:
         raise ValueError('Expected a non-empty point list')
     screen=VoltageScreen()
     results=[screen.check(p) for p in points]
-    print(json.dumps({'schema':1,'scope':'static three-axis source screen only','qualified':False,'results':results},indent=2,allow_nan=False))
+    print(exact_json({'schema':1,'scope':'static three-axis source screen only','qualified':False,'results':results}))
     # Exit 0 concerns this screen only; unresolved rating/SOA/temperature remains
     # explicit in every result. An out-of-range or ambiguous point exits 2.
     return 0 if all(r['three_axis_status']=='WITHIN_DOCUMENTED_LIMITS' for r in results) else 2

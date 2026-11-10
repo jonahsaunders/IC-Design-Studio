@@ -1,0 +1,82 @@
+{
+  "chunk_complete": false,
+  "files": [
+    {
+      "bytes": 2447,
+      "family": "ihp-sg13g2",
+      "git_blob_sha1": "0d9c923fbc51997add381aaf8977ff5879a110c7",
+      "license": "Apache-2.0",
+      "local_path": "sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs",
+      "mode": "100644",
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs",
+      "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "repository_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/devices_connections.lvs",
+      "sha256": "f8ddc90801d104b0a517ca90773c7f03b13b95f4bac95b77ebcf96f53513801b"
+    },
+    {
+      "bytes": 951,
+      "family": "ihp-sg13g2",
+      "git_blob_sha1": "ca676a72d86a701ba1daddbf53b2053b0f7708c3",
+      "license": "Apache-2.0",
+      "local_path": "sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs",
+      "mode": "100644",
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs",
+      "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "repository_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/mos_connections.lvs",
+      "sha256": "f53e17c1f315f49fc973b8ec949ae343e2bb99c2862a51acdaa3f37f49907770"
+    },
+    {
+      "bytes": 954,
+      "family": "ihp-sg13g2",
+      "git_blob_sha1": "2245c9e41ba02fa9b453adb56036669f7d6f35de",
+      "license": "Apache-2.0",
+      "local_path": "sources/ihp-sg13g2/ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs",
+      "mode": "100644",
+      "path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs",
+      "repository": "IHP-GmbH/IHP-Open-PDK@5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+      "repository_path": "ihp-sg13g2/libs.tech/klayout/tech/lvs/rule_decks/rfmos_connections.lvs",
+      "sha256": "88d8335742119b8b88811f408defb789cc8fbde2c910c1deb33d9a4837a5b2d3"
+    },
+    {
+      "bytes": 3033,
+      "family": "gf180mcu",
+      "git_blob_sha1": "27274eb5ed833e660f3e720074353bd777659155",
+      "license": "Apache-2.0",
+      "local_path": "sources/gf180mcu/rules/klayout/macros/gf180mcu_lvs.lylvs",
+      "mode": "100644",
+      "path": "rules/klayout/macros/gf180mcu_lvs.lylvs",
+      "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "repository_path": "rules/klayout/macros/gf180mcu_lvs.lylvs",
+      "sha256": "cf062cabd24c257733d841bbb6b667af7f03f0c6db0019d3b98d5960a7e46e1f"
+    },
+    {
+      "bytes": 787,
+      "family": "gf180mcu",
+      "git_blob_sha1": "9c3927f582edc5f8f8eeeb9929948f0897315956",
+      "license": "Apache-2.0",
+      "local_path": "sources/gf180mcu/rules/klayout/macros/run_drc_main/main.drc",
+      "mode": "100644",
+      "path": "rules/klayout/macros/run_drc_main/main.drc",
+      "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "repository_path": "rules/klayout/macros/run_drc_main/main.drc",
+      "sha256": "211d1974056662b7b11eabdd4b7d98cf6704f973a165d10e9e7b575e7e200e23"
+    },
+    {
+      "bytes": 1953,
+      "family": "gf180-fd-pv",
+      "git_blob_sha1": "703c57b8f12166ca04c2b692f9c565213823067a",
+      "license": "Apache-2.0",
+      "local_path": "sources/gf180-fd-pv/klayout/lvs/rule_decks/devices_connections.lvs",
+      "mode": "100644",
+      "path": "klayout/lvs/rule_decks/devices_connections.lvs",
+      "repository": "efabless/globalfoundries-pdk-libs-gf180mcu_fd_pv@05e7b6adf19edf942969c1c9625f02fd87874f06",
+      "repository_path": "klayout/lvs/rule_decks/devices_connections.lvs",
+      "sha256": "923f7dbcab8624185f12ec4e9acd3ed84880d8a385025cd98097e5ef5e2876c0"
+    }
+  ],
+  "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "qualified": false,
+  "schema": 1,
+  "source_report": "docs/qualification/source-dispositions-2026-11-08-v1.json.gz",
+  "source_report_sha256": "ff2a08f3698dcf09d01c38f77bb9f76866e981401ae380e02efac9bc8084a442"
+}
