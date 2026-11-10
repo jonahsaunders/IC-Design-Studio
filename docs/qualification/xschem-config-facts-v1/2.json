@@ -1,0 +1,355 @@
+[
+  {
+    "arguments": [
+      {
+        "expression_sha256": "cf89c3bfaf4bd7663b32fe55be5ed96c8ccabdbd4be118d7b51924e4ab3bad7c"
+      },
+      {
+        "expression_sha256": "c0315104c515b7439d9eeb89c8753e356f801b438fedf89f5c2cd427dac72e28"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 2,
+    "name": "if",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "exists",
+      {
+        "expression_sha256": "02b3b46fd5a80e997bbb276973250ae5247485404bfe63ce3e1e44b74462578b"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 2,
+    "name": "info",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "stderr",
+      {
+        "expression_sha256": "c0c18211f11ef2fca813308f04f0752d59d3284310e000ec4a261c3c94d56cc6"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 3,
+    "name": "puts",
+    "scope": []
+  },
+  {
+    "arguments": [
+      {
+        "expression_sha256": "7ffde8cc3af98846e5e23be18347f959c673a57c464e7939bf0cda8313813316"
+      },
+      {
+        "expression_sha256": "246d938a93f1685d2c8189ccf239e642606dcf4e3fe5830b2d1617e144c5e87a"
+      },
+      "elseif",
+      {
+        "expression_sha256": "9e4721dcf27f768068958e8e8678a4f12c6ac2101481bc328e5b1e80f195250b"
+      },
+      {
+        "expression_sha256": "d2ccf6a4f5765b747e8de5e668388a98d120d6e347ac050f49bce63ee456bd27"
+      },
+      "elseif",
+      {
+        "expression_sha256": "cc84ab5017f4bf59dd4588cd40ec13d039693278917a4c66d503e56fd0263401"
+      },
+      {
+        "expression_sha256": "7fdc7890a358f376508ba3dbcedcc9c325fc435814d8a546bf150abab340aa0f"
+      },
+      "elseif",
+      {
+        "expression_sha256": "49db75369f10be416471bfca1e8794a40142b9f0c75d5e28cd2984ceacd11937"
+      },
+      {
+        "expression_sha256": "1b572d645d4941475791c8b0dccc1054c5731de74619bad90fdf22b7857914e6"
+      },
+      "else",
+      {
+        "expression_sha256": "bd833321ea877a463d7201f9de44bbaec0bfcf232770f970b971ed1cc21bea28"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 4,
+    "name": "if",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "isdir",
+      "/usr/share/pdk"
+    ],
+    "kind": "tcl-command-reference",
+    "line": 4,
+    "name": "file",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "isdir",
+      "/usr/local/share/pdk"
+    ],
+    "kind": "tcl-command-reference",
+    "line": 5,
+    "name": "file",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "isdir",
+      {
+        "expression_sha256": "c2fb2d664859b5a257af42b48e7950852a9c8e3442c351e6ed4159c6b72ece89"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 6,
+    "name": "file",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "isdir",
+      {
+        "expression_sha256": "36686d126b913371e23d51c6779e5bae22c5807d55b4f47f66496d9b8dc74e69"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 7,
+    "name": "file",
+    "scope": []
+  },
+  {
+    "kind": "tcl-variable",
+    "line": 4,
+    "name": "::env(PDK_ROOT)",
+    "name_sha256": "8f8db6831644b4017fa61466c04d31a3be7a01d52603925078b6a0a29fcad508",
+    "operation": "set",
+    "scope": [],
+    "values": [
+      "/usr/share/pdk"
+    ]
+  },
+  {
+    "kind": "tcl-variable",
+    "line": 5,
+    "name": "::env(PDK_ROOT)",
+    "name_sha256": "8f8db6831644b4017fa61466c04d31a3be7a01d52603925078b6a0a29fcad508",
+    "operation": "set",
+    "scope": [],
+    "values": [
+      "/usr/local/share/pdk"
+    ]
+  },
+  {
+    "kind": "tcl-variable",
+    "line": 6,
+    "name": "::env(PDK_ROOT)",
+    "name_sha256": "8f8db6831644b4017fa61466c04d31a3be7a01d52603925078b6a0a29fcad508",
+    "operation": "set",
+    "scope": [],
+    "values": [
+      {
+        "expression_sha256": "c2fb2d664859b5a257af42b48e7950852a9c8e3442c351e6ed4159c6b72ece89"
+      }
+    ]
+  },
+  {
+    "kind": "tcl-variable",
+    "line": 7,
+    "name": "::env(PDK_ROOT)",
+    "name_sha256": "8f8db6831644b4017fa61466c04d31a3be7a01d52603925078b6a0a29fcad508",
+    "operation": "set",
+    "scope": [],
+    "values": [
+      {
+        "expression_sha256": "36686d126b913371e23d51c6779e5bae22c5807d55b4f47f66496d9b8dc74e69"
+      }
+    ]
+  },
+  {
+    "arguments": [
+      "stderr",
+      {
+        "expression_sha256": "b4092cbe26d0c6c5ec437bbcab0a79c9139622cb19629442a4d2a81df7179c75"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 9,
+    "name": "puts",
+    "scope": []
+  },
+  {
+    "arguments": [
+      {
+        "expression_sha256": "b22807108172fbaef885dcbeecf5d6da0d99914f774e003de2a27f09e5683abd"
+      },
+      {
+        "expression_sha256": "f4858a3358d416e48ee6a5978c20588591a234cbb9221f63522965ef3b97b205"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 14,
+    "name": "if",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "exists",
+      {
+        "expression_sha256": "ba05429f948628448b01e29998706cab5cb401ec0fd9e1849bd8d693e507c262"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 14,
+    "name": "info",
+    "scope": []
+  },
+  {
+    "kind": "tcl-variable",
+    "line": 15,
+    "name": "::env(PDK)",
+    "name_sha256": "c6f2c4b72f39179d12965cb4340988ef256351de427b927209e67527ee305238",
+    "operation": "set",
+    "scope": [],
+    "values": [
+      "gf180mcuD"
+    ]
+  },
+  {
+    "arguments": [
+      {
+        "expression_sha256": "92ba2338e17092dc1b155ba9625db3680ed4985d28974c11fae3f7ee01cd4ae6"
+      },
+      {
+        "expression_sha256": "22a44e02cd29f252a61814e0c9a183c195045d304bfeb3de5ea2233b17a8fdc7"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 19,
+    "name": "if",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "exists",
+      "PDK"
+    ],
+    "kind": "tcl-command-reference",
+    "line": 19,
+    "name": "info",
+    "scope": []
+  },
+  {
+    "kind": "tcl-source-reference",
+    "line": 20,
+    "name": {
+      "expression_sha256": "d12fe2385628120054d79c885d9f0a4acdc8c543f5f5faa1892720b21bd31970"
+    },
+    "operation": "source",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "script"
+    ],
+    "kind": "tcl-command-reference",
+    "line": 24,
+    "name": "info",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "dirname",
+      {
+        "expression_sha256": "61861fb026092e964d0e20a3f22f16f73cebce3adf4610839277f90ff1aca601"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 24,
+    "name": "file",
+    "scope": []
+  },
+  {
+    "kind": "tcl-variable",
+    "line": 24,
+    "name": "XSCHEM_LIBRARY_PATH",
+    "name_sha256": "afb52cfe4117a62d90ec654940d832730ab143324a6601d3fd54614746d83722",
+    "operation": "append",
+    "scope": [],
+    "values": [
+      {
+        "expression_sha256": "7eea25c37cadec16501296c76e272b4d3d42b6d68ab3ec8346239509b5205020"
+      }
+    ]
+  },
+  {
+    "arguments": [
+      "script"
+    ],
+    "kind": "tcl-command-reference",
+    "line": 27,
+    "name": "info",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "dirname",
+      {
+        "expression_sha256": "61861fb026092e964d0e20a3f22f16f73cebce3adf4610839277f90ff1aca601"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 27,
+    "name": "file",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "-nocomplain",
+      {
+        "expression_sha256": "9b7e10fa65c17b09f835e23b969b8f2f262f7cc72fb081878c48edc7a7c9faf9"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 27,
+    "name": "glob",
+    "scope": []
+  },
+  {
+    "arguments": [
+      "rcfile",
+      {
+        "expression_sha256": "7005f3cd58451b56dc3206f0f3ec3c3f3e7b3b5b2d74ebef062be567cd97d798"
+      },
+      {
+        "expression_sha256": "059072ffa2b1d4ec18af065424bdb90867c4590f3a0ec7672a640b33edfd9093"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 27,
+    "name": "foreach",
+    "scope": []
+  },
+  {
+    "arguments": [
+      {
+        "expression_sha256": "73ad2b5491bfae26aaa19c187e72023d5a9886de18826d9566e7f94eb2d79235"
+      }
+    ],
+    "kind": "tcl-command-reference",
+    "line": 28,
+    "name": "puts",
+    "scope": []
+  },
+  {
+    "kind": "tcl-source-reference",
+    "line": 29,
+    "name": {
+      "expression_sha256": "2829a189bc7dda79401914ea922f4af03ce9985d0c616826bf7ffae8c023b9d8"
+    },
+    "operation": "source",
+    "scope": []
+  }
+]

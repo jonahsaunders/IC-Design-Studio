@@ -45,6 +45,25 @@ class FeedbackTests(unittest.TestCase):
                 path.write_bytes(b'original exact source')
                 self.assertEqual(source_identity(root), before)
 
+    def test_xschem_config_fact_fixtures_are_bound(self):
+        self.assertEqual(UNIT_MODULES.count('test_xschem_configs'), 1)
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            paths = [root/'docs/qualification/xschem-config-facts-v1'/name
+                     for name in ('source-lock.json', 'README.md', '1.json', '2.json', '3.json')]
+            for path in paths:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'original source facts')
+            before = source_identity(root)
+            self.assertEqual(set(before), {p.relative_to(root).as_posix() for p in paths})
+            for path in paths:
+                path.write_bytes(b'changed facts')
+                self.assertNotEqual(source_identity(root), before)
+                path.unlink()
+                self.assertNotEqual(source_identity(root), before)
+                path.write_bytes(b'original source facts')
+                self.assertEqual(source_identity(root), before)
+
     def test_checked_in_semantic_inputs_authenticate_before_feedback(self):
         import gzip
         from scripts.inventory_sky130_release import verified_metadata
@@ -71,6 +90,7 @@ class FeedbackTests(unittest.TestCase):
     def test_semantic_source_graphs_and_release_inputs_are_bound(self):
         self.assertEqual(UNIT_MODULES.count('test_source_disposition_cache'), 1)
         self.assertEqual(UNIT_MODULES.count('test_source_disposition_reconstruction'), 1)
+        self.assertEqual(UNIT_MODULES.count('test_source_disposition_reconstruction_v2'), 1)
         names = ('upstream-view-inputs-2026-10-20.json.gz',
                  'upstream-views-2026-10-20.json.gz',
                  'sky130-release-inputs-2026-11-07.json',
@@ -79,7 +99,8 @@ class FeedbackTests(unittest.TestCase):
                  'upstream-semantics-inventory-2026-11-07-v2.json.gz',
                  'sky130-release-inventory-2026-11-07.json.gz',
                  'source-dispositions-2026-11-08-v1.json.gz',
-                 'source-dispositions-2026-11-10-v1.delta.json.gz')
+                 'source-dispositions-2026-11-10-v1.delta.json.gz',
+                 'source-dispositions-2026-11-10-v2.delta.json.gz')
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             source = root / 'docs/qualification'

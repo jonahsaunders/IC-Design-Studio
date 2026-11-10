@@ -2,7 +2,7 @@
   "schema": 1,
   "date": "2026-11-10",
   "base_commit": "d119d88f8ea5a31abd8804cf8a4c8dbf5545d918",
-  "status": "LOCAL_VERIFICATION_PASSED_INSTALLED_PENDING",
+  "status": "LOCAL_AND_HOSTED_SOURCE_PASS_INSTALLED_PENDING",
   "qualified": false,
   "chunk_complete": false,
   "installed_acceptance": false,
@@ -364,5 +364,28 @@
       "docs/qualification/source-dispositions-2026-11-10-v1.delta.json.gz": "418fe4b99877317afade4a3717d712ea68b66d2591cd68433635e6499df01503"
     },
     "scope": "Required affected stages rerun after storage-reader/CI registration and cache test portability correction; other production stages unchanged from combined 13-stage pass."
+  },
+  "hosted_source_feedback": {
+    "candidate": "8fec49215fa4332897f44312baead817b69794d3",
+    "run_id": 42822402279,
+    "url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42822402279",
+    "jobs": [
+      {
+        "name": "source feedback (windows-2022)",
+        "id": 129850960154,
+        "status": "success"
+      },
+      {
+        "name": "source feedback (ubuntu-24.04)",
+        "id": 129850960452,
+        "status": "success"
+      },
+      {
+        "name": "PR feedback",
+        "id": 129857898385,
+        "status": "success"
+      }
+    ],
+    "installed_acceptance": false
   }
 }

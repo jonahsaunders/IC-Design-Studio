@@ -61,13 +61,13 @@ UNIT_MODULES = (
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
     'test_ihp_l2n0_reference', 'test_sky130_release_inventory', 'test_upstream_semantics',
-    'test_source_dispositions', 'test_source_disposition_cache', 'test_source_disposition_reconstruction', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
+    'test_source_dispositions', 'test_source_disposition_cache', 'test_source_disposition_reconstruction', 'test_source_disposition_reconstruction_v2', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
     'test_cvc_models', 'test_physical_layers',
     'test_legacy_symbols',
     'test_schematic_views',
     'test_verilog_fragments',
     'test_source_references',
-    'test_klayout_wrappers',
+    'test_klayout_wrappers', 'test_xschem_configs',
     'test_ihp_ct_reference', 'test_sky130_vpp_applicability',
 )
 
@@ -123,7 +123,8 @@ def check_syntax(root=ROOT):
 def source_identity(root=ROOT):
     files = python_sources(root)
     files += [p for p in (root / 'tests/fixtures/ihp-l2n0-reference-v1').glob('*') if p.is_file()]
-    files += [p for p in (root / 'docs/qualification/klayout-wrapper-sources-v1').rglob('*') if p.is_file()]
+    for folder in ('klayout-wrapper-sources-v1', 'xschem-config-facts-v1'):
+        files += [p for p in (root / 'docs/qualification' / folder).rglob('*') if p.is_file()]
     # Semantic inventories consume authenticated upstream graphs and the exact
     # release asset list; bind those inputs alongside their runners and tests.
     for name in ('upstream-view-inputs-2026-10-20.json.gz',
@@ -134,7 +135,8 @@ def source_identity(root=ROOT):
                  'upstream-semantics-inventory-2026-11-07-v2.json.gz',
                  'sky130-release-inventory-2026-11-07.json.gz',
                  'source-dispositions-2026-11-08-v1.json.gz',
-                 'source-dispositions-2026-11-10-v1.delta.json.gz'):
+                 'source-dispositions-2026-11-10-v1.delta.json.gz',
+                 'source-dispositions-2026-11-10-v2.delta.json.gz'):
         source = root / 'docs/qualification' / name
         if source.is_file():
             files.append(source)

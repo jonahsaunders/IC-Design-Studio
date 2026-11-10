@@ -5,6 +5,34 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 10 subsequent configuration replay:** the current authenticated
+inventory has **777,005 items and 98 remaining source gaps**. The
+[three-configuration replay](validation/chunk7-xschem-config-complete-inventory-2026-11-10.json)
+adds exactly 110 unevaluated GF180 configuration facts and removes only three
+gaps, preserving all previous facts, remaining gaps and source identities.
+It finishes in 461.464 seconds within the unchanged 900-second limit. The IHP
+configuration with Tk callbacks and both menu files remain excluded. Historical
+reports and the v1 reconstruction remain unchanged; a separate cumulative
+storage delta reproduces the exact complete v2 report.
+
+All thirteen [configuration source-feedback stages](validation/chunk7-xschem-config-source-feedback-2026-11-10.json)
+pass locally with 1,639 tests and 17 skips in 377.993 seconds, including actual
+pinned source-cache replay. Final storage/CI changes also pass their affected
+259-test unit and 739-test device stages plus release checks. Preceding published
+candidate `8fec49215fa4332897f44312baead817b69794d3` passes hosted Windows,
+Ubuntu and aggregate source feedback in
+[run 42822402279](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42822402279).
+These results remain separate from fresh installed acceptance, which is pending.
+
+The [IHP conditional-facts review](validation/ihp-resistor-conditional-facts-2026-11-10.json)
+finds official resistor current-density values with an explicit 11-year/105 C
+condition, but their INFORMATION classification is not a pass/fail guarantee.
+Undefined width/contact-current mapping and absent derating/power laws prevent
+adding a safe/unsafe screen. Temperature-coefficient measurement domains are
+not recast as operating limits; SKY130 LI2 and sheet-resistance applicability
+remain unresolved. No operating, reliability or calibration gate is promoted.
+Chunk 7 remains **74%**, low confidence **55-82%**, not verified acceptance.
+
 **November 10 remaining-gate follow-through:** a separate MOS static-screen
 repair preserves nonzero decimal gate voltages such as `1e-400 V`, which
 previously underflowed to zero and incorrectly selected the 16 V drain

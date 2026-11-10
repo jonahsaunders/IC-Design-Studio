@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "8fec49215fa4332897f44312baead817b69794d3",
+  "status": "PASS_LOCAL_SOURCE_FEEDBACK",
+  "qualified": false,
+  "installed_acceptance": false,
+  "chunk_complete": false,
+  "snapshot_scope": "Exact three-source GF configuration inventory integration and complete fixture/CI identity binding. Later new storage-only v2 wrapper and CI registration checked separately.",
+  "changed_files_sha256": {
+    "scripts/audit_source_dispositions.py": "babd1c37aa3a735fe75820758461108f9c4e2f805641738ba150f0286f6e5144",
+    "scripts/ci_feedback.py": "efd95eecfb389c30b6120616c3a0b3059263d6ed68acf5eb7db871a4a93f4066",
+    "tests/test_ci_feedback.py": "bc1f286072cd9664cb860192dca349b08a52da88a0e9d4fa419166708c71ee8d",
+    "docs/qualification/xschem-config-facts-v1/1.json": "72991d70df87f9dbbe9dae998b5faf9624e7d572b84aa6a43604b73a46e58b88",
+    "docs/qualification/xschem-config-facts-v1/2.json": "59e08c9e2ff4df8b6cffedc04f7080577cf2adac5c94b5df705dff723312b651",
+    "docs/qualification/xschem-config-facts-v1/3.json": "03dca4d03218dd3b938e1054d65f5317c42d02c4cb1c52f0e5b829d25750d691",
+    "docs/qualification/xschem-config-facts-v1/README.md": "ccefa5cf670a664e41d9eea5f25f3d0d800dbec1ba74ba5e933311c4fcaa0eff",
+    "docs/qualification/xschem-config-facts-v1/source-lock.json": "1c86478107e50c967926636e8a1c729e79180974a0a04cc007316828d91cfb7d",
+    "docs/validation/chunk7-xschem-config-candidate-2026-11-10.json": "d299cd69b69051dc8a1fb3d00c8b3be38172145a9972b2fc6efdaa58ce5904b3",
+    "scripts/inventory_xschem_configs.py": "36aeeddd2c36b3c49e6a7c67a9518a4c79cdf063717f741dc30e3941566848cc",
+    "tests/test_xschem_configs.py": "935b2ebf2885f036211c0e69873a3279a5120cda78446f9621db99758be32ec0"
+  },
+  "snapshot_verified_unchanged_before_final_storage_addition": true,
+  "aggregate": {
+    "status": "passed",
+    "stages": [
+      {
+        "name": "unit-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 16.517,
+        "tests": 259,
+        "skips": 3,
+        "log_sha256": "76214f6989c2eac2dc727792609a53fd40a3bf1edf9cce5831b60c499396211c"
+      },
+      {
+        "name": "ihp-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 30.696,
+        "tests": 239,
+        "skips": 1,
+        "log_sha256": "1677df8261cceb3e8478464ba1a1a596b996994e4b79e0ee7dd2cc4f7e138861"
+      },
+      {
+        "name": "physical-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 32.359,
+        "tests": 306,
+        "skips": 10,
+        "log_sha256": "eba9e0c8fd923497bc278502729f07862c4cdab4fd1eb0ddc4ad345f1300e181"
+      },
+      {
+        "name": "device-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 40.746,
+        "tests": 735,
+        "skips": 2,
+        "log_sha256": "a037e59d034cfb10a2874273233be084a89591ea5f331132df358e4fc0a89335"
+      },
+      {
+        "name": "package-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 41.144,
+        "tests": 11,
+        "skips": 0,
+        "log_sha256": "349e36176102b87a67ced6380484804ebc0d2df9f7cbcecd700e837eccea2f7e"
+      },
+      {
+        "name": "runtime-release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 6.638,
+        "tests": 89,
+        "skips": 1,
+        "log_sha256": "9dda4a1ec6f49ffbb16434b8f8f1685d29ce9b2037c39cf03abd11c77942a96c"
+      },
+      {
+        "name": "release-contracts",
+        "returncode": 0,
+        "elapsed_seconds": 2.671,
+        "tests": null,
+        "skips": 0,
+        "log_sha256": "28acfdf6e88a3114ae90b1faf4ad68cac3eefa85173ee790e061028b8137fc2b"
+      },
+      {
+        "name": "menu-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 29.357,
+        "tests": null,
+        "skips": 0,
+        "log_sha256": "552379f1db433173fe4500582dbf3e018950a86d9ea50733f6b5079ecdf154ee"
+      },
+      {
+        "name": "project-hub-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 4.678,
+        "tests": null,
+        "skips": 0,
+        "log_sha256": "66af7ee4a9c6fa1f6c1f2d6f8a220486f6467316e0f72df511d0ad0ad2505b65"
+      },
+      {
+        "name": "metal-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 8.152,
+        "tests": null,
+        "skips": 0,
+        "log_sha256": "d1064b9eb86ab009062f138304cf1a9f3f1532b7e33200849e9422e930cbcfc6"
+      },
+      {
+        "name": "metal-resistor-parallel-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 31.062,
+        "tests": null,
+        "skips": 0,
+        "log_sha256": "f6bd903f43b8eee0f9f346f56066f1dd66987ad7649b01e98493779a20f4f312"
+      },
+      {
+        "name": "ihp-resistor-editor-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 127.536,
+        "tests": null,
+        "skips": 0,
+        "log_sha256": "14c957b136247b03930e6f994ecc0db15460915b7bf2fd0be6cec6b41e8c17ce"
+      },
+      {
+        "name": "ihp-capacitor-corner-smoke",
+        "returncode": 0,
+        "elapsed_seconds": 3.024,
+        "tests": null,
+        "skips": 0,
+        "log_sha256": "f6db6b124caf4d23f43cf1c4b049ccdd22146c66e56593f18fcfb53925968d04"
+      }
+    ],
+    "tests": 1639,
+    "skips": 17,
+    "syntax_files": 1572,
+    "source_identities": 2400,
+    "seconds": 377.993,
+    "report_sha256": "e1f2cd5b71f7c3ec082b26ff573e2dd114bedaebe01ae4ee8c7bedd0718c7fa5"
+  },
+  "actual_cache_replay": "ICSTUDIO_SOURCE_CACHE selected authenticated read-only pinned Git blobs; source bytes independently checked, no upstream execution.",
+  "initial_integrated_tests": {
+    "tests": 113,
+    "seconds": 4.051,
+    "skipped": 0,
+    "log_sha256": "4616b518a0d16d57e19a899d9a4623949998cb3260caa09766b9af7e475f0b72"
+  },
+  "final_storage_focused": {
+    "tests": 45,
+    "seconds": 4.979,
+    "skipped": 0,
+    "log_sha256": "61c3b233dcda5e822beb2df922f4f62f05f077fbda2ccf5f7f838370651c35fc"
+  },
+  "final_affected_required_stages": {
+    "status": "passed",
+    "results": [
+      "Ran 259 tests in 16.233s",
+      "OK (skipped=3)",
+      "PASS unit-contracts 16.674",
+      "Ran 739 tests in 38.836s",
+      "OK (skipped=2)",
+      "PASS device-contracts 39.64",
+      "PASS release-contracts 2.371"
+    ],
+    "log_sha256": "43e718168f0ca942ef5e392db103069fadfc3b16f77781144dd7ae2b44ab2201",
+    "changed_files_sha256": {
+      "scripts/ci_feedback.py": "8e194ecba7abdaf405dee17736fca0e8208aedbf6544c87190f5f9bfc2c39661",
+      "tests/test_ci_feedback.py": "f582d64deadb545dbabed4b323117bddc8c37428450fd39a259c057c36386c8b",
+      "scripts/reconstruct_source_dispositions_v2.py": "f45c1d998ef4b5edb82de33b8a2d36c4a533cf58d9c96a5c14b36dae80ab60f3",
+      "tests/test_source_disposition_reconstruction_v2.py": "f2253c6daca16a6687f4f8e083057fbaf1b74143fd1a6061c95df8470f58e6e2",
+      "docs/qualification/source-dispositions-2026-11-10-v2.delta.json.gz": "84f25d5ad27fd4567cb6f7c29a6d5750ad55709a52098b79a0800fb1ea1c6e7c"
+    }
+  },
+  "limitations": [
+    "Local Linux source checks are not fresh Windows/Linux installed acceptance.",
+    "Historical 4693-test exhaustive suite remains bound to its earlier MOS/wrapper snapshot, not relabelled as this candidate.",
+    "Configuration facts do not execute Tcl, resolve dependencies, establish physical behavior or qualify devices."
+  ]
+}

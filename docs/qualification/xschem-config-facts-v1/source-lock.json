@@ -1,0 +1,66 @@
+{
+  "chunk_complete": false,
+  "excluded": "IHP xschemrc contains a literal Tk callback not enumerated by the existing generic Tcl reader. Both Xschem menu sources remain unsupported. No gap count changes until integration and a complete authenticated replay.",
+  "inventory_complete": false,
+  "license_scope": "Exact repository root licenses were inspected. Selected headerless Xschem-derived configuration prose/code is not redistributed here; fixtures contain declaration facts and fingerprints only.",
+  "notices": [
+    {
+      "declared_root_license": "Apache-2.0",
+      "git_blob_sha1": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "path": "LICENSE",
+      "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "declared_root_license": "Apache-2.0",
+      "git_blob_sha1": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+      "path": "LICENSE",
+      "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_pr@9f992d5a9186d1f7820c58f039c484ad35b2edea",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  ],
+  "qualified": false,
+  "schema": 1,
+  "sources": [
+    {
+      "bytes": 16864,
+      "facts": 44,
+      "facts_file": "1.json",
+      "facts_sha256": "72991d70df87f9dbbe9dae998b5faf9624e7d572b84aa6a43604b73a46e58b88",
+      "family": "gf180-ecosystem",
+      "git_blob_sha1": "eaa174ac04a4c972f392528e6759171d91690e48",
+      "mode": "100644",
+      "path": "libraries/gf180mcu_fd_pr/latest/cells/xschem/xschemrc",
+      "repository": "google/globalfoundries-pdk-libs-gf180mcu_fd_pr@9f992d5a9186d1f7820c58f039c484ad35b2edea",
+      "repository_path": "cells/xschem/xschemrc",
+      "sha256": "a6952b491a3eb69ecb3c52a285ba15cef6165234c330ddf00da19a189c1a6665"
+    },
+    {
+      "bytes": 1089,
+      "facts": 28,
+      "facts_file": "2.json",
+      "facts_sha256": "59e08c9e2ff4df8b6cffedc04f7080577cf2adac5c94b5df705dff723312b651",
+      "family": "gf180mcu",
+      "git_blob_sha1": "bae24d152ce765fc36bb7c82d2d339c3c4487554",
+      "mode": "100644",
+      "path": "cells/xschem/user_xschemrc",
+      "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "repository_path": "cells/xschem/user_xschemrc",
+      "sha256": "75c713dedded94663b02abc2b83a06f7b637b6da077b3ac1cbb7d2a059597647"
+    },
+    {
+      "bytes": 14460,
+      "facts": 38,
+      "facts_file": "3.json",
+      "facts_sha256": "03dca4d03218dd3b938e1054d65f5317c42d02c4cb1c52f0e5b829d25750d691",
+      "family": "gf180mcu",
+      "git_blob_sha1": "f7dbdc9dc48fb5540764be816b3be045dcab0054",
+      "mode": "100644",
+      "path": "cells/xschem/xschemrc",
+      "repository": "fossi-foundation/globalfoundries-pdk-libs-gf180mcu_fd_pr@4d0b4cef59c7686fac5fd3f4c6fb41d251d1f90c",
+      "repository_path": "cells/xschem/xschemrc",
+      "sha256": "3b3236fe5afc371f74c13de83c15c9cb266237729cc4db89f40923f837823cde"
+    }
+  ],
+  "upstream_raw_source_redistributed": false
+}
