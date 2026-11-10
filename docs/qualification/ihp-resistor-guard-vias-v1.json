@@ -1,0 +1,13 @@
+{
+ "schema":1,"id":"ihp-resistor-guard-vias-v1","qualified":false,"chunk_complete":false,
+ "models":["rsil","rppd","rhigh"],"width_um":2,"length_um":7,"terminal_vias":0,
+ "coverage_cases":{"bottom50":{"viagb":"50"},"top50":{"viagt":"50"},"left50":{"viagl":"50"},"right50":{"viagr":"50"},"all100":{"viagb":"100","viagt":"100","viagl":"100","viagr":"100"},"bottom_plus50":{"viagb":"+50"},"bottom_minus50":{"viagb":"-50"}},
+ "unspecified_coverage":"0","rotations_degrees":[0,90],
+ "access":"R1/R2 retain native Metal1; B moves to actual guard Metal2 component on first enabled side, removing lower B label. No mask repairs.",
+ "positive_gates":["source hashes equal historical pinned resistor/via/rule contract","native generator success","independent M1/contact and B M1/Via1/M2 conductor graph","save/reopen mask equality","independent OASIS rewrite and GDS geometry/text agreement","full native DRC","strict native LVS","one extracted resistor with model/R1/R2/B and W/L identity"],
+ "dimension_tolerance":{"relative":1e-10,"absolute_um":1e-9},
+ "faults":["remove complete selected B Metal2 component Via1 cut set","remove all B M1 guard contacts","short B to R1 on Metal1","wrong reference width","wrong reference model"],
+ "fault_gates":"All must fail native physical verification. Via/contact open additionally require graph rejection, successful native extraction, and independently floating extracted B with unchanged resistor dimensions/model. Do not claim removal of one redundant side opens an all-sided guard.",
+ "provenance":"separate local-debian-trixie-native-v1 native tool profile, not hosted CI restore",
+ "limits":["finite geometries only","no electrical calibration/operating/reliability envelope","no foundry signoff","raw native failures remain failures, without mask repair or relaxed rules"]
+}

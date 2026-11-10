@@ -5,6 +5,73 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**Reviewed follow-on candidate:** this batch was prepared separately from
+`fb4919d8df5ed3ef7571853276617a48c5fc57f5`, preserving that frozen base
+throughout local verification. The base's Windows, Linux and aggregate source
+checks pass in [run 42825689665](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42825689665).
+The new app integration and evidence are now reviewed for publication to the
+existing PR branch. Fresh hosted and installed acceptance for the follow-on
+candidate remains pending. Its inventory has 95 gaps, versus 98 on the prior base.
+
+The isolated complete static replay finishes in 457.890 seconds within the
+unchanged 900-second deadline. Independent comparison preserves all 777,005
+previous facts and adds exactly 40 dependency-only facts, removing three gaps:
+777,045 items and 95 gaps in this reviewed follow-on candidate. Lossless reconstruction
+is byte-exact; historical and published reports remain unchanged.
+
+Exact unchanged Magic 8.3.684 and Netgen 1.5.300 build locally against
+verified dependencies. The existing IHP resistor baseline passes 30 rotated
+layouts and detects all 90 deliberate faults, with implementation unchanged.
+The new [raw guard-via run](validation/chunk7-ihp-guard-vias-local-2026-11-10.json)
+finds genuine all-four-side 100% corner-width/spacing failures. A distinct
+[corner-safe routing profile](validation/chunk7-ihp-guard-corner-safe-local-2026-11-10.json)
+then passes 42 native positive layouts and 105 intended fault rejections.
+The correction explicitly adds 0.25 um2 Metal2 and changes 56 to 54 Via1 cuts;
+other device masks and all 18 unaffected cases remain unchanged. Of the controls,
+84 reach LVS rejection; 21 guard shorts fail the extracted-port contract before
+LVS. The original failures are retained, not relabelled as native equivalence.
+This finite profile is not the default app or an installed acceptance.
+The explicit [app option](IHP_GUARD_CORNER_SAFE.md) is now implemented in the
+isolated candidate, preserving defaults and rejecting untested dimensions and
+terminal-access combinations. Its source GUI evidence covers six model/rotation
+cases, 18 controls and two legacy projects; all six saved GUI projects separately
+pass local native DRC/LVS. An additive packaged producer and exact-candidate
+installed verifier are implemented for Linux and Windows, with six positives and
+15 fault controls. The old 60-positive/165-fault installed gate is unchanged.
+Actual frozen installed execution of the new option remains pending.
+
+The [IHP PMOS measured-reference lane](validation/ihp-pmos-measured-reference-blocker-2026-11-10.json)
+authenticates 140 manufacturer-measured points at the header's 27 C, not the
+filename's 300 K label. The existing pinned compiler builds all six unchanged
+model modules. The final bounded comparison completes 84 nominal points before
+the fourth gate reaches its 90-second native convergence deadline; remaining
+nominal points and all interface-control jobs are unexecuted. Full audit correctly
+rejects the incomplete batch. Partial residuals are diagnostics without fitted
+parameters or acceptance thresholds. A subsequent [controlled official-fix diagnostic](validation/ihp-pmos-official879-diagnostic-2026-11-10.json)
+proves the affected retry branch executes and the patch changes observed state,
+but both identically built engines still reach the 90-second deadline. It is not
+a remedy; the application runtime remains unchanged. Instrument uncertainty and
+held-out-data provenance remain missing even if numerical completion is fixed.
+
+The subsequent [app-integrated candidate](validation/chunk7-ihp-guard-integrated-validation-2026-11-10.json)
+passes all 14 source-feedback stages in 434.543 seconds with 1,725 tests and 18
+explicit skips, including independent readback of the new guard GUI. Full local
+core discovery then passes 4,823 tests with 81 explicit skips in 1,220.538 seconds
+(1,224.949 seconds including process overhead). All 2,464 source identities are
+unchanged before and after both lanes. These are source regressions, not hosted
+or installed acceptance. Independent reviews verify cross-platform packaging
+contracts and all retained artifact manifests, hashes and split mappings.
+The full Ubuntu managed-runtime archive and Docker builder are unavailable
+locally, so native Debian prototype tools are not substituted into installed
+acceptance. The prior published branch remained unchanged throughout local verification.
+
+All 13 [final source-feedback stages for this evidence batch](validation/chunk7-isolated-follow-on-validation-2026-11-10.json)
+pass in 356.794 seconds with 1,690 tests and 18 skips against 2,452 source identities.
+This is an exact isolated snapshot before subsequent app-option work, not hosted
+or installed acceptance. Native results and verified compact evidence bundles
+remain separate. No model, reliability, calibration or full-family gate changes;
+Chunk 7 stays 74%, low confidence 55-82%, subjective rather than measured acceptance.
+
 **November 10 subsequent configuration replay:** the current authenticated
 inventory has **777,005 items and 98 remaining source gaps**. The
 [three-configuration replay](validation/chunk7-xschem-config-complete-inventory-2026-11-10.json)

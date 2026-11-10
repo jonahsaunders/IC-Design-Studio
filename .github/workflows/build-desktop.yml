@@ -799,6 +799,7 @@ jobs:
             build/windows-evidence/default-esd
             build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
+            build/windows-evidence/ihp-guard-corner
             build/windows-evidence/ihp-cmim
             build/windows-evidence/device-classes
             build/windows-evidence/metal-resistors
@@ -816,6 +817,7 @@ jobs:
             build/frozen-default-esd-evidence
             build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
+            build/frozen-ihp-guard-corner-evidence
             build/frozen-ihp-cmim-evidence
             build/frozen-device-class-evidence
             build/frozen-metal-resistor-evidence
@@ -1050,6 +1052,13 @@ jobs:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
           ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
         run: python scripts/verify_frozen_ihp_resistors.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 3600 --out build/frozen-ihp-resistor-evidence
+      - name: Verify frozen Linux corner-safe IHP guard routing
+        if: runner.os == 'Linux'
+        timeout-minutes: 20
+        env:
+          ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
+          ICSTUDIO_EXPECTED_COMMIT: ${{ github.sha }}
+        run: python scripts/verify_frozen_ihp_guard_corner.py --executable dist/ICDesignStudio/ICDesignStudio --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --timeout 900 --out build/frozen-ihp-guard-corner-evidence
       - name: Verify frozen Linux resistor editor and fresh native layout workflow
         if: runner.os == 'Linux'
         timeout-minutes: 45
@@ -1149,6 +1158,7 @@ jobs:
             build/windows-evidence/default-esd
             build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
+            build/windows-evidence/ihp-guard-corner
             build/windows-evidence/ihp-cmim
             build/windows-evidence/device-classes
             build/windows-evidence/metal-resistors
@@ -1166,6 +1176,7 @@ jobs:
             build/frozen-default-esd-evidence
             build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
+            build/frozen-ihp-guard-corner-evidence
             build/frozen-ihp-cmim-evidence
             build/frozen-device-class-evidence
             build/frozen-metal-resistor-evidence
@@ -1274,6 +1285,7 @@ jobs:
             build/windows-evidence/default-esd
             build/windows-evidence/pw2dn
             build/windows-evidence/ihp-resistors
+            build/windows-evidence/ihp-guard-corner
             build/windows-evidence/ihp-cmim
             build/windows-evidence/device-classes
             build/windows-evidence/metal-resistors
@@ -1291,6 +1303,7 @@ jobs:
             build/frozen-default-esd-evidence
             build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
+            build/frozen-ihp-guard-corner-evidence
             build/frozen-ihp-cmim-evidence
             build/frozen-device-class-evidence
             build/frozen-metal-resistor-evidence
@@ -1332,6 +1345,7 @@ jobs:
             build/frozen-default-esd-evidence
             build/frozen-pw2dn-evidence
             build/frozen-ihp-resistor-evidence
+            build/frozen-ihp-guard-corner-evidence
             build/frozen-ihp-cmim-evidence
             build/frozen-device-class-evidence
             build/frozen-metal-resistor-evidence

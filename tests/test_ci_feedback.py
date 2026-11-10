@@ -64,6 +64,54 @@ class FeedbackTests(unittest.TestCase):
                 path.write_bytes(b'original source facts')
                 self.assertEqual(source_identity(root), before)
 
+    def test_source_manifest_sources_and_license_are_bound(self):
+        self.assertEqual(UNIT_MODULES.count('test_source_manifests'), 1)
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            paths = [root/'docs/qualification/source-manifest-wrappers-v1'/name
+                     for name in ('source-lock.json', 'README.md', 'tools.txt', 'sky130.lylvs', 'Apache-2.0.txt')]
+            for path in paths:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'original exact source')
+            before = source_identity(root)
+            self.assertEqual(set(before), {p.relative_to(root).as_posix() for p in paths})
+            for path in paths:
+                path.write_bytes(b'changed source')
+                self.assertNotEqual(source_identity(root), before)
+                path.unlink()
+                self.assertNotEqual(source_identity(root), before)
+                path.write_bytes(b'original exact source')
+                self.assertEqual(source_identity(root), before)
+
+    def test_follow_on_contracts_and_runtime_provenance_are_bound(self):
+        for module in ('test_ihp_guard_vias', 'test_ihp_guard_corner_safe', 'test_ihp_pmos_measured_reference',
+                       'test_source_disposition_reconstruction_v3'):
+            self.assertEqual(UNIT_MODULES.count(module), 1)
+        names = ('ihp-resistor-guard-vias-v1.json',
+                 'ihp-resistor-guard-corner-safe-v2.json',
+                 'source-dispositions-2026-11-10-v3.delta.json.gz',
+                 'ihp-pmos-measured-reference-v1/contract.json',
+                 'ihp-pmos-measured-reference-v1/measurement.mdm',
+                 'ihp-pmos-measured-reference-v1/LICENSE',
+                 'ihp-pmos-measured-reference-v1/provenance/profile.json',
+                 'ihp-pmos-measured-reference-v1/provenance/licenses/compiler/LICENSE')
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            paths = [root/'docs/qualification'/name for name in names]
+            paths.append(root/'tests/fixtures/ihp-guard-raw-all100-v1.json')
+            for path in paths:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'original retained input')
+            before = source_identity(root)
+            self.assertEqual(set(before), {p.relative_to(root).as_posix() for p in paths})
+            for path in paths:
+                path.write_bytes(b'changed input')
+                self.assertNotEqual(source_identity(root), before)
+                path.unlink()
+                self.assertNotEqual(source_identity(root), before)
+                path.write_bytes(b'original retained input')
+                self.assertEqual(source_identity(root), before)
+
     def test_checked_in_semantic_inputs_authenticate_before_feedback(self):
         import gzip
         from scripts.inventory_sky130_release import verified_metadata
@@ -241,6 +289,47 @@ class FeedbackTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 ci_feedback.check_ihp_gui_output(output)
 
+    def test_guard_source_stage_assets_and_launched_nonce_are_bound(self):
+        from scripts import verify_frozen_ihp_guard_corner as guard_gate
+        for module in ('test_ihp_guard_app', 'test_ihp_guard_backend_assets',
+                       'test_frozen_ihp_guard_corner'):
+            self.assertEqual(UNIT_MODULES.count(module), 1)
+        command = dict(stages())['ihp-guard-corner-smoke']
+        self.assertEqual(command[:2], [sys.executable, 'tests/gui_ihp_guard_corner.py'])
+        self.assertRegex(command[command.index('--execution-id') + 1], r'^[0-9a-f]{32}$')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            assets = [root/'icstudio/assets/qualification/ihp-guard-corner-safe'/name
+                      for name in ('templates.json', 'README.txt', 'Apache-2.0.txt')]
+            for path in assets:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'original')
+            before = source_identity(root)
+            self.assertEqual(set(before), {p.relative_to(root).as_posix() for p in assets})
+            for path in assets:
+                path.write_bytes(b'changed')
+                self.assertNotEqual(source_identity(root), before)
+                path.write_bytes(b'original')
+                self.assertEqual(source_identity(root), before)
+            probe = root/'probe'; probe.mkdir()
+            nonce = 'a' * 32
+            report = {'execution_id': nonce, 'execution_root': str(probe)}
+            (probe/'report.json').write_text(json.dumps(report))
+            with patch.object(guard_gate, 'source_audit', return_value={'status': 'PASS'}) as audit:
+                self.assertEqual(ci_feedback.check_ihp_guard_gui_output(probe, nonce, root), {'status': 'PASS'})
+                audit.assert_called_once_with(probe, root)
+            for key, value in (('execution_id', 'b' * 32), ('execution_root', str(root/'other'))):
+                changed = dict(report); changed[key] = value
+                (probe/'report.json').write_text(json.dumps(changed))
+                with patch.object(guard_gate, 'source_audit') as audit:
+                    with self.assertRaisesRegex(ValueError, 'Stale or relocated'):
+                        ci_feedback.check_ihp_guard_gui_output(probe, nonce, root)
+                    audit.assert_not_called()
+            (probe/'report.json').write_text(json.dumps(report))
+            with patch.object(guard_gate, 'source_audit', side_effect=ValueError('changed payload')):
+                with self.assertRaisesRegex(ValueError, 'changed payload'):
+                    ci_feedback.check_ihp_guard_gui_output(probe, nonce, root)
+
     def test_focused_modules_exist_and_release_contracts_remain_fast_checks(self):
         for name in (*UNIT_MODULES, *PACKAGE_MODULES, *RUNTIME_RELEASE_MODULES):
             self.assertTrue((ROOT / 'tests' / (name.split('.')[0] + '.py')).is_file(), name)
@@ -248,7 +337,7 @@ class FeedbackTests(unittest.TestCase):
         self.assertEqual([name for name, _ in commands],
                          ['unit-contracts', 'ihp-contracts', 'physical-contracts', 'device-contracts', 'package-contracts', 'runtime-release-contracts', 'release-contracts', 'menu-smoke', 'project-hub-smoke',
                           'metal-resistor-editor-smoke', 'metal-resistor-parallel-smoke',
-                          'ihp-resistor-editor-smoke', 'ihp-capacitor-corner-smoke'])
+                          'ihp-resistor-editor-smoke', 'ihp-guard-corner-smoke', 'ihp-capacitor-corner-smoke'])
         self.assertIn('test_ihp_capacitor_corners', UNIT_MODULES)
         self.assertIn('test_pdk_qualification_matrix', UNIT_MODULES)
         self.assertIn('test_sky130_retained_catalog', UNIT_MODULES)

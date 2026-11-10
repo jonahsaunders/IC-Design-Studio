@@ -1,0 +1,50 @@
+{
+  "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "qualified": false,
+  "schema": 1,
+  "sources": [
+    {
+      "bytes": 59,
+      "family": "gf180-open-pdks",
+      "git_blob_sha1": "8c888369c0de3e805a7e7816ca2ad2c21804d629",
+      "license": "Apache-2.0",
+      "local_path": "tools.txt",
+      "mode": "100644",
+      "path": "scripts/tools.txt",
+      "repository": "fossi-foundation/open-pdks@aa3fc215a80d32437b8cca1cb3fdee819d18c4c9",
+      "repository_path": "scripts/tools.txt",
+      "role": "setup-tool-manifest",
+      "sha256": "78dea839533083d87f9ed6d0cc383d00516fcd80c6ee5ab87874e108fae62722"
+    },
+    {
+      "archive": "common.tar.zst",
+      "bytes": 1255,
+      "family": "sky130A",
+      "library": "(technology/support)",
+      "license": "Apache-2.0",
+      "local_path": "sky130.lylvs",
+      "mode": 436,
+      "path": "sky130A/libs.tech/klayout/lvs/sky130.lylvs",
+      "process": "sky130A",
+      "repository": "chipfoundry/volare@sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "repository_path": "sky130A/libs.tech/klayout/lvs/sky130.lylvs",
+      "role": "include-only-lvs-macro",
+      "sha256": "a233295ff25f15f064580e1d722f624eb77ea70ded5d164c3b6fb7a8900bfaf4"
+    },
+    {
+      "archive": "common.tar.zst",
+      "bytes": 1255,
+      "family": "sky130B",
+      "library": "(technology/support)",
+      "license": "Apache-2.0",
+      "local_path": "sky130.lylvs",
+      "mode": 436,
+      "path": "sky130B/libs.tech/klayout/lvs/sky130.lylvs",
+      "process": "sky130B",
+      "repository": "chipfoundry/volare@sky130-fa87f8f4bbcc7255b6f0c0fb506960f531ae2392",
+      "repository_path": "sky130B/libs.tech/klayout/lvs/sky130.lylvs",
+      "role": "include-only-lvs-macro",
+      "sha256": "a233295ff25f15f064580e1d722f624eb77ea70ded5d164c3b6fb7a8900bfaf4"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "scope": "Finite IHP resistor guard-via source class, local native tools; no source or mask repairs",
+  "status": "partial_native_evidence_with_preserved_failures",
+  "qualified": false,
+  "chunk_complete": false,
+  "foundry_signoff": false,
+  "models_sizes": {
+    "models": [
+      "rsil",
+      "rppd",
+      "rhigh"
+    ],
+    "width_um": 2,
+    "length_um": 7
+  },
+  "attempted_cases": 21,
+  "passed_cases": 18,
+  "failed_cases": 3,
+  "passed_positive_rotations": 36,
+  "failed_positive_rotations": 3,
+  "not_run_positive_rotations": 3,
+  "fault_controls_detected": 90,
+  "fault_controls_not_run": 15,
+  "implementation_unchanged": true,
+  "report_sha256": "630a1ca9fd0d3d597a6cdcd36e87c9613006964a14c8b46422cfe3dc05299feb",
+  "contract_sha256": "eba71edf69a52b3a7d28778e4eb2cf873ae7536b151cc020d9c4eeff9a5eb1ba",
+  "runner_sha256": "9905f88b7c6c3bbb762bfc6812c058778da607648ddf80fd573cf36ac9f2d209",
+  "tool_profile_sha256": "54e229b30cdf187ec25958935e332e393cddab42001c026b5acdf02d95f8e79b",
+  "baseline": {
+    "profile": "local-debian-trixie-native-v1",
+    "profile_sha256": "54e229b30cdf187ec25958935e332e393cddab42001c026b5acdf02d95f8e79b",
+    "baseline_runs": [
+      {
+        "name": "ihp-terminal-baseline",
+        "report_sha256": "27b4bc4cb133f53afd8a7c970f33d00273c356b1e1060bc5b46fab52de0a23e3",
+        "status": "PASS",
+        "models_sizes": 3,
+        "positive_rotated_layouts": 6,
+        "faults_detected": 18,
+        "implementation_unchanged": true
+      },
+      {
+        "name": "ihp-terminal-full-baseline",
+        "report_sha256": "d95f9438f777ec9cea530c2b03dd3dd1a67d8ea140b1dbb2ded8a6297527666a",
+        "status": "PASS",
+        "models_sizes": 15,
+        "positive_rotated_layouts": 30,
+        "faults_detected": 90,
+        "implementation_unchanged": true
+      }
+    ],
+    "ci_restore": false,
+    "guard_via_qualification": false,
+    "chunk_complete": false,
+    "foundry_signoff": false
+  },
+  "failures": [
+    {
+      "model": "rsil",
+      "coverage": {
+        "viagb": "100",
+        "viagt": "100",
+        "viagl": "100",
+        "viagr": "100"
+      },
+      "error": "ValueError('Native positive failed: 8 DRC violations; see retained native and supplemental findings.')",
+      "findings_native_coordinates": [
+        "Metal2 width < 20 (M2.a)\t-161,431,-146,446",
+        "Metal2 width < 20 (M2.a)\t146,431,161,446",
+        "Metal2 width < 20 (M2.a)\t126,-426,141,-411",
+        "Metal2 width < 20 (M2.a)\t-141,-426,-126,-411",
+        "Via1 spacing < 21 (V1.b - 2 * M2.c)\t-133,433,-125,441",
+        "Via1 spacing < 21 (V1.b - 2 * M2.c)\t-133,431,-125,433",
+        "Via1 spacing < 21 (V1.b - 2 * M2.c)\t125,433,133,441",
+        "Via1 spacing < 21 (V1.b - 2 * M2.c)\t125,431,133,433",
+        "Via1 spacing < 21 (V1.b - 2 * M2.c)\t-154,-420,-146,-410",
+        "Via1 spacing < 21 (V1.b - 2 * M2.c)\t146,-420,154,-410"
+      ],
+      "findings_sha256": "6c5b96bc3a5469db527171c08a85a347f669a4612e314b8bdee26dd447b8c31a",
+      "first_rotation": 0,
+      "remaining_rotation_and_faults": "not_run_after_positive_failure"
+    },
+    {
+      "model": "rppd",
+      "coverage": {
+        "viagb": "100",
+        "viagt": "100",
+        "viagl": "100",
+        "viagr": "100"
+      },
+      "error": "ValueError('Native positive failed: 4 DRC violations; see retained native and supplemental findings.')",
+      "findings_native_coordinates": [
+        "Metal2 width < 20 (M2.a)\t-161,439,-146,454",
+        "Metal2 width < 20 (M2.a)\t146,439,161,454",
+        "Metal2 width < 20 (M2.a)\t126,-434,141,-419",
+        "Metal2 width < 20 (M2.a)\t-141,-434,-126,-419"
+      ],
+      "findings_sha256": "932973f3c8e985252e555b130d71e5d94e0882d3752ab484876c6cde1b8b76ba",
+      "first_rotation": 0,
+      "remaining_rotation_and_faults": "not_run_after_positive_failure"
+    },
+    {
+      "model": "rhigh",
+      "coverage": {
+        "viagb": "100",
+        "viagt": "100",
+        "viagl": "100",
+        "viagr": "100"
+      },
+      "error": "ValueError('Native positive failed: 4 DRC violations; see retained native and supplemental findings.')",
+      "findings_native_coordinates": [
+        "Metal2 width < 20 (M2.a)\t-161,439,-146,454",
+        "Metal2 width < 20 (M2.a)\t146,439,161,454",
+        "Metal2 width < 20 (M2.a)\t126,-434,141,-419",
+        "Metal2 width < 20 (M2.a)\t-141,-434,-126,-419"
+      ],
+      "findings_sha256": "932973f3c8e985252e555b130d71e5d94e0882d3752ab484876c6cde1b8b76ba",
+      "first_rotation": 0,
+      "remaining_rotation_and_faults": "not_run_after_positive_failure"
+    }
+  ],
+  "source_diagnosis": "Pinned util.tcl lines550\u2013638 independently emits full-span horizontal and vertical guard vias at100% without coordinated corner clearance. All models fail M2.a200nm width at corner overlaps; rsil also fails V1.b\u22122*M2.c210nm spacing. Existing50%single-side/signed-anchor selections pass.",
+  "remaining_fix": "No change applied. Needs separately reviewed source-backed corner-safe routing profile or explicit unsupported adjacent100%constraint; no silent cut trimming, mask repairs or DRC relaxation.",
+  "evidence_bundle": {
+    "name": "guard-vias-evidence-v1.zip",
+    "sha256": "959e693107450075eac460c921568bed3e02cfd185d2ea01fd86289db2ffba4a",
+    "bytes": 16967338,
+    "manifest_files": 4250,
+    "all_members_verified": true,
+    "omissions": "Tool/compiler/runtimebinary bytes and baseline rawoutputs omitted from compact ZIP; exactidentities+reports retained, originals retained locally."
+  },
+  "retained_transport_root": "artifacts/ihp-guard-vias-2026-11-10",
+  "independent_outcome_review": {
+    "status": "PASS",
+    "qualification_promoted": false,
+    "scope": "Current sources/profile and complete raw report/extraction/mask-delta identities verified; exact disjoint split union checked."
+  },
+  "transport_parts": {
+    "guard-vias-v1-provenance.zip": {
+      "sha256": "427bb4b21c65e59d246657dbad50050af32678fe7846385675c81895094607c2",
+      "bytes": 2202634
+    },
+    "guard-vias-v1-raw-results-a.zip": {
+      "sha256": "3e614888e81d4bf05402e41b8ce85c69ea22ce736b6fe666a5ab0a96e789aa1b",
+      "bytes": 7363637
+    },
+    "guard-vias-v1-raw-results-b.zip": {
+      "sha256": "817f9c86f6862d0f471f5f337e0f53a47c884cd97b2b1b1e61c1a377536b0927",
+      "bytes": 7401111
+    }
+  },
+  "transport_map": {
+    "name": "guard-vias-v1-split-map.json",
+    "sha256": "87b979da0a7fe11e9bd12b241659f97849b6d1755bff33e8f5c0727eb7eceb91",
+    "entries": 4251,
+    "union_exactly_matches_full_archive": true,
+    "each_part_is_incomplete_alone": true
+  }
+}

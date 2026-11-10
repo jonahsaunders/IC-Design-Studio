@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "chunk": 7,
+  "status": "BLOCKED_NATIVE_CONVERGENCE",
+  "qualified": false,
+  "chunk_complete": false,
+  "independent_calibration": false,
+  "installed_acceptance": false,
+  "source_baseline": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+  "contract_sha256": "7891995d390dd80654168aefce77fab329b7d3e57454743a81f6b210deb6bb4a",
+  "source_files": {
+    "docs/qualification/ihp-pmos-measured-reference-v1/contract.json": "7891995d390dd80654168aefce77fab329b7d3e57454743a81f6b210deb6bb4a",
+    "docs/qualification/ihp-pmos-measured-reference-v1/measurement.mdm": "bb12389d5789b8035d388e00253b7d65e5d95d6fdf95d1ee147859b564dd2e47",
+    "docs/qualification/ihp-pmos-measured-reference-v1/UPSTREAM-README.md": "20c526c6348f9bc73cdc283847e7df1c9c80547f0711c97285454f35a13a8635",
+    "docs/qualification/ihp-pmos-measured-reference-v1/LICENSE": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+    "scripts/ihp_pmos_measured_reference.py": "ff0a041a0f4cb5d0eee20c600073b75cf6ae2dbd1e080452d66ac02107349c1a",
+    "scripts/run_ihp_pmos_measured_reference.py": "be12ed2174e3c0b54959bc9f7bee0d2a0eb0101ff52070438657b06638d40f41",
+    "scripts/audit_ihp_pmos_measured_reference.py": "1a44f7a413a318e669a4feeb7300c5f62764f7ab5b32ff22a134317d72f570fc",
+    "scripts/audit_sky130_li_linked.py": "9a44a27caad1744acbe852689d81c13abbfe9360fab20f87e0143d35035cc273",
+    "scripts/stage_linux_ngspice.py": "69cb887aff79a239e7670a50d517d9ec460df8d06eedf134f6c42e5a4ae5ce8f",
+    "tests/test_ihp_pmos_measured_reference.py": "d203e0ae0c4fe8d4dcf8479a174de4a79777573b4b80918c336c7dec4cf0e567"
+  },
+  "measurement_source": {
+    "repository": "IHP-GmbH/IHP-Open-PDK",
+    "revision": "5e6d592e4002946a4616f798c357f0f3c06cf3b6",
+    "path": "ihp-sg13g2/libs.doc/meas/MOS/SG13_pmosXm1Y3/SG13_pmos~W10u0_L10u0_S549_5~dc_idvd~300K.mdm",
+    "git_blob_sha1": "51e875c97dbb0e484b07a7976a874244b19806ee",
+    "sha256": "bb12389d5789b8035d388e00253b7d65e5d95d6fdf95d1ee147859b564dd2e47",
+    "license": "Apache-2.0"
+  },
+  "tests": {
+    "count": 19,
+    "failures": 0,
+    "skips": 0,
+    "scope": "parser,identity,deck,inventory,timeout preservation and diagnostic semantics; not native acceptance"
+  },
+  "attempts": [
+    {
+      "id": 1,
+      "outcome": "Stopped first nominal gate because unused RF PSPNQS registrations produced unknown-model errors despite returncode0. Complete raw/deck/log retained; no acceptance."
+    },
+    {
+      "id": 2,
+      "outcome": "Both authenticated modules loaded. First gate28points complete; next gate-.672 timed out90s. Partial stdout not persisted by old capture implementation; outer traceback/raw/run receipt retained. This omission is explicit, not reconstructed."
+    },
+    {
+      "id": 3,
+      "outcome": "Reviewed transient-OP fallback protocol completed first3nominal gates84points, then gate-1.124 timed out90s with Transient op started. Directly streamed console and timeout receipt retained. Remaining56nominal points and all15interface-control jobs unexecuted."
+    }
+  ],
+  "partial_measured_residual_diagnostics": [
+    {
+      "gate_v": "-0.446",
+      "points": 28,
+      "raw_sha256": "bbc8d6dc206718068b2db5a98adb7417e8d5d1affd213fa9260b03652fec29d7",
+      "maximum_absolute_residual_a": {
+        "d": 8.223575997667636e-08,
+        "g": 1.89946480598091e-11,
+        "s": 8.250927448074078e-08,
+        "b": 4.483968930310886e-12
+      },
+      "acceptance_threshold": null
+    },
+    {
+      "gate_v": "-0.672",
+      "points": 28,
+      "raw_sha256": "058d57ce8f0849b115368c30cf9583c0b9efb20806cd5aebcf33f2fa668e7c12",
+      "maximum_absolute_residual_a": {
+        "d": 2.218233463152766e-07,
+        "g": 1.0680439527379349e-10,
+        "s": 2.254910255724119e-07,
+        "b": 3.763403485463307e-12
+      },
+      "acceptance_threshold": null
+    },
+    {
+      "gate_v": "-0.898",
+      "points": 28,
+      "raw_sha256": "7d56a0ba69b83d6fe34907e309317e49ec4ffa7b723971d659caa336008bd862",
+      "maximum_absolute_residual_a": {
+        "d": 2.273118967488113e-07,
+        "g": 1.4022300465636705e-10,
+        "s": 2.4423896409076e-07,
+        "b": 3.40291882367636e-12
+      },
+      "acceptance_threshold": null
+    }
+  ],
+  "same_condition_first_gate_solver_overlap": {
+    "points": 28,
+    "terminals": 4,
+    "maximum_normalized_error": 0.07101578287974017,
+    "threshold": 1,
+    "scope": "Only Vg-.446 overlap from prior incomplete batch; not general solver equivalence or measured accuracy."
+  },
+  "audit": {
+    "expected_rejection": "Missing/duplicate/reordered route",
+    "inventory_files_verified": 248,
+    "run_manifest_sha256": "116c93ed163816e999222a38e364f4c1ae7ecc96104ce70e59e294a976b03e04"
+  },
+  "blocker": {
+    "observed": "Native DC solver did not complete Vg=-1.124 V at ground source/body within fixed90s under explicit gminsteps=0/srcsteps=0 transient-OP fallback.",
+    "root_cause": "Not isolated between model implementation, compiled/runtime interaction and numerical solution procedure. No claim of silicon/model accuracy failure from timeout alone.",
+    "next_step": "Investigate this retained single failing deck and PSP/native solver behavior with bounded approved numerical diagnostics; preserve model equations/grid/tolerances, then independently review protocol before a fresh complete batch. No blind protocol sweeps or arbitrary deadline extensions."
+  },
+  "scope_limits": [
+    "Manufacturer measurement corpus is genuine reference data, but uncertainty/instrument calibration/lot identity/model-fit holdout provenance remain missing.",
+    "27 C header retained despite300K filename; no inferred continuous temperature or safe operating envelope.",
+    "No measured-residual acceptance threshold or fitting. Partial residual numbers are unconditional diagnostics.",
+    "OSDI has noDT_NEEDED but uses11undefined libc/libm symbols resolved in engine/host scope; not self-contained.",
+    "Compiler implicit standard Verilog-A includes are tied to pinned compiler source/binary, not individual model directory closure.",
+    "Official compiler binary-to-source reproducibility and complete build-time environment/linker tracing not established.",
+    "NQS registration avoids unknown model declarations; no RF qualification."
+  ],
+  "compact_bundle": {
+    "path": "docs/validation/artifacts/ihp-pmos-measured-reference-2026-11-10-compact.zip",
+    "sha256": "9c6fdff561787119a0ce4f1e4a1dc5cf187bbe01000af74b21df5f8f430b8435",
+    "bytes": 1665064,
+    "included_files": 290,
+    "omitted_files": 2,
+    "verified": true,
+    "scope": "Partial blocked evidence, not relocation-independent replay."
+  },
+  "full_local_bundle": {
+    "sha256": "e57c0bc8620754046442aadfcd75cedbab6b48addaa0df4191b2ca21c9d237c6",
+    "bytes": 18049977,
+    "local_retained": true
+  },
+  "read_only_upstream_review": {
+    "date": "2026-11-10",
+    "exact_cause_established": false,
+    "additional_native_runs": 0,
+    "sources": [
+      {
+        "url": "https://sourceforge.net/p/ngspice/bugs/879/",
+        "finding": "Maintainer-accepted report of failed transient steps retried from failed Newton iterates. Discussion identifies OSDI applicability and development fix 277e7654a, followed by separate iteration-floor changes and regression discussion.",
+        "applicability": "Related numerical retry mechanism, not proof this DC OPTRAN stall has the same cause. Do not import patch or swap engines without exact source review and a bounded reproducer."
+      },
+      {
+        "url": "https://github.com/OpenVAF-Reloaded/OpenVAF/issues/3",
+        "finding": "PSP103_NQS noise issue for 103.8.2 versus103.6.0.",
+        "applicability": "Not this standard-mode DC symptom; no proposed noise/model revision change."
+      },
+      {
+        "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/issues/921",
+        "finding": "IOPad diode transient convergence report.",
+        "applicability": "Different device/circuit; not a remedy for this PMOS deck."
+      },
+      {
+        "url": "https://github.com/IHP-GmbH/IHP-Open-PDK/issues/743",
+        "finding": "SRAM destructive-read simulation discrepancy with differing solver/method setups.",
+        "applicability": "Different multi-device transient circuit; not evidence this single-device DC run is wrong."
+      }
+    ],
+    "authenticated_local_engine_source": [
+      {
+        "archive_sha256": "894e649651f1838a14095e5a5439e7d3aa63e87ede14d283173fda4fcdef675f",
+        "member": "ngspice-47/src/spicelib/analysis/optran.c",
+        "sha256": "293bd182839ac8f53e5b47186abfcdf9128ed17bd8cb33ba4083e10f71b00742",
+        "lines": [
+          704,
+          727,
+          735,
+          740
+        ],
+        "observation": "NIiter call and nonconvergence retry reduce timestep by8; this branch has no accepted-rhs restoration. This source observation alone does not establish executed failure path."
+      },
+      {
+        "member": "ngspice-47/src/maths/ni/niiter.c",
+        "sha256": "85ed2001b0f4589e43a1e4d11f1fafc8a30f90d25d8ad361efe92c51a8e023a1",
+        "lines": [
+          38,
+          39
+        ],
+        "observation": "Minimum100iteration floor remains; reducing ITL below100 would not implement the intended bound in this engine."
+      }
+    ],
+    "conclusion": "Finite comparison is blocked by actual numerical completion, separately from missing measurement-calibration metadata. Cannot yet say an upstream patch is required or identify a proven remedy. Next defensible step is trace/review this single failing deck and OPTRAN retry behavior, not blind solver/parameter sweeps."
+  },
+  "subsequent_controlled_diagnostic": {
+    "record": "ihp-pmos-official879-diagnostic-2026-11-10.json",
+    "outcome": "Official retry-state patch changes observed state but does not solve the frozen failing gate. Both controlled engines time out at unchanged90 seconds; no application runtime replacement."
+  }
+}

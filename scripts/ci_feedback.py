@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import re
 import os
 from pathlib import Path, PurePosixPath
 import subprocess
@@ -24,7 +25,9 @@ UNIT_MODULES = (
     'test_sky130_retained_catalog', 'test_digital_platforms',
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked', 'test_sky130_li_array_dynamic',
-    'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor',
+    'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor', 'test_ihp_guard_vias',
+    'test_ihp_pmos_measured_reference', 'test_ihp_guard_corner_safe',
+    'test_ihp_guard_app', 'test_ihp_guard_backend_assets', 'test_frozen_ihp_guard_corner',
     'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
     'test_ihp_capacitor_corners', 'test_ihp_cmim_boundary', 'test_ihp_cmim_lvs_reference', 'test_hierarchical_lvs_reference',
     'test_ihp_metal_spacing', 'test_ihp_klayout_drc', 'test_ihp_cmim_process_control', 'test_ihp_cmim_enclosures',
@@ -61,13 +64,13 @@ UNIT_MODULES = (
     'test_desktop_acceptance_handoff', 'test_release_source_handoff',
     'test_ihp_bondpad', 'test_ihp_rf_mos_exchange', 'test_ihp_lvs_selector_review', 'test_digital_recipe_corner_contract', 'test_source_spice_archives', 'test_sky130_mim_hierarchy_selection',
     'test_ihp_l2n0_reference', 'test_sky130_release_inventory', 'test_upstream_semantics',
-    'test_source_dispositions', 'test_source_disposition_cache', 'test_source_disposition_reconstruction', 'test_source_disposition_reconstruction_v2', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
+    'test_source_dispositions', 'test_source_disposition_cache', 'test_source_disposition_reconstruction', 'test_source_disposition_reconstruction_v2', 'test_source_disposition_reconstruction_v3', 'test_source_configs', 'test_xcircuit_inventory', 'test_xcircuit_rc',
     'test_cvc_models', 'test_physical_layers',
     'test_legacy_symbols',
     'test_schematic_views',
     'test_verilog_fragments',
     'test_source_references',
-    'test_klayout_wrappers', 'test_xschem_configs',
+    'test_klayout_wrappers', 'test_xschem_configs', 'test_source_manifests',
     'test_ihp_ct_reference', 'test_sky130_vpp_applicability',
 )
 
@@ -123,7 +126,8 @@ def check_syntax(root=ROOT):
 def source_identity(root=ROOT):
     files = python_sources(root)
     files += [p for p in (root / 'tests/fixtures/ihp-l2n0-reference-v1').glob('*') if p.is_file()]
-    for folder in ('klayout-wrapper-sources-v1', 'xschem-config-facts-v1'):
+    for folder in ('klayout-wrapper-sources-v1', 'xschem-config-facts-v1',
+                   'source-manifest-wrappers-v1', 'ihp-pmos-measured-reference-v1'):
         files += [p for p in (root / 'docs/qualification' / folder).rglob('*') if p.is_file()]
     # Semantic inventories consume authenticated upstream graphs and the exact
     # release asset list; bind those inputs alongside their runners and tests.
@@ -136,7 +140,9 @@ def source_identity(root=ROOT):
                  'sky130-release-inventory-2026-11-07.json.gz',
                  'source-dispositions-2026-11-08-v1.json.gz',
                  'source-dispositions-2026-11-10-v1.delta.json.gz',
-                 'source-dispositions-2026-11-10-v2.delta.json.gz'):
+                 'source-dispositions-2026-11-10-v2.delta.json.gz',
+                 'source-dispositions-2026-11-10-v3.delta.json.gz',
+                 'ihp-resistor-guard-vias-v1.json', 'ihp-resistor-guard-corner-safe-v2.json'):
         source = root / 'docs/qualification' / name
         if source.is_file():
             files.append(source)
@@ -156,6 +162,9 @@ def source_identity(root=ROOT):
     fixture = root / 'docs/qualification/sky130-mim-conditioning-v1/fixture-bundle.zip'
     if fixture.is_file():
         files.append(fixture)
+    fixture = root / 'tests/fixtures/ihp-guard-raw-all100-v1.json'
+    if fixture.is_file():
+        files.append(fixture)
     fixture = root / 'tests/fixtures/esd-installed-headers-v1.json'
     if fixture.is_file():
         files.append(fixture)
@@ -165,7 +174,7 @@ def source_identity(root=ROOT):
             if fixture.is_file():
                 files.append(fixture)
     files += [p for p in (root / 'tests/fixtures/sky130-mim-shared-v1').rglob('*') if p.is_file()]
-    for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy',
+    for folder in ('ihp-resistor-templates', 'ihp-resistor-legacy', 'ihp-guard-corner-safe',
                    'sky130-esd-nvt-source-v1', 'sky130-esd-predecessor-v1', 'sky130-pw2dn-predecessor-v1'):
         files += [p for p in (root / 'icstudio/assets/qualification' / folder).glob('*') if p.is_file()]
     for name in ('collection.json','sky130A/package.json'):
@@ -244,6 +253,19 @@ def check_ihp_gui_output(folder):
         raise ValueError('Source IHP GUI evidence changed after the child inventory.')
 
 
+
+def check_ihp_guard_gui_output(folder, execution_id, resources=ROOT):
+    """Bind the launched source child, then independently read all its evidence."""
+    from scripts.verify_frozen_ihp_guard_corner import source_audit, unlinked
+    folder = unlinked(folder).resolve()
+    report = json.loads((folder / 'report.json').read_bytes())
+    if (not re.fullmatch('[0-9a-f]{32}', execution_id)
+            or report.get('execution_id') != execution_id
+            or Path(report.get('execution_root', '')).resolve() != folder):
+        raise ValueError('Stale or relocated source guard GUI evidence.')
+    return source_audit(folder, resources)
+
+
 def stages(output=ROOT / 'build/ci-feedback'):
     return [
         ('unit-contracts', [sys.executable, '-m', 'unittest',
@@ -268,6 +290,9 @@ def stages(output=ROOT / 'build/ci-feedback'):
         ('ihp-resistor-editor-smoke', [sys.executable, 'tests/gui_ihp_resistor_editor.py',
                                        '--out', str(Path(output)/'ihp-resistor-editor'),
                                        '--execution-id', uuid.uuid4().hex]),
+        ('ihp-guard-corner-smoke', [sys.executable, 'tests/gui_ihp_guard_corner.py',
+                                   '--out', str(Path(output)/'ihp-guard-corner'),
+                                   '--execution-id', uuid.uuid4().hex]),
         ('ihp-capacitor-corner-smoke', [sys.executable, 'tests/gui_ihp_capacitor_corners.py',
                                       str(Path(output)/'ihp-capacitor-corners')]),
     ]
@@ -311,6 +336,12 @@ def main():
                 raise RuntimeError(f'{name} failed with exit code {returncode}; see the retained log.')
             if name == 'ihp-resistor-editor-smoke':
                 check_ihp_gui_output(args.output / 'ihp-resistor-editor')
+            if name == 'ihp-guard-corner-smoke':
+                readback = check_ihp_guard_gui_output(
+                    args.output / 'ihp-guard-corner',
+                    command[command.index('--execution-id') + 1])
+                (args.output / 'ihp-guard-corner-readback.json').write_text(
+                    json.dumps(readback, indent=2) + '\n', encoding='utf-8')
         if source_identity() != report['source_files_sha256']:
             raise RuntimeError('Source files changed during feedback; keep this run as invalid and run the final sources again.')
         report['status'] = 'passed'

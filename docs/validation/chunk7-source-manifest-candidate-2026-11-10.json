@@ -1,0 +1,35 @@
+{
+  "auditor_integration": false,
+  "base_commit": "fb4919d8df5ed3ef7571853276617a48c5fc57f5",
+  "chunk_complete": false,
+  "current_verified_inventory_gaps": 98,
+  "date": "2026-11-10",
+  "excluded": "Binary gmon inputs, ambiguous gate lists, geometry chains and dynamic configuration sources remain unclaimed.",
+  "facts": 40,
+  "full_inventory_rerun": false,
+  "implementation_and_fixture_sha256": {
+    "docs/qualification/source-manifest-wrappers-v1/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "docs/qualification/source-manifest-wrappers-v1/README.md": "eb59e54d1f9532810f808198db64c0fbb00286a119aa7abdd5b5c6ea5849061e",
+    "docs/qualification/source-manifest-wrappers-v1/sky130.lylvs": "a233295ff25f15f064580e1d722f624eb77ea70ded5d164c3b6fb7a8900bfaf4",
+    "docs/qualification/source-manifest-wrappers-v1/source-lock.json": "ad1a466ca31f6bd5c4717ef143acc5cf8b8ee83c097cb80d9ca5080d3c96af65",
+    "docs/qualification/source-manifest-wrappers-v1/tools.txt": "78dea839533083d87f9ed6d0cc383d00516fcd80c6ee5ab87874e108fae62722",
+    "scripts/inventory_source_manifests.py": "7a155e609af8382d88d1b5d4e162e0eaf626dfdbc23129fb6db05bfdc468ba0b",
+    "tests/test_source_manifests.py": "771f6c0b83c153feed9697f9ebdfacd0bb0d02df661f13e2e9f57817cc51ac04"
+  },
+  "independent_review": "Pending",
+  "inventory_complete": false,
+  "qualified": false,
+  "schema": 1,
+  "scope": "Eight open-pdks setup target declarations and two separately accounted identical SKY130A/B include-only LVS macro wrappers. No installed capability, dependency resolution, upstream execution or device qualification.",
+  "source_count": 3,
+  "status": "PASS_BOUNDED_THREE_SOURCE_REPLAY_NOT_INTEGRATED",
+  "validation": {
+    "archive": "common.tar.zst",
+    "archive_full_size_and_digest_verified": true,
+    "archive_sha256": "c7c155596a1fd1fcf6d5414dfcffcbbcf4e35b2b33160af97f4340e763c97406",
+    "both_original_members_size_mode_digest_and_bytes_verified": true,
+    "independent_readback": "All eight literal names, all fourteen XML metadata fields and sole include line independently compared against raw retained source bytes.",
+    "seconds": 0.006,
+    "tests": 8
+  }
+}

@@ -136,3 +136,18 @@ scripts/audit_ihp_ct_reference.py whitespace=-blank-at-eof
 
 # Preserve exact upstream wrapper/stub source trailing blank lines.
 docs/qualification/klayout-wrapper-sources-v1/sources/** whitespace=-blank-at-eof
+
+# Exact upstream XML wrapper retains CRLF source bytes.
+docs/qualification/source-manifest-wrappers-v1/sky130.lylvs whitespace=cr-at-eol
+
+# Preserve authenticated upstream measurement/license and raw native evidence bytes.
+docs/qualification/ihp-pmos-measured-reference-v1/LICENSE -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/UPSTREAM-README.md -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/measurement.mdm -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/runtime-provenance/logs/psp103-dynamic-symbols.txt -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/runtime-provenance/logs/psp103_nqs-dynamic-symbols.txt -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/solver-reference/result.raw -whitespace
+docs/qualification/ihp-pmos-measured-reference-v1/solver-reference/console.log -whitespace
+
+# Preserve the existing CRLF IHP resistor implementation bytes.
+icstudio/ihp_resistors.py whitespace=cr-at-eol

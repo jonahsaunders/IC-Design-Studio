@@ -32,11 +32,32 @@ def copy_assets(source,destination):
     for name,expected in records.items():
         shutil.copy2(folder/name,target/name)
         require(file_digest(target/name)==expected,'IHP resistor backend asset changed during transfer.')
+    if (source/'ihp_guard_routing.py').is_file():copy_guard_assets(source,destination)
+    return records
+
+def copy_guard_assets(source,destination):
+    source=unlinked(source);destination=unlinked(destination)
+    from .ihp_guard_routing import TEMPLATE_HASH
+    relative='assets/qualification/ihp-guard-corner-safe'
+    names={'templates.json','README.txt','Apache-2.0.txt'}
+    folder=unlinked(source/relative)
+    require(folder.is_dir(),'Missing reviewed corner-safe guard backend assets.')
+    require({p.name for p in folder.iterdir()}==names,'Unexpected corner-safe guard asset inventory.')
+    records={}
+    for name in sorted(names):
+        path=unlinked(folder/name)
+        require(path.is_file(),'Missing corner-safe guard backend asset.')
+        records[name]=file_digest(path)
+    require(records['templates.json']==TEMPLATE_HASH,'Changed corner-safe guard backend templates.')
+    target=unlinked(destination/relative);target.mkdir(parents=True,exist_ok=True)
+    for name,expected in records.items():
+        dest=unlinked(target/name);shutil.copy2(folder/name,dest)
+        require(file_digest(dest)==expected,'Corner-safe guard asset changed during transfer.')
     return records
 
 def copy_linked_manifest(project,source,destination):
     specs=[r.get('spec',{}) for cell in project['cells'] for r in cell.get('pdk_layouts',[])
-           if r.get('spec',{}).get('recipe')=='ihp-resistor-selected-v1']
+           if r.get('spec',{}).get('recipe') in ('ihp-resistor-selected-v1','ihp-resistor-guard-corner-safe-v1')]
     if not specs:return None
     from .ihp_resistors import MANIFEST_SEMANTIC_HASH
     lock=project['pdk']['package_lock'];source=unlinked(Path(source)/'package.json')

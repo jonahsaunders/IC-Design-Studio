@@ -10,7 +10,9 @@ def body_tie_field(tech,d):
     from .ihp_resistors import supported as ihp_resistor_supported
     if ihp_resistor_supported(tech,d):
         choice='Metal2' if d.get('physical_terminal_vias',False) else 'Metal1'
-        return [('terminal_access','Resistor terminal access',[choice]+[v for v in ('Metal1','Metal2') if v!=choice])]
+        from .ihp_guard_routing import OPTION,NATIVE_LABEL,CORNER_LABEL
+        guard=CORNER_LABEL if d.get('physical_guard_routing')==OPTION else NATIVE_LABEL
+        return [('terminal_access','Resistor terminal access',[choice]+[v for v in ('Metal1','Metal2') if v!=choice]),('guard_routing','Body guard routing',[guard]+[v for v in (NATIVE_LABEL,CORNER_LABEL) if v!=guard])]
     from .sky130_layout import MODELS
     binding=binding_for(tech,d)
     if tech.get('package_lock',{}).get('id')!='sky130A' or not binding or binding.get('model')!=MODELS.get(d['kind']):return []
@@ -19,11 +21,21 @@ def body_tie_field(tech,d):
 
 
 def set_body_tie(p,cid,did,values):
-    if 'terminal_access' in values:
+    if 'terminal_access' in values or 'guard_routing' in values:
         d=next(d for c in p['cells'] if c['id']==cid for d in c['devices'] if d['id']==did)
-        from .ihp_resistors import supported
-        if not supported(p['pdk'],d) or values['terminal_access'] not in ('Metal1','Metal2'):raise ValueError('Choose a supported IHP terminal access.')
-        d['physical_terminal_vias']=values['terminal_access']=='Metal2'
+        from .ihp_resistors import supported,specification
+        from .ihp_guard_routing import OPTION,NATIVE_LABEL,CORNER_LABEL
+        if not supported(p['pdk'],d):raise ValueError('Choose a supported IHP resistor.')
+        candidate=clone(d)
+        if 'terminal_access' in values:
+            if values['terminal_access'] not in ('Metal1','Metal2'):raise ValueError('Choose a supported IHP terminal access.')
+            candidate['physical_terminal_vias']=values['terminal_access']=='Metal2'
+        if 'guard_routing' in values:
+            if values['guard_routing']==NATIVE_LABEL:candidate.pop('physical_guard_routing',None)
+            elif values['guard_routing']==CORNER_LABEL:candidate['physical_guard_routing']=OPTION
+            else:raise ValueError('Choose a supported IHP guard routing option.')
+        specification(p['pdk'],candidate)
+        d.clear();d.update(candidate)
     if 'body_tie' not in values:return
     d=next(d for c in p['cells'] if c['id']==cid for d in c['devices'] if d['id']==did)
     if not body_tie_field(p['pdk'],d):raise ValueError('Internal source/body ties require a supported SKY130 1.8 V MOS.')

@@ -60,7 +60,11 @@ def specification(tech,d):
     if tuple(size) not in SIZES:raise ValueError('Choose a selected W/L combination: 0.5/0.5, 0.5/20, 20/0.5, 2/7 or 7/2 µm.')
     via=d.get('physical_terminal_vias',False)
     if type(via) is not bool:raise ValueError('Terminal via selection must be Boolean.')
-    return {'api':1,'recipe':'ihp-resistor-selected-v1','model_ref':clone(d.get('model_ref')),'model':b['model'],'kind':d['kind'],'dimensions_nm':dict(zip(('w','l'),size)),'values':v,'nets':clone(d['nets']),'terminal_vias':via,'template_sha256':TEMPLATE_HASH,'package_manifest_sha256':'da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0','package_manifest_semantic_sha256':MANIFEST_SEMANTIC_HASH,'source_hashes':clone(SOURCE_HASHES)}
+    from .ihp_guard_routing import specification_fields
+    guard_fields=specification_fields(tech,d,size,via)
+    result={'api':1,'recipe':'ihp-resistor-selected-v1','model_ref':clone(d.get('model_ref')),'model':b['model'],'kind':d['kind'],'dimensions_nm':dict(zip(('w','l'),size)),'values':v,'nets':clone(d['nets']),'terminal_vias':via,'template_sha256':TEMPLATE_HASH,'package_manifest_sha256':'da58ba2de122d67d232ab20ca4fb353b70bdc68c00ef4279f9be7da640a68ae0','package_manifest_semantic_sha256':MANIFEST_SEMANTIC_HASH,'source_hashes':clone(SOURCE_HASHES)}
+    result.update(guard_fields)
+    return result
 
 def geometry(tech,d,x=0,y=0):
     spec=specification(tech,d)
@@ -68,7 +72,11 @@ def geometry(tech,d,x=0,y=0):
     raw=verify_identity(tech)
     size=spec['dimensions_nm'];fmt=lambda n:format(n/1000,'g')
     key=f"{spec['model']}:{fmt(size['w'])}:{fmt(size['l'])}:{int(spec['terminal_vias'])}"
-    template=json.loads(raw)['templates'][key]; ls={}
+    if spec.get('guard_routing'):
+        from .ihp_guard_routing import templates
+        template=templates(tech)['templates'][spec['model']]
+    else:template=json.loads(raw)['templates'][key]
+    ls={}
     for layer in tech['layers']:
         pair=(layer['gds'],layer['datatype'])
         if pair in ls:raise ValueError('Ambiguous IHP layer mapping.')

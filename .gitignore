@@ -34,3 +34,9 @@ creation-key.txt
 
 # Exact public electrical placeholder required by the bondpad source lock.
 !icstudio/assets/qualification/ihp-bondpad/sg13g2_bondpad.lib
+
+# Authenticated compiler receipt required by the measured-reference contract.
+!docs/qualification/ihp-pmos-measured-reference-v1/runtime-provenance/logs/compile.log
+
+# Retained same-bias solver-protocol overlap evidence.
+!docs/qualification/ihp-pmos-measured-reference-v1/solver-reference/console.log

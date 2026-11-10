@@ -1,5 +1,31 @@
 # Source feedback and selected acceptance candidates
 
+The isolated November 10 follow-on lane adds measured-reference parsing/runtime
+contracts, guard-via raw and corner-safe routing contracts, and v3 lossless
+inventory transport to the existing bounded selections. All exact measurement,
+compiler provenance, raw-geometry fixtures and contracts join source identity.
+The app integration adds a separate fourteenth stage for the opt-in IHP
+corner-safe guard editor. It exercises six model/rotation cases, 18 controls and
+two legacy projects. The parent checks the exact launch nonce and output root,
+then independently reads the complete evidence inventory, lifecycle controls and
+saved/streamed layout geometry. Pinned guard assets and the packaged producer
+join source identity; all thirteen prior stages and every 300-second child
+deadline remain unchanged.
+
+These checks do not execute or qualify the external native engines; separately
+retained native failures, corrected-profile runs and measured diagnostics remain
+distinct from source feedback, installed acceptance and calibration. A separate
+additive installed guard gate requires fresh managed native jobs on the exact
+clean candidate; source feedback cannot satisfy that gate.
+
+The [final local integrated snapshot](validation/chunk7-ihp-guard-integrated-validation-2026-11-10.json)
+passes all 14 stages in 434.543 seconds: 1,725 selected tests, 18 explicit skips,
+and unchanged identities for all 2,464 bound inputs. Its separate exhaustive
+core run passes 4,823 tests with 81 skips. The compact transport retains all
+stage logs and the complete new guard GUI output/readback; other historical
+GUI raw outputs remain local and are explicitly omitted from that transport.
+These results do not stand in for fresh hosted Windows/Linux or installed gates.
+
 The November 10 exact-candidate repair adds the physical verifier's identity,
 stale-output and executable-mutation regressions to the existing unit stage.
 Linux and Windows callers provide an explicit selected commit, independently
