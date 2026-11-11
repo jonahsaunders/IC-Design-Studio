@@ -1,0 +1,38 @@
+# TEMPORARY: remove after this one pinned artifact has been recovered.
+name: Recover pinned Windows pw2dn diagnostics
+on:
+  push:
+    branches: [codex/chunk7-blockers-20261108]
+    paths:
+      - .github/workflows/recover-pw2dn-once.yml
+      - scripts/recover_pw2dn_diagnostics.py
+permissions: {}
+concurrency:
+  group: recover-pw2dn-artifact-13810605104
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.repository == 'jonahsaunders/IC-Design-Studio'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify recovery reader tests
+        run: python -m unittest discover -s tests -p test_recover_pw2dn_diagnostics.py -v
+      - name: Read only pinned failed-run diagnostic files
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/recover_pw2dn_diagnostics.py --output "$RUNNER_TEMP/pw2dn-recovered"
+      - name: Upload only bounded sanitized diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pw2dn-pinned-failure-summary
+          path: ${{ runner.temp }}/pw2dn-recovered/*.json
+          if-no-files-found: warn
+          retention-days: 7
