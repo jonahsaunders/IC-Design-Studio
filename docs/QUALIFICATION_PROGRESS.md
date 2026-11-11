@@ -5,6 +5,18 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 11 Windows document-test portability:** hosted run
+[43114727138](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/43114727138)
+executes the real Qt regression but rejects one path-spelling assertion after
+successful Save As: Windows exposes both short and canonical names for the
+same temporary file. The [reviewed test-only correction](validation/experimental-data-safety-windows-path-2026-11-11.json)
+checks actual file identity with `samefile`; all saved-content and failure
+assertions remain. The 16-case Qt child passes locally through its guarded
+wrapper. Production bytes are unchanged from the retained full source/core
+passes; those historical reports are not relabeled as final test-byte runs.
+Fresh hosted and exact follow-on installed acceptance remain pending. No main
+change or scientific promotion is claimed; the estimate stays 74% (55–82%).
+
 **November 11 experimental data-safety follow-on:** PR #70 is merged into
 `experimental` at exact `f323bf8c8e1d436911a0da17621630a515a4ec04`; its source
 matrix passes on both operating systems. Its same-attempt desktop run

@@ -179,7 +179,8 @@ class ProjectDataSafetyTests(unittest.TestCase):
                 self.assertEqual(self.errors, [])
                 self.assertEqual(self.window.project['name'], 'Important unsaved edit')
                 self.assertEqual(load_project(target)['name'], 'Important unsaved edit')
-                self.assertEqual(self.window.path, target)
+                # Windows may canonicalize an 8.3 temp-path alias in the project index.
+                self.assertTrue(self.window.path.samefile(target))
 
     def test_cancelled_save_never_replaces_current_document(self):
         for route in ROUTES:

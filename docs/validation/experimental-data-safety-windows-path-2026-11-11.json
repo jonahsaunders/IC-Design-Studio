@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "base_commit": "4ed9173bbcbd498a231eac5ce40a4b92b808a177",
+  "scope": "Test-only Windows path-alias correction; production and qualification guards unchanged.",
+  "retained_hosted_failure": {
+    "run": 43114727138,
+    "job": 130839628614,
+    "synthetic_merge_commit": "0f998831abeab080ecf069ed41977cb3d15b94f2",
+    "failed_case": "test_save_as_over_selected_target_reloads_the_new_saved_document (route=manager)",
+    "cause": "Windows temporary-directory 8.3 alias RUNNER~1 versus canonical runneradmin path spelling. Saved-content and in-memory assertions passed before this path comparison.",
+    "actual_qt_result": "16 tests executed; one path-spelling assertion failed."
+  },
+  "correction": "Path.samefile checks actual filesystem identity of the existing saved target. Missing or inaccessible paths still fail. All saved-content, current-document, cancellation and failure assertions remain.",
+  "test_sha256": "55236ade6317fabc3964ccbe1ac3a0d891125215272e2129ded4aca6f2a05f2b",
+  "local": {
+    "status": "passed",
+    "wrapper_tests": 1,
+    "asserted_child_tests": 16,
+    "seconds": 7.278,
+    "log_sha256": "1988ec36c81b895975229170217233fbea550d0ccae4295be21c50c85fe5e63f",
+    "log": "test_real_desktop_open_and_folder_save_guards (tests.test_project_data_safety.ProjectDataSafetyRegressionTests.test_real_desktop_open_and_folder_save_guards) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 7.278s\n\nOK\n"
+  },
+  "unchanged_production_sha256": {
+    "icstudio/feature_ui.py": "9c22ebe4705494b7e899483e13200c3f261f851ec43268aee5f27ea587fe56a6",
+    "icstudio/gui.py": "c822b2e8616d0d0d34cc39070fb9915a2f97c1a20627a996042803188c78553c",
+    "icstudio/project_hub_ui.py": "3ba68375644a73b9e04ec0fa31fe2e1f9ab3cbd4b4a6037f532f169af0273c11",
+    "icstudio/project_ui.py": "d614a6078f3624dcb94e80030a9475a55269311313b2cae2144314e50a50de44",
+    "icstudio/xschem_workflow.py": "a4dd00acf0665490ad8bd5b0b5ea5c04fc8d031289854d2ece2fda44e468858d"
+  },
+  "earlier_validation_scope": "The prior 1919-source/5017-core passes remain bound to their retained source snapshot. The application implementation is unchanged; the path-assertion test bytes differ.",
+  "pending": [
+    "Fresh hosted source feedback on both operating systems",
+    "Exact follow-on installed acceptance"
+  ],
+  "main_changed": false,
+  "chunk7_estimate": {
+    "percent": 74,
+    "confidence": "low",
+    "range": [
+      55,
+      82
+    ],
+    "full_qualification": false
+  }
+}
