@@ -5,6 +5,20 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 11 final platform fixture:** grouped Windows GUI source checks now
+pass. The grouped Windows contracts expose one test-fixture issue: rebuilding
+an oversized stat tuple discarded Windows-specific metadata. The [reviewed
+fixture-only correction](validation/chunk7-final-platform-fixture-2026-11-11.json)
+overrides only size and delegates every other real stat attribute; an explicit
+Windows reparse-attribute regression passes. Production protection and the
+3-GiB cap are unchanged. Fourteen module tests and 199 affected runtime tests
+pass (one existing skip), with 2,540 unchanged source identities. A fresh request
+ID triggers the same reviewed build-only policy on this final candidate.
+Both grouped Linux jobs remain failed on external Ubuntu DNS/package downloads,
+not a skipped or waived gate. Final hosted source, exact installed and full host
+proof acceptance remain pending; all scientific exclusions and the 74% estimate
+(low confidence 55–82%) remain unchanged.
+
 **November 11 final feedback/delivery candidate:** the Windows replay of
 `f9817a2` passes all 194 runtime tests (two existing skips), including both repaired
 fixtures, and completes 12 source stages. GitHub then cancels it at the unchanged

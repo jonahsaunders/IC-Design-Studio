@@ -1,6 +1,11 @@
 from pathlib import Path
 import tempfile,unittest,json,zipfile,hashlib
 from scripts.package_ihp_wsl_research_preparation import package
+class StatSizeOverride:
+ """Override one fixture field without dropping platform-specific stat metadata."""
+ def __init__(self,original,size):self.original=original;self.st_size=size
+ def __getattr__(self,name):return getattr(self.original,name)
+
 class Delivery(unittest.TestCase):
  def test_full_bytes_parts_and_small_metadata(self):
   with tempfile.TemporaryDirectory() as t:
@@ -112,7 +117,6 @@ class OriginalBaseDelivery(unittest.TestCase):
    self.assertEqual(bytes(reconstructed),original);self.assertEqual(r['sha256'],hashlib.sha256(original).hexdigest());self.assertEqual(r['bytes'],len(original))
    self.assertTrue(all(x['bytes']<=4096 for x in m['parts'].values()));self.assertEqual((source/'base-runtime.tar.gz').read_bytes(),original)
  def test_aggregate_cap_not_relaxed_for_original_base(self):
-  import os
   from unittest.mock import patch
   from scripts import package_ihp_wsl_research_preparation as module
   with tempfile.TemporaryDirectory() as t:
@@ -121,10 +125,25 @@ class OriginalBaseDelivery(unittest.TestCase):
    def fake(path,*args,**kwargs):
     value=original(path,*args,**kwargs)
     if path==base:
-     values=list(value);values[6]=3*1024**3+1;return os.stat_result(values)
+     return StatSizeOverride(value,3*1024**3+1)
     return value
    with patch.object(Path,'stat',autospec=True,side_effect=fake),self.assertRaisesRegex(ValueError,'cap exceeded'):package(source,root/'out')
    self.assertFalse(json.loads((root/'out/metadata/DELIVERY.json').read_text())['proof_complete'])
+ def test_size_override_preserves_windows_extended_stat_fields(self):
+  import stat
+  from types import SimpleNamespace
+  from unittest.mock import patch
+  from scripts.read_ihp_pmos_measured_v3 import is_linked
+  original=SimpleNamespace(st_size=7,st_mode=stat.S_IFREG|0o600,st_file_attributes=0x400,
+                           st_reparse_tag=0xA0000003,st_birthtime=123.5,st_mtime_ns=987654321)
+  value=StatSizeOverride(original,3*1024**3+1)
+  self.assertEqual(value.st_size,3*1024**3+1);self.assertEqual(original.st_size,7)
+  for name,expected in vars(original).items():
+   if name!='st_size':self.assertEqual(getattr(value,name),expected)
+  with patch.object(Path,'lstat',return_value=value):self.assertTrue(is_linked(Path('fixture')))
+  original.st_file_attributes=0
+  with patch.object(Path,'lstat',return_value=value):self.assertFalse(is_linked(Path('fixture')))
+  with self.assertRaises(AttributeError):getattr(value,'missing_platform_field')
  def test_sixteen_part_cap_unchanged(self):
   with tempfile.TemporaryDirectory() as t:
    root=Path(t);source=root/'source';source.mkdir();(source/'base-runtime.tar.gz').write_bytes(b'x'*(17*1024))

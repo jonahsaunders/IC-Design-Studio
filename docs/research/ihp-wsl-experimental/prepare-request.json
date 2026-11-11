@@ -3,5 +3,5 @@
   "purpose": "BUILD_PREPARATION_ONLY",
   "policy_sha256": "d4d0fad7f497857a69a2d2436cc6c887836c413dbd54ddfde3fcc38aa9f2d291",
   "native_execution": false,
-  "request_id": "original-base-lossless-proof-v1"
+  "request_id": "final-platform-stat-fixture-v1"
 }
