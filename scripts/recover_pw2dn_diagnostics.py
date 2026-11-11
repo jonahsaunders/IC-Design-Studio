@@ -13,12 +13,14 @@ PREFIXES=('windows-evidence/', 'build/windows-evidence/')
 MEMBERS=('pw2dn/reference-launcher.log','pw2dn/reference-invocation.json','pw2dn/native-references/failure.json')
 MAX_MEMBER=8*1024*1024
 TAIL=64*1024
-MAX_ENTRIES=100000
+MAX_ENTRIES=132140
+EXPECTED_ENTRIES=132140
 MAX_OUTPUT=256*1024
 FIELDS={'status','returncode','exit_code','timed_out','error','message','exception','reason','stage','schema','candidate_commit','commit','execution_id'}
 SENSITIVE=re.compile(r'(?i)(password|passwd|secret|token|authorization|credential|cookie|private.?key|api.?key)')
 
 VALIDATION_CODES = {
+    'Unexpected archive entry count': 'UNEXPECTED_ARCHIVE_ENTRY_COUNT',
     'Ambiguous allowlisted member': 'AMBIGUOUS_ALLOWLISTED_MEMBER',
     'Archive download deadline exceeded': 'ARCHIVE_DOWNLOAD_DEADLINE_EXCEEDED',
     'Archive exceeds pinned size': 'ARCHIVE_EXCEEDS_PINNED_SIZE',
@@ -103,12 +105,13 @@ def metadata(run,artifact):
     require(wr.get('id')==RUN and wr.get('head_sha')==HEAD,'Artifact run mismatch')
     require(wr.get('repository_id')==run['repository'].get('id') and wr.get('head_repository_id')==run['head_repository'].get('id'),'Artifact repository ID mismatch')
 
-def inspect_archive(archive,output,diagnostics=None):
+def inspect_archive(archive,output,diagnostics=None,expected_entries=None):
     reports=[]
     diagnostics=diagnostics if diagnostics is not None else {}
     diagnostics.update(entry_count=0,scanned_entries=0,selected_count=0,selected_presence={m:False for m in MEMBERS})
     with zipfile.ZipFile(archive) as z:
         infos=z.infolist();diagnostics['entry_count']=len(infos);require(len(infos)<=MAX_ENTRIES,'Too many archive entries')
+        require(expected_entries is None or len(infos)==expected_entries,'Unexpected archive entry count')
         names=set();selected={}
         for info in infos:
             diagnostics['scanned_entries']+=1
@@ -180,7 +183,7 @@ def main():
         with tempfile.TemporaryDirectory(prefix='pw2dn-recovery-') as tmp:
             receipt['stage']='archive_download'
             archive=Path(tmp)/'artifact.zip';download(api(f'/repos/{REPO}/actions/artifacts/{ARTIFACT}/zip',token,True),archive)
-            receipt['archive_verified']=True;receipt['stage']='allowlisted_projection';receipt['structure']={};receipt['members']=inspect_archive(archive,out,receipt['structure'])
+            receipt['archive_verified']=True;receipt['stage']='allowlisted_projection';receipt['structure']={};receipt['members']=inspect_archive(archive,out,receipt['structure'],expected_entries=EXPECTED_ENTRIES)
         receipt['status']='complete'
     except Exception as exc:
         receipt['error_code']=failure_code(exc);receipt['error_type']=type(exc).__name__;receipt['error']='Recovery failed at retained stage; exception text intentionally omitted to protect signed URLs and headers';raise RuntimeError('Pinned recovery failed; inspect sanitized manifest') from None

@@ -95,6 +95,24 @@ class RecoveryTests(unittest.TestCase):
    self.assertEqual(stats['entry_count'],2);self.assertEqual(stats['scanned_entries'],2);self.assertEqual(stats['selected_count'],1)
    self.assertTrue(stats['selected_presence'][r.MEMBERS[1]])
    self.assertNotIn('private',json.dumps(stats));self.assertNotIn('secret',json.dumps(stats))
+ def test_exact_entry_boundary_and_above(self):
+  # Exercise the real metadata scan at the production count without 132k disk files.
+  class Archive:
+   def __init__(self,count):self.count=count
+   def __enter__(self):return self
+   def __exit__(self,*args):pass
+   def infolist(self):return [zipfile.ZipInfo('entry-'+str(i)) for i in range(self.count)]
+  with tempfile.TemporaryDirectory() as td:
+   for count,code in [(r.EXPECTED_ENTRIES,None),(r.EXPECTED_ENTRIES+1,'TOO_MANY_ARCHIVE_ENTRIES'),(r.EXPECTED_ENTRIES-1,'UNEXPECTED_ARCHIVE_ENTRY_COUNT')]:
+    stats={}
+    with patch.object(r.zipfile,'ZipFile',return_value=Archive(count)):
+     if code:
+      with self.assertRaises(r.ValidationFailure) as got:r.inspect_archive(None,Path(td),stats,expected_entries=r.EXPECTED_ENTRIES)
+      self.assertEqual(r.failure_code(got.exception),code);self.assertEqual(stats['scanned_entries'],0)
+     else:
+      rows=r.inspect_archive(None,Path(td),stats,expected_entries=r.EXPECTED_ENTRIES)
+      self.assertEqual(stats['scanned_entries'],132140);self.assertEqual([x['status'] for x in rows],['missing']*3)
+  self.assertEqual(r.MAX_ENTRIES,r.EXPECTED_ENTRIES)
  def test_workflow_narrow_permissions_trigger_and_upload(self):
   text=(Path(__file__).resolve().parents[1]/'.github/workflows/recover-pw2dn-once.yml').read_text()
   self.assertIn('branches: [codex/chunk7-blockers-20261108]',text);self.assertIn('actions: read',text);self.assertIn('contents: read',text);self.assertIn('persist-credentials: false',text);self.assertNotIn('workflow_dispatch',text);self.assertNotIn('pull_request',text);self.assertNotIn('write',text);self.assertIn('pw2dn-recovered/*.json',text)
