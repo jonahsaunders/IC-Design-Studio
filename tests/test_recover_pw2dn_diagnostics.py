@@ -77,6 +77,24 @@ class RecoveryTests(unittest.TestCase):
   r.artifact_url('https://x.actions.githubusercontent.com/a')
   for url in ['http://x.blob.core.windows.net/a','https://evil.com/a','https://x.blob.core.windows.net.evil.com/a','https://user:password@x.blob.core.windows.net/a','https://x.blob.core.windows.net:444/a','https://x.blob.core.windows.net/a#fragment']:
    with self.assertRaises(ValueError):r.artifact_url(url)
+ def test_static_error_codes_do_not_echo_input(self):
+  for label,code in r.VALIDATION_CODES.items():
+   with self.assertRaises(r.ValidationFailure) as got:r.require(False,label)
+   self.assertEqual(r.failure_code(got.exception),code)
+  for exc in [ValueError('https://secret.invalid/?token=private'),r.ValidationFailure('token=private')]:
+   self.assertEqual(r.failure_code(exc),'UNCLASSIFIED_EXCEPTION')
+   self.assertNotIn('private',r.failure_code(exc))
+  evil=r.ValidationFailure('Unsafe archive path');evil.code='token=private'
+  self.assertEqual(r.failure_code(evil),'UNCLASSIFIED_EXCEPTION')
+ def test_structural_counts_no_unrelated_names(self):
+  stats={}
+  with tempfile.TemporaryDirectory() as td:
+   archive=self.archive([('windows-evidence/'+r.MEMBERS[1],b'{}'),('../token=private',b'secret')])
+   with self.assertRaises(r.ValidationFailure) as got:r.inspect_archive(archive,Path(td),stats)
+   self.assertEqual(r.failure_code(got.exception),'UNSAFE_ARCHIVE_PATH')
+   self.assertEqual(stats['entry_count'],2);self.assertEqual(stats['scanned_entries'],2);self.assertEqual(stats['selected_count'],1)
+   self.assertTrue(stats['selected_presence'][r.MEMBERS[1]])
+   self.assertNotIn('private',json.dumps(stats));self.assertNotIn('secret',json.dumps(stats))
  def test_workflow_narrow_permissions_trigger_and_upload(self):
   text=(Path(__file__).resolve().parents[1]/'.github/workflows/recover-pw2dn-once.yml').read_text()
   self.assertIn('branches: [codex/chunk7-blockers-20261108]',text);self.assertIn('actions: read',text);self.assertIn('contents: read',text);self.assertIn('persist-credentials: false',text);self.assertNotIn('workflow_dispatch',text);self.assertNotIn('pull_request',text);self.assertNotIn('write',text);self.assertIn('pw2dn-recovered/*.json',text)

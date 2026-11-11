@@ -18,8 +18,47 @@ MAX_OUTPUT=256*1024
 FIELDS={'status','returncode','exit_code','timed_out','error','message','exception','reason','stage','schema','candidate_commit','commit','execution_id'}
 SENSITIVE=re.compile(r'(?i)(password|passwd|secret|token|authorization|credential|cookie|private.?key|api.?key)')
 
+VALIDATION_CODES = {
+    'Ambiguous allowlisted member': 'AMBIGUOUS_ALLOWLISTED_MEMBER',
+    'Archive download deadline exceeded': 'ARCHIVE_DOWNLOAD_DEADLINE_EXCEEDED',
+    'Archive exceeds pinned size': 'ARCHIVE_EXCEEDS_PINNED_SIZE',
+    'Archive size/digest mismatch': 'ARCHIVE_SIZE_DIGEST_MISMATCH',
+    'Artifact identity mismatch': 'ARTIFACT_IDENTITY_MISMATCH',
+    'Artifact repository ID mismatch': 'ARTIFACT_REPOSITORY_ID_MISMATCH',
+    'Artifact run mismatch': 'ARTIFACT_RUN_MISMATCH',
+    'Compact output exceeds cap': 'COMPACT_OUTPUT_EXCEEDS_CAP',
+    'Duplicate/case-colliding archive member': 'DUPLICATE_CASE_COLLIDING_ARCHIVE_MEMBER',
+    'Encrypted archive member': 'ENCRYPTED_ARCHIVE_MEMBER',
+    'Expected JSON object': 'EXPECTED_JSON_OBJECT',
+    'Invalid signed artifact URL': 'INVALID_SIGNED_ARTIFACT_URL',
+    'Linked archive member': 'LINKED_ARCHIVE_MEMBER',
+    'Member size mismatch': 'MEMBER_SIZE_MISMATCH',
+    'Missing ephemeral Actions token': 'MISSING_EPHEMERAL_ACTIONS_TOKEN',
+    'Non-HTTPS archive response': 'NON_HTTPS_ARCHIVE_RESPONSE',
+    'Output must be fresh': 'OUTPUT_MUST_BE_FRESH',
+    'Oversized API metadata': 'OVERSIZED_API_METADATA',
+    'Oversized/nonfile diagnostic': 'OVERSIZED_NONFILE_DIAGNOSTIC',
+    'Run identity mismatch': 'RUN_IDENTITY_MISMATCH',
+    'Run not expected completed failure': 'RUN_NOT_EXPECTED_COMPLETED_FAILURE',
+    'Run repository mismatch': 'RUN_REPOSITORY_MISMATCH',
+    'Too many archive entries': 'TOO_MANY_ARCHIVE_ENTRIES',
+    'Unapproved API path': 'UNAPPROVED_API_PATH',
+    'Unrecognized artifact download host': 'UNRECOGNIZED_ARTIFACT_DOWNLOAD_HOST',
+    'Unsafe archive path': 'UNSAFE_ARCHIVE_PATH',
+    'Unsupported diagnostic member type': 'UNSUPPORTED_DIAGNOSTIC_MEMBER_TYPE',
+}
+
+class ValidationFailure(ValueError):
+    def __init__(self, message):
+        self.code=VALIDATION_CODES.get(message, "UNCLASSIFIED_VALIDATION")
+        super().__init__(self.code)
+
+def failure_code(exc):
+    if type(exc) is ValidationFailure and exc.code in VALIDATION_CODES.values():return exc.code
+    return "UNCLASSIFIED_EXCEPTION"
+
 def require(value,message):
-    if not value:raise ValueError(message)
+    if not value:raise ValidationFailure(message)
 
 def digest(data):return hashlib.sha256(data).hexdigest()
 def write(path,value):
@@ -64,12 +103,15 @@ def metadata(run,artifact):
     require(wr.get('id')==RUN and wr.get('head_sha')==HEAD,'Artifact run mismatch')
     require(wr.get('repository_id')==run['repository'].get('id') and wr.get('head_repository_id')==run['head_repository'].get('id'),'Artifact repository ID mismatch')
 
-def inspect_archive(archive,output):
+def inspect_archive(archive,output,diagnostics=None):
     reports=[]
+    diagnostics=diagnostics if diagnostics is not None else {}
+    diagnostics.update(entry_count=0,scanned_entries=0,selected_count=0,selected_presence={m:False for m in MEMBERS})
     with zipfile.ZipFile(archive) as z:
-        infos=z.infolist();require(len(infos)<=MAX_ENTRIES,'Too many archive entries')
+        infos=z.infolist();diagnostics['entry_count']=len(infos);require(len(infos)<=MAX_ENTRIES,'Too many archive entries')
         names=set();selected={}
         for info in infos:
+            diagnostics['scanned_entries']+=1
             name=info.filename;parts=PurePosixPath(name).parts
             require(name and not name.startswith('/') and '\\' not in name and ':' not in name and all(p not in ('','..','.') for p in name.rstrip('/').split('/')),'Unsafe archive path')
             key=name.rstrip('/').casefold();require(key not in names,'Duplicate/case-colliding archive member');names.add(key)
@@ -82,6 +124,7 @@ def inspect_archive(archive,output):
                     require(not info.is_dir() and info.file_size<=MAX_MEMBER,'Oversized/nonfile diagnostic')
                     require(stat.S_IFMT(mode) in (0,stat.S_IFREG),'Unsupported diagnostic member type')
                     selected[member]=info
+                    diagnostics['selected_count']=len(selected);diagnostics['selected_presence'][member]=True
         for member in MEMBERS:
             info=selected.get(member)
             if info is None:reports.append({'member':member,'status':'missing','searched_exact_names':[p+member for p in PREFIXES]});continue
@@ -137,10 +180,10 @@ def main():
         with tempfile.TemporaryDirectory(prefix='pw2dn-recovery-') as tmp:
             receipt['stage']='archive_download'
             archive=Path(tmp)/'artifact.zip';download(api(f'/repos/{REPO}/actions/artifacts/{ARTIFACT}/zip',token,True),archive)
-            receipt['archive_verified']=True;receipt['stage']='allowlisted_projection';receipt['members']=inspect_archive(archive,out)
+            receipt['archive_verified']=True;receipt['stage']='allowlisted_projection';receipt['structure']={};receipt['members']=inspect_archive(archive,out,receipt['structure'])
         receipt['status']='complete'
     except Exception as exc:
-        receipt['error_type']=type(exc).__name__;receipt['error']='Recovery failed at retained stage; exception text intentionally omitted to protect signed URLs and headers';raise RuntimeError('Pinned recovery failed; inspect sanitized manifest') from None
+        receipt['error_code']=failure_code(exc);receipt['error_type']=type(exc).__name__;receipt['error']='Recovery failed at retained stage; exception text intentionally omitted to protect signed URLs and headers';raise RuntimeError('Pinned recovery failed; inspect sanitized manifest') from None
     finally:
         write(out/'manifest.json',receipt)
         require(sum(p.stat().st_size for p in out.iterdir() if p.is_file())<=MAX_OUTPUT,'Compact output exceeds cap')
