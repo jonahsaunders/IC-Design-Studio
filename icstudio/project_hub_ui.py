@@ -329,8 +329,10 @@ class ProjectHub(QDialog):
 
     def open_path(self,path):
         try:
-            project=load_project(path)
-            if self.window._replace_document():self.window.set_project(project,path);self.accept()
+            # Validation must precede the prompt; loading must follow its save.
+            load_project(path)
+            if self.window._replace_document():
+                if self.window.set_project(load_project(path),path) is not False:self.accept()
         except (ValueError,OSError,KeyError) as exc:self.state.setText(str(exc))
 
     def reject(self):

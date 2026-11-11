@@ -159,7 +159,13 @@ class FeatureMixin:
     def save_project_folder(self):
         from .project_store import save_directory
         path=QFileDialog.getExistingDirectory(self,'Save project folder')
-        if path:save_directory(self.project,path);self.statusBar().showMessage('Project folder snapshot saved.',8000)
+        if not path:return
+        window=getattr(self,'_digital_window',None)
+        if window and window.dirty and not window.attempt(window.apply):return False
+        if not self.flush_inspector() or not self.flush_analysis():return False
+        save_directory(self.project,path)
+        self.statusBar().showMessage('Project folder snapshot saved.',8000)
+        return True
     def open_project_folder(self):
         from .project_store import load_directory
         path,_=QFileDialog.getOpenFileName(self,'Open project folder manifest','','Project manifest (*.icstudio)')

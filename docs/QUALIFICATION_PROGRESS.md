@@ -5,6 +5,26 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 11 experimental data-safety follow-on:** PR #70 is merged into
+`experimental` at exact `f323bf8c8e1d436911a0da17621630a515a4ec04`; its source
+matrix passes on both operating systems. Its same-attempt desktop run
+[43078377334](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/43078377334)
+is still running at this snapshot and does not cover this later repair.
+
+The [reviewed document-safety repair](validation/experimental-project-data-safety-2026-11-11.json)
+prevents reopening a file from silently replacing edits just saved in the
+Save prompt, across all four open entry points. Folder snapshots now include
+pending inspector, analysis and digital edits without marking the original
+project saved. Sixteen real Qt regressions pass; two selected original-source
+controls expose five expected failures. All 14 local source stages pass:
+1,919 tests, 18 skips, 1,637 syntax files and 2,548 unchanged source
+identities. Forty-eight focused checks also pass. Historical native acceptance
+is retained against its exact old source bytes, not reassigned to this repair.
+The initial failed source run and incorrect focused invocation are retained.
+Exhaustive local core also passes: 5,017 tests, 81 skips in 1,152.906 seconds.
+Hosted source and exact follow-on installed acceptance remain pending. No main integration, native research promotion or full qualification is
+claimed. Chunk 7 stays 74%, low confidence 55–82%, with all scientific exclusions.
+
 **November 11 final platform fixture:** grouped Windows GUI source checks now
 pass. The grouped Windows contracts expose one test-fixture issue: rebuilding
 an oversized stat tuple discarded Windows-specific metadata. The [reviewed

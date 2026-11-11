@@ -48,8 +48,9 @@ class XschemWorkflowMixin:
         if Path(path).suffix.lower()=='.sch':
             from .xschem_workspace import show_review
             return show_review(self,path,auto_open=True)
-        p=load_project(path)
-        if self.maybe_save():self.set_project(p,path)
+        # Validate first, then reload: Save may rewrite the selected file.
+        load_project(path)
+        if self.maybe_save():self.set_project(load_project(path),path)
 
     def export_spice(self):
         if not compatible(self.project):return super().export_spice()

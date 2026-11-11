@@ -24,6 +24,13 @@ def workflow(name):
 
 
 class FeedbackTests(unittest.TestCase):
+    def test_project_data_safety_is_required_and_source_bound(self):
+        self.assertEqual(UNIT_MODULES.count('test_project_data_safety'), 1)
+        self.assertIn('test_project_data_safety', ci_feedback.UNIT_STAGE_MODULES)
+        bound = source_identity()
+        for name in ('tests/test_project_data_safety.py', 'tests/gui_project_data_safety.py'):
+            self.assertIn(name, bound)
+
     def test_reconstructed_build_policies_are_bound_without_native_selection(self):
         for name in ('test_ihp_wsl_app_dispatch', 'test_ihp_wsl_app_reconstruction', 'test_ihp_wsl_elf_symbols'):
             self.assertIn(name, RUNTIME_RELEASE_MODULES)

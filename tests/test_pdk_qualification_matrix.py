@@ -41,6 +41,30 @@ class QualificationMatrixTests(unittest.TestCase):
                     validate(self.matrix)
         self.assertEqual(validate(self.matrix)['status'], 'matrix_consistent')
 
+    def test_retained_document_safety_sources_cannot_change_or_disappear(self):
+        from scripts.check_pdk_qualification import ROOT
+        from scripts.ci_feedback import source_identity
+        reference = self.matrix['execution_acceptance']['4']['historical_source_snapshot']
+        manifest = read(ROOT / reference['path'])
+        identities = source_identity()
+        self.assertEqual(identities[reference['path']], reference['sha256'])
+        original = Path.read_bytes
+        for name in ('feature_ui.py', 'gui.py', 'xschem_workflow.py'):
+            captured = manifest['files'][name]
+            target = (ROOT / captured['path']).resolve()
+            self.assertEqual(identities[captured['path']], captured['sha256'])
+            for missing in (False, True):
+                def read_bytes(path):
+                    if path.resolve() == target:
+                        if missing:
+                            raise FileNotFoundError(str(path))
+                        return original(path) + b'\nchanged historical source\n'
+                    return original(path)
+                with self.subTest(name=name, missing=missing), patch.object(Path, 'read_bytes', read_bytes):
+                    with self.assertRaises(FileNotFoundError if missing else ValueError):
+                        validate(self.matrix)
+        self.assertEqual(validate(self.matrix)['status'], 'matrix_consistent')
+
     def test_density_reference_record_cannot_complete_missing_fill_coverage(self):
         matrix = copy.deepcopy(self.matrix)
         self.assertIn('4', matrix['execution_acceptance'])

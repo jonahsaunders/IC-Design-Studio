@@ -26067,8 +26067,8 @@
       "path": "docs/validation/gf180-fill-closure-2026-10-09.json",
       "sha256": "e11e1a23ccaa8c9c7ec1133587da95375286b2f2536f939572ef4b786f5a7be7",
       "historical_source_snapshot": {
-        "path": "docs/validation/chunk7-openems-retained-source-2026-11-07/chunk4-manifest.json",
-        "sha256": "8f0940a7e89809e20b137c6b0c63a644d65883312918329370d083dc0f7db8e2"
+        "path": "docs/validation/experimental-data-safety-retained-source-2026-11-11/chunk4-manifest.json",
+        "sha256": "f4524c14b6641ad038c6ca572ffda5413762284de760188be599d7d141788565"
       }
     },
     "5": {

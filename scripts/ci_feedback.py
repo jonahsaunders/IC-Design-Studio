@@ -16,7 +16,7 @@ if __package__ in (None, ''):
 
 UNIT_MODULES = (
     'test_ci_candidate', 'test_recover_pw2dn_diagnostics', 'test_frozen_physical', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
-    'test_core', 'test_lifecycle', 'test_workflows', 'test_project_pdk',
+    'test_core', 'test_lifecycle', 'test_project_data_safety', 'test_workflows', 'test_project_pdk',
     'test_pdk_templates', 'test_student_physical',
     'test_document.RecoveryQueueTests', 'test_layout_verification',
     'test_digital.DigitalChildEnvironmentTests', 'test_digital.YosysIntegrationTests',
@@ -163,8 +163,9 @@ def source_identity(root=ROOT):
     files += [p for p in (root / 'tests/fixtures/pw2dn-recovery-2026-11-11').glob('*') if p.is_file()]
     matrix = root / 'docs/qualification/pdk-matrix.json'
     if matrix.is_file(): files.append(matrix)
-    files += [p for p in (root / 'docs/validation/chunk7-openems-retained-source-2026-11-07').glob('*')
-              if p.is_file()]
+    for folder in ('chunk7-openems-retained-source-2026-11-07',
+                   'experimental-data-safety-retained-source-2026-11-11'):
+        files += [p for p in (root / 'docs/validation' / folder).glob('*') if p.is_file()]
     # Retained qualification tests authenticate historical inputs separately
     # from live application code. Bind that complete selection to this run too.
     from scripts import sky130_retained_catalog as retained

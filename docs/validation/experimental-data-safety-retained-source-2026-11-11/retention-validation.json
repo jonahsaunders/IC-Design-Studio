@@ -1,0 +1,21 @@
+{
+  "scope": "Historical acceptance source retention only; not acceptance of data-safety repair",
+  "results": {
+    "4": {
+      "status": "reference_gate_complete",
+      "chunk": 4,
+      "chunk_complete": true,
+      "references": 6,
+      "process_qualification": "unqualified"
+    },
+    "5": {
+      "status": "reference_gate_complete",
+      "chunk": 5,
+      "chunk_complete": true,
+      "references": 3,
+      "process_qualification": "unqualified",
+      "source_scope": "historical-tested-source-only"
+    }
+  },
+  "native_execution": false
+}

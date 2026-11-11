@@ -248,9 +248,11 @@ class ProjectMixin:
         def open_selected():
             if not items.currentItem():return
             try:
-                path=items.currentItem().data(Qt.UserRole)['path'];p=load_project(path)
+                path=items.currentItem().data(Qt.UserRole)['path'];load_project(path)
                 if self.process:raise ValueError('Stop the active job before switching projects.')
-                if self.flush_inspector() and self.maybe_save():self.set_project(p,path);dlg.accept()
+                if self.flush_inspector() and self.maybe_save():
+                    # A save can update this same file while the prompt is open.
+                    if self.set_project(load_project(path),path) is not False:dlg.accept()
             except Exception as e:error.setText(str(e))
         def remove():
             if items.currentItem():self.project_index.forget(items.currentItem().data(Qt.UserRole)['path']);fill()

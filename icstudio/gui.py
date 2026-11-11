@@ -249,8 +249,9 @@ class StudioCore(RecoveryUIMixin,QMainWindow):
     def open_project(self):
         path,_=QFileDialog.getOpenFileName(self,'Open project',str(self.path.parent) if self.path else '', 'IC Studio projects (*.icproj)')
         if path:
-            p=load_project(path)
-            if self.maybe_save():self.set_project(p,path)
+            # Do not install a snapshot taken before the Save/Discard guard.
+            load_project(path)
+            if self.maybe_save():self.set_project(load_project(path),path)
     def save(self,as_new=False):
         path=self.path
         if path is None or as_new:
