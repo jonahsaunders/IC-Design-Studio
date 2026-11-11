@@ -1,5 +1,19 @@
 # Chunks 1–12: progress and forecast
 
+**November 11 targeted stale-export repair:** the follow-on to `5f4b441`
+synchronizes pending analysis/inspector edits for Xschem and structural Verilog
+exports. The [focused validation record](validation/experimental-project-export-safety-2026-11-11.json)
+retains 30 real Qt cases, two expected original-code failures, and 132 affected
+module tests passing with five explicit skips; 1,637 syntax checks and 2,556
+source identities are unchanged. This intentionally risk-scaled pass does **not**
+rerun full core or the 14-stage local source lane. Previous copy-repair counts
+are not carried forward; fresh hosted and installed acceptance remain pending.
+Xschem Cancel may synchronize analysis in memory, not save it to disk;
+structural-export Cancel does not flush. This export follow-on is not yet
+integrated into experimental; main is untouched. Chunk 7 stays **74%**, low
+confidence **55–82%**, not a qualification or acceptance fraction.
+
+
 **November 11 Duplicate Project pending-edit repair:** the local follow-on to
 `e1d26f907214b66584ac3003c2684a7371a3c14b` copies pending analysis and digital
 edits after destination selection without saving over the original project.

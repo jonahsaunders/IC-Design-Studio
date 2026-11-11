@@ -165,7 +165,8 @@ def source_identity(root=ROOT):
     if matrix.is_file(): files.append(matrix)
     for folder in ('chunk7-openems-retained-source-2026-11-07',
                    'experimental-data-safety-retained-source-2026-11-11',
-                   'experimental-copy-safety-retained-source-2026-11-11'):
+                   'experimental-copy-safety-retained-source-2026-11-11',
+                   'experimental-export-safety-retained-source-2026-11-11'):
         files += [p for p in (root / 'docs/validation' / folder).glob('*') if p.is_file()]
     # Retained qualification tests authenticate historical inputs separately
     # from live application code. Bind that complete selection to this run too.

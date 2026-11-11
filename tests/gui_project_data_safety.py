@@ -572,6 +572,171 @@ class ProjectDataSafetyTests(unittest.TestCase):
         self.assertEqual(self.window.project['analysis']['stop'], '987u')
         self.assertFalse(any('Created ' in str(call) for call in message.call_args_list))
 
+    def test_xschem_export_contains_current_analysis_and_inspector_edits(self):
+        path, _ = self.prepare(dirty=False)
+        original_bytes = path.read_bytes()
+        original_saved_hash = self.window.saved_hash
+        rid = self.pending_resistor('22k')
+        self.window.analysis_fields['stop'].setText('987u')
+        target = path.parent / 'current xschem package'
+        with patch.object(QFileDialog, 'getExistingDirectory', return_value=str(target)):
+            self.window.export_sch()
+        exported = load_project(target / 'project.icproj')
+        self.assertEqual(exported['analysis']['stop'], '987u')
+        self.assertEqual(next(d for d in exported['cells'][0]['devices'] if d['id'] == rid)['value'], '22k')
+        deck = (target / 'simulation.cir').read_text(encoding='utf-8')
+        transient = next(line.split() for line in deck.splitlines() if line.startswith('.tran '))
+        self.assertAlmostEqual(float(transient[-1]), 987e-6)
+        self.assertIn('22000', next(line for line in deck.splitlines() if line.startswith('R1 ')))
+        self.assertIn('Xschem package exported', self.window.statusBar().currentMessage())
+        self.assertEqual(self.window.path, path)
+        self.assertEqual(self.window.saved_hash, original_saved_hash)
+        self.assertNotEqual(digest(self.window.project), original_saved_hash)
+        self.assertEqual(path.read_bytes(), original_bytes)
+        self.assertFalse(self.window.analysis_dirty)
+        self.assertFalse(self.window._inspector_dirty)
+
+    def test_structural_verilog_export_contains_current_inspector_value(self):
+        path, _ = self.prepare(dirty=False)
+        original_bytes = path.read_bytes()
+        original_saved_hash = self.window.saved_hash
+        self.pending_resistor('22k')
+        target = path.parent / 'current connectivity.v'
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')):
+            self.window.export_verilog()
+        text = target.read_text(encoding='utf-8')
+        resistor = next(line for line in text.splitlines() if 'IC_R #' in line)
+        self.assertIn('.VALUE(22000.0)', resistor)
+        self.assertNotIn('.VALUE(10000.0)', resistor)
+        self.assertEqual(self.window.path, path)
+        self.assertEqual(self.window.saved_hash, original_saved_hash)
+        self.assertNotEqual(digest(self.window.project), original_saved_hash)
+        self.assertEqual(path.read_bytes(), original_bytes)
+        self.assertFalse(self.window._inspector_dirty)
+
+    def test_native_xschem_export_retains_current_native_analysis_settings(self):
+        path, _ = self.prepare(dirty=False)
+        native = load_project(Path(__file__).resolve().parents[1] / 'examples/native-divider.icproj')
+        save_project(native, path)
+        self.window.set_project(load_project(path), path)
+        self.assertTrue(self.window.save())
+        original_bytes = path.read_bytes()
+        original_saved_hash = self.window.saved_hash
+        self.window.analysis_type.setCurrentIndex(self.window.analysis_type.findData('tran'))
+        self.window.analysis_fields['stop'].setText('987u')
+        self.window.analysis_fields['temperature'].setText('65')
+        self.assertTrue(self.window.analysis_dirty)
+        target = path.parent / 'native xschem package'
+        with patch.object(QFileDialog, 'getExistingDirectory', return_value=str(target)):
+            self.window.export_sch()
+        exported = load_project(target / 'studio-project.icproj')
+        self.assertEqual(exported['analysis']['type'], 'tran')
+        self.assertEqual(exported['analysis']['stop'], '987u')
+        self.assertEqual(float(exported['analysis']['temperature']), 65)
+        self.assertEqual(exported['analysis']['dc_startup'], self.window.native_dc_startup.isChecked())
+        self.assertFalse(self.window.analysis_dirty)
+        self.assertEqual(self.window.path, path)
+        self.assertEqual(self.window.saved_hash, original_saved_hash)
+        self.assertNotEqual(digest(self.window.project), original_saved_hash)
+        self.assertEqual(path.read_bytes(), original_bytes)
+
+    def test_invalid_export_drafts_do_not_write_or_report_success(self):
+        for kind, field in (('xschem', 'analysis'), ('xschem', 'inspector'), ('verilog', 'inspector')):
+            with self.subTest(kind=kind, field=field):
+                path, _ = self.prepare(dirty=False)
+                original_bytes = path.read_bytes()
+                original_saved_hash = self.window.saved_hash
+                if field == 'analysis':
+                    self.window.analysis_fields['stop'].setText('invalid time')
+                else:
+                    self.pending_resistor('invalid resistance')
+                target = path.parent / 'must not exist'
+                with patch.object(QFileDialog, 'getExistingDirectory', return_value=str(target)) as directory_picker, \
+                        patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')), \
+                        patch('icstudio.gui.export_xschem', side_effect=AssertionError('Invalid draft wrote Xschem')), \
+                        patch('icstudio.feature_ui.atomic_write', side_effect=AssertionError('Invalid draft wrote Verilog')), \
+                        patch.object(self.window.statusBar(), 'showMessage') as message:
+                    (self.window.export_sch if kind == 'xschem' else self.window.export_verilog)()
+                    if kind == 'xschem':
+                        directory_picker.assert_not_called()
+                self.assertFalse(target.exists())
+                self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertEqual(self.window.saved_hash, original_saved_hash)
+                self.assertFalse(any('exported' in str(call).lower() for call in message.call_args_list))
+
+    def test_explicit_export_draft_refusals_stop_before_writer(self):
+        for kind, guard in (('xschem', 'flush_inspector'), ('xschem', 'flush_analysis'), ('verilog', 'flush_inspector')):
+            with self.subTest(kind=kind, guard=guard):
+                path, _ = self.prepare(dirty=False)
+                before = clone(self.window.project)
+                target = path.parent / 'refused export'
+                with patch.object(QFileDialog, 'getExistingDirectory', return_value=str(target)), \
+                        patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')), \
+                        patch.object(self.window, guard, return_value=False), \
+                        patch('icstudio.gui.export_xschem', side_effect=AssertionError('Refused draft wrote Xschem')), \
+                        patch('icstudio.feature_ui.atomic_write', side_effect=AssertionError('Refused draft wrote Verilog')), \
+                        patch.object(self.window.statusBar(), 'showMessage') as message:
+                    (self.window.export_sch if kind == 'xschem' else self.window.export_verilog)()
+                self.assertEqual(digest(self.window.project), digest(before))
+                self.assertFalse(target.exists())
+                self.assertFalse(any('exported' in str(call).lower() for call in message.call_args_list))
+
+    def test_export_picker_cancellation_preserves_each_routes_draft_semantics(self):
+        for kind in ('xschem', 'verilog'):
+            with self.subTest(kind=kind):
+                path, _ = self.prepare(dirty=False)
+                original_bytes = path.read_bytes()
+                original_saved_hash = self.window.saved_hash
+                rid = self.pending_resistor('22k')
+                self.window.analysis_fields['stop'].setText('987u')
+                original_stop = self.window.project['analysis']['stop']
+                with patch.object(QFileDialog, 'getExistingDirectory', return_value=''), \
+                        patch.object(QFileDialog, 'getSaveFileName', return_value=('', '')), \
+                        patch('icstudio.gui.export_xschem', side_effect=AssertionError('Cancelled picker wrote Xschem')), \
+                        patch('icstudio.feature_ui.atomic_write', side_effect=AssertionError('Cancelled picker wrote Verilog')), \
+                        patch.object(self.window.statusBar(), 'showMessage') as message:
+                    if kind == 'verilog':
+                        with patch.object(self.window, 'flush_inspector', side_effect=AssertionError('Cancelled Verilog picker applied inspector')):
+                            self.window.export_verilog()
+                        self.assertTrue(self.window._inspector_dirty)
+                        self.assertTrue(self.window.analysis_dirty)
+                        self.assertEqual(self.window.project['analysis']['stop'], original_stop)
+                        self.assertEqual(next(d for d in self.window.cell['devices'] if d['id'] == rid)['value'], '10k')
+                    else:
+                        self.window.export_sch()
+                        # Xschem has an existing pre-picker inspector guard;
+                        # the new analysis guard follows the same behavior.
+                        self.assertFalse(self.window._inspector_dirty)
+                        self.assertFalse(self.window.analysis_dirty)
+                        self.assertEqual(self.window.project['analysis']['stop'], '987u')
+                        self.assertEqual(next(d for d in self.window.cell['devices'] if d['id'] == rid)['value'], '22k')
+                self.assertEqual(self.window.path, path)
+                self.assertEqual(self.window.saved_hash, original_saved_hash)
+                self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertFalse(any('exported' in str(call).lower() for call in message.call_args_list))
+
+    def test_export_writer_failures_leave_source_unsaved_and_do_not_report_success(self):
+        for kind in ('xschem', 'verilog'):
+            with self.subTest(kind=kind):
+                path, _ = self.prepare(dirty=False)
+                original_bytes = path.read_bytes()
+                original_saved_hash = self.window.saved_hash
+                self.pending_resistor('22k')
+                target = path.parent / 'failed export'
+                writer = 'icstudio.gui.export_xschem' if kind == 'xschem' else 'icstudio.feature_ui.atomic_write'
+                with patch.object(QFileDialog, 'getExistingDirectory', return_value=str(target)), \
+                        patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')), \
+                        patch(writer, side_effect=OSError('Injected export disk full')), \
+                        patch.object(self.window.statusBar(), 'showMessage') as message:
+                    with self.assertRaisesRegex(OSError, 'Injected export disk full'):
+                        (self.window.export_sch if kind == 'xschem' else self.window.export_verilog)()
+                self.assertFalse(target.exists())
+                self.assertEqual(self.window.path, path)
+                self.assertEqual(self.window.saved_hash, original_saved_hash)
+                self.assertNotEqual(digest(self.window.project), original_saved_hash)
+                self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertFalse(any('exported' in str(call).lower() for call in message.call_args_list))
+
 
 if __name__ == '__main__':
     unittest.main()

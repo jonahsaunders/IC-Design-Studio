@@ -173,7 +173,7 @@ class FeatureMixin:
     def export_verilog(self):
         from .design_ops import verilog
         path,_=QFileDialog.getSaveFileName(self,'Export structural connectivity','design.v','Verilog (*.v)')
-        if path:atomic_write(path,verilog(self.project))
+        if path and self.flush_inspector():atomic_write(path,verilog(self.project))
     def edit_parameters(self):
         def submit(v):
             definitions=dict(line.split('=',1) for line in v['parameters'].splitlines() if line.strip());definitions={k.strip():x.strip() for k,x in definitions.items()}

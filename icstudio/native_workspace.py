@@ -276,7 +276,7 @@ class NativeWorkspaceMixin:
         self.statusBar().showMessage('Exported native circuit and model files to ' + str(target), 10000)
 
     def export_sch(self):
-        if not self.flush_inspector():return
+        if not self.flush_inspector() or not self.flush_analysis():return
         return super().export_sch()
 
     def edit_xschem_program(self):
