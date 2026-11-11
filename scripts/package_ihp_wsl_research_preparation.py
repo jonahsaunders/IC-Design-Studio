@@ -12,7 +12,7 @@ PART_LIMIT=240*1024**2
 CHUNK_LIMIT=16*1024**2
 META_LIMIT=16*1024**2
 
-def package(source,output,part_limit=PART_LIMIT,chunk_limit=CHUNK_LIMIT):
+def _package(source,output,part_limit=PART_LIMIT,chunk_limit=CHUNK_LIMIT):
  source=unlinked(source);out=unlinked(output);require(not out.exists() and not out.is_relative_to(source),'Fresh separate delivery directory')
  require(1024<=chunk_limit<part_limit<=PART_LIMIT,'Delivery bounds')
  selected={};excluded={}
@@ -107,6 +107,65 @@ def package(source,output,part_limit=PART_LIMIT,chunk_limit=CHUNK_LIMIT):
  require(all(file_sha(p)==manifest['files'][n]['sha256'] and p.stat().st_size==manifest['files'][n]['bytes'] for n,p in current.items()),'Preparation bytes changed during delivery')
  if transport_failure is not None:raise ValueError('Payload splitting failed; proof/metadata retained') from transport_failure
  return manifest
+
+FAILURE_FILES=('commands.json','completion.json','result.json','build-inputs.json','image-receipt.json',
+ 'collect-signed-host-provenance.log','collect-signed-host-provenance.stderr.log')
+FAILURE_FILE_LIMIT=256*1024
+FAILURE_LOG_TAIL=64*1024
+
+def retain_failure(source,out,error):
+ """Best-effort bounded diagnostics only; never a substitute for missing proof."""
+ source=unlinked(source);out=unlinked(out)
+ require(not out.is_relative_to(source),'Separate failure delivery directory')
+ meta=unlinked(out/'metadata');meta.mkdir(parents=True,exist_ok=True)
+ retained=unlinked(meta/'failure-receipts');retained.mkdir(exist_ok=True)
+ receipt={'schema':1,'scope':'INCOMPLETE_PREPARATION_DELIVERY_DIAGNOSTICS_ONLY',
+  'status':'FAILED_INCOMPLETE_PROOF','qualified':False,'preparation_complete':False,
+  'proof_complete':False,'exception_type':type(error).__name__,'receipts':{},
+  'partial_proof_parts':'May exist but are incomplete and must not be accepted as full proof.',
+  'omissions':'Only exact allowlisted top-level diagnostics are copied; all other source bytes are unavailable in this failure manifest.'}
+ failed=getattr(error,'filename',None)
+ if isinstance(failed,str):
+  path=Path(failed)
+  if path.is_absolute() and path.is_relative_to(source):receipt['failed_source_member']=path.relative_to(source).as_posix()
+ for name in FAILURE_FILES:
+  row={};receipt['receipts'][name]=row
+  try:
+   path=unlinked(source/name)
+   if not path.exists():row['status']='missing';continue
+   require(path.is_file(),'Nonregular diagnostic')
+   size=path.stat().st_size;row['source_bytes']=size
+   if size>FAILURE_FILE_LIMIT and not name.endswith('.log'):
+    row['status']='omitted_oversize';continue
+   with path.open('rb') as stream:
+    offset=max(0,size-FAILURE_LOG_TAIL) if size>FAILURE_FILE_LIMIT else 0
+    stream.seek(offset);data=stream.read(FAILURE_FILE_LIMIT+1)
+   require(len(data)<=FAILURE_FILE_LIMIT and len(data)==size-offset and path.stat().st_size==size,'Diagnostic changed or exceeded bound')
+   target=unlinked(retained/name)
+   with target.open('xb') as stream:stream.write(data)
+   row.update(status='retained_tail' if offset else 'retained_complete',offset=offset,
+              bytes=len(data),sha256=hashlib.sha256(data).hexdigest())
+  except (OSError,ValueError) as exc:
+   row.update(status='unreadable_or_unsafe',exception_type=type(exc).__name__)
+ data=encoded(receipt);require(len(data)<=64*1024,'Failure manifest cap')
+ failure=unlinked(meta/'PROOF-FAILURE.json')
+ with failure.open('xb') as stream:stream.write(data)
+ delivery=unlinked(meta/'DELIVERY.json')
+ if not delivery.exists():
+  with delivery.open('xb') as stream:stream.write(data)
+
+def package(source,output,part_limit=PART_LIMIT,chunk_limit=CHUNK_LIMIT):
+ # Validate fresh paths before granting the fallback permission to write.
+ source=unlinked(source);out=unlinked(output)
+ require(not out.exists() and not out.is_relative_to(source),'Fresh separate delivery directory')
+ require(1024<=chunk_limit<part_limit<=PART_LIMIT,'Delivery bounds')
+ try:return _package(source,out,part_limit,chunk_limit)
+ except Exception as error:
+  try:retain_failure(source,out,error)
+  except Exception as diagnostic_error:
+   # Never replace the original packaging failure with a diagnostic failure.
+   error.add_note('Bounded diagnostic retention also failed: '+type(diagnostic_error).__name__)
+  raise
 
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();print(json.dumps(package(a.source,a.output),indent=2))

@@ -1,4 +1,6 @@
 """Reconstructed mocked provenance tests; no downloads or native commands."""
+from contextlib import contextmanager
+from types import SimpleNamespace
 import hashlib
 import io
 from pathlib import Path
@@ -7,6 +9,29 @@ import tempfile
 import unittest
 from unittest.mock import patch
 from scripts import collect_ihp_wsl_host_provenance as c
+
+
+@contextmanager
+def mocked_linux_capture_outputs(*outputs):
+    """Only simulate collector admission; real temporary I/O stays host-native.
+
+    The collector genuinely requires Linux and Unix output syntax. This mocked
+    APT test uses Windows temporary files too, without claiming a real host run.
+    Only the exact output-path regex on these declared paths is translated;
+    digest, package, version and all other regex validation remains real.
+    """
+    original_re = c.re
+    paths = {str(Path(p).absolute()): '/mock-capture/output-'+str(i)
+             for i, p in enumerate(outputs)}
+    def fullmatch(pattern, string, flags=0):
+        if pattern == r'/[A-Za-z0-9_./-]+' and string in paths:
+            string = paths[string]
+        return original_re.fullmatch(pattern, string, flags)
+    local_re = SimpleNamespace(**vars(original_re))
+    local_re.fullmatch = fullmatch
+    # Replace module-local references, not sys.platform or the shared re module.
+    with patch.object(c, 'sys', SimpleNamespace(platform='linux')), patch.object(c, 're', local_re):
+        yield
 
 
 class ProvenanceTests(unittest.TestCase):
@@ -102,6 +127,39 @@ class ProvenanceTests(unittest.TestCase):
             m=tarfile.TarInfo('usr/lib/x');m.size=3;t.addfile(m,io.BytesIO(b'lib'))
         with self.assertRaises(ValueError):c.prove_tar_members(path,{'/usr/lib/x':h})
 
+    def test_real_non_linux_guard_rejects_before_io(self):
+        out=self.root/'not-created'
+        with patch.object(c,'sys',SimpleNamespace(platform='win32')), \
+             patch.object(c.deps,'regular') as regular, \
+             patch.object(c.deps,'resolution') as resolution, \
+             patch.object(c.subprocess,'run') as run:
+            with self.assertRaisesRegex(ValueError,'Linux host required'):
+                c.capture(self.root/'missing-engine',out,base_archive_sha256='1'*64,image={},build_inputs_sha256='2'*64)
+            regular.assert_not_called();resolution.assert_not_called();run.assert_not_called()
+        self.assertFalse(out.exists())
+
+    def test_real_invalid_output_guard_rejects_before_io(self):
+        out=self.root/'invalid output with spaces'
+        with patch.object(c,'sys',SimpleNamespace(platform='linux')), \
+             patch.object(c.deps,'regular') as regular, \
+             patch.object(c.deps,'resolution') as resolution, \
+             patch.object(c.subprocess,'run') as run:
+            with self.assertRaisesRegex(ValueError,'Fresh unlinked output required'):
+                c.capture(self.root/'missing-engine',out,base_archive_sha256='1'*64,image={},build_inputs_sha256='2'*64)
+            regular.assert_not_called();resolution.assert_not_called();run.assert_not_called()
+        self.assertFalse(out.exists())
+
+    def test_mocked_admission_is_exact_and_other_regexes_remain_real(self):
+        original_re=c.re;original_sys=c.sys;out=self.root/'fixture output'
+        with mocked_linux_capture_outputs(out):
+            self.assertTrue(c.re.fullmatch(r'/[A-Za-z0-9_./-]+',str(out.absolute())))
+            self.assertIsNone(c.re.fullmatch(r'/[A-Za-z0-9_./-]+',str((self.root/'other output').absolute())))
+            self.assertIsNone(c.re.fullmatch('[0-9a-f]{64}','not-a-digest'))
+            self.assertTrue(c.re.fullmatch('[0-9a-f]{64}','1'*64))
+            self.assertIsNone(c.re.fullmatch(r'[a-z0-9][a-z0-9+.-]*(?::amd64)?','bad/package'))
+            self.assertEqual(c.sys.platform,'linux')
+        self.assertIs(c.re,original_re);self.assertIs(c.sys,original_sys)
+
     def test_mocked_capture_join_and_failure_receipt(self):
         from contextlib import ExitStack
         from types import SimpleNamespace
@@ -130,6 +188,7 @@ class ProvenanceTests(unittest.TestCase):
             else: kw['stdout'].write(b'tar')
             return SimpleNamespace(returncode=0)
         with ExitStack() as st:
+            st.enter_context(mocked_linux_capture_outputs(self.root/'capture',self.root/'failure'))
             st.enter_context(patch.object(c,'tool_source_identities',return_value={'mock-tool':'mock-hash'}))
             st.enter_context(patch.object(c.deps,'regular',side_effect=regular))
             st.enter_context(patch.object(c.deps,'sha',side_effect=sha))

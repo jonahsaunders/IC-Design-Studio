@@ -39,4 +39,60 @@ class Delivery(unittest.TestCase):
   with tempfile.TemporaryDirectory() as t:
    root=Path(t);source=root/'source';(source/'unexpected').mkdir(parents=True);(source/'unexpected/extra.bin').write_bytes(b'not silently omitted')
    with self.assertRaisesRegex(ValueError,'Unknown preparation path'):package(source,root/'out')
+ def test_unreadable_proof_retains_diagnostics_closes_partial_zip_and_reraises(self):
+  from unittest.mock import patch
+  from scripts import package_ihp_wsl_research_preparation as module
+  with tempfile.TemporaryDirectory() as t:
+   root=Path(t);source=root/'source';lock=source/'host-proof/receipt/apt/lists/lock';lock.parent.mkdir(parents=True)
+   lock.write_bytes(b'locked');(source/'commands.json').write_text('[{"returncode":1}]')
+   (source/'completion.json').write_text('{"failure":"host verifier failed"}')
+   original=module.file_sha;failure=PermissionError(13,'synthetic permission denied',str(lock))
+   def sha(path):
+    if Path(path)==lock:raise failure
+    return original(path)
+   with patch.object(module,'file_sha',side_effect=sha):
+    with self.assertRaises(PermissionError) as caught:package(source,root/'out')
+   self.assertIs(caught.exception,failure)
+   m=json.loads((root/'out/metadata/DELIVERY.json').read_text())
+   self.assertEqual(m['status'],'FAILED_INCOMPLETE_PROOF');self.assertFalse(m['proof_complete']);self.assertFalse(m['qualified'])
+   self.assertEqual(m['failed_source_member'],'host-proof/receipt/apt/lists/lock')
+   self.assertEqual((root/'out/metadata/failure-receipts/completion.json').read_bytes(),(source/'completion.json').read_bytes())
+   parts=list((root/'out/proof-parts').glob('*.zip'));self.assertTrue(parts)
+   for part in parts:
+    with zipfile.ZipFile(part) as z:self.assertIsNone(z.testzip())
+   self.assertFalse((root/'out/proof-parts/DELIVERY.json').exists())
+ def test_failure_metadata_bounds_missing_and_no_unknown_copy(self):
+  from scripts import package_ihp_wsl_research_preparation as module
+  with tempfile.TemporaryDirectory() as t:
+   root=Path(t);source=root/'source';source.mkdir();out=root/'out'
+   (source/'commands.json').write_bytes(b'x'*(module.FAILURE_FILE_LIMIT+1))
+   (source/'collect-signed-host-provenance.stderr.log').write_bytes(b'a'*300000+b'END')
+   (source/'unrelated.json').write_text('not in allowlist')
+   module.retain_failure(source,out,PermissionError('no raw exception contents'))
+   m=json.loads((out/'metadata/DELIVERY.json').read_text())
+   self.assertEqual(m['receipts']['commands.json']['status'],'omitted_oversize')
+   self.assertEqual(m['receipts']['completion.json']['status'],'missing')
+   row=m['receipts']['collect-signed-host-provenance.stderr.log'];self.assertEqual(row['status'],'retained_tail');self.assertEqual(row['bytes'],65536)
+   self.assertFalse((out/'metadata/failure-receipts/unrelated.json').exists())
+   self.assertNotIn('no raw exception contents',json.dumps(m))
+ def test_fallback_failure_never_replaces_original(self):
+  from unittest.mock import patch
+  from scripts import package_ihp_wsl_research_preparation as module
+  with tempfile.TemporaryDirectory() as t:
+   root=Path(t);source=root/'source';source.mkdir();failure=PermissionError('original')
+   with patch.object(module,'_package',side_effect=failure),patch.object(module,'retain_failure',side_effect=OSError('secondary')):
+    with self.assertRaises(PermissionError) as caught:package(source,root/'out')
+   self.assertIs(caught.exception,failure)
+ def test_fallback_rejects_linked_diagnostics(self):
+  from unittest.mock import patch
+  from scripts import package_ihp_wsl_research_preparation as module
+  with tempfile.TemporaryDirectory() as t:
+   root=Path(t);source=root/'source';source.mkdir();(source/'commands.json').write_text('unsafe')
+   original=module.unlinked
+   def unlinked(path):
+    if Path(path)==source/'commands.json':raise ValueError('synthetic linked path')
+    return original(path)
+   with patch.object(module,'unlinked',side_effect=unlinked):module.retain_failure(source,root/'out',PermissionError())
+   m=json.loads((root/'out/metadata/DELIVERY.json').read_text());self.assertEqual(m['receipts']['commands.json']['status'],'unreadable_or_unsafe')
+   self.assertFalse((root/'out/metadata/failure-receipts/commands.json').exists())
 if __name__=='__main__':unittest.main()

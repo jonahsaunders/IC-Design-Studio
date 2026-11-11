@@ -2,13 +2,23 @@
 Requires separately reviewed new source policy. Historical approvals do not apply.
 """
 from pathlib import Path
-import argparse,json,re,shutil,subprocess,sys,time,uuid
+import argparse,json,os,re,shutil,subprocess,sys,time,uuid
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts.build_digital_runtime import stage_context,cache_identity,pack_filesystem,context_identity
 from scripts.prepare_ihp_wsl_research_payload import file_sha,unlinked,encoded,prepare
 from scripts.read_ihp_pmos_measured_v3 import verify,require
 from scripts.verify_ihp_wsl_host_provenance import verify as verify_host
 ROOT=Path(__file__).resolve().parents[1]
+
+def collector_user(output):
+ """Bind proof ownership to the ordinary Linux caller, never container root."""
+ require(sys.platform=='linux','Collector requires an ordinary native Linux host')
+ uid,gid=os.getuid(),os.getgid()
+ require(type(uid) is int and type(gid) is int and uid>0 and gid>0,'Non-root numeric host UID:GID required')
+ require((uid,gid)==(os.geteuid(),os.getegid()),'Real/effective collector identity differs')
+ require(Path(output).stat().st_uid==uid,'Build output must belong to the host caller')
+ return str(uid)+':'+str(gid)
+
 
 def cleanup_collector(name,image_id):
  record={'name':name,'expected_image_id':image_id,'status':'pending'}
@@ -50,6 +60,7 @@ def build(evidence,output,policy_path,policy_sha):
   finally:row['seconds']=time.monotonic()-start;commands.append(row);(out/'commands.json').write_bytes(encoded(commands))
  try:
   policy=source_guard(policy_path,policy_sha);evidence,_=verify(evidence)
+  user=collector_user(out)
   require(shutil.disk_usage(out).free>=30*1024**3,'Require30GiB free before build');require(policy['official_base']=='ubuntu:24.04','Official base only')
   run(['docker','pull','--platform','linux/amd64','ubuntu:24.04'],'pull-official-base')
   info=json.loads(run(['docker','image','inspect','ubuntu:24.04'],'official-image-inspect',capture=True))
@@ -57,7 +68,7 @@ def build(evidence,output,policy_path,policy_sha):
   digests=[x for x in info[0]['RepoDigests'] if re.fullmatch(r'ubuntu@sha256:[0-9a-f]{64}',x)];require(len(digests)==1,'Official exact digest');base_digest=digests[0]
   context=out/'context';stage_context(context);require(context_identity(context)['sha256']==policy['build_context_sha256'],'Actual staged context differs')
   dockerfile=context/'Dockerfile';text=dockerfile.read_text();require(text.count('FROM ubuntu:24.04')==1,'Unexpected default Dockerfile');dockerfile.write_text(text.replace('FROM ubuntu:24.04','FROM '+base_digest))
-  (out/'build-inputs.json').write_bytes(encoded({'reviewed_default_context':cache_identity(),'resolved_official_base':base_digest,'derived_Dockerfile_sha256':file_sha(dockerfile),'research_sources':policy['research_source_bindings']}))
+  (out/'build-inputs.json').write_bytes(encoded({'reviewed_default_context':cache_identity(),'resolved_official_base':base_digest,'derived_Dockerfile_sha256':file_sha(dockerfile),'research_sources':policy['research_source_bindings'],'collector_host_user':user}))
   run(['docker','build','--platform','linux/amd64','--tag',tag,str(context)],'build-private-image',3600)
   derived=json.loads(run(['docker','image','inspect',tag],'private-image-inspect',capture=True));require(len(derived)==1 and derived[0]['Os']=='linux' and derived[0]['Architecture']=='amd64','Private image architecture');image_id=derived[0]['Id']
   image={'base_repo_digest':base_digest,'base_image_id':info[0]['Id'],'derived_image_id':image_id,'official_inspect_sha256':file_sha(out/'official-image-inspect.log'),'derived_inspect_sha256':file_sha(out/'private-image-inspect.log')}
@@ -67,7 +78,7 @@ def build(evidence,output,policy_path,policy_sha):
   run(['docker','export',container],'export-private-image',600,out/'filesystem.tar')
   pack_filesystem(out/'filesystem.tar',out/'base-runtime.tar.gz');base_sha=file_sha(out/'base-runtime.tar.gz')
   proof=out/'host-proof';proof.mkdir();engine=evidence/'measured-v3/attempt-1/engine/runtime'
-  args=['docker','run','--name',collector_name,'--platform','linux/amd64','--rm','--env','PYTHONDONTWRITEBYTECODE=1',
+  args=['docker','run','--user',user,'--name',collector_name,'--platform','linux/amd64','--rm','--env','PYTHONDONTWRITEBYTECODE=1',
    '--mount','type=bind,src='+str(ROOT)+',dst=/research-tools,readonly',
    '--mount','type=bind,src='+str(engine)+',dst=/research-engine,readonly',
    '--mount','type=bind,src='+str(out)+',dst=/research-output',image_id,

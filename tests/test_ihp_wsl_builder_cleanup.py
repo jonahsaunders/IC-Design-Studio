@@ -47,15 +47,41 @@ class Builder(unittest.TestCase):
     if hasattr(kw.get('stdout'),'write'):kw['stdout'].write(data)
     return R(returncode=rc,stdout=data.decode(),stderr=error)
    def prepared(base,bsha,e,out,host,hsha):out.mkdir();(out/'manifest.json').write_text('{}')
-   with patch.object(b,'source_guard',return_value=policy),patch.object(b,'verify',return_value=(evidence,{})),patch.object(b.shutil,'disk_usage',return_value=R(free=40*1024**3)),patch.object(b,'stage_context',side_effect=stage),patch.object(b,'cache_identity',return_value={'sha256':'c'}),patch.object(b,'context_identity',return_value={'sha256':'c'}),patch.object(b.subprocess,'run',side_effect=process),patch.object(b,'pack_filesystem',side_effect=lambda src,dst:dst.write_bytes(b'archive')),patch.object(b,'verify_host',return_value={'synthetic':True}),patch.object(b,'prepare',side_effect=prepared):
+   with patch.object(b,'collector_user',return_value='1001:118'),patch.object(b,'source_guard',return_value=policy),patch.object(b,'verify',return_value=(evidence,{})),patch.object(b.shutil,'disk_usage',return_value=R(free=40*1024**3)),patch.object(b,'stage_context',side_effect=stage),patch.object(b,'cache_identity',return_value={'sha256':'c'}),patch.object(b,'context_identity',return_value={'sha256':'c'}),patch.object(b.subprocess,'run',side_effect=process),patch.object(b,'pack_filesystem',side_effect=lambda src,dst:dst.write_bytes(b'archive')),patch.object(b,'verify_host',return_value={'synthetic':True}),patch.object(b,'prepare',side_effect=prepared):
     b.build(evidence,out,root/'policy','p')
    result=json.loads((out/'result.json').read_text());done=json.loads((out/'completion.json').read_text())
    self.assertFalse(result['pmos_executed']);self.assertIsNone(done['failure']);self.assertFalse(done['cleanup_failed'])
    create=next(x for x in calls if x[:2]==['docker','create']);self.assertEqual(create[-1],'sha256:private')
-   collect=next(x for x in calls if x[:2]==['docker','run']);self.assertIn('sha256:private',collect);self.assertIn('--base-archive-sha256',collect)
+   collect=next(x for x in calls if x[:2]==['docker','run']);self.assertIn('sha256:private',collect);self.assertIn('--base-archive-sha256',collect);self.assertEqual(collect[2:4],['--user','1001:118']);self.assertEqual(collect.count('--user'),1)
+   self.assertEqual(json.loads((out/'build-inputs.json').read_text())['collector_host_user'],'1001:118')
+   commands=json.loads((out/'commands.json').read_text());collector=next(x for x in commands if x['label']=='collect-signed-host-provenance');self.assertEqual(collector['timeout_seconds'],1800)
+   self.assertIn('type=bind,src='+str(b.ROOT)+',dst=/research-tools,readonly',collect);self.assertIn('type=bind,src='+str(evidence/'measured-v3/attempt-1/engine/runtime')+',dst=/research-engine,readonly',collect)
+   self.assertNotIn('--privileged',collect);self.assertNotIn('--cap-add',collect)
    self.assertEqual(done['cleanup']['collector']['status'],'absent');self.assertEqual(done['cleanup']['export_container']['status'],'removed')
  def test_historical_policy_not_reused(self):
   with tempfile.TemporaryDirectory() as td:
    root=Path(td);p=root/'policy';p.write_text(json.dumps({'review_state':'APPROVED_FOR_BUILD_ONLY','scope':'REVIEWED_SAME_RUN_WSL_RESEARCH_BUILD_NO_PMOS'}))
    with self.assertRaisesRegex(ValueError,'Historical policy'):b.source_guard(p,b.file_sha(p))
+
+
+from types import SimpleNamespace
+class CollectorUserTests(unittest.TestCase):
+ def identity(self,uid=1001,gid=118,euid=None,egid=None,owner=None,platform='linux'):
+  with patch.object(b.sys,'platform',platform),patch.object(b.os,'getuid',return_value=uid,create=True),patch.object(b.os,'getgid',return_value=gid,create=True),patch.object(b.os,'geteuid',return_value=uid if euid is None else euid,create=True),patch.object(b.os,'getegid',return_value=gid if egid is None else egid,create=True),patch.object(Path,'stat',return_value=SimpleNamespace(st_uid=uid if owner is None else owner)):
+   return b.collector_user(Path('/fixture'))
+ def test_numeric_host_user(self):self.assertEqual(self.identity(),'1001:118')
+ def test_no_root_user_or_group(self):
+  for fields in ({'uid':0},{'gid':0},{'uid':-1},{'gid':-1}):
+   with self.subTest(fields=fields),self.assertRaisesRegex(ValueError,'Non-root'):self.identity(**fields)
+ def test_no_boolean_identity(self):
+  with self.assertRaises(ValueError):self.identity(uid=True)
+ def test_reject_elevated_effective_identity(self):
+  for fields in ({'euid':0},{'egid':0}):
+   with self.subTest(fields=fields),self.assertRaisesRegex(ValueError,'effective'):self.identity(**fields)
+ def test_reject_foreign_output_owner(self):
+  with self.assertRaisesRegex(ValueError,'belong'):self.identity(owner=2222)
+ def test_non_linux_fails_before_uid_calls(self):
+  with patch.object(b.sys,'platform','win32'),patch.object(b.os,'getuid',create=True) as uid,self.assertRaisesRegex(ValueError,'Linux'):b.collector_user('/fixture')
+  uid.assert_not_called()
+
 if __name__=='__main__':unittest.main()

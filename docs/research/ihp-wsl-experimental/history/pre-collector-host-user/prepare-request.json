@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "purpose": "BUILD_PREPARATION_ONLY",
+  "policy_sha256": "91803a65f8d7aaa20c032d5c8796c5a427c8d6a01a9787df622ac471d398dd22",
+  "native_execution": false,
+  "request_id": "reconstruction-v2-build-only-reviewed"
+}

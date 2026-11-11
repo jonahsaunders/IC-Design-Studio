@@ -5,6 +5,26 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 11 hosted follow-on repair:** candidate `00d92f3` passes hosted
+Linux source feedback but fails Windows in a mocked Linux provenance-capture
+fixture. The actual ordinary-user Windows junction rejection test passes.
+Build-only run `43027392046` separately fails host readback on a Docker-produced
+private APT lock file; evidence packaging encounters the same unreadable file.
+Both failures remain failures, with original logs and the Windows artifact retained.
+
+The [reviewed narrow repair batch](validation/ihp-wsl-hosted-repairs-2026-11-11.json)
+keeps the real Linux/path guards, fixes only the mocked host boundary, runs the
+collector under the current ordinary host UID:GID, and preserves bounded
+incomplete-proof diagnostics without suppressing the original exception.
+Fresh technical review repins only the changed builder/packager source bindings.
+The combined affected stage passes 194 tests with one skip; all 2,536 source
+identities remain unchanged and 1,635 syntax checks pass. A separate offline
+empty-source APT check confirms ordinary-user lock readability, not actual
+Docker or hosted acquisition acceptance. Fresh hosted source/build replay is
+required; no completed host, native or final-tree installed acceptance is claimed.
+The previous e6 installed attempt remains separately pinned and running.
+The estimate remains 74%, low confidence 55–82%, with all scientific exclusions.
+
 **November 11 parallel integration update:** the narrow ZIP repair is published as
 `e6b9e90e4a66306f1b23f56f2ce351c9af1b1577`. Its [hosted source acceptance](validation/chunk7-e6-hosted-source-2026-11-11.json)
 passes both platforms and the aggregate on the exact candidate tree. Manual
