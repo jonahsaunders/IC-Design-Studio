@@ -13,7 +13,7 @@
     "scripts/linux_ngspice_dependencies.py": "659f5052bb67779098f0d215a3ac6e94ac28cdcc1820c1191ba5b569743b1780",
     "scripts/read_ihp_pmos_measured_v3.py": "404e2109359069057277db59629a0b2ce1e91f11b60a5d8a881d759fe477c670",
     "scripts/materialize_ihp_pmos_measured_v3.py": "35e1c591c0caef403b3a91872886f3d722a0d557f1456497a9dadb04bf249eb0",
-    "scripts/package_ihp_wsl_research_preparation.py": "6ce96230346275f34da24e083740f613f02bb43da7edfb836339f4e2a5584394",
+    "scripts/package_ihp_wsl_research_preparation.py": "b3efd68e86a11fd9200f40dd490125e5e295879335eb5efd95fb6a5d0c2841fe",
     "scripts/transport_ihp_wsl_payload.py": "39fb6c8e7632018d47025bf30280df4052dacb845e99bccf71ad82155e31b562"
   }
 }

@@ -18,10 +18,12 @@ def _package(source,output,part_limit=PART_LIMIT,chunk_limit=CHUNK_LIMIT):
  selected={};excluded={}
  def classification(n):
   if n.startswith('experimental-payload/'):return 'payload'
-  if n.startswith('context/') or n in ('filesystem.tar','base-runtime.tar.gz'):return 'scratch'
+  if n=='base-runtime.tar.gz':return 'proof'
+  if n.startswith('context/') or n=='filesystem.tar':return 'scratch'
   if n.startswith('host-proof/') or '/' not in n and Path(n).suffix in ('.json','.log'):return 'proof'
   raise ValueError('Unknown preparation path; refusing omission: '+n)
- # Retain entire host proof plus every top-level builder receipt/log. Exclude
+ # Retain the exact original base archive, entire host proof and every top-level
+ # builder receipt/log. This permits unchanged independent host verification. Exclude
  # only separately delivered payload and explicitly named bulky build scratch.
  for p in source.rglob('*'):
   require(not is_linked(p),'Linked preparation evidence')
@@ -34,7 +36,7 @@ def _package(source,output,part_limit=PART_LIMIT,chunk_limit=CHUNK_LIMIT):
  require(len(selected)<=10000 and sum(p.stat().st_size for p in selected.values())<=3*1024**3,'Full proof delivery cap exceeded; no omission permitted')
  out.mkdir(parents=True);meta=out/'metadata';meta.mkdir();proof=out/'proof-parts';proof.mkdir()
  manifest={'schema':1,'scope':'BUILD_PREPARATION_DELIVERY_NO_NATIVE_ACCEPTANCE','files':{},'parts':{},
-  'separate_payload':{},'excluded_build_scratch':['context/','filesystem.tar','base-runtime.tar.gz'],
+  'separate_payload':{},'excluded_build_scratch':['context/','filesystem.tar'],
   'excluded_scratch_files':excluded,'metadata_previews':{}}
  z=None;part=None;part_index=0;budget=0;chunk_index=0
  def finish():

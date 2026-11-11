@@ -1,3 +1,18 @@
+# Hosted source groups, November 11
+
+The hosted feedback matrix requires contracts and GUI groups on both Linux and
+Windows. Each group retains the same ordered stages, complete source-identity
+checks and 300-second child limits; each job still has its 15-minute cap. The
+required aggregate succeeds only when all four matrix jobs succeed. Artifact
+names include the group to prevent collisions. No test or GUI gate is omitted.
+
+`python scripts/ci_feedback.py` still runs all 14 stages locally. Explicit
+`--group contracts` or `--group gui` selects seven stages and records the group,
+exact expected stage names and `full_stage_selection=false`; a subset pass is
+not a full-lane pass or release acceptance. This orchestration change addresses
+the retained Windows outer-job timeout without increasing deadlines. Hosted
+validation of the new matrix remains separate from source-level contract tests.
+
 # Source feedback and selected acceptance candidates
 
 The November 11 [ZIP-reader reconstruction](validation/chunk7-zip-reconstructed-validation-2026-11-11.json)

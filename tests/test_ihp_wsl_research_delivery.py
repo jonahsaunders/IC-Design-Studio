@@ -95,4 +95,43 @@ class Delivery(unittest.TestCase):
    with patch.object(module,'unlinked',side_effect=unlinked):module.retain_failure(source,root/'out',PermissionError())
    m=json.loads((root/'out/metadata/DELIVERY.json').read_text());self.assertEqual(m['receipts']['commands.json']['status'],'unreadable_or_unsafe')
    self.assertFalse((root/'out/metadata/failure-receipts/commands.json').exists())
+class OriginalBaseDelivery(unittest.TestCase):
+ def test_exact_original_base_gzip_bytes_retained_in_proof(self):
+  import gzip,random
+  with tempfile.TemporaryDirectory() as t:
+   root=Path(t);source=root/'source';source.mkdir()
+   original=gzip.compress(random.Random(19).randbytes(12000),mtime=1700000000)
+   (source/'base-runtime.tar.gz').write_bytes(original);(source/'filesystem.tar').write_bytes(b'omitted export scratch')
+   m=package(source,root/'out',part_limit=4096,chunk_limit=1024)
+   self.assertNotIn('base-runtime.tar.gz',m['excluded_build_scratch']);self.assertNotIn('base-runtime.tar.gz',m['excluded_scratch_files'])
+   self.assertEqual(m['excluded_build_scratch'],['context/','filesystem.tar'])
+   r=m['files']['base-runtime.tar.gz'];reconstructed=bytearray()
+   for c in r['chunks']:
+    self.assertEqual(c['offset'],len(reconstructed))
+    with zipfile.ZipFile(root/'out/proof-parts'/c['part']) as z:reconstructed.extend(z.read(c['member']))
+   self.assertEqual(bytes(reconstructed),original);self.assertEqual(r['sha256'],hashlib.sha256(original).hexdigest());self.assertEqual(r['bytes'],len(original))
+   self.assertTrue(all(x['bytes']<=4096 for x in m['parts'].values()));self.assertEqual((source/'base-runtime.tar.gz').read_bytes(),original)
+ def test_aggregate_cap_not_relaxed_for_original_base(self):
+  import os
+  from unittest.mock import patch
+  from scripts import package_ihp_wsl_research_preparation as module
+  with tempfile.TemporaryDirectory() as t:
+   root=Path(t);source=root/'source';source.mkdir();base=source/'base-runtime.tar.gz';base.write_bytes(b'fixture')
+   original=Path.stat
+   def fake(path,*args,**kwargs):
+    value=original(path,*args,**kwargs)
+    if path==base:
+     values=list(value);values[6]=3*1024**3+1;return os.stat_result(values)
+    return value
+   with patch.object(Path,'stat',autospec=True,side_effect=fake),self.assertRaisesRegex(ValueError,'cap exceeded'):package(source,root/'out')
+   self.assertFalse(json.loads((root/'out/metadata/DELIVERY.json').read_text())['proof_complete'])
+ def test_sixteen_part_cap_unchanged(self):
+  with tempfile.TemporaryDirectory() as t:
+   root=Path(t);source=root/'source';source.mkdir();(source/'base-runtime.tar.gz').write_bytes(b'x'*(17*1024))
+   with self.assertRaisesRegex(ValueError,'part count exceeded'):package(source,root/'out',part_limit=2048,chunk_limit=1024)
+   self.assertLessEqual(len(list((root/'out/proof-parts').glob('*.zip'))),16)
+ def test_default_caps_unchanged(self):
+  from scripts import package_ihp_wsl_research_preparation as m
+  self.assertEqual(m.PART_LIMIT,240*1024**2);self.assertEqual(m.CHUNK_LIMIT,16*1024**2);self.assertEqual(m.META_LIMIT,16*1024**2)
+
 if __name__=='__main__':unittest.main()

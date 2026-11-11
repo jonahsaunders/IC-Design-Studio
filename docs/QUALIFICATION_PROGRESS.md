@@ -5,6 +5,31 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 11 final feedback/delivery candidate:** the Windows replay of
+`f9817a2` passes all 194 runtime tests (two existing skips), including both repaired
+fixtures, and completes 12 source stages. GitHub then cancels it at the unchanged
+15-minute outer job cap; the last two GUI stages are unfinished. Linux passes.
+The [reviewed final orchestration](validation/chunk7-final-feedback-delivery-2026-11-11.json)
+requires contracts and GUI groups on both operating systems, preserving all 14
+ordered stages, every test, source identities, 300-second child limits and
+15-minute job limits. A subset report is explicitly not a full-lane pass.
+
+Build-only replay `43030688906` fails source acquisition with the authenticated
+diagnostic `Could not resolve archive.ubuntu.com` while downloading ncurses.
+Earlier signed downloads succeed; proof packaging and cleanup now pass. The
+failure is retained, not waived. A fresh normal attempt changes no DNS, mirror,
+signature or timeout policy. Exact original base-archive bytes are now included
+in existing lossless proof parts so the unchanged independent verifier can be
+replayed. Derived payload bytes cannot substitute for that original base.
+All existing 3-GiB/240-MiB/16-part bounds remain fail-closed.
+
+The combined final affected tests pass 231 cases with one skip, with 2,540
+unchanged source identities and 1,635 syntax checks. Hosted grouped source,
+actual full host-proof readback and final-candidate installed acceptance remain
+pending. No native PMOS execution, default promotion or full qualification is
+claimed. The estimate stays 74%, low confidence 55–82%, and scientific gaps
+remain unchanged. Earlier records below preserve their original scope.
+
 **November 11 hosted follow-on repair:** candidate `00d92f3` passes hosted
 Linux source feedback but fails Windows in a mocked Linux provenance-capture
 fixture. The actual ordinary-user Windows junction rejection test passes.

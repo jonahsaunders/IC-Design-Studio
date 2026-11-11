@@ -528,6 +528,70 @@ class FeedbackTests(unittest.TestCase):
             self.assertEqual(report['stages'][0]['returncode'],124)
             self.assertFalse(report['release_acceptance'])
 
+    def test_hosted_groups_partition_all_ordered_stages_without_changing_commands(self):
+        commands = stages()
+        contracts = ci_feedback.select_stages(commands, 'contracts')
+        gui = ci_feedback.select_stages(commands, 'gui')
+        self.assertIs(ci_feedback.select_stages(commands), commands)
+        self.assertEqual(contracts + gui, commands)
+        self.assertEqual((len(contracts), len(gui), len(commands)), (7, 7, 14))
+        self.assertFalse(set(n for n, _ in contracts) & set(n for n, _ in gui))
+        for invalid in (commands[:-1], commands + [commands[-1]], list(reversed(commands))):
+            for group in ('contracts', 'gui'):
+                with self.assertRaisesRegex(ValueError, 'partition'):
+                    ci_feedback.select_stages(invalid, group)
+        with self.assertRaisesRegex(ValueError, 'Unknown'):
+            ci_feedback.select_stages(commands, 'missing')
+
+    def test_group_reports_are_explicit_and_keep_identity_and_deadlines(self):
+        for group in ('all', 'contracts', 'gui'):
+            with self.subTest(group=group), tempfile.TemporaryDirectory() as folder:
+                output = Path(folder) / 'evidence'
+                commands = [(name, ['unused']) for name, _ in stages(output)]
+                argv = ['ci_feedback.py', '--output', str(output)]
+                if group != 'all': argv += ['--group', group]
+                with patch.dict(os.environ, {'GITHUB_SHA': 'a' * 40}, clear=True), \
+                     patch('sys.argv', argv), \
+                     patch.object(ci_feedback.subprocess, 'check_output', return_value='a' * 40), \
+                     patch.object(ci_feedback.subprocess, 'run', return_value=SimpleNamespace(returncode=0)) as run, \
+                     patch.object(ci_feedback, 'source_identity', return_value={'bound': 'a' * 64}) as identity, \
+                     patch.object(ci_feedback, 'check_syntax', return_value=1), \
+                     patch.object(ci_feedback, 'stages', return_value=commands), \
+                     patch.object(ci_feedback, 'check_ihp_gui_output'), \
+                     patch.object(ci_feedback, 'check_ihp_guard_gui_output', return_value={}), \
+                     patch('builtins.print'):
+                    # Preserve the guard stage's independently checked nonce argument.
+                    commands = [(n, ['unused', '--execution-id', 'a' * 32]) for n, _ in commands]
+                    with patch.object(ci_feedback, 'stages', return_value=commands):
+                        ci_feedback.main()
+                selected = ci_feedback.select_stages(commands, group)
+                report = json.loads((output / 'report.json').read_bytes())
+                self.assertEqual(report['stage_group'], group)
+                self.assertEqual(report['full_stage_selection'], group == 'all')
+                self.assertEqual(report['expected_stages'], [n for n, _ in selected])
+                self.assertEqual([r['name'] for r in report['stages']], report['expected_stages'])
+                self.assertEqual(report['all_expected_stages'], [n for n, _ in commands])
+                self.assertEqual(report['status'], 'passed')
+                self.assertFalse(report['release_acceptance'])
+                self.assertEqual(identity.call_count, 2)
+                self.assertEqual(run.call_count, len(selected))
+                self.assertTrue(all(call.kwargs['timeout'] == 300 for call in run.call_args_list))
+
+    def test_hosted_matrix_requires_all_platform_group_pairs_and_distinct_artifacts(self):
+        text = workflow('pr-feedback')
+        self.assertIn('os: [ubuntu-24.04, windows-2022]', text)
+        self.assertIn('group: [contracts, gui]', text)
+        self.assertNotIn('exclude:', text)
+        self.assertNotIn('continue-on-error', text)
+        self.assertIn('fail-fast: false', text)
+        self.assertIn('timeout-minutes: 15', text)
+        self.assertIn('python scripts/ci_feedback.py --group ${{ matrix.group }}', text)
+        self.assertIn('name: source-feedback-${{ runner.os }}-${{ matrix.group }}-${{ github.sha }}', text)
+        self.assertIn('needs: feedback', text)
+        self.assertIn('FEEDBACK_RESULT: ${{ needs.feedback.result }}', text)
+        self.assertIn('run: test "$FEEDBACK_RESULT" = success', text)
+        self.assertIn('permissions:\n  contents: read\n', text)
+
     def test_pr_and_merge_queue_use_default_synthetic_merge_checkout(self):
         text = workflow('pr-feedback')
         header = text.split('permissions:', 1)[0]

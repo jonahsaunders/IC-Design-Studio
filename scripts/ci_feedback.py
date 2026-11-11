@@ -313,9 +313,34 @@ def stages(output=ROOT / 'build/ci-feedback'):
     ]
 
 
+STAGE_GROUPS = {
+    'contracts': ('unit-contracts', 'ihp-contracts', 'physical-contracts',
+                  'device-contracts', 'package-contracts', 'runtime-release-contracts',
+                  'release-contracts'),
+    'gui': ('menu-smoke', 'project-hub-smoke', 'metal-resistor-editor-smoke',
+            'metal-resistor-parallel-smoke', 'ihp-resistor-editor-smoke',
+            'ihp-guard-corner-smoke', 'ihp-capacitor-corner-smoke'),
+}
+
+
+def select_stages(commands, group='all'):
+    """Partition hosted work without changing the default complete local lane."""
+    if group == 'all':
+        return commands
+    if group not in STAGE_GROUPS:
+        raise ValueError('Unknown source-feedback group: ' + group)
+    ordered = STAGE_GROUPS['contracts'] + STAGE_GROUPS['gui']
+    if len(set(ordered)) != len(ordered) or tuple(name for name, _ in commands) != ordered:
+        raise ValueError('Source-feedback groups must partition every ordered stage exactly once.')
+    selected = set(STAGE_GROUPS[group])
+    return [(name, command) for name, command in commands if name in selected]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'build/ci-feedback')
+    parser.add_argument('--group', choices=('all', 'contracts', 'gui'), default='all',
+                        help='Run a named required hosted subset, or all 14 stages by default.')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     env = {k: v for k, v in os.environ.items() if not k.upper().startswith('GIT_')}
@@ -323,8 +348,13 @@ def main():
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, env=env, text=True).strip()
     if env.get('GITHUB_SHA') and commit != env['GITHUB_SHA']:
         raise ValueError('The feedback checkout must match the GitHub event SHA, including PR/merge-queue merge commits.')
+    commands = stages(args.output)
+    selected = select_stages(commands, args.group)
     report = {'schema': 1, 'commit': commit, 'event': env.get('GITHUB_EVENT_NAME', 'local'),
               'scope': __doc__, 'release_acceptance': False, 'stages': [], 'status': 'running',
+              'stage_group': args.group, 'full_stage_selection': args.group == 'all',
+              'expected_stages': [name for name, _ in selected],
+              'all_expected_stages': [name for name, _ in commands],
               'source_files_sha256': source_identity()}
     started = time.monotonic()
     def save():
@@ -333,7 +363,7 @@ def main():
     try:
         report['syntax_files'] = check_syntax()
         save()
-        for name, command in stages(args.output):
+        for name, command in selected:
             step_start = time.monotonic()
             print('Running ' + name, flush=True)
             with (args.output / (name + '.log')).open('w', encoding='utf-8') as log:
