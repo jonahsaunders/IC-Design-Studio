@@ -342,3 +342,13 @@ same complete unit selection is now divided into required `unit-contracts` and
 `device-contracts` stages. A control expands both selections and verifies every
 original test appears exactly once; either stage's failure or timeout still
 fails the lane. All eleven stages retain the 300-second per-process limit.
+
+
+### November 11 research-source follow-on
+
+The source lane now additionally requires all eight build-only WSL suites and
+three guarded app-admission/dispatch/ELF suites. Existing stage deadlines and
+all prior selected tests remain intact. The test-only ordinary-Windows junction
+fixture preserves actual reparse-point rejection without requiring file-symlink
+privilege. Source preparation does not authorize native WSL research execution.
+See [the exact validation scopes](validation/ihp-wsl-source-integration-2026-11-11.json).

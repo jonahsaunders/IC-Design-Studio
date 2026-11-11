@@ -24,6 +24,21 @@ def workflow(name):
 
 
 class FeedbackTests(unittest.TestCase):
+    def test_reconstructed_build_policies_are_bound_without_native_selection(self):
+        for name in ('test_ihp_wsl_app_dispatch', 'test_ihp_wsl_app_reconstruction', 'test_ihp_wsl_elf_symbols'):
+            self.assertIn(name, RUNTIME_RELEASE_MODULES)
+        self.assertNotIn('test_ihp_wsl_app_auditor', RUNTIME_RELEASE_MODULES)
+        self.assertNotIn('test_ihp_wsl_app_contract', RUNTIME_RELEASE_MODULES)
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            for name in ('ihp-wsl-experimental', 'ihp-wsl-reconstruction-v2'):
+                p = root / 'docs/research' / name / 'policy.json'
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_text('{}')
+                before = source_identity(root)
+                p.write_text('{"changed":true}')
+                self.assertNotEqual(before, source_identity(root))
+
     def test_bounded_windows_failure_summary_is_checked_in_both_source_lanes(self):
         self.assertEqual(RUNTIME_RELEASE_MODULES.count('test_windows_failure_summary'), 1)
         self.assertEqual(workflow('build-desktop').count('tests.test_windows_failure_summary -v'), 1)
@@ -385,7 +400,19 @@ class FeedbackTests(unittest.TestCase):
     def test_runtime_release_checks_remain_required_separate_and_unique(self):
         expected = {'test_openems_runtime', 'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
                     'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
-                    'test_release_qualification', 'test_publish_prerelease', 'test_windows_failure_summary'}
+                    'test_release_qualification', 'test_publish_prerelease', 'test_windows_failure_summary',
+                    'test_ihp_wsl_host_provenance',
+                    'test_ihp_wsl_research_payload',
+                    'test_ihp_wsl_research_projects',
+                    'test_ihp_wsl_builder_cleanup',
+                    'test_ihp_wsl_preparation_request',
+                    'test_ihp_wsl_research_delivery',
+                    'test_ihp_wsl_prepared',
+                    'test_ihp_wsl_payload_transport',
+    'test_ihp_wsl_app_dispatch',
+    'test_ihp_wsl_app_reconstruction',
+    'test_ihp_wsl_elf_symbols',
+                    }
         self.assertEqual(set(RUNTIME_RELEASE_MODULES), expected)
         self.assertEqual(len(RUNTIME_RELEASE_MODULES), len(expected))
         self.assertFalse(set(RUNTIME_RELEASE_MODULES) & (set(UNIT_MODULES) | set(PACKAGE_MODULES)))

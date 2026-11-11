@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "chunk": 7,
+  "status": "SOURCE_REVIEW_NO_AUTHORITATIVE_CLOSURE_FOUND",
+  "qualified": false,
+  "chunk_complete": false,
+  "native_runs": 0,
+  "repository_changes": false,
+  "archive": "artifacts/gf180-definition-review-2026-11-11.zip",
+  "suggested_repository_path": "docs/validation/artifacts/gf180-definition-review-2026-11-11.zip",
+  "archive_sha256": "ab109f8c496c015371f40742a727fe63206aa34e6c50b89ea4af818446d8ade9",
+  "archive_bytes": 310930,
+  "manifest_sha256": "72969059d28bca9c52d0e29482a132f2ec9fbd44f3cff1a3999fbaa555fce11e",
+  "archive_members": 96,
+  "source_files": 81,
+  "analysis_sha256": "c13e5adb269bfe8c9a5d55f398f894922533d9348ee5fa79a82af094aa2ee4cd",
+  "findings": [
+    "Official ff/ss definition expressly binds EP extremes; production-only reinterpretation is unsupported.",
+    "Maintained FOSSi analog documentation is unchanged at25ed9c64 relative to pinnedGooglede3240; primitive5e4be872 updates leave model/specification data unchanged.",
+    "5percent curve-regression tolerance is not an EP endpoint tolerance.",
+    "Complete Vth0 extraction definition remains missing."
+  ],
+  "requested_authoritative_facts": [
+    "Reconcile the published 10/0.28um,25C,3.3V fast-corner Idsat endpoints590/-290uA/um with released reference outputs590.50/-290.47: exact compatible model/specification revision and fixture, or explicit foundry acceptance semantics.",
+    "Define signed Vth0 max-gm extraction completely: terminal polarity/body condition, tangent/intercept equation and finite-VDS correction, sweep/gm differentiation/interpolation/maximum selection, and comparison/precision policy.",
+    "Clarify any applicable acceptance semantics through authoritative source rather than inferred rounding or unrelated curve-regression tolerances."
+  ],
+  "limitations": [
+    "Not simulation, calibration, installed acceptance, or a complete PDK archive.",
+    "Existing mismatch values are retained historical references, not new measurements.",
+    "Search absence does not prove no unpublished authoritative specification exists.",
+    "No source-backed waiver, rounding policy, or complete Vth0 definition found."
+  ],
+  "estimated_completion_change": 0
+}

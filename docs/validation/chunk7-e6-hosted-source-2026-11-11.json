@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "scope": "HOSTED_SOURCE_FEEDBACK_NOT_INSTALLED_ACCEPTANCE",
+  "candidate_sha": "e6b9e90e4a66306f1b23f56f2ce351c9af1b1577",
+  "tree": "c5024fe1db2b5d79196cf8bd376ef5bbe2236419",
+  "run_id": 43018170284,
+  "status": "success",
+  "actual_merge_commit": "88793cd10da82674915b297dbc70ccf0e0ae7530",
+  "actual_merge_tree_matches_candidate": true,
+  "logs_and_api_receipt": {
+    "path": "artifacts/chunk7-e6-hosted-source-2026-11-11.zip",
+    "bytes": 20666,
+    "sha256": "8a2a69a641dd1ddc08e22ca08d259d2493014a370e203ea1299aaaff5e5bfccf"
+  },
+  "installed_run": 43019469795,
+  "installed_status": "in_progress_at_publication_preparation",
+  "installed_acceptance": false
+}

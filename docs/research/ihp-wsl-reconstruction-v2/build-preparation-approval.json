@@ -1,0 +1,18 @@
+{
+  "scope": "FRESH_RECONSTRUCTION_V2_BUILD_PREPARATION_ONLY",
+  "draft_sha256": "b46b628ff8aa1ead0399a29776d83de816a94d6dd8cdd80a7ed6c06cf86882d7",
+  "approved_policy_sha256": "91803a65f8d7aaa20c032d5c8796c5a427c8d6a01a9787df622ac471d398dd22",
+  "policy_change": "review_state only",
+  "historical_approval_inherited": false,
+  "independent_technical_review": "PASS: exact source/context/branch-path trigger/contents-read/credential-free checkout; no preexisting host artifact required to build it",
+  "authority": "Explicit delegated approval for reviewed branch/path-scoped build-only preparation",
+  "workflow_sha256": "2b48a2e2dac45b7f69fe64dc2cf3501be261f04761830a38e01f013563ae2f65",
+  "native_pmos_authorized": false,
+  "default_promotion_authorized": false,
+  "postrun_requirements": [
+    "Verify exact Docker/APT signatures, actual source/binary closure and image/build joins",
+    "Require successful preparation AND owned-container cleanup",
+    "Authenticate actual outer artifacts and complete payload/host-proof byte readback",
+    "Separate explicit review/authorization before any numerical execution"
+  ]
+}

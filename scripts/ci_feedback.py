@@ -102,6 +102,17 @@ RUNTIME_RELEASE_MODULES = (
     'test_openems_runtime', 'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
     'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
     'test_release_qualification', 'test_publish_prerelease', 'test_windows_failure_summary',
+    'test_ihp_wsl_host_provenance',
+    'test_ihp_wsl_research_payload',
+    'test_ihp_wsl_research_projects',
+    'test_ihp_wsl_builder_cleanup',
+    'test_ihp_wsl_preparation_request',
+    'test_ihp_wsl_research_delivery',
+    'test_ihp_wsl_prepared',
+    'test_ihp_wsl_payload_transport',
+    'test_ihp_wsl_app_dispatch',
+    'test_ihp_wsl_app_reconstruction',
+    'test_ihp_wsl_elf_symbols',
 )
 
 
@@ -125,6 +136,8 @@ def check_syntax(root=ROOT):
 
 def source_identity(root=ROOT):
     files = python_sources(root)
+    for folder in ('ihp-wsl-experimental', 'ihp-wsl-reconstruction-v2'):
+        files += [p for p in (root / 'docs/research' / folder).rglob('*') if p.is_file()]
     files += [p for p in (root / 'tests/fixtures/ihp-l2n0-reference-v1').glob('*') if p.is_file()]
     for folder in ('klayout-wrapper-sources-v1', 'xschem-config-facts-v1',
                    'source-manifest-wrappers-v1', 'ihp-pmos-measured-reference-v1',

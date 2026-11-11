@@ -1,0 +1,8 @@
+{
+  "scope": "BUILD_PREPARATION_ONLY_NO_NATIVE",
+  "draft_sha256": "c70f70537fa9c56566752abaccb1a78abbaec032258d229035b75d65bd65cdf1",
+  "approved_sha256": "800aa77b09686f514e1714ff52962bea5472666165ed6d97ee26b4f02dea8eee",
+  "only_draft_change": "review_state",
+  "authority": "Parent explicitly approved this exact transport draft review_state-only transition on2026-11-11; integration waits for parent core/package completion.",
+  "scientific_or_native_permission_change": false
+}

@@ -5,6 +5,37 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 11 parallel integration update:** the narrow ZIP repair is published as
+`e6b9e90e4a66306f1b23f56f2ce351c9af1b1577`. Its [hosted source acceptance](validation/chunk7-e6-hosted-source-2026-11-11.json)
+passes both platforms and the aggregate on the exact candidate tree. Manual
+desktop run [43019469795](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/43019469795)
+has passed its five candidate/tool/runtime prerequisites; Linux and Windows
+packaging are still running at this update. Its immutable event SHA and
+authenticated same-run artifacts preserve that separate acceptance attempt
+while this follow-on is published. No installed result for this follow-on is claimed.
+
+The [reviewed research source integration](validation/ihp-wsl-source-integration-2026-11-11.json)
+activates only branch/path-scoped, read-only build preparation and adds guarded
+Studio project/dispatch/raw-audit infrastructure. All native authorization and
+adapter-ready draft flags remain false. No runtime default or physical model is
+promoted. The pre-portability snapshot passed all 14 source stages (1,895 tests,
+18 skips), 1,635 syntax checks and 2,533 unchanged source identities. Complete
+logs and GUI outputs are retained losslessly in hashed parts. A subsequent
+test-only Windows junction correction passes 20 Linux module tests and the
+181-test affected runtime stage (one skip). Only that test file differs; the
+prepatch full lane is not represented as a full final-byte rerun. Actual Windows
+junction execution and hosted build/host proof remain pending. The prepared
+route requires six authenticated modules and a separately verified host baseline;
+actual host proof and native numerical acceptance have not occurred.
+
+A fresh [81-source GF180 definition review](validation/gf180-definition-review-2026-11-11.json)
+finds no authoritative resolution of the retained fast-corner endpoint mismatch
+or complete Vth0 extraction definition. No inferred tolerance, rounding waiver
+or unrelated curve-regression limit is substituted. Four missing bindings and
+the broader scientific qualification gates remain open. The estimate stays 74%
+(low confidence 55–82%); integration and test counts do not imply qualification.
+The historical records below retain their original scope.
+
 **November 11 recovery update:** the reviewed 71-file batch is published as
 `62c6930a820ee9c9ccb1040e38d1dd7394d9108e`. Its hosted source run
 [42956251984](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42956251984)

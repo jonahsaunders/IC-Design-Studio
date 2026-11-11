@@ -1,0 +1,216 @@
+# Prepared locally under parent coordination; publication remains gated.
+name: Prepare private IHP Windows WSL research baseline
+on:
+  push:
+    branches: [codex/chunk7-blockers-20261108]
+    paths: [docs/research/ihp-wsl-experimental/prepare-request.json]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ihp-wsl-research-prepare-${{ github.run_id }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact event commit and build-only request
+        id: request
+        run: python scripts/check_ihp_wsl_preparation_request.py
+      - name: Reserve hosted space using existing SDK-only allowlist
+        timeout-minutes: 10
+        run: python scripts/ci_hosted_storage.py cleanup --min-free-gib 30 --out build/ci-storage/ihp-wsl-preparation.json
+      - name: Install existing pinned layout build-context dependency
+        run: python -m pip install klayout==0.30.5
+      - name: Source-only preparation tests, site packages intentionally disabled
+        run: >-
+          python -S -m unittest tests.test_ihp_wsl_prepared tests.test_ihp_wsl_builder_cleanup tests.test_ihp_wsl_preparation_request
+          tests.test_ihp_wsl_research_delivery tests.test_ihp_wsl_host_provenance
+          tests.test_ihp_wsl_research_payload tests.test_ihp_wsl_research_projects
+      - name: Materialize immutable retained research inputs
+        run: >-
+          python scripts/materialize_ihp_pmos_measured_v3.py
+          docs/qualification/ihp-pmos-measured-reference-v3/evidence-compact.zip
+          packaging/ngspice/ngspice-linux47-corrected-v1.zip build/ihp-research-evidence
+      - name: Build/prove private host baseline, no PMOS
+        env:
+          REVIEWED_POLICY_SHA: ${{ steps.request.outputs.policy_sha256 }}
+        run: >-
+          python scripts/build_ihp_wsl_research_base.py
+          --evidence build/ihp-research-evidence --output build/ihp-wsl-research
+          --policy docs/research/ihp-wsl-experimental/build-policy.json
+          --policy-sha256 "$REVIEWED_POLICY_SHA"
+      - name: Require prepared result and successful finally cleanup
+        run: python scripts/check_ihp_wsl_prepared.py --root build/ihp-wsl-research
+      - name: Split complete preparation evidence for bounded delivery
+        if: always() && hashFiles('build/ihp-wsl-research/*.json') != ''
+        run: >-
+          python scripts/package_ihp_wsl_research_preparation.py
+          --source build/ihp-wsl-research --output build/ihp-wsl-delivery
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ihp-wsl-research-metadata
+          path: |
+            build/ihp-wsl-delivery/metadata
+            build/ci-storage/ihp-wsl-preparation.json
+          compression-level: 0
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-research/experimental-payload/manifest.json') != ''
+        with:
+          name: ihp-wsl-research-payload
+          path: build/ihp-wsl-research/experimental-payload
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0001.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0001
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0001.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0002.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0002
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0002.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0003.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0003
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0003.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0004.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0004
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0004.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0005.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0005
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0005.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0006.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0006
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0006.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0007.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0007
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0007.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0008.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0008
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0008.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0009.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0009
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0009.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0010.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0010
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0010.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0011.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0011
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0011.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0012.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0012
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0012.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0013.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0013
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0013.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0014.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0014
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0014.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0015.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0015
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0015.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('build/ihp-wsl-delivery/proof-parts/host-proof-0016.zip') != ''
+        with:
+          name: ihp-wsl-research-proof-0016
+          path: |
+            build/ihp-wsl-delivery/proof-parts/host-proof-0016.zip
+            build/ihp-wsl-delivery/proof-parts/DELIVERY.json
+          compression-level: 0
+          if-no-files-found: error
