@@ -5,6 +5,39 @@ confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
 
+**November 11 recovery update:** the reviewed 71-file batch is published as
+`62c6930a820ee9c9ccb1040e38d1dd7394d9108e`. Its hosted source run
+[42956251984](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42956251984)
+passes Linux but fails Windows on the malformed ZIP-name fixture. A narrow
+[reader/fixture reconstruction](validation/chunk7-zip-reconstructed-validation-2026-11-11.json)
+now passes all 14 local source stages (1,817 tests, 18 skips) and exhaustive
+core (4,915 tests, 81 skips), with 2,492 unchanged source identities. Eighteen
+focused tests and independent original-reader negative controls also pass.
+The repair rejects normalized backslash/NUL aliases before writing output;
+no security guard or source-stage timeout is weakened. Actual hosted Windows
+acceptance of this reconstruction remains pending.
+The temporary Actions recovery workflow remains retired.
+
+The subsequent cloud workspace no longer contains the unpublished WSL work.
+[Authenticated recovery](validation/chunk7-workspace-recovery-2026-11-11.json)
+restores the exact compact evidence archive, 58 payloads and 15 changed source
+files. It retains the historical 1,871-test source pass, but this archive alone
+does not restore 44 earlier source paths or the larger source/core archive.
+Further recovery and fresh review of reconstructed files remain separate;
+historical tests are not applied to replacement bytes. No WSL preparation or native Windows research run has
+started. The completion estimate remains 74%; no qualification gate is waived.
+The separately [reviewed build-only reconstruction](validation/ihp-wsl-build-reconstruction-source-v2-2026-11-11.json)
+now retains 34 changed/new paths in a compact inert source snapshot. Seventy
+focused/CI tests and 1,628 syntax checks pass, with eight build-only suites.
+The new draft policy explicitly rejects activation; it does not inherit a lost
+historical approval or claim actual Docker/APT/native execution. Build-only
+activation and full current-source validation remain separate next steps.
+A separately retained three-file activation delta now has independent build-only
+review: it changes only the policy review state and repins the request. Its
+workflow is not yet active in this candidate; actual host proof and complete
+combined-source regression remain pending, with no native authorization.
+The earlier milestone descriptions below retain their original historical scope.
+
 **Latest local milestone:** the [versioned PMOS research result](validation/ihp-pmos-measured-v3-2026-11-11.json)
 completes all 20 native jobs and 560 points. A source-derived multiplicity check
 passes independent review without relaxing tolerances; the original failed check

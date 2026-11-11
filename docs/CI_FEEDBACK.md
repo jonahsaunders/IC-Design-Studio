@@ -1,5 +1,16 @@
 # Source feedback and selected acceptance candidates
 
+The November 11 [ZIP-reader reconstruction](validation/chunk7-zip-reconstructed-validation-2026-11-11.json)
+retains all archive guards and fixes the Windows fixture so malformed names
+reach the reader unchanged. The reader rejects original wire names that were
+normalized or NUL-truncated. All 14 local source stages pass with 1,817 tests
+and 18 skips; exhaustive core passes 4,915 tests with 81 skips. Both runs retain
+2,492 unchanged bound source identities. Independent adversarial controls show
+the original reader accepting the aliases that the repaired reader rejects.
+Hosted Windows and installed acceptance remain separate. The reconstructed WSL
+pipeline is retained as an inert, reviewed snapshot, not included in these counts.
+
+
 The [November 11 final integrated local record](validation/chunk7-next3-source-core-validation-2026-11-11.json)
 passes all 14 selected stages in one uninterrupted run: 1,814 tests, 18 explicit
 skips and 2,492 unchanged source identities. Its separate exhaustive core run

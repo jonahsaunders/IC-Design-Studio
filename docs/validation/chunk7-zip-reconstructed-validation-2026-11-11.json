@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "snapshot_date": "2026-11-11",
+  "scope": "NEW_RECONSTRUCTION_SOURCE_ONLY_NO_HISTORICAL_BYTE_EQUIVALENCE",
+  "base_commit": "62c6930a820ee9c9ccb1040e38d1dd7394d9108e",
+  "source_bindings": {
+    "scripts/recover_pw2dn_diagnostics.py": "ace3dcf373bd9262e293a9a78c10f2d56db81ae8daaad7a5aa69b9a8d8c4b348",
+    "tests/test_recover_pw2dn_diagnostics.py": "628b82fc06f2a8a1f47899e8117fe34c3f2e80eeb672c92ba3d95bf66c55d5df"
+  },
+  "independent_review": {
+    "status": "PASS",
+    "scope": "NEW_RECONSTRUCTION_SOURCE_ONLY",
+    "baseline_reader_sha256": "92f95f9fc6a6d35c81645a4202e60c4f7c359d4b65d4798c40b2181545c09389",
+    "source_bindings": {
+      "scripts/recover_pw2dn_diagnostics.py": "ace3dcf373bd9262e293a9a78c10f2d56db81ae8daaad7a5aa69b9a8d8c4b348",
+      "tests/test_recover_pw2dn_diagnostics.py": "628b82fc06f2a8a1f47899e8117fe34c3f2e80eeb672c92ba3d95bf66c55d5df"
+    },
+    "adversarial_controls": [
+      {
+        "separator": "/",
+        "wire_name": "'unselected\\\\alias'",
+        "new": "UNSAFE_ARCHIVE_PATH_NO_OUTPUT",
+        "original": "UNSAFE_ARCHIVE_PATH"
+      },
+      {
+        "separator": "/",
+        "wire_name": "'unselected\\x00suffix'",
+        "new": "UNSAFE_ARCHIVE_PATH_NO_OUTPUT",
+        "original": "accepted"
+      },
+      {
+        "separator": "\\",
+        "wire_name": "'unselected\\\\alias'",
+        "new": "UNSAFE_ARCHIVE_PATH_NO_OUTPUT",
+        "original": "accepted"
+      },
+      {
+        "separator": "\\",
+        "wire_name": "'unselected\\x00suffix'",
+        "new": "UNSAFE_ARCHIVE_PATH_NO_OUTPUT",
+        "original": "accepted"
+      }
+    ],
+    "focused_tests": 18,
+    "workflow_retired": true,
+    "native_windows_executed": false,
+    "historical_byte_equivalence_claimed": false
+  },
+  "artifact": {
+    "path": "artifacts/chunk7-zip-reconstructed-validation-2026-11-11.zip",
+    "bytes": 985077,
+    "sha256": "86caf8e3bc4c0f0cb387beaa1d5cedfacad9cd80bad827e39a90146212c62e21",
+    "retained_payloads": 42,
+    "omitted_payloads": 1537
+  },
+  "source": {
+    "stages": 14,
+    "tests": 1817,
+    "skips": 18,
+    "base": "62c6930a820ee9c9ccb1040e38d1dd7394d9108e",
+    "mode": "source",
+    "command": [
+      "/workspace/shared/icstudio-venv/bin/python",
+      "scripts/ci_feedback.py",
+      "--output",
+      "/workspace/shared/chunk7-zip-reconstruction/source/run"
+    ],
+    "launcher_sha256_before": "1c3961531f3e993e869a918f078a4c4f10d6d177121a9154d7d2a82304385d3d",
+    "source_count": 2492,
+    "status": "passed",
+    "installed_acceptance": false,
+    "native_qualification": false,
+    "pid": 7,
+    "returncode": 0,
+    "source_unchanged": true,
+    "elapsed_seconds": 434.571,
+    "launcher_unchanged": true
+  },
+  "core": {
+    "tests": 4915,
+    "skips": 81,
+    "base": "62c6930a820ee9c9ccb1040e38d1dd7394d9108e",
+    "mode": "core",
+    "command": [
+      "/workspace/shared/icstudio-venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "launcher_sha256_before": "1c3961531f3e993e869a918f078a4c4f10d6d177121a9154d7d2a82304385d3d",
+    "source_count": 2492,
+    "status": "passed",
+    "installed_acceptance": false,
+    "native_qualification": false,
+    "pid": 6,
+    "returncode": 0,
+    "source_unchanged": true,
+    "elapsed_seconds": 1191.494,
+    "launcher_unchanged": true
+  },
+  "limitations": [
+    "Native Windows has not executed the reconstructed reader yet.",
+    "No temporary Actions recovery workflow is reactivated.",
+    "No source timeout, archive guard or qualification gate is weakened.",
+    "GUI payloads omitted from compact evidence are individually hashed; logs/reports are not a complete independent raw-output replay.",
+    "The first standalone syntax command named a nonexistent script and failed before checking source; the corrected workflow command compiled1611sources."
+  ]
+}

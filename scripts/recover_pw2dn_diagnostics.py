@@ -116,6 +116,9 @@ def inspect_archive(archive,output,diagnostics=None,expected_entries=None):
         for info in infos:
             diagnostics['scanned_entries']+=1
             name=info.filename;parts=PurePosixPath(name).parts
+            # ZipInfo can normalize separators or truncate NULs while reading.
+            # Validate the original wire name, not only its normalized alias.
+            require(info.orig_filename==name,'Unsafe archive path')
             require(name and not name.startswith('/') and '\\' not in name and ':' not in name and all(p not in ('','..','.') for p in name.rstrip('/').split('/')),'Unsafe archive path')
             key=name.rstrip('/').casefold();require(key not in names,'Duplicate/case-colliding archive member');names.add(key)
             mode=info.external_attr>>16

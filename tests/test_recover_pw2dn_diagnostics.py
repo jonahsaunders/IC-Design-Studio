@@ -22,7 +22,14 @@ class RecoveryTests(unittest.TestCase):
  def archive(self,entries):
   stream=io.BytesIO()
   with zipfile.ZipFile(stream,'w') as z:
-   for name,data in entries:z.writestr(name,data)
+   for name,data in entries:
+    if isinstance(name,str):
+     # Preserve invalid wire names instead of letting the host writer repair
+     # separators (Windows) or truncate NULs before the reader sees them.
+     info=zipfile.ZipInfo('placeholder')
+     info.filename=info.orig_filename=name
+    else:info=name
+    z.writestr(info,data)
   stream.seek(0);return stream
  def test_recover_exact_and_missing(self):
   with tempfile.TemporaryDirectory() as td:
@@ -38,6 +45,28 @@ class RecoveryTests(unittest.TestCase):
   for entries in bad:
    with self.subTest(entries=entries),tempfile.TemporaryDirectory() as td:
     with self.assertRaises(ValueError):r.inspect_archive(self.archive(entries),Path(td))
+ def test_malformed_wire_names_survive_fixture(self):
+  for name in ['a\\b','windows-evidence/'+r.MEMBERS[0]+'\x00ignored']:
+   with self.subTest(name=name),zipfile.ZipFile(self.archive([(name,b'x')])) as z:
+    self.assertEqual(z.infolist()[0].orig_filename,name)
+ def test_wire_name_rejection_on_both_separator_hosts(self):
+  selected='windows-evidence/'+r.MEMBERS[0]
+  for separator in ['/', '\\']:
+   for name in ['a\\b',selected+'\x00ignored']:
+    with self.subTest(separator=separator,name=name),tempfile.TemporaryDirectory() as td:
+     archive=self.archive([(selected,b'ValueError: selected'),(name,b'x')])
+     with patch.object(zipfile.os,'sep',separator):
+      with self.assertRaisesRegex(r.ValidationFailure,'UNSAFE_ARCHIVE_PATH'):
+       r.inspect_archive(archive,Path(td))
+     self.assertEqual(list(Path(td).iterdir()),[])
+ def test_canonical_names_pass_on_both_separator_hosts(self):
+  for separator in ['/', '\\']:
+   with self.subTest(separator=separator),tempfile.TemporaryDirectory() as td:
+    archive=self.archive([('windows-evidence/'+r.MEMBERS[0],b'ValueError: canonical')])
+    with patch.object(zipfile.os,'sep',separator):
+     rows=r.inspect_archive(archive,Path(td))
+    self.assertEqual([row['status'] for row in rows],['recovered','missing','missing'])
+    self.assertEqual(len(list(Path(td).iterdir())),1)
  def test_symlink(self):
   zi=zipfile.ZipInfo('some-link');zi.create_system=3;zi.external_attr=(stat.S_IFLNK|0o777)<<16
   with tempfile.TemporaryDirectory() as td:

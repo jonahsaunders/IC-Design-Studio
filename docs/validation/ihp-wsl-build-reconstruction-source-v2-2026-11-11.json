@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "snapshot_date": "2026-11-11",
+  "scope": "INERT_NEW_BUILD_ONLY_SOURCE_RECONSTRUCTION",
+  "base_commit": "62c6930a820ee9c9ccb1040e38d1dd7394d9108e",
+  "artifact": {
+    "path": "artifacts/ihp-wsl-build-reconstruction-source-v2-2026-11-11.zip",
+    "bytes": 88883,
+    "sha256": "f8d91250e8e7eb813453b130d4f79b06b55aac3b8702ac6e1d82d5d79fd5410e"
+  },
+  "changed_or_new_paths": 34,
+  "focused_ci_tests": 70,
+  "syntax_files": 1628,
+  "build_only_suites": 8,
+  "independent_source_review": "passed",
+  "policy_state": "DRAFT_REJECTS_ACTIVATION",
+  "historical_approval_inherited": false,
+  "active_workflow_published": false,
+  "docker_executed": false,
+  "apt_acquisition_executed": false,
+  "wsl_native_execution": false,
+  "full_family_qualification": false,
+  "limitations": [
+    "This ZIP durably retains reviewed source only; its nested workflow is inert.",
+    "New reconstruction does not claim missing historical source bytes or inherit their source/core acceptance.",
+    "Fresh build-only policy activation, current source regression and actual host/artifact verification remain required.",
+    "Native Windows Studio probe/auditor reconstruction is separate and excluded."
+  ],
+  "activation_delta": {
+    "path": "artifacts/ihp-wsl-build-reconstruction-v2-activation-delta-2026-11-11.zip",
+    "bytes": 2873,
+    "sha256": "a82586d9248729f429f3de8a36d27e16bd730bfe1694abce5b76c3764a4007bf",
+    "payloads": 3,
+    "independent_review": "passed",
+    "approved_policy_sha256": "91803a65f8d7aaa20c032d5c8796c5a427c8d6a01a9787df622ac471d398dd22",
+    "only_policy_change": "review_state",
+    "active_workflow_published": false,
+    "scope": "BUILD_PREPARATION_ONLY_NO_NATIVE_AUTHORIZATION"
+  }
+}
