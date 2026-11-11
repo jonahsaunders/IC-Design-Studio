@@ -384,6 +384,194 @@ class ProjectDataSafetyTests(unittest.TestCase):
         self.assertIn('Injected invalid source draft', digital.message.text())
         self.assertFalse(any('snapshot saved' in str(call) for call in message.call_args_list))
 
+    def test_duplicate_contains_pending_inspector_and_analysis_without_saving_source(self):
+        path, _ = self.prepare(dirty=False)
+        original_bytes = path.read_bytes()
+        original_saved_hash = self.window.saved_hash
+        original_id = self.window.project['id']
+        rid = self.pending_resistor('33k')
+        self.window.analysis_fields['stop'].setText('987u')
+        target = path.parent / 'independent analog copy.icproj'
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')):
+            self.window.duplicate_project_dialog()
+        copied = load_project(target)
+        self.assertEqual(copied['analysis']['stop'], '987u')
+        self.assertEqual(next(d for d in copied['cells'][0]['devices'] if d['id'] == rid)['value'], '33k')
+        self.assertNotEqual(copied['id'], original_id)
+        self.assertEqual(copied['copied_from']['project_id'], original_id)
+        self.assertEqual(self.window.project['id'], original_id)
+        self.assertEqual(self.window.path, path)
+        self.assertEqual(self.window.saved_hash, original_saved_hash)
+        self.assertNotEqual(digest(self.window.project), original_saved_hash)
+        self.assertEqual(path.read_bytes(), original_bytes)
+        self.assertFalse(self.window.analysis_dirty)
+        self.assertFalse(self.window._inspector_dirty)
+        self.assertTrue(any(entry['id'] == copied['id'] for entry in self.window.project_index.entries()))
+
+    def test_duplicate_contains_pending_digital_source_without_saving_original(self):
+        from icstudio.digital import counter_project
+        path, _ = self.prepare(dirty=False)
+        save_project(counter_project(), path)
+        self.window.set_project(load_project(path), path)
+        self.assertTrue(self.window.save())
+        original_bytes = path.read_bytes()
+        original_saved_hash = self.window.saved_hash
+        original_id = self.window.project['id']
+        digital = self.window.digital_window()
+        digital.files.setCurrentRow(0)
+        digital.editor.insertPlainText('// Latest independent copy draft\n')
+        self.assertTrue(digital.dirty)
+        target = path.parent / 'independent digital copy.icproj'
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')):
+            self.window.duplicate_project_dialog()
+        copied = load_project(target)
+        self.assertIn('Latest independent copy draft', copied['digital']['files'][0]['text'])
+        self.assertFalse(digital.dirty)
+        self.assertNotEqual(copied['id'], original_id)
+        self.assertEqual(copied['copied_from']['project_id'], original_id)
+        self.assertEqual(self.window.project['id'], original_id)
+        self.assertEqual(self.window.path, path)
+        self.assertEqual(self.window.saved_hash, original_saved_hash)
+        self.assertNotEqual(digest(self.window.project), original_saved_hash)
+        self.assertEqual(path.read_bytes(), original_bytes)
+
+    def test_duplicate_invalid_drafts_do_not_write_index_or_report_success(self):
+        from icstudio.digital import counter_project
+        for kind in ('inspector', 'analysis', 'digital'):
+            with self.subTest(kind=kind):
+                path, _ = self.prepare(dirty=False)
+                digital = None
+                if kind == 'inspector':
+                    self.pending_resistor('invalid resistance')
+                elif kind == 'analysis':
+                    self.window.analysis_fields['stop'].setText('invalid time')
+                else:
+                    self.window.set_project(counter_project())
+                    digital = self.window.digital_window()
+                    digital.editor.insertPlainText('// Must remain a draft\n')
+                before = clone(self.window.project)
+                target = path.parent / 'must not exist.icproj'
+                with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')), \
+                        patch('icstudio.lifecycle_ui.duplicate_project', side_effect=AssertionError('Invalid draft wrote copy')), \
+                        patch.object(self.window.project_index, 'remember', side_effect=AssertionError('Invalid draft indexed copy')), \
+                        patch.object(self.window.statusBar(), 'showMessage') as message:
+                    if digital:
+                        with patch.object(digital, 'apply', side_effect=ValueError('Injected invalid digital copy draft')):
+                            self.window.duplicate_project_dialog()
+                        self.assertTrue(digital.dirty)
+                        self.assertIn('Injected invalid digital copy draft', digital.message.text())
+                    else:
+                        self.window.duplicate_project_dialog()
+                self.assertFalse(target.exists())
+                self.assertEqual(digest(self.window.project), digest(before))
+                self.assertFalse(any('Created ' in str(call) for call in message.call_args_list))
+
+    def test_duplicate_explicit_draft_refusals_stop_before_writer_and_index(self):
+        from icstudio.digital import counter_project
+        for kind in ('inspector_after_picker', 'analysis', 'digital'):
+            with self.subTest(kind=kind):
+                path, _ = self.prepare(dirty=False)
+                target = path.parent / 'refused copy.icproj'
+                if kind == 'digital':
+                    self.window.set_project(counter_project())
+                    digital = self.window.digital_window()
+                    digital.editor.insertPlainText('// Retain refused draft\n')
+                    refusal = patch.object(digital, 'attempt', return_value=False)
+                elif kind == 'analysis':
+                    refusal = patch.object(self.window, 'flush_analysis', return_value=False)
+                else:
+                    # idle_edit's established pre-picker flush succeeds; the
+                    # additional post-picker guard must still honor refusal.
+                    refusal = patch.object(self.window, 'flush_inspector', side_effect=[True, False])
+                before = clone(self.window.project)
+                with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')), refusal, \
+                        patch('icstudio.lifecycle_ui.duplicate_project', side_effect=AssertionError('Refused draft wrote copy')), \
+                        patch.object(self.window.project_index, 'remember', side_effect=AssertionError('Refused draft indexed copy')), \
+                        patch.object(self.window.statusBar(), 'showMessage') as message:
+                    self.window.duplicate_project_dialog()
+                self.assertFalse(target.exists())
+                self.assertEqual(digest(self.window.project), digest(before))
+                self.assertFalse(any('Created ' in str(call) for call in message.call_args_list))
+
+    def test_duplicate_picker_cancel_preserves_analysis_and_digital_drafts(self):
+        from icstudio.digital import counter_project
+        for kind in ('analysis', 'digital'):
+            with self.subTest(kind=kind):
+                path, _ = self.prepare(dirty=False)
+                if kind == 'analysis':
+                    rid = self.pending_resistor('47k')
+                    self.window.analysis_fields['stop'].setText('987u')
+                    original_stop = self.window.project['analysis']['stop']
+                    digital = None
+                else:
+                    save_project(counter_project(), path)
+                    self.window.set_project(load_project(path), path)
+                    self.assertTrue(self.window.save())
+                    digital = self.window.digital_window()
+                    digital.editor.insertPlainText('// Preserve cancelled copy draft\n')
+                original_bytes = path.read_bytes()
+                original_saved_hash = self.window.saved_hash
+                with patch.object(QFileDialog, 'getSaveFileName', return_value=('', '')), \
+                        patch.object(self.window, 'flush_analysis', side_effect=AssertionError('Cancelled picker applied analysis')), \
+                        patch('icstudio.lifecycle_ui.duplicate_project', side_effect=AssertionError('Cancelled picker wrote copy')), \
+                        patch.object(self.window.project_index, 'remember', side_effect=AssertionError('Cancelled picker indexed copy')), \
+                        patch.object(self.window.statusBar(), 'showMessage') as message:
+                    if digital:
+                        with patch.object(digital, 'apply', side_effect=AssertionError('Cancelled picker applied digital draft')):
+                            self.window.duplicate_project_dialog()
+                        self.assertTrue(digital.dirty)
+                    else:
+                        self.window.duplicate_project_dialog()
+                        self.assertTrue(self.window.analysis_dirty)
+                        self.assertEqual(self.window.project['analysis']['stop'], original_stop)
+                        # Preserve existing behavior: idle_edit has always
+                        # applied valid inspector edits before the picker.
+                        self.assertFalse(self.window._inspector_dirty)
+                        self.assertEqual(next(d for d in self.window.cell['devices'] if d['id'] == rid)['value'], '47k')
+                self.assertEqual(self.window.path, path)
+                self.assertEqual(self.window.saved_hash, original_saved_hash)
+                self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertFalse(any('Created ' in str(call) for call in message.call_args_list))
+
+    def test_duplicate_writer_failure_does_not_index_or_report_success(self):
+        path, _ = self.prepare(dirty=False)
+        self.window.analysis_fields['stop'].setText('987u')
+        original_bytes = path.read_bytes()
+        original_saved_hash = self.window.saved_hash
+        target = path.parent / 'failed copy.icproj'
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')), \
+                patch('icstudio.lifecycle_ui.duplicate_project', side_effect=OSError('Injected copy disk full')), \
+                patch.object(self.window.project_index, 'remember', side_effect=AssertionError('Failed copy indexed')), \
+                patch.object(self.window.statusBar(), 'showMessage') as message:
+            with self.assertRaisesRegex(OSError, 'Injected copy disk full'):
+                self.window.duplicate_project_dialog()
+        self.assertFalse(target.exists())
+        self.assertEqual(self.window.project['analysis']['stop'], '987u')
+        self.assertEqual(self.window.path, path)
+        self.assertEqual(self.window.saved_hash, original_saved_hash)
+        self.assertEqual(path.read_bytes(), original_bytes)
+        self.assertFalse(any('Created ' in str(call) for call in message.call_args_list))
+
+    def test_duplicate_keeps_existing_destination_and_source_intact(self):
+        path, _ = self.prepare(dirty=False)
+        self.window.analysis_fields['stop'].setText('987u')
+        target = path.parent / 'already exists.icproj'
+        save_project(example(), target)
+        target_bytes = target.read_bytes()
+        original_bytes = path.read_bytes()
+        original_saved_hash = self.window.saved_hash
+        with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')), \
+                patch.object(self.window.project_index, 'remember', side_effect=AssertionError('Existing destination reindexed')), \
+                patch.object(self.window.statusBar(), 'showMessage') as message:
+            with self.assertRaises(FileExistsError):
+                self.window.duplicate_project_dialog()
+        self.assertEqual(target.read_bytes(), target_bytes)
+        self.assertEqual(path.read_bytes(), original_bytes)
+        self.assertEqual(self.window.path, path)
+        self.assertEqual(self.window.saved_hash, original_saved_hash)
+        self.assertEqual(self.window.project['analysis']['stop'], '987u')
+        self.assertFalse(any('Created ' in str(call) for call in message.call_args_list))
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,34 @@
+{
+  "scope": "Historical accepted source only, not acceptance of repaired copy behavior",
+  "native_execution": false,
+  "results": {
+    "4": {
+      "status": "reference_gate_complete",
+      "chunk": 4,
+      "chunk_complete": true,
+      "references": 6,
+      "process_qualification": "unqualified"
+    },
+    "5": {
+      "status": "reference_gate_complete",
+      "chunk": 5,
+      "chunk_complete": true,
+      "references": 3,
+      "process_qualification": "unqualified",
+      "source_scope": "historical-tested-source-only"
+    },
+    "matrix": {
+      "status": "matrix_consistent",
+      "process_qualification": "unqualified",
+      "targets": 4,
+      "requirements": 125,
+      "device_entries": 302,
+      "requirement_statuses": {
+        "not_run": 73,
+        "partial": 34,
+        "needs_definition": 4,
+        "passed_reference": 14
+      }
+    }
+  }
+}

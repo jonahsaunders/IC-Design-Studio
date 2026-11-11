@@ -1,5 +1,20 @@
 # Chunks 1–12: progress and forecast
 
+**November 11 Duplicate Project pending-edit repair:** the local follow-on to
+`e1d26f907214b66584ac3003c2684a7371a3c14b` copies pending analysis and digital
+edits after destination selection without saving over the original project.
+The [validation record](validation/experimental-project-copy-safety-2026-11-11.json)
+retains 23 real Qt tests, 48 focused tests and two expected original-code
+failures. All 14 source stages pass (1,919 tests, 18 skips; 2,552 bound source
+identities), and exhaustive core passes 5,017 tests with 81 skips. Core has no
+separate pre-launch identity receipt: the independent post-core map matches
+the source lane's checked identity map. The earlier green hosted source run
+covers the base, not this follow-on; the older f323 installed run does not
+cover this repair. Fresh exact-candidate hosted/installed acceptance remains
+separate. Chunk 7 stays approximately **74%**, low confidence **55–82%**;
+this is not a scientific qualification or acceptance fraction.
+
+
 Updated November 11, 2026. Chunk 7 is approximately **74% complete**, with low
 confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
