@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "status": "COMPLETE_RETAINED_RESEARCH_SEPARATE_SOURCE_AWARE_CONSISTENCY",
+  "qualified": false,
+  "calibrated": false,
+  "installed_acceptance": false,
+  "application_defaults_changed": false,
+  "native_jobs": 20,
+  "native_points": 560,
+  "nominal_measured_points": 140,
+  "solver": "Unchanged production ngspice47/default Sparse",
+  "per_job_deadline_seconds": 90,
+  "experimental_module_sha256": "c044065fa80e7d4db69e79b316ed79fba4d1d2f701172e47ec10254d0d73d909",
+  "model_coefficients_changed": false,
+  "original_numerical_audit": "REJECTED_MULTIPLICITY_SCALING",
+  "original_scaling_max_normalized": 13.49956195773435,
+  "source_aware_consistency": "PASS",
+  "source_aware_scaling_max_normalized": 1.1455769084287237e-09,
+  "kcl_max_normalized": 0.3272448791403002,
+  "prior_overlap_max_normalized": 0.14203462202947922,
+  "source_aware_law": "I(m=2)=2*I(m=1)-C, with C derived from the exact deliberately unmultiplied gmin branches and source-proven DI=D,SI=S,BP=B in this RF-off single-finger topology. Original tolerance denominator retained; no fitted offsets or measured-current correction.",
+  "measured_comparison_summary": {
+    "d": {
+      "points": 140,
+      "max_absolute_residual_a": 4.899911734683826e-07,
+      "median_absolute_residual_a": 1.3240951030474782e-07,
+      "nonzero_measured_count": 140,
+      "zero_measured_count": 0,
+      "max_absolute_relative_residual": 0.9252969678763548,
+      "median_absolute_relative_residual": 0.018464282981614462,
+      "zero_measured_max_absolute_residual_a": null
+    },
+    "g": {
+      "points": 140,
+      "max_absolute_residual_a": 5.978634474249604e-10,
+      "median_absolute_residual_a": 1.3515028463055081e-11,
+      "nonzero_measured_count": 140,
+      "zero_measured_count": 0,
+      "max_absolute_relative_residual": 0.2087187333827625,
+      "median_absolute_relative_residual": 0.019361774139279638,
+      "zero_measured_max_absolute_residual_a": null
+    },
+    "s": {
+      "points": 140,
+      "max_absolute_residual_a": 4.712423877334123e-07,
+      "median_absolute_residual_a": 1.323349698562096e-07,
+      "nonzero_measured_count": 140,
+      "zero_measured_count": 0,
+      "max_absolute_relative_residual": 11.5373859523465,
+      "median_absolute_relative_residual": 0.01927891433173732,
+      "zero_measured_max_absolute_residual_a": null
+    },
+    "b": {
+      "points": 140,
+      "max_absolute_residual_a": 8.825999959147076e-11,
+      "median_absolute_residual_a": 3.4026389439931428e-12,
+      "nonzero_measured_count": 139,
+      "zero_measured_count": 1,
+      "max_absolute_relative_residual": 2.287643975549734,
+      "median_absolute_relative_residual": 1.2656431705853428,
+      "zero_measured_max_absolute_residual_a": 2.437239296021211e-19
+    }
+  },
+  "portable_evidence": {
+    "directory": "../qualification/ihp-pmos-measured-reference-v3",
+    "compact_sha256": "1f49b494236845576c7e195a68fa7a36f468e47231d383a86d44ea8ad7010003",
+    "reconstructed_payload_files": 588,
+    "research_sources_immutable": true,
+    "current_machine_native_replay": false,
+    "upstream_python_definitions": "Exact manifest-authenticated parser definitions executed only after complete payload verification; native binaries never executed by readback."
+  },
+  "verification": {
+    "source_aware_tests": 14,
+    "portable_tests": 15,
+    "integrated_portable_and_ci_tests": 43,
+    "integrated_initial_failure": "Missing PYTHONPATH=tests caused existing feedback child import failure; retained separately. Corrected environment passed, no test guard change.",
+    "independent_portable_receipt_sha256": "3364e571544085b471450d0c1f3427ca813603b388c041483e9361d68c9edb88",
+    "windows_reparse_testing": "Mocked attributes only; no native Windows junction execution"
+  },
+  "evidence": {
+    "path": "artifacts/ihp-pmos-v3-portable-review-2026-11-11.zip",
+    "sha256": "d0297f7d254eaa4dd65a7924a5657b4fdae3cfd1321ce291a8dd8f452a7ce35d",
+    "bytes": 34263,
+    "payload_files": 7,
+    "manifest_files": 1
+  },
+  "limitations": [
+    "Experimental compiler/runtime remains Linux x86_64 only and default-off. App managed runtime is unchanged.",
+    "All measured residuals are unconditional original total-current comparisons, not a calibrated pass/fail result. Near-zero-current large relative errors remain visible.",
+    "No independent held-out measurement/uncertainty or full operating/reliability envelope is supplied.",
+    "Full compiler source patch/archive and build provenance are retained; large LLVM/sysroot/Cargo caches and executables are omitted explicitly. Rebuild is not turnkey.",
+    "Current source-app pilot is a separate finite workflow proof, not installed or graphical parameter qualification."
+  ],
+  "source_app_record": "chunk7-ihp-pmos-source-app-pilot-2026-11-11.json"
+}

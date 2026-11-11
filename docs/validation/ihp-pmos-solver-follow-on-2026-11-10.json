@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "status": "DIAGNOSTICS_NARROW_NUMERICAL_BLOCKER_NO_GENERAL_REMEDY",
+  "qualified": false,
+  "independent_calibration": false,
+  "installed_acceptance": false,
+  "runtime_replaced": false,
+  "first_equation": {
+    "result_sha256": "c8ff60b4ce62220b14505b82f57997fae452079f6caaa33ddedbeaa83bf057db",
+    "result": {
+      "schema": 1,
+      "status": "BOUNDED_DIAGNOSTIC_TIMEOUT_WITH_SELECTED_CONVERGENCE_CAUSE",
+      "qualified": false,
+      "runtime_replaced": false,
+      "native_runs": 1,
+      "deadline_seconds": 90,
+      "actual_seconds": 90.00287907600068,
+      "engine_sha256": "9b27159754f497a59a09f66d35d620ffb1d63e3b781ec9b0753b30b7203901fd",
+      "instrumentation_sha256": "46c4e4af782f540ab0b0e473849114ed42411805b9814e654bc044ccf3711fbd",
+      "run_sha256": "cc137b8d887417fdfe73a1395d2947924bb933e127d6eb385cf77f4b81e096dc",
+      "trace_events": 321,
+      "trace_bytes": 30568,
+      "raw_complete": false,
+      "first_rejected_unknowns": [
+        "ICEQ first-node-failure call=1 iter=2 mode=1088 node=6 name=vs#branch type=4 old=-4.1346781068420337e-12 new=-2.9646654945224444e-09 tol=1.2964665494522444e-16 diff=2.9605308164156025e-09",
+        "ICEQ first-node-failure call=2 iter=2 mode=257 node=7 name=vg#branch type=4 old=5.9293512322255992e-09 new=5.929337021370884e-09 tol=1.5929351232225599e-16 diff=1.4210854715202004e-14",
+        "ICEQ first-node-failure call=3 iter=2 mode=257 node=7 name=vg#branch type=4 old=5.9293512322255992e-09 new=5.929337021370884e-09 tol=1.5929351232225599e-16 diff=1.4210854715202004e-14",
+        "ICEQ first-node-failure call=4 iter=2 mode=257 node=7 name=vg#branch type=4 old=5.9293512322255992e-09 new=5.929337021370884e-09 tol=1.5929351232225599e-16 diff=1.4210854715202004e-14"
+      ],
+      "sampled_osdi_flags_all_zero": true,
+      "sampled_postload_noncon_all_zero": true,
+      "observations": [
+        "Call1 is direct DC-curve initialization (MODEDCTRANCURVE with INITJCT then INITFIX), not a completed measurement point. Its first rejected node vs#branch at iteration2 is a large ordinary initial update and is not identified as root cause.",
+        "At direct-initialization iterations99,100,101, gate-source branch current vg#branch alternates between5.929337021370884e-9 and5.9293512322255992e-9A; GP alternates between adjacent binary64 voltages\u22121.1239999999412742 and\u22121.123999999941274V.",
+        "OPtran calls2,3,4 (MODETRAN|MODEINITTRAN then MODETRAN|MODEINITFLOAT) first reject vg#branch at iteration2 and retain that same late-iteration two-cycle before E_ITERLIM. Those selected repeated failures are NIconvTest current-unknown convergence rejection, not sampled OSDI limiter rejection.",
+        "The gate-current difference is1.4210854715202004e-14A versus tolerance1.5929351232225599e-16A, about89.21times tolerance. Internal GP voltage difference is one binary64 ULP at this magnitude.",
+        "All sampled OSDI flags and postload noncon values are0. This excludes a limiter flag as explanation for these logged iterations, not every unlogged iteration or future call.",
+        "Trace is limited to first5NIiter calls. The earlier experiment observed later tiny-step progress, but this instrumentation does not establish its first-failure equation throughout that later phase."
+      ],
+      "source_backed_conditioning_lead": {
+        "parameters": "Pinned sg13g2_lv_pmos_psp model: RINT1e-12 Ohm m\u00b2,RVPOLY0,LVARO9.695e-8m,LVARL\u2212.03438,LVARW0,WVARO0; omitted RSHG/RGO use PSP0defaults. W=L10um,NF=M1.",
+        "equations": "PSP scaling uses iL=1um/L,delLPS=LVARO*(1+LVARL*iL);L_f=L+delLPS,W_f=W;RG=(RINT+RVPOLY)/(W_f*L_f) with zero other terms. Module ggate=1/RG and CollapsableR contributes MULT*ggate*V(G,GP).",
+        "calculated_Rg_ohm": "0.0099043078598448469202373842294465944849819823543708",
+        "calculated_Gg_siemens": "100.9661668590",
+        "gate_iteration_diff_over_tolerance": "89.211760780646105096795885587530997885610473706454",
+        "interpretation": "Approximately9.904mOhm series gate branch connects voltages near\u22121.124V while current is about5.93nA. Per-node observed one-ULP voltage cycling and current-unknown two-cycle support a finite-precision/conditioning lead. Actual matrix/residual assembly and factorization have not been traced; this is not proof of a specific compiler or solver bug.",
+        "no_unauthorized_remedy": "No gate short, RINT/model edit, tolerance loosening, offset voltage, initial-state change or longer deadline is justified or applied."
+      },
+      "next_proposal": "Before another native run, inspect the exact compiled OSDI gate-resistor residual/Jacobian and ngspice/KLU branch-current reconstruction for cancellation. A faithful numerical remedy would need equation-preserving assembly/scaling or higher-precision solve evidence, not changed device coefficients or relaxed convergence. Any new implementation/run requires separate review and authorization.",
+      "scope": "One Linux local diagnostic, not a140point measured comparison,20job interface acceptance,independent calibration,fullfamily or installed application qualification. Missing measured-data uncertainty and holdout provenance remain independent blockers.",
+      "conditioning_sources": {
+        "/workspace/shared/ihp-measured-runtime-v1/model-sources/psp103/PSP103_scaling.include": "1a560ceffd722940f3aa67d64bcfc8f7925d4aa55a0c2caf0c933cf7a47dd54b",
+        "/workspace/shared/ihp-measured-runtime-v1/model-sources/psp103/PSP103_macrodefs.include": "fcb3d0830353c28710645cd28c9caf7610ebc0a05ed1ef89e0ef3e0799581d2b",
+        "/workspace/shared/ihp-measured-runtime-v1/model-sources/psp103/PSP103_module.include": "cc9f02e72fda8c907f9e6befe0dcdc2ff1dc13e45fb2f48263935c06317d3197",
+        "/workspace/shared/ihp-measured-runtime-v1/model-sources/psp103/PSP103_parlist.include": "7adbc8e7010fdc6b9c906dace441f2a443c4079693733387dad0d3e3a737ec6f",
+        "/workspace/shared/ihp-pmos-measured-attempt-3/pdk/libs.tech/ngspice/models/sg13g2_moslv_parm.lib": "cbf10b8453a18bb70b8ad0d6e40faa0937338e699b5460947a94900db6c92a6e",
+        "/workspace/shared/ihp-pmos-measured-attempt-3/pdk/libs.tech/ngspice/models/sg13g2_moslv_mod.lib": "84ec57080b9dd4666417f05db6f7b34c8dd3f12118929f9b308018613bece16e"
+      }
+    },
+    "independent_readback": "PASS;321 trace events/30568 bytes, input/output/dependency hashes and selected convergence ratios verified. One90-second run remains incomplete."
+  },
+  "klu_one_gate": {
+    "result_sha256": "2ea44b6701dc3fa233f535f7dcc0682508cea657e6052cfc2bb8d68fe6179721",
+    "status": "ONE_GATE_COMPLETE",
+    "seconds": 12.255542341999899,
+    "points": 28,
+    "terminal_current_values": 112,
+    "same_diagnostic_engine": true,
+    "only_deck_change": ".option klu",
+    "kcl_max_normalized_error": 0.005866569505970447,
+    "independently_verified": true,
+    "scope": "Finite solver-path sensitivity only; diagnostic engine is not the original staged production executable."
+  },
+  "production_full_batch": {
+    "record": "docs/qualification/ihp-pmos-measured-reference-v2/attempt-1-result.json",
+    "status": "BLOCKED_NATIVE_TIMEOUT",
+    "completed_jobs": 1,
+    "complete_nominal_points": 28,
+    "attempted_jobs": 2,
+    "first_failed_gate_v": -0.672,
+    "deadline_seconds": 90,
+    "auditor_rejects_incomplete_selection": true,
+    "v1_preserved": true
+  },
+  "source_findings": {
+    "affine_representation": "Exact pinned PSP ELF gate row forms separate large conductance-voltage products before subtracting its small residual. This confirms a cancellation-prone representation, not a proven compiler defect or complete cause.",
+    "reference_shift": "Rejected as transparent replacement: physical gauge invariance does not preserve absolute-voltage convergence thresholds or initial/OPtran state; hidden-shunt checks and noise-state distinctions also matter."
+  },
+  "artifacts": [
+    {
+      "path": "docs/validation/artifacts/ihp-pmos-first-equation-diagnostic-2026-11-10.zip",
+      "sha256": "26d4083b775c87d0e14440686e42c2a2666d7d55ce846d79fb7d51bfc594f307",
+      "bytes": 1741906
+    },
+    {
+      "path": "docs/validation/artifacts/ihp-pmos-klu-one-gate-diagnostic-2026-11-10.zip",
+      "sha256": "f66a2692f2ea670530624c9d3f130d2d0600716b9d9ca798c4f052401ec4e96d",
+      "bytes": 1537060
+    },
+    {
+      "path": "docs/validation/artifacts/ihp-pmos-affine-gauge-source-review-2026-11-10.zip",
+      "sha256": "0b81f03abde95fa6f07e0a6e0c4835ec28f739b135d14feb23686f6e48688a9d",
+      "bytes": 50590,
+      "payload_files": 12,
+      "zip_entries": 13,
+      "scope": "Read-only source/ELF mathematical investigation; no native experiment or numerical remedy",
+      "omissions": [
+        "Full compiler/model source trees, model ELF and engine binaries are not duplicated; exact identities and selected source excerpts/assembly are retained. This is not a self-contained rebuild or simulation."
+      ]
+    }
+  ],
+  "remaining": [
+    "Full140-point nominal/20-job interface batch remains incomplete.",
+    "Seek source-backed stable numerical assembly or supported official compiler correction without altering model parameters or weakening accuracy controls.",
+    "Independent measured uncertainty/holdout provenance and installed/full-family qualification remain absent."
+  ]
+}

@@ -125,7 +125,7 @@ class ReleaseRoutingTests(unittest.TestCase):
             self.assertNotIn('continue-on-error:', text)
         windows_release=workflow.index('      - name: Assemble and execute Windows release archives')
         linux_release=workflow.index('      - name: Assemble and execute Linux release archives')
-        self.assertLess(workflow.index('run: ./scripts/verify_windows.ps1'), windows_release)
+        self.assertLess(workflow.index('try { ./scripts/verify_windows.ps1 }'), windows_release)
         self.assertIn("if: runner.os == 'Windows'", workflow[windows_release:linux_release])
         self.assertIn("if: runner.os == 'Linux'", workflow[linux_release:workflow.index('\n      - ', linux_release+1)])
         self.assertIn('metal_resistors=(Get-Content', windows)

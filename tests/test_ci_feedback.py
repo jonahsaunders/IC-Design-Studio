@@ -24,6 +24,10 @@ def workflow(name):
 
 
 class FeedbackTests(unittest.TestCase):
+    def test_bounded_windows_failure_summary_is_checked_in_both_source_lanes(self):
+        self.assertEqual(RUNTIME_RELEASE_MODULES.count('test_windows_failure_summary'), 1)
+        self.assertEqual(workflow('build-desktop').count('tests.test_windows_failure_summary -v'), 1)
+
     def test_klayout_wrapper_sources_and_license_are_bound(self):
         self.assertEqual(UNIT_MODULES.count('test_klayout_wrappers'), 1)
         self.assertEqual(UNIT_MODULES.count('test_sky130_li_array_dynamic'), 1)
@@ -85,12 +89,14 @@ class FeedbackTests(unittest.TestCase):
 
     def test_follow_on_contracts_and_runtime_provenance_are_bound(self):
         for module in ('test_ihp_guard_vias', 'test_ihp_guard_corner_safe', 'test_ihp_pmos_measured_reference',
+                       'test_ihp_pmos_measured_reference_v2', 'test_ihp_pmos_measured_v3_readback', 'test_ihp_tap_linked',
                        'test_source_disposition_reconstruction_v3'):
             self.assertEqual(UNIT_MODULES.count(module), 1)
         names = ('ihp-resistor-guard-vias-v1.json',
                  'ihp-resistor-guard-corner-safe-v2.json',
                  'source-dispositions-2026-11-10-v3.delta.json.gz',
                  'ihp-pmos-measured-reference-v1/contract.json',
+                 'ihp-pmos-measured-reference-v2/contract.json',
                  'ihp-pmos-measured-reference-v1/measurement.mdm',
                  'ihp-pmos-measured-reference-v1/LICENSE',
                  'ihp-pmos-measured-reference-v1/provenance/profile.json',
@@ -344,6 +350,12 @@ class FeedbackTests(unittest.TestCase):
         self.assertIn('test_digital_platforms', UNIT_MODULES)
         self.assertIn('test_release_acceptance', UNIT_MODULES)
 
+    def test_retired_recovery_workflow_is_bound_not_active(self):
+        from scripts.ci_feedback import source_identity, UNIT_MODULES
+        self.assertIn('test_recover_pw2dn_diagnostics', UNIT_MODULES)
+        self.assertIn('tests/fixtures/pw2dn-recovery-2026-11-11/recover-pw2dn-once.yml', source_identity())
+        self.assertNotIn('.github/workflows/recover-pw2dn-once.yml', source_identity())
+
     def test_unit_split_preserves_each_expanded_test_exactly_once(self):
         commands=dict(stages())
         before=['tests.'+name for name in UNIT_MODULES]
@@ -373,7 +385,7 @@ class FeedbackTests(unittest.TestCase):
     def test_runtime_release_checks_remain_required_separate_and_unique(self):
         expected = {'test_openems_runtime', 'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
                     'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
-                    'test_release_qualification', 'test_publish_prerelease'}
+                    'test_release_qualification', 'test_publish_prerelease', 'test_windows_failure_summary'}
         self.assertEqual(set(RUNTIME_RELEASE_MODULES), expected)
         self.assertEqual(len(RUNTIME_RELEASE_MODULES), len(expected))
         self.assertFalse(set(RUNTIME_RELEASE_MODULES) & (set(UNIT_MODULES) | set(PACKAGE_MODULES)))

@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "candidate": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "tree": "b06d0dada01f0a6e4e99349b71466effe0038cf1",
+  "checkout_merge": "ba7ebaccafeecbf6c1556e94fbfeacb377d9720b",
+  "merge_parents": [
+    "62da73a718fa0758bfc42e1738088d06b6ce7319",
+    "eb0018c9c024588358b3f4f12f0af6a0581da937"
+  ],
+  "merge_tree_equals_candidate": true,
+  "run_id": 42846314228,
+  "run_url": "https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42846314228",
+  "status": "PASS_HOSTED_SOURCE_ONLY",
+  "installed_acceptance": false,
+  "release_acceptance": false,
+  "full_family": false,
+  "jobs": [
+    {
+      "platform": "Linux",
+      "job_id": 129934596949,
+      "status": "success",
+      "stages_passed": 14,
+      "stages_total": 14,
+      "source_feedback_seconds": 369.737,
+      "guard_gui_seconds": 34.532
+    },
+    {
+      "platform": "Windows",
+      "job_id": 129934597453,
+      "status": "success",
+      "stages_passed": 14,
+      "stages_total": 14,
+      "source_feedback_seconds": 711.125,
+      "guard_gui_seconds": 43.907
+    },
+    {
+      "name": "PR feedback",
+      "job_id": 129942887560,
+      "status": "success",
+      "feedback_result": "success"
+    }
+  ],
+  "verification": "Independent readback of exact-run job logs and printed reports; Git commit API confirms synthetic merge tree and parents, compare API reports no changed files versus candidate. Both source reports explicitly release_acceptance=false.",
+  "artifacts": "Upload steps succeeded. Artifact contents were not downloaded or independently read; do not imply full artifact replay.",
+  "source_artifact_record": "chunk7-ihp-guard-integrated-validation-2026-11-10.json"
+}

@@ -1,0 +1,185 @@
+{
+  "id": "ihp-pmos-source-aware-multiplicity-v1",
+  "qualified": false,
+  "independent_calibration": false,
+  "installed_acceptance": false,
+  "scope": "Offline source-aware control over original20 v3 jobs only; preserves original audit rejection; no new simulation or threshold relaxation.",
+  "original_root": "/workspace/shared/ihp-pmos-measured-v3/attempt-1",
+  "original_contract_sha256": "03794902a75354b3d28941ecdf361e521030a79c5cf6880b5d39049f08a8ea8a",
+  "original_run_sha256": "efbecd0a012ebda3a3990286ce6d43a37ae2e77954e7de8bfb70f4536b76574f",
+  "original_failure_sha256": "5c2a6cad83d70f8d83d2a7c6ae816ad5c78adf968cc9c40123095fecbde3b874",
+  "engine_archive_sha256": "894e649651f1838a14095e5a5439e7d3aa63e87ede14d283173fda4fcdef675f",
+  "sources": {
+    "sources/engine/src/spicelib/devices/cktinit.c": "3c2c29c679499c95702e8bd52a04120457d5bb6ae5c59f3d314896daef213bc0",
+    "sources/engine/src/spicelib/analysis/cktntask.c": "09857e69b321b4f7cd6cc37dd4912788b80ef54fde90b04987b4e72cabd2a238",
+    "sources/engine/src/spicelib/analysis/cktdojob.c": "5007a84813eedf779a37a80d6f40010c1fa4c3ce2f709ef8e34d18339ac2faf8",
+    "sources/engine/src/spicelib/analysis/cktop.c": "9f06d3ac7b6a8aa28bdb46f1af3157362c6ca4a2ecc701a388c990ac3a07eb5e",
+    "sources/engine/src/osdi/osdiload.c": "0774865de9a7d6bf9deeef6b4b65e327e28dcadade937ad8844de8bb1c956bd9",
+    "sources/engine/src/osdi/osdiinit.c": "464bb834a1e75ad6493e2c07d9009c2b122708e8f39b33f9b257e5b91c518484",
+    "sources/psp103/PSP103_module.include": "cc9f02e72fda8c907f9e6befe0dcdc2ff1dc13e45fb2f48263935c06317d3197",
+    "sources/psp103/PSP103_scaling.include": "1a560ceffd722940f3aa67d64bcfc8f7925d4aa55a0c2caf0c933cf7a47dd54b",
+    "sources/psp103/PSP103_macrodefs.include": "fcb3d0830353c28710645cd28c9caf7610ebc0a05ed1ef89e0ef3e0799581d2b",
+    "sources/psp103/PSP103_parlist.include": "7adbc8e7010fdc6b9c906dace441f2a443c4079693733387dad0d3e3a737ec6f",
+    "sources/psp103/psp103.va": "9bab5086f8e203a820043538ede898d0812d07371b1aa6f081d806aaad95cd50",
+    "sources/wrapper/sg13g2_moslv_mod.lib": "84ec57080b9dd4666417f05db6f7b34c8dd3f12118929f9b308018613bece16e",
+    "sources/wrapper/sg13g2_moslv_parm.lib": "cbf10b8453a18bb70b8ad0d6e40faa0937338e699b5460947a94900db6c92a6e",
+    "sources/engine/src/osdi/osdisetup.c": "2f277c6320ef6540480ef8472f5d32ad3e80ad8d30881b074327e9c6becd5618",
+    "sources/engine/src/frontend/inpcom.c": "5ee51218fb36937ba55ee5e395ef837b34b65133914090db78d4930dae8f5e68",
+    "sources/compiler/param-defaults.rs": "e709fae139403defc77ac3b8319f821cf2eb61046745fd35f46e2fd0738ca958"
+  },
+  "gmin_siemens_hex": "0x1.19799812dea11p-40",
+  "terminal_convention": "Current into device = negative source-probe current.",
+  "internal_voltage_mapping": {
+    "DI": "D",
+    "SI": "S",
+    "BP": "BI=B"
+  },
+  "offsets": {
+    "d": "gmin*(Vd-Vb)",
+    "g": "0",
+    "s": "gmin*(Vs-Vb)",
+    "b": "-gmin*(Vd+Vs-2*Vb)"
+  },
+  "expected": "I(MULT=2) = 2*I(MULT=1) - offset",
+  "tolerance_denominator": "Original atol + rtol*abs(2*I_nominal), unchanged",
+  "limitations": [
+    "Exact circuit-law topology, not additional internal-node telemetry; finite solve error remains subject to original tolerance.",
+    "Only original RF-disabled nominal and multiplicity-2 routes; no arbitrary topology/general-PDK claim.",
+    "Measured residuals unmodified; no accuracy/calibration acceptance threshold."
+  ],
+  "source_proof": [
+    {
+      "file": "sources/engine/src/spicelib/devices/cktinit.c",
+      "lines": [
+        48,
+        49,
+        79
+      ],
+      "fact": "Fresh CKTgmin=1e-12; CKTgshunt=0; CKTdiagGmin=0."
+    },
+    {
+      "file": "sources/engine/src/spicelib/analysis/cktntask.c",
+      "lines": [
+        93,
+        94
+      ],
+      "fact": "Default task gmin1e-12 and gshunt0."
+    },
+    {
+      "file": "sources/engine/src/spicelib/analysis/cktdojob.c",
+      "lines": [
+        72,
+        73
+      ],
+      "fact": "Task gmin/gshunt copied to circuit."
+    },
+    {
+      "file": "sources/engine/src/osdi/osdiload.c",
+      "lines": [
+        37,
+        48
+      ],
+      "fact": "gmin simparam=max(CKTgmin,CKTdiagGmin)."
+    },
+    {
+      "file": "sources/engine/src/osdi/osdisetup.c",
+      "lines": [
+        197,
+        216,
+        313,
+        321
+      ],
+      "fact": "get_simparams supplies setup_model before operating point; temperature setup repeats same binding."
+    },
+    {
+      "file": "sources/psp103/PSP103_module.include",
+      "lines": [
+        642,
+        659,
+        688,
+        689,
+        1700,
+        1727
+      ],
+      "fact": "Initial-model gmin cached; NF1; physical loadStatic currents multiplyMULT_i except two gmin branches."
+    },
+    {
+      "file": "sources/wrapper/sg13g2_moslv_mod.lib",
+      "lines": [
+        155,
+        156,
+        160,
+        189,
+        197
+      ],
+      "fact": "rfmode0/as3.4p selects explicit geometry nonRF N instance mult=m,nf=ng; formal m prevents automatic hierarchy multiplier."
+    },
+    {
+      "file": "sources/engine/src/frontend/inpcom.c",
+      "lines": [
+        4324,
+        4334
+      ],
+      "fact": "Automatic subcircuit multiplier propagation only if formal m is absent. This wrapper declares m."
+    },
+    {
+      "file": "sources/engine/src/osdi/osdiinit.c",
+      "lines": [
+        70,
+        85
+      ],
+      "fact": "$mfactor exposed as _mfactor and m alias; wrapper N instance uses mult, neither m nor _mfactor."
+    },
+    {
+      "file": "sources/compiler/param-defaults.rs",
+      "lines": [
+        36,
+        42
+      ],
+      "fact": "Compiler default $mfactor is1."
+    },
+    {
+      "file": "sources/psp103/PSP103_parlist.include",
+      "lines": [
+        37,
+        218,
+        221,
+        899,
+        900
+      ],
+      "fact": "SWGEO default1; RBULKO/RWELLO defaults0, no nonRF model override."
+    },
+    {
+      "file": "sources/wrapper/sg13g2_moslv_parm.lib",
+      "lines": [
+        342,
+        469
+      ],
+      "fact": "Exact nonRF PMOS block explicitly SWGEO=1.0; RSH/RSHD0; no RBULKO/RWELLO override."
+    },
+    {
+      "file": "sources/psp103/PSP103_scaling.include",
+      "lines": [
+        601,
+        615,
+        817,
+        828
+      ],
+      "fact": "RSE/RDE=NRS/NRD\u00d7zeroRSH; RBULK/RWELL=NF\u00d7zero defaults; MULT_i=MULT\u00d7NF."
+    },
+    {
+      "file": "sources/psp103/PSP103_macrodefs.include",
+      "lines": [
+        264,
+        272
+      ],
+      "fact": "Zero resistance imposes V(N1,N2)=0; DI=D,SI=S,BP=BI=B; positiveR conductance multipliesMULT_i."
+    }
+  ],
+  "context_guards": [
+    "Original contract, run inventory, engine/profile/source identities and exact all20 generated decks verified by original auditor before sole known scaling rejection.",
+    "No .option gmin/gshunt override; gminsteps=0/srcsteps=0; exact initializer and controlled HOME/SPICE_SCRIPTS/no user init preserved.",
+    "Only nominal and multiplicity2 fixed RF0,NF1,as>0,geometry10um/l10um routes enter source-aware scaling; swapped/width routes retain original perturbation observations.",
+    "C is derived from declared source/ideal voltage constraints, not fitted to observed offsets."
+  ]
+}

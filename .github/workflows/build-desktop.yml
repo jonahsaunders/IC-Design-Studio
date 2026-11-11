@@ -39,7 +39,7 @@ jobs:
       - name: Install the pinned layout reader for release evidence
         run: python -m pip install klayout==0.30.5
       - name: Verify portable release evidence and publishing
-        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_release_ihp_cmim_evidence tests.test_frozen_ihp_cmim tests.test_frozen_device_classes tests.test_managed_mos_manifest tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_esd_installed_header_regression tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff tests.test_ci_hosted_storage tests.test_ci_windows_native_identity -v
+        run: python -m unittest tests.test_release_evidence tests.test_publish_prerelease tests.test_release_qualification tests.test_release_pw2dn_evidence tests.test_release_ihp_cmim_evidence tests.test_frozen_ihp_cmim tests.test_frozen_device_classes tests.test_managed_mos_manifest tests.test_stage_linux_ngspice tests.test_linux_ngspice_dependencies tests.test_fetch_linux_ngspice_sources tests.test_sky130_esd_nvt_audit tests.test_esd_installed_header_regression tests.test_release_intent tests.test_release_notes tests.test_frozen_digital tests.test_frozen_mim tests.test_frozen_esd tests.test_linux_ngspice_manifest tests.test_installed_mim_aggregate tests.test_frozen_metal_resistors tests.test_installed_metal_resistors_aggregate tests.test_frozen_metal_parallel tests.test_installed_metal_parallel_aggregate tests.test_sky130_qualification_package tests.test_desktop_acceptance_handoff tests.test_release_source_handoff tests.test_ci_hosted_storage tests.test_ci_windows_native_identity tests.test_windows_failure_summary -v
   digital-runtime:
     needs: candidate
     uses: ./.github/workflows/digital-runtime.yml
@@ -973,7 +973,28 @@ jobs:
         shell: pwsh
         env:
           ICSTUDIO_DIGITAL_STATE: ${{ github.workspace }}/build/digital-state
-        run: ./scripts/verify_windows.ps1
+        run: |
+          $transcript = 'build/windows-evidence/verify-windows-transcript.txt'
+          $recording = $false
+          try {
+            try {
+              New-Item -ItemType Directory -Force (Split-Path $transcript) -ErrorAction Stop | Out-Null
+              Start-Transcript -Path $transcript -Force -ErrorAction Stop | Out-Null
+              $recording = $true
+            }
+            catch { Write-Warning 'Diagnostic transcript unavailable; acceptance still required.' }
+            try { ./scripts/verify_windows.ps1 }
+            catch {
+              $original = $_
+              try {
+                @{status='failed'; message=$original.Exception.Message; script_stack_trace=$original.ScriptStackTrace; commit=$env:GITHUB_SHA} |
+                  ConvertTo-Json -Depth 3 | Set-Content -Encoding utf8 'build/windows-evidence/wrapper-error.json'
+              } catch { Write-Warning 'Could not retain diagnostic error record.' }
+              throw $original
+            }
+          } finally {
+            if ($recording) { try { Stop-Transcript | Out-Null } catch { Write-Warning 'Could not stop diagnostic transcript.' } }
+          }
       - name: Verify frozen Linux app
         if: runner.os == 'Linux'
         env:
@@ -1089,6 +1110,19 @@ jobs:
         run: |
           python scripts/qualify_installed_metal_parallel.py --gui-root build/frozen-metal-parallel-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-parallel-electrical-evidence
           python scripts/verify_installed_metal_parallel.py --gui build/frozen-metal-parallel-evidence --electrical build/frozen-metal-parallel-electrical-evidence --expected-commit "$ICSTUDIO_EXPECTED_COMMIT" --out build/frozen-metal-parallel-workflow-evidence/acceptance.json
+      - name: Collect bounded Windows failure summary
+        if: always() && runner.os == 'Windows'
+        shell: pwsh
+        env:
+          SUMMARY_CANDIDATE: ${{ github.sha }}
+        run: python scripts/windows_failure_summary.py --candidate "$env:SUMMARY_CANDIDATE"
+      - name: Retain bounded Windows failure summary before full diagnostics
+        if: always() && runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-failure-summary-Windows
+          path: build/windows-failure-summary/summary.json
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         if: always()
         with:

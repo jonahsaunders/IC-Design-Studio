@@ -1,17 +1,164 @@
 # Chunks 1–12: progress and forecast
 
-Updated November 10, 2026. Chunk 7 is approximately **74% complete**, with low
+Updated November 11, 2026. Chunk 7 is approximately **74% complete**, with low
 confidence (55–82%). This is a subjective engineering estimate, not a measured
 fraction or verified full-family acceptance. The change from 72% reflects closure
 of the two previously blocked installed workflows on both required platforms.
+
+**Latest local milestone:** the [versioned PMOS research result](validation/ihp-pmos-measured-v3-2026-11-11.json)
+completes all 20 native jobs and 560 points. A source-derived multiplicity check
+passes independent review without relaxing tolerances; the original failed check
+is retained. The [actual source-app pilot](validation/chunk7-ihp-pmos-source-app-pilot-2026-11-11.json)
+then configures the experimental runtime, saves/reopens its project and completes
+one managed job. All 112 terminal currents match the 28-point native reference
+bit-for-bit. This is Linux-only opt-in research through an explicit SPICE program,
+not a managed-default repair, graphical-parameter qualification or calibration.
+Median drain/source measurement errors are 1.85%/1.93%; body-current median
+relative error is 126.6%, and all large near-zero-current errors remain visible.
+Portable evidence reconstruction and readback pass 15 tests and independent
+verification of 588 exact payloads. Forty-three integrated reader/CI tests pass.
+The final integrated local regression passes as recorded below. Fresh
+exact-candidate installed acceptance remains a separate requirement. The four missing bindings and complete applicability,
+uncertainty/calibration and physical/process coverage gates remain open.
+
+The [linked IHP tap follow-on](IHP_TAP_LINKED.md) now joins four existing native
+layouts to source-model electrical execution: 16 physical fault controls,
+24 positive electrical files and 12 altered-device files pass independent
+readback. All source/runtime joins and 67 related tests pass. The retained
+initial tool-environment and parser-format failures remain separate. This finite
+linkage does not establish full-family, operating-envelope or calibration status.
+
+**Final local validation:** the [integrated source/core record](validation/chunk7-next3-source-core-validation-2026-11-11.json)
+passes one uninterrupted 14-stage source lane with 1,814 tests and 18 explicit
+skips in 430.277 seconds, and an exhaustive core run with 4,912 tests and 81
+skips in 1,138.044 test seconds (1,144.409 seconds for the full process).
+All 2,492 bound source identities and all 2,527 snapshot entries are unchanged
+before and after both runs. The evidence retains every stage log and explicitly
+hashes omitted large GUI/engine payloads. The launcher implementation is bound
+post-run only, not claimed as a prelaunch hash. Documentation and evidence
+packaging after these runs are not additional native acceptance. The newly
+combined candidate still requires hosted source and exact installed checks.
+
+**Unpublished numerical follow-on:** the published guard candidate
+`eb0018c9c024588358b3f4f12f0af6a0581da937` now passes both hosted source
+lanes and their aggregate in [run 42846314228](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42846314228).
+The actual merge tree matches the reviewed candidate exactly. Two manually
+started installed workflows accepted that exact candidate. Both Linux installed
+jobs pass, including the added corner-safe guard gate. Windows run
+[42850869471](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42850869471)
+fails its combined installed-app step after the pw2dn GUI/native producer
+checks pass: the independent reference child exits nonzero. This is not the
+outer 900-second timeout. Initially, the underlying exception was available
+only in the child log within the 1.55 GB artifact, beyond the connector download
+limit.
+The [terminal desktop record](validation/chunk7-eb0018c9-desktop-terminal-2026-11-11.json)
+now confirms run [42850803710](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42850803710)
+completed successfully at 23:40:56 UTC on November 10, with all nine jobs passing,
+including both installed platforms, archive execution and evidence uploads.
+The [bounded recovery](validation/windows-pw2dn-diagnostic-recovery-2026-11-11.json)
+subsequently retrieves all three approved child diagnostics. The confirmed
+exception is the native timing/analysis guard, not a current-comparison failure.
+A [precise elapsed-clock repair](validation/pw2dn-elapsed-clock-repair-2026-11-11.json)
+passes independent review and nine tests without relaxing positive-duration,
+timeout, electrical or provenance checks. The actual failed per-invocation
+value was not among the three retrieved files, so zero duration is not asserted
+as a confirmed historical fact. This candidate removes the temporary recovery
+workflow and retains its exact original source as a test fixture. The failed
+duplicate remains a failure, not erased by the successful run or repair. The
+user-approved temporary diagnostic job downloaded and authenticated the large
+archive with read-only Actions access, extracting only the three allowlisted
+projections. Full original payloads were not independently replayed locally;
+other jobs' permissions were unchanged. The separately reviewed
+[bounded failure-summary follow-on](validation/windows-failure-summary-source-2026-11-10.json)
+passes 114 focused tests with one skip. All 14 selected source stages also pass
+for 2,473 identical input identities, with 1,763 tests and 18 skips: twelve stages
+finish before an execution-service interruption, then the last two pass in a
+separately retained continuation with complete GUI readback. This is not one
+uninterrupted framework run. Earlier no-ignored-failure and obsolete invocation-
+anchor failures are preserved; required acceptance guards remain intact. Actual
+PowerShell execution remains unverified. The reviewed follow-on remains local; a new exact-candidate acceptance run is
+required after publication.
+
+The [PMOS solver investigation](validation/ihp-pmos-solver-follow-on-2026-11-10.json)
+identifies selected gate-current convergence failures rather than sampled limiter
+flags. The actual compiled model contains cancellation-prone gate RHS assembly.
+One controlled KLU diagnostic completes a formerly blocked 28-point gate, but a
+separate versioned full production-engine batch still times out at its second
+gate. That v2 batch retains 28 complete points, not full acceptance; its auditor
+correctly rejects the incomplete selection. All v1 inputs and historical failures
+are preserved. Forty-one combined v1/v2 tests and 49 CI-integration tests pass.
+All 14 [follow-on source-feedback stages](validation/ihp-pmos-v2-source-feedback-2026-11-10.json)
+pass in 430.541 seconds with 1,747 tests and 18 skips, against 2,471 unchanged
+source identities. The initially misdirected launcher was interrupted and is
+retained separately, not counted as acceptance. A reference-voltage shortcut
+was rejected because it changes effective numerical convergence criteria. A
+separate [exact-expansion arithmetic investigation](validation/ihp-pmos-compensated-rhs-arithmetic-2026-11-10.json)
+passes 17 reference tests with 250 exact-rational randomized rows, then 17
+standalone native tests with 500 exact rows and 12 exception-mask probes.
+Independent source, hash and generated-code review passes. The initial native
+version is preserved separately; its exception-mask and absent-limiter defects
+are corrected. These are arithmetic results, not a compiler or circuit fix.
+A subsequent
+[linked-code review](validation/ihp-pmos-compensated-rhs-guard-correction-2026-11-10.json)
+finds an x87 wait before the original mask guard. That historical failure is
+preserved. A separate experimental v2 compiler corrects it using an integer-only
+non-waiting guard, without changing the strict arithmetic. The exact authenticated
+LLVM 15.0.7 and pristine OpenVAF baseline build with all 731 original source
+files unchanged. The v2 default-off and experimental builds also succeed.
+Pinned-Clang checks pass 19 arithmetic tests and 500 exact-rational rows plus
+23 full-helper environment cases. Eight actual linked pending-exception cases
+reproduce the old-ON traps and pass for pristine/OFF/corrected-ON. Six toy
+compensated row results match the exact oracle and differ from forced fallback;
+a separate mixed-reactive check preserves the sampled reactive behavior.
+
+The [actual PSP and paired PMOS research result](validation/ihp-pmos-compensated-pair-2026-11-10.json)
+is **negative**: both rebuilt pristine and compensated PSP time out at the
+unchanged 90-second limit (90.004 and 90.003 seconds). Both raw files contain
+headers only, with no numerical samples. There is no convergence improvement,
+KCL result or measured residual comparison to report. Independent review verifies
+exactly two native attempts and all input/output identities; the separate earlier
+staging failure launched no native process. The PSP pristine and feature-off
+modules are byte-identical. The feature-on module preserves all 27 non-RHS
+physical functions and metadata; all 13 resistive rows and seven reactive
+expressions were reviewed. Those structural and arithmetic results do not prove
+a circuit repair. The subsequent
+[bounded observation](validation/ihp-pmos-compensated-observation-2026-11-10.json)
+confirms actual gate-row helper engagement: all 244 accepted sampled results
+match their supplied cached expression exactly. The same current cycle remains,
+so helper fallback or helper rounding does not explain those selected gate rows.
+A further [matrix capture and independent exact solve](validation/ihp-pmos-mna-capture-2026-11-10.json)
+distinguish two contributions:
+about 8.208e-15 A from the changing assembled system and 6.003e-15 A from solve
+rounding. This is not a solver-only diagnosis. An offline replay reproduces both
+native solutions bit-for-bit; exact-residual-oracle refinement removes their
+solve error but does not remove the assembly difference. The subsequent [intrinsic-gate observation](validation/ihp-pmos-gp-policy-standalone-2026-11-10.json)
+proves the two sampled GP rows reject compensation solely for negative-zero
+products, despite nonzero exact targets. A separately built signed-zero-safe
+experimental compiler retains the original final-zero fallback and physical
+functions. Its module alone, with unchanged production ngspice and default
+Sparse, completes all 20 original jobs and 560 points at the original deadlines.
+Independent readback passes KCL and prior-reference overlap. The original
+multiplicity check still rejects the results; every one of its 140 body-current
+offsets matches the model source's deliberately unmultiplied gmin contribution
+within 2.02e-27 A. The rejected audit is preserved. A separately reviewed source-backed
+scaling contract passes all 560 terminal comparisons and 14 contract/fault tests
+with the same tolerances. The isolated source-app pilot also passes through the
+existing project-specific custom-runtime path. Neither result changes application
+defaults or establishes calibration. Full native refinement is no longer on the immediate critical path. The debugger route remains
+stopped after its permission failure. Neither the application compiler nor model
+runtime has been replaced.
+No model coefficients, tolerances, runtime defaults or family status are
+changed. The estimate remains 74%, low confidence 55-82%, not a test-count fraction.
 
 **Reviewed follow-on candidate:** this batch was prepared separately from
 `fb4919d8df5ed3ef7571853276617a48c5fc57f5`, preserving that frozen base
 throughout local verification. The base's Windows, Linux and aggregate source
 checks pass in [run 42825689665](https://github.com/jonahsaunders/IC-Design-Studio/actions/runs/42825689665).
-The new app integration and evidence are now reviewed for publication to the
-existing PR branch. Fresh hosted and installed acceptance for the follow-on
-candidate remains pending. Its inventory has 95 gaps, versus 98 on the prior base.
+The new app integration and evidence were published to the existing PR branch
+as `eb0018c9c024588358b3f4f12f0af6a0581da937`. Its hosted source lanes now
+and one complete installed workflow pass as recorded above, while the failed
+duplicate remains unresolved. Its
+inventory has 95 gaps, versus 98 on the prior base.
 
 The isolated complete static replay finishes in 457.890 seconds within the
 unchanged 900-second deadline. Independent comparison preserves all 777,005

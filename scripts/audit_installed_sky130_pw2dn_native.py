@@ -358,7 +358,7 @@ def verify(native_root,gui_root,engine,expected,reference_out):
     py=python_identity();loaded=modules();report={'schema':'pw2dn-independent-references-v1','status':'RUNNING','native_environment':env,'runtime_before':before,'python_before':py,'python_modules_before':loaded,'cases':[]}
     write(out/'reference-prelaunch.json',report);oldenv=dict(os.environ);original=engines.execute
     def capture(command,cwd,*args,**kwargs):
-        tick=time.monotonic();record={'schema':1,'command':list(map(str,command)),'cwd':str(cwd),'environment':kwargs.get('env') or dict(os.environ),'timeout':kwargs.get('timeout',180),'status':'RUNNING'}
+        tick=time.perf_counter_ns();record={'schema':1,'command':list(map(str,command)),'cwd':str(cwd),'environment':kwargs.get('env') or dict(os.environ),'timeout':kwargs.get('timeout',180),'status':'RUNNING'}
         try:
             log=original(command,cwd,*args,**kwargs);(Path(cwd)/'engine.log').write_bytes(log.encode('utf-8'))
             raw=Path(record['command'][record['command'].index('-r')+1]);deck=Path(record['command'][-1]);text=deck.read_text()
@@ -366,7 +366,7 @@ def verify(native_root,gui_root,engine,expected,reference_out):
             record.update(status='PASS',returncode=0,analysis=analysis,raw_sha256=sha(raw),deck_sha256=sha(deck),console_sha256=sha(Path(cwd)/'engine.log'))
             return log
         except BaseException as exc:record.update(status='FAIL',error=repr(exc));raise
-        finally:record['seconds']=time.monotonic()-tick;write(Path(cwd)/'native-invocation.json',record)
+        finally:record['seconds']=(time.perf_counter_ns()-tick)/1_000_000_000;write(Path(cwd)/'native-invocation.json',record)
     try:
         os.environ.clear();os.environ.update(env);engines.execute=capture
         selected=load(gui_root/'new/project.icproj');conditions=CONDITIONS[:1] if expected.get('pilot') is True and expected['mode']=='source' else CONDITIONS

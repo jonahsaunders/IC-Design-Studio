@@ -15,7 +15,7 @@ if __package__ in (None, ''):
     sys.path.insert(0, str(ROOT))
 
 UNIT_MODULES = (
-    'test_ci_candidate', 'test_frozen_physical', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
+    'test_ci_candidate', 'test_recover_pw2dn_diagnostics', 'test_frozen_physical', 'test_ci_feedback', 'test_reference_toolchain', 'test_checkout_integrity',
     'test_core', 'test_lifecycle', 'test_workflows', 'test_project_pdk',
     'test_pdk_templates', 'test_student_physical',
     'test_document.RecoveryQueueTests', 'test_layout_verification',
@@ -26,7 +26,7 @@ UNIT_MODULES = (
     'test_release_acceptance', 'test_release_evidence', 'test_release_intent',
     'test_pdk_qualification_matrix', 'test_ihp_hv_mos_layouts', 'test_mos_grouping', 'test_sky130_li_linked', 'test_sky130_li_array_dynamic',
     'test_ihp_resistor_via_class', 'test_ihp_resistor_via_auditor', 'test_ihp_resistor_editor', 'test_ihp_guard_vias',
-    'test_ihp_pmos_measured_reference', 'test_ihp_guard_corner_safe',
+    'test_ihp_pmos_measured_reference', 'test_ihp_pmos_measured_reference_v2', 'test_ihp_pmos_measured_v3_readback', 'test_ihp_tap_linked', 'test_ihp_guard_corner_safe',
     'test_ihp_guard_app', 'test_ihp_guard_backend_assets', 'test_frozen_ihp_guard_corner',
     'test_ihp_resistor_backend_assets', 'test_ihp_resistor_lvs_reference', 'test_frozen_ihp_resistor_gate',
     'test_ihp_capacitor_corners', 'test_ihp_cmim_boundary', 'test_ihp_cmim_lvs_reference', 'test_hierarchical_lvs_reference',
@@ -38,7 +38,7 @@ UNIT_MODULES = (
     'test_sky130_li_resume', 'test_sky130_mim_passive_corners', 'test_sky130_mim_passive_audit',
     'test_sky130_mim_bias_boundaries', 'test_sky130_mim_bias_audit',
     'test_sky130_mim1_extract', 'test_sky130_mim2_extract', 'test_sky130_mim_shared', 'test_sky130_mim_contact_topology',
-    'test_mim_desktop_probe', 'test_frozen_mim', 'test_sky130_pw2dn_native_probe',
+    'test_mim_desktop_probe', 'test_frozen_mim', 'test_sky130_pw2dn_native_probe', 'test_pw2dn_elapsed_clock',
     'test_frozen_esd', 'test_frozen_esd_default', 'test_sky130_esd_default_candidate', 'test_sky130_mos_voltage_contract', 'test_sky130_mos_voltage_source', 'test_sky130_contract_versions',
     'test_metal_hierarchy_electrical', 'test_sky130_mim_conditioning',
     'test_source_mim_fixture_archive', 'test_linux_ngspice_manifest',
@@ -101,7 +101,7 @@ PACKAGE_MODULES = (
 RUNTIME_RELEASE_MODULES = (
     'test_openems_runtime', 'test_stage_linux_ngspice', 'test_linux_ngspice_dependencies',
     'test_fetch_linux_ngspice_sources', 'test_release_pw2dn_evidence',
-    'test_release_qualification', 'test_publish_prerelease',
+    'test_release_qualification', 'test_publish_prerelease', 'test_windows_failure_summary',
 )
 
 
@@ -127,7 +127,8 @@ def source_identity(root=ROOT):
     files = python_sources(root)
     files += [p for p in (root / 'tests/fixtures/ihp-l2n0-reference-v1').glob('*') if p.is_file()]
     for folder in ('klayout-wrapper-sources-v1', 'xschem-config-facts-v1',
-                   'source-manifest-wrappers-v1', 'ihp-pmos-measured-reference-v1'):
+                   'source-manifest-wrappers-v1', 'ihp-pmos-measured-reference-v1',
+                   'ihp-pmos-measured-reference-v2', 'ihp-pmos-measured-reference-v3'):
         files += [p for p in (root / 'docs/qualification' / folder).rglob('*') if p.is_file()]
     # Semantic inventories consume authenticated upstream graphs and the exact
     # release asset list; bind those inputs alongside their runners and tests.
@@ -146,6 +147,7 @@ def source_identity(root=ROOT):
         source = root / 'docs/qualification' / name
         if source.is_file():
             files.append(source)
+    files += [p for p in (root / 'tests/fixtures/pw2dn-recovery-2026-11-11').glob('*') if p.is_file()]
     matrix = root / 'docs/qualification/pdk-matrix.json'
     if matrix.is_file(): files.append(matrix)
     files += [p for p in (root / 'docs/validation/chunk7-openems-retained-source-2026-11-07').glob('*')

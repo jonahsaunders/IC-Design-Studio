@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "status": "RESEARCH_REPAIR_DID_NOT_RESOLVE_FIXED_PMOS_GATE",
+  "qualified": false,
+  "application_changed": false,
+  "runtime_defaults_changed": false,
+  "installed_acceptance": false,
+  "independent_calibration": false,
+  "conclusion": "Both local pristine and compensated-v2 PSP runs timed out at the unchanged 90-second deadline. Neither produced numerical samples. No convergence improvement, speedup, KCL result or measured residual comparison is supported.",
+  "fixed_scope": "Original -1.124 V gate, 28-point drain sweep, production ngspice47, default Sparse, original tolerances/transient-OP protocol; same PDK and five other module bytes. Only PSP module and nonce title differ. Four unused modules staged but not newly registered.",
+  "native_launches": 2,
+  "pre_native_staging_failure_launches": 0,
+  "cases": [
+    {
+      "variant": "pristine",
+      "seconds": 90.00365637800132,
+      "raw_bytes": 262,
+      "raw_header_only": true,
+      "numerical_samples_available": false,
+      "measured_comparison_available": false,
+      "input_output_current_hashes_verified": true
+    },
+    {
+      "variant": "on",
+      "seconds": 90.00252169400483,
+      "raw_bytes": 256,
+      "raw_header_only": true,
+      "numerical_samples_available": false,
+      "measured_comparison_available": false,
+      "input_output_current_hashes_verified": true
+    }
+  ],
+  "verified_prerequisite_scope": {
+    "standalone": "19 arithmetic tests / 500 Fraction rows plus23 full-helper environment subprocesses; exact v2 strict/non-strict build split",
+    "actual_pending": "8 actual linear DSO cases: oldON2 SIGFPE; P/OFF/fixedON6 preserve IE and exactzero",
+    "linear": "Three variants/three scenarios; six compensated results match exact oracle and differ from actual forced fallback",
+    "mixed": "Three variants/three scenarios/alpha0,.172,.344; isolated reactive outputs identical; no host-history proof",
+    "physical_closure": "P/OFF byte-identical PSP. ON preserves27 physical non-RHS functions,4284 referenced operands,4573 normalized metadata relocations; instruction scanner correction documented in final review",
+    "rhs": "13 actual helper calls each DC/tran consume matching cached values/residuals with no limiter slots;7reactive expression trees unchanged. No WAIT in final ON module. Generic fallback bitwise equivalence not claimed."
+  },
+  "guard_followup": "The earlier FWAIT defect is corrected in a separate experimental v2 compiler by isolating an integer-only, non-strict environment guard. Actual pending-exception negative controls reproduce both old-ON traps; pristine/OFF/corrected-ON cases pass. This supersedes only the research guard blockage, not the historical failure record or full-domain qualification limits.",
+  "retained_history": [
+    "ihp-pmos-compensated-rhs-arithmetic-2026-11-10.json",
+    "ihp-pmos-compensated-rhs-guard-correction-2026-11-10.json",
+    "ihp-pmos-solver-follow-on-2026-11-10.json"
+  ],
+  "evidence": {
+    "path": "artifacts/ihp-pmos-compensated-pair-2026-11-10.zip",
+    "sha256": "276da8992c352844a160937f61c8e1bfe6c9345577382d320e6c5b4a08110926",
+    "bytes": 199549,
+    "payload_files": 37,
+    "manifest_files": 1,
+    "independent_review_sha256": "8f05a43dbd446300f71fbc983b2a88e43b667a0b3bb72f1daa686b14e2c5e375",
+    "aggregate_result_sha256": "c30494d3c069ee41f8263d1197ff28784961ccf3ad382675fee1dbbc2a72360a"
+  },
+  "limitations": [
+    "Partial compact evidence, not relocation-independent executable reproduction. Compiler/model/engine/library/PDK binaries omitted with exact inventories/identities.",
+    "Historical physical-review artifact is preserved; final RHS review and current static artifacts correct its scanner count4280 to4284.",
+    "Prerequisite receipts reference their full retained raw evidence; this compact package does not contain all prerequisite raw payloads.",
+    "No release or qualification promotion. No further native runs performed for packaging.",
+    "A correct helper result does not prove stable Newton assembly or convergence. Actual real-case helper eligibility and failing equation require a separate observational diagnostic.",
+    "No coefficient, tolerance, deadline, model ABI, app compiler/runtime or family-status change. No full 20-job rerun justified by this negative pair."
+  ],
+  "chunk7_estimate": {
+    "percent": 74,
+    "range_percent": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "kind": "subjective engineering estimate; not a measured fraction"
+  }
+}

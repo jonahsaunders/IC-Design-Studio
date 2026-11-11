@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "status": "OBSERVED_HELPER_ENGAGEMENT_WITH_PERSISTING_GATE_CYCLE",
+  "qualified": false,
+  "application_changed": false,
+  "installed_acceptance": false,
+  "independent_calibration": false,
+  "native_observations": 1,
+  "deadline_seconds": 90,
+  "outcome": "TIMEOUT_INCOMPLETE_NO_NUMERICAL_SWEEP",
+  "accepted_measurement_points": 0,
+  "observation": {
+    "helper_records": 245,
+    "dc_accepted": 100,
+    "transient_accepted": 144,
+    "initial_all_zero_fallback": 1,
+    "engine_trace_records": 321,
+    "all_244_accepted_sample_errors_exactly_zero": true,
+    "directly_bracketed_dc_iterations": [
+      99,
+      100
+    ],
+    "gate_branch_cycle_amperes": 1.4210854715202004e-14,
+    "convergence_tolerance_amperes": 1.59293512322256e-16,
+    "gp_alternation": "adjacent binary64 values",
+    "cached_gate_row_outputs_amperes": [
+      -2.757352853673316e-25,
+      2.472479403579904e-25
+    ]
+  },
+  "interpretation": "The helper is active and exactly computes the supplied cached gate-row expression in all accepted sampled records. The directly bracketed late DC gate-current cycle persists, so neither helper fallback nor helper rounding explains those samples. Final RHS compensation alone does not repair this case. Actual assembled matrix/solve behavior has not yet been established.",
+  "evidence": {
+    "path": "artifacts/ihp-pmos-compensated-observation-2026-11-10.zip",
+    "sha256": "15f8386e7fa3216a7ec3fa0bdff299ae9fa416ffbda80cfbc160bd3cb4356e99",
+    "bytes": 931820,
+    "payload_files": 47,
+    "manifest_files": 1,
+    "independent_review_sha256": "9e8c293c72aad5443fb8b0fa9c85cfb6d80a99056f56406722b2cf5e9099aac5",
+    "readback_sha256": "65aff13a924448e52e106c4a95696ed645656da81dc5162e41733e847ade68b6",
+    "result_sha256": "aaaf7c6b3c684962508d8b38432bf81a62b2436bb09fbbda8765e235118a4ce5"
+  },
+  "limitations": [
+    "Bounded sampled observational trace, not complete trajectory or performance comparison.",
+    "Instrumented engine/module are research artifacts, not shipped runtimes. Physical model coefficients, accuracy criteria and deadlines remain unchanged.",
+    "No general solver root-cause, continuous device-envelope, calibration or family qualification claim.",
+    "Initial dependency-path preflight failed before native launch and is retained separately; final runner preserves original diagnostic library environment and all eight dependency identities.",
+    "Compact archive omits staged runtime/PDK/binaries with exact inventories and hashes; it is not a standalone executable replay."
+  ],
+  "previous_evidence": "ihp-pmos-compensated-pair-2026-11-10.json",
+  "next_step": "Source-backed bounded MNA capture and offline exact solve, without altering numerical requirements.",
+  "chunk7_estimate": {
+    "percent": 74,
+    "range_percent": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "kind": "subjective engineering estimate"
+  }
+}

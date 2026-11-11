@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "status": "SOURCE_BACKED_ELAPSED_CLOCK_REPAIR_NOT_CONFIRMED_HISTORICAL_ZERO",
+  "source_candidate": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "failed_run": 42850869471,
+  "recovered_three_file_artifact": 13816019083,
+  "recovered_artifact_sha256": "0c4d552ca3802f2160b8b015daea3575dfc73ea68fac8ade7a6d806097c1a2ab",
+  "observed_failure": "ValueError('Changed native timing/analysis contract.') in independent reference readback",
+  "causal_limit": "The failed per-invocation native receipt was not among the three approved recovered files. Zero seconds is a source-supported hypothesis, not directly observed historical fact. CPython v3.11.9 is an official 3.11 implementation reference, not an independently verified exact installed interpreter build.",
+  "repair": "Both per-native invocation capture functions use perf_counter_ns(), subtract integers, then convert difference to seconds. No clamping/sleep/minimum-time fabrication. Actual zero/nonpositive durations remain rejected.",
+  "unchanged": [
+    "receipt schema",
+    "analysis requirement",
+    "timeout180",
+    "strict finite seconds>0",
+    "electrical/provenance/identity checks",
+    "native commands",
+    "outer elapsed clocks"
+  ],
+  "tests": {
+    "focused_total": 9,
+    "new_methods": 4,
+    "native_circuit_executions": 0,
+    "coverage": [
+      "both actual nested capture bodies",
+      "constant coarse monotonic clock with precise100ns elapsed",
+      "1ns elapsed at1e18nsorigin preserves integer subtraction",
+      "nativeexceptions stillretain elapsedreceipt",
+      "zero and negativeperf differences unchanged and rejected by actual completed() reader"
+    ]
+  },
+  "sources": [
+    {
+      "url": "https://github.com/python/cpython/blob/v3.11.9/Python/pytime.c",
+      "retained_sha256": "5f2f8c6bb4ddba8b43cd81523e27997a11c204fa6c504c423658eacafede891b",
+      "retained_local_path": "/workspace/shared/pw2dn-clock-provenance/cpython-v3.11.9-pytime.c",
+      "excerpts": [
+        {
+          "lines": [
+            1045,
+            1054
+          ],
+          "text": "static int\npy_get_monotonic_clock(_PyTime_t *tp, _Py_clock_info_t *info, int raise_exc)\n{\n    assert(info == NULL || raise_exc);\n\n#if defined(MS_WINDOWS)\n    ULONGLONG ticks = GetTickCount64();\n    static_assert(sizeof(ticks) <= sizeof(_PyTime_t),\n                  \"ULONGLONG is larger than _PyTime_t\");\n    _PyTime_t t;"
+        },
+        {
+          "lines": [
+            1238,
+            1250
+          ],
+          "text": "\n    if (info) {\n        info->implementation = \"QueryPerformanceCounter()\";\n        info->resolution = 1.0 / (double)frequency;\n        info->monotonic = 1;\n        info->adjustable = 0;\n    }\n\n    LARGE_INTEGER now;\n    QueryPerformanceCounter(&now);\n    LONGLONG ticksll = now.QuadPart;\n\n    /* Make sure that casting LONGLONG to _PyTime_t cannot overflow,"
+        },
+        {
+          "lines": [
+            1264,
+            1273
+          ],
+          "text": "int\n_PyTime_GetPerfCounterWithInfo(_PyTime_t *t, _Py_clock_info_t *info)\n{\n#ifdef MS_WINDOWS\n    return py_get_win_perf_counter(t, info, 1);\n#else\n    return _PyTime_GetMonotonicClockWithInfo(t, info);\n#endif\n}\n"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/python/cpython/blob/v3.11.9/Modules/timemodule.c",
+      "retained_sha256": "17e926490cd02217618f5baeca2eec7426c9362df4a26670144e911543d67ca8",
+      "retained_local_path": "/workspace/shared/pw2dn-clock-provenance/cpython-v3.11.9-timemodule.c",
+      "excerpts": [
+        {
+          "lines": [
+            1170,
+            1176
+          ],
+          "text": "static int\nget_perf_counter(_PyTime_t *t)\n{\n    // Avoid _PyTime_GetPerfCounter() which silently ignores errors.\n    return _PyTime_GetPerfCounterWithInfo(t, NULL);\n}\n"
+        },
+        {
+          "lines": [
+            1194,
+            1205
+          ],
+          "text": "static PyObject *\ntime_perf_counter_ns(PyObject *self, PyObject *unused)\n{\n    _PyTime_t t;\n    if (get_perf_counter(&t) < 0) {\n        return NULL;\n    }\n    return _PyTime_AsNanosecondsObject(t);\n}\n\nPyDoc_STRVAR(perf_counter_ns_doc,\n\"perf_counter_ns() -> int\\n\\"
+        }
+      ]
+    }
+  ],
+  "qualification": "No installed acceptance claim; fresh Windows verification remains required."
+}

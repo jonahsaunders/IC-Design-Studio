@@ -74,7 +74,7 @@ def produce(selected_project_path,out,engine,execution_id,pilot=False):
         'qualified':False,'installed_acceptance':False,'cases':[]}
     write(out/'prelaunch.json',report);oldenv=dict(os.environ);original_execute=engines.execute;invocations=[]
     def captured(command,cwd,*args,**kwargs):
-        cwd=Path(cwd).resolve();t=time.monotonic();record={'schema':1,'command':list(map(str,command)),'cwd':str(cwd),'environment':kwargs.get('env') or dict(os.environ),'timeout':kwargs.get('timeout',180),'status':'RUNNING'}
+        cwd=Path(cwd).resolve();t=time.perf_counter_ns();record={'schema':1,'command':list(map(str,command)),'cwd':str(cwd),'environment':kwargs.get('env') or dict(os.environ),'timeout':kwargs.get('timeout',180),'status':'RUNNING'}
         try:
             log=original_execute(command,cwd,*args,**kwargs)
             (cwd/'engine.log').write_bytes(log.encode('utf-8'))
@@ -96,7 +96,7 @@ def produce(selected_project_path,out,engine,execution_id,pilot=False):
             return log
         except BaseException as exc:record.update(status='FAIL',error=repr(exc));raise
         finally:
-            record['seconds']=time.monotonic()-t;write(cwd/'native-invocation.json',record);invocations.append(record)
+            record['seconds']=(time.perf_counter_ns()-t)/1_000_000_000;write(cwd/'native-invocation.json',record);invocations.append(record)
     def fixture():
         p=clone(saved);p['name']='Saved GUI pw2dn native verification';cell=p['cells'][0]
         vg=device('V','VG',x=100,y=900,value='0',nets={'p':'drive','n':'0'});vg['source']['ac']='1';vg['net_labels']=dict(vg['nets'])

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "status": "MIXED_ASSEMBLY_AND_SOLVE_ERROR_OBSERVED_NO_REPAIR",
+  "native_runs": 1,
+  "qualified": false,
+  "installed_acceptance": false,
+  "calibrated": false,
+  "deadline_seconds": 90,
+  "outcome": "timeout with incomplete raw sweep",
+  "captured_systems": 2,
+  "unknowns_each": 11,
+  "stored_entries_each": 39,
+  "exact_solution_unique_each": true,
+  "vg_current_change_decomposition_amperes": {
+    "native": -1.4210854715202004e-14,
+    "assembled_exact_solution": -8.208137915744157e-15,
+    "solve_error": -6.002716799457847e-15
+  },
+  "gp_rhs_change_amperes": -8.208137917976784e-15,
+  "gp_voltage": "Exact solutions round to identical binary64 GP; native GP at iteration99 differs by one ULP.",
+  "analysis": "Independent exact Fraction elimination checks A*x=b, residuals and every delta decomposition.80/160-digit crosschecks agree. Source-derived fixed-order Sparse replay matches every returned binary64 bit. One exact-residual-oracle correction resolves sampled solve error but leaves assembled-system change.",
+  "limitations": [
+    "No unique underlying cause or convergence repair established. IntrinsicGP helper fallback remains unproved.",
+    "Offline exact-residual oracle is not a portable native refinement implementation.",
+    "Capture is bounded to NIcall1 iterations99/100; timing/performance and fulltrajectory claims excluded.",
+    "Specific direct/indirect factor branch flags were not captured; source scalar update paths coincide for this captured closed topology.",
+    "Compact evidence omits engine/compiler/runtime/PDK binaries, source tree and full67MB disassembly; exact inventories and reviewed bindings remain in run contract, source manifests and reviews. Not a standalone executable replay.",
+    "Initial missing-prototype compilation failure retained separately; only one native capture launched."
+  ],
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "application_changed": false,
+  "evidence": {
+    "path": "artifacts/ihp-pmos-mna-capture-2026-11-10.zip",
+    "sha256": "b63dcd1991712a2cf66260d2461c7facef79a209df718d34cc05416aa753eb4b",
+    "bytes": 960702,
+    "payload_files": 39,
+    "manifest_files": 1
+  },
+  "previous_evidence": "ihp-pmos-compensated-observation-2026-11-10.json",
+  "independent_review": "Both exact systems, residuals/decomposition and bit-exact replay independently checked. All39 compact archive payload hashes and source-backed bytes independently verified.",
+  "chunk7_estimate": {
+    "percent": 74,
+    "range_percent": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "kind": "subjective engineering estimate, not acceptance fraction"
+  }
+}

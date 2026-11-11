@@ -1,0 +1,182 @@
+{
+  "schema": 1,
+  "date": "2026-11-10",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "status": "PASS_SELECTED_SOURCE_STAGES_ACROSS_EXPLICIT_CONTINUATION",
+  "installed_acceptance": false,
+  "native_windows_powershell_executed": false,
+  "tests": 1763,
+  "skips": 18,
+  "source_identity_count": 2473,
+  "syntax_files": 1602,
+  "source_unchanged": true,
+  "stages": [
+    {
+      "name": "unit-contracts",
+      "returncode": 0,
+      "elapsed_seconds": 16.016,
+      "test_runs": [
+        [
+          "263",
+          "15.436"
+        ]
+      ],
+      "skipped": 3
+    },
+    {
+      "name": "ihp-contracts",
+      "returncode": 0,
+      "elapsed_seconds": 45.417,
+      "test_runs": [
+        [
+          "328",
+          "44.777"
+        ]
+      ],
+      "skipped": 1
+    },
+    {
+      "name": "physical-contracts",
+      "returncode": 0,
+      "elapsed_seconds": 30.052,
+      "test_runs": [
+        [
+          "306",
+          "29.386"
+        ]
+      ],
+      "skipped": 10
+    },
+    {
+      "name": "device-contracts",
+      "returncode": 0,
+      "elapsed_seconds": 39.229,
+      "test_runs": [
+        [
+          "751",
+          "38.150"
+        ]
+      ],
+      "skipped": 3
+    },
+    {
+      "name": "package-contracts",
+      "returncode": 0,
+      "elapsed_seconds": 39.615,
+      "test_runs": [
+        [
+          "11",
+          "39.461"
+        ]
+      ],
+      "skipped": 0
+    },
+    {
+      "name": "runtime-release-contracts",
+      "returncode": 0,
+      "elapsed_seconds": 6.033,
+      "test_runs": [
+        [
+          "104",
+          "5.784"
+        ]
+      ],
+      "skipped": 1
+    },
+    {
+      "name": "release-contracts",
+      "returncode": 0,
+      "elapsed_seconds": 2.271,
+      "test_runs": [],
+      "skipped": 0
+    },
+    {
+      "name": "menu-smoke",
+      "returncode": 0,
+      "elapsed_seconds": 28.455,
+      "test_runs": [],
+      "skipped": 0
+    },
+    {
+      "name": "project-hub-smoke",
+      "returncode": 0,
+      "elapsed_seconds": 4.877,
+      "test_runs": [],
+      "skipped": 0
+    },
+    {
+      "name": "metal-resistor-editor-smoke",
+      "returncode": 0,
+      "elapsed_seconds": 8.66,
+      "test_runs": [],
+      "skipped": 0
+    },
+    {
+      "name": "metal-resistor-parallel-smoke",
+      "returncode": 0,
+      "elapsed_seconds": 32.531,
+      "test_runs": [],
+      "skipped": 0
+    },
+    {
+      "name": "ihp-resistor-editor-smoke",
+      "returncode": 0,
+      "elapsed_seconds": 120.196,
+      "test_runs": [],
+      "skipped": 0
+    },
+    {
+      "name": "ihp-guard-corner-smoke",
+      "command": [
+        "/workspace/shared/ic-design-studio/.venv/bin/python",
+        "tests/gui_ihp_guard_corner.py",
+        "--out",
+        "/workspace/shared/next2-diagnostics-continuation-20261110/run/ihp-guard-corner",
+        "--execution-id",
+        "9b1eb33e7dd44be18582d9b7346d7cfe"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 47.36546265299694
+    },
+    {
+      "name": "ihp-capacitor-corner-smoke",
+      "command": [
+        "/workspace/shared/ic-design-studio/.venv/bin/python",
+        "tests/gui_ihp_capacitor_corners.py",
+        "/workspace/shared/next2-diagnostics-continuation-20261110/run/ihp-capacitor-corners"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 2.8229252109958907
+    }
+  ],
+  "original_elapsed_seconds": 376.158,
+  "continuation_elapsed_seconds": 51.686028941003315,
+  "scope": "All14 selected stages passed for identical source identities:12 before execution-service interruption and2 in independently checked bounded continuation. Not one uninterrupted framework run.",
+  "retained_prior_failures": [
+    "Initial focused launcher lacked required tests PYTHONPATH and omitted new module from expected test registration; corrected without dropping tests.",
+    "First full run failed two existing no-continue-on-error guards; new flags removed and existing guards preserved.",
+    "Second full run failed two exact old workflow invocation anchors; assertions now check same command inside exact try wrapper before release. No acceptance check relaxed."
+  ],
+  "omissions": "Complete native runtime and historical GUI raw payloads remain separately retained. Compact transport contains selected stage logs, reports, source inventories, continuation readback, changed diagnostic sources and patch; not all original source or GUI payload bytes.",
+  "application_runtime_changed": false,
+  "focused_regression": {
+    "tests": 114,
+    "skips": 1,
+    "status": "PASS"
+  },
+  "evidence": {
+    "path": "artifacts/windows-failure-summary-source-2026-11-10.zip",
+    "sha256": "6d84377d157f0f53d32f9905d082337edcc08386c559c4dd7810a36bc1faaa5e",
+    "bytes": 1537557,
+    "payload_files": 47,
+    "manifest_files": 1
+  },
+  "independent_review": "All47 payload hashes/sizes and2473 current snapshot identities independently verified;1763test/18skip totals independently recounted; split-run scope retained.",
+  "change_scope": [
+    "Add bounded allowlisted Windows failure-summary collector with64KiB input slices and8MiB output budget.",
+    "Transcript wrapper retains and rethrows original verifier failure; original verify_windows.ps1 bytes and acceptance commands/deadlines/identity guards remain unchanged.",
+    "Preserve existing release workflow prohibition on continue-on-error. New diagnostic upload occurs before large checkpoint upload.",
+    "Retain pw2dn independent-reference child error/log/return code without commands, environment dumps, binaries or arbitrary nested report fields.",
+    "Register source tests in both hosted release-tool lanes and existing source-feedback runtime stage; update exact invocation-order assertions for the preserved command inside its try wrapper."
+  ]
+}

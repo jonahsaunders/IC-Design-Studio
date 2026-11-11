@@ -1,5 +1,38 @@
 # Source feedback and selected acceptance candidates
 
+The [November 11 final integrated local record](validation/chunk7-next3-source-core-validation-2026-11-11.json)
+passes all 14 selected stages in one uninterrupted run: 1,814 tests, 18 explicit
+skips and 2,492 unchanged source identities. Its separate exhaustive core run
+passes 4,912 tests with 81 skips. The compact archive retains all stage logs and
+identity maps, with hashed omissions and an explicitly post-run-bound launcher.
+These results include the strict elapsed-clock repair, diagnostic retirement,
+portable PMOS v3 readback and linked tap source tests. They do not replace fresh
+hosted source feedback or exact-candidate installed acceptance. Earlier source
+results below retain their original scope and failures.
+
+The November 11 portable PMOS v3 readback joins the existing IHP test stage.
+It binds the complete compact evidence, source-aware contract, compiler patch,
+licenses and immutable historical inputs to source identity. It reconstructs
+and authenticates 588 payloads before read-only numerical audit. The historical
+multiplicity rejection and separately source-derived consistency pass remain
+distinct; no native binary is executed and no runtime default is replaced.
+All prior stages and 300-second child limits remain unchanged. Native Windows
+reparse behavior and installed application acceptance remain separate checks.
+
+
+The isolated Windows diagnostics follow-on adds a bounded, allowlisted failure
+summary before the full installed checkpoint upload. Its tests join the existing
+source-feedback runtime stage and both hosted release-tool lanes. The summary is
+diagnostic context, never an acceptance authority; its CI steps preserve the
+existing prohibition on ignored step failures. Original verifier commands,
+deadlines, identity guards and full evidence remain required.
+The PowerShell transcript wrapper still needs native Windows validation; local
+source tests cannot establish that transcript capture is complete.
+The [local source coverage record](validation/windows-failure-summary-source-2026-11-10.json)
+retains 1,763 tests and 18 skips across all 14 selected stages with unchanged
+identities. Twelve stages precede a service interruption and two complete in a
+separate bounded continuation; no uninterrupted-run claim is made.
+
 The isolated November 10 follow-on lane adds measured-reference parsing/runtime
 contracts, guard-via raw and corner-safe routing contracts, and v3 lossless
 inventory transport to the existing bounded selections. All exact measurement,
@@ -25,6 +58,13 @@ core run passes 4,823 tests with 81 skips. The compact transport retains all
 stage logs and the complete new guard GUI output/readback; other historical
 GUI raw outputs remain local and are explicitly omitted from that transport.
 These results do not stand in for fresh hosted Windows/Linux or installed gates.
+
+The subsequent isolated PMOS v2 path adds its source tests and complete versioned
+contract/evidence folder to this same bounded lane, preserving v1 and every
+existing deadline. V2 requires actual KLU backend readback in every native job.
+Its production comparison currently remains incomplete after a numerical timeout;
+passing source tests cannot relabel that partial batch as measured or calibrated
+acceptance.
 
 The November 10 exact-candidate repair adds the physical verifier's identity,
 stale-output and executable-mutation regressions to the existing unit stage.

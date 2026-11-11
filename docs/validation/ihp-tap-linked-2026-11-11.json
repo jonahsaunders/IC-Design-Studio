@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "date": "2026-11-11",
+  "status": "PASS_FINITE_TAP_EXTRACTED_ELECTRICAL_LINKAGE",
+  "base_commit": "eb0018c9c024588358b3f4f12f0af6a0581da937",
+  "application_defaults_changed": false,
+  "qualified": false,
+  "chunk_complete": false,
+  "installed_acceptance": false,
+  "calibrated": false,
+  "models": [
+    "ntap1",
+    "ptap1"
+  ],
+  "width_um": 2,
+  "length_um": 2,
+  "rotations": [
+    0,
+    90
+  ],
+  "physical": {
+    "layouts": 4,
+    "native_fault_controls": 16,
+    "drc": "full Magic plus unchanged written-contact minimum",
+    "extraction": "unfiltered public IHP KLayout runset with existing documented app interface conversions",
+    "lvs": "strict Netgen with TIE/body and A/P preserved",
+    "independent_file_bindings": 1104,
+    "expected_early_extraction_stops": 4,
+    "tool_version": "authenticated Debian KLayout 0.30.0; Magic/Netgen from retained local source profile"
+  },
+  "electrical": {
+    "batches": 1,
+    "seconds": 7.605839078998542,
+    "analyses": [
+      "DC",
+      "complex AC"
+    ],
+    "conditions": "nominal section, 27 C, inherited 10mV DC and 100Hz\u201310MHz AC stimuli; not operating limits",
+    "positive_raw_files": 24,
+    "fault_raw_files": 12,
+    "positive_points": 564,
+    "fault_points": 252,
+    "resistance_ohm": 81.66666666666667,
+    "maximum_normalized_response": 3.0784195087716944e-08,
+    "maximum_normalized_kcl": 3.4005936828140387e-09,
+    "baseline_engine_sha256": "67399d2db139e9a8e7bfd118cab8acfa290bb6db003c996333e55ed682a65d25",
+    "experimental_pmos_runtime_used": false,
+    "default_runtime_replaced": false,
+    "timeout_seconds": 90,
+    "relative_tolerance": 1e-06,
+    "absolute_voltage_tolerance": 1e-10,
+    "kcl_absolute_ampere_tolerance": 1e-13
+  },
+  "review": {
+    "receipt_sha256": "2479396b41ad5e499f43b208b5d6da3b997d6e80430a703fd982a2541234e71e",
+    "all_36_staged_model_closures_independently_joined": true,
+    "all_216_staged_original_osdi_files_match": true,
+    "physical_input_map_paths": 2665,
+    "pre_and_post_execution_identity_checks": true
+  },
+  "tests": {
+    "focused_and_related_plus_ci": 67,
+    "status": "PASS",
+    "seconds": 5.998,
+    "full_source_suite_run": false,
+    "Windows_run": false
+  },
+  "retained_failures_and_corrections": [
+    "First physical attempt failed due absent relocated Ruby stdlib paths; second attempt changes only local RUBYLIB launch environment, not source masks/rules/thresholds.",
+    "First independent physical readback wrongly required integrity after deliberately early contact-open extraction failures. Corrected readback preserves all 4 such not-run stages; no native rerun.",
+    "Initial raw reader rejected standard trailing header whitespace and AC scale grid=3. Original source/failure retained; strict format-only correction independently reviewed. Native data unchanged.",
+    "Initial combined unit command omitted repository tests directory from PYTHONPATH; original import failure retained, then unchanged tests pass with documented source-feedback import environment."
+  ],
+  "scope_limits": [
+    "Explicit native A/P-to-X/r projection, not direct execution of unsupported native R/A/P syntax. Original extraction bytes preserved.",
+    "Numerical agreement cannot distinguish the identical ntap1/ptap1 equations; exact model and body roles independently enforced.",
+    "Post-run reader/parser corrections and CI registration additions have separate hashes from prelaunch snapshot. No native rerun.",
+    "Compact archive omits full tool/runtime binary payloads with identities retained; not standalone executable replay.",
+    "No new geometry/bias/temperature/reliability limits, calibration, complete family, installed or foundry claim."
+  ],
+  "chunk7_estimate": {
+    "percent": 74,
+    "range_percent": [
+      55,
+      82
+    ],
+    "confidence": "low",
+    "kind": "subjective engineering estimate, not acceptance fraction"
+  },
+  "evidence": {
+    "sha256": "c7eac63a3ca21358e843969da348e6faac9574b813107cc979225f326ad8dd20",
+    "bytes": 14054394,
+    "payload_files": 4864,
+    "manifest_files": 1,
+    "runtime_binary_copies_omitted": 216,
+    "reconstructed_filename": "ihp-tap-linked-source-2026-11-11.zip",
+    "transport": "Ordered lossless byte parts; reconstruct and verify before opening as ZIP.",
+    "parts": [
+      {
+        "path": "artifacts/ihp-tap-linked-source-2026-11-11.zip.part001",
+        "bytes": 8388608,
+        "sha256": "c779ebb6ded1270455f6abf6cf1591caab169bc481b3f470ab39b9cadf6722d6"
+      },
+      {
+        "path": "artifacts/ihp-tap-linked-source-2026-11-11.zip.part002",
+        "bytes": 5665786,
+        "sha256": "33d2c4ca3c6c87c415e84ec805413fe3ab88619a1f9d90cc3940e726d449d169"
+      }
+    ],
+    "reassembly_instructions": "See docs/IHP_TAP_LINKED.md, Evidence transport; Python standard library only."
+  }
+}

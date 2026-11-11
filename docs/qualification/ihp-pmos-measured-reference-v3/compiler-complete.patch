@@ -1,0 +1,326 @@
+--- a/openvaf/osdi/Cargo.toml
++++ b/openvaf/osdi/Cargo.toml
+@@ -54,3 +54,6 @@
+ [[test]]
+ name = "data_tests"
+ harness = false
++
++[features]
++experimental-compensated-rhs = []
+--- a/openvaf/osdi/build.rs
++++ b/openvaf/osdi/build.rs
+@@ -21,6 +21,28 @@
+     let sh = Shell::new().unwrap();
+     let osdi_dir = stdx::project_root().join("openvaf").join("osdi");
+     let src_file = osdi_dir.join("stdlib.c");
++    if env::var_os("CARGO_FEATURE_EXPERIMENTAL_COMPENSATED_RHS").is_some() {
++        let strict_src = osdi_dir.join("compensated_rhs.c");
++        let strict_out = Path::new(&env::var_os("OUT_DIR").unwrap()).join("compensated_rhs_linux_x86_64.bc");
++        println!("cargo:rerun-if-changed={}", strict_src.display());
++        let guard_src = osdi_dir.join("integer_guard.c");
++        let guard_out = Path::new(&env::var_os("OUT_DIR").unwrap()).join("compensated_integer_guard_linux_x86_64.bc");
++        println!("cargo:rerun-if-changed={}", guard_src.display());
++        if no_gen { sh.write_file(&guard_out, []).unwrap(); }
++        else {
++            // Integer/register-only guard must remain non-strictfp and noinline.
++            // All numerical EFT arithmetic remains in the strict TU below.
++            cmd!(sh, "clang -emit-llvm -O2 -fno-fast-math -ffp-contract=off -fPIC -target x86_64-unknown-linux-gnu -c {guard_src} -o {guard_out}")
++                .run().expect("failed to generate integer environment guard bitcode");
++        }
++
++        if no_gen { sh.write_file(&strict_out, []).unwrap(); }
++        else {
++            // Separate strict translation unit; generated-code review required.
++            cmd!(sh, "clang -emit-llvm -O0 -ffp-model=strict -ffp-contract=off -fno-builtin-fma -fno-inline -fPIC -target x86_64-unknown-linux-gnu -c {strict_src} -o {strict_out}")
++                .run().expect("failed to generate strict RHS bitcode");
++        }
++    }
+ 
+     sh.change_dir(osdi_dir);
+     for file in sh.read_dir("header").unwrap() {
+--- /dev/null
++++ b/openvaf/osdi/compensated_rhs.c
+@@ -0,0 +1,88 @@
++#pragma STDC FENV_ACCESS ON
++#pragma clang optimize off
++/* Source-only experimental OSDI adapter kernel; compiled integration UNVERIFIED.
++ * Exact-real expansion of supplied cached values, under documented bounds.
++ * No correct-rounding, circuit convergence or signed-zero equivalence claim.
++ */
++#include <math.h>
++#include <fenv.h>
++#include <stddef.h>
++#include <stdint.h>
++#include <float.h>
++#if defined(__x86_64__) || defined(__i386__)
++#include <xmmintrin.h>
++#endif
++#define CAP 64
++#define EMAX (2*CAP+2)
++typedef struct { double expansion[EMAX]; double estimate; size_t count; } Result;
++enum { ACCEPT=0, ENVIRONMENT=1, DOMAIN=2, OPTIONAL=3, ZERO_POLICY=4, LIMIT=5 };
++
++/* Separate integer-only non-strictfp TU: LLVM15 strictfp inline asm may
++ * insert FWAIT before rejection of pending unmasked x87 exceptions. */
++extern int integer_guard(void);
++static int environment_ok(void) { return integer_guard(); }
++static int input_ok(double x) {
++    return isfinite(x) && (x==0.0 ||
++           (fabs(x)>=0x1p-200 && fabs(x)<=0x1p200));
++}
++static void two_sum(double a,double b,double *s,double *e) {
++    double q=a+b;
++    double bv=q-a;
++    double av=q-bv;
++    double br=b-bv;
++    double ar=a-av;
++    *s=q;*e=ar+br;
++}
++static size_t grow(double *expansion,size_t n,double b) {
++    double out[EMAX];size_t m=0;double q=b;
++    for(size_t k=0;k<n;k++) {
++        double s,e;two_sum(q,expansion[k],&s,&e);q=s;
++        if(e!=0.0)out[m++]=e;
++    }
++    if(q!=0.0)out[m++]=q;
++    for(size_t k=0;k<m;k++)expansion[k]=out[k];
++    return m;
++}
++int compensated_rhs(const double *j,const double *x,size_t n,
++                    int residual_present,double residual,
++                    int limiter_present,double limiter,Result *out) {
++    /* On fallback no compensated estimate/expansion is returned. Caller must
++     * invoke its ORIGINAL optional-term loader, not this kernel's approximation. */
++    out->count=0;out->estimate=NAN;
++    if(!environment_ok())return ENVIRONMENT;
++    if(n>CAP)return LIMIT;
++    /* Absence is never synthesized as +0. Empty rows also use original path. */
++    if(n==0 || !residual_present)return OPTIONAL;
++    if(!input_ok(residual)||(limiter_present && !input_ok(limiter)))return DOMAIN;
++    for(size_t k=0;k<n;k++)if(!input_ok(j[k])||!input_ok(x[k]))return DOMAIN;
++    double expansion[EMAX];size_t count=0;
++    for(size_t k=0;k<n;k++) {
++        double p=j[k]*x[k];
++        /* Genuine libm fused operation; compiled -fno-builtin-fma.
++         * fma error is exact within the reviewed lattice/range bounds. */
++        double e=fma(j[k],x[k],-p);
++        count=grow(expansion,count,e);
++        count=grow(expansion,count,p);
++    }
++    count=grow(expansion,count,-residual);
++    if(limiter_present)count=grow(expansion,count,limiter);
++    double estimate=0.0;
++    for(size_t k=0;k<count;k++)estimate+=expansion[k];
++    /* Exact-zero and any rounded-zero final result preserve original signed
++     * zero semantics through fallback, not a claimed equivalent +0. */
++    if(count==0 || estimate==0.0)return ZERO_POLICY;
++    if(!isfinite(estimate))return DOMAIN;
++    for(size_t k=0;k<count;k++)out->expansion[k]=expansion[k];
++    out->count=count;out->estimate=estimate;
++    return ACCEPT;
++}
++
++/* Private strict scalar-output adapter: expansion remains internal. */
++__attribute__((noinline,optnone))
++int openvaf_experimental_compensated_rhs(const double *j,const double *x,
++    unsigned n,double residual,int limiter_present,double limiter,double *value) {
++    Result result;
++    int status=compensated_rhs(j,x,n,1,residual,limiter_present,limiter,&result);
++    if(status==0)*value=result.estimate;
++    return status;
++}
+--- /dev/null
++++ b/openvaf/osdi/integer_guard.c
+@@ -0,0 +1,16 @@
++/* Deliberately integer/no-wait-only translation unit. Never use fast-math.
++ * Build without strictfp attribute to prevent LLVM15 X86InsertWait treating
++ * inline asm's implicit fpsr clobber as an x87 memory instruction.
++ */
++#include <float.h>
++__attribute__((noinline)) int integer_guard(void) {
++#if defined(__linux__) && defined(__x86_64__) && FLT_RADIX == 2 && DBL_MANT_DIG == 53 && DBL_MAX_EXP == 1024
++ unsigned short control; unsigned csr;
++ __asm__ volatile("fnstcw %0" : "=m"(control));
++ __asm__ volatile("stmxcsr %0" : "=m"(csr));
++ return (control & 0x0c3fu)==0x003fu &&
++        (csr & (0x1f80u | (1u<<15) | (1u<<6) | (3u<<13)))==0x1f80u;
++#else
++ return 0;
++#endif
++}
+--- /dev/null
++++ b/openvaf/osdi/src/compensated_rhs.rs
+@@ -0,0 +1,101 @@
++//! Experimental source-only adapter; generated-code verification still required.
++//! No descriptor, persistent state, physical residual or Jacobian changes.
++use llvm::*;
++use std::ffi::CString;
++// LLVM15 llvm-c/Core.h:2277; global VALUE type is valid with opaque pointers.
++// Kept local so this experiment does not alter shared LLVM wrapper bindings.
++extern "C" {
++    fn LLVMGlobalGetValueType<'a>(global: &'a Value) -> &'a Type;
++}
++use sim_back::dae::{MatrixEntryId, SimUnknown};
++use crate::compilation_unit::OsdiCompilationUnit;
++
++pub(crate) struct Workspace<'ll> {
++    j: &'ll Value,
++    x: &'ll Value,
++    result: &'ll Value,
++}
++impl<'a, 'b, 'll> OsdiCompilationUnit<'a, 'b, 'll> {
++    pub(crate) fn compensated_enabled(&self) -> bool {
++        self.cx.target.llvm_target == "x86_64-unknown-linux-gnu"
++    }
++    pub(crate) unsafe fn compensated_workspace(&self, b: &Builder<'ll>) -> Workspace<'ll> {
++        let ty=self.cx.ty_array(self.cx.ty_double(),64);
++        Workspace { j:LLVMBuildAlloca(b,ty,UNNAMED), x:LLVMBuildAlloca(b,ty,UNNAMED),
++                    result:LLVMBuildAlloca(b,self.cx.ty_double(),UNNAMED) }
++    }
++    /// Called only in resistive pass. True means this row was fully handled,
++    /// including original no-store semantics. Arrays allocated once per callback.
++    #[allow(clippy::too_many_arguments)]
++    pub(crate) unsafe fn compensated_row(&self,node:SimUnknown,entries:&[MatrixEntryId],
++        llfunc:&'ll Value,b:&Builder<'ll>,inst:&'ll Value,model:&'ll Value,
++        dst:&'ll Value,prev:&'ll Value,w:&Workspace<'ll>) {
++        let cx=self.cx;
++        let mut pairs=Vec::new();
++        for &entry in entries {
++            if let Some(j)=self.load_jacobian_entry(entry,inst,model,b,false) {
++                let col=self.module.dae_system.jacobian[entry].col;
++                let x=self.inst_data.read_node_voltage(cx,col,inst,prev,b);
++                pairs.push((j,x));
++            }
++        }
++        let residual=self.inst_data.read_residual(node,inst,b,false);
++        // Original code ignores limiter-only row and makes no store.
++        if pairs.is_empty() && residual.is_none() { return; }
++        let limiter=self.inst_data.read_lim_rhs(node,inst,b,false);
++        let fallback=|b:&Builder<'ll>| {
++            let mut res=None;
++            for &(j,x) in &pairs {
++                let v=LLVMBuildFMul(b,j,x,UNNAMED);LLVMSetFastMath(v);
++                res=Some(if let Some(old)=res {
++                    let v=LLVMBuildFAdd(b,old,v,UNNAMED);LLVMSetFastMath(v);v
++                } else {v});
++            }
++            if let Some(r)=residual {
++                let v=LLVMBuildFSub(b,res.unwrap_or_else(||cx.const_real(0.0)),r,UNNAMED);
++                LLVMSetFastMath(v);res=Some(v);
++            }
++            let mut res=res.expect("nonempty original row");
++            if let Some(l)=limiter { res=LLVMBuildFAdd(b,res,l,UNNAMED); }
++            res
++        };
++        if residual.is_none() || pairs.is_empty() || pairs.len()>64 {
++            let res=fallback(b);
++            self.inst_data.store_contrib(cx,node,inst,dst,res,b,false);
++            return;
++        }
++        let array_ty=cx.ty_array(cx.ty_double(),64);
++        for (i,&(j,x)) in pairs.iter().enumerate() {
++            let indices=[cx.const_unsigned_int(0),cx.const_unsigned_int(i as u32)];
++            let jp=LLVMBuildGEP2(b,array_ty,w.j,indices.as_ptr(),2,UNNAMED);
++            let xp=LLVMBuildGEP2(b,array_ty,w.x,indices.as_ptr(),2,UNNAMED);
++            LLVMBuildStore(b,j,jp);LLVMBuildStore(b,x,xp);
++        }
++        let name=CString::new("openvaf_experimental_compensated_rhs").unwrap();
++        let helper=LLVMGetNamedFunction(cx.llmod,name.as_ptr()).expect("strict helper missing");
++        let ty=cx.ty_func(&[cx.ty_ptr(),cx.ty_ptr(),cx.ty_int(),cx.ty_double(),cx.ty_int(),cx.ty_double(),cx.ty_ptr()],cx.ty_int());
++        let actual_ty=LLVMGlobalGetValueType(helper);
++        assert!(std::ptr::eq(actual_ty,ty), "strict helper function signature mismatch");
++        let args=[w.j,w.x,cx.const_unsigned_int(pairs.len() as u32),residual.unwrap(),
++            cx.const_unsigned_int(u32::from(limiter.is_some())),limiter.unwrap_or_else(||cx.const_real(0.0)),w.result];
++        // Absent limiter placeholder is NOT validated or inserted by strict C helper.
++        let status=LLVMBuildCall2(b,ty,helper,args.as_ptr(),args.len() as u32,UNNAMED);
++        let ok=LLVMBuildICmp(b,IntPredicate::IntEQ,status,cx.const_unsigned_int(0),UNNAMED);
++        let success=LLVMAppendBasicBlockInContext(cx.llcx,llfunc,UNNAMED);
++        let failure=LLVMAppendBasicBlockInContext(cx.llcx,llfunc,UNNAMED);
++        let merge=LLVMAppendBasicBlockInContext(cx.llcx,llfunc,UNNAMED);
++        LLVMBuildCondBr(b,ok,success,failure);
++        LLVMPositionBuilderAtEnd(b,success);
++        let stable=LLVMBuildLoad2(b,cx.ty_double(),w.result,UNNAMED);
++        LLVMBuildBr(b,merge);
++        LLVMPositionBuilderAtEnd(b,failure);
++        // Original arithmetic exists ONLY in fallback block in emitted source IR.
++        // Later optimized-IR review must reject speculation before helper guard.
++        let original=fallback(b);LLVMBuildBr(b,merge);
++        LLVMPositionBuilderAtEnd(b,merge);
++        let value=LLVMBuildPhi(b,cx.ty_double(),UNNAMED);
++        LLVMAddIncoming(value,[stable,original].as_ptr(),[success,failure].as_ptr(),2);
++        // Destination accumulation remains exactly existing code, outside EFT bound.
++        self.inst_data.store_contrib(cx,node,inst,dst,value,b,false);
++    }
++}
+--- a/openvaf/osdi/src/compilation_unit.rs
++++ b/openvaf/osdi/src/compilation_unit.rs
+@@ -35,6 +35,11 @@
+ ) -> CodegenCx<'a, 'll> {
+     let cx = unsafe { back.new_ctx(literals, llmod) };
+     cx.include_bitcode(stdlib_bitcode(back.target()));
++    #[cfg(feature = "experimental-compensated-rhs")]
++    if back.target().llvm_target == "x86_64-unknown-linux-gnu" {
++        cx.include_bitcode(include_bytes!(concat!(env!("OUT_DIR"), "/compensated_rhs_linux_x86_64.bc")));
++        cx.include_bitcode(include_bytes!(concat!(env!("OUT_DIR"), "/compensated_integer_guard_linux_x86_64.bc")));
++    }
+ 
+     for fun in llvm::function_iter(llmod.llmod()) {
+         unsafe {
+--- a/openvaf/osdi/src/lib.rs
++++ b/openvaf/osdi/src/lib.rs
+@@ -314,3 +314,6 @@
+ pub struct Offset(u32);
+ impl_idx_from!(Offset(u32));
+ impl_debug_display! {match Offset{Offset(id) => "lim{id}";}}
++
++#[cfg(feature = "experimental-compensated-rhs")]
++mod compensated_rhs;
+--- a/openvaf/osdi/src/load.rs
++++ b/openvaf/osdi/src/load.rs
+@@ -175,6 +175,7 @@
+     pub fn load_spice_rhs_(
+         &self,
+         tran: bool,
++        llfunc: &'ll llvm::Value,
+         llbuilder: &llvm::Builder<'ll>,
+         inst: &'ll llvm::Value,
+         model: &'ll llvm::Value,
+@@ -182,6 +183,8 @@
+         prev_solve: &'ll llvm::Value,
+         alpha: &'ll llvm::Value,
+     ) {
++        #[cfg(not(feature = "experimental-compensated-rhs"))]
++        let _ = llfunc;
+         let dae_system = &self.module.dae_system;
+         let mut node_derivatives = TiVec::from(vec![Vec::new(); dae_system.unknowns.len()]);
+         for (id, entry) in dae_system.jacobian.iter_enumerated() {
+@@ -189,7 +192,17 @@
+         }
+ 
+         unsafe {
++            #[cfg(feature = "experimental-compensated-rhs")]
++            let workspace = if !tran && self.compensated_enabled() {
++                Some(self.compensated_workspace(llbuilder))
++            } else { None };
+             for node in dae_system.unknowns.indices() {
++                #[cfg(feature = "experimental-compensated-rhs")]
++                if let Some(ref workspace) = workspace {
++                    self.compensated_row(node, &node_derivatives[node], llfunc, llbuilder,
++                        inst, model, dst, prev_solve, workspace);
++                    continue;
++                }
+                 let mut res = None;
+                 for &entry in &node_derivatives[node] {
+                     let node_deriv = dae_system.jacobian[entry].col;
+@@ -267,9 +280,9 @@
+             let prev_solve = LLVMGetParam(llfunc, 3);
+             let alpha = if tran { LLVMGetParam(llfunc, 4) } else { prev_solve };
+ 
+-            self.load_spice_rhs_(false, llbuilder, inst, model, dst, prev_solve, alpha);
++            self.load_spice_rhs_(false, llfunc, llbuilder, inst, model, dst, prev_solve, alpha);
+             if tran {
+-                self.load_spice_rhs_(true, llbuilder, inst, model, dst, prev_solve, alpha);
++                self.load_spice_rhs_(true, llfunc, llbuilder, inst, model, dst, prev_solve, alpha);
+             }
+ 
+             LLVMBuildRetVoid(llbuilder);

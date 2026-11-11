@@ -114,6 +114,7 @@ class RecoveryTests(unittest.TestCase):
       self.assertEqual(stats['scanned_entries'],132140);self.assertEqual([x['status'] for x in rows],['missing']*3)
   self.assertEqual(r.MAX_ENTRIES,r.EXPECTED_ENTRIES)
  def test_workflow_narrow_permissions_trigger_and_upload(self):
-  text=(Path(__file__).resolve().parents[1]/'.github/workflows/recover-pw2dn-once.yml').read_text()
+  self.assertFalse((Path(__file__).resolve().parents[1]/'.github/workflows/recover-pw2dn-once.yml').exists())
+  text=(Path(__file__).resolve().parents[1]/'tests/fixtures/pw2dn-recovery-2026-11-11/recover-pw2dn-once.yml').read_text()
   self.assertIn('branches: [codex/chunk7-blockers-20261108]',text);self.assertIn('actions: read',text);self.assertIn('contents: read',text);self.assertIn('persist-credentials: false',text);self.assertNotIn('workflow_dispatch',text);self.assertNotIn('pull_request',text);self.assertNotIn('write',text);self.assertIn('pw2dn-recovered/*.json',text)
 if __name__=='__main__':unittest.main()
