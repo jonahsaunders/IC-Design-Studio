@@ -43,7 +43,7 @@ class FeatureMixin:
         self.settings.setValue('sky130/root',vals['SKY130A directory']);self.start_cli_job(args,'SKY130 inverter reference')
         self.console.appendPlainText('Evidence will be written to '+str(Path(vals['Output directory'])/'report.json')+'; open inverter.icproj to inspect the generated native schematic and layout.')
 
-    def workflow_form(self,title,fields,submit,note=''):
+    def workflow_form(self,title,fields,submit,note='',*,context_guard=None):
         dlg=QDialog(self);dlg.setWindowTitle(title);dlg.resize(520,300);v=QVBoxLayout(dlg);form=QFormLayout();form.setVerticalSpacing(12);dlg.fields={}
         if note:
             label=QLabel(note);label.setWordWrap(True);label.setProperty('role','muted');v.addWidget(label)
@@ -56,6 +56,7 @@ class FeatureMixin:
         v.addLayout(form);dlg.error=QLabel();dlg.error.setWordWrap(True);dlg.error.setProperty('role','error');v.addWidget(dlg.error);buttons=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel);v.addWidget(buttons)
         def accept():
             try:
+                if context_guard:context_guard()
                 if not self.flush_inspector():raise ValueError('Resolve the property edit before continuing.')
                 values={k:(w.currentText() if isinstance(w,QComboBox) else w.toPlainText() if isinstance(w,QPlainTextEdit) else w.text()) for k,w in dlg.fields.items()};submit(values);dlg.accept()
             except Exception as e:dlg.error.setText(str(e))
@@ -175,10 +176,17 @@ class FeatureMixin:
         path,_=QFileDialog.getSaveFileName(self,'Export structural connectivity','design.v','Verilog (*.v)')
         if path and self.flush_inspector():atomic_write(path,verilog(self.project))
     def edit_parameters(self):
+        project_id=self.project['id'];cid=self.cid;baseline=clone(self.cell.get('parameters',{}))
+        def context_guard():
+            if self.project['id']!=project_id or self.cid!=cid:
+                raise ValueError('The active project or cell changed. Reopen Cell parameters for the intended cell.')
+            target=next((c for c in self.project['cells'] if c['id']==cid),None)
+            if target is None or target.get('parameters',{})!=baseline:
+                raise ValueError('The target cell parameters changed. Reopen Cell parameters before applying edits.')
         def submit(v):
             definitions=dict(line.split('=',1) for line in v['parameters'].splitlines() if line.strip());definitions={k.strip():x.strip() for k,x in definitions.items()}
-            self.commit(lambda p:next(c for c in p['cells'] if c['id']==self.cid).update(parameters=definitions),'Cell parameters')
-        self.workflow_form('Cell parameters',[('parameters','Name = value',('\n'.join(k+' = '+str(v) for k,v in self.cell.get('parameters',{}).items()),))],submit,'Example: resistance = 10k. Device values can use {resistance * 2}.')
+            self.commit(lambda p:next(c for c in p['cells'] if c['id']==cid).update(parameters=definitions),'Cell parameters')
+        self.workflow_form('Cell parameters',[('parameters','Name = value',('\n'.join(k+' = '+str(v) for k,v in baseline.items()),))],submit,'Example: resistance = 10k. Device values can use {resistance * 2}.',context_guard=context_guard)
     def edit_instance_parameters(self):
         d=next((d for d in self.cell['devices'] if d['id'] in self.selection and d['kind']=='X'),None)
         if not d:raise ValueError('Select a schematic cell instance.')

@@ -15,6 +15,7 @@ from PySide6.QtCore import QPoint, QSettings, Qt
 from PySide6.QtGui import QAction
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QDialog, QDialogButtonBox, QFileDialog, QInputDialog, QLabel, QLineEdit, QListWidget, QMessageBox, QPushButton
+from shiboken6 import isValid
 
 from icstudio.gui import Studio, StudioCore
 from icstudio.model import clone, digest, example, file_digest, load_project, save_project, uid
@@ -1757,6 +1758,277 @@ class ProjectDataSafetyTests(unittest.TestCase):
                 finally:
                     dialog.reject()
                     dialog.deleteLater()
+
+
+    def prepare_parameter_cells(self):
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        project = clone(w.project)
+        a = project['cells'][0]
+        a.update(name='Cell_A', parameters={'resistance': '10k', 'a_only': '1'})
+        b = example()['cells'][0]
+        b.update(name='Cell_B', parameters={'resistance': '20k', 'b_only': '2'})
+        project['cells'].append(b)
+        project['top'] = b['id']  # Cell A can also be deleted through the real command.
+        w.set_project(project, path)
+        self.assertTrue(w.save())
+        self.addCleanup(w.setVisible, w.isVisible())
+        w.show()
+        w.inspector.show()
+        w.mode_combo.setCurrentIndex(0)
+        self.app.processEvents()
+        self.switch_parameter_cell(a['id'], Qt.Key_Home)
+        return path, a['id'], b['id']
+
+    def switch_parameter_cell(self, cid, key):
+        combo = self.window.cell_combo
+        self.assertTrue(combo.isVisible())
+        self.assertTrue(combo.isEnabled())
+        combo.setFocus()
+        QTest.keyClick(combo, key)
+        self.assertEqual(self.window.cid, cid)
+
+    def open_cell_parameters_editor(self):
+        actions = [a for a in self.window.findChildren(QAction)
+                   if a.text().replace('&', '') == 'Cell parameters…']
+        self.assertEqual(len(actions), 1)
+        self.assertTrue(actions[0].isEnabled())
+        actions[0].trigger()
+        dialog = self.window._workflow_dialog
+        self.app.processEvents()
+        self.assertTrue(dialog.isVisible())
+        self.assertFalse(dialog.isModal())
+        return dialog
+
+    def type_cell_parameters(self, dialog, text):
+        field = dialog.fields['parameters']
+        self.assertTrue(field.isVisible())
+        QTest.mouseClick(field, Qt.LeftButton)
+        QTest.keyClick(field, Qt.Key_A, Qt.ControlModifier)
+        for i, line in enumerate(text.splitlines()):
+            if i:
+                QTest.keyClick(field, Qt.Key_Return)
+            QTest.keyClicks(field, line)
+        self.assertEqual(field.toPlainText(), text)
+
+    def close_workflow_editor(self, dialog):
+        if isValid(dialog):
+            dialog.reject()  # workflow_form uses WA_DeleteOnClose.
+
+    def parameter_inspector_draft(self, draft):
+        w = self.window
+        rid = next(d['id'] for d in w.cell['devices'] if d['kind'] == 'R')
+        w.select([rid])
+        w.inspector.show()
+        self.app.processEvents()
+        field = w.form_fields['Value']
+        self.type_visible_settings_field(field, draft)
+        self.assertTrue(w._inspector_dirty)
+        return field
+
+    def open_other_parameter_project(self, path):
+        target = path.parent / 'another parameter project.icproj'
+        project = example()
+        project['name'] = 'Different parameter project'
+        project['cells'][0].update(name='Other_project_cell', parameters={'other_only': '9'})
+        save_project(project, target)
+        with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(target), '')):
+            self.window.open_project()
+        self.assertEqual(self.window.project['id'], project['id'])
+        self.assertTrue(self.window.path.samefile(target))
+        return target
+
+    def assert_parameter_editor_refuses_without_mutation(self, dialog, path, field, draft, message):
+        w = self.window
+        before = self.settings_document_snapshot(path)
+        text = dialog.fields['parameters'].toPlainText()
+        for _ in range(2):
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+            self.assertTrue(dialog.isVisible())
+            self.assertIn(message, dialog.error.text())
+            self.assertEqual(dialog.fields['parameters'].toPlainText(), text)
+            self.assertIs(w.form_fields['Value'], field)
+            self.assertEqual(field.text(), draft)
+            self.assertTrue(w._inspector_dirty)
+            self.assertEqual(self.settings_document_snapshot(path), before)
+        self.assertEqual(self.errors, [])
+
+    def test_cell_parameters_cross_cell_refuses_before_valid_or_invalid_draft_flush(self):
+        for draft in ('22k', 'invalid resistance'):
+            with self.subTest(draft=draft):
+                path, _, bid = self.prepare_parameter_cells()
+                dialog = self.open_cell_parameters_editor()
+                try:
+                    self.assertIn('a_only = 1', dialog.fields['parameters'].toPlainText())
+                    self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+                    self.switch_parameter_cell(bid, Qt.Key_End)
+                    field = self.parameter_inspector_draft(draft)
+                    self.assert_parameter_editor_refuses_without_mutation(
+                        dialog, path, field, draft, 'active project or cell changed')
+                    self.assertEqual(self.window.cell['parameters'], {'resistance': '20k', 'b_only': '2'})
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_cross_project_refuses_before_valid_or_invalid_draft_flush(self):
+        for draft in ('22k', 'invalid resistance'):
+            with self.subTest(draft=draft):
+                path, _, _ = self.prepare_parameter_cells()
+                original_bytes = path.read_bytes()
+                dialog = self.open_cell_parameters_editor()
+                try:
+                    self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+                    target = self.open_other_parameter_project(path)
+                    field = self.parameter_inspector_draft(draft)
+                    self.assert_parameter_editor_refuses_without_mutation(
+                        dialog, target, field, draft, 'active project or cell changed')
+                    self.assertEqual(self.window.cell['parameters'], {'other_only': '9'})
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_original_context_and_return_allow_undo_redo_and_save(self):
+        for return_to_original in (False, True):
+            with self.subTest(return_to_original=return_to_original):
+                path, aid, bid = self.prepare_parameter_cells()
+                w = self.window
+                saved_hash, original_bytes = w.saved_hash, path.read_bytes()
+                history_count = len(w.history.undo_stack)
+                dialog = self.open_cell_parameters_editor()
+                try:
+                    self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+                    if return_to_original:
+                        self.switch_parameter_cell(bid, Qt.Key_End)
+                        before = self.settings_document_snapshot(path)
+                        dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                        self.assertTrue(dialog.isVisible())
+                        self.assertIn('active project or cell changed', dialog.error.text())
+                        self.assertEqual(self.settings_document_snapshot(path), before)
+                        self.switch_parameter_cell(aid, Qt.Key_Home)
+                    self.parameter_inspector_draft('22k')
+                    dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                    self.assertEqual(dialog.result(), QDialog.Accepted)
+                    self.assertFalse(dialog.isVisible())
+                    expected = {'resistance': '33k', 'a_only': '3'}
+                    self.assertEqual(w.cell['parameters'], expected)
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+                    self.assertEqual(next(c['parameters'] for c in w.project['cells'] if c['id'] == bid),
+                                     {'resistance': '20k', 'b_only': '2'})
+                    self.assertFalse(w._inspector_dirty)
+                    self.assertEqual(len(w.history.undo_stack), history_count + 2)
+                    self.assertEqual(w.path, path)
+                    self.assertEqual(w.saved_hash, saved_hash)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                    w.undo()
+                    self.assertEqual(w.cell['parameters'], {'resistance': '10k', 'a_only': '1'})
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+                    w.undo()
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '10k')
+                    w.redo()
+                    w.redo()
+                    self.assertEqual(w.cell['parameters'], expected)
+                    self.assertTrue(w.save())
+                    saved = load_project(path)
+                    a = next(c for c in saved['cells'] if c['id'] == aid)
+                    self.assertEqual(a['parameters'], expected)
+                    self.assertEqual(next(d['value'] for d in a['devices'] if d['kind'] == 'R'), '22k')
+                    self.assertEqual(next(c['parameters'] for c in saved['cells'] if c['id'] == bid),
+                                     {'resistance': '20k', 'b_only': '2'})
+                    self.assertEqual(self.errors, [])
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_stale_first_dialog_cannot_overwrite_second_edit(self):
+        path, _, _ = self.prepare_parameter_cells()
+        first = self.open_cell_parameters_editor()
+        second = None
+        try:
+            self.type_cell_parameters(first, 'resistance = 33k\na_only = 3')
+            second = self.open_cell_parameters_editor()
+            self.type_cell_parameters(second, 'resistance = 44k\na_only = 4')
+            second.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertEqual(second.result(), QDialog.Accepted)
+            self.assertEqual(self.window.cell['parameters'], {'resistance': '44k', 'a_only': '4'})
+            field = self.parameter_inspector_draft('22k')
+            self.assert_parameter_editor_refuses_without_mutation(
+                first, path, field, '22k', 'target cell parameters changed')
+        finally:
+            self.close_workflow_editor(first)
+            if second is not None:
+                self.close_workflow_editor(second)
+
+    def test_cell_parameters_deleted_target_cannot_retarget_remaining_cell(self):
+        path, aid, bid = self.prepare_parameter_cells()
+        w = self.window
+        dialog = self.open_cell_parameters_editor()
+        try:
+            self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+            actions = [a for a in w.findChildren(QAction)
+                       if a.text().replace('&', '') == 'Delete active cell…']
+            self.assertEqual(len(actions), 1)
+            self.assertTrue(actions[0].isEnabled())
+            with patch.object(QMessageBox, 'question', return_value=QMessageBox.Yes):
+                actions[0].trigger()
+            self.assertFalse(any(c['id'] == aid for c in w.project['cells']))
+            self.assertEqual(w.cid, bid)
+            field = self.parameter_inspector_draft('22k')
+            self.assert_parameter_editor_refuses_without_mutation(
+                dialog, path, field, '22k', 'active project or cell changed')
+            self.assertEqual(w.cell['parameters'], {'resistance': '20k', 'b_only': '2'})
+        finally:
+            self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_cancel_never_flushes_drafts_after_context_changes(self):
+        for context in ('original', 'cell', 'project'):
+            for draft in ('22k', 'invalid resistance'):
+                with self.subTest(context=context, draft=draft):
+                    path, _, bid = self.prepare_parameter_cells()
+                    original_bytes = path.read_bytes()
+                    dialog = self.open_cell_parameters_editor()
+                    try:
+                        self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+                        target = path
+                        if context == 'cell':
+                            self.switch_parameter_cell(bid, Qt.Key_End)
+                        elif context == 'project':
+                            target = self.open_other_parameter_project(path)
+                        field = self.parameter_inspector_draft(draft)
+                        before = self.settings_document_snapshot(target)
+                        with patch.object(self.window, 'flush_inspector', side_effect=AssertionError('Cancel applied a property draft')) as flush:
+                            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Cancel).click()
+                            flush.assert_not_called()
+                        self.assertEqual(dialog.result(), QDialog.Rejected)
+                        self.assertFalse(dialog.isVisible())
+                        self.assertIs(self.window.form_fields['Value'], field)
+                        self.assertEqual(field.text(), draft)
+                        self.assertTrue(self.window._inspector_dirty)
+                        self.assertEqual(self.settings_document_snapshot(target), before)
+                        self.assertEqual(path.read_bytes(), original_bytes)
+                        self.assertEqual(self.errors, [])
+                    finally:
+                        self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_default_workflow_without_guard_still_flushes_and_submits(self):
+        path, _, _ = self.prepare_parameter_cells()
+        w = self.window
+        original_bytes = path.read_bytes()
+        history_count = len(w.history.undo_stack)
+        dialog = w.workflow_form('Default workflow control', [('name', 'Name', w.project['name'])],
+                                 lambda values: w.commit(lambda p: p.update(name=values['name']), 'Control rename'))
+        try:
+            self.app.processEvents()
+            self.type_visible_settings_field(dialog.fields['name'], 'Default workflow works')
+            self.parameter_inspector_draft('22k')
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertEqual(dialog.result(), QDialog.Accepted)
+            self.assertEqual(w.project['name'], 'Default workflow works')
+            self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+            self.assertFalse(w._inspector_dirty)
+            self.assertEqual(len(w.history.undo_stack), history_count + 2)
+            self.assertEqual(path.read_bytes(), original_bytes)
+            self.assertEqual(self.errors, [])
+        finally:
+            self.close_workflow_editor(dialog)
 
 
 if __name__ == '__main__':

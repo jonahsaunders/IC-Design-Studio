@@ -1,5 +1,25 @@
 # Chunks 1–12: progress and forecast
 
+**November 12 Cell Parameters target/stale-state guard:** the local follow-on
+to `2c3b409` rejects a modeless parameter submission when the active project or
+cell changed, its target disappeared, or the opening parameter baseline became
+stale. Context is checked before any unrelated property draft can be flushed;
+accepted edits use the captured cell ID. Cancel and default workflow callers
+remain unchanged, and returning to the original unchanged context still works.
+The [focused evidence](validation/experimental-cell-parameters-safety-2026-11-12.json)
+retains seven new methods and all 64 actual Qt cases (57 prior), with seven
+expected failing original-code assertions across five methods, including two
+checks of guard priority. The complete affected unit stage passed: 293 tests, three
+skips, 1,637 syntax checks and 2,567 unchanged source identities. The compact
+archive retains raw logs, launcher, reproducer and the three exact modified
+sources. Existing historical feature UI retention needs no new snapshot.
+Full core, all 14 local source stages, fresh hosted and exact-candidate installed
+acceptance remain unrun. Green base run `43149239597` does not cover this repair.
+Publication has not yet been attempted under the authorized overnight debugging
+scope; main is unchanged. Chunk 7 remains **74%**, low confidence **55–82%**, not
+an acceptance fraction.
+
+
 **November 12 Project Settings apply guard:** the local follow-on to
 `ca7a398` rejects Apply when a late invalid inspector draft cannot be flushed,
 preserving the nonmodal settings dialog and pending name/property/layer-view
