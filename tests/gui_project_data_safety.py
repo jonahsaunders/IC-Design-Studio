@@ -15,6 +15,7 @@ from PySide6.QtCore import QPoint, QSettings, Qt
 from PySide6.QtGui import QAction
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QDialog, QDialogButtonBox, QFileDialog, QInputDialog, QLabel, QLineEdit, QListWidget, QMessageBox, QPushButton
+from shiboken6 import isValid
 
 from icstudio.gui import Studio, StudioCore
 from icstudio.model import clone, digest, example, file_digest, load_project, save_project, uid
@@ -1757,6 +1758,1078 @@ class ProjectDataSafetyTests(unittest.TestCase):
                 finally:
                     dialog.reject()
                     dialog.deleteLater()
+
+
+    def prepare_parameter_cells(self):
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        project = clone(w.project)
+        a = project['cells'][0]
+        a.update(name='Cell_A', parameters={'resistance': '10k', 'a_only': '1'})
+        b = example()['cells'][0]
+        b.update(name='Cell_B', parameters={'resistance': '20k', 'b_only': '2'})
+        project['cells'].append(b)
+        project['top'] = b['id']  # Cell A can also be deleted through the real command.
+        w.set_project(project, path)
+        self.assertTrue(w.save())
+        self.addCleanup(w.setVisible, w.isVisible())
+        w.show()
+        w.inspector.show()
+        w.mode_combo.setCurrentIndex(0)
+        self.app.processEvents()
+        self.switch_parameter_cell(a['id'], Qt.Key_Home)
+        return path, a['id'], b['id']
+
+    def switch_parameter_cell(self, cid, key):
+        combo = self.window.cell_combo
+        self.assertTrue(combo.isVisible())
+        self.assertTrue(combo.isEnabled())
+        combo.setFocus()
+        QTest.keyClick(combo, key)
+        self.assertEqual(self.window.cid, cid)
+
+    def open_cell_parameters_editor(self):
+        actions = [a for a in self.window.findChildren(QAction)
+                   if a.text().replace('&', '') == 'Cell parameters…']
+        self.assertEqual(len(actions), 1)
+        self.assertTrue(actions[0].isEnabled())
+        actions[0].trigger()
+        dialog = self.window._workflow_dialog
+        self.app.processEvents()
+        self.assertTrue(dialog.isVisible())
+        self.assertFalse(dialog.isModal())
+        return dialog
+
+    def type_cell_parameters(self, dialog, text):
+        field = dialog.fields['parameters']
+        self.assertTrue(field.isVisible())
+        QTest.mouseClick(field, Qt.LeftButton)
+        QTest.keyClick(field, Qt.Key_A, Qt.ControlModifier)
+        for i, line in enumerate(text.splitlines()):
+            if i:
+                QTest.keyClick(field, Qt.Key_Return)
+            QTest.keyClicks(field, line)
+        self.assertEqual(field.toPlainText(), text)
+
+    def close_workflow_editor(self, dialog):
+        if isValid(dialog):
+            dialog.reject()  # workflow_form uses WA_DeleteOnClose.
+
+    def parameter_inspector_draft(self, draft):
+        w = self.window
+        rid = next(d['id'] for d in w.cell['devices'] if d['kind'] == 'R')
+        w.select([rid])
+        w.inspector.show()
+        self.app.processEvents()
+        field = w.form_fields['Value']
+        self.type_visible_settings_field(field, draft)
+        self.assertTrue(w._inspector_dirty)
+        return field
+
+    def open_other_parameter_project(self, path):
+        target = path.parent / 'another parameter project.icproj'
+        project = example()
+        project['name'] = 'Different parameter project'
+        project['cells'][0].update(name='Other_project_cell', parameters={'other_only': '9'})
+        save_project(project, target)
+        with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(target), '')):
+            self.window.open_project()
+        self.assertEqual(self.window.project['id'], project['id'])
+        self.assertTrue(self.window.path.samefile(target))
+        return target
+
+    def assert_parameter_editor_refuses_without_mutation(self, dialog, path, field, draft, message):
+        w = self.window
+        before = self.settings_document_snapshot(path)
+        text = dialog.fields['parameters'].toPlainText()
+        for _ in range(2):
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+            self.assertTrue(dialog.isVisible())
+            self.assertIn(message, dialog.error.text())
+            self.assertEqual(dialog.fields['parameters'].toPlainText(), text)
+            self.assertIs(w.form_fields['Value'], field)
+            self.assertEqual(field.text(), draft)
+            self.assertTrue(w._inspector_dirty)
+            self.assertEqual(self.settings_document_snapshot(path), before)
+        self.assertEqual(self.errors, [])
+
+    def test_cell_parameters_cross_cell_refuses_before_valid_or_invalid_draft_flush(self):
+        for draft in ('22k', 'invalid resistance'):
+            with self.subTest(draft=draft):
+                path, _, bid = self.prepare_parameter_cells()
+                dialog = self.open_cell_parameters_editor()
+                try:
+                    self.assertIn('a_only = 1', dialog.fields['parameters'].toPlainText())
+                    self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+                    self.switch_parameter_cell(bid, Qt.Key_End)
+                    field = self.parameter_inspector_draft(draft)
+                    self.assert_parameter_editor_refuses_without_mutation(
+                        dialog, path, field, draft, 'active project or cell changed')
+                    self.assertEqual(self.window.cell['parameters'], {'resistance': '20k', 'b_only': '2'})
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_cross_project_refuses_before_valid_or_invalid_draft_flush(self):
+        for draft in ('22k', 'invalid resistance'):
+            with self.subTest(draft=draft):
+                path, _, _ = self.prepare_parameter_cells()
+                original_bytes = path.read_bytes()
+                dialog = self.open_cell_parameters_editor()
+                try:
+                    self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+                    target = self.open_other_parameter_project(path)
+                    field = self.parameter_inspector_draft(draft)
+                    self.assert_parameter_editor_refuses_without_mutation(
+                        dialog, target, field, draft, 'active project or cell changed')
+                    self.assertEqual(self.window.cell['parameters'], {'other_only': '9'})
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_original_context_and_return_allow_undo_redo_and_save(self):
+        for return_to_original in (False, True):
+            with self.subTest(return_to_original=return_to_original):
+                path, aid, bid = self.prepare_parameter_cells()
+                w = self.window
+                saved_hash, original_bytes = w.saved_hash, path.read_bytes()
+                history_count = len(w.history.undo_stack)
+                dialog = self.open_cell_parameters_editor()
+                try:
+                    self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+                    if return_to_original:
+                        self.switch_parameter_cell(bid, Qt.Key_End)
+                        before = self.settings_document_snapshot(path)
+                        dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                        self.assertTrue(dialog.isVisible())
+                        self.assertIn('active project or cell changed', dialog.error.text())
+                        self.assertEqual(self.settings_document_snapshot(path), before)
+                        self.switch_parameter_cell(aid, Qt.Key_Home)
+                    self.parameter_inspector_draft('22k')
+                    dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                    self.assertEqual(dialog.result(), QDialog.Accepted)
+                    self.assertFalse(dialog.isVisible())
+                    expected = {'resistance': '33k', 'a_only': '3'}
+                    self.assertEqual(w.cell['parameters'], expected)
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+                    self.assertEqual(next(c['parameters'] for c in w.project['cells'] if c['id'] == bid),
+                                     {'resistance': '20k', 'b_only': '2'})
+                    self.assertFalse(w._inspector_dirty)
+                    self.assertEqual(len(w.history.undo_stack), history_count + 2)
+                    self.assertEqual(w.path, path)
+                    self.assertEqual(w.saved_hash, saved_hash)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                    w.undo()
+                    self.assertEqual(w.cell['parameters'], {'resistance': '10k', 'a_only': '1'})
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+                    w.undo()
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '10k')
+                    w.redo()
+                    w.redo()
+                    self.assertEqual(w.cell['parameters'], expected)
+                    self.assertTrue(w.save())
+                    saved = load_project(path)
+                    a = next(c for c in saved['cells'] if c['id'] == aid)
+                    self.assertEqual(a['parameters'], expected)
+                    self.assertEqual(next(d['value'] for d in a['devices'] if d['kind'] == 'R'), '22k')
+                    self.assertEqual(next(c['parameters'] for c in saved['cells'] if c['id'] == bid),
+                                     {'resistance': '20k', 'b_only': '2'})
+                    self.assertEqual(self.errors, [])
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_stale_first_dialog_cannot_overwrite_second_edit(self):
+        path, _, _ = self.prepare_parameter_cells()
+        first = self.open_cell_parameters_editor()
+        second = None
+        try:
+            self.type_cell_parameters(first, 'resistance = 33k\na_only = 3')
+            second = self.open_cell_parameters_editor()
+            self.type_cell_parameters(second, 'resistance = 44k\na_only = 4')
+            second.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertEqual(second.result(), QDialog.Accepted)
+            self.assertEqual(self.window.cell['parameters'], {'resistance': '44k', 'a_only': '4'})
+            field = self.parameter_inspector_draft('22k')
+            self.assert_parameter_editor_refuses_without_mutation(
+                first, path, field, '22k', 'target cell parameters changed')
+        finally:
+            self.close_workflow_editor(first)
+            if second is not None:
+                self.close_workflow_editor(second)
+
+    def test_cell_parameters_deleted_target_cannot_retarget_remaining_cell(self):
+        path, aid, bid = self.prepare_parameter_cells()
+        w = self.window
+        dialog = self.open_cell_parameters_editor()
+        try:
+            self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+            actions = [a for a in w.findChildren(QAction)
+                       if a.text().replace('&', '') == 'Delete active cell…']
+            self.assertEqual(len(actions), 1)
+            self.assertTrue(actions[0].isEnabled())
+            with patch.object(QMessageBox, 'question', return_value=QMessageBox.Yes):
+                actions[0].trigger()
+            self.assertFalse(any(c['id'] == aid for c in w.project['cells']))
+            self.assertEqual(w.cid, bid)
+            field = self.parameter_inspector_draft('22k')
+            self.assert_parameter_editor_refuses_without_mutation(
+                dialog, path, field, '22k', 'active project or cell changed')
+            self.assertEqual(w.cell['parameters'], {'resistance': '20k', 'b_only': '2'})
+        finally:
+            self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_cancel_never_flushes_drafts_after_context_changes(self):
+        for context in ('original', 'cell', 'project'):
+            for draft in ('22k', 'invalid resistance'):
+                with self.subTest(context=context, draft=draft):
+                    path, _, bid = self.prepare_parameter_cells()
+                    original_bytes = path.read_bytes()
+                    dialog = self.open_cell_parameters_editor()
+                    try:
+                        self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+                        target = path
+                        if context == 'cell':
+                            self.switch_parameter_cell(bid, Qt.Key_End)
+                        elif context == 'project':
+                            target = self.open_other_parameter_project(path)
+                        field = self.parameter_inspector_draft(draft)
+                        before = self.settings_document_snapshot(target)
+                        with patch.object(self.window, 'flush_inspector', side_effect=AssertionError('Cancel applied a property draft')) as flush:
+                            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Cancel).click()
+                            flush.assert_not_called()
+                        self.assertEqual(dialog.result(), QDialog.Rejected)
+                        self.assertFalse(dialog.isVisible())
+                        self.assertIs(self.window.form_fields['Value'], field)
+                        self.assertEqual(field.text(), draft)
+                        self.assertTrue(self.window._inspector_dirty)
+                        self.assertEqual(self.settings_document_snapshot(target), before)
+                        self.assertEqual(path.read_bytes(), original_bytes)
+                        self.assertEqual(self.errors, [])
+                    finally:
+                        self.close_workflow_editor(dialog)
+
+    def test_cell_parameters_default_workflow_without_guard_still_flushes_and_submits(self):
+        path, _, _ = self.prepare_parameter_cells()
+        w = self.window
+        original_bytes = path.read_bytes()
+        history_count = len(w.history.undo_stack)
+        dialog = w.workflow_form('Default workflow control', [('name', 'Name', w.project['name'])],
+                                 lambda values: w.commit(lambda p: p.update(name=values['name']), 'Control rename'))
+        try:
+            self.app.processEvents()
+            self.type_visible_settings_field(dialog.fields['name'], 'Default workflow works')
+            self.parameter_inspector_draft('22k')
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertEqual(dialog.result(), QDialog.Accepted)
+            self.assertEqual(w.project['name'], 'Default workflow works')
+            self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+            self.assertFalse(w._inspector_dirty)
+            self.assertEqual(len(w.history.undo_stack), history_count + 2)
+            self.assertEqual(path.read_bytes(), original_bytes)
+            self.assertEqual(self.errors, [])
+        finally:
+            self.close_workflow_editor(dialog)
+
+
+    @staticmethod
+    def generated_safety_cell(name, width, height, thickness, layer, net):
+        from icstudio.physical import recipe_cell
+        cell = recipe_cell(name, {'kind': 'guard_ring', 'width': width, 'height': height,
+                                  'thickness': thickness, 'layer': layer, 'net': net})
+        cell['devices'] = example()['cells'][0]['devices']
+        cell['labels'] = []  # Normalized empty labels must not look like an unrelated-cell edit.
+        return cell
+
+    def prepare_generated_cells(self):
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        a = self.generated_safety_cell('Ring_A', 12000, 10000, 400, 'metal1', 'a_net')
+        b = self.generated_safety_cell('Ring_B', 24000, 18000, 600, 'metal2', 'b_net')
+        project = example('empty')
+        project.update(cells=[a, b], top=b['id'])
+        w.set_project(project, path)
+        self.assertTrue(w.save())
+        self.addCleanup(w.setVisible, w.isVisible())
+        self.addCleanup(w.inspector_tabs.setCurrentIndex, w.inspector_tabs.currentIndex())
+        w.show()
+        w.reveal_properties()
+        w.mode_combo.setCurrentIndex(1)
+        self.app.processEvents()
+        self.switch_parameter_cell(a['id'], Qt.Key_Home)
+        return path, a['id'], b['id']
+
+    def open_regenerate_editor(self):
+        actions = [a for a in self.window.findChildren(QAction)
+                   if a.text().replace('&', '') == 'Regenerate active layout cell…']
+        self.assertEqual(len(actions), 1)
+        self.assertTrue(actions[0].isEnabled())
+        actions[0].trigger()
+        dialog = self.window._workflow_dialog
+        self.app.processEvents()
+        self.assertTrue(dialog.isVisible())
+        self.assertFalse(dialog.isModal())
+        self.assertEqual(dialog.fields['width'].text(), '12000')
+        self.assertEqual(dialog.fields['layer'].text(), 'metal1')
+        self.type_visible_settings_field(dialog.fields['width'], '14000')
+        return dialog
+
+    def generated_shape_draft(self, draft):
+        w = self.window
+        w.mode_combo.setCurrentIndex(1)
+        shape_id = w.cell['shapes'][0]['id']
+        w.select([shape_id])
+        w.reveal_properties()
+        self.app.processEvents()
+        field = w.form_fields['Width']
+        self.type_visible_settings_field(field, draft)
+        self.assertTrue(w._inspector_dirty)
+        return shape_id, field
+
+    def open_other_generated_project(self, path):
+        target = path.parent / 'other generated project.icproj'
+        project = example('empty')
+        cell = self.generated_safety_cell('Other_project_ring', 36000, 26000, 800, 'metal2', 'other_net')
+        project.update(cells=[cell], top=cell['id'])
+        save_project(project, target)
+        with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(target), '')):
+            self.window.open_project()
+        self.assertEqual(self.window.project['id'], project['id'])
+        self.assertTrue(self.window.path.samefile(target))
+        return target
+
+    def assert_regenerate_refuses_without_draft_flush(self, dialog, path, field, draft, message):
+        w = self.window
+        before = self.settings_document_snapshot(path)
+        for _ in range(2):
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+            self.assertTrue(dialog.isVisible())
+            self.assertIn(message, dialog.error.text())
+            self.assertEqual(dialog.fields['width'].text(), '14000')
+            self.assertIs(w.form_fields['Width'], field)
+            self.assertEqual(field.text(), draft)
+            self.assertTrue(w._inspector_dirty)
+            self.assertEqual(self.settings_document_snapshot(path), before)
+        self.assertEqual(self.errors, [])
+
+    def test_regenerate_cross_cell_refuses_before_valid_or_invalid_shape_draft_flush(self):
+        for draft in ('26', 'invalid width'):
+            with self.subTest(draft=draft):
+                path, _, bid = self.prepare_generated_cells()
+                dialog = self.open_regenerate_editor()
+                try:
+                    self.switch_parameter_cell(bid, Qt.Key_End)
+                    _, field = self.generated_shape_draft(draft)
+                    self.assert_regenerate_refuses_without_draft_flush(
+                        dialog, path, field, draft, 'active project or cell changed')
+                    self.assertEqual(self.window.cell['generator']['spec']['width'], 24000)
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_regenerate_cross_project_refuses_before_valid_or_invalid_shape_draft_flush(self):
+        for draft in ('38', 'invalid width'):
+            with self.subTest(draft=draft):
+                path, _, _ = self.prepare_generated_cells()
+                original_bytes = path.read_bytes()
+                dialog = self.open_regenerate_editor()
+                try:
+                    target = self.open_other_generated_project(path)
+                    _, field = self.generated_shape_draft(draft)
+                    self.assert_regenerate_refuses_without_draft_flush(
+                        dialog, target, field, draft, 'active project or cell changed')
+                    self.assertEqual(self.window.cell['generator']['spec']['width'], 36000)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_regenerate_original_context_and_return_allow_unrelated_edit_undo_redo_save(self):
+        for return_to_original in (False, True):
+            with self.subTest(return_to_original=return_to_original):
+                path, aid, bid = self.prepare_generated_cells()
+                w = self.window
+                original_shapes = clone(w.cell['shapes'])
+                original_recipe = clone(w.cell['generator'])
+                other = clone(next(c for c in w.project['cells'] if c['id'] == bid))
+                saved_hash, original_bytes = w.saved_hash, path.read_bytes()
+                history_count = len(w.history.undo_stack)
+                dialog = self.open_regenerate_editor()
+                try:
+                    if return_to_original:
+                        self.switch_parameter_cell(bid, Qt.Key_End)
+                        before = self.settings_document_snapshot(path)
+                        dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                        self.assertTrue(dialog.isVisible())
+                        self.assertIn('active project or cell changed', dialog.error.text())
+                        self.assertEqual(self.settings_document_snapshot(path), before)
+                        self.switch_parameter_cell(aid, Qt.Key_Home)
+                    w.mode_combo.setCurrentIndex(0)
+                    self.parameter_inspector_draft('22k')
+                    dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                    self.assertEqual(dialog.result(), QDialog.Accepted)
+                    self.assertFalse(dialog.isVisible())
+                    self.assertEqual(w.cid, aid)
+                    self.assertEqual(w.cell['generator']['spec'], {**original_recipe['spec'], 'width': 14000})
+                    self.assertNotEqual(w.cell['shapes'], original_shapes)
+                    regenerated_shapes = clone(w.cell['shapes'])
+                    self.assertEqual(next(c for c in w.project['cells'] if c['id'] == bid), other)
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+                    self.assertFalse(w._inspector_dirty)
+                    self.assertEqual(len(w.history.undo_stack), history_count + 2)
+                    self.assertEqual(w.path, path)
+                    self.assertEqual(w.saved_hash, saved_hash)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                    w.undo()
+                    self.assertEqual(w.cell['shapes'], original_shapes)
+                    self.assertEqual(w.cell['generator'], original_recipe)
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+                    w.undo()
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '10k')
+                    w.redo()
+                    w.redo()
+                    self.assertEqual(w.cell['shapes'], regenerated_shapes)
+                    self.assertTrue(w.save())
+                    saved = load_project(path)
+                    self.assertEqual(next(c for c in saved['cells'] if c['id'] == aid), w.cell)
+                    self.assertEqual(next(c for c in saved['cells'] if c['id'] == bid), other)
+                    self.assertEqual(self.errors, [])
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_regenerate_stale_recipe_or_committed_geometry_cannot_be_overwritten(self):
+        for change in ('recipe', 'second_form', 'committed_shape'):
+            with self.subTest(change=change):
+                path, aid, _ = self.prepare_generated_cells()
+                w = self.window
+                first = self.open_regenerate_editor()
+                second = None
+                try:
+                    if change == 'recipe':
+                        w.commit(lambda p: next(c for c in p['cells'] if c['id'] == aid)['generator']['spec'].update(width=16000),
+                                 'Change saved recipe')
+                    elif change == 'second_form':
+                        second = self.open_regenerate_editor()
+                        self.type_visible_settings_field(second.fields['width'], '16000')
+                        second.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                        self.assertEqual(second.result(), QDialog.Accepted)
+                        self.assertEqual(w.cell['generator']['spec']['width'], 16000)
+                    else:
+                        self.generated_shape_draft('13')
+                        self.assertTrue(w.flush_inspector())
+                        self.assertEqual(w.cell['shapes'][0]['points'][1][0], 13000)
+                    _, field = self.generated_shape_draft('15')
+                    self.assert_regenerate_refuses_without_draft_flush(
+                        first, path, field, '15', 'target cell recipe or geometry changed')
+                finally:
+                    self.close_workflow_editor(first)
+                    if second is not None:
+                        self.close_workflow_editor(second)
+
+    def test_regenerate_deleted_target_cannot_replace_remaining_cell_geometry(self):
+        path, aid, bid = self.prepare_generated_cells()
+        w = self.window
+        dialog = self.open_regenerate_editor()
+        try:
+            actions = [a for a in w.findChildren(QAction)
+                       if a.text().replace('&', '') == 'Delete active cell…']
+            self.assertEqual(len(actions), 1)
+            self.assertTrue(actions[0].isEnabled())
+            with patch.object(QMessageBox, 'question', return_value=QMessageBox.Yes):
+                actions[0].trigger()
+            self.assertFalse(any(c['id'] == aid for c in w.project['cells']))
+            self.assertEqual(w.cid, bid)
+            _, field = self.generated_shape_draft('26')
+            self.assert_regenerate_refuses_without_draft_flush(
+                dialog, path, field, '26', 'active project or cell changed')
+            self.assertEqual(w.cell['generator']['spec']['width'], 24000)
+        finally:
+            self.close_workflow_editor(dialog)
+
+    def test_regenerate_cancel_never_flushes_drafts_after_context_changes(self):
+        for context in ('original', 'cell', 'project'):
+            for draft in ('15', 'invalid width'):
+                with self.subTest(context=context, draft=draft):
+                    path, _, bid = self.prepare_generated_cells()
+                    w = self.window
+                    original_bytes = path.read_bytes()
+                    dialog = self.open_regenerate_editor()
+                    try:
+                        target = path
+                        if context == 'cell':
+                            self.switch_parameter_cell(bid, Qt.Key_End)
+                        elif context == 'project':
+                            target = self.open_other_generated_project(path)
+                        _, field = self.generated_shape_draft(draft)
+                        before = self.settings_document_snapshot(target)
+                        with patch.object(w, 'flush_inspector', side_effect=AssertionError('Cancel applied a geometry draft')) as flush:
+                            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Cancel).click()
+                            flush.assert_not_called()
+                        self.assertEqual(dialog.result(), QDialog.Rejected)
+                        self.assertFalse(dialog.isVisible())
+                        self.assertIs(w.form_fields['Width'], field)
+                        self.assertEqual(field.text(), draft)
+                        self.assertTrue(w._inspector_dirty)
+                        self.assertEqual(self.settings_document_snapshot(target), before)
+                        self.assertEqual(path.read_bytes(), original_bytes)
+                        self.assertEqual(self.errors, [])
+                    finally:
+                        self.close_workflow_editor(dialog)
+
+    def test_regenerate_applied_same_target_shape_draft_is_not_overwritten_after_flush(self):
+        path, _, _ = self.prepare_generated_cells()
+        w = self.window
+        original_shapes = clone(w.cell['shapes'])
+        original_recipe = clone(w.cell['generator'])
+        original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+        history_count = len(w.history.undo_stack)
+        dialog = self.open_regenerate_editor()
+        try:
+            shape_id, _ = self.generated_shape_draft('13')
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+            self.assertTrue(dialog.isVisible())
+            self.assertIn('target cell recipe or geometry changed', dialog.error.text())
+            self.assertEqual(dialog.fields['width'].text(), '14000')
+            self.assertFalse(w._inspector_dirty)
+            self.assertEqual(w.form_fields['Width'].text(), '13')
+            applied = next(s for s in w.cell['shapes'] if s['id'] == shape_id)
+            self.assertEqual(applied['points'], [[0, 0], [13000, 400]])
+            self.assertEqual(w.cell['shapes'][1:], original_shapes[1:])
+            self.assertEqual(w.cell['generator'], original_recipe)
+            self.assertEqual(len(w.history.undo_stack), history_count + 1)
+            self.assertEqual(w.saved_hash, saved_hash)
+            self.assertEqual(w.path, path)
+            self.assertEqual(path.read_bytes(), original_bytes)
+            after_apply = self.settings_document_snapshot(path)
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertTrue(dialog.isVisible())
+            self.assertEqual(self.settings_document_snapshot(path), after_apply)
+            self.assertTrue(w.save())
+            saved = next(c for c in load_project(path)['cells'] if c['id'] == w.cid)
+            self.assertEqual(saved['shapes'], w.cell['shapes'])
+            self.assertEqual(saved['generator'], original_recipe)
+            self.assertEqual(self.errors, [])
+        finally:
+            self.close_workflow_editor(dialog)
+
+
+    def context_session_action(self, title):
+        actions = [a for a in self.window.findChildren(QAction)
+                   if a.text().replace('&', '') == title]
+        self.assertEqual(len(actions), 1)
+        self.assertTrue(actions[0].isEnabled())
+        return actions[0]
+
+    def prepare_context_session(self, kind):
+        path, aid, bid = self.prepare_parameter_cells() if kind == 'parameters' else self.prepare_generated_cells()
+        w = self.window
+        # File/Open must restore this same cell, not incidentally trip the cell-ID guard.
+        w.commit(lambda p: p.update(top=aid), 'Session fixture root')
+        self.assertTrue(w.save())
+        self.addCleanup(w.inspector_tabs.setCurrentIndex, w.inspector_tabs.currentIndex())
+        w.reveal_properties()
+        w.mode_combo.setCurrentIndex(0)
+        return path, aid, bid
+
+    def open_context_session_editor(self, kind):
+        if kind == 'parameters':
+            dialog = self.open_cell_parameters_editor()
+            self.type_cell_parameters(dialog, 'resistance = 33k\na_only = 3')
+        else:
+            dialog = self.open_regenerate_editor()
+        return dialog
+
+    def context_session_baseline(self, kind):
+        cell = self.window.cell
+        return clone(cell.get('parameters', {})) if kind == 'parameters' else clone([cell['generator'], cell['shapes']])
+
+    def check_replaced_context_session_refuses(self, kind):
+        for replacement in ('copied_file', 'same_file_reopen'):
+            for draft in ('22k', 'invalid resistance'):
+                with self.subTest(kind=kind, replacement=replacement, draft=draft):
+                    path, aid, _ = self.prepare_context_session(kind)
+                    w = self.window
+                    original_bytes = path.read_bytes()
+                    project_id, opening_history = w.project['id'], w.history
+                    opening_digest = digest(w.project)
+                    baseline = self.context_session_baseline(kind)
+                    target = path
+                    if replacement == 'copied_file':
+                        target = path.parent / 'byte-identical session copy.icproj'
+                        target.write_bytes(original_bytes)
+                        self.assertEqual(target.read_bytes(), original_bytes)
+                    dialog = self.open_context_session_editor(kind)
+                    try:
+                        with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(target), '')):
+                            self.context_session_action('Open project…').trigger()
+                        self.assertTrue(w.path.samefile(target))
+                        self.assertIsNot(w.history, opening_history)
+                        self.assertEqual(w.project['id'], project_id)
+                        self.assertEqual(w.cid, aid)
+                        self.assertEqual(digest(w.project), opening_digest)
+                        self.assertEqual(self.context_session_baseline(kind), baseline)
+                        self.assertTrue(dialog.isVisible())
+                        replacement_history = w.history
+                        w.reveal_properties()
+                        w.mode_combo.setCurrentIndex(0)
+                        field = self.parameter_inspector_draft(draft)
+                        before = self.settings_document_snapshot(target)
+                        for _ in range(2):
+                            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+                            self.assertTrue(dialog.isVisible())
+                            self.assertIn('active project or cell changed', dialog.error.text())
+                            if kind == 'parameters':
+                                self.assertEqual(dialog.fields['parameters'].toPlainText(), 'resistance = 33k\na_only = 3')
+                            else:
+                                self.assertEqual(dialog.fields['width'].text(), '14000')
+                            self.assertIs(w.history, replacement_history)
+                            self.assertIs(w.form_fields['Value'], field)
+                            self.assertEqual(field.text(), draft)
+                            self.assertTrue(w._inspector_dirty)
+                            self.assertEqual(self.settings_document_snapshot(target), before)
+                            self.assertEqual(path.read_bytes(), original_bytes)
+                        self.assertEqual(self.errors, [])
+                    finally:
+                        self.close_workflow_editor(dialog)
+
+    def test_context_session_cell_parameters_rejects_same_id_copy_and_reopen_before_flush(self):
+        self.check_replaced_context_session_refuses('parameters')
+
+    def test_context_session_regenerate_rejects_same_id_copy_and_reopen_before_flush(self):
+        self.check_replaced_context_session_refuses('regenerate')
+
+    def test_context_session_forms_allow_unrelated_edit_undo_redo_and_save_as_continuity(self):
+        for kind in ('parameters', 'regenerate'):
+            with self.subTest(kind=kind):
+                path, aid, bid = self.prepare_context_session(kind)
+                w = self.window
+                original_bytes, document = path.read_bytes(), w.history
+                baseline = self.context_session_baseline(kind)
+                other = clone(next(c for c in w.project['cells'] if c['id'] == bid))
+                original_name = w.cell['name']
+                dialog = self.open_context_session_editor(kind)
+                try:
+                    with patch.object(QInputDialog, 'getText', return_value=('Renamed_same_session', True)):
+                        self.context_session_action('Rename active cell…').trigger()
+                    self.assertEqual(w.cell['name'], 'Renamed_same_session')
+                    self.assertIs(w.history, document)
+                    self.assertTrue(w.undo_action.isEnabled())
+                    w.undo_action.trigger()
+                    self.assertEqual(w.cell['name'], original_name)
+                    self.assertIs(w.history, document)
+                    self.assertTrue(w.redo_action.isEnabled())
+                    w.redo_action.trigger()
+                    self.assertEqual(w.cell['name'], 'Renamed_same_session')
+                    self.assertIs(w.history, document)
+                    self.assertEqual(self.context_session_baseline(kind), baseline)
+                    target = path.parent / 'same session Save As.icproj'
+                    with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')):
+                        self.context_session_action('Save as…').trigger()
+                    self.assertTrue(w.path.samefile(target))
+                    self.assertIs(w.history, document)
+                    self.assertEqual(self.context_session_baseline(kind), baseline)
+                    self.assertTrue(dialog.isVisible())
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                    saved_hash = w.saved_hash
+                    saved_bytes = target.read_bytes()
+                    history_count = len(w.history.undo_stack)
+                    dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                    self.assertEqual(dialog.result(), QDialog.Accepted)
+                    self.assertFalse(dialog.isVisible())
+                    self.assertIs(w.history, document)
+                    self.assertEqual(w.cid, aid)
+                    self.assertEqual(w.cell['name'], 'Renamed_same_session')
+                    self.assertEqual(len(w.history.undo_stack), history_count + 1)
+                    if kind == 'parameters':
+                        self.assertEqual(w.cell['parameters'], {'resistance': '33k', 'a_only': '3'})
+                    else:
+                        self.assertEqual(w.cell['generator']['spec']['width'], 14000)
+                        self.assertNotEqual(w.cell['shapes'], baseline[1])
+                    self.assertEqual(next(c['shapes'] for c in w.project['cells'] if c['id'] == bid), other['shapes'])
+                    self.assertEqual(w.saved_hash, saved_hash)
+                    self.assertEqual(target.read_bytes(), saved_bytes)
+                    self.context_session_action('Save').trigger()
+                    self.assertIs(w.history, document)
+                    self.assertEqual(w.saved_hash, digest(w.project))
+                    saved = next(c for c in load_project(target)['cells'] if c['id'] == aid)
+                    self.assertEqual(saved, w.cell)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                    self.assertEqual(self.errors, [])
+                finally:
+                    self.close_workflow_editor(dialog)
+
+
+    @staticmethod
+    def erase_safety_cell(name, size, outside_x, net):
+        from icstudio.layout import rect
+        cell = example()['cells'][0]
+        cell.update(name=name, shapes=[rect('metal1', 0, 0, size, size, net=net),
+                                       rect('metal1', outside_x, 0, 1000, 1000, net=net + '_outside')])
+        return cell
+
+    def prepare_erase_cells(self):
+        path, _ = self.prepare(dirty=False)
+        w = self.window
+        a = self.erase_safety_cell('Layout_A', 1000, 3000, 'a_net')
+        b = self.erase_safety_cell('Layout_B', 1500, 4000, 'b_net')
+        project = example('empty')
+        project.update(cells=[a, b], top=b['id'])
+        w.set_project(project, path)
+        self.assertTrue(w.save())
+        self.addCleanup(w.setVisible, w.isVisible())
+        self.addCleanup(w.inspector_tabs.setCurrentIndex, w.inspector_tabs.currentIndex())
+        w.show()
+        w.reveal_properties()  # Earlier digital/analysis tests may leave the Analysis tab active.
+        w.mode_combo.setCurrentIndex(1)
+        self.app.processEvents()
+        self.switch_parameter_cell(a['id'], Qt.Key_Home)
+        return path, a['id'], b['id']
+
+    def open_erase_editor(self):
+        actions = [a for a in self.window.findChildren(QAction)
+                   if a.text().replace('&', '') == 'Erase layout area…']
+        self.assertEqual(len(actions), 1)
+        self.assertTrue(actions[0].isEnabled())
+        actions[0].trigger()
+        dialog = self.window._workflow_dialog
+        self.app.processEvents()
+        self.assertTrue(dialog.isVisible())
+        self.assertFalse(dialog.isModal())
+        self.assertEqual(dialog.fields['layer'].currentText(), 'metal1')
+        for key in ('x2', 'y2'):
+            self.type_visible_settings_field(dialog.fields[key], '2')
+        return dialog
+
+    def open_other_erase_project(self, path):
+        target = path.parent / 'other erase project.icproj'
+        project = example('empty')
+        cell = self.erase_safety_cell('Other_layout', 1700, 5000, 'other_net')
+        project.update(cells=[cell], top=cell['id'])
+        save_project(project, target)
+        with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(target), '')):
+            self.window.open_project()
+        self.assertEqual(self.window.project['id'], project['id'])
+        self.assertTrue(self.window.path.samefile(target))
+        return target
+
+    def assert_erase_refuses_without_draft_flush(self, dialog, path, field, draft, message):
+        w = self.window
+        before = self.settings_document_snapshot(path)
+        for _ in range(2):
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+            self.assertTrue(dialog.isVisible())
+            self.assertIn(message, dialog.error.text())
+            self.assertEqual(dialog.fields['x2'].text(), '2')
+            self.assertEqual(dialog.fields['y2'].text(), '2')
+            self.assertIs(w.form_fields['Width'], field)
+            self.assertEqual(field.text(), draft)
+            self.assertTrue(w._inspector_dirty)
+            self.assertEqual(self.settings_document_snapshot(path), before)
+        self.assertEqual(self.errors, [])
+
+    def test_erase_cross_cell_refuses_before_valid_or_invalid_shape_draft_flush(self):
+        for draft in ('1.75', 'invalid width'):
+            with self.subTest(draft=draft):
+                path, _, bid = self.prepare_erase_cells()
+                dialog = self.open_erase_editor()
+                try:
+                    self.switch_parameter_cell(bid, Qt.Key_End)
+                    _, field = self.generated_shape_draft(draft)
+                    self.assert_erase_refuses_without_draft_flush(
+                        dialog, path, field, draft, 'active project or cell changed')
+                    self.assertEqual(len(self.window.cell['shapes']), 2)
+                    self.assertEqual(self.window.cell['shapes'][0]['net'], 'b_net')
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_erase_cross_project_refuses_before_valid_or_invalid_shape_draft_flush(self):
+        for draft in ('1.9', 'invalid width'):
+            with self.subTest(draft=draft):
+                path, _, _ = self.prepare_erase_cells()
+                original_bytes = path.read_bytes()
+                dialog = self.open_erase_editor()
+                try:
+                    target = self.open_other_erase_project(path)
+                    _, field = self.generated_shape_draft(draft)
+                    self.assert_erase_refuses_without_draft_flush(
+                        dialog, target, field, draft, 'active project or cell changed')
+                    self.assertEqual(len(self.window.cell['shapes']), 2)
+                    self.assertEqual(self.window.cell['shapes'][0]['net'], 'other_net')
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_erase_original_context_and_return_allow_correct_area_undo_redo_save(self):
+        for return_to_original in (False, True):
+            with self.subTest(return_to_original=return_to_original):
+                path, aid, bid = self.prepare_erase_cells()
+                w = self.window
+                original_shapes = clone(w.cell['shapes'])
+                other_shapes = clone(next(c['shapes'] for c in w.project['cells'] if c['id'] == bid))
+                saved_hash, original_bytes = w.saved_hash, path.read_bytes()
+                history_count = len(w.history.undo_stack)
+                dialog = self.open_erase_editor()
+                try:
+                    if return_to_original:
+                        self.switch_parameter_cell(bid, Qt.Key_End)
+                        before = self.settings_document_snapshot(path)
+                        dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                        self.assertTrue(dialog.isVisible())
+                        self.assertIn('active project or cell changed', dialog.error.text())
+                        self.assertEqual(self.settings_document_snapshot(path), before)
+                        self.switch_parameter_cell(aid, Qt.Key_Home)
+                    w.mode_combo.setCurrentIndex(0)
+                    self.parameter_inspector_draft('22k')
+                    dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                    self.assertEqual(dialog.result(), QDialog.Accepted)
+                    self.assertFalse(dialog.isVisible())
+                    self.assertEqual(w.cid, aid)
+                    self.assertEqual(w.cell['shapes'], original_shapes[1:])
+                    self.assertEqual(next(c['shapes'] for c in w.project['cells'] if c['id'] == bid), other_shapes)
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+                    self.assertFalse(w._inspector_dirty)
+                    self.assertEqual(len(w.history.undo_stack), history_count + 2)
+                    self.assertEqual(w.saved_hash, saved_hash)
+                    self.assertEqual(w.path, path)
+                    self.assertEqual(path.read_bytes(), original_bytes)
+                    w.undo()
+                    self.assertEqual(w.cell['shapes'], original_shapes)
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '22k')
+                    w.undo()
+                    self.assertEqual(next(d['value'] for d in w.cell['devices'] if d['kind'] == 'R'), '10k')
+                    w.redo()
+                    w.redo()
+                    self.assertEqual(w.cell['shapes'], original_shapes[1:])
+                    self.assertTrue(w.save())
+                    saved = load_project(path)
+                    a = next(c for c in saved['cells'] if c['id'] == aid)
+                    self.assertEqual(a['shapes'], original_shapes[1:])
+                    self.assertEqual(next(d['value'] for d in a['devices'] if d['kind'] == 'R'), '22k')
+                    self.assertEqual(next(c['shapes'] for c in saved['cells'] if c['id'] == bid), other_shapes)
+                    self.assertEqual(self.errors, [])
+                finally:
+                    self.close_workflow_editor(dialog)
+
+    def test_erase_stale_second_form_or_committed_geometry_cannot_delete_new_state(self):
+        for change in ('second_form', 'committed_shape'):
+            with self.subTest(change=change):
+                path, _, _ = self.prepare_erase_cells()
+                w = self.window
+                first = self.open_erase_editor()
+                second = None
+                try:
+                    if change == 'second_form':
+                        second = self.open_erase_editor()
+                        second.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                        self.assertEqual(second.result(), QDialog.Accepted)
+                        self.assertEqual(len(w.cell['shapes']), 1)
+                    else:
+                        self.generated_shape_draft('1.5')
+                        self.assertTrue(w.flush_inspector())
+                        self.assertEqual(w.cell['shapes'][0]['points'][1][0], 1500)
+                    _, field = self.generated_shape_draft('1.75')
+                    self.assert_erase_refuses_without_draft_flush(
+                        first, path, field, '1.75', 'target cell geometry changed')
+                finally:
+                    self.close_workflow_editor(first)
+                    if second is not None:
+                        self.close_workflow_editor(second)
+
+    def test_erase_deleted_target_cannot_erase_remaining_cell_geometry(self):
+        path, aid, bid = self.prepare_erase_cells()
+        w = self.window
+        dialog = self.open_erase_editor()
+        try:
+            actions = [a for a in w.findChildren(QAction)
+                       if a.text().replace('&', '') == 'Delete active cell…']
+            self.assertEqual(len(actions), 1)
+            self.assertTrue(actions[0].isEnabled())
+            with patch.object(QMessageBox, 'question', return_value=QMessageBox.Yes):
+                actions[0].trigger()
+            self.assertFalse(any(c['id'] == aid for c in w.project['cells']))
+            self.assertEqual(w.cid, bid)
+            _, field = self.generated_shape_draft('1.75')
+            self.assert_erase_refuses_without_draft_flush(
+                dialog, path, field, '1.75', 'active project or cell changed')
+            self.assertEqual(len(w.cell['shapes']), 2)
+        finally:
+            self.close_workflow_editor(dialog)
+
+    def test_erase_cancel_never_flushes_drafts_after_context_changes(self):
+        for context in ('original', 'cell', 'project'):
+            for draft in ('1.9', 'invalid width'):
+                with self.subTest(context=context, draft=draft):
+                    path, _, bid = self.prepare_erase_cells()
+                    w = self.window
+                    original_bytes = path.read_bytes()
+                    dialog = self.open_erase_editor()
+                    try:
+                        target = path
+                        if context == 'cell':
+                            self.switch_parameter_cell(bid, Qt.Key_End)
+                        elif context == 'project':
+                            target = self.open_other_erase_project(path)
+                        _, field = self.generated_shape_draft(draft)
+                        before = self.settings_document_snapshot(target)
+                        with patch.object(w, 'flush_inspector', side_effect=AssertionError('Cancel applied a geometry draft')) as flush:
+                            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Cancel).click()
+                            flush.assert_not_called()
+                        self.assertEqual(dialog.result(), QDialog.Rejected)
+                        self.assertFalse(dialog.isVisible())
+                        self.assertIs(w.form_fields['Width'], field)
+                        self.assertEqual(field.text(), draft)
+                        self.assertTrue(w._inspector_dirty)
+                        self.assertEqual(self.settings_document_snapshot(target), before)
+                        self.assertEqual(path.read_bytes(), original_bytes)
+                        self.assertEqual(self.errors, [])
+                    finally:
+                        self.close_workflow_editor(dialog)
+
+    def test_erase_applied_same_target_shape_draft_is_not_erased_after_flush(self):
+        path, _, _ = self.prepare_erase_cells()
+        w = self.window
+        original_shapes = clone(w.cell['shapes'])
+        original_bytes, saved_hash = path.read_bytes(), w.saved_hash
+        history_count = len(w.history.undo_stack)
+        dialog = self.open_erase_editor()
+        try:
+            shape_id, _ = self.generated_shape_draft('1.5')
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+            self.assertTrue(dialog.isVisible())
+            self.assertIn('target cell geometry changed', dialog.error.text())
+            self.assertEqual(dialog.fields['x2'].text(), '2')
+            self.assertFalse(w._inspector_dirty)
+            self.assertEqual(w.form_fields['Width'].text(), '1.5')
+            applied = next(s for s in w.cell['shapes'] if s['id'] == shape_id)
+            self.assertEqual(applied['points'], [[0, 0], [1500, 1000]])
+            self.assertEqual(w.cell['shapes'][1:], original_shapes[1:])
+            self.assertEqual(len(w.cell['shapes']), 2)
+            self.assertEqual(len(w.history.undo_stack), history_count + 1)
+            self.assertEqual(w.saved_hash, saved_hash)
+            self.assertEqual(w.path, path)
+            self.assertEqual(path.read_bytes(), original_bytes)
+            after_apply = self.settings_document_snapshot(path)
+            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+            self.assertTrue(dialog.isVisible())
+            self.assertEqual(self.settings_document_snapshot(path), after_apply)
+            self.assertTrue(w.save())
+            saved = next(c for c in load_project(path)['cells'] if c['id'] == w.cid)
+            self.assertEqual(saved['shapes'], w.cell['shapes'])
+            self.assertEqual(next(s['points'] for s in saved['shapes'] if s['id'] == shape_id), [[0, 0], [1500, 1000]])
+            self.assertEqual(self.errors, [])
+        finally:
+            self.close_workflow_editor(dialog)
+
+    def test_erase_invalid_box_remains_visible_without_modifying_geometry(self):
+        path, _, _ = self.prepare_erase_cells()
+        before = self.settings_document_snapshot(path)
+        dialog = self.open_erase_editor()
+        try:
+            self.type_visible_settings_field(dialog.fields['x2'], '-1')
+            for _ in range(2):
+                dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                self.assertNotEqual(dialog.result(), QDialog.Accepted)
+                self.assertTrue(dialog.isVisible())
+                self.assertIn('upper-right corner must exceed the lower-left', dialog.error.text())
+                self.assertEqual(dialog.fields['x2'].text(), '-1')
+                self.assertEqual(self.settings_document_snapshot(path), before)
+            self.assertEqual(self.errors, [])
+        finally:
+            self.close_workflow_editor(dialog)
+
+
+    def test_erase_same_id_document_replacement_refuses_but_save_as_keeps_context(self):
+        for replacement in ('copied_file', 'same_file_reopen'):
+            for draft in ('22k', 'invalid resistance'):
+                with self.subTest(replacement=replacement, draft=draft):
+                    path, aid, _ = self.prepare_erase_cells()
+                    w = self.window
+                    # Keep the same root cell through File/Open so IDs and geometry cannot mask the session guard.
+                    w.commit(lambda p: p.update(top=aid), 'Erase session fixture root')
+                    self.assertTrue(w.save())
+                    original_bytes, document = path.read_bytes(), w.history
+                    opening_digest, project_id = digest(w.project), w.project['id']
+                    original_shapes = clone(w.cell['shapes'])
+                    target = path
+                    if replacement == 'copied_file':
+                        target = path.parent / 'byte-identical erase copy.icproj'
+                        target.write_bytes(original_bytes)
+                        self.assertEqual(target.read_bytes(), original_bytes)
+                    dialog = self.open_erase_editor()
+                    try:
+                        with patch.object(QFileDialog, 'getOpenFileName', return_value=(str(target), '')):
+                            self.context_session_action('Open project…').trigger()
+                        self.assertTrue(w.path.samefile(target))
+                        self.assertIsNot(w.history, document)
+                        self.assertEqual(w.project['id'], project_id)
+                        self.assertEqual(w.cid, aid)
+                        self.assertEqual(digest(w.project), opening_digest)
+                        self.assertEqual(w.cell['shapes'], original_shapes)
+                        replacement_history = w.history
+                        w.reveal_properties()
+                        w.mode_combo.setCurrentIndex(0)
+                        field = self.parameter_inspector_draft(draft)
+                        before = self.settings_document_snapshot(target)
+                        for _ in range(2):
+                            dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                            self.assertNotEqual(dialog.result(), QDialog.Accepted)
+                            self.assertTrue(dialog.isVisible())
+                            self.assertIn('active project or cell changed', dialog.error.text())
+                            self.assertEqual(dialog.fields['x2'].text(), '2')
+                            self.assertEqual(dialog.fields['y2'].text(), '2')
+                            self.assertIs(w.history, replacement_history)
+                            self.assertIs(w.form_fields['Value'], field)
+                            self.assertEqual(field.text(), draft)
+                            self.assertTrue(w._inspector_dirty)
+                            self.assertEqual(self.settings_document_snapshot(target), before)
+                            self.assertEqual(path.read_bytes(), original_bytes)
+                        self.assertEqual(self.errors, [])
+                    finally:
+                        self.close_workflow_editor(dialog)
+
+        with self.subTest(replacement='Save As retains document'):
+            path, aid, bid = self.prepare_erase_cells()
+            w = self.window
+            original_bytes, document = path.read_bytes(), w.history
+            original_shapes = clone(w.cell['shapes'])
+            other_shapes = clone(next(c['shapes'] for c in w.project['cells'] if c['id'] == bid))
+            dialog = self.open_erase_editor()
+            try:
+                target = path.parent / 'same erase session Save As.icproj'
+                with patch.object(QFileDialog, 'getSaveFileName', return_value=(str(target), '')):
+                    self.context_session_action('Save as…').trigger()
+                self.assertTrue(w.path.samefile(target))
+                self.assertIs(w.history, document)
+                self.assertEqual(w.cell['shapes'], original_shapes)
+                self.assertTrue(dialog.isVisible())
+                saved_hash, saved_bytes = w.saved_hash, target.read_bytes()
+                history_count = len(w.history.undo_stack)
+                dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
+                self.assertEqual(dialog.result(), QDialog.Accepted)
+                self.assertFalse(dialog.isVisible())
+                self.assertIs(w.history, document)
+                self.assertEqual(w.cid, aid)
+                self.assertEqual(w.cell['shapes'], original_shapes[1:])
+                self.assertEqual(next(c['shapes'] for c in w.project['cells'] if c['id'] == bid), other_shapes)
+                self.assertEqual(len(w.history.undo_stack), history_count + 1)
+                self.assertEqual(w.saved_hash, saved_hash)
+                self.assertEqual(target.read_bytes(), saved_bytes)
+                w.undo_action.trigger()
+                self.assertIs(w.history, document)
+                self.assertEqual(w.cell['shapes'], original_shapes)
+                w.redo_action.trigger()
+                self.assertIs(w.history, document)
+                self.assertEqual(w.cell['shapes'], original_shapes[1:])
+                self.context_session_action('Save').trigger()
+                self.assertIs(w.history, document)
+                self.assertEqual(next(c for c in load_project(target)['cells'] if c['id'] == aid), w.cell)
+                self.assertEqual(path.read_bytes(), original_bytes)
+                self.assertEqual(self.errors, [])
+            finally:
+                self.close_workflow_editor(dialog)
+
 
 
 if __name__ == '__main__':

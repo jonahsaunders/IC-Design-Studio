@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "validation_started_utc": "2026-11-12T10:56:21.826830+00:00",
+  "base_commit": "f418e3e76ea539358ec470228d7ba3810177da8d",
+  "base_tree": "3b1e9c669da00a891f6bb44744c86a0fdaf68b5c",
+  "scope": "Final combined document-context guards for Cell Parameters, Regenerate active layout cell and Erase layout area.",
+  "repair": "All three modeless forms bind the opening document/history session, project ID, cell ID and relevant opening parameters or geometry/recipe. They reject replacement, including same-ID copies and same-file reopen, before unrelated inspector drafts can flush. Regenerate and Erase recheck after flush so a newly applied geometry edit is not silently replaced or erased. Accepted operations commit to the captured cell. Cancel, valid same-context and returned-context operations, undo/redo, Save As continuity and invalid-box feedback remain covered.",
+  "source_recovery": {
+    "recovered_base": "f418e3e76ea539358ec470228d7ba3810177da8d",
+    "base_tests": 64,
+    "base_test_methods_and_helpers_preserved_byte_exact": true,
+    "final_qt_cases": 83,
+    "added_methods": 19,
+    "recovery_statement": "After restarts, two sets of local worktrees and temporary backups became unavailable. Later source was reconstructed from the recoverable base and retained conversation, then restored again to exact SHA256 matches with the first reconstructed candidate. This does not claim a byte match with earlier pre-reconstruction candidates.",
+    "restored_exact_to_prior_reconstruction": {
+      "icstudio/feature_ui.py": "e967ee76d97bb98cbab3b2ff5a8c8327a7abd24610fbf9920700862cf5f7418a",
+      "tests/gui_project_data_safety.py": "86b91ba150b282d1059926c1ded630bc5252abfed14db511b239b5d221bed35e",
+      "tests/test_project_data_safety.py": "e22d981461210f6b97cb3d153458d1804b14a48799c6c8ab0daf9b945100f15a"
+    },
+    "intermediate_74_gui_sha256": "ae96d5ca23cd7e04d4a9934790e7946ce1baaf804848592a0668e3cc8eca03ae",
+    "missing_historical_artifacts": "Earlier temporary later-batch archives, full unit logs, identity maps and audit files were not recovered. Their prior summaries are not substituted for fresh validation or recreated as historical raw evidence. Existing evidence committed in the recovered base is left intact.",
+    "historical_fixture_failures": "Earlier runs included inspector-tab fixture visibility failures and, in the first reconstruction, two empty-label normalization assertions. Those were not passing runs; final source contains the fixture corrections. Their original raw logs were not recovered and are not claimed as retained here."
+  },
+  "persistent_source_backup": {
+    "verified_before_fresh_tests": true,
+    "bytes": 217973,
+    "sha256": "df6b453d7b6b6bbda2f940892531ffbfd5cecb4592152e66656201ec13248692",
+    "description": "Verified persistent source backup; private storage identifiers are intentionally omitted."
+  },
+  "fresh_validation": {
+    "complete_affected_unit_stage": {
+      "status": "PASS",
+      "tests": 293,
+      "skips": 3,
+      "seconds": 73.063,
+      "receiver_seconds": 73.978,
+      "runs": 1,
+      "returncode": 0,
+      "syntax_files": 1637,
+      "bound_source_identities": 2567,
+      "source_unchanged": true,
+      "launcher_sha256": "a56c2faf4885df76ab8689438091c3ee4089e1476b6648eab38f89bf8c59ff73"
+    },
+    "actual_qt_wrapper": {
+      "status": "PASS",
+      "actual_qt_cases": 83,
+      "wrapper_invocations": 1,
+      "inside_affected_unit_stage": true,
+      "counting_note": "The 293-test unit stage includes one subprocess wrapper that asserts all 83 real Qt cases passed. Do not add 83 to 293. No separate patched-wrapper run or log is claimed for this final validation.",
+      "timeout_seconds": 90
+    },
+    "original_feature_control": {
+      "status": "EXPECTED_FAILURES",
+      "baseline_commit": "f418e3e76ea539358ec470228d7ba3810177da8d",
+      "baseline_feature_ui_sha256": "0404f3a6acf2cbf12d137ae145945bdb5400180bf47ae15dcf2c4cc1fd02cb3d",
+      "methods": 19,
+      "selection_groups": {
+        "Regenerate": 7,
+        "context_session": 3,
+        "Erase": 9
+      },
+      "seconds": 13.005,
+      "runs": 1,
+      "returncode": 1,
+      "expected_assertion_failures": 31,
+      "methods_with_failures": 15,
+      "assertion_categories": {
+        "false_accept": 19,
+        "false_hide": 2,
+        "guard_priority": 10
+      },
+      "unexpected_failures_or_errors": 0,
+      "selection_receipt": "control/receipt.json",
+      "launcher_sha256": "c43e6cff47b4e97d44e662c042e3d2907a89631982ebd9ec988af54b10ffdccb"
+    },
+    "chronology": "After the persistent source backup was verified, one combined affected-unit stage and one 19-method original-feature control were run. No unexpected candidate failure or repeated suite occurred in this final validation. Earlier separate proofs whose raw artifacts were not recovered are not reused."
+  },
+  "identity_storage": {
+    "stored_map": "evidence/source-map.json",
+    "original_before_sha256": "6f4a58f307a332accf2b8abc29ae8c0c6400a3b7efb9b9d811675e7d4324fe60",
+    "original_after_sha256": "6f4a58f307a332accf2b8abc29ae8c0c6400a3b7efb9b9d811675e7d4324fe60",
+    "byte_identical": true,
+    "entry_count": 2567,
+    "duplicate_map_omitted_losslessly": true
+  },
+  "tested_modified_sources": {
+    "icstudio/feature_ui.py": {
+      "bytes": 37795,
+      "sha256": "e967ee76d97bb98cbab3b2ff5a8c8327a7abd24610fbf9920700862cf5f7418a"
+    },
+    "tests/gui_project_data_safety.py": {
+      "bytes": 163202,
+      "sha256": "86b91ba150b282d1059926c1ded630bc5252abfed14db511b239b5d221bed35e"
+    },
+    "tests/test_project_data_safety.py": {
+      "bytes": 762,
+      "sha256": "e22d981461210f6b97cb3d153458d1804b14a48799c6c8ab0daf9b945100f15a"
+    }
+  },
+  "normalization_record": "NORMALIZATION.json",
+  "not_run_for_this_final_candidate": [
+    "full exhaustive core/source qualification",
+    "all 14 local source stages",
+    "fresh hosted matrix",
+    "exact-candidate installed acceptance"
+  ],
+  "publication_status": {
+    "owner_authorized": [
+      "persistent Library backup",
+      "feature-branch publication of all three fixes",
+      "merge into experimental only after hosted checks pass"
+    ],
+    "actual_publication": "BLOCKED: the first source-upload attempt was denied. Repository-specific authorization is pending. No successful remote upload, branch update, pull request or merge is claimed.",
+    "hosted_checks": "UNRUN for this final candidate at documentation freeze.",
+    "experimental_integration": "PENDING hosted checks and verified merge.",
+    "main": "Must remain unchanged.",
+    "attempted_source_uploads": 1,
+    "successful_source_uploads": 0,
+    "retry_attempted": false,
+    "authorization_context": "The owner approved the combined plan; the first upload was nevertheless denied pending repository-specific authorization. Persistent source backup remains verified."
+  },
+  "historical_acceptance_inherited": false,
+  "scientific_qualification_changed": false,
+  "qualified": false,
+  "engineering_estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_fraction": false
+  },
+  "documentation_created_after_validation": true,
+  "privacy_review": {
+    "private_path_prefixes_normalized": true,
+    "source_bytes_altered": false,
+    "credential_private_memory_access_link_pattern_matches": 0,
+    "raw_storage_identifiers_included": false
+  },
+  "archive": {
+    "path": "docs/validation/experimental-document-context-final-2026-11-12.zip",
+    "bytes": 171985,
+    "sha256": "40d2c6852a70d6788d07985a23dcdcd4bce4f5bc0a19fe293e42c8b6f668f944",
+    "members": 14,
+    "manifest_entries": 13,
+    "readback": "PASS"
+  }
+}

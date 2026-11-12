@@ -43,7 +43,7 @@ class FeatureMixin:
         self.settings.setValue('sky130/root',vals['SKY130A directory']);self.start_cli_job(args,'SKY130 inverter reference')
         self.console.appendPlainText('Evidence will be written to '+str(Path(vals['Output directory'])/'report.json')+'; open inverter.icproj to inspect the generated native schematic and layout.')
 
-    def workflow_form(self,title,fields,submit,note=''):
+    def workflow_form(self,title,fields,submit,note='',*,context_guard=None):
         dlg=QDialog(self);dlg.setWindowTitle(title);dlg.resize(520,300);v=QVBoxLayout(dlg);form=QFormLayout();form.setVerticalSpacing(12);dlg.fields={}
         if note:
             label=QLabel(note);label.setWordWrap(True);label.setProperty('role','muted');v.addWidget(label)
@@ -56,6 +56,7 @@ class FeatureMixin:
         v.addLayout(form);dlg.error=QLabel();dlg.error.setWordWrap(True);dlg.error.setProperty('role','error');v.addWidget(dlg.error);buttons=QDialogButtonBox(QDialogButtonBox.Ok|QDialogButtonBox.Cancel);v.addWidget(buttons)
         def accept():
             try:
+                if context_guard:context_guard()
                 if not self.flush_inspector():raise ValueError('Resolve the property edit before continuing.')
                 values={k:(w.currentText() if isinstance(w,QComboBox) else w.toPlainText() if isinstance(w,QPlainTextEdit) else w.text()) for k,w in dlg.fields.items()};submit(values);dlg.accept()
             except Exception as e:dlg.error.setText(str(e))
@@ -175,10 +176,17 @@ class FeatureMixin:
         path,_=QFileDialog.getSaveFileName(self,'Export structural connectivity','design.v','Verilog (*.v)')
         if path and self.flush_inspector():atomic_write(path,verilog(self.project))
     def edit_parameters(self):
+        document=self.history;project_id=self.project['id'];cid=self.cid;baseline=clone(self.cell.get('parameters',{}))
+        def context_guard():
+            if self.history is not document or self.project['id']!=project_id or self.cid!=cid:
+                raise ValueError('The active project or cell changed. Reopen Cell parameters for the intended cell.')
+            target=next((c for c in self.project['cells'] if c['id']==cid),None)
+            if target is None or target.get('parameters',{})!=baseline:
+                raise ValueError('The target cell parameters changed. Reopen Cell parameters before applying edits.')
         def submit(v):
             definitions=dict(line.split('=',1) for line in v['parameters'].splitlines() if line.strip());definitions={k.strip():x.strip() for k,x in definitions.items()}
-            self.commit(lambda p:next(c for c in p['cells'] if c['id']==self.cid).update(parameters=definitions),'Cell parameters')
-        self.workflow_form('Cell parameters',[('parameters','Name = value',('\n'.join(k+' = '+str(v) for k,v in self.cell.get('parameters',{}).items()),))],submit,'Example: resistance = 10k. Device values can use {resistance * 2}.')
+            self.commit(lambda p:next(c for c in p['cells'] if c['id']==cid).update(parameters=definitions),'Cell parameters')
+        self.workflow_form('Cell parameters',[('parameters','Name = value',('\n'.join(k+' = '+str(v) for k,v in baseline.items()),))],submit,'Example: resistance = 10k. Device values can use {resistance * 2}.',context_guard=context_guard)
     def edit_instance_parameters(self):
         d=next((d for d in self.cell['devices'] if d['id'] in self.selection and d['kind']=='X'),None)
         if not d:raise ValueError('Select a schematic cell instance.')
@@ -213,13 +221,21 @@ class FeatureMixin:
         dlg.fields['kind'].currentTextChanged.connect(relevant);relevant('guard_ring')
     def regenerate_dialog(self):
         from .physical import regenerate
-        recipe=self.cell.get('generator')
+        recipe=clone(self.cell.get('generator'))
         if not recipe:raise ValueError('Open a generated layout cell first.')
+        document=self.history;project_id=self.project['id'];cid=self.cid;shapes=clone(self.cell['shapes'])
+        def context_guard():
+            if self.history is not document or self.project['id']!=project_id or self.cid!=cid:
+                raise ValueError('The active project or cell changed. Reopen Regenerate layout cell for the intended cell.')
+            target=next((c for c in self.project['cells'] if c['id']==cid),None)
+            if target is None or target.get('generator')!=recipe or target['shapes']!=shapes:
+                raise ValueError('The target cell recipe or geometry changed. Reopen Regenerate layout cell before applying edits.')
         fields=[(k,k.replace('_',' ').title(),str(v)) for k,v in recipe['spec'].items() if k!='kind']
         def submit(v):
+            context_guard()
             old=recipe['spec'];spec={**old,**{k:(int(x) if isinstance(old[k],int) else x) for k,x in v.items()}}
-            self.commit(lambda p:regenerate(next(c for c in p['cells'] if c['id']==self.cid),spec),'Regenerate layout cell')
-        self.workflow_form('Regenerate layout cell',fields,submit,'Recipe dimensions are integer database units (nm). Every physical instance updates with the cell.')
+            self.commit(lambda p:regenerate(next(c for c in p['cells'] if c['id']==cid),spec),'Regenerate layout cell')
+        self.workflow_form('Regenerate layout cell',fields,submit,'Recipe dimensions are integer database units (nm). Every physical instance updates with the cell.',context_guard=context_guard)
     def physical_instance_dialog(self):
         candidates=[c for c in self.project['cells'] if c['id']!=self.cid]
         if not candidates:raise ValueError('Create another layout cell first.')
@@ -234,11 +250,19 @@ class FeatureMixin:
         self.workflow_form('Assisted Manhattan route',[('layer','Layer',[l['name'] for l in self.project['pdk']['layers']]),('net','Net','vout'),('width','Width (µm)','0.4'),('x1','Start X (µm)','0'),('y1','Start Y (µm)','0'),('x2','End X (µm)','10'),('y2','End Y (µm)','10')],submit,'Checks width and clearance on the chosen layer. Obstacles on other nets are avoided.')
     def erase_dialog(self):
         from .physical import erase
+        document=self.history;project_id=self.project['id'];cid=self.cid;shapes=clone(self.cell['shapes'])
+        def context_guard():
+            if self.history is not document or self.project['id']!=project_id or self.cid!=cid:
+                raise ValueError('The active project or cell changed. Reopen Erase layout area for the intended cell.')
+            target=next((c for c in self.project['cells'] if c['id']==cid),None)
+            if target is None or target['shapes']!=shapes:
+                raise ValueError('The target cell geometry changed. Reopen Erase layout area before applying edits.')
         def submit(v):
+            context_guard()
             box=[self.nm(v[k]) for k in ('x1','y1','x2','y2')]
             if box[0]>=box[2] or box[1]>=box[3]:raise ValueError('The upper-right corner must exceed the lower-left corner.')
-            self.commit(lambda p:erase(next(c for c in p['cells'] if c['id']==self.cid),v['layer'],box),'Erase physical geometry')
-        self.workflow_form('Erase layout area',[('layer','Layer',[l['name'] for l in self.project['pdk']['layers']]),('x1','Left (µm)','0'),('y1','Bottom (µm)','0'),('x2','Right (µm)','1'),('y2','Top (µm)','1')],submit,'Cuts geometry on the active cell and selected layer. Undo restores the edit.')
+            self.commit(lambda p:erase(next(c for c in p['cells'] if c['id']==cid),v['layer'],box),'Erase physical geometry')
+        self.workflow_form('Erase layout area',[('layer','Layer',[l['name'] for l in self.project['pdk']['layers']]),('x1','Left (µm)','0'),('y1','Bottom (µm)','0'),('x2','Right (µm)','1'),('y2','Top (µm)','1')],submit,'Cuts geometry on the active cell and selected layer. Undo restores the edit.',context_guard=context_guard)
     def physical_pin_dialog(self):
         devices=[d for d in self.cell['devices'] if d['kind'] not in ('V','I')]
         if not devices:raise ValueError('Add schematic devices before assigning physical terminals.')

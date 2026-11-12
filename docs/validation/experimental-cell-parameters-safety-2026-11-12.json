@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "validation_started_utc": "2026-11-12T03:50:59.028711+00:00",
+  "work_day_eastern": "2026-11-11",
+  "base_commit": "2c3b40907ce8cbd3d025eb5ed47ba0c0937c77f4",
+  "scope": "Cell Parameters modeless-dialog target and stale-state safety",
+  "repair": "Capture opening project ID, cell ID and baseline parameters; reject changed active context, missing target or stale parameters before any inspector flush. Commit only to the captured cell. workflow_form gains an optional keyword-only context_guard used only by Cell Parameters, preserving default callers, nonmodal behavior and Cancel semantics. Seven new focused Qt methods retain all 57 prior cases. Application diff: 11 inserted and 3 removed lines; no scientific qualification change.",
+  "validation": {
+    "focused_cell_parameters_cases": {
+      "tests": 7,
+      "seconds": 2.899,
+      "status": "PASS"
+    },
+    "qt_wrapper": {
+      "tests": 1,
+      "actual_cases": 64,
+      "prior_cases_retained": 57,
+      "seconds": 16.182,
+      "status": "PASS"
+    },
+    "original_control": {
+      "base": "2c3b40907ce8cbd3d025eb5ed47ba0c0937c77f4",
+      "methods": 7,
+      "expected_assertion_failures": 7,
+      "methods_with_failures": 5,
+      "false_accept_or_hide_failures": 5,
+      "guard_priority_failures": 2,
+      "seconds": 2.69,
+      "status": "EXPECTED_FAILURES",
+      "original_feature_ui_sha256": "2d03f75e06a5658c8be9a1028eaada90673d6adda296c1ef2f885d881097120d",
+      "passing_controls": [
+        "Cancel in original/cell-switched/project-switched contexts",
+        "Default workflow_form without context_guard",
+        "Unchanged original-context successful submit, undo/redo and save"
+      ]
+    },
+    "complete_affected_unit_stage": {
+      "tests": 293,
+      "skips": 3,
+      "seconds": 37.104,
+      "receiver_seconds": 37.674,
+      "returncode": 0,
+      "status": "PASS",
+      "syntax_files": 1637,
+      "bound_source_identities": 2567,
+      "source_unchanged": true,
+      "launcher_sha256": "be56f5dd3250351a20d8f892f6d167177ae96634dc2f50c5cedf5a9085a528ce"
+    },
+    "original_reproduction": {
+      "actual_qt_paths": 5,
+      "verified_behavior": "Cell switch and project switch silently retarget parameters; the wrong map survives explicit save/reload. Original-context submit and Cancel controls behave correctly.",
+      "source_feature_ui_sha256": "2d03f75e06a5658c8be9a1028eaada90673d6adda296c1ef2f885d881097120d",
+      "raw_log": "reproducer/original-audit.log"
+    }
+  },
+  "identity_storage": {
+    "stored_map": "evidence/source-map.json",
+    "original_before_sha256": "67f7390c4bd9fc8e7fba85aae3977e8e5569f6a1f6571d8bd9434adc4af8db91",
+    "original_after_sha256": "67f7390c4bd9fc8e7fba85aae3977e8e5569f6a1f6571d8bd9434adc4af8db91",
+    "byte_identical": true,
+    "entry_count": 2567,
+    "duplicate_map_omitted_losslessly": true
+  },
+  "tested_modified_sources": {
+    "icstudio/feature_ui.py": {
+      "bytes": 36357,
+      "sha256": "0404f3a6acf2cbf12d137ae145945bdb5400180bf47ae15dcf2c4cc1fd02cb3d"
+    },
+    "tests/gui_project_data_safety.py": {
+      "bytes": 117263,
+      "sha256": "865dc5232fcdf44309f70a751f9df2bb38eba7f7ac9f265a633f6a2f08b2a7f6"
+    },
+    "tests/test_project_data_safety.py": {
+      "bytes": 762,
+      "sha256": "ff38829ca11a68c89311a240c7a4027164da7dba9c8e6d9f4642b56f29600576"
+    }
+  },
+  "prior_base_hosted_run": {
+    "id": 43149239597,
+    "base": "2c3b40907ce8cbd3d025eb5ed47ba0c0937c77f4",
+    "latest_parent_status": "PASS",
+    "covers_this_follow_on": false,
+    "status_not_rechecked_for_this_record": true
+  },
+  "not_run_for_this_follow_on": [
+    "full exhaustive core",
+    "all 14 local source stages",
+    "fresh hosted matrix",
+    "exact-candidate installed acceptance"
+  ],
+  "historical_source_scope": "Existing exact historical feature_ui.py retention remains unchanged and valid; no new registry entry or snapshot was required. Repaired code does not inherit historical native acceptance.",
+  "publication_scope": "Prepared locally under the authorized overnight debugging scope. Publication has not yet been attempted; no integration or main change is claimed.",
+  "qualified": false,
+  "engineering_estimate": {
+    "chunk": 7,
+    "percent": 74,
+    "low_confidence_range": [
+      55,
+      82
+    ],
+    "acceptance_fraction": false
+  },
+  "documentation_created_after_validation": true,
+  "privacy_review": {
+    "credential_private_memory_access_link_patterns": 0,
+    "redactions": 0,
+    "ordinary_test_workspace_paths_retained": true
+  },
+  "archive": {
+    "path": "docs/validation/experimental-cell-parameters-safety-2026-11-12.zip",
+    "bytes": 165781,
+    "sha256": "1e4551799aa7f30faeb2431f7f222f89ff14208a678931e3a0141f649db91715",
+    "members": 15,
+    "manifest_entries": 14,
+    "readback": "PASS"
+  }
+}
